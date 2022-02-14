@@ -401,7 +401,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             if (!command_matched)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                             PSTR("User command \"%s\" unknown.\n"),
+                                             PSTR("Command \"%s\" unknown.\n"),
                                              data_pointers[0]);
                 _output_flag = true;
             }
@@ -412,7 +412,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     if (input_type_match_flag[i] == false)
                     {
                         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                     PSTR("User command \"%s\" argument %u error; Type mismatch, expected a %s; received \"%s\".\n"),
+                                                     PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
                                                      USER_INPUT_TYPE_STRING_LITERAL_ARRAY[cmd->arg_type[i]],
                                                      data_pointers[i + 1]);
@@ -423,7 +423,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             if (command_matched && rec_num_arg_strings != cmd->num_args)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                             PSTR("User command \"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
+                                             PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
                                              cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
                 _output_flag = true;
             }
@@ -442,7 +442,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     }
 }
 
-void UserInput::GetCommandFromStream(HardwareSerial &stream, uint16_t rx_buffer_size, const char *end_of_line_char)
+void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, const char *end_of_line_char)
 {
 
     if (serial_buffer_allocated == false)
@@ -478,7 +478,7 @@ void UserInput::GetCommandFromStream(HardwareSerial &stream, uint16_t rx_buffer_
 void UserInput::ListUserCommands()
 {
     UserCallbackFunctionParameters *cmd;
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("There are %u commands available to user %s:\n"), commands_count_, _username);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %02u commands are available to user %s:\n"), commands_count_, _username);
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
@@ -489,7 +489,7 @@ void UserInput::ListUserCommands()
 
 void UserInput::ListUserInputSettings(UserInput *inputprocess)
 {
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("end of line character \"%s\""), inputprocess->term_);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("end_of_line_character \"%s\""), inputprocess->term_);
 
     _output_flag = true;
 }
