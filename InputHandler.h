@@ -58,10 +58,10 @@ public:
     UserInput(char* output_buffer,
               uint16_t* output_buffer_string_pos,
               uint16_t output_buffer_len,
-              const char* username = PSTR("user"),
-              const char* end_of_line_character = PSTR("\r\n"),
-              const char* token_delimiter = PSTR(" "),
-              const char* c_string_delimiter = PSTR("\""))
+              const char* username = "user",
+              const char* end_of_line_character = "\r\n",
+              const char* token_delimiter = " ",
+              const char* c_string_delimiter = "\"")
         : _output_buffer(output_buffer),
           _string_pos(output_buffer_string_pos),
           _output_buffer_len(output_buffer_len),
@@ -82,7 +82,7 @@ public:
 
     void ReadCommand(uint8_t* data, size_t len);
 
-    void GetCommandFromStream(Stream& stream, uint16_t rx_buffer_size = 128U, const char* end_of_line_character = PSTR("\n"));
+    void GetCommandFromStream(Stream& stream, uint16_t rx_buffer_size = 128U, const char* end_of_line_character = "\n");
 
     void ListUserCommands();
 
@@ -102,7 +102,7 @@ private:
     const char* term_;
     const char* delim_;
     const char* c_str_delim_;
-    const char* null_ = PSTR("\0");
+    const char* null_ = "\0";
 
     char* _output_buffer;
     uint16_t* _string_pos;
@@ -116,7 +116,7 @@ private:
     char* data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0U};
     uint16_t data_pointers_index = 0U;
     uint16_t rec_num_arg_strings = 0U;
-    const PROGMEM char* USER_INPUT_TYPE_STRING_LITERAL_ARRAY[7U] = {PSTR("uint8_t"), PSTR("uint16_t"), PSTR("uint32_t"), PSTR("int16_t"), PSTR("float"), PSTR("char"), PSTR("c-string")};
+    const char* USER_INPUT_TYPE_STRING_LITERAL_ARRAY[7U] = {"uint8_t", "uint16_t", "uint32_t", "int16_t", "float", "char", "c-string"};
 };
 
 #endif
