@@ -12,7 +12,7 @@ void uc_unrecognized(UserInput* inputProcess)
 
 void uc_settings(UserInput* inputProcess)
 {
-  //inputHandler->ListUserInputSettings(inputHandler);
+  inputProcess->ListUserInputSettings(inputProcess);
 }
 
 void uc_help(UserInput* inputProcess)
@@ -32,7 +32,7 @@ void setup() {
   inputHandler.SetDefaultHandler(uc_unrecognized);  // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(&uc_help_); // lists commands available to the user
   inputHandler.AddUserCommand(&uc_settings_); // lists UserInput class settings
-  
+  inputHandler.ListUserCommands();
 }
 
 void loop() {

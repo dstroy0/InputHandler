@@ -59,14 +59,14 @@ public:
               uint16_t *output_buffer_string_pos,
               uint16_t output_buffer_len,
               const char *username = _default_username,
-              const char *end_of_line_character = _default_end_of_line_character,
+              const char *end_of_line_characters = _default_end_of_line_characters,
               const char *token_delimiter = _default_token_delimiter,
               const char *c_string_delimiter = _default_c_string_delimiter)
         : _output_buffer(output_buffer),
           _string_pos(output_buffer_string_pos),
           _output_buffer_len(output_buffer_len),
           _username(username),
-          term_(end_of_line_character),
+          term_(end_of_line_characters),
           delim_(token_delimiter),
           c_str_delim_(c_string_delimiter),
           default_handler_(NULL),
@@ -82,7 +82,7 @@ public:
 
     void ReadCommand(uint8_t *data, size_t len);
 
-    void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 128, const char *end_of_line_character = _default_end_of_line_character);
+    void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 128, const char *end_of_line_character = _default_end_of_line_characters);
 
     void ListUserCommands();
 
@@ -98,6 +98,7 @@ protected:
     bool getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t *data_index);
     bool validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index);
     void launchFunction(UserCallbackFunctionParameters *cmd);
+    void escapeCharactersSoTheyPrint(const char *input, char *output);
 
 private:
     const char *_username;
@@ -107,7 +108,7 @@ private:
 
     static constexpr const PROGMEM char *null_ = "\0";
     static constexpr const PROGMEM char *_default_username = "user";
-    static constexpr const PROGMEM char *_default_end_of_line_character = "\r\n";
+    static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n";
     static constexpr const PROGMEM char *_default_token_delimiter = " ";
     static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";
 
@@ -120,7 +121,7 @@ private:
     UserCallbackFunctionParameters *commands_head_;
     UserCallbackFunctionParameters *commands_tail_;
     uint16_t commands_count_;
-
+    
     boolean serial_buffer_allocated = false;
     uint8_t *data = NULL;
     boolean new_data = false;

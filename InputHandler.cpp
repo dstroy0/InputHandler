@@ -478,7 +478,9 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, co
 void UserInput::ListUserCommands()
 {
     UserCallbackFunctionParameters *cmd;
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %02u commands are available to user %s:\n"), commands_count_, _username);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                                 PSTR(" %02u commands are available to user %s:\n"),
+                                 commands_count_, _username);
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
@@ -487,10 +489,62 @@ void UserInput::ListUserCommands()
     _output_flag = true;
 }
 
+void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
+{
+    uint16_t len = strlen(input);
+    for (uint16_t i = 0; i < len; ++i)
+    {
+        switch ((char)input[i])
+        {
+        case '\a':
+            strcat_P(output, PSTR("\\a"));
+            break;
+        case '\b':
+            strcat_P(output, PSTR("\\b"));
+            break;
+        case '\f':
+            strcat_P(output, PSTR("\\f"));
+            break;
+        case '\n':
+            strcat_P(output, PSTR("\\n"));
+            break;
+        case '\r':
+            strcat_P(output, PSTR("\\r"));
+            break;
+        case '\t':
+            strcat_P(output, PSTR("\\t"));
+            break;
+        case '\v':
+            strcat_P(output, PSTR("\\v"));
+            break;
+        case '\"':
+            strcat_P(output, PSTR("\\\""));
+            break;
+        case ' ':
+            strcat_P(output, PSTR(" "));
+        default:
+            if (i == len)
+                strcat(output, input);
+            break;
+        }
+    }
+}
+
 void UserInput::ListUserInputSettings(UserInput *inputprocess)
 {
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("end_of_line_character \"%s\""), inputprocess->term_);
-
+    char temp_settings[3][13] = {'\0'};
+    inputprocess->escapeCharactersSoTheyPrint(term_, temp_settings[0]);
+    inputprocess->escapeCharactersSoTheyPrint(delim_, temp_settings[1]);
+    inputprocess->escapeCharactersSoTheyPrint(c_str_delim_, temp_settings[2]);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                                 PSTR("username = \"%s\"\n"
+                                      "end_of_line_characters = \"%s\"\n"
+                                      "token_delimiter = \"%s\"\n"
+                                      "c_string_delimiter = \"%s\"\n"),
+                                 inputprocess->_username,
+                                 (char *)temp_settings[0],
+                                 (char *)temp_settings[1],
+                                 (char *)temp_settings[2]);
     _output_flag = true;
 }
 
