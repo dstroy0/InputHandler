@@ -20,11 +20,60 @@ void uc_help(UserInput* inputProcess)
   inputProcess->ListUserCommands();
 }
 
+void uc_test_input_types(UserInput* inputProcess)
+{
+  char* str_ptr = inputProcess->NextArgument();
+  char* strtoul_ptr = 0;
+  uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);
+  uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U;
+
+  str_ptr = inputProcess->NextArgument();
+  strtoul_ptr = 0;
+  strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);
+  uint16_t sixteen_bit = (strtoul_result <= UINT16_MAX) ? (uint16_t)strtoul_result : 0U;
+
+  str_ptr = inputProcess->NextArgument();
+  strtoul_ptr = 0;
+  uint32_t thirtytwo_bit = strtoul(str_ptr, &strtoul_ptr, 10);
+
+  str_ptr = inputProcess->NextArgument();
+  int sixteen_bit_int = atoi(str_ptr);
+
+  str_ptr = inputProcess->NextArgument();
+  float thirtytwo_bit_float = (float)atof(str_ptr);
+
+  str_ptr = inputProcess->NextArgument();
+  char _char = *str_ptr;
+
+  str_ptr = inputProcess->NextArgument();
+  char c_string[64] = {'\0'};
+  snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
+
+  char float_buffer[32] = {'\0'};
+  char out[128] = {'\0'};
+  uint16_t string_pos = 0;
+  string_pos += snprintf_P(out + string_pos, 128,
+                           PSTR("Test user input types:\n"
+                                "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
+                           eight_bit,
+                           sixteen_bit,
+                           thirtytwo_bit,
+                           sixteen_bit_int,
+                           dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
+                           _char,
+                           c_string);
+  Serial.println(F("made it to test"));                           
+  Serial.print(out);
+}
+
 PGM_P const PROGMEM CMD_HELP = "help";
 PGM_P const PROGMEM CMD_INPUT_SETTINGS = "inputSettings";
+PGM_P const PROGMEM CMD_TEST = "test";
 
-UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help, 0, 0);
-UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings, 0, 0);
+UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help);
+UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings);
+const PROGMEM uint8_t test_arguments[] = {USER_INPUT_TYPE_UINT8_T, USER_INPUT_TYPE_UINT16_T, USER_INPUT_TYPE_UINT32_T, USER_INPUT_TYPE_INT16_T, USER_INPUT_TYPE_FLOAT, USER_INPUT_TYPE_CHAR, USER_INPUT_TYPE_C_STRING};
+UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types, _NE(test_arguments), test_arguments);
 
 void setup() {
   Serial.begin(115200); //  set up Serial0
@@ -32,6 +81,7 @@ void setup() {
   inputHandler.SetDefaultHandler(uc_unrecognized);  // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(&uc_help_); // lists commands available to the user
   inputHandler.AddUserCommand(&uc_settings_); // lists UserInput class settings
+  inputHandler.AddUserCommand(&uc_test_); // input type test
   inputHandler.ListUserCommands();
 }
 
