@@ -106,11 +106,11 @@ private:
     const char *delim_;
     const char *c_str_delim_;
 
-    static constexpr const PROGMEM char *null_ = "\0";
     static constexpr const PROGMEM char *_default_username = "user";
     static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n";
     static constexpr const PROGMEM char *_default_token_delimiter = " ";
     static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";
+    static constexpr const PROGMEM char *null_ = "\0";
 
     char *_output_buffer;
     uint16_t *_string_pos;
@@ -121,15 +121,22 @@ private:
     UserCallbackFunctionParameters *commands_head_;
     UserCallbackFunctionParameters *commands_tail_;
     uint16_t commands_count_;
-    
+
+    char *token_buffer = NULL;
     boolean serial_buffer_allocated = false;
-    uint8_t *data = NULL;
-    boolean new_data = false;
-    uint16_t data_index = 0;
+    uint8_t *serial_data = NULL;
+    boolean new_serial_data = false;
+    uint16_t serial_data_index = 0;
     char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0};
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
-    const char *USER_INPUT_TYPE_STRING_LITERAL_ARRAY[7] = {"uint8_t", "uint16_t", "uint32_t", "int16_t", "float", "char", "c-string"};
+    const char *USER_INPUT_TYPE_STRING_LITERAL_ARRAY[7] = {"uint8_t",
+                                                           "uint16_t",
+                                                           "uint32_t",
+                                                           "int16_t",
+                                                           "float",
+                                                           "char",
+                                                           "c-string"};
 };
 
 #endif

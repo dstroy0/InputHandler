@@ -305,9 +305,9 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     uint16_t data_index = 0; // data iterator
 
     //  should maybe see if there is enough memory to allocate the token buffer
-    char token_buffer[len + 1] = {'\0'}; // place to chop up the input
-    data_pointers_index = 0;             // token buffer pointers
-    rec_num_arg_strings = 0;             // number of tokens read from data
+    token_buffer = new char[len + 1]{'\0'}; // place to chop up the input
+    data_pointers_index = 0;                // token buffer pointers
+    rec_num_arg_strings = 0;                // number of tokens read from data
     bool match = false;
     UserCallbackFunctionParameters *cmd;
 
@@ -411,16 +411,24 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 {
                     if (input_type_match_flag[i] == false)
                     {
+                        uint8_t arg_type = cmd->arg_type[i];
                         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
-                                                     USER_INPUT_TYPE_STRING_LITERAL_ARRAY[cmd->arg_type[i]],
+                                                     (char*)USER_INPUT_TYPE_STRING_LITERAL_ARRAY[arg_type],
                                                      data_pointers[i + 1]);
                         _output_flag = true;
                     }
                 }
             }
             if (command_matched && rec_num_arg_strings != cmd->num_args)
+            {
+                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                                             PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
+                                             cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
+                _output_flag = true;
+            }
+            if (!command_matched && rec_num_arg_strings != cmd->num_args)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
@@ -437,9 +445,9 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $ERROR: No tokens retrieved.\n"), _username);
             _output_flag = true;
-            return;
         }
     }
+    delete[] token_buffer;
 }
 
 void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, const char *end_of_line_char)
@@ -447,30 +455,30 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, co
 
     if (serial_buffer_allocated == false)
     {
-        data = new uint8_t[rx_buffer_size]; // an array to store the received data
+        serial_data = new uint8_t[rx_buffer_size]; // an array to store the received data
         serial_buffer_allocated = true;
     }
-    char *rc = (char *)data;
+    char *rc = (char *)serial_data;
 
-    while (stream.available() > 0 && new_data == false)
+    while (stream.available() > 0 && new_serial_data == false)
     {
-        rc[data_index] = stream.read();
-        if (rc[data_index] == term_[0] || rc[data_index] == term_[1])
+        rc[serial_data_index] = stream.read();
+        if (rc[serial_data_index] == term_[0] || rc[serial_data_index] == term_[1])
         {
-            data[data_index] = '\0';
-            new_data = true;
+            serial_data[serial_data_index] = '\0';
+            new_serial_data = true;
         }
-        else if (data_index < (rx_buffer_size - 1))
+        else if (serial_data_index < (rx_buffer_size - 1))
         {
-            data_index++;
+            serial_data_index++;
         }
     }
-    if (new_data == true)
+    if (new_serial_data == true)
     {
-        UserInput::ReadCommand(data, data_index);
-        data_index = 0;
-        new_data = false;
-        delete[] data;
+        UserInput::ReadCommand(serial_data, serial_data_index);
+        serial_data_index = 0;
+        new_serial_data = false;
+        delete[] serial_data;
         serial_buffer_allocated = false;
     }
 }
@@ -479,7 +487,7 @@ void UserInput::ListUserCommands()
 {
     UserCallbackFunctionParameters *cmd;
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                 PSTR(" %02u commands are available to user %s:\n"),
+                                 PSTR("%02u commands are available to user %s:\n"),
                                  commands_count_, _username);
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
