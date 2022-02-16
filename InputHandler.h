@@ -20,6 +20,17 @@
 #ifdef ARDUINO_SAMD_VARIANT_COMPLIANCE
 #include <avr/dtostrf.h>
 #endif
+#if !defined(ARDUINO_ARCH_AVR) && !defined(ARDUINO_ARCH_SAM)
+ 
+#include <stdio.h>
+ 
+char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
+  char fmt[20];
+  sprintf(fmt, "%%%d.%df", width, prec);
+  sprintf(sout, fmt, val);
+  return sout;
+}
+#endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
