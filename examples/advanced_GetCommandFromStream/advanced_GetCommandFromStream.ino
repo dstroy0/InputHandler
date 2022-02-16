@@ -61,9 +61,13 @@ void uc_test_input_types(UserInput* inputProcess)
   char c_string[64] = {'\0'};
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
-  char float_buffer[32] = {'\0'};
-  char out[128] = {'\0'};
-  uint16_t string_pos = 0;
+  char float_buffer[32] = {'\0'}; //  dtostrf buffer
+  char out[128] = {'\0'}; //  function output buffer
+  uint16_t string_pos = 0;  // function output buffer index
+
+  /*
+       format out[] with all of the arguments received
+  */
   string_pos += snprintf_P(out + string_pos, 128,
                            PSTR("Test user input types:\n"
                                 "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
@@ -74,10 +78,12 @@ void uc_test_input_types(UserInput* inputProcess)
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
                            c_string);
-
   Serial.print(out);
 }
 
+/*
+   command string literals stored in PROGMEM nonvolatile memory
+*/
 PGM_P const PROGMEM CMD_HELP = "help";  //  "help" command, lists commands
 PGM_P const PROGMEM CMD_INPUT_SETTINGS = "inputSettings"; //  lists UserInput settings
 PGM_P const PROGMEM CMD_TEST = "test";  // test input types
