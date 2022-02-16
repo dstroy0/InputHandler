@@ -62,7 +62,7 @@ void uc_test_input_types(UserInput* inputProcess)
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
                            c_string);
-  Serial.println(F("made it to test"));
+  
   Serial.print(out);
 }
 
@@ -92,7 +92,7 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
   inputHandler.GetCommandFromStream(Serial);
   if (inputHandler.OutputIsAvailable() == true)
   {
