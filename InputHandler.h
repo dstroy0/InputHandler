@@ -17,8 +17,8 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#if defined (ARDUINO_ARCH_SAM)
-    #include <avr/dtostrf.h>
+#if defined(ARDUINO_ARCH_SAM)
+#include <avr/dtostrf.h>
 #endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
@@ -115,8 +115,8 @@ public:
           next_callback_function_parameters(NULL),
           num_args(sizeof...(Arguments))
     {
-        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...};/** args is expanded into the array _arg */
-        _arg_type = _arg; /** point to the array in memory */
+        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...}; /** args is expanded into the array _arg */
+        _arg_type = _arg;                                              /** point to the array in memory */
     }
 };
 
@@ -193,7 +193,7 @@ public:
 #endif
 
 protected:
-     /**
+    /**
      * Tries to get a token from an input string
      *
      * @param token_buffer the place where we store tokens
@@ -202,7 +202,7 @@ protected:
      * @param data_index index of data
      */
     bool getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t *data_index);
-    
+
     /**
      * Tries to determine if input is valid
      *
@@ -211,14 +211,14 @@ protected:
      * @param data_pointers_index index of token pointers
      */
     bool validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index);
-    
+
     /**
      * launches a function
      *
-     * @param cmd Function parameter pointer   
+     * @param cmd Function parameter pointer
      */
     void launchFunction(UserCallbackFunctionParameters *cmd);
-    
+
     /**
      * Escapes control characters so they will print
      *
