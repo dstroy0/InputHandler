@@ -465,7 +465,6 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 
 void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, const char *end_of_line_char)
 {
-
     if (serial_buffer_allocated == false)
     {
         serial_data = new uint8_t[rx_buffer_size]; // an array to store the received data
