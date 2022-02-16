@@ -66,7 +66,7 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-PGM_P const PROGMEM CMD_HELP = "help";
+PGM_P const PROGMEM CMD_HELP = "help";  //  "help" command
 PGM_P const PROGMEM CMD_INPUT_SETTINGS = "inputSettings";
 PGM_P const PROGMEM CMD_TEST = "test";
 
