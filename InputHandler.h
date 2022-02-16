@@ -3,15 +3,17 @@
 
 #include <Arduino.h>
 
-#define _NE(x) (sizeof(x) / sizeof((x)[0U]))
-
-#define USER_INPUT_TYPE_UINT8_T 0U  // 8-bit unsigned integer 0-255
-#define USER_INPUT_TYPE_UINT16_T 1U // 16-bit unsigned integer 0-65534
-#define USER_INPUT_TYPE_UINT32_T 2U // 32-bit unsigned integer 0-4294967295
-#define USER_INPUT_TYPE_INT16_T 3U  // 16-bit signed integer -32768-32767
-#define USER_INPUT_TYPE_FLOAT 4U    // 32-bit signed floating point number -3.4028235E+38 - 3.4028235E+38
-#define USER_INPUT_TYPE_CHAR 5U     // 8-bit char
-#define USER_INPUT_TYPE_C_STRING 6U // any printable char are allowed
+enum USER_INPUT_TYPES
+{
+    USER_INPUT_TYPE_UINT8_T,
+    USER_INPUT_TYPE_UINT16_T,
+    USER_INPUT_TYPE_UINT32_T,
+    USER_INPUT_TYPE_INT16_T,
+    USER_INPUT_TYPE_FLOAT,
+    USER_INPUT_TYPE_CHAR,
+    USER_INPUT_TYPE_C_STRING,
+    _LAST_USER_INPUT_TYPES_enum
+};
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
@@ -21,35 +23,61 @@
 #define UINT16_MAX 65535
 #endif
 
+#ifndef UINT8_MAX
+#define UINT8_MAX 255
+#endif
+
 #ifndef USER_INPUT_MAX_INPUT_LENGTH
 #define USER_INPUT_MAX_INPUT_LENGTH UINT16_MAX
 #endif
 
-// arg_type[argument] = {argument_type 0-5, UINT8_T, ... STRING}
+#ifdef DEBUG_USER_INPUT
+#define _DEBUG_USER_INPUT
+#endif
+
+static constexpr const PROGMEM char *_default_username = "user";
+static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n";
+static constexpr const PROGMEM char *_default_token_delimiter = " ";
+static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";
+static constexpr const PROGMEM char *null_ = "\0";
+
+static constexpr const PROGMEM char *_input_type_strings[] = {
+    "uint8_t",
+    "uint16_t",
+    "uint32_t",
+    "int16_t",
+    "float",
+    "char",
+    "c-string"};
+static constexpr const PROGMEM char *_negative_sign = "-";
+static constexpr const PROGMEM char *_dot = ".";
+static constexpr const PROGMEM char *error = "error";
 
 class UserInput;
 
 class UserCallbackFunctionParameters
 {
 public:
+    uint16_t num_args;
+    const uint8_t *_arg_type;
+    const char *command;
+    uint16_t command_length;
+    void (*function)(UserInput *);
+    UserCallbackFunctionParameters *next_callback_function_parameters;
+
+    template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
-                                   uint8_t expected_number_of_function_arguments = 0,
-                                   const uint8_t *function_argument_type_array = {0})
+                                   const Arguments &...args)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
-          num_args(expected_number_of_function_arguments),
-          arg_type(function_argument_type_array),
-          command_length(0),
-          next_callback_function_parameters(NULL)
+          command_length(strlen_P(command)),
+          next_callback_function_parameters(NULL),
+          num_args(sizeof...(Arguments))
     {
+        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...};
+        _arg_type = _arg;
     }
-    const char *command;
-    uint16_t command_length = strlen(command);
-    void (*function)(UserInput *);
-    uint8_t num_args;
-    const uint8_t *arg_type; // array
-    UserCallbackFunctionParameters *next_callback_function_parameters;
 };
 
 class UserInput
@@ -65,10 +93,11 @@ public:
         : _output_buffer(output_buffer),
           _string_pos(output_buffer_string_pos),
           _output_buffer_len(output_buffer_len),
-          _username(username),
-          term_(end_of_line_characters),
-          delim_(token_delimiter),
-          c_str_delim_(c_string_delimiter),
+          _username_(username),
+          _term_(end_of_line_characters),
+          _delim_(token_delimiter),
+          _c_str_delim_(c_string_delimiter),
+          _null_(null_),
           default_handler_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
@@ -82,7 +111,9 @@ public:
 
     void ReadCommand(uint8_t *data, size_t len);
 
-    void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 128, const char *end_of_line_character = _default_end_of_line_characters);
+    void GetCommandFromStream(Stream &stream,
+                              uint16_t rx_buffer_size = 128,
+                              const char *end_of_line_character = _default_end_of_line_characters);
 
     void ListUserCommands();
 
@@ -92,7 +123,9 @@ public:
 
     bool OutputIsAvailable();
 
+#ifdef _DEBUG_USER_INPUT
     bool EnableDebugOutput = false;
+#endif
 
 protected:
     bool getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t *data_index);
@@ -101,16 +134,11 @@ protected:
     void escapeCharactersSoTheyPrint(const char *input, char *output);
 
 private:
-    const char *_username;
-    const char *term_;
-    const char *delim_;
-    const char *c_str_delim_;
-
-    static constexpr const PROGMEM char *_default_username = "user";
-    static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n";
-    static constexpr const PROGMEM char *_default_token_delimiter = " ";
-    static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";
-    static constexpr const PROGMEM char *null_ = "\0";
+    const char *_username_;
+    const char *_term_;
+    const char *_delim_;
+    const char *_c_str_delim_;
+    const char *_null_;
 
     char *_output_buffer;
     uint16_t *_string_pos;
@@ -130,13 +158,6 @@ private:
     char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0};
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
-    const char *USER_INPUT_TYPE_STRING_LITERAL_ARRAY[7] = {"uint8_t",
-                                                           "uint16_t",
-                                                           "uint32_t",
-                                                           "int16_t",
-                                                           "float",
-                                                           "char",
-                                                           "c-string"};
 };
 
 #endif

@@ -41,45 +41,49 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
     {
         if (got_token == true)
         {
+#ifdef _DEBUG_USER_INPUT
             if (EnableDebugOutput == true)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                             PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username);
+                                             PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);
                 _output_flag = true;
             }
+#endif
             break;
         }
         incoming = (char)data[*data_index];
+#ifdef _DEBUG_USER_INPUT
         if (EnableDebugOutput == true)
         {
             (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
-                                         _username,
+                                         _username_,
                                          incoming,
                                          (uint16_t)*data_index);
             _output_flag = true;
         }
+#endif
         //  remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
         //  replace delimiter
-        if (iscntrl(incoming) == true || incoming == (char)delim_[0])
+        if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
         {
-            token_buffer[*data_index] = *null_;
+            token_buffer[*data_index] = *_null_;
             token_flag[0] = false;
         }
-        else if (incoming == *c_str_delim_) // switch logic for c-string input
+        else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            token_buffer[*data_index] = *null_; // replace the c-string delimiter
-            if (((*data_index) + 1) < len)      //  don't need to do this if we're at the end of user input
+            token_buffer[*data_index] = *_null_; // replace the c-string delimiter
+            if (((*data_index) + 1) < len)       //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
                 (*data_index)++;
                 for (uint16_t j = *data_index; j < len; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
                 {
                     incoming = (char)data[*data_index]; // fetch the next incoming char
-                    if (incoming == *c_str_delim_)      // if the next incoming char is a '\"'
+                    if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
                     {
-                        token_buffer[*data_index] = *null_; // replace the c-string delimiter
-                        (*data_index)++;                    // increment the tokenized string index
+                        token_buffer[*data_index] = *_null_; // replace the c-string delimiter
+                        (*data_index)++;                     // increment the tokenized string index
                         break;
                     }
                     token_buffer[*data_index] = incoming;       // else assign incoming to token_buffer[data_index]
@@ -89,12 +93,14 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
                         data_pointers_index++;                                           //  increment pointer index
                         point_to_beginning_of_c_string = false;                          //  only set one pointer per c-string
                         got_token = true;
+#ifdef _DEBUG_USER_INPUT
                         if (EnableDebugOutput == true)
                         {
                             (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                         PSTR(">%s $DEBUG: got the c-string token.\n"), _username);
+                                                         PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);
                             _output_flag = true;
                         }
+#endif
                     }
                     (*data_index)++; // increment the tokenized string index
                 }
@@ -115,24 +121,28 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
             }
             else
             {
+#ifdef _DEBUG_USER_INPUT
                 if (EnableDebugOutput == true)
                 {
                     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                 PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"), _username);
+                                                 PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"), _username_);
                     _output_flag = true;
                 }
+#endif
                 got_token = true;
             }
             token_flag[1] = token_flag[0]; // track the state
         }
         if (token_flag[0] == true && (uint16_t)*data_index == (uint16_t)(len - 1))
         {
+#ifdef _DEBUG_USER_INPUT
             if (EnableDebugOutput == true)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                             PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"), _username);
+                                             PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"), _username_);
                 _output_flag = true;
             }
+#endif
             got_token = true;
         }
 
@@ -146,25 +156,23 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 
 bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index)
 {
-    bool input_is_valid = true;
-
-    const char *_negative_sign = PSTR("-");
-    const char *_dot = PSTR(".");
-
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
     bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *_negative_sign) ? true : false;
 
-    if (arg_type < USER_INPUT_TYPE_CHAR && ((isdigit(data_pointers[data_pointers_index][0]) == true) || found_negative_sign == true))
+    if (arg_type < USER_INPUT_TYPE_CHAR)
     {
         // for numbers that are not floating point
-        if (arg_type < USER_INPUT_TYPE_INT16_T && found_negative_sign == false)
+        if (arg_type < USER_INPUT_TYPE_INT16_T)
         {
+            if (found_negative_sign == true)
+            {
+                return false;
+            }
             for (uint16_t j = 0; j < strlen_data; ++j)
             {
                 if (isdigit(data_pointers[data_pointers_index][j]) == false)
                 {
-                    input_is_valid = false;
-                    break;
+                    return false;
                 }
             }
         }
@@ -177,8 +185,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                 {
                     if (isdigit(data_pointers[data_pointers_index][j]) == false)
                     {
-                        input_is_valid = false;
-                        break;
+                        return false;
                     }
                 }
             }
@@ -188,8 +195,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                 {
                     if (isdigit(data_pointers[data_pointers_index][j]) == false)
                     {
-                        input_is_valid = false;
-                        break;
+                        return false;
                     }
                 }
             }
@@ -250,39 +256,58 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
             if (found_dot > 1 || (num_digits + found_dot) != strlen_data)
             {
-                input_is_valid = false;
+                return false;
             }
         }
     }
     /*
-        For char or c-string input.
+        For char and c-string input.
         Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
     */
-    else if (arg_type == USER_INPUT_TYPE_CHAR || arg_type == USER_INPUT_TYPE_C_STRING)
+    else if (arg_type == USER_INPUT_TYPE_CHAR)
+    {
+        if (strlen_data > 1)
+        {
+            return false;
+        }
+        if (isprint(data_pointers[data_pointers_index][0]) ||
+            ispunct(data_pointers[data_pointers_index][0]) ||
+            iscntrl(data_pointers[data_pointers_index][0]) ||
+            isdigit(data_pointers[data_pointers_index][0]))
+        {
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else if (arg_type == USER_INPUT_TYPE_C_STRING)
     {
         for (uint16_t j = 0; j < strlen_data; ++j)
         {
-            if (isprint(data_pointers[data_pointers_index][j]) || ispunct(data_pointers[data_pointers_index][j]) || iscntrl(data_pointers[data_pointers_index][j]) || isdigit(data_pointers[data_pointers_index][j]))
+            if (isprint(data_pointers[data_pointers_index][j]) ||
+                ispunct(data_pointers[data_pointers_index][j]) ||
+                iscntrl(data_pointers[data_pointers_index][j]) ||
+                isdigit(data_pointers[data_pointers_index][j]))
             {
             }
             else
             {
-                input_is_valid = false;
-                break;
+                return false;
             }
         }
     }
     else
     {
-        input_is_valid = false;
+        return false;
     }
 
-    return input_is_valid;
+    return true;
 }
 
 void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
 {
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username, data_pointers[0]);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);
     for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
     {
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
@@ -298,7 +323,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                     PSTR(">%s $ERROR: user input exceeds max allowed (UINT16_MAX) input length.\n"), _username);
+                                     PSTR(">%s $ERROR: user input exceeds max allowed (UINT16_MAX) input length.\n"), _username_);
         _output_flag = true;
         return;
     }
@@ -331,56 +356,52 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
                         rec_num_arg_strings++;
+                        if (rec_num_arg_strings > 0)
+                        {
+                            break;
+                        }
                     }
-                    if (rec_num_arg_strings > 0)
-                    {
-                        break;
-                    }
+#ifdef _DEBUG_USER_INPUT
                     if (EnableDebugOutput == true)
                     {
                         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR(">%s $DEBUG: match zero argument command \"%s\".\n"),
-                                                     _username,
+                                                     _username_,
                                                      cmd->command);
                         _output_flag = true;
                     }
+#endif
                     match = true;        // don't run default callback
                     launchFunction(cmd); // launch the matched command
                     break;               // break out of the for loop
                 }
                 else if (cmd->num_args > 0) // cmd->num_args > 0
                 {
-                    for (uint16_t i = 0; i < cmd->num_args; ++i) // iterate through all command arguments
+                    while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < cmd->num_args)
                     {
-                        if (getToken(token_buffer, data, len, &data_index) == true) //  see if there is a token
+
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, cmd->_arg_type[rec_num_arg_strings], data_pointers_index - 1); // validate the token
+                        if (input_type_match_flag[rec_num_arg_strings] == false)                                                                           // if the token was not valid input
                         {
-                            rec_num_arg_strings++;                                                                                              // if there is a token, increment the token counter
-                            input_type_match_flag[i] = validateUserInput(cmd, cmd->arg_type[rec_num_arg_strings - 1], data_pointers_index - 1); // validate the token
-                            if (input_type_match_flag[i] == false)                                                                              // if the token was not valid input
-                            {
-                                all_arguments_valid = false; // set the error sentinel to true
-                            }
-                            if (rec_num_arg_strings == cmd->num_args && all_arguments_valid == true) //  if we received the expected amount of arguments and all of them are valid
-                            {
-                                if (EnableDebugOutput == true)
-                                {
-                                    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                                 PSTR(">%s $DEBUG: match command \"%s\".\n"),
-                                                                 _username,
-                                                                 cmd->command);
-                                    _output_flag = true;
-                                }
-                                match = true;        // don't run default callback
-                                launchFunction(cmd); // launch the matched command
-                                break;               // break out of the for loop
-                            }
+                            all_arguments_valid = false; // set the error sentinel to true
                         }
-                        else
-                        {
-                            break;
-                        }
+                        rec_num_arg_strings++;
                     }
-                    break; // guard break
+                    if (rec_num_arg_strings == cmd->num_args && all_arguments_valid == true) //  if we received the expected amount of arguments and all of them are valid
+                    {
+#ifdef _DEBUG_USER_INPUT
+                        if (EnableDebugOutput == true)
+                        {
+                            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                                                         PSTR(">%s $DEBUG: match command \"%s\".\n"),
+                                                         _username_,
+                                                         cmd->command);
+                            _output_flag = true;
+                        }
+#endif
+                        match = true;        // don't run default callback
+                        launchFunction(cmd); // launch the matched command
+                    }
                 }
                 break;
             }
@@ -395,7 +416,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             }
             (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $ERROR: %s\n"),
-                                         _username,
+                                         _username_,
                                          data_char_buffer);
             _output_flag = true;
             if (!command_matched)
@@ -407,28 +428,20 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             }
             if (command_matched && all_arguments_valid == false)
             {
-                for (int i = 0; i < rec_num_arg_strings; ++i)
+                for (uint8_t i = 0; i < rec_num_arg_strings; ++i)
                 {
                     if (input_type_match_flag[i] == false)
                     {
-                        uint8_t arg_type = cmd->arg_type[i];
                         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
-                                                     (char*)USER_INPUT_TYPE_STRING_LITERAL_ARRAY[arg_type],
+                                                     (char *)pgm_read_word(&(_input_type_strings[uint8_t(cmd->_arg_type[i])])),
                                                      data_pointers[i + 1]);
-                        _output_flag = true;
                     }
+                    _output_flag = true;
                 }
             }
             if (command_matched && rec_num_arg_strings != cmd->num_args)
-            {
-                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                             PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
-                                             cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
-                _output_flag = true;
-            }
-            if (!command_matched && rec_num_arg_strings != cmd->num_args)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
@@ -443,7 +456,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
         if (len > 0)
         {
             (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                         PSTR(">%s $ERROR: No tokens retrieved.\n"), _username);
+                                         PSTR(">%s $ERROR: No tokens retrieved.\n"), _username_);
             _output_flag = true;
         }
     }
@@ -463,7 +476,7 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, co
     while (stream.available() > 0 && new_serial_data == false)
     {
         rc[serial_data_index] = stream.read();
-        if (rc[serial_data_index] == term_[0] || rc[serial_data_index] == term_[1])
+        if (rc[serial_data_index] == _term_[0] || rc[serial_data_index] == _term_[1])
         {
             serial_data[serial_data_index] = '\0';
             new_serial_data = true;
@@ -488,7 +501,7 @@ void UserInput::ListUserCommands()
     UserCallbackFunctionParameters *cmd;
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                  PSTR("%02u commands are available to user %s:\n"),
-                                 commands_count_, _username);
+                                 commands_count_, _username_);
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
@@ -541,15 +554,15 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
 void UserInput::ListUserInputSettings(UserInput *inputprocess)
 {
     char temp_settings[3][13] = {'\0'};
-    inputprocess->escapeCharactersSoTheyPrint(term_, temp_settings[0]);
-    inputprocess->escapeCharactersSoTheyPrint(delim_, temp_settings[1]);
-    inputprocess->escapeCharactersSoTheyPrint(c_str_delim_, temp_settings[2]);
+    inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
+    inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
+    inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                  PSTR("username = \"%s\"\n"
                                       "end_of_line_characters = \"%s\"\n"
                                       "token_delimiter = \"%s\"\n"
                                       "c_string_delimiter = \"%s\"\n"),
-                                 inputprocess->_username,
+                                 inputprocess->_username_,
                                  (char *)temp_settings[0],
                                  (char *)temp_settings[1],
                                  (char *)temp_settings[2]);
