@@ -29,6 +29,9 @@ void uc_help(UserInput* inputProcess)
   inputProcess->ListUserCommands();
 }
 
+/*
+   test all available input types
+*/
 void uc_test_input_types(UserInput* inputProcess)
 {
   char* str_ptr = inputProcess->NextArgument();
