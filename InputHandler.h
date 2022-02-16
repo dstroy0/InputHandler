@@ -17,7 +17,7 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#ifdef SAMD
+#ifdef ARDUINO_SAMD_VARIANT_COMPLIANCE
 #include <avr/dtostrf.h>
 #endif
 
