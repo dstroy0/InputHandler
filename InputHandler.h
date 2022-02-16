@@ -1,19 +1,22 @@
-#ifndef USER_INPUT_HANDLER_H_
-#define USER_INPUT_HANDLER_H_
+/*
+ Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ version 2 as published by the Free Software Foundation.
+ */
+
+/**
+ * @file InputHandler.h
+ *
+ * Class declarations for UserInput and UserCallbackFunctionParameters
+ * USER_INPUT_TYPES enum declaration
+ */
+
+#ifndef __USER_INPUT_HANDLER_H__
+#define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-
-enum USER_INPUT_TYPES
-{
-    USER_INPUT_TYPE_UINT8_T,
-    USER_INPUT_TYPE_UINT16_T,
-    USER_INPUT_TYPE_UINT32_T,
-    USER_INPUT_TYPE_INT16_T,
-    USER_INPUT_TYPE_FLOAT,
-    USER_INPUT_TYPE_CHAR,
-    USER_INPUT_TYPE_C_STRING,
-    _LAST_USER_INPUT_TYPES_enum
-};
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
@@ -35,12 +38,29 @@ enum USER_INPUT_TYPES
 #define _DEBUG_USER_INPUT
 #endif
 
-static constexpr const PROGMEM char *_default_username = "user";
-static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n";
-static constexpr const PROGMEM char *_default_token_delimiter = " ";
-static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";
-static constexpr const PROGMEM char *null_ = "\0";
+/**
+ * @}
+ * @defgroup User input types
+ * @{
+ */
+enum USER_INPUT_TYPES
+{
+    USER_INPUT_TYPE_UINT8_T,
+    USER_INPUT_TYPE_UINT16_T,
+    USER_INPUT_TYPE_UINT32_T,
+    USER_INPUT_TYPE_INT16_T,
+    USER_INPUT_TYPE_FLOAT,
+    USER_INPUT_TYPE_CHAR,
+    USER_INPUT_TYPE_C_STRING,
+    _LAST_USER_INPUT_TYPES_enum
+};
 
+static constexpr const PROGMEM char *_default_username = "user";               /** default username */
+static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /** default end of line (EOL) characters */
+static constexpr const PROGMEM char *_default_token_delimiter = " ";           /** default token delimiter */
+static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";       /** default c-string delimiter */
+static constexpr const PROGMEM char *null_ = "\0";                             /** null '\0' */
+/** input type string array */
 static constexpr const PROGMEM char *_input_type_strings[] = {
     "uint8_t",
     "uint16_t",
@@ -49,22 +69,39 @@ static constexpr const PROGMEM char *_input_type_strings[] = {
     "float",
     "char",
     "c-string"};
-static constexpr const PROGMEM char *_negative_sign = "-";
-static constexpr const PROGMEM char *_dot = ".";
-static constexpr const PROGMEM char *error = "error";
+static constexpr const PROGMEM char *_negative_sign = "-"; /** negative sign '-' */
+static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
+static constexpr const PROGMEM char *error = "error";      /** error string */
 
+/**
+ * @}
+ * @brief forward declaration of UserInput class for
+ * UserCallbackFunctionparameters class
+ */
 class UserInput;
 
+/**
+ * @}
+ * @brief User defined function parameters
+ */
 class UserCallbackFunctionParameters
 {
 public:
-    uint16_t num_args;
-    const uint8_t *_arg_type;
-    const char *command;
-    uint16_t command_length;
-    void (*function)(UserInput *);
-    UserCallbackFunctionParameters *next_callback_function_parameters;
+    uint16_t num_args;                                                 /** number of function arguments */
+    const uint8_t *_arg_type;                                          /** function argument type array pointer */
+    const char *command;                                               /** command to match */
+    uint16_t command_length;                                           /** length of command */
+    void (*function)(UserInput *);                                     /** pointer to function */
+    UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
 
+    /**
+     * UserCallbackFunctionParameters Constructor
+     *
+     * Creates a new instance of this class.  Before using, construct a UserInput object.
+     * @param user_defined_command_to_match The command which when entered will call a function
+     * @param user_defined_function_to_call The function called when the command is matched
+     * @param args args is a variadic parameter pack
+     */
     template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
@@ -75,14 +112,39 @@ public:
           next_callback_function_parameters(NULL),
           num_args(sizeof...(Arguments))
     {
-        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...};
-        _arg_type = _arg;
+        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...};/** args is expanded into the array _arg */
+        _arg_type = _arg; /** point to the array in memory */
     }
 };
 
+/**
+ * @}
+ * @brief User input handler
+ */
 class UserInput
 {
 public:
+    /**
+     * @name Primary public interface
+     *
+     *  These are the methods you use to operate the input handler
+     */
+    /**@{*/
+
+    /**
+     * UserInput Constructor
+     *
+     * Creates a new instance of this driver.  Before using, you declare an output buffer and size.
+     *
+     * See [Related Pages](pages.html) for device specific information <br>
+     *
+     * @param output_buffer Class output is put into this buffer
+     * @param output_buffer_string_pos Where are we at in the output buffer
+     * @param username Name of user
+     * @param end_of_line_characters EOL term, default is '\r\n'
+     * @param token_delimiter token demarcation
+     * @param c_string_delimiter c-string demarcation
+     */
     UserInput(char *output_buffer,
               uint16_t *output_buffer_string_pos,
               uint16_t output_buffer_len,
