@@ -84,7 +84,8 @@ jobs:
           # - "arduino:megaavr:nano4809"  # board not found
           - "arduino:sam:arduino_due_x_dbg"
     
-steps:
+    
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
       
@@ -92,5 +93,5 @@ steps:
         uses: arduino/compile-sketches@main
         with:
           sketch-paths: |
-          - examples/advanced_GetCommandFromStream
+            - examples/advanced_GetCommandFromStream
           fqbn: ${{ matrix.fqbn }}
