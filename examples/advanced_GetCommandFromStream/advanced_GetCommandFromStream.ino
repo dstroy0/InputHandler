@@ -5,11 +5,17 @@ char output_buffer[output_buffer_size] = {'\0'};
 uint16_t string_pos = 0;
 UserInput inputHandler(output_buffer, &string_pos, 512);
 
+/*
+ * default function, called if nothing matches or if there is an error
+ */
 void uc_unrecognized(UserInput* inputProcess)
 {
   Serial.println(F("made it to uc_unrecognized"));
 }
 
+/*
+ * lists the settings passed to UserInput's constructor, or default parameters
+ */
 void uc_settings(UserInput* inputProcess)
 {
   inputProcess->ListUserInputSettings(inputProcess);
