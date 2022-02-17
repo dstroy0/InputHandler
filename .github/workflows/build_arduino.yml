@@ -59,7 +59,7 @@ jobs:
           - "arduino:avr:atmegang"
           - "arduino:avr:robotControl"
           - "arduino:avr:robotMotor"
-          - "arduino:avr:gemma"
+          # - "arduino:avr:gemma"   # attiny85 not supported
           - "arduino:avr:circuitplay32u4cat"
           - "arduino:avr:yunmini"
           - "arduino:avr:chiwawa"
