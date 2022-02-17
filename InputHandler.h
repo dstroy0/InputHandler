@@ -17,10 +17,7 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
-#include <avr/dtostrf.h>
-#endif
-#if defined(__MBED_CONFIG_DATA__)
+#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(_VARIANT_ARDUINO_DUE_X_) || defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
 #endif
 
