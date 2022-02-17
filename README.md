@@ -2,7 +2,9 @@
 
 # InputHandler
 Arduino input handler  
+
+Works with most Arduino, ESP32 and ESP8266  
   
-  
-  
-ATTiny85 not supported  
+Arduino Due not supported  (pgm_read_word & snprintf_P) pgmspace.h  
+ATTiny85 not supported  (low memory)  
+
