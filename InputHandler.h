@@ -42,7 +42,7 @@
 #endif
 
 /**
- * @defgroup USER_INPUT_TYPES
+ * @defgroup USER_INPUT_TYPES USER_INPUT_TYPES
  * @{
  */
 enum USER_INPUT_TYPES
@@ -76,7 +76,7 @@ static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
- * @defgroup UserInput
+ * @defgroup UserInput UserInput
  * @{
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class
