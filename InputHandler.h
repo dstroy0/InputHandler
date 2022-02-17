@@ -16,12 +16,15 @@
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
 
+#define PGM_READ_WORD(x) pgm_read_word(&(x))
+
 #include <Arduino.h>
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
 #endif
 
 #if defined(_VARIANT_ARDUINO_DUE_X_)
+#undef PGM_READ_WORD
 char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   char fmt[20];
   sprintf(fmt, "%%%d.%df", width, prec);

@@ -91,8 +91,19 @@ PGM_P const PROGMEM CMD_TEST = "test";  // test input types
 /*
    UserInput UserCallbackFunctionParameters
    These objects are what you use to specify the command string, function to launch, and types of input if any
+
+   The following are the available input types
+   USER_INPUT_TYPE_UINT8_T == an eight bit unsigned integer
+   USER_INPUT_TYPE_UINT16_T == a sixteen bit unsigned integer
+   USER_INPUT_TYPE_UINT32_T == a thirtytwo bit unsigned integer
+   USER_INPUT_TYPE_INT16_T == a sixteen bit signed integer
+   USER_INPUT_TYPE_FLOAT == a thirtytwo bit signed floating point number
+   USER_INPUT_TYPE_CHAR == a character value
+   USER_INPUT_TYPE_C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
+                               depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
+                               using GetCommandFromStream input c-string length is limited by input_buffer size
 */
-UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help);
+UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help); //  uc_help_ has a command string, and function specified
 UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings);
 UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
                                         USER_INPUT_TYPE_UINT8_T,
