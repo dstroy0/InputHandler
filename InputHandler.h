@@ -42,7 +42,7 @@
 #endif
 
 /**
- * @defgroup User input types
+ * @defgroup USER_INPUT_TYPES
  * @{
  */
 enum USER_INPUT_TYPES
@@ -56,7 +56,7 @@ enum USER_INPUT_TYPES
     USER_INPUT_TYPE_C_STRING,
     _LAST_USER_INPUT_TYPES_enum
 };
-
+/** @} */
 static constexpr const PROGMEM char *_default_username = "user";               /** default username */
 static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /** default end of line (EOL) characters */
 static constexpr const PROGMEM char *_default_token_delimiter = " ";           /** default token delimiter */
@@ -76,6 +76,8 @@ static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
+ * @defgroup UserInput
+ * @{
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class
  */
