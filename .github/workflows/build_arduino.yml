@@ -83,6 +83,8 @@ jobs:
           - "arduino:megaavr:uno2018"
           # - "arduino:megaavr:nano4809"  # board not found
           # - "arduino:sam:arduino_due_x_dbg"   # board not supported
+          - "esp8266:esp8266:huzzah"
+          - "esp32:esp32:esp32"          
     
     
     steps:
