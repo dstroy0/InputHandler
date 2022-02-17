@@ -17,7 +17,7 @@ Site Index
     :caption: InputHandler reference
     :hidden:
 
-    UserCallbackFunctionParameters
+    classUserCallbackFunctionParameters
     UserInput
     InputHandler_8cpp
     InputHandler_8h
