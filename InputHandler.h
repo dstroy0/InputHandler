@@ -17,10 +17,7 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#if defined(ARDUINO_ARCH_SAM)
-#include <avr/dtostrf.h>
-#endif
-#if defined(__MBED__)
+#if defined(ARDUINO_ARCH_SAM) || defined(__MBED__)
 #include <avr/dtostrf.h>
 #endif
 
