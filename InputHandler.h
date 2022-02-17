@@ -17,17 +17,11 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#if defined(ARDUINO_ARCH_SAM)
+#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
 #include <avr/dtostrf.h>
 #endif
 #if defined(__MBED_CONFIG_DATA__)
-#include <stdio.h> 
-char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
-  char fmt[20];
-  sprintf_P(fmt, PSTR("%%%d.%df"), width, prec);
-  sprintf_P(sout, fmt, val);
-  return sout;
-}
+#include <avr/dtostrf.h>
 #endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
