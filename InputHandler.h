@@ -20,6 +20,9 @@
 #if defined(ARDUINO_ARCH_SAM)
 #include <avr/dtostrf.h>
 #endif
+#if defined(__MBED__)
+#include <avr/dtostrf.h>
+#endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U

@@ -88,6 +88,10 @@ PGM_P const PROGMEM CMD_HELP = "help";  //  "help" command, lists commands
 PGM_P const PROGMEM CMD_INPUT_SETTINGS = "inputSettings"; //  lists UserInput settings
 PGM_P const PROGMEM CMD_TEST = "test";  // test input types
 
+/*
+   UserInput UserCallbackFunctionParameters
+   These objects are what you use to specify the command string, function to launch, and types of input if any
+*/
 UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help);
 UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings);
 UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
@@ -100,25 +104,25 @@ UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
                                         USER_INPUT_TYPE_C_STRING);
 
 void setup() {
-  Serial.begin(115200); //  set up Serial0
+  Serial.begin(115200); //  set up Serial
 
   inputHandler.SetDefaultHandler(uc_unrecognized);  // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(&uc_help_); // lists commands available to the user
   inputHandler.AddUserCommand(&uc_settings_); // lists UserInput class settings
   inputHandler.AddUserCommand(&uc_test_); // input type test
-  inputHandler.ListUserCommands();
+  inputHandler.ListUserCommands();  //  lists commands available to the user
 }
 
 void loop() {
 
-  inputHandler.GetCommandFromStream(Serial);
-  if (inputHandler.OutputIsAvailable() == true)
+  inputHandler.GetCommandFromStream(Serial);  //  read commands from a stream, hardware or software should work
+  if (inputHandler.OutputIsAvailable() == true) // if there's something to print
   {
-    Serial.println(output_buffer);
-    string_pos = 0;
+    Serial.println(output_buffer);  // print output_buffer, which is formatted into a string by UserInput's methods
+    string_pos = 0; //  reset output_buffer's index
     for (uint16_t i = 0; i < output_buffer_size; ++i)
     {
-      output_buffer[i] = '\0';
+      output_buffer[i] = '\0';  // reinit output_buffer
     }
   }
 }
