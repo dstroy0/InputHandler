@@ -139,13 +139,11 @@ html_static_path = ["_static"]
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 #
-#html_favicon = "_static/new_favicon.ico"
+html_favicon = ""
 
 # project logo
-#html_logo = "_static/Logo large.png"
+html_logo = ""
 
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
-#html_css_files = [
-#    "custom_material.css",
-#]
+html_css_files = ""
