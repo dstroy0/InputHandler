@@ -24,7 +24,8 @@
 #endif
 
 #if defined(_VARIANT_ARDUINO_DUE_X_)
-#undef PGM_READ_WORD
+#define PGM_READ_WORD
+#define snprintf_P snprintf
 char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   char fmt[20];
   sprintf(fmt, "%%%d.%df", width, prec);

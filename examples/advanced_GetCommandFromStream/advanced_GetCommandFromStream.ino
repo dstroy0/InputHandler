@@ -104,7 +104,7 @@ PGM_P const PROGMEM CMD_TEST = "test";  // test input types
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
 UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help); //  uc_help_ has a command string, and function specified
-UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings);
+UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings); // uc_settings_ has a command string, and function specified
 UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
                                         USER_INPUT_TYPE_UINT8_T,
                                         USER_INPUT_TYPE_UINT16_T,
