@@ -14,24 +14,17 @@ Site Index
 
 .. toctree::
     :maxdepth: 2
-    :caption: API Reference
+    :caption: InputHandler reference
     :hidden:
 
-    InputHandler
-
+    classUserInput
+    classUserCallbackFunctionParameters
 
 .. toctree::
     :maxdepth: 1
     :hidden:
 
     pages
-
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-
-    modules
 
 .. toctree::
     :maxdepth: 2
