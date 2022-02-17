@@ -17,8 +17,10 @@ Site Index
     :caption: InputHandler reference
     :hidden:
 
-    classUserInput
-    classUserCallbackFunctionParameters
+    UserCallbackFunctionParameters
+    UserInput
+    InputHandler_8cpp
+    InputHandler_8h
 
 .. toctree::
     :maxdepth: 1
