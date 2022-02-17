@@ -37,7 +37,7 @@ void uc_test_input_types(UserInput* inputProcess)
   char* str_ptr = inputProcess->NextArgument(); //  init str_ptr and point it at the next argument input by the user
   char* strtoul_ptr = 0;  //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
-  uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U;
+  uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
   str_ptr = inputProcess->NextArgument();
   strtoul_ptr = 0;
