@@ -42,7 +42,6 @@
 #endif
 
 /**
- * @}
  * @defgroup User input types
  * @{
  */
@@ -77,14 +76,12 @@ static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
- * @}
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class
  */
 class UserInput;
 
 /**
- * @}
  * @brief User defined function parameters
  */
 class UserCallbackFunctionParameters
@@ -121,7 +118,6 @@ public:
 };
 
 /**
- * @}
  * @brief User input handler
  */
 class UserInput
@@ -130,9 +126,8 @@ public:
     /**
      * @name Primary public interface
      *
-     *  These are the methods you use to operate the input handler
+     * These are the methods you use to operate the input handler
      */
-    /**@{*/
 
     /**
      * UserInput Constructor
@@ -253,5 +248,5 @@ private:
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
 };
-
+/** @} */
 #endif
