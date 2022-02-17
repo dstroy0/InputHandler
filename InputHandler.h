@@ -16,22 +16,9 @@
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
 
-#define PGM_READ_WORD(x) pgm_read_word(&(x))
-
 #include <Arduino.h>
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
-#endif
-
-#if defined(_VARIANT_ARDUINO_DUE_X_)
-#define PGM_READ_WORD
-#define snprintf_P snprintf
-char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
-  char fmt[20];
-  sprintf(fmt, "%%%d.%df", width, prec);
-  sprintf(sout, fmt, val);
-  return sout;
-}
 #endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
