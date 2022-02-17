@@ -114,7 +114,6 @@ void setup() {
 }
 
 void loop() {
-
   inputHandler.GetCommandFromStream(Serial);  //  read commands from a stream, hardware or software should work
   if (inputHandler.OutputIsAvailable() == true) // if there's something to print
   {
