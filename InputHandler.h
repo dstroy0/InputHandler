@@ -139,7 +139,7 @@ public:
      * @param output_buffer Class output is put into this buffer
      * @param output_buffer_string_pos Where are we at in the output buffer
      * @param username Name of user
-     * @param end_of_line_characters EOL term, default is '\r\n'
+     * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
      */
