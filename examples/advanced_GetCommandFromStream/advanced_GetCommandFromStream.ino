@@ -106,7 +106,7 @@ PGM_P const PROGMEM CMD_TEST = "test";  // test input types
 UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help); //  uc_help_ has a command string, and function specified
 UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings); // uc_settings_ has a command string, and function specified
 // this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
-UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,  
+UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
                                         USER_INPUT_TYPE_UINT8_T,
                                         USER_INPUT_TYPE_UINT16_T,
                                         USER_INPUT_TYPE_UINT32_T,
@@ -126,6 +126,7 @@ void setup() {
 }
 
 void loop() {
+  //  inputHandler.ReadCommand(data, len);
   inputHandler.GetCommandFromStream(Serial);  //  read commands from a stream, hardware or software should work
   if (inputHandler.OutputIsAvailable() == true) // if there's something to print
   {
