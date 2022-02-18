@@ -76,8 +76,6 @@ static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
- * @defgroup UserInput UserInput
- * @{
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class
  */
@@ -97,13 +95,13 @@ public:
     UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
 
     /**
-     * UserCallbackFunctionParameters Constructor
+     * @brief UserCallbackFunctionParameters Constructor
      *
      * Creates a new instance of this class.  Before using, construct a UserInput object.
      * @param user_defined_command_to_match The command which when entered will call a function
      * @param user_defined_function_to_call The function called when the command is matched
      * @param args args is a variadic parameter pack
-     */
+     */    
     template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
@@ -126,13 +124,13 @@ class UserInput
 {
 public:
     /**
-     * @name Primary public interface
+     * @name UserInput class
      *
      * These are the methods you use to operate the input handler
      */
 
     /**
-     * UserInput Constructor
+     * @brief UserInput Constructor
      *
      * Creates a new instance of this driver.  Before using, you declare an output buffer and size.
      *
@@ -167,23 +165,66 @@ public:
           commands_count_(0)
     {
     }
-
+    /**
+     * @brief returns a pointer to the next token in token_buffer
+     * 
+     * @return char* 
+     */
     char *NextArgument();
 
+    /**
+     * @brief adds user commands
+     * 
+     * @param command pointer to UsercallbackFunctionParameters
+     */
     void AddUserCommand(UserCallbackFunctionParameters *command);
 
+    /**
+     * @brief read command(s) from a buffer
+     * 
+     * @param data a buffer with characters
+     * @param len the size of the buffer
+     */
     void ReadCommand(uint8_t *data, size_t len);
 
+    /**
+     * @brief Get the Command From a Stream object
+     * 
+     * @param stream the stream to reference
+     * @param rx_buffer_size the size of our receive buffer
+     * @param end_of_line_character the line terminating character(s)
+     */
     void GetCommandFromStream(Stream &stream,
                               uint16_t rx_buffer_size = 128,
                               const char *end_of_line_character = _default_end_of_line_characters);
 
+    /**
+     * @brief lists commands available to the user
+     * 
+     */
     void ListUserCommands();
 
+    /**
+     * @brief lists UserInput class settings
+     * 
+     * @param inputprocess pointer to class instance
+     */
     void ListUserInputSettings(UserInput *inputprocess);
 
+    /**
+     * @brief Set the Default Handler, which is the function called
+     * when there is no command match, or when input is invalid.
+     * 
+     * @param function a pointer to a user specified function
+     */
     void SetDefaultHandler(void (*function)(UserInput *));
 
+    /**
+     * @brief is class output available
+     * 
+     * @return true if output is available
+     * @return false if no output is available
+     */
     bool OutputIsAvailable();
 
 #ifdef _DEBUG_USER_INPUT
@@ -192,7 +233,7 @@ public:
 
 protected:
     /**
-     * Tries to get a token from an input string
+     * @brief Tries to get a token from an input string
      *
      * @param token_buffer the place where we store tokens
      * @param data input data
@@ -202,7 +243,7 @@ protected:
     bool getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t *data_index);
 
     /**
-     * Tries to determine if input is valid
+     * @brief Tries to determine if input is valid
      *
      * @param cmd Function parameter pointer
      * @param arg_type the type of argument we are testing
@@ -211,14 +252,14 @@ protected:
     bool validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index);
 
     /**
-     * launches a function
+     * @brief launches a function
      *
      * @param cmd Function parameter pointer
      */
     void launchFunction(UserCallbackFunctionParameters *cmd);
 
     /**
-     * Escapes control characters so they will print
+     * @brief Escapes control characters so they will print
      *
      * @param input the input string
      * @param output the output string
@@ -251,5 +292,5 @@ private:
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
 };
-/** @} */
+
 #endif

@@ -8,12 +8,12 @@ UserInput class
 Basic API
 ============
 
-.. doxygenfunction:: UserInput::GetCommandFromStream
+.. doxygenfunction:: UserInput::GetCommandFromStream(Stream&,uint16_t,const char*)
 
 Advanced API
 ============
 
-.. doxygenvariable:: UserInput::ReadCommand
+.. doxygenvariable:: UserInput::ReadCommand(uint8_t*,len)
 
 Configuration API
 ==================
@@ -25,4 +25,4 @@ Protected API
 
 These are the members and functions made available to derivatives that inherit from the UserInput class.
 
-.. doxygenfunction:: UserInput::getToken
+.. doxygenfunction:: UserInput::getToken(char*,uint8_t*,size_t,uint16_t*)
