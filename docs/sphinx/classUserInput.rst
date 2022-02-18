@@ -1,5 +1,5 @@
 UserInput class
-~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. cpp:class:: UserInput
 
@@ -11,7 +11,7 @@ Basic API
 .. doxygenfunction:: UserInput::GetCommandFromStream(Stream&,uint16_t,const char*)
 
 Advanced API
-============
+=============
 
 .. doxygenvariable:: UserInput::ReadCommand(uint8_t*,len)
 

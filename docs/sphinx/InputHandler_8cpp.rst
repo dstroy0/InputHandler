@@ -1,5 +1,5 @@
 InputHandler.cpp
-==========
+=================
 
 .. literalinclude:: ../../InputHandler.cpp
     :linenos:
