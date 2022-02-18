@@ -7,17 +7,17 @@ UserInput class
 
 Basic API
 ============
-.. doxygenvariable:: UserInput::NextArgument
+.. doxygenfunction:: UserInput::NextArgument
 
-.. doxygenfunction:: UserInput::AddUserCommand(UserCallbackFunctionParameters)
+.. doxygenfunction:: UserInput::AddUserCommand(UserCallbackFunctionParameters *command)
 
 .. doxygenfunction:: UserInput::GetCommandFromStream(Stream&,uint16_t,const char*)
 
 .. doxygenfunction:: UserInput::ListUserCommands
 
-.. doxygenfunction:: UserInput::SetDefaultHandler(void(const char*),UserInput)
+.. doxygenfunction:: UserInput::SetDefaultHandler(void(*function)(UserInput*))
 
-.. doxygenvariable:: UserInput::OutputIsAvailable
+.. doxygenfunction:: UserInput::OutputIsAvailable
 
 Advanced API
 =============
@@ -27,7 +27,7 @@ Advanced API
 Configuration API
 ==================
 
-.. doxygenfunction:: UserInput::ListUserInputSettings(UserInput)
+.. doxygenfunction:: UserInput::ListUserInputSettings(UserInput *inputprocess)
 
 Protected API
 ==============
