@@ -1,5 +1,5 @@
-AcknowledgementPayloads.ino
-===========================
+advancedGetCommandFromStream.ino
+=================================
 
 .. literalinclude:: ../examples/advancedGetCommandFromStream/advancedGetCommandFromStream.ino
     :lines: 7-
