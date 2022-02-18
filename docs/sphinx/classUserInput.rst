@@ -13,12 +13,12 @@ Basic API
 Advanced API
 =============
 
-.. doxygenvariable:: UserInput::ReadCommand(uint8_t,size_t)
+.. doxygenfunction:: UserInput::ReadCommand(uint8_t,size_t)
 
 Configuration API
 ==================
 
-.. doxygenvariable:: UserInput::ListUserInputSettings()
+.. doxygenfunction:: UserInput::ListUserInputSettings()
 
 Protected API
 ==============
