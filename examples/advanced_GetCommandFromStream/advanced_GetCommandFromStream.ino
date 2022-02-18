@@ -1,3 +1,7 @@
+/**
+ * An example that uses all of the methods available
+ */
+
 #include <InputHandler.h>
 
 const uint16_t output_buffer_size = 512;
