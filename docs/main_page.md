@@ -17,4 +17,3 @@ changes.
 
 - [UserInput Class Documentation](classUserInput.html)
 - [Source Code](https://github.com/dstroy0/InputHandler)
-
