@@ -1,5 +1,11 @@
 /**
- * An example that uses all of the methods available
+ * @file advancedGetCommandFromStream.ino
+ * @author Douglas Quigg (dquigg123@gmail.com)
+ * @brief An example that uses all of the methods available
+ * @version 0.1
+ * @date 2022-02-17
+ * 
+ * @copyright Copyright (c) 2022
  */
 
 #include <InputHandler.h>
