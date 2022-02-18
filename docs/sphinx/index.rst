@@ -13,7 +13,7 @@ Site Index
 :ref:`Site index<genindex>`
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: InputHandler reference
     :hidden:
     
@@ -23,7 +23,7 @@ Site Index
     enums
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :hidden:
 
     examples
