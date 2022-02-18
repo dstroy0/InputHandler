@@ -20,6 +20,7 @@ Site Index
     classUserInput
     InputHandler_8cpp
     InputHandler_8h
+    enums
 
 .. toctree::
     :maxdepth: 2
