@@ -1,7 +1,7 @@
 AcknowledgementPayloads.ino
 ===========================
 
-.. literalinclude:: ../../../../examples/advanced_GetCommandFromStream/advanced_GetCommandFromStream.ino
+.. literalinclude:: ../../../../examples/advancedGetCommandFromStream/advancedGetCommandFromStream.ino
     :lines: 7-
     :linenos:
     :lineno-match:
