@@ -121,7 +121,7 @@ html_theme_options = {
     "repo_name": "InputHandler",
     "repo_type": "github",
     # Visible levels of the global TOC; -1 means unlimited
-    "globaltoc_depth": -1,
+    "globaltoc_depth": 3,
     # If False, expand all TOC entries
     "globaltoc_collapse": False,
     # If True, show hidden TOC entries
@@ -133,17 +133,17 @@ html_title = "InputHandler Arduino Library"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = [""]
+html_static_path = ["_static"]
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 #
-html_favicon = ""
+html_favicon = "_static/favicon.ico"
 
 # project logo
-html_logo = ""
+html_logo = "_static/Logo large.png"
 
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
-html_css_files = ""
+html_css_files = "custom_materials.css"
