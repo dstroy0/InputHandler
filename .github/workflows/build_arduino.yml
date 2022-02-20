@@ -85,7 +85,27 @@ jobs:
           # - "arduino:sam:arduino_due_x_dbg"   # board not supported
           # - "esp8266:esp8266:huzzah"
           # - "esp32:esp32:esp32"          #unknown fqbn
-    
+        include:
+          # ESP8266 boards
+          - board:
+              type: esp8266
+            platforms: |
+              # Install ESP8266 platform via Boards Manager
+              - name: esp8266:esp8266
+                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+                version: 2.5.0
+            libraries:
+            sketch-paths:
+          # ESP32 boards
+          - board:
+              type: esp32
+            platforms: |
+              # Install ESP32 platform via Boards Manager
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+            libraries:
+            sketch-paths:
+
     
     steps:
       - name: Checkout
