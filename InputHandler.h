@@ -45,25 +45,17 @@
  * @enum USER_INPUT_TYPES
  * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
  * 
- * @param USER_INPUT_TYPE_UINT8_T user input type 0
- * @param USER_INPUT_TYPE_UINT16_T user input type 1
- * @param USER_INPUT_TYPE_UINT32_T user input type 2
- * @param USER_INPUT_TYPE_INT16_T user input type 3
- * @param USER_INPUT_TYPE_FLOAT user input type 4
- * @param USER_INPUT_TYPE_CHAR user input type 5
- * @param USER_INPUT_TYPE_C_STRING user input type 6
- * @param _LAST_USER_INPUT_TYPES_enum last enum member, not a user input type
  */
 enum USER_INPUT_TYPES
 {
-    USER_INPUT_TYPE_UINT8_T,
-    USER_INPUT_TYPE_UINT16_T,
-    USER_INPUT_TYPE_UINT32_T,
-    USER_INPUT_TYPE_INT16_T,
-    USER_INPUT_TYPE_FLOAT,
-    USER_INPUT_TYPE_CHAR,
-    USER_INPUT_TYPE_C_STRING,
-    _LAST_USER_INPUT_TYPES_enum
+    USER_INPUT_TYPE_UINT8_T, /** UserInput type 0 */
+    USER_INPUT_TYPE_UINT16_T, /** UserInput type 1 */
+    USER_INPUT_TYPE_UINT32_T, /** UserInput type 2 */
+    USER_INPUT_TYPE_INT16_T, /** UserInput type 3 */
+    USER_INPUT_TYPE_FLOAT, /** UserInput type 4 */
+    USER_INPUT_TYPE_CHAR, /** UserInput type 5 */
+    USER_INPUT_TYPE_C_STRING, /** UserInput type 6 */
+    _LAST_USER_INPUT_TYPES_enum /** reserved */
 };
 
 static constexpr const PROGMEM char *_default_username = "user";               /** default username */
