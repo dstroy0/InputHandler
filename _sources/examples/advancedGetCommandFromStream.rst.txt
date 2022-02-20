@@ -2,6 +2,6 @@ advancedGetCommandFromStream.ino
 =================================
 
 .. literalinclude:: ../../../examples/advancedGetCommandFromStream/advancedGetCommandFromStream.ino
-    :lines: 7-
+    :lines: 11-
     :linenos:
     :lineno-match:
