@@ -42,8 +42,8 @@
 #endif
 
 /**
- * @defgroup USER_INPUT_TYPES USER_INPUT_TYPES
- * @{
+ * @brief USER_INPUT_TYPES contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used
+ * 
  */
 enum USER_INPUT_TYPES
 {
@@ -56,7 +56,7 @@ enum USER_INPUT_TYPES
     USER_INPUT_TYPE_C_STRING,
     _LAST_USER_INPUT_TYPES_enum
 };
-/** @} */
+
 static constexpr const PROGMEM char *_default_username = "user";               /** default username */
 static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /** default end of line (EOL) characters */
 static constexpr const PROGMEM char *_default_token_delimiter = " ";           /** default token delimiter */
