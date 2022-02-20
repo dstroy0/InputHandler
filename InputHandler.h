@@ -61,7 +61,7 @@ static constexpr const PROGMEM char *_default_username = "user";               /
 static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /** default end of line (EOL) characters */
 static constexpr const PROGMEM char *_default_token_delimiter = " ";           /** default token delimiter */
 static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";       /** default c-string delimiter */
-static constexpr const PROGMEM char *null_ = "\0";                             /** null '\0' */
+static constexpr const PROGMEM char *null_ = "\0";                             /** null '\\0' */
 /** input type string array */
 static constexpr const PROGMEM char *_input_type_strings[] = {
     "uint8_t",
@@ -132,9 +132,7 @@ public:
     /**
      * @brief UserInput Constructor
      *
-     * Creates a new instance of this driver.  Before using, you declare an output buffer and size.
-     *
-     * See [Related Pages](pages.html) for device specific information <br>
+     * Creates a new instance.  Before using, declare an output buffer and output buffer size.
      *
      * @param output_buffer Class output is put into this buffer
      * @param output_buffer_string_pos Where are we at in the output buffer
