@@ -10,7 +10,7 @@
 
 #include <InputHandler.h>
 
-const uint16_t output_buffer_size = 512;
+const uint16_t output_buffer_size = 512;  //  output buffer size
 char output_buffer[output_buffer_size] = {'\0'};
 uint16_t string_pos = 0;
 UserInput inputHandler(output_buffer, &string_pos, 512);
