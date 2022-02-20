@@ -42,8 +42,17 @@
 #endif
 
 /**
- * @brief USER_INPUT_TYPES contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used
+ * @enum USER_INPUT_TYPES
+ * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
  * 
+ * @param USER_INPUT_TYPE_UINT8_T user input type 0
+ * @param USER_INPUT_TYPE_UINT16_T user input type 1
+ * @param USER_INPUT_TYPE_UINT32_T user input type 2
+ * @param USER_INPUT_TYPE_INT16_T user input type 3
+ * @param USER_INPUT_TYPE_FLOAT user input type 4
+ * @param USER_INPUT_TYPE_CHAR user input type 5
+ * @param USER_INPUT_TYPE_C_STRING user input type 6
+ * @param _LAST_USER_INPUT_TYPES_enum last enum member, not a user input type
  */
 enum USER_INPUT_TYPES
 {
@@ -102,7 +111,7 @@ public:
      * @param user_defined_function_to_call The function called when the command is matched
      * @param args args is a variadic parameter pack of USER_INPUT_TYPE
      */    
-    template <typename... Arguments, typename = USER_INPUT_TYPES>
+    template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
                                    const Arguments &...args)
@@ -113,6 +122,7 @@ public:
           num_args(sizeof...(Arguments))
     {
         static const uint8_t _arg[] = {static_cast<uint8_t>(args)...}; /** args is expanded into the array _arg */
+
         _arg_type = _arg;                                              /** point to the array in memory */
     }
 };
