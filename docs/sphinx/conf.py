@@ -146,4 +146,4 @@ html_logo = "_static/Logo large.png"
 
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
-html_css_files = "custom_materials.css"
+#html_css_files = "custom_materials.css"
