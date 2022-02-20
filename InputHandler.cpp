@@ -161,7 +161,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
 
     if (arg_type < USER_INPUT_TYPE_CHAR)
     {
-        // for numbers that are not floating point
+        // for unsigned integers
         if (arg_type < USER_INPUT_TYPE_INT16_T)
         {
             if (found_negative_sign == true)
@@ -179,7 +179,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         // for integer numbers
         if (arg_type == USER_INPUT_TYPE_INT16_T)
         {
-            if (found_negative_sign == true)
+            if (found_negative_sign == true)    //  negative
             {
                 for (uint16_t j = 1; j < (strlen_data - 1); ++j)
                 {
@@ -189,7 +189,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                     }
                 }
             }
-            else
+            else    //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
@@ -205,7 +205,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
-            if (found_negative_sign == true)
+            if (found_negative_sign == true)    //  negative
             {
                 uint8_t not_digits = 0;
                 /*
@@ -240,7 +240,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                     num_digits++; // count the negative sign
                 }
             }
-            else
+            else    //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
@@ -297,7 +297,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
     }
-    else
+    else    //  unknown types always return false
     {
         return false;
     }

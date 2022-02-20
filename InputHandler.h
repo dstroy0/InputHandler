@@ -44,18 +44,18 @@
 /**
  * @enum USER_INPUT_TYPES
  * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
- * 
+ *
  */
 enum USER_INPUT_TYPES
 {
-    USER_INPUT_TYPE_UINT8_T, /** UserInput type 0 */
-    USER_INPUT_TYPE_UINT16_T, /** UserInput type 1 */
-    USER_INPUT_TYPE_UINT32_T, /** UserInput type 2 */
-    USER_INPUT_TYPE_INT16_T, /** UserInput type 3 */
-    USER_INPUT_TYPE_FLOAT, /** UserInput type 4 */
-    USER_INPUT_TYPE_CHAR, /** UserInput type 5 */
-    USER_INPUT_TYPE_C_STRING, /** UserInput type 6 */
-    _LAST_USER_INPUT_TYPES_enum /** reserved */
+    USER_INPUT_TYPE_UINT8_T,    /**< UserInput type 0 */
+    USER_INPUT_TYPE_UINT16_T,   /**< UserInput type 1 */
+    USER_INPUT_TYPE_UINT32_T,   /**< UserInput type 2 */
+    USER_INPUT_TYPE_INT16_T,    /**< UserInput type 3 */
+    USER_INPUT_TYPE_FLOAT,      /**< UserInput type 4 */
+    USER_INPUT_TYPE_CHAR,       /**< UserInput type 5 */
+    USER_INPUT_TYPE_C_STRING,   /**< UserInput type 6 */
+    _LAST_USER_INPUT_TYPES_enum /**< reserved */
 };
 
 static constexpr const PROGMEM char *_default_username = "user";               /** default username */
@@ -94,7 +94,6 @@ public:
     uint16_t command_length;                                           /** length of command */
     void (*function)(UserInput *);                                     /** pointer to function */
     UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
-
     /**
      * @brief UserCallbackFunctionParameters Constructor
      *
@@ -102,7 +101,7 @@ public:
      * @param user_defined_command_to_match The command which when entered will call a function
      * @param user_defined_function_to_call The function called when the command is matched
      * @param args args is a variadic parameter pack of USER_INPUT_TYPE
-     */    
+     */
     template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
@@ -115,7 +114,7 @@ public:
     {
         static const uint8_t _arg[] = {static_cast<uint8_t>(args)...}; /** args is expanded into the array _arg */
 
-        _arg_type = _arg;                                              /** point to the array in memory */
+        _arg_type = _arg; /** point to the array in memory */
     }
 };
 
@@ -167,21 +166,21 @@ public:
     }
     /**
      * @brief returns a pointer to the next token in token_buffer
-     * 
-     * @return char* 
+     *
+     * @return char*
      */
     char *NextArgument();
 
     /**
      * @brief adds user commands
-     * 
+     *
      * @param command pointer to UsercallbackFunctionParameters
      */
     void AddUserCommand(UserCallbackFunctionParameters *command);
 
     /**
      * @brief read command(s) from a buffer
-     * 
+     *
      * @param data a buffer with characters
      * @param len the size of the buffer
      */
@@ -189,7 +188,7 @@ public:
 
     /**
      * @brief Get the Command From a Stream object
-     * 
+     *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
      * @param end_of_line_character the line terminating character(s)
@@ -200,13 +199,13 @@ public:
 
     /**
      * @brief lists commands available to the user
-     * 
+     *
      */
     void ListUserCommands();
 
     /**
      * @brief lists UserInput class settings
-     * 
+     *
      * @param inputprocess pointer to class instance
      */
     void ListUserInputSettings(UserInput *inputprocess);
@@ -214,14 +213,14 @@ public:
     /**
      * @brief Set the Default Handler, which is the function called
      * when there is no command match, or when input is invalid.
-     * 
+     *
      * @param function a pointer to a user specified function
      */
     void SetDefaultHandler(void (*function)(UserInput *));
 
     /**
      * @brief is class output available
-     * 
+     *
      * @return true if output is available
      * @return false if no output is available
      */
