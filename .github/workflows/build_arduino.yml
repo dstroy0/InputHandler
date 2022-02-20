@@ -36,9 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     
     strategy:
-      fail-fast: false
+      fail-fast: false      
 
-      include:
+      matrix:
+        include:
           # ESP8266 boards
           - board:
               type: esp8266
@@ -59,7 +60,6 @@ jobs:
             libraries:
             sketch-paths:
             
-      matrix:
         fqbn:
           - "arduino:avr:yun"
           - "arduino:avr:uno"
