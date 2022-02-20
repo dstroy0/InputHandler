@@ -1,0 +1,1076 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="_static/favicon.ico">
+    
+    
+      
+        <title>Enumerations - InputHandler Arduino Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
+      
+        
+        <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="_static/c" />
+        <link rel="stylesheet" type="text/css" href="_static/u" />
+        <link rel="stylesheet" type="text/css" href="_static/s" />
+        <link rel="stylesheet" type="text/css" href="_static/t" />
+        <link rel="stylesheet" type="text/css" href="_static/o" />
+        <link rel="stylesheet" type="text/css" href="_static/m" />
+        <link rel="stylesheet" type="text/css" href="_static/_" />
+        <link rel="stylesheet" type="text/css" href="_static/m" />
+        <link rel="stylesheet" type="text/css" href="_static/a" />
+        <link rel="stylesheet" type="text/css" href="_static/t" />
+        <link rel="stylesheet" type="text/css" href="_static/e" />
+        <link rel="stylesheet" type="text/css" href="_static/r" />
+        <link rel="stylesheet" type="text/css" href="_static/i" />
+        <link rel="stylesheet" type="text/css" href="_static/a" />
+        <link rel="stylesheet" type="text/css" href="_static/l" />
+        <link rel="stylesheet" type="text/css" href="_static/s" />
+        <link rel="stylesheet" type="text/css" href="_static/." />
+        <link rel="stylesheet" type="text/css" href="_static/c" />
+        <link rel="stylesheet" type="text/css" href="_static/s" />
+        <link rel="stylesheet" type="text/css" href="_static/s" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="lime" data-md-color-accent="light-blue">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="InputHandler Arduino Library" class="md-header__button md-logo" aria-label="InputHandler Arduino Library" data-md-component="logo">
+      <img src="_static/Logo large.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InputHandler Arduino Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Enumerations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="lime" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/dstroy0/InputHandler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    InputHandler
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput9UserInput9UserInputEPcP8uint16_t8uint16_tPKcPKcPKcPKc" class="md-tabs__link md-tabs__link--active">
+        InputHandler reference
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="examples/advancedGetCommandFromStream.html" class="md-tabs__link">
+        Examples
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="InputHandler Arduino Library" class="md-nav__button md-logo" aria-label="InputHandler Arduino Library" data-md-component="logo">
+      <img src="_static/Logo large.png" alt="logo">
+    </a>
+    InputHandler Arduino Library
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dstroy0/InputHandler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    InputHandler
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="classUserInput.html">InputHandler reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="InputHandler reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          InputHandler reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        <a class="" href="classUserInput.html">UserInput class</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="UserInput class" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          UserInput class
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_1" type="checkbox" id="__nav_1_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1_1">
+        <a class="" href="classUserInput.html#_CPPv49UserInput"><span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="UserInput (C++ class)">UserInput</span></a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="UserInput" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="UserInput (C++ class)">UserInput</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput9UserInput9UserInputEPcP8uint16_t8uint16_tPKcPKcPKcPKc" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::UserInput::UserInput (C++ function)">UserInput::UserInput</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_2" type="checkbox" id="__nav_1_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_1_2">
+        <a class="" href="classUserInput.html#basic-api">Basic API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Basic API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Basic API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput12NextArgumentEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::NextArgument (C++ function)">UserInput::NextArgument</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput14AddUserCommandEP30UserCallbackFunctionParameters" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::AddUserCommand (C++ function)">UserInput::AddUserCommand</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput20GetCommandFromStreamER6Stream8uint16_tPKc" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::GetCommandFromStream (C++ function)">UserInput::GetCommandFromStream</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput16ListUserCommandsEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ListUserCommands (C++ function)">UserInput::ListUserCommands</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput17SetDefaultHandlerEPFvP9UserInputE" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::SetDefaultHandler (C++ function)">UserInput::SetDefaultHandler</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput17OutputIsAvailableEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::OutputIsAvailable (C++ function)">UserInput::OutputIsAvailable</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_3" type="checkbox" id="__nav_1_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_1_3">
+        <a class="" href="classUserInput.html#advanced-api">Advanced API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput11ReadCommandEP7uint8_t6size_t" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ReadCommand (C++ function)">UserInput::ReadCommand</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_4" type="checkbox" id="__nav_1_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_1_4">
+        <a class="" href="classUserInput.html#configuration-api">Configuration API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput21ListUserInputSettingsEP9UserInput" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ListUserInputSettings (C++ function)">UserInput::ListUserInputSettings</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_5" type="checkbox" id="__nav_1_1_5" >
+      
+      <label class="md-nav__link" for="__nav_1_1_5">
+        <a class="" href="classUserInput.html#protected-api">Protected API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Protected API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Protected API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classUserInput.html#_CPPv4N9UserInput8getTokenEPcP7uint8_t6size_tP8uint16_t" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::getToken (C++ function)">UserInput::getToken</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="InputHandler_8cpp.html" class="md-nav__link">
+        InputHandler.cpp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="InputHandler_8h.html" class="md-nav__link">
+        InputHandler.h
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Enumerations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        Enumerations
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Enumerations
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_CPPv416USER_INPUT_TYPES" class="md-nav__link">
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="USER_INPUT_TYPES (C++ enum)">USER_INPUT_TYPES</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="USER_INPUT_TYPES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT8_T (C++ enumerator)">USER_INPUT_TYPE_UINT8_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT16_T (C++ enumerator)">USER_INPUT_TYPE_UINT16_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT32_T (C++ enumerator)">USER_INPUT_TYPE_UINT32_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_INT16_T (C++ enumerator)">USER_INPUT_TYPE_INT16_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_FLOAT (C++ enumerator)">USER_INPUT_TYPE_FLOAT</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_CHAR (C++ enumerator)">USER_INPUT_TYPE_CHAR</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_C_STRING (C++ enumerator)">USER_INPUT_TYPE_C_STRING</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="_LAST_USER_INPUT_TYPES_enum (C++ enumerator)">_LAST_USER_INPUT_TYPES_enum</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="examples.html">Examples</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <a class="" href="examples.html#arduino-examples">Arduino Examples</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Arduino Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Arduino Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/advancedGetCommandFromStream.html" class="md-nav__link">
+        advancedGetCommandFromStream.ino
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Enumerations
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_CPPv416USER_INPUT_TYPES" class="md-nav__link">
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="USER_INPUT_TYPES (C++ enum)">USER_INPUT_TYPES</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="USER_INPUT_TYPES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT8_T (C++ enumerator)">USER_INPUT_TYPE_UINT8_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT16_T (C++ enumerator)">USER_INPUT_TYPE_UINT16_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT32_T (C++ enumerator)">USER_INPUT_TYPE_UINT32_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_INT16_T (C++ enumerator)">USER_INPUT_TYPE_INT16_T</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_FLOAT (C++ enumerator)">USER_INPUT_TYPE_FLOAT</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_CHAR (C++ enumerator)">USER_INPUT_TYPE_CHAR</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_C_STRING (C++ enumerator)">USER_INPUT_TYPE_C_STRING</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_CPPv4N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE" class="md-nav__link">
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="_LAST_USER_INPUT_TYPES_enum (C++ enumerator)">_LAST_USER_INPUT_TYPES_enum</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                
+  <h1 id="enumerations">Enumerations<a class="headerlink" href="#enumerations" title="Permalink to this headline">¶</a></h1>
+<dl class="objdesc">
+<dt class="sig sig-object cpp">
+<span class="target" id="group__USER__INPUT__TYPES"></span><em><span class="pre">group</span></em> <span class="sig-name descname"><span class="pre">USER_INPUT_TYPES</span></span></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum objdesc">
+<dt class="sig sig-object cpp" id="_CPPv416USER_INPUT_TYPES">
+<span id="_CPPv316USER_INPUT_TYPES"></span><span id="_CPPv216USER_INPUT_TYPES"></span><span class="target" id="group__USER__INPUT__TYPES_1ga1c971beb85d4710daa2c5bb81e54d72a"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPES</span></span></span><a class="headerlink" href="#_CPPv416USER_INPUT_TYPES" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE">
+<span id="_CPPv3N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE"></span><span id="_CPPv2N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aafc1abee5ea04c5428ef12ad8effbf92e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_UINT8_T</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE">
+<span id="_CPPv3N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE"></span><span id="_CPPv2N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa84d567fdc5fe310fd4fd69f7b94e4b73"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_UINT16_T</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE">
+<span id="_CPPv3N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE"></span><span id="_CPPv2N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aad7a2954f0e573fb5d8d6bce7f8811789"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_UINT32_T</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE">
+<span id="_CPPv3N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE"></span><span id="_CPPv2N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa57ddb83cddf666a433a54d293fec00a6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_INT16_T</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE">
+<span id="_CPPv3N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE"></span><span id="_CPPv2N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa6c50c29219d6b17f12914bcfdd33b23f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_FLOAT</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE">
+<span id="_CPPv3N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE"></span><span id="_CPPv2N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa493f77a5ba546a1a6ba4ba9fb9218544"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_CHAR</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE">
+<span id="_CPPv3N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE"></span><span id="_CPPv2N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa54504f37676ff12b80174109a8bf8e73"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">USER_INPUT_TYPE_C_STRING</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator objdesc">
+<dt class="sig sig-object cpp" id="_CPPv4N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE">
+<span id="_CPPv3N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE"></span><span id="_CPPv2N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE"></span><span class="target" id="group__USER__INPUT__TYPES_1gga1c971beb85d4710daa2c5bb81e54d72aa8828a4c2a23d1faa76fc6a6a42f43ddb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_LAST_USER_INPUT_TYPES_enum</span></span></span><a class="headerlink" href="#_CPPv4N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</dd></dl>
+
+
+
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="InputHandler_8h.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: InputHandler.h" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              InputHandler.h
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="examples.html" class="md-footer__link md-footer__link--next" aria-label="Next: Examples" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Examples
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 Douglas Quigg.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.4.0.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.share"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    
+    
+      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    
+  </body>
+</html>

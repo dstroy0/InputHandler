@@ -1,0 +1,1110 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../_static/favicon.ico">
+    
+    
+      
+        <title>advancedGetCommandFromStream.ino - InputHandler Arduino Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="../_static/stylesheets/main.91c34c39.min.css">
+      
+        
+        <link rel="stylesheet" href="../_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/c" />
+        <link rel="stylesheet" type="text/css" href="../_static/u" />
+        <link rel="stylesheet" type="text/css" href="../_static/s" />
+        <link rel="stylesheet" type="text/css" href="../_static/t" />
+        <link rel="stylesheet" type="text/css" href="../_static/o" />
+        <link rel="stylesheet" type="text/css" href="../_static/m" />
+        <link rel="stylesheet" type="text/css" href="../_static/_" />
+        <link rel="stylesheet" type="text/css" href="../_static/m" />
+        <link rel="stylesheet" type="text/css" href="../_static/a" />
+        <link rel="stylesheet" type="text/css" href="../_static/t" />
+        <link rel="stylesheet" type="text/css" href="../_static/e" />
+        <link rel="stylesheet" type="text/css" href="../_static/r" />
+        <link rel="stylesheet" type="text/css" href="../_static/i" />
+        <link rel="stylesheet" type="text/css" href="../_static/a" />
+        <link rel="stylesheet" type="text/css" href="../_static/l" />
+        <link rel="stylesheet" type="text/css" href="../_static/s" />
+        <link rel="stylesheet" type="text/css" href="../_static/." />
+        <link rel="stylesheet" type="text/css" href="../_static/c" />
+        <link rel="stylesheet" type="text/css" href="../_static/s" />
+        <link rel="stylesheet" type="text/css" href="../_static/s" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="lime" data-md-color-accent="light-blue">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="InputHandler Arduino Library" class="md-header__button md-logo" aria-label="InputHandler Arduino Library" data-md-component="logo">
+      <img src="../_static/Logo large.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InputHandler Arduino Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              advancedGetCommandFromStream.ino
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="lime" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/dstroy0/InputHandler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    InputHandler
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput9UserInput9UserInputEPcP8uint16_t8uint16_tPKcPKcPKcPKc" class="md-tabs__link">
+        InputHandler reference
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="" class="md-tabs__link md-tabs__link--active">
+        Examples
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="InputHandler Arduino Library" class="md-nav__button md-logo" aria-label="InputHandler Arduino Library" data-md-component="logo">
+      <img src="../_static/Logo large.png" alt="logo">
+    </a>
+    InputHandler Arduino Library
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dstroy0/InputHandler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    InputHandler
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="../classUserInput.html">InputHandler reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="InputHandler reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          InputHandler reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        <a class="" href="../classUserInput.html">UserInput class</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="UserInput class" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          UserInput class
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_1" type="checkbox" id="__nav_1_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1_1">
+        <a class="" href="../classUserInput.html#_CPPv49UserInput"><span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="UserInput (C++ class)">UserInput</span></a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="UserInput" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="UserInput (C++ class)">UserInput</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput9UserInput9UserInputEPcP8uint16_t8uint16_tPKcPKcPKcPKc" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::UserInput::UserInput (C++ function)">UserInput::UserInput</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_2" type="checkbox" id="__nav_1_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_1_2">
+        <a class="" href="../classUserInput.html#basic-api">Basic API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Basic API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Basic API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput12NextArgumentEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::NextArgument (C++ function)">UserInput::NextArgument</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput14AddUserCommandEP30UserCallbackFunctionParameters" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::AddUserCommand (C++ function)">UserInput::AddUserCommand</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput20GetCommandFromStreamER6Stream8uint16_tPKc" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::GetCommandFromStream (C++ function)">UserInput::GetCommandFromStream</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput16ListUserCommandsEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ListUserCommands (C++ function)">UserInput::ListUserCommands</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput17SetDefaultHandlerEPFvP9UserInputE" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::SetDefaultHandler (C++ function)">UserInput::SetDefaultHandler</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput17OutputIsAvailableEv" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::OutputIsAvailable (C++ function)">UserInput::OutputIsAvailable</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_3" type="checkbox" id="__nav_1_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_1_3">
+        <a class="" href="../classUserInput.html#advanced-api">Advanced API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput11ReadCommandEP7uint8_t6size_t" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ReadCommand (C++ function)">UserInput::ReadCommand</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_4" type="checkbox" id="__nav_1_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_1_4">
+        <a class="" href="../classUserInput.html#configuration-api">Configuration API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput21ListUserInputSettingsEP9UserInput" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::ListUserInputSettings (C++ function)">UserInput::ListUserInputSettings</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1_5" type="checkbox" id="__nav_1_1_5" >
+      
+      <label class="md-nav__link" for="__nav_1_1_5">
+        <a class="" href="../classUserInput.html#protected-api">Protected API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Protected API" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Protected API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classUserInput.html#_CPPv4N9UserInput8getTokenEPcP7uint8_t6size_tP8uint16_t" class="md-nav__link">
+        <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="UserInput::getToken (C++ function)">UserInput::getToken</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InputHandler_8cpp.html" class="md-nav__link">
+        InputHandler.cpp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InputHandler_8h.html" class="md-nav__link">
+        InputHandler.h
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        <a class="" href="../enums.html">Enumerations</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Enumerations" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Enumerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      <label class="md-nav__link" for="__nav_1_4_1">
+        <a class="" href="../enums.html#_CPPv416USER_INPUT_TYPES"><span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="USER_INPUT_TYPES (C++ enum)">USER_INPUT_TYPES</span></a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="USER_INPUT_TYPES" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="USER_INPUT_TYPES (C++ enum)">USER_INPUT_TYPES</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_UINT8_TE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT8_T (C++ enumerator)">USER_INPUT_TYPE_UINT8_T</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT16_TE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT16_T (C++ enumerator)">USER_INPUT_TYPE_UINT16_T</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_UINT32_TE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_UINT32_T (C++ enumerator)">USER_INPUT_TYPE_UINT32_T</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES23USER_INPUT_TYPE_INT16_TE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_INT16_T (C++ enumerator)">USER_INPUT_TYPE_INT16_T</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES21USER_INPUT_TYPE_FLOATE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_FLOAT (C++ enumerator)">USER_INPUT_TYPE_FLOAT</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES20USER_INPUT_TYPE_CHARE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_CHAR (C++ enumerator)">USER_INPUT_TYPE_CHAR</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES24USER_INPUT_TYPE_C_STRINGE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="USER_INPUT_TYPE_C_STRING (C++ enumerator)">USER_INPUT_TYPE_C_STRING</span>
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html#_CPPv4N16USER_INPUT_TYPES27_LAST_USER_INPUT_TYPES_enumE" class="md-nav__link">
+        <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="_LAST_USER_INPUT_TYPES_enum (C++ enumerator)">_LAST_USER_INPUT_TYPES_enum</span>
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="../examples.html">Examples</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        <a class="" href="../examples.html#arduino-examples">Arduino Examples</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Arduino Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Arduino Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        advancedGetCommandFromStream.ino
+      </a>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                
+  <h1 id="advancedgetcommandfromstream-ino">advancedGetCommandFromStream.ino<a class="headerlink" href="#advancedgetcommandfromstream-ino" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><code><span class="linenos">  7</span> *
+<span class="linenos">  8</span> * @copyright Copyright (c) 2022
+<span class="linenos">  9</span> */
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span>#include &lt;InputHandler.h&gt;
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span>const uint16_t output_buffer_size = 512;
+<span class="linenos"> 14</span>char output_buffer[output_buffer_size] = {&#39;\0&#39;};
+<span class="linenos"> 15</span>uint16_t string_pos = 0;
+<span class="linenos"> 16</span>UserInput inputHandler(output_buffer, &amp;string_pos, 512);
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span>/*
+<span class="linenos"> 19</span>   default function, called if nothing matches or if there is an error
+<span class="linenos"> 20</span>*/
+<span class="linenos"> 21</span>void uc_unrecognized(UserInput *inputProcess)
+<span class="linenos"> 22</span>{
+<span class="linenos"> 23</span>  Serial.println(F(&quot;made it to uc_unrecognized&quot;));
+<span class="linenos"> 24</span>}
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span>/*
+<span class="linenos"> 27</span>   lists the settings passed to UserInput&#39;s constructor, or default parameters
+<span class="linenos"> 28</span>*/
+<span class="linenos"> 29</span>void uc_settings(UserInput *inputProcess)
+<span class="linenos"> 30</span>{
+<span class="linenos"> 31</span>  inputProcess-&gt;ListUserInputSettings(inputProcess);
+<span class="linenos"> 32</span>}
+<span class="linenos"> 33</span>
+<span class="linenos"> 34</span>/*
+<span class="linenos"> 35</span>   lists commands available to the user
+<span class="linenos"> 36</span>*/
+<span class="linenos"> 37</span>void uc_help(UserInput *inputProcess)
+<span class="linenos"> 38</span>{
+<span class="linenos"> 39</span>  inputProcess-&gt;ListUserCommands();
+<span class="linenos"> 40</span>}
+<span class="linenos"> 41</span>
+<span class="linenos"> 42</span>/*
+<span class="linenos"> 43</span>   test all available input types
+<span class="linenos"> 44</span>*/
+<span class="linenos"> 45</span>void uc_test_input_types(UserInput *inputProcess)
+<span class="linenos"> 46</span>{
+<span class="linenos"> 47</span>  char *str_ptr = inputProcess-&gt;NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+<span class="linenos"> 48</span>  char *strtoul_ptr = 0;                                                            //  this is for strtoul
+<span class="linenos"> 49</span>  uint32_t strtoul_result = strtoul(str_ptr, &amp;strtoul_ptr, 10);                     // get the result in base10
+<span class="linenos"> 50</span>  uint8_t eight_bit = (strtoul_result &lt;= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+<span class="linenos"> 51</span>
+<span class="linenos"> 52</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 53</span>  strtoul_ptr = 0;
+<span class="linenos"> 54</span>  strtoul_result = strtoul(str_ptr, &amp;strtoul_ptr, 10);
+<span class="linenos"> 55</span>  uint16_t sixteen_bit = (strtoul_result &lt;= UINT16_MAX) ? (uint16_t)strtoul_result : 0U;
+<span class="linenos"> 56</span>
+<span class="linenos"> 57</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 58</span>  strtoul_ptr = 0;
+<span class="linenos"> 59</span>  uint32_t thirtytwo_bit = strtoul(str_ptr, &amp;strtoul_ptr, 10);
+<span class="linenos"> 60</span>
+<span class="linenos"> 61</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 62</span>  int sixteen_bit_int = atoi(str_ptr);
+<span class="linenos"> 63</span>
+<span class="linenos"> 64</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 65</span>  float thirtytwo_bit_float = (float)atof(str_ptr);
+<span class="linenos"> 66</span>
+<span class="linenos"> 67</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 68</span>  char _char = *str_ptr;
+<span class="linenos"> 69</span>
+<span class="linenos"> 70</span>  str_ptr = inputProcess-&gt;NextArgument();
+<span class="linenos"> 71</span>  char c_string[64] = {&#39;\0&#39;};
+<span class="linenos"> 72</span>  snprintf_P(c_string, 64, PSTR(&quot;%s&quot;), str_ptr);
+<span class="linenos"> 73</span>
+<span class="linenos"> 74</span>  char float_buffer[32] = {&#39;\0&#39;}; //  dtostrf buffer
+<span class="linenos"> 75</span>  char out[128] = {&#39;\0&#39;};         //  function output buffer
+<span class="linenos"> 76</span>  uint16_t string_pos = 0;        // function output buffer index
+<span class="linenos"> 77</span>
+<span class="linenos"> 78</span>  /*
+<span class="linenos"> 79</span>       format out[] with all of the arguments received
+<span class="linenos"> 80</span>  */
+<span class="linenos"> 81</span>  string_pos += snprintf_P(out + string_pos, 128,
+<span class="linenos"> 82</span>                           PSTR(&quot;Test user input types:\n&quot;
+<span class="linenos"> 83</span>                                &quot;uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n&quot;),
+<span class="linenos"> 84</span>                           eight_bit,
+<span class="linenos"> 85</span>                           sixteen_bit,
+<span class="linenos"> 86</span>                           thirtytwo_bit,
+<span class="linenos"> 87</span>                           sixteen_bit_int,
+<span class="linenos"> 88</span>                           dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
+<span class="linenos"> 89</span>                           _char,
+<span class="linenos"> 90</span>                           c_string);
+<span class="linenos"> 91</span>  Serial.print(out);
+<span class="linenos"> 92</span>}
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span>/*
+<span class="linenos"> 95</span>   command string literals stored in PROGMEM nonvolatile memory
+<span class="linenos"> 96</span>*/
+<span class="linenos"> 97</span>PGM_P const PROGMEM CMD_HELP = &quot;help&quot;;                    //  &quot;help&quot; command, lists commands
+<span class="linenos"> 98</span>PGM_P const PROGMEM CMD_INPUT_SETTINGS = &quot;inputSettings&quot;; //  lists UserInput settings
+<span class="linenos"> 99</span>PGM_P const PROGMEM CMD_TEST = &quot;test&quot;;                    // test input types
+<span class="linenos">100</span>
+<span class="linenos">101</span>/*
+<span class="linenos">102</span>   UserInput UserCallbackFunctionParameters
+<span class="linenos">103</span>   These objects are what you use to specify the command string, function to launch, and types of input if any
+<span class="linenos">104</span>
+<span class="linenos">105</span>   The following are the available input types
+<span class="linenos">106</span>   USER_INPUT_TYPE_UINT8_T == an eight bit unsigned integer
+<span class="linenos">107</span>   USER_INPUT_TYPE_UINT16_T == a sixteen bit unsigned integer
+<span class="linenos">108</span>   USER_INPUT_TYPE_UINT32_T == a thirtytwo bit unsigned integer
+<span class="linenos">109</span>   USER_INPUT_TYPE_INT16_T == a sixteen bit signed integer
+<span class="linenos">110</span>   USER_INPUT_TYPE_FLOAT == a thirtytwo bit signed floating point number
+<span class="linenos">111</span>   USER_INPUT_TYPE_CHAR == a character value
+<span class="linenos">112</span>   USER_INPUT_TYPE_C_STRING == a string of character values, absent of &#39;\0&#39; and enclosed with single quotation marks &quot;c-string&quot;
+<span class="linenos">113</span>                               depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
+<span class="linenos">114</span>                               using GetCommandFromStream input c-string length is limited by input_buffer size
+<span class="linenos">115</span>*/
+<span class="linenos">116</span>UserCallbackFunctionParameters uc_help_(CMD_HELP, uc_help);                   //  uc_help_ has a command string, and function specified
+<span class="linenos">117</span>UserCallbackFunctionParameters uc_settings_(CMD_INPUT_SETTINGS, uc_settings); // uc_settings_ has a command string, and function specified
+<span class="linenos">118</span>// this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
+<span class="linenos">119</span>UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
+<span class="linenos">120</span>                                        USER_INPUT_TYPE_UINT8_T,
+<span class="linenos">121</span>                                        USER_INPUT_TYPE_UINT16_T,
+<span class="linenos">122</span>                                        USER_INPUT_TYPE_UINT32_T,
+<span class="linenos">123</span>                                        USER_INPUT_TYPE_INT16_T,
+<span class="linenos">124</span>                                        USER_INPUT_TYPE_FLOAT,
+<span class="linenos">125</span>                                        USER_INPUT_TYPE_CHAR,
+<span class="linenos">126</span>                                        USER_INPUT_TYPE_C_STRING);
+<span class="linenos">127</span>
+<span class="linenos">128</span>void setup()
+<span class="linenos">129</span>{
+<span class="linenos">130</span>  Serial.begin(115200); //  set up Serial
+<span class="linenos">131</span>
+<span class="linenos">132</span>  inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
+<span class="linenos">133</span>  inputHandler.AddUserCommand(&amp;uc_help_);          // lists commands available to the user
+<span class="linenos">134</span>  inputHandler.AddUserCommand(&amp;uc_settings_);      // lists UserInput class settings
+<span class="linenos">135</span>  inputHandler.AddUserCommand(&amp;uc_test_);          // input type test
+<span class="linenos">136</span>  inputHandler.ListUserCommands();                 //  lists commands available to the user
+<span class="linenos">137</span>}
+<span class="linenos">138</span>
+<span class="linenos">139</span>void loop()
+<span class="linenos">140</span>{
+<span class="linenos">141</span>  //  inputHandler.ReadCommand(data, len);
+<span class="linenos">142</span>  inputHandler.GetCommandFromStream(Serial);    //  read commands from a stream, hardware or software should work
+<span class="linenos">143</span>  if (inputHandler.OutputIsAvailable() == true) // if there&#39;s something to print
+<span class="linenos">144</span>  {
+<span class="linenos">145</span>    Serial.println(output_buffer); // print output_buffer, which is formatted into a string by UserInput&#39;s methods
+<span class="linenos">146</span>    string_pos = 0;                //  reset output_buffer&#39;s index
+<span class="linenos">147</span>    for (uint16_t i = 0; i &lt; output_buffer_size; ++i)
+<span class="linenos">148</span>    {
+<span class="linenos">149</span>      output_buffer[i] = &#39;\0&#39;; // reinit output_buffer
+<span class="linenos">150</span>    }
+<span class="linenos">151</span>  }
+<span class="linenos">152</span>}
+</code></pre></div>
+</div>
+
+
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../examples.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Examples" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Examples
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 Douglas Quigg.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.4.0.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.share"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    
+  </body>
+</html>
