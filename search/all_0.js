@@ -7,6 +7,6 @@ var searchData=
   ['_5fdefault_5fusername_4',['_default_username',['../InputHandler_8h.html#a528d25c4098a9bbaac7dff09698fbe85',1,'InputHandler.h']]],
   ['_5fdot_5',['_dot',['../InputHandler_8h.html#ad063c52a122cc0a1f2e6bbc6d7609b49',1,'InputHandler.h']]],
   ['_5finput_5ftype_5fstrings_6',['_input_type_strings',['../InputHandler_8h.html#a3b6c39a43274e4c04f6584c6b7fdb1e1',1,'InputHandler.h']]],
-  ['_5flast_5fuser_5finput_5ftypes_5fenum_7',['_LAST_USER_INPUT_TYPES_enum',['../group__USER__INPUT__TYPES.html#gga1c971beb85d4710daa2c5bb81e54d72aa8828a4c2a23d1faa76fc6a6a42f43ddb',1,'InputHandler.h']]],
+  ['_5flast_5fuser_5finput_5ftypes_5fenum_7',['_LAST_USER_INPUT_TYPES_enum',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa8828a4c2a23d1faa76fc6a6a42f43ddb',1,'InputHandler.h']]],
   ['_5fnegative_5fsign_8',['_negative_sign',['../InputHandler_8h.html#addfeddf2ff381d2fd0c70763d0ee44ec',1,'InputHandler.h']]]
 ];
