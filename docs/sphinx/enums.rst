@@ -1,6 +1,5 @@
 Enumerations
 ============
 
-
-.. doxygengroup:: USER_INPUT_TYPES
+.. doxygenenum:: USER_INPUT_TYPES
     :members:
