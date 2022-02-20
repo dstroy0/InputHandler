@@ -100,9 +100,9 @@ public:
      * Creates a new instance of this class.  Before using, construct a UserInput object.
      * @param user_defined_command_to_match The command which when entered will call a function
      * @param user_defined_function_to_call The function called when the command is matched
-     * @param args args is a variadic parameter pack
+     * @param args args is a variadic parameter pack of USER_INPUT_TYPE
      */    
-    template <typename... Arguments>
+    template <typename... Arguments, typename = USER_INPUT_TYPES>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
                                    const Arguments &...args)
