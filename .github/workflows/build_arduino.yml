@@ -40,7 +40,7 @@ jobs:
 
       matrix:
         include:
-            # ESP8266 boards
+          # ESP8266 boards
           - board:
             type: esp8266
             platforms: 
