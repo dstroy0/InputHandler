@@ -109,6 +109,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
         }
         else // this is a non c-string token
         {
+            if (incoming == '\\' && (*data_index < data_length))
+            {
+                token_buffer[*data_index] = '\0';
+                (*data_index)++; // increment buffer index
+                incoming = combineControlCharacters((char)data[*data_index]);
+            }
             token_buffer[*data_index] = incoming; // assign incoming to token_buffer at data_index
             token_flag[0] = true;                 // set token available sentinel to true
         }
@@ -311,6 +317,7 @@ void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);
     for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
     {
+        if (iscntrl((char)data_pointers[i]))
         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
     }
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
@@ -550,6 +557,31 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
                 strcat(output, input);
             break;
         }
+    }
+}
+
+char UserInput::combineControlCharacters(char input)
+{
+    switch((char)input)
+    {
+        case 'a':
+            return (char)'\a';            
+        case 'b':
+            return (char)'\b';            
+        case 'f':
+            return (char)'\f';            
+        case 'n':
+            return (char)'\n';            
+        case 'r':
+            return (char)'\r';            
+        case 't':
+            return (char)'\t';            
+        case 'v':
+            return (char)'\v';
+        case '"':
+            return (char)'\"';            
+        default:
+            return input;
     }
 }
 

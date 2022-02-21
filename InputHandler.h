@@ -265,6 +265,8 @@ protected:
      */
     void escapeCharactersSoTheyPrint(const char *input, char *output);
 
+    char combineControlCharacters(char input);
+
 private:
     /* 
         UserInput Constructor variables 
