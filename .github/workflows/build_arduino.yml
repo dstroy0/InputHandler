@@ -91,7 +91,7 @@ jobs:
           - "teensy:avr:teensy36"
           - "teensy:avr:teensy40"
           - "teensy:avr:teensy41"
-      include:
+        include:
             # ESP8266 boards
             - board:
                 type: esp8266
