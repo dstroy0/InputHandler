@@ -58,11 +58,11 @@ enum USER_INPUT_TYPES
     _LAST_USER_INPUT_TYPES_enum /**< reserved */
 };
 
-static constexpr const PROGMEM char *_default_username = "user";               /** default username */
-static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /** default end of line (EOL) characters */
-static constexpr const PROGMEM char *_default_token_delimiter = " ";           /** default token delimiter */
-static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";       /** default c-string delimiter */
-static constexpr const PROGMEM char *null_ = "\0";                             /** null '\\0' */
+static constexpr const PROGMEM char *_default_username = "user";               /**< default username */
+static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /**< default end of line (EOL) characters */
+static constexpr const PROGMEM char *_default_token_delimiter = " ";           /**< default token delimiter */
+static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";       /**< default c-string delimiter */
+static constexpr const PROGMEM char *null_ = "\0";                             /**< null '\\0' */
 /** input type string array */
 static constexpr const PROGMEM char *_input_type_strings[] = {
     "uint8_t",
