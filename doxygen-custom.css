@@ -30,10 +30,12 @@ dt {
 }
 
 div.multicol {    
-    -moz-column-gap: 1em;
+    -moz-column-gap: 1em;         
     -webkit-column-gap: 1em;
-    -moz-column-count: 3;
+    column-gap: 1em;
+    -moz-column-count: 3;         
     -webkit-column-count: 3;
+    column-count: 3;
 }
 
 p.startli, p.startdd, p.starttd {
@@ -118,9 +120,6 @@ a.qindexHL {
 
 a.el {
     font-weight: bold;
-}
-
-a.elRef {
 }
 
 a.code {
@@ -217,9 +216,6 @@ p.formulaDsp {
     text-align: center;
 }
 
-img.formulaDsp {
-
-}
 
 img.formulaInl {
     vertical-align: middle;
