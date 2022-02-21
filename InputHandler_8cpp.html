@@ -1020,7 +1020,7 @@
 <span class="linenos">161</span>
 <span class="linenos">162</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">arg_type</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">USER_INPUT_TYPE_CHAR</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">163</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">164</span><span class="w">        </span><span class="c1">// for numbers that are not floating point</span>
+<span class="linenos">164</span><span class="w">        </span><span class="c1">// for unsigned integers</span>
 <span class="linenos">165</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">arg_type</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">USER_INPUT_TYPE_INT16_T</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">166</span><span class="w">        </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">167</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found_negative_sign</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
@@ -1038,7 +1038,7 @@
 <span class="linenos">179</span><span class="w">        </span><span class="c1">// for integer numbers</span>
 <span class="linenos">180</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">arg_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">USER_INPUT_TYPE_INT16_T</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">181</span><span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">182</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found_negative_sign</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="linenos">182</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found_negative_sign</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w">    </span><span class="c1">//  negative</span>
 <span class="linenos">183</span><span class="w">            </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">184</span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">strlen_data</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">185</span><span class="w">                </span><span class="p">{</span><span class="w"></span>
@@ -1048,7 +1048,7 @@
 <span class="linenos">189</span><span class="w">                    </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">190</span><span class="w">                </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">191</span><span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">192</span><span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="linenos">192</span><span class="w">            </span><span class="k">else</span><span class="w">    </span><span class="c1">//  positive</span>
 <span class="linenos">193</span><span class="w">            </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">194</span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">strlen_data</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">195</span><span class="w">                </span><span class="p">{</span><span class="w"></span>
@@ -1064,7 +1064,7 @@
 <span class="linenos">205</span><span class="w">        </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">206</span><span class="w">            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">found_dot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">207</span><span class="w">            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">num_digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">208</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found_negative_sign</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="linenos">208</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found_negative_sign</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w">    </span><span class="c1">//  negative</span>
 <span class="linenos">209</span><span class="w">            </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">210</span><span class="w">                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">not_digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">211</span><span class="w">                </span><span class="cm">/*</span>
@@ -1099,7 +1099,7 @@
 <span class="linenos">240</span><span class="w">                    </span><span class="n">num_digits</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// count the negative sign</span>
 <span class="linenos">241</span><span class="w">                </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">242</span><span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">243</span><span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="linenos">243</span><span class="w">            </span><span class="k">else</span><span class="w">    </span><span class="c1">//  positive</span>
 <span class="linenos">244</span><span class="w">            </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">245</span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">strlen_data</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"></span>
 <span class="linenos">246</span><span class="w">                </span><span class="p">{</span><span class="w"></span>
@@ -1156,7 +1156,7 @@
 <span class="linenos">297</span><span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">298</span><span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">299</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">300</span><span class="w">    </span><span class="k">else</span><span class="w"></span>
+<span class="linenos">300</span><span class="w">    </span><span class="k">else</span><span class="w">    </span><span class="c1">//  unknown types always return false</span>
 <span class="linenos">301</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">302</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">303</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
