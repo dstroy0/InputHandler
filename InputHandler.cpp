@@ -37,11 +37,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
     bool got_token = false;
     char incoming = 0;                   // cast data[data_index] to char and run tests on incoming
     bool token_flag[2] = {false, false}; // token state machine, point to a token once
-    for (uint16_t i = *data_index; i < len; ++i)
+    uint32_t data_length = (uint32_t)len;
+    for (uint16_t i = *data_index; i < data_length; ++i)
     {
         if (got_token == true)
         {
-#ifdef _DEBUG_USER_INPUT
+#if defined(_DEBUG_USER_INPUT)
             if (EnableDebugOutput == true)
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
@@ -72,12 +73,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            token_buffer[*data_index] = *_null_; // replace the c-string delimiter
-            if (((*data_index) + 1) < len)       //  don't need to do this if we're at the end of user input
+            token_buffer[*data_index] = *_null_;              // replace the c-string delimiter
+            if (((uint16_t)(*data_index) + 1U) < data_length) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
                 (*data_index)++;
-                for (uint16_t j = *data_index; j < len; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
+                for (uint16_t j = *data_index; j < data_length; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
                 {
                     incoming = (char)data[*data_index]; // fetch the next incoming char
                     if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
@@ -133,7 +134,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
             }
             token_flag[1] = token_flag[0]; // track the state
         }
-        if (token_flag[0] == true && (uint16_t)*data_index == (uint16_t)(len - 1))
+        if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
         {
 #ifdef _DEBUG_USER_INPUT
             if (EnableDebugOutput == true)
@@ -146,7 +147,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
             got_token = true;
         }
 
-        if (*data_index < len) // if we are at the end of input data
+        if (*data_index < data_length) // if we are at the end of input data
         {
             (*data_index)++; // increment buffer index
         }
@@ -179,7 +180,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         // for integer numbers
         if (arg_type == USER_INPUT_TYPE_INT16_T)
         {
-            if (found_negative_sign == true)    //  negative
+            if (found_negative_sign == true) //  negative
             {
                 for (uint16_t j = 1; j < (strlen_data - 1); ++j)
                 {
@@ -189,7 +190,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                     }
                 }
             }
-            else    //  positive
+            else //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
@@ -205,7 +206,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
-            if (found_negative_sign == true)    //  negative
+            if (found_negative_sign == true) //  negative
             {
                 uint8_t not_digits = 0;
                 /*
@@ -240,7 +241,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                     num_digits++; // count the negative sign
                 }
             }
-            else    //  positive
+            else //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
@@ -297,7 +298,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
     }
-    else    //  unknown types always return false
+    else //  unknown types always return false
     {
         return false;
     }
@@ -377,7 +378,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 }
                 else if (cmd->num_args > 0) // cmd->num_args > 0
                 {
-                    while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < cmd->num_args)
+                    while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
 
                         input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, cmd->_arg_type[rec_num_arg_strings], data_pointers_index - 1); // validate the token
@@ -401,7 +402,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 #endif
                         match = true;        // don't run default callback
                         launchFunction(cmd); // launch the matched command
-                    }
+                    }                    
                 }
                 break;
             }
@@ -428,12 +429,12 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             }
             if (command_matched && all_arguments_valid == false)
             {
-                for (uint8_t i = 0; i < rec_num_arg_strings; ++i)
+                for (uint8_t i = 0; i < cmd->num_args; ++i)
                 {
                     if (input_type_match_flag[i] == false)
                     {
-                        
-                        char* _type = (char *)pgm_read_dword(&(_input_type_strings[uint8_t(cmd->_arg_type[i])]));
+
+                        char *_type = (char *)pgm_read_dword(&(_input_type_strings[uint8_t(cmd->_arg_type[i])]));
                         (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
@@ -443,7 +444,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     _output_flag = true;
                 }
             }
-            if (command_matched && rec_num_arg_strings != cmd->num_args)
+            if (command_matched && (rec_num_arg_strings != cmd->num_args))
             {
                 (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
@@ -467,33 +468,33 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 
 void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, const char *end_of_line_char)
 {
-    if (serial_buffer_allocated == false)
+    if (stream_buffer_allocated == false)
     {
-        serial_data = new uint8_t[rx_buffer_size]; // an array to store the received data
-        serial_buffer_allocated = true;
+        stream_data = new uint8_t[rx_buffer_size]; // an array to store the received data
+        stream_buffer_allocated = true;
     }
-    char *rc = (char *)serial_data;
+    char *rc = (char *)stream_data;
 
-    while (stream.available() > 0 && new_serial_data == false)
+    while (stream.available() > 0 && new_stream_data == false)
     {
-        rc[serial_data_index] = stream.read();
-        if (rc[serial_data_index] == _term_[0] || rc[serial_data_index] == _term_[1])
+        rc[stream_data_index] = stream.read();
+        if (rc[stream_data_index] == _term_[0] || rc[stream_data_index] == _term_[1])
         {
-            serial_data[serial_data_index] = '\0';
-            new_serial_data = true;
+            stream_data[stream_data_index] = '\0';
+            new_stream_data = true;
         }
-        else if (serial_data_index < (rx_buffer_size - 1))
+        else if (stream_data_index < (rx_buffer_size - 1))
         {
-            serial_data_index++;
+            stream_data_index++;
         }
     }
-    if (new_serial_data == true)
+    if (new_stream_data == true)
     {
-        UserInput::ReadCommand(serial_data, serial_data_index);
-        serial_data_index = 0;
-        new_serial_data = false;
-        delete[] serial_data;
-        serial_buffer_allocated = false;
+        UserInput::ReadCommand(stream_data, stream_data_index);
+        stream_data_index = 0;
+        new_stream_data = false;
+        delete[] stream_data;
+        stream_buffer_allocated = false;
     }
 }
 

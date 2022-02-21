@@ -88,12 +88,6 @@ class UserInput;
 class UserCallbackFunctionParameters
 {
 public:
-    uint16_t num_args;                                                 /** number of function arguments */
-    const uint8_t *_arg_type;                                          /** function argument type array pointer */
-    const char *command;                                               /** command to match */
-    uint16_t command_length;                                           /** length of command */
-    void (*function)(UserInput *);                                     /** pointer to function */
-    UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
     /**
      * @brief UserCallbackFunctionParameters Constructor
      *
@@ -116,6 +110,12 @@ public:
 
         _arg_type = _arg; /** point to the array in memory */
     }
+    const char *command;                                               /** command to match */
+    void (*function)(UserInput *);                                     /** pointer to function */
+    uint16_t command_length;                                           /** length of command */
+    UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
+    uint16_t num_args;                                                 /** number of function arguments */
+    const uint8_t *_arg_type;                                          /** function argument type array pointer */
 };
 
 /**
@@ -266,30 +266,38 @@ protected:
     void escapeCharactersSoTheyPrint(const char *input, char *output);
 
 private:
+    /* 
+        UserInput Constructor variables 
+    */
+    char *_output_buffer;
+    uint16_t *_string_pos;
+    uint16_t _output_buffer_len;
     const char *_username_;
     const char *_term_;
     const char *_delim_;
     const char *_c_str_delim_;
     const char *_null_;
-
-    char *_output_buffer;
-    uint16_t *_string_pos;
-    uint16_t _output_buffer_len;
-    bool _output_flag = false;
-
     void (*default_handler_)(UserInput *);
     UserCallbackFunctionParameters *commands_head_;
     UserCallbackFunctionParameters *commands_tail_;
     uint16_t commands_count_;
 
-    char *token_buffer = NULL;
-    boolean serial_buffer_allocated = false;
-    uint8_t *serial_data = NULL;
-    boolean new_serial_data = false;
-    uint16_t serial_data_index = 0;
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0};
+    /* 
+        member function variables 
+    */
+    bool _output_flag = false; // output is available flag, set by member functions
+    char *token_buffer = NULL; //  pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0};  // 
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
+    
+    /*
+        GetCommandFromStream variables
+    */
+    boolean stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
+    uint8_t *stream_data = NULL;    // pointer to stream input, a string of char
+    boolean new_stream_data = false;    //  if there is new data in *stream_data this is true
+    uint16_t stream_data_index = 0; //  the index of stream_data    
 };
 
 #endif
