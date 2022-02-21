@@ -43,7 +43,7 @@ jobs:
           # ESP8266 boards
           - board:
             type: esp8266
-            platforms: 
+            platforms: |
               # Install ESP8266 platform via Boards Manager
               - name: esp8266:esp8266
                 source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json                  
@@ -52,7 +52,7 @@ jobs:
             # ESP32 boards
           - board:
             type: esp32
-            platforms: 
+            platforms: |
               # Install ESP32 platform via Boards Manager
               - name: esp32:esp32
                 source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
