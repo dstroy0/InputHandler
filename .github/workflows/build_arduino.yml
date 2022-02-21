@@ -92,8 +92,14 @@ jobs:
           - "teensy:avr:teensy40"
           - "teensy:avr:teensy41"
     
-    steps:
-      include:
+    steps:      
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          include:
           # ESP8266 boards
           - board:
               type: esp8266
@@ -113,13 +119,6 @@ jobs:
                 source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
             libraries:
             sketch-paths:
-            
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Compile examples
-        uses: arduino/compile-sketches@main
-        with:
           sketch-paths: |
             - examples/advancedGetCommandFromStream
           fqbn: ${{ matrix.fqbn }}
