@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/**]
+        example: [examples/advancedGetCommandFromStream/advancedGetCommandFromStream.ino, examples/basicGetCommandFromStream/basicGetCommandFromStream.ino]
 
     steps:
     - uses: actions/checkout@v2
