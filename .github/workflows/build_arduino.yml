@@ -38,26 +38,7 @@ jobs:
     strategy:
       fail-fast: false      
 
-      matrix:
-        include:
-          # ESP8266 boards
-          - board:
-            type: esp8266
-            platforms: |
-              # Install ESP8266 platform via Boards Manager
-              - name: esp8266:esp8266
-                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json                  
-                libraries:
-                sketch-paths:
-            # ESP32 boards
-          - board:
-            type: esp32
-            platforms: |
-              # Install ESP32 platform via Boards Manager
-              - name: esp32:esp32
-                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-                libraries:
-                sketch-paths:        
+      matrix:              
         fqbn:
           - "arduino:avr:yun"
           - "arduino:avr:uno"
@@ -102,14 +83,14 @@ jobs:
           - "arduino:megaavr:uno2018"
           # - "arduino:megaavr:nano4809"  # board not found
           # - "arduino:sam:arduino_due_x_dbg"   # board not supported
-          - "esp8266:esp8266:huzzah"
-          - "esp32:esp32:esp32"          #unknown fqbn
-          - "teensy:avr:teensyLC"
-          - "teensy:avr:teensy32"
-          - "teensy:avr:teensy35"
-          - "teensy:avr:teensy36"
-          - "teensy:avr:teensy40"
-          - "teensy:avr:teensy41"
+          # - "esp8266:esp8266:huzzah"
+          # - "esp32:esp32:esp32"          #unknown fqbn
+          # - "teensy:avr:teensyLC"
+          # - "teensy:avr:teensy32"
+          # - "teensy:avr:teensy35"
+          # - "teensy:avr:teensy36"
+          # - "teensy:avr:teensy40"
+          # - "teensy:avr:teensy41"
         
     steps:      
       - name: Checkout

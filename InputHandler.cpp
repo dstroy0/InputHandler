@@ -314,11 +314,19 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
 
 void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
 {
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);
+    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);    
     for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
     {
-        if (iscntrl((char)data_pointers[i]))
-        (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
+        if (iscntrl(data_pointers[i][0]))
+        {
+            char temp_buffer[13] = {'\0'};
+            UserInput::escapeCharactersSoTheyPrint(data_pointers[i + 1], temp_buffer);            
+            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), temp_buffer);            
+        }
+        else
+        {
+            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
+        }
     }
     (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
     _output_flag = true;
@@ -387,7 +395,6 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
-
                         input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, cmd->_arg_type[rec_num_arg_strings], data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                                           // if the token was not valid input
                         {
@@ -409,7 +416,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 #endif
                         match = true;        // don't run default callback
                         launchFunction(cmd); // launch the matched command
-                    }                    
+                    }
                 }
                 break;
             }
@@ -562,26 +569,26 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
 
 char UserInput::combineControlCharacters(char input)
 {
-    switch((char)input)
+    switch ((char)input)
     {
-        case 'a':
-            return (char)'\a';            
-        case 'b':
-            return (char)'\b';            
-        case 'f':
-            return (char)'\f';            
-        case 'n':
-            return (char)'\n';            
-        case 'r':
-            return (char)'\r';            
-        case 't':
-            return (char)'\t';            
-        case 'v':
-            return (char)'\v';
-        case '"':
-            return (char)'\"';            
-        default:
-            return input;
+    case 'a':
+        return (char)'\a';
+    case 'b':
+        return (char)'\b';
+    case 'f':
+        return (char)'\f';
+    case 'n':
+        return (char)'\n';
+    case 'r':
+        return (char)'\r';
+    case 't':
+        return (char)'\t';
+    case 'v':
+        return (char)'\v';
+    case '"':
+        return (char)'\"';
+    default:
+        return input;
     }
 }
 
