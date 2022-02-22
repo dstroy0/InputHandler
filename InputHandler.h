@@ -16,62 +16,11 @@
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
 
-#include <Arduino.h>
-#define UI_DEREFERENCE &
-#define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
-#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
+#include "InputHandler_config.h"
 
-#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
-#include <avr/dtostrf.h>
-#endif
-
-#if defined(ARDUINO_SAM_DUE)
-#undef UI_DEREFERENCE
-#define UI_DEREFERENCE
-#undef UI_PGM_READ_DWORD_
-#define UI_PGM_READ_DWORD_(x)
-#undef UI_SNPRINTF_P
-#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
-#include <avr/dtostrf.h>
-#endif
-
-#ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
-#define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
-#endif
-
-#ifndef UINT16_MAX
-#define UINT16_MAX 65535
-#endif
-
-#ifndef UINT8_MAX
-#define UINT8_MAX 255
-#endif
-
-#ifndef USER_INPUT_MAX_INPUT_LENGTH
-#define USER_INPUT_MAX_INPUT_LENGTH UINT16_MAX
-#endif
-
-#ifdef DEBUG_USER_INPUT
-#define _DEBUG_USER_INPUT
-#endif
-
-/**
- * @enum USER_INPUT_TYPES
- * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
- *
- */
-enum USER_INPUT_TYPES
-{
-    USER_INPUT_TYPE_UINT8_T,    /**< UserInput type 0 */
-    USER_INPUT_TYPE_UINT16_T,   /**< UserInput type 1 */
-    USER_INPUT_TYPE_UINT32_T,   /**< UserInput type 2 */
-    USER_INPUT_TYPE_INT16_T,    /**< UserInput type 3 */
-    USER_INPUT_TYPE_FLOAT,      /**< UserInput type 4 */
-    USER_INPUT_TYPE_CHAR,       /**< UserInput type 5 */
-    USER_INPUT_TYPE_C_STRING,   /**< UserInput type 6 */
-    _LAST_USER_INPUT_TYPES_enum /**< reserved */
-};
-
+/*
+    constants
+*/
 static constexpr const PROGMEM char *_default_username = "user";               /**< default username */
 static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /**< default end of line (EOL) characters */
 static constexpr const PROGMEM char *_default_token_delimiter = " ";           /**< default token delimiter */
@@ -89,6 +38,23 @@ static constexpr const PROGMEM char *_input_type_strings[] = {
 static constexpr const PROGMEM char *_negative_sign = "-"; /** negative sign '-' */
 static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
+
+/**
+ * @enum USER_INPUT_TYPES
+ * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
+ *
+ */
+enum USER_INPUT_TYPES
+{
+    USER_INPUT_TYPE_UINT8_T,    /**< UserInput type 0 */
+    USER_INPUT_TYPE_UINT16_T,   /**< UserInput type 1 */
+    USER_INPUT_TYPE_UINT32_T,   /**< UserInput type 2 */
+    USER_INPUT_TYPE_INT16_T,    /**< UserInput type 3 */
+    USER_INPUT_TYPE_FLOAT,      /**< UserInput type 4 */
+    USER_INPUT_TYPE_CHAR,       /**< UserInput type 5 */
+    USER_INPUT_TYPE_C_STRING,   /**< UserInput type 6 */
+    _LAST_USER_INPUT_TYPES_enum /**< reserved */
+};
 
 /**
  * @brief forward declaration of UserInput class for
