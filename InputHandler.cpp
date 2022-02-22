@@ -450,7 +450,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                         (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
-                                                     UI_PGM_READ_DWORD(&(_input_type_strings[uint8_t(cmd->_arg_type[i])])),
+                                                     UI_CONST_CHAR UI_PGM_READ_DWORD(UI_DEREFERENCE(_input_type_strings[uint8_t(cmd->_arg_type[i])])),
                                                      data_pointers[i + 1]);
                     }
                     _output_flag = true;
