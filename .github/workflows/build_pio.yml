@@ -38,8 +38,7 @@ jobs:
                   --board=teensy35 
                   --board=teensy36 
                   --board=teensy40 
-                  --board=teensy41 
-                  --board=teensyLC 
+                  --board=teensy41                   
                   --board=esp32dev 
                   --board=esp8266dev 
 
