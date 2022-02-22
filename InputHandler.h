@@ -27,8 +27,8 @@
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
-#undef UI_CONST_CHAR
-#define UI_CONST_CHAR 
+//#undef UI_CONST_CHAR
+//#define UI_CONST_CHAR 
 #undef UI_DEREFERENCE
 #define UI_DEREFERENCE
 #define UI_PGM_READ_DWORD_(x)
