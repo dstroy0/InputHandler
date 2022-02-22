@@ -75,7 +75,7 @@ void uc_test_input_types(UserInput *inputProcess)
 /*
    command string literals stored in PROGMEM nonvolatile memory
 */
-PGM_P const PROGMEM CMD_TEST = "test";                    // test input types
+PGM_P const PROGMEM CMD_TEST = "test"; // test input types
 
 /*
    UserInput UserCallbackFunctionParameters
@@ -107,7 +107,7 @@ void setup()
 {
   Serial.begin(115200); //  set up Serial
 
-  inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid 
+  inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(&uc_test_);          // input type test
   inputHandler.ListUserCommands();                 //  lists commands available to the user
 }
@@ -115,5 +115,5 @@ void setup()
 void loop()
 {
   //  inputHandler.ReadCommand(data, len);
-  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work  
+  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
 }
