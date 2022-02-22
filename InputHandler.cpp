@@ -339,7 +339,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
         (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                        PSTR(">%s $ERROR: user input exceeds max allowed (UINT16_MAX) input length.\n"), _username_);
+                                        PSTR(">%s $ERROR: user input exceeds max allowed input length.\n"), _username_);
         _output_flag = true;
         return;
     }
@@ -381,7 +381,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     if (EnableDebugOutput == true)
                     {
                         (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                        PSTR(">%s $DEBUG: match zero argument command \"%s\".\n"),
+                                                        PSTR(">%s $DEBUG: match zero argument command <%s>.\n"),
                                                         _username_,
                                                         cmd->command);
                         _output_flag = true;
@@ -408,7 +408,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                         if (EnableDebugOutput == true)
                         {
                             (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                            PSTR(">%s $DEBUG: match command \"%s\".\n"),
+                                                            PSTR(">%s $DEBUG: match command <%s>.\n"),
                                                             _username_,
                                                             cmd->command);
                             _output_flag = true;
@@ -438,18 +438,19 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             if (!command_matched)
             {
                 (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                PSTR("Command \"%s\" unknown.\n"),
+                                                PSTR("Command <%s> unknown.\n"),
                                                 data_pointers[0]);
                 _output_flag = true;
             }
             if (command_matched && all_arguments_valid == false)
             {
-                for (uint8_t i = 0; i < rec_num_arg_strings; ++i)
+                uint16_t err_n_args = (cmd->num_args > rec_num_arg_strings) ? rec_num_arg_strings : cmd->num_args;
+                for (uint8_t i = 0; i < err_n_args; ++i)
                 {
                     if (input_type_match_flag[i] == false)
                     {
                         (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                        PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
+                                                        PSTR("<%s> argument <%u>: should be %s; received <%s>.\n"),
                                                         cmd->command, i + 1,
                                                         (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(_input_type_strings[uint8_t(cmd->_arg_type[i])])),
                                                         data_pointers[i + 1]);
@@ -460,7 +461,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             if (command_matched && (rec_num_arg_strings != cmd->num_args))
             {
                 (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                                PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
+                                                PSTR("<%s> received <%02u> arguments; <%s> expects <%02u> arguments.\n"),
                                                 cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
                 _output_flag = true;
             }
@@ -515,13 +516,14 @@ void UserInput::ListUserCommands()
 {
     UserCallbackFunctionParameters *cmd;
     (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
-                                    PSTR("%02u commands are available to user %s:\n"),
-                                    commands_count_, _username_);
+                                    PSTR("Commands available to user %s:\n"),
+                                    _username_);
+    uint8_t i = 1;
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
-        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
-    }
-    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
+        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %02u. <%s>\n"), i, cmd->command);
+        i++;
+    }    
     _output_flag = true;
 }
 

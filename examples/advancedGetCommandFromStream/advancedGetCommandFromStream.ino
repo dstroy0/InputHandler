@@ -1,12 +1,12 @@
 /**
- * @file advancedGetCommandFromStream.ino
- * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
- * @brief An example that uses all of the methods available
- * @version 0.1
- * @date 2022-02-17
- *
- * @copyright Copyright (c) 2022
- */
+   @file advancedGetCommandFromStream.ino
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief An example that uses all of the methods available
+   @version 0.1
+   @date 2022-02-17
+
+   @copyright Copyright (c) 2022
+*/
 
 #include <InputHandler.h>
 
@@ -15,11 +15,25 @@ char output_buffer[output_buffer_size] = {'\0'}; //  output buffer
 uint16_t string_pos = 0;
 UserInput inputHandler(output_buffer, &string_pos, 512);
 
+void uc_print_()
+{
+  if (inputHandler.OutputIsAvailable() == true) // if there's something to print
+  {
+    Serial.println(output_buffer); // print output_buffer, which is formatted into a string by UserInput's methods
+    string_pos = 0;                //  reset output_buffer's index
+    for (uint16_t i = 0; i < output_buffer_size; ++i)
+    {
+      output_buffer[i] = '\0'; // reinit output_buffer
+    }
+  }
+}
+
 /*
    default function, called if nothing matches or if there is an error
 */
 void uc_unrecognized(UserInput *inputProcess)
 {
+  uc_print_();
   Serial.println(F("made it to uc_unrecognized"));
 }
 
@@ -139,14 +153,6 @@ void setup()
 void loop()
 {
   //  inputHandler.ReadCommand(data, len);
-  inputHandler.GetCommandFromStream(Serial);    //  read commands from a stream, hardware or software should work
-  if (inputHandler.OutputIsAvailable() == true) // if there's something to print
-  {
-    Serial.println(output_buffer); // print output_buffer, which is formatted into a string by UserInput's methods
-    string_pos = 0;                //  reset output_buffer's index
-    for (uint16_t i = 0; i < output_buffer_size; ++i)
-    {
-      output_buffer[i] = '\0'; // reinit output_buffer
-    }
-  }
+  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+  uc_print_();                               //  prints anything available from the input handler
 }
