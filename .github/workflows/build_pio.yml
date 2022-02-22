@@ -34,8 +34,7 @@ jobs:
     - name: Run PlatformIO
       run: pio ci --lib="." 
                   --lib="/tmp/InputHandler-main/" 
-                  --board=teensy31 
-                  --board=teensy32 
+                  --board=teensy31                   
                   --board=teensy35 
                   --board=teensy36 
                   --board=teensy40 
