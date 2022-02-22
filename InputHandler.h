@@ -26,7 +26,7 @@
 
 #if defined(ARDUINO_SAM_DUE)
 #define UI_PGM_READ_DWORD_(x)
-#define UI_SNPRINTF_P(x)
+#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
 #endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
