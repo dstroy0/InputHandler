@@ -444,7 +444,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             }
             if (command_matched && all_arguments_valid == false)
             {
-                for (uint8_t i = 0; i < cmd->num_args; ++i)
+                for (uint8_t i = 0; i < rec_num_arg_strings; ++i)
                 {
                     if (input_type_match_flag[i] == false)
                     {
