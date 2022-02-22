@@ -446,13 +446,11 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 for (uint8_t i = 0; i < cmd->num_args; ++i)
                 {
                     if (input_type_match_flag[i] == false)
-                    {
-
-                        char *_type = UI_CONST_CHAR UI_PGM_READ_DWORD(&(_input_type_strings[uint8_t(cmd->_arg_type[i])]));
+                    {                        
                         (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
-                                                     (char *)_type,
+                                                     UI_PGM_READ_DWORD(&(_input_type_strings[uint8_t(cmd->_arg_type[i])])),
                                                      data_pointers[i + 1]);
                     }
                     _output_flag = true;
