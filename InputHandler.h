@@ -17,7 +17,6 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#define UI_CONST_CHAR (char *)
 #define UI_DEREFERENCE &
 #define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
@@ -27,10 +26,9 @@
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
-//#undef UI_CONST_CHAR
-//#define UI_CONST_CHAR 
 #undef UI_DEREFERENCE
 #define UI_DEREFERENCE
+#undef UI_PGM_READ_DWORD_
 #define UI_PGM_READ_DWORD_(x)
 #undef UI_SNPRINTF_P
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
