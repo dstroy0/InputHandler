@@ -17,7 +17,7 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
-#define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
+#define UI_PGM_READ_DWORD(x) (char *)pgm_read_dword(x)
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
 
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
