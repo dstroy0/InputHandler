@@ -346,7 +346,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     uint16_t data_index = 0; // data iterator
 
     //  should maybe see if there is enough memory to allocate the token buffer
-    token_buffer = new char[len + 1]{'\0'}; // place to chop up the input
+    token_buffer = new char[len + 1](); // place to chop up the input
     data_pointers_index = 0;                // token buffer pointers
     rec_num_arg_strings = 0;                // number of tokens read from data
     bool match = false;
@@ -424,7 +424,8 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
         if (!match && default_handler_ != NULL) // if there was no command match and a default handler is configured
         {
             // format a string with useful information
-            char data_char_buffer[len + 1] = {'\0'};
+            char data_char_buffer[len + 1];
+            data_char_buffer[len] = '\0';
             for (uint16_t i = 0; i < len; ++i)
             {
                 data_char_buffer[i] = (char)data[i];
