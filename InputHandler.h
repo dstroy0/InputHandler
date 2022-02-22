@@ -109,24 +109,24 @@ public:
      *
      * These are the methods you use to operate the input handler
      */
-
+    
     /**
-     * @brief UserInput Constructor
+     * @brief UserInput Constructor with NO output by default
      *
-     * Creates a new instance.  Before using, declare an output buffer and output buffer size.
+     * Creates a new instance.  If you want output, declare a buffer size, buffer, and index.
      *
-     * @param output_buffer Class output is put into this buffer
-     * @param output_buffer_string_pos Where are we at in the output buffer
-     * @param output_buffer_len Size of the output buffer
-     * @param username Name of user
+     * @param output_buffer NULL
+     * @param output_buffer_string_pos NULL
+     * @param output_buffer_len ZERO
+     * @param username NULL
      * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
      */
-    UserInput(char *output_buffer,
-              uint16_t *output_buffer_string_pos,
-              uint16_t output_buffer_len,
-              const char *username = _default_username,
+    UserInput(char *output_buffer = NULL,
+              uint16_t *output_buffer_string_pos = NULL,
+              uint16_t output_buffer_len = 0,
+              const char *username = NULL,
               const char *end_of_line_characters = _default_end_of_line_characters,
               const char *token_delimiter = _default_token_delimiter,
               const char *c_string_delimiter = _default_c_string_delimiter)
@@ -144,6 +144,7 @@ public:
           commands_count_(0)
     {
     }
+
     /**
      * @brief returns a pointer to the next token in token_buffer
      *
@@ -205,6 +206,8 @@ public:
      * @return false if no output is available
      */
     bool OutputIsAvailable();
+
+    bool OutputIsEnabled();
 
 #ifdef _DEBUG_USER_INPUT
     bool EnableDebugOutput = false;

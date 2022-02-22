@@ -12,8 +12,8 @@
 
 const uint16_t output_buffer_size = 512;         //  output buffer size
 char output_buffer[output_buffer_size] = {'\0'}; //  output buffer
-uint16_t string_pos = 0;
-UserInput inputHandler(output_buffer, &string_pos, 512);
+uint16_t string_pos = 0;                         // output buffer index
+UserInput inputHandler(output_buffer, &string_pos, 512, _default_username);
 
 void uc_print_()
 {
@@ -154,5 +154,5 @@ void loop()
 {
   //  inputHandler.ReadCommand(data, len);
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  uc_print_();                               //  prints anything available from the input handler
+  uc_print_();
 }
