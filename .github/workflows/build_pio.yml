@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/**, InputHandler.h, InputHandler.cpp]
+        example: [examples/**]
 
     steps:
     - uses: actions/checkout@v2
