@@ -17,8 +17,16 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include <Arduino.h>
+#define UI_PGM_READ_DWORD(x) pgm_read_dword(&(x))
+#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P((s_), (sz_), (f_), ##__VA_ARGS__)
+
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
+#endif
+
+#if defined(ARDUINO_SAM_DUE)
+#define UI_PGM_READ_DWORD_(x)
+#define UI_SNPRINTF_P(x)
 #endif
 
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
@@ -268,8 +276,8 @@ protected:
     char combineControlCharacters(char input);
 
 private:
-    /* 
-        UserInput Constructor variables 
+    /*
+        UserInput Constructor variables
     */
     char *_output_buffer;
     uint16_t *_string_pos;
@@ -284,22 +292,22 @@ private:
     UserCallbackFunctionParameters *commands_tail_;
     uint16_t commands_count_;
 
-    /* 
-        member function variables 
+    /*
+        member function variables
     */
-    bool _output_flag = false; // output is available flag, set by member functions
-    char *token_buffer = NULL; //  pointer to tokenized c-string
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0};  // 
+    bool _output_flag = false;                                             // output is available flag, set by member functions
+    char *token_buffer = NULL;                                             //  pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //
     uint16_t data_pointers_index = 0;
     uint16_t rec_num_arg_strings = 0;
-    
+
     /*
         GetCommandFromStream variables
     */
     boolean stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
-    uint8_t *stream_data = NULL;    // pointer to stream input, a string of char
-    boolean new_stream_data = false;    //  if there is new data in *stream_data this is true
-    uint16_t stream_data_index = 0; //  the index of stream_data    
+    uint8_t *stream_data = NULL;             // pointer to stream input, a string of char
+    boolean new_stream_data = false;         //  if there is new data in *stream_data this is true
+    uint16_t stream_data_index = 0;          //  the index of stream_data
 };
 
 #endif

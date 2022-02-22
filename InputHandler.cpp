@@ -45,7 +45,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 #if defined(_DEBUG_USER_INPUT)
             if (EnableDebugOutput == true)
             {
-                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);
                 _output_flag = true;
             }
@@ -56,7 +56,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 #ifdef _DEBUG_USER_INPUT
         if (EnableDebugOutput == true)
         {
-            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
                                          _username_,
                                          incoming,
@@ -97,7 +97,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 #ifdef _DEBUG_USER_INPUT
                         if (EnableDebugOutput == true)
                         {
-                            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                          PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);
                             _output_flag = true;
                         }
@@ -131,7 +131,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 #ifdef _DEBUG_USER_INPUT
                 if (EnableDebugOutput == true)
                 {
-                    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                  PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"), _username_);
                     _output_flag = true;
                 }
@@ -145,7 +145,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 #ifdef _DEBUG_USER_INPUT
             if (EnableDebugOutput == true)
             {
-                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"), _username_);
                 _output_flag = true;
             }
@@ -314,21 +314,21 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
 
 void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
 {
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);    
+    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(">%s $%s"), _username_, data_pointers[0]);    
     for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
     {
         if (iscntrl(data_pointers[i][0]))
         {
             char temp_buffer[13] = {'\0'};
             UserInput::escapeCharactersSoTheyPrint(data_pointers[i + 1], temp_buffer);            
-            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), temp_buffer);            
+            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), temp_buffer);            
         }
         else
         {
-            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
+            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
         }
     }
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
+    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
     _output_flag = true;
     data_pointers_index = 0;
     cmd->function(this);
@@ -338,7 +338,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 {
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
-        (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                      PSTR(">%s $ERROR: user input exceeds max allowed (UINT16_MAX) input length.\n"), _username_);
         _output_flag = true;
         return;
@@ -380,7 +380,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 #ifdef _DEBUG_USER_INPUT
                     if (EnableDebugOutput == true)
                     {
-                        (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR(">%s $DEBUG: match zero argument command \"%s\".\n"),
                                                      _username_,
                                                      cmd->command);
@@ -407,7 +407,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
 #ifdef _DEBUG_USER_INPUT
                         if (EnableDebugOutput == true)
                         {
-                            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                          PSTR(">%s $DEBUG: match command \"%s\".\n"),
                                                          _username_,
                                                          cmd->command);
@@ -429,14 +429,14 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             {
                 data_char_buffer[i] = (char)data[i];
             }
-            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $ERROR: %s\n"),
                                          _username_,
                                          data_char_buffer);
             _output_flag = true;
             if (!command_matched)
             {
-                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR("Command \"%s\" unknown.\n"),
                                              data_pointers[0]);
                 _output_flag = true;
@@ -448,8 +448,8 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     if (input_type_match_flag[i] == false)
                     {
 
-                        char *_type = (char *)pgm_read_dword(&(_input_type_strings[uint8_t(cmd->_arg_type[i])]));
-                        (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                        char *_type = (char *)UI_PGM_READ_DWORD(_input_type_strings[uint8_t(cmd->_arg_type[i])]);
+                        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                      PSTR("\"%s\" argument %u error. Expected a %s; received \"%s\".\n"),
                                                      cmd->command, i + 1,
                                                      (char *)_type,
@@ -460,7 +460,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             }
             if (command_matched && (rec_num_arg_strings != cmd->num_args))
             {
-                (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+                (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                              PSTR("\"%s\" received %02u arguments; \"%s\" expects %02u arguments.\n"),
                                              cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
                 _output_flag = true;
@@ -472,7 +472,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     {
         if (len > 0)
         {
-            (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+            (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                          PSTR(">%s $ERROR: No tokens retrieved.\n"), _username_);
             _output_flag = true;
         }
@@ -515,14 +515,14 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size, co
 void UserInput::ListUserCommands()
 {
     UserCallbackFunctionParameters *cmd;
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                  PSTR("%02u commands are available to user %s:\n"),
                                  commands_count_, _username_);
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
     {
-        (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
+        (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("%s\n"), cmd->command);
     }
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
+    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len, PSTR("\n"));
     _output_flag = true;
 }
 
@@ -598,7 +598,7 @@ void UserInput::ListUserInputSettings(UserInput *inputprocess)
     inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
     inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
     inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
-    (*_string_pos) += snprintf_P(_output_buffer + (*_string_pos), _output_buffer_len,
+    (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                  PSTR("username = \"%s\"\n"
                                       "end_of_line_characters = \"%s\"\n"
                                       "token_delimiter = \"%s\"\n"
