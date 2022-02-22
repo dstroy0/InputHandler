@@ -33,6 +33,16 @@ jobs:
         unzip /tmp/InputHandler-main.zip -d /tmp
     - name: Run PlatformIO
       run: pio ci --lib="." 
-                  --lib="/tmp/InputHandler-main/" --board=teensy31 --board=due
+                  --lib="/tmp/InputHandler-main/" 
+                  --board=teensy31 
+                  --board=teensy32 
+                  --board=teensy35 
+                  --board=teensy36 
+                  --board=teensy40 
+                  --board=teensy41 
+                  --board=teensyLC 
+                  --board=esp32dev 
+                  --board=esp8266dev 
+
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}

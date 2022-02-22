@@ -52,14 +52,12 @@ jobs:
           - "arduino:avr:mini"
           - "arduino:avr:ethernet"
           - "arduino:avr:fio"
-          - "arduino:avr:bt"
-          # - "arduino:avr:LilyPad"  # board not found
+          - "arduino:avr:bt"          
           - "arduino:avr:LilyPadUSB"
           - "arduino:avr:pro"
           - "arduino:avr:atmegang"
           - "arduino:avr:robotControl"
-          - "arduino:avr:robotMotor"
-          # - "arduino:avr:gemma"   # attiny85 not supported
+          - "arduino:avr:robotMotor"          
           - "arduino:avr:circuitplay32u4cat"
           - "arduino:avr:yunmini"
           - "arduino:avr:chiwawa"
@@ -81,16 +79,7 @@ jobs:
           - "arduino:samd:mzero_bl"
           - "arduino:samd:tian"
           - "arduino:megaavr:uno2018"
-          # - "arduino:megaavr:nano4809"  # board not found
-          # - "arduino:sam:arduino_due_x_dbg"   # board not supported
-          # - "esp8266:esp8266:huzzah"
-          # - "esp32:esp32:esp32"          #unknown fqbn
-          # - "teensy:avr:teensyLC"
-          # - "teensy:avr:teensy32"
-          # - "teensy:avr:teensy35"
-          # - "teensy:avr:teensy36"
-          # - "teensy:avr:teensy40"
-          # - "teensy:avr:teensy41"
+          - "arduino:sam:arduino_due_x_dbg"        
         
     steps:      
       - name: Checkout
