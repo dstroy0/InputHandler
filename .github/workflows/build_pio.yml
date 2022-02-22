@@ -40,7 +40,7 @@ jobs:
                   --board=teensy40 
                   --board=teensy41                   
                   --board=esp32dev 
-                  --board=esp8266dev 
+                  --board=huzzah 
 
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}
