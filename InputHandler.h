@@ -109,7 +109,7 @@ public:
      *
      * These are the methods you use to operate the input handler
      */
-    
+
     /**
      * @brief UserInput Constructor with NO output by default
      *
@@ -175,7 +175,7 @@ public:
      * @param end_of_line_character the line terminating character(s)
      */
     void GetCommandFromStream(Stream &stream,
-                              uint16_t rx_buffer_size = 128,
+                              uint16_t rx_buffer_size = 32,
                               const char *end_of_line_character = _default_end_of_line_characters);
 
     /**
