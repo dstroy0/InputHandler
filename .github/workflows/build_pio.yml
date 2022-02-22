@@ -32,6 +32,7 @@ jobs:
         wget https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
         unzip /tmp/InputHandler-main.zip -d /tmp
     - name: Run PlatformIO
-      run: pio ci --lib="." --lib="/tmp/InputHandler-main/" --board=teensy31
+      run: pio ci --lib="." 
+                  --lib="/tmp/InputHandler-main/" --board=teensy31 --board=due
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}
