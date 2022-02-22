@@ -79,7 +79,7 @@ jobs:
           - "arduino:samd:mzero_bl"
           - "arduino:samd:tian"
           - "arduino:megaavr:uno2018"
-          - "arduino:sam:arduino_due_x_dbg"        
+          - "arduino:sam:arduino_due_x_dbg" # getting close        
         
     steps:      
       - name: Checkout
