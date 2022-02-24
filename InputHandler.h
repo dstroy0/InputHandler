@@ -114,8 +114,7 @@ public:
      *
      * Creates a new instance.  If you want output, declare a buffer size, buffer, and index.
      *
-     * @param output_buffer NULL
-     * @param output_buffer_string_pos NULL
+     * @param output_buffer NULL     
      * @param output_buffer_len ZERO
      * @param username NULL
      * @param end_of_line_characters EOL term, default is '\\r\\n'
@@ -265,6 +264,12 @@ protected:
      */
     void escapeCharactersSoTheyPrint(const char *input, char *output);
 
+    /**
+     * @brief combines backslash and character and into valid control characters
+     * 
+     * @param input the char after a backslash ie 'r'
+     * @return the control character char value ie '\\r'
+     */
     char combineControlCharacters(char input);
 
 private:
