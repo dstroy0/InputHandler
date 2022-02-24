@@ -77,7 +77,7 @@ public:
      * @param number_of_arguments the number of arguments the function expects
      * @param argument_type_array a pointer to the argument array
      */
-    UserCallbackFunctionParameters(const char *user_defined_command_to_match,
+    UserCallbackFunctionParameters(const char *user_defined_command_to_match PROGMEM,
                                    void (*user_defined_function_to_call)(UserInput *),
                                    size_t number_of_arguments = 0,
                                    const _UITYPE *argument_type_array = NULL)

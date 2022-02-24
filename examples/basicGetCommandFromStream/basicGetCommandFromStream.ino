@@ -73,13 +73,10 @@ void uc_test_input_types(UserInput *inputProcess)
 }
 
 /*
-   command string literals stored in PROGMEM nonvolatile memory
-*/
-PGM_P const PROGMEM CMD_TEST = "test"; // test input types
-
-/*
    UserInput UserCallbackFunctionParameters
    These objects are what you use to specify the command string, function to launch, and types of input if any
+
+   The command string is stored in PROGMEM if applicable
 
    The following are the available input types
    _UITYPE::UINT8_T == an eight bit unsigned integer
@@ -102,7 +99,7 @@ const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
                                              _UITYPE::CHAR,
                                              _UITYPE::C_STRING
                                             };
-UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types, 7, uc_test_arguments);
+UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, 7, uc_test_arguments);
 
 void setup()
 {
