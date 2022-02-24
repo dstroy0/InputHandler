@@ -129,6 +129,7 @@ public:
               const char *token_delimiter = _default_token_delimiter,
               const char *c_string_delimiter = _default_c_string_delimiter)
         : _output_buffer(output_buffer),
+          _string_pos(0),
           _output_buffer_len(output_buffer_len),
           _username_(username),
           _term_(end_of_line_characters),
@@ -138,8 +139,7 @@ public:
           default_handler_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
-          commands_count_(0),
-          _string_pos(0)
+          commands_count_(0)          
     {
     }
 
