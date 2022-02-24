@@ -123,8 +123,8 @@ public:
      * @param c_string_delimiter c-string demarcation
      */
     UserInput(char *output_buffer = NULL,
-              uint16_t *output_buffer_string_pos = NULL,
-              uint16_t output_buffer_len = 0,
+              size_t *output_buffer_string_pos = NULL,
+              size_t output_buffer_len = 0,
               const char *username = NULL,
               const char *end_of_line_characters = _default_end_of_line_characters,
               const char *token_delimiter = _default_token_delimiter,
@@ -254,17 +254,17 @@ private:
         UserInput Constructor variables
     */
     char *_output_buffer;
-    uint16_t *_string_pos;
-    uint16_t _output_buffer_len;
-    const char *_username_;
-    const char *_term_;
-    const char *_delim_;
-    const char *_c_str_delim_;
-    const char *_null_;
+    size_t *_string_pos;
+    size_t _output_buffer_len PROGMEM;
+    const char *_username_ PROGMEM;
+    const char *_term_ PROGMEM;
+    const char *_delim_ PROGMEM;
+    const char *_c_str_delim_ PROGMEM;
+    const char *_null_ PROGMEM;
     void (*default_handler_)(UserInput *);
     UserCallbackFunctionParameters *commands_head_;
     UserCallbackFunctionParameters *commands_tail_;
-    uint16_t commands_count_;
+    size_t commands_count_;
 
     /*
         member function variables

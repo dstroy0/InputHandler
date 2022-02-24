@@ -18,7 +18,7 @@ void UserInput::AddUserCommand(UserCallbackFunctionParameters &command)
 {
     UserCallbackFunctionParameters **cmd_head = &commands_head_;
     UserCallbackFunctionParameters **cmd_tail = &commands_tail_;
-    uint16_t *cmd_count = &commands_count_;
+    size_t *cmd_count = &commands_count_;
     command.next_callback_function_parameters = NULL;
     if (*cmd_head == NULL)
     {
