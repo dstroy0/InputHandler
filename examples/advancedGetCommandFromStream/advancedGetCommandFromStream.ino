@@ -133,7 +133,8 @@ void setup()
 
 void loop()
 {
-  //  inputHandler.ReadCommand(data, len);
+  //  inputHandler.ReadCommand(data, len);  // read commands from a char buffer
+  // inputHandler.GetCommandFromStream(Serial2);  // read commands from as many streams as you like using the same object
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  inputHandler.OutputToStream(Serial);  // class output
+  inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream
 }

@@ -273,12 +273,12 @@ private:
     */
     char *_output_buffer;
     size_t _string_pos;
-    size_t _output_buffer_len PROGMEM;
-    const char *_username_ PROGMEM;
-    const char *_term_ PROGMEM;
-    const char *_delim_ PROGMEM;
-    const char *_c_str_delim_ PROGMEM;
-    const char *_null_ PROGMEM;
+    const size_t _output_buffer_len;
+    const char *_username_;
+    const char *_term_;
+    const char *_delim_;
+    const char *_c_str_delim_;
+    const char *_null_;
     void (*default_handler_)(UserInput *);
     UserCallbackFunctionParameters *commands_head_;
     UserCallbackFunctionParameters *commands_tail_;
