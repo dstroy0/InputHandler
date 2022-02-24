@@ -166,10 +166,10 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
     bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *_negative_sign) ? true : false;
 
-    if (arg_type < USER_INPUT_TYPE_CHAR)
+    if (arg_type < (size_t)_UITYPE::CHAR)
     {
         // for unsigned integers
-        if (arg_type < USER_INPUT_TYPE_INT16_T)
+        if (arg_type < (size_t)_UITYPE::INT16_T)
         {
             if (found_negative_sign == true)
             {
@@ -184,7 +184,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
         // for integer numbers
-        if (arg_type == USER_INPUT_TYPE_INT16_T)
+        if (arg_type == (size_t)_UITYPE::INT16_T)
         {
             if (found_negative_sign == true) //  negative
             {
@@ -208,7 +208,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
         // for floating point numbers
-        if (arg_type == USER_INPUT_TYPE_FLOAT)
+        if (arg_type == (size_t)_UITYPE::FLOAT)
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
@@ -271,7 +271,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         For char and c-string input.
         Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
     */
-    else if (arg_type == USER_INPUT_TYPE_CHAR)
+    else if (arg_type == (size_t)_UITYPE::CHAR)
     {
         if (strlen_data > 1)
         {
@@ -288,7 +288,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             return false;
         }
     }
-    else if (arg_type == USER_INPUT_TYPE_C_STRING)
+    else if (arg_type == (size_t)_UITYPE::C_STRING)
     {
         for (uint16_t j = 0; j < strlen_data; ++j)
         {
@@ -398,8 +398,8 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, cmd->_arg_type[rec_num_arg_strings], data_pointers_index - 1); // validate the token
-                        if (input_type_match_flag[rec_num_arg_strings] == false)                                                                           // if the token was not valid input
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[rec_num_arg_strings]), data_pointers_index - 1); // validate the token
+                        if (input_type_match_flag[rec_num_arg_strings] == false)                                                                                                            // if the token was not valid input
                         {
                             all_arguments_valid = false; // set the error sentinel to true
                         }

@@ -44,16 +44,16 @@ static constexpr const PROGMEM char *error = "error";      /** error string */
  * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
  *
  */
-enum USER_INPUT_TYPES
-{
-    USER_INPUT_TYPE_UINT8_T,    /**< UserInput type 0 */
-    USER_INPUT_TYPE_UINT16_T,   /**< UserInput type 1 */
-    USER_INPUT_TYPE_UINT32_T,   /**< UserInput type 2 */
-    USER_INPUT_TYPE_INT16_T,    /**< UserInput type 3 */
-    USER_INPUT_TYPE_FLOAT,      /**< UserInput type 4 */
-    USER_INPUT_TYPE_CHAR,       /**< UserInput type 5 */
-    USER_INPUT_TYPE_C_STRING,   /**< UserInput type 6 */
-    _LAST_USER_INPUT_TYPES_enum /**< reserved */
+enum class _UITYPE
+{    
+    UINT8_T,      /**< UserInput type 1 */
+    UINT16_T,     /**< UserInput type 2 */
+    UINT32_T,     /**< UserInput type 3 */
+    INT16_T,      /**< UserInput type 4 */
+    FLOAT,        /**< UserInput type 5 */
+    CHAR,         /**< UserInput type 6 */
+    C_STRING,     /**< UserInput type 7 */
+    _LAST         /**< reserved */
 };
 
 /**
@@ -65,6 +65,7 @@ class UserInput;
 /**
  * @brief User defined function parameters
  */
+
 class UserCallbackFunctionParameters
 {
 public:
@@ -74,28 +75,27 @@ public:
      * Creates a new instance of this class.  Before using, construct a UserInput object.
      * @param user_defined_command_to_match The command which when entered will call a function
      * @param user_defined_function_to_call The function called when the command is matched
-     * @param args args is a variadic parameter pack of USER_INPUT_TYPE
+     * @param number_of_arguments the number of arguments the function expects
+     * @param argument_type_array a pointer to the argument array
      */
-    template <typename... Arguments>
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
-                                   const Arguments &...args)
+                                   size_t number_of_arguments = 0,
+                                   const _UITYPE *argument_type_array = NULL)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_callback_function_parameters(NULL),
-          num_args(sizeof...(Arguments))
+          num_args(number_of_arguments),
+          _arg_type(argument_type_array)
     {
-        static const uint8_t _arg[] = {static_cast<uint8_t>(args)...}; /** args is expanded into the array _arg */
-
-        _arg_type = _arg; /** point to the array in memory */
     }
     const char *command;                                               /** command to match */
     void (*function)(UserInput *);                                     /** pointer to function */
     uint16_t command_length;                                           /** length of command */
     UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
     uint16_t num_args;                                                 /** number of function arguments */
-    const uint8_t *_arg_type;                                          /** function argument type array pointer */
+    const _UITYPE *_arg_type;                                          /** function argument type array pointer */
 };
 
 /**

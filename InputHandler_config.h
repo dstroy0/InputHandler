@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #define UI_DEREFERENCE &
 #define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
+#define UI_PGM_READ_BYTE(x) pgm_read_byte(x)
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
 
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
@@ -13,8 +14,10 @@
 #if defined(ARDUINO_SAM_DUE)
 #undef UI_DEREFERENCE
 #define UI_DEREFERENCE
-#undef UI_PGM_READ_DWORD_
-#define UI_PGM_READ_DWORD_(x)
+#undef UI_PGM_READ_DWORD
+#define UI_PGM_READ_DWORD(x)
+#undef UI_PGM_READ_BYTE
+#define UI_PGM_READ_BYTE(x)
 #undef UI_SNPRINTF_P
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
 #include <avr/dtostrf.h>

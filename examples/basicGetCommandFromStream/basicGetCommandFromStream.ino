@@ -82,26 +82,26 @@ PGM_P const PROGMEM CMD_TEST = "test"; // test input types
    These objects are what you use to specify the command string, function to launch, and types of input if any
 
    The following are the available input types
-   USER_INPUT_TYPE_UINT8_T == an eight bit unsigned integer
-   USER_INPUT_TYPE_UINT16_T == a sixteen bit unsigned integer
-   USER_INPUT_TYPE_UINT32_T == a thirtytwo bit unsigned integer
-   USER_INPUT_TYPE_INT16_T == a sixteen bit signed integer
-   USER_INPUT_TYPE_FLOAT == a thirtytwo bit signed floating point number
-   USER_INPUT_TYPE_CHAR == a character value
-   USER_INPUT_TYPE_C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
+   _UITYPE::UINT8_T == an eight bit unsigned integer
+   _UITYPE::UINT16_T == a sixteen bit unsigned integer
+   _UITYPE::UINT32_T == a thirty-two bit unsigned integer
+   _UITYPE::INT16_T == a sixteen bit signed integer
+   _UITYPE::FLOAT == a thirty-two bit signed floating point number
+   _UITYPE::CHAR == a character value
+   _UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
                                depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
 
 // this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
-UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types,
-                                        USER_INPUT_TYPE_UINT8_T,
-                                        USER_INPUT_TYPE_UINT16_T,
-                                        USER_INPUT_TYPE_UINT32_T,
-                                        USER_INPUT_TYPE_INT16_T,
-                                        USER_INPUT_TYPE_FLOAT,
-                                        USER_INPUT_TYPE_CHAR,
-                                        USER_INPUT_TYPE_C_STRING);
+const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
+                                             _UITYPE::UINT16_T,
+                                             _UITYPE::UINT32_T,
+                                             _UITYPE::INT16_T,
+                                             _UITYPE::FLOAT,
+                                             _UITYPE::CHAR,
+                                             _UITYPE::C_STRING};
+UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types, 7, uc_test_arguments);
 
 void setup()
 {
