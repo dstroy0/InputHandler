@@ -40,7 +40,7 @@ static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
 static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
- * @enum USER_INPUT_TYPES
+ * @enum _UITYPE
  * @brief contains acceptable input types and a final member _LAST_USER_INPUT_TYPES_enum which should not be used.
  *
  */
