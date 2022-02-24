@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['user_5finput_5ftypes_0',['USER_INPUT_TYPES',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72a',1,'InputHandler.h']]]
+  ['_5fuitype_0',['_UITYPE',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98',1,'InputHandler.h']]]
 ];

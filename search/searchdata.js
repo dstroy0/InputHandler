@@ -3,10 +3,10 @@ var indexSectionsWithContent =
   0: "_acefgilmnorsuv",
   1: "u",
   2: "im",
-  3: "aeglnorsuv",
+  3: "aceglnorsuv",
   4: "_cefn",
-  5: "u",
-  6: "_u",
+  5: "_",
+  6: "_cfiu",
   7: "u",
   8: "i"
 };

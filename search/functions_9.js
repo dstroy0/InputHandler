@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['validateuserinput_0',['validateUserInput',['../classUserInput.html#a00a1a686b870a62841ec67d26da30c8e',1,'UserInput']]]
+  ['usercallbackfunctionparameters_0',['UserCallbackFunctionParameters',['../classUserCallbackFunctionParameters.html#a1b69f54808dfd79bf4254b29625987be',1,'UserCallbackFunctionParameters']]],
+  ['userinput_1',['UserInput',['../classUserInput.html#ac2ad604c886b3b90cf0008dd04cee778',1,'UserInput']]]
 ];

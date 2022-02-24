@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['escapecharacterssotheyprint_0',['escapeCharactersSoTheyPrint',['../classUserInput.html#a1d47e15d37bc6fd23ded677fee83d044',1,'UserInput']]]
+  ['combinecontrolcharacters_0',['combineControlCharacters',['../classUserInput.html#a496a5e9703e14f55b2e6a1636d178453',1,'UserInput']]]
 ];

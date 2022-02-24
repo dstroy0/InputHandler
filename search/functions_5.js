@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['outputisavailable_0',['OutputIsAvailable',['../classUserInput.html#aedabc1a851fb5122436e10411f08ca51',1,'UserInput']]]
+  ['nextargument_0',['NextArgument',['../classUserInput.html#ae9f8b1764291b5cf36dd328ad178555e',1,'UserInput']]]
 ];

@@ -1,17 +1,16 @@
 var searchData=
 [
-  ['uint16_5fmax_0',['UINT16_MAX',['../InputHandler_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler.h']]],
-  ['uint8_5fmax_1',['UINT8_MAX',['../InputHandler_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler.h']]],
-  ['user_5finput_5fmax_5finput_5flength_2',['USER_INPUT_MAX_INPUT_LENGTH',['../InputHandler_8h.html#a8b3e75df8bafbce269f3d20632f0f8f8',1,'InputHandler.h']]],
-  ['user_5finput_5fmax_5fnumber_5fof_5fcommand_5farguments_3',['USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS',['../InputHandler_8h.html#aaa22e2d48d1086a7325f37c6d83036ea',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fc_5fstring_4',['USER_INPUT_TYPE_C_STRING',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa54504f37676ff12b80174109a8bf8e73',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fchar_5',['USER_INPUT_TYPE_CHAR',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa493f77a5ba546a1a6ba4ba9fb9218544',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5ffloat_6',['USER_INPUT_TYPE_FLOAT',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa6c50c29219d6b17f12914bcfdd33b23f',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fint16_5ft_7',['USER_INPUT_TYPE_INT16_T',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa57ddb83cddf666a433a54d293fec00a6',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fuint16_5ft_8',['USER_INPUT_TYPE_UINT16_T',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aa84d567fdc5fe310fd4fd69f7b94e4b73',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fuint32_5ft_9',['USER_INPUT_TYPE_UINT32_T',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aad7a2954f0e573fb5d8d6bce7f8811789',1,'InputHandler.h']]],
-  ['user_5finput_5ftype_5fuint8_5ft_10',['USER_INPUT_TYPE_UINT8_T',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72aafc1abee5ea04c5428ef12ad8effbf92e',1,'InputHandler.h']]],
-  ['user_5finput_5ftypes_11',['USER_INPUT_TYPES',['../InputHandler_8h.html#a1c971beb85d4710daa2c5bb81e54d72a',1,'InputHandler.h']]],
-  ['usercallbackfunctionparameters_12',['UserCallbackFunctionParameters',['../classUserCallbackFunctionParameters.html',1,'UserCallbackFunctionParameters'],['../classUserCallbackFunctionParameters.html#aa2e4b06b3edf10bcb9c3fbd1996f278e',1,'UserCallbackFunctionParameters::UserCallbackFunctionParameters()']]],
-  ['userinput_13',['UserInput',['../classUserInput.html',1,'UserInput'],['../classUserInput.html#ad007cc777f744eef23bd8c51e3ebe1b1',1,'UserInput::UserInput()']]]
+  ['ui_5fdereference_0',['UI_DEREFERENCE',['../InputHandler__config_8h.html#afb990dc5a33b640ad0e4348eb20ef52d',1,'InputHandler_config.h']]],
+  ['ui_5fpgm_5fread_5fbyte_1',['UI_PGM_READ_BYTE',['../InputHandler__config_8h.html#ad6fde8652d9819cc3268373942eee650',1,'InputHandler_config.h']]],
+  ['ui_5fpgm_5fread_5fdword_2',['UI_PGM_READ_DWORD',['../InputHandler__config_8h.html#a36f836c63ba274fe59eed759498bf6b0',1,'InputHandler_config.h']]],
+  ['ui_5fsnprintf_5fp_3',['UI_SNPRINTF_P',['../InputHandler__config_8h.html#a0208a6bcaedc93561cc46fe94d114dcf',1,'InputHandler_config.h']]],
+  ['uint16_5fmax_4',['UINT16_MAX',['../InputHandler__config_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_config.h']]],
+  ['uint16_5ft_5',['UINT16_T',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98abd93e66a884d0291f3db5bb0eeb03ffe',1,'InputHandler.h']]],
+  ['uint32_5ft_6',['UINT32_T',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98abc0d406b455d82bfc780c67be1976fed',1,'InputHandler.h']]],
+  ['uint8_5fmax_7',['UINT8_MAX',['../InputHandler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]],
+  ['uint8_5ft_8',['UINT8_T',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
+  ['user_5finput_5fmax_5finput_5flength_9',['USER_INPUT_MAX_INPUT_LENGTH',['../InputHandler__config_8h.html#a8b3e75df8bafbce269f3d20632f0f8f8',1,'InputHandler_config.h']]],
+  ['user_5finput_5fmax_5fnumber_5fof_5fcommand_5farguments_10',['USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS',['../InputHandler__config_8h.html#aaa22e2d48d1086a7325f37c6d83036ea',1,'InputHandler_config.h']]],
+  ['usercallbackfunctionparameters_11',['UserCallbackFunctionParameters',['../classUserCallbackFunctionParameters.html',1,'UserCallbackFunctionParameters'],['../classUserCallbackFunctionParameters.html#a1b69f54808dfd79bf4254b29625987be',1,'UserCallbackFunctionParameters::UserCallbackFunctionParameters()']]],
+  ['userinput_12',['UserInput',['../classUserInput.html',1,'UserInput'],['../classUserInput.html#ac2ad604c886b3b90cf0008dd04cee778',1,'UserInput::UserInput()']]]
 ];
