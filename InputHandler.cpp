@@ -14,20 +14,20 @@ char *UserInput::NextArgument()
     return data_pointers[data_pointers_index];
 }
 
-void UserInput::AddUserCommand(UserCallbackFunctionParameters *command)
+void UserInput::AddUserCommand(UserCallbackFunctionParameters &command)
 {
     UserCallbackFunctionParameters **cmd_head = &commands_head_;
     UserCallbackFunctionParameters **cmd_tail = &commands_tail_;
     uint16_t *cmd_count = &commands_count_;
-    command->next_callback_function_parameters = NULL;
+    command.next_callback_function_parameters = NULL;
     if (*cmd_head == NULL)
     {
-        *cmd_head = *cmd_tail = command;
+        *cmd_head = *cmd_tail = &command;
     }
     else
     {
-        (*cmd_tail)->next_callback_function_parameters = command;
-        *cmd_tail = command;
+        (*cmd_tail)->next_callback_function_parameters = &command;
+        *cmd_tail = &command;
     }
     (*cmd_count)++;
 }

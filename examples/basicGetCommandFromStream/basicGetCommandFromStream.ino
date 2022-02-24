@@ -106,7 +106,7 @@ void setup()
   Serial.begin(115200); //  set up Serial
 
   inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddUserCommand(&uc_test_);          // input type test
+  inputHandler.AddUserCommand(uc_test_);          // input type test
 
   Serial.println(F("enter test 1 2 3 4 5 a \"bb\" to test user input types."));
 }

@@ -156,7 +156,7 @@ public:
      *
      * @param command pointer to UsercallbackFunctionParameters
      */
-    void AddUserCommand(UserCallbackFunctionParameters *command);
+    void AddUserCommand(UserCallbackFunctionParameters &command);
 
     /**
      * @brief read command(s) from a buffer
