@@ -1,6 +1,6 @@
 name: Doxygen CI
 
-on: [push, pull-request, release]
+on: [push, release]
 
 jobs:
   build-doxygen:
