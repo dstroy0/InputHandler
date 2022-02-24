@@ -1,4 +1,4 @@
 Enumerations
 ============
 
-.. doxygenenum:: USER_INPUT_TYPES
+.. doxygenenum:: _UITYPE
