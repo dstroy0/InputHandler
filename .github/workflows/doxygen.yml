@@ -8,6 +8,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 0
       - name: install Doxygen 1.9.2
         run: |
           sudo apt-get update
