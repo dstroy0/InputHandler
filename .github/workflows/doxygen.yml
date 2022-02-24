@@ -32,9 +32,4 @@ jobs:
         with:
           name: "InputHandler_doxygen_docs"
           path: ${{ github.workspace }}/docs/html
-      - name: Publish generated content to github pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
-        with:
-          dir: docs/html
-          branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+      
