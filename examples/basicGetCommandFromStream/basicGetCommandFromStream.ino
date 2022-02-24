@@ -100,7 +100,8 @@ const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
                                              _UITYPE::INT16_T,
                                              _UITYPE::FLOAT,
                                              _UITYPE::CHAR,
-                                             _UITYPE::C_STRING};
+                                             _UITYPE::C_STRING
+                                            };
 UserCallbackFunctionParameters uc_test_(CMD_TEST, uc_test_input_types, 7, uc_test_arguments);
 
 void setup()
