@@ -1,4 +1,0 @@
-Enumerations
-============
-
-.. doxygenenum:: _UITYPE
