@@ -1,32 +1,6 @@
 name: Doxygen CI
 
-on:
-  pull_request:
-    types: [opened, reopened]
-    paths:
-      - "*.h"
-      - "docs/**"
-      - "!docs/README.md"
-      - "*.md"      
-      - "examples**.cpp"
-      - "examples**.ino"      
-      - ".github/workflows/doxygen.yml"
-      - "Doxyfile"
-      - "library.properties" # get lib version from here
-  push:
-    paths:
-      - "*.h"
-      - "docs/**"
-      - "!docs/README.md"
-      - "*.md"      
-      - "examples**.cpp"
-      - "examples**.ino"      
-      - ".github/workflows/doxygen.yml"
-      - "Doxyfile"
-      - "library.properties" # get lib version from here
-  release:
-    types: [published, edited]
-    branches: [master]
+on: [push, pull-request, release]
 
 jobs:
   build-doxygen:
@@ -34,6 +8,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: install Doxygen 1.9.2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz libclang-cpp1-9 libclang1-9
+          wget https://www.doxygen.nl/files/doxygen-1.9.2.linux.bin.tar.gz
+          tar -xvzf doxygen-1.9.2.linux.bin.tar.gz
+          ln -s doxygen-1.9.2/bin/doxygen doxygen
       - name: get latest release version number
         id: latest_ver
         run: echo "::set-output name=release::$(awk -F "=" '/version/ {print $2}' library.properties)"
@@ -42,33 +23,16 @@ jobs:
           touch doxygenAction
           echo "PROJECT_NUMBER = ${{ steps.latest_ver.outputs.release }}" >> doxygenAction
           echo "@INCLUDE = doxygenAction" >> Doxyfile
-      - name: build doxygen
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-            working-directory: '.'
-            doxyfile-path: './Doxyfile'
+      - name: Generate Documentation
+        run: ./doxygen Doxyfile                        
       - name: Save doxygen docs as artifact
         uses: actions/upload-artifact@v2
         with:
           name: "InputHandler_doxygen_docs"
           path: ${{ github.workspace }}/docs/html
-      - name: upload to github pages
-        if: ${{ github.event_name == 'release'}}
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Publish generated content to github pages
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
-
-      # build pretty docs using doxygen XML output with Sphinx
-      - uses: actions/setup-python@v2
-      - name: Install sphinx deps
-        run: python -m pip install -r docs/sphinx/requirements.txt
-      - name: build docs with Sphinx
-        working-directory: docs
-        run: sphinx-build sphinx build
-      - name: Save sphinx docs as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: "InputHandler_sphinx_docs"
-          path: ${{ github.workspace }}/docs/build
-          
+          dir: docs/html
+          branch: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
