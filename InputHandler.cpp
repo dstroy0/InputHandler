@@ -398,7 +398,8 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[rec_num_arg_strings]), data_pointers_index - 1); // validate the token
+                        uint8_t argument = UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[rec_num_arg_strings]);
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, argument, data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                                                                            // if the token was not valid input
                         {
                             all_arguments_valid = false; // set the error sentinel to true
@@ -454,10 +455,11 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                     {
                         if (input_type_match_flag[i] == false)
                         {
+                            uint8_t argument = UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[i]);
                             (*_string_pos) += UI_SNPRINTF_P(_output_buffer + (*_string_pos), _output_buffer_len,
                                                             PSTR("<%s> argument <%u>: should be %s; received <%s>.\n"),
                                                             cmd->command, i + 1,
-                                                            (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(_input_type_strings[uint8_t(UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[i]))])),
+                                                            (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(_input_type_strings[argument])),
                                                             data_pointers[i + 1]);
                         }
                         _output_flag = true;
