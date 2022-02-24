@@ -45,15 +45,15 @@ static constexpr const PROGMEM char *error = "error";      /** error string */
  *
  */
 enum class _UITYPE
-{    
-    UINT8_T,      /**< UserInput type 1 */
-    UINT16_T,     /**< UserInput type 2 */
-    UINT32_T,     /**< UserInput type 3 */
-    INT16_T,      /**< UserInput type 4 */
-    FLOAT,        /**< UserInput type 5 */
-    CHAR,         /**< UserInput type 6 */
-    C_STRING,     /**< UserInput type 7 */
-    _LAST         /**< reserved */
+{
+    UINT8_T,  /**< UserInput type 1 */
+    UINT16_T, /**< UserInput type 2 */
+    UINT32_T, /**< UserInput type 3 */
+    INT16_T,  /**< UserInput type 4 */
+    FLOAT,    /**< UserInput type 5 */
+    CHAR,     /**< UserInput type 6 */
+    C_STRING, /**< UserInput type 7 */
+    _LAST     /**< reserved */
 };
 
 /**
