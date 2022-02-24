@@ -123,14 +123,12 @@ public:
      * @param c_string_delimiter c-string demarcation
      */
     UserInput(char *output_buffer = NULL,
-              size_t *output_buffer_string_pos = NULL,
               size_t output_buffer_len = 0,
               const char *username = NULL,
               const char *end_of_line_characters = _default_end_of_line_characters,
               const char *token_delimiter = _default_token_delimiter,
               const char *c_string_delimiter = _default_c_string_delimiter)
         : _output_buffer(output_buffer),
-          _string_pos(output_buffer_string_pos),
           _output_buffer_len(output_buffer_len),
           _username_(username),
           _term_(end_of_line_characters),
@@ -140,7 +138,8 @@ public:
           default_handler_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
-          commands_count_(0)
+          commands_count_(0),
+          _string_pos(0)
     {
     }
 
@@ -206,7 +205,26 @@ public:
      */
     bool OutputIsAvailable();
 
+    /**
+     * @brief is class output enabled
+     * 
+     * @return true if enabled
+     * @return false if not enabled
+     */
     bool OutputIsEnabled();
+
+    /**
+     * @brief direct class output to stream, clears output buffer automatically
+     * 
+     * @param stream the stream to print to
+     */
+    void OutputToStream(Stream &stream);
+
+    /**
+     * @brief clears output buffer and puts _string_pos back at 0
+     * 
+     */
+    void ClearOutputBuffer();
 
 #ifdef _DEBUG_USER_INPUT
     bool EnableDebugOutput = false;
@@ -254,7 +272,7 @@ private:
         UserInput Constructor variables
     */
     char *_output_buffer;
-    size_t *_string_pos;
+    size_t _string_pos;
     size_t _output_buffer_len PROGMEM;
     const char *_username_ PROGMEM;
     const char *_term_ PROGMEM;

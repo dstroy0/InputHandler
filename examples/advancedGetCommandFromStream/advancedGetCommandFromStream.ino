@@ -10,30 +10,15 @@
 
 #include <InputHandler.h>
 
-const uint16_t output_buffer_size = 512;         //  output buffer size
-char output_buffer[output_buffer_size] = {'\0'}; //  output buffer
-uint16_t string_pos = 0;                         // output buffer index
-UserInput inputHandler(output_buffer, &string_pos, 512, _default_username);
-
-void uc_print_()
-{
-  if (inputHandler.OutputIsAvailable() == true) // if there's something to print
-  {
-    Serial.println(output_buffer); // print output_buffer, which is formatted into a string by UserInput's methods
-    string_pos = 0;                //  reset output_buffer's index
-    for (uint16_t i = 0; i < output_buffer_size; ++i)
-    {
-      output_buffer[i] = '\0'; // reinit output_buffer
-    }
-  }
-}
+char output_buffer[512] = {'\0'}; //  output buffer
+UserInput inputHandler(output_buffer, 512, _default_username);
 
 /*
    default function, called if nothing matches or if there is an error
 */
 void uc_unrecognized(UserInput *inputProcess)
 {
-  uc_print_();
+  inputProcess->OutputToStream(Serial);
   Serial.println(F("made it to uc_unrecognized"));
 }
 
@@ -150,5 +135,5 @@ void loop()
 {
   //  inputHandler.ReadCommand(data, len);
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  uc_print_();
+  inputHandler.OutputToStream(Serial);  // class output
 }
