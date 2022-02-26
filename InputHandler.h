@@ -1,3 +1,4 @@
+/** @file */
 /*
  Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
 
@@ -10,6 +11,10 @@
 
 #include "InputHandler_config.h"
 
+/**
+ * @brief ui_defaults_progmem_ptr enum
+ * @enum UI_PROGMEM_DEFAULTS_ENUM
+ */
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
     username_e,
@@ -22,6 +27,10 @@ enum UI_PROGMEM_DEFAULTS_ENUM
     err_e
 };
 
+/**
+ * @brief default constructor string literals
+ * @var ui_defaults_progmem_ptr
+ */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user",
     "\r\n",
@@ -32,6 +41,10 @@ static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     ".",
     "error"};
 
+/**
+ * @brief ui_input_type_strings enum
+ * @enum UITYPE
+ */
 enum class UITYPE
 {
     UINT8_T,
@@ -44,6 +57,10 @@ enum class UITYPE
     _LAST
 };
 
+/**
+ * @brief type string literals
+ * @var ui_input_type_strings
+ */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
