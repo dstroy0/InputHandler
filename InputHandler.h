@@ -35,7 +35,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * @var ui_defaults_progmem_ptr
  */
-const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+const PROGMEM char *const ui_defaults_progmem_ptr[] = {
     "user",
     "\r\n",
     " ",
@@ -65,7 +65,7 @@ enum class UITYPE
  * @brief type string literals
  * @var ui_input_type_strings
  */
-const char *const ui_input_type_strings[] PROGMEM = {
+const PROGMEM char *const ui_input_type_strings[] = {
     "uint8_t",
     "uint16_t",
     "uint32_t",
