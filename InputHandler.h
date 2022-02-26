@@ -36,10 +36,10 @@ static const char *const _ui_defaults_progmem_ptr[] PROGMEM = {
 };
 
 /**
- * @enum _UI_PROGMEM_DEFAULTS_ENUM_
+ * @enum UI_PROGMEM_DEFAULTS_ENUM_
  * @brief enum for _ui_defaults_progmem_ptr
  */
-enum _UI_PROGMEM_DEFAULTS_ENUM_
+enum UI_PROGMEM_DEFAULTS_ENUM_
 {
     username_e,
     eol_e,
