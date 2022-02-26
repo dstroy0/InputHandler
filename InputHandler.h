@@ -15,7 +15,16 @@
 */
 
 /**
- * @var static const char *const ui_defaults_progmem_ptr[];
+ * @var static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+ *   "user", 
+ *   "\r\n", 
+ *   " ",    
+ *   "\"",  
+ *   "\0",   
+ *   "-",   
+ *   ".",    
+ *   "error" 
+ *   };
  * @brief constructor defaults stored in PROGMEM
  */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
