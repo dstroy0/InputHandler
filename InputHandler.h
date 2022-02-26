@@ -53,8 +53,11 @@ namespace _UI
         C_STRING, /**< UserInput type 7 */
         _LAST     /**< reserved */
     };
-    
-    /** @brief default constructor strings */
+
+    /** 
+     * @param ui_defaults_progmem_ptr const char* array
+     * @brief default constructor strings 
+     */
     static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
         "user", /**< default username */
         "\r\n", /**< default end of line (EOL) characters */
@@ -66,7 +69,10 @@ namespace _UI
         "error" /**< error string */
     };
 
-    /** @brief user input type strings */
+    /** 
+     * @param ui_input_type_strings const char* array
+     * @brief user input type strings 
+     */
     static const char *const ui_input_type_strings[] PROGMEM = {
         "uint8_t",  /**< type 1 string literal */
         "uint16_t", /**< type 2 string literal */
@@ -76,7 +82,6 @@ namespace _UI
         "char",     /**< type 6 string literal */
         "c-string"  /**< type 7 string literal */
     };
-
 }
 using namespace _UI;
 
