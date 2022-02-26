@@ -10,38 +10,21 @@
 
 #include "InputHandler_config.h"
 
-/*
-    constants
-*/
-
 /**
- * @var static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
- *   "user", 
- *   "\r\n", 
- *   " ",    
- *   "\"",  
- *   "\0",   
- *   "-",   
- *   ".",    
- *   "error" 
- *   };
- * @brief constructor defaults stored in PROGMEM
+ * @defgroup UserInput Constants
+ * @{
  */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
-    "user", /** default username */
-    "\r\n", /** default end of line (EOL) characters */
-    " ",    /** default token delimiter */
-    "\"",   /** default c-string delimiter */
-    "\0",   /** null '\\0' */
-    "-",    /** negative sign '-' */
-    ".",    /** period '.' */
-    "error" /** error string */
+    "user", /**< default username */
+    "\r\n", /**< default end of line (EOL) characters */
+    " ",    /**< default token delimiter */
+    "\"",   /**< default c-string delimiter */
+    "\0",   /**< null '\\0' */
+    "-",    /**< negative sign '-' */
+    ".",    /**< period '.' */
+    "error" /**< error string */
 };
 
-/**
- * @enum UI_PROGMEM_DEFAULTS_ENUM_
- * @brief enum for _ui_defaults_progmem_ptr
- */
 enum UI_PROGMEM_DEFAULTS_ENUM_
 {
     username_e,
@@ -54,10 +37,6 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
-/**
- * @var static const char *const ui_input_type_strings[];
- * @brief user input types stored in PROGMEM
- */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
@@ -67,10 +46,6 @@ static const char *const ui_input_type_strings[] PROGMEM = {
     "char",
     "c-string"};
 
-/**
- * @enum UITYPE
- * @brief is a strongly typed enum class containing user input types
- */
 enum class UITYPE
 {
     UINT8_T,  /** UserInput type 1 */
@@ -82,6 +57,9 @@ enum class UITYPE
     C_STRING, /** UserInput type 7 */
     _LAST     /** reserved */
 };
+/**
+ * @}
+ */
 
 /**
  * @brief forward declaration of UserInput class for
