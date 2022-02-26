@@ -37,7 +37,7 @@ namespace _UI
     };
 
     /**
-     * @enum _UI::UITYPE
+     * @var _UI::UITYPE
      * @brief enum map for ui_input_type_strings
      */
     enum class UITYPE
