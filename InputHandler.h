@@ -40,7 +40,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
-/** @brief UserInput Types */
+/** @brief default input types */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
