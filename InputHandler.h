@@ -17,7 +17,7 @@
  * @{
  */
 
-
+/** @var static const char *const ui_input_type_strings */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /**< default username */
     "\r\n", /**< default end of line (EOL) characters */
