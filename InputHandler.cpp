@@ -168,12 +168,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
 bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index)
 {
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
-    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(_ui_defaults_progmem_ptr[neg_e])))) ? true : false;
+    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(ui_defaults_progmem_ptr[neg_e])))) ? true : false;
 
-    if (arg_type < (size_t)_UITYPE::CHAR)
+    if (arg_type < (size_t)UITYPE::CHAR)
     {
         // for unsigned integers
-        if (arg_type < (size_t)_UITYPE::INT16_T)
+        if (arg_type < (size_t)UITYPE::INT16_T)
         {
             if (found_negative_sign == true)
             {
@@ -188,7 +188,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
         // for integer numbers
-        if (arg_type == (size_t)_UITYPE::INT16_T)
+        if (arg_type == (size_t)UITYPE::INT16_T)
         {
             if (found_negative_sign == true) //  negative
             {
@@ -212,7 +212,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             }
         }
         // for floating point numbers
-        if (arg_type == (size_t)_UITYPE::FLOAT)
+        if (arg_type == (size_t)UITYPE::FLOAT)
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
@@ -225,7 +225,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
                 */
                 for (uint16_t j = 1; j < strlen_data; ++j)
                 {
-                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&_ui_defaults_progmem_ptr[dot_e])))
+                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&ui_defaults_progmem_ptr[dot_e])))
                     {
                         found_dot++;
                     }
@@ -255,7 +255,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
-                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&_ui_defaults_progmem_ptr[dot_e])))
+                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&ui_defaults_progmem_ptr[dot_e])))
                     {
                         found_dot++;
                     }
@@ -275,7 +275,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
         For char and c-string input.
         Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
     */
-    else if (arg_type == (size_t)_UITYPE::CHAR)
+    else if (arg_type == (size_t)UITYPE::CHAR)
     {
         if (strlen_data > 1)
         {
@@ -292,7 +292,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
             return false;
         }
     }
-    else if (arg_type == (size_t)_UITYPE::C_STRING)
+    else if (arg_type == (size_t)UITYPE::C_STRING)
     {
         for (uint16_t j = 0; j < strlen_data; ++j)
         {
@@ -466,7 +466,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR("<%s> argument <%u>: should be %s; received <%s>.\n"),
                                                          cmd->command, i + 1,
-                                                         (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(_input_type_strings[argument])),
+                                                         (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
                                                          data_pointers[i + 1]);
                         }
                         _output_flag = true;

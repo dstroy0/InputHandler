@@ -122,14 +122,14 @@ UserCallbackFunctionParameters uc_settings_("inputSettings", uc_settings); // uc
 
 // This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
 // All available input types are in this array
-const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
-                                             _UITYPE::UINT16_T,
-                                             _UITYPE::UINT32_T,
-                                             _UITYPE::INT16_T,
-                                             _UITYPE::FLOAT,
-                                             _UITYPE::CHAR,
-                                             _UITYPE::C_STRING
-                                            };
+const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
+                                            UITYPE::UINT16_T,
+                                            UITYPE::UINT32_T,
+                                            UITYPE::INT16_T,
+                                            UITYPE::FLOAT,
+                                            UITYPE::CHAR,
+                                            UITYPE::C_STRING
+                                           };
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 

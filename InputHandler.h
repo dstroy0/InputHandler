@@ -22,9 +22,9 @@
 */
 /**
  * @brief UserInput default string literals
- * @param _ui_defaults_progmem_ptr array of PROGMEM pointers to const char*
+ * @param ui_defaults_progmem_ptr array of PROGMEM pointers to const char*
  */
-static const char *const _ui_defaults_progmem_ptr[] PROGMEM = {
+static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /** default username */
     "\r\n", /** default end of line (EOL) characters */
     " ",    /** default token delimiter */
@@ -53,9 +53,9 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
 
 /**
  * @brief user input type string literals
- * @param _input_type_strings array of PROGMEM pointers to const char*
+ * @param ui_input_type_strings array of PROGMEM pointers to const char*
  */
-static const char *const _input_type_strings[] PROGMEM = {
+static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
     "uint32_t",
@@ -65,10 +65,10 @@ static const char *const _input_type_strings[] PROGMEM = {
     "c-string"};
 
 /**
- * @enum _UITYPE
+ * @enum UITYPE
  * @brief is a strongly typed enum class containing user input types
  */
-enum class _UITYPE
+enum class UITYPE
 {
     UINT8_T,  /** UserInput type 1 */
     UINT16_T, /** UserInput type 2 */
@@ -104,7 +104,7 @@ public:
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
                                    size_t number_of_arguments = 0,
-                                   const _UITYPE argument_type_array[] = NULL)
+                                   const UITYPE argument_type_array[] = NULL)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
@@ -118,7 +118,7 @@ public:
     uint16_t command_length;                                           /** length of command */
     UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
     uint16_t num_args;                                                 /** number of function arguments */
-    const _UITYPE *_arg_type;                                          /** function argument type array pointer */
+    const UITYPE *_arg_type;                                          /** function argument type array pointer */
 };
 
 /**
@@ -149,16 +149,16 @@ public:
               size_t output_buffer_len = 0,
               const char *username = NULL,
               const char *end_of_line_characters = NULL,
-              const char *token_delimiter = _ui_defaults_progmem_ptr[t_delim_e],
-              const char *c_string_delimiter = _ui_defaults_progmem_ptr[c_delim_e])
+              const char *token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
+              const char *c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
         : _output_buffer(output_buffer),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
-          _username_((username == NULL) ? _ui_defaults_progmem_ptr[username_e] : username),
-          _term_((end_of_line_characters == NULL) ? _ui_defaults_progmem_ptr[eol_e] : end_of_line_characters),
-          _delim_((token_delimiter == NULL) ? _ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
-          _c_str_delim_((c_string_delimiter == NULL) ? _ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
-          _null_(_ui_defaults_progmem_ptr[null_e]),
+          _username_((username == NULL) ? ui_defaults_progmem_ptr[username_e] : username),
+          _term_((end_of_line_characters == NULL) ? ui_defaults_progmem_ptr[eol_e] : end_of_line_characters),
+          _delim_((token_delimiter == NULL) ? ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
+          _c_str_delim_((c_string_delimiter == NULL) ? ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
+          _null_(ui_defaults_progmem_ptr[null_e]),
           default_handler_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),

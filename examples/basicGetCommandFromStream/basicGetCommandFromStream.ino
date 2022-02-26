@@ -91,14 +91,14 @@ void uc_test_input_types(UserInput *inputProcess)
 */
 
 // this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
-const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
-                                             _UITYPE::UINT16_T,
-                                             _UITYPE::UINT32_T,
-                                             _UITYPE::INT16_T,
-                                             _UITYPE::FLOAT,
-                                             _UITYPE::CHAR,
-                                             _UITYPE::C_STRING
-                                            };
+const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
+                                            UITYPE::UINT16_T,
+                                            UITYPE::UINT32_T,
+                                            UITYPE::INT16_T,
+                                            UITYPE::FLOAT,
+                                            UITYPE::CHAR,
+                                            UITYPE::C_STRING
+                                           };
 UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, 7, uc_test_arguments);
 
 void setup()
