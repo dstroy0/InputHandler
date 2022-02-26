@@ -22,6 +22,7 @@
 */
 /**
  * @brief UserInput default string literals
+ * @param _ui_defaults_progmem_ptr array of PROGMEM pointers to const char*
  */
 static const char *const _ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /** default username */
@@ -35,6 +36,7 @@ static const char *const _ui_defaults_progmem_ptr[] PROGMEM = {
 };
 
 /**
+ * @enum _UI_PROGMEM_DEFAULTS_ENUM_
  * @brief enum for _ui_defaults_progmem_ptr
  */
 enum _UI_PROGMEM_DEFAULTS_ENUM_
@@ -51,6 +53,7 @@ enum _UI_PROGMEM_DEFAULTS_ENUM_
 
 /**
  * @brief user input type string literals
+ * @param _input_type_strings array of PROGMEM pointers to const char*
  */
 static const char *const _input_type_strings[] PROGMEM = {
     "uint8_t",
