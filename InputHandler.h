@@ -14,6 +14,10 @@
     constants
 */
 
+/**
+ * @var static const char const* ui_defaults_progmem_ptr
+ * @brief constructor defaults stored in PROGMEM
+ */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /** default username */
     "\r\n", /** default end of line (EOL) characters */
@@ -41,6 +45,10 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
+/**
+ * @var static const char const* ui_input_type_strings
+ * @brief user input types stored in PROGMEM
+ */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
