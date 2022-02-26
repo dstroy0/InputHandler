@@ -10,8 +10,8 @@
 
 #include "InputHandler_config.h"
 /**
+ * @enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor strings enum
- * 
  */
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
@@ -26,8 +26,8 @@ enum UI_PROGMEM_DEFAULTS_ENUM
 };
 
 /**
+ * @enum UITYPE
  * @brief user input types
- * 
  */
 enum class UITYPE
 {
@@ -43,7 +43,6 @@ enum class UITYPE
 
 /**
  * @brief progmem ptr to default constructor strings
- * 
  */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", 
@@ -58,7 +57,6 @@ static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
 
 /**
  * @brief progmem ptr to input type strings
- * 
  */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
