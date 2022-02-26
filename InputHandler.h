@@ -14,6 +14,7 @@
  * @defgroup UserInput Constants
  */
 /**@{*/
+/** default constructor values */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /**< default username */
     "\r\n", /**< default end of line (EOL) characters */
@@ -25,6 +26,7 @@ static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "error" /**< error string */
 };
 
+/** ui_defaults_progmem_ptr enum */
 enum UI_PROGMEM_DEFAULTS_ENUM_
 {
     username_e,
@@ -37,6 +39,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
+/** UserInput Types */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
@@ -46,16 +49,17 @@ static const char *const ui_input_type_strings[] PROGMEM = {
     "char",
     "c-string"};
 
+/** strongly typed enum with user input types */
 enum class UITYPE
 {
-    UINT8_T,  /** UserInput type 1 */
-    UINT16_T, /** UserInput type 2 */
-    UINT32_T, /** UserInput type 3 */
-    INT16_T,  /** UserInput type 4 */
-    FLOAT,    /** UserInput type 5 */
-    CHAR,     /** UserInput type 6 */
-    C_STRING, /** UserInput type 7 */
-    _LAST     /** reserved */
+    UINT8_T,  /**< UserInput type 1 */
+    UINT16_T, /**< UserInput type 2 */
+    UINT32_T, /**< UserInput type 3 */
+    INT16_T,  /**< UserInput type 4 */
+    FLOAT,    /**< UserInput type 5 */
+    CHAR,     /**< UserInput type 6 */
+    C_STRING, /**< UserInput type 7 */
+    _LAST     /**< reserved */
 };
 /**@}*/
 
