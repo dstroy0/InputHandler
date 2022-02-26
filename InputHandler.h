@@ -15,7 +15,7 @@
 */
 
 /**
- * @var static const char const* ui_defaults_progmem_ptr
+ * @var static const char *const ui_defaults_progmem_ptr;
  * @brief constructor defaults stored in PROGMEM
  */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
@@ -46,7 +46,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
 };
 
 /**
- * @var static const char const* ui_input_type_strings
+ * @var static const char *const ui_input_type_strings
  * @brief user input types stored in PROGMEM
  */
 static const char *const ui_input_type_strings[] PROGMEM = {
