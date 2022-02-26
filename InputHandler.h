@@ -53,7 +53,7 @@ namespace _UI
     };
 
     /** 
-     * @var _UI::ui_defaults_progmem_ptr const char* array
+     * @var _UI::ui_defaults_progmem_ptr
      * @brief default constructor strings 
      */
     static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
@@ -68,7 +68,7 @@ namespace _UI
     };
 
     /** 
-     * @var _UI::ui_input_type_strings const char* array
+     * @var _UI::ui_input_type_strings
      * @brief user input type strings 
      */
     static const char *const ui_input_type_strings[] PROGMEM = {
