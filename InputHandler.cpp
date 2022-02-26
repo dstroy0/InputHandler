@@ -437,16 +437,29 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
             {
-                char data_char_buffer[len + 1];
-                data_char_buffer[len] = '\0';
-                for (uint16_t i = 0; i < len; ++i)
+                uint16_t err_n_args = (cmd->num_args > rec_num_arg_strings) ? rec_num_arg_strings : cmd->num_args;
+
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR(">%s $Invalid input: %s "),
+                                             _username_,
+                                             data_pointers[0]);
+                for (uint16_t i = 0; i < err_n_args; ++i)
                 {
-                    data_char_buffer[i] = (char)data[i];
+                    if (input_type_match_flag[i] == false)
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR(">%s< "),
+                                                     data_pointers[i + 1]);
+                    }
+                    else
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR("%s "),
+                                                     data_pointers[i + 1]);
+                    }
                 }
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $ERROR: %s\n"),
-                                             _username_,
-                                             data_char_buffer);
+                                             PSTR("\n"));
                 _output_flag = true;
                 if (!command_matched)
                 {
@@ -457,25 +470,25 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
                 }
                 if (command_matched && all_arguments_valid == false)
                 {
-                    uint16_t err_n_args = (cmd->num_args > rec_num_arg_strings) ? rec_num_arg_strings : cmd->num_args;
                     for (uint8_t i = 0; i < err_n_args; ++i)
                     {
                         if (input_type_match_flag[i] == false)
                         {
                             uint8_t argument = static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[i]));
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR("<%s> argument <%u>: should be %s; received <%s>.\n"),
-                                                         cmd->command, i + 1,
+                                                         PSTR(" arg<%u> should be %s; received \"%s\".\n"),
+                                                         i + 1,
                                                          (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
                                                          data_pointers[i + 1]);
                         }
+
                         _output_flag = true;
                     }
                 }
                 if (command_matched && (rec_num_arg_strings != cmd->num_args))
                 {
                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR("<%s> received <%02u> arguments; <%s> expects <%02u> arguments.\n"),
+                                                 PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
                                                  cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
                     _output_flag = true;
                 }
