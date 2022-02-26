@@ -43,13 +43,14 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
 
 /** @brief default input types */
 static const char *const ui_input_type_strings[] PROGMEM = {
-    "uint8_t",
-    "uint16_t",
-    "uint32_t",
-    "int16_t",
-    "float",
-    "char",
-    "c-string"};
+    "uint8_t",  /**< type 1 */
+    "uint16_t", /**< type 2 */
+    "uint32_t", /**< type 3 */
+    "int16_t",  /**< type 4 */
+    "float",    /**< type 5 */
+    "char",     /**< type 6 */
+    "c-string"  /**< type 7 */
+};
 
 /** @brief strongly typed enum with user input types */
 enum class UITYPE
