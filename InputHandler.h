@@ -12,6 +12,10 @@
 #include "InputHandler_config.h"
 
 /**
+ * @defgroup UserInput Constants
+ * @{
+ */
+/**
  * @brief ui_defaults_progmem_ptr enum
  * @enum UI_PROGMEM_DEFAULTS_ENUM
  */
@@ -31,7 +35,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * @var ui_defaults_progmem_ptr
  */
-static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user",
     "\r\n",
     " ",
@@ -61,7 +65,7 @@ enum class UITYPE
  * @brief type string literals
  * @var ui_input_type_strings
  */
-static const char *const ui_input_type_strings[] PROGMEM = {
+const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
     "uint32_t",
@@ -69,7 +73,7 @@ static const char *const ui_input_type_strings[] PROGMEM = {
     "float",
     "char",
     "c-string"};
-
+/** @} */
 /**
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class

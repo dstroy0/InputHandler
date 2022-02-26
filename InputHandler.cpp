@@ -348,7 +348,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     if (UserInput::OutputIsEnabled() && len > USER_INPUT_MAX_INPUT_LENGTH)
     {
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                     PSTR(">%s $ERROR: user input exceeds max allowed input length.\n"),
+                                     PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"),
                                      _username_);
         _output_flag = true;
         return;
@@ -534,7 +534,7 @@ void UserInput::ListUserCommands()
     {
         UserCallbackFunctionParameters *cmd;
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                     PSTR("Commands available to user %s:\n"),
+                                     PSTR("Commands available to %s:\n"),
                                      _username_);
         uint8_t i = 1;
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
