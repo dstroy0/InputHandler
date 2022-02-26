@@ -11,21 +11,8 @@
 
 #include "InputHandler_config.h"
 
-/**
- * @defgroup UserInput Constants
- * Constants stored in nonvolatile program memory
- * @{
- */
-
-/**
- * @brief UserInput constants namespace
- */
 namespace _UI
 {
-    /**
-     * @enum UI_PROGMEM_DEFAULTS_ENUM_
-     * @brief enum map for ui_defaults_progmem_ptr
-     */
     enum UI_PROGMEM_DEFAULTS_ENUM_
     {
         username_e,
@@ -38,10 +25,6 @@ namespace _UI
         err_e
     };
 
-    /**
-     * @enum UITYPE
-     * @brief enum map for ui_input_type_strings
-     */
     enum class UITYPE
     {
         UINT8_T,  /**< UserInput type 1 */
@@ -54,10 +37,6 @@ namespace _UI
         _LAST     /**< reserved */
     };
 
-    /** 
-     * @param ui_defaults_progmem_ptr const char* array
-     * @brief default constructor strings 
-     */
     static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
         "user", /**< default username */
         "\r\n", /**< default end of line (EOL) characters */
@@ -69,10 +48,6 @@ namespace _UI
         "error" /**< error string */
     };
 
-    /** 
-     * @param ui_input_type_strings const char* array
-     * @brief user input type strings 
-     */
     static const char *const ui_input_type_strings[] PROGMEM = {
         "uint8_t",  
         "uint16_t",
@@ -84,8 +59,6 @@ namespace _UI
     };
 }
 using namespace _UI;
-
-/** @} */
 
 /**
  * @brief forward declaration of UserInput class for
