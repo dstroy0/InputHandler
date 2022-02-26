@@ -21,10 +21,10 @@
 namespace _UI
 {
     /**
-     * @enum _UI::UI_PROGMEM_DEFAULTS_ENUM_
+     * @var _UI::UI_PROGMEM_DEFAULTS_ENUM
      * @brief enum map for ui_defaults_progmem_ptr
      */
-    enum UI_PROGMEM_DEFAULTS_ENUM_
+    enum UI_PROGMEM_DEFAULTS_ENUM
     {
         username_e,
         eol_e,
