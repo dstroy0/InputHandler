@@ -1,4 +1,3 @@
-/** @file */
 /*
  Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
 
@@ -10,12 +9,6 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include "InputHandler_config.h"
-
-/**
- * @defgroup UserInput Constants
- * Constants stored in nonvolatile program memory
- * @{
- */
 
 /** _UI namespace */
 namespace _UI
@@ -82,8 +75,6 @@ namespace _UI
     };
 }
 using namespace _UI;
-
-/** @} */
 
 /**
  * @brief forward declaration of UserInput class for
