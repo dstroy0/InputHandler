@@ -1,3 +1,4 @@
+/** @file */ 
 /*
  Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
 
@@ -43,13 +44,13 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
 
 /** @brief default input types */
 static const char *const ui_input_type_strings[] PROGMEM = {
-    "uint8_t",  /**< type 1 */
-    "uint16_t", /**< type 2 */
-    "uint32_t", /**< type 3 */
-    "int16_t",  /**< type 4 */
-    "float",    /**< type 5 */
-    "char",     /**< type 6 */
-    "c-string"  /**< type 7 */
+    "uint8_t",  /**< type 1 string literal */
+    "uint16_t", /**< type 2 string literal */
+    "uint32_t", /**< type 3 string literal */
+    "int16_t",  /**< type 4 string literal */
+    "float",    /**< type 5 string literal */
+    "char",     /**< type 6 string literal */
+    "c-string"  /**< type 7 string literal */
 };
 
 /** @brief strongly typed enum with user input types */
