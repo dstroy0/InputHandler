@@ -10,7 +10,6 @@
  * @file InputHandler.h
  *
  * Class declarations for UserInput and UserCallbackFunctionParameters
- * USER_INPUT_TYPES enum declaration
  */
 
 #ifndef __USER_INPUT_HANDLER_H__
@@ -21,7 +20,10 @@
 /*
     constants
 */
-static const char *const _ui_defaults_progmem_ptr[]  PROGMEM = {
+/**
+ * @brief UserInput default string literals
+ */
+static const char *const _ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /** default username */
     "\r\n", /** default end of line (EOL) characters */
     " ",    /** default token delimiter */
@@ -31,6 +33,11 @@ static const char *const _ui_defaults_progmem_ptr[]  PROGMEM = {
     ".",    /** period '.' */
     "error" /** error string */
 };
+
+/**
+ * @enum _UI_PROGMEM_DEFAULTS_ENUM_
+ * @brief enum for _ui_defaults_progmem_ptr
+ */
 enum _UI_PROGMEM_DEFAULTS_ENUM_
 {
     username_e,
@@ -43,7 +50,9 @@ enum _UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
-/** input type string array */
+/**
+ * @brief user input type string literals
+ */
 static const char *const _input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
