@@ -6,6 +6,7 @@
 #define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
 #define UI_PGM_READ_BYTE(x) pgm_read_byte(x)
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
+#define _N_ARGS(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>

@@ -11,7 +11,7 @@
 #include <InputHandler.h>
 
 char output_buffer[512] = {'\0'}; //  output buffer
-UserInput inputHandler(output_buffer, 512, _default_username);
+UserInput inputHandler(output_buffer, 512);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -36,6 +36,10 @@ void uc_settings(UserInput *inputProcess)
 void uc_help(UserInput *inputProcess)
 {
   inputProcess->ListUserCommands();
+}
+void uc_help(UserInput& inputProcess)
+{
+  inputProcess.ListUserCommands();
 }
 
 /*
@@ -96,6 +100,12 @@ void uc_test_input_types(UserInput *inputProcess)
 
    The command string is stored in PROGMEM if applicable
 
+   The user defined function wrapper is always void myFunc(UserInput* inputProcess) { myOtherFunc(); // do stuff}
+   Pass the constructor the bare function name without quotes or parenthesis.
+
+   _N_ARGS(x) is a macro function that expands to (sizeof(x)/sizeof(x[0])), it returns how many elements are
+   in the argument array
+
    The following are the available input types
    _UITYPE::UINT8_T == an eight bit unsigned integer
    _UITYPE::UINT16_T == a sixteen bit unsigned integer
@@ -109,7 +119,9 @@ void uc_test_input_types(UserInput *inputProcess)
 */
 UserCallbackFunctionParameters uc_help_("help", uc_help);                   //  uc_help_ has a command string, and function specified
 UserCallbackFunctionParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
-// this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
+
+// This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
+// All available input types are in this array
 const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
                                              _UITYPE::UINT16_T,
                                              _UITYPE::UINT32_T,
@@ -118,17 +130,19 @@ const _UITYPE uc_test_arguments[] PROGMEM = {_UITYPE::UINT8_T,
                                              _UITYPE::CHAR,
                                              _UITYPE::C_STRING
                                             };
-UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, 7, uc_test_arguments);
+// This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
+UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
 void setup()
 {
   Serial.begin(115200); //  set up Serial
-
   inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(uc_help_);          // lists commands available to the user
   inputHandler.AddUserCommand(uc_settings_);      // lists UserInput class settings
   inputHandler.AddUserCommand(uc_test_);          // input type test
-  inputHandler.ListUserCommands();                 //  lists commands available to the user
+
+  uc_help(inputHandler);
+  inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream
 }
 
 void loop()

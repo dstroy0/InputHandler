@@ -21,13 +21,30 @@
 /*
     constants
 */
-static constexpr const PROGMEM char *_default_username = "user";               /**< default username */
-static constexpr const PROGMEM char *_default_end_of_line_characters = "\r\n"; /**< default end of line (EOL) characters */
-static constexpr const PROGMEM char *_default_token_delimiter = " ";           /**< default token delimiter */
-static constexpr const PROGMEM char *_default_c_string_delimiter = "\"";       /**< default c-string delimiter */
-static constexpr const PROGMEM char *null_ = "\0";                             /**< null '\\0' */
+static const char *const _ui_defaults_progmem_ptr[]  PROGMEM = {
+    "user", /** default username */
+    "\r\n", /** default end of line (EOL) characters */
+    " ",    /** default token delimiter */
+    "\"",   /** default c-string delimiter */
+    "\0",   /** null '\\0' */
+    "-",    /** negative sign '-' */
+    ".",    /** period '.' */
+    "error" /** error string */
+};
+enum _UI_PROGMEM_DEFAULTS_ENUM_
+{
+    username_e,
+    eol_e,
+    t_delim_e,
+    c_delim_e,
+    null_e,
+    neg_e,
+    dot_e,
+    err_e
+};
+
 /** input type string array */
-static constexpr const PROGMEM char *_input_type_strings[] = {
+static const char *const _input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
     "uint32_t",
@@ -35,9 +52,6 @@ static constexpr const PROGMEM char *_input_type_strings[] = {
     "float",
     "char",
     "c-string"};
-static constexpr const PROGMEM char *_negative_sign = "-"; /** negative sign '-' */
-static constexpr const PROGMEM char *_dot = ".";           /** period '.' */
-static constexpr const PROGMEM char *error = "error";      /** error string */
 
 /**
  * @enum _UITYPE
@@ -45,14 +59,14 @@ static constexpr const PROGMEM char *error = "error";      /** error string */
  */
 enum class _UITYPE
 {
-    UINT8_T,  /**< UserInput type 1 */
-    UINT16_T, /**< UserInput type 2 */
-    UINT32_T, /**< UserInput type 3 */
-    INT16_T,  /**< UserInput type 4 */
-    FLOAT,    /**< UserInput type 5 */
-    CHAR,     /**< UserInput type 6 */
-    C_STRING, /**< UserInput type 7 */
-    _LAST     /**< reserved */
+    UINT8_T,  /** UserInput type 1 */
+    UINT16_T, /** UserInput type 2 */
+    UINT32_T, /** UserInput type 3 */
+    INT16_T,  /** UserInput type 4 */
+    FLOAT,    /** UserInput type 5 */
+    CHAR,     /** UserInput type 6 */
+    C_STRING, /** UserInput type 7 */
+    _LAST     /** reserved */
 };
 
 /**
@@ -80,7 +94,7 @@ public:
     UserCallbackFunctionParameters(const char *user_defined_command_to_match,
                                    void (*user_defined_function_to_call)(UserInput *),
                                    size_t number_of_arguments = 0,
-                                   const _UITYPE *argument_type_array = NULL)
+                                   const _UITYPE argument_type_array[] = NULL)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
@@ -114,7 +128,7 @@ public:
      *
      * Creates a new instance.  If you want output, declare a buffer size, buffer, and index.
      *
-     * @param output_buffer NULL     
+     * @param output_buffer NULL
      * @param output_buffer_len ZERO
      * @param username NULL
      * @param end_of_line_characters EOL term, default is '\\r\\n'
@@ -124,21 +138,21 @@ public:
     UserInput(char *output_buffer = NULL,
               size_t output_buffer_len = 0,
               const char *username = NULL,
-              const char *end_of_line_characters = _default_end_of_line_characters,
-              const char *token_delimiter = _default_token_delimiter,
-              const char *c_string_delimiter = _default_c_string_delimiter)
+              const char *end_of_line_characters = NULL,
+              const char *token_delimiter = _ui_defaults_progmem_ptr[t_delim_e],
+              const char *c_string_delimiter = _ui_defaults_progmem_ptr[c_delim_e])
         : _output_buffer(output_buffer),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
-          _username_(username),
-          _term_(end_of_line_characters),
-          _delim_(token_delimiter),
-          _c_str_delim_(c_string_delimiter),
-          _null_(null_),
+          _username_((username == NULL) ? _ui_defaults_progmem_ptr[username_e] : username),
+          _term_((end_of_line_characters == NULL) ? _ui_defaults_progmem_ptr[eol_e] : end_of_line_characters),
+          _delim_((token_delimiter == NULL) ? _ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
+          _c_str_delim_((c_string_delimiter == NULL) ? _ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
+          _null_(_ui_defaults_progmem_ptr[null_e]),
           default_handler_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
-          commands_count_(0)          
+          commands_count_(0)
     {
     }
 
@@ -171,9 +185,7 @@ public:
      * @param rx_buffer_size the size of our receive buffer
      * @param end_of_line_character the line terminating character(s)
      */
-    void GetCommandFromStream(Stream &stream,
-                              uint16_t rx_buffer_size = 32,
-                              const char *end_of_line_character = _default_end_of_line_characters);
+    void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
 
     /**
      * @brief lists commands available to the user
@@ -206,7 +218,7 @@ public:
 
     /**
      * @brief is class output enabled
-     * 
+     *
      * @return true if enabled
      * @return false if not enabled
      */
@@ -214,14 +226,14 @@ public:
 
     /**
      * @brief direct class output to stream, clears output buffer automatically
-     * 
+     *
      * @param stream the stream to print to
      */
     void OutputToStream(Stream &stream);
 
     /**
      * @brief clears output buffer and puts _string_pos back at 0
-     * 
+     *
      */
     void ClearOutputBuffer();
 
@@ -266,7 +278,7 @@ protected:
 
     /**
      * @brief combines backslash and character and into valid control characters
-     * 
+     *
      * @param input the char after a backslash ie 'r'
      * @return the control character char value ie '\\r'
      */
