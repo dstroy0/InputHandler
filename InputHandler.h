@@ -1,4 +1,4 @@
-/** @file */ 
+/** @file */
 /*
  Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
 
@@ -17,54 +17,69 @@
  * @{
  */
 
-/** @var static const char *const ui_input_type_strings */
-static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
-    "user", /**< default username */
-    "\r\n", /**< default end of line (EOL) characters */
-    " ",    /**< default token delimiter */
-    "\"",   /**< default c-string delimiter */
-    "\0",   /**< null '\\0' */
-    "-",    /**< negative sign '-' */
-    ".",    /**< period '.' */
-    "error" /**< error string */
-};
-
-
-enum UI_PROGMEM_DEFAULTS_ENUM_
+/**
+ * @brief UserInput constants namespace
+ */
+namespace _UI
 {
-    username_e,
-    eol_e,
-    t_delim_e,
-    c_delim_e,
-    null_e,
-    neg_e,
-    dot_e,
-    err_e
-};
+    /**
+     * @enum UI_PROGMEM_DEFAULTS_ENUM_
+     * @brief enum map for ui_defaults_progmem_ptr
+     */
+    enum UI_PROGMEM_DEFAULTS_ENUM_
+    {
+        username_e,
+        eol_e,
+        t_delim_e,
+        c_delim_e,
+        null_e,
+        neg_e,
+        dot_e,
+        err_e
+    };
 
+    /**
+     * @enum UITYPE
+     * @brief enum map for ui_input_type_strings
+     */
+    enum class UITYPE
+    {
+        UINT8_T,  /**< UserInput type 1 */
+        UINT16_T, /**< UserInput type 2 */
+        UINT32_T, /**< UserInput type 3 */
+        INT16_T,  /**< UserInput type 4 */
+        FLOAT,    /**< UserInput type 5 */
+        CHAR,     /**< UserInput type 6 */
+        C_STRING, /**< UserInput type 7 */
+        _LAST     /**< reserved */
+    };
+    
+    /** @brief default constructor strings */
+    static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+        "user", /**< default username */
+        "\r\n", /**< default end of line (EOL) characters */
+        " ",    /**< default token delimiter */
+        "\"",   /**< default c-string delimiter */
+        "\0",   /**< null '\\0' */
+        "-",    /**< negative sign '-' */
+        ".",    /**< period '.' */
+        "error" /**< error string */
+    };
 
-static const char *const ui_input_type_strings[] PROGMEM = {
-    "uint8_t",  /**< type 1 string literal */
-    "uint16_t", /**< type 2 string literal */
-    "uint32_t", /**< type 3 string literal */
-    "int16_t",  /**< type 4 string literal */
-    "float",    /**< type 5 string literal */
-    "char",     /**< type 6 string literal */
-    "c-string"  /**< type 7 string literal */
-};
+    /** @brief user input type strings */
+    static const char *const ui_input_type_strings[] PROGMEM = {
+        "uint8_t",  /**< type 1 string literal */
+        "uint16_t", /**< type 2 string literal */
+        "uint32_t", /**< type 3 string literal */
+        "int16_t",  /**< type 4 string literal */
+        "float",    /**< type 5 string literal */
+        "char",     /**< type 6 string literal */
+        "c-string"  /**< type 7 string literal */
+    };
 
+}
+using namespace _UI;
 
-enum class UITYPE
-{
-    UINT8_T,  /**< UserInput type 1 */
-    UINT16_T, /**< UserInput type 2 */
-    UINT32_T, /**< UserInput type 3 */
-    INT16_T,  /**< UserInput type 4 */
-    FLOAT,    /**< UserInput type 5 */
-    CHAR,     /**< UserInput type 6 */
-    C_STRING, /**< UserInput type 7 */
-    _LAST     /**< reserved */
-};
 /** @} */
 
 /**
