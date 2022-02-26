@@ -5,13 +5,6 @@
  modify it under the terms of the GNU General Public License
  version 2 as published by the Free Software Foundation.
  */
-
-/**
- * @file InputHandler.h
- *
- * Class declarations for UserInput and UserCallbackFunctionParameters
- */
-
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
 
