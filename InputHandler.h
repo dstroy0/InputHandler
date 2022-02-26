@@ -20,10 +20,7 @@
 /*
     constants
 */
-/**
- * @brief UserInput default string literals
- * @param ui_defaults_progmem_ptr array of PROGMEM pointers to const char*
- */
+
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /** default username */
     "\r\n", /** default end of line (EOL) characters */
@@ -51,10 +48,6 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
-/**
- * @brief user input type string literals
- * @param ui_input_type_strings array of PROGMEM pointers to const char*
- */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
