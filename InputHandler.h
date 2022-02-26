@@ -17,7 +17,7 @@
  * @{
  */
 
-/** @var static const char *const ui_defaults_progmem_ptr[] */
+
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /**< default username */
     "\r\n", /**< default end of line (EOL) characters */
@@ -29,7 +29,7 @@ static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "error" /**< error string */
 };
 
-/** @var UI_PROGMEM_DEFAULTS_ENUM_ */
+
 enum UI_PROGMEM_DEFAULTS_ENUM_
 {
     username_e,
@@ -42,7 +42,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM_
     err_e
 };
 
-/** @var ui_input_type_strings */
+
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",  /**< type 1 string literal */
     "uint16_t", /**< type 2 string literal */
@@ -53,7 +53,7 @@ static const char *const ui_input_type_strings[] PROGMEM = {
     "c-string"  /**< type 7 string literal */
 };
 
-/** @var UITYPE */
+
 enum class UITYPE
 {
     UINT8_T,  /**< UserInput type 1 */
