@@ -10,71 +10,49 @@
 
 #include "InputHandler_config.h"
 
-/** _UI namespace */
-namespace _UI
+enum UI_PROGMEM_DEFAULTS_ENUM
 {
-    /**
-     * @var _UI::UI_PROGMEM_DEFAULTS_ENUM
-     * @brief enum map for ui_defaults_progmem_ptr
-     */
-    enum UI_PROGMEM_DEFAULTS_ENUM
-    {
-        username_e,
-        eol_e,
-        t_delim_e,
-        c_delim_e,
-        null_e,
-        neg_e,
-        dot_e,
-        err_e
-    };
+    username_e,
+    eol_e,
+    t_delim_e,
+    c_delim_e,
+    null_e,
+    neg_e,
+    dot_e,
+    err_e
+};
 
-    /**
-     * @var _UI::UITYPE
-     * @brief enum map for ui_input_type_strings
-     */
-    enum class UITYPE
-    {
-        UINT8_T,  /**< UserInput type 1 */
-        UINT16_T, /**< UserInput type 2 */
-        UINT32_T, /**< UserInput type 3 */
-        INT16_T,  /**< UserInput type 4 */
-        FLOAT,    /**< UserInput type 5 */
-        CHAR,     /**< UserInput type 6 */
-        C_STRING, /**< UserInput type 7 */
-        _LAST     /**< reserved */
-    };
+enum class UITYPE
+{
+    UINT8_T,  
+    UINT16_T, 
+    UINT32_T, 
+    INT16_T,  
+    FLOAT,    
+    CHAR,    
+    C_STRING, 
+    _LAST   
+};
 
-    /** 
-     * @var _UI::ui_defaults_progmem_ptr
-     * @brief default constructor strings 
-     */
-    static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
-        "user", /**< default username */
-        "\r\n", /**< default end of line (EOL) characters */
-        " ",    /**< default token delimiter */
-        "\"",   /**< default c-string delimiter */
-        "\0",   /**< null '\\0' */
-        "-",    /**< negative sign '-' */
-        ".",    /**< period '.' */
-        "error" /**< error string */
-    };
+static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+    "user", 
+    "\r\n", 
+    " ",   
+    "\"",  
+    "\0",  
+    "-",   
+    ".",    
+    "error" 
+};
 
-    /** 
-     * @var _UI::ui_input_type_strings
-     * @brief user input type strings 
-     */
-    static const char *const ui_input_type_strings[] PROGMEM = {
-        "uint8_t",  
-        "uint16_t",
-        "uint32_t", 
-        "int16_t",  
-        "float",    
-        "char",     
-        "c-string"
-    };
-}
-using namespace _UI;
+static const char *const ui_input_type_strings[] PROGMEM = {
+    "uint8_t",
+    "uint16_t",
+    "uint32_t",
+    "int16_t",
+    "float",
+    "char",
+    "c-string"};
 
 /**
  * @brief forward declaration of UserInput class for
