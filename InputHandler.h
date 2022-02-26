@@ -87,7 +87,6 @@ class UserInput;
 /**
  * @brief User defined function parameters
  */
-
 class UserCallbackFunctionParameters
 {
 public:
