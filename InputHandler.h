@@ -182,7 +182,6 @@ public:
      *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param end_of_line_character the line terminating character(s)
      */
     void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
 
