@@ -12,8 +12,9 @@
 
 /**
  * @defgroup UserInput Constants
+ * Constants stored in nonvolatile program memory
+ * @{
  */
-/**@{*/
 
 /** @brief default constructor values */
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
@@ -62,7 +63,7 @@ enum class UITYPE
     C_STRING, /**< UserInput type 7 */
     _LAST     /**< reserved */
 };
-/**@}*/
+/** @} */
 
 /**
  * @brief forward declaration of UserInput class for
