@@ -74,13 +74,13 @@ namespace _UI
      * @brief user input type strings 
      */
     static const char *const ui_input_type_strings[] PROGMEM = {
-        "uint8_t",  /**< type 1 string literal */
-        "uint16_t", /**< type 2 string literal */
-        "uint32_t", /**< type 3 string literal */
-        "int16_t",  /**< type 4 string literal */
-        "float",    /**< type 5 string literal */
-        "char",     /**< type 6 string literal */
-        "c-string"  /**< type 7 string literal */
+        "uint8_t",  
+        "uint16_t",
+        "uint32_t", 
+        "int16_t",  
+        "float",    
+        "char",     
+        "c-string"
     };
 }
 using namespace _UI;
