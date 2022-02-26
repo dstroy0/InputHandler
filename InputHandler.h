@@ -9,10 +9,7 @@
 #define __USER_INPUT_HANDLER_H__
 
 #include "InputHandler_config.h"
-/**
- * @enum UI_PROGMEM_DEFAULTS_ENUM
- * @brief default constructor strings enum
- */
+
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
     username_e,
@@ -25,39 +22,28 @@ enum UI_PROGMEM_DEFAULTS_ENUM
     err_e
 };
 
-/**
- * @enum UITYPE
- * @brief user input types
- */
+static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
+    "user",
+    "\r\n",
+    " ",
+    "\"",
+    "\0",
+    "-",
+    ".",
+    "error"};
+
 enum class UITYPE
 {
-    UINT8_T,  
-    UINT16_T, 
-    UINT32_T, 
-    INT16_T,  
-    FLOAT,    
-    CHAR,    
-    C_STRING, 
-    _LAST   
+    UINT8_T,
+    UINT16_T,
+    UINT32_T,
+    INT16_T,
+    FLOAT,
+    CHAR,
+    C_STRING,
+    _LAST
 };
 
-/**
- * @brief progmem ptr to default constructor strings
- */
-static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
-    "user", 
-    "\r\n", 
-    " ",   
-    "\"",  
-    "\0",  
-    "-",   
-    ".",    
-    "error" 
-};
-
-/**
- * @brief progmem ptr to input type strings
- */
 static const char *const ui_input_type_strings[] PROGMEM = {
     "uint8_t",
     "uint16_t",
