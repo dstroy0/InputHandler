@@ -12,8 +12,8 @@
 
 /**
  * @defgroup UserInput Constants
- * @{
  */
+/**@{*/
 static const char *const ui_defaults_progmem_ptr[] PROGMEM = {
     "user", /**< default username */
     "\r\n", /**< default end of line (EOL) characters */
@@ -57,9 +57,7 @@ enum class UITYPE
     C_STRING, /** UserInput type 7 */
     _LAST     /** reserved */
 };
-/**
- * @}
- */
+/**@}*/
 
 /**
  * @brief forward declaration of UserInput class for
@@ -99,7 +97,7 @@ public:
     uint16_t command_length;                                           /** length of command */
     UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
     uint16_t num_args;                                                 /** number of function arguments */
-    const UITYPE *_arg_type;                                          /** function argument type array pointer */
+    const UITYPE *_arg_type;                                           /** function argument type array pointer */
 };
 
 /**
