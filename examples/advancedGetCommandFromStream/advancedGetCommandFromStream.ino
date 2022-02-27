@@ -100,7 +100,7 @@ void uc_test_input_types(UserInput *inputProcess)
 
    The command string is stored in PROGMEM if applicable
 
-   The user defined function wrapper is always void myFunc(UserInput* inputProcess) { myOtherFunc(); // do stuff}
+   The user defined function wrapper is always void myFunc(UserInput* inputProcess) {// do stuff}
    Pass the constructor the bare function name without quotes or parenthesis.
 
    _N_ARGS(x) is a macro function that expands to (sizeof(x)/sizeof(x[0])), it returns how many elements are
@@ -135,7 +135,7 @@ UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_
 
 void setup()
 {
-  Serial.begin(115200); //  set up Serial
+  Serial.begin(115200); //  set up Serial object (Stream object)
   inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddUserCommand(uc_help_);          // lists commands available to the user
   inputHandler.AddUserCommand(uc_settings_);      // lists UserInput class settings
@@ -146,8 +146,7 @@ void setup()
 }
 
 void loop()
-{
-  //  inputHandler.ReadCommand(data, len);  // read commands from a char buffer
+{  
   // inputHandler.GetCommandFromStream(Serial2);  // read commands from as many streams as you like using the same object
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
   inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream

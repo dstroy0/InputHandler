@@ -78,6 +78,12 @@ void uc_test_input_types(UserInput *inputProcess)
 
    The command string is stored in PROGMEM if applicable
 
+   The user defined function wrapper is always void myFunc(UserInput* inputProcess) {// do stuff}
+   Pass the constructor the bare function name without quotes or parenthesis.
+
+   _N_ARGS(x) is a macro function that expands to (sizeof(x)/sizeof(x[0])), it returns how many elements are
+   in the argument array
+
    The following are the available input types
    _UITYPE::UINT8_T == an eight bit unsigned integer
    _UITYPE::UINT16_T == a sixteen bit unsigned integer
@@ -90,7 +96,8 @@ void uc_test_input_types(UserInput *inputProcess)
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
 
-// this command will accept seven arguments of the type specified, in order, it will not run the function unless all arguments are valid
+// This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
+// All available input types are in this array
 const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
                                             UITYPE::UINT16_T,
                                             UITYPE::UINT32_T,
@@ -99,7 +106,8 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
                                             UITYPE::CHAR,
                                             UITYPE::C_STRING
                                            };
-UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, 7, uc_test_arguments);
+// This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
+UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
 void setup()
 {
@@ -113,6 +121,5 @@ void setup()
 
 void loop()
 {
-  //  inputHandler.ReadCommand(data, len);
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
 }
