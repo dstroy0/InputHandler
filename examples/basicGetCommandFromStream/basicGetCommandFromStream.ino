@@ -107,19 +107,19 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
                                             UITYPE::C_STRING
                                            };
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
-UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
+UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
 void setup()
 {
   Serial.begin(115200); //  set up Serial
 
-  inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddUserCommand(uc_test_);          // input type test
+  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.AddCommand(uc_test_);          // input type test
 
   Serial.println(F("enter test 1 2 3 4 5 a \"bb\" to test user input types."));
 }
 
 void loop()
 {
-  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software serial should work
 }

@@ -27,7 +27,7 @@ void uc_unrecognized(UserInput *inputProcess)
 */
 void uc_settings(UserInput *inputProcess)
 {
-  inputProcess->ListUserInputSettings(inputProcess);
+  inputProcess->ListSettings(inputProcess);
 }
 
 /*
@@ -35,11 +35,11 @@ void uc_settings(UserInput *inputProcess)
 */
 void uc_help(UserInput *inputProcess)
 {
-  inputProcess->ListUserCommands();
+  inputProcess->ListCommands();
 }
 void uc_help(UserInput& inputProcess)
 {
-  inputProcess.ListUserCommands();
+  inputProcess.ListCommands();
 }
 
 /*
@@ -117,8 +117,8 @@ void uc_test_input_types(UserInput *inputProcess)
                                depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
-UserCallbackFunctionParameters uc_help_("help", uc_help);                   //  uc_help_ has a command string, and function specified
-UserCallbackFunctionParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
+UserCommandParameters uc_help_("help", uc_help);                   //  uc_help_ has a command string, and function specified
+UserCommandParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
 
 // This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
 // All available input types are in this array
@@ -131,15 +131,15 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
                                             UITYPE::C_STRING
                                            };
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
-UserCallbackFunctionParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
+UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
 void setup()
 {
   Serial.begin(115200); //  set up Serial object (Stream object)
-  inputHandler.SetDefaultHandler(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddUserCommand(uc_help_);          // lists commands available to the user
-  inputHandler.AddUserCommand(uc_settings_);      // lists UserInput class settings
-  inputHandler.AddUserCommand(uc_test_);          // input type test
+  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.AddCommand(uc_help_);          // lists commands available to the user
+  inputHandler.AddCommand(uc_settings_);      // lists UserInput class settings
+  inputHandler.AddCommand(uc_test_);          // input type test
 
   uc_help(inputHandler);
   inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream

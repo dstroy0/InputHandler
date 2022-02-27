@@ -83,11 +83,11 @@ class UserInput;
 /**
  * @brief User defined function parameters
  */
-class UserCallbackFunctionParameters
+class UserCommandParameters
 {
 public:
     /**
-     * @brief UserCallbackFunctionParameters Constructor
+     * @brief UserCommandParameters Constructor
      *
      * Creates a new instance of this class.  Before using, construct a UserInput object.
      * @param user_defined_command_to_match The command which when entered will call a function
@@ -95,24 +95,24 @@ public:
      * @param number_of_arguments the number of arguments the function expects
      * @param argument_type_array a pointer to the argument array
      */
-    UserCallbackFunctionParameters(const char *user_defined_command_to_match,
-                                   void (*user_defined_function_to_call)(UserInput *),
-                                   size_t number_of_arguments = 0,
-                                   const UITYPE argument_type_array[] = NULL)
+    UserCommandParameters(const char *user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput *),
+                          size_t number_of_arguments = 0,
+                          const UITYPE argument_type_array[] = NULL)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
-          next_callback_function_parameters(NULL),
+          next_command_parameters(NULL),
           num_args(number_of_arguments),
           _arg_type(argument_type_array)
     {
     }
-    const char *command;                                               /** command to match */
-    void (*function)(UserInput *);                                     /** pointer to function */
-    uint16_t command_length;                                           /** length of command */
-    UserCallbackFunctionParameters *next_callback_function_parameters; /** UserCallBackFunctionParameters iterator/pointer */
-    uint16_t num_args;                                                 /** number of function arguments */
-    const UITYPE *_arg_type;                                           /** function argument type array pointer */
+    const char *command;                            /** command to match */
+    void (*function)(UserInput *);                  /** pointer to function */
+    uint16_t command_length;                        /** length of command */
+    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */
+    uint16_t num_args;                              /** number of function arguments */
+    const UITYPE *_arg_type;                        /** function argument type array pointer */
 };
 
 /**
@@ -170,9 +170,9 @@ public:
     /**
      * @brief adds user commands
      *
-     * @param command pointer to UsercallbackFunctionParameters
+     * @param command reference to UserCommandParameters
      */
-    void AddUserCommand(UserCallbackFunctionParameters &command);
+    void AddCommand(UserCommandParameters &command);
 
     /**
      * @brief read command(s) from a buffer
@@ -180,7 +180,7 @@ public:
      * @param data a buffer with characters
      * @param len the size of the buffer
      */
-    void ReadCommand(uint8_t *data, size_t len);
+    void ReadCommandFromBuffer(uint8_t *data, size_t len);
 
     /**
      * @brief Get the Command From a Stream object
@@ -194,22 +194,22 @@ public:
      * @brief lists commands available to the user
      *
      */
-    void ListUserCommands();
+    void ListCommands();
 
     /**
      * @brief lists UserInput class settings
      *
      * @param inputprocess pointer to class instance
      */
-    void ListUserInputSettings(UserInput *inputprocess);
+    void ListSettings(UserInput *inputprocess);
 
     /**
-     * @brief Set the Default Handler, which is the function called
+     * @brief Set the default function, which is the function called
      * when there is no command match, or when input is invalid.
      *
      * @param function a pointer to a user specified function
      */
-    void SetDefaultHandler(void (*function)(UserInput *));
+    void DefaultFunction(void (*function)(UserInput *));
 
     /**
      * @brief is class output available
@@ -262,14 +262,14 @@ protected:
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
      */
-    bool validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index);
+    bool validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index);
 
     /**
      * @brief launches a function
      *
      * @param cmd Function parameter pointer
      */
-    void launchFunction(UserCallbackFunctionParameters *cmd);
+    void launchFunction(UserCommandParameters *cmd);
 
     /**
      * @brief Escapes control characters so they will print
@@ -300,8 +300,8 @@ private:
     const char *_c_str_delim_;
     const char *_null_;
     void (*default_handler_)(UserInput *);
-    UserCallbackFunctionParameters *commands_head_;
-    UserCallbackFunctionParameters *commands_tail_;
+    UserCommandParameters *commands_head_;
+    UserCommandParameters *commands_tail_;
     size_t commands_count_;
 
     /*

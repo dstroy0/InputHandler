@@ -14,19 +14,19 @@ char *UserInput::NextArgument()
     return data_pointers[data_pointers_index];
 }
 
-void UserInput::AddUserCommand(UserCallbackFunctionParameters &command)
+void UserInput::AddCommand(UserCommandParameters &command)
 {
-    UserCallbackFunctionParameters **cmd_head = &commands_head_;
-    UserCallbackFunctionParameters **cmd_tail = &commands_tail_;
+    UserCommandParameters **cmd_head = &commands_head_;
+    UserCommandParameters **cmd_tail = &commands_tail_;
     size_t *cmd_count = &commands_count_;
-    command.next_callback_function_parameters = NULL;
+    command.next_command_parameters = NULL;
     if (*cmd_head == NULL)
     {
         *cmd_head = *cmd_tail = &command;
     }
     else
     {
-        (*cmd_tail)->next_callback_function_parameters = &command;
+        (*cmd_tail)->next_command_parameters = &command;
         *cmd_tail = &command;
     }
     (*cmd_count)++;
@@ -165,7 +165,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
     return got_token;
 }
 
-bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index)
+bool UserInput::validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index)
 {
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
     bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(ui_defaults_progmem_ptr[neg_e])))) ? true : false;
@@ -316,7 +316,7 @@ bool UserInput::validateUserInput(UserCallbackFunctionParameters *cmd, uint8_t a
     return true;
 }
 
-void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
+void UserInput::launchFunction(UserCommandParameters *cmd)
 {
     if (UserInput::OutputIsEnabled())
     {
@@ -343,7 +343,7 @@ void UserInput::launchFunction(UserCallbackFunctionParameters *cmd)
     cmd->function(this);
 }
 
-void UserInput::ReadCommand(uint8_t *data, size_t len)
+void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 {
     if (UserInput::OutputIsEnabled() && len > USER_INPUT_MAX_INPUT_LENGTH)
     {
@@ -360,7 +360,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
     data_pointers_index = 0;            // token buffer pointers
     rec_num_arg_strings = 0;            // number of tokens read from data
     bool match = false;
-    UserCallbackFunctionParameters *cmd;
+    UserCommandParameters *cmd;
 
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
@@ -372,7 +372,7 @@ void UserInput::ReadCommand(uint8_t *data, size_t len)
         bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
         bool all_arguments_valid = true;                                                      // error sentinel
         bool command_matched = false;                                                         // error sentinel
-        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters) // iterate through user commands
+        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {
             if (strcmp(data_pointers[0], cmd->command) == 0) // match
             {
@@ -533,7 +533,7 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size)
     }
     if (new_stream_data == true)
     {
-        UserInput::ReadCommand(stream_data, stream_data_index);
+        UserInput::ReadCommandFromBuffer(stream_data, stream_data_index);
         stream_data_index = 0;
         new_stream_data = false;
         delete[] stream_data;
@@ -541,16 +541,16 @@ void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size)
     }
 }
 
-void UserInput::ListUserCommands()
+void UserInput::ListCommands()
 {
     if (UserInput::OutputIsEnabled())
     {
-        UserCallbackFunctionParameters *cmd;
+        UserCommandParameters *cmd;
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                      PSTR("Commands available to %s:\n"),
                                      _username_);
         uint8_t i = 1;
-        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_callback_function_parameters)
+        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
         {
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"), i, cmd->command);
             i++;
@@ -625,7 +625,7 @@ char UserInput::combineControlCharacters(char input)
     }
 }
 
-void UserInput::ListUserInputSettings(UserInput *inputprocess)
+void UserInput::ListSettings(UserInput *inputprocess)
 {
     if (UserInput::OutputIsEnabled())
     {
@@ -646,7 +646,7 @@ void UserInput::ListUserInputSettings(UserInput *inputprocess)
     }
 }
 
-void UserInput::SetDefaultHandler(void (*function)(UserInput *))
+void UserInput::DefaultFunction(void (*function)(UserInput *))
 {
     default_handler_ = function;
 }
