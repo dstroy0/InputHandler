@@ -370,8 +370,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     if (getToken(token_buffer, data, len, &data_index) == true) // if there was a token
     {
         bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
-        bool all_arguments_valid = true;                                                      // error sentinel
-        bool command_matched = false;                                                         // error sentinel
+        bool all_arguments_valid = true;                                            // error sentinel
+        bool command_matched = false;                                               // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {
             if (strcmp(data_pointers[0], cmd->command) == 0) // match
