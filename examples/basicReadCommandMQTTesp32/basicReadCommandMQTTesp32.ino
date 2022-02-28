@@ -23,7 +23,7 @@ char msg[50]; // command rx buffer
 /*
   this output buffer is formatted by UserInput's methods
   you have to empty it out yourself with
-  OutputToStream()
+  ClearOutputBuffer()
 */
 char output_buffer[512] = {'\0'}; //  output buffer
 
@@ -188,7 +188,7 @@ void reconnect_mqtt()
         if (client.connect("ESP8266Client"))
         {
             // Subscribe
-            client.subscribe("esp32/output");
+            client.subscribe("esp32/command");
         }
         else
         {
@@ -215,7 +215,7 @@ void loop()
 
     if (inputHandler.OutputIsAvailable())
     {
-        client.publish("esp32/out", output_buffer);
+        client.publish("esp32/output", output_buffer);
         inputHandler.ClearOutputBuffer();
     }
 }
