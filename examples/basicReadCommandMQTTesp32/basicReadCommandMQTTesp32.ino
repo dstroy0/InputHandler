@@ -18,7 +18,6 @@ const char *mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-long lastMsg = 0;
 char msg[50]; // command rx buffer
 
 /*
