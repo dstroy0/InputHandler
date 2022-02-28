@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setdefaulthandler_0',['SetDefaultHandler',['../classUserInput.html#af4328494111c79cadd1ced884c42bb7f',1,'UserInput']]]
+  ['readcommandfrombuffer_0',['ReadCommandFromBuffer',['../classUserInput.html#a0b064635ee2e073077925632747889dc',1,'UserInput']]]
 ];

@@ -30,10 +30,10 @@ var NAVTREE =
       [ "News", "index.html#autotoc_md2", null ],
       [ "Useful References", "index.html#autotoc_md3", null ]
     ] ],
-    [ "README", "md_docs_README.html", null ],
     [ "README", "md_README.html", [
       [ "InputHandler", "md_README.html#autotoc_md4", null ]
     ] ],
+    [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -49,6 +49,7 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
+        [ "Enumerator", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]

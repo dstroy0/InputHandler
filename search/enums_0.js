@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5fuitype_0',['_UITYPE',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98',1,'InputHandler.h']]]
+  ['ui_5fprogmem_5fdefaults_5fenum_0',['UI_PROGMEM_DEFAULTS_ENUM',['../group__UserInput.html#ga85e7eeb0bdd4436bf4ac3ff5e179c73a',1,'InputHandler.h']]],
+  ['uitype_1',['UITYPE',['../group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]]
 ];

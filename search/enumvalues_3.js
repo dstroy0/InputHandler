@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['int16_5ft_0',['INT16_T',['../InputHandler_8h.html#ae47c5932fad8d33d00926831f8158e98a5e66c6e44fda6975bc1d1f10f4ea0436',1,'InputHandler.h']]]
+  ['eol_5fe_0',['eol_e',['../group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa609291c368d5999d30c2671d11813c79',1,'InputHandler.h']]],
+  ['err_5fe_1',['err_e',['../group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2',1,'InputHandler.h']]]
 ];

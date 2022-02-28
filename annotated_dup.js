@@ -1,5 +1,5 @@
 var annotated_dup =
 [
-    [ "UserCallbackFunctionParameters", "classUserCallbackFunctionParameters.html", "classUserCallbackFunctionParameters" ],
+    [ "UserCommandParameters", "classUserCommandParameters.html", "classUserCommandParameters" ],
     [ "UserInput", "classUserInput.html", "classUserInput" ]
 ];

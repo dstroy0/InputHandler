@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['launchfunction_0',['launchFunction',['../classUserInput.html#a191b04806a89fa84775da60d7a757673',1,'UserInput']]],
-  ['listusercommands_1',['ListUserCommands',['../classUserInput.html#a135455519288936bc8a19009600527d7',1,'UserInput']]],
-  ['listuserinputsettings_2',['ListUserInputSettings',['../classUserInput.html#abab5f6e90df7f1d4dd688f457b58a420',1,'UserInput']]]
+  ['getcommandfromstream_0',['GetCommandFromStream',['../classUserInput.html#a4527a97a4aa08ffd9053e8a7de7b9bd2',1,'UserInput']]],
+  ['gettoken_1',['getToken',['../classUserInput.html#a56fbce3e87c4bc10b511ad0c1767b420',1,'UserInput']]]
 ];

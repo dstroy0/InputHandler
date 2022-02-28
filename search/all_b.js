@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['readcommand_0',['ReadCommand',['../classUserInput.html#ad6d3b7fa8a17346b1cd6381733f4e576',1,'UserInput']]],
-  ['readme_1',['README',['../md_docs_README.html',1,'(Global Namespace)'],['../md_README.html',1,'(Global Namespace)']]],
-  ['readme_2emd_2',['README.md',['../docs_2README_8md.html',1,'(Global Namespace)'],['../README_8md.html',1,'(Global Namespace)']]]
+  ['outputisavailable_0',['OutputIsAvailable',['../classUserInput.html#aedabc1a851fb5122436e10411f08ca51',1,'UserInput']]],
+  ['outputisenabled_1',['OutputIsEnabled',['../classUserInput.html#a0815479ae59a5323266459cfaff62d30',1,'UserInput']]],
+  ['outputtostream_2',['OutputToStream',['../classUserInput.html#a6ced815d246610f49e9e10f7dbef7ab7',1,'UserInput']]]
 ];

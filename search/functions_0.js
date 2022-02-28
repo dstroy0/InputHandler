@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addusercommand_0',['AddUserCommand',['../classUserInput.html#ac4ce1192c2e1d1bee5ec187077f75bbd',1,'UserInput']]]
+  ['addcommand_0',['AddCommand',['../classUserInput.html#a8027d098f060863e4bf7b7dd6413388b',1,'UserInput']]]
 ];
