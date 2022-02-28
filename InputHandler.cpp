@@ -444,7 +444,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                              PSTR(">%s $Invalid input: %s "),
                                              _username_,
                                              data_pointers[0]);
-
                 if (command_matched == true)
                 {
                     uint16_t err_n_args = (cmd->num_args > rec_num_arg_strings) ? rec_num_arg_strings : cmd->num_args;
@@ -469,14 +468,11 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                 }
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                              PSTR("\n"));
-                _output_flag = true;
-
                 if (!command_matched)
                 {
                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                  PSTR("Command <%s> unknown.\n"),
                                                  data_pointers[0]);
-                    _output_flag = true;
                 }
                 if (command_matched && all_arguments_valid == false)
                 {
@@ -492,8 +488,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                                          (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
                                                          data_pointers[i + 1]);
                         }
-
-                        _output_flag = true;
                     }
                 }
                 if (command_matched && (rec_num_arg_strings != cmd->num_args))
@@ -501,8 +495,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                  PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
                                                  cmd->command, (rec_num_arg_strings), cmd->command, cmd->num_args);
-                    _output_flag = true;
                 }
+                _output_flag = true;
             }
             (*default_function_)(this); // run the default function
         }
