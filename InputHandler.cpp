@@ -1,6 +1,7 @@
 #include "InputHandler.h"
 
-#define _DEBUG_USER_INPUT
+//  uncomment to debug InputHandler
+//#define _DEBUG_USER_INPUT
 
 char *UserInput::NextArgument()
 {
@@ -434,7 +435,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                 break;
             }
         }
-        if (!match && default_handler_ != NULL) // if there was no command match and a default handler is configured
+        if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
         {
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
@@ -503,7 +504,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                     _output_flag = true;
                 }
             }
-            (*default_handler_)(this); // run the default handler
+            (*default_function_)(this); // run the default function
         }
     }
     else
@@ -658,26 +659,17 @@ void UserInput::ListSettings(UserInput *inputprocess)
 
 void UserInput::DefaultFunction(void (*function)(UserInput *))
 {
-    default_handler_ = function;
+    default_function_ = function;
 }
 
 bool UserInput::OutputIsAvailable()
 {
-    if (_output_flag == true)
-    {
-        _output_flag = false;
-        return true;
-    }
-    return false;
+    return _output_flag;
 }
 
 bool UserInput::OutputIsEnabled()
 {
-    if (_output_buffer == NULL)
-    {
-        return false;
-    }
-    return true;
+    return _output_enabled;
 }
 
 void UserInput::OutputToStream(Stream &stream)
@@ -694,9 +686,11 @@ void UserInput::ClearOutputBuffer()
     if (UserInput::OutputIsEnabled())
     {
         _string_pos = 0; //  reset output_buffer's index
+        //  this maybe doesnt need to be done
         for (uint16_t i = 0; i < _output_buffer_len; ++i)
         {
             _output_buffer[i] = '\0'; // reinit output_buffer
         }
     }
+    _output_flag = false;
 }

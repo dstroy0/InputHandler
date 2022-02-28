@@ -1,6 +1,6 @@
 /** @file */
 /*
- Copyright (C) 2022 D. Quigg <dquigg123@gmail.com>
+ Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -21,14 +21,14 @@
  */
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
-    username_e,
-    eol_e,
-    t_delim_e,
-    c_delim_e,
-    null_e,
-    neg_e,
-    dot_e,
-    err_e
+    username_e, //  0
+    eol_e,      //  1
+    t_delim_e,  //  2
+    c_delim_e,  //  3
+    null_e,     //  4
+    neg_e,      //  5
+    dot_e,      //  6
+    err_e       //  7
 };
 
 /**
@@ -36,14 +36,14 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @var ui_defaults_progmem_ptr
  */
 const PROGMEM char *const ui_defaults_progmem_ptr[] = {
-    "user",
-    "\r\n",
-    " ",
-    "\"",
-    "\0",
-    "-",
-    ".",
-    "error"};
+    "user",   //  default username
+    "\r\n",   //  default end of line characters
+    " ",      //  default token delimiter
+    "\"",     //  default c-string delimiter
+    "\0",     //  null
+    "-",      //  negative sign
+    ".",      //  dot
+    "error"}; //  error
 
 /**
  * @brief ui_input_type_strings enum
@@ -51,14 +51,14 @@ const PROGMEM char *const ui_defaults_progmem_ptr[] = {
  */
 enum class UITYPE
 {
-    UINT8_T,
-    UINT16_T,
-    UINT32_T,
-    INT16_T,
-    FLOAT,
-    CHAR,
-    C_STRING,
-    _LAST
+    UINT8_T,  //  0
+    UINT16_T, //  1
+    UINT32_T, //  2
+    INT16_T,  //  3
+    FLOAT,    //  4
+    CHAR,     //  5
+    C_STRING, //  6
+    _LAST     //  7
 };
 
 /**
@@ -66,14 +66,15 @@ enum class UITYPE
  * @var ui_input_type_strings
  */
 const PROGMEM char *const ui_input_type_strings[] = {
-    "uint8_t",
-    "uint16_t",
-    "uint32_t",
-    "int16_t",
-    "float",
-    "char",
-    "c-string"};
+    "uint8_t",   //  8-bit unsigned integer
+    "uint16_t",  //  16-bit unsigned integer
+    "uint32_t",  //  32-bit unsigned integer
+    "int16_t",   //  16-bit signed integer
+    "float",     //  32-bit floating point number
+    "char",      //  single char
+    "c-string"}; //  c-string without spaces if not enclosed with ""
 /** @} */
+
 /**
  * @brief forward declaration of UserInput class for
  * UserCallbackFunctionparameters class
@@ -146,6 +147,7 @@ public:
               const char *token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
               const char *c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
         : _output_buffer(output_buffer),
+          _output_enabled((output_buffer == NULL) ? false : true),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
           _username_((username == NULL) ? ui_defaults_progmem_ptr[username_e] : username),
@@ -153,7 +155,7 @@ public:
           _delim_((token_delimiter == NULL) ? ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
           _c_str_delim_((c_string_delimiter == NULL) ? ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
           _null_(ui_defaults_progmem_ptr[null_e]),
-          default_handler_(NULL),
+          default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
           commands_count_(0)
@@ -287,35 +289,36 @@ private:
     /*
         UserInput Constructor variables
     */
-    char *_output_buffer;
-    size_t _string_pos;
-    const size_t _output_buffer_len;
-    const char *_username_;
-    const char *_term_;
-    const char *_delim_;
-    const char *_c_str_delim_;
-    const char *_null_;
-    void (*default_handler_)(UserInput *);
-    UserCommandParameters *commands_head_;
-    UserCommandParameters *commands_tail_;
-    size_t commands_count_;
+    char *_output_buffer;                   //  pointer to output char buffer
+    bool _output_enabled;                   //  true if _output_buffer is not NULL
+    size_t _string_pos;                     //  _output_buffer's index
+    const size_t _output_buffer_len;        //  _output_buffer's size
+    const char *_username_;                 //  username
+    const char *_term_;                     //  end of line characters
+    const char *_delim_;                    //  token delimiter
+    const char *_c_str_delim_;              //  c-string delimiter
+    const char *_null_;                     //  char null '\0'
+    void (*default_function_)(UserInput *); //  pointer to default function
+    UserCommandParameters *commands_head_;  //  pointer to object list
+    UserCommandParameters *commands_tail_;  //  pointer to object list
+    size_t commands_count_;                 //   how many commands are there
 
     /*
         member function variables
     */
-    bool _output_flag = false;                                             // output is available flag, set by member functions
-    char *token_buffer = NULL;                                             //  pointer to tokenized c-string
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //
-    uint16_t data_pointers_index = 0;
-    uint16_t rec_num_arg_strings = 0;
+    bool _output_flag = false;                                             //   output is available flag, set by member functions
+    char *token_buffer = NULL;                                             //   pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
+    uint16_t data_pointers_index = 0;                                      //   data_pointer's index
+    uint16_t rec_num_arg_strings = 0;                                      //   number of tokens after first valid token
 
     /*
         GetCommandFromStream variables
     */
-    boolean stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
-    uint8_t *stream_data = NULL;             // pointer to stream input, a string of char
-    boolean new_stream_data = false;         //  if there is new data in *stream_data this is true
-    uint16_t stream_data_index = 0;          //  the index of stream_data
+    bool stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
+    bool new_stream_data = false;         // if there is new data in *stream_data this is true
+    uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
+    uint16_t stream_data_index = 0;       // the index of stream_data
 };
 
 #endif
