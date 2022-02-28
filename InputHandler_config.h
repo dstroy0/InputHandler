@@ -40,8 +40,4 @@
 #define USER_INPUT_MAX_INPUT_LENGTH UINT16_MAX
 #endif
 
-#ifdef DEBUG_USER_INPUT
-#define _DEBUG_USER_INPUT
-#endif
-
 #endif

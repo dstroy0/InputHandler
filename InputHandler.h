@@ -240,10 +240,6 @@ public:
      */
     void ClearOutputBuffer();
 
-#ifdef _DEBUG_USER_INPUT
-    bool EnableDebugOutput = false;
-#endif
-
 protected:
     /**
      * @brief Tries to get a token from an input string

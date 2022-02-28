@@ -18,8 +18,8 @@ UserInput inputHandler(output_buffer, 512);
 */
 void uc_unrecognized(UserInput *inputProcess)
 {
+  // error output
   inputProcess->OutputToStream(Serial);
-  Serial.println(F("made it to uc_unrecognized"));
 }
 
 /*
@@ -37,7 +37,7 @@ void uc_help(UserInput *inputProcess)
 {
   inputProcess->ListCommands();
 }
-void uc_help(UserInput& inputProcess)
+void uc_help(UserInput &inputProcess)
 {
   inputProcess.ListCommands();
 }
@@ -47,6 +47,7 @@ void uc_help(UserInput& inputProcess)
 */
 void uc_test_input_types(UserInput *inputProcess)
 {
+  inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
   char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
   char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
@@ -117,7 +118,7 @@ void uc_test_input_types(UserInput *inputProcess)
                                depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
-UserCommandParameters uc_help_("help", uc_help);                   //  uc_help_ has a command string, and function specified
+UserCommandParameters uc_help_("help", uc_help);                  //  uc_help_ has a command string, and function specified
 UserCommandParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
 
 // This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
@@ -135,19 +136,18 @@ UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_argu
 
 void setup()
 {
-  Serial.begin(115200); //  set up Serial object (Stream object)
+  Serial.begin(115200);                          //  set up Serial object (Stream object)
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddCommand(uc_help_);          // lists commands available to the user
-  inputHandler.AddCommand(uc_settings_);      // lists UserInput class settings
-  inputHandler.AddCommand(uc_test_);          // input type test
+  inputHandler.AddCommand(uc_help_);             // lists commands available to the user
+  inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
+  inputHandler.AddCommand(uc_test_);             // input type test
 
   uc_help(inputHandler);
-  inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream
+  inputHandler.OutputToStream(Serial); // class output, doesn't have to output to the input stream
 }
 
 void loop()
-{  
+{
   // inputHandler.GetCommandFromStream(Serial2);  // read commands from as many streams as you like using the same object
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  inputHandler.OutputToStream(Serial);  // class output, doesn't have to output to the input stream
 }
