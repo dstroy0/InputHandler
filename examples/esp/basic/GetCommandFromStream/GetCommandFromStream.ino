@@ -1,67 +1,23 @@
 /**
-   @file ReadCommandFromBufferWebSerialesp.ino
+   @file basicGetCommandFromStream.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that uses ReadCommandFromBuffer and WebSerial
+   @brief A basic example
    @version 0.1
-   @date 2022-03-01
+   @date 2022-02-22
 
    @copyright Copyright (c) 2022
 */
 
-#include <Arduino.h>
-#include <WiFi.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <WebSerial.h>
 #include <InputHandler.h>
 
-AsyncWebServer server(80);
-
-const char *ssid = "REPLACE_WITH_YOUR_SSID";         // Your WiFi SSID
-const char *password = "REPLACE_WITH_YOUR_PASSWORD"; // Your WiFi Password
-
-/*
-  this output buffer is formatted by UserInput's methods
-  you have to empty it out yourself with
-  ClearOutputBuffer()
-*/
-char output_buffer[512] = {'\0'}; //  output buffer
-
-/*
-  UserInput constructor
-*/
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ 512,
-    /* username */ "esp",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+UserInput inputHandler;
 
 /*
    default function, called if nothing matches or if there is an error
 */
 void uc_unrecognized(UserInput *inputProcess)
 {
-  // do your error output here
-}
-/*
-   lists the settings passed to UserInput's constructor, or default parameters
-*/
-void uc_settings(UserInput *inputProcess)
-{
-  inputProcess->ListSettings(inputProcess);
-}
-
-/*
-   lists commands available to the user
-*/
-void uc_help(UserInput *inputProcess)
-{
-  inputProcess->ListCommands();
-}
-void uc_help(UserInput &inputProcess)
-{
-  inputProcess.ListCommands();
+  Serial.println(F("made it to uc_unrecognized"));
 }
 
 /*
@@ -69,7 +25,6 @@ void uc_help(UserInput &inputProcess)
 */
 void uc_test_input_types(UserInput *inputProcess)
 {
-  inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
   char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
   char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
@@ -114,8 +69,7 @@ void uc_test_input_types(UserInput *inputProcess)
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
                            c_string);
-
-  memcpy(output_buffer, out, ((sizeof(out) < sizeof(output_buffer)) ? sizeof(out) : sizeof(output_buffer - 1)));
+  Serial.print(out);
 }
 
 /*
@@ -131,18 +85,16 @@ void uc_test_input_types(UserInput *inputProcess)
    in the argument array
 
    The following are the available input types
-   UITYPE::UINT8_T == an eight bit unsigned integer
-   UITYPE::UINT16_T == a sixteen bit unsigned integer
-   UITYPE::UINT32_T == a thirty-two bit unsigned integer
-   UITYPE::INT16_T == a sixteen bit signed integer
-   UITYPE::FLOAT == a thirty-two bit signed floating point number
-   UITYPE::CHAR == a character value
-   UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
+   _UITYPE::UINT8_T == an eight bit unsigned integer
+   _UITYPE::UINT16_T == a sixteen bit unsigned integer
+   _UITYPE::UINT32_T == a thirty-two bit unsigned integer
+   _UITYPE::INT16_T == a sixteen bit signed integer
+   _UITYPE::FLOAT == a thirty-two bit signed floating point number
+   _UITYPE::CHAR == a character value
+   _UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
                                depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
-UserCommandParameters uc_help_("help", uc_help);                  //  uc_help_ has a command string, and function specified
-UserCommandParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
 
 // This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
 // All available input types are in this array
@@ -157,43 +109,17 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
-void setup_wifi()
-{
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-  }
-}
-
-void recvMsg(uint8_t *data, size_t len)
-{
-  inputHandler.ReadCommandFromBuffer(data, len);
-}
-
 void setup()
 {
-  setup_wifi();
+  Serial.begin(115200); //  set up Serial
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-  inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.AddCommand(uc_test_);          // input type test
 
-  uc_help(inputHandler); // formats output_buffer with the command list
-
-  // WebSerial is accessible at "<IP Address>/webserial" in browser
-  WebSerial.begin(&server);       // WebSerial uses an async server object
-  WebSerial.msgCallback(recvMsg); //  callback ISR
-  server.begin();                 //  start async server
+  Serial.println(F("enter test 1 2 3 4 5 a \"bb\" to test user input types."));
 }
 
 void loop()
 {
-  if (inputHandler.OutputIsAvailable())
-  {
-    WebSerial.println(output_buffer);
-    inputHandler.ClearOutputBuffer();
-  }
+  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software serial should work
 }
