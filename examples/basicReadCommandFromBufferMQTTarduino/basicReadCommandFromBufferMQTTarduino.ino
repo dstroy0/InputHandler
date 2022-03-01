@@ -1,23 +1,26 @@
 /**
-   @file basicReadCommandMQTTesp32.ino
+   @file basicReadCommandFromBufferMQTTarduino.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that uses ReadCommand and MQTT
+   @brief An example that uses ReadCommandFromBuffer and MQTT
    @version 0.1
-   @date 2022-02-28
+   @date 2022-03-01
 
    @copyright Copyright (c) 2022
 */
 
-#include <WiFi.h>
+#include <SPI.h>
+#include <WiFiNINA.h>
 #include <PubSubClient.h>
-#include <inputHandler.h>
+#include <InputHandler.h>
 
 const char *ssid = "REPLACE_WITH_YOUR_SSID";
 const char *password = "REPLACE_WITH_YOUR_PASSWORD";
 const char *mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
+int status = WL_IDLE_STATUS;
+int keyIndex = 0;
 
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClient arduinoClient;
+PubSubClient client(arduinoClient);
 char msg[50]; // command rx buffer
 
 /*
@@ -32,7 +35,7 @@ char output_buffer[512] = {'\0'}; //  output buffer
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
                        /* size of UserInput's output buffer */ 512,
-                       /* username */ "user",
+                       /* username */ "arduino",
                        /* end of line characters */ "\r\n",
                        /* token delimiter */ " ",
                        /* c-string delimiter */ "\"");
@@ -156,20 +159,6 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
-void setup()
-{
-    setup_wifi();
-    client.setServer(mqtt_server, 1883);
-    client.setCallback(mqtt_callback);
-
-    inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-    inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-    inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
-    inputHandler.AddCommand(uc_test_);             // input type test
-
-    uc_help(inputHandler); // formats output_buffer with the command list
-}
-
 void setup_wifi()
 {
     WiFi.begin(ssid, password);
@@ -185,10 +174,10 @@ void reconnect_mqtt()
     // Loop until we're reconnected
     while (!client.connected())
     {
-        if (client.connect("ESP8266Client"))
+        if (client.connect("ArduinoClient"))
         {
             // Subscribe
-            client.subscribe("esp32/command");
+            client.subscribe("arduino/command");
         }
         else
         {
@@ -204,6 +193,20 @@ void mqtt_callback(char *topic, byte *message, unsigned int length)
     inputHandler.ReadCommandFromBuffer(message, length);
 }
 
+void setup()
+{
+    setup_wifi();
+    client.setServer(mqtt_server, 1883);
+    client.setCallback(mqtt_callback);
+
+    inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.AddCommand(uc_help_);             // lists commands available to the user
+    inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
+    inputHandler.AddCommand(uc_test_);             // input type test
+
+    uc_help(inputHandler); // formats output_buffer with the command list
+}
+
 void loop()
 {
     // keep connecting to MQTT
@@ -215,7 +218,7 @@ void loop()
 
     if (inputHandler.OutputIsAvailable())
     {
-        client.publish("esp32/output", output_buffer);
+        client.publish("arduino/output", output_buffer);
         inputHandler.ClearOutputBuffer();
     }
 }
