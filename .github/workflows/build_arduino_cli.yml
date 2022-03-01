@@ -81,5 +81,6 @@ jobs:
         uses: arduino/compile-sketches@main
         with:          
           sketch-paths: |
-            - examples/advancedGetCommandFromStream
+            - examples/arduino/basic/GetCommandFromStream/
+            - examples/arduino/advanced/GetCommandFromStream/
           fqbn: ${{ matrix.fqbn }}
