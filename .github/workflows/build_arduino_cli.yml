@@ -20,7 +20,8 @@ jobs:
             - '*.hpp'
             - '*.h'
           target-paths: |
-            - examples
+            - examples/arduino/basic/GetCommandFromStream/
+            - examples/arduino/advanced/GetCommandFromStream/
   
   build:
     needs: check_formatting

@@ -1,4 +1,4 @@
-name: PlatformIO CI
+name: PlatformIO arduino CI
 
 on: [workflow_dispatch]
 
@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/advancedGetCommandFromStream/advancedGetCommandFromStream.ino, examples/basicGetCommandFromStream/basicGetCommandFromStream.ino]
+        example: [examples/arduino/advanced/GetCommandFromStream/GetCommandFromStream.ino, 
+                  examples/arduino/basic/GetCommandFromStream/GetCommandFromStream.ino]
 
     steps:
     - uses: actions/checkout@v2
@@ -38,9 +39,7 @@ jobs:
                   --board=teensy35 
                   --board=teensy36 
                   --board=teensy40 
-                  --board=teensy41                   
-                  --board=esp32dev 
-                  --board=huzzah 
-
+                  --board=teensy41                    
+                  
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}
