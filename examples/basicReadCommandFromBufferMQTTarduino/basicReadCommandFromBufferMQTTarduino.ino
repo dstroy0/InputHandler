@@ -16,8 +16,6 @@
 const char *ssid = "REPLACE_WITH_YOUR_SSID";
 const char *password = "REPLACE_WITH_YOUR_PASSWORD";
 const char *mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
-int status = WL_IDLE_STATUS;
-int keyIndex = 0;
 
 WiFiClient arduinoClient;
 PubSubClient client(arduinoClient);
