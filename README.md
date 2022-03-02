@@ -12,7 +12,7 @@ Executes arbitrary functions by matching user input command strings.
 
 Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
 
-Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  
+Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many or as few arguments as you wish.
 
 A command string looks like:  
 ```
