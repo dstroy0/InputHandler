@@ -10,6 +10,8 @@
 Arduino user input handler :  
 Executes arbitrary functions by matching user input command strings.
 
+Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.
+
 The classes' input methods are:
 
 ```
@@ -37,9 +39,26 @@ UserCommandParameters your_command_object_("your_input_to_match",    // your com
                                           );                           
 ```
 
+Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
-Target function will not execute if the command string does not match, or any arguments are type-invalid.
+This method will output to any stream (hardware or software Serial):  
+```
+void OutputToStream(Stream &stream);
+```
+or, you can check to see if output is available with:  
+```
+bool OutputIsAvailable();
+```
+and then when you are done with the output buffer, it needs to be reinitialized:  
+```
+void ClearOutputBuffer();
+```
 
+The input process will continue to function even if you do not define an output buffer.  
+
+Target function will not execute if the command string does not match, or any arguments are type-invalid.  
+
+#Support  
 ATTiny85 not supported  
 
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
