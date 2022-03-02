@@ -58,7 +58,7 @@ The input process will continue to function even if you do not define an output 
 
 Target function will not execute if the command string does not match, or any arguments are type-invalid.  
 
-# Support  
+# Supported Platforms    
 ATTiny85 not supported  
 
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
