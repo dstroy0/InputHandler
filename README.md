@@ -7,7 +7,7 @@
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml)  
 
 # InputHandler
-Arduino user input handler :
+Arduino user input handler :  
 Executes arbitrary functions by matching user input command strings.
 
 The classes' input methods are:
@@ -38,7 +38,7 @@ UserCommandParameters your_command_object_("your_input_to_match",    // your com
 ```
 
 
-Target function will not execute if the command string does not match, or any arguments are invalid.
+Target function will not execute if the command string does not match, or any arguments are type-invalid.
 
 ATTiny85 not supported  
 
