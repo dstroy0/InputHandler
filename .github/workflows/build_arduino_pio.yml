@@ -39,7 +39,8 @@ jobs:
                   --board=teensy35 
                   --board=teensy36 
                   --board=teensy40 
-                  --board=teensy41                    
+                  --board=teensy41
+                  --board=nanorp2040connect                    
                   
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}
