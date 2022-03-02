@@ -156,7 +156,7 @@ void setup()
   // Serial2.begin(115200);
   // Serial3.begin(115200);
   // Serial4.begin(115200);
-  while(!Serial); //  wait for user
+  while (!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
@@ -174,4 +174,21 @@ void loop()
   // inputHandler.GetCommandFromStream(Serial2);  // Serial2
   // inputHandler.GetCommandFromStream(Serial3);  // Serial3
   // inputHandler.GetCommandFromStream(Serial4);  // Serial4
+
+  // choose one stream to output to
+  inputHandler.OutputToStream(Serial); // class output
+
+  // or output to multiple streams like this
+  /*
+    if(inputHandler.OutputIsAvailable())
+    {
+    Serial.println(output_buffer);
+    Serial2.println(output_buffer);
+    Serial3.println(output_buffer);
+    Serial4.println(output_buffer);
+
+    // and clear the output buffer when you are finished
+    inputHandler.ClearOutputBuffer();
+    }
+  */
 }

@@ -30,7 +30,7 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput *inputProcess)
+void uc_unrecognized(UserInput* inputProcess)
 {
   // error output
   inputProcess->OutputToStream(Serial);
@@ -39,7 +39,7 @@ void uc_unrecognized(UserInput *inputProcess)
 /*
    lists the settings passed to UserInput's constructor, or default parameters
 */
-void uc_settings(UserInput *inputProcess)
+void uc_settings(UserInput* inputProcess)
 {
   inputProcess->ListSettings(inputProcess);
 }
@@ -47,11 +47,11 @@ void uc_settings(UserInput *inputProcess)
 /*
    lists commands available to the user
 */
-void uc_help(UserInput *inputProcess)
+void uc_help(UserInput* inputProcess)
 {
   inputProcess->ListCommands();
 }
-void uc_help(UserInput &inputProcess)
+void uc_help(UserInput& inputProcess)
 {
   inputProcess.ListCommands();
 }
@@ -59,11 +59,11 @@ void uc_help(UserInput &inputProcess)
 /*
    test all available input types
 */
-void uc_test_input_types(UserInput *inputProcess)
+void uc_test_input_types(UserInput* inputProcess)
 {
   inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-  char *strtoul_ptr = 0;                                                            //  this is for strtoul
+  char* str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+  char* strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
   uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
@@ -156,7 +156,7 @@ void setup()
   // Serial2.begin(115200);
   // Serial3.begin(115200);
   // Serial4.begin(115200);
-  while(!Serial); //  wait for user
+  while (!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
@@ -174,4 +174,21 @@ void loop()
   // inputHandler.GetCommandFromStream(Serial2);  // Serial2
   // inputHandler.GetCommandFromStream(Serial3);  // Serial3
   // inputHandler.GetCommandFromStream(Serial4);  // Serial4
+
+  // choose one stream to output to
+  inputHandler.OutputToStream(Serial); // class output
+
+  // or output to multiple streams like this
+  /*
+    if(inputHandler.OutputIsAvailable())
+    {
+    Serial.println(output_buffer);
+    Serial2.println(output_buffer);
+    Serial3.println(output_buffer);
+    Serial4.println(output_buffer);
+
+    // and clear the output buffer when you are finished
+    inputHandler.ClearOutputBuffer();
+    }
+  */
 }
