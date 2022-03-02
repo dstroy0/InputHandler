@@ -1,8 +1,44 @@
-[![Arduino CLI Build](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml)
+[![Arduino CLI Build](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml)  
 
-[![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml)
+[![PlatformIO arduino CI](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml)  
+
+[![PlatformIO esp CI](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml)  
+
+[![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml)  
+
 # InputHandler
-Arduino user input handler  
+Arduino user input handler :
+Executes arbitrary functions by matching user input command strings.
+
+The classes' input methods are:
+
+```
+void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
+```
+and
+```
+void ReadCommandFromBuffer(uint8_t *data, size_t len);
+```
+
+Easily enforce input argument type with:
+```
+const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
+                                          UITYPE::UINT16_T,
+                                          UITYPE::UINT32_T,
+                                          UITYPE::INT16_T,
+                                          UITYPE::FLOAT,
+                                          UITYPE::CHAR,
+                                          UITYPE::C_STRING
+                                         };
+UserCommandParameters your_command_object_("your_input_to_match",    // your command string
+                                           your_function_to_launch,  // the function you want to launch 
+                                           _N_ARGS(your_arguments_in_order), // a macro that gets the number of arguments in your argument array
+                                           your_arguments_in_order  // your argument array
+                                          );                           
+```
+
+
+Target function will not execute if the command string does not match, or any arguments are invalid.
 
 ATTiny85 not supported  
 
