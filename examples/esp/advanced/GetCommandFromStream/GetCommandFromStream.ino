@@ -169,6 +169,7 @@ void setup()
 
 void loop()
 {
+  // uncomment as needed
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
   // inputHandler.GetCommandFromStream(Serial2);  // Serial2
   // inputHandler.GetCommandFromStream(Serial3);  // Serial3
