@@ -109,11 +109,58 @@ $(document).ready(function(){initNavTree('md_README.html',''); initResizable(); 
   <div class="headertitle"><div class="title">README </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml/badge.svg" alt="Arduino CLI Build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_pio.yml/badge.svg" alt="PlatformIO CI" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg" alt="Doxygen CI" style="pointer-events: none;" class="inline"/></a> </p>
+<div class="textblock"><p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" alt="Arduino CLI Build" style="pointer-events: none;" class="inline"/></a> <br  />
+</p>
+<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" alt="PlatformIO arduino CI" style="pointer-events: none;" class="inline"/></a> <br  />
+</p>
+<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" alt="PlatformIO esp CI" style="pointer-events: none;" class="inline"/></a> <br  />
+</p>
+<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg" alt="Doxygen CI" style="pointer-events: none;" class="inline"/></a> <br  />
+</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 InputHandler</h1>
-<p >Arduino user input handler <br  />
+<p >Arduino user input handler : <br  />
+ Executes arbitrary functions by matching user input command strings. <br  />
 </p>
+<p >Check out the examples for different use cases. You can use this library to build a remote cli for your equipment. <br  />
+</p>
+<p >Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command. <br  />
+</p>
+<p >A command string looks like: <br  />
+ </p><div class="fragment"><div class="line">your_command arg1 arg... &quot;c-string args can have spaces and are enclosed with quotes&quot;</div>
+</div><!-- fragment --><p >The classes' input methods are: <br  />
+</p>
+<div class="fragment"><div class="line">void GetCommandFromStream(Stream &amp;stream, uint16_t rx_buffer_size = 32);</div>
+</div><!-- fragment --><p> and <br  />
+ </p><div class="fragment"><div class="line">void ReadCommandFromBuffer(uint8_t *data, size_t len);</div>
+</div><!-- fragment --><p >Easily enforce input argument type with: <br  />
+ </p><div class="fragment"><div class="line">const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,</div>
+<div class="line">                                          UITYPE::UINT16_T,</div>
+<div class="line">                                          UITYPE::UINT32_T,</div>
+<div class="line">                                          UITYPE::INT16_T,</div>
+<div class="line">                                          UITYPE::FLOAT,</div>
+<div class="line">                                          UITYPE::CHAR,</div>
+<div class="line">                                          UITYPE::C_STRING</div>
+<div class="line">                                         };</div>
+<div class="line">UserCommandParameters your_command_object_(&quot;your_input_to_match&quot;,    // your command string</div>
+<div class="line">                                           your_function_to_launch,  // the function you want to launch </div>
+<div class="line">                                           _N_ARGS(your_arguments_in_order), // a macro that gets the number of arguments in your argument array</div>
+<div class="line">                                           your_arguments_in_order  // your argument array</div>
+<div class="line">                                          );                           </div>
+</div><!-- fragment --><p >Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information. <br  />
+</p>
+<p >This method will output to any stream (hardware or software Serial): <br  />
+ </p><div class="fragment"><div class="line">void OutputToStream(Stream &amp;stream);</div>
+</div><!-- fragment --><p> or, you can check to see if output is available with: <br  />
+ </p><div class="fragment"><div class="line">bool OutputIsAvailable();</div>
+</div><!-- fragment --><p> and then when you are done with the output buffer, it needs to be reinitialized: <br  />
+ </p><div class="fragment"><div class="line">void ClearOutputBuffer();</div>
+</div><!-- fragment --><p >The input process will continue to function even if you do not define an output buffer. <br  />
+</p>
+<p >Target function will not execute if the command string does not match, or any arguments are type-invalid. <br  />
+</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Supported Platforms</h1>
 <p >ATTiny85 not supported <br  />
 </p>
 <p >If your board is not listed as not supported open an issue if you'd like it added to build coverage. <br  />

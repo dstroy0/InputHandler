@@ -31,7 +31,8 @@ var NAVTREE =
       [ "Useful References", "index.html#autotoc_md3", null ]
     ] ],
     [ "README", "md_README.html", [
-      [ "InputHandler", "md_README.html#autotoc_md4", null ]
+      [ "InputHandler", "md_README.html#autotoc_md4", null ],
+      [ "Supported Platforms", "md_README.html#autotoc_md5", null ]
     ] ],
     [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
