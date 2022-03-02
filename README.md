@@ -71,7 +71,8 @@ ATTiny85 not supported
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
   
 Build coverage:  
-  
+
+nano rp2040 connect  
 teensy 3.1  
 teensy 3.5  
 teensy 3.6  
