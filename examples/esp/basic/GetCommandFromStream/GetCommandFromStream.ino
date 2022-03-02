@@ -85,13 +85,13 @@ void uc_test_input_types(UserInput *inputProcess)
    in the argument array
 
    The following are the available input types
-   _UITYPE::UINT8_T == an eight bit unsigned integer
-   _UITYPE::UINT16_T == a sixteen bit unsigned integer
-   _UITYPE::UINT32_T == a thirty-two bit unsigned integer
-   _UITYPE::INT16_T == a sixteen bit signed integer
-   _UITYPE::FLOAT == a thirty-two bit signed floating point number
-   _UITYPE::CHAR == a character value
-   _UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
+   UITYPE::UINT8_T == an eight bit unsigned integer
+   UITYPE::UINT16_T == a sixteen bit unsigned integer
+   UITYPE::UINT32_T == a thirty-two bit unsigned integer
+   UITYPE::INT16_T == a sixteen bit signed integer
+   UITYPE::FLOAT == a thirty-two bit signed floating point number
+   UITYPE::CHAR == a character value
+   UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
                                depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
                                using GetCommandFromStream input c-string length is limited by input_buffer size
 */
@@ -112,7 +112,7 @@ UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_argu
 void setup()
 {
   Serial.begin(115200); //  set up Serial
-  while(!Serial); //  wait for user
+  while (!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_test_);          // input type test
