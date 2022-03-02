@@ -89,8 +89,12 @@ void uc_test_input_types(UserInput* inputProcess)
   char c_string[64] = {'\0'};
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
+  str_ptr = inputProcess->NextArgument();
+  char unknown_string[64] = {'\0'};
+  snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
+
   char float_buffer[32] = {'\0'}; //  dtostrf buffer
-  char out[128] = {'\0'};         //  function output buffer
+  char out[164] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
 
   /*
@@ -98,14 +102,23 @@ void uc_test_input_types(UserInput* inputProcess)
   */
   string_pos += snprintf_P(out + string_pos, 128,
                            PSTR("Test user input types:\n"
-                                "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
+                                "uint8_t %u\n"
+                                "uint16_t %u\n"
+                                "uint32_t %lu\n"
+                                "int %d\n"
+                                "float %s\n"
+                                "char %c\n"
+                                "c-string %s\n"
+                                "unknown-string %s\n"
+                                ),
                            eight_bit,
                            sixteen_bit,
                            thirtytwo_bit,
                            sixteen_bit_int,
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
-                           c_string);
+                           c_string,
+                           unknown_string);
 
   Serial.print(out);
 }
@@ -144,7 +157,8 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
                                             UITYPE::INT16_T,
                                             UITYPE::FLOAT,
                                             UITYPE::CHAR,
-                                            UITYPE::C_STRING
+                                            UITYPE::C_STRING,
+                                            UITYPE::NOTYPE
                                            };
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);

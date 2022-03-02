@@ -29,7 +29,7 @@ OR if you dont want to use a [Stream](https://www.arduino.cc/reference/en/langua
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-Easily enforce input argument type with:  
+Easily enforce input argument types with:  
 ```
 const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
                                           UITYPE::UINT16_T,
@@ -37,7 +37,8 @@ const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
                                           UITYPE::INT16_T,
                                           UITYPE::FLOAT,
                                           UITYPE::CHAR,
-                                          UITYPE::C_STRING
+                                          UITYPE::C_STRING,
+                                          UITYPE::NOTYPE
                                          };
 UserCommandParameters your_command_object_("your_input_to_match",    // your command string
                                            your_function_to_launch,  // the name of the function to launch
@@ -45,6 +46,8 @@ UserCommandParameters your_command_object_("your_input_to_match",    // your com
                                            your_arguments_in_order  // your argument array
                                           );                           
 ```
+NOTYPE is a special argument type that doesn't perform any type-validation.
+
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
@@ -56,7 +59,7 @@ or, you can check to see if output is available with:
 ```
 bool OutputIsAvailable();
 ```
-and then when you are done with the output buffer, it needs to be reinitialized:  
+and then when you are done with the output buffer, it needs to be reinitialized with:  
 ```
 void ClearOutputBuffer();
 ```

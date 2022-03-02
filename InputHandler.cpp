@@ -1,7 +1,14 @@
-#include "InputHandler.h"
+/**
+   @file InputHandler.cpp
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief InputHandler library cpp file
+   @version 1.0
+   @date 2022-03-02
 
-//  uncomment to debug InputHandler
-//#define _DEBUG_USER_INPUT
+   @copyright Copyright (c) 2022
+*/
+
+#include "InputHandler.h"
 
 char *UserInput::NextArgument()
 {
@@ -35,7 +42,7 @@ void UserInput::AddCommand(UserCommandParameters &command)
     (*cmd_count)++;
 }
 
-bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t *data_index)
+bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *data_index)
 {
     bool got_token = false;
     char incoming = 0;                   // cast data[data_index] to char and run tests on incoming
@@ -168,7 +175,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, uint16_t
     return got_token;
 }
 
-bool UserInput::validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, uint16_t data_pointers_index)
+bool UserInput::validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, size_t data_pointers_index)
 {
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
     bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(ui_defaults_progmem_ptr[neg_e])))) ? true : false;
@@ -311,6 +318,11 @@ bool UserInput::validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, 
             }
         }
     }
+    else if (arg_type == (size_t)UITYPE::NOTYPE)
+    {
+        // no type validation performed
+        return true;
+    }
     else //  unknown types always return false
     {
         return false;
@@ -356,7 +368,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         _output_flag = true;
         return;
     }
-    uint16_t data_index = 0; // data iterator
+    size_t data_index = 0; // data iterator
 
     //  should maybe see if there is enough memory to allocate the token buffer
     token_buffer = new char[len + 1](); // place to chop up the input
@@ -514,7 +526,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     delete[] token_buffer;
 }
 
-void UserInput::GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size)
+void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
 {
     if (stream_buffer_allocated == false)
     {
