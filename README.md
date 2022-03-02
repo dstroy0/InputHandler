@@ -8,21 +8,28 @@
 
 # InputHandler
 Arduino user input handler :  
-Executes arbitrary functions by matching user input command strings.
+Executes arbitrary functions by matching user input command strings.  
 
-Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.
+Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
 
-The classes' input methods are:
+Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  
+
+A command string looks like:  
+```
+your_command arg1 arg... "c-string args can have spaces and are enclosed with quotes"
+```
+
+The classes' input methods are:  
 
 ```
 void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
 ```
-and
+and  
 ```
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-Easily enforce input argument type with:
+Easily enforce input argument type with:  
 ```
 const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
                                           UITYPE::UINT16_T,
