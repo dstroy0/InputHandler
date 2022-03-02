@@ -156,6 +156,7 @@ void setup()
   // Serial2.begin(115200);
   // Serial3.begin(115200);
   // Serial4.begin(115200);
+  while(!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user

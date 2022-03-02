@@ -24,7 +24,7 @@ The classes' input methods are:
 ```
 void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
 ```
-and  
+OR if you dont want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
 ```
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
@@ -40,7 +40,7 @@ const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
                                           UITYPE::C_STRING
                                          };
 UserCommandParameters your_command_object_("your_input_to_match",    // your command string
-                                           your_function_to_launch,  // the function you want to launch 
+                                           your_function_to_launch,  // the name of the function to launch
                                            _N_ARGS(your_arguments_in_order), // a macro that gets the number of arguments in your argument array
                                            your_arguments_in_order  // your argument array
                                           );                           

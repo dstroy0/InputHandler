@@ -13,9 +13,9 @@
 #include <PubSubClient.h>
 #include <InputHandler.h>
 
-const char *ssid = "REPLACE_WITH_YOUR_SSID";
-const char *password = "REPLACE_WITH_YOUR_PASSWORD";
-const char *mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
+const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
 
 WiFiClient arduinoClient;
 PubSubClient client(arduinoClient);
@@ -41,14 +41,14 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput *inputProcess)
+void uc_unrecognized(UserInput* inputProcess)
 {
     // do your error output here
 }
 /*
    lists the settings passed to UserInput's constructor, or default parameters
 */
-void uc_settings(UserInput *inputProcess)
+void uc_settings(UserInput* inputProcess)
 {
     inputProcess->ListSettings(inputProcess);
 }
@@ -56,11 +56,11 @@ void uc_settings(UserInput *inputProcess)
 /*
    lists commands available to the user
 */
-void uc_help(UserInput *inputProcess)
+void uc_help(UserInput* inputProcess)
 {
     inputProcess->ListCommands();
 }
-void uc_help(UserInput &inputProcess)
+void uc_help(UserInput& inputProcess)
 {
     inputProcess.ListCommands();
 }
@@ -68,11 +68,11 @@ void uc_help(UserInput &inputProcess)
 /*
    test all available input types
 */
-void uc_test_input_types(UserInput *inputProcess)
+void uc_test_input_types(UserInput* inputProcess)
 {
     inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-    char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-    char *strtoul_ptr = 0;                                                            //  this is for strtoul
+    char* str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0;                                                            //  this is for strtoul
     uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
     uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
@@ -186,7 +186,7 @@ void reconnect_mqtt()
 }
 
 // incoming command
-void mqtt_callback(char *topic, byte *message, unsigned int length)
+void mqtt_callback(char* topic, byte* message, unsigned int length)
 {
     inputHandler.ReadCommandFromBuffer(message, length);
 }

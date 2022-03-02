@@ -112,6 +112,7 @@ UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_argu
 void setup()
 {
   Serial.begin(115200); //  set up Serial
+  while(!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_test_);          // input type test
