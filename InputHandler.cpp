@@ -358,25 +358,39 @@ void UserInput::launchFunction(UserCommandParameters *cmd)
     cmd->function(this);
 }
 
-void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
+void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
 {
-    if (UserInput::OutputIsEnabled() && len > USER_INPUT_MAX_INPUT_LENGTH)
+    if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
-        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                     PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"),
-                                     _username_);
-        _output_flag = true;
+        if (UserInput::OutputIsEnabled())
+        {
+            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                         PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"),
+                                         _username_);
+            _output_flag = true;
+        }
+        return;
+    }    
+    
+    token_buffer = new char[len + 1](); // place to chop up the input
+    if (token_buffer == nullptr)        // if there was an error allocating the memory
+    {
+        if (UserInput::OutputIsEnabled())
+        {
+            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                         PSTR(">%s $ERROR: not enough free ram to allocate the token buffer.\n"),
+                                         _username_);
+            _output_flag = true;
+        }
         return;
     }
-    size_t data_index = 0; // data iterator
 
-    //  should maybe see if there is enough memory to allocate the token buffer
-    token_buffer = new char[len + 1](); // place to chop up the input
+    size_t data_index = 0;              // data iterator
     data_pointers_index = 0;            // token buffer pointers
     rec_num_arg_strings = 0;            // number of tokens read from data
-    bool match = false;
-    bool command_matched = false; // error sentinel
-    UserCommandParameters *cmd;
+    bool match = false;                 // command string match
+    bool command_matched = false;       // error sentinel
+    UserCommandParameters* cmd;         // command parameters pointer
 
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
@@ -497,7 +511,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                          i + 1,
-                                                         (char *)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
+                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
                                                          data_pointers[i + 1]);
                         }
                     }
@@ -529,8 +543,19 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
 {
     if (stream_buffer_allocated == false)
-    {
+    {                
         stream_data = new uint8_t[rx_buffer_size]; // an array to store the received data
+        if (stream_data == nullptr)                // if there was an error allocating the memory
+        {
+            if (UserInput::OutputIsEnabled())
+            {
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR(">%s $ERROR: not enough memory for stream rx buffer\n"),
+                                             _username_);
+                _output_flag = true;
+            }
+            return;
+        }
         stream_buffer_allocated = true;
     }
     char *rc = (char *)stream_data;
