@@ -175,7 +175,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     return got_token;
 }
 
-bool UserInput::validateUserInput(UserCommandParameters *cmd, uint8_t arg_type, size_t data_pointers_index)
+bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
 {
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
     bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(ui_defaults_progmem_ptr[neg_e])))) ? true : false;
@@ -435,7 +435,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
                         uint8_t argument = static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[rec_num_arg_strings]));
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(cmd, argument, data_pointers_index - 1); // validate the token
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(argument, data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                // if the token was not valid input
                         {
                             all_arguments_valid = false; // set the error sentinel to true

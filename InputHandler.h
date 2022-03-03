@@ -272,7 +272,7 @@ protected:
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
      */
-    bool validateUserInput(UserCommandParameters* cmd, uint8_t arg_type, size_t data_pointers_index);
+    bool validateUserInput(uint8_t arg_type, size_t data_pointers_index);
 
     /**
      * @brief launches a function
