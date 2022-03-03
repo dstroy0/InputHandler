@@ -634,6 +634,7 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
             break;
         case ' ':
             strcat_P(output, PSTR(" "));
+            break;
         default:
             if (i == len)
                 strcat(output, input);

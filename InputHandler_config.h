@@ -43,8 +43,16 @@
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
 #define _N_ARGS(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
-#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) || defined(__MBED_CONFIG_DATA__)
+#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) 
 #include <avr/dtostrf.h>
+#endif
+
+#if defined(__MBED_CONFIG_DATA__)
+#include <avr/dtostrf.h>
+#undef UI_DEREFERENCE
+#define UI_DEREFERENCE
+#undef UI_PGM_READ_DWORD
+#define UI_PGM_READ_DWORD
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
