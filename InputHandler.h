@@ -29,29 +29,31 @@
  */
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
-    username_e, ///<  0
-    eol_e,      ///<  1
-    t_delim_e,  ///<  2
-    c_delim_e,  ///<  3
-    null_e,     ///<  4
-    neg_e,      ///<  5
-    dot_e,      ///<  6
-    err_e       ///<  7
+    username_e, ///<  ui_defaults_progmem_ptr[0]
+    eol_e,      ///<  ui_defaults_progmem_ptr[1]
+    t_delim_e,  ///<  ui_defaults_progmem_ptr[2]
+    c_delim_e,  ///<  ui_defaults_progmem_ptr[3]
+    null_e,     ///<  ui_defaults_progmem_ptr[4]
+    neg_e,      ///<  ui_defaults_progmem_ptr[5]
+    dot_e,      ///<  ui_defaults_progmem_ptr[6]
+    err_e       ///<  ui_defaults_progmem_ptr[7]
 };
 
 /**
  * @brief default constructor string literals
- * @var ui_defaults_progmem_ptr
+ * \snippet InputHandler.h ui_defaults_progmem_def
  */
 const PROGMEM char* const ui_defaults_progmem_ptr[] = {
-    "user", ///<  default username
-    "\r\n", ///<  default end of line characters
-    " ",    ///<  default token delimiter
-    "\"",   ///<  default c-string delimiter
-    "\0",   ///<  null
-    "-",    ///<  negative sign
-    ".",    ///<  dot
-    "error" ///<  error
+    //![ui_defaults_progmem_def]
+    "user", //  default username
+    "\r\n", //  default end of line characters
+    " ",    //  default token delimiter
+    "\"",   //  default c-string delimiter
+    "\0",   //  null
+    "-",    //  negative sign
+    ".",    //  dot
+    "error" //  error
+    //![ui_defaults_progmem_def]
 };
 
 /**
@@ -60,22 +62,23 @@ const PROGMEM char* const ui_defaults_progmem_ptr[] = {
  */
 enum class UITYPE
 {
-    UINT8_T,  //  0
-    UINT16_T, //  1
-    UINT32_T, //  2
-    INT16_T,  //  3
-    FLOAT,    //  4
-    CHAR,     //  5
-    C_STRING, //  6
-    NOTYPE,   //  7
-    _LAST     //  8
+    UINT8_T,  ///<  ui_input_type_strings[0]
+    UINT16_T, ///<  ui_input_type_strings[1]
+    UINT32_T, ///<  ui_input_type_strings[2]
+    INT16_T,  ///<  ui_input_type_strings[3]
+    FLOAT,    ///<  ui_input_type_strings[4]
+    CHAR,     ///<  ui_input_type_strings[5]
+    C_STRING, ///<  ui_input_type_strings[6]
+    NOTYPE,   ///<  ui_input_type_strings[7]
+    _LAST     ///<  reserved
 };
 
 /**
  * @brief type string literals
- * @var ui_input_type_strings
+ * \snippet InputHandler.h ui_input_type_strings_def
  */
 const PROGMEM char* const ui_input_type_strings[] = {
+    //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
     "uint16_t",    //  16-bit unsigned integer
     "uint32_t",    //  32-bit unsigned integer
@@ -84,6 +87,7 @@ const PROGMEM char* const ui_input_type_strings[] = {
     "char",        //  single char
     "c-string",    //  c-string without spaces if not enclosed with ""
     "type-unknown" //  user defined NOTYPE
+    //![ui_input_type_strings_def]
 };
 /** @} */
 
