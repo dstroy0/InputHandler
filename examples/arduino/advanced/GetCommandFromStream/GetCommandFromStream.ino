@@ -110,7 +110,7 @@ void uc_test_input_types(UserInput* inputProcess)
                                 "char %c\n"
                                 "c-string %s\n"
                                 "unknown-string %s\n"
-                                ),
+                               ),
                            eight_bit,
                            sixteen_bit,
                            thirtytwo_bit,
