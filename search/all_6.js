@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['getcommandfromstream_0',['GetCommandFromStream',['../classUserInput.html#a4527a97a4aa08ffd9053e8a7de7b9bd2',1,'UserInput']]],
-  ['gettoken_1',['getToken',['../classUserInput.html#a56fbce3e87c4bc10b511ad0c1767b420',1,'UserInput']]]
+  ['getcommandfromstream_0',['GetCommandFromStream',['../classUserInput.html#ae800e0f0a87beba7ab87b101cbc4efe3',1,'UserInput']]],
+  ['gettoken_1',['getToken',['../classUserInput.html#af9decd0d74d1b63264ba64f2403fcc36',1,'UserInput']]]
 ];

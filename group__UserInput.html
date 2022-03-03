@@ -138,7 +138,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a>
 , <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a>
 , <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a>
-, <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948">UITYPE::_LAST</a>
+, <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>
+, <br />
+&#160;&#160;<a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948">UITYPE::_LAST</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="mdescLeft">&#160;</td><td class="mdescRight">ui_input_type_strings enum  <a href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">More...</a><br /></td></tr>
@@ -179,7 +181,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2" name="gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2"></a>err_e&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00022">22</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00030">30</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -212,10 +214,11 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6" name="gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6"></a>FLOAT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063"></a>CHAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00"></a>C_STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"></a>NOTYPE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948" name="gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948"></a>_LAST&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00052">52</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00061">61</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -232,18 +235,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    <span class="stringliteral">&quot;user&quot;</span>,   </div>
-<div class="line">    <span class="stringliteral">&quot;\r\n&quot;</span>,   </div>
-<div class="line">    <span class="stringliteral">&quot; &quot;</span>,      </div>
-<div class="line">    <span class="stringliteral">&quot;\&quot;&quot;</span>,     </div>
-<div class="line">    <span class="stringliteral">&quot;\0&quot;</span>,     </div>
-<div class="line">    <span class="stringliteral">&quot;-&quot;</span>,      </div>
-<div class="line">    <span class="stringliteral">&quot;.&quot;</span>,      </div>
-<div class="line">    <span class="stringliteral">&quot;error&quot;</span>}</div>
+<div class="line">    <span class="stringliteral">&quot;user&quot;</span>, </div>
+<div class="line">    <span class="stringliteral">&quot;\r\n&quot;</span>, </div>
+<div class="line">    <span class="stringliteral">&quot; &quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;\&quot;&quot;</span>,   </div>
+<div class="line">    <span class="stringliteral">&quot;\0&quot;</span>,   </div>
+<div class="line">    <span class="stringliteral">&quot;-&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;.&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;error&quot;</span> </div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>default constructor string literals </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00038">38</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00046">46</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -259,17 +263,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    <span class="stringliteral">&quot;uint8_t&quot;</span>,   </div>
-<div class="line">    <span class="stringliteral">&quot;uint16_t&quot;</span>,  </div>
-<div class="line">    <span class="stringliteral">&quot;uint32_t&quot;</span>,  </div>
-<div class="line">    <span class="stringliteral">&quot;int16_t&quot;</span>,   </div>
-<div class="line">    <span class="stringliteral">&quot;float&quot;</span>,     </div>
-<div class="line">    <span class="stringliteral">&quot;char&quot;</span>,      </div>
-<div class="line">    <span class="stringliteral">&quot;c-string&quot;</span>}</div>
+<div class="line">    <span class="stringliteral">&quot;uint8_t&quot;</span>,     </div>
+<div class="line">    <span class="stringliteral">&quot;uint16_t&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;uint32_t&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;int16_t&quot;</span>,     </div>
+<div class="line">    <span class="stringliteral">&quot;float&quot;</span>,       </div>
+<div class="line">    <span class="stringliteral">&quot;char&quot;</span>,        </div>
+<div class="line">    <span class="stringliteral">&quot;c-string&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;type-unknown&quot;</span> </div>
+<div class="line">}</div>
 </div><!-- fragment -->
 <p>type string literals </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00068">68</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00078">78</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>

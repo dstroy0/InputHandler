@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="InputHandler library cpp file.">
 <polygon fill="#bfbfbf" stroke="black" points="12,-168.5 12,-187.5 111,-187.5 111,-168.5 12,-168.5"/>
 <text text-anchor="middle" x="61.5" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputHandler.cpp</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="InputHandler_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="InputHandler_8h.html" target="_top" xlink:title="InputHandler library header file.">
 <polygon fill="none" stroke="black" points="17.5,-112.5 17.5,-131.5 105.5,-131.5 105.5,-112.5 17.5,-112.5"/>
 <text text-anchor="middle" x="61.5" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputHandler.h</text>
 </a>
@@ -35,7 +35,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="InputHandler__config_8h.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="InputHandler__config_8h.html" target="_top" xlink:title="InputHandler library configuration file.">
 <polygon fill="none" stroke="black" points="0,-56.5 0,-75.5 123,-75.5 123,-56.5 0,-56.5"/>
 <text text-anchor="middle" x="61.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputHandler_config.h</text>
 </a>

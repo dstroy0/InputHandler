@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="InputHandler library header file.">
 <polygon fill="#bfbfbf" stroke="black" points="5.5,-56.5 5.5,-75.5 93.5,-75.5 93.5,-56.5 5.5,-56.5"/>
 <text text-anchor="middle" x="49.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputHandler.h</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="InputHandler_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="InputHandler_8cpp.html" target="_top" xlink:title="InputHandler library cpp file.">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-19.5 99,-19.5 99,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="49.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputHandler.cpp</text>
 </a>

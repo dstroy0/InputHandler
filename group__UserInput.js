@@ -18,6 +18,7 @@ var group__UserInput =
       [ "UITYPE::FLOAT", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6", null ],
       [ "UITYPE::CHAR", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063", null ],
       [ "UITYPE::C_STRING", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00", null ],
+      [ "UITYPE::NOTYPE", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc", null ],
       [ "UITYPE::_LAST", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
     [ "ui_defaults_progmem_ptr", "group__UserInput.html#ga584a10970590d7b76154ff10ae35fc84", null ],
