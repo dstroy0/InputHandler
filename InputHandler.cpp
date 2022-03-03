@@ -340,7 +340,7 @@ void UserInput::launchFunction(UserCommandParameters *cmd)
                                      data_pointers[0]);
         for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
         {
-            if (iscntrl(data_pointers[i][0]))
+            if (iscntrl(*data_pointers[i + 1]))
             {
                 char temp_buffer[13] = {'\0'};
                 UserInput::escapeCharactersSoTheyPrint(data_pointers[i + 1], temp_buffer);
@@ -631,9 +631,6 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
             break;
         case '\"':
             strcat_P(output, PSTR("\\\""));
-            break;
-        case ' ':
-            strcat_P(output, PSTR(" "));
             break;
         default:
             if (i == len)
