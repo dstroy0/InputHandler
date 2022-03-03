@@ -43,8 +43,8 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * \snippet InputHandler.h ui_defaults_progmem_def
  */
-//![ui_defaults_progmem_def]
 const PROGMEM char* const ui_defaults_progmem_ptr[] = {    
+    //![ui_defaults_progmem_def]
     "user", //  default username
     "\r\n", //  default end of line characters
     " ",    //  default token delimiter
@@ -53,8 +53,9 @@ const PROGMEM char* const ui_defaults_progmem_ptr[] = {
     "-",    //  negative sign
     ".",    //  dot
     "error" //  error    
+    //![ui_defaults_progmem_def]
 };
-//![ui_defaults_progmem_def]
+
 
 /**
  * @brief ui_input_type_strings enum
@@ -77,8 +78,8 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-//![ui_input_type_strings_def]
 const PROGMEM char* const ui_input_type_strings[] = {    
+    //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
     "uint16_t",    //  16-bit unsigned integer
     "uint32_t",    //  32-bit unsigned integer
@@ -87,8 +88,9 @@ const PROGMEM char* const ui_input_type_strings[] = {
     "char",        //  single char
     "c-string",    //  c-string without spaces if not enclosed with ""
     "type-unknown" //  user defined NOTYPE    
+    //![ui_input_type_strings_def]
 };
-//![ui_input_type_strings_def]
+
 /** @} */
 
 /**
