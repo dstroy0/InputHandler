@@ -29,14 +29,14 @@
  */
 enum UI_PROGMEM_DEFAULTS_ENUM
 {
-    username_e, //  0
-    eol_e,      //  1
-    t_delim_e,  //  2
-    c_delim_e,  //  3
-    null_e,     //  4
-    neg_e,      //  5
-    dot_e,      //  6
-    err_e       //  7
+    username_e, ///<  0
+    eol_e,      ///<  1
+    t_delim_e,  ///<  2
+    c_delim_e,  ///<  3
+    null_e,     ///<  4
+    neg_e,      ///<  5
+    dot_e,      ///<  6
+    err_e       ///<  7
 };
 
 /**
@@ -44,14 +44,14 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @var ui_defaults_progmem_ptr
  */
 const PROGMEM char* const ui_defaults_progmem_ptr[] = {
-    "user", //  default username
-    "\r\n", //  default end of line characters
-    " ",    //  default token delimiter
-    "\"",   //  default c-string delimiter
-    "\0",   //  null
-    "-",    //  negative sign
-    ".",    //  dot
-    "error" //  error
+    "user", ///<  default username
+    "\r\n", ///<  default end of line characters
+    " ",    ///<  default token delimiter
+    "\"",   ///<  default c-string delimiter
+    "\0",   ///<  null
+    "-",    ///<  negative sign
+    ".",    ///<  dot
+    "error" ///<  error
 };
 
 /**
