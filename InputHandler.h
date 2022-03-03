@@ -219,11 +219,14 @@ public:
 
     /**
      * @brief Set the default function, which is the function called
-     * when there is no command match, or when input is invalid.
+     * when there is no command match, or when input is invalid.  It
+     * is overloaded so you are able perform your own error output or
+     * use the pointer to access class methods.
      *
      * @param function a pointer to a user specified function
      */
     void DefaultFunction(void (*function)(UserInput*));
+    void DefaultFunction(void (*function)());
 
     /**
      * @brief is class output available

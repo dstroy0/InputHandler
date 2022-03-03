@@ -46,6 +46,11 @@ UserInput inputHandler(
 void uc_unrecognized(UserInput* inputProcess)
 {
   // do your error output here
+  if (inputHandler->OutputIsAvailable())
+  {
+    client.publish("esp/output", output_buffer);
+    inputHandler->ClearOutputBuffer();
+  }
 }
 /*
    lists the settings passed to UserInput's constructor, or default parameters
