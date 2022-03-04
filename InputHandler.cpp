@@ -7,6 +7,13 @@
 
    @copyright Copyright (c) 2022
 */
+/*
+ Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ version 3 as published by the Free Software Foundation.
+ */
 
 #include "InputHandler.h"
 
@@ -434,7 +441,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {
-                        uint8_t argument = static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[rec_num_arg_strings]));
+                        uint8_t argument = UserInput::getArgType(cmd, rec_num_arg_strings);                        
                         input_type_match_flag[rec_num_arg_strings] = validateUserInput(argument, data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                // if the token was not valid input
                         {
@@ -507,7 +514,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     {
                         if (input_type_match_flag[i] == false)
                         {
-                            uint8_t argument = static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE cmd->_arg_type[i]));
+                            uint8_t argument = UserInput::getArgType(cmd, i);
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                          i + 1,
@@ -722,4 +729,11 @@ void UserInput::ClearOutputBuffer()
         }
     }
     _output_flag = false;
+}
+
+uint8_t UserInput::getArgType(UserCommandParameters* cmd, size_t index)
+{
+    if (cmd->argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
+    if (cmd->argument_flag == 1) return static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE(cmd->_arg_type[index])));
+    if (cmd->argument_flag == 2) return static_cast<uint8_t>(cmd->arg_type);    
 }

@@ -12,7 +12,7 @@
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
- version 2 as published by the Free Software Foundation.
+ version 3 as published by the Free Software Foundation.
  */
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
@@ -43,7 +43,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * \snippet InputHandler.h ui_defaults_progmem_def
  */
-const PROGMEM char* const ui_defaults_progmem_ptr[] = {    
+const PROGMEM char* const ui_defaults_progmem_ptr[] = {
     //![ui_defaults_progmem_def]
     "user", //  default username
     "\r\n", //  default end of line characters
@@ -52,10 +52,9 @@ const PROGMEM char* const ui_defaults_progmem_ptr[] = {
     "\0",   //  null
     "-",    //  negative sign
     ".",    //  dot
-    "error" //  error    
+    "error" //  error
     //![ui_defaults_progmem_def]
 };
-
 
 /**
  * @brief ui_input_type_strings enum
@@ -78,7 +77,7 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const PROGMEM char* const ui_input_type_strings[] = {    
+const PROGMEM char* const ui_input_type_strings[] = {
     //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
     "uint16_t",    //  16-bit unsigned integer
@@ -87,7 +86,7 @@ const PROGMEM char* const ui_input_type_strings[] = {
     "float",       //  32-bit floating point number
     "char",        //  single char
     "c-string",    //  c-string without spaces if not enclosed with ""
-    "type-unknown" //  user defined NOTYPE    
+    "type-unknown" //  user defined NOTYPE
     //![ui_input_type_strings_def]
 };
 
@@ -112,26 +111,63 @@ public:
      * @param user_defined_command_to_match The command which when entered will call a function
      * @param user_defined_function_to_call The function called when the command is matched
      * @param number_of_arguments the number of arguments the function expects
-     * @param argument_type_array a pointer to the argument array
+     * @param argument_type_array a pointer to the argument type array or a single argument type
      */
+
+    // no arguments
     UserCommandParameters(const char* user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput*),
-                          size_t number_of_arguments = 0,
-                          const UITYPE argument_type_array[] = NULL)
+                          void (*user_defined_function_to_call)(UserInput*))
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(number_of_arguments),
-          _arg_type(argument_type_array)
+          num_args(0),          
+          _arg_type(NULL),
+          arg_type(UITYPE::_LAST),
+          argument_flag(0)          
     {
     }
+
+    // argument array
+    UserCommandParameters(const char* user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput*),
+                          size_t number_of_arguments,
+                          const UITYPE argument_type_array[])
+        : command(user_defined_command_to_match),
+          function(user_defined_function_to_call),
+          command_length(strlen_P(command)),
+          next_command_parameters(NULL),
+          num_args(number_of_arguments),          
+          _arg_type(argument_type_array),
+          arg_type(UITYPE::_LAST),
+          argument_flag(1)          
+    {
+    }
+
+    // single argument type (default NOTYPE)
+    UserCommandParameters(const char* user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput*),
+                          size_t number_of_arguments,
+                          const UITYPE argument_type)
+        : command(user_defined_command_to_match),
+          function(user_defined_function_to_call),
+          command_length(strlen_P(command)),
+          next_command_parameters(NULL),
+          num_args(number_of_arguments),          
+          _arg_type(NULL),                    
+          arg_type(argument_type),
+          argument_flag(2)          
+    {        
+    }
+
     const char* command;                            /** command to match */
     void (*function)(UserInput*);                   /** pointer to function */
-    uint16_t command_length;                        /** length of command */
+    size_t command_length;                          /** length of command */
     UserCommandParameters* next_command_parameters; /** UserCommandParameters iterator/pointer */
-    uint16_t num_args;                              /** number of function arguments */
-    const UITYPE* _arg_type;                        /** function argument type array pointer */
+    size_t num_args;                                /** number of function arguments */    
+    const UITYPE* _arg_type;                        /** function argument type pointer */
+    const UITYPE arg_type;                          /** single argument type */
+    uint8_t argument_flag;                          /** switches how we iterate through arguments */
 };
 
 /**
@@ -227,7 +263,7 @@ public:
      * @brief Set the default function, which is the function called
      * when there is no command match, or when input is invalid.  It
      * is overloaded so you are able perform your own error output or
-     * use the pointer to access class methods.
+     * use the UserInput pointer to access class methods.
      *
      * @param function a pointer to a user specified function
      */
@@ -305,6 +341,8 @@ protected:
      * @return the control character char value ie '\\r'
      */
     char combineControlCharacters(char input);
+
+    uint8_t getArgType(UserCommandParameters *cmd, size_t index = 0);
 
 private:
     /*

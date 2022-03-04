@@ -123,6 +123,11 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
+void uc_test_single_type(UserInput* InputProcess)
+{
+  Serial.println(F("made it to single input type function"));
+}
+
 /*
    UserInput UserCallbackFunctionParameters
    These objects are what you use to specify the command string, function to launch, and types of input if any
@@ -163,6 +168,9 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
+// Construct a command that takes a single argument type for all arguments.  No array declaration necessary.
+UserCommandParameters uc_test_single_arg_type("arg", uc_test_single_type, 7, UITYPE::NOTYPE);
+
 void setup()
 {
   // uncomment as needed
@@ -176,6 +184,7 @@ void setup()
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.AddCommand(uc_test_single_arg_type);
 
   uc_help(inputHandler);               // formats output_buffer with the command list
   inputHandler.OutputToStream(Serial); // class output
