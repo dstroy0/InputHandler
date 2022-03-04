@@ -342,6 +342,13 @@ protected:
      */
     char combineControlCharacters(char input);
 
+    /**
+     * @brief Get the UITYPE for the argument
+     * 
+     * @param cmd UserCommandParameters pointer
+     * @param index argument number
+     * @return uint8_t argument type
+     */
     uint8_t getArgType(UserCommandParameters *cmd, size_t index = 0);
 
 private:

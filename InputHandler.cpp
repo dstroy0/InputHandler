@@ -440,9 +440,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                 else if (cmd->num_args > 0) // cmd->num_args > 0
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
-                    {
-                        uint8_t argument = UserInput::getArgType(cmd, rec_num_arg_strings);                        
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(argument, data_pointers_index - 1); // validate the token
+                    {                                             
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(cmd, rec_num_arg_strings), data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                // if the token was not valid input
                         {
                             all_arguments_valid = false; // set the error sentinel to true
@@ -513,12 +512,11 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     for (uint8_t i = 0; i < err_n_args; ++i)
                     {
                         if (input_type_match_flag[i] == false)
-                        {
-                            uint8_t argument = UserInput::getArgType(cmd, i);
+                        {                            
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                          i + 1,
-                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[argument])),
+                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[UserInput::getArgType(cmd, i)])),
                                                          data_pointers[i + 1]);
                         }
                     }
