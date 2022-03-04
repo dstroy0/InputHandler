@@ -148,7 +148,7 @@ public:
     UserCommandParameters(const char* user_defined_command_to_match,
                           void (*user_defined_function_to_call)(UserInput*),
                           size_t number_of_arguments,
-                          const UITYPE argument_type)
+                          const UITYPE argument_type = UITYPE::NOTYPE)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
@@ -165,7 +165,7 @@ public:
     size_t command_length;                          /** length of command */
     UserCommandParameters* next_command_parameters; /** UserCommandParameters iterator/pointer */
     size_t num_args;                                /** number of function arguments */    
-    const UITYPE* _arg_type;                        /** function argument type pointer */
+    const UITYPE* _arg_type;                        /** function argument array pointer */
     const UITYPE arg_type;                          /** single argument type */
     uint8_t argument_flag;                          /** switches how we iterate through arguments */
 };

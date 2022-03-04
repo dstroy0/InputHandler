@@ -168,8 +168,11 @@ const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
 // This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
 UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
 
+// Construct a command that takes a single argument type for all arguments (default is UITYPE::NOTYPE).  No array declaration necessary.
+UserCommandParameters uc_test_single_arg_type_default("stype_default", uc_test_single_type, 7);
+
 // Construct a command that takes a single argument type for all arguments.  No array declaration necessary.
-UserCommandParameters uc_test_single_arg_type("arg", uc_test_single_type, 7, UITYPE::NOTYPE);
+UserCommandParameters uc_test_single_arg_type("stype_custom", uc_test_single_type, 7, UITYPE::UINT8_T);
 
 void setup()
 {
@@ -184,6 +187,7 @@ void setup()
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.AddCommand(uc_test_single_arg_type_default);
   inputHandler.AddCommand(uc_test_single_arg_type);
 
   uc_help(inputHandler);               // formats output_buffer with the command list
