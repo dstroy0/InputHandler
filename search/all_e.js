@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ui_5fdefaults_5fprogmem_5fptr_0',['ui_defaults_progmem_ptr',['../group__UserInput.html#ga584a10970590d7b76154ff10ae35fc84',1,'InputHandler.h']]],
+  ['ui_5fdefaults_5fprogmem_5fptr_0',['ui_defaults_progmem_ptr',['../group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c',1,'InputHandler.h']]],
   ['ui_5fdereference_1',['UI_DEREFERENCE',['../InputHandler__config_8h.html#afb990dc5a33b640ad0e4348eb20ef52d',1,'InputHandler_config.h']]],
-  ['ui_5finput_5ftype_5fstrings_2',['ui_input_type_strings',['../group__UserInput.html#ga08b28604d8acb6d4636831ea04ad7e16',1,'InputHandler.h']]],
+  ['ui_5finput_5ftype_5fstrings_2',['ui_input_type_strings',['../group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987',1,'InputHandler.h']]],
   ['ui_5fpgm_5fread_5fbyte_3',['UI_PGM_READ_BYTE',['../InputHandler__config_8h.html#ad6fde8652d9819cc3268373942eee650',1,'InputHandler_config.h']]],
   ['ui_5fpgm_5fread_5fdword_4',['UI_PGM_READ_DWORD',['../InputHandler__config_8h.html#a36f836c63ba274fe59eed759498bf6b0',1,'InputHandler_config.h']]],
   ['ui_5fprogmem_5fdefaults_5fenum_5',['UI_PROGMEM_DEFAULTS_ENUM',['../group__UserInput.html#ga85e7eeb0bdd4436bf4ac3ff5e179c73a',1,'InputHandler.h']]],

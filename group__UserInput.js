@@ -21,6 +21,6 @@ var group__UserInput =
       [ "UITYPE::NOTYPE", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc", null ],
       [ "UITYPE::_LAST", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
-    [ "ui_defaults_progmem_ptr", "group__UserInput.html#ga584a10970590d7b76154ff10ae35fc84", null ],
-    [ "ui_input_type_strings", "group__UserInput.html#ga08b28604d8acb6d4636831ea04ad7e16", null ]
+    [ "ui_defaults_progmem_ptr", "group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c", null ],
+    [ "ui_input_type_strings", "group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987", null ]
 ];
