@@ -53,13 +53,13 @@ void uc_test_input_types(UserInput* inputProcess)
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
   char float_buffer[32] = {'\0'}; //  dtostrf buffer
-  char out[128] = {'\0'};         //  function output buffer
+  char out[164] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
 
   /*
        format out[] with all of the arguments received
   */
-  string_pos += snprintf_P(out + string_pos, 128,
+  string_pos += snprintf_P(out + string_pos, 164,
                            PSTR("Test user input types:\n"
                                 "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
                            eight_bit,
