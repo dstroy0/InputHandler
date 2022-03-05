@@ -27,7 +27,7 @@ your_command arg1 arg... "c-string args can have spaces and are enclosed with qu
 The classes' input methods are:  
 
 ```cpp
-void GetCommandFromStream(Stream &stream, uint16_t rx_buffer_size = 32);
+void GetCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 ```
 
 OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
