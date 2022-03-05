@@ -15,7 +15,7 @@ UserInput inputHandler;
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized()
+void uc_unrecognized(UserInput *inputProcess)
 {
   Serial.println(F("made it to uc_unrecognized"));
 }
