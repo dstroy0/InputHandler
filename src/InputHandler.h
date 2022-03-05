@@ -17,7 +17,7 @@
 #ifndef __USER_INPUT_HANDLER_H__
 #define __USER_INPUT_HANDLER_H__
 
-#include "InputHandler_config.h"
+#include "config/InputHandler_config.h"
 
 /**
  * @defgroup UserInput Constants
@@ -43,7 +43,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * \snippet InputHandler.h ui_defaults_progmem_def
  */
-const PROGMEM char* const ui_defaults_progmem_ptr[] = {
+const PROGMEM char *const ui_defaults_progmem_ptr[] = {
     //![ui_defaults_progmem_def]
     "user", //  default username
     "\r\n", //  default end of line characters
@@ -77,7 +77,7 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const PROGMEM char* const ui_input_type_strings[] = {
+const PROGMEM char *const ui_input_type_strings[] = {
     //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
     "uint16_t",    //  16-bit unsigned integer
@@ -115,57 +115,57 @@ public:
      */
 
     // no arguments
-    UserCommandParameters(const char* user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput*))
+    UserCommandParameters(const char *user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput *))
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(0),          
+          num_args(0),
           _arg_type(NULL),
           arg_type(UITYPE::_LAST),
-          argument_flag(0)          
+          argument_flag(0)
     {
     }
 
     // argument array
-    UserCommandParameters(const char* user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput*),
+    UserCommandParameters(const char *user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput *),
                           size_t number_of_arguments,
                           const UITYPE argument_type_array[])
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(number_of_arguments),          
+          num_args(number_of_arguments),
           _arg_type(argument_type_array),
           arg_type(UITYPE::_LAST),
-          argument_flag(1)          
+          argument_flag(1)
     {
     }
 
     // single argument type (default NOTYPE)
-    UserCommandParameters(const char* user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput*),
+    UserCommandParameters(const char *user_defined_command_to_match,
+                          void (*user_defined_function_to_call)(UserInput *),
                           size_t number_of_arguments,
                           const UITYPE argument_type = UITYPE::NOTYPE)
         : command(user_defined_command_to_match),
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(number_of_arguments),          
-          _arg_type(NULL),                    
+          num_args(number_of_arguments),
+          _arg_type(NULL),
           arg_type(argument_type),
-          argument_flag(2)          
-    {        
+          argument_flag(2)
+    {
     }
 
-    const char* command;                            /** command to match */
-    void (*function)(UserInput*);                   /** pointer to function */
+    const char *command;                            /** command to match */
+    void (*function)(UserInput *);                  /** pointer to function */
     size_t command_length;                          /** length of command */
-    UserCommandParameters* next_command_parameters; /** UserCommandParameters iterator/pointer */
-    size_t num_args;                                /** number of function arguments */    
-    const UITYPE* _arg_type;                        /** function argument array pointer */
+    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */
+    size_t num_args;                                /** number of function arguments */
+    const UITYPE *_arg_type;                        /** function argument array pointer */
     const UITYPE arg_type;                          /** single argument type */
     uint8_t argument_flag;                          /** switches how we iterate through arguments */
 };
@@ -194,12 +194,12 @@ public:
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
      */
-    UserInput(char* output_buffer = NULL,
+    UserInput(char *output_buffer = NULL,
               size_t output_buffer_len = 0,
-              const char* username = NULL,
-              const char* end_of_line_characters = NULL,
-              const char* token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
-              const char* c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
+              const char *username = NULL,
+              const char *end_of_line_characters = NULL,
+              const char *token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
+              const char *c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
         : _output_buffer(output_buffer),
           _output_enabled((output_buffer == NULL) ? false : true),
           _string_pos(0),
@@ -221,14 +221,14 @@ public:
      *
      * @return char*
      */
-    char* NextArgument();
+    char *NextArgument();
 
     /**
      * @brief adds user commands
      *
      * @param command reference to UserCommandParameters
      */
-    void AddCommand(UserCommandParameters& command);
+    void AddCommand(UserCommandParameters &command);
 
     /**
      * @brief read command(s) from a buffer
@@ -236,7 +236,7 @@ public:
      * @param data a buffer with characters
      * @param len the size of the buffer
      */
-    void ReadCommandFromBuffer(uint8_t* data, size_t len);
+    void ReadCommandFromBuffer(uint8_t *data, size_t len);
 
     /**
      * @brief Get the Command From a Stream object
@@ -244,7 +244,7 @@ public:
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
      */
-    void GetCommandFromStream(Stream& stream, size_t rx_buffer_size = 32);
+    void GetCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 
     /**
      * @brief lists commands available to the user
@@ -257,18 +257,15 @@ public:
      *
      * @param inputprocess pointer to class instance
      */
-    void ListSettings(UserInput* inputprocess);
+    void ListSettings(UserInput *inputprocess);
 
     /**
      * @brief Set the default function, which is the function called
-     * when there is no command match, or when input is invalid.  It
-     * is overloaded so you are able perform your own error output or
-     * use the UserInput pointer to access class methods.
+     * when there is no command match, or when input is invalid.
      *
      * @param function a pointer to a user specified function
      */
-    void DefaultFunction(void (*function)(UserInput*));
-    void DefaultFunction(void (*function)());
+    void DefaultFunction(void (*function)(UserInput *));    
 
     /**
      * @brief is class output available
@@ -291,7 +288,7 @@ public:
      *
      * @param stream the stream to print to
      */
-    void OutputToStream(Stream& stream);
+    void OutputToStream(Stream &stream);
 
     /**
      * @brief clears output buffer and puts _string_pos back at 0
@@ -308,7 +305,7 @@ protected:
      * @param len length of input data
      * @param data_index index of data
      */
-    bool getToken(char* token_buffer, uint8_t* data, size_t len, size_t* data_index);
+    bool getToken(char *token_buffer, uint8_t *data, size_t len, size_t *data_index);
 
     /**
      * @brief Tries to determine if input is valid
@@ -324,7 +321,7 @@ protected:
      *
      * @param cmd Function parameter pointer
      */
-    void launchFunction(UserCommandParameters* cmd);
+    void launchFunction(UserCommandParameters *cmd);
 
     /**
      * @brief Escapes control characters so they will print
@@ -332,7 +329,7 @@ protected:
      * @param input the input string
      * @param output the output string
      */
-    void escapeCharactersSoTheyPrint(const char* input, char* output);
+    void escapeCharactersSoTheyPrint(const char *input, char *output);
 
     /**
      * @brief combines backslash and character and into valid control characters
@@ -344,7 +341,7 @@ protected:
 
     /**
      * @brief Get the UITYPE for the argument
-     * 
+     *
      * @param cmd UserCommandParameters pointer
      * @param index argument number
      * @return uint8_t argument type
@@ -355,26 +352,26 @@ private:
     /*
         UserInput Constructor variables
     */
-    char* _output_buffer;                  //  pointer to output char buffer
-    bool _output_enabled;                  //  true if _output_buffer is not NULL
-    size_t _string_pos;                    //  _output_buffer's index
-    const size_t _output_buffer_len;       //  _output_buffer's size
-    const char* _username_;                //  username
-    const char* _term_;                    //  end of line characters
-    const char* _delim_;                   //  token delimiter
-    const char* _c_str_delim_;             //  c-string delimiter
-    const char* _null_;                    //  char null '\0'
-    void (*default_function_)(UserInput*); //  pointer to default function
-    UserCommandParameters* commands_head_; //  pointer to object list
-    UserCommandParameters* commands_tail_; //  pointer to object list
-    size_t commands_count_;                //   how many commands are there
+    char *_output_buffer;                   //  pointer to output char buffer
+    bool _output_enabled;                   //  true if _output_buffer is not NULL
+    size_t _string_pos;                     //  _output_buffer's index
+    const size_t _output_buffer_len;        //  _output_buffer's size
+    const char *_username_;                 //  username
+    const char *_term_;                     //  end of line characters
+    const char *_delim_;                    //  token delimiter
+    const char *_c_str_delim_;              //  c-string delimiter
+    const char *_null_;                     //  char null '\0'
+    void (*default_function_)(UserInput *); //  pointer to default function    
+    UserCommandParameters *commands_head_;  //  pointer to object list
+    UserCommandParameters *commands_tail_;  //  pointer to object list
+    size_t commands_count_;                 //   how many commands are there
 
     /*
         member function variables
     */
     bool _output_flag = false;                                             //   output is available flag, set by member functions
-    char* token_buffer = NULL;                                             //   pointer to tokenized c-string
-    char* data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
+    char *token_buffer = NULL;                                             //   pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
     size_t data_pointers_index = 0;                                        //   data_pointer's index
     size_t rec_num_arg_strings = 0;                                        //   number of tokens after first valid token
 
@@ -383,7 +380,7 @@ private:
     */
     bool stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
     bool new_stream_data = false;         // if there is new data in *stream_data this is true
-    uint8_t* stream_data = NULL;          // pointer to stream input, a string of char
+    uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
     uint16_t stream_data_index = 0;       // the index of stream_data
 };
 

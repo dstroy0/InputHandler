@@ -26,7 +26,7 @@ jobs:
           echo "PROJECT_NUMBER = ${{ steps.latest_ver.outputs.release }}" >> doxygenAction
           echo "@INCLUDE = doxygenAction" >> Doxyfile
       - name: Generate Documentation
-        run: ./doxygen Doxyfile                        
+        run: ./doxygen /docs/Doxyfile                        
       - name: Save doxygen docs as artifact
         uses: actions/upload-artifact@v2
         with:
