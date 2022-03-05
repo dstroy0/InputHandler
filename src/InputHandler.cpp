@@ -733,5 +733,6 @@ uint8_t UserInput::getArgType(UserCommandParameters* cmd, size_t index)
 {
     if (cmd->argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
     if (cmd->argument_flag == 1) return static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE(cmd->_arg_type[index])));
-    if (cmd->argument_flag == 2) return static_cast<uint8_t>(cmd->arg_type);    
+    if (cmd->argument_flag == 2) return static_cast<uint8_t>(cmd->arg_type);
+    return static_cast<uint8_t>(UITYPE::_LAST);    // return error if no match
 }
