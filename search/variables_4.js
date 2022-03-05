@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ui_5fdefaults_5fprogmem_5fptr_0',['ui_defaults_progmem_ptr',['../group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c',1,'InputHandler.h']]],
-  ['ui_5finput_5ftype_5fstrings_1',['ui_input_type_strings',['../group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987',1,'InputHandler.h']]]
+  ['next_5fcommand_5fparameters_0',['next_command_parameters',['../classUserCommandParameters.html#a2e69e294c0b885f987d4527d3a63e299',1,'UserCommandParameters']]],
+  ['num_5fargs_1',['num_args',['../classUserCommandParameters.html#a493aea5bae2e920643eab4a8e5898bda',1,'UserCommandParameters']]]
 ];

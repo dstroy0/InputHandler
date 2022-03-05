@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['command_0',['command',['../classUserCommandParameters.html#ae0bf95744d2a9b90edb31fe2bc4cb2e3',1,'UserCommandParameters']]],
-  ['command_5flength_1',['command_length',['../classUserCommandParameters.html#a7976c3c05fe209e40fe55f64a5fca330',1,'UserCommandParameters']]]
+  ['arg_5ftype_0',['arg_type',['../classUserCommandParameters.html#aeb78f0a40b53efe35883ac4a9f219007',1,'UserCommandParameters']]],
+  ['argument_5fflag_1',['argument_flag',['../classUserCommandParameters.html#aed039872e96e8e6e21c2eeb689518467',1,'UserCommandParameters']]]
 ];

@@ -18,7 +18,7 @@
 <!-- END twitter metadata -->
 <title>InputHandler: Constants</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
-<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<link rel="alternate icon" type="image" href="favicon.ico"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
@@ -48,7 +48,6 @@
   <td id="projectlogo"><img alt="Logo" src="Logo large.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">InputHandler
-   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">User Input Handler</div>
   </td>
@@ -143,7 +142,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948">UITYPE::_LAST</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="mdescLeft">&#160;</td><td class="mdescRight">[ui_defaults_progmem_def]  <a href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">More...</a><br /></td></tr>
+<tr class="memdesc:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="mdescLeft">&#160;</td><td class="mdescRight">ui_input_type_strings enum  <a href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">More...</a><br /></td></tr>
 <tr class="separator:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -213,8 +212,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>[ui_defaults_progmem_def] </p>
-<p >ui_input_type_strings enum </p>
+<p>ui_input_type_strings enum </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca"></a>UINT8_T&#160;</td><td class="fielddoc"><p >ui_input_type_strings[0] </p>
 </td></tr>
@@ -252,7 +250,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {    </div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
 <div class="line">    <span class="stringliteral">&quot;user&quot;</span>, </div>
 <div class="line">    <span class="stringliteral">&quot;\r\n&quot;</span>, </div>
 <div class="line">    <span class="stringliteral">&quot; &quot;</span>,    </div>
@@ -261,23 +260,20 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;-&quot;</span>,    </div>
 <div class="line">    <span class="stringliteral">&quot;.&quot;</span>,    </div>
 <div class="line">    <span class="stringliteral">&quot;error&quot;</span> </div>
+<div class="line">    </div>
 <div class="line">}</div>
 </div><!-- fragment -->
 <p>default constructor string literals </p>
-<div class="fragment"><div class="line"><span class="keyword">const</span> PROGMEM <span class="keywordtype">char</span>* <span class="keyword">const</span> <a class="code hl_variable" href="group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c">ui_defaults_progmem_ptr</a>[] = {    </div>
-<div class="line">    <span class="stringliteral">&quot;user&quot;</span>, <span class="comment">//  default username</span></div>
+<div class="fragment"><div class="line">    <span class="stringliteral">&quot;user&quot;</span>, <span class="comment">//  default username</span></div>
 <div class="line">    <span class="stringliteral">&quot;\r\n&quot;</span>, <span class="comment">//  default end of line characters</span></div>
 <div class="line">    <span class="stringliteral">&quot; &quot;</span>,    <span class="comment">//  default token delimiter</span></div>
 <div class="line">    <span class="stringliteral">&quot;\&quot;&quot;</span>,   <span class="comment">//  default c-string delimiter</span></div>
 <div class="line">    <span class="stringliteral">&quot;\0&quot;</span>,   <span class="comment">//  null</span></div>
 <div class="line">    <span class="stringliteral">&quot;-&quot;</span>,    <span class="comment">//  negative sign</span></div>
 <div class="line">    <span class="stringliteral">&quot;.&quot;</span>,    <span class="comment">//  dot</span></div>
-<div class="line">    <span class="stringliteral">&quot;error&quot;</span> <span class="comment">//  error    </span></div>
-<div class="line">};</div>
-<div class="ttc" id="agroup__UserInput_html_ga4bc63515cfb71462d756d40250e8789c"><div class="ttname"><a href="group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c">ui_defaults_progmem_ptr</a></div><div class="ttdeci">const PROGMEM char *const ui_defaults_progmem_ptr[]</div><div class="ttdoc">default constructor string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00047">InputHandler.h:47</a></div></div>
-</div><!-- fragment --><p> [ui_defaults_progmem_def] </p>
-
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00047">47</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<div class="line">    <span class="stringliteral">&quot;error&quot;</span> <span class="comment">//  error</span></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00046">46</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -292,7 +288,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {    </div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
 <div class="line">    <span class="stringliteral">&quot;uint8_t&quot;</span>,     </div>
 <div class="line">    <span class="stringliteral">&quot;uint16_t&quot;</span>,    </div>
 <div class="line">    <span class="stringliteral">&quot;uint32_t&quot;</span>,    </div>
@@ -301,23 +298,20 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;char&quot;</span>,        </div>
 <div class="line">    <span class="stringliteral">&quot;c-string&quot;</span>,    </div>
 <div class="line">    <span class="stringliteral">&quot;type-unknown&quot;</span> </div>
+<div class="line">    </div>
 <div class="line">}</div>
 </div><!-- fragment -->
 <p>type string literals </p>
-<div class="fragment"><div class="line"><span class="keyword">const</span> PROGMEM <span class="keywordtype">char</span>* <span class="keyword">const</span> <a class="code hl_variable" href="group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987">ui_input_type_strings</a>[] = {    </div>
-<div class="line">    <span class="stringliteral">&quot;uint8_t&quot;</span>,     <span class="comment">//  8-bit unsigned integer</span></div>
+<div class="fragment"><div class="line">    <span class="stringliteral">&quot;uint8_t&quot;</span>,     <span class="comment">//  8-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;uint16_t&quot;</span>,    <span class="comment">//  16-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;uint32_t&quot;</span>,    <span class="comment">//  32-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;int16_t&quot;</span>,     <span class="comment">//  16-bit signed integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;float&quot;</span>,       <span class="comment">//  32-bit floating point number</span></div>
 <div class="line">    <span class="stringliteral">&quot;char&quot;</span>,        <span class="comment">//  single char</span></div>
 <div class="line">    <span class="stringliteral">&quot;c-string&quot;</span>,    <span class="comment">//  c-string without spaces if not enclosed with &quot;&quot;</span></div>
-<div class="line">    <span class="stringliteral">&quot;type-unknown&quot;</span> <span class="comment">//  user defined NOTYPE    </span></div>
-<div class="line">};</div>
-<div class="ttc" id="agroup__UserInput_html_ga25ca0a07b0459500324cd5dfaeac6987"><div class="ttname"><a href="group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987">ui_input_type_strings</a></div><div class="ttdeci">const PROGMEM char *const ui_input_type_strings[]</div><div class="ttdoc">type string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00081">InputHandler.h:81</a></div></div>
-</div><!-- fragment --><p> [ui_input_type_strings_def] </p>
-
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00081">81</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<div class="line">    <span class="stringliteral">&quot;type-unknown&quot;</span> <span class="comment">//  user defined NOTYPE</span></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00080">80</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>

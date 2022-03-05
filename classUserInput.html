@@ -18,7 +18,7 @@
 <!-- END twitter metadata -->
 <title>InputHandler: UserInput Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
-<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<link rel="alternate icon" type="image" href="favicon.ico"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
@@ -48,7 +48,6 @@
   <td id="projectlogo"><img alt="Logo" src="Logo large.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">InputHandler
-   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">User Input Handler</div>
   </td>
@@ -142,10 +141,8 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <tr class="memdesc:aa87995d10989f8dd6a1f1cbd90c8d73d"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists <a class="el" href="classUserInput.html" title="User input handler.">UserInput</a> class settings  <a href="classUserInput.html#aa87995d10989f8dd6a1f1cbd90c8d73d">More...</a><br /></td></tr>
 <tr class="separator:aa87995d10989f8dd6a1f1cbd90c8d73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a464e318ff93135750cf93b5155f88aa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a464e318ff93135750cf93b5155f88aa8">DefaultFunction</a> (void(*function)(<a class="el" href="classUserInput.html">UserInput</a> *))</td></tr>
-<tr class="memdesc:a464e318ff93135750cf93b5155f88aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default function, which is the function called when there is no command match, or when input is invalid. It is overloaded so you are able perform your own error output or use the pointer to access class methods.  <a href="classUserInput.html#a464e318ff93135750cf93b5155f88aa8">More...</a><br /></td></tr>
+<tr class="memdesc:a464e318ff93135750cf93b5155f88aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default function, which is the function called when there is no command match, or when input is invalid.  <a href="classUserInput.html#a464e318ff93135750cf93b5155f88aa8">More...</a><br /></td></tr>
 <tr class="separator:a464e318ff93135750cf93b5155f88aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8088c131e9b884537290595ee079a57f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a8088c131e9b884537290595ee079a57f">DefaultFunction</a> (void(*function)())</td></tr>
-<tr class="separator:a8088c131e9b884537290595ee079a57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedabc1a851fb5122436e10411f08ca51"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#aedabc1a851fb5122436e10411f08ca51">OutputIsAvailable</a> ()</td></tr>
 <tr class="memdesc:aedabc1a851fb5122436e10411f08ca51"><td class="mdescLeft">&#160;</td><td class="mdescRight">is class output available  <a href="classUserInput.html#aedabc1a851fb5122436e10411f08ca51">More...</a><br /></td></tr>
 <tr class="separator:aedabc1a851fb5122436e10411f08ca51"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,11 +170,14 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <tr class="memitem:a496a5e9703e14f55b2e6a1636d178453"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a496a5e9703e14f55b2e6a1636d178453">combineControlCharacters</a> (char input)</td></tr>
 <tr class="memdesc:a496a5e9703e14f55b2e6a1636d178453"><td class="mdescLeft">&#160;</td><td class="mdescRight">combines backslash and character and into valid control characters  <a href="classUserInput.html#a496a5e9703e14f55b2e6a1636d178453">More...</a><br /></td></tr>
 <tr class="separator:a496a5e9703e14f55b2e6a1636d178453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba716c98e35ba711f3003b29b8b36835"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#aba716c98e35ba711f3003b29b8b36835">getArgType</a> (<a class="el" href="classUserCommandParameters.html">UserCommandParameters</a> *cmd, size_t index=0)</td></tr>
+<tr class="memdesc:aba716c98e35ba711f3003b29b8b36835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UITYPE for the argument.  <a href="classUserInput.html#aba716c98e35ba711f3003b29b8b36835">More...</a><br /></td></tr>
+<tr class="separator:aba716c98e35ba711f3003b29b8b36835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >User input handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00138">138</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00176">176</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9677dfb5e26559c43dc1a0582a961bc6" name="a9677dfb5e26559c43dc1a0582a961bc6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9677dfb5e26559c43dc1a0582a961bc6">&#9670;&nbsp;</a></span>UserInput()</h2>
@@ -251,7 +251,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00159">159</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00197">197</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -274,7 +274,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <p>returns a pointer to the next token in token_buffer </p>
 <dl class="section return"><dt>Returns</dt><dd>char* </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00013">13</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00020">20</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +302,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00027">27</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00034">34</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +341,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00361">361</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00368">368</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +380,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00543">543</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00548">548</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -401,7 +401,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 
 <p>lists commands available to the user </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00586">586</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00591">591</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -429,12 +429,12 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00668">668</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00673">673</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a464e318ff93135750cf93b5155f88aa8" name="a464e318ff93135750cf93b5155f88aa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a464e318ff93135750cf93b5155f88aa8">&#9670;&nbsp;</a></span>DefaultFunction() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a464e318ff93135750cf93b5155f88aa8">&#9670;&nbsp;</a></span>DefaultFunction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -449,7 +449,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
       </table>
 </div><div class="memdoc">
 
-<p>Set the default function, which is the function called when there is no command match, or when input is invalid. It is overloaded so you are able perform your own error output or use the pointer to access class methods. </p>
+<p>Set the default function, which is the function called when there is no command match, or when input is invalid. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">function</td><td>a pointer to a user specified function </td></tr>
@@ -457,25 +457,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00689">689</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8088c131e9b884537290595ee079a57f" name="a8088c131e9b884537290595ee079a57f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8088c131e9b884537290595ee079a57f">&#9670;&nbsp;</a></span>DefaultFunction() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserInput::DefaultFunction </td>
-          <td>(</td>
-          <td class="paramtype">void(*)()&#160;</td>
-          <td class="paramname"><em>function</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00694">694</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -499,7 +481,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <dd>
 false if no output is available </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00694">694</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00699">699</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -523,7 +505,7 @@ false if no output is available </dd></dl>
 <dd>
 false if not enabled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00699">699</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00704">704</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -551,7 +533,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00704">704</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00709">709</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -572,7 +554,7 @@ false if not enabled </dd></dl>
 
 <p>clears output buffer and puts _string_pos back at 0 </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00713">713</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00718">718</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -633,7 +615,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00045">45</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00052">52</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -681,7 +663,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00178">178</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00185">185</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -717,7 +699,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00334">334</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00341">341</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -764,7 +746,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00604">604</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00609">609</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -801,13 +783,61 @@ false if not enabled </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the control character char value ie '\r' </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00643">643</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00648">648</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba716c98e35ba711f3003b29b8b36835" name="aba716c98e35ba711f3003b29b8b36835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba716c98e35ba711f3003b29b8b36835">&#9670;&nbsp;</a></span>getArgType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UserInput::getArgType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classUserCommandParameters.html">UserCommandParameters</a> *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>index</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the UITYPE for the argument. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td><a class="el" href="classUserCommandParameters.html" title="User defined function parameters.">UserCommandParameters</a> pointer </td></tr>
+    <tr><td class="paramname">index</td><td>argument number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t argument type </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00732">732</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="InputHandler_8h_source.html">InputHandler.h</a></li>
-<li><a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a></li>
+<li>src/<a class="el" href="InputHandler_8h_source.html">InputHandler.h</a></li>
+<li>src/<a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
