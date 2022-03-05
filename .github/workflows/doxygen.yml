@@ -1,4 +1,4 @@
-name: Doxygen CI
+name: Doxygen CI 
 
 on: [push, release]
 

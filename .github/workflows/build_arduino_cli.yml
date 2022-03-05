@@ -1,4 +1,4 @@
-name: Arduino CLI Build
+name: Arduino CLI CI 
 
 # Controls when the workflow will run
 on: [workflow_dispatch] 
