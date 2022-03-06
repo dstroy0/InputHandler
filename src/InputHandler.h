@@ -137,7 +137,7 @@ public:
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(number_of_arguments),
+          num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
           _arg_type(argument_type_array),
           arg_type(UITYPE::_LAST),
           argument_flag(1)
@@ -153,7 +153,7 @@ public:
           function(user_defined_function_to_call),
           command_length(strlen_P(command)),
           next_command_parameters(NULL),
-          num_args(number_of_arguments),
+          num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
           _arg_type(NULL),
           arg_type(argument_type),
           argument_flag(2)
@@ -167,7 +167,7 @@ public:
     size_t num_args;                                /** number of function arguments */
     const UITYPE *_arg_type;                        /** function argument array pointer */
     const UITYPE arg_type;                          /** single argument type */
-    uint8_t argument_flag;                          /** switches how we iterate through arguments */
+    uint8_t argument_flag;                          /** switches how we iterate through arguments */    
 };
 
 /**
