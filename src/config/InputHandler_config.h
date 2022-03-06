@@ -38,6 +38,11 @@
 #define UINT8_MAX 255
 #endif
 
+//  maximum command length
+#ifndef USER_INPUT_MAX_COMMAND_LENGTH
+#define USER_INPUT_MAX_COMMAND_LENGTH 32
+#endif
+
 //  maximum user input length
 #ifndef USER_INPUT_MAX_INPUT_LENGTH
 #define USER_INPUT_MAX_INPUT_LENGTH UINT16_MAX
