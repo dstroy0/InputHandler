@@ -105,8 +105,8 @@ class UserInput;
 enum UI_ARGUMENT_FLAG_ENUM
 {
     no_arguments,
-    single_type,
-    argument_array
+    single_type_arguments,
+    argument_type_array
 };
 
 /**
@@ -117,11 +117,10 @@ struct CommandOptions
 {
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
-    uint16_t command_length;    // strlen_P() to get length    
+    uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint16_t num_args;
-    //uint16_t max_num_args;
-    //UITYPE arg_type;
+    //uint16_t max_num_args;    
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
 
@@ -191,7 +190,8 @@ public:
           default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
-          commands_count_(0)
+          commands_count_(0),
+          max_num_user_defined_args(0)
     {
     }
 
@@ -298,9 +298,9 @@ protected:
     /**
      * @brief launches a function
      *
-     * @param cmd Function parameter pointer
+     * @param opt command options reference
      */
-    void launchFunction(UserCommandParameters *cmd);
+    void launchFunction(CommandOptions& opt);
 
     /**
      * @brief Escapes control characters so they will print
@@ -343,7 +343,8 @@ private:
     void (*default_function_)(UserInput *); //  pointer to default function    
     UserCommandParameters *commands_head_;  //  pointer to object list
     UserCommandParameters *commands_tail_;  //  pointer to object list
-    size_t commands_count_;                 //   how many commands are there
+    size_t commands_count_;                 //  how many commands are there
+    size_t max_num_user_defined_args;       //  max number of arguments used
 
     /*
         member function variables

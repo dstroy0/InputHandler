@@ -36,6 +36,7 @@ void UserInput::AddCommand(UserCommandParameters &command)
     UserCommandParameters **cmd_head = &commands_head_;
     UserCommandParameters **cmd_tail = &commands_tail_;
     size_t *cmd_count = &commands_count_;
+    size_t *arg_count = &max_num_user_defined_args;
     command.next_command_parameters = NULL;
     if (*cmd_head == NULL)
     {
@@ -47,6 +48,12 @@ void UserInput::AddCommand(UserCommandParameters &command)
         *cmd_tail = &command;
     }
     (*cmd_count)++;
+    CommandOptions opt;
+    memcpy_P(&opt, &command.opt, sizeof(opt));
+    if (*arg_count < opt.num_args)
+    {
+        *arg_count = opt.num_args;
+    }
 }
 
 bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *data_index)
@@ -338,7 +345,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
     return true;
 }
 
-void UserInput::launchFunction(UserCommandParameters *cmd)
+void UserInput::launchFunction(CommandOptions& opt)
 {
     if (UserInput::OutputIsEnabled())
     {
@@ -362,7 +369,7 @@ void UserInput::launchFunction(UserCommandParameters *cmd)
         _output_flag = true;
     }
     data_pointers_index = 0;
-    cmd->opt->function(this);
+    opt.function(this);
 }
 
 void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
@@ -398,7 +405,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     bool match = false;                 // command string match
     bool command_matched = false;       // error sentinel
     UserCommandParameters* cmd;         // command parameters pointer
-
+    CommandOptions opt;                 // CommandOptions struct
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
@@ -410,7 +417,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {
-            CommandOptions opt;
             memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
             if (strcmp(data_pointers[0], opt.command) == 0) // match
             {
@@ -436,7 +442,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     }
                     #endif
                     match = true;        // don't run default callback
-                    launchFunction(cmd); // launch the matched command
+                    launchFunction(opt); // launch the matched command
                     break;               // break out of the for loop
                 }
                 else if (opt.num_args > 0) // cmd->num_args > 0
@@ -463,7 +469,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                         }
                         #endif
                         match = true;        // don't run default callback
-                        launchFunction(cmd); // launch the matched command
+                        launchFunction(opt); // launch the matched command
                     }
                 }
                 break;
@@ -473,8 +479,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         {
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
-            {
-                CommandOptions opt;
+            {                
                 memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                              PSTR(">%s $Invalid input: %s "),
@@ -597,13 +602,13 @@ void UserInput::ListCommands()
     if (UserInput::OutputIsEnabled())
     {
         UserCommandParameters *cmd;
+        CommandOptions opt;
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                      PSTR("Commands available to %s:\n"),
                                      _username_);
         uint8_t i = 1;
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
-        {
-            CommandOptions opt;
+        {            
             memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"),
                                          i, opt.command);
@@ -739,7 +744,7 @@ void UserInput::ClearOutputBuffer()
 uint8_t UserInput::getArgType(CommandOptions &opt, size_t index)
 {
     if (opt.argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
-    if (opt.argument_flag == 1) return static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE(opt._arg_type[index])));
+    if (opt.argument_flag == 1) return static_cast<uint8_t>(opt._arg_type[index]);
     if (opt.argument_flag == 2) return static_cast<uint8_t>(opt._arg_type[0]);
     return static_cast<uint8_t>(UITYPE::_LAST);    // return error if no match
 }
