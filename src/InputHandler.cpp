@@ -443,7 +443,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                 {
                     while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
                     {                                             
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(cmd, rec_num_arg_strings), data_pointers_index - 1); // validate the token
+                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(opt, rec_num_arg_strings), data_pointers_index - 1); // validate the token
                         if (input_type_match_flag[rec_num_arg_strings] == false)                                                // if the token was not valid input
                         {
                             all_arguments_valid = false; // set the error sentinel to true
@@ -520,7 +520,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                          i + 1,
-                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[UserInput::getArgType(cmd, i)])),
+                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[UserInput::getArgType(opt, i)])),
                                                          data_pointers[i + 1]);
                         }
                     }
@@ -736,10 +736,10 @@ void UserInput::ClearOutputBuffer()
     _output_flag = false;
 }
 
-uint8_t UserInput::getArgType(UserCommandParameters* cmd, size_t index)
+uint8_t UserInput::getArgType(CommandOptions &opt, size_t index)
 {
-    if (cmd->opt->argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
-    if (cmd->opt->argument_flag == 1) return static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE(cmd->opt->_arg_type[index])));
-    if (cmd->opt->argument_flag == 2) return static_cast<uint8_t>(cmd->opt->_arg_type[0]);
+    if (opt.argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
+    if (opt.argument_flag == 1) return static_cast<uint8_t>(UI_PGM_READ_BYTE(UI_DEREFERENCE(opt._arg_type[index])));
+    if (opt.argument_flag == 2) return static_cast<uint8_t>(opt._arg_type[0]);
     return static_cast<uint8_t>(UITYPE::_LAST);    // return error if no match
 }

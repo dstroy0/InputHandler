@@ -118,7 +118,7 @@ struct CommandOptions
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
     uint16_t command_length;    // strlen_P() to get length    
-    uint8_t argument_flag;
+    UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint16_t num_args;
     //uint16_t max_num_args;
     //UITYPE arg_type;
@@ -321,11 +321,11 @@ protected:
     /**
      * @brief Get the UITYPE for the argument
      *
-     * @param cmd UserCommandParameters pointer
+     * @param opt command options structure reference
      * @param index argument number
      * @return uint8_t argument type
      */
-    uint8_t getArgType(UserCommandParameters *cmd, size_t index = 0);
+    uint8_t getArgType(CommandOptions &opt, size_t index = 0);
 
 private:
     /*
