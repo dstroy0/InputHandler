@@ -113,7 +113,7 @@ enum UI_ARGUMENT_FLAG_ENUM
  * @brief command options structure
  * @struct CommandOptions
  */
-typedef struct CommandOptions
+struct CommandOptions
 {
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
@@ -125,7 +125,6 @@ typedef struct CommandOptions
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
 
-
 /**
  * @brief User defined function parameters
  */
@@ -135,75 +134,19 @@ public:
     /**
      * @brief UserCommandParameters Constructor
      *
-     * Creates a new instance of this class.  Before using, construct a UserInput object.
-     * @param user_defined_command_to_match The command which when entered will call a function
-     * @param user_defined_function_to_call The function called when the command is matched
-     * @param number_of_arguments the number of arguments the function expects
-     * @param argument_type_array a pointer to the argument type array or a single argument type
+     * Creates a new instance of this class.  
+     * Before using, construct a UserInput object and a CommandOptions object.
+     * @param options A pointer to the command options structure 
      */
-
-    // // no arguments
-    // UserCommandParameters(const char *user_defined_command_to_match,
-    //                       void (*user_defined_function_to_call)(UserInput *))
-    //     : command(user_defined_command_to_match),
-    //       function(user_defined_function_to_call),
-    //       command_length(strlen_P(command)),
-    //       next_command_parameters(NULL),
-    //       num_args(0),
-    //       _arg_type(NULL),
-    //       arg_type(UITYPE::_LAST),
-    //       argument_flag(0)
-    // {
-    // }
-
-    // // argument array
-    // UserCommandParameters(const char *user_defined_command_to_match,
-    //                       void (*user_defined_function_to_call)(UserInput *),
-    //                       size_t number_of_arguments,
-    //                       const UITYPE argument_type_array[])
-    //     : command(user_defined_command_to_match),
-    //       function(user_defined_function_to_call),
-    //       command_length(strlen_P(command)),
-    //       next_command_parameters(NULL),
-    //       num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
-    //       _arg_type(argument_type_array),
-    //       arg_type(UITYPE::_LAST),
-    //       argument_flag(1)
-    // {
-    // }
-
-
-    // // single argument type (default NOTYPE)
-    // UserCommandParameters(const char *user_defined_command_to_match,
-    //                       void (*user_defined_function_to_call)(UserInput *),
-    //                       size_t number_of_arguments,
-    //                       const UITYPE argument_type = UITYPE::NOTYPE)
-    //     : command(user_defined_command_to_match),
-    //       function(user_defined_function_to_call),
-    //       command_length(strlen_P(command)),
-    //       next_command_parameters(NULL),
-    //       num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
-    //       _arg_type(NULL),
-    //       arg_type(argument_type),
-    //       argument_flag(2)
-    // {
-    // }
 
     UserCommandParameters(const CommandOptions *options)
         : opt(options),
           next_command_parameters(NULL)
     {
     }
-
-    // const char *command;                            /** command to match */
-    // void (*function)(UserInput *);                  /** pointer to function */
-    // size_t command_length;                          /** length of command */
+    
     const CommandOptions *opt;
-    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */
-    // size_t num_args;                                /** number of function arguments */
-    // const UITYPE *_arg_type;                        /** function argument array pointer */
-    // const UITYPE arg_type;                          /** single argument type */
-    // uint8_t argument_flag;                          /** switches how we iterate through arguments */    
+    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */  
 };
 
 /**
