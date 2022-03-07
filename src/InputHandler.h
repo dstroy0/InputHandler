@@ -23,6 +23,7 @@
  * @defgroup UserInput Constants
  * @{
  */
+
 /**
  * @brief ui_defaults_progmem_ptr enum
  * @enum UI_PROGMEM_DEFAULTS_ENUM
@@ -77,7 +78,6 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-
 const char ui_input_type_strings[8][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
@@ -91,14 +91,6 @@ const char ui_input_type_strings[8][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_input_type_strings_def]
 };
 
-/** @} */
-
-/**
- * @brief forward declaration of UserInput class for
- * UserCallbackFunctionparameters class
- */
-class UserInput;
-
 /**
  * @brief argument_flag type enum
  * @enum UI_ARGUMENT_FLAG_ENUM
@@ -111,19 +103,27 @@ enum UI_ARGUMENT_FLAG_ENUM
 };
 
 /**
+ * @brief forward declaration of UserInput class for
+ * CommandParameters struct
+ */
+class UserInput;
+
+/**
  * @brief command parameters structure
  * @struct CommandParameters
  */
 struct CommandParameters
-{
+{       
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
-    uint16_t command_length;
+    size_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
-    uint16_t num_args;
-    //uint16_t max_num_args;    
+    size_t num_args;
+    // uint16_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
+
+/** @} */
 
 /**
  * @brief user command constructor

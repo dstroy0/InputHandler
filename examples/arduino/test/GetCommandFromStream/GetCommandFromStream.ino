@@ -21,11 +21,11 @@ char output_buffer[512] = {'\0'}; //  output buffer
   UserInput constructor
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-                       /* size of UserInput's output buffer */ 512,
-                       /* username */ "user",
-                       /* end of line characters */ "\r\n",
-                       /* token delimiter */ " ",
-                       /* c-string delimiter */ "\"");
+    /* size of UserInput's output buffer */ 512,
+    /* username */ "user",
+    /* end of line characters */ "\r\n",
+    /* token delimiter */ " ",
+    /* c-string delimiter */ "\"");
 
 /*
    default function, called if nothing matches or if there is an error
@@ -114,28 +114,49 @@ void uc_test_input_types(UserInput *inputProcess)
   Serial.print(out);
 }
 
-const CommandParameters help_param PROGMEM = {uc_help,
-                                            "help",
-                                            4,
-                                            no_arguments,
-                                            0,
-                                            {UITYPE::_LAST}};
-
+const CommandParameters help_param PROGMEM =
+{
+  /* function name */
+  uc_help,
+  /* command string */
+  "help",
+  /* string length */
+  4,
+  /* argument handling */
+  no_arguments,
+  /* expected number of arguments */
+  0,
+  /* UITYPE argument array */
+  {
+    UITYPE::_LAST
+  }
+};
 CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
 
-const CommandParameters type_test_param PROGMEM = {uc_test_input_types,
-                                                 "test",
-                                                 4,
-                                                 argument_type_array,
-                                                 8,
-                                                 {UITYPE::UINT8_T,
-                                                  UITYPE::UINT16_T,
-                                                  UITYPE::UINT32_T,
-                                                  UITYPE::INT16_T,
-                                                  UITYPE::FLOAT,
-                                                  UITYPE::CHAR,
-                                                  UITYPE::C_STRING,
-                                                  UITYPE::NOTYPE}};
+const CommandParameters type_test_param PROGMEM =
+{
+  /* function name */
+  uc_test_input_types,
+  /* command string */
+  "test",
+  /* string length */
+  4,
+  /* argument handling */
+  argument_type_array,
+  /* expected number of arguments */
+  8,
+  /* UITYPE argument array */
+  {
+    UITYPE::UINT8_T,
+    UITYPE::UINT16_T,
+    UITYPE::UINT32_T,
+    UITYPE::INT16_T,
+    UITYPE::FLOAT,
+    UITYPE::CHAR,
+    UITYPE::C_STRING,
+    UITYPE::NOTYPE
+  }
+};
 CommandConstructor uc_test_(&type_test_param);
 
 void setup()
@@ -148,7 +169,7 @@ void setup()
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-  inputHandler.AddCommand(uc_test_);
+  inputHandler.AddCommand(uc_test_);             // test input types
 
   uc_help(inputHandler);               // formats output_buffer with the command list
   inputHandler.OutputToStream(Serial); // class output
