@@ -126,7 +126,7 @@ const CommandParameters help_param PROGMEM =
   no_arguments,
   /* expected number of arguments */
   0,
-  /* UITYPE argument array */
+  /* UITYPE arguments */
   {
     UITYPE::_LAST
   }
@@ -145,7 +145,7 @@ const CommandParameters type_test_param PROGMEM =
   argument_type_array,
   /* expected number of arguments */
   8,
-  /* UITYPE argument array */
+  /* UITYPE arguments */
   {
     UITYPE::UINT8_T,
     UITYPE::UINT16_T,
