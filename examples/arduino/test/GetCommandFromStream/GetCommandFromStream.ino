@@ -21,16 +21,16 @@ char output_buffer[512] = {'\0'}; //  output buffer
   UserInput constructor
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ 512,
-    /* username */ "user",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+                       /* size of UserInput's output buffer */ 512,
+                       /* username */ "user",
+                       /* end of line characters */ "\r\n",
+                       /* token delimiter */ " ",
+                       /* c-string delimiter */ "\"");
 
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput* inputProcess)
+void uc_unrecognized(UserInput *inputProcess)
 {
   // error output
   inputProcess->OutputToStream(Serial);
@@ -39,11 +39,11 @@ void uc_unrecognized(UserInput* inputProcess)
 /*
    lists commands available to the user
 */
-void uc_help(UserInput* inputProcess)
+void uc_help(UserInput *inputProcess)
 {
   inputProcess->ListCommands();
 }
-void uc_help(UserInput& inputProcess)
+void uc_help(UserInput &inputProcess)
 {
   inputProcess.ListCommands();
 }
@@ -51,11 +51,11 @@ void uc_help(UserInput& inputProcess)
 /*
    test all available input types
 */
-void uc_test_input_types(UserInput* inputProcess)
+void uc_test_input_types(UserInput *inputProcess)
 {
   inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char* str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-  char* strtoul_ptr = 0;                                                            //  this is for strtoul
+  char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+  char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
   uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
@@ -101,8 +101,7 @@ void uc_test_input_types(UserInput* inputProcess)
                                 "float %s\n"
                                 "char %c\n"
                                 "c-string %s\n"
-                                "unknown-string %s\n"
-                               ),
+                                "unknown-string %s\n"),
                            eight_bit,
                            sixteen_bit,
                            thirtytwo_bit,
@@ -115,51 +114,37 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-//struct CommandOptions
-//{
-//    void (*user_defined_function_to_call)(UserInput *);
-//    char command[USER_INPUT_MAX_COMMAND_LENGTH] = {'\0'};
-//    uint16_t command_length = 0;
-//    uint8_t argument_flag = no_arguments;
-//    uint16_t num_args = 0;
-//    //uint16_t max_num_args = 0;
-//    UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {UITYPE::_LAST};
-//};
+const CommandParameters help_param PROGMEM = {uc_help,
+                                            "help",
+                                            4,
+                                            no_arguments,
+                                            0,
+                                            {UITYPE::_LAST}};
 
-const CommandOptions help_opt PROGMEM = { uc_help,
-                                          "help",
-                                          4,
-                                          no_arguments,
-                                          0,
-{UITYPE::_LAST}
-                                        };
+CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
 
-UserCommandParameters uc_help_(&help_opt);                  //  uc_help_ has a command string, and function specified
-
-const CommandOptions type_test_opt PROGMEM = { uc_test_input_types,
-                                               "test",
-                                               4,
-                                               argument_type_array,
-                                               8,
-{ UITYPE::UINT8_T,
-  UITYPE::UINT16_T,
-  UITYPE::UINT32_T,
-  UITYPE::INT16_T,
-  UITYPE::FLOAT,
-  UITYPE::CHAR,
-  UITYPE::C_STRING,
-  UITYPE::NOTYPE
-}
-                                             };
-UserCommandParameters uc_test_(&type_test_opt);
-
+const CommandParameters type_test_param PROGMEM = {uc_test_input_types,
+                                                 "test",
+                                                 4,
+                                                 argument_type_array,
+                                                 8,
+                                                 {UITYPE::UINT8_T,
+                                                  UITYPE::UINT16_T,
+                                                  UITYPE::UINT32_T,
+                                                  UITYPE::INT16_T,
+                                                  UITYPE::FLOAT,
+                                                  UITYPE::CHAR,
+                                                  UITYPE::C_STRING,
+                                                  UITYPE::NOTYPE}};
+CommandConstructor uc_test_(&type_test_param);
 
 void setup()
 {
   // uncomment as needed
   Serial.begin(115200); //  set up Serial object (Stream object)
 
-  while (!Serial); //  wait for user
+  while (!Serial)
+    ; //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
@@ -175,5 +160,4 @@ void loop()
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
 
   inputHandler.OutputToStream(Serial); // class output
-
 }

@@ -31,10 +31,10 @@ char *UserInput::NextArgument()
     return data_pointers[data_pointers_index];
 }
 
-void UserInput::AddCommand(UserCommandParameters &command)
+void UserInput::AddCommand(CommandConstructor &command)
 {
-    UserCommandParameters **cmd_head = &commands_head_;
-    UserCommandParameters **cmd_tail = &commands_tail_;
+    CommandConstructor **cmd_head = &commands_head_;
+    CommandConstructor **cmd_tail = &commands_tail_;
     size_t *cmd_count = &commands_count_;
     size_t *arg_count = &max_num_user_defined_args;
     command.next_command_parameters = NULL;
@@ -48,7 +48,7 @@ void UserInput::AddCommand(UserCommandParameters &command)
         *cmd_tail = &command;
     }
     (*cmd_count)++;
-    CommandOptions opt;
+    CommandParameters opt;
     memcpy_P(&opt, &command.opt, sizeof(opt));
     if (*arg_count < opt.num_args)
     {
@@ -351,7 +351,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
     return true;
 }
 
-void UserInput::launchFunction(CommandOptions& opt)
+void UserInput::launchFunction(CommandParameters& opt)
 {
     if (UserInput::OutputIsEnabled())
     {
@@ -413,8 +413,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     rec_num_arg_strings = 0;            // number of tokens read from data
     bool match = false;                 // command string match
     bool command_matched = false;       // error sentinel
-    UserCommandParameters* cmd;         // command parameters pointer
-    CommandOptions opt;                 // CommandOptions struct
+    CommandConstructor* cmd;         // command parameters pointer
+    CommandParameters opt;                 // CommandParameters struct
     
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
@@ -613,8 +613,8 @@ void UserInput::ListCommands()
 {
     if (UserInput::OutputIsEnabled())
     {
-        UserCommandParameters *cmd;
-        CommandOptions opt;
+        CommandConstructor *cmd;
+        CommandParameters opt;
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                      PSTR("Commands available to %s:\n"),
                                      _username_);
@@ -753,7 +753,7 @@ void UserInput::ClearOutputBuffer()
     _output_flag = false;
 }
 
-uint8_t UserInput::getArgType(CommandOptions &opt, size_t index)
+uint8_t UserInput::getArgType(CommandParameters &opt, size_t index)
 {
     if (opt.argument_flag == no_arguments) return static_cast<uint8_t>(UITYPE::NOTYPE);
     if (opt.argument_flag == single_type_arguments) return static_cast<uint8_t>(opt._arg_type[0]);

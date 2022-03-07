@@ -111,10 +111,10 @@ enum UI_ARGUMENT_FLAG_ENUM
 };
 
 /**
- * @brief command options structure
- * @struct CommandOptions
+ * @brief command parameters structure
+ * @struct CommandParameters
  */
-struct CommandOptions
+struct CommandParameters
 {
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
@@ -126,27 +126,27 @@ struct CommandOptions
 };
 
 /**
- * @brief User defined function parameters
+ * @brief user command constructor
  */
-class UserCommandParameters
+class CommandConstructor
 {
 public:
     /**
-     * @brief UserCommandParameters Constructor
+     * @brief CommandConstructor Constructor
      *
      * Creates a new instance of this class.  
-     * Before using, construct a UserInput object and a CommandOptions object.
+     * Before using, construct a UserInput object and a CommandParameters object.
      * @param options A pointer to the command options structure 
      */
 
-    UserCommandParameters(const CommandOptions *options)
+    CommandConstructor(const CommandParameters *options)
         : opt(options),
           next_command_parameters(NULL)
     {            
     }
     
-    const CommandOptions *opt;
-    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */  
+    const CommandParameters *opt;
+    CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 
 /**
@@ -206,9 +206,9 @@ public:
     /**
      * @brief adds user commands
      *
-     * @param command reference to UserCommandParameters
+     * @param command reference to CommandConstructor
      */
-    void AddCommand(UserCommandParameters &command);
+    void AddCommand(CommandConstructor &command);
 
     /**
      * @brief read command(s) from a buffer
@@ -301,7 +301,7 @@ protected:
      *
      * @param opt command options reference
      */
-    void launchFunction(CommandOptions& opt);
+    void launchFunction(CommandParameters& opt);
 
     /**
      * @brief Escapes control characters so they will print
@@ -326,7 +326,7 @@ protected:
      * @param index argument number
      * @return uint8_t argument type
      */
-    uint8_t getArgType(CommandOptions &opt, size_t index = 0);
+    uint8_t getArgType(CommandParameters &opt, size_t index = 0);
 
 private:
     /*
@@ -342,8 +342,8 @@ private:
     const char *_c_str_delim_;              //  c-string delimiter
     const char *_null_;                     //  char null '\0'
     void (*default_function_)(UserInput *); //  pointer to default function    
-    UserCommandParameters *commands_head_;  //  pointer to object list
-    UserCommandParameters *commands_tail_;  //  pointer to object list
+    CommandConstructor *commands_head_;  //  pointer to object list
+    CommandConstructor *commands_tail_;  //  pointer to object list
     size_t commands_count_;                 //  how many commands are there
     size_t max_num_user_defined_args;       //  max number of arguments used
 
