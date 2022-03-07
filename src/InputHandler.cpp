@@ -93,12 +93,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         //  replace delimiter
         if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
         {
-            token_buffer[*data_index] = *_null_;
+            token_buffer[*data_index] = (char)_null_;
             token_flag[0] = false;
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            token_buffer[*data_index] = *_null_;              // replace the c-string delimiter
+            token_buffer[*data_index] = (char)_null_;              // replace the c-string delimiter
             if (((uint16_t)(*data_index) + 1U) < data_length) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
@@ -108,7 +108,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                     incoming = (char)data[*data_index]; // fetch the next incoming char
                     if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
                     {
-                        token_buffer[*data_index] = *_null_; // replace the c-string delimiter
+                        token_buffer[*data_index] = (char)_null_; // replace the c-string delimiter
                         (*data_index)++;                     // increment the tokenized string index
                         break;
                     }
@@ -192,7 +192,9 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
 bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
 {
     uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
-    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *((PGM_P)pgm_read_ptr(&(ui_defaults_progmem_ptr[neg_e])))) ? true : false;
+    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
+    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
+    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *default_string) ? true : false;
 
     if (arg_type < (size_t)UITYPE::CHAR)
     {
@@ -249,7 +251,9 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
                 */
                 for (uint16_t j = 1; j < strlen_data; ++j)
                 {
-                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&ui_defaults_progmem_ptr[dot_e])))
+                    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
+                    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
+                    if (data_pointers[data_pointers_index][j] == *default_string)
                     {
                         found_dot++;
                     }
@@ -279,7 +283,9 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
                 {
-                    if (data_pointers[data_pointers_index][j] == *((PGM_P)pgm_read_ptr(&ui_defaults_progmem_ptr[dot_e])))
+                    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
+                    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
+                    if (data_pointers[data_pointers_index][j] == *default_string)
                     {
                         found_dot++;
                     }
@@ -374,6 +380,7 @@ void UserInput::launchFunction(CommandOptions& opt)
 
 void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
 {
+    // error checking
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
         if (UserInput::OutputIsEnabled())
@@ -386,6 +393,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         return;
     }    
     
+    // this is declared here to test if token_buffer == nullptr (error condition)
     token_buffer = new char[len + 1](); // place to chop up the input
     if (token_buffer == nullptr)        // if there was an error allocating the memory
     {
@@ -398,6 +406,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         }
         return;
     }
+    // end error checking
 
     size_t data_index = 0;              // data iterator
     data_pointers_index = 0;            // token buffer pointers
@@ -406,6 +415,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     bool command_matched = false;       // error sentinel
     UserCommandParameters* cmd;         // command parameters pointer
     CommandOptions opt;                 // CommandOptions struct
+    
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
@@ -520,12 +530,14 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     uint16_t err_n_args = (opt.num_args > rec_num_arg_strings) ? rec_num_arg_strings : opt.num_args;
                     for (uint8_t i = 0; i < err_n_args; ++i)
                     {
-                        if (input_type_match_flag[i] == false)
-                        {                            
+                        if (input_type_match_flag[i] == false)                        
+                        {
+                            char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
+                            memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(opt, i)], sizeof(_type));
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                          PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                          i + 1,
-                                                         (char*)UI_PGM_READ_DWORD(UI_DEREFERENCE(ui_input_type_strings[UserInput::getArgType(opt, i)])),
+                                                         _type,
                                                          data_pointers[i + 1]);
                         }
                     }
@@ -743,8 +755,8 @@ void UserInput::ClearOutputBuffer()
 
 uint8_t UserInput::getArgType(CommandOptions &opt, size_t index)
 {
-    if (opt.argument_flag == 0) return static_cast<uint8_t>(UITYPE::NOTYPE);
-    if (opt.argument_flag == 1) return static_cast<uint8_t>(opt._arg_type[index]);
-    if (opt.argument_flag == 2) return static_cast<uint8_t>(opt._arg_type[0]);
+    if (opt.argument_flag == no_arguments) return static_cast<uint8_t>(UITYPE::NOTYPE);
+    if (opt.argument_flag == single_type_arguments) return static_cast<uint8_t>(opt._arg_type[0]);
+    if (opt.argument_flag == argument_type_array) return static_cast<uint8_t>(opt._arg_type[index]);    
     return static_cast<uint8_t>(UITYPE::_LAST);    // return error if no match
 }

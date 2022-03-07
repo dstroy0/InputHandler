@@ -43,7 +43,7 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  * @brief default constructor string literals
  * \snippet InputHandler.h ui_defaults_progmem_def
  */
-const PROGMEM char *const ui_defaults_progmem_ptr[] = {
+const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_defaults_progmem_def]
     "user", //  default username
     "\r\n", //  default end of line characters
@@ -77,7 +77,8 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const PROGMEM char *const ui_input_type_strings[] = {
+
+const char ui_input_type_strings[8][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_input_type_strings_def]
     "uint8_t",     //  8-bit unsigned integer
     "uint16_t",    //  16-bit unsigned integer
@@ -141,7 +142,7 @@ public:
     UserCommandParameters(const CommandOptions *options)
         : opt(options),
           next_command_parameters(NULL)
-    {
+    {            
     }
     
     const CommandOptions *opt;
@@ -176,17 +177,17 @@ public:
               size_t output_buffer_len = 0,
               const char *username = NULL,
               const char *end_of_line_characters = NULL,
-              const char *token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
-              const char *c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
+              const char *token_delimiter = NULL,
+              const char *c_string_delimiter = NULL)
         : _output_buffer(output_buffer),
           _output_enabled((output_buffer == NULL) ? false : true),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
-          _username_((username == NULL) ? ui_defaults_progmem_ptr[username_e] : username),
-          _term_((end_of_line_characters == NULL) ? ui_defaults_progmem_ptr[eol_e] : end_of_line_characters),
-          _delim_((token_delimiter == NULL) ? ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
-          _c_str_delim_((c_string_delimiter == NULL) ? ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
-          _null_(ui_defaults_progmem_ptr[null_e]),
+          _username_((username == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[username_e])) : username),
+          _term_((end_of_line_characters == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[eol_e])) : end_of_line_characters),
+          _delim_((token_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[t_delim_e])) : token_delimiter),
+          _c_str_delim_((c_string_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[c_delim_e])) : c_string_delimiter),
+          _null_((char*)pgm_read_dword(&(ui_defaults_progmem_ptr[null_e]))),
           default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
