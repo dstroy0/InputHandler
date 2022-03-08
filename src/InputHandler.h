@@ -33,11 +33,8 @@ enum UI_PROGMEM_DEFAULTS_ENUM
     username_e, ///<  ui_defaults_progmem_ptr[0]
     eol_e,      ///<  ui_defaults_progmem_ptr[1]
     t_delim_e,  ///<  ui_defaults_progmem_ptr[2]
-    c_delim_e,  ///<  ui_defaults_progmem_ptr[3]
-    null_e,     ///<  ui_defaults_progmem_ptr[4]
-    neg_e,      ///<  ui_defaults_progmem_ptr[5]
-    dot_e,      ///<  ui_defaults_progmem_ptr[6]
-    err_e       ///<  ui_defaults_progmem_ptr[7]
+    c_delim_e,  ///<  ui_defaults_progmem_ptr[3] 
+    err_e       ///<  ui_defaults_progmem_ptr[4]
 };
 
 /**
@@ -46,13 +43,10 @@ enum UI_PROGMEM_DEFAULTS_ENUM
  */
 const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_defaults_progmem_def]
-    "user", //  default username
+    "You",  //  default username
     "\r\n", //  default end of line characters
     " ",    //  default token delimiter
-    "\"",   //  default c-string delimiter
-    "\0",   //  null
-    "-",    //  negative sign
-    ".",    //  dot
+    "\"",   //  default c-string delimiter  
     "error" //  error
     //![ui_defaults_progmem_def]
 };
@@ -71,6 +65,7 @@ enum class UITYPE
     CHAR,     ///<  ui_input_type_strings[5]
     C_STRING, ///<  ui_input_type_strings[6]
     NOTYPE,   ///<  ui_input_type_strings[7]
+    NO_ARGS,  ///<  ui_input_type_strings[8]
     _LAST     ///<  reserved
 };
 
@@ -78,16 +73,17 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const char ui_input_type_strings[8][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
+const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_input_type_strings_def]
-    "uint8_t",     //  8-bit unsigned integer
-    "uint16_t",    //  16-bit unsigned integer
-    "uint32_t",    //  32-bit unsigned integer
-    "int16_t",     //  16-bit signed integer
-    "float",       //  32-bit floating point number
-    "char",        //  single char
-    "c-string",    //  c-string without spaces if not enclosed with ""
-    "type-unknown" //  user defined NOTYPE
+    "uint8_t",      //  8-bit unsigned integer
+    "uint16_t",     //  16-bit unsigned integer
+    "uint32_t",     //  32-bit unsigned integer
+    "int16_t",      //  16-bit signed integer
+    "float",        //  32-bit floating point number
+    "char",         //  single char
+    "c-string",     //  c-string without spaces if not enclosed with ""
+    "type-unknown", //  user defined NOTYPE
+    "error"         //  error
     //![ui_input_type_strings_def]
 };
 
@@ -186,8 +182,7 @@ public:
           _username_((username == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[username_e])) : username),
           _term_((end_of_line_characters == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[eol_e])) : end_of_line_characters),
           _delim_((token_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[t_delim_e])) : token_delimiter),
-          _c_str_delim_((c_string_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[c_delim_e])) : c_string_delimiter),
-          _null_((char*)pgm_read_dword(&(ui_defaults_progmem_ptr[null_e]))),
+          _c_str_delim_((c_string_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[c_delim_e])) : c_string_delimiter),  
           default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
@@ -339,13 +334,16 @@ private:
     const char *_username_;                 //  username
     const char *_term_;                     //  end of line characters
     const char *_delim_;                    //  token delimiter
-    const char *_c_str_delim_;              //  c-string delimiter
-    const char *_null_;                     //  char null '\0'
+    const char *_c_str_delim_;              //  c-string delimiter    
     void (*default_function_)(UserInput *); //  pointer to default function    
-    CommandConstructor *commands_head_;  //  pointer to object list
-    CommandConstructor *commands_tail_;  //  pointer to object list
+    CommandConstructor *commands_head_;     //  pointer to object list
+    CommandConstructor *commands_tail_;     //  pointer to object list
     size_t commands_count_;                 //  how many commands are there
     size_t max_num_user_defined_args;       //  max number of arguments used
+
+    char _null_ = '\0';                     //  char '\0'
+    char _neg_ = '-';                       //  char '-'
+    char _dot_ = '.';                       //  char '.'
 
     /*
         member function variables

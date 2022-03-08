@@ -93,12 +93,12 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         //  replace delimiter
         if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
         {
-            token_buffer[*data_index] = (char)_null_;
+            token_buffer[*data_index] = _null_;
             token_flag[0] = false;
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            token_buffer[*data_index] = (char)_null_;              // replace the c-string delimiter
+            token_buffer[*data_index] = _null_;              // replace the c-string delimiter
             if (((uint16_t)(*data_index) + 1U) < data_length) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
@@ -108,7 +108,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                     incoming = (char)data[*data_index]; // fetch the next incoming char
                     if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
                     {
-                        token_buffer[*data_index] = (char)_null_; // replace the c-string delimiter
+                        token_buffer[*data_index] = _null_; // replace the c-string delimiter
                         (*data_index)++;                     // increment the tokenized string index
                         break;
                     }
@@ -191,11 +191,8 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
 
 bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
 {
-    uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
-    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
-    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
-    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == *default_string) ? true : false;
-
+    uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);    
+    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == _neg_) ? true : false;    
     if (arg_type < (size_t)UITYPE::CHAR)
     {
         // for unsigned integers
@@ -250,10 +247,8 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
                     so start the for loop at an index of one
                 */
                 for (uint16_t j = 1; j < strlen_data; ++j)
-                {
-                    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
-                    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
-                    if (data_pointers[data_pointers_index][j] == *default_string)
+                {                    
+                    if (data_pointers[data_pointers_index][j] == _dot_)
                     {
                         found_dot++;
                     }
@@ -282,10 +277,8 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
             else //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
-                {
-                    char default_string[UI_DEFAULT_STRINGS_MAX_LEN];
-                    memcpy_P(&default_string, &ui_defaults_progmem_ptr[dot_e], sizeof(default_string));
-                    if (data_pointers[data_pointers_index][j] == *default_string)
+                {                  
+                    if (data_pointers[data_pointers_index][j] == _dot_)
                     {
                         found_dot++;
                     }

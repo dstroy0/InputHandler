@@ -20,12 +20,15 @@ char output_buffer[512] = {'\0'}; //  output buffer
 /*
   UserInput constructor
 */
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ 512,
-    /* username */ "user",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+UserInput inputHandler
+(
+  output_buffer, // UserInput's output buffer
+  512,           // size of UserInput's output buffer
+  "user",        // username
+  "\r\n",        // end of line characters
+  " ",           // token delimiter
+  "\""           // c-string delimiter
+);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -116,45 +119,39 @@ void uc_test_input_types(UserInput *inputProcess)
 
 const CommandParameters help_param PROGMEM =
 {
-  /* function name */
-  uc_help,
-  /* command string */
-  "help",
-  /* string length */
-  4,
-  /* argument handling */
-  no_arguments,
-  /* expected number of arguments */
-  0,
-  /* UITYPE arguments */
+  uc_help,      // function name
+  "help",       // command string
+  4,            // command string characters
+  no_arguments, // argument handling
+  0,            // expected number of arguments
+  /*
+    UITYPE arguments
+  */
   {
-    UITYPE::_LAST
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
 CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
 
 const CommandParameters type_test_param PROGMEM =
 {
-  /* function name */
-  uc_test_input_types,
-  /* command string */
-  "test",
-  /* string length */
-  4,
-  /* argument handling */
-  argument_type_array,
-  /* expected number of arguments */
-  8,
-  /* UITYPE arguments */
+  uc_test_input_types, // function name
+  "test",              // command string
+  4,                   // string length
+  argument_type_array, // argument handling
+  8,                   // expected number of arguments
+  /*
+    UITYPE arguments
+  */
   {
-    UITYPE::UINT8_T,
-    UITYPE::UINT16_T,
-    UITYPE::UINT32_T,
-    UITYPE::INT16_T,
-    UITYPE::FLOAT,
-    UITYPE::CHAR,
-    UITYPE::C_STRING,
-    UITYPE::NOTYPE
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
 CommandConstructor uc_test_(&type_test_param);
@@ -176,8 +173,7 @@ void setup()
 }
 
 void loop()
-{
-  // uncomment as needed
+{  
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
 
   inputHandler.OutputToStream(Serial); // class output
