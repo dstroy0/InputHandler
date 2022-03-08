@@ -20,12 +20,15 @@ char output_buffer[512] = {'\0'}; //  output buffer
 /*
   UserInput constructor
 */
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ 512,
-    /* username */ "user",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+UserInput inputHandler
+(
+  output_buffer, // UserInput's output buffer
+  512,           // size of UserInput's output buffer
+  "user",        // username
+  "\r\n",        // end of line characters
+  " ",           // token delimiter
+  "\""           // c-string delimiter
+);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -138,7 +141,7 @@ const CommandParameters help_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 const CommandParameters settings_param PROGMEM =
 {
@@ -155,7 +158,7 @@ const CommandParameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 const CommandParameters type_test_param PROGMEM =
 {
@@ -179,7 +182,7 @@ const CommandParameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(&type_test_param);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {

@@ -30,12 +30,15 @@ char output_buffer[512] = {'\0'}; //  output buffer
 /*
   UserInput constructor
 */
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ 512,
-    /* username */ "esp",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+UserInput inputHandler
+(
+  output_buffer, // UserInput's output buffer
+  512,           // size of UserInput's output buffer
+  "user",        // username
+  "\r\n",        // end of line characters
+  " ",           // token delimiter
+  "\""           // c-string delimiter
+);
 
 /*
    default function, called if nothing matches or if there is an error

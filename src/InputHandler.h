@@ -85,10 +85,10 @@ struct CommandParameters
 {       
     void (*function)(UserInput *);
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
-    size_t command_length;
+    uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
-    size_t num_args;
-    size_t max_num_args;
+    uint8_t num_args;
+    uint8_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
 
@@ -108,13 +108,13 @@ public:
      * @param options A pointer to the command options structure 
      */
 
-    CommandConstructor(const CommandParameters *options)
+    CommandConstructor(const CommandParameters &options)
         : opt(options),
           next_command_parameters(NULL)
     {        
     }
     
-    const CommandParameters *opt;
+    const CommandParameters& opt;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 

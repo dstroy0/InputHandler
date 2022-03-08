@@ -420,7 +420,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {
-            memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
+            memcpy_P(&opt, &(cmd->opt), sizeof(opt));
             if (strcmp(data_pointers[0], opt.command) == 0) // match
             {
                 command_matched = true;
@@ -485,7 +485,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
             {                
-                memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
+                memcpy_P(&opt, &(cmd->opt), sizeof(opt));
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                              PSTR(">%s $Invalid input: %s "),
                                              _username_,
@@ -625,7 +625,7 @@ void UserInput::ListCommands()
         uint8_t i = 1;
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
         {            
-            memcpy_P(&opt, &(*(cmd->opt)), sizeof(opt));
+            memcpy_P(&opt, &(cmd->opt), sizeof(opt));
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"),
                                          i, opt.command);
             i++;

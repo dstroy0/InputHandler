@@ -10,7 +10,18 @@
 
 #include <InputHandler.h>
 
-UserInput inputHandler;
+/*
+  UserInput constructor
+*/
+UserInput inputHandler
+(
+  NULL,   // UserInput's output buffer
+  0,      // size of UserInput's output buffer
+  "",     // username
+  "\r\n", // end of line characters
+  " ",    // token delimiter
+  "\""    // c-string delimiter
+);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -94,7 +105,7 @@ const CommandParameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(&type_test_param);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {
