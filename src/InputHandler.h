@@ -25,33 +25,6 @@
  */
 
 /**
- * @brief ui_defaults_progmem_ptr enum
- * @enum UI_PROGMEM_DEFAULTS_ENUM
- */
-enum UI_PROGMEM_DEFAULTS_ENUM
-{
-    username_e, ///<  ui_defaults_progmem_ptr[0]
-    eol_e,      ///<  ui_defaults_progmem_ptr[1]
-    t_delim_e,  ///<  ui_defaults_progmem_ptr[2]
-    c_delim_e,  ///<  ui_defaults_progmem_ptr[3] 
-    err_e       ///<  ui_defaults_progmem_ptr[4]
-};
-
-/**
- * @brief default constructor string literals
- * \snippet InputHandler.h ui_defaults_progmem_def
- */
-const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM = {
-    //![ui_defaults_progmem_def]
-    "You",  //  default username
-    "\r\n", //  default end of line characters
-    " ",    //  default token delimiter
-    "\"",   //  default c-string delimiter  
-    "error" //  error
-    //![ui_defaults_progmem_def]
-};
-
-/**
  * @brief ui_input_type_strings enum
  * @enum UITYPE
  */
@@ -171,18 +144,18 @@ public:
      */
     UserInput(char *output_buffer = NULL,
               size_t output_buffer_len = 0,
-              const char *username = NULL,
-              const char *end_of_line_characters = NULL,
-              const char *token_delimiter = NULL,
-              const char *c_string_delimiter = NULL)
+              const char *username = "",
+              const char *end_of_line_characters = "\r\n",
+              const char *token_delimiter = " ",
+              const char *c_string_delimiter = "\"")
         : _output_buffer(output_buffer),
           _output_enabled((output_buffer == NULL) ? false : true),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
-          _username_((username == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[username_e])) : username),
-          _term_((end_of_line_characters == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[eol_e])) : end_of_line_characters),
-          _delim_((token_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[t_delim_e])) : token_delimiter),
-          _c_str_delim_((c_string_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[c_delim_e])) : c_string_delimiter),  
+          _username_(username),
+          _term_(end_of_line_characters),
+          _delim_(token_delimiter),
+          _c_str_delim_(c_string_delimiter),
           default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
