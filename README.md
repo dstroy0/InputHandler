@@ -33,12 +33,48 @@ void ReadCommandFromBuffer(uint8_t *data, size_t len);
 Easily enforce input argument types:  
 
 ```cpp
+// no arguments
+const CommandParameters your_command_parameters PROGMEM =
+{
+  your_function, // function name
+  "cmd_str",     // command string
+  7,             // command string characters
+  no_arguments,  // argument handling
+  0,             // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor your_command(&your_command_parameters);
+
+// single argument type
+const CommandParameters your_command_parameters PROGMEM =
+{
+  your_function,          // function name
+  "cmd_str",              // command string
+  7,                      // command string characters
+  single_type_arguments,  // argument handling
+  0,                      // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    // any single type except for NO_ARGS
+    UITYPE::NOTYPE; // accept anything
+  }
+};
+CommandConstructor your_command(&your_command_parameters);
+
+// argument array
 const CommandParameters your_command_parameters PROGMEM =
 {
   your_function,       // function name
   "cmd_str",           // command string
   7,                   // command string length
-  argument_type_array, // argument handling (no_arguments, single_argument_type, or argument_type_array)
+  argument_type_array, // argument handling 
   8,                   // expected number of arguments (set to zero if no arguments)
   /*
     UITYPE arguments, fill with arguments you want to send in order
