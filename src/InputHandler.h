@@ -138,7 +138,7 @@ public:
     CommandConstructor(const CommandParameters *options)
         : opt(options),
           next_command_parameters(NULL)
-    {            
+    {        
     }
     
     const CommandParameters *opt;
