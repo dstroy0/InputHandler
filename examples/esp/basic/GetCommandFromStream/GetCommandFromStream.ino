@@ -72,42 +72,28 @@ void uc_test_input_types(UserInput *inputProcess)
   Serial.print(out);
 }
 
-/*
-   UserInput UserCallbackFunctionParameters
-   These objects are what you use to specify the command string, function to launch, and types of input if any
-
-   The command string is stored in PROGMEM if applicable
-
-   The user defined function wrapper is always void myFunc(UserInput* inputProcess) {// do stuff}
-   Pass the constructor the bare function name without quotes or parenthesis.
-
-   _N_ARGS(x) is a macro function that expands to (sizeof(x)/sizeof(x[0])), it returns how many elements are
-   in the argument array
-
-   The following are the available input types
-   UITYPE::UINT8_T == an eight bit unsigned integer
-   UITYPE::UINT16_T == a sixteen bit unsigned integer
-   UITYPE::UINT32_T == a thirty-two bit unsigned integer
-   UITYPE::INT16_T == a sixteen bit signed integer
-   UITYPE::FLOAT == a thirty-two bit signed floating point number
-   UITYPE::CHAR == a character value
-   UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
-                               depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
-                               using GetCommandFromStream input c-string length is limited by input_buffer size
-*/
-
-// This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
-// All available input types are in this array
-const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
-                                            UITYPE::UINT16_T,
-                                            UITYPE::UINT32_T,
-                                            UITYPE::INT16_T,
-                                            UITYPE::FLOAT,
-                                            UITYPE::CHAR,
-                                            UITYPE::C_STRING
-                                           };
-// This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
-UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
+const CommandParameters type_test_param PROGMEM =
+{
+  uc_test_input_types, // function name
+  "test",              // command string
+  4,                   // string length
+  argument_type_array, // argument handling
+  8,                   // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE      // special type, no type validation performed
+  }
+};
+CommandConstructor uc_test_(&type_test_param);
 
 void setup()
 {

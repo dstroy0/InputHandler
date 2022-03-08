@@ -23,6 +23,7 @@
  * @defgroup UserInput Constants
  * @{
  */
+
 /**
  * @brief ui_defaults_progmem_ptr enum
  * @enum UI_PROGMEM_DEFAULTS_ENUM
@@ -32,26 +33,20 @@ enum UI_PROGMEM_DEFAULTS_ENUM
     username_e, ///<  ui_defaults_progmem_ptr[0]
     eol_e,      ///<  ui_defaults_progmem_ptr[1]
     t_delim_e,  ///<  ui_defaults_progmem_ptr[2]
-    c_delim_e,  ///<  ui_defaults_progmem_ptr[3]
-    null_e,     ///<  ui_defaults_progmem_ptr[4]
-    neg_e,      ///<  ui_defaults_progmem_ptr[5]
-    dot_e,      ///<  ui_defaults_progmem_ptr[6]
-    err_e       ///<  ui_defaults_progmem_ptr[7]
+    c_delim_e,  ///<  ui_defaults_progmem_ptr[3] 
+    err_e       ///<  ui_defaults_progmem_ptr[4]
 };
 
 /**
  * @brief default constructor string literals
  * \snippet InputHandler.h ui_defaults_progmem_def
  */
-const PROGMEM char *const ui_defaults_progmem_ptr[] = {
+const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_defaults_progmem_def]
-    "user", //  default username
+    "You",  //  default username
     "\r\n", //  default end of line characters
     " ",    //  default token delimiter
-    "\"",   //  default c-string delimiter
-    "\0",   //  null
-    "-",    //  negative sign
-    ".",    //  dot
+    "\"",   //  default c-string delimiter  
     "error" //  error
     //![ui_defaults_progmem_def]
 };
@@ -70,6 +65,7 @@ enum class UITYPE
     CHAR,     ///<  ui_input_type_strings[5]
     C_STRING, ///<  ui_input_type_strings[6]
     NOTYPE,   ///<  ui_input_type_strings[7]
+    NO_ARGS,  ///<  ui_input_type_strings[8]
     _LAST     ///<  reserved
 };
 
@@ -77,97 +73,76 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const PROGMEM char *const ui_input_type_strings[] = {
+const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
     //![ui_input_type_strings_def]
-    "uint8_t",     //  8-bit unsigned integer
-    "uint16_t",    //  16-bit unsigned integer
-    "uint32_t",    //  32-bit unsigned integer
-    "int16_t",     //  16-bit signed integer
-    "float",       //  32-bit floating point number
-    "char",        //  single char
-    "c-string",    //  c-string without spaces if not enclosed with ""
-    "type-unknown" //  user defined NOTYPE
+    "uint8_t",      //  8-bit unsigned integer
+    "uint16_t",     //  16-bit unsigned integer
+    "uint32_t",     //  32-bit unsigned integer
+    "int16_t",      //  16-bit signed integer
+    "float",        //  32-bit floating point number
+    "char",         //  single char
+    "c-string",     //  c-string without spaces if not enclosed with ""
+    "type-unknown", //  user defined NOTYPE
+    "error"         //  error
     //![ui_input_type_strings_def]
+};
+
+/**
+ * @brief argument_flag type enum
+ * @enum UI_ARGUMENT_FLAG_ENUM
+ */
+enum UI_ARGUMENT_FLAG_ENUM
+{
+    no_arguments,
+    single_type_arguments,
+    argument_type_array
+};
+
+/**
+ * @brief forward declaration of UserInput class for
+ * CommandParameters struct
+ */
+class UserInput;
+
+/**
+ * @brief command parameters structure
+ * @struct CommandParameters
+ */
+struct CommandParameters
+{       
+    void (*function)(UserInput *);
+    char command[USER_INPUT_MAX_COMMAND_LENGTH];
+    size_t command_length;
+    UI_ARGUMENT_FLAG_ENUM argument_flag;
+    size_t num_args;
+    // uint16_t max_num_args;
+    UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
 
 /** @} */
 
 /**
- * @brief forward declaration of UserInput class for
- * UserCallbackFunctionparameters class
+ * @brief user command constructor
  */
-class UserInput;
-
-/**
- * @brief User defined function parameters
- */
-class UserCommandParameters
+class CommandConstructor
 {
 public:
     /**
-     * @brief UserCommandParameters Constructor
+     * @brief CommandConstructor Constructor
      *
-     * Creates a new instance of this class.  Before using, construct a UserInput object.
-     * @param user_defined_command_to_match The command which when entered will call a function
-     * @param user_defined_function_to_call The function called when the command is matched
-     * @param number_of_arguments the number of arguments the function expects
-     * @param argument_type_array a pointer to the argument type array or a single argument type
+     * Creates a new instance of this class.  
+     * Before using, construct a UserInput object and a CommandParameters object.
+     * @param options A pointer to the command options structure 
      */
 
-    // no arguments
-    UserCommandParameters(const char *user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput *))
-        : command(user_defined_command_to_match),
-          function(user_defined_function_to_call),
-          command_length(strlen_P(command)),
-          next_command_parameters(NULL),
-          num_args(0),
-          _arg_type(NULL),
-          arg_type(UITYPE::_LAST),
-          argument_flag(0)
-    {
+    CommandConstructor(const CommandParameters *options)
+        : opt(options),
+          next_command_parameters(NULL)
+    {            
     }
-
-    // argument array
-    UserCommandParameters(const char *user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput *),
-                          size_t number_of_arguments,
-                          const UITYPE argument_type_array[])
-        : command(user_defined_command_to_match),
-          function(user_defined_function_to_call),
-          command_length(strlen_P(command)),
-          next_command_parameters(NULL),
-          num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
-          _arg_type(argument_type_array),
-          arg_type(UITYPE::_LAST),
-          argument_flag(1)
-    {
-    }
-
-    // single argument type (default NOTYPE)
-    UserCommandParameters(const char *user_defined_command_to_match,
-                          void (*user_defined_function_to_call)(UserInput *),
-                          size_t number_of_arguments,
-                          const UITYPE argument_type = UITYPE::NOTYPE)
-        : command(user_defined_command_to_match),
-          function(user_defined_function_to_call),
-          command_length(strlen_P(command)),
-          next_command_parameters(NULL),
-          num_args((number_of_arguments <= USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS) ? number_of_arguments : USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS),
-          _arg_type(NULL),
-          arg_type(argument_type),
-          argument_flag(2)
-    {
-    }
-
-    const char *command;                            /** command to match */
-    void (*function)(UserInput *);                  /** pointer to function */
-    size_t command_length;                          /** length of command */
-    UserCommandParameters *next_command_parameters; /** UserCommandParameters iterator/pointer */
-    size_t num_args;                                /** number of function arguments */
-    const UITYPE *_arg_type;                        /** function argument array pointer */
-    const UITYPE arg_type;                          /** single argument type */
-    uint8_t argument_flag;                          /** switches how we iterate through arguments */    
+    
+    const CommandParameters *opt;
+    CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 
 /**
@@ -198,21 +173,21 @@ public:
               size_t output_buffer_len = 0,
               const char *username = NULL,
               const char *end_of_line_characters = NULL,
-              const char *token_delimiter = ui_defaults_progmem_ptr[t_delim_e],
-              const char *c_string_delimiter = ui_defaults_progmem_ptr[c_delim_e])
+              const char *token_delimiter = NULL,
+              const char *c_string_delimiter = NULL)
         : _output_buffer(output_buffer),
           _output_enabled((output_buffer == NULL) ? false : true),
           _string_pos(0),
           _output_buffer_len(output_buffer_len),
-          _username_((username == NULL) ? ui_defaults_progmem_ptr[username_e] : username),
-          _term_((end_of_line_characters == NULL) ? ui_defaults_progmem_ptr[eol_e] : end_of_line_characters),
-          _delim_((token_delimiter == NULL) ? ui_defaults_progmem_ptr[t_delim_e] : token_delimiter),
-          _c_str_delim_((c_string_delimiter == NULL) ? ui_defaults_progmem_ptr[c_delim_e] : c_string_delimiter),
-          _null_(ui_defaults_progmem_ptr[null_e]),
+          _username_((username == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[username_e])) : username),
+          _term_((end_of_line_characters == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[eol_e])) : end_of_line_characters),
+          _delim_((token_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[t_delim_e])) : token_delimiter),
+          _c_str_delim_((c_string_delimiter == NULL) ? (char*)pgm_read_dword(&(ui_defaults_progmem_ptr[c_delim_e])) : c_string_delimiter),  
           default_function_(NULL),
           commands_head_(NULL),
           commands_tail_(NULL),
-          commands_count_(0)
+          commands_count_(0),
+          max_num_user_defined_args(0)
     {
     }
 
@@ -226,9 +201,9 @@ public:
     /**
      * @brief adds user commands
      *
-     * @param command reference to UserCommandParameters
+     * @param command reference to CommandConstructor
      */
-    void AddCommand(UserCommandParameters &command);
+    void AddCommand(CommandConstructor &command);
 
     /**
      * @brief read command(s) from a buffer
@@ -319,9 +294,9 @@ protected:
     /**
      * @brief launches a function
      *
-     * @param cmd Function parameter pointer
+     * @param opt command options reference
      */
-    void launchFunction(UserCommandParameters *cmd);
+    void launchFunction(CommandParameters& opt);
 
     /**
      * @brief Escapes control characters so they will print
@@ -342,11 +317,11 @@ protected:
     /**
      * @brief Get the UITYPE for the argument
      *
-     * @param cmd UserCommandParameters pointer
+     * @param opt command options structure reference
      * @param index argument number
      * @return uint8_t argument type
      */
-    uint8_t getArgType(UserCommandParameters *cmd, size_t index = 0);
+    uint8_t getArgType(CommandParameters &opt, size_t index = 0);
 
 private:
     /*
@@ -359,12 +334,16 @@ private:
     const char *_username_;                 //  username
     const char *_term_;                     //  end of line characters
     const char *_delim_;                    //  token delimiter
-    const char *_c_str_delim_;              //  c-string delimiter
-    const char *_null_;                     //  char null '\0'
+    const char *_c_str_delim_;              //  c-string delimiter    
     void (*default_function_)(UserInput *); //  pointer to default function    
-    UserCommandParameters *commands_head_;  //  pointer to object list
-    UserCommandParameters *commands_tail_;  //  pointer to object list
-    size_t commands_count_;                 //   how many commands are there
+    CommandConstructor *commands_head_;     //  pointer to object list
+    CommandConstructor *commands_tail_;     //  pointer to object list
+    size_t commands_count_;                 //  how many commands are there
+    size_t max_num_user_defined_args;       //  max number of arguments used
+
+    char _null_ = '\0';                     //  char '\0'
+    char _neg_ = '-';                       //  char '-'
+    char _dot_ = '.';                       //  char '.'
 
     /*
         member function variables

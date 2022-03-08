@@ -20,13 +20,14 @@ char output_buffer[512] = {'\0'}; //  output buffer
 /*
   UserInput constructor
 */
-UserInput inputHandler(
-  /* UserInput's output buffer */ output_buffer,
-  /* size of UserInput's output buffer */ 512,
-  /* username */ "user",
-  /* end of line characters */ "\r\n",
-  /* token delimiter */ " ",
-  /* c-string delimiter */ "\""
+UserInput inputHandler
+(
+  output_buffer, // UserInput's output buffer
+  512,           // size of UserInput's output buffer
+  "user",        // username
+  "\r\n",        // end of line characters
+  " ",           // token delimiter
+  "\""           // c-string delimiter
 );
 
 /*
@@ -36,14 +37,6 @@ void uc_unrecognized(UserInput *inputProcess)
 {
   // error output
   inputProcess->OutputToStream(Serial);
-}
-
-/*
-   lists the settings passed to UserInput's constructor, or default parameters
-*/
-void uc_settings(UserInput *inputProcess)
-{
-  inputProcess->ListSettings(inputProcess);
 }
 
 /*
@@ -91,8 +84,12 @@ void uc_test_input_types(UserInput *inputProcess)
   char c_string[64] = {'\0'};
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
+  str_ptr = inputProcess->NextArgument();
+  char unknown_string[64] = {'\0'};
+  snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
+
   char float_buffer[32] = {'\0'}; //  dtostrf buffer
-  char out[128] = {'\0'};         //  function output buffer
+  char out[164] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
 
   /*
@@ -100,14 +97,22 @@ void uc_test_input_types(UserInput *inputProcess)
   */
   string_pos += snprintf_P(out + string_pos, 128,
                            PSTR("Test user input types:\n"
-                                "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
+                                "uint8_t %u\n"
+                                "uint16_t %u\n"
+                                "uint32_t %lu\n"
+                                "int %d\n"
+                                "float %s\n"
+                                "char %c\n"
+                                "c-string %s\n"
+                                "unknown-string %s\n"),
                            eight_bit,
                            sixteen_bit,
                            thirtytwo_bit,
                            sixteen_bit_int,
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
-                           c_string);
+                           c_string,
+                           unknown_string);
 
   Serial.print(out);
 }
@@ -127,22 +132,6 @@ const CommandParameters help_param PROGMEM =
   }
 };
 CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
-
-const CommandParameters settings_param PROGMEM =
-{
-  uc_settings,      // function name
-  "inputSettings",  // command string
-  13,               // command string characters
-  no_arguments,     // argument handling
-  0,                // expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
 
 const CommandParameters type_test_param PROGMEM =
 {
@@ -171,42 +160,21 @@ void setup()
 {
   // uncomment as needed
   Serial.begin(115200); //  set up Serial object (Stream object)
-  // Serial2.begin(115200);
-  // Serial3.begin(115200);
-  // Serial4.begin(115200);
-  while (!Serial); //  wait for user
+
+  while (!Serial)
+    ; //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-  inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.AddCommand(uc_test_);             // test input types
 
   uc_help(inputHandler);               // formats output_buffer with the command list
   inputHandler.OutputToStream(Serial); // class output
 }
 
 void loop()
-{
-  // uncomment as needed
+{  
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  // inputHandler.GetCommandFromStream(Serial2);  // Serial2
-  // inputHandler.GetCommandFromStream(Serial3);  // Serial3
-  // inputHandler.GetCommandFromStream(Serial4);  // Serial4
 
-  // choose one stream to output to
   inputHandler.OutputToStream(Serial); // class output
-
-  // or output to multiple streams like this
-  /*
-    if(inputHandler.OutputIsAvailable())
-    {
-    Serial.println(output_buffer);
-    Serial2.println(output_buffer);
-    Serial3.println(output_buffer);
-    Serial4.println(output_buffer);
-
-    // and clear the output buffer when you are finished
-    inputHandler.ClearOutputBuffer();
-    }
-  */
 }

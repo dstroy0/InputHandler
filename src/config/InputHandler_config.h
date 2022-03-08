@@ -23,6 +23,10 @@
 //  uncomment to debug InputHandler
 //#define _DEBUG_USER_INPUT
 
+#define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
+#define UI_DEFAULT_STRINGS_MAX_LEN 14
+
+
 //  maximum number of arguments per command
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
@@ -36,6 +40,11 @@
 //  max value of an eight bit unsigned integer
 #ifndef UINT8_MAX
 #define UINT8_MAX 255
+#endif
+
+//  maximum command length
+#ifndef USER_INPUT_MAX_COMMAND_LENGTH
+#define USER_INPUT_MAX_COMMAND_LENGTH 32
 #endif
 
 //  maximum user input length

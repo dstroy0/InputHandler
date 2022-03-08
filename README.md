@@ -30,26 +30,71 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-Easily enforce input argument types with:  
+Easily enforce input argument types:  
 
 ```cpp
-const UITYPE your_arguments_in_order[] = {UITYPE::UINT8_T,
-                                          UITYPE::UINT16_T,
-                                          UITYPE::UINT32_T,
-                                          UITYPE::INT16_T,
-                                          UITYPE::FLOAT,
-                                          UITYPE::CHAR,
-                                          UITYPE::C_STRING,
-                                          UITYPE::NOTYPE
-                                         };
-UserCommandParameters your_command_object_("your_input_to_match",    // your command string
-                                           your_function_to_launch,  // the name of the function to launch
-                                           _N_ARGS(your_arguments_in_order), // a macro that gets the number of arguments in your argument array
-                                           your_arguments_in_order  // your argument array
-                                          );                           
+// no arguments
+const CommandParameters your_command_parameters PROGMEM =
+{
+  your_function, // function name
+  "cmd_str",     // command string
+  7,             // command string characters
+  no_arguments,  // argument handling
+  0,             // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor your_command(&your_command_parameters);
+
+// single argument type
+const CommandParameters your_command_parameters PROGMEM =
+{
+  your_function,          // function name
+  "cmd_str",              // command string
+  7,                      // command string characters
+  single_type_arguments,  // argument handling
+  0,                      // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    // any single type except for NO_ARGS
+    UITYPE::NOTYPE; // accept anything
+  }
+};
+CommandConstructor your_command(&your_command_parameters);
+
+// argument array
+const CommandParameters your_command_parameters PROGMEM =
+{
+  your_function,       // function name
+  "cmd_str",           // command string
+  7,                   // command string length
+  argument_type_array, // argument handling 
+  8,                   // expected number of arguments (set to zero if no arguments)
+  /*
+    UITYPE arguments, fill with arguments you want to send in order
+  */
+  {
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE      // special type, no type validation performed
+  }
+};
+CommandConstructor your_command(&your_command_parameters);                       
 ```
 
-`NOTYPE` is a special argument type that doesn't perform any type-validation.
+`NOTYPE` is a special argument type that doesn't perform any type-validation.  
+`NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
