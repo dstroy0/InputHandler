@@ -57,8 +57,8 @@ const CommandParameters your_command_parameters PROGMEM =
 CommandConstructor your_command(&your_command_parameters);                       
 ```
 
-`NOTYPE` is a special argument type that doesn't perform any type-validation.
-`NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.
+`NOTYPE` is a special argument type that doesn't perform any type-validation.  
+`NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
