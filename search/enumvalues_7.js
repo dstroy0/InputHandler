@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['t_5fdelim_5fe_0',['t_delim_e',['../group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa19085ce12bc0507d9972232f4863baea',1,'InputHandler.h']]]
+  ['single_5ftype_5farguments_0',['single_type_arguments',['../group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284',1,'InputHandler.h']]]
 ];

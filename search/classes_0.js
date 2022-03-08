@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['usercommandparameters_0',['UserCommandParameters',['../classUserCommandParameters.html',1,'']]],
-  ['userinput_1',['UserInput',['../classUserInput.html',1,'']]]
+  ['commandconstructor_0',['CommandConstructor',['../classCommandConstructor.html',1,'']]],
+  ['commandparameters_1',['CommandParameters',['../structCommandParameters.html',1,'']]]
 ];

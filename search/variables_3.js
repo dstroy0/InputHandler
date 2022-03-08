@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['function_0',['function',['../classUserCommandParameters.html#a20cdd6a31e485718e2f28fee131074b7',1,'UserCommandParameters']]]
+  ['function_0',['function',['../structCommandParameters.html#a76011eabd753ca404b23a141d068a71a',1,'CommandParameters']]]
 ];

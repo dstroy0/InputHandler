@@ -133,8 +133,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserCommandParameters.html">UserCommandParameters</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined function parameters.  <a href="classUserCommandParameters.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCommandParameters.html">CommandParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">command parameters structure  <a href="structCommandParameters.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html">CommandConstructor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">user command constructor  <a href="classCommandConstructor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html">UserInput</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User input handler.  <a href="classUserInput.html#details">More...</a><br /></td></tr>
@@ -148,10 +151,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa19085ce12bc0507d9972232f4863baea">t_delim_e</a>
 , <a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa3839ac587168aebc15f28378f3d803a5">c_delim_e</a>
 , <br />
-&#160;&#160;<a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa1f59330979348fbed9defaafc2062d4b">null_e</a>
-, <a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa2dbec60647345906e7a0097155dbf8ac">neg_e</a>
-, <a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa8af0256469fbf17ac4f940869f692015">dot_e</a>
-, <a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2">err_e</a>
+&#160;&#160;<a class="el" href="group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2">err_e</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ga85e7eeb0bdd4436bf4ac3ff5e179c73a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ui_defaults_progmem_ptr enum  <a href="group__UserInput.html#ga85e7eeb0bdd4436bf4ac3ff5e179c73a">More...</a><br /></td></tr>
@@ -167,20 +167,24 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a>
 , <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>
 , <br />
-&#160;&#160;<a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948">UITYPE::_LAST</a>
+&#160;&#160;<a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">UITYPE::NO_ARGS</a>
+, <a class="el" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948">UITYPE::_LAST</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="mdescLeft">&#160;</td><td class="mdescRight">ui_input_type_strings enum  <a href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">More...</a><br /></td></tr>
 <tr class="separator:ga70e7c464dbd2c5c26fa63684d9dfdd70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f773afec48d433e5613c754cc1d767c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c">UI_ARGUMENT_FLAG_ENUM</a> { <a class="el" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a">no_arguments</a>
+, <a class="el" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284">single_type_arguments</a>
+, <a class="el" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013">argument_type_array</a>
+ }</td></tr>
+<tr class="memdesc:ga0f773afec48d433e5613c754cc1d767c"><td class="mdescLeft">&#160;</td><td class="mdescRight">argument_flag type enum  <a href="group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c">More...</a><br /></td></tr>
+<tr class="separator:ga0f773afec48d433e5613c754cc1d767c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga4bc63515cfb71462d756d40250e8789c"><td class="memItemLeft" align="right" valign="top">const PROGMEM char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c">ui_defaults_progmem_ptr</a> []</td></tr>
-<tr class="memdesc:ga4bc63515cfb71462d756d40250e8789c"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor string literals  <a href="group__UserInput.html#ga4bc63515cfb71462d756d40250e8789c">More...</a><br /></td></tr>
-<tr class="separator:ga4bc63515cfb71462d756d40250e8789c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25ca0a07b0459500324cd5dfaeac6987"><td class="memItemLeft" align="right" valign="top">const PROGMEM char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987">ui_input_type_strings</a> []</td></tr>
-<tr class="memdesc:ga25ca0a07b0459500324cd5dfaeac6987"><td class="mdescLeft">&#160;</td><td class="mdescRight">type string literals  <a href="group__UserInput.html#ga25ca0a07b0459500324cd5dfaeac6987">More...</a><br /></td></tr>
-<tr class="separator:ga25ca0a07b0459500324cd5dfaeac6987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1943a60796d4c52f28b31d9875336e38"><td class="memItemLeft" align="right" valign="top">const char ui_defaults_progmem_ptr[8][<a class="el" href="InputHandler__config_8h.html#ab1441300a4da33622d7c054631950c47">UI_DEFAULT_STRINGS_MAX_LEN</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a></td></tr>
+<tr class="memdesc:ga1943a60796d4c52f28b31d9875336e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor string literals  <a href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">More...</a><br /></td></tr>
+<tr class="separator:ga1943a60796d4c52f28b31d9875336e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >InputHandler library header file. </p>

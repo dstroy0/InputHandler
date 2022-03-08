@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['addcommand_0',['AddCommand',['../classUserInput.html#a8027d098f060863e4bf7b7dd6413388b',1,'UserInput']]],
-  ['arg_5ftype_1',['arg_type',['../classUserCommandParameters.html#aeb78f0a40b53efe35883ac4a9f219007',1,'UserCommandParameters']]],
-  ['argument_5fflag_2',['argument_flag',['../classUserCommandParameters.html#aed039872e96e8e6e21c2eeb689518467',1,'UserCommandParameters']]]
+  ['addcommand_0',['AddCommand',['../classUserInput.html#a6677a0a10337e31439d5bd4d296e9759',1,'UserInput']]],
+  ['argument_5fflag_1',['argument_flag',['../structCommandParameters.html#a932ee73e381d3f06ac3eb43b62360579',1,'CommandParameters']]],
+  ['argument_5ftype_5farray_2',['argument_type_array',['../group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013',1,'InputHandler.h']]]
 ];

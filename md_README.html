@@ -108,13 +108,9 @@ $(document).ready(function(){initNavTree('md_README.html',''); initResizable(); 
   <div class="headertitle"><div class="title">README </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" alt="Arduino CLI Build" style="pointer-events: none;" class="inline"/></a> <br  />
+<div class="textblock"><p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" alt="Arduino CLI CI" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" alt="PlatformIO arduino CI" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" alt="PlatformIO esp CI" style="pointer-events: none;" class="inline"/></a> <br  />
 </p>
-<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" alt="PlatformIO arduino CI" style="pointer-events: none;" class="inline"/></a> <br  />
-</p>
-<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" alt="PlatformIO esp CI" style="pointer-events: none;" class="inline"/></a> <br  />
-</p>
-<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg" alt="Doxygen CI" style="pointer-events: none;" class="inline"/></a> <br  />
+<p ><a href="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg" alt="Doxygen CI" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" alt="src-cpp-linter CI" style="pointer-events: none;" class="inline"/></a> <br  />
 </p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 InputHandler</h1>
@@ -129,29 +125,75 @@ InputHandler</h1>
 <div class="fragment"><div class="line">your_command arg1 arg... &quot;c-string args can have spaces and are enclosed with quotes&quot;</div>
 </div><!-- fragment --><p >The classes' input methods are: <br  />
 </p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> GetCommandFromStream(Stream &amp;stream, uint16_t rx_buffer_size = 32);</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> GetCommandFromStream(Stream &amp;stream, <span class="keywordtype">size_t</span> rx_buffer_size = 32);</div>
 </div><!-- fragment --><p >OR if you don't want to use a <a href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use: <br  />
 </p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> ReadCommandFromBuffer(uint8_t *data, <span class="keywordtype">size_t</span> len);</div>
-</div><!-- fragment --><p >Easily enforce input argument types with: <br  />
+</div><!-- fragment --><p >Easily enforce input argument types: <br  />
 </p>
-<div class="fragment"><div class="line"><span class="keyword">const</span> <a class="code hl_enumeration" href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a> your_arguments_in_order[] = {<a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca">UITYPE::UINT8_T</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe">UITYPE::UINT16_T</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed">UITYPE::UINT32_T</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436">UITYPE::INT16_T</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a>,</div>
-<div class="line">                                          <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a></div>
-<div class="line">                                         };</div>
-<div class="line"><a class="code hl_class" href="classUserCommandParameters.html">UserCommandParameters</a> your_command_object_(<span class="stringliteral">&quot;your_input_to_match&quot;</span>,    <span class="comment">// your command string</span></div>
-<div class="line">                                           your_function_to_launch,  <span class="comment">// the name of the function to launch</span></div>
-<div class="line">                                           <a class="code hl_define" href="InputHandler__config_8h.html#a6d8bb3b4541db64bb27274de31f7734d">_N_ARGS</a>(your_arguments_in_order), <span class="comment">// a macro that gets the number of arguments in your argument array</span></div>
-<div class="line">                                           your_arguments_in_order  <span class="comment">// your argument array</span></div>
-<div class="line">                                          );                           </div>
-<div class="ttc" id="aInputHandler__config_8h_html_a6d8bb3b4541db64bb27274de31f7734d"><div class="ttname"><a href="InputHandler__config_8h.html#a6d8bb3b4541db64bb27274de31f7734d">_N_ARGS</a></div><div class="ttdeci">#define _N_ARGS(x)</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler__config_8h_source.html#l00051">InputHandler_config.h:51</a></div></div>
-<div class="ttc" id="aclassUserCommandParameters_html"><div class="ttname"><a href="classUserCommandParameters.html">UserCommandParameters</a></div><div class="ttdoc">User defined function parameters.</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00104">InputHandler.h:105</a></div></div>
-<div class="ttc" id="agroup__UserInput_html_ga70e7c464dbd2c5c26fa63684d9dfdd70"><div class="ttname"><a href="group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a></div><div class="ttdeci">UITYPE</div><div class="ttdoc">ui_input_type_strings enum</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00063">InputHandler.h:64</a></div></div>
+<div class="fragment"><div class="line"><span class="comment">// no arguments</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line">{</div>
+<div class="line">  your_function, <span class="comment">// function name</span></div>
+<div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,     <span class="comment">// command string</span></div>
+<div class="line">  7,             <span class="comment">// command string characters</span></div>
+<div class="line">  <a class="code hl_enumvalue" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a">no_arguments</a>,  <span class="comment">// argument handling</span></div>
+<div class="line">  0,             <span class="comment">// expected number of arguments</span></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">    UITYPE arguments</span></div>
+<div class="line"><span class="comment">  */</span></div>
+<div class="line">  {</div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">UITYPE::NO_ARGS</a> <span class="comment">// use NO_ARGS if the function expects no arguments</span></div>
+<div class="line">  }</div>
+<div class="line">};</div>
+<div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// single argument type</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line">{</div>
+<div class="line">  your_function,          <span class="comment">// function name</span></div>
+<div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,              <span class="comment">// command string</span></div>
+<div class="line">  7,                      <span class="comment">// command string characters</span></div>
+<div class="line">  <a class="code hl_enumvalue" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284">single_type_arguments</a>,  <span class="comment">// argument handling</span></div>
+<div class="line">  0,                      <span class="comment">// expected number of arguments</span></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">    UITYPE arguments</span></div>
+<div class="line"><span class="comment">  */</span></div>
+<div class="line">  {</div>
+<div class="line">    <span class="comment">// any single type except for NO_ARGS</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>; <span class="comment">// accept anything</span></div>
+<div class="line">  }</div>
+<div class="line">};</div>
+<div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// argument array</span></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line">{</div>
+<div class="line">  your_function,       <span class="comment">// function name</span></div>
+<div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,           <span class="comment">// command string</span></div>
+<div class="line">  7,                   <span class="comment">// command string length</span></div>
+<div class="line">  <a class="code hl_enumvalue" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013">argument_type_array</a>, <span class="comment">// argument handling </span></div>
+<div class="line">  8,                   <span class="comment">// expected number of arguments (set to zero if no arguments)</span></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">    UITYPE arguments, fill with arguments you want to send in order</span></div>
+<div class="line"><span class="comment">  */</span></div>
+<div class="line">  {</div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca">UITYPE::UINT8_T</a>,    <span class="comment">// 8-bit  uint</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe">UITYPE::UINT16_T</a>,   <span class="comment">// 16-bit uint</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed">UITYPE::UINT32_T</a>,   <span class="comment">// 32-bit uint</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436">UITYPE::INT16_T</a>,    <span class="comment">// 16-bit int</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a>,      <span class="comment">// 32-bit float</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a>,       <span class="comment">// char</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a>,   <span class="comment">// c-string, pass without quotes if there are no spaces, or pass with quotes if there are</span></div>
+<div class="line">    <a class="code hl_enumvalue" href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>      <span class="comment">// special type, no type validation performed</span></div>
+<div class="line">  }</div>
+<div class="line">};</div>
+<div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);                       </div>
+<div class="ttc" id="aclassCommandConstructor_html"><div class="ttname"><a href="classCommandConstructor.html">CommandConstructor</a></div><div class="ttdoc">user command constructor</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00127">InputHandler.h:128</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_ga1943a60796d4c52f28b31d9875336e38"><div class="ttname"><a href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a></div><div class="ttdeci">const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM</div><div class="ttdoc">default constructor string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00044">InputHandler.h:44</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284">single_type_arguments</a></div><div class="ttdeci">@ single_type_arguments</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00097">InputHandler.h:97</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a">no_arguments</a></div><div class="ttdeci">@ no_arguments</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00096">InputHandler.h:96</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013">argument_type_array</a></div><div class="ttdeci">@ argument_type_array</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00099">InputHandler.h:98</a></div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a></div><div class="ttdeci">@ CHAR</div><div class="ttdoc">ui_input_type_strings[5]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a></div><div class="ttdeci">@ NOTYPE</div><div class="ttdoc">ui_input_type_strings[7]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca">UITYPE::UINT8_T</a></div><div class="ttdeci">@ UINT8_T</div><div class="ttdoc">ui_input_type_strings[0]</div></div>
@@ -159,8 +201,12 @@ InputHandler</h1>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a></div><div class="ttdeci">@ C_STRING</div><div class="ttdoc">ui_input_type_strings[6]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed">UITYPE::UINT32_T</a></div><div class="ttdeci">@ UINT32_T</div><div class="ttdoc">ui_input_type_strings[2]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe">UITYPE::UINT16_T</a></div><div class="ttdeci">@ UINT16_T</div><div class="ttdoc">ui_input_type_strings[1]</div></div>
+<div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">UITYPE::NO_ARGS</a></div><div class="ttdeci">@ NO_ARGS</div><div class="ttdoc">ui_input_type_strings[8]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a></div><div class="ttdeci">@ FLOAT</div><div class="ttdoc">ui_input_type_strings[4]</div></div>
-</div><!-- fragment --><p ><code>NOTYPE</code> is a special argument type that doesn't perform any type-validation.</p>
+<div class="ttc" id="astructCommandParameters_html"><div class="ttname"><a href="structCommandParameters.html">CommandParameters</a></div><div class="ttdoc">command parameters structure</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00111">InputHandler.h:112</a></div></div>
+</div><!-- fragment --><p ><code>NOTYPE</code> is a special argument type that doesn't perform any type-validation. <br  />
+ <code>NO_ARGS</code> is a special argument type that explicitly states you wish to pass no arguments. <br  />
+</p>
 <p >Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information. <br  />
 </p>
 <p >This method will output to any stream (hardware or software Serial): <br  />

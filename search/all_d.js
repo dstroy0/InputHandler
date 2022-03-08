@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['t_5fdelim_5fe_0',['t_delim_e',['../group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa19085ce12bc0507d9972232f4863baea',1,'InputHandler.h']]]
+  ['readcommandfrombuffer_0',['ReadCommandFromBuffer',['../classUserInput.html#a0b064635ee2e073077925632747889dc',1,'UserInput']]],
+  ['readme_1',['README',['../md_README.html',1,'']]],
+  ['readme_2emd_2',['README.md',['../README_8md.html',1,'']]]
 ];
