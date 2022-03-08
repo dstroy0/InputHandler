@@ -100,7 +100,7 @@ void uc_test_input_types(UserInput* inputProcess)
   /*
        format out[] with all of the arguments received
   */
-  string_pos += snprintf_P(out + string_pos, 128,
+  string_pos += snprintf_P(out + string_pos, 164,
                            PSTR("Test user input types:\n"
                                 "uint8_t %u\n"
                                 "uint16_t %u\n"
@@ -123,56 +123,60 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-void uc_test_single_type(UserInput* InputProcess)
+const CommandParameters help_param PROGMEM =
 {
-  Serial.println(F("made it to single input type function"));
-}
+  uc_help,      // function name
+  "help",       // command string
+  4,            // command string characters
+  no_arguments, // argument handling
+  0,            // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
 
-/*
-   UserInput UserCallbackFunctionParameters
-   These objects are what you use to specify the command string, function to launch, and types of input if any
+const CommandParameters settings_param PROGMEM =
+{
+  uc_settings,      // function name
+  "inputSettings",  // command string
+  13,               // command string characters
+  no_arguments,     // argument handling
+  0,                // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
 
-   The command string is stored in PROGMEM if applicable
-
-   The user defined function wrapper is always void myFunc(UserInput* inputProcess) {// do stuff}
-   Pass the constructor the bare function name without quotes or parenthesis.
-
-   _N_ARGS(x) is a macro function that expands to (sizeof(x)/sizeof(x[0])), it returns how many elements are
-   in the argument array
-
-   The following are the available input types
-   UITYPE::UINT8_T == an eight bit unsigned integer
-   UITYPE::UINT16_T == a sixteen bit unsigned integer
-   UITYPE::UINT32_T == a thirty-two bit unsigned integer
-   UITYPE::INT16_T == a sixteen bit signed integer
-   UITYPE::FLOAT == a thirty-two bit signed floating point number
-   UITYPE::CHAR == a character value
-   UITYPE::C_STRING == a string of character values, absent of '\0' and enclosed with single quotation marks "c-string"
-                               depending on the method used, if it is ReadCommand then very long c-strings can be sent and read
-                               using GetCommandFromStream input c-string length is limited by input_buffer size
-*/
-UserCommandParameters uc_help_("help", uc_help);                  //  uc_help_ has a command string, and function specified
-UserCommandParameters uc_settings_("inputSettings", uc_settings); // uc_settings_ has a command string, and function specified
-
-// This is an array of argument types which is passed to a UserCallbackFunctionParameters constructor
-// All available input types are in this array
-const UITYPE uc_test_arguments[] PROGMEM = {UITYPE::UINT8_T,
-                                            UITYPE::UINT16_T,
-                                            UITYPE::UINT32_T,
-                                            UITYPE::INT16_T,
-                                            UITYPE::FLOAT,
-                                            UITYPE::CHAR,
-                                            UITYPE::C_STRING,
-                                            UITYPE::NOTYPE
-                                           };
-// This command will accept arguments of the type specified, in order, separated by the delimiter specified in UserInput's constructor (default is " ").
-UserCommandParameters uc_test_("test", uc_test_input_types, _N_ARGS(uc_test_arguments), uc_test_arguments);
-
-// Construct a command that takes a single argument type for all arguments (default is UITYPE::NOTYPE).  No array declaration necessary.
-UserCommandParameters uc_test_single_arg_type_default("stype_default", uc_test_single_type, 7);
-
-// Construct a command that takes a single argument type for all arguments.  No array declaration necessary.
-UserCommandParameters uc_test_single_arg_type("stype_custom", uc_test_single_type, 7, UITYPE::UINT8_T);
+const CommandParameters type_test_param PROGMEM =
+{
+  uc_test_input_types, // function name
+  "test",              // command string
+  4,                   // string length
+  argument_type_array, // argument handling
+  8,                   // expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE      // special type, no type validation performed
+  }
+};
+CommandConstructor uc_test_(&type_test_param);
 
 void setup()
 {
@@ -187,8 +191,6 @@ void setup()
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
-  inputHandler.AddCommand(uc_test_single_arg_type_default);
-  inputHandler.AddCommand(uc_test_single_arg_type);
 
   uc_help(inputHandler);               // formats output_buffer with the command list
   inputHandler.OutputToStream(Serial); // class output
