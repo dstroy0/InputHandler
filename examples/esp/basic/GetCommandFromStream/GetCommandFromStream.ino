@@ -78,7 +78,8 @@ const CommandParameters type_test_param PROGMEM =
   "test",              // command string
   4,                   // string length
   argument_type_array, // argument handling
-  8,                   // expected number of arguments
+  8,            // minimum expected number of arguments
+  8,            // maximum expected number of arguments
   /*
     UITYPE arguments
   */

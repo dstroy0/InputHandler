@@ -118,7 +118,8 @@ const CommandParameters help_param PROGMEM =
   "help",       // command string
   4,            // command string characters
   no_arguments, // argument handling
-  0,            // expected number of arguments
+  0,                // minimum expected number of arguments
+  0,                // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -134,7 +135,8 @@ const CommandParameters settings_param PROGMEM =
   "inputSettings",  // command string
   13,               // command string characters
   no_arguments,     // argument handling
-  0,                // expected number of arguments
+  0,                // minimum expected number of arguments
+  0,                // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -150,7 +152,8 @@ const CommandParameters type_test_param PROGMEM =
   "test",              // command string
   4,                   // string length
   argument_type_array, // argument handling
-  8,                   // expected number of arguments
+  8,                   // minimum expected number of arguments
+  8,                   // maximum expected number of arguments
   /*
     UITYPE arguments
   */

@@ -88,7 +88,7 @@ struct CommandParameters
     size_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     size_t num_args;
-    // uint16_t max_num_args;
+    size_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
 
