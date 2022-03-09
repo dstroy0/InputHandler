@@ -72,22 +72,28 @@ enum UI_ARGUMENT_FLAG_ENUM
 };
 
 /**
- * @brief forward declaration of UserInput class for
- * CommandParameters struct
+ * @brief Parameters struct
+ * \snippet InputHandler.h ui_parameters_struct_def 
  */
-class UserInput;
-
 struct Parameters
-{    
+{   
+    //![ui_parameters_struct_def] 
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
     uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint8_t num_args;
     uint8_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
+    //![ui_parameters_struct_def]
 };
 /** @} */
 
+/**
+ * @brief forward declaration of UserInput class for
+ * CommandConstructor class
+ */
+
+class UserInput;
 /**
  * @brief user command constructor
  */

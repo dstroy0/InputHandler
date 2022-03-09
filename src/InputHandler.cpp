@@ -473,7 +473,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     bool subcommand_matched = false;    // error sentinel
     uint8_t failed_on_subcommand = 0;   // error index
     CommandConstructor* cmd;            // command parameters pointer        
-    Parameters prm;
+    Parameters prm;                     // Parameters struct
 
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
