@@ -19,6 +19,19 @@
 
 #include "config/InputHandler_config.h"
 
+template <typename T>
+void PGM_r(const T *sce, T &dest)
+{
+    memcpy_P(&dest, sce, sizeof(T));
+}
+template <typename T>
+T PGM_g(const T *sce)
+{
+    static T temp;
+    memcpy_P(&temp, sce, sizeof(T));
+    return temp;
+}
+
 /**
  * @defgroup UserInput Constants
  * @{
@@ -67,7 +80,7 @@ const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
 enum UI_ARGUMENT_FLAG_ENUM
 {
     no_arguments,
-    single_type_arguments,
+    single_type_argument,
     argument_type_array
 };
 
@@ -77,19 +90,31 @@ enum UI_ARGUMENT_FLAG_ENUM
  */
 class UserInput;
 
-/**
- * @brief command parameters structure
- * @struct CommandParameters
- */
-struct CommandParameters
-{       
-    void (*function)(UserInput *);
+struct Parameters
+{    
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
     uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint8_t num_args;
     uint8_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
+};
+
+/**
+ * @brief command parameters structure
+ * @struct CommandParameters
+ */
+struct CommandParameters
+{       
+    CommandParameters(void (*func)(UserInput *), const uint8_t subcommands, const Parameters* options)
+    : function(func),
+      sub_commands(subcommands),
+      opt(options)
+    {        
+    }
+    void (*function)(UserInput *);
+    const uint8_t sub_commands;
+    const Parameters* opt;
 };
 
 /** @} */
@@ -105,16 +130,16 @@ public:
      *
      * Creates a new instance of this class.  
      * Before using, construct a UserInput object and a CommandParameters object.
-     * @param options A pointer to the command options structure 
+     * @param options A reference to the command options structure 
      */
 
-    CommandConstructor(const CommandParameters &options)
-        : opt(options),
+    CommandConstructor(const CommandParameters *command_parameters)
+        : cmdprm(command_parameters),
           next_command_parameters(NULL)
-    {        
+    {      
     }
-    
-    const CommandParameters& opt;
+        
+    const CommandParameters *cmdprm;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 
@@ -269,7 +294,7 @@ protected:
      *
      * @param opt command options reference
      */
-    void launchFunction(CommandParameters& opt);
+    void launchFunction(const CommandParameters *opt);
 
     /**
      * @brief Escapes control characters so they will print
@@ -294,7 +319,7 @@ protected:
      * @param index argument number
      * @return uint8_t argument type
      */
-    uint8_t getArgType(CommandParameters &opt, size_t index = 0);
+    uint8_t getArgType(Parameters& opt, size_t index = 0);
 
 private:
     /*

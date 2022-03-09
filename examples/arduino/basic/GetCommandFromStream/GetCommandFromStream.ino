@@ -10,18 +10,7 @@
 
 #include <InputHandler.h>
 
-/*
-  UserInput constructor
-*/
-UserInput inputHandler
-(
-  NULL,   // UserInput's output buffer
-  0,      // size of UserInput's output buffer
-  "",     // username
-  "\r\n", // end of line characters
-  " ",    // token delimiter
-  "\""    // c-string delimiter
-);
+UserInput inputHandler;
 
 /*
    default function, called if nothing matches or if there is an error
@@ -83,9 +72,8 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-const CommandParameters type_test_param PROGMEM =
+const Parameters test[1] PROGMEM =
 {
-  uc_test_input_types, // function name
   "test",              // command string
   4,                   // string length
   argument_type_array, // argument handling
@@ -105,7 +93,14 @@ const CommandParameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(type_test_param);
+
+const CommandParameters _test_ PROGMEM =
+{
+  uc_test_input_types,
+  test
+};
+
+CommandConstructor uc_test_(_test_);
 
 void setup()
 {

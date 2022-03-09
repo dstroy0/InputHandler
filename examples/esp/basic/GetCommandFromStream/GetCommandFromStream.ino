@@ -105,7 +105,7 @@ const CommandParameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(&type_test_param);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {

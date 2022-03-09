@@ -128,7 +128,7 @@ const CommandParameters help_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_help_(&help_param); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 const CommandParameters settings_param PROGMEM =
 {
@@ -145,7 +145,7 @@ const CommandParameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 const CommandParameters type_test_param PROGMEM =
 {
@@ -169,7 +169,7 @@ const CommandParameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(&type_test_param);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {
