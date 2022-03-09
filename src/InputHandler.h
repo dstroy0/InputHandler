@@ -270,6 +270,27 @@ protected:
     void launchFunction(const CommandConstructor *parameters);
 
     /**
+     * @brief function launch logic
+     * 
+     * @param cmd CommandConstructor ptr
+     * @param prm Parameters reference
+     * @param data uint8_t array ptr
+     * @param len size_t array length
+     * @param all_arguments_valid boolean array
+     * @param data_index size_t array index
+     * @param match boolean flag
+     * @param input_type_match_flag boolean type match flag
+     */
+    void launchLogic(CommandConstructor *cmd,
+                     Parameters &prm,
+                     uint8_t *data,
+                     size_t len,
+                     bool &all_arguments_valid,
+                     size_t &data_index,
+                     bool &match,
+                     bool *input_type_match_flag);
+
+    /**
      * @brief Escapes control characters so they will print
      *
      * @param input the input string

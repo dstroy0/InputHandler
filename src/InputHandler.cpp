@@ -373,6 +373,68 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
     parameters->function(this);
 }
 
+void UserInput::launchLogic(CommandConstructor *cmd,
+                            Parameters &prm,
+                            uint8_t *data,
+                            size_t len,
+                            bool &all_arguments_valid,
+                            size_t &data_index,
+                            bool &match,
+                            bool *input_type_match_flag)
+{
+    if (prm.num_args == 0 && prm.max_num_args == 0) // command with no arguments
+    {
+        while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
+        {
+            rec_num_arg_strings++;
+            if (rec_num_arg_strings > 0)
+            {
+                break;
+            }
+        }
+        #if defined(_DEBUG_USER_INPUT)
+        if (UserInput::OutputIsEnabled())
+        {
+            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                         PSTR(">%s $DEBUG: match zero argument command <%s>.\n"),
+                                         _username_,
+                                         cmd->command);
+            _output_flag = true;
+        }
+        #endif
+        match = true;        // don't run default callback
+        launchFunction(cmd); // launch the matched command
+        return;
+    }
+    else if (prm.num_args > 0 || prm.max_num_args > 0) // command has arguments
+    {
+        while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
+        {
+            input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(prm, rec_num_arg_strings), data_pointers_index - 1); // validate the token
+            if (input_type_match_flag[rec_num_arg_strings] == false)                                                                                  // if the token was not valid input
+            {
+                all_arguments_valid = false; // set the error sentinel to true
+            }
+            rec_num_arg_strings++;
+        }
+        if (rec_num_arg_strings >= prm.num_args && rec_num_arg_strings <= prm.max_num_args && all_arguments_valid == true) //  if we received at least min and less than max arguments
+        {
+            #if defined(_DEBUG_USER_INPUT)
+            if (UserInput::OutputIsEnabled())
+            {
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR(">%s $DEBUG: match command <%s>.\n"),
+                                             _username_,
+                                             cmd->command);
+                _output_flag = true;
+            }
+            #endif
+            match = true;        // don't run default callback
+            launchFunction(cmd); // launch the matched command
+        }
+    }
+}
+
 void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
 {
     // error checking
@@ -422,65 +484,21 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {                    
             memcpy_P(&prm, cmd->prm, sizeof(prm));
-            if (strcmp(data_pointers[0], prm.command) == 0) // match
+            if ((strcmp(data_pointers[0], prm.command) == 0) && cmd->sub_commands == 0) // match command with no subcommands
             {
                 command_matched = true;
-                if (prm.num_args == 0 && prm.max_num_args == 0) // command with no arguments
-                {
-                    while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
-                    {
-                        rec_num_arg_strings++;
-                        if (rec_num_arg_strings > 0)
-                        {
-                            break;
-                        }
-                    }
-                    #if defined(_DEBUG_USER_INPUT)
-                    if (UserInput::OutputIsEnabled())
-                    {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR(">%s $DEBUG: match zero argument command <%s>.\n"),
-                                                     _username_,
-                                                     cmd->command);
-                        _output_flag = true;
-                    }
-                    #endif
-                    match = true;        // don't run default callback
-                    launchFunction(cmd); // launch the matched command
-                    break;               // break out of the for loop
-                }
-                else if (prm.num_args > 0 || prm.max_num_args > 0) // command has arguments
-                {
-                    while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
-                    {                                             
-                        input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(prm, rec_num_arg_strings), data_pointers_index - 1); // validate the token
-                        if (input_type_match_flag[rec_num_arg_strings] == false)                                                // if the token was not valid input
-                        {
-                            all_arguments_valid = false; // set the error sentinel to true
-                        }
-                        rec_num_arg_strings++;
-                    }
-                    if (rec_num_arg_strings >= prm.num_args 
-                        && rec_num_arg_strings <= prm.max_num_args 
-                        && all_arguments_valid == true) //  if we received at least min and less than max arguments
-                    {
-                        #if defined(_DEBUG_USER_INPUT)
-                        if (UserInput::OutputIsEnabled())
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(">%s $DEBUG: match command <%s>.\n"),
-                                                         _username_,
-                                                         cmd->command);
-                            _output_flag = true;
-                        }
-                        #endif
-                        match = true;        // don't run default callback
-                        launchFunction(cmd); // launch the matched command
-                    }
-                }
+                launchLogic(cmd,
+                            prm,
+                            data,
+                            len,
+                            all_arguments_valid,
+                            data_index,
+                            match,
+                            input_type_match_flag);
                 break;
             }
         }
+
         if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
         {
             // format a string with useful information
