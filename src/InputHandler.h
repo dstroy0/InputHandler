@@ -77,7 +77,9 @@ enum UI_ARGUMENT_FLAG_ENUM
  */
 struct Parameters
 {   
-    //![ui_parameters_struct_def] 
+    //![ui_parameters_struct_def]
+    uint8_t depth;
+    uint8_t sub_commands; 
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
     uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
@@ -105,20 +107,23 @@ public:
      *
      * Creates a new instance of this class.  
      * Before using, construct a UserInput object and a CommandParameters object.
-     * @param func pointer to a function
-     * @param subcommands number of subcommands
+     * @param func pointer to a function     
      * @param parameters pointer to parameters struct or array of parameters structs 
+     * @param subcommands number of subcommands
+     * @param tree_depth depth of command tree
      */
-    CommandConstructor(void (*func)(UserInput *), const uint8_t subcommands, const Parameters* parameters)
-        : function(func)
-        , sub_commands(subcommands)
+    CommandConstructor(void (*func)(UserInput *), 
+                       const Parameters* parameters,                         
+                       const uint8_t tree_depth = 0)
+        : function(func)        
         , prm(parameters)
+        , _tree_depth(tree_depth)
         , next_command_parameters(NULL)
     {      
     }
-    void (*function)(UserInput *);
-    const uint8_t sub_commands;
-    const Parameters* prm;
+    void (*function)(UserInput *);    
+    const Parameters* prm;    
+    const uint8_t _tree_depth;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 

@@ -488,7 +488,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         {
             memcpy_P(&prm, cmd->prm, sizeof(prm)); // move working variables to ram
             // if the first test is false, the strcmp test is not evaluated
-            if (cmd->sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
+            if (cmd->prm->sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
             {
                 command_matched = true; // base command matched
                 // try to launch target function
@@ -498,11 +498,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                             input_type_match_flag);
                 break;
             }                                                                          // end regular command logic
-            if (cmd->sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
+            if (cmd->prm->sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
             {
+                uint8_t tokens = 0;
                 command_matched = true;                                          // base command matched (base command with subcommands)
-                bool got_token = getToken(token_buffer, data, len, &data_index); // see if there's a token
-                if ((prm.num_args == 0) && got_token == false)                   // if the base command accepts no args and there are no tokens
+                if (getToken(token_buffer, data, len, &data_index) == true)      // see if there's a token
+                {
+                  tokens++;
+                }
+                if ((prm.num_args == 0) && tokens == 0)                   // if the base command accepts no args and there are no tokens
                 {
                     // try to launch target function
                     launchLogic(cmd, prm, data, len,
@@ -510,14 +514,14 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                                 data_index, match,
                                 input_type_match_flag);
                     break; // break out of cmd iterator for loop
-                }
-                for (size_t j = 0; j < cmd->sub_commands; ++j)
+                }                
+                for (size_t j = 0; j < cmd->prm->sub_commands; ++j)
                 {
                     memcpy_P(&prm, &(cmd->prm[j + 1]), sizeof(prm)); // move working subcommand variables into ram
-                    if (strcmp(data_pointers[1], prm.command) == 0)  // if the subcommand matched
+                    if (strcmp(data_pointers[tokens], prm.command) == 0)  // if the subcommand matched
                     {
                         subcommand_matched = true; // clear subcommand match error
-                                                   // try to launch target function
+                        // try to launch target function
                         launchLogic(cmd, prm, data, len,
                                     all_arguments_valid,
                                     data_index, match,

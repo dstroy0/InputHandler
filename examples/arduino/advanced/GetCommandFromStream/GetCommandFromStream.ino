@@ -126,6 +126,8 @@ void uc_test_input_types(UserInput* inputProcess)
 const Parameters help_param[2] PROGMEM =
 {
   { // command
+    0,            // command depth
+    1,            // subcommands
     "help",       // command string
     4,            // command string characters
     no_arguments, // argument handling
@@ -139,11 +141,13 @@ const Parameters help_param[2] PROGMEM =
     }
   },  // end command
   {   // begin first subcommand
-    "in",       // command string
-    2,            // command string characters
+    1,                    // command depth
+    0,                    // subcommands
+    "in",                 // command string
+    2,                    // command string characters
     single_type_argument, // argument handling
-    1,            // minimum expected number of arguments
-    1,            // maximum expected number of arguments
+    1,                    // minimum expected number of arguments
+    1,                    // maximum expected number of arguments
     /*
       UITYPE arguments
     */
@@ -152,10 +156,12 @@ const Parameters help_param[2] PROGMEM =
     }
   }
 };
-CommandConstructor uc_help_(uc_help, 1, help_param); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(uc_help, help_param, 1); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param PROGMEM =
 {
+  0,                   // command depth
+  0,                   // subcommands
   "inputSettings",  // command string
   13,               // command string characters
   no_arguments,     // argument handling
@@ -168,10 +174,12 @@ const Parameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(uc_settings, 0, &settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(uc_settings, &settings_param); // uc_settings_ has a command string, and function specified
 
 const Parameters type_test_param PROGMEM =
 {
+  0,                   // command depth
+  0,                   // subcommands
   "test",              // command string
   4,                   // string length
   argument_type_array, // argument handling
@@ -191,7 +199,7 @@ const Parameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(uc_test_input_types, 0, &type_test_param);
+CommandConstructor uc_test_(uc_test_input_types, &type_test_param);
 
 void setup()
 {
