@@ -278,8 +278,8 @@ protected:
      * @param len size_t array length
      * @param all_arguments_valid boolean array
      * @param data_index size_t array index
-     * @param match boolean flag
-     * @param input_type_match_flag boolean type match flag
+     * @param match boolean command match flag
+     * @param input_type_match_flag boolean type match flag array
      */
     void launchLogic(CommandConstructor *cmd,
                      Parameters &prm,

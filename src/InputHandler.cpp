@@ -470,8 +470,10 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     rec_num_arg_strings = 0;            // number of tokens read from data
     bool match = false;                 // command string match
     bool command_matched = false;       // error sentinel
+    bool subcommand_matched = false;    // error sentinel
     CommandConstructor* cmd;            // command parameters pointer        
     Parameters prm;
+
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
@@ -482,9 +484,10 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
-        {                    
+        {
             memcpy_P(&prm, cmd->prm, sizeof(prm));
-            if ((strcmp(data_pointers[0], prm.command) == 0) && cmd->sub_commands == 0) // match command with no subcommands
+            // if the first test is false, the strcmp test is not evaluated
+            if (cmd->sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
             {
                 command_matched = true;
                 launchLogic(cmd,
@@ -495,6 +498,30 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                             data_index,
                             match,
                             input_type_match_flag);
+                break;
+            }
+            if (cmd->sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
+            {
+                command_matched = true;
+                if (getToken(token_buffer, data, len, &data_index) == true) // if there was a token
+                {
+                    for (size_t j = 1; j < cmd->sub_commands; ++j)
+                    {
+                        memcpy_P(&prm, &cmd->prm[j], sizeof(prm));
+                        if (strcmp(data_pointers[1], prm.command) == 0)
+                        {
+                            subcommand_matched = true;
+                            launchLogic(cmd,
+                                        prm,
+                                        data,
+                                        len,
+                                        all_arguments_valid,
+                                        data_index,
+                                        match,
+                                        input_type_match_flag);
+                        }
+                    }
+                }                
                 break;
             }
         }
