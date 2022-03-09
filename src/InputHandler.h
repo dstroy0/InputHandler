@@ -105,17 +105,17 @@ public:
      *
      * Creates a new instance of this class.  
      * Before using, construct a UserInput object and a CommandParameters object.
-     * @param options A reference to the command options structure 
+     * @param func pointer to a function
+     * @param subcommands number of subcommands
+     * @param parameters pointer to parameters struct or array of parameters structs 
      */
-
     CommandConstructor(void (*func)(UserInput *), const uint8_t subcommands, const Parameters* parameters)
-        : function(func),
-          sub_commands(subcommands),
-          prm(parameters),
-          next_command_parameters(NULL)
+        : function(func)
+        , sub_commands(subcommands)
+        , prm(parameters)
+        , next_command_parameters(NULL)
     {      
     }
-
     void (*function)(UserInput *);
     const uint8_t sub_commands;
     const Parameters* prm;
@@ -152,19 +152,19 @@ public:
               const char *end_of_line_characters = "\r\n",
               const char *token_delimiter = " ",
               const char *c_string_delimiter = "\"")
-        : _output_buffer(output_buffer),
-          _output_enabled((output_buffer == NULL) ? false : true),
-          _string_pos(0),
-          _output_buffer_len(output_buffer_len),
-          _username_(username),
-          _term_(end_of_line_characters),
-          _delim_(token_delimiter),
-          _c_str_delim_(c_string_delimiter),
-          default_function_(NULL),
-          commands_head_(NULL),
-          commands_tail_(NULL),
-          commands_count_(0),
-          max_num_user_defined_args(0)
+        : _output_buffer(output_buffer)
+        , _output_enabled((output_buffer == NULL) ? false : true)
+        , _string_pos(0)
+        , _output_buffer_len(output_buffer_len)
+        , _username_(username)
+        , _term_(end_of_line_characters)
+        , _delim_(token_delimiter)
+        , _c_str_delim_(c_string_delimiter)
+        , default_function_(NULL)
+        , commands_head_(NULL)
+        , commands_tail_(NULL)
+        , commands_count_(0)
+        , max_num_user_defined_args(0)
     {
     }
 
