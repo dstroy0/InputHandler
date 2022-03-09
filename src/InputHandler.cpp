@@ -408,9 +408,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     rec_num_arg_strings = 0;            // number of tokens read from data
     bool match = false;                 // command string match
     bool command_matched = false;       // error sentinel
-    CommandConstructor* cmd;            // command parameters pointer    
+    CommandConstructor* cmd;            // command parameters pointer        
     Parameters prm;
-    
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
@@ -421,8 +420,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
-        {            
-            memcpy_P(&prm, &(cmd->prm), sizeof(prm));
+        {                    
+            memcpy_P(&prm, cmd->prm, sizeof(prm));
             if (strcmp(data_pointers[0], prm.command) == 0) // match
             {
                 command_matched = true;
@@ -487,7 +486,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
             {                
-                memcpy_P(&prm, &(cmd->prm), sizeof(prm));
+                memcpy_P(&prm, cmd->prm, sizeof(prm));
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                              PSTR(">%s $Invalid input: %s "),
                                              _username_,
@@ -627,7 +626,7 @@ void UserInput::ListCommands()
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
         {            
             char buffer[USER_INPUT_MAX_COMMAND_LENGTH];
-            PGM_r(&cmd->prm->command, buffer);
+            memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"),
                                          i, buffer);
             i++;

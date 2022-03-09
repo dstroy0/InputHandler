@@ -19,12 +19,6 @@
 
 #include "config/InputHandler_config.h"
 
-template <typename T>
-void PGM_r(const T *sce, T &dest)
-{
-    memcpy_P(&dest, sce, sizeof(T));
-}
-
 /**
  * @defgroup UserInput Constants
  * @{
@@ -292,7 +286,7 @@ protected:
     char combineControlCharacters(char input);
 
     /**
-     * @brief Get the UITYPE for the argument
+     * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
      *
      * @param opt command options structure reference
      * @param index argument number
