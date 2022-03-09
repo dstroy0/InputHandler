@@ -484,8 +484,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
-        {
-            memcpy_P(&prm, cmd->prm, sizeof(prm));
+        {            
+            memcpy_P(&prm, cmd->prm, sizeof(prm));          
             // if the first test is false, the strcmp test is not evaluated
             if (cmd->sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
             {
@@ -503,25 +503,35 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
             if (cmd->sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
             {
                 command_matched = true;
-                if (getToken(token_buffer, data, len, &data_index) == true) // if there was a token
+                bool got_token = getToken(token_buffer, data, len, &data_index);
+                if ((prm.num_args == 0) && got_token == false)  // if the base command accepts no args and there are no tokens
                 {
-                    for (size_t j = 1; j < cmd->sub_commands; ++j)
-                    {
-                        memcpy_P(&prm, &cmd->prm[j], sizeof(prm));
-                        if (strcmp(data_pointers[1], prm.command) == 0)
-                        {
-                            subcommand_matched = true;
-                            launchLogic(cmd,
-                                        prm,
-                                        data,
-                                        len,
-                                        all_arguments_valid,
-                                        data_index,
-                                        match,
-                                        input_type_match_flag);
-                        }
-                    }
-                }                
+                    launchLogic(cmd,
+                                prm,
+                                data,
+                                len,
+                                all_arguments_valid,
+                                data_index,
+                                match,
+                                input_type_match_flag);
+                    break;
+                }
+                for (size_t j = 0; j < cmd->sub_commands; ++j)
+                {                    
+                    memcpy_P(&prm, &(cmd->prm[j + 1]), sizeof(prm));
+                    if (strcmp(data_pointers[1], prm.command) == 0)
+                    {                        
+                        subcommand_matched = true;
+                        launchLogic(cmd,
+                                    prm,
+                                    data,
+                                    len,
+                                    all_arguments_valid,
+                                    data_index,
+                                    match,
+                                    input_type_match_flag);
+                    }                    
+                }
                 break;
             }
         }
