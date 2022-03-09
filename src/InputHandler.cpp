@@ -514,20 +514,28 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                                 data_index, match,
                                 input_type_match_flag);
                     break; // break out of cmd iterator for loop
-                }                
-                for (size_t j = 0; j < cmd->prm->sub_commands; ++j)
+                }
+                // pseudo recursion
+                for (size_t i = 0; i < cmd->_tree_depth; ++i)
                 {
-                    memcpy_P(&prm, &(cmd->prm[j + 1]), sizeof(prm)); // move working subcommand variables into ram
-                    if (strcmp(data_pointers[tokens], prm.command) == 0)  // if the subcommand matched
+                    for (size_t j = 0; j < cmd->prm->sub_commands; ++j)
                     {
-                        subcommand_matched = true; // clear subcommand match error
-                        // try to launch target function
-                        launchLogic(cmd, prm, data, len,
-                                    all_arguments_valid,
-                                    data_index, match,
-                                    input_type_match_flag);
-                        failed_on_subcommand = j + 1; // set error index
-                        break;
+                        subcommand_matched = getSubcommand(prm, cmd, j, tokens,
+                                                           failed_on_subcommand);
+
+                        if (subcommand_matched == true && prm.sub_commands == 0)
+                        {
+                            // try to launch target function
+                            launchLogic(cmd, prm, data, len,
+                                        all_arguments_valid,
+                                        data_index, match,
+                                        input_type_match_flag);
+                            break;
+                        }
+                    }
+                    if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
+                    {
+                        tokens++;
                     }
                 }
                 break; // guard break
@@ -684,6 +692,20 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         }
     }
     delete[] token_buffer;
+}
+
+bool UserInput::getSubcommand(Parameters &prm,
+                              CommandConstructor *cmd,
+                              size_t index,
+                              size_t tokens,
+                              uint8_t &failed_on_subcommand)
+{
+    memcpy_P(&prm, &(cmd->prm[index + 1]), sizeof(prm)); // move working subcommand variables into ram
+    if (strcmp(data_pointers[tokens], prm.command) == 0) // if the subcommand matched
+    {           
+        failed_on_subcommand = index + 1; // set error index
+        return true;
+    }
 }
 
 void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
