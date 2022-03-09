@@ -24,13 +24,6 @@ void PGM_r(const T *sce, T &dest)
 {
     memcpy_P(&dest, sce, sizeof(T));
 }
-template <typename T>
-T PGM_g(const T *sce)
-{
-    static T temp;
-    memcpy_P(&temp, sce, sizeof(T));
-    return temp;
-}
 
 /**
  * @defgroup UserInput Constants
@@ -99,24 +92,6 @@ struct Parameters
     uint8_t max_num_args;
     UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
 };
-
-/**
- * @brief command parameters structure
- * @struct CommandParameters
- */
-struct CommandParameters
-{       
-    CommandParameters(void (*func)(UserInput *), const uint8_t subcommands, const Parameters* options)
-    : function(func),
-      sub_commands(subcommands),
-      opt(options)
-    {        
-    }
-    void (*function)(UserInput *);
-    const uint8_t sub_commands;
-    const Parameters* opt;
-};
-
 /** @} */
 
 /**
@@ -133,13 +108,17 @@ public:
      * @param options A reference to the command options structure 
      */
 
-    CommandConstructor(const CommandParameters *command_parameters)
-        : cmdprm(command_parameters),
+    CommandConstructor(void (*func)(UserInput *), const uint8_t subcommands, const Parameters* parameters)
+        : function(func),
+          sub_commands(subcommands),
+          prm(parameters),
           next_command_parameters(NULL)
     {      
     }
-        
-    const CommandParameters *cmdprm;
+
+    void (*function)(UserInput *);
+    const uint8_t sub_commands;
+    const Parameters* prm;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 
@@ -294,7 +273,7 @@ protected:
      *
      * @param opt command options reference
      */
-    void launchFunction(const CommandParameters *opt);
+    void launchFunction(const CommandConstructor *parameters);
 
     /**
      * @brief Escapes control characters so they will print

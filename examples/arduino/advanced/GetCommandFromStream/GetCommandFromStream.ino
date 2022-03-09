@@ -125,7 +125,7 @@ void uc_test_input_types(UserInput* inputProcess)
 
 const Parameters help_param[2] PROGMEM =
 {
-  {
+  { // command
     "help",       // command string
     4,            // command string characters
     no_arguments, // argument handling
@@ -152,9 +152,7 @@ const Parameters help_param[2] PROGMEM =
     }
   }
 };
-const CommandParameters _help_(uc_help, 1, help_param);
-
-CommandConstructor uc_help_(&_help_); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(uc_help, 1, help_param); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param PROGMEM =
 {
@@ -170,8 +168,7 @@ const Parameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-const CommandParameters _settings_(uc_settings, 0, &settings_param);
-CommandConstructor uc_settings_(&_settings_); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(uc_settings, 0, &settings_param); // uc_settings_ has a command string, and function specified
 
 const Parameters type_test_param PROGMEM =
 {
@@ -194,8 +191,7 @@ const Parameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-const CommandParameters _test_(uc_test_input_types, 0, &type_test_param) PROGMEM;
-CommandConstructor uc_test_(&_test_);
+CommandConstructor uc_test_(uc_test_input_types, 0, &type_test_param);
 
 void setup()
 {
