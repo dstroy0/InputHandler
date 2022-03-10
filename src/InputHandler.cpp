@@ -706,6 +706,7 @@ bool UserInput::getSubcommand(Parameters &prm,
         failed_on_subcommand = index + 1; // set error index
         return true;
     }
+    return false;
 }
 
 void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
