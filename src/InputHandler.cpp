@@ -48,9 +48,7 @@ void UserInput::AddCommand(CommandConstructor &command)
         *cmd_tail = &command;
     }
     (*cmd_count)++;
-    //CommandParameters cmdprm;
     uint8_t max_args;
-    //memcpy_P(&cmdprm, &(command.cmdprm), sizeof(cmdprm));
     memcpy_P(&max_args, &(command.prm->max_num_args), sizeof(max_args));
     if (*arg_count < max_args)
     {
@@ -100,7 +98,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            token_buffer[*data_index] = _null_;              // replace the c-string delimiter
+            token_buffer[*data_index] = _null_;               // replace the c-string delimiter
             if (((uint16_t)(*data_index) + 1U) < data_length) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
@@ -111,7 +109,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                     if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
                     {
                         token_buffer[*data_index] = _null_; // replace the c-string delimiter
-                        (*data_index)++;                     // increment the tokenized string index
+                        (*data_index)++;                    // increment the tokenized string index
                         break;
                     }
                     token_buffer[*data_index] = incoming;       // else assign incoming to token_buffer[data_index]
@@ -193,8 +191,8 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
 
 bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
 {
-    uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);    
-    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == _neg_) ? true : false;    
+    uint16_t strlen_data = strlen(data_pointers[data_pointers_index]);
+    bool found_negative_sign = ((char)data_pointers[data_pointers_index][0] == _neg_) ? true : false;
     if (arg_type < (size_t)UITYPE::CHAR)
     {
         // for unsigned integers
@@ -249,7 +247,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
                     so start the for loop at an index of one
                 */
                 for (uint16_t j = 1; j < strlen_data; ++j)
-                {                    
+                {
                     if (data_pointers[data_pointers_index][j] == _dot_)
                     {
                         found_dot++;
@@ -279,7 +277,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
             else //  positive
             {
                 for (uint16_t j = 0; j < strlen_data; ++j)
-                {                  
+                {
                     if (data_pointers[data_pointers_index][j] == _dot_)
                     {
                         found_dot++;
@@ -388,7 +386,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         {
             rec_num_arg_strings++;
             if (rec_num_arg_strings > 0)
-            {                
+            {
                 break;
             }
         }
@@ -402,9 +400,12 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             _output_flag = true;
         }
         #endif
-        match = true;        // don't run default callback
-        launchFunction(cmd); // launch the matched command
-        return;
+        if (rec_num_arg_strings == 0)
+        {
+            match = true;        // don't run default callback
+            launchFunction(cmd); // launch the matched command
+            return;
+        }
     }
     else if (prm.num_args > 0 || prm.max_num_args > 0) // command has arguments
     {
@@ -435,7 +436,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     }
 }
 
-void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
+void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 {
     // error checking
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
@@ -448,8 +449,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
             _output_flag = true;
         }
         return;
-    }    
-    
+    }
+
     // this is declared here to test if token_buffer == nullptr (error condition)
     token_buffer = new char[len + 1](); // place to chop up the input
     if (token_buffer == nullptr)        // if there was an error allocating the memory
@@ -465,15 +466,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
     }
     // end error checking
 
-    size_t data_index = 0;              // data iterator
-    data_pointers_index = 0;            // token buffer pointers
-    rec_num_arg_strings = 0;            // number of tokens read from data
-    bool match = false;                 // command string match
-    bool command_matched = false;       // error sentinel
-    bool subcommand_matched = false;    // error sentinel
-    uint8_t failed_on_subcommand = 0;   // error index
-    CommandConstructor* cmd;            // command parameters pointer        
-    Parameters prm;                     // Parameters struct
+    size_t data_index = 0;            // data iterator
+    data_pointers_index = 0;          // token buffer pointers
+    rec_num_arg_strings = 0;          // number of tokens read from data
+    bool match = false;               // command string match
+    bool command_matched = false;     // error sentinel
+    bool subcommand_matched = false;  // error sentinel
+    uint8_t failed_on_subcommand = 0; // error index
+    CommandConstructor *cmd;          // command parameters pointer
+    Parameters prm;                   // Parameters struct
 
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
@@ -490,7 +491,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
             // if the first test is false, the strcmp test is not evaluated
             if (prm.sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
-            {                
+            {
                 command_matched = true; // base command matched
                 // try to launch target function
                 launchLogic(cmd, prm, data, len,
@@ -498,23 +499,23 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                             data_index, match,
                             input_type_match_flag);
                 break;
-            }                                                                          // end regular command logic
+            }                                                                         // end regular command logic
             if (prm.sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
             {
                 subcommand_tokens = 0;
-                command_matched = true;                                          // base command matched (base command with subcommands)
-                
-                if (getToken(token_buffer, data, len, &data_index) == true)      // see if there's a token
-                {                    
-                  if (prm.max_num_args == 0) // if the base command accepts no arguments
-                  {                    
-                    subcommand_tokens++;  // there might be a subcommand token
-                  }
-                  else  // if the base command accepts arguments and there is a token
-                  {
-                    subcommand_tokens++;    // it could be a subcommand token
-                    rec_num_arg_strings++;  // or an argument                
-                  }
+                command_matched = true; // base command matched (base command with subcommands)
+
+                if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
+                {
+                    if (prm.max_num_args == 0) // if the base command accepts no arguments
+                    {
+                        subcommand_tokens++; // there might be a subcommand token
+                    }
+                    else // if the base command accepts arguments and there is a token
+                    {
+                        subcommand_tokens++;   // it could be a subcommand token
+                        rec_num_arg_strings++; // or an argument
+                    }
                 }
                 // if the base command accepts a minimum of 0 args and there are no tokens
                 if ((prm.num_args == 0) && subcommand_tokens == 0)
@@ -527,24 +528,20 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     break; // break out of cmd iterator for loop
                 }
 
-                // subcommand search           
+                // subcommand search
                 for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
                 {
-                    // this index starts at one because the parameter array's first element will be the root command                    
-                    for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array 
-                    {                           
+                    // this index starts at one because the parameter array's first element will be the root command
+                    for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
+                    {
                         memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
                         failed_on_subcommand = j;
                         if (prm.depth == i)
-                        {                            
+                        {
                             if (strcmp(data_pointers[subcommand_tokens], prm.command) == 0)
                             {                                
                                 if (prm.sub_commands == 0) // if there are no subcommands
-                                {                          // try to launch the target function                                                                   
-                                    if (rec_num_arg_strings > 0)
-                                    {
-                                        rec_num_arg_strings -= 1;
-                                    }
+                                {                          // try to launch the target function
                                     launchLogic(cmd, prm, data, len,
                                                 all_arguments_valid,
                                                 data_index, match,
@@ -558,8 +555,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
                     {
                         subcommand_tokens++;
-                        rec_num_arg_strings++;                        
-                    }                    
+                        //rec_num_arg_strings++;
+                    }
                 }      // end subcommand search
                 break; // guard break
             }          // end subcommand logic
@@ -569,7 +566,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         {
             // format a string with useful information
             if (UserInput::OutputIsEnabled())
-            {                
+            {
                 memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
                 if (failed_on_subcommand > 0)
                 {
@@ -577,12 +574,12 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                                                  PSTR(">%s $Invalid input: %s "),
                                                  _username_,
                                                  data_pointers[0]);
-                    for(size_t i = 0; i < (failed_on_subcommand); ++i)
+                    for (size_t i = 0; i < (failed_on_subcommand); ++i)
                     {
-                      _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR("%s "),
-                                                 data_pointers[i + 1]);
-                    }                   
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR("%s "),
+                                                     data_pointers[i + 1]);
+                    }
                 }
                 else
                 {
@@ -745,7 +742,7 @@ bool UserInput::getSubcommand(Parameters &prm,
 void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
 {
     if (stream_buffer_allocated == false)
-    {                
+    {
         stream_data = new uint8_t[rx_buffer_size]; // an array to store the received data
         if (stream_data == nullptr)                // if there was an error allocating the memory
         {
@@ -789,13 +786,13 @@ void UserInput::ListCommands()
 {
     if (UserInput::OutputIsEnabled())
     {
-        CommandConstructor *cmd;                      
+        CommandConstructor *cmd;
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                      PSTR("Commands available to %s:\n"),
                                      _username_);
         uint8_t i = 1;
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
-        {            
+        {
             char buffer[USER_INPUT_MAX_COMMAND_LENGTH];
             memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"),
@@ -931,8 +928,11 @@ void UserInput::ClearOutputBuffer()
 
 uint8_t UserInput::getArgType(Parameters &opt, size_t index)
 {
-    if (opt.argument_flag == no_arguments) return static_cast<uint8_t>(UITYPE::NOTYPE);
-    if (opt.argument_flag == single_type_argument) return static_cast<uint8_t>(opt._arg_type[0]);
-    if (opt.argument_flag == argument_type_array) return static_cast<uint8_t>(opt._arg_type[index]);    
-    return static_cast<uint8_t>(UITYPE::_LAST);    // return error if no match
+    if (opt.argument_flag == no_arguments)
+        return static_cast<uint8_t>(UITYPE::NOTYPE);
+    if (opt.argument_flag == single_type_argument)
+        return static_cast<uint8_t>(opt._arg_type[0]);
+    if (opt.argument_flag == argument_type_array)
+        return static_cast<uint8_t>(opt._arg_type[index]);
+    return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
 }

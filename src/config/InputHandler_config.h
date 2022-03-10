@@ -26,7 +26,6 @@
 #define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
 #define UI_DEFAULT_STRINGS_MAX_LEN 14
 
-
 //  maximum number of arguments per command
 #ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
 #define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
@@ -59,7 +58,7 @@
 #define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
 #define _N_ARGS(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
-#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) 
+#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
 #include <avr/dtostrf.h>
 #endif
 

@@ -73,13 +73,13 @@ enum UI_ARGUMENT_FLAG_ENUM
 
 /**
  * @brief Parameters struct
- * \snippet InputHandler.h ui_parameters_struct_def 
+ * \snippet InputHandler.h ui_parameters_struct_def
  */
 struct Parameters
-{   
+{
     //![ui_parameters_struct_def]
     uint8_t depth;
-    uint8_t sub_commands; 
+    uint8_t sub_commands;
     char command[USER_INPUT_MAX_COMMAND_LENGTH];
     uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
@@ -105,29 +105,29 @@ public:
     /**
      * @brief CommandConstructor Constructor
      *
-     * Creates a new instance of this class.  
+     * Creates a new instance of this class.
      * Before using, construct a UserInput object and a CommandParameters object.
-     * @param func pointer to a function     
-     * @param parameters pointer to parameters struct or array of parameters structs 
+     * @param func pointer to a function
+     * @param parameters pointer to parameters struct or array of parameters structs
      * @param subcommands number of subcommands
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(void (*func)(UserInput *), 
-                       const Parameters* parameters,                         
+    CommandConstructor(void (*func)(UserInput *),
+                       const Parameters *parameters,
                        const uint8_t tree_depth = 0,
                        const uint8_t parameter_elements = 0)
-        : function(func)        
+        : function(func)
         , prm(parameters)
         , _tree_depth(tree_depth)
         , _param_array_len(parameter_elements)
         , next_command_parameters(NULL)
-    {      
+    {
     }
-    void (*function)(UserInput *);    
-    const Parameters* prm;    
+    void (*function)(UserInput *);
+    const Parameters *prm;
     const uint8_t _tree_depth;
     const uint8_t _param_array_len;
-    CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
+    CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */
 };
 
 /**
@@ -225,7 +225,7 @@ public:
      *
      * @param function a pointer to a user specified function
      */
-    void DefaultFunction(void (*function)(UserInput *));    
+    void DefaultFunction(void (*function)(UserInput *));
 
     /**
      * @brief is class output available
@@ -285,7 +285,7 @@ protected:
 
     /**
      * @brief function launch logic
-     * 
+     *
      * @param cmd CommandConstructor ptr
      * @param prm Parameters reference
      * @param data uint8_t array ptr
@@ -327,7 +327,7 @@ protected:
      * @param index argument number
      * @return uint8_t argument type
      */
-    uint8_t getArgType(Parameters& opt, size_t index = 0);
+    uint8_t getArgType(Parameters &opt, size_t index = 0);
 
     bool getSubcommand(Parameters &prm,
                        CommandConstructor *cmd,
@@ -346,16 +346,16 @@ private:
     const char *_username_;                 //  username
     const char *_term_;                     //  end of line characters
     const char *_delim_;                    //  token delimiter
-    const char *_c_str_delim_;              //  c-string delimiter    
-    void (*default_function_)(UserInput *); //  pointer to default function    
+    const char *_c_str_delim_;              //  c-string delimiter
+    void (*default_function_)(UserInput *); //  pointer to default function
     CommandConstructor *commands_head_;     //  pointer to object list
     CommandConstructor *commands_tail_;     //  pointer to object list
     size_t commands_count_;                 //  how many commands are there
     size_t max_num_user_defined_args;       //  max number of arguments used
 
-    char _null_ = '\0';                     //  char '\0'
-    char _neg_ = '-';                       //  char '-'
-    char _dot_ = '.';                       //  char '.'
+    char _null_ = '\0'; //  char '\0'
+    char _neg_ = '-';   //  char '-'
+    char _dot_ = '.';   //  char '.'
 
     /*
         member function variables
