@@ -123,11 +123,11 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-const Parameters help_param[3] PROGMEM =
+const Parameters help_param[4] PROGMEM =
 {
   { // command
     0,            // command depth
-    1,            // subcommands
+    2,            // subcommands
     "help",       // command string
     4,            // command string characters
     no_arguments, // argument handling
@@ -139,8 +139,8 @@ const Parameters help_param[3] PROGMEM =
     {
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
-  },  // end command
-  {   // begin subcommand
+  },
+  { // begin subcommand "me", first child of parent command "help"
     1,                    // command depth
     1,                    // subcommands
     "me",                 // command string
@@ -155,7 +155,22 @@ const Parameters help_param[3] PROGMEM =
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
   },  //end subcommand
-  {   // begin first child of parent subcommand
+  { // begin subcommand "you", second child of parent command "help"
+    1,                    // command depth
+    0,                    // subcommands
+    "yourself",                 // command string
+    8,                    // command string characters
+    no_arguments, // argument handling
+    0,                    // minimum expected number of arguments
+    0,                    // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
+  },
+  { // begin subcommand "please", first child of parent subcommand "me"
     2,                    // command depth
     0,                    // subcommands
     "please",                 // command string
@@ -171,7 +186,7 @@ const Parameters help_param[3] PROGMEM =
     }
   }
 };
-CommandConstructor uc_help_(uc_help, help_param, 2); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(uc_help, help_param, 2, 4); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param PROGMEM =
 {

@@ -353,7 +353,7 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(">%s $%s"),
                                      _username_,
                                      data_pointers[0]);
-        for (uint16_t i = 0; i < (rec_num_arg_strings + parameters->_tree_depth); ++i)
+        for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
         {
             if (iscntrl(*data_pointers[i + 1]))
             {
@@ -388,7 +388,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         {
             rec_num_arg_strings++;
             if (rec_num_arg_strings > 0)
-            {
+            {                
                 break;
             }
         }
@@ -486,10 +486,11 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
         bool all_arguments_valid = true;                                            // error sentinel
         for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
         {
-            memcpy_P(&prm, cmd->prm, sizeof(prm)); // move working variables to ram
+            // &(cmd->prm[0]) points to the first parameters struct for this command
+            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
             // if the first test is false, the strcmp test is not evaluated
-            if (cmd->prm->sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
-            {
+            if (prm.sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
+            {                
                 command_matched = true; // base command matched
                 // try to launch target function
                 launchLogic(cmd, prm, data, len,
@@ -498,16 +499,25 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                             input_type_match_flag);
                 break;
             }                                                                          // end regular command logic
-            if (cmd->prm->sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
+            if (prm.sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
             {
-                uint8_t tokens = 0;
+                subcommand_tokens = 0;
                 command_matched = true;                                          // base command matched (base command with subcommands)
+                
                 if (getToken(token_buffer, data, len, &data_index) == true)      // see if there's a token
-                {
-                  tokens++;
-                  rec_num_arg_strings++;
+                {                    
+                  if (prm.max_num_args == 0) // if the base command accepts no arguments
+                  {                    
+                    subcommand_tokens++;  // there might be a subcommand token
+                  }
+                  else  // if the base command accepts arguments and there is a token
+                  {
+                    subcommand_tokens++;    // it could be a subcommand token
+                    rec_num_arg_strings++;  // or an argument                
+                  }
                 }
-                if ((prm.num_args == 0) && tokens == 0)                   // if the base command accepts no args and there are no tokens
+                // if the base command accepts a minimum of 0 args and there are no tokens
+                if ((prm.num_args == 0) && subcommand_tokens == 0)
                 {
                     // try to launch target function
                     launchLogic(cmd, prm, data, len,
@@ -516,31 +526,41 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                                 input_type_match_flag);
                     break; // break out of cmd iterator for loop
                 }
-                // pseudo recursion
-                for (size_t i = 0; i < cmd->_tree_depth; ++i)
-                {
-                    for (size_t j = 0; j < cmd->prm->sub_commands; ++j)
-                    {
-                        subcommand_matched = getSubcommand(prm, cmd, j, tokens,
-                                                           failed_on_subcommand);
 
-                        if (subcommand_matched == true && prm.sub_commands == 0)
-                        {
-                            rec_num_arg_strings = rec_num_arg_strings - tokens; //  align arguments for validation
-                            // try to launch target function
-                            launchLogic(cmd, prm, data, len,
-                                        all_arguments_valid,
-                                        data_index, match,
-                                        input_type_match_flag);
-                            break;
+                // subcommand search           
+                for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
+                {
+                    // this index starts at one because the parameter array's first element will be the root command                    
+                    for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array 
+                    {                           
+                        memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
+                        failed_on_subcommand = j;
+                        if (prm.depth == i)
+                        {                            
+                            if (strcmp(data_pointers[subcommand_tokens], prm.command) == 0)
+                            {                                
+                                if (prm.sub_commands == 0) // if there are no subcommands
+                                {                          // try to launch the target function                                                                   
+                                    if (rec_num_arg_strings > 0)
+                                    {
+                                        rec_num_arg_strings -= 1;
+                                    }
+                                    launchLogic(cmd, prm, data, len,
+                                                all_arguments_valid,
+                                                data_index, match,
+                                                input_type_match_flag);
+                                    break;
+                                }
+                            }
                         }
                     }
+
                     if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
                     {
-                        tokens++;
-                        rec_num_arg_strings++;
-                    }
-                }
+                        subcommand_tokens++;
+                        rec_num_arg_strings++;                        
+                    }                    
+                }      // end subcommand search
                 break; // guard break
             }          // end subcommand logic
         }              // end base command for loop
@@ -705,15 +725,19 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
 
 bool UserInput::getSubcommand(Parameters &prm,
                               CommandConstructor *cmd,
-                              size_t index,
-                              size_t tokens,
-                              uint8_t &failed_on_subcommand)
+                              size_t prm_idx,
+                              uint8_t &failed_on_subcommand,
+                              size_t tree_depth)
 {
-    memcpy_P(&prm, &(cmd->prm[index + 1]), sizeof(prm)); // move working subcommand variables into ram
-    if (strcmp(data_pointers[tokens], prm.command) == 0) // if the subcommand matched
-    {           
-        failed_on_subcommand = index + 1; // set error index
+    memcpy_P(&prm, &(cmd->prm[prm_idx]), sizeof(prm)); // move working subcommand variables into ram
+    failed_on_subcommand = prm_idx;                    // set error index
+    if (prm.depth == tree_depth)
+    {
         return true;
+    }
+    else
+    {
+        return false;
     }
     return false;
 }

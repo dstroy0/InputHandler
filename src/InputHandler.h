@@ -114,16 +114,19 @@ public:
      */
     CommandConstructor(void (*func)(UserInput *), 
                        const Parameters* parameters,                         
-                       const uint8_t tree_depth = 0)
+                       const uint8_t tree_depth = 0,
+                       const uint8_t parameter_elements = 0)
         : function(func)        
         , prm(parameters)
         , _tree_depth(tree_depth)
+        , _param_array_len(parameter_elements)
         , next_command_parameters(NULL)
     {      
     }
     void (*function)(UserInput *);    
     const Parameters* prm;    
     const uint8_t _tree_depth;
+    const uint8_t _param_array_len;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */  
 };
 
@@ -326,12 +329,11 @@ protected:
      */
     uint8_t getArgType(Parameters& opt, size_t index = 0);
 
-
     bool getSubcommand(Parameters &prm,
                        CommandConstructor *cmd,
-                       size_t index,
-                       size_t tokens,                   
-                       uint8_t &failed_on_subcommand);
+                       size_t prm_idx,
+                       uint8_t &failed_on_subcommand,
+                       size_t tree_depth);
 
 private:
     /*
@@ -363,6 +365,7 @@ private:
     char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
     size_t data_pointers_index = 0;                                        //   data_pointer's index
     size_t rec_num_arg_strings = 0;                                        //   number of tokens after first valid token
+    size_t subcommand_tokens = 0;
 
     /*
         GetCommandFromStream variables
