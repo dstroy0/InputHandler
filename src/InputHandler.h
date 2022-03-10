@@ -109,8 +109,8 @@ public:
      * Before using, construct a UserInput object and a CommandParameters object.
      * @param func pointer to a function
      * @param parameters pointer to parameters struct or array of parameters structs
-     * @param subcommands number of subcommands
      * @param tree_depth depth of command tree
+     * @param parameter_elements number of elements in the parameter array
      */
     CommandConstructor(void (*func)(UserInput *),
                        const Parameters *parameters,
@@ -269,8 +269,7 @@ protected:
 
     /**
      * @brief Tries to determine if input is valid
-     *
-     * @param cmd Function parameter pointer
+     *     
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
      */
@@ -279,7 +278,7 @@ protected:
     /**
      * @brief launches a function
      *
-     * @param opt command options reference
+     * @param parameters command options reference
      */
     void launchFunction(const CommandConstructor *parameters);
 
