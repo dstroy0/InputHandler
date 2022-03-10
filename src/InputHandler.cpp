@@ -353,7 +353,7 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(">%s $%s"),
                                      _username_,
                                      data_pointers[0]);
-        for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
+        for (uint16_t i = 0; i < (rec_num_arg_strings + parameters->_tree_depth); ++i)
         {
             if (iscntrl(*data_pointers[i + 1]))
             {
@@ -505,6 +505,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                 if (getToken(token_buffer, data, len, &data_index) == true)      // see if there's a token
                 {
                   tokens++;
+                  rec_num_arg_strings++;
                 }
                 if ((prm.num_args == 0) && tokens == 0)                   // if the base command accepts no args and there are no tokens
                 {
@@ -525,6 +526,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
 
                         if (subcommand_matched == true && prm.sub_commands == 0)
                         {
+                            rec_num_arg_strings = rec_num_arg_strings - tokens; //  align arguments for validation
                             // try to launch target function
                             launchLogic(cmd, prm, data, len,
                                         all_arguments_valid,
@@ -536,6 +538,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                     if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
                     {
                         tokens++;
+                        rec_num_arg_strings++;
                     }
                 }
                 break; // guard break
@@ -551,9 +554,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t* data, size_t len)
                 if (failed_on_subcommand > 0)
                 {
                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR(">%s $Invalid input: %s %s "),
+                                                 PSTR(">%s $Invalid input: %s "),
                                                  _username_,
-                                                 data_pointers[0], data_pointers[failed_on_subcommand]);
+                                                 data_pointers[0]);
+                    for(size_t i = 0; i < (failed_on_subcommand); ++i)
+                    {
+                      _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                 PSTR("%s "),
+                                                 data_pointers[i + 1]);
+                    }                   
                 }
                 else
                 {
