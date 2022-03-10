@@ -329,12 +329,6 @@ protected:
      */
     uint8_t getArgType(Parameters &opt, size_t index = 0);
 
-    bool getSubcommand(Parameters &prm,
-                       CommandConstructor *cmd,
-                       size_t prm_idx,
-                       uint8_t &failed_on_subcommand,
-                       size_t tree_depth);
-
 private:
     /*
         UserInput Constructor variables

@@ -351,7 +351,7 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(">%s $%s"),
                                      _username_,
                                      data_pointers[0]);
-        for (uint16_t i = 0; i < rec_num_arg_strings; ++i)
+        for (uint16_t i = 0; i < (data_pointers_index - 1); ++i)
         {
             if (iscntrl(*data_pointers[i + 1]))
             {
@@ -574,7 +574,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                                  PSTR(">%s $Invalid input: %s "),
                                                  _username_,
                                                  data_pointers[0]);
-                    for (size_t i = 0; i < (failed_on_subcommand); ++i)
+                    for (size_t i = 0; i < (failed_on_subcommand - 1); ++i)
                     {
                         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                      PSTR("%s "),
@@ -592,7 +592,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                 {
                     uint16_t err_n_args = (prm.max_num_args > rec_num_arg_strings) ? rec_num_arg_strings : prm.max_num_args;
                     if (err_n_args > 0)
-                    {
+                    {                        
                         for (uint16_t i = 0; i < err_n_args; ++i)
                         {
                             if (failed_on_subcommand > 0)
@@ -601,13 +601,13 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                 {
                                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                                  PSTR("%s* "),
-                                                                 data_pointers[failed_on_subcommand + i + 1]);
+                                                                 data_pointers[failed_on_subcommand + i]);
                                 }
                                 else
                                 {
                                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                                                  PSTR("%s "),
-                                                                 data_pointers[failed_on_subcommand + i + 1]);
+                                                                 data_pointers[failed_on_subcommand + i]);
                                 }
                             }
                             else
@@ -651,7 +651,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                                              PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
                                                              i + 1,
                                                              _type,
-                                                             data_pointers[failed_on_subcommand + i + 1]);
+                                                             data_pointers[failed_on_subcommand + i]);
                             }
                         }
                         else
@@ -718,25 +718,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         }
     }
     delete[] token_buffer;
-}
-
-bool UserInput::getSubcommand(Parameters &prm,
-                              CommandConstructor *cmd,
-                              size_t prm_idx,
-                              uint8_t &failed_on_subcommand,
-                              size_t tree_depth)
-{
-    memcpy_P(&prm, &(cmd->prm[prm_idx]), sizeof(prm)); // move working subcommand variables into ram
-    failed_on_subcommand = prm_idx;                    // set error index
-    if (prm.depth == tree_depth)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    return false;
 }
 
 void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)

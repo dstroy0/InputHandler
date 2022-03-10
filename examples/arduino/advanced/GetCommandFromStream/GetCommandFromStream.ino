@@ -145,7 +145,7 @@ const Parameters help_param[4] PROGMEM =
     1,                    // subcommands
     "me",                 // command string
     2,                    // command string characters
-    no_arguments, // argument handling
+    no_arguments,         // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*
@@ -158,9 +158,9 @@ const Parameters help_param[4] PROGMEM =
   { // begin subcommand "you", second child of parent command "help"
     1,                    // command depth
     0,                    // subcommands
-    "yourself",                 // command string
+    "yourself",           // command string
     8,                    // command string characters
-    no_arguments, // argument handling
+    no_arguments,         // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*
@@ -173,7 +173,7 @@ const Parameters help_param[4] PROGMEM =
   { // begin subcommand "please", first child of parent subcommand "me"
     2,                    // command depth
     0,                    // subcommands
-    "please",                 // command string
+    "please",             // command string
     6,                    // command string characters
     single_type_argument, // argument handling
     1,                    // minimum expected number of arguments
@@ -190,8 +190,8 @@ CommandConstructor uc_help_(uc_help, help_param, 2, 4); //  uc_help_ has a comma
 
 const Parameters settings_param PROGMEM =
 {
-  0,                   // command depth
-  0,                   // subcommands
+  0,                // command depth
+  0,                // subcommands
   "inputSettings",  // command string
   13,               // command string characters
   no_arguments,     // argument handling
