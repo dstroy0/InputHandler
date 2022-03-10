@@ -1,6 +1,6 @@
 var classUserInput =
 [
-    [ "UserInput", "classUserInput.html#aecce9795b3e026760f90ca211100fc80", null ],
+    [ "UserInput", "classUserInput.html#ac9017d6b70d00933c3d42f57e52b4471", null ],
     [ "NextArgument", "classUserInput.html#ae9f8b1764291b5cf36dd328ad178555e", null ],
     [ "AddCommand", "classUserInput.html#a6677a0a10337e31439d5bd4d296e9759", null ],
     [ "ReadCommandFromBuffer", "classUserInput.html#a0b064635ee2e073077925632747889dc", null ],
@@ -14,8 +14,10 @@ var classUserInput =
     [ "ClearOutputBuffer", "classUserInput.html#af7a48e5f46fcf92bca22179314dae0fa", null ],
     [ "getToken", "classUserInput.html#af9decd0d74d1b63264ba64f2403fcc36", null ],
     [ "validateUserInput", "classUserInput.html#a53407496c37967a3186bd136f5620dd3", null ],
-    [ "launchFunction", "classUserInput.html#ab04a136fa7f2c6590f230df456776401", null ],
+    [ "launchFunction", "classUserInput.html#a948391dba71e2651099e90372c10d3e2", null ],
+    [ "launchLogic", "classUserInput.html#a475f7932364a4ac02aec3e942c24f8bc", null ],
     [ "escapeCharactersSoTheyPrint", "classUserInput.html#a1d47e15d37bc6fd23ded677fee83d044", null ],
     [ "combineControlCharacters", "classUserInput.html#a496a5e9703e14f55b2e6a1636d178453", null ],
-    [ "getArgType", "classUserInput.html#ab954794058cd86ee7c55fc38752039c3", null ]
+    [ "getArgType", "classUserInput.html#a8cce7abb91fdf8b8a238cfe84295b4a4", null ],
+    [ "getSubcommand", "classUserInput.html#a34db0bee5bbcf9c3b942b88785b96cb3", null ]
 ];

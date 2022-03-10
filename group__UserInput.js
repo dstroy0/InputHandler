@@ -1,19 +1,14 @@
 var group__UserInput =
 [
-    [ "CommandParameters", "structCommandParameters.html", [
-      [ "function", "structCommandParameters.html#a76011eabd753ca404b23a141d068a71a", null ],
-      [ "command", "structCommandParameters.html#a76f08e6055cd5d6cb9fd2ab6b95dd42b", null ],
-      [ "command_length", "structCommandParameters.html#a6361c8cf9606ebed72416cc222dba06a", null ],
-      [ "argument_flag", "structCommandParameters.html#a932ee73e381d3f06ac3eb43b62360579", null ],
-      [ "num_args", "structCommandParameters.html#a04cd24cb6bf5794ee9fffe7dd92a35f8", null ],
-      [ "_arg_type", "structCommandParameters.html#ae45eb2cee03ee2980d1d62a8546f714c", null ]
-    ] ],
-    [ "UI_PROGMEM_DEFAULTS_ENUM", "group__UserInput.html#ga85e7eeb0bdd4436bf4ac3ff5e179c73a", [
-      [ "username_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa6987811024e3cc2d99d000be42e00e30", null ],
-      [ "eol_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa609291c368d5999d30c2671d11813c79", null ],
-      [ "t_delim_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa19085ce12bc0507d9972232f4863baea", null ],
-      [ "c_delim_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa3839ac587168aebc15f28378f3d803a5", null ],
-      [ "err_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2", null ]
+    [ "Parameters", "structParameters.html", [
+      [ "depth", "structParameters.html#a010c4c82c6956cb129b423ef20b8f279", null ],
+      [ "sub_commands", "structParameters.html#a50cf8f9bc0161410c3a486a54e99108e", null ],
+      [ "command", "structParameters.html#a585c883f76d1e64a106f1ff790faa063", null ],
+      [ "command_length", "structParameters.html#aa5cdae10169c1ffea5ca38b74043220b", null ],
+      [ "argument_flag", "structParameters.html#abb85be26d9a290f6ddf852e6f16c56af", null ],
+      [ "num_args", "structParameters.html#a157e4e306872390657e1f7be5100c559", null ],
+      [ "max_num_args", "structParameters.html#af2cc56591385d1eb4df0d93e9b1c7cb4", null ],
+      [ "_arg_type", "structParameters.html#a37294e77243f9b9f3e1deefc7f8a0a30", null ]
     ] ],
     [ "UITYPE", "group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UITYPE::UINT8_T", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],
@@ -29,7 +24,7 @@ var group__UserInput =
     ] ],
     [ "UI_ARGUMENT_FLAG_ENUM", "group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c", [
       [ "no_arguments", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a", null ],
-      [ "single_type_arguments", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284", null ],
+      [ "single_type_argument", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767caf4f8271470ef269d7f2cb2475dd79674", null ],
       [ "argument_type_array", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013", null ]
     ] ],
     [ "PROGMEM", "group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38", null ]

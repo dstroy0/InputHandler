@@ -119,9 +119,9 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <tr class="heading"><td colspan="2"><h2 class="groupheader">UserInput class</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp43a9c1485e9bffc15da731380f59b84f"></a>These are the methods you use to operate the input handler </p>
 </td></tr>
-<tr class="memitem:aecce9795b3e026760f90ca211100fc80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#aecce9795b3e026760f90ca211100fc80">UserInput</a> (char *output_buffer=NULL, size_t output_buffer_len=0, const char *username=NULL, const char *end_of_line_characters=NULL, const char *token_delimiter=NULL, const char *c_string_delimiter=NULL)</td></tr>
-<tr class="memdesc:aecce9795b3e026760f90ca211100fc80"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classUserInput.html" title="User input handler.">UserInput</a> Constructor with NO output by default.  <a href="classUserInput.html#aecce9795b3e026760f90ca211100fc80">More...</a><br /></td></tr>
-<tr class="separator:aecce9795b3e026760f90ca211100fc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9017d6b70d00933c3d42f57e52b4471"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#ac9017d6b70d00933c3d42f57e52b4471">UserInput</a> (char *output_buffer=NULL, size_t output_buffer_len=0, const char *username=&quot;&quot;, const char *end_of_line_characters=&quot;\r\n&quot;, const char *token_delimiter=&quot; &quot;, const char *c_string_delimiter=&quot;\&quot;&quot;)</td></tr>
+<tr class="memdesc:ac9017d6b70d00933c3d42f57e52b4471"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classUserInput.html" title="User input handler.">UserInput</a> Constructor with NO output by default.  <a href="classUserInput.html#ac9017d6b70d00933c3d42f57e52b4471">More...</a><br /></td></tr>
+<tr class="separator:ac9017d6b70d00933c3d42f57e52b4471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9f8b1764291b5cf36dd328ad178555e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#ae9f8b1764291b5cf36dd328ad178555e">NextArgument</a> ()</td></tr>
 <tr class="memdesc:ae9f8b1764291b5cf36dd328ad178555e"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a pointer to the next token in token_buffer  <a href="classUserInput.html#ae9f8b1764291b5cf36dd328ad178555e">More...</a><br /></td></tr>
 <tr class="separator:ae9f8b1764291b5cf36dd328ad178555e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,26 +161,31 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
 <tr class="memdesc:a53407496c37967a3186bd136f5620dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to determine if input is valid.  <a href="classUserInput.html#a53407496c37967a3186bd136f5620dd3">More...</a><br /></td></tr>
 <tr class="separator:a53407496c37967a3186bd136f5620dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab04a136fa7f2c6590f230df456776401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#ab04a136fa7f2c6590f230df456776401">launchFunction</a> (<a class="el" href="structCommandParameters.html">CommandParameters</a> &amp;opt)</td></tr>
-<tr class="memdesc:ab04a136fa7f2c6590f230df456776401"><td class="mdescLeft">&#160;</td><td class="mdescRight">launches a function  <a href="classUserInput.html#ab04a136fa7f2c6590f230df456776401">More...</a><br /></td></tr>
-<tr class="separator:ab04a136fa7f2c6590f230df456776401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a948391dba71e2651099e90372c10d3e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a948391dba71e2651099e90372c10d3e2">launchFunction</a> (const <a class="el" href="classCommandConstructor.html">CommandConstructor</a> *parameters)</td></tr>
+<tr class="memdesc:a948391dba71e2651099e90372c10d3e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">launches a function  <a href="classUserInput.html#a948391dba71e2651099e90372c10d3e2">More...</a><br /></td></tr>
+<tr class="separator:a948391dba71e2651099e90372c10d3e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a475f7932364a4ac02aec3e942c24f8bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a475f7932364a4ac02aec3e942c24f8bc">launchLogic</a> (<a class="el" href="classCommandConstructor.html">CommandConstructor</a> *cmd, <a class="el" href="structParameters.html">Parameters</a> &amp;prm, uint8_t *data, size_t len, bool &amp;all_arguments_valid, size_t &amp;data_index, bool &amp;match, bool *input_type_match_flag)</td></tr>
+<tr class="memdesc:a475f7932364a4ac02aec3e942c24f8bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">function launch logic  <a href="classUserInput.html#a475f7932364a4ac02aec3e942c24f8bc">More...</a><br /></td></tr>
+<tr class="separator:a475f7932364a4ac02aec3e942c24f8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d47e15d37bc6fd23ded677fee83d044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a1d47e15d37bc6fd23ded677fee83d044">escapeCharactersSoTheyPrint</a> (const char *input, char *output)</td></tr>
 <tr class="memdesc:a1d47e15d37bc6fd23ded677fee83d044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Escapes control characters so they will print.  <a href="classUserInput.html#a1d47e15d37bc6fd23ded677fee83d044">More...</a><br /></td></tr>
 <tr class="separator:a1d47e15d37bc6fd23ded677fee83d044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a496a5e9703e14f55b2e6a1636d178453"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a496a5e9703e14f55b2e6a1636d178453">combineControlCharacters</a> (char input)</td></tr>
 <tr class="memdesc:a496a5e9703e14f55b2e6a1636d178453"><td class="mdescLeft">&#160;</td><td class="mdescRight">combines backslash and character and into valid control characters  <a href="classUserInput.html#a496a5e9703e14f55b2e6a1636d178453">More...</a><br /></td></tr>
 <tr class="separator:a496a5e9703e14f55b2e6a1636d178453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab954794058cd86ee7c55fc38752039c3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#ab954794058cd86ee7c55fc38752039c3">getArgType</a> (<a class="el" href="structCommandParameters.html">CommandParameters</a> &amp;opt, size_t index=0)</td></tr>
-<tr class="memdesc:ab954794058cd86ee7c55fc38752039c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UITYPE for the argument.  <a href="classUserInput.html#ab954794058cd86ee7c55fc38752039c3">More...</a><br /></td></tr>
-<tr class="separator:ab954794058cd86ee7c55fc38752039c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a8cce7abb91fdf8b8a238cfe84295b4a4">getArgType</a> (<a class="el" href="structParameters.html">Parameters</a> &amp;opt, size_t index=0)</td></tr>
+<tr class="memdesc:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UITYPE equivalent for the argument, internally we use uint8_t.  <a href="classUserInput.html#a8cce7abb91fdf8b8a238cfe84295b4a4">More...</a><br /></td></tr>
+<tr class="separator:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34db0bee5bbcf9c3b942b88785b96cb3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUserInput.html#a34db0bee5bbcf9c3b942b88785b96cb3">getSubcommand</a> (<a class="el" href="structParameters.html">Parameters</a> &amp;prm, <a class="el" href="classCommandConstructor.html">CommandConstructor</a> *cmd, size_t index, size_t tokens, uint8_t &amp;failed_on_subcommand)</td></tr>
+<tr class="separator:a34db0bee5bbcf9c3b942b88785b96cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >User input handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00151">151</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00133">133</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aecce9795b3e026760f90ca211100fc80" name="aecce9795b3e026760f90ca211100fc80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecce9795b3e026760f90ca211100fc80">&#9670;&nbsp;</a></span>UserInput()</h2>
+<a id="ac9017d6b70d00933c3d42f57e52b4471" name="ac9017d6b70d00933c3d42f57e52b4471"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9017d6b70d00933c3d42f57e52b4471">&#9670;&nbsp;</a></span>UserInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,25 +209,25 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>username</em> = <code>NULL</code>, </td>
+          <td class="paramname"><em>username</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>end_of_line_characters</em> = <code>NULL</code>, </td>
+          <td class="paramname"><em>end_of_line_characters</em> = <code>&quot;\r\n&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>token_delimiter</em> = <code>NULL</code>, </td>
+          <td class="paramname"><em>token_delimiter</em> = <code>&quot;&#160;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>c_string_delimiter</em> = <code>NULL</code>&#160;</td>
+          <td class="paramname"><em>c_string_delimiter</em> = <code>&quot;\&quot;&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -251,7 +256,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00172">172</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00154">154</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -341,7 +346,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00374">374</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00438">438</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +385,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00562">562</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00721">721</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -401,7 +406,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 
 <p>lists commands available to the user </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00605">605</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00764">764</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -429,7 +434,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00690">690</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00849">849</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +462,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00711">711</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00870">870</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -481,7 +486,7 @@ $(document).ready(function(){initNavTree('classUserInput.html',''); initResizabl
 <dd>
 false if no output is available </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00716">716</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00875">875</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -505,7 +510,7 @@ false if no output is available </dd></dl>
 <dd>
 false if not enabled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00721">721</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00880">880</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -533,7 +538,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00726">726</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00885">885</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +559,7 @@ false if not enabled </dd></dl>
 
 <p>clears output buffer and puts _string_pos back at 0 </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00735">735</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00894">894</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -615,7 +620,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00059">59</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00061">61</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -663,12 +668,12 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00192">192</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00194">194</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab04a136fa7f2c6590f230df456776401" name="ab04a136fa7f2c6590f230df456776401"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab04a136fa7f2c6590f230df456776401">&#9670;&nbsp;</a></span>launchFunction()</h2>
+<a id="a948391dba71e2651099e90372c10d3e2" name="a948391dba71e2651099e90372c10d3e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a948391dba71e2651099e90372c10d3e2">&#9670;&nbsp;</a></span>launchFunction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,8 +684,8 @@ false if not enabled </dd></dl>
         <tr>
           <td class="memname">void UserInput::launchFunction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structCommandParameters.html">CommandParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>opt</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classCommandConstructor.html">CommandConstructor</a> *&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -699,7 +704,96 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00347">347</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00349">349</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a475f7932364a4ac02aec3e942c24f8bc" name="a475f7932364a4ac02aec3e942c24f8bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a475f7932364a4ac02aec3e942c24f8bc">&#9670;&nbsp;</a></span>launchLogic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserInput::launchLogic </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCommandConstructor.html">CommandConstructor</a> *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structParameters.html">Parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>prm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>all_arguments_valid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>data_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>match</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>input_type_match_flag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>function launch logic </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td><a class="el" href="classCommandConstructor.html" title="user command constructor">CommandConstructor</a> ptr </td></tr>
+    <tr><td class="paramname">prm</td><td><a class="el" href="structParameters.html" title="Parameters struct.">Parameters</a> reference </td></tr>
+    <tr><td class="paramname">data</td><td>uint8_t array ptr </td></tr>
+    <tr><td class="paramname">len</td><td>size_t array length </td></tr>
+    <tr><td class="paramname">all_arguments_valid</td><td>boolean array </td></tr>
+    <tr><td class="paramname">data_index</td><td>size_t array index </td></tr>
+    <tr><td class="paramname">match</td><td>boolean command match flag </td></tr>
+    <tr><td class="paramname">input_type_match_flag</td><td>boolean type match flag array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00376">376</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -746,7 +840,7 @@ false if not enabled </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00626">626</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00785">785</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
@@ -783,12 +877,12 @@ false if not enabled </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the control character char value ie '\r' </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00665">665</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00824">824</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab954794058cd86ee7c55fc38752039c3" name="ab954794058cd86ee7c55fc38752039c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab954794058cd86ee7c55fc38752039c3">&#9670;&nbsp;</a></span>getArgType()</h2>
+<a id="a8cce7abb91fdf8b8a238cfe84295b4a4" name="a8cce7abb91fdf8b8a238cfe84295b4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cce7abb91fdf8b8a238cfe84295b4a4">&#9670;&nbsp;</a></span>getArgType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -799,7 +893,7 @@ false if not enabled </dd></dl>
         <tr>
           <td class="memname">uint8_t UserInput::getArgType </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structCommandParameters.html">CommandParameters</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structParameters.html">Parameters</a> &amp;&#160;</td>
           <td class="paramname"><em>opt</em>, </td>
         </tr>
         <tr>
@@ -821,7 +915,7 @@ false if not enabled </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Get the UITYPE for the argument. </p>
+<p>Get the UITYPE equivalent for the argument, internally we use uint8_t. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">opt</td><td>command options structure reference </td></tr>
@@ -831,7 +925,63 @@ false if not enabled </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t argument type </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00749">749</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00908">908</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a34db0bee5bbcf9c3b942b88785b96cb3" name="a34db0bee5bbcf9c3b942b88785b96cb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34db0bee5bbcf9c3b942b88785b96cb3">&#9670;&nbsp;</a></span>getSubcommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UserInput::getSubcommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structParameters.html">Parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>prm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classCommandConstructor.html">CommandConstructor</a> *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>tokens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;&#160;</td>
+          <td class="paramname"><em>failed_on_subcommand</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8cpp_source.html#l00706">706</a> of file <a class="el" href="InputHandler_8cpp_source.html">InputHandler.cpp</a>.</p>
 
 </div>
 </div>

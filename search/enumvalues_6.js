@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['no_5fargs_0',['NO_ARGS',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716',1,'InputHandler.h']]],
-  ['no_5farguments_1',['no_arguments',['../group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a',1,'InputHandler.h']]],
-  ['notype_2',['NOTYPE',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]]
+  ['single_5ftype_5fargument_0',['single_type_argument',['../group__UserInput.html#gga0f773afec48d433e5613c754cc1d767caf4f8271470ef269d7f2cb2475dd79674',1,'InputHandler.h']]]
 ];

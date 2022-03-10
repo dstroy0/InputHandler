@@ -132,7 +132,7 @@ InputHandler</h1>
 </div><!-- fragment --><p >Easily enforce input argument types: <br  />
 </p>
 <div class="fragment"><div class="line"><span class="comment">// no arguments</span></div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line"><span class="keyword">const</span> CommandParameters your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
 <div class="line">{</div>
 <div class="line">  your_function, <span class="comment">// function name</span></div>
 <div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,     <span class="comment">// command string</span></div>
@@ -149,12 +149,12 @@ InputHandler</h1>
 <div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// single argument type</span></div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line"><span class="keyword">const</span> CommandParameters your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
 <div class="line">{</div>
 <div class="line">  your_function,          <span class="comment">// function name</span></div>
 <div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,              <span class="comment">// command string</span></div>
 <div class="line">  7,                      <span class="comment">// command string characters</span></div>
-<div class="line">  <a class="code hl_enumvalue" href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284">single_type_arguments</a>,  <span class="comment">// argument handling</span></div>
+<div class="line">  single_type_arguments,  <span class="comment">// argument handling</span></div>
 <div class="line">  0,                      <span class="comment">// expected number of arguments</span></div>
 <div class="line">  <span class="comment">/*</span></div>
 <div class="line"><span class="comment">    UITYPE arguments</span></div>
@@ -167,7 +167,7 @@ InputHandler</h1>
 <div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// argument array</span></div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structCommandParameters.html">CommandParameters</a> your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
+<div class="line"><span class="keyword">const</span> CommandParameters your_command_parameters <a class="code hl_variable" href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a> =</div>
 <div class="line">{</div>
 <div class="line">  your_function,       <span class="comment">// function name</span></div>
 <div class="line">  <span class="stringliteral">&quot;cmd_str&quot;</span>,           <span class="comment">// command string</span></div>
@@ -189,11 +189,10 @@ InputHandler</h1>
 <div class="line">  }</div>
 <div class="line">};</div>
 <div class="line"><a class="code hl_class" href="classCommandConstructor.html">CommandConstructor</a> your_command(&amp;your_command_parameters);                       </div>
-<div class="ttc" id="aclassCommandConstructor_html"><div class="ttname"><a href="classCommandConstructor.html">CommandConstructor</a></div><div class="ttdoc">user command constructor</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00127">InputHandler.h:128</a></div></div>
-<div class="ttc" id="agroup__UserInput_html_ga1943a60796d4c52f28b31d9875336e38"><div class="ttname"><a href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a></div><div class="ttdeci">const char ui_defaults_progmem_ptr[8][UI_DEFAULT_STRINGS_MAX_LEN] PROGMEM</div><div class="ttdoc">default constructor string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00044">InputHandler.h:44</a></div></div>
-<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284">single_type_arguments</a></div><div class="ttdeci">@ single_type_arguments</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00097">InputHandler.h:97</a></div></div>
-<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a">no_arguments</a></div><div class="ttdeci">@ no_arguments</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00096">InputHandler.h:96</a></div></div>
-<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013">argument_type_array</a></div><div class="ttdeci">@ argument_type_array</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00099">InputHandler.h:98</a></div></div>
+<div class="ttc" id="aclassCommandConstructor_html"><div class="ttname"><a href="classCommandConstructor.html">CommandConstructor</a></div><div class="ttdoc">user command constructor</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00102">InputHandler.h:103</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_ga1943a60796d4c52f28b31d9875336e38"><div class="ttname"><a href="group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38">PROGMEM</a></div><div class="ttdeci">const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM</div><div class="ttdoc">type string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00049">InputHandler.h:49</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a">no_arguments</a></div><div class="ttdeci">@ no_arguments</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00069">InputHandler.h:69</a></div></div>
+<div class="ttc" id="agroup__UserInput_html_gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013"><div class="ttname"><a href="group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013">argument_type_array</a></div><div class="ttdeci">@ argument_type_array</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00072">InputHandler.h:71</a></div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a></div><div class="ttdeci">@ CHAR</div><div class="ttdoc">ui_input_type_strings[5]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a></div><div class="ttdeci">@ NOTYPE</div><div class="ttdoc">ui_input_type_strings[7]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca">UITYPE::UINT8_T</a></div><div class="ttdeci">@ UINT8_T</div><div class="ttdoc">ui_input_type_strings[0]</div></div>
@@ -203,7 +202,6 @@ InputHandler</h1>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe">UITYPE::UINT16_T</a></div><div class="ttdeci">@ UINT16_T</div><div class="ttdoc">ui_input_type_strings[1]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">UITYPE::NO_ARGS</a></div><div class="ttdeci">@ NO_ARGS</div><div class="ttdoc">ui_input_type_strings[8]</div></div>
 <div class="ttc" id="agroup__UserInput_html_gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6"><div class="ttname"><a href="group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a></div><div class="ttdeci">@ FLOAT</div><div class="ttdoc">ui_input_type_strings[4]</div></div>
-<div class="ttc" id="astructCommandParameters_html"><div class="ttname"><a href="structCommandParameters.html">CommandParameters</a></div><div class="ttdoc">command parameters structure</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00111">InputHandler.h:112</a></div></div>
 </div><!-- fragment --><p ><code>NOTYPE</code> is a special argument type that doesn't perform any type-validation. <br  />
  <code>NO_ARGS</code> is a special argument type that explicitly states you wish to pass no arguments. <br  />
 </p>

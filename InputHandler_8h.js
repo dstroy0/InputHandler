@@ -2,13 +2,6 @@ var InputHandler_8h =
 [
     [ "CommandConstructor", "classCommandConstructor.html", "classCommandConstructor" ],
     [ "UserInput", "classUserInput.html", "classUserInput" ],
-    [ "UI_PROGMEM_DEFAULTS_ENUM", "group__UserInput.html#ga85e7eeb0bdd4436bf4ac3ff5e179c73a", [
-      [ "username_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa6987811024e3cc2d99d000be42e00e30", null ],
-      [ "eol_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa609291c368d5999d30c2671d11813c79", null ],
-      [ "t_delim_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa19085ce12bc0507d9972232f4863baea", null ],
-      [ "c_delim_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aa3839ac587168aebc15f28378f3d803a5", null ],
-      [ "err_e", "group__UserInput.html#gga85e7eeb0bdd4436bf4ac3ff5e179c73aabd3db70cd7be5131e82ace95971429a2", null ]
-    ] ],
     [ "UITYPE", "group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UINT8_T", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],
       [ "UINT16_T", "group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe", null ],
@@ -23,7 +16,7 @@ var InputHandler_8h =
     ] ],
     [ "UI_ARGUMENT_FLAG_ENUM", "group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c", [
       [ "no_arguments", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a", null ],
-      [ "single_type_arguments", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca6243582f78907b73d952cc13f0ebe284", null ],
+      [ "single_type_argument", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767caf4f8271470ef269d7f2cb2475dd79674", null ],
       [ "argument_type_array", "group__UserInput.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013", null ]
     ] ],
     [ "PROGMEM", "group__UserInput.html#ga1943a60796d4c52f28b31d9875336e38", null ]

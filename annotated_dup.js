@@ -1,6 +1,6 @@
 var annotated_dup =
 [
     [ "CommandConstructor", "classCommandConstructor.html", "classCommandConstructor" ],
-    [ "CommandParameters", "structCommandParameters.html", "structCommandParameters" ],
+    [ "Parameters", "structParameters.html", "structParameters" ],
     [ "UserInput", "classUserInput.html", "classUserInput" ]
 ];

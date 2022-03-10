@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['command_0',['command',['../structCommandParameters.html#a76f08e6055cd5d6cb9fd2ab6b95dd42b',1,'CommandParameters']]],
-  ['command_5flength_1',['command_length',['../structCommandParameters.html#a6361c8cf9606ebed72416cc222dba06a',1,'CommandParameters']]]
+  ['command_0',['command',['../structParameters.html#a585c883f76d1e64a106f1ff790faa063',1,'Parameters']]],
+  ['command_5flength_1',['command_length',['../structParameters.html#aa5cdae10169c1ffea5ca38b74043220b',1,'Parameters']]]
 ];

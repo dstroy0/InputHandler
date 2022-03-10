@@ -126,24 +126,28 @@ Collaboration diagram for CommandConstructor:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2627a66759187d7151fb8ed2937b8f5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a2627a66759187d7151fb8ed2937b8f5e">CommandConstructor</a> (const <a class="el" href="structCommandParameters.html">CommandParameters</a> *options)</td></tr>
-<tr class="memdesc:a2627a66759187d7151fb8ed2937b8f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classCommandConstructor.html" title="user command constructor">CommandConstructor</a> Constructor.  <a href="classCommandConstructor.html#a2627a66759187d7151fb8ed2937b8f5e">More...</a><br /></td></tr>
-<tr class="separator:a2627a66759187d7151fb8ed2937b8f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3d8461e25bff9120ef9866a4a50f41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#afb3d8461e25bff9120ef9866a4a50f41">CommandConstructor</a> (void(*func)(<a class="el" href="classUserInput.html">UserInput</a> *), const <a class="el" href="structParameters.html">Parameters</a> *parameters, const uint8_t tree_depth=0)</td></tr>
+<tr class="memdesc:afb3d8461e25bff9120ef9866a4a50f41"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classCommandConstructor.html" title="user command constructor">CommandConstructor</a> Constructor.  <a href="classCommandConstructor.html#afb3d8461e25bff9120ef9866a4a50f41">More...</a><br /></td></tr>
+<tr class="separator:afb3d8461e25bff9120ef9866a4a50f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7efc49ecfee0b84a881ad8a39c6f9deb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCommandParameters.html">CommandParameters</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a7efc49ecfee0b84a881ad8a39c6f9deb">opt</a></td></tr>
-<tr class="separator:a7efc49ecfee0b84a881ad8a39c6f9deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e21e22d02625f7d167f6cc37efdd57"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a27e21e22d02625f7d167f6cc37efdd57">function</a> )(<a class="el" href="classUserInput.html">UserInput</a> *)</td></tr>
+<tr class="separator:a27e21e22d02625f7d167f6cc37efdd57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f5e0ca68674b1a7a6b28d0ac4df69a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structParameters.html">Parameters</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a36f5e0ca68674b1a7a6b28d0ac4df69a">prm</a></td></tr>
+<tr class="separator:a36f5e0ca68674b1a7a6b28d0ac4df69a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16849bc884519f44375104442b7456f1"><td class="memItemLeft" align="right" valign="top">const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a16849bc884519f44375104442b7456f1">_tree_depth</a></td></tr>
+<tr class="separator:a16849bc884519f44375104442b7456f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a317a2d10dedc039ae33d3c26c3a4e104"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCommandConstructor.html">CommandConstructor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommandConstructor.html#a317a2d10dedc039ae33d3c26c3a4e104">next_command_parameters</a></td></tr>
 <tr class="separator:a317a2d10dedc039ae33d3c26c3a4e104"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >user command constructor </p>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00127">127</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00102">102</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2627a66759187d7151fb8ed2937b8f5e" name="a2627a66759187d7151fb8ed2937b8f5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2627a66759187d7151fb8ed2937b8f5e">&#9670;&nbsp;</a></span>CommandConstructor()</h2>
+<a id="afb3d8461e25bff9120ef9866a4a50f41" name="afb3d8461e25bff9120ef9866a4a50f41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb3d8461e25bff9120ef9866a4a50f41">&#9670;&nbsp;</a></span>CommandConstructor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,9 +158,25 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">CommandConstructor::CommandConstructor </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structCommandParameters.html">CommandParameters</a> *&#160;</td>
-          <td class="paramname"><em>options</em></td><td>)</td>
+          <td class="paramtype">void(*)(<a class="el" href="classUserInput.html">UserInput</a> *)&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="structParameters.html">Parameters</a> *&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>tree_depth</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -168,31 +188,67 @@ Public Attributes</h2></td></tr>
 
 <p><a class="el" href="classCommandConstructor.html" title="user command constructor">CommandConstructor</a> Constructor. </p>
 <p >Creates a new instance of this class. <br  />
- Before using, construct a <a class="el" href="classUserInput.html" title="User input handler.">UserInput</a> object and a <a class="el" href="structCommandParameters.html" title="command parameters structure">CommandParameters</a> object. </p><dl class="params"><dt>Parameters</dt><dd>
+ Before using, construct a <a class="el" href="classUserInput.html" title="User input handler.">UserInput</a> object and a CommandParameters object. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">options</td><td>A pointer to the command options structure </td></tr>
+    <tr><td class="paramname">func</td><td>pointer to a function <br  />
+ </td></tr>
+    <tr><td class="paramname">parameters</td><td>pointer to parameters struct or array of parameters structs </td></tr>
+    <tr><td class="paramname">subcommands</td><td>number of subcommands </td></tr>
+    <tr><td class="paramname">tree_depth</td><td>depth of command tree </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00138">138</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00115">115</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7efc49ecfee0b84a881ad8a39c6f9deb" name="a7efc49ecfee0b84a881ad8a39c6f9deb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efc49ecfee0b84a881ad8a39c6f9deb">&#9670;&nbsp;</a></span>opt</h2>
+<a id="a27e21e22d02625f7d167f6cc37efdd57" name="a27e21e22d02625f7d167f6cc37efdd57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e21e22d02625f7d167f6cc37efdd57">&#9670;&nbsp;</a></span>function</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structCommandParameters.html">CommandParameters</a>* CommandConstructor::opt</td>
+          <td class="memname">void(* CommandConstructor::function) (<a class="el" href="classUserInput.html">UserInput</a> *)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00144">144</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00124">124</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+
+</div>
+</div>
+<a id="a36f5e0ca68674b1a7a6b28d0ac4df69a" name="a36f5e0ca68674b1a7a6b28d0ac4df69a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f5e0ca68674b1a7a6b28d0ac4df69a">&#9670;&nbsp;</a></span>prm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structParameters.html">Parameters</a>* CommandConstructor::prm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00125">125</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+
+</div>
+</div>
+<a id="a16849bc884519f44375104442b7456f1" name="a16849bc884519f44375104442b7456f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16849bc884519f44375104442b7456f1">&#9670;&nbsp;</a></span>_tree_depth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t CommandConstructor::_tree_depth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00126">126</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
@@ -208,7 +264,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00145">145</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00127">127</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
