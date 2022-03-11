@@ -436,33 +436,45 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     }
 
     // subcommand search
-    uint8_t failed_on_subcommand = 0;
+    failed_on_subcommand = 0;
     bool subcommand_matched = false;
-    for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
+    if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1    
     {
         // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
         {
             memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
             failed_on_subcommand = j;
-            if (prm.depth == i)
+            if (prm.depth == _current_search_depth)
             {
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
-                 //subcommand matched
-                 subcommand_matched = true;
-                 
-                 //if there are no subcommands                     
-                    //launchLogic()
-
-                 //if there are possibly subcommands and tokens_received > 0
-                    //data_pointers_index++
-                    //tokens_received--;
-                    //launchLogic()
+                    // subcommand matched
+                    tokens_received--; // subtract subcommand from tokens received
+                    subcommand_matched = true; // subcommand matched                   
                 }
             }
         }
+        _current_search_depth++;
     } // end subcommand search
+    
+    // error
+    if (_current_search_depth > (cmd->_tree_depth))
+    {
+        _current_search_depth--;
+        return;
+    }
+
+    // recursion
+    if (subcommand_matched == true)
+    {
+        launchLogic(cmd,
+                    prm,
+                    tokens_received,
+                    all_arguments_valid,
+                    match,
+                    input_type_match_flag);
+    }
 }
 
 void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
@@ -543,9 +555,10 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
-            data_pointers_index = 1;
-            tokens_received--;      // subtract root command from remaining tokens
-            command_matched = true; // root command matched
+            _current_search_depth = 1;  // start searching for subcommands at depth 1
+            data_pointers_index++;      // incrementing points to the token after the root command
+            tokens_received--;          // subtract root command from remaining tokens
+            command_matched = true;     // root command matched
             // see if command has any subcommands, validate input types, try to launch function
             launchLogic(cmd, 
                         prm, 
