@@ -373,14 +373,19 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
 
 void UserInput::launchLogic(CommandConstructor *cmd,
                             Parameters &prm,
-                            size_t tokens_received,                                                        
-                            bool &all_arguments_valid,                            
+                            size_t tokens_received,
+                            bool &all_arguments_valid,
                             bool &match,
                             bool *input_type_match_flag)
 {
-    if (tokens_received == 0 
-        && prm.num_args == 0 
-        && prm.max_num_args == 0) // command with no arguments
+    // error
+    if (tokens_received > 0 && prm.sub_commands == 0 && prm.max_num_args == 0)
+    {
+        return;
+    }
+
+    // command with no arguments, potentially has subcommands but none were entered
+    if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
         #if defined(_DEBUG_USER_INPUT)
         if (UserInput::OutputIsEnabled())
@@ -396,17 +401,23 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         launchFunction(cmd); // launch the matched command
         return;
     }
-    else if (prm.num_args > 0 || prm.max_num_args > 0) // command has arguments
+
+    // command with arguments and no subcommands (max depth)
+    if (tokens_received > 0 && prm.max_num_args > 0 && prm.sub_commands == 0)
     {
+        rec_num_arg_strings = 0; // number of tokens read from data
         for (size_t i = 0; i < tokens_received; ++i)
         {
             input_type_match_flag[i] = validateUserInput(UserInput::getArgType(prm, i), data_pointers_index - 1); // validate the token
-            if (input_type_match_flag[i] == false)                                                                                  // if the token was not valid input
+            rec_num_arg_strings++;
+            if (input_type_match_flag[i] == false) // if the token was not valid input
             {
                 all_arguments_valid = false; // set the error sentinel to true
-            }            
+            }
         }
-        if (tokens_received >= prm.num_args && rec_num_arg_strings <= prm.max_num_args && all_arguments_valid == true) //  if we received at least min and less than max arguments
+
+        //  if we received at least min and less than max arguments and they are valid
+        if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
             #if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
@@ -422,6 +433,28 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             launchFunction(cmd); // launch the matched command
         }
     }
+
+    // subcommand search
+    // for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
+    // {
+    //     // this index starts at one because the parameter array's first element will be the root command
+    //     for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
+    //     {
+    //         memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
+    //         failed_on_subcommand = j;
+    //         if (prm.depth == i)
+    //         {
+    //             if (strcmp(data_pointers[subcommand_tokens], prm.command) == 0)
+    //             {
+    //                 if (prm.sub_commands == 0) // if there are no subcommands
+    //                 {                          // try to launch the target function
+
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // } // end subcommand search
 }
 
 void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
@@ -454,14 +487,12 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
-    uint8_t subcommand_tokens = 0;
     uint8_t tokens_received = 0;
     size_t data_index = 0;            // data iterator
     data_pointers_index = 0;          // token buffer pointers
     rec_num_arg_strings = 0;          // number of tokens read from data
     bool match = false;               // command string match
-    bool command_matched = false;     // error sentinel
-    bool subcommand_matched = false;  // error sentinel
+    bool command_matched = false;     // error sentinel    
     uint8_t failed_on_subcommand = 0; // error index
     CommandConstructor *cmd;          // command parameters pointer
     Parameters prm;                   // Parameters struct
@@ -478,11 +509,11 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         if (tokens_received == (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1)) // while sentinel
             break;
     }
-    
+
     // error condition
     if (tokens_received == 0)
     {
-        if (UserInput::OutputIsEnabled() && len > 0)
+        if (UserInput::OutputIsEnabled())
         {
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
                                          PSTR(">%s $ERROR: No tokens retrieved.\n"),
@@ -499,11 +530,12 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
     {
-        // &(cmd->prm[0]) points to the first parameters struct for this command
+        // &(cmd->prm[0]) points to the first parameters struct for this cmd
         memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
+            tokens_received--;      // subtract base command from remaining tokens
             command_matched = true; // base command matched
             // try to launch target function
             launchLogic(cmd, 
@@ -514,7 +546,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         input_type_match_flag);            
             break;
         } // end regular command logic
-
     } // end base command for loop
 
     if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
