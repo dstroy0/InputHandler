@@ -66,7 +66,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     {
         if (got_token == true)
         {
-            #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
             {
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -74,11 +74,11 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                                              _username_);
                 _output_flag = true;
             }
-            #endif
+#endif
             break;
         }
         incoming = (char)data[*data_index];
-        #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
         if (UserInput::OutputIsEnabled())
         {
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -88,7 +88,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                                          (uint16_t)*data_index);
             _output_flag = true;
         }
-        #endif
+#endif
         //  remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
         //  replace delimiter
         if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
@@ -119,7 +119,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                         data_pointers_index++;                                           //  increment pointer index
                         point_to_beginning_of_c_string = false;                          //  only set one pointer per c-string
                         got_token = true;
-                        #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
                         if (UserInput::OutputIsEnabled())
                         {
                             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -127,7 +127,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                                                          _username_);
                             _output_flag = true;
                         }
-                        #endif
+#endif
                     }
                     (*data_index)++; // increment the tokenized string index
                 }
@@ -154,7 +154,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
             }
             else
             {
-                #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
                 if (UserInput::OutputIsEnabled())
                 {
                     _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -162,14 +162,14 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                                                  _username_);
                     _output_flag = true;
                 }
-                #endif
+#endif
                 got_token = true;
             }
             token_flag[1] = token_flag[0]; // track the state
         }
         if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
         {
-            #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
             {
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -177,7 +177,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                                              _username_);
                 _output_flag = true;
             }
-            #endif
+#endif
             got_token = true;
         }
 
@@ -387,7 +387,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // command with no arguments, potentially has subcommands but none were entered
     if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
-        #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
         if (UserInput::OutputIsEnabled())
         {
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -396,7 +396,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                                          cmd->command);
             _output_flag = true;
         }
-        #endif
+#endif
         match = true;        // don't run default callback
         launchFunction(cmd); // launch the matched command
         return;
@@ -419,7 +419,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         //  if we received at least min and less than max arguments and they are valid
         if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
-            #if defined(_DEBUG_USER_INPUT)
+#if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
             {
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -428,7 +428,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                                              cmd->command);
                 _output_flag = true;
             }
-            #endif
+#endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
             return;
@@ -438,7 +438,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // subcommand search
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
-    if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1    
+    if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
@@ -450,14 +450,14 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
                     // subcommand matched
-                    tokens_received--; // subtract subcommand from tokens received
-                    subcommand_matched = true; // subcommand matched                   
+                    tokens_received--;         // subtract subcommand from tokens received
+                    subcommand_matched = true; // subcommand matched
                 }
             }
         }
         _current_search_depth++;
     } // end subcommand search
-    
+
     // error
     if (_current_search_depth > (cmd->_tree_depth))
     {
@@ -512,7 +512,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     data_pointers_index = 0;          // token buffer pointers
     rec_num_arg_strings = 0;          // number of tokens read from data
     bool match = false;               // command string match
-    bool command_matched = false;     // error sentinel    
+    bool command_matched = false;     // error sentinel
     uint8_t failed_on_subcommand = 0; // error index
     CommandConstructor *cmd;          // command parameters pointer
     Parameters prm;                   // Parameters struct
@@ -522,14 +522,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
         char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
     */
-    while ((getToken(token_buffer, data, len, &data_index) == true)                 // if there was a token
-           && (tokens_received < (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1))) // and we've received less than the maximum
-    {
+    while ((getToken(token_buffer, data, len, &data_index) == true) // if there was a token
+           && (tokens_received < (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1)))
+    {        
         tokens_received++;                                                       // increment tokens_received
         if (tokens_received == (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1)) // while sentinel
+        {
             break;
+        }
     }
-
     // error condition
     if (tokens_received == 0)
     {
@@ -555,20 +556,20 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
-            _current_search_depth = 1;  // start searching for subcommands at depth 1
-            data_pointers_index++;      // incrementing points to the token after the root command
-            tokens_received--;          // subtract root command from remaining tokens
-            command_matched = true;     // root command matched
+            _current_search_depth = 1; // start searching for subcommands at depth 1
+            data_pointers_index++;     // incrementing points to the token after the root command
+            tokens_received--;         // subtract root command from remaining tokens
+            command_matched = true;    // root command matched
             // see if command has any subcommands, validate input types, try to launch function
-            launchLogic(cmd,                     // CommandConstructor pointer, contains target function pointer
-                        prm,                     // ReadCommandFromBuffer Parameters structure reference
-                        tokens_received,         // how many tokens were retrieved
-                        all_arguments_valid,     // type error sentinel
-                        match,                   // function launch sentinel
-                        input_type_match_flag);  // type error flag array          
-            break;  // break command iterator for loop
-        } // end command logic
-    } // end root command for loop
+            launchLogic(cmd,                    // CommandConstructor pointer, contains target function pointer
+                        prm,                    // ReadCommandFromBuffer Parameters structure reference
+                        tokens_received,        // how many tokens were retrieved
+                        all_arguments_valid,    // type error sentinel
+                        match,                  // function launch sentinel
+                        input_type_match_flag); // type error flag array
+            break;                              // break command iterator for loop
+        }                                       // end command logic
+    }                                           // end root command for loop
 
     if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
     {
@@ -714,7 +715,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         }
         (*default_function_)(this); // run the default function
     }
-    
+
     delete[] token_buffer;
 }
 
@@ -735,24 +736,32 @@ void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
             return;
         }
         stream_buffer_allocated = true;
+        _term_index_ = 0;
     }
     char *rc = (char *)stream_data; // point rc to allocated memory
-
+    size_t _term_len_ = strlen(_term_);
     while (stream.available() > 0 && new_stream_data == false)
-    {
+    {        
         rc[stream_data_index] = stream.read();
-        if (rc[stream_data_index] == _term_[0] || rc[stream_data_index] == _term_[1])
-        {
-            stream_data[stream_data_index] = '\0';
-            new_stream_data = true;
+        if (rc[stream_data_index] == _term_[_term_index_])
+        {        
+            stream_data[stream_data_index] = _null_;
+            if (_term_index_ < _term_len_)
+            {                           
+                _term_index_++;                
+            }            
+            if (_term_index_ == _term_len_)
+            {               
+                new_stream_data = true;
+            }
         }
-        else if (stream_data_index < (rx_buffer_size - 1))
+        if (stream_data_index < rx_buffer_size)
         {
             stream_data_index++;
         }
     }
     if (new_stream_data == true)
-    {
+    {        
         UserInput::ReadCommandFromBuffer(stream_data, stream_data_index);
         stream_data_index = 0;
         new_stream_data = false;
@@ -813,7 +822,7 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
         case '\"':
             strcat_P(output, PSTR("\\\""));
             break;
-        default:            
+        default:
             strcat(output, input);
             break;
         }

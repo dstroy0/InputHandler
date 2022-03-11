@@ -365,6 +365,7 @@ private:
     bool new_stream_data = false;         // if there is new data in *stream_data this is true
     uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
     uint16_t stream_data_index = 0;       // the index of stream_data
+    size_t _term_index_ = 0;
 };
 
 #endif
