@@ -436,26 +436,31 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     }
 
     // subcommand search
-    // for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
-    // {
-    //     // this index starts at one because the parameter array's first element will be the root command
-    //     for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
-    //     {
-    //         memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
-    //         failed_on_subcommand = j;
-    //         if (prm.depth == i)
-    //         {
-    //             if (strcmp(data_pointers[subcommand_tokens], prm.command) == 0)
-    //             {
-    //                 if (prm.sub_commands == 0) // if there are no subcommands
-    //                 {                          // try to launch the target function
+    uint8_t failed_on_subcommand = 0;
+    for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
+    {
+        // this index starts at one because the parameter array's first element will be the root command
+        for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
+        {
+            memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
+            failed_on_subcommand = j;
+            if (prm.depth == i)
+            {
+                if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
+                {
+                 //subcommand matched
+                 
+                 //if there are no subcommands                     
+                    //launchLogic()
 
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // } // end subcommand search
+                 //if there are possibly subcommands and tokens_received > 0
+                    //data_pointers_index++
+                    //tokens_received--;
+                    //launchLogic()
+                }
+            }
+        }
+    } // end subcommand search
 }
 
 void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
@@ -536,6 +541,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
+            data_pointers_index = 1;
             tokens_received--;      // subtract root command from remaining tokens
             command_matched = true; // root command matched
             // see if command has any subcommands, validate input types, try to launch function
@@ -715,7 +721,7 @@ void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
         }
         stream_buffer_allocated = true;
     }
-    char *rc = (char *)stream_data;
+    char *rc = (char *)stream_data; // point rc to allocated memory
 
     while (stream.available() > 0 && new_stream_data == false)
     {
@@ -792,9 +798,8 @@ void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
         case '\"':
             strcat_P(output, PSTR("\\\""));
             break;
-        default:
-            if (i == len)
-                strcat(output, input);
+        default:            
+            strcat(output, input);
             break;
         }
     }
@@ -829,7 +834,7 @@ void UserInput::ListSettings(UserInput *inputprocess)
 {
     if (UserInput::OutputIsEnabled())
     {
-        char temp_settings[3][13] = {'\0'};
+        char temp_settings[3][8] = {'\0'};
         inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
         inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
         inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
@@ -878,7 +883,7 @@ void UserInput::ClearOutputBuffer()
         //  this maybe doesnt need to be done
         for (uint16_t i = 0; i < _output_buffer_len; ++i)
         {
-            _output_buffer[i] = '\0'; // reinit output_buffer
+            _output_buffer[i] = _null_; // reinit output_buffer
         }
     }
     _output_flag = false;
