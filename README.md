@@ -6,7 +6,7 @@
 # InputHandler
 
 Arduino user input handler:  
-Executes arbitrary functions by matching user input command strings.  
+Executes arbitrary functions by matching user input command strings.  Feature rich, low memory use.  Each CommandConstructor uses 8 bytes of RAM.  
 
 Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
 
@@ -16,6 +16,7 @@ A command string looks like:
 
 ```text
 your_command arg1 arg... "c-string args can have spaces and are enclosed with quotes"
+your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...
 ```
 
 The classes' input methods are:  
@@ -30,34 +31,37 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-Easily enforce input argument types:  
+Easily enforce input argument types and construct complex commands with subcommands:  
 
 ```cpp
 // no arguments
-const CommandParameters your_command_parameters PROGMEM =
-{
-  your_function, // function name
-  "cmd_str",     // command string
-  7,             // command string characters
-  no_arguments,  // argument handling
-  0,             // expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
+const Parameters your_command_parameters PROGMEM =
+{  
+    0,            // command depth (0 is root command)
+    0,            // subcommands
+    "cmd_str",    // command string
+    7,            // command string characters
+    no_arguments, // argument handling
+    0,            // minimum expected number of arguments
+    0,            // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
 };
-CommandConstructor your_command(&your_command_parameters);
+CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
 
 // single argument type
-const CommandParameters your_command_parameters PROGMEM =
+const Parameters your_command_parameters PROGMEM =
 {
-  your_function,          // function name
+  0,                      // command depth (0 is root command)
+  0,                      // subcommands   
   "cmd_str",              // command string
   7,                      // command string characters
   single_type_arguments,  // argument handling
-  0,                      // expected number of arguments
+  1,                      // expected number of arguments
   /*
     UITYPE arguments
   */
@@ -66,12 +70,13 @@ const CommandParameters your_command_parameters PROGMEM =
     UITYPE::NOTYPE; // accept anything
   }
 };
-CommandConstructor your_command(&your_command_parameters);
+CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
 
 // argument array
 const CommandParameters your_command_parameters PROGMEM =
 {
-  your_function,       // function name
+  0,                   // command depth (0 is root command)
+  0,                   // subcommands 
   "cmd_str",           // command string
   7,                   // command string length
   argument_type_array, // argument handling 
@@ -90,8 +95,58 @@ const CommandParameters your_command_parameters PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor your_command(&your_command_parameters);                       
+CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
+
+// nested parameters
+const CommandParameters your_command_parameters[2] PROGMEM =
+    {
+        {
+            0,                   // command depth (0 is root command)
+         1,                   // subcommands
+         "base_cmd_str",      // command string
+         7,                   // command string length
+         argument_type_array, // argument handling
+         8,                   // expected number of arguments (set to zero if no arguments)
+         /*
+           UITYPE arguments, fill with arguments you want to send in order
+         */
+         {
+             UITYPE::UINT8_T,  // 8-bit  uint
+             UITYPE::UINT16_T, // 16-bit uint
+             UITYPE::UINT32_T, // 32-bit uint
+             UITYPE::INT16_T,  // 16-bit int
+             UITYPE::FLOAT,    // 32-bit float
+             UITYPE::CHAR,     // char
+             UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+             UITYPE::NOTYPE    // special type, no type validation performed
+         }
+        },
+        {
+         1,                   // command depth (0 is root command)
+         0,                   // subcommands
+         "sub_cmd_str",       // command string
+         7,                   // command string length
+         argument_type_array, // argument handling
+         8,                   // expected number of arguments (set to zero if no arguments)
+         /*
+           UITYPE arguments, fill with arguments you want to send in order
+         */
+         {
+             UITYPE::UINT8_T,  // 8-bit  uint
+             UITYPE::UINT16_T, // 16-bit uint
+             UITYPE::UINT32_T, // 32-bit uint
+             UITYPE::INT16_T,  // 16-bit int
+             UITYPE::FLOAT,    // 32-bit float
+             UITYPE::CHAR,     // char
+             UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+             UITYPE::NOTYPE    // special type, no type validation performed
+         }
+        }
+    };
+
 ```
+
+Each call to CommandConstructor uses 8 bytes of RAM.  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
 
 `NOTYPE` is a special argument type that doesn't perform any type-validation.  
 `NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
