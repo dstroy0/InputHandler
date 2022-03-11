@@ -431,6 +431,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
+            return;
         }
     }
 
@@ -535,9 +536,9 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
-            tokens_received--;      // subtract base command from remaining tokens
-            command_matched = true; // base command matched
-            // try to launch target function
+            tokens_received--;      // subtract root command from remaining tokens
+            command_matched = true; // root command matched
+            // see if command has any subcommands, validate input types, try to launch function
             launchLogic(cmd, 
                         prm, 
                         tokens_received,
@@ -545,8 +546,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         match,
                         input_type_match_flag);            
             break;
-        } // end regular command logic
-    } // end base command for loop
+        } // end command logic
+    } // end root command for loop
 
     if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
     {
