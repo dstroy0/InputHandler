@@ -437,6 +437,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
 
     // subcommand search
     uint8_t failed_on_subcommand = 0;
+    bool subcommand_matched = false;
     for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
@@ -449,6 +450,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
                  //subcommand matched
+                 subcommand_matched = true;
                  
                  //if there are no subcommands                     
                     //launchLogic()
