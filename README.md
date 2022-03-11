@@ -61,7 +61,8 @@ const Parameters your_command_parameters PROGMEM =
   "cmd_str",              // command string
   7,                      // command string characters
   single_type_arguments,  // argument handling
-  1,                      // expected number of arguments
+  1,                      // minimum expected number of arguments
+  1,                      // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -73,14 +74,15 @@ const Parameters your_command_parameters PROGMEM =
 CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
 
 // argument array
-const CommandParameters your_command_parameters PROGMEM =
+const Parameters your_command_parameters PROGMEM =
 {
   0,                   // command depth (0 is root command)
   0,                   // subcommands 
   "cmd_str",           // command string
   7,                   // command string length
   argument_type_array, // argument handling 
-  8,                   // expected number of arguments (set to zero if no arguments)
+  8,                   // minimum expected number of arguments
+  8,                   // maximum expected number of arguments
   /*
     UITYPE arguments, fill with arguments you want to send in order
   */
@@ -97,28 +99,22 @@ const CommandParameters your_command_parameters PROGMEM =
 };
 CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
 
-// nested parameters
-const CommandParameters your_command_parameters[2] PROGMEM =
+// nested parameters with variable number of arguments
+const Parameters your_command_parameters[2] PROGMEM =
     {
         {
-            0,                   // command depth (0 is root command)
+         0,                   // command depth (0 is root command)
          1,                   // subcommands
          "base_cmd_str",      // command string
          7,                   // command string length
-         argument_type_array, // argument handling
-         8,                   // expected number of arguments (set to zero if no arguments)
+         single_type_argument,// argument handling
+         1,                   // minimum expected number of arguments
+         8,                   // maximum expected number of arguments
          /*
            UITYPE arguments, fill with arguments you want to send in order
          */
          {
-             UITYPE::UINT8_T,  // 8-bit  uint
-             UITYPE::UINT16_T, // 16-bit uint
-             UITYPE::UINT32_T, // 32-bit uint
-             UITYPE::INT16_T,  // 16-bit int
-             UITYPE::FLOAT,    // 32-bit float
-             UITYPE::CHAR,     // char
-             UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-             UITYPE::NOTYPE    // special type, no type validation performed
+             UITYPE::NOTYPE,  // no validation          
          }
         },
         {
@@ -127,7 +123,8 @@ const CommandParameters your_command_parameters[2] PROGMEM =
          "sub_cmd_str",       // command string
          7,                   // command string length
          argument_type_array, // argument handling
-         8,                   // expected number of arguments (set to zero if no arguments)
+         8,                   // minimum expected number of arguments
+         8,                   // maximum expected number of arguments
          /*
            UITYPE arguments, fill with arguments you want to send in order
          */
@@ -143,7 +140,7 @@ const CommandParameters your_command_parameters[2] PROGMEM =
          }
         }
     };
-
+CommandConstructor your_command(your_function_name, your_command_parameters, 1, 2);
 ```
 
 Each call to CommandConstructor uses 8 bytes of RAM.  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
