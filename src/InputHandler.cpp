@@ -507,7 +507,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
-    uint8_t tokens_received = 0;
+    uint8_t tokens_received = 0;      // amount of delimiter separated tokens
     size_t data_index = 0;            // data iterator
     data_pointers_index = 0;          // token buffer pointers
     rec_num_arg_strings = 0;          // number of tokens read from data
@@ -545,7 +545,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error condition
 
-    bool input_type_match_flag[tokens_received - 1] = {false};
+    bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
     bool all_arguments_valid = true; // error sentinel
 
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
@@ -560,13 +560,13 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
             tokens_received--;          // subtract root command from remaining tokens
             command_matched = true;     // root command matched
             // see if command has any subcommands, validate input types, try to launch function
-            launchLogic(cmd, 
-                        prm, 
-                        tokens_received,
-                        all_arguments_valid,
-                        match,
-                        input_type_match_flag);            
-            break;
+            launchLogic(cmd,                     // CommandConstructor pointer, contains target function pointer
+                        prm,                     // ReadCommandFromBuffer Parameters structure reference
+                        tokens_received,         // how many tokens were retrieved
+                        all_arguments_valid,     // type error sentinel
+                        match,                   // function launch sentinel
+                        input_type_match_flag);  // type error flag array          
+            break;  // break command iterator for loop
         } // end command logic
     } // end root command for loop
 
