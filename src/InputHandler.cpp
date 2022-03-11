@@ -373,23 +373,15 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
 
 void UserInput::launchLogic(CommandConstructor *cmd,
                             Parameters &prm,
-                            uint8_t *data,
-                            size_t len,
-                            bool &all_arguments_valid,
-                            size_t &data_index,
+                            size_t tokens_received,                                                        
+                            bool &all_arguments_valid,                            
                             bool &match,
                             bool *input_type_match_flag)
 {
-    if (prm.num_args == 0 && prm.max_num_args == 0) // command with no arguments
+    if (tokens_received == 0 
+        && prm.num_args == 0 
+        && prm.max_num_args == 0) // command with no arguments
     {
-        while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
-        {
-            rec_num_arg_strings++;
-            if (rec_num_arg_strings > 0)
-            {
-                break;
-            }
-        }
         #if defined(_DEBUG_USER_INPUT)
         if (UserInput::OutputIsEnabled())
         {
@@ -400,25 +392,21 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             _output_flag = true;
         }
         #endif
-        if (rec_num_arg_strings == 0)
-        {
-            match = true;        // don't run default callback
-            launchFunction(cmd); // launch the matched command
-            return;
-        }
+        match = true;        // don't run default callback
+        launchFunction(cmd); // launch the matched command
+        return;
     }
     else if (prm.num_args > 0 || prm.max_num_args > 0) // command has arguments
     {
-        while (getToken(token_buffer, data, len, &data_index) == true && rec_num_arg_strings < USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS)
+        for (size_t i = 0; i < tokens_received; ++i)
         {
-            input_type_match_flag[rec_num_arg_strings] = validateUserInput(UserInput::getArgType(prm, rec_num_arg_strings), data_pointers_index - 1); // validate the token
-            if (input_type_match_flag[rec_num_arg_strings] == false)                                                                                  // if the token was not valid input
+            input_type_match_flag[i] = validateUserInput(UserInput::getArgType(prm, i), data_pointers_index - 1); // validate the token
+            if (input_type_match_flag[i] == false)                                                                                  // if the token was not valid input
             {
                 all_arguments_valid = false; // set the error sentinel to true
-            }
-            rec_num_arg_strings++;
+            }            
         }
-        if (rec_num_arg_strings >= prm.num_args && rec_num_arg_strings <= prm.max_num_args && all_arguments_valid == true) //  if we received at least min and less than max arguments
+        if (tokens_received >= prm.num_args && rec_num_arg_strings <= prm.max_num_args && all_arguments_valid == true) //  if we received at least min and less than max arguments
         {
             #if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
@@ -466,6 +454,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
+    uint8_t subcommand_tokens = 0;
+    uint8_t tokens_received = 0;
     size_t data_index = 0;            // data iterator
     data_pointers_index = 0;          // token buffer pointers
     rec_num_arg_strings = 0;          // number of tokens read from data
@@ -481,233 +471,16 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
         char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
     */
-    if (getToken(token_buffer, data, len, &data_index) == true) // if there was a token
+    while ((getToken(token_buffer, data, len, &data_index) == true)                 // if there was a token
+           && (tokens_received < (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1))) // and we've received less than the maximum
     {
-        bool input_type_match_flag[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {false};
-        bool all_arguments_valid = true;                                            // error sentinel
-        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
-        {
-            // &(cmd->prm[0]) points to the first parameters struct for this command
-            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
-            // if the first test is false, the strcmp test is not evaluated
-            if (prm.sub_commands == 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with no subcommands
-            {
-                command_matched = true; // base command matched
-                // try to launch target function
-                launchLogic(cmd, prm, data, len,
-                            all_arguments_valid,
-                            data_index, match,
-                            input_type_match_flag);
-                break;
-            }                                                                         // end regular command logic
-            if (prm.sub_commands > 0 && (strcmp(data_pointers[0], prm.command) == 0)) // match command with subcommands
-            {
-                subcommand_tokens = 0;
-                command_matched = true; // base command matched (base command with subcommands)
-
-                if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
-                {
-                    if (prm.max_num_args == 0) // if the base command accepts no arguments
-                    {
-                        subcommand_tokens++; // there might be a subcommand token
-                    }
-                    else // if the base command accepts arguments and there is a token
-                    {
-                        subcommand_tokens++;   // it could be a subcommand token
-                        rec_num_arg_strings++; // or an argument
-                    }
-                }
-                // if the base command accepts a minimum of 0 args and there are no tokens
-                if ((prm.num_args == 0) && subcommand_tokens == 0)
-                {
-                    // try to launch target function
-                    launchLogic(cmd, prm, data, len,
-                                all_arguments_valid,
-                                data_index, match,
-                                input_type_match_flag);
-                    break; // break out of cmd iterator for loop
-                }
-
-                // subcommand search
-                for (size_t i = 1; i < (cmd->_tree_depth + 1); ++i) // dig starting at depth 1
-                {
-                    // this index starts at one because the parameter array's first element will be the root command
-                    for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
-                    {
-                        memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
-                        failed_on_subcommand = j;
-                        if (prm.depth == i)
-                        {
-                            if (strcmp(data_pointers[subcommand_tokens], prm.command) == 0)
-                            {                                
-                                if (prm.sub_commands == 0) // if there are no subcommands
-                                {                          // try to launch the target function
-                                    launchLogic(cmd, prm, data, len,
-                                                all_arguments_valid,
-                                                data_index, match,
-                                                input_type_match_flag);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    if (getToken(token_buffer, data, len, &data_index) == true) // see if there's a token
-                    {
-                        subcommand_tokens++;
-                        //rec_num_arg_strings++;
-                    }
-                }      // end subcommand search
-                break; // guard break
-            }          // end subcommand logic
-        }              // end base command for loop
-
-        if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
-        {
-            // format a string with useful information
-            if (UserInput::OutputIsEnabled())
-            {
-                memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
-                if (failed_on_subcommand > 0)
-                {
-                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR(">%s $Invalid input: %s "),
-                                                 _username_,
-                                                 data_pointers[0]);
-                    for (size_t i = 0; i < (failed_on_subcommand - 1); ++i)
-                    {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR("%s "),
-                                                     data_pointers[i + 1]);
-                    }
-                }
-                else
-                {
-                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR(">%s $Invalid input: %s "),
-                                                 _username_,
-                                                 data_pointers[0]);
-                }
-                if (command_matched == true)
-                {
-                    uint16_t err_n_args = (prm.max_num_args > rec_num_arg_strings) ? rec_num_arg_strings : prm.max_num_args;
-                    if (err_n_args > 0)
-                    {                        
-                        for (uint16_t i = 0; i < err_n_args; ++i)
-                        {
-                            if (failed_on_subcommand > 0)
-                            {
-                                if (input_type_match_flag[i] == false)
-                                {
-                                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                                 PSTR("%s* "),
-                                                                 data_pointers[failed_on_subcommand + i]);
-                                }
-                                else
-                                {
-                                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                                 PSTR("%s "),
-                                                                 data_pointers[failed_on_subcommand + i]);
-                                }
-                            }
-                            else
-                            {
-                                if (input_type_match_flag[i] == false)
-                                {
-                                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                                 PSTR("%s* "),
-                                                                 data_pointers[i + 1]);
-                                }
-                                else
-                                {
-                                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                                 PSTR("%s "),
-                                                                 data_pointers[i + 1]);
-                                }
-                            }
-                        }
-                    }
-                }
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR("\n"));
-                if (!command_matched)
-                {
-                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR("Command <%s> unknown.\n"),
-                                                 data_pointers[0]);
-                }
-                if (command_matched && all_arguments_valid == false)
-                {
-                    uint16_t err_n_args = (prm.max_num_args > rec_num_arg_strings) ? rec_num_arg_strings : prm.max_num_args;
-                    for (uint8_t i = 0; i < err_n_args; ++i)
-                    {
-                        if (failed_on_subcommand > 0)
-                        {
-                            if (input_type_match_flag[i] == false)
-                            {
-                                char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
-                                memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
-                                                             i + 1,
-                                                             _type,
-                                                             data_pointers[failed_on_subcommand + i]);
-                            }
-                        }
-                        else
-                        {
-                            if (input_type_match_flag[i] == false)
-                            {
-                                char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
-                                memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
-                                                             i + 1,
-                                                             _type,
-                                                             data_pointers[i + 1]);
-                            }
-                        }
-                    }
-                }
-                if (command_matched && ((rec_num_arg_strings < prm.num_args) || (rec_num_arg_strings > prm.max_num_args)))
-                {
-                    if (prm.num_args == prm.max_num_args) // fixed amount of args
-                    {
-                        if (failed_on_subcommand > 0)
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
-                                                         prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
-                        }
-                        else
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
-                                                         prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
-                        }
-                    }
-                    else // variable number of args
-                    {
-                        if (failed_on_subcommand > 0)
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
-                                                         prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
-                        }
-                        else
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" command \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
-                                                         prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
-                        }
-                    }
-                }
-                _output_flag = true;
-            }
-            (*default_function_)(this); // run the default function
-        }
+        tokens_received++;                                                       // increment tokens_received
+        if (tokens_received == (USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1)) // while sentinel
+            break;
     }
-    else
+    
+    // error condition
+    if (tokens_received == 0)
     {
         if (UserInput::OutputIsEnabled() && len > 0)
         {
@@ -716,7 +489,179 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                                          _username_);
             _output_flag = true;
         }
+        delete[] token_buffer;
+        return;
     }
+    // end error condition
+
+    bool input_type_match_flag[tokens_received - 1] = {false};
+    bool all_arguments_valid = true; // error sentinel
+
+    for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
+    {
+        // &(cmd->prm[0]) points to the first parameters struct for this command
+        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
+        // if the first test is false, the strcmp test is not evaluated
+        if (strcmp(data_pointers[0], prm.command) == 0) // match root command
+        {
+            command_matched = true; // base command matched
+            // try to launch target function
+            launchLogic(cmd, 
+                        prm, 
+                        tokens_received,
+                        all_arguments_valid,
+                        match,
+                        input_type_match_flag);            
+            break;
+        } // end regular command logic
+
+    } // end base command for loop
+
+    if (!match && default_function_ != NULL) // if there was no command match and a default function is configured
+    {
+        // format a string with useful information
+        if (UserInput::OutputIsEnabled())
+        {
+            memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
+            if (failed_on_subcommand > 0)
+            {
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR(">%s $Invalid input: %s "),
+                                             _username_,
+                                             data_pointers[0]);
+                for (size_t i = 0; i < (failed_on_subcommand - 1); ++i)
+                {
+                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                 PSTR("%s "),
+                                                 data_pointers[i + 1]);
+                }
+            }
+            else
+            {
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR(">%s $Invalid input: %s "),
+                                             _username_,
+                                             data_pointers[0]);
+            }
+            if (command_matched == true)
+            {
+                uint16_t err_n_args = (prm.max_num_args > rec_num_arg_strings) ? rec_num_arg_strings : prm.max_num_args;
+                if (err_n_args > 0)
+                {
+                    for (uint16_t i = 0; i < err_n_args; ++i)
+                    {
+                        if (failed_on_subcommand > 0)
+                        {
+                            if (input_type_match_flag[i] == false)
+                            {
+                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                             PSTR("%s* "),
+                                                             data_pointers[failed_on_subcommand + i]);
+                            }
+                            else
+                            {
+                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                             PSTR("%s "),
+                                                             data_pointers[failed_on_subcommand + i]);
+                            }
+                        }
+                        else
+                        {
+                            if (input_type_match_flag[i] == false)
+                            {
+                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                             PSTR("%s* "),
+                                                             data_pointers[i + 1]);
+                            }
+                            else
+                            {
+                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                             PSTR("%s "),
+                                                             data_pointers[i + 1]);
+                            }
+                        }
+                    }
+                }
+            }
+            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                         PSTR("\n"));
+            if (!command_matched)
+            {
+                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                             PSTR("Command <%s> unknown.\n"),
+                                             data_pointers[0]);
+            }
+            if (command_matched && all_arguments_valid == false)
+            {
+                uint16_t err_n_args = (prm.max_num_args > rec_num_arg_strings) ? rec_num_arg_strings : prm.max_num_args;
+                for (uint8_t i = 0; i < err_n_args; ++i)
+                {
+                    if (failed_on_subcommand > 0)
+                    {
+                        if (input_type_match_flag[i] == false)
+                        {
+                            char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
+                            memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
+                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                         PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
+                                                         i + 1,
+                                                         _type,
+                                                         data_pointers[failed_on_subcommand + i]);
+                        }
+                    }
+                    else
+                    {
+                        if (input_type_match_flag[i] == false)
+                        {
+                            char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
+                            memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
+                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                         PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
+                                                         i + 1,
+                                                         _type,
+                                                         data_pointers[i + 1]);
+                        }
+                    }
+                }
+            }
+            if (command_matched && ((rec_num_arg_strings < prm.num_args) || (rec_num_arg_strings > prm.max_num_args)))
+            {
+                if (prm.num_args == prm.max_num_args) // fixed amount of args
+                {
+                    if (failed_on_subcommand > 0)
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
+                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
+                    }
+                    else
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
+                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
+                    }
+                }
+                else // variable number of args
+                {
+                    if (failed_on_subcommand > 0)
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
+                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
+                    }
+                    else
+                    {
+                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+                                                     PSTR(" command \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
+                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
+                    }
+                }
+            }
+            _output_flag = true;
+        }
+        (*default_function_)(this); // run the default function
+    }
+    
     delete[] token_buffer;
 }
 

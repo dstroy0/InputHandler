@@ -296,10 +296,8 @@ protected:
      */
     void launchLogic(CommandConstructor *cmd,
                      Parameters &prm,
-                     uint8_t *data,
-                     size_t len,
+                     size_t tokens_received,
                      bool &all_arguments_valid,
-                     size_t &data_index,
                      bool &match,
                      bool *input_type_match_flag);
 
@@ -353,12 +351,11 @@ private:
     /*
         member function variables
     */
-    bool _output_flag = false;                                             //   output is available flag, set by member functions
-    char *token_buffer = NULL;                                             //   pointer to tokenized c-string
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
-    size_t data_pointers_index = 0;                                        //   data_pointer's index
-    size_t rec_num_arg_strings = 0;                                        //   number of tokens after first valid token
-    size_t subcommand_tokens = 0;
+    bool _output_flag = false;                                                 //   output is available flag, set by member functions
+    char *token_buffer = NULL;                                                 //   pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1] = {0}; //   token_buffer pointers
+    size_t data_pointers_index = 0;                                            //   data_pointer's index
+    size_t rec_num_arg_strings = 0;                                            //   number of tokens after first valid token    
 
     /*
         GetCommandFromStream variables
