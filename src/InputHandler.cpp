@@ -380,14 +380,14 @@ void UserInput::launchLogic(CommandConstructor *cmd,
 {
     // error
     if (tokens_received > 0 && prm.sub_commands == 0 && prm.max_num_args == 0)
-    {
+    {        
         return;
     }
 
     // command with no arguments, potentially has subcommands but none were entered
     if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
-#if defined(_DEBUG_USER_INPUT)
+        #if defined(_DEBUG_USER_INPUT)
         if (UserInput::OutputIsEnabled())
         {
             _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -396,7 +396,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                                          cmd->command);
             _output_flag = true;
         }
-#endif
+        #endif
         match = true;        // don't run default callback
         launchFunction(cmd); // launch the matched command
         return;
@@ -419,7 +419,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         //  if we received at least min and less than max arguments and they are valid
         if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
-#if defined(_DEBUG_USER_INPUT)
+            #if defined(_DEBUG_USER_INPUT)
             if (UserInput::OutputIsEnabled())
             {
                 _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
@@ -428,7 +428,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                                              cmd->command);
                 _output_flag = true;
             }
-#endif
+            #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
             return;
@@ -438,6 +438,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // subcommand search
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
+    Serial.println(_current_search_depth);    
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
@@ -447,8 +448,10 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             failed_on_subcommand = j;
             if (prm.depth == _current_search_depth)
             {
+                Serial.println(F("match depth"));
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
+                    Serial.println(F("subcommand matched"));
                     // subcommand matched
                     tokens_received--;         // subtract subcommand from tokens received
                     subcommand_matched = true; // subcommand matched
@@ -456,18 +459,22 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             }
         }
         _current_search_depth++;
+        if (tokens_received > 0)
+        {
+            data_pointers_index++;
+        }
     } // end subcommand search
 
     // error
     if (_current_search_depth > (cmd->_tree_depth))
-    {
+    {        
         _current_search_depth--;
         return;
     }
 
     // recursion
     if (subcommand_matched == true)
-    {
+    {        
         launchLogic(cmd,
                     prm,
                     tokens_received,
@@ -557,7 +564,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
             _current_search_depth = 1; // start searching for subcommands at depth 1
-            data_pointers_index++;     // incrementing points to the token after the root command
+            data_pointers_index = 1;   // index 1 of data_pointers is the token after the root command
             tokens_received--;         // subtract root command from remaining tokens
             command_matched = true;    // root command matched
             // see if command has any subcommands, validate input types, try to launch function
