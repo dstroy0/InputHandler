@@ -287,10 +287,8 @@ protected:
      *
      * @param cmd CommandConstructor ptr
      * @param prm Parameters reference
-     * @param data uint8_t array ptr
-     * @param len size_t array length
-     * @param all_arguments_valid boolean array
-     * @param data_index size_t array index
+     * @param tokens_received number of tokens retreived from input data
+     * @param all_arguments_valid boolean array     
      * @param match boolean command match flag
      * @param input_type_match_flag boolean type match flag array
      */
