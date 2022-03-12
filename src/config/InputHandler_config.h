@@ -20,9 +20,10 @@
 
 #include <Arduino.h>
 
-//  uncomment to debug
+//  uncomment to debug functions
 //#define _DEBUG_USER_INPUT
-#define _DEBUG_SUBCOMMAND_SEARCH
+//#define __DEBUG_SUBCOMMAND_SEARCH__
+//#define __DEBUG_LAUNCH_LOGIC__
 
 #define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
 #define UI_DEFAULT_STRINGS_MAX_LEN 14

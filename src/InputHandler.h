@@ -297,7 +297,8 @@ protected:
                      size_t tokens_received,
                      bool &all_arguments_valid,
                      bool &match,
-                     bool *input_type_match_flag);
+                     bool *input_type_match_flag,
+                     bool &subcommand_matched);
 
     /**
      * @brief Escapes control characters so they will print
@@ -323,6 +324,19 @@ protected:
      * @return uint8_t argument type
      */
     uint8_t getArgType(Parameters &opt, size_t index = 0);
+    
+    /**
+     * @brief iterate through tokens and validate args
+     * 
+     * @param tokens_received how many tokens are left after matching is performed
+     * @param input_type_match_flag input type validation flags
+     * @param prm Parameters struct reference
+     * @param all_arguments_valid error sentinel
+     */
+    void getArgs(size_t &tokens_received,
+                        bool *input_type_match_flag,
+                        Parameters &prm,
+                        bool &all_arguments_valid);
 
 private:
     /*

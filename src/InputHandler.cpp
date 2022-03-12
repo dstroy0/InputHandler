@@ -343,56 +343,69 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                             size_t tokens_received,
                             bool &all_arguments_valid,
                             bool &match,
-                            bool *input_type_match_flag)
+                            bool *input_type_match_flag,
+                            bool &subcommand_matched)
 {
     // error
     if (tokens_received > 0 && prm.sub_commands == 0 && prm.max_num_args == 0)
-    {        
+    {
+        #if defined(__DEBUG_LAUNCH_LOGIC__)
+        _ui_out(PSTR(">%s $DEBUG: too many tokens (%d) for command (%s)\n"), 
+                _username_, tokens_received, prm.command);
+        #endif        
         return;
     }
 
-    // command with no arguments, potentially has subcommands but none were entered
-    if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
+    // command with arguments, potentially has subcommands but none were entered
+    if (_current_search_depth > 1 &&
+        subcommand_matched == false &&
+        tokens_received > 0 &&
+        prm.max_num_args > 0)
     {
-        #if defined(_DEBUG_USER_INPUT)
-        _ui_out(PSTR(">%s $DEBUG: launchFunction(%s)\n"), _username_, cmd->command);            
-        #endif
-        match = true;        // don't run default callback
-        launchFunction(cmd); // launch the matched command
-        return;
-    }
-
-    // command with arguments and no subcommands (max depth)
-    if (tokens_received > 0 && prm.max_num_args > 0 && prm.sub_commands == 0)
-    {
-        rec_num_arg_strings = 0; // number of tokens read from data
-        for (size_t i = 0; i < tokens_received; ++i)
+        getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
+        if (rec_num_arg_strings >= prm.num_args 
+            && rec_num_arg_strings <= prm.max_num_args 
+            && all_arguments_valid == true)
         {
-            input_type_match_flag[i] = validateUserInput(UserInput::getArgType(prm, i), data_pointers_index - 1); // validate the token
-            rec_num_arg_strings++;
-            if (input_type_match_flag[i] == false) // if the token was not valid input
-            {
-                all_arguments_valid = false; // set the error sentinel to true
-            }
-        }
-
-        //  if we received at least min and less than max arguments and they are valid
-        if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
-        {
-            #if defined(_DEBUG_USER_INPUT)
-            _ui_out(PSTR(">%s $DEBUG: launchFunction(%s)\n"), _username_, prm.command);
+            #if defined(__DEBUG_LAUNCH_LOGIC__)
+            _ui_out(PSTR(">%s $DEBUG: next subcommand match false" 
+                         "tokens>0 max_args>0 launchFunction(%s)\n"), 
+                         _username_, prm.command);
             #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
-            return;
         }
+        // if !match, error
+        return;
+    }
+
+    // command with arguments (max depth)
+    if (_current_search_depth == (cmd->_tree_depth) 
+        && tokens_received > 0 
+        && prm.max_num_args > 0 
+        && prm.sub_commands == 0)
+    {
+        getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
+        //  if we received at least min and less than max arguments and they are valid
+        if (rec_num_arg_strings >= prm.num_args 
+            && rec_num_arg_strings <= prm.max_num_args 
+            && all_arguments_valid == true)
+        {
+            #if defined(__DEBUG_LAUNCH_LOGIC__)
+            _ui_out(PSTR(">%s $DEBUG: launchFunction(%s)\n"), _username_, prm.command);
+            #endif
+            match = true;        // don't run default callback
+            launchFunction(cmd); // launch the matched command            
+        }
+        // if !match, error
+        return;
     }
 
     // subcommand search
     failed_on_subcommand = 0;
-    bool subcommand_matched = false;
-    #if defined(_DEBUG_SUBCOMMAND_SEARCH)
-    _ui_out(PSTR("search depth %d\n"), _current_search_depth);
+    subcommand_matched = false;
+    #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+    _ui_out(PSTR("search depth (%d)\n"), _current_search_depth);
     #endif
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
@@ -403,21 +416,21 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             failed_on_subcommand = j;
             if (prm.depth == _current_search_depth)
             {   
-                #if defined(_DEBUG_SUBCOMMAND_SEARCH)
-                _ui_out(PSTR("match depth %s\ndata %s\n"), prm.command, data_pointers[data_pointers_index]);                
+                #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+                _ui_out(PSTR("match depth (%s))\ndata (%s)\n"), prm.command, data_pointers[data_pointers_index]);                
                 #endif
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
-                    #if defined(_DEBUG_SUBCOMMAND_SEARCH)
-                    _ui_out(PSTR("%s subcommand matched, %d subcommands, max_num_args %d\n"), 
+                    #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+                    _ui_out(PSTR("(%s) subcommand matched, (%d) subcommands, max_num_args (%d)\n"), 
                                 prm.command, prm.sub_commands, prm.max_num_args);                  
                     #endif
                     // subcommand matched
                     if (tokens_received > 0)
                     {                        
                         tokens_received--; // subtract subcommand from tokens received
-                        #if defined(_DEBUG_SUBCOMMAND_SEARCH)
-                        _ui_out(PSTR("decrement tokens %d\n"), tokens_received);
+                        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+                        _ui_out(PSTR("decrement tokens (%d)\n"), tokens_received);
                         #endif
                         data_pointers_index++;
                     }
@@ -434,7 +447,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     
     if (subcommand_matched == true) // recursion
     {
-        #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         _ui_out(PSTR("recurse\n"));
         #endif
         launchLogic(cmd,
@@ -442,7 +455,25 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                     tokens_received,
                     all_arguments_valid,
                     match,
-                    input_type_match_flag);
+                    input_type_match_flag,
+                    subcommand_matched);
+    }
+}
+
+void UserInput::getArgs(size_t &tokens_received,
+                        bool *input_type_match_flag,
+                        Parameters &prm,
+                        bool &all_arguments_valid)
+{
+    rec_num_arg_strings = 0; // number of tokens read from data
+    for (size_t i = 0; i < tokens_received; ++i)
+    {
+        input_type_match_flag[i] = validateUserInput(UserInput::getArgType(prm, i), data_pointers_index + i); // validate the token
+        rec_num_arg_strings++;
+        if (input_type_match_flag[i] == false) // if the token was not valid input
+        {
+            all_arguments_valid = false; // set the error sentinel to true
+        }
     }
 }
 
@@ -508,17 +539,19 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(data_pointers[0], prm.command) == 0) // match root command
         {
-            _current_search_depth = 1; // start searching for subcommands at depth 1
-            data_pointers_index = 1;   // index 1 of data_pointers is the token after the root command
-            tokens_received--;         // subtract root command from remaining tokens
-            command_matched = true;    // root command matched
+            _current_search_depth = 1;          // start searching for subcommands at depth 1
+            data_pointers_index = 1;            // index 1 of data_pointers is the token after the root command
+            tokens_received--;                  // subtract root command from remaining tokens
+            command_matched = true;             // root command match flag
+            bool subcommand_matched = false;    // subcommand match flag
             // see if command has any subcommands, validate input types, try to launch function
             launchLogic(cmd,                    // CommandConstructor pointer, contains target function pointer
                         prm,                    // ReadCommandFromBuffer Parameters structure reference
                         tokens_received,        // how many tokens were retrieved
                         all_arguments_valid,    // type error sentinel
                         match,                  // function launch sentinel
-                        input_type_match_flag); // type error flag array
+                        input_type_match_flag,  // type error flag array
+                        subcommand_matched);    // subcommand match flag
             break;                              // break command iterator for loop
         }                                       // end command logic
     }                                           // end root command for loop
