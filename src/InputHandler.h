@@ -366,6 +366,27 @@ private:
     uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
     uint16_t stream_data_index = 0;       // the index of stream_data
     size_t _term_index_ = 0;
+
+    #if defined(_DEBUG_USER_INPUT)
+    template <typename T, typename... Args>
+    void UserInput::_debug(T fmt_string, Args... args)
+    {
+        if (UserInput::OutputIsEnabled())
+        {
+            _string_pos += snprintf_P(_output_buffer + _string_pos, _output_buffer_len, fmt_string, args);
+            _output_flag = true;
+        }
+    }
+    #endif
+    template <typename T, typename... Args>
+    void UserInput::_out(T fmt_string, Args... args)
+    {
+        if (UserInput::OutputIsEnabled())
+        {
+            _string_pos += snprintf_P(_output_buffer + _string_pos, _output_buffer_len, fmt_string, args);
+            _output_flag = true;
+        }
+    }
 };
 
 #endif

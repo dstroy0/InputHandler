@@ -66,29 +66,18 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     {
         if (got_token == true)
         {
-#if defined(_DEBUG_USER_INPUT)
-            if (UserInput::OutputIsEnabled())
-            {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"),
-                                             _username_);
-                _output_flag = true;
-            }
-#endif
+            #if defined(_DEBUG_USER_INPUT)
+            _debug(PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);                            
+            #endif
             break;
         }
         incoming = (char)data[*data_index];
-#if defined(_DEBUG_USER_INPUT)
-        if (UserInput::OutputIsEnabled())
-        {
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
-                                         _username_,
-                                         incoming,
-                                         (uint16_t)*data_index);
-            _output_flag = true;
-        }
-#endif
+        #if defined(_DEBUG_USER_INPUT)        
+        _debug(PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
+                    _username_,
+                    incoming,
+                    (uint16_t)*data_index);    
+        #endif
         //  remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
         //  replace delimiter
         if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
@@ -119,15 +108,9 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                         data_pointers_index++;                                           //  increment pointer index
                         point_to_beginning_of_c_string = false;                          //  only set one pointer per c-string
                         got_token = true;
-#if defined(_DEBUG_USER_INPUT)
-                        if (UserInput::OutputIsEnabled())
-                        {
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(">%s $DEBUG: got the c-string token.\n"),
-                                                         _username_);
-                            _output_flag = true;
-                        }
-#endif
+                        #if defined(_DEBUG_USER_INPUT)                        
+                        _debug(PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);           
+                        #endif
                     }
                     (*data_index)++; // increment the tokenized string index
                 }
@@ -154,30 +137,20 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
             }
             else
             {
-#if defined(_DEBUG_USER_INPUT)
-                if (UserInput::OutputIsEnabled())
-                {
-                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"),
-                                                 _username_);
-                    _output_flag = true;
-                }
-#endif
+                #if defined(_DEBUG_USER_INPUT)
+                _debug(PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"),
+                            _username_);
+                #endif
                 got_token = true;
             }
             token_flag[1] = token_flag[0]; // track the state
         }
         if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
         {
-#if defined(_DEBUG_USER_INPUT)
-            if (UserInput::OutputIsEnabled())
-            {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
-                                             _username_);
-                _output_flag = true;
-            }
-#endif
+            #if defined(_DEBUG_USER_INPUT)                           
+            _debug(PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
+                        _username_);           
+            #endif
             got_token = true;
         }
 
@@ -388,14 +361,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
         #if defined(_DEBUG_USER_INPUT)
-        if (UserInput::OutputIsEnabled())
-        {
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR(">%s $DEBUG: match zero argument command <%s>.\n"),
-                                         _username_,
-                                         cmd->command);
-            _output_flag = true;
-        }
+        _debug(PSTR(">%s $DEBUG: match zero argument command <%s>.\n"), _username_, cmd->command);            
         #endif
         match = true;        // don't run default callback
         launchFunction(cmd); // launch the matched command
@@ -420,14 +386,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
             #if defined(_DEBUG_USER_INPUT)
-            if (UserInput::OutputIsEnabled())
-            {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $DEBUG: match command <%s>.\n"),
-                                             _username_,
-                                             cmd->command);
-                _output_flag = true;
-            }
+            _debug(PSTR(">%s $DEBUG: match command <%s>.\n"), _username_, prm.command);
             #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
@@ -438,7 +397,9 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // subcommand search
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
-    Serial.print(F("search depth "));Serial.println(_current_search_depth);    
+    #if defined(_DEBUG_USER_INPUT)
+    _debug(PSTR("search depth %lu\n"), _current_search_depth);
+    #endif
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
@@ -447,19 +408,23 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
             failed_on_subcommand = j;
             if (prm.depth == _current_search_depth)
-            {
-                Serial.print(F("match depth ")); Serial.println(prm.command);
-                Serial.print(F("data ")); Serial.println(data_pointers[data_pointers_index]);
+            {   
+                #if defined(_DEBUG_USER_INPUT)
+                _debug(PSTR("match depth %s data %s\n"), prm.command, data_pointers[data_pointers_index]);                
+                #endif
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
-                    Serial.print(prm.command);Serial.println(F(" subcommand matched"));
-                    Serial.print(prm.sub_commands);Serial.println(F(" subcommands"));
-                    Serial.print(prm.max_num_args);Serial.println(F(" max_num_args"));
+                    #if defined(_DEBUG_USER_INPUT)
+                    _debug(PSTR("%s subcommand matched %lu subcommands %lu  max_num_args\n"), 
+                                prm.command, prm.sub_commands, prm.max_num_args);                  
+                    #endif
                     // subcommand matched
                     if (tokens_received > 0)
                     {                        
                         tokens_received--; // subtract subcommand from tokens received
-                        Serial.print(F("decrement tokens "));Serial.println(tokens_received);
+                        #if defined(_DEBUG_USER_INPUT)
+                        _debug(PSTR("decrement tokens %lu\n"), tokens_received);
+                        #endif
                         data_pointers_index++;
                     }
                     subcommand_matched = true; // subcommand matched
@@ -479,7 +444,9 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     
     if (subcommand_matched == true) // recursion
     {
-        Serial.println(F("recurse"));
+        #if defined(_DEBUG_USER_INPUT)
+        _debug(PSTR("recurse"));
+        #endif
         launchLogic(cmd,
                     prm,
                     tokens_received,
