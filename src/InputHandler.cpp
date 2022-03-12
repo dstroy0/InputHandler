@@ -476,24 +476,6 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         _current_search_depth--;
         return;
     }
-
-    // if (subcommand_matched == true && prm.sub_commands == 0 && prm.max_num_args == 0)
-    // {
-    //     Serial.println(F("launch subcommand w/no args"));
-    //     #if defined(_DEBUG_USER_INPUT)
-    //     if (UserInput::OutputIsEnabled())
-    //     {
-    //         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-    //                                      PSTR(">%s $DEBUG: match command <%s>.\n"),
-    //                                      _username_,
-    //                                      cmd->command);
-    //         _output_flag = true;
-    //     }
-    //     #endif
-    //     match = true;        // don't run default callback
-    //     launchFunction(cmd); // launch the matched command
-    //     return;
-    // }
     
     if (subcommand_matched == true) // recursion
     {
