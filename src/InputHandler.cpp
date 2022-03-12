@@ -355,7 +355,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
         #if defined(_DEBUG_USER_INPUT)
-        _ui_out(PSTR(">%s $DEBUG: match zero argument command <%s>.\n"), _username_, cmd->command);            
+        _ui_out(PSTR(">%s $DEBUG: launchFunction(%s)\n"), _username_, cmd->command);            
         #endif
         match = true;        // don't run default callback
         launchFunction(cmd); // launch the matched command
@@ -380,7 +380,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
             #if defined(_DEBUG_USER_INPUT)
-            _ui_out(PSTR(">%s $DEBUG: match command <%s>.\n"), _username_, prm.command);
+            _ui_out(PSTR(">%s $DEBUG: launchFunction(%s)\n"), _username_, prm.command);
             #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
@@ -391,8 +391,8 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // subcommand search
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
-    #if defined(_DEBUG_USER_INPUT)
-    _ui_out(PSTR("search depth %lu\n"), _current_search_depth);
+    #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+    _ui_out(PSTR("search depth %d\n"), _current_search_depth);
     #endif
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
@@ -403,21 +403,21 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             failed_on_subcommand = j;
             if (prm.depth == _current_search_depth)
             {   
-                #if defined(_DEBUG_USER_INPUT)
-                _ui_out(PSTR("match depth %s data %s\n"), prm.command, data_pointers[data_pointers_index]);                
+                #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+                _ui_out(PSTR("match depth %s\ndata %s\n"), prm.command, data_pointers[data_pointers_index]);                
                 #endif
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
-                    #if defined(_DEBUG_USER_INPUT)
-                    _ui_out(PSTR("%s subcommand matched %lu subcommands %lu  max_num_args\n"), 
+                    #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+                    _ui_out(PSTR("%s subcommand matched, %d subcommands, max_num_args %d\n"), 
                                 prm.command, prm.sub_commands, prm.max_num_args);                  
                     #endif
                     // subcommand matched
                     if (tokens_received > 0)
                     {                        
                         tokens_received--; // subtract subcommand from tokens received
-                        #if defined(_DEBUG_USER_INPUT)
-                        _ui_out(PSTR("decrement tokens %lu\n"), tokens_received);
+                        #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+                        _ui_out(PSTR("decrement tokens %d\n"), tokens_received);
                         #endif
                         data_pointers_index++;
                     }
@@ -426,20 +426,16 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                 }
             }
         }
-        _current_search_depth++;        
+        if (_current_search_depth < (cmd->_tree_depth))
+        {
+            _current_search_depth++;
+        }
     } // end subcommand search
-
-    // error
-    if (_current_search_depth > (cmd->_tree_depth))
-    {        
-        _current_search_depth--;
-        return;
-    }
     
     if (subcommand_matched == true) // recursion
     {
-        #if defined(_DEBUG_USER_INPUT)
-        _ui_out(PSTR("recurse"));
+        #if defined(_DEBUG_SUBCOMMAND_SEARCH)
+        _ui_out(PSTR("recurse\n"));
         #endif
         launchLogic(cmd,
                     prm,

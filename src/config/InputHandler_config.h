@@ -20,8 +20,9 @@
 
 #include <Arduino.h>
 
-//  uncomment to debug InputHandler
+//  uncomment to debug
 //#define _DEBUG_USER_INPUT
+#define _DEBUG_SUBCOMMAND_SEARCH
 
 #define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
 #define UI_DEFAULT_STRINGS_MAX_LEN 14
