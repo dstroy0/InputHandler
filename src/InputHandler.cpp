@@ -67,16 +67,14 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         if (got_token == true)
         {
             #if defined(_DEBUG_USER_INPUT)
-            _debug(PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);                            
+            _ui_out(PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);                            
             #endif
             break;
         }
         incoming = (char)data[*data_index];
         #if defined(_DEBUG_USER_INPUT)        
-        _debug(PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
-                    _username_,
-                    incoming,
-                    (uint16_t)*data_index);    
+        _ui_out(PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
+                    _username_, incoming, (uint16_t)*data_index);    
         #endif
         //  remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
         //  replace delimiter
@@ -109,7 +107,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                         point_to_beginning_of_c_string = false;                          //  only set one pointer per c-string
                         got_token = true;
                         #if defined(_DEBUG_USER_INPUT)                        
-                        _debug(PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);           
+                        _ui_out(PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);           
                         #endif
                     }
                     (*data_index)++; // increment the tokenized string index
@@ -138,7 +136,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
             else
             {
                 #if defined(_DEBUG_USER_INPUT)
-                _debug(PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"),
+                _ui_out(PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"),
                             _username_);
                 #endif
                 got_token = true;
@@ -148,7 +146,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
         {
             #if defined(_DEBUG_USER_INPUT)                           
-            _debug(PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
+            _ui_out(PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
                         _username_);           
             #endif
             got_token = true;
@@ -313,7 +311,6 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
     {
         return false;
     }
-
     return true;
 }
 
@@ -321,24 +318,21 @@ void UserInput::launchFunction(const CommandConstructor *parameters)
 {
     if (UserInput::OutputIsEnabled())
     {
-        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(">%s $%s"),
-                                     _username_,
-                                     data_pointers[0]);
+        _ui_out(PSTR(">%s $%s"), _username_, data_pointers[0]);        
         for (uint16_t i = 0; i < (data_pointers_index - 1); ++i)
         {
             if (iscntrl(*data_pointers[i + 1]))
             {
                 char temp_buffer[13] = {'\0'};
                 UserInput::escapeCharactersSoTheyPrint(data_pointers[i + 1], temp_buffer);
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %s"), temp_buffer);
+                _ui_out(PSTR(" %s"), temp_buffer);
             }
             else
             {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %s"), data_pointers[i + 1]);
+                _ui_out(PSTR(" %s"), data_pointers[i + 1]);
             }
         }
-        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR("\n"));
-        _output_flag = true;
+        _ui_out(PSTR("\n"));        
     }
     data_pointers_index = 0;
     parameters->function(this);
@@ -361,7 +355,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     if (tokens_received == 0 && prm.num_args == 0 && prm.max_num_args == 0)
     {
         #if defined(_DEBUG_USER_INPUT)
-        _debug(PSTR(">%s $DEBUG: match zero argument command <%s>.\n"), _username_, cmd->command);            
+        _ui_out(PSTR(">%s $DEBUG: match zero argument command <%s>.\n"), _username_, cmd->command);            
         #endif
         match = true;        // don't run default callback
         launchFunction(cmd); // launch the matched command
@@ -386,7 +380,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         if (tokens_received >= prm.num_args && tokens_received <= prm.max_num_args && all_arguments_valid == true)
         {
             #if defined(_DEBUG_USER_INPUT)
-            _debug(PSTR(">%s $DEBUG: match command <%s>.\n"), _username_, prm.command);
+            _ui_out(PSTR(">%s $DEBUG: match command <%s>.\n"), _username_, prm.command);
             #endif
             match = true;        // don't run default callback
             launchFunction(cmd); // launch the matched command
@@ -398,7 +392,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
     #if defined(_DEBUG_USER_INPUT)
-    _debug(PSTR("search depth %lu\n"), _current_search_depth);
+    _ui_out(PSTR("search depth %lu\n"), _current_search_depth);
     #endif
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
@@ -410,12 +404,12 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             if (prm.depth == _current_search_depth)
             {   
                 #if defined(_DEBUG_USER_INPUT)
-                _debug(PSTR("match depth %s data %s\n"), prm.command, data_pointers[data_pointers_index]);                
+                _ui_out(PSTR("match depth %s data %s\n"), prm.command, data_pointers[data_pointers_index]);                
                 #endif
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
                     #if defined(_DEBUG_USER_INPUT)
-                    _debug(PSTR("%s subcommand matched %lu subcommands %lu  max_num_args\n"), 
+                    _ui_out(PSTR("%s subcommand matched %lu subcommands %lu  max_num_args\n"), 
                                 prm.command, prm.sub_commands, prm.max_num_args);                  
                     #endif
                     // subcommand matched
@@ -423,7 +417,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                     {                        
                         tokens_received--; // subtract subcommand from tokens received
                         #if defined(_DEBUG_USER_INPUT)
-                        _debug(PSTR("decrement tokens %lu\n"), tokens_received);
+                        _ui_out(PSTR("decrement tokens %lu\n"), tokens_received);
                         #endif
                         data_pointers_index++;
                     }
@@ -445,7 +439,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     if (subcommand_matched == true) // recursion
     {
         #if defined(_DEBUG_USER_INPUT)
-        _debug(PSTR("recurse"));
+        _ui_out(PSTR("recurse"));
         #endif
         launchLogic(cmd,
                     prm,
@@ -461,27 +455,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     // error checking
     if (len > USER_INPUT_MAX_INPUT_LENGTH)
     {
-        if (UserInput::OutputIsEnabled())
-        {
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"),
-                                         _username_);
-            _output_flag = true;
-        }
+        _ui_out(PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"), _username_);                    
         return;
     }
 
     // this is declared here to test if token_buffer == nullptr (error condition)
     token_buffer = new char[len + 1](); // place to chop up the input
     if (token_buffer == nullptr)        // if there was an error allocating the memory
-    {
-        if (UserInput::OutputIsEnabled())
-        {
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR(">%s $ERROR: not enough free ram to allocate the token buffer.\n"),
-                                         _username_);
-            _output_flag = true;
-        }
+    {        
+        _ui_out(PSTR(">%s $ERROR: not enough free ram to allocate the token buffer.\n"), _username_);        
         return;
     }
     // end error checking
@@ -510,16 +492,11 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
             break;
         }
     }
+
     // error condition
     if (tokens_received == 0)
-    {
-        if (UserInput::OutputIsEnabled())
-        {
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR(">%s $ERROR: No tokens retrieved.\n"),
-                                         _username_);
-            _output_flag = true;
-        }
+    {        
+        _ui_out(PSTR(">%s $ERROR: No tokens retrieved.\n"), _username_);                    
         delete[] token_buffer;
         return;
     }
@@ -558,23 +535,15 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
             memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
             if (failed_on_subcommand > 0)
             {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $Invalid input: %s "),
-                                             _username_,
-                                             data_pointers[0]);
+                _ui_out(PSTR(">%s $Invalid input: %s "), _username_, data_pointers[0]);
                 for (size_t i = 0; i < (failed_on_subcommand - 1); ++i)
                 {
-                    _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                 PSTR("%s "),
-                                                 data_pointers[i + 1]);
+                    _ui_out(PSTR("%s "), data_pointers[i + 1]);
                 }
             }
             else
             {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $Invalid input: %s "),
-                                             _username_,
-                                             data_pointers[0]);
+                _ui_out(PSTR(">%s $Invalid input: %s "), _username_, data_pointers[0]);
             }
             if (command_matched == true)
             {
@@ -587,42 +556,31 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         {
                             if (input_type_match_flag[i] == false)
                             {
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR("%s* "),
-                                                             data_pointers[failed_on_subcommand + i]);
+                                _ui_out(PSTR("%s* "), data_pointers[failed_on_subcommand + i]);
                             }
                             else
                             {
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR("%s "),
-                                                             data_pointers[failed_on_subcommand + i]);
+                                _ui_out(PSTR("%s "), data_pointers[failed_on_subcommand + i]);
                             }
                         }
                         else
                         {
                             if (input_type_match_flag[i] == false)
                             {
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR("%s* "),
-                                                             data_pointers[i + 1]);
+                                _ui_out(PSTR("%s* "), data_pointers[i + 1]);
                             }
                             else
                             {
-                                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                             PSTR("%s "),
-                                                             data_pointers[i + 1]);
+                                _ui_out(PSTR("%s "), data_pointers[i + 1]);
                             }
                         }
                     }
+                    _ui_out(PSTR("\n"));   
                 }
-            }
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                         PSTR("\n"));
+            }            
             if (!command_matched)
             {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR("Command <%s> unknown.\n"),
-                                             data_pointers[0]);
+                _ui_out(PSTR("Command <%s> unknown.\n"), data_pointers[0]);
             }
             if (command_matched && all_arguments_valid == false)
             {
@@ -635,11 +593,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         {
                             char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
                             memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
-                                                         i + 1,
-                                                         _type,
-                                                         data_pointers[failed_on_subcommand + i]);
+                            _ui_out(PSTR(" > arg(%u) should be %s; received \"%s\".\n"), i + 1, _type,
+                                        data_pointers[failed_on_subcommand + i]);
                         }
                     }
                     else
@@ -648,11 +603,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         {
                             char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
                             memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                         PSTR(" > arg(%u) should be %s; received \"%s\".\n"),
-                                                         i + 1,
-                                                         _type,
-                                                         data_pointers[i + 1]);
+                            _ui_out(PSTR(" > arg(%u) should be %s; received \"%s\".\n"), i + 1, _type,
+                                    data_pointers[i + 1]);
                         }
                     }
                 }
@@ -663,34 +615,29 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                 {
                     if (failed_on_subcommand > 0)
                     {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
-                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
+                        _ui_out(PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
+                                    prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
                     }
                     else
                     {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
-                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
+                        _ui_out(PSTR(" command \"%s\" received <%02u> arguments; %s expects <%02u> arguments.\n"),
+                                    prm.command, (rec_num_arg_strings), prm.command, prm.num_args);
                     }
                 }
                 else // variable number of args
                 {
                     if (failed_on_subcommand > 0)
                     {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
-                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
+                        _ui_out(PSTR(" subcommand \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
+                                prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
                     }
                     else
                     {
-                        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                                     PSTR(" command \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
-                                                     prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
+                        _ui_out(PSTR(" command \"%s\" received <%02u> arguments; %s expects between <%02u> and <%02u> arguments.\n"),
+                                    prm.command, (rec_num_arg_strings), prm.command, prm.num_args, prm.max_num_args);
                     }
                 }
-            }
-            _output_flag = true;
+            }            
         }
         (*default_function_)(this); // run the default function
     }
@@ -705,13 +652,7 @@ void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
         stream_data = new uint8_t[rx_buffer_size]; // an array to store the received data
         if (stream_data == nullptr)                // if there was an error allocating the memory
         {
-            if (UserInput::OutputIsEnabled())
-            {
-                _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                             PSTR(">%s $ERROR: not enough memory for stream rx buffer\n"),
-                                             _username_);
-                _output_flag = true;
-            }
+            _ui_out(PSTR(">%s $ERROR: not enough memory for stream rx buffer\n"), _username_);
             return;
         }
         stream_buffer_allocated = true;
@@ -751,22 +692,15 @@ void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
 
 void UserInput::ListCommands()
 {
-    if (UserInput::OutputIsEnabled())
+    CommandConstructor *cmd;
+    _ui_out(PSTR("Commands available to %s:\n"), _username_);
+    uint8_t i = 1;
+    for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
     {
-        CommandConstructor *cmd;
-        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                     PSTR("Commands available to %s:\n"),
-                                     _username_);
-        uint8_t i = 1;
-        for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
-        {
-            char buffer[USER_INPUT_MAX_COMMAND_LENGTH];
-            memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
-            _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len, PSTR(" %02u. <%s>\n"),
-                                         i, buffer);
-            i++;
-        }
-        _output_flag = true;
+        char buffer[USER_INPUT_MAX_COMMAND_LENGTH];
+        memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
+        _ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
+        i++;
     }
 }
 
@@ -835,23 +769,18 @@ char UserInput::combineControlCharacters(char input)
 
 void UserInput::ListSettings(UserInput *inputprocess)
 {
-    if (UserInput::OutputIsEnabled())
-    {
-        char temp_settings[3][8] = {'\0'};
-        inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
-        inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
-        inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
-        _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
-                                     PSTR("username = \"%s\"\n"
-                                          "end_of_line_characters = \"%s\"\n"
-                                          "token_delimiter = \"%s\"\n"
-                                          "c_string_delimiter = \"%s\"\n"),
-                                     _username_,
-                                     (char *)temp_settings[0],
-                                     (char *)temp_settings[1],
-                                     (char *)temp_settings[2]);
-        _output_flag = true;
-    }
+    char temp_settings[3][8] = {'\0'};
+    inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
+    inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
+    inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
+    _ui_out(PSTR("username = \"%s\"\n"
+                 "end_of_line_characters = \"%s\"\n"
+                 "token_delimiter = \"%s\"\n"
+                 "c_string_delimiter = \"%s\"\n"),
+            _username_,
+            (char *)temp_settings[0],
+            (char *)temp_settings[1],
+            (char *)temp_settings[2]);
 }
 
 void UserInput::DefaultFunction(void (*function)(UserInput *))
