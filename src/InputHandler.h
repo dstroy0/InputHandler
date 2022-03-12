@@ -162,10 +162,8 @@ public:
               const char *c_string_delimiter = "\"")
         : _output_buffer(output_buffer)
         , _output_enabled((output_buffer == NULL) ? false : true)
-        , _string_pos(0)
-        , _output_buffer_len(output_buffer_len)
-        , _username_(username)
-        , _term_(end_of_line_characters)
+        , _string_pos(0), _output_buffer_len(output_buffer_len)
+        , _username_(username), _term_(end_of_line_characters)
         , _delim_(token_delimiter)
         , _c_str_delim_(c_string_delimiter)
         , default_function_(NULL)
@@ -269,7 +267,7 @@ protected:
 
     /**
      * @brief Tries to determine if input is valid
-     *     
+     *
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
      */
@@ -296,10 +294,8 @@ protected:
      */
     void launchLogic(CommandConstructor *cmd,
                      Parameters &prm,
-                     uint8_t *data,
-                     size_t len,
+                     size_t tokens_received,
                      bool &all_arguments_valid,
-                     size_t &data_index,
                      bool &match,
                      bool *input_type_match_flag);
 
@@ -353,13 +349,13 @@ private:
     /*
         member function variables
     */
-    bool _output_flag = false;                                             //   output is available flag, set by member functions
-    char *token_buffer = NULL;                                             //   pointer to tokenized c-string
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS] = {0}; //   token_buffer pointers
-    size_t data_pointers_index = 0;                                        //   data_pointer's index
-    size_t rec_num_arg_strings = 0;                                        //   number of tokens after first valid token
-    size_t subcommand_tokens = 0;
-
+    bool _output_flag = false;                                                 //   output is available flag, set by member functions
+    char *token_buffer = NULL;                                                 //   pointer to tokenized c-string
+    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1] = {0}; //   token_buffer pointers
+    size_t data_pointers_index = 0;                                            //   data_pointer's index
+    size_t rec_num_arg_strings = 0;                                            //   number of tokens after first valid token
+    size_t failed_on_subcommand = 0;
+    size_t _current_search_depth = 1;
     /*
         GetCommandFromStream variables
     */
@@ -367,6 +363,25 @@ private:
     bool new_stream_data = false;         // if there is new data in *stream_data this is true
     uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
     uint16_t stream_data_index = 0;       // the index of stream_data
+    size_t _term_index_ = 0;
+
+    /**
+     * @brief UserInput private vsnprintf
+     * https://www.cplusplus.com/reference/cstdio/vsprintf/
+     * @param fmt   the format string
+     * @param ...   arguments
+     */
+    void _ui_out(const char *fmt, ...)
+    {
+        if (UserInput::OutputIsEnabled())
+        {
+            va_list args;
+            va_start(args, fmt);
+            _string_pos += vsnprintf_P(_output_buffer + _string_pos, _output_buffer_len, fmt, args);
+            va_end(args);
+            _output_flag = true;
+        }
+    }
 };
 
 #endif
