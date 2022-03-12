@@ -356,6 +356,22 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         return;
     }
 
+    // subcommand with no arguments
+    if (tokens_received == 0 &&
+        _current_search_depth > 1 &&
+        subcommand_matched == true &&
+        prm.max_num_args == 0)
+    {
+        #if defined(__DEBUG_LAUNCH_LOGIC__)
+        _ui_out(PSTR(">%s $DEBUG: next subcommand match false" 
+                     "tokens>0 max_args>0 launchFunction(%s)\n"), 
+                     _username_, prm.command);
+        #endif
+        match = true;        // don't run default callback
+        launchFunction(cmd); // launch the matched command
+        return;
+    }
+
     // command with arguments, potentially has subcommands but none were entered
     if (_current_search_depth > 1 &&
         subcommand_matched == false &&
