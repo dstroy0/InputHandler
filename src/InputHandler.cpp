@@ -438,7 +438,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     // subcommand search
     failed_on_subcommand = 0;
     bool subcommand_matched = false;
-    Serial.println(_current_search_depth);    
+    Serial.print(F("search depth "));Serial.println(_current_search_depth);    
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
@@ -448,21 +448,26 @@ void UserInput::launchLogic(CommandConstructor *cmd,
             failed_on_subcommand = j;
             if (prm.depth == _current_search_depth)
             {
-                Serial.println(F("match depth"));
+                Serial.print(F("match depth ")); Serial.println(prm.command);
+                Serial.print(F("data ")); Serial.println(data_pointers[data_pointers_index]);
                 if (strcmp(data_pointers[data_pointers_index], prm.command) == 0)
                 {
-                    Serial.println(F("subcommand matched"));
+                    Serial.print(prm.command);Serial.println(F(" subcommand matched"));
+                    Serial.print(prm.sub_commands);Serial.println(F(" subcommands"));
+                    Serial.print(prm.max_num_args);Serial.println(F(" max_num_args"));
                     // subcommand matched
-                    tokens_received--;         // subtract subcommand from tokens received
+                    if (tokens_received > 0)
+                    {                        
+                        tokens_received--; // subtract subcommand from tokens received
+                        Serial.print(F("decrement tokens "));Serial.println(tokens_received);
+                        data_pointers_index++;
+                    }
                     subcommand_matched = true; // subcommand matched
+                    break;  // break out of the loop
                 }
             }
         }
-        _current_search_depth++;
-        if (tokens_received > 0)
-        {
-            data_pointers_index++;
-        }
+        _current_search_depth++;        
     } // end subcommand search
 
     // error
@@ -472,9 +477,27 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         return;
     }
 
-    // recursion
-    if (subcommand_matched == true)
-    {        
+    // if (subcommand_matched == true && prm.sub_commands == 0 && prm.max_num_args == 0)
+    // {
+    //     Serial.println(F("launch subcommand w/no args"));
+    //     #if defined(_DEBUG_USER_INPUT)
+    //     if (UserInput::OutputIsEnabled())
+    //     {
+    //         _string_pos += UI_SNPRINTF_P(_output_buffer + _string_pos, _output_buffer_len,
+    //                                      PSTR(">%s $DEBUG: match command <%s>.\n"),
+    //                                      _username_,
+    //                                      cmd->command);
+    //         _output_flag = true;
+    //     }
+    //     #endif
+    //     match = true;        // don't run default callback
+    //     launchFunction(cmd); // launch the matched command
+    //     return;
+    // }
+    
+    if (subcommand_matched == true) // recursion
+    {
+        Serial.println(F("recurse"));
         launchLogic(cmd,
                     prm,
                     tokens_received,

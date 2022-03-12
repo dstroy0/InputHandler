@@ -233,6 +233,7 @@ CommandConstructor uc_test_(uc_test_input_types, &type_test_param);
 
 void setup()
 {
+  delay(500); // startup delay for reprogramming
   // uncomment as needed
   Serial.begin(115200); //  set up Serial object (Stream object)
   // Serial2.begin(115200);
@@ -240,12 +241,14 @@ void setup()
   // Serial4.begin(115200);
   while (!Serial); //  wait for user
 
+  Serial.println(F("Set up InputHandler..."));
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_help_);             // lists commands available to the user
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
 
   uc_help(inputHandler);               // formats output_buffer with the command list
+  
   inputHandler.OutputToStream(Serial); // class output
 }
 
