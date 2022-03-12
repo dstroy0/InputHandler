@@ -162,10 +162,8 @@ public:
               const char *c_string_delimiter = "\"")
         : _output_buffer(output_buffer)
         , _output_enabled((output_buffer == NULL) ? false : true)
-        , _string_pos(0)
-        , _output_buffer_len(output_buffer_len)
-        , _username_(username)
-        , _term_(end_of_line_characters)
+        , _string_pos(0), _output_buffer_len(output_buffer_len)
+        , _username_(username), _term_(end_of_line_characters)
         , _delim_(token_delimiter)
         , _c_str_delim_(c_string_delimiter)
         , default_function_(NULL)
@@ -269,7 +267,7 @@ protected:
 
     /**
      * @brief Tries to determine if input is valid
-     *     
+     *
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
      */
@@ -355,7 +353,7 @@ private:
     char *token_buffer = NULL;                                                 //   pointer to tokenized c-string
     char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1] = {0}; //   token_buffer pointers
     size_t data_pointers_index = 0;                                            //   data_pointer's index
-    size_t rec_num_arg_strings = 0;                                            //   number of tokens after first valid token    
+    size_t rec_num_arg_strings = 0;                                            //   number of tokens after first valid token
     size_t failed_on_subcommand = 0;
     size_t _current_search_depth = 1;
     /*
@@ -366,14 +364,14 @@ private:
     uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
     uint16_t stream_data_index = 0;       // the index of stream_data
     size_t _term_index_ = 0;
-    
+
     /**
      * @brief UserInput private vsnprintf
      * https://www.cplusplus.com/reference/cstdio/vsprintf/
      * @param fmt   the format string
      * @param ...   arguments
      */
-    void _ui_out(const char* fmt, ... )
+    void _ui_out(const char *fmt, ...)
     {
         if (UserInput::OutputIsEnabled())
         {

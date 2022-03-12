@@ -641,7 +641,6 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         }
         (*default_function_)(this); // run the default function
     }
-
     delete[] token_buffer;
 }
 
