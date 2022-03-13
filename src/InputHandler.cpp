@@ -668,6 +668,13 @@ void UserInput::launchFunction(CommandConstructor *cmd, Parameters &prm, uint8_t
         _ui_out(PSTR("func ptr == NULL, load cmd->prm[0]\n"));
         #endif
         memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
+        if (prm.function == NULL)   // silent crash guard
+        {
+            #if defined(__DEBUG_LAUNCH_FUNCTION__)
+            _ui_out(PSTR("ERROR! Parameters function pointer NULL for (%s), edit your source!\n"), prm.command);
+            #endif
+            return;
+        }
         prm.function(this);        
     }
 }
