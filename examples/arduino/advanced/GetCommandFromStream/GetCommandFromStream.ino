@@ -122,7 +122,7 @@ void uc_test_input_types(UserInput* inputProcess)
 const Parameters help_param[4] PROGMEM =
 {
   { // command
-    uc_help,
+    uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
     "help",       // command string
     4,            // command string characters
     0,            // command depth
@@ -138,7 +138,7 @@ const Parameters help_param[4] PROGMEM =
     }
   },
   { // begin subcommand "me", first child of parent command "help"
-    NULL,
+    NULL,                 // no function ptr
     "me",                 // command string
     2,                    // command string characters
     1,                    // command depth
@@ -154,7 +154,7 @@ const Parameters help_param[4] PROGMEM =
     }
   },  //end subcommand
   { // begin subcommand "you", second child of parent command "help"
-    NULL,
+    NULL,                 // no function ptr
     "yourself",           // command string
     8,                    // command string characters
     1,                    // command depth
@@ -170,7 +170,7 @@ const Parameters help_param[4] PROGMEM =
     }
   },
   { // begin subcommand "please", first child of parent subcommand "me"
-    NULL,
+    NULL,                 // no function ptr
     "please",             // command string
     6,                    // command string characters
     2,                    // command depth
@@ -188,9 +188,9 @@ const Parameters help_param[4] PROGMEM =
 };
 CommandConstructor uc_help_(help_param, 2, 4); //  uc_help_ has a command string, and function specified
 
-const Parameters settings_param PROGMEM =
+const Parameters settings_param[1] PROGMEM =
 {
-  uc_settings,
+  uc_settings,      // function ptr
   "inputSettings",  // command string
   13,               // command string characters
   0,                // command depth
@@ -205,7 +205,7 @@ const Parameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 const Parameters type_test_param PROGMEM =
 {
