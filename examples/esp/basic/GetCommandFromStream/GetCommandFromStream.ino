@@ -83,14 +83,16 @@ void uc_test_input_types(UserInput *inputProcess)
   Serial.print(out);
 }
 
-const CommandParameters type_test_param PROGMEM =
+const Parameters type_test_param[1] PROGMEM =
 {
-  uc_test_input_types, // function name
+  uc_test_input_types, // function ptr
   "test",              // command string
   4,                   // string length
+  0,                   // command depth
+  0,                   // subcommands
   argument_type_array, // argument handling
-  8,            // minimum expected number of arguments
-  8,            // maximum expected number of arguments
+  8,                   // minimum expected number of arguments
+  8,                   // maximum expected number of arguments
   /*
     UITYPE arguments
   */

@@ -121,28 +121,34 @@ void uc_test_input_types(UserInput *inputProcess)
   memcpy(output_buffer, out, ((sizeof(out) < sizeof(output_buffer)) ? sizeof(out) : sizeof(output_buffer - 1)));
 }
 
-const CommandParameters help_param PROGMEM =
+const Parameters help_param[1] PROGMEM =
 {
-  uc_help,      // function name
-  "help",       // command string
-  4,            // command string characters
-  no_arguments, // argument handling
-  0,            // minimum expected number of arguments
-  0,            // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  { // command
+    uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
+    "help",       // command string
+    4,            // command string characters
+    0,            // command depth
+    2,            // subcommands  
+    no_arguments, // argument handling
+    0,            // minimum expected number of arguments
+    0,            // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
   }
 };
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
-const CommandParameters settings_param PROGMEM =
+const Parameters settings_param[1] PROGMEM =
 {
-  uc_settings,      // function name
+  uc_settings,      // function ptr
   "inputSettings",  // command string
   13,               // command string characters
+  0,                // command depth
+  0,                // subcommands
   no_arguments,     // argument handling
   0,                // minimum expected number of arguments
   0,                // maximum expected number of arguments
@@ -155,11 +161,13 @@ const CommandParameters settings_param PROGMEM =
 };
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
-const CommandParameters type_test_param PROGMEM =
+const Parameters type_test_param[1] PROGMEM =
 {
-  uc_test_input_types, // function name
+  uc_test_input_types, // function ptr
   "test",              // command string
   4,                   // string length
+  0,                   // command depth
+  0,                   // subcommands
   argument_type_array, // argument handling
   8,                   // minimum expected number of arguments
   8,                   // maximum expected number of arguments

@@ -72,10 +72,13 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-const Parameters test[1] PROGMEM =
+const Parameters type_test_param[1] PROGMEM =
 {
+  uc_test_input_types, // function pointer
   "test",              // command string
   4,                   // string length
+  0,                   // command depth
+  0,                   // subcommands
   argument_type_array, // argument handling
   8,                   // minimum expected number of arguments
   8,                   // maximum expected number of arguments
@@ -93,14 +96,7 @@ const Parameters test[1] PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-
-const CommandParameters _test_ PROGMEM =
-{
-  uc_test_input_types,
-  test
-};
-
-CommandConstructor uc_test_(_test_);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {
@@ -110,7 +106,7 @@ void setup()
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.AddCommand(uc_test_);             // input type test
 
-  Serial.println(F("enter test 1 2 3 4 5 a \"bb\" to test user input types."));
+  Serial.println(F("enter test 1 2 3 4 5 a \"bb\" ccc to test user input types."));
 }
 
 void loop()

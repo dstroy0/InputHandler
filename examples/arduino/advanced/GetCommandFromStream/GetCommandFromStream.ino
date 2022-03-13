@@ -119,7 +119,7 @@ void uc_test_input_types(UserInput* inputProcess)
   Serial.print(out);
 }
 
-const Parameters help_param[4] PROGMEM =
+const Parameters help_param[1] PROGMEM =
 {
   { // command
     uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
@@ -136,57 +136,9 @@ const Parameters help_param[4] PROGMEM =
     {
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
-  },
-  { // begin subcommand "me", first child of parent command "help"
-    NULL,                 // no function ptr
-    "me",                 // command string
-    2,                    // command string characters
-    1,                    // command depth
-    1,                    // subcommands    
-    no_arguments,         // argument handling
-    0,                    // minimum expected number of arguments
-    0,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  },  //end subcommand
-  { // begin subcommand "you", second child of parent command "help"
-    NULL,                 // no function ptr
-    "yourself",           // command string
-    8,                    // command string characters
-    1,                    // command depth
-    0,                    // subcommands
-    no_arguments,         // argument handling
-    0,                    // minimum expected number of arguments
-    0,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  },
-  { // begin subcommand "please", first child of parent subcommand "me"
-    NULL,                 // no function ptr
-    "please",             // command string
-    6,                    // command string characters
-    2,                    // command depth
-    0,                    // subcommands
-    single_type_argument, // argument handling
-    1,                    // minimum expected number of arguments
-    1,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::UINT8_T // use NO_ARGS if the function expects no arguments
-    }
   }
 };
-CommandConstructor uc_help_(help_param, 2, 4); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param[1] PROGMEM =
 {
@@ -207,9 +159,9 @@ const Parameters settings_param[1] PROGMEM =
 };
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
-const Parameters type_test_param PROGMEM =
+const Parameters type_test_param[1] PROGMEM =
 {
-  uc_test_input_types,
+  uc_test_input_types, // function ptr
   "test",              // command string
   4,                   // string length
   0,                   // command depth
@@ -231,7 +183,7 @@ const Parameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(&type_test_param);
+CommandConstructor uc_test_(type_test_param);
 
 void setup()
 {
