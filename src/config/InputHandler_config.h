@@ -21,69 +21,59 @@
 #include <Arduino.h>
 
 //  uncomment to debug functions
-//#define _DEBUG_USER_INPUT
-//#define __DEBUG_SUBCOMMAND_SEARCH__
-//#define __DEBUG_LAUNCH_LOGIC__
-
-#define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
-#define UI_DEFAULT_STRINGS_MAX_LEN 14
+//#define __DEBUG_USER_INPUT__
+#if defined(__DEBUG_USER_INPUT__)
+#define __DEBUG_GET_TOKEN__
+#define __DEBUG_SUBCOMMAND_SEARCH__
+#define __DEBUG_LAUNCH_LOGIC__
+#endif
 
 //  maximum number of arguments per command
-#ifndef USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS
-#define USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS 32U
+#if !defined(UI_MAX_ARGS)
+#define UI_MAX_ARGS 32
 #endif
 
 //  max value of a sixteen bit unsigned integer
-#ifndef UINT16_MAX
+#if !defined(UINT16_MAX)
 #define UINT16_MAX 65535
 #endif
 
 //  max value of an eight bit unsigned integer
-#ifndef UINT8_MAX
+#if !defined(UINT8_MAX)
 #define UINT8_MAX 255
 #endif
 
 //  maximum command length
-#ifndef USER_INPUT_MAX_COMMAND_LENGTH
-#define USER_INPUT_MAX_COMMAND_LENGTH 32
+#if !defined(UI_MAX_CMD_LEN)
+#define UI_MAX_CMD_LEN 32
 #endif
 
 //  maximum user input length
-#ifndef USER_INPUT_MAX_INPUT_LENGTH
-#define USER_INPUT_MAX_INPUT_LENGTH UINT16_MAX
+#if !defined(UI_MAX_IN_LEN)
+#define UI_MAX_IN_LEN UINT16_MAX
 #endif
 
-//  portability directives
-#define UI_DEREFERENCE &
-#define UI_PGM_READ_DWORD(x) pgm_read_dword(x)
-#define UI_PGM_READ_BYTE(x) pgm_read_byte(x)
-#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf_P(s_, sz_, f_, ##__VA_ARGS__)
-#define _N_ARGS(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+#define _N_params(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
+// portability directives
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
 #include <avr/dtostrf.h>
 #endif
 
 #if defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
-#undef UI_DEREFERENCE
-#define UI_DEREFERENCE
-#undef UI_PGM_READ_DWORD
-#define UI_PGM_READ_DWORD
-#undef UI_SNPRINTF_P
-#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
+#define memcpy_P memcpy
+#define vsnprintf_P vsnprintf
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
-#undef UI_DEREFERENCE
-#define UI_DEREFERENCE
-#undef UI_PGM_READ_DWORD
-#define UI_PGM_READ_DWORD
-#undef UI_PGM_READ_BYTE
-#define UI_PGM_READ_BYTE
-#undef UI_SNPRINTF_P
-#define UI_SNPRINTF_P(s_, sz_, f_, ...) snprintf(s_, sz_, f_, ##__VA_ARGS__)
 #include <avr/dtostrf.h>
+#define memcpy_P memcpy
+#define vsnprintf_P vsnprintf
 #endif
+
+// PROGMEM width constants
+#define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
+#define UI_DEFAULT_STRINGS_MAX_LEN 14
 
 #endif

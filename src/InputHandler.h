@@ -80,12 +80,12 @@ struct Parameters
     //![ui_parameters_struct_def]
     uint8_t depth;
     uint8_t sub_commands;
-    char command[USER_INPUT_MAX_COMMAND_LENGTH];
+    char command[UI_MAX_CMD_LEN];
     uint16_t command_length;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint8_t num_args;
     uint8_t max_num_args;
-    UITYPE _arg_type[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS];
+    UITYPE _arg_type[UI_MAX_ARGS];
     //![ui_parameters_struct_def]
 };
 /** @} */
@@ -168,11 +168,25 @@ public:
         , _term_(end_of_line_characters)
         , _delim_(token_delimiter)
         , _c_str_delim_(c_string_delimiter)
+        , _term_index_(0)
         , default_function_(NULL)
         , commands_head_(NULL)
         , commands_tail_(NULL)
         , commands_count_(0)
-        , max_num_user_defined_args(0)
+        , _output_flag(false)
+        , token_buffer(NULL)
+        , data_pointers{NULL}
+        , data_pointers_index(0)
+        , rec_num_arg_strings(0)
+        , failed_on_subcommand(0)
+        , _current_search_depth(1)
+        , _null_('\0')
+        , _neg_('-')
+        , _dot_('.')
+        , stream_buffer_allocated(false)
+        , new_stream_data(false)
+        , stream_data(NULL)
+        , stream_data_index(0)
     {
     }
 
@@ -291,6 +305,7 @@ protected:
      * @param all_arguments_valid boolean array     
      * @param match boolean command match flag
      * @param input_type_match_flag boolean type match flag array
+     * @param subcommand_matched boolean subcommand match flag
      */
     void launchLogic(CommandConstructor *cmd,
                      Parameters &prm,
@@ -334,50 +349,45 @@ protected:
      * @param all_arguments_valid error sentinel
      */
     void getArgs(size_t &tokens_received,
-                        bool *input_type_match_flag,
-                        Parameters &prm,
-                        bool &all_arguments_valid);
+                 bool *input_type_match_flag,
+                 Parameters &prm,
+                 bool &all_arguments_valid);
 
 private:
     /*
         UserInput Constructor variables
     */
-    char *_output_buffer;                   //  pointer to output char buffer
-    bool _output_enabled;                   //  true if _output_buffer is not NULL
-    size_t _string_pos;                     //  _output_buffer's index
-    const size_t _output_buffer_len;        //  _output_buffer's size
-    const char *_username_;                 //  username
-    const char *_term_;                     //  end of line characters
-    const char *_delim_;                    //  token delimiter
-    const char *_c_str_delim_;              //  c-string delimiter
+    char *_output_buffer;            //  pointer to output char buffer
+    bool _output_enabled;            //  true if _output_buffer is not NULL
+    size_t _string_pos;              //  _output_buffer's index
+    const size_t _output_buffer_len; //  _output_buffer's size
+
+    const char *_username_;    //  username
+    const char *_term_;        //  end of line characters
+    const char *_delim_;       //  token delimiter
+    const char *_c_str_delim_; //  c-string delimiter
+    size_t _term_index_;       //  eol index
+
     void (*default_function_)(UserInput *); //  pointer to default function
     CommandConstructor *commands_head_;     //  pointer to object list
     CommandConstructor *commands_tail_;     //  pointer to object list
     size_t commands_count_;                 //  how many commands are there
-    size_t max_num_user_defined_args;       //  max number of arguments used
 
-    char _null_ = '\0'; //  char '\0'
-    char _neg_ = '-';   //  char '-'
-    char _dot_ = '.';   //  char '.'
+    bool _output_flag;            // output is available flag, set by member functions
+    char *token_buffer;           // pointer to tokenized c-string
+    char *data_pointers[UI_MAX_ARGS + 1]; // token_buffer pointers
+    size_t data_pointers_index;   // data_pointer's index
+    size_t rec_num_arg_strings;   // number of tokens after first valid token
+    size_t failed_on_subcommand;  // subcommand error index
+    size_t _current_search_depth; // current subcommand search depth
+    char _null_;                  //  char '\0'
+    char _neg_;                   //  char '-'
+    char _dot_;                   //  char '.'
 
-    /*
-        member function variables
-    */
-    bool _output_flag = false;                                                 //   output is available flag, set by member functions
-    char *token_buffer = NULL;                                                 //   pointer to tokenized c-string
-    char *data_pointers[USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS + 1] = {0}; //   token_buffer pointers
-    size_t data_pointers_index = 0;                                            //   data_pointer's index
-    size_t rec_num_arg_strings = 0;                                            //   number of tokens after first valid token
-    size_t failed_on_subcommand = 0;
-    size_t _current_search_depth = 1;
-    /*
-        GetCommandFromStream variables
-    */
-    bool stream_buffer_allocated = false; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
-    bool new_stream_data = false;         // if there is new data in *stream_data this is true
-    uint8_t *stream_data = NULL;          // pointer to stream input, a string of char
-    uint16_t stream_data_index = 0;       // the index of stream_data
-    size_t _term_index_ = 0;
+    bool stream_buffer_allocated; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
+    bool new_stream_data;         // if there is new data in *stream_data this is true
+    uint8_t *stream_data;         // pointer to stream input, a string of char
+    size_t stream_data_index;     // the index of stream_data
 
     /**
      * @brief UserInput private vsnprintf
