@@ -72,16 +72,24 @@ enum UI_ARGUMENT_FLAG_ENUM
 };
 
 /**
+ * @brief forward declaration of UserInput class for
+ * Parameters struct and CommandConstructor class
+ */
+
+class UserInput;
+
+/**
  * @brief Parameters struct
  * \snippet InputHandler.h ui_parameters_struct_def
  */
 struct Parameters
 {
     //![ui_parameters_struct_def]
-    uint8_t depth;
-    uint8_t sub_commands;
+    void (*function)(UserInput *);
     char command[UI_MAX_CMD_LEN];
     uint16_t command_length;
+    uint8_t depth;
+    uint8_t sub_commands;
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint8_t num_args;
     uint8_t max_num_args;
@@ -90,12 +98,6 @@ struct Parameters
 };
 /** @} */
 
-/**
- * @brief forward declaration of UserInput class for
- * CommandConstructor class
- */
-
-class UserInput;
 /**
  * @brief user command constructor
  */
@@ -112,18 +114,15 @@ public:
      * @param tree_depth depth of command tree
      * @param parameter_elements number of elements in the parameter array
      */
-    CommandConstructor(void (*func)(UserInput *),
-                       const Parameters *parameters,
+    CommandConstructor(const Parameters *parameters,
                        const uint8_t tree_depth = 0,
                        const uint8_t parameter_elements = 0)
-        : function(func)
-        , prm(parameters)
+        : prm(parameters)
         , _tree_depth(tree_depth)
         , _param_array_len(parameter_elements)
         , next_command_parameters(NULL)
     {
-    }
-    void (*function)(UserInput *);
+    }    
     const Parameters *prm;
     const uint8_t _tree_depth;
     const uint8_t _param_array_len;
@@ -292,15 +291,18 @@ protected:
     /**
      * @brief launches a function
      *
-     * @param parameters command options reference
+     * @param cmd CommandConstructor pointer
+     * @param prm Parameters struct reference
+     * @param prm_idx Parameters array index
      */
-    void launchFunction(const CommandConstructor *parameters);
+    void launchFunction(CommandConstructor *cmd, Parameters& prm, uint8_t& prm_idx, size_t tokens_received);
 
     /**
      * @brief function launch logic
      *
      * @param cmd CommandConstructor ptr
      * @param prm Parameters reference
+     * @param prm_idx Parameters array index
      * @param tokens_received number of tokens retreived from input data
      * @param all_arguments_valid boolean array     
      * @param match boolean command match flag
@@ -309,6 +311,7 @@ protected:
      */
     void launchLogic(CommandConstructor *cmd,
                      Parameters &prm,
+                     uint8_t& prm_idx,
                      size_t tokens_received,
                      bool &all_arguments_valid,
                      bool &match,

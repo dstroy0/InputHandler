@@ -51,10 +51,6 @@ void uc_help(UserInput* inputProcess)
 {
   inputProcess->ListCommands();
 }
-void uc_help(UserInput& inputProcess)
-{
-  inputProcess.ListCommands();
-}
 
 /*
    test all available input types
@@ -126,10 +122,11 @@ void uc_test_input_types(UserInput* inputProcess)
 const Parameters help_param[4] PROGMEM =
 {
   { // command
-    0,            // command depth
-    2,            // subcommands
+    uc_help,
     "help",       // command string
     4,            // command string characters
+    0,            // command depth
+    2,            // subcommands  
     no_arguments, // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
@@ -141,10 +138,11 @@ const Parameters help_param[4] PROGMEM =
     }
   },
   { // begin subcommand "me", first child of parent command "help"
-    1,                    // command depth
-    1,                    // subcommands
+    NULL,
     "me",                 // command string
     2,                    // command string characters
+    1,                    // command depth
+    1,                    // subcommands    
     no_arguments,         // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
@@ -156,10 +154,11 @@ const Parameters help_param[4] PROGMEM =
     }
   },  //end subcommand
   { // begin subcommand "you", second child of parent command "help"
-    1,                    // command depth
-    0,                    // subcommands
+    NULL,
     "yourself",           // command string
     8,                    // command string characters
+    1,                    // command depth
+    0,                    // subcommands
     no_arguments,         // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
@@ -171,10 +170,11 @@ const Parameters help_param[4] PROGMEM =
     }
   },
   { // begin subcommand "please", first child of parent subcommand "me"
-    2,                    // command depth
-    0,                    // subcommands
+    NULL,
     "please",             // command string
     6,                    // command string characters
+    2,                    // command depth
+    0,                    // subcommands
     single_type_argument, // argument handling
     1,                    // minimum expected number of arguments
     1,                    // maximum expected number of arguments
@@ -186,14 +186,15 @@ const Parameters help_param[4] PROGMEM =
     }
   }
 };
-CommandConstructor uc_help_(uc_help, help_param, 2, 4); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param, 2, 4); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param PROGMEM =
 {
-  0,                // command depth
-  0,                // subcommands
+  uc_settings,
   "inputSettings",  // command string
   13,               // command string characters
+  0,                // command depth
+  0,                // subcommands
   no_arguments,     // argument handling
   0,                // minimum expected number of arguments
   0,                // maximum expected number of arguments
@@ -204,14 +205,15 @@ const Parameters settings_param PROGMEM =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(uc_settings, &settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(&settings_param); // uc_settings_ has a command string, and function specified
 
 const Parameters type_test_param PROGMEM =
 {
-  0,                   // command depth
-  0,                   // subcommands
+  uc_test_input_types,
   "test",              // command string
   4,                   // string length
+  0,                   // command depth
+  0,                   // subcommands
   argument_type_array, // argument handling
   8,                   // minimum expected number of arguments
   8,                   // maximum expected number of arguments
@@ -229,7 +231,7 @@ const Parameters type_test_param PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(uc_test_input_types, &type_test_param);
+CommandConstructor uc_test_(&type_test_param);
 
 void setup()
 {
@@ -247,7 +249,7 @@ void setup()
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
 
-  uc_help(inputHandler);               // formats output_buffer with the command list
+  uc_help(&inputHandler);               // formats output_buffer with the command list
   
   inputHandler.OutputToStream(Serial); // class output
 }
