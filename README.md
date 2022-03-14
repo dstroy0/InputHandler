@@ -31,7 +31,21 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects.  
+InputHandler uses [Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects:  
+```cpp  
+struct Parameters
+{
+    void (*function)(UserInput *);
+    char command[UI_MAX_CMD_LEN];
+    uint16_t command_length;
+    uint8_t depth;
+    uint8_t sub_commands;
+    UI_ARGUMENT_FLAG_ENUM argument_flag;
+    uint8_t num_args;
+    uint8_t max_num_args;
+    UITYPE _arg_type[UI_MAX_ARGS];
+};
+```  
 
 Easily enforce input argument types and construct complex commands with subcommands:  
 
