@@ -360,6 +360,7 @@ private:
     /*
         UserInput Constructor variables
     */
+    // user entered constructor variables
     char *_output_buffer;            //  pointer to output char buffer
     bool _output_enabled;            //  true if _output_buffer is not NULL
     size_t _string_pos;              //  _output_buffer's index
@@ -369,6 +370,9 @@ private:
     const char *_term_;        //  end of line characters
     const char *_delim_;       //  token delimiter
     const char *_c_str_delim_; //  c-string delimiter
+    // end user entered constructor variables
+
+    // constructor initialized variables
     size_t _term_index_;       //  eol index
 
     void (*default_function_)(UserInput *); //  pointer to default function
