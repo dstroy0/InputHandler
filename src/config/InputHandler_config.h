@@ -63,14 +63,14 @@
 
 #if defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
-#define memcpy_P memcpy
-#define vsnprintf_P vsnprintf
+//#define memcpy_P memcpy
+//#define vsnprintf_P vsnprintf
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
 #include <avr/dtostrf.h>
-#define memcpy_P memcpy
-#define vsnprintf_P vsnprintf
+//#define memcpy_P memcpy
+//#define vsnprintf_P vsnprintf
 #endif
 
 // PROGMEM width constants
