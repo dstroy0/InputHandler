@@ -54,7 +54,7 @@
 #define UI_MAX_IN_LEN UINT16_MAX
 #endif
 
-#define _N_params(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+#define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
 // portability directives
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)

@@ -108,18 +108,17 @@ public:
      * @brief CommandConstructor Constructor
      *
      * Creates a new instance of this class.
-     * Before using, construct a UserInput object and a CommandParameters object.
-     * @param func pointer to a function
+     * Before using, construct a UserInput object and a CommandParameters object.     
      * @param parameters pointer to parameters struct or array of parameters structs
      * @param tree_depth depth of command tree
      * @param parameter_elements number of elements in the parameter array
      */
     CommandConstructor(const Parameters *parameters,
-                       const uint8_t tree_depth = 0,
-                       const uint8_t parameter_elements = 0)
+                       const uint8_t parameter_elements = 1,
+                       const uint8_t tree_depth = 0)
         : prm(parameters)
-        , _tree_depth(tree_depth)
         , _param_array_len(parameter_elements)
+        , _tree_depth(tree_depth)        
         , next_command_parameters(NULL)
     {
     }    
@@ -294,6 +293,7 @@ protected:
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
      * @param prm_idx Parameters array index
+     * @param tokens_received amount of tokens in the token buffer
      */
     void launchFunction(CommandConstructor *cmd, Parameters& prm, uint8_t& prm_idx, size_t tokens_received);
 

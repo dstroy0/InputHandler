@@ -31,11 +31,13 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
+InputHandler uses [Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects.  
+
 Easily enforce input argument types and construct complex commands with subcommands:  
 
 ```cpp
 // no arguments
-const Parameters your_command_parameters PROGMEM =
+const Parameters no_args_prm[1] PROGMEM =
 {  
     0,            // command depth (0 is root command)
     0,            // subcommands
@@ -51,10 +53,10 @@ const Parameters your_command_parameters PROGMEM =
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
 };
-CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
+CommandConstructor your_command(no_args_prm);
 
 // single argument type
-const Parameters your_command_parameters PROGMEM =
+const Parameters single_type_args_prm[1] PROGMEM =
 {
   0,                      // command depth (0 is root command)
   0,                      // subcommands   
@@ -71,10 +73,10 @@ const Parameters your_command_parameters PROGMEM =
     UITYPE::NOTYPE; // accept anything
   }
 };
-CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
+CommandConstructor your_command(single_type_args_prm);
 
 // argument array
-const Parameters your_command_parameters PROGMEM =
+const Parameters argument_type_array_prm[1] PROGMEM =
 {
   0,                   // command depth (0 is root command)
   0,                   // subcommands 
@@ -97,56 +99,23 @@ const Parameters your_command_parameters PROGMEM =
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor your_command(your_function_name, your_command_parameters, number_of_subcommands, subcommand_depth);
+CommandConstructor your_command(argument_type_array_prm);
 
-// nested parameters with variable number of arguments
-const Parameters your_command_parameters[2] PROGMEM =
-    {
-        {
-         0,                   // command depth (0 is root command)
-         1,                   // subcommands
-         "base_cmd_str",      // command string
-         7,                   // command string length
-         single_type_argument,// argument handling
-         1,                   // minimum expected number of arguments
-         8,                   // maximum expected number of arguments
-         /*
-           UITYPE arguments, fill with arguments you want to send in order
-         */
-         {
-             UITYPE::NOTYPE,  // no validation          
-         }
-        },
-        {
-         1,                   // command depth (0 is root command)
-         0,                   // subcommands
-         "sub_cmd_str",       // command string
-         7,                   // command string length
-         argument_type_array, // argument handling
-         8,                   // minimum expected number of arguments
-         8,                   // maximum expected number of arguments
-         /*
-           UITYPE arguments, fill with arguments you want to send in order
-         */
-         {
-             UITYPE::UINT8_T,  // 8-bit  uint
-             UITYPE::UINT16_T, // 16-bit uint
-             UITYPE::UINT32_T, // 32-bit uint
-             UITYPE::INT16_T,  // 16-bit int
-             UITYPE::FLOAT,    // 32-bit float
-             UITYPE::CHAR,     // char
-             UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-             UITYPE::NOTYPE    // special type, no type validation performed
-         }
-        }
-    };
-CommandConstructor your_command(your_function_name, your_command_parameters, 1, 2);
+// nested parameters
+const Parameters nested_cmd_prms_tree_depth_n[n] PROGMEM =
+{
+  any_prm_with_function_pointer,  // nested command parameters index zero needs a function pointer, else error
+  any_prm_with_NULL_func_ptr_or_its_own_func_ptr_tree_depth_1,  // NULL func ptr defaults to element zero func ptr, or point this subcommand to its own func
+  ...
+};
+CommandConstructor your_command(nested_cmd_prms, _N_prms(nested_cmd_prms), tree_depth);
 ```
 
 Each call to CommandConstructor uses 8 bytes of RAM.  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
 
 `NOTYPE` is a special argument type that doesn't perform any type-validation.  
 `NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
+`_N_prms(x)` is a macro which expands to `(sizeof(x) / sizeof((x)[0]))` it returns the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
@@ -179,7 +148,12 @@ ATTiny85 -- memory/flash
 ATMegaNG -- flash  
 
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
-  
+
+NOTE: vsnprintf and dtostrf implemented on the following platforms:  
+SAMD,  
+MBED,  
+arduino DUE  
+
 Build coverage:  
 
 nano rp2040 connect  
