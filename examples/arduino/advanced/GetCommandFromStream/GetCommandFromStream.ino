@@ -126,7 +126,7 @@ const Parameters help_param[1] PROGMEM =
     "help",       // command string
     4,            // command string characters
     0,            // command depth
-    2,            // subcommands  
+    2,            // subcommands
     no_arguments, // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
@@ -202,7 +202,7 @@ void setup()
   inputHandler.AddCommand(uc_test_);             // input type test
 
   uc_help(&inputHandler);               // formats output_buffer with the command list
-  
+
   inputHandler.OutputToStream(Serial); // class output
 }
 

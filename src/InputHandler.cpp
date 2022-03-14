@@ -22,7 +22,7 @@
 */
 char *UserInput::NextArgument()
 {
-    // return null if there are no more arguments
+    // return NULL if there are no more arguments
     if (data_pointers_index < UI_MAX_ARGS && data_pointers_index < rec_num_arg_strings)
     {
         data_pointers_index++;
@@ -56,7 +56,7 @@ void UserInput::AddCommand(CommandConstructor &command)
 void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 {
     // error checking
-    if (len > (UI_MAX_IN_LEN - 2)) // 65535 - 1(index align) - 1(space for null)
+    if (len > (UI_MAX_IN_LEN - 2)) // 65535 - 1(index align) - 1(space for null '\0')
     {
         _ui_out(PSTR(">%s $ERROR: input is greater than USER_INPUT_MAX_INPUT_LENGTH.\n"), _username_);
         return;
