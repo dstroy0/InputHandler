@@ -64,8 +64,7 @@
 #if defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
-//#define memcpy_P memcpy
-//#define vsnprintf_P vsnprintf
+#define vsnprintf_P vsnprintf
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
