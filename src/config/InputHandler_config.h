@@ -59,6 +59,8 @@
 // portability directives
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
 #include <avr/dtostrf.h>
+#include "utility/vsnprintf.h"
+#define vsnprintf_P vsnprintf
 #endif
 
 #if defined(__MBED_CONFIG_DATA__)
@@ -69,8 +71,8 @@
 
 #if defined(ARDUINO_SAM_DUE)
 #include <avr/dtostrf.h>
-//#define memcpy_P memcpy
-//#define vsnprintf_P vsnprintf
+#include "utility/vsnprintf.h"
+#define vsnprintf_P vsnprintf
 #endif
 
 // PROGMEM width constants

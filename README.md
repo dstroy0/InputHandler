@@ -174,7 +174,9 @@ Target function will not execute if the command string does not match, or any ar
 
 # Supported Platforms
 
-ATTiny85 not supported  
+Not supported:  
+ATTiny85 -- memory/flash  
+ATMegaNG -- flash  
 
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
   
@@ -202,8 +204,7 @@ ethernet
 fio  
 bt
 LilyPadUSB  
-pro  
-atmegang  
+pro 
 robotControl  
 robotMotor  
 circuitplay32u4cat  
