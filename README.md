@@ -10,7 +10,7 @@ Executes arbitrary functions by matching user input command strings.  Feature ri
 
 Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
 
-Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many or as few arguments as you wish.
+Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to `UI_MAX_ARGS`) or as few arguments (`0` minimum) as you wish.
 
 A command string looks like:  
 
@@ -79,8 +79,8 @@ const Parameters single_type_args_prm[1] PROGMEM =
         0,                    // command depth
         0,                    // subcommands
         single_type_argument, // argument handling
-        0,                    // minimum expected number of arguments
-        0,                    // maximum expected number of arguments
+        1,                    // minimum expected number of arguments
+        1,                    // maximum expected number of arguments
         /*
           UITYPE arguments
         */
@@ -99,8 +99,8 @@ const Parameters argument_type_array_prm[1] PROGMEM =
         0,            // command depth
         0,            // subcommands
         no_arguments, // argument handling
-        0,            // minimum expected number of arguments
-        0,            // maximum expected number of arguments
+        8,            // minimum expected number of arguments
+        8,            // maximum expected number of arguments
         /*
           UITYPE arguments
         */
