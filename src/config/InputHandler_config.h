@@ -63,7 +63,7 @@
 
 #if defined(__MBED_CONFIG_DATA__)
 #include <avr/dtostrf.h>
-#include <avr/stdio.h>
+#include <stdio.h>
 //#define memcpy_P memcpy
 //#define vsnprintf_P vsnprintf
 #endif
