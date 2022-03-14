@@ -6,7 +6,7 @@
 # InputHandler
 
 Arduino user input handler:  
-Executes arbitrary functions by matching user input command strings.  Feature rich, low memory use.  Each CommandConstructor uses 8 bytes of RAM.  
+Executes arbitrary functions by matching user input command strings.  Feature rich, low memory use.  Each CommandConstructor uses just 6 bytes of RAM (avr).
 
 Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
 
@@ -127,7 +127,7 @@ const Parameters nested_cmd_prms_tree_depth_n[n] PROGMEM =
 CommandConstructor your_command(nested_cmd_prms, _N_prms(nested_cmd_prms), tree_depth);
 ```
 
-Each call to CommandConstructor uses 8 bytes of RAM.  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
+Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
 
 `NOTYPE` is a special argument type that doesn't perform any type-validation.  
 `NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
