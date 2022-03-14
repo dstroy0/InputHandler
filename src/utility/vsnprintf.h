@@ -5,6 +5,14 @@
 typedef __gnuc_va_list va_list;
 #endif /* not __va_list__ */
 
+#ifndef __VALIST
+#ifdef __GNUC__
+#define __VALIST __gnuc_va_list
+#else
+#define __VALIST char*
+#endif
+#endif
+
 #define va_start(v,l)	__builtin_va_start(v,l)
 #define va_end(v)	__builtin_va_end(v)
 #define va_arg(v,l)	__builtin_va_arg(v,l)
