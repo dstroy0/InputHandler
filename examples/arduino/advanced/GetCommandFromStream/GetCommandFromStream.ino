@@ -120,24 +120,22 @@ void uc_test_input_types(UserInput* inputProcess)
 }
 
 const Parameters help_param[1] PROGMEM =
-{
-  { // command
-    uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
-    "help",       // command string
-    4,            // command string characters
-    0,            // command depth
-    2,            // subcommands
-    no_arguments, // argument handling
-    0,            // minimum expected number of arguments
-    0,            // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  }
-};
+    {   // func ptr
+        uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+        "help",       // command string
+        4,            // command string characters
+        0,            // command depth
+        2,            // subcommands
+        no_arguments, // argument handling
+        0,            // minimum expected number of arguments
+        0,            // maximum expected number of arguments
+        /*
+          UITYPE arguments
+        */
+        {
+            UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+        }
+    };
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param[1] PROGMEM =

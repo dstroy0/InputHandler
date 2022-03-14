@@ -38,67 +38,69 @@ Easily enforce input argument types and construct complex commands with subcomma
 ```cpp
 // no arguments
 const Parameters no_args_prm[1] PROGMEM =
-{  
-    0,            // command depth (0 is root command)
-    0,            // subcommands
-    "cmd_str",    // command string
-    7,            // command string characters
-    no_arguments, // argument handling
-    0,            // minimum expected number of arguments
-    0,            // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-};
+    {   // func ptr
+        func,         // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+        "cmd_str",    // command string
+        7,            // command string characters
+        0,            // command depth
+        0,            // subcommands
+        no_arguments, // argument handling
+        0,            // minimum expected number of arguments
+        0,            // maximum expected number of arguments
+        /*
+          UITYPE arguments
+        */
+        {
+            UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+        }
+    };
 CommandConstructor your_command(no_args_prm);
 
 // single argument type
 const Parameters single_type_args_prm[1] PROGMEM =
-{
-  0,                      // command depth (0 is root command)
-  0,                      // subcommands   
-  "cmd_str",              // command string
-  7,                      // command string characters
-  single_type_arguments,  // argument handling
-  1,                      // minimum expected number of arguments
-  1,                      // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    // any single type except for NO_ARGS
-    UITYPE::NOTYPE; // accept anything
-  }
-};
+    {   // func ptr
+        func,                 // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+        "cmd_str",            // command string
+        7,                    // command string characters
+        0,                    // command depth
+        0,                    // subcommands
+        single_type_argument, // argument handling
+        0,                    // minimum expected number of arguments
+        0,                    // maximum expected number of arguments
+        /*
+          UITYPE arguments
+        */
+        {   // any type except for NO_ARGS is allowed
+            UITYPE::NOTYPE // NOTYPE is a special type that performs no type validation
+        }
+    };
 CommandConstructor your_command(single_type_args_prm);
 
 // argument array
 const Parameters argument_type_array_prm[1] PROGMEM =
-{
-  0,                   // command depth (0 is root command)
-  0,                   // subcommands 
-  "cmd_str",           // command string
-  7,                   // command string length
-  argument_type_array, // argument handling 
-  8,                   // minimum expected number of arguments
-  8,                   // maximum expected number of arguments
-  /*
-    UITYPE arguments, fill with arguments you want to send in order
-  */
-  {
-    UITYPE::UINT8_T,    // 8-bit  uint
-    UITYPE::UINT16_T,   // 16-bit uint
-    UITYPE::UINT32_T,   // 32-bit uint
-    UITYPE::INT16_T,    // 16-bit int
-    UITYPE::FLOAT,      // 32-bit float
-    UITYPE::CHAR,       // char
-    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-    UITYPE::NOTYPE      // special type, no type validation performed
-  }
-};
+    {   // func ptr
+        func,         // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+        "cmd_str",    // command string
+        7,            // command string characters
+        0,            // command depth
+        0,            // subcommands
+        no_arguments, // argument handling
+        0,            // minimum expected number of arguments
+        0,            // maximum expected number of arguments
+        /*
+          UITYPE arguments
+        */
+        {
+            UITYPE::UINT8_T,    // 8-bit  uint
+            UITYPE::UINT16_T,   // 16-bit uint
+            UITYPE::UINT32_T,   // 32-bit uint
+            UITYPE::INT16_T,    // 16-bit int
+            UITYPE::FLOAT,      // 32-bit float
+            UITYPE::CHAR,       // char
+            UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+            UITYPE::NOTYPE      // special type, no type validation performed
+        }
+    };
 CommandConstructor your_command(argument_type_array_prm);
 
 // nested parameters
