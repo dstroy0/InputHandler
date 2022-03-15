@@ -97,7 +97,7 @@ const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
 class UserInput;
 
 /**
- * @brief Parameters struct
+ * @brief Parameters struct, this is the container that holds your command parameters
  * \snippet InputHandler.h ui_parameters_struct_def
  */
 struct Parameters
@@ -117,19 +117,23 @@ struct Parameters
 /** @} */
 
 /**
- * @brief user command constructor
+ * @brief user command constructor class
  */
 class CommandConstructor
 {
 public:
     /**
      * @brief CommandConstructor Constructor
+     * 
+     * https://www.programiz.com/dsa/linked-list
+     * 
+     * These are chained together as a linked-list; this object contains a reference `next_command_parameters` to the next
+     * node in the CommandConstructor linked-list.
      *
-     * Creates a new instance of this class.
      * Before using, construct a UserInput object and a CommandParameters object.     
      * @param parameters pointer to parameters struct or array of parameters structs
-     * @param tree_depth depth of command tree
      * @param parameter_elements number of elements in the parameter array
+     * @param tree_depth depth of command tree    
      */
     CommandConstructor(const Parameters *parameters,
                        const uint8_t parameter_elements = 1,
@@ -159,13 +163,11 @@ public:
      */
 
     /**
-     * @brief UserInput Constructor with NO output by default
+     * @brief UserInput Constructor, no output by default
      *
-     * Creates a new instance.  If you want output, declare a buffer size, buffer, and index.
-     *
-     * @param output_buffer NULL
-     * @param output_buffer_len ZERO
-     * @param username NULL
+     * @param output_buffer default NULL, if not NULL set _output_enabled == true
+     * @param output_buffer_len default ZERO, set to length of output_buffer
+     * @param username default NULL, set to project or equipment name
      * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
@@ -207,21 +209,21 @@ public:
     }
 
     /**
-     * @brief returns a pointer to the next token in token_buffer
+     * @brief returns a pointer to the next token in token_buffer or NULL if there are no more tokens
      *
      * @return char*
      */
     char *NextArgument();
 
     /**
-     * @brief adds user commands
+     * @brief adds user commands to the input process
      *
      * @param command reference to CommandConstructor
      */
     void AddCommand(CommandConstructor &command);
 
     /**
-     * @brief read command(s) from a buffer
+     * @brief read command(s) from a uint8_t (unsigned char) buffer
      *
      * @param data a buffer with characters
      * @param len the size of the buffer
@@ -229,7 +231,9 @@ public:
     void ReadCommandFromBuffer(uint8_t *data, size_t len);
 
     /**
-     * @brief Get the Command From a Stream object
+     * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
+     * 
+     * https://www.arduino.cc/reference/en/language/functions/communication/stream/
      *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
@@ -237,7 +241,7 @@ public:
     void GetCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 
     /**
-     * @brief lists commands available to the user
+     * @brief lists commands that will respond to user input
      *
      */
     void ListCommands();
@@ -281,7 +285,7 @@ public:
     void OutputToStream(Stream &stream);
 
     /**
-     * @brief clears output buffer and puts _string_pos back at 0
+     * @brief clears output buffer, sets index to zero
      *
      */
     void ClearOutputBuffer();
@@ -294,6 +298,9 @@ protected:
      * @param data input data
      * @param len length of input data
      * @param data_index index of data
+     * 
+     * @return true if there is a token
+     * @return false for no token
      */
     bool getToken(char *token_buffer, uint8_t *data, size_t len, size_t *data_index);
 
@@ -302,6 +309,9 @@ protected:
      *
      * @param arg_type the type of argument we are testing
      * @param data_pointers_index index of token pointers
+     * 
+     * @return true type is valid
+     * @return false type not valid
      */
     bool validateUserInput(uint8_t arg_type, size_t data_pointers_index);
 
@@ -341,11 +351,16 @@ protected:
      *
      * @param input the input string
      * @param output the output string
+     * 
+     * @return pointer to buf, so you can use this inside of _ui_out()
      */
     char* escapeCharactersSoTheyPrint(char input, char& buf);
 
     /**
-     * @brief combines backslash and character and into valid control characters
+     * @brief Triggers on a user input backslash, if the char immediately 
+     * after the backslash would be a valid control char it returns the 
+     * control char. ie if you input char(\) + char(r)  this will return 
+     * the control character '\r'
      *
      * @param input the char after a backslash ie 'r'
      * @return the control character char value ie '\\r'
@@ -362,7 +377,7 @@ protected:
     uint8_t getArgType(Parameters &opt, size_t index = 0);
     
     /**
-     * @brief iterate through tokens and validate args
+     * @brief validate the arguments as specified in the user defined Parameters struct
      * 
      * @param tokens_received how many tokens are left after matching is performed
      * @param input_type_match_flag input type validation flags
@@ -413,9 +428,11 @@ private:
     bool new_stream_data;         // if there is new data in *stream_data this is true
     uint8_t *stream_data;         // pointer to stream input, a string of char
     size_t stream_data_index;     // the index of stream_data
+    // end constructor initialized variables
 
+    // private methods
     /**
-     * @brief UserInput private vsnprintf
+     * @brief UserInput vsnprintf
      * https://www.cplusplus.com/reference/cstdio/vsprintf/
      * @param fmt   the format string
      * @param ...   arguments
@@ -423,7 +440,7 @@ private:
     void _ui_out(const char *fmt, ...);
 
     /**
-     * @brief ReadCommandFromBuffer's error output
+     * @brief ReadCommandFromBuffer error output
      * 
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
@@ -440,6 +457,7 @@ private:
                                            bool *input_type_match_flag,
                                            bool &all_arguments_valid,
                                            uint8_t* data);
+    // end private methods                                           
 };
 
 #endif
