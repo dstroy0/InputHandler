@@ -31,7 +31,7 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void ReadCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects:  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects:  
 ```cpp  
 struct Parameters
 {

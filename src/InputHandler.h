@@ -46,7 +46,8 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = {
+const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = 
+{
     //![ui_input_type_strings_def]
     "uint8_t",      //  8-bit unsigned integer
     "uint16_t",     //  16-bit unsigned integer
@@ -69,6 +70,23 @@ enum UI_ARGUMENT_FLAG_ENUM
     no_arguments,
     single_type_argument,
     argument_type_array
+};
+
+#define UI_ESCAPED_CHAR_PGM_LEN 3
+const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
+{
+    "\\0",
+    "\\a",
+    "\\b",
+    "\\t",    
+    "\\n",
+    "\\v",
+    "\\f",
+    "\\r",
+    "\\e",    
+    "\\\"",
+    " ",
+    "er"
 };
 
 /**
@@ -324,7 +342,7 @@ protected:
      * @param input the input string
      * @param output the output string
      */
-    void escapeCharactersSoTheyPrint(const char *input, char *output);
+    char* escapeCharactersSoTheyPrint(char input, char& buf);
 
     /**
      * @brief combines backslash and character and into valid control characters

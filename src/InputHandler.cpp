@@ -317,18 +317,38 @@ void UserInput::ListCommands()
 
 void UserInput::ListSettings(UserInput *inputprocess)
 {
-    char temp_settings[3][8] = {'\0'};
-    inputprocess->escapeCharactersSoTheyPrint(_term_, temp_settings[0]);
-    inputprocess->escapeCharactersSoTheyPrint(_delim_, temp_settings[1]);
-    inputprocess->escapeCharactersSoTheyPrint(_c_str_delim_, temp_settings[2]);
-    _ui_out(PSTR("username = \"%s\"\n"
-                 "end_of_line_characters = \"%s\"\n"
-                 "token_delimiter = \"%s\"\n"
-                 "c_string_delimiter = \"%s\"\n"),
-            _username_,
-            (char *)temp_settings[0],
-            (char *)temp_settings[1],
-            (char *)temp_settings[2]);
+    
+    _ui_out(PSTR("username = \"%s\"\n"), _username_);
+
+    _ui_out(PSTR("end_of_line_characters = \""));
+    char term_buf[strlen(_term_)][UI_ESCAPED_CHAR_PGM_LEN];
+    for (size_t i = 0; i < strlen(_term_); ++i)
+    {
+        _ui_out(PSTR("%s"), (iscntrl(_term_[i])
+                                 ? escapeCharactersSoTheyPrint(_term_[i], *term_buf[i])
+                                 : &_term_[i]));
+    }
+    _ui_out(PSTR("\"\n"));
+    
+    _ui_out(PSTR("token_delimiter = \"")); 
+    char delim_buf[strlen(_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
+    for (size_t i = 0; i < strlen(_delim_); ++i)
+    {
+        _ui_out(PSTR("%s"), (iscntrl(_delim_[i])
+                                 ? escapeCharactersSoTheyPrint(_delim_[i], *delim_buf[i])
+                                 : &_delim_[i]));
+    }
+    _ui_out(PSTR("\"\n"));
+
+    _ui_out(PSTR("c_string_delimiter = \"")); 
+    char _c_str_delim_buf[strlen(_c_str_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
+    for (size_t i = 0; i < strlen(_c_str_delim_); ++i)
+    {
+        _ui_out(PSTR("%s"), (iscntrl(_c_str_delim_[i])
+                                 ? escapeCharactersSoTheyPrint(_c_str_delim_[i], *_c_str_delim_buf[i])
+                                 : &_c_str_delim_[i]));
+    }
+    _ui_out(PSTR("\"\n"));
 }
 
 void UserInput::DefaultFunction(void (*function)(UserInput *))
@@ -378,22 +398,27 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     char incoming = 0;                   // cast data[data_index] to char and run tests on incoming
     bool token_flag[2] = {false, false}; // token state machine, point to a token once
     uint32_t data_length = (uint32_t)len;
+    #if defined(__DEBUG_GET_TOKEN__)
+    _ui_out(PSTR("getToken(): "));
+    #endif
     for (uint16_t i = *data_index; i < data_length; ++i)
     {
         if (got_token == true)
         {
-#if defined(__DEBUG_GET_TOKEN__)
-            _ui_out(PSTR(">%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);
-#endif
+            #if defined(__DEBUG_GET_TOKEN__)
+            _ui_out(PSTR("\n>%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);
+            #endif
             break;
         }
         incoming = (char)data[*data_index];
-#if defined(__DEBUG_GET_TOKEN__)
-        _ui_out(PSTR(">%s $DEBUG: incoming char '%c' data_index = %lu.\n"),
-                _username_, incoming, (uint16_t)*data_index);
-#endif
-        //  remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
-        //  replace delimiter
+        #if defined(__DEBUG_GET_TOKEN__)
+        char inc_buf[2];
+        _ui_out(PSTR("%s"), (iscntrl(incoming)
+                                 ? escapeCharactersSoTheyPrint(incoming, *inc_buf)
+                                 : &incoming));
+        #endif
+        // remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
+        // replace delimiter
         if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
         {
             token_buffer[*data_index] = _null_;
@@ -422,9 +447,9 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                         data_pointers_index++;                                           //  increment pointer index
                         point_to_beginning_of_c_string = false;                          //  only set one pointer per c-string
                         got_token = true;
-#if defined(__DEBUG_GET_TOKEN__)
-                        _ui_out(PSTR(">%s $DEBUG: got the c-string token.\n"), _username_);
-#endif
+                        #if defined(__DEBUG_GET_TOKEN__)
+                        _ui_out(PSTR("\n>%s $DEBUG: got the c-string token.\n"), _username_);
+                        #endif
                     }
                     (*data_index)++; // increment the tokenized string index
                 }
@@ -451,20 +476,20 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
             }
             else
             {
-#if defined(__DEBUG_GET_TOKEN__)
-                _ui_out(PSTR(">%s $DEBUG: got the token token_flag[0] == false.\n"),
+                #if defined(__DEBUG_GET_TOKEN__)
+                _ui_out(PSTR("\n>%s $DEBUG: got the token token_flag[0] == false.\n"),
                         _username_);
-#endif
+                #endif
                 got_token = true;
             }
             token_flag[1] = token_flag[0]; // track the state
         }
         if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
         {
-#if defined(__DEBUG_GET_TOKEN__)
-            _ui_out(PSTR(">%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
+            #if defined(__DEBUG_GET_TOKEN__)
+            _ui_out(PSTR("\n>%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
                     _username_);
-#endif
+            #endif
             got_token = true;
         }
 
@@ -639,10 +664,9 @@ void UserInput::launchFunction(CommandConstructor *cmd,
         for (uint16_t i = 0; i < (tokens_received - 1); ++i)
         {
             if (iscntrl(*data_pointers[i + 1]))
-            {
-                char temp_buffer[13] = {'\0'};
-                UserInput::escapeCharactersSoTheyPrint(data_pointers[i + 1], temp_buffer);
-                _ui_out(PSTR(" %s"), temp_buffer);
+            { 
+                char buf[UI_ESCAPED_CHAR_PGM_LEN];               
+                _ui_out(PSTR(" %s"), escapeCharactersSoTheyPrint(*data_pointers[i + 1], *buf));
             }
             else
             {
@@ -838,42 +862,46 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     }
 }
 
-void UserInput::escapeCharactersSoTheyPrint(const char *input, char *output)
+char* UserInput::escapeCharactersSoTheyPrint(char input, char& buf)
 {
-    uint16_t len = strlen(input);
-    for (uint16_t i = 0; i < len; ++i)
+    switch (input)
     {
-        switch ((char)input[i])
-        {
-        case '\a':
-            strcat_P(output, PSTR("\\a"));
-            break;
-        case '\b':
-            strcat_P(output, PSTR("\\b"));
-            break;
-        case '\f':
-            strcat_P(output, PSTR("\\f"));
-            break;
-        case '\n':
-            strcat_P(output, PSTR("\\n"));
-            break;
-        case '\r':
-            strcat_P(output, PSTR("\\r"));
-            break;
-        case '\t':
-            strcat_P(output, PSTR("\\t"));
-            break;
-        case '\v':
-            strcat_P(output, PSTR("\\v"));
-            break;
-        case '\"':
-            strcat_P(output, PSTR("\\\""));
-            break;
-        default:
-            strcat(output, input);
-            break;
-        }
+    case '\0':
+        memcpy_P(&buf, ui_escaped_char_pgm[0], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\a':
+        memcpy_P(&buf, ui_escaped_char_pgm[1], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\b':
+        memcpy_P(&buf, ui_escaped_char_pgm[2], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\t':
+        memcpy_P(&buf, ui_escaped_char_pgm[3], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\n':
+        memcpy_P(&buf, ui_escaped_char_pgm[4], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\v':
+        memcpy_P(&buf, ui_escaped_char_pgm[5], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\f':
+        memcpy_P(&buf, ui_escaped_char_pgm[6], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\r':
+        memcpy_P(&buf, ui_escaped_char_pgm[7], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\e':
+        memcpy_P(&buf, ui_escaped_char_pgm[8], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;
+    case '\"':
+        memcpy_P(&buf, ui_escaped_char_pgm[9], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;    
+    default:
+        memcpy_P(&buf, ui_escaped_char_pgm[11], UI_ESCAPED_CHAR_PGM_LEN);
+        return &buf;    // return er error
     }
+    memcpy_P(&buf, ui_escaped_char_pgm[11], UI_ESCAPED_CHAR_PGM_LEN);
+    return &buf;    // guard return er error
 }
 
 char UserInput::combineControlCharacters(char input)

@@ -21,9 +21,9 @@
 #include <Arduino.h>
 
 //  uncomment to debug functions
-//#define __DEBUG_USER_INPUT__
+#define __DEBUG_USER_INPUT__
 #if defined(__DEBUG_USER_INPUT__)
-//#define __DEBUG_GET_TOKEN__
+#define __DEBUG_GET_TOKEN__
 #define __DEBUG_SUBCOMMAND_SEARCH__
 #define __DEBUG_LAUNCH_LOGIC__
 #define __DEBUG_LAUNCH_FUNCTION__
