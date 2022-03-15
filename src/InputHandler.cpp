@@ -91,14 +91,21 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
         char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
     */
-    while ((getToken(token_buffer, data, len, &data_index) == true) // if there was a token
-           && (tokens_received < (UI_MAX_ARGS + 1)))
+    while (true)
     {
+        if (getToken(token_buffer, data, len, &data_index) == true)
+        {
+        Serial.println(F("got token"));        
         tokens_received++;                        // increment tokens_received
-        if (tokens_received == (UI_MAX_ARGS + 1)) // while sentinel
+        if (tokens_received == (UI_MAX_ARGS + 1)) // index sentinel
         {
             break;
         }
+        }
+        else
+        {
+            break;
+        }        
     }
 
     // error condition
@@ -398,6 +405,7 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     char incoming = 0;                   // cast data[data_index] to char and run tests on incoming
     bool token_flag[2] = {false, false}; // token state machine, point to a token once
     uint32_t data_length = (uint32_t)len;
+    size_t delim_len = strlen(_delim_);
     #if defined(__DEBUG_GET_TOKEN__)
     _ui_out(PSTR("getToken(): "));
     #endif
@@ -412,17 +420,58 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         }
         incoming = (char)data[*data_index];
         #if defined(__DEBUG_GET_TOKEN__)
-        char inc_buf[2];
+        char inc_buf[UI_ESCAPED_CHAR_PGM_LEN];
         _ui_out(PSTR("%s"), (iscntrl(incoming)
                                  ? escapeCharactersSoTheyPrint(incoming, *inc_buf)
                                  : &incoming));
         #endif
-        // remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
         // replace delimiter
-        if (iscntrl(incoming) == true || incoming == (char)_delim_[0])
+        if (incoming == _delim_[0])
+        {
+            if (delim_len == 1) // incoming is equal to _delim_[0] and the delimiter is one character in length
+            {
+                token_buffer[*data_index] = _null_;                
+                token_flag[0] = false;
+            }
+            else
+            {
+                bool delim_char_match = true; // error flag
+                size_t idx = *data_index;
+                char inc;
+                for (size_t j = 1; j < (delim_len + 1); ++j)
+                {
+                    if ((j + i) < data_length)
+                    {
+                        idx++;
+                        inc = (char)data[idx];
+                        if (inc != _delim_[i])
+                        {
+                            delim_char_match = false;
+                            break; // delimiter char pattern not matched
+                        }
+                    }
+                    else
+                    {
+                        delim_char_match = false;
+                        break; // delimiter char pattern terminated early
+                    }
+                }
+                if (delim_char_match == true) // replace delimiter pattern with null
+                {
+                    for (size_t j = 1; j < (delim_len + 1); ++j)
+                    {
+                        (*data_index)++;
+                        token_buffer[*data_index] = _null_;
+                    }
+                    token_flag[0] = false;
+                }
+            }
+        }
+        // remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
+        if (iscntrl(incoming) == true)
         {
             token_buffer[*data_index] = _null_;
-            token_flag[0] = false;
+            //token_flag[0] = false;
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
