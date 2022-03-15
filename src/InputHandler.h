@@ -431,6 +431,13 @@ private:
             _output_flag = true;
         }
     }
+    void _ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
+                                           Parameters &prm,
+                                           bool &command_matched,
+                                           size_t data_pointers_index_max,
+                                           bool *input_type_match_flag,
+                                           bool &all_arguments_valid,
+                                           uint8_t* data);
 };
 
 #endif
