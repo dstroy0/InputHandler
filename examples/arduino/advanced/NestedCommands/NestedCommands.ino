@@ -15,7 +15,7 @@
   you have to empty it out yourself with
   OutputToStream()
 */
-char output_buffer[512] = {'\0'}; //  output buffer
+char output_buffer[1024] = {'\0'}; //  output buffer
 
 /*
   UserInput constructor
@@ -186,7 +186,7 @@ const Parameters help_param[4] PROGMEM =
     }
   }
 };
-CommandConstructor uc_help_(help_param, 2, 4); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param, 4, 2); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param[1] PROGMEM =
 {

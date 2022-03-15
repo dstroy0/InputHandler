@@ -46,7 +46,7 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = 
+const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
 {
     //![ui_input_type_strings_def]
     "UINT8_T",      //  8-bit unsigned integer
@@ -72,7 +72,6 @@ enum UI_ARGUMENT_FLAG_ENUM
     argument_type_array
 };
 
-#define UI_ESCAPED_CHAR_PGM_LEN 3
 const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
 {
     "\\0",
@@ -195,6 +194,7 @@ public:
         , token_buffer(NULL)
         , data_pointers{NULL}
         , data_pointers_index(0)
+        , data_pointers_index_max(0)
         , rec_num_arg_strings(0)
         , failed_on_subcommand(0)
         , _current_search_depth(1)
@@ -413,16 +413,17 @@ private:
     CommandConstructor *commands_tail_;     //  pointer to object list
     size_t commands_count_;                 //  how many commands are there
 
-    bool _output_flag;            // output is available flag, set by member functions
-    char *token_buffer;           // pointer to tokenized c-string
+    bool _output_flag;                    // output is available flag, set by member functions
+    char *token_buffer;                   // pointer to tokenized c-string
     char *data_pointers[UI_MAX_ARGS + 1]; // token_buffer pointers
-    size_t data_pointers_index;   // data_pointer's index
-    size_t rec_num_arg_strings;   // number of tokens after first valid token
-    size_t failed_on_subcommand;  // subcommand error index
-    size_t _current_search_depth; // current subcommand search depth
-    char _null_;                  //  char '\0'
-    char _neg_;                   //  char '-'
-    char _dot_;                   //  char '.'
+    size_t data_pointers_index;           // data_pointer index
+    size_t data_pointers_index_max;       // data_pointer index max
+    size_t rec_num_arg_strings;           // number of tokens after first valid token
+    size_t failed_on_subcommand;          // subcommand error index
+    size_t _current_search_depth;         // current subcommand search depth
+    char _null_;                          //  char '\0'
+    char _neg_;                           //  char '-'
+    char _dot_;                           //  char '.'
 
     bool stream_buffer_allocated; // this flag is set true on GetCommandFromStream entry if a buffer is not allocated
     bool new_stream_data;         // if there is new data in *stream_data this is true
@@ -444,16 +445,14 @@ private:
      * 
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
-     * @param command_matched boolean reference
-     * @param data_pointers_index_max size_t the max index of data_pointers
+     * @param command_matched boolean reference     
      * @param input_type_match_flag boolean argument type match flag array
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
     void _ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                                            Parameters &prm,
-                                           bool &command_matched,
-                                           size_t data_pointers_index_max,
+                                           bool &command_matched,                                           
                                            bool *input_type_match_flag,
                                            bool &all_arguments_valid,
                                            uint8_t* data);

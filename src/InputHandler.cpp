@@ -79,8 +79,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
 
     uint8_t tokens_received = 0;  // amount of delimiter separated tokens
     size_t data_index = 0;        // data iterator
-    data_pointers_index = 0;      // token buffer pointers
-    size_t data_pointers_index_max = 0;
+    data_pointers_index = 0;      // token buffer pointers    
     rec_num_arg_strings = 0;      // number of tokens read from data
     bool match = false;           // command string match
     bool command_matched = false; // error sentinel
@@ -148,8 +147,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     {
         _ReadCommandFromBufferErrorOutput(cmd,
                                           prm,
-                                          command_matched,
-                                          data_pointers_index_max,
+                                          command_matched,                                          
                                           input_type_match_flag,
                                           all_arguments_valid,
                                           data);
@@ -599,21 +597,23 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t data_pointers_index)
 }
 
 void UserInput::launchFunction(CommandConstructor *cmd,
-                               Parameters &prm, uint8_t &prm_idx, size_t tokens_received)
+                               Parameters &prm, 
+                               uint8_t &prm_idx, 
+                               size_t tokens_received)
 {
     if (UserInput::OutputIsEnabled())
     {
-        _ui_out(PSTR(">%s $%s"), _username_, data_pointers[0]);
-        for (uint16_t i = 0; i < (tokens_received - 1); ++i)
+        _ui_out(PSTR(">%s $"), _username_, data_pointers[0]);
+        for (uint16_t i = 0; i < data_pointers_index_max; ++i)
         {
-            if (iscntrl(*data_pointers[i + 1]))
+            if (iscntrl(*data_pointers[i]))
             { 
                 char buf[UI_ESCAPED_CHAR_PGM_LEN];               
-                _ui_out(PSTR(" %s"), escapeCharactersSoTheyPrint(*data_pointers[i + 1], *buf));
+                _ui_out(PSTR("%s "), escapeCharactersSoTheyPrint(*data_pointers[i], *buf));
             }
             else
             {
-                _ui_out(PSTR(" %s"), data_pointers[i + 1]);
+                _ui_out(PSTR("%s "), data_pointers[i]);
             }
         }
         _ui_out(PSTR("\n"));
@@ -657,7 +657,9 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                             bool &subcommand_matched)
 {
     // error
-    if (tokens_received > 1 && prm.sub_commands == 0 && prm.max_num_args == 0)
+    if (tokens_received > 1 &&
+        prm.sub_commands == 0 &&
+        prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         _ui_out(PSTR(">%s $DEBUG: too many tokens (%d) for command (%s)\n"),
@@ -752,11 +754,11 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     if (_current_search_depth <= (cmd->_tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
-        for (size_t j = 1; j < cmd->_param_array_len; ++j) // through the parameter array
+        for (size_t j = 1; j < (cmd->_param_array_len + 1); ++j) // through the parameter array
         {
             memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
             failed_on_subcommand = j;
-            prm_idx = j;
+            prm_idx = j;  
             if (prm.depth == _current_search_depth)
             {
                 #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
@@ -922,8 +924,7 @@ void UserInput::_ui_out(const char *fmt, ...)
 
 void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd, 
                                                   Parameters& prm, 
-                                                  bool& command_matched,
-                                                  size_t data_pointers_index_max,
+                                                  bool& command_matched,                                                  
                                                   bool* input_type_match_flag,
                                                   bool& all_arguments_valid,
                                                   uint8_t* data)
@@ -954,7 +955,7 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                     {
                         if (input_type_match_flag[i] == false)
                         {
-                            char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
+                            char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                             memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
                             _ui_out(PSTR(" >arg(%u) '%s'* should be %s.\n"),
                                     i + 1,
@@ -972,7 +973,7 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                     {
                         if (input_type_match_flag[i] == false)
                         {
-                            char _type[UI_INPUT_TYPE_STRINGS_MAX_LEN];
+                            char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                             memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
                             _ui_out(PSTR(" >arg(%u) '%s'* should be %s.\n"),
                                     i + 1,

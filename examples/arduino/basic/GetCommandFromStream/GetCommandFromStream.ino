@@ -60,7 +60,7 @@ void setup()
   while (!Serial); //  wait for user
 
   inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddCommand(uc_test_);             // input type test
+    inputHandler.AddCommand(uc_test_);             // input type test
 
   Serial.println(F("enter <hello> to test."));
 }
