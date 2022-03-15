@@ -394,7 +394,7 @@ private:
         UserInput Constructor variables
     */
     // user entered constructor variables
-    char *_output_buffer;            //  pointer to output char buffer
+    char *_output_buffer;            //  pointer to the output char buffer
     bool _output_enabled;            //  true if _output_buffer is not NULL
     size_t _string_pos;              //  _output_buffer's index
     const size_t _output_buffer_len; //  _output_buffer's size
