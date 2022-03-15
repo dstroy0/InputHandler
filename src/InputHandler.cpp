@@ -94,20 +94,18 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
     while (true)
     {
         if (getToken(token_buffer, data, len, &data_index) == true)
-        {
-        Serial.println(F("got token"));        
-        tokens_received++;                        // increment tokens_received
-        if (tokens_received == (UI_MAX_ARGS + 1)) // index sentinel
-        {
-            break;
-        }
+        {            
+            tokens_received++;                        // increment tokens_received
+            if (tokens_received == (UI_MAX_ARGS + 1)) // index sentinel
+            {
+                break;
+            }
         }
         else
         {
             break;
-        }        
-    }
-
+        }
+    }    
     // error condition
     if (tokens_received == 0)
     {
@@ -466,12 +464,6 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
                     token_flag[0] = false;
                 }
             }
-        }
-        // remove control characters that are not in a c-string argument, usually CRLF '\r' '\n'
-        if (iscntrl(incoming) == true)
-        {
-            token_buffer[*data_index] = _null_;
-            //token_flag[0] = false;
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
