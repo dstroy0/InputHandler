@@ -105,7 +105,8 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
         {
             break;
         }
-    }    
+    }
+    Serial.println(tokens_received);
     // error condition
     if (tokens_received == 0)
     {
@@ -408,23 +409,19 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
     _ui_out(PSTR("getToken(): "));
     #endif
     for (uint16_t i = *data_index; i < data_length; ++i)
-    {
-        if (got_token == true)
-        {
-            #if defined(__DEBUG_GET_TOKEN__)
-            _ui_out(PSTR("\n>%s $DEBUG: got the token at the beginning of the for loop.\n"), _username_);
-            #endif
-            break;
-        }
+    {        
         incoming = (char)data[*data_index];
         #if defined(__DEBUG_GET_TOKEN__)
         char inc_buf[UI_ESCAPED_CHAR_PGM_LEN];
         _ui_out(PSTR("%s"), (iscntrl(incoming)
                                  ? escapeCharactersSoTheyPrint(incoming, *inc_buf)
                                  : &incoming));
-        #endif
-        // replace delimiter
-        if (incoming == _delim_[0])
+        #endif        
+        if (iscntrl(incoming))  // remove hanging control characters
+        {
+            token_buffer[*data_index] = _null_;
+        }
+        else if (incoming == _delim_[0])    // replace delimiter
         {
             if (delim_len == 1) // incoming is equal to _delim_[0] and the delimiter is one character in length
             {
@@ -500,7 +497,8 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
         {
             if (incoming == '\\' && (*data_index < data_length))
             {
-                token_buffer[*data_index] = '\0';
+                Serial.println(F("Found control char"));
+                token_buffer[*data_index] = _null_;
                 (*data_index)++; // increment buffer index
                 incoming = combineControlCharacters((char)data[*data_index]);
             }
@@ -518,25 +516,34 @@ bool UserInput::getToken(char *token_buffer, uint8_t *data, size_t len, size_t *
             else
             {
                 #if defined(__DEBUG_GET_TOKEN__)
-                _ui_out(PSTR("\n>%s $DEBUG: got the token token_flag[0] == false.\n"),
+                _ui_out(PSTR("\n>%s $DEBUG: getToken got_token == true token state machine.\n"),
                         _username_);
                 #endif
                 got_token = true;
+                break;                
             }
-            token_flag[1] = token_flag[0]; // track the state
+            token_flag[1] = token_flag[0]; // track the state        
         }
-        if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1U))
+        if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1))
         {
             #if defined(__DEBUG_GET_TOKEN__)
-            _ui_out(PSTR("\n>%s $DEBUG: got the token token_flag[0] == true && data_index == len - 1.\n"),
+            _ui_out(PSTR("\n>%s $DEBUG: getToken() got_token == true end of data.\n"),
                     _username_);
             #endif
-            got_token = true;
+            got_token = true;            
         }
 
         if (*data_index < data_length) // if we are at the end of input data
         {
             (*data_index)++; // increment buffer index
+        }
+
+        if (got_token == true)
+        {
+            #if defined(__DEBUG_GET_TOKEN__)
+            _ui_out(PSTR("\n>%s $DEBUG: getToken() break for loop.\n"), _username_);
+            #endif
+            break;
         }
     }
     return got_token;
@@ -797,7 +804,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
     }
 
     // command with arguments, potentially has subcommands but none were entered
-    if (_current_search_depth > 1 &&
+    if (//_current_search_depth > 1 &&
         subcommand_matched == false &&
         tokens_received > 1 &&
         prm.max_num_args > 0)
