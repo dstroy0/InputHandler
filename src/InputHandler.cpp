@@ -941,13 +941,13 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
         memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));         
         _ui_out(PSTR(">%s $Invalid input: "), _username_);
         if (command_matched == true)
-        {
-            _ui_out(PSTR("%s\n"), data_pointers[0]);
+        {            
             uint16_t err_n_args = (prm.max_num_args > (data_pointers_index_max - failed_on_subcommand))
                                       ? (data_pointers_index_max - failed_on_subcommand)
                                       : prm.max_num_args;
             if (err_n_args > 0)
             {
+                _ui_out(PSTR("%s\n"), data_pointers[0]);
                 for (uint16_t i = 0; i < err_n_args; ++i)
                 {                    
                     if (failed_on_subcommand > 0)
@@ -986,8 +986,10 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                             _ui_out(PSTR(" >arg(%u) '%s' OK.\n"), i + 1, data_pointers[1 + i]);
                         }
                     }
-                }                
+                }
+                return;                
             }
+            _ui_out(PSTR("%s\n"), (char*)data);
             return;
         }
         else    // command not matched
