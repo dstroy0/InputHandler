@@ -49,14 +49,14 @@ enum class UITYPE
 const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_MAX_LEN] PROGMEM = 
 {
     //![ui_input_type_strings_def]
-    "uint8_t",      //  8-bit unsigned integer
-    "uint16_t",     //  16-bit unsigned integer
-    "uint32_t",     //  32-bit unsigned integer
-    "int16_t",      //  16-bit signed integer
-    "float",        //  32-bit floating point number
-    "char",         //  single char
-    "c-string",     //  c-string without spaces if not enclosed with ""
-    "type-unknown", //  user defined NOTYPE
+    "UINT8_T",      //  8-bit unsigned integer
+    "UINT16_T",     //  16-bit unsigned integer
+    "UINT32_T",     //  32-bit unsigned integer
+    "INT16_T",      //  16-bit signed integer
+    "FLOAT",        //  32-bit floating point number
+    "CHAR",         //  single char
+    "C-STRING",     //  c-string without spaces if not enclosed with ""
+    "NOTYPE",       //  user defined NOTYPE
     "error"         //  error
     //![ui_input_type_strings_def]
 };
@@ -420,17 +420,7 @@ private:
      * @param fmt   the format string
      * @param ...   arguments
      */
-    void _ui_out(const char *fmt, ...)
-    {
-        if (UserInput::OutputIsEnabled())
-        {
-            va_list args;
-            va_start(args, fmt);
-            _string_pos += vsnprintf_P(_output_buffer + _string_pos, _output_buffer_len, fmt, args);
-            va_end(args);
-            _output_flag = true;
-        }
-    }
+    void _ui_out(const char *fmt, ...);
 
     /**
      * @brief ReadCommandFromBuffer's error output

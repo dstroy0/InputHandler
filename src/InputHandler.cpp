@@ -905,6 +905,21 @@ void UserInput::getArgs(size_t &tokens_received,
     }
 }
 
+/*
+    private methods
+*/
+void UserInput::_ui_out(const char *fmt, ...)
+{
+    if (UserInput::OutputIsEnabled())
+    {
+        va_list args;
+        va_start(args, fmt);
+        _string_pos += vsnprintf_P(_output_buffer + _string_pos, _output_buffer_len, fmt, args);
+        va_end(args);
+        _output_flag = true;
+    }
+}
+
 void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd, 
                                                   Parameters& prm, 
                                                   bool& command_matched,

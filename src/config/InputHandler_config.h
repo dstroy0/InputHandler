@@ -76,7 +76,6 @@
 #endif
 
 // PROGMEM width constants
-#define UI_INPUT_TYPE_STRINGS_MAX_LEN 14
-#define UI_DEFAULT_STRINGS_MAX_LEN 14
+#define UI_INPUT_TYPE_STRINGS_MAX_LEN 9
 
 #endif
