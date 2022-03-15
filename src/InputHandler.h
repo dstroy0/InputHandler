@@ -431,6 +431,18 @@ private:
             _output_flag = true;
         }
     }
+
+    /**
+     * @brief ReadCommandFromBuffer's error output
+     * 
+     * @param cmd CommandConstructor pointer
+     * @param prm Parameters struct reference
+     * @param command_matched boolean reference
+     * @param data_pointers_index_max size_t the max index of data_pointers
+     * @param input_type_match_flag boolean argument type match flag array
+     * @param all_arguments_valid argument error sentinel
+     * @param data raw data in
+     */
     void _ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                                            Parameters &prm,
                                            bool &command_matched,
