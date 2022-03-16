@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5fn_5fargs_0',['_N_ARGS',['../InputHandler__config_8h.html#a6d8bb3b4541db64bb27274de31f7734d',1,'InputHandler_config.h']]]
+  ['_5f_5fvalist_135',['__VALIST',['../vsnprintf_8h.html#a3335625716061d1943df22e780d2a055',1,'vsnprintf.h']]],
+  ['_5fn_5fprms_136',['_N_prms',['../InputHandler__config_8h.html#acedaeea0ea767f43653abdf77453de79',1,'InputHandler_config.h']]]
 ];

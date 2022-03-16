@@ -1,20 +1,16 @@
 var searchData=
 [
-  ['ui_5fargument_5fflag_5fenum_0',['UI_ARGUMENT_FLAG_ENUM',['../group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c',1,'InputHandler.h']]],
-  ['ui_5fdefault_5fstrings_5fmax_5flen_1',['UI_DEFAULT_STRINGS_MAX_LEN',['../InputHandler__config_8h.html#ab1441300a4da33622d7c054631950c47',1,'InputHandler_config.h']]],
-  ['ui_5fdereference_2',['UI_DEREFERENCE',['../InputHandler__config_8h.html#afb990dc5a33b640ad0e4348eb20ef52d',1,'InputHandler_config.h']]],
-  ['ui_5finput_5ftype_5fstrings_5fmax_5flen_3',['UI_INPUT_TYPE_STRINGS_MAX_LEN',['../InputHandler__config_8h.html#a6b82698b0c1b0d400006f18fea024cd2',1,'InputHandler_config.h']]],
-  ['ui_5fpgm_5fread_5fbyte_4',['UI_PGM_READ_BYTE',['../InputHandler__config_8h.html#ad6fde8652d9819cc3268373942eee650',1,'InputHandler_config.h']]],
-  ['ui_5fpgm_5fread_5fdword_5',['UI_PGM_READ_DWORD',['../InputHandler__config_8h.html#a36f836c63ba274fe59eed759498bf6b0',1,'InputHandler_config.h']]],
-  ['ui_5fsnprintf_5fp_6',['UI_SNPRINTF_P',['../InputHandler__config_8h.html#a0208a6bcaedc93561cc46fe94d114dcf',1,'InputHandler_config.h']]],
-  ['uint16_5fmax_7',['UINT16_MAX',['../InputHandler__config_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_config.h']]],
-  ['uint16_5ft_8',['UINT16_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe',1,'InputHandler.h']]],
-  ['uint32_5ft_9',['UINT32_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed',1,'InputHandler.h']]],
-  ['uint8_5fmax_10',['UINT8_MAX',['../InputHandler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]],
-  ['uint8_5ft_11',['UINT8_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
-  ['uitype_12',['UITYPE',['../group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]],
-  ['user_5finput_5fmax_5fcommand_5flength_13',['USER_INPUT_MAX_COMMAND_LENGTH',['../InputHandler__config_8h.html#acfbf5ebb1cb2de8c205b7bffc4d2c080',1,'InputHandler_config.h']]],
-  ['user_5finput_5fmax_5finput_5flength_14',['USER_INPUT_MAX_INPUT_LENGTH',['../InputHandler__config_8h.html#a8b3e75df8bafbce269f3d20632f0f8f8',1,'InputHandler_config.h']]],
-  ['user_5finput_5fmax_5fnumber_5fof_5fcommand_5farguments_15',['USER_INPUT_MAX_NUMBER_OF_COMMAND_ARGUMENTS',['../InputHandler__config_8h.html#aaa22e2d48d1086a7325f37c6d83036ea',1,'InputHandler_config.h']]],
-  ['userinput_16',['UserInput',['../classUserInput.html#ac9017d6b70d00933c3d42f57e52b4471',1,'UserInput::UserInput()'],['../classUserInput.html',1,'UserInput']]]
+  ['ui_5fargument_5fflag_5fenum_54',['UI_ARGUMENT_FLAG_ENUM',['../group__UserInput.html#ga0f773afec48d433e5613c754cc1d767c',1,'InputHandler.h']]],
+  ['ui_5fescaped_5fchar_5fpgm_5flen_55',['UI_ESCAPED_CHAR_PGM_LEN',['../InputHandler__config_8h.html#a4024a3cfbd96c66ac14f41edfea585b5',1,'InputHandler_config.h']]],
+  ['ui_5finput_5ftype_5fstrings_5fpgm_5flen_56',['UI_INPUT_TYPE_STRINGS_PGM_LEN',['../InputHandler__config_8h.html#aa99472679c6ff32ae0725c7577ab37d7',1,'InputHandler_config.h']]],
+  ['ui_5fmax_5fargs_57',['UI_MAX_ARGS',['../InputHandler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5',1,'InputHandler_config.h']]],
+  ['ui_5fmax_5fcmd_5flen_58',['UI_MAX_CMD_LEN',['../InputHandler__config_8h.html#a3838a09964eae8d28f9f58c69df91934',1,'InputHandler_config.h']]],
+  ['ui_5fmax_5fin_5flen_59',['UI_MAX_IN_LEN',['../InputHandler__config_8h.html#a4f376dd1800f7322379979be7d05ca20',1,'InputHandler_config.h']]],
+  ['uint16_5fmax_60',['UINT16_MAX',['../InputHandler__config_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_config.h']]],
+  ['uint16_5ft_61',['UINT16_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe',1,'InputHandler.h']]],
+  ['uint32_5ft_62',['UINT32_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed',1,'InputHandler.h']]],
+  ['uint8_5fmax_63',['UINT8_MAX',['../InputHandler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]],
+  ['uint8_5ft_64',['UINT8_T',['../group__UserInput.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
+  ['uitype_65',['UITYPE',['../group__UserInput.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]],
+  ['userinput_66',['UserInput',['../classUserInput.html',1,'UserInput'],['../classUserInput.html#ac9017d6b70d00933c3d42f57e52b4471',1,'UserInput::UserInput()']]]
 ];
