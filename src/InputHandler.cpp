@@ -959,7 +959,7 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                     if (input_type_match_flag[i] == false)
                     {
                         char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
-                        memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
+                        memcpy_P(&_type, &ui_input_type_strings_pgm[UserInput::getArgType(prm, i)], sizeof(_type));
                         if (data_pointers[1 + _current_search_depth + i] == NULL)
                         {
                             _ui_out(PSTR("'REQUIRED'*(%s) "), _type);

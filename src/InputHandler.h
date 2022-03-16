@@ -25,30 +25,41 @@
  */
 
 /**
- * @brief ui_input_type_strings enum
+ * @brief Parameters argument_flag enum
+ * @enum UI_ARGUMENT_FLAG_ENUM
+ */
+enum UI_ARGUMENT_FLAG_ENUM
+{
+    no_arguments,           ///<  no arguments expected
+    single_type_argument,   ///<  every argument is of the same type
+    argument_type_array     ///<  there is an array of input types
+};
+
+/**
+ * @brief UserInput type specifier
  * @enum UITYPE
  */
 enum class UITYPE
 {
-    UINT8_T,  ///<  ui_input_type_strings[0]
-    UINT16_T, ///<  ui_input_type_strings[1]
-    UINT32_T, ///<  ui_input_type_strings[2]
-    INT16_T,  ///<  ui_input_type_strings[3]
-    FLOAT,    ///<  ui_input_type_strings[4]
-    CHAR,     ///<  ui_input_type_strings[5]
-    C_STRING, ///<  ui_input_type_strings[6]
-    NOTYPE,   ///<  ui_input_type_strings[7]
-    NO_ARGS,  ///<  ui_input_type_strings[8]
+    UINT8_T,  ///<  8-bit unsigned integer
+    UINT16_T, ///<  16-bit unsigned integer
+    UINT32_T, ///<  32-bit unsigned integer
+    INT16_T,  ///<  16-bit signed integer
+    FLOAT,    ///<  32-bit float
+    CHAR,     ///<  8-bit char
+    C_STRING, ///<  array of 8-bit char
+    NOTYPE,   ///<  no type validation
+    NO_ARGS,  ///<  no arguments expected
     _LAST     ///<  reserved
 };
 
 /**
  * @brief type string literals
- * \snippet InputHandler.h ui_input_type_strings_def
+ * \snippet InputHandler.h ui_input_type_strings_pgm_def
  */
-const char ui_input_type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
+const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
 {
-    //![ui_input_type_strings_def]
+    //![ui_input_type_strings_pgm_def]
     "UINT8_T",      //  8-bit unsigned integer
     "UINT16_T",     //  16-bit unsigned integer
     "UINT32_T",     //  32-bit unsigned integer
@@ -59,22 +70,16 @@ const char ui_input_type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM =
     "NOTYPE",       //  user defined NOTYPE
     "NO_ARGS",      //  no arguments expected
     "error"         //  error
-    //![ui_input_type_strings_def]
+    //![ui_input_type_strings_pgm_def]
 };
 
 /**
- * @brief argument_flag type enum
- * @enum UI_ARGUMENT_FLAG_ENUM
+ * @brief escaped control char
+ * \snippet InputHandler.h ui_escaped_char_pgm_def
  */
-enum UI_ARGUMENT_FLAG_ENUM
-{
-    no_arguments,
-    single_type_argument,
-    argument_type_array
-};
-
 const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
 {
+    //![ui_escaped_char_pgm_def]
     "\\0",
     "\\a",
     "\\b",
@@ -87,6 +92,7 @@ const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
     "\\\"",
     " ",
     "er"
+    //![ui_escaped_char_pgm_def]
 };
 
 /**
