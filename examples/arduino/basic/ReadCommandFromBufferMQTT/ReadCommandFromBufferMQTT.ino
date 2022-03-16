@@ -76,11 +76,11 @@ void uc_help(UserInput& inputProcess)
 /*
    test all available input types
 */
-void uc_test_input_types(UserInput* inputProcess)
+void uc_test_input_types(UserInput *inputProcess)
 {
   inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char* str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-  char* strtoul_ptr = 0;                                                            //  this is for strtoul
+  char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+  char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
   uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
@@ -106,23 +106,35 @@ void uc_test_input_types(UserInput* inputProcess)
   char c_string[64] = {'\0'};
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
+  str_ptr = inputProcess->NextArgument();
+  char unknown_string[64] = {'\0'};
+  snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
+
   char float_buffer[32] = {'\0'}; //  dtostrf buffer
-  char out[128] = {'\0'};         //  function output buffer
+  char out[256] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
 
   /*
        format out[] with all of the arguments received
   */
-  string_pos += snprintf_P(out + string_pos, 128,
+  string_pos += snprintf_P(out + string_pos, 256,
                            PSTR("Test user input types:\n"
-                                "uint8_t %u\nuint16_t %u\nuint32_t %lu\nint %d\nfloat %s\nchar %c\nc-string %s\n"),
+                                " uint8_t %lu\n"
+                                " uint16_t %lu\n"
+                                " uint32_t %lu\n"
+                                " int %d\n"
+                                " float %s\n"
+                                " char %c\n"
+                                " c-string %s\n"
+                                " unknown-type %s\n"),
                            eight_bit,
                            sixteen_bit,
                            thirtytwo_bit,
                            sixteen_bit_int,
                            dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
                            _char,
-                           c_string);
+                           c_string,
+                           unknown_string);
 
   memcpy(output_buffer, out, ((sizeof(out) < sizeof(output_buffer)) ? sizeof(out) : sizeof(output_buffer - 1)));
 }
@@ -238,7 +250,7 @@ void setup()
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
 
-  uc_help(inputHandler); // formats output_buffer with the command list
+  inputHandler.ListCommands(); // formats output_buffer with the command list
 }
 
 void loop()
