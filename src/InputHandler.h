@@ -46,7 +46,7 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_def
  */
-const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
+const char ui_input_type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
 {
     //![ui_input_type_strings_def]
     "UINT8_T",      //  8-bit unsigned integer
@@ -57,6 +57,7 @@ const char ui_input_type_strings[9][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM =
     "CHAR",         //  single char
     "C-STRING",     //  c-string without spaces if not enclosed with ""
     "NOTYPE",       //  user defined NOTYPE
+    "NO_ARGS",      //  no arguments expected
     "error"         //  error
     //![ui_input_type_strings_def]
 };

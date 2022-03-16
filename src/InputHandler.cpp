@@ -129,6 +129,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
             _current_search_depth = 1; // start searching for subcommands at depth 1
             data_pointers_index = 1;   // index 1 of data_pointers is the token after the root command            
             command_matched = true;          // root command match flag
+            failed_on_subcommand = 0;        // subcommand error index
             bool subcommand_matched = false; // subcommand match flag
             uint8_t prm_idx = 0;
             // see if command has any subcommands, validate input types, try to launch function
@@ -139,7 +140,7 @@ void UserInput::ReadCommandFromBuffer(uint8_t *data, size_t len)
                         all_arguments_valid,   // type error sentinel
                         match,                 // function launch sentinel
                         input_type_match_flag, // type error flag array
-                        subcommand_matched);   // subcommand match flag
+                        subcommand_matched);   // subcommand match flag            
             break;                             // break command iterator for loop
         }                                      // end command logic
     }                                          // end root command for loop
@@ -600,7 +601,7 @@ void UserInput::launchFunction(CommandConstructor *cmd,
                                Parameters &prm, 
                                uint8_t &prm_idx, 
                                size_t tokens_received)
-{
+{    
     if (UserInput::OutputIsEnabled())
     {
         _ui_out(PSTR(">%s $"), _username_, data_pointers[0]);
@@ -655,7 +656,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                             bool &match,
                             bool *input_type_match_flag,
                             bool &subcommand_matched)
-{
+{   
     // error
     if (tokens_received > 1 &&
         prm.sub_commands == 0 &&
@@ -664,7 +665,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         _ui_out(PSTR(">%s $DEBUG: too many tokens (%d) for command (%s)\n"),
                 _username_, tokens_received, prm.command);
-        #endif
+        #endif        
         return;
     }
 
@@ -705,7 +706,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         subcommand_matched == false &&
         tokens_received > 1 &&
         prm.max_num_args > 0)
-    {
+    {        
         getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
         if (rec_num_arg_strings >= prm.num_args && 
             rec_num_arg_strings <= prm.max_num_args && 
@@ -745,8 +746,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         return;
     }
 
-    // subcommand search
-    failed_on_subcommand = 0;
+    // subcommand search    
     subcommand_matched = false;
     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
     _ui_out(PSTR("search depth (%d)\n"), _current_search_depth);
@@ -756,8 +756,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < (cmd->_param_array_len + 1); ++j) // through the parameter array
         {
-            memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
-            failed_on_subcommand = j;
+            memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));            
             prm_idx = j;  
             if (prm.depth == _current_search_depth)
             {
@@ -781,6 +780,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
                         data_pointers_index++;
                     }
                     subcommand_matched = true; // subcommand matched
+                    failed_on_subcommand = j;  // set error index
                     break;                     // break out of the loop
                 }
             }
@@ -789,8 +789,7 @@ void UserInput::launchLogic(CommandConstructor *cmd,
         {
             _current_search_depth++;
         }
-    } // end subcommand search
-
+    }                               // end subcommand search    
     if (subcommand_matched == true) // recursion
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
@@ -878,14 +877,14 @@ char UserInput::combineControlCharacters(char input)
     }
 }
 
-uint8_t UserInput::getArgType(Parameters &opt, size_t index)
+uint8_t UserInput::getArgType(Parameters &prm, size_t index)
 {
-    if (opt.argument_flag == no_arguments)
-        return static_cast<uint8_t>(UITYPE::NOTYPE);
-    if (opt.argument_flag == single_type_argument)
-        return static_cast<uint8_t>(opt._arg_type[0]);
-    if (opt.argument_flag == argument_type_array)
-        return static_cast<uint8_t>(opt._arg_type[index]);
+    if (prm.argument_flag == no_arguments)
+        return static_cast<uint8_t>(UITYPE::NO_ARGS);
+    if (prm.argument_flag == single_type_argument)
+        return static_cast<uint8_t>(prm._arg_type[0]);
+    if (prm.argument_flag == argument_type_array)
+        return static_cast<uint8_t>(prm._arg_type[index]);
     return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
 }
 
@@ -922,80 +921,67 @@ void UserInput::_ui_out(const char *fmt, ...)
     }
 }
 
-void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd, 
-                                                  Parameters& prm, 
-                                                  bool& command_matched,                                                  
-                                                  bool* input_type_match_flag,
-                                                  bool& all_arguments_valid,
-                                                  uint8_t* data)
+void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
+                                                  Parameters &prm,
+                                                  bool &command_matched,
+                                                  bool *input_type_match_flag,
+                                                  bool &all_arguments_valid,
+                                                  uint8_t *data)
 {
     // format a string with useful information
     if (UserInput::OutputIsEnabled())
     {
         // potential silent crash if failed_on_subcommand > cmd->_param_array_len
-        if (failed_on_subcommand > cmd->_param_array_len)   // error
+        // user introduced error condition, if they enter a parameter array length that is
+        // greater than the actual array length
+        if (failed_on_subcommand > cmd->_param_array_len) // error
         {
-            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); 
+            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
             _ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"), prm.command);
             return;
-        }
-        memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));         
+        }        
+        memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
         _ui_out(PSTR(">%s $Invalid input: "), _username_);
         if (command_matched == true)
-        {            
-            uint16_t err_n_args = (prm.max_num_args > (data_pointers_index_max - failed_on_subcommand))
-                                      ? (data_pointers_index_max - failed_on_subcommand)
+        {
+            uint16_t err_n_args = (prm.max_num_args > (data_pointers_index_max - _current_search_depth))
+                                      ? (data_pointers_index_max - _current_search_depth)
                                       : prm.max_num_args;
             if (err_n_args > 0)
             {
-                _ui_out(PSTR("%s\n"), data_pointers[0]);
+                for (size_t i = 0; i < (_current_search_depth + 1); ++i)
+                {
+                    _ui_out(PSTR("%s "), data_pointers[i]); // add subcommands to echo
+                }
                 for (uint16_t i = 0; i < err_n_args; ++i)
-                {                    
-                    if (failed_on_subcommand > 0)
+                {
+                    if (input_type_match_flag[i] == false)
                     {
-                        if (input_type_match_flag[i] == false)
+                        char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
+                        memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
+                        if (data_pointers[1 + _current_search_depth + i] == NULL)
                         {
-                            char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
-                            memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                            _ui_out(PSTR(" >arg(%u) '%s'* should be %s.\n"),
-                                    i + 1,
-                                    (data_pointers[1 + failed_on_subcommand + i] == NULL)
-                                        ? ""
-                                        : data_pointers[1 + failed_on_subcommand + i],
-                                    _type);
+                            _ui_out(PSTR("'REQUIRED'*(%s) "), _type);
                         }
                         else
                         {
-                            _ui_out(PSTR(" >arg(%u) '%s' OK.\n"), i + 1, data_pointers[failed_on_subcommand + i]);
+                            _ui_out(PSTR("'%s'*(%s) "), data_pointers[1 + _current_search_depth + i], _type);
                         }
                     }
                     else
                     {
-                        if (input_type_match_flag[i] == false)
-                        {
-                            char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
-                            memcpy_P(&_type, &ui_input_type_strings[UserInput::getArgType(prm, i)], sizeof(_type));
-                            _ui_out(PSTR(" >arg(%u) '%s'* should be %s.\n"),
-                                    i + 1,
-                                    (data_pointers[1 + i] == NULL)
-                                        ? ""
-                                        : data_pointers[1 + i],
-                                    _type);
-                        }
-                        else
-                        {
-                            _ui_out(PSTR(" >arg(%u) '%s' OK.\n"), i + 1, data_pointers[1 + i]);
-                        }
+                        _ui_out(PSTR("'%s'(OK) "), data_pointers[1 + _current_search_depth + i]);
                     }
                 }
-                return;                
+                _ui_out(PSTR("\n"));
+                return;
             }
-            _ui_out(PSTR("%s\n"), (char*)data);
+            _ui_out(PSTR("%s\n"), (char *)data);
             return;
         }
-        else    // command not matched
+        else // command not matched
         {
-            _ui_out(PSTR("%s\n"), (char*)data);
+            _ui_out(PSTR("%s\n"), (char *)data);
             _ui_out(PSTR("\n >Command <%s> unknown.\n"), data_pointers[0]);
         }
     }
