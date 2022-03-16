@@ -18,14 +18,25 @@
 char output_buffer[512] = {'\0'}; //  output buffer
 
 /*
-  UserInput constructor
+  UserInput constructor one
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
     /* size of UserInput's output buffer */ 512,
-    /* username */ "user",
+    /* username */ "",
     /* end of line characters */ "\r\n",
     /* token delimiter */ " ",
     /* c-string delimiter */ "\"");
+
+/*
+  UserInput constructor two
+  you can share one output buffer
+*/
+//UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
+//    /* size of UserInput's output buffer */ 512,
+//    /* username */ "sensor parser",
+//    /* end of line characters */ "arbitrary",
+//    /* token delimiter */ ",",
+//    /* c-string delimiter */ "^");
 
 /*
    default function, called if nothing matches or if there is an error
@@ -119,22 +130,22 @@ void uc_test_input_types(UserInput *inputProcess)
 }
 
 const Parameters help_param[1] PROGMEM =
-    {   // func ptr
-        uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-        "help",       // command string
-        4,            // command string characters
-        0,            // command depth
-        2,            // subcommands
-        no_arguments, // argument handling
-        0,            // minimum expected number of arguments
-        0,            // maximum expected number of arguments
-        /*
-          UITYPE arguments
-        */
-        {
-            UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-        }
-    };
+{ // func ptr
+  uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  "help",       // command string
+  4,            // command string characters
+  0,            // command depth
+  2,            // subcommands
+  no_arguments, // argument handling
+  0,            // minimum expected number of arguments
+  0,            // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 const Parameters settings_param[1] PROGMEM =
@@ -198,7 +209,7 @@ void setup()
   inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.AddCommand(uc_test_);             // input type test
 
-  uc_help(&inputHandler);               // formats output_buffer with the command list
+  inputHandler.ListCommands();               // formats output_buffer with the command list
 
   inputHandler.OutputToStream(Serial); // class output
 }

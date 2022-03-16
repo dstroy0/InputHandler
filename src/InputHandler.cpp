@@ -964,7 +964,7 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
                         memcpy_P(&_type_char_array, &ui_input_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && data_pointers[1 + failed_on_subcommand + i] == NULL)
                         {
-                            _ui_out(PSTR("'REQUIRED'*(%s) "), _type_char_array);
+                            _ui_out(PSTR("'INPUT NOT RECEIVED'*(%s REQUIRED) "), _type_char_array);
                         }
                         else
                         {
