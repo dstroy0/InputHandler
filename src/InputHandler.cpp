@@ -205,7 +205,7 @@ void UserInput::GetCommandFromStream(Stream &stream, size_t rx_buffer_size)
 void UserInput::ListCommands()
 {
     CommandConstructor *cmd;
-    _ui_out(PSTR("Commands available to %s:\n"), _username_);
+    _ui_out(PSTR("Commands available %s:\n"), _username_);
     uint8_t i = 1;
     for (cmd = commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
     {
@@ -944,9 +944,10 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
         _ui_out(PSTR(">%s $Invalid input: "), _username_);
         if (command_matched == true)
         {
-            uint16_t err_n_args = (prm.max_num_args > (data_pointers_index_max - _current_search_depth))
-                                      ? (data_pointers_index_max - _current_search_depth)
-                                      : prm.max_num_args;
+            // constrain err_n_args to UI_MAX_ARGS + 1
+            size_t err_n_args = ((data_pointers_index_max - _current_search_depth) > (UI_MAX_ARGS + 1))
+                                    ? (UI_MAX_ARGS + 1)
+                                    : (data_pointers_index_max - _current_search_depth);
             if (err_n_args > 0)
             {
                 for (size_t i = 0; i < (_current_search_depth + 1); ++i)

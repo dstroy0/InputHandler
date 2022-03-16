@@ -3,7 +3,7 @@
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that uses all of the methods available
    @version 0.1
-   @date 2022-02-17
+   @date 2022-03-16
 
    @copyright Copyright (c) 2022
 */
@@ -15,14 +15,14 @@
   you have to empty it out yourself with
   OutputToStream()
 */
-char output_buffer[1024] = {'\0'}; //  output buffer
+char output_buffer[512] = {'\0'}; //  output buffer
 
 /*
   UserInput constructor
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
     /* size of UserInput's output buffer */ 512,
-    /* username */ "user",
+    /* username */ "",
     /* end of line characters */ "\r\n",
     /* token delimiter */ " ",
     /* c-string delimiter */ "\"");
@@ -34,97 +34,25 @@ void uc_unrecognized(UserInput* inputProcess)
 {
   // error output
   inputProcess->OutputToStream(Serial);
+  Serial.println(F("error."));
 }
 
-/*
-   lists the settings passed to UserInput's constructor, or default parameters
-*/
-void uc_settings(UserInput* inputProcess)
+void uc_nest_one(UserInput* inputProcess)
 {
-  inputProcess->ListSettings(inputProcess);
+  Serial.println(F("made it to uc_nest_one."));
 }
 
-/*
-   lists commands available to the user
-*/
-void uc_help(UserInput* inputProcess)
+void uc_nest_two(UserInput* inputProcess)
 {
-  inputProcess->ListCommands();
+  Serial.println(F("made it to uc_nest_two."));
 }
 
-/*
-   test all available input types
-*/
-void uc_test_input_types(UserInput* inputProcess)
+const Parameters nested_prms[3] PROGMEM =
 {
-  inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char* str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-  char* strtoul_ptr = 0;                                                            //  this is for strtoul
-  uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
-  uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
-
-  str_ptr = inputProcess->NextArgument();
-  strtoul_ptr = 0;
-  strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);
-  uint16_t sixteen_bit = (strtoul_result <= UINT16_MAX) ? (uint16_t)strtoul_result : 0U;
-
-  str_ptr = inputProcess->NextArgument();
-  strtoul_ptr = 0;
-  uint32_t thirtytwo_bit = strtoul(str_ptr, &strtoul_ptr, 10);
-
-  str_ptr = inputProcess->NextArgument();
-  int sixteen_bit_int = atoi(str_ptr);
-
-  str_ptr = inputProcess->NextArgument();
-  float thirtytwo_bit_float = (float)atof(str_ptr);
-
-  str_ptr = inputProcess->NextArgument();
-  char _char = *str_ptr;
-
-  str_ptr = inputProcess->NextArgument();
-  char c_string[64] = {'\0'};
-  snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
-
-  str_ptr = inputProcess->NextArgument();
-  char unknown_string[64] = {'\0'};
-  snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
-
-  char float_buffer[32] = {'\0'}; //  dtostrf buffer
-  char out[164] = {'\0'};         //  function output buffer
-  uint16_t string_pos = 0;        // function output buffer index
-
-  /*
-       format out[] with all of the arguments received
-  */
-  string_pos += snprintf_P(out + string_pos, 164,
-                           PSTR("Test user input types:\n"
-                                "uint8_t %u\n"
-                                "uint16_t %u\n"
-                                "uint32_t %lu\n"
-                                "int %d\n"
-                                "float %s\n"
-                                "char %c\n"
-                                "c-string %s\n"
-                                "unknown-string %s\n"
-                               ),
-                           eight_bit,
-                           sixteen_bit,
-                           thirtytwo_bit,
-                           sixteen_bit_int,
-                           dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
-                           _char,
-                           c_string,
-                           unknown_string);
-
-  Serial.print(out);
-}
-
-const Parameters help_param[4] PROGMEM =
-{
-  { // command
-    uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
-    "help",       // command string
-    4,            // command string characters
+  { // root command
+    uc_unrecognized,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
+    "launch",       // command string
+    6,            // command string characters
     0,            // command depth
     2,            // subcommands  
     no_arguments, // argument handling
@@ -137,12 +65,12 @@ const Parameters help_param[4] PROGMEM =
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
   },
-  { // begin subcommand "me", first child of parent command "help"
-    NULL,                 // no function ptr
-    "me",                 // command string
-    2,                    // command string characters
+  { // subcommand depth one
+    uc_nest_one,          // unique function
+    "one",                // command string
+    3,                    // command string characters
     1,                    // command depth
-    1,                    // subcommands    
+    0,                    // subcommands    
     no_arguments,         // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
@@ -152,11 +80,11 @@ const Parameters help_param[4] PROGMEM =
     {
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
-  },  //end subcommand
-  { // begin subcommand "you", second child of parent command "help"
-    NULL,                 // no function ptr
-    "yourself",           // command string
-    8,                    // command string characters
+  }, 
+  { // subcommand depth one
+    uc_nest_two,          // unique function
+    "two",                // command string
+    3,                    // command string characters
     1,                    // command depth
     0,                    // subcommands
     no_arguments,         // argument handling
@@ -168,114 +96,25 @@ const Parameters help_param[4] PROGMEM =
     {
       UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }
-  },
-  { // begin subcommand "please", first child of parent subcommand "me"
-    NULL,                 // no function ptr
-    "please",             // command string
-    6,                    // command string characters
-    2,                    // command depth
-    0,                    // subcommands
-    single_type_argument, // argument handling
-    1,                    // minimum expected number of arguments
-    1,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::UINT8_T // use NO_ARGS if the function expects no arguments
-    }
   }
 };
-CommandConstructor uc_help_(help_param, 4, 2); //  uc_help_ has a command string, and function specified
-
-const Parameters settings_param[1] PROGMEM =
-{
-  uc_settings,      // function ptr
-  "inputSettings",  // command string
-  13,               // command string characters
-  0,                // command depth
-  0,                // subcommands
-  no_arguments,     // argument handling
-  0,                // minimum expected number of arguments
-  0,                // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
-
-const Parameters type_test_param[1] PROGMEM =
-{
-  uc_test_input_types, // function ptr
-  "test",              // command string
-  4,                   // string length
-  0,                   // command depth
-  0,                   // subcommands
-  argument_type_array, // argument handling
-  8,                   // minimum expected number of arguments
-  8,                   // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::UINT8_T,    // 8-bit  uint
-    UITYPE::UINT16_T,   // 16-bit uint
-    UITYPE::UINT32_T,   // 32-bit uint
-    UITYPE::INT16_T,    // 16-bit int
-    UITYPE::FLOAT,      // 32-bit float
-    UITYPE::CHAR,       // char
-    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-    UITYPE::NOTYPE      // special type, no type validation performed
-  }
-};
-CommandConstructor uc_test_(type_test_param);
+CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 2); //  uc_help_ has a command string, and function specified
 
 void setup()
 {
   delay(500); // startup delay for reprogramming
-  // uncomment as needed
   Serial.begin(115200); //  set up Serial object (Stream object)
-  // Serial2.begin(115200);
-  // Serial3.begin(115200);
-  // Serial4.begin(115200);
   while (!Serial); //  wait for user
 
   Serial.println(F("Set up InputHandler..."));
-  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-  inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.AddCommand(uc_test_);             // input type test
-
-  uc_help(&inputHandler);               // formats output_buffer with the command list
-  
-  inputHandler.OutputToStream(Serial); // class output
+  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid  
+  inputHandler.AddCommand(uc_nested_example_);   // nested commands example
+  inputHandler.ListCommands();
+  inputHandler.OutputToStream(Serial); // class output  
 }
 
 void loop()
 {
-  // uncomment as needed
   inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  // inputHandler.GetCommandFromStream(Serial2);  // Serial2
-  // inputHandler.GetCommandFromStream(Serial3);  // Serial3
-  // inputHandler.GetCommandFromStream(Serial4);  // Serial4
-
-  // choose one stream to output to
   inputHandler.OutputToStream(Serial); // class output
-
-  // or output to multiple streams like this
-  /*
-    if(inputHandler.OutputIsAvailable())
-    {
-    Serial.println(output_buffer);
-    Serial2.println(output_buffer);
-    Serial3.println(output_buffer);
-    Serial4.println(output_buffer);
-
-    // and clear the output buffer when you are finished
-    inputHandler.ClearOutputBuffer();
-    }
-  */
 }
