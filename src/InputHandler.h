@@ -350,8 +350,8 @@ protected:
     /**
      * @brief Escapes control characters so they will print
      *
-     * @param input the input string
-     * @param output the output string
+     * @param input the input char
+     * @param buf a reference to the output buffer
      * 
      * @return pointer to buf, so you can use this inside of _ui_out()
      */
@@ -361,7 +361,7 @@ protected:
      * @brief Triggers on a user input backslash, if the char immediately 
      * after the backslash would be a valid control char it returns the 
      * control char. ie if you input char(\) + char(r)  this will return 
-     * the control character '\r'
+     * the control character '\\r'
      *
      * @param input the char after a backslash ie 'r'
      * @return the control character char value ie '\\r'
