@@ -943,16 +943,11 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
         memcpy_P(&prm, &(cmd->prm[failed_on_subcommand]), sizeof(prm));
         _ui_out(PSTR(">%s $Invalid input: "), _username_);
         if (command_matched == true)
-        {
-            Serial.println(F("command_matched"));
+        {            
             // constrain err_n_args to UI_MAX_ARGS + 1
-
             size_t err_n_args = ((data_pointers_index_max - failed_on_subcommand - 1) > (UI_MAX_ARGS + 1))
                                     ? (UI_MAX_ARGS + 1)
-                                    : (data_pointers_index_max - failed_on_subcommand - 1);
-            Serial.println(failed_on_subcommand);
-            Serial.println(data_pointers_index_max);
-            Serial.println(err_n_args);
+                                    : (data_pointers_index_max - failed_on_subcommand - 1);       
             if (err_n_args > 0)
             {
                 for (size_t i = 0; i < (failed_on_subcommand + 1); ++i)
