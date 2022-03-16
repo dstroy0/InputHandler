@@ -944,34 +944,53 @@ void UserInput::_ReadCommandFromBufferErrorOutput(CommandConstructor *cmd,
         _ui_out(PSTR(">%s $Invalid input: "), _username_);
         if (command_matched == true)
         {
+            Serial.println(F("command_matched"));
             // constrain err_n_args to UI_MAX_ARGS + 1
-            size_t err_n_args = ((data_pointers_index_max - _current_search_depth) > (UI_MAX_ARGS + 1))
+
+            size_t err_n_args = ((data_pointers_index_max - failed_on_subcommand - 1) > (UI_MAX_ARGS + 1))
                                     ? (UI_MAX_ARGS + 1)
-                                    : (data_pointers_index_max - _current_search_depth);
+                                    : (data_pointers_index_max - failed_on_subcommand - 1);
+            Serial.println(failed_on_subcommand);
+            Serial.println(data_pointers_index_max);
+            Serial.println(err_n_args);
             if (err_n_args > 0)
             {
-                for (size_t i = 0; i < (_current_search_depth + 1); ++i)
+                for (size_t i = 0; i < (failed_on_subcommand + 1); ++i)
                 {
                     _ui_out(PSTR("%s "), data_pointers[i]); // add subcommands to echo
                 }
+                bool print_subcmd_err = true;                
                 for (uint16_t i = 0; i < err_n_args; ++i)
                 {
                     if (input_type_match_flag[i] == false)
                     {
-                        char _type[UI_INPUT_TYPE_STRINGS_PGM_LEN];
-                        memcpy_P(&_type, &ui_input_type_strings_pgm[UserInput::getArgType(prm, i)], sizeof(_type));
-                        if (data_pointers[1 + _current_search_depth + i] == NULL)
+                        uint8_t _type = UserInput::getArgType(prm, i);
+                        char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
+                        memcpy_P(&_type_char_array, &ui_input_type_strings_pgm[_type], sizeof(_type_char_array));
+                        if ((UITYPE)_type != UITYPE::NO_ARGS && data_pointers[1 + failed_on_subcommand + i] == NULL)
                         {
-                            _ui_out(PSTR("'REQUIRED'*(%s) "), _type);
+                            _ui_out(PSTR("'REQUIRED'*(%s) "), _type_char_array);
                         }
                         else
                         {
-                            _ui_out(PSTR("'%s'*(%s) "), data_pointers[1 + _current_search_depth + i], _type);
+                            if (prm.sub_commands > 0 && print_subcmd_err == true)
+                            {
+                                print_subcmd_err = false;
+                                _ui_out(PSTR("'%s'*(ENTER VALID SUBCOMMAND) "), data_pointers[1 + failed_on_subcommand + i]);
+                            }
+                            else if ((prm.sub_commands == 0 || err_n_args > 1) && (UITYPE)_type == UITYPE::NO_ARGS)
+                            {
+                                _ui_out(PSTR("'%s'*(LEAVE BLANK) "), data_pointers[1 + failed_on_subcommand + i]);
+                            }
+                            else
+                            {
+                                _ui_out(PSTR("'%s'*(%s) "), data_pointers[1 + failed_on_subcommand + i], _type_char_array);
+                            }
                         }
                     }
                     else
                     {
-                        _ui_out(PSTR("'%s'(OK) "), data_pointers[1 + _current_search_depth + i]);
+                        _ui_out(PSTR("'%s'(OK) "), data_pointers[1 + failed_on_subcommand + i]);
                     }
                 }
                 _ui_out(PSTR("\n"));

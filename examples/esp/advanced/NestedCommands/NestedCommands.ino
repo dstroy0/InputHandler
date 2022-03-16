@@ -39,11 +39,13 @@ void uc_unrecognized(UserInput* inputProcess)
 
 void uc_nest_one(UserInput* inputProcess)
 {
+  inputHandler.OutputToStream(Serial); // class output
   Serial.println(F("made it to uc_nest_one."));
 }
 
 void uc_nest_two(UserInput* inputProcess)
 {
+  inputHandler.OutputToStream(Serial); // class output
   Serial.println(F("made it to uc_nest_two."));
 }
 
