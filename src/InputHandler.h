@@ -57,9 +57,9 @@ enum class UITYPE
  * @brief type string literals
  * \snippet InputHandler.h ui_input_type_strings_pgm_def
  */
+//![ui_input_type_strings_pgm_def]
 const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
-{
-    //![ui_input_type_strings_pgm_def]
+{    
     "UINT8_T",      //  8-bit unsigned integer
     "UINT16_T",     //  16-bit unsigned integer
     "UINT32_T",     //  32-bit unsigned integer
@@ -69,17 +69,17 @@ const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM 
     "C-STRING",     //  c-string without spaces if not enclosed with ""
     "NOTYPE",       //  user defined NOTYPE
     "NO_ARGS",      //  no arguments expected
-    "error"         //  error
-    //![ui_input_type_strings_pgm_def]
+    "error"         //  error    
 };
+//![ui_input_type_strings_pgm_def]
 
 /**
  * @brief escaped control char
  * \snippet InputHandler.h ui_escaped_char_pgm_def
  */
+//![ui_escaped_char_pgm_def]
 const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
-{
-    //![ui_escaped_char_pgm_def]
+{    
     "\\0",
     "\\a",
     "\\b",
@@ -91,9 +91,9 @@ const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
     "\\e",    
     "\\\"",
     " ",
-    "er"
-    //![ui_escaped_char_pgm_def]
+    "er"    
 };
+//![ui_escaped_char_pgm_def]
 
 /**
  * @brief forward declaration of UserInput class for
