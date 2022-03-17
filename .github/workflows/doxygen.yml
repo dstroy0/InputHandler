@@ -32,9 +32,8 @@ jobs:
         with:
           name: "InputHandler_doxygen_docs"
           path: ${{ github.workspace }}/docs/html
-      - name: Publish generated content to GitHub Pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
-          dir: docs/html
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: ./docs/html # The folder the action should deploy.
