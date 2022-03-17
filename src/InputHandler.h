@@ -55,9 +55,11 @@ enum class UITYPE
 
 /**
  * @brief type string literals
+ * \var const char $ui_input_type_strings_pgm
+ * string literal type array
  * \snippet InputHandler.h ui_input_type_strings_pgm_def
  */
-//![ui_input_type_strings_pgm_def]
+//! [ui_input_type_strings_pgm_def]
 const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM = 
 {    
     "UINT8_T",      //  8-bit unsigned integer
@@ -71,14 +73,14 @@ const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM 
     "NO_ARGS",      //  no arguments expected
     "error"         //  error    
 };
-//![ui_input_type_strings_pgm_def]
+//! [ui_input_type_strings_pgm_def]
 
 
 /**
  * @brief escaped control char
  * \snippet InputHandler.h ui_escaped_char_pgm_def
  */
-//![ui_escaped_char_pgm_def]
+//! [ui_escaped_char_pgm_def]
 const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
 {    
     "\\0",
@@ -94,7 +96,7 @@ const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
     " ",
     "er"    
 };
-//![ui_escaped_char_pgm_def]
+//! [ui_escaped_char_pgm_def]
 
 /**
  * @brief forward declaration of UserInput class for
@@ -107,7 +109,7 @@ class UserInput;
  * @brief Parameters struct, this is the container that holds your command parameters
  * \snippet InputHandler.h ui_parameters_struct_def
  */
-//![ui_parameters_struct_def]
+//! [ui_parameters_struct_def]
 struct Parameters
 {    
     void (*function)(UserInput *);
@@ -120,7 +122,7 @@ struct Parameters
     uint8_t max_num_args;
     UITYPE _arg_type[UI_MAX_ARGS];    
 };
-//![ui_parameters_struct_def]
+//! [ui_parameters_struct_def]
 /** @} */
 
 /**
