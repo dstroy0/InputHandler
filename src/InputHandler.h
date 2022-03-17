@@ -59,16 +59,16 @@ enum class UITYPE
  */
 const PROGMEM char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] =
 {
-        "UINT8_T",  ///< 8-bit unsigned integer
-        "UINT16_T", ///< 16-bit unsigned integer
-        "UINT32_T", ///< 32-bit unsigned integer
-        "INT16_T",  ///< 16-bit signed integer
-        "FLOAT",    ///< 32-bit floating point number
-        "CHAR",     ///< single char
-        "C-STRING", ///< c-string without spaces if not enclosed with ""
-        "NOTYPE",   ///< user defined NOTYPE
-        "NO_ARGS",  ///< no arguments expected
-        "error"     ///< error
+        "UINT8_T",  // 8-bit unsigned integer
+        "UINT16_T", // 16-bit unsigned integer
+        "UINT32_T", // 32-bit unsigned integer
+        "INT16_T",  // 16-bit signed integer
+        "FLOAT",    // 32-bit floating point number
+        "CHAR",     // single char
+        "C-STRING", // c-string without spaces if not enclosed with ""
+        "NOTYPE",   // user defined NOTYPE
+        "NO_ARGS",  // no arguments expected
+        "error"     // error
 };
 
 /**
@@ -77,18 +77,18 @@ const PROGMEM char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] 
  */
 const PROGMEM char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] =
 {
-        "\\0",  ///< null
-        "\\a",  ///< bell
-        "\\b",  ///< backspace
-        "\\t",  ///< horizontal tab
-        "\\n",  ///< newline
-        "\\v",  ///< vertical tab
-        "\\f",  ///< form feed
-        "\\r",  ///< carriage return
-        "\\e",  ///< GCC escape sequence
-        "\\\"", ///< quotation mark
-        " ",    ///< space
-        "er"    ///< error
+        "\\0",  // null
+        "\\a",  // bell
+        "\\b",  // backspace
+        "\\t",  // horizontal tab
+        "\\n",  // newline
+        "\\v",  // vertical tab
+        "\\f",  // form feed
+        "\\r",  // carriage return
+        "\\e",  // GCC escape sequence
+        "\\\"", // quotation mark
+        " ",    // space
+        "er"    // error
 };
 
 /**
