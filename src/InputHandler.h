@@ -55,7 +55,7 @@ enum class UITYPE
 
 /**
  * @brief type string literals
- * \var const char $ui_input_type_strings_pgm
+ * \var const char ui_input_type_strings_pgm
  * string literal type array
  * \snippet InputHandler.h ui_input_type_strings_pgm_def
  */
