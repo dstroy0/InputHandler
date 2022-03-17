@@ -37,3 +37,4 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: ./docs/html # The folder the action should deploy.
+          clean-exclude: index.html
