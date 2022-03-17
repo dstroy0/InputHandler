@@ -1,3 +1,4 @@
+_N_prms		LITERAL1
 InputHandler	KEYWORD1
 UserInput	KEYWORD1
 UITYPE		KEYWORD1
@@ -9,19 +10,24 @@ FLOAT		KEYWORD2
 CHAR		KEYWORD2
 C_STRING	KEYWORD2
 NOTYPE		KEYWORD2
-_LAST		KEYWORD1
-UserCommandParameters	KEYWORD2
-_N_ARGS		LITERAL1
-NextArgument	KEYWORD2
-AddCommand	KEYWORD2
+NO_ARGS		KEYWORD2
+_LAST		KEYWORD2
+Parameters	KEYWORD2
+CommandConstructor	KEYWORD2
+NextArgument		KEYWORD2
+AddCommand		KEYWORD2
 ReadCommandFromBuffer	KEYWORD2
 GetCommandFromStream	KEYWORD2
 ListCommands		KEYWORD2
 ListSettings		KEYWORD2
 DefaultFunction		KEYWORD2
-inputHandler		KEYWORD2
-inputProcess		KEYWORD2
 OutputIsAvailable	KEYWORD2
 OutputIsEnabled		KEYWORD2
 OutputToStream		KEYWORD2
 ClearOutputBuffer	KEYWORD2
+inputHandler		KEYWORD2
+inputProcess		KEYWORD2
+no_arguments		KEYWORD2
+single_type_argument	KEYWORD2
+argument_type_array	KEYWORD2
+
