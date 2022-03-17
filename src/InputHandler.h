@@ -104,9 +104,9 @@ class UserInput;
  * @brief Parameters struct, this is the container that holds your command parameters
  * \snippet InputHandler.h ui_parameters_struct_def
  */
+//![ui_parameters_struct_def]
 struct Parameters
-{
-    //![ui_parameters_struct_def]
+{    
     void (*function)(UserInput *);
     char command[UI_MAX_CMD_LEN];
     uint16_t command_length;
@@ -115,8 +115,7 @@ struct Parameters
     UI_ARGUMENT_FLAG_ENUM argument_flag;
     uint8_t num_args;
     uint8_t max_num_args;
-    UITYPE _arg_type[UI_MAX_ARGS];
-    //![ui_parameters_struct_def]
+    UITYPE _arg_type[UI_MAX_ARGS];    
 };
 /** @} */
 
