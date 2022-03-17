@@ -248,8 +248,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= </div>
-<div class="line">{</div>
-<div class="line">    </div>
+<div class="line">{    </div>
 <div class="line">    <span class="stringliteral">&quot;UINT8_T&quot;</span>,      </div>
 <div class="line">    <span class="stringliteral">&quot;UINT16_T&quot;</span>,     </div>
 <div class="line">    <span class="stringliteral">&quot;UINT32_T&quot;</span>,     </div>
@@ -260,12 +259,13 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;NOTYPE&quot;</span>,       </div>
 <div class="line">    <span class="stringliteral">&quot;NO_ARGS&quot;</span>,      </div>
 <div class="line">    <span class="stringliteral">&quot;error&quot;</span>         </div>
-<div class="line">    </div>
 <div class="line">}</div>
 </div><!-- fragment -->
 <p>type string literals </p>
-<p>escaped control char</p>
-<div class="fragment"><div class="line">    <span class="stringliteral">&quot;UINT8_T&quot;</span>,      <span class="comment">//  8-bit unsigned integer</span></div>
+<p>[ui_input_type_strings_pgm_def]</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> ui_input_type_strings_pgm[10][<a class="code" href="InputHandler__config_8h.html#aa99472679c6ff32ae0725c7577ab37d7">UI_INPUT_TYPE_STRINGS_PGM_LEN</a>] <a class="code" href="group__UserInput.html#ga946558535e642b60e2ffd77240f148c3">PROGMEM</a> = </div>
+<div class="line">{    </div>
+<div class="line">    <span class="stringliteral">&quot;UINT8_T&quot;</span>,      <span class="comment">//  8-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;UINT16_T&quot;</span>,     <span class="comment">//  16-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;UINT32_T&quot;</span>,     <span class="comment">//  32-bit unsigned integer</span></div>
 <div class="line">    <span class="stringliteral">&quot;INT16_T&quot;</span>,      <span class="comment">//  16-bit signed integer</span></div>
@@ -274,8 +274,12 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;C-STRING&quot;</span>,     <span class="comment">//  c-string without spaces if not enclosed with &quot;&quot;</span></div>
 <div class="line">    <span class="stringliteral">&quot;NOTYPE&quot;</span>,       <span class="comment">//  user defined NOTYPE</span></div>
 <div class="line">    <span class="stringliteral">&quot;NO_ARGS&quot;</span>,      <span class="comment">//  no arguments expected</span></div>
-<div class="line">    <span class="stringliteral">&quot;error&quot;</span>         <span class="comment">//  error</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="stringliteral">&quot;\\0&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;error&quot;</span>         <span class="comment">//  error    </span></div>
+<div class="line">};</div>
+</div><!-- fragment --><p>[ui_input_type_strings_pgm_def]</p>
+<p>escaped control char </p><div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> ui_escaped_char_pgm[12][<a class="code" href="InputHandler__config_8h.html#a4024a3cfbd96c66ac14f41edfea585b5">UI_ESCAPED_CHAR_PGM_LEN</a>] <a class="code" href="group__UserInput.html#ga946558535e642b60e2ffd77240f148c3">PROGMEM</a> =</div>
+<div class="line">{    </div>
+<div class="line">    <span class="stringliteral">&quot;\\0&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;\\a&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;\\b&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;\\t&quot;</span>,    </div>
@@ -286,14 +290,19 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;\\e&quot;</span>,    </div>
 <div class="line">    <span class="stringliteral">&quot;\\\&quot;&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot; &quot;</span>,</div>
-<div class="line">    <span class="stringliteral">&quot;er&quot;</span></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00060">60</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
+<div class="line">    <span class="stringliteral">&quot;er&quot;</span>    </div>
+<div class="line">};</div>
+</div><!-- fragment --><p>[ui_escaped_char_pgm_def] </p>
+
+<p class="definition">Definition at line <a class="el" href="InputHandler_8h_source.html#l00061">61</a> of file <a class="el" href="InputHandler_8h_source.html">InputHandler.h</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agroup__UserInput_html_ga946558535e642b60e2ffd77240f148c3"><div class="ttname"><a href="group__UserInput.html#ga946558535e642b60e2ffd77240f148c3">PROGMEM</a></div><div class="ttdeci">const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM</div><div class="ttdoc">type string literals</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler_8h_source.html#l00061">InputHandler.h:61</a></div></div>
+<div class="ttc" id="aInputHandler__config_8h_html_a4024a3cfbd96c66ac14f41edfea585b5"><div class="ttname"><a href="InputHandler__config_8h.html#a4024a3cfbd96c66ac14f41edfea585b5">UI_ESCAPED_CHAR_PGM_LEN</a></div><div class="ttdeci">#define UI_ESCAPED_CHAR_PGM_LEN</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler__config_8h_source.html#l00080">InputHandler_config.h:80</a></div></div>
+<div class="ttc" id="aInputHandler__config_8h_html_aa99472679c6ff32ae0725c7577ab37d7"><div class="ttname"><a href="InputHandler__config_8h.html#aa99472679c6ff32ae0725c7577ab37d7">UI_INPUT_TYPE_STRINGS_PGM_LEN</a></div><div class="ttdeci">#define UI_INPUT_TYPE_STRINGS_PGM_LEN</div><div class="ttdef"><b>Definition:</b> <a href="InputHandler__config_8h_source.html#l00079">InputHandler_config.h:79</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
