@@ -1,8 +1,8 @@
 {
     "name": "InputHandler",
-    "keywords": "input, output, process, validate, serial, command",
-    "description": "Input, validate, launch function, output.",
-    "license": "GPL-2.0-only",
+    "keywords": "input, output, process, validate, serial, command line interface, CLI",
+    "description": "CLI construction tool/c-string parser.",
+    "license": "GPL-3.0-only",
     "repository": {
         "type": "git",
         "url": "https://github.com/dstroy0/InputHandler"
@@ -21,6 +21,6 @@
         "teensy",
         "atmelmegaavr",
         "espressif32",
-        "espressif8266"        
+        "espressif8266"
     ]
 }
