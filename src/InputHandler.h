@@ -71,6 +71,8 @@ const char ui_input_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] PROGMEM 
     "NO_ARGS",      //  no arguments expected
     "error"         //  error    
 };
+//![ui_input_type_strings_pgm_def]
+
 
 /**
  * @brief escaped control char
@@ -92,6 +94,7 @@ const char ui_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] PROGMEM =
     " ",
     "er"    
 };
+//![ui_escaped_char_pgm_def]
 
 /**
  * @brief forward declaration of UserInput class for
@@ -117,6 +120,7 @@ struct Parameters
     uint8_t max_num_args;
     UITYPE _arg_type[UI_MAX_ARGS];    
 };
+//![ui_parameters_struct_def]
 /** @} */
 
 /**
