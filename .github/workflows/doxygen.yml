@@ -12,10 +12,11 @@ jobs:
           fetch-depth: 0
       - name: install Doxygen
         run: |
-          sudo apt-get clean
-          sudo apt-get update --allow-releaseinfo-change
-          sudo apt-get install graphviz    
-          sudo apt-get install doxygen
+          sudo apt-get update
+          sudo apt-get install -y graphviz libclang-cpp1-9 libclang1-9
+          wget https://www.doxygen.nl/files/doxygen-1.9.3.linux.bin.tar.gz
+          tar -xvzf doxygen-1.9.3.linux.bin.tar.gz
+          ln -s doxygen-1.9.3/bin/doxygen doxygen
       - name: get latest release version number
         id: latest_ver
         run: echo "::set-output name=release::$(awk -F "=" '/version/ {print $2}' library.properties)"
@@ -25,10 +26,15 @@ jobs:
           echo "PROJECT_NUMBER = ${{ steps.latest_ver.outputs.release }}" >> doxygenAction
           echo "@INCLUDE = doxygenAction" >> Doxyfile
       - name: Generate Documentation
-        run: doxygen ./docs/Doxyfile                        
+        run: ./doxygen ./docs/Doxyfile                        
       - name: Save doxygen docs as artifact
         uses: actions/upload-artifact@v2
         with:
           name: "InputHandler_doxygen_docs"
           path: ${{ github.workspace }}/docs/html
-      
+      - name: Publish generated content to GitHub Pages
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+        with:
+          dir: docs/html
+          branch: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
