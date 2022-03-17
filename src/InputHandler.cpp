@@ -23,7 +23,7 @@
 char *UserInput::NextArgument()
 {
     // return NULL if there are no more arguments
-    if (data_pointers_index < UI_MAX_ARGS && data_pointers_index < rec_num_arg_strings)
+    if (data_pointers_index < UI_MAX_ARGS && data_pointers_index < data_pointers_index_max)
     {
         data_pointers_index++;
         return data_pointers[data_pointers_index];
@@ -619,7 +619,7 @@ void UserInput::launchFunction(CommandConstructor *cmd,
         }
         _ui_out(PSTR("\n"));
     }
-    data_pointers_index = 0;
+    data_pointers_index = _current_search_depth - 1;
     #if defined(__DEBUG_LAUNCH_FUNCTION__)
     _ui_out(PSTR("prm_idx=%d\n"), prm_idx);
     #endif
