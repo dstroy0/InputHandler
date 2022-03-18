@@ -47,10 +47,10 @@ UserInput inputHandler
 void uc_unrecognized(UserInput* inputProcess)
 {
   // do your error output here
-  if (inputHandler->OutputIsAvailable())
+  if (inputHandler->outputIsAvailable())
   {
     client.publish("esp/output", output_buffer);
-    inputHandler->ClearOutputBuffer();
+    inputHandler->clearOutputBuffer();
   }
 }
 /*
@@ -58,7 +58,7 @@ void uc_unrecognized(UserInput* inputProcess)
 */
 void uc_settings(UserInput* inputProcess)
 {
-  inputProcess->ListSettings(inputProcess);
+  inputProcess->listSettings(inputProcess);
 }
 
 /*
@@ -66,11 +66,7 @@ void uc_settings(UserInput* inputProcess)
 */
 void uc_help(UserInput* inputProcess)
 {
-  inputProcess->ListCommands();
-}
-void uc_help(UserInput& inputProcess)
-{
-  inputProcess.ListCommands();
+  inputProcess->listCommands();
 }
 
 /*
@@ -79,34 +75,34 @@ void uc_help(UserInput& inputProcess)
 void uc_test_input_types(UserInput *inputProcess)
 {
   inputProcess->OutputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char *str_ptr = inputProcess->NextArgument();                                     //  init str_ptr and point it at the next argument input by the user
+  char *str_ptr = inputProcess->nextArgument();                                     //  init str_ptr and point it at the next argument input by the user
   char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
   uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   strtoul_ptr = 0;
   strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);
   uint16_t sixteen_bit = (strtoul_result <= UINT16_MAX) ? (uint16_t)strtoul_result : 0U;
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   strtoul_ptr = 0;
   uint32_t thirtytwo_bit = strtoul(str_ptr, &strtoul_ptr, 10);
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   int sixteen_bit_int = atoi(str_ptr);
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   float thirtytwo_bit_float = (float)atof(str_ptr);
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   char _char = *str_ptr;
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   char c_string[64] = {'\0'};
   snprintf_P(c_string, 64, PSTR("%s"), str_ptr);
 
-  str_ptr = inputProcess->NextArgument();
+  str_ptr = inputProcess->nextArgument();
   char unknown_string[64] = {'\0'};
   snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
 
@@ -147,7 +143,7 @@ const Parameters help_param[1] PROGMEM =
     4,            // command string characters
     0,            // command depth
     2,            // subcommands
-    no_arguments, // argument handling
+    no_args,      // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
     /*
@@ -167,7 +163,7 @@ const Parameters settings_param[1] PROGMEM =
   13,               // command string characters
   0,                // command depth
   0,                // subcommands
-  no_arguments,     // argument handling
+  no_args,          // argument handling
   0,                // minimum expected number of arguments
   0,                // maximum expected number of arguments
   /*
@@ -186,7 +182,7 @@ const Parameters type_test_param[1] PROGMEM =
   4,                   // string length
   0,                   // command depth
   0,                   // subcommands
-  argument_type_array, // argument handling
+  type_arr,            // argument handling
   8,                   // minimum expected number of arguments
   8,                   // maximum expected number of arguments
   /*
@@ -236,7 +232,7 @@ void reconnect_mqtt()
 // incoming command
 void mqtt_callback(char* topic, byte* message, unsigned int length)
 {
-  inputHandler.ReadCommandFromBuffer(message, length);
+  inputHandler.readCommandFromBuffer(message, length);
 }
 
 void setup()
@@ -245,12 +241,12 @@ void setup()
   client.setServer(mqtt_server, 1883);
   client.setCallback(mqtt_callback);
 
-  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.AddCommand(uc_help_);             // lists commands available to the user
-  inputHandler.AddCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.addCommand(uc_help_);             // lists commands available to the user
+  inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
+  inputHandler.addCommand(uc_test_);             // input type test
 
-  inputHandler.ListCommands(); // formats output_buffer with the command list
+  inputHandler.listCommands(); // formats output_buffer with the command list
 }
 
 void loop()
@@ -262,9 +258,9 @@ void loop()
   }
   client.loop();
 
-  if (inputHandler.OutputIsAvailable())
+  if (inputHandler.outputIsAvailable())
   {
     client.publish("arduino/output", output_buffer);
-    inputHandler.ClearOutputBuffer();
+    inputHandler.clearOutputBuffer();
   }
 }

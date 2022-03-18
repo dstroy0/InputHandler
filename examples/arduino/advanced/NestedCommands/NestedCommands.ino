@@ -33,19 +33,19 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
 void uc_unrecognized(UserInput* inputProcess)
 {
   // error output
-  inputProcess->OutputToStream(Serial);
+  inputProcess->outputToStream(Serial);
   Serial.println(F("error."));
 }
 
 void uc_nest_one(UserInput* inputProcess)
 {
-  inputHandler.OutputToStream(Serial); // class output
+  inputHandler.outputToStream(Serial); // class output
   Serial.println(F("made it to uc_nest_one."));
 }
 
 void uc_nest_two(UserInput* inputProcess)
 {
-  inputHandler.OutputToStream(Serial); // class output
+  inputHandler.outputToStream(Serial); // class output
   Serial.println(F("made it to uc_nest_two."));
 }
 
@@ -57,7 +57,7 @@ const Parameters nested_prms[3] PROGMEM =
     6,            // command string characters
     0,            // command depth
     2,            // subcommands  
-    no_arguments, // argument handling
+    no_args,      // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
     /*
@@ -73,7 +73,7 @@ const Parameters nested_prms[3] PROGMEM =
     3,                    // command string characters
     1,                    // command depth
     0,                    // subcommands    
-    no_arguments,         // argument handling
+    no_args,              // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*
@@ -89,7 +89,7 @@ const Parameters nested_prms[3] PROGMEM =
     3,                    // command string characters
     1,                    // command depth
     0,                    // subcommands
-    no_arguments,         // argument handling
+    no_args,              // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*
@@ -109,14 +109,14 @@ void setup()
   while (!Serial); //  wait for user
 
   Serial.println(F("Set up InputHandler..."));
-  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid  
-  inputHandler.AddCommand(uc_nested_example_);   // nested commands example
-  inputHandler.ListCommands();
-  inputHandler.OutputToStream(Serial); // class output  
+  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid  
+  inputHandler.addCommand(uc_nested_example_);   // nested commands example
+  inputHandler.listCommands();
+  inputHandler.outputToStream(Serial); // class output  
 }
 
 void loop()
 {
-  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  inputHandler.OutputToStream(Serial); // class output
+  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+  inputHandler.outputToStream(Serial); // class output
 }

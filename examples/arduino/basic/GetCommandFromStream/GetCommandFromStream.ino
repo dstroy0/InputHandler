@@ -41,7 +41,7 @@ const Parameters type_test_param[1] PROGMEM =
   5,            // string length
   0,            // command depth
   0,            // subcommands
-  no_arguments, // argument handling
+  no_args,      // argument handling
   0,            // minimum expected number of arguments
   0,            // maximum expected number of arguments
   /*
@@ -59,13 +59,13 @@ void setup()
   Serial.begin(115200); //  set up Serial
   while (!Serial); //  wait for user
 
-  inputHandler.DefaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-    inputHandler.AddCommand(uc_test_);             // input type test
+  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.addCommand(uc_test_);             // input type test
 
   Serial.println(F("enter <hello> to test."));
 }
 
 void loop()
 {
-  inputHandler.GetCommandFromStream(Serial); //  read commands from a stream, hardware or software serial should work
+  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software serial should work
 }
