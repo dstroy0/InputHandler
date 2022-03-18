@@ -147,9 +147,9 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             break;
         }
     }
-    _data_pointers_index_max_ = tokens_received;
-    // error condition
-    if (tokens_received == 0)
+    _data_pointers_index_max_ = tokens_received;    // set index max to tokens received
+    
+    if (tokens_received == 0) // error condition
     {
         UserInput::_ui_out(PSTR(">%s $ERROR: No tokens retrieved.\n"), _username_);
         delete[] _token_buffer_;
@@ -157,13 +157,13 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error condition
 
-    bool input_type_match_flag[UI_MAX_ARGS] = {false};
+    bool input_type_match_flag[UI_MAX_ARGS] = {false};  // argument type-match flag array
     bool all_arguments_valid = true; // error sentinel
 
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through user commands
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
     {
-        // &(cmd->prm[0]) points to the first parameters struct for this cmd
-        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move working variables to ram
+        // &(cmd->prm[0]) is a reference to the root command Parameters struct
+        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
         // if the first test is false, the strcmp test is not evaluated
         if (strcmp(_data_pointers_[0], prm.command) == 0) // match root command
         {
