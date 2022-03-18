@@ -20,7 +20,7 @@
 #include "config/InputHandler_config.h"
 
 /**
- * @defgroup Constants
+ * @defgroup UserInput class constants
  * @{
  */
 
@@ -164,9 +164,9 @@ public:
     /**
      * @brief UserInput Constructor, no output by default
      *
-     * @param output_buffer default NULL, if not NULL set _output_enabled == true
+     * @param output_buffer default NULL, if not NULL the constructor will set _output_enabled(true)
      * @param output_buffer_len default ZERO, set to length of output_buffer
-     * @param username default NULL, set to project or equipment name
+     * @param username default NULL, set to project, equipment, or user name
      * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
