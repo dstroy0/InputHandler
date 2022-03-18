@@ -1,9 +1,9 @@
 /**
-   @file basicReadCommandFromBufferMQTTarduino.ino
+   @file ReadCommandFromBufferMQTT.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that uses ReadCommandFromBuffer and MQTT
-   @version 0.1
-   @date 2022-03-01
+   @brief An example that demonstrates receiving commands and sending an echo over MQTT
+   @version 0.9
+   @date 2022-03-18
 
    @copyright Copyright (c) 2022
 */

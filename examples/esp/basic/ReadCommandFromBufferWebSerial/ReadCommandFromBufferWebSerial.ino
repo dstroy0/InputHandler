@@ -1,9 +1,9 @@
 /**
-   @file ReadCommandFromBufferWebSerialesp.ino
+   @file ReadCommandFromBufferWebSerial.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that uses ReadCommandFromBuffer and WebSerial
-   @version 0.1
-   @date 2022-03-01
+   @version 0.9
+   @date 2022-03-18
 
    @copyright Copyright (c) 2022
 */

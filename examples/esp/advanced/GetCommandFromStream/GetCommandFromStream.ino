@@ -1,9 +1,9 @@
 /**
-   @file advancedGetCommandFromStream.ino
+   @file GetCommandFromStream.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that uses all of the methods available
-   @version 0.1
-   @date 2022-02-17
+   @brief An example that demonstrates how to use all of the available methods
+   @version 0.9
+   @date 2022-03-18
 
    @copyright Copyright (c) 2022
 */

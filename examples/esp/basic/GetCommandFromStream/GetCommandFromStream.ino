@@ -1,9 +1,9 @@
 /**
    @file GetCommandFromStream.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief A basic UserInput example
-   @version 0.1
-   @date 2022-02-22
+   @brief A basic InputHandler demonstration
+   @version 0.9
+   @date 2022-03-18
 
    @copyright Copyright (c) 2022
 */
