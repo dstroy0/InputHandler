@@ -12,9 +12,9 @@ var group___constants =
       [ "sub_commands", "d0/dbf/struct_parameters.html#a50cf8f9bc0161410c3a486a54e99108e", null ]
     ] ],
     [ "UI_ARGUMENT_FLAG_ENUM", "d1/d19/group___constants.html#ga0f773afec48d433e5613c754cc1d767c", [
-      [ "no_arguments", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767ca765d994647c2a967ef850eae0e0a713a", null ],
-      [ "single_type_argument", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767caf4f8271470ef269d7f2cb2475dd79674", null ],
-      [ "argument_type_array", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767ca8f2acbbeb1c11ded37606ec2d450c013", null ]
+      [ "no_args", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767ca02784bdfeb7897297c31695f9dabcf81", null ],
+      [ "one_type", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767ca4c104b936ffae78e11b198333a3c68b5", null ],
+      [ "type_arr", "d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767caadc95e311391ced5509b4dc9dcc217a3", null ]
     ] ],
     [ "UITYPE", "d1/d19/group___constants.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UITYPE::UINT8_T", "d1/d19/group___constants.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],
@@ -28,6 +28,6 @@ var group___constants =
       [ "UITYPE::NO_ARGS", "d1/d19/group___constants.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "UITYPE::_LAST", "d1/d19/group___constants.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
-    [ "ui_escaped_char_pgm", "d1/d19/group___constants.html#ga9e4d4e3b8adbab8a50eea374e47ec05e", null ],
-    [ "ui_input_type_strings_pgm", "d1/d19/group___constants.html#ga02d848c491f0471eeaa33c2596540932", null ]
+    [ "UserInput_escaped_char_pgm", "d1/d19/group___constants.html#ga4c0e40e808d6003f53b7cb865943da34", null ],
+    [ "UserInput_type_strings_pgm", "d1/d19/group___constants.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];

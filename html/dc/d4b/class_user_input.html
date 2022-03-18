@@ -102,60 +102,48 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <tr class="memitem:ac9017d6b70d00933c3d42f57e52b4471"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ac9017d6b70d00933c3d42f57e52b4471">UserInput</a> (char *output_buffer=NULL, size_t output_buffer_len=0, const char *username=&quot;&quot;, const char *end_of_line_characters=&quot;\r\n&quot;, const char *token_delimiter=&quot; &quot;, const char *c_string_delimiter=&quot;\&quot;&quot;)</td></tr>
 <tr class="memdesc:ac9017d6b70d00933c3d42f57e52b4471"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> Constructor, no output by default.  <a href="../../dc/d4b/class_user_input.html#ac9017d6b70d00933c3d42f57e52b4471">More...</a><br /></td></tr>
 <tr class="separator:ac9017d6b70d00933c3d42f57e52b4471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9f8b1764291b5cf36dd328ad178555e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ae9f8b1764291b5cf36dd328ad178555e">NextArgument</a> ()</td></tr>
-<tr class="memdesc:ae9f8b1764291b5cf36dd328ad178555e"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a pointer to the next token in token_buffer or NULL if there are no more tokens  <a href="../../dc/d4b/class_user_input.html#ae9f8b1764291b5cf36dd328ad178555e">More...</a><br /></td></tr>
-<tr class="separator:ae9f8b1764291b5cf36dd328ad178555e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6677a0a10337e31439d5bd4d296e9759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6677a0a10337e31439d5bd4d296e9759">AddCommand</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> &amp;command)</td></tr>
-<tr class="memdesc:a6677a0a10337e31439d5bd4d296e9759"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds user commands to the input process  <a href="../../dc/d4b/class_user_input.html#a6677a0a10337e31439d5bd4d296e9759">More...</a><br /></td></tr>
-<tr class="separator:a6677a0a10337e31439d5bd4d296e9759"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b064635ee2e073077925632747889dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a0b064635ee2e073077925632747889dc">ReadCommandFromBuffer</a> (uint8_t *data, size_t len)</td></tr>
-<tr class="memdesc:a0b064635ee2e073077925632747889dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">read command(s) from a uint8_t (unsigned char) buffer  <a href="../../dc/d4b/class_user_input.html#a0b064635ee2e073077925632747889dc">More...</a><br /></td></tr>
-<tr class="separator:a0b064635ee2e073077925632747889dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae800e0f0a87beba7ab87b101cbc4efe3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ae800e0f0a87beba7ab87b101cbc4efe3">GetCommandFromStream</a> (Stream &amp;stream, size_t rx_buffer_size=32)</td></tr>
-<tr class="memdesc:ae800e0f0a87beba7ab87b101cbc4efe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer.  <a href="../../dc/d4b/class_user_input.html#ae800e0f0a87beba7ab87b101cbc4efe3">More...</a><br /></td></tr>
-<tr class="separator:ae800e0f0a87beba7ab87b101cbc4efe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af74ddd29be17e4cfc3b9bfd6c6cd7f93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af74ddd29be17e4cfc3b9bfd6c6cd7f93">ListCommands</a> ()</td></tr>
-<tr class="memdesc:af74ddd29be17e4cfc3b9bfd6c6cd7f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists commands that will respond to user input  <a href="../../dc/d4b/class_user_input.html#af74ddd29be17e4cfc3b9bfd6c6cd7f93">More...</a><br /></td></tr>
-<tr class="separator:af74ddd29be17e4cfc3b9bfd6c6cd7f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa87995d10989f8dd6a1f1cbd90c8d73d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa87995d10989f8dd6a1f1cbd90c8d73d">ListSettings</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputprocess)</td></tr>
-<tr class="memdesc:aa87995d10989f8dd6a1f1cbd90c8d73d"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings  <a href="../../dc/d4b/class_user_input.html#aa87995d10989f8dd6a1f1cbd90c8d73d">More...</a><br /></td></tr>
-<tr class="separator:aa87995d10989f8dd6a1f1cbd90c8d73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a464e318ff93135750cf93b5155f88aa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a464e318ff93135750cf93b5155f88aa8">DefaultFunction</a> (void(*function)(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *))</td></tr>
-<tr class="memdesc:a464e318ff93135750cf93b5155f88aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default function, which is the function called when there is no command match, or when input is invalid.  <a href="../../dc/d4b/class_user_input.html#a464e318ff93135750cf93b5155f88aa8">More...</a><br /></td></tr>
-<tr class="separator:a464e318ff93135750cf93b5155f88aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedabc1a851fb5122436e10411f08ca51"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aedabc1a851fb5122436e10411f08ca51">OutputIsAvailable</a> ()</td></tr>
-<tr class="memdesc:aedabc1a851fb5122436e10411f08ca51"><td class="mdescLeft">&#160;</td><td class="mdescRight">is class output available  <a href="../../dc/d4b/class_user_input.html#aedabc1a851fb5122436e10411f08ca51">More...</a><br /></td></tr>
-<tr class="separator:aedabc1a851fb5122436e10411f08ca51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0815479ae59a5323266459cfaff62d30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a0815479ae59a5323266459cfaff62d30">OutputIsEnabled</a> ()</td></tr>
-<tr class="memdesc:a0815479ae59a5323266459cfaff62d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">is class output enabled  <a href="../../dc/d4b/class_user_input.html#a0815479ae59a5323266459cfaff62d30">More...</a><br /></td></tr>
-<tr class="separator:a0815479ae59a5323266459cfaff62d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ced815d246610f49e9e10f7dbef7ab7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6ced815d246610f49e9e10f7dbef7ab7">OutputToStream</a> (Stream &amp;stream)</td></tr>
-<tr class="memdesc:a6ced815d246610f49e9e10f7dbef7ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">direct class output to stream, clears output buffer automatically  <a href="../../dc/d4b/class_user_input.html#a6ced815d246610f49e9e10f7dbef7ab7">More...</a><br /></td></tr>
-<tr class="separator:a6ced815d246610f49e9e10f7dbef7ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7a48e5f46fcf92bca22179314dae0fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af7a48e5f46fcf92bca22179314dae0fa">ClearOutputBuffer</a> ()</td></tr>
-<tr class="memdesc:af7a48e5f46fcf92bca22179314dae0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">clears output buffer, sets index to zero  <a href="../../dc/d4b/class_user_input.html#af7a48e5f46fcf92bca22179314dae0fa">More...</a><br /></td></tr>
-<tr class="separator:af7a48e5f46fcf92bca22179314dae0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9decd0d74d1b63264ba64f2403fcc36"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af9decd0d74d1b63264ba64f2403fcc36">getToken</a> (char *token_buffer, uint8_t *data, size_t len, size_t *data_index)</td></tr>
-<tr class="memdesc:af9decd0d74d1b63264ba64f2403fcc36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to get a token from an input string.  <a href="../../dc/d4b/class_user_input.html#af9decd0d74d1b63264ba64f2403fcc36">More...</a><br /></td></tr>
-<tr class="separator:af9decd0d74d1b63264ba64f2403fcc36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a466b547b43d36de49fe8f514b5e0532a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a466b547b43d36de49fe8f514b5e0532a">listSettings</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputprocess)</td></tr>
+<tr class="memdesc:a466b547b43d36de49fe8f514b5e0532a"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings  <a href="../../dc/d4b/class_user_input.html#a466b547b43d36de49fe8f514b5e0532a">More...</a><br /></td></tr>
+<tr class="separator:a466b547b43d36de49fe8f514b5e0532a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65286d0a8daf3789af61363828e870c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9">defaultFunction</a> (void(*function)(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *))</td></tr>
+<tr class="memdesc:a65286d0a8daf3789af61363828e870c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default function, which is the function called when there is no command match, or when input is invalid.  <a href="../../dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9">More...</a><br /></td></tr>
+<tr class="separator:a65286d0a8daf3789af61363828e870c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1">addCommand</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> &amp;command)</td></tr>
+<tr class="memdesc:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds user commands to the input process  <a href="../../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1">More...</a><br /></td></tr>
+<tr class="separator:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1dd5daddbcdbb93af132f723007592f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">listCommands</a> ()</td></tr>
+<tr class="memdesc:af1dd5daddbcdbb93af132f723007592f"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists commands that will respond to user input  <a href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">More...</a><br /></td></tr>
+<tr class="separator:af1dd5daddbcdbb93af132f723007592f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68b8edf18d28af2154bc8880f7d770ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca">readCommandFromBuffer</a> (uint8_t *data, size_t len)</td></tr>
+<tr class="memdesc:a68b8edf18d28af2154bc8880f7d770ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">read command(s) from a uint8_t (unsigned char) buffer  <a href="../../dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca">More...</a><br /></td></tr>
+<tr class="separator:a68b8edf18d28af2154bc8880f7d770ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a76de83b3f92421efd041f08acac24a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a">getCommandFromStream</a> (Stream &amp;stream, size_t rx_buffer_size=32)</td></tr>
+<tr class="memdesc:a3a76de83b3f92421efd041f08acac24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer.  <a href="../../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a">More...</a><br /></td></tr>
+<tr class="separator:a3a76de83b3f92421efd041f08acac24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30cd1758e5ab22d987e8c37e426989dd"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd">nextArgument</a> ()</td></tr>
+<tr class="memdesc:a30cd1758e5ab22d987e8c37e426989dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a pointer to the next token in token_buffer or NULL if there are no more tokens  <a href="../../dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd">More...</a><br /></td></tr>
+<tr class="separator:a30cd1758e5ab22d987e8c37e426989dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a423e8bbd3b2f1afc6a53022aac5e6683"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683">outputIsAvailable</a> ()</td></tr>
+<tr class="memdesc:a423e8bbd3b2f1afc6a53022aac5e6683"><td class="mdescLeft">&#160;</td><td class="mdescRight">is class output available  <a href="../../dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683">More...</a><br /></td></tr>
+<tr class="separator:a423e8bbd3b2f1afc6a53022aac5e6683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a852e23ba4a8e45d4220782448fd3bb8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a852e23ba4a8e45d4220782448fd3bb8c">outputIsEnabled</a> ()</td></tr>
+<tr class="memdesc:a852e23ba4a8e45d4220782448fd3bb8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">is class output enabled  <a href="../../dc/d4b/class_user_input.html#a852e23ba4a8e45d4220782448fd3bb8c">More...</a><br /></td></tr>
+<tr class="separator:a852e23ba4a8e45d4220782448fd3bb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab96315069a4c3383b45123001d8a540f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f">outputToStream</a> (Stream &amp;stream)</td></tr>
+<tr class="memdesc:ab96315069a4c3383b45123001d8a540f"><td class="mdescLeft">&#160;</td><td class="mdescRight">direct class output to stream, clears output buffer automatically  <a href="../../dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f">More...</a><br /></td></tr>
+<tr class="separator:ab96315069a4c3383b45123001d8a540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">clearOutputBuffer</a> ()</td></tr>
+<tr class="memdesc:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="mdescLeft">&#160;</td><td class="mdescRight">clears output buffer, sets index to zero  <a href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">More...</a><br /></td></tr>
+<tr class="separator:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a787481470372a227c3b7dc1d8703decf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a787481470372a227c3b7dc1d8703decf">getToken</a> (uint8_t *data, size_t len, size_t *data_index)</td></tr>
+<tr class="memdesc:a787481470372a227c3b7dc1d8703decf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to get a token from an input string.  <a href="../../dc/d4b/class_user_input.html#a787481470372a227c3b7dc1d8703decf">More...</a><br /></td></tr>
+<tr class="separator:a787481470372a227c3b7dc1d8703decf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
 <tr class="memdesc:a53407496c37967a3186bd136f5620dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to determine if input is valid.  <a href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">More...</a><br /></td></tr>
 <tr class="separator:a53407496c37967a3186bd136f5620dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f0816d4e0342059c4afb3badc86b8f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a0f0816d4e0342059c4afb3badc86b8f0">launchFunction</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, uint8_t &amp;prm_idx, size_t tokens_received)</td></tr>
-<tr class="memdesc:a0f0816d4e0342059c4afb3badc86b8f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">launches a function  <a href="../../dc/d4b/class_user_input.html#a0f0816d4e0342059c4afb3badc86b8f0">More...</a><br /></td></tr>
-<tr class="separator:a0f0816d4e0342059c4afb3badc86b8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55c052fb76e7c5e1b3c057ac7596d0de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a55c052fb76e7c5e1b3c057ac7596d0de">launchLogic</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, uint8_t &amp;prm_idx, size_t tokens_received, bool &amp;all_arguments_valid, bool &amp;match, bool *input_type_match_flag, bool &amp;subcommand_matched)</td></tr>
-<tr class="memdesc:a55c052fb76e7c5e1b3c057ac7596d0de"><td class="mdescLeft">&#160;</td><td class="mdescRight">function launch logic  <a href="../../dc/d4b/class_user_input.html#a55c052fb76e7c5e1b3c057ac7596d0de">More...</a><br /></td></tr>
-<tr class="separator:a55c052fb76e7c5e1b3c057ac7596d0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32bc879ba49c30f2c684fdbea3de5049"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a32bc879ba49c30f2c684fdbea3de5049">escapeCharactersSoTheyPrint</a> (char input, char &amp;buf)</td></tr>
-<tr class="memdesc:a32bc879ba49c30f2c684fdbea3de5049"><td class="mdescLeft">&#160;</td><td class="mdescRight">Escapes control characters so they will print.  <a href="../../dc/d4b/class_user_input.html#a32bc879ba49c30f2c684fdbea3de5049">More...</a><br /></td></tr>
-<tr class="separator:a32bc879ba49c30f2c684fdbea3de5049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496a5e9703e14f55b2e6a1636d178453"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a496a5e9703e14f55b2e6a1636d178453">combineControlCharacters</a> (char input)</td></tr>
-<tr class="memdesc:a496a5e9703e14f55b2e6a1636d178453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers on a user input backslash, if the char immediately after the backslash would be a valid control char it returns the control char. ie if you input char() + char(r) this will return the control character '\r'.  <a href="../../dc/d4b/class_user_input.html#a496a5e9703e14f55b2e6a1636d178453">More...</a><br /></td></tr>
-<tr class="separator:a496a5e9703e14f55b2e6a1636d178453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8cce7abb91fdf8b8a238cfe84295b4a4">getArgType</a> (<a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;opt, size_t index=0)</td></tr>
-<tr class="memdesc:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UITYPE equivalent for the argument, internally we use uint8_t.  <a href="../../dc/d4b/class_user_input.html#a8cce7abb91fdf8b8a238cfe84295b4a4">More...</a><br /></td></tr>
-<tr class="separator:a8cce7abb91fdf8b8a238cfe84295b4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98f7d900593705782ca326b87d27864e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a98f7d900593705782ca326b87d27864e">getArgType</a> (<a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t index=0)</td></tr>
+<tr class="memdesc:a98f7d900593705782ca326b87d27864e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UITYPE equivalent for the argument, internally we use uint8_t.  <a href="../../dc/d4b/class_user_input.html#a98f7d900593705782ca326b87d27864e">More...</a><br /></td></tr>
+<tr class="separator:a98f7d900593705782ca326b87d27864e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47ec5a6d10e616adb1148b76df1ae098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a47ec5a6d10e616adb1148b76df1ae098">getArgs</a> (size_t &amp;tokens_received, bool *input_type_match_flag, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, bool &amp;all_arguments_valid)</td></tr>
 <tr class="memdesc:a47ec5a6d10e616adb1148b76df1ae098"><td class="mdescLeft">&#160;</td><td class="mdescRight">validate the arguments as specified in the user defined <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> struct  <a href="../../dc/d4b/class_user_input.html#a47ec5a6d10e616adb1148b76df1ae098">More...</a><br /></td></tr>
 <tr class="separator:a47ec5a6d10e616adb1148b76df1ae098"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -237,14 +225,14 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6677a0a10337e31439d5bd4d296e9759" name="a6677a0a10337e31439d5bd4d296e9759"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6677a0a10337e31439d5bd4d296e9759">&#9670;&nbsp;</a></span>AddCommand()</h2>
+<a id="aa6067a65dc10a5c4546ce789a3edd4d1" name="aa6067a65dc10a5c4546ce789a3edd4d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6067a65dc10a5c4546ce789a3edd4d1">&#9670;&nbsp;</a></span>addCommand()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::AddCommand </td>
+          <td class="memname">void UserInput::addCommand </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -263,14 +251,14 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="af7a48e5f46fcf92bca22179314dae0fa" name="af7a48e5f46fcf92bca22179314dae0fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7a48e5f46fcf92bca22179314dae0fa">&#9670;&nbsp;</a></span>ClearOutputBuffer()</h2>
+<a id="a6a7cefcc1eb8d80a70191d0ecd0cc005" name="a6a7cefcc1eb8d80a70191d0ecd0cc005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a7cefcc1eb8d80a70191d0ecd0cc005">&#9670;&nbsp;</a></span>clearOutputBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::ClearOutputBuffer </td>
+          <td class="memname">void UserInput::clearOutputBuffer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -282,49 +270,14 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="a496a5e9703e14f55b2e6a1636d178453" name="a496a5e9703e14f55b2e6a1636d178453"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a496a5e9703e14f55b2e6a1636d178453">&#9670;&nbsp;</a></span>combineControlCharacters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char UserInput::combineControlCharacters </td>
-          <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Triggers on a user input backslash, if the char immediately after the backslash would be a valid control char it returns the control char. ie if you input char() + char(r) this will return the control character '\r'. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>the char after a backslash ie 'r' </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the control character char value ie '\r' </dd></dl>
-
-</div>
-</div>
-<a id="a464e318ff93135750cf93b5155f88aa8" name="a464e318ff93135750cf93b5155f88aa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a464e318ff93135750cf93b5155f88aa8">&#9670;&nbsp;</a></span>DefaultFunction()</h2>
+<a id="a65286d0a8daf3789af61363828e870c9" name="a65286d0a8daf3789af61363828e870c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65286d0a8daf3789af61363828e870c9">&#9670;&nbsp;</a></span>defaultFunction()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::DefaultFunction </td>
+          <td class="memname">void UserInput::defaultFunction </td>
           <td>(</td>
           <td class="paramtype">void(*)(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *)&#160;</td>
           <td class="paramname"><em>function</em></td><td>)</td>
@@ -340,52 +293,6 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a32bc879ba49c30f2c684fdbea3de5049" name="a32bc879ba49c30f2c684fdbea3de5049"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32bc879ba49c30f2c684fdbea3de5049">&#9670;&nbsp;</a></span>escapeCharactersSoTheyPrint()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char * UserInput::escapeCharactersSoTheyPrint </td>
-          <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char &amp;&#160;</td>
-          <td class="paramname"><em>buf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Escapes control characters so they will print. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>the input char </td></tr>
-    <tr><td class="paramname">buf</td><td>a reference to the output buffer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to buf, so you can use this inside of _ui_out() </dd></dl>
 
 </div>
 </div>
@@ -448,8 +355,8 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="a8cce7abb91fdf8b8a238cfe84295b4a4" name="a8cce7abb91fdf8b8a238cfe84295b4a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cce7abb91fdf8b8a238cfe84295b4a4">&#9670;&nbsp;</a></span>getArgType()</h2>
+<a id="a98f7d900593705782ca326b87d27864e" name="a98f7d900593705782ca326b87d27864e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98f7d900593705782ca326b87d27864e">&#9670;&nbsp;</a></span>getArgType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,7 +368,7 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
           <td class="memname">uint8_t UserInput::getArgType </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>opt</em>, </td>
+          <td class="paramname"><em>prm</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -494,14 +401,14 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="ae800e0f0a87beba7ab87b101cbc4efe3" name="ae800e0f0a87beba7ab87b101cbc4efe3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae800e0f0a87beba7ab87b101cbc4efe3">&#9670;&nbsp;</a></span>GetCommandFromStream()</h2>
+<a id="a3a76de83b3f92421efd041f08acac24a" name="a3a76de83b3f92421efd041f08acac24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a76de83b3f92421efd041f08acac24a">&#9670;&nbsp;</a></span>getCommandFromStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::GetCommandFromStream </td>
+          <td class="memname">void UserInput::getCommandFromStream </td>
           <td>(</td>
           <td class="paramtype">Stream &amp;&#160;</td>
           <td class="paramname"><em>stream</em>, </td>
@@ -532,8 +439,8 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="af9decd0d74d1b63264ba64f2403fcc36" name="af9decd0d74d1b63264ba64f2403fcc36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9decd0d74d1b63264ba64f2403fcc36">&#9670;&nbsp;</a></span>getToken()</h2>
+<a id="a787481470372a227c3b7dc1d8703decf" name="a787481470372a227c3b7dc1d8703decf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a787481470372a227c3b7dc1d8703decf">&#9670;&nbsp;</a></span>getToken()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,12 +451,6 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
         <tr>
           <td class="memname">bool UserInput::getToken </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>token_buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
@@ -581,7 +482,6 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <p>Tries to get a token from an input string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">token_buffer</td><td>the place where we store tokens </td></tr>
     <tr><td class="paramname">data</td><td>input data </td></tr>
     <tr><td class="paramname">len</td><td>length of input data </td></tr>
     <tr><td class="paramname">data_index</td><td>index of data</td></tr>
@@ -594,161 +494,14 @@ false for no token </dd></dl>
 
 </div>
 </div>
-<a id="a0f0816d4e0342059c4afb3badc86b8f0" name="a0f0816d4e0342059c4afb3badc86b8f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f0816d4e0342059c4afb3badc86b8f0">&#9670;&nbsp;</a></span>launchFunction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserInput::launchFunction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *&#160;</td>
-          <td class="paramname"><em>cmd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>prm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t &amp;&#160;</td>
-          <td class="paramname"><em>prm_idx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>tokens_received</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>launches a function </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> pointer </td></tr>
-    <tr><td class="paramname">prm</td><td><a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> struct reference </td></tr>
-    <tr><td class="paramname">prm_idx</td><td><a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> array index </td></tr>
-    <tr><td class="paramname">tokens_received</td><td>amount of tokens in the token buffer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a55c052fb76e7c5e1b3c057ac7596d0de" name="a55c052fb76e7c5e1b3c057ac7596d0de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55c052fb76e7c5e1b3c057ac7596d0de">&#9670;&nbsp;</a></span>launchLogic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UserInput::launchLogic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *&#160;</td>
-          <td class="paramname"><em>cmd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>prm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t &amp;&#160;</td>
-          <td class="paramname"><em>prm_idx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>tokens_received</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>all_arguments_valid</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>match</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool *&#160;</td>
-          <td class="paramname"><em>input_type_match_flag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>subcommand_matched</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>function launch logic </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> ptr </td></tr>
-    <tr><td class="paramname">prm</td><td><a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> reference </td></tr>
-    <tr><td class="paramname">prm_idx</td><td><a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> array index </td></tr>
-    <tr><td class="paramname">tokens_received</td><td>number of tokens retreived from input data </td></tr>
-    <tr><td class="paramname">all_arguments_valid</td><td>boolean array <br  />
- </td></tr>
-    <tr><td class="paramname">match</td><td>boolean command match flag </td></tr>
-    <tr><td class="paramname">input_type_match_flag</td><td>boolean type match flag array </td></tr>
-    <tr><td class="paramname">subcommand_matched</td><td>boolean subcommand match flag </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af74ddd29be17e4cfc3b9bfd6c6cd7f93" name="af74ddd29be17e4cfc3b9bfd6c6cd7f93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af74ddd29be17e4cfc3b9bfd6c6cd7f93">&#9670;&nbsp;</a></span>ListCommands()</h2>
+<a id="af1dd5daddbcdbb93af132f723007592f" name="af1dd5daddbcdbb93af132f723007592f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1dd5daddbcdbb93af132f723007592f">&#9670;&nbsp;</a></span>listCommands()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::ListCommands </td>
+          <td class="memname">void UserInput::listCommands </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -760,14 +513,14 @@ false for no token </dd></dl>
 
 </div>
 </div>
-<a id="aa87995d10989f8dd6a1f1cbd90c8d73d" name="aa87995d10989f8dd6a1f1cbd90c8d73d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa87995d10989f8dd6a1f1cbd90c8d73d">&#9670;&nbsp;</a></span>ListSettings()</h2>
+<a id="a466b547b43d36de49fe8f514b5e0532a" name="a466b547b43d36de49fe8f514b5e0532a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a466b547b43d36de49fe8f514b5e0532a">&#9670;&nbsp;</a></span>listSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::ListSettings </td>
+          <td class="memname">void UserInput::listSettings </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *&#160;</td>
           <td class="paramname"><em>inputprocess</em></td><td>)</td>
@@ -786,14 +539,14 @@ false for no token </dd></dl>
 
 </div>
 </div>
-<a id="ae9f8b1764291b5cf36dd328ad178555e" name="ae9f8b1764291b5cf36dd328ad178555e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9f8b1764291b5cf36dd328ad178555e">&#9670;&nbsp;</a></span>NextArgument()</h2>
+<a id="a30cd1758e5ab22d987e8c37e426989dd" name="a30cd1758e5ab22d987e8c37e426989dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30cd1758e5ab22d987e8c37e426989dd">&#9670;&nbsp;</a></span>nextArgument()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char * UserInput::NextArgument </td>
+          <td class="memname">char * UserInput::nextArgument </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -806,14 +559,14 @@ false for no token </dd></dl>
 
 </div>
 </div>
-<a id="aedabc1a851fb5122436e10411f08ca51" name="aedabc1a851fb5122436e10411f08ca51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedabc1a851fb5122436e10411f08ca51">&#9670;&nbsp;</a></span>OutputIsAvailable()</h2>
+<a id="a423e8bbd3b2f1afc6a53022aac5e6683" name="a423e8bbd3b2f1afc6a53022aac5e6683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a423e8bbd3b2f1afc6a53022aac5e6683">&#9670;&nbsp;</a></span>outputIsAvailable()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool UserInput::OutputIsAvailable </td>
+          <td class="memname">bool UserInput::outputIsAvailable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -828,14 +581,14 @@ false if no output is available </dd></dl>
 
 </div>
 </div>
-<a id="a0815479ae59a5323266459cfaff62d30" name="a0815479ae59a5323266459cfaff62d30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0815479ae59a5323266459cfaff62d30">&#9670;&nbsp;</a></span>OutputIsEnabled()</h2>
+<a id="a852e23ba4a8e45d4220782448fd3bb8c" name="a852e23ba4a8e45d4220782448fd3bb8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a852e23ba4a8e45d4220782448fd3bb8c">&#9670;&nbsp;</a></span>outputIsEnabled()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool UserInput::OutputIsEnabled </td>
+          <td class="memname">bool UserInput::outputIsEnabled </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -850,14 +603,14 @@ false if not enabled </dd></dl>
 
 </div>
 </div>
-<a id="a6ced815d246610f49e9e10f7dbef7ab7" name="a6ced815d246610f49e9e10f7dbef7ab7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ced815d246610f49e9e10f7dbef7ab7">&#9670;&nbsp;</a></span>OutputToStream()</h2>
+<a id="ab96315069a4c3383b45123001d8a540f" name="ab96315069a4c3383b45123001d8a540f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab96315069a4c3383b45123001d8a540f">&#9670;&nbsp;</a></span>outputToStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::OutputToStream </td>
+          <td class="memname">void UserInput::outputToStream </td>
           <td>(</td>
           <td class="paramtype">Stream &amp;&#160;</td>
           <td class="paramname"><em>stream</em></td><td>)</td>
@@ -876,14 +629,14 @@ false if not enabled </dd></dl>
 
 </div>
 </div>
-<a id="a0b064635ee2e073077925632747889dc" name="a0b064635ee2e073077925632747889dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b064635ee2e073077925632747889dc">&#9670;&nbsp;</a></span>ReadCommandFromBuffer()</h2>
+<a id="a68b8edf18d28af2154bc8880f7d770ca" name="a68b8edf18d28af2154bc8880f7d770ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68b8edf18d28af2154bc8880f7d770ca">&#9670;&nbsp;</a></span>readCommandFromBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::ReadCommandFromBuffer </td>
+          <td class="memname">void UserInput::readCommandFromBuffer </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
