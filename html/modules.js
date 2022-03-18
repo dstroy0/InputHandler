@@ -1,4 +1,4 @@
 var modules =
 [
-    [ "Constants", "d1/d19/group___constants.html", "d1/d19/group___constants" ]
+    [ "class constants", "de/d8a/group___user_input.html", "de/d8a/group___user_input" ]
 ];

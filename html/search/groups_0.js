@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['constants_0',['Constants',['../d1/d19/group___constants.html',1,'']]]
+  ['class_20constants_0',['class constants',['../de/d8a/group___user_input.html',1,'']]]
 ];
