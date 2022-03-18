@@ -162,11 +162,11 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
     {
-        // &(cmd->prm[0]) is a reference to the root command Parameters struct
-        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
+        // &(cmd->prm[0]) is a reference to the root command Parameters struct        
         // if the first test is false, the strcmp test is not evaluated
-        if (strcmp(_data_pointers_[0], prm.command) == 0) // match root command
+        if (strcmp_P(_data_pointers_[0], cmd->prm[0].command) == 0) // match root command
         {
+            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;      // start searching for subcommands at depth 1
             _data_pointers_index_ = 1;       // index 1 of _data_pointers_ is the token after the root command
             command_matched = true;          // root command match flag
@@ -174,7 +174,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             bool subcommand_matched = false; // subcommand match flag
             uint8_t prm_idx = 0;
             // see if command has any subcommands, validate input types, try to launch function
-            UserInput::_launchLogic(cmd,                   // CommandConstructor pointer, contains target function pointer
+            UserInput::_launchLogic(cmd,        // CommandConstructor pointer, contains target function pointer
                          prm,                   // ReadCommandFromBuffer Parameters structure reference
                          prm_idx,               // Parameters array index
                          tokens_received,       // how many tokens were retrieved
@@ -882,19 +882,19 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < (cmd->_param_array_len + 1); ++j) // through the parameter array
         {
-            memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
             prm_idx = j;
-            if (prm.depth == _current_search_depth_)
+            #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+            UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
+                               prm.command, _data_pointers_[_data_pointers_index_]);
+            #endif
+            if (strcmp_P(_data_pointers_[_data_pointers_index_], cmd->prm[j].command) == 0)
             {
-                #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
-                        prm.command, _data_pointers_[_data_pointers_index_]);
-                #endif
-                if (strcmp(_data_pointers_[_data_pointers_index_], prm.command) == 0)
+                memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
+                if (prm.depth == _current_search_depth_)
                 {
                     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
                     UserInput::_ui_out(PSTR("(%s) subcommand matched, (%d) subcommands, max_num_args (%d)\n"),
-                            prm.command, prm.sub_commands, prm.max_num_args);
+                                       prm.command, prm.sub_commands, prm.max_num_args);
                     #endif
                     // subcommand matched
                     if (tokens_received > 0)
