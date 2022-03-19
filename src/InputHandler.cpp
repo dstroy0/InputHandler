@@ -79,14 +79,14 @@ void UserInput::addCommand(CommandConstructor &command)
 void UserInput::listCommands()
 {
     CommandConstructor *cmd;
-    UserInput::_ui_out(PSTR("Commands available %s:\n"), _username_);
+    UserInput::_ui_out(PSTR("Commands available%s%s:\n"),
+                       (_username_ != "") ? PSTR(" to ") : PSTR(""), _username_);
     uint8_t i = 1;
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters)
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters, ++i)
     {
         char buffer[UI_MAX_CMD_LEN];
         memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
         UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
-        i++;
     }
 }
 
@@ -95,7 +95,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     // error checking
     if (len > (UI_MAX_IN_LEN - 2)) // 65535 - 1(index align) - 1(space for null '\0')
     {
-        UserInput::_ui_out(PSTR(">%s $ERROR: input is too long.\n"), _username_);
+        UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
     }
 
@@ -103,7 +103,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     _token_buffer_ = new char[len + 1](); // place to chop up the input
     if (_token_buffer_ == nullptr)        // if there was an error allocating the memory
     {
-        UserInput::_ui_out(PSTR(">%s $ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
+        UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
         return;
     }
     // end error checking
@@ -147,8 +147,8 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     
     if (tokens_received == 0) // error condition
     {
-        UserInput::_ui_out(PSTR(">%s $ERROR: No tokens retrieved.\n"), _username_);
         delete[] _token_buffer_;
+        UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), _username_);        
         return;
     }
     // end error condition
@@ -158,9 +158,8 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
     {
-        // &(cmd->prm[0]) is a reference to the root command Parameters struct        
-        // if the first test is false, the strcmp test is not evaluated
-        if (strcmp_P(_data_pointers_[0], cmd->prm[0].command) == 0) // match root command
+        // cmd->prm[0] is a reference to the root command Parameters struct
+        if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (uint16_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;      // start searching for subcommands at depth 1
@@ -201,7 +200,7 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
         _stream_data_ = new uint8_t[rx_buffer_size]; // an array to store the received data
         if (_stream_data_ == nullptr)                // if there was an error allocating the memory
         {
-            UserInput::_ui_out(PSTR(">%s $ERROR: cannot allocate ram for _stream_data_\n"), _username_);
+            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _stream_data_\n"), _username_);
             return;
         }
         _stream_buffer_allocated_ = true;
@@ -378,7 +377,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
                         point_to_beginning_of_c_string = false;                                //  only set one pointer per c-string
                         got_token = true;
                         #if defined(__DEBUG_GET_TOKEN__)
-                        UserInput::_ui_out(PSTR("\n>%s $DEBUG: got the c-string token.\n"), _username_);
+                        UserInput::_ui_out(PSTR("\n>%s$DEBUG: got the c-string token.\n"), _username_);
                         #endif
                     }
                     (*data_index)++; // increment the tokenized string index
@@ -407,7 +406,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
             else
             {
                 #if defined(__DEBUG_GET_TOKEN__)
-                UserInput::_ui_out(PSTR("\n>%s $DEBUG: UserInput::getToken got_token == true token state machine.\n"),
+                UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken got_token == true token state machine.\n"),
                         _username_);
                 #endif
                 got_token = true;
@@ -418,7 +417,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
         if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1))
         {
             #if defined(__DEBUG_GET_TOKEN__)
-            UserInput::_ui_out(PSTR("\n>%s $DEBUG: UserInput::getToken() got_token == true end of data.\n"),
+            UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken() got_token == true end of data.\n"),
                     _username_);
             #endif
             got_token = true;
@@ -432,7 +431,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
         if (got_token == true)
         {
             #if defined(__DEBUG_GET_TOKEN__)
-            UserInput::_ui_out(PSTR("\n>%s $DEBUG: UserInput::getToken() break for loop.\n"), _username_);
+            UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken() break for loop.\n"), _username_);
             #endif
             break;
         }
@@ -658,7 +657,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
             return;
         }
         memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
-        UserInput::_ui_out(PSTR(">%s $Invalid input: "), _username_);
+        UserInput::_ui_out(PSTR(">%s$Invalid input: "), _username_);
         if (command_matched == true)
         {
             // constrain err_n_args to UI_MAX_ARGS + 1
@@ -713,8 +712,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
         }
         else // command not matched
         {
-            UserInput::_ui_out(PSTR("%s\n"), (char *)data);
-            UserInput::_ui_out(PSTR("\n >Command <%s> unknown.\n"), _data_pointers_[0]);
+            UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char *)data, _data_pointers_[0]);            
         }
     }
 }
@@ -785,7 +783,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s $DEBUG: too many tokens (%d) for command (%s)\n"),
+        UserInput::_ui_out(PSTR(">%s$DEBUG: too many tokens (%d) for command (%s)\n"),
                 _username_, tokens_received, prm.command);
         #endif
         return;
@@ -797,7 +795,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s $DEBUG: cmd w/no args, subcommand match false "
+        UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/no args, subcommand match false "
                      "tokens=0 max_args=0 launchFunction(%s)\n"),
                 _username_, prm.command);
         #endif
@@ -814,7 +812,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s $DEBUG: subcmd w/no args, subcommand match true "
+        UserInput::_ui_out(PSTR(">%s$DEBUG: subcmd w/no args, subcommand match true "
                      "tokens==0 max_args==0 depth>1 launchFunction(%s)\n"),
                 _username_, prm.command);
         #endif
@@ -835,7 +833,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s $DEBUG: cmd w/ args, no subcmd match, subcommand match false "
+            UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/ args, no subcmd match, subcommand match false "
                          "tokens>0 max_args>0 depth>1 launchFunction(%s)\n"),
                     _username_, prm.command);
             #endif
@@ -859,7 +857,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s $DEBUG: cmd w/args (max depth) launchFunction(%s)\n"), _username_, prm.command);
+            UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/args (max depth) launchFunction(%s)\n"), _username_, prm.command);
             #endif
             match = true;                                        // don't run default callback
             UserInput::_launchFunction(cmd, prm, prm_idx, tokens_received); // launch the matched command
@@ -883,7 +881,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
                                prm.command, _data_pointers_[_data_pointers_index_]);
             #endif
-            if (strcmp_P(_data_pointers_[_data_pointers_index_], cmd->prm[j].command) == 0)
+            if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (uint16_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
             {
                 memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
                 if (prm.depth == _current_search_depth_)
@@ -998,19 +996,3 @@ char UserInput::_combineControlCharacters(char input)
         return (char)'*'; // * error
     }
 }
-
-// void UserInput::_abort_compile(int args)
-// {
-
-//         // if (args > UI_MAX_ARGS)
-//         // {
-//         //     Serial.print(F("error "));Serial.println(args);
-//         //     _abort_ce();
-//         // }
-    
-//     // if (__builtin_constant_p(prm.max_num_args) > UI_MAX_ARGS ||
-//     //     __builtin_constant_p(prm.num_args) > UI_MAX_ARGS)
-//     // {
-//     //     _abort_ce();
-//     // }
-// }
