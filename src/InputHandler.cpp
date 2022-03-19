@@ -881,7 +881,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
                                prm.command, _data_pointers_[_data_pointers_index_]);
             #endif
-            if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (uint16_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
+            if (memcmp_P(_data_pointers_[_data_pointers_index_], cmd->prm[j].command, (uint16_t)pgm_read_dword(&(cmd->prm[j].command_length))) == false) // match subcommand
             {
                 memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
                 if (prm.depth == _current_search_depth_)
