@@ -69,11 +69,11 @@ void uc_help(UserInput* inputProcess)
 void uc_test_input_types(UserInput *inputProcess)
 {
   inputProcess->outputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-  char *str_ptr = inputProcess->nextArgument();                                     //  init str_ptr and point it at the next argument input by the user  
+  char *str_ptr = inputProcess->nextArgument();                                     //  init str_ptr and point it at the next argument input by the user
   char *strtoul_ptr = 0;                                                            //  this is for strtoul
   uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
   uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
-  
+
   str_ptr = inputProcess->nextArgument();
   strtoul_ptr = 0;
   strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);
@@ -99,7 +99,7 @@ void uc_test_input_types(UserInput *inputProcess)
   str_ptr = inputProcess->nextArgument();
   char unknown_string[64] = {'\0'};
   snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
-  
+
   char float_buffer[32] = {'\0'}; //  dtostrf buffer
   char out[512] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
@@ -167,8 +167,7 @@ const Parameters settings_param[1] PROGMEM =
 };
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
-const Parameters type_test_param[1] PROGMEM =
-{
+const Parameters type_test_param[1] PROGMEM = {
   uc_test_input_types, // function ptr
   "test",              // command string
   4,                   // string length
@@ -176,7 +175,7 @@ const Parameters type_test_param[1] PROGMEM =
   0,                   // subcommands
   type_arr,            // argument handling
   8,                   // minimum expected number of arguments
-  8,                   // maximum expected number of arguments
+  32,                   // maximum expected number of arguments
   /*
     UITYPE arguments
   */

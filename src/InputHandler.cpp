@@ -63,21 +63,17 @@ void UserInput::defaultFunction(void (*function)(UserInput *))
 }
 
 void UserInput::addCommand(CommandConstructor &command)
-{
-    CommandConstructor **cmd_head = &_commands_head_;
-    CommandConstructor **cmd_tail = &_commands_tail_;
-    size_t *cmd_count = &_commands_count_;
-    command.next_command_parameters = NULL;
-    if (*cmd_head == NULL)
+{    
+    if (_commands_head_ == NULL)
     {
-        *cmd_head = *cmd_tail = &command;
+        _commands_head_ = _commands_tail_ = &command;
     }
     else
     {
-        (*cmd_tail)->next_command_parameters = &command;
-        *cmd_tail = &command;
+        _commands_tail_->next_command_parameters = &command;
+        _commands_tail_ = &command;
     }
-    (*cmd_count)++;
+    _commands_count_++;
 }
 
 void UserInput::listCommands()
@@ -1002,3 +998,19 @@ char UserInput::_combineControlCharacters(char input)
         return (char)'*'; // * error
     }
 }
+
+// void UserInput::_abort_compile(int args)
+// {
+
+//         // if (args > UI_MAX_ARGS)
+//         // {
+//         //     Serial.print(F("error "));Serial.println(args);
+//         //     _abort_ce();
+//         // }
+    
+//     // if (__builtin_constant_p(prm.max_num_args) > UI_MAX_ARGS ||
+//     //     __builtin_constant_p(prm.num_args) > UI_MAX_ARGS)
+//     // {
+//     //     _abort_ce();
+//     // }
+// }
