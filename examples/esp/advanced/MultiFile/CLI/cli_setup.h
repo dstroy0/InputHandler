@@ -1,3 +1,13 @@
+/**
+   @file cli_setup.h
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief setup example for MultiFile.ino
+   @version 0.9
+   @date 2022-03-20
+
+   @copyright Copyright (c) 2022
+*/
+
 #if !defined(__CLI_SETUP__)
 #define __CLI_SETUP__
 

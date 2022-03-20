@@ -1,3 +1,13 @@
+/**
+   @file Functions.h
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief Functions for MultiFile.ino
+   @version 0.9
+   @date 2022-03-20
+
+   @copyright Copyright (c) 2022
+*/
+
 #if !defined(__CLI_FUNCTIONS__)
 #define __CLI_FUNCTIONS__
 

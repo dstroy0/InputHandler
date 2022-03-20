@@ -1,3 +1,13 @@
+/**
+   @file Parameters.h
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief Parameters and CommandConstructor objects for MultiFile.ino
+   @version 0.9
+   @date 2022-03-20
+
+   @copyright Copyright (c) 2022
+*/
+
 #if !defined(__CLI_PARAMETERS__)
 #define __CLI_PARAMETERS__
 

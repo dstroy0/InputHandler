@@ -1,5 +1,5 @@
 /**
-   @file GetCommandFromStream.ino
+   @file MultiFile.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that demonstrates multiple file setup
    @version 0.9
