@@ -23,9 +23,10 @@
 
 void UserInput::listSettings(UserInput *inputprocess)
 {
-
+    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d\n"), UI_MAX_ARGS);
+    UserInput::_ui_out(PSTR("UI_MAX_CMD_LEN (root command) %d\n"), UI_MAX_CMD_LEN);
+    UserInput::_ui_out(PSTR("UI_MAX_IN_LEN %u\n\nUserInput constructor:\n"), UI_MAX_IN_LEN);
     UserInput::_ui_out(PSTR("username = \"%s\"\n"), _username_);
-
     UserInput::_ui_out(PSTR("end_of_line_characters = \""));
     char term_buf[strlen(_term_)][UI_ESCAPED_CHAR_PGM_LEN];
     for (size_t i = 0; i < strlen(_term_); ++i)
@@ -34,19 +35,15 @@ void UserInput::listSettings(UserInput *inputprocess)
                                  ? UserInput::_escapeCharactersSoTheyPrint(_term_[i], *term_buf[i])
                                  : &_term_[i]));
     }
-    UserInput::_ui_out(PSTR("\"\n"));
-
-    UserInput::_ui_out(PSTR("token_delimiter = \""));
+    UserInput::_ui_out(PSTR("\"\ntoken_delimiter = \""));
     char delim_buf[strlen(_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
     for (size_t i = 0; i < strlen(_delim_); ++i)
     {
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_delim_[i])
                                  ? UserInput::_escapeCharactersSoTheyPrint(_delim_[i], *delim_buf[i])
                                  : &_delim_[i]));
-    }
-    UserInput::_ui_out(PSTR("\"\n"));
-
-    UserInput::_ui_out(PSTR("c_string_delimiter = \""));
+    }    
+    UserInput::_ui_out(PSTR("\"\nc_string_delimiter = \""));
     char _c_str_delim_buf[strlen(_c_str_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
     for (size_t i = 0; i < strlen(_c_str_delim_); ++i)
     {
