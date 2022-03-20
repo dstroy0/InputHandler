@@ -129,17 +129,17 @@ public:
      * These are chained together as a linked-list; this object contains a reference `next_command_parameters` to the next
      * node in the CommandConstructor linked-list.
      *
-     * Before using, construct a UserInput object and a CommandParameters object.
+     * Before using, construct a UserInput object and a Parameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
-     * @param parameter_elements number of elements in the parameter array
+     * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const Parameters *parameters,
-                       const uint8_t parameter_array_elements = 1,
-                       const uint8_t tree_depth = 0)
-        : prm(parameters), 
-          param_array_len(parameter_array_elements), 
-          tree_depth(tree_depth), 
+    inline CommandConstructor(const Parameters *parameters,
+                              const uint8_t parameter_array_elements = 1,
+                              const uint8_t tree_depth = 0)
+        : prm(parameters),
+          param_array_len(parameter_array_elements),
+          tree_depth(tree_depth),
           next_command_parameters(NULL)
     {
     }
@@ -162,7 +162,7 @@ public:
      */
 
     /**
-     * @brief UserInput Constructor, no output by default
+     * @brief UserInput constructor, no output by default
      *
      * @param output_buffer default NULL, if not NULL the constructor will set _output_enabled(true)
      * @param output_buffer_len default ZERO, set to length of output_buffer
@@ -171,12 +171,12 @@ public:
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
      */
-    UserInput(char *output_buffer = NULL,
-              size_t output_buffer_len = 0,
-              const char *username = "",
-              const char *end_of_line_characters = "\r\n",
-              const char *token_delimiter = " ",
-              const char *c_string_delimiter = "\"")
+    inline UserInput(char *output_buffer = NULL,
+                     size_t output_buffer_len = 0,
+                     const char *username = "",
+                     const char *end_of_line_characters = "\r\n",
+                     const char *token_delimiter = " ",
+                     const char *c_string_delimiter = "\"")
         : _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _string_pos_(0),
@@ -385,7 +385,7 @@ private:
      * @param fmt   the format string
      * @param ...   arguments
      */
-    void _ui_out(const char *fmt, ...);
+    inline void _ui_out(const char *fmt, ...);
 
     /**
      * @brief ReadCommandFromBuffer error output
