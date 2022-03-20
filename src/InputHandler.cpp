@@ -153,7 +153,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error condition
 
-    bool input_type_match_flag[UI_MAX_ARGS] = {false};  // argument type-match flag array
+    bool input_type_match_flag[_data_pointers_index_max_] = {false};  // argument type-match flag array
     bool all_arguments_valid = true; // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
@@ -617,7 +617,7 @@ void UserInput::getArgs(size_t &tokens_received,
         _rec_num_arg_strings_++;
         if (input_type_match_flag[i] == false) // if the token was not valid input
         {
-            all_arguments_valid = false; // set the error sentinel to true
+            all_arguments_valid = false; // set the error sentinel
         }
     }
 }
@@ -629,9 +629,23 @@ void UserInput::_ui_out(const char *fmt, ...)
 {
     if (UserInput::outputIsEnabled())
     {
+        int err = 0;
         va_list args;
-        va_start(args, fmt);
-        _string_pos_ += vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);
+        va_start(args, fmt);        
+        err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
+        // error if err is less than zero or err + null '\0' is greater than the buffer size        
+        if (err < 0 || (err + _string_pos_) >= _output_buffer_len_)
+        {                         
+            _output_buffer_ = new char[128]();
+            _output_enabled_ = false;
+            snprintf_P(_output_buffer_, 128, 
+                       PSTR("Insufficient output buffer size, InputHandler output DISABLED."
+                            " Increase output buffer size by %d bytes.\n"), (abs(err) + 1));
+        }
+        else
+        {  
+            _string_pos_ = _string_pos_ + err;                             
+        }
         va_end(args);
         _output_flag_ = true;
     }
