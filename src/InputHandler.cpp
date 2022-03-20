@@ -624,11 +624,10 @@ void UserInput::getArgs(size_t &tokens_received,
 void UserInput::_ui_out(const char *fmt, ...)
 {
     if (UserInput::outputIsEnabled())
-    {
-        int err = 0;
+    {        
         va_list args;
         va_start(args, fmt);        
-        err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
+        int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
         // error if err is less than zero or err + null '\0' is greater than the buffer size        
         if (err < 0 || (err + _string_pos_) >= _output_buffer_len_)
         {                         
