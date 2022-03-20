@@ -63,7 +63,7 @@ void UserInput::addCommand(CommandConstructor &command)
 {
     Parameters prm;
     bool err = false;    
-    for (size_t i = 0; i < command._param_array_len; ++i)
+    for (size_t i = 0; i < command.param_array_len; ++i)
     {
         memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
         if (!UserInput::_addCommandAbort(command, prm, i)) // input Parameters error checking
@@ -675,10 +675,10 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
     // format a string with useful information
     if (UserInput::outputIsEnabled())
     {
-        // potential silent crash if _failed_on_subcommand_ > cmd->_param_array_len
+        // potential silent crash if _failed_on_subcommand_ > cmd->param_array_len
         // user introduced error condition, if they enter a parameter array length that is
         // greater than the actual array length
-        if (_failed_on_subcommand_ > cmd->_param_array_len) // error
+        if (_failed_on_subcommand_ > cmd->param_array_len) // error
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
             UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"), prm.command);
@@ -875,7 +875,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     }
 
     // command with arguments (max depth)
-    if (_current_search_depth_ == (cmd->_tree_depth) &&
+    if (_current_search_depth_ == (cmd->tree_depth) &&
         tokens_received > 1 &&
         prm.max_num_args > 0 &&
         prm.sub_commands == 0)
@@ -901,10 +901,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
     UserInput::_ui_out(PSTR("search depth (%d)\n"), _current_search_depth);
     #endif
-    if (_current_search_depth_ <= (cmd->_tree_depth)) // dig starting at depth 1
+    if (_current_search_depth_ <= (cmd->tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
-        for (size_t j = 1; j < (cmd->_param_array_len + 1); ++j) // through the parameter array
+        for (size_t j = 1; j < (cmd->param_array_len + 1); ++j) // through the parameter array
         {
             prm_idx = j;
             #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
@@ -935,7 +935,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                 }
             }
         }
-        if (_current_search_depth_ < (cmd->_tree_depth))
+        if (_current_search_depth_ < (cmd->tree_depth))
         {
             _current_search_depth_++;
         }

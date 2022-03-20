@@ -135,17 +135,17 @@ public:
      * @param tree_depth depth of command tree
      */
     CommandConstructor(const Parameters *parameters,
-                       const uint8_t parameter_elements = 1,
+                       const uint8_t parameter_array_elements = 1,
                        const uint8_t tree_depth = 0)
         : prm(parameters), 
-          _param_array_len(parameter_elements), 
-          _tree_depth(tree_depth), 
+          param_array_len(parameter_array_elements), 
+          tree_depth(tree_depth), 
           next_command_parameters(NULL)
     {
     }
     const Parameters *prm;
-    const uint8_t _tree_depth;
-    const uint8_t _param_array_len;
+    const uint8_t tree_depth;
+    const uint8_t param_array_len;
     CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */
 };
 
