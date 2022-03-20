@@ -455,6 +455,17 @@ private:
      * @return the control character char value ie '\\r'
      */
     char _combineControlCharacters(char input);
+
+    /**
+     * @brief determines if input Parameters struct is valid before adding to linked-list
+     * 
+     * @param cmd CommandConstructor pointer
+     * @param prm reference to Parameters struct in addCommand
+     * @param prm_idx Parameters struct index
+     * @return true if there are no errors
+     * @return false if there were one or more errors
+     */
+    bool _addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx);
     // end private methods
 };
 

@@ -34,6 +34,16 @@
 #define UI_MAX_ARGS 32
 #endif
 
+//  maximum tree depth
+#if !defined(UI_MAX_DEPTH)
+#define UI_MAX_DEPTH 32
+#endif
+
+//  maximum number of subcommands
+#if !defined(UI_MAX_SUBCOMMANDS)
+#define UI_MAX_SUBCOMMANDS 32
+#endif
+
 //  max value of a sixteen bit unsigned integer
 #if !defined(UINT16_MAX)
 #define UINT16_MAX 65535
@@ -51,7 +61,7 @@
 
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
-#define UI_MAX_IN_LEN UINT16_MAX
+#define UI_MAX_IN_LEN (UINT16_MAX - 2)
 #endif
 
 #define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array

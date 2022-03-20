@@ -60,17 +60,30 @@ void UserInput::defaultFunction(void (*function)(UserInput *))
 }
 
 void UserInput::addCommand(CommandConstructor &command)
-{    
-    if (_commands_head_ == NULL)
+{
+    Parameters prm;
+    bool err = false;    
+    for (size_t i = 0; i < command._param_array_len; ++i)
     {
-        _commands_head_ = _commands_tail_ = &command;
+        memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
+        if (!UserInput::_addCommandAbort(command, prm, i)) // input Parameters error checking
+        {
+            err = true;
+        }
     }
-    else
+    if (!err)
     {
-        _commands_tail_->next_command_parameters = &command;
-        _commands_tail_ = &command;
+        if (_commands_head_ == NULL) // the list is empty
+        {
+            _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the list
+        }
+        else
+        {
+            _commands_tail_->next_command_parameters = &command; // single linked-list (next only)
+            _commands_tail_ = &command;                          // move the tail to (this)
+        }
+        _commands_count_++; // increment _commands_count_
     }
-    _commands_count_++;
 }
 
 void UserInput::listCommands()
@@ -90,7 +103,7 @@ void UserInput::listCommands()
 void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 {
     // error checking
-    if (len > (UI_MAX_IN_LEN - 2)) // 65535 - 1(index align) - 1(space for null '\0')
+    if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
@@ -439,7 +452,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
 {
     size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
     bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
-    if (arg_type < (size_t)UITYPE::CHAR)
+    if (arg_type < (uint8_t)UITYPE::CHAR)
     {
         // for unsigned integers
         if (arg_type < (size_t)UITYPE::INT16_T)
@@ -457,7 +470,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
         }
         // for integer numbers
-        if (arg_type == (size_t)UITYPE::INT16_T)
+        if (arg_type == (uint8_t)UITYPE::INT16_T)
         {
             if (found_negative_sign == true) //  negative
             {
@@ -481,7 +494,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
         }
         // for floating point numbers
-        if (arg_type == (size_t)UITYPE::FLOAT)
+        if (arg_type == (uint8_t)UITYPE::FLOAT)
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
@@ -544,7 +557,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         For char and c-string input.
         Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
     */
-    else if (arg_type == (size_t)UITYPE::CHAR)
+    else if (arg_type == (uint8_t)UITYPE::CHAR)
     {
         if (strlen_data > 1)
         {
@@ -561,7 +574,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             return false;
         }
     }
-    else if (arg_type == (size_t)UITYPE::C_STRING)
+    else if (arg_type == (uint8_t)UITYPE::C_STRING)
     {
         for (size_t j = 0; j < strlen_data; ++j)
         {
@@ -577,7 +590,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
         }
     }
-    else if (arg_type == (size_t)UITYPE::NOTYPE)
+    else if (arg_type == (uint8_t)UITYPE::NOTYPE)
     {
         // no type validation performed
         return true;
@@ -1006,4 +1019,46 @@ char UserInput::_combineControlCharacters(char input)
     default:
         return (char)'*'; // * error
     }
+}
+
+bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx)
+{
+    bool error = true;
+    if (prm.function == NULL && prm.depth == 0)
+    {
+        UserInput::_ui_out(PSTR("root command function pointer cannot be NULL\n"));
+        error = false;
+    }
+    if (strlen(prm.command) != prm.command_length)
+    {
+        UserInput::_ui_out(PSTR("command or command_length\n"));
+        error = false;
+    }
+    if (prm.depth > UI_MAX_DEPTH)
+    {
+        UserInput::_ui_out(PSTR("depth\n"));
+        error = false;
+    }
+    if (prm.sub_commands > UI_MAX_SUBCOMMANDS)
+    {
+        UserInput::_ui_out(PSTR("sub_commands\n"));
+        error = false;
+    }
+    if (prm.num_args > UI_MAX_ARGS)
+    {
+        UserInput::_ui_out(PSTR("num_args\n"));
+        error = false;
+    }
+    if (prm.max_num_args > UI_MAX_ARGS)
+    {
+        UserInput::_ui_out(PSTR("max_num_args\n"));
+        error = false;
+    }
+    if (error == false)
+    {
+        UserInput::_ui_out(PSTR("%s Parameters error! %s not added.\n"),
+                           prm.command,
+                           (prm.depth > 0) ? PSTR("Subcommand") : PSTR("Command"));
+    }
+    return error;
 }
