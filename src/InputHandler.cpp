@@ -89,8 +89,14 @@ void UserInput::addCommand(CommandConstructor &command)
 void UserInput::listCommands()
 {
     CommandConstructor *cmd;
-    UserInput::_ui_out(PSTR("Commands available%s%s:\n"),
-                       (_username_ != "") ? PSTR(" to ") : PSTR(""), _username_);
+    if (_username_ == "")
+    {
+        UserInput::_ui_out(PSTR("Commands available:\n"));
+    }
+    else
+    {
+        UserInput::_ui_out(PSTR("Commands available to %s:\n"), _username_);
+    }
     uint8_t i = 1;
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters, ++i)
     {
@@ -1054,11 +1060,21 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
         UserInput::_ui_out(PSTR("max_num_args\n"));
         error = false;
     }
+    if (prm.num_args > prm.max_num_args)
+    {
+        UserInput::_ui_out(PSTR("num_args must be less than max_num_args\n"));
+        error = false;
+    }
     if (error == false)
     {
-        UserInput::_ui_out(PSTR("%s Parameters error! %s not added.\n"),
-                           prm.command,
-                           (prm.depth > 0) ? PSTR("Subcommand") : PSTR("Command"));
+        if (prm.depth > 0)
+        {
+            UserInput::_ui_out(PSTR("%s Parameters error! Subcommand not added.\n"), prm.command);
+        }
+        else
+        {
+            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"), prm.command);
+        }
     }
     return error;
 }
