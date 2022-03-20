@@ -14,7 +14,7 @@
 #include "cli_setup.h"
 
 /**
- * @brief Parameters struct for uc_help_
+ * @brief UserInput::Parameters struct for uc_help_
  * 
  */
 const Parameters help_param[1] PROGMEM =
@@ -37,7 +37,7 @@ const Parameters help_param[1] PROGMEM =
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 /**
- * @brief Parameters struct for uc_settings_
+ * @brief UserInput::Parameters struct for uc_settings_
  * 
  */
 const Parameters settings_param[1] PROGMEM =
@@ -60,7 +60,7 @@ const Parameters settings_param[1] PROGMEM =
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 /**
- * @brief Parameters struct for uc_test_
+ * @brief UserInput::Parameters struct for uc_test_
  * 
  */
 const Parameters type_test_param[1] PROGMEM = {
