@@ -130,7 +130,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     */
     while (true)
     {
-        if (UserInput::getToken(data, len, &data_index) == true)
+        if (UserInput::getToken(data, len, data_index) == true)
         {
             tokens_received++;                        // increment tokens_received
             if (tokens_received == (UI_MAX_ARGS + 1)) // index sentinel
@@ -159,7 +159,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
     {
         // cmd->prm[0] is a reference to the root command Parameters struct
-        if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (uint16_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
+        if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (size_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;      // start searching for subcommands at depth 1
@@ -278,7 +278,7 @@ void UserInput::clearOutputBuffer()
     {
         _string_pos_ = 0; //  reset output_buffer's index
         //  this maybe doesnt need to be done
-        for (uint16_t i = 0; i < _output_buffer_len_; ++i)
+        for (size_t i = 0; i < _output_buffer_len_; ++i)
         {
             _output_buffer_[i] = _null_; // reinit output_buffer
         }
@@ -289,19 +289,18 @@ void UserInput::clearOutputBuffer()
 /*
     protected methods
 */
-bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
+bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index)
 {
     bool got_token = false;
-    char incoming = 0;                   // cast data[data_index] to char and run tests on incoming
-    bool token_flag[2] = {false, false}; // token state machine, point to a token once
-    uint32_t data_length = (uint32_t)len;
+    char incoming = _null_;              // cast data[data_index] to char and run tests on incoming
+    bool token_flag[2] = {false, false}; // token state machine, point to a token once    
     size_t delim_len = strlen(_delim_);
     #if defined(__DEBUG_GET_TOKEN__)
     UserInput::_ui_out(PSTR("UserInput::getToken(): "));
     #endif
-    for (uint16_t i = *data_index; i < data_length; ++i)
+    for (size_t i = data_index; i < len; ++i)
     {
-        incoming = (char)data[*data_index];
+        incoming = (char)data[data_index];
         #if defined(__DEBUG_GET_TOKEN__)
         char inc_buf[UI_ESCAPED_CHAR_PGM_LEN];
         UserInput::_ui_out(PSTR("%s"), (iscntrl(incoming)
@@ -310,23 +309,23 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
         #endif
         if (iscntrl(incoming)) // remove hanging control characters
         {
-            _token_buffer_[*data_index] = _null_;
+            _token_buffer_[data_index] = _null_;
         }
         else if (incoming == _delim_[0]) // replace delimiter
         {
             if (delim_len == 1) // incoming is equal to _delim_[0] and the delimiter is one character in length
             {
-                _token_buffer_[*data_index] = _null_;
+                _token_buffer_[data_index] = _null_;
                 token_flag[0] = false;
             }
             else
             {
                 bool delim_char_match = true; // error flag
-                size_t idx = *data_index;
+                size_t idx = data_index;
                 char inc;
                 for (size_t j = 1; j < (delim_len + 1); ++j)
                 {
-                    if ((j + i) < data_length)
+                    if ((j + i) < len)
                     {
                         idx++;
                         inc = (char)data[idx];
@@ -346,8 +345,8 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
                 {
                     for (size_t j = 1; j < (delim_len + 1); ++j)
                     {
-                        (*data_index)++;
-                        _token_buffer_[*data_index] = _null_;
+                        data_index++;
+                        _token_buffer_[data_index] = _null_;
                     }
                     token_flag[0] = false;
                 }
@@ -355,24 +354,24 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
         }
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
-            _token_buffer_[*data_index] = _null_;             // replace the c-string delimiter
-            if (((uint16_t)(*data_index) + 1U) < data_length) //  don't need to do this if we're at the end of user input
+            _token_buffer_[data_index] = _null_;             // replace the c-string delimiter
+            if ((data_index + 1) < len) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
-                (*data_index)++;
-                for (uint16_t j = *data_index; j < data_length; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
+                data_index++;
+                for (size_t j = data_index; j < len; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
                 {
-                    incoming = (char)data[*data_index]; // fetch the next incoming char
+                    incoming = (char)data[data_index]; // fetch the next incoming char
                     if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
                     {
-                        _token_buffer_[*data_index] = _null_; // replace the c-string delimiter
-                        (*data_index)++;                      // increment the tokenized string index
+                        _token_buffer_[data_index] = _null_; // replace the c-string delimiter
+                        data_index++;                      // increment the tokenized string index
                         break;
                     }
-                    _token_buffer_[*data_index] = incoming;     // else assign incoming to _token_buffer_[data_index]
+                    _token_buffer_[data_index] = incoming;     // else assign incoming to _token_buffer_[data_index]
                     if (point_to_beginning_of_c_string == true) // a pointer will be assigned if point_to_beginning_of_c_string == true
                     {
-                        _data_pointers_[_data_pointers_index_] = &_token_buffer_[*data_index]; // point to this position in _token_buffer_
+                        _data_pointers_[_data_pointers_index_] = &_token_buffer_[data_index]; // point to this position in _token_buffer_
                         _data_pointers_index_++;                                               //  increment pointer index
                         point_to_beginning_of_c_string = false;                                //  only set one pointer per c-string
                         got_token = true;
@@ -380,19 +379,19 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
                         UserInput::_ui_out(PSTR("\n>%s$DEBUG: got the c-string token.\n"), _username_);
                         #endif
                     }
-                    (*data_index)++; // increment the tokenized string index
+                    data_index++; // increment the tokenized string index
                 }
             }
         }
         else // this is a non c-string token
         {
-            if (incoming == '\\' && (*data_index < data_length))
+            if (incoming == '\\' && (data_index < len))
             {
-                _token_buffer_[*data_index] = _null_;
-                (*data_index)++; // increment buffer index
-                incoming = UserInput::_combineControlCharacters((char)data[*data_index]);
+                _token_buffer_[data_index] = _null_;
+                data_index++; // increment buffer index
+                incoming = UserInput::_combineControlCharacters((char)data[data_index]);
             }
-            _token_buffer_[*data_index] = incoming; // assign incoming to _token_buffer_ at data_index
+            _token_buffer_[data_index] = incoming; // assign incoming to _token_buffer_ at data_index
             token_flag[0] = true;                   // set token available sentinel to true
         }
 
@@ -400,7 +399,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
         {
             if (token_flag[0] == true) // if there's a new token
             {
-                _data_pointers_[_data_pointers_index_] = &_token_buffer_[*data_index]; // assign a pointer the beginning of it
+                _data_pointers_[_data_pointers_index_] = &_token_buffer_[data_index]; // assign a pointer the beginning of it
                 _data_pointers_index_++;                                               // and increment the pointer index
             }
             else
@@ -414,7 +413,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
             }
             token_flag[1] = token_flag[0]; // track the state
         }
-        if (token_flag[0] == true && (uint16_t)*data_index == (data_length - 1))
+        if (token_flag[0] == true && data_index == (len - 1))
         {
             #if defined(__DEBUG_GET_TOKEN__)
             UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken() got_token == true end of data.\n"),
@@ -423,9 +422,9 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
             got_token = true;
         }
 
-        if (*data_index < data_length) // if we are at the end of input data
+        if (data_index < len) // if we are at the end of input data
         {
-            (*data_index)++; // increment buffer index
+            data_index++; // increment buffer index
         }
 
         if (got_token == true)
@@ -441,7 +440,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t *data_index)
 
 bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_)
 {
-    uint16_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
+    size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
     bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
     if (arg_type < (size_t)UITYPE::CHAR)
     {
@@ -452,7 +451,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             {
                 return false;
             }
-            for (uint16_t j = 0; j < strlen_data; ++j)
+            for (size_t j = 0; j < strlen_data; ++j)
             {
                 if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
                 {
@@ -465,7 +464,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         {
             if (found_negative_sign == true) //  negative
             {
-                for (uint16_t j = 1; j < (strlen_data - 1); ++j)
+                for (size_t j = 1; j < (strlen_data - 1); ++j)
                 {
                     if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
                     {
@@ -475,7 +474,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
             else //  positive
             {
-                for (uint16_t j = 0; j < strlen_data; ++j)
+                for (size_t j = 0; j < strlen_data; ++j)
                 {
                     if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
                     {
@@ -496,7 +495,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
                     we already know there is a '-' at data[i + 1][0] because found_negative_sign is set
                     so start the for loop at an index of one
                 */
-                for (uint16_t j = 1; j < strlen_data; ++j)
+                for (size_t j = 1; j < strlen_data; ++j)
                 {
                     if (_data_pointers_[_data_pointers_index_][j] == _dot_)
                     {
@@ -526,7 +525,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
             else //  positive
             {
-                for (uint16_t j = 0; j < strlen_data; ++j)
+                for (size_t j = 0; j < strlen_data; ++j)
                 {
                     if (_data_pointers_[_data_pointers_index_][j] == _dot_)
                     {
@@ -567,7 +566,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     }
     else if (arg_type == (size_t)UITYPE::C_STRING)
     {
-        for (uint16_t j = 0; j < strlen_data; ++j)
+        for (size_t j = 0; j < strlen_data; ++j)
         {
             if (isprint(_data_pointers_[_data_pointers_index_][j]) ||
                 ispunct(_data_pointers_[_data_pointers_index_][j]) ||
@@ -595,11 +594,11 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
 
 uint8_t UserInput::getArgType(Parameters &prm, size_t index)
 {
-    if (prm.argument_flag == no_args)
+    if (prm.argument_flag == UI_ARG_HANDLING::no_args)
         return static_cast<uint8_t>(UITYPE::NO_ARGS);
-    if (prm.argument_flag == one_type)
+    if (prm.argument_flag == UI_ARG_HANDLING::one_type)
         return static_cast<uint8_t>(prm._arg_type[0]);
-    if (prm.argument_flag == type_arr)
+    if (prm.argument_flag == UI_ARG_HANDLING::type_arr)        
         return static_cast<uint8_t>(prm._arg_type[index]);
     return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
 }
@@ -684,38 +683,40 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
                 {
                     UserInput::_ui_out(PSTR("%s "), _data_pointers_[i]); // add subcommands to echo
                 }
+                UserInput::_ui_out(PSTR("\n"));
                 bool print_subcmd_err = true;
-                for (uint16_t i = 0; i < err_n_args; ++i)
+                for (size_t i = 0; i < prm.max_num_args; ++i)
                 {
-                    if (input_type_match_flag[i] == false)
+                    if (input_type_match_flag[i] == false || 
+                        _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
-                        uint8_t _type = UserInput::getArgType(prm, i);
+                        uint8_t _type = UserInput::getArgType(prm, i);                        
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                         {
-                            UserInput::_ui_out(PSTR("'INPUT NOT RECEIVED'*(%s REQUIRED) "), _type_char_array);
+                            UserInput::_ui_out(PSTR(" 'INPUT NOT RECEIVED'*(%s REQUIRED)\n"), _type_char_array);
                         }
                         else
                         {
                             if (prm.sub_commands > 0 && print_subcmd_err == true)
                             {
                                 print_subcmd_err = false;
-                                UserInput::_ui_out(PSTR("'%s'*(ENTER VALID SUBCOMMAND) "), _data_pointers_[1 + _failed_on_subcommand_ + i]);
+                                UserInput::_ui_out(PSTR(" '%s'*(ENTER VALID SUBCOMMAND)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
                             }
                             else if ((prm.sub_commands == 0 || err_n_args > 1) && (UITYPE)_type == UITYPE::NO_ARGS)
                             {
-                                UserInput::_ui_out(PSTR("'%s'*(LEAVE BLANK) "), _data_pointers_[1 + _failed_on_subcommand_ + i]);
+                                UserInput::_ui_out(PSTR(" '%s'*(LEAVE BLANK)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
                             }
                             else
                             {
-                                UserInput::_ui_out(PSTR("'%s'*(%s) "), _data_pointers_[1 + _failed_on_subcommand_ + i], _type_char_array);
+                                UserInput::_ui_out(PSTR(" '%s'*(%s)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i], _type_char_array);
                             }
                         }
                     }
                     else
                     {
-                        UserInput::_ui_out(PSTR("'%s'(OK) "), _data_pointers_[1 + _failed_on_subcommand_ + i]);
+                        UserInput::_ui_out(PSTR(" '%s'(OK)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
                     }
                 }
                 UserInput::_ui_out(PSTR("\n"));
@@ -739,7 +740,7 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
     if (UserInput::outputIsEnabled())
     {
         UserInput::_ui_out(PSTR(">%s $"), _username_, _data_pointers_[0]);
-        for (uint16_t i = 0; i < _data_pointers_index_max_; ++i)
+        for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
             if (iscntrl(*_data_pointers_[i]))
             {
@@ -895,7 +896,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
                                prm.command, _data_pointers_[_data_pointers_index_]);
             #endif
-            if (memcmp_P(_data_pointers_[_data_pointers_index_], cmd->prm[j].command, (uint16_t)pgm_read_dword(&(cmd->prm[j].command_length))) == false) // match subcommand
+            if (memcmp_P(_data_pointers_[_data_pointers_index_], cmd->prm[j].command, (size_t)pgm_read_dword(&(cmd->prm[j].command_length))) == false) // match subcommand
             {
                 memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
                 if (prm.depth == _current_search_depth_)

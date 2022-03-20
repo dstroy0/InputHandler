@@ -41,7 +41,7 @@ const Parameters type_test_param[1] PROGMEM =
   5,            // string length
   0,            // command depth
   0,            // subcommands
-  no_args,      // argument handling
+  UI_ARG_HANDLING::no_args,      // argument handling
   0,            // minimum expected number of arguments
   0,            // maximum expected number of arguments
   /*

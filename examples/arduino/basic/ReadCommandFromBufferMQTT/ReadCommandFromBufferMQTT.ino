@@ -143,7 +143,7 @@ const Parameters help_param[1] PROGMEM =
     4,            // command string characters
     0,            // command depth
     2,            // subcommands
-    no_args,      // argument handling
+    UI_ARG_HANDLING::no_args,      // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
     /*
@@ -163,7 +163,7 @@ const Parameters settings_param[1] PROGMEM =
   13,               // command string characters
   0,                // command depth
   0,                // subcommands
-  no_args,          // argument handling
+  UI_ARG_HANDLING::no_args,          // argument handling
   0,                // minimum expected number of arguments
   0,                // maximum expected number of arguments
   /*
@@ -182,7 +182,7 @@ const Parameters type_test_param[1] PROGMEM =
   4,                   // string length
   0,                   // command depth
   0,                   // subcommands
-  type_arr,            // argument handling
+  UI_ARG_HANDLING::type_arr,            // argument handling
   8,                   // minimum expected number of arguments
   8,                   // maximum expected number of arguments
   /*

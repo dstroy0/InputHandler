@@ -57,7 +57,7 @@ const Parameters nested_prms[3] PROGMEM =
     6,            // command string characters
     0,            // command depth
     2,            // subcommands  
-    no_args,      // argument handling
+    UI_ARG_HANDLING::no_args,      // argument handling
     0,            // minimum expected number of arguments
     0,            // maximum expected number of arguments
     /*
@@ -73,7 +73,7 @@ const Parameters nested_prms[3] PROGMEM =
     3,                    // command string characters
     1,                    // command depth
     0,                    // subcommands    
-    no_args,              // argument handling
+    UI_ARG_HANDLING::no_args,              // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*
@@ -89,7 +89,7 @@ const Parameters nested_prms[3] PROGMEM =
     3,                    // command string characters
     1,                    // command depth
     0,                    // subcommands
-    no_args,              // argument handling
+    UI_ARG_HANDLING::no_args,              // argument handling
     0,                    // minimum expected number of arguments
     0,                    // maximum expected number of arguments
     /*

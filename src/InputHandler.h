@@ -25,10 +25,10 @@
  */
 
 /**
- * @brief Parameters argument_flag enum
- * @enum UI_ARGUMENT_FLAG_ENUM
+ * @brief strongly typed argument handling flag
+ * @enum UI_ARG_HANDLING
  */
-enum UI_ARGUMENT_FLAG_ENUM
+enum class UI_ARG_HANDLING
 {
     no_args,  ///<  no arguments expected
     one_type, ///<  every argument is of the same type
@@ -103,15 +103,15 @@ class UserInput;
  */
 struct Parameters
 {
-    void (*function)(UserInput *);       ///< function pointer
-    char command[UI_MAX_CMD_LEN];        ///< command string array
-    uint16_t command_length;             ///< command length in characters
-    uint8_t depth;                       ///< command tree depth
-    uint8_t sub_commands;                ///< how many subcommands does this command have
-    UI_ARGUMENT_FLAG_ENUM argument_flag; ///< argument handling flag
-    uint8_t num_args;                    ///< minimum number of arguments this command expects
-    uint8_t max_num_args;                ///< maximum number of arguments this command expects
-    UITYPE _arg_type[UI_MAX_ARGS];       ///< argument type array
+    void (*function)(UserInput *); ///< function pointer
+    char command[UI_MAX_CMD_LEN];  ///< command string array
+    uint16_t command_length;       ///< command length in characters
+    uint8_t depth;                 ///< command tree depth
+    uint8_t sub_commands;          ///< how many subcommands does this command have
+    UI_ARG_HANDLING argument_flag; ///< argument handling flag
+    uint8_t num_args;              ///< minimum number of arguments this command expects
+    uint8_t max_num_args;          ///< maximum number of arguments this command expects
+    UITYPE _arg_type[UI_MAX_ARGS]; ///< argument type array
 };
 /** @} */
 
@@ -301,7 +301,7 @@ protected:
      * @return true if there is a token
      * @return false for no token
      */
-    bool getToken(uint8_t *data, size_t len, size_t *data_index);
+    bool getToken(uint8_t *data, size_t len, size_t &data_index);
 
     /**
      * @brief Tries to determine if input is valid
@@ -317,7 +317,7 @@ protected:
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
      *
-     * @param opt command options structure reference
+     * @param prm command options structure reference
      * @param index argument number
      * @return uint8_t argument type
      */
