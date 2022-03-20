@@ -1,5 +1,5 @@
 <map id="examples/arduino/advanced/MultiFile/CLI/cli_setup.h" name="examples/arduino/advanced/MultiFile/CLI/cli_setup.h">
-<area shape="rect" id="node1" title=" " alt="" coords="120,5,327,47"/>
-<area shape="rect" id="node2" href="$d0/dd2/arduino_2advanced_2_multi_file_2_c_l_i_2functions_8h.html" title=" " alt="" coords="5,95,212,136"/>
-<area shape="rect" id="node3" href="$d3/d4e/arduino_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html" title=" " alt="" coords="236,95,443,136"/>
+<area shape="rect" id="node1" title="setup example for MultiFile.ino" alt="" coords="120,5,327,47"/>
+<area shape="rect" id="node2" href="$d0/dd2/arduino_2advanced_2_multi_file_2_c_l_i_2functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="5,95,212,136"/>
+<area shape="rect" id="node3" href="$d3/d4e/arduino_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="236,95,443,136"/>
 </map>
