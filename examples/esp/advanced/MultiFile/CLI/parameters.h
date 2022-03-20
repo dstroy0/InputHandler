@@ -13,6 +13,10 @@
 
 #include "cli_setup.h"
 
+/**
+ * @brief Parameters struct for uc_help_
+ * 
+ */
 const Parameters help_param[1] PROGMEM =
 { // func ptr
   uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
@@ -32,6 +36,10 @@ const Parameters help_param[1] PROGMEM =
 };
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
+/**
+ * @brief Parameters struct for uc_settings_
+ * 
+ */
 const Parameters settings_param[1] PROGMEM =
 {
   uc_settings,      // function ptr
@@ -51,6 +59,10 @@ const Parameters settings_param[1] PROGMEM =
 };
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
+/**
+ * @brief Parameters struct for uc_test_
+ * 
+ */
 const Parameters type_test_param[1] PROGMEM = {
   uc_test_input_types, // function ptr
   "test",              // command string
