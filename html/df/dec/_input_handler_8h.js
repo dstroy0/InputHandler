@@ -2,10 +2,10 @@ var _input_handler_8h =
 [
     [ "CommandConstructor", "df/d68/class_command_constructor.html", "df/d68/class_command_constructor" ],
     [ "UserInput", "dc/d4b/class_user_input.html", "dc/d4b/class_user_input" ],
-    [ "UI_ARGUMENT_FLAG_ENUM", "de/d8a/group___user_input.html#ga0f773afec48d433e5613c754cc1d767c", [
-      [ "no_args", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767ca02784bdfeb7897297c31695f9dabcf81", null ],
-      [ "one_type", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767ca4c104b936ffae78e11b198333a3c68b5", null ],
-      [ "type_arr", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767caadc95e311391ced5509b4dc9dcc217a3", null ]
+    [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
+      [ "no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
+      [ "one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],
+      [ "type_arr", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f", null ]
     ] ],
     [ "UITYPE", "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UINT8_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],

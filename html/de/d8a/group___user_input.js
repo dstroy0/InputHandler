@@ -2,7 +2,7 @@ var group___user_input =
 [
     [ "Parameters", "d0/dbf/struct_parameters.html", [
       [ "_arg_type", "d0/dbf/struct_parameters.html#a3170e977bf87d7fea93601067ed6d413", null ],
-      [ "argument_flag", "d0/dbf/struct_parameters.html#abb85be26d9a290f6ddf852e6f16c56af", null ],
+      [ "argument_flag", "d0/dbf/struct_parameters.html#a3397bfe84120d79b047bd5c83d2d5c53", null ],
       [ "command", "d0/dbf/struct_parameters.html#ad7bcf9456a39e6b541ab2e3039391acf", null ],
       [ "command_length", "d0/dbf/struct_parameters.html#aa5cdae10169c1ffea5ca38b74043220b", null ],
       [ "depth", "d0/dbf/struct_parameters.html#a010c4c82c6956cb129b423ef20b8f279", null ],
@@ -11,10 +11,10 @@ var group___user_input =
       [ "num_args", "d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559", null ],
       [ "sub_commands", "d0/dbf/struct_parameters.html#a50cf8f9bc0161410c3a486a54e99108e", null ]
     ] ],
-    [ "UI_ARGUMENT_FLAG_ENUM", "de/d8a/group___user_input.html#ga0f773afec48d433e5613c754cc1d767c", [
-      [ "no_args", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767ca02784bdfeb7897297c31695f9dabcf81", null ],
-      [ "one_type", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767ca4c104b936ffae78e11b198333a3c68b5", null ],
-      [ "type_arr", "de/d8a/group___user_input.html#gga0f773afec48d433e5613c754cc1d767caadc95e311391ced5509b4dc9dcc217a3", null ]
+    [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
+      [ "UI_ARG_HANDLING::no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
+      [ "UI_ARG_HANDLING::one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],
+      [ "UI_ARG_HANDLING::type_arr", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f", null ]
     ] ],
     [ "UITYPE", "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UITYPE::UINT8_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],

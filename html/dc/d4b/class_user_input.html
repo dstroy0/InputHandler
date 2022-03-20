@@ -135,9 +135,9 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <tr class="memitem:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">clearOutputBuffer</a> ()</td></tr>
 <tr class="memdesc:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="mdescLeft">&#160;</td><td class="mdescRight">clears output buffer, sets index to zero  <a href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">More...</a><br /></td></tr>
 <tr class="separator:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787481470372a227c3b7dc1d8703decf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a787481470372a227c3b7dc1d8703decf">getToken</a> (uint8_t *data, size_t len, size_t *data_index)</td></tr>
-<tr class="memdesc:a787481470372a227c3b7dc1d8703decf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to get a token from an input string.  <a href="../../dc/d4b/class_user_input.html#a787481470372a227c3b7dc1d8703decf">More...</a><br /></td></tr>
-<tr class="separator:a787481470372a227c3b7dc1d8703decf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5742909e438a1e5f90536d63bf21f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a7e5742909e438a1e5f90536d63bf21f9">getToken</a> (uint8_t *data, size_t len, size_t &amp;data_index)</td></tr>
+<tr class="memdesc:a7e5742909e438a1e5f90536d63bf21f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to get a token from an input string.  <a href="../../dc/d4b/class_user_input.html#a7e5742909e438a1e5f90536d63bf21f9">More...</a><br /></td></tr>
+<tr class="separator:a7e5742909e438a1e5f90536d63bf21f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
 <tr class="memdesc:a53407496c37967a3186bd136f5620dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to determine if input is valid.  <a href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">More...</a><br /></td></tr>
 <tr class="separator:a53407496c37967a3186bd136f5620dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -392,7 +392,7 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <p>Get the UITYPE equivalent for the argument, internally we use uint8_t. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">opt</td><td>command options structure reference </td></tr>
+    <tr><td class="paramname">prm</td><td>command options structure reference </td></tr>
     <tr><td class="paramname">index</td><td>argument number </td></tr>
   </table>
   </dd>
@@ -439,8 +439,8 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 </div>
 </div>
-<a id="a787481470372a227c3b7dc1d8703decf" name="a787481470372a227c3b7dc1d8703decf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a787481470372a227c3b7dc1d8703decf">&#9670;&nbsp;</a></span>getToken()</h2>
+<a id="a7e5742909e438a1e5f90536d63bf21f9" name="a7e5742909e438a1e5f90536d63bf21f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e5742909e438a1e5f90536d63bf21f9">&#9670;&nbsp;</a></span>getToken()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -463,7 +463,7 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t &amp;&#160;</td>
           <td class="paramname"><em>data_index</em>&#160;</td>
         </tr>
         <tr>
