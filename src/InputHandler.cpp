@@ -61,8 +61,15 @@ void UserInput::defaultFunction(void (*function)(UserInput *))
 
 void UserInput::addCommand(CommandConstructor &command)
 {
-    Parameters prm;
-    bool err = false;    
+    size_t max_depth_found = 0; // for _data_pointers_ array sizing
+    size_t max_args_found = 0;  // for _data_pointers_ array sizing
+    Parameters prm;      // this Parameters struct is referenced by the helper function _addCommandAbort()
+    bool err = false;    // Parameters struct error sentinel
+    /*
+        the reason we run through the whole Parameters array instead of breaking 
+        on error is to give users clues as to what might be wrong with their 
+        command Parameters
+    */
     for (size_t i = 0; i < command.param_array_len; ++i)
     {
         memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
@@ -70,9 +77,32 @@ void UserInput::addCommand(CommandConstructor &command)
         {
             err = true;
         }
+        else
+        {
+            // if the current command's tree depth is greater than what we have found
+            max_depth_found = (command.tree_depth > max_depth_found)
+                                  ? command.tree_depth
+                                  : max_depth_found;
+            // if the current command's max num args is greater than what we have found
+            max_args_found = (prm.max_num_args > max_args_found)
+                                 ? prm.max_num_args
+                                 : max_args_found;
+        }
     }
-    if (!err)
+    if (!err)   // if no error
     {
+        _commands_count_++; // increment _commands_count_
+
+        // set _max_depth_ to max_depth_found if it is greater than _max_depth_
+        _max_depth_ = (max_depth_found > _max_depth_)
+                            ? max_depth_found
+                            : _max_depth_;
+        // set _max_args_ to max_args_found if it is greater than _max_args_
+        _max_args_ = (max_args_found > _max_args_)
+                            ? max_args_found
+                            : _max_args_;
+        
+        // linked-list                            
         if (_commands_head_ == NULL) // the list is empty
         {
             _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the list
@@ -81,13 +111,32 @@ void UserInput::addCommand(CommandConstructor &command)
         {
             _commands_tail_->next_command_parameters = &command; // single linked-list (next only)
             _commands_tail_ = &command;                          // move the tail to (this)
-        }
-        _commands_count_++; // increment _commands_count_
+        }        
     }
+}
+
+bool UserInput::begin()
+{    
+    size_t ptrs = 1 + _max_depth_ + _max_args_;    
+    _data_pointers_ = new char*[ptrs]();
+    if (_data_pointers_ == nullptr)
+    {
+        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
+        _begin_ = false;
+        delete[] _data_pointers_;
+        return _begin_;
+    }
+    _begin_ = true;
+    return _begin_;
 }
 
 void UserInput::listCommands()
 {
+    if (!_begin_)
+    {
+        UserInput::_ui_out(PSTR("Use begin() in setup()"));
+        return;
+    }
     CommandConstructor *cmd;
     if (_username_ == "")
     {
@@ -109,6 +158,10 @@ void UserInput::listCommands()
 void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 {
     // error checking
+    if (!_begin_) // error
+    {    
+        return;
+    }
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
@@ -124,12 +177,6 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
-    // reinit _data_pointers_
-    for (size_t i = 0; i < (UI_MAX_ARGS + 1); ++i)
-    {
-        _data_pointers_[i] = NULL;
-    }
-
     uint8_t tokens_received = 0;  // amount of delimiter separated tokens
     size_t data_index = 0;        // data iterator
     _data_pointers_index_ = 0;    // token buffer pointers
@@ -138,18 +185,24 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     bool command_matched = false; // error sentinel
     CommandConstructor *cmd;      // command parameters pointer
     Parameters prm;               // Parameters struct
-
+    size_t ptrs = 1 + _max_depth_ + _max_args_;
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
         char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
     */
+    // reinit _data_pointers_
+    for (size_t i = 0; i < ptrs; ++i)
+    {
+        _data_pointers_[i] = NULL;
+    }
+    
     while (true)
     {
         if (UserInput::getToken(data, len, data_index) == true)
         {
             tokens_received++;                        // increment tokens_received
-            if (tokens_received == (UI_MAX_ARGS + 1)) // index sentinel
+            if (tokens_received == ptrs) // index sentinel
             {
                 break;
             }
@@ -211,6 +264,10 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 
 void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
 {
+    if (!_begin_) // error
+    {    
+        return;
+    }
     if (_stream_buffer_allocated_ == false)
     {
         _stream_data_ = new uint8_t[rx_buffer_size]; // an array to store the received data

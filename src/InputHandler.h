@@ -192,7 +192,7 @@ public:
           _commands_count_(0),
           _output_flag_(false),
           _token_buffer_(NULL),
-          _data_pointers_{NULL},
+          _data_pointers_(NULL),
           _data_pointers_index_(0),
           _data_pointers_index_max_(0),
           _rec_num_arg_strings_(0),
@@ -229,6 +229,12 @@ public:
      * @param command reference to CommandConstructor
      */
     void addCommand(CommandConstructor &command);
+
+    /**
+     * @brief allocates memory for _data_pointers_, sets _begin_ to true
+     * 
+     */
+    bool begin();
 
     /**
      * @brief lists commands that will respond to user input
@@ -359,23 +365,27 @@ private:
     CommandConstructor *_commands_head_;     ///< pointer to object list
     CommandConstructor *_commands_tail_;     ///< pointer to object list
     size_t _commands_count_;                 ///< how many commands are there
+    size_t _max_depth_;                      ///< max command depth found
+    size_t _max_args_;                       ///< max command or subcommand arguments found
 
-    bool _output_flag_;                     ///< output is available flag, set by member functions
-    char *_token_buffer_;                   ///< pointer to tokenized c-string
-    char *_data_pointers_[UI_MAX_ARGS + 1]; ///< token_buffer pointers
-    size_t _data_pointers_index_;           ///< data_pointer index
-    size_t _data_pointers_index_max_;       ///< data_pointer index max
-    size_t _rec_num_arg_strings_;           ///< number of tokens after first valid token
-    size_t _failed_on_subcommand_;          ///< subcommand error index
-    size_t _current_search_depth_;          ///< current subcommand search depth
-    char _null_;                            ///< char '\0'
-    char _neg_;                             ///< char '-'
-    char _dot_;                             ///< char '.'
+    bool _output_flag_;               ///< output is available flag, set by member functions
+    char *_token_buffer_;             ///< pointer to tokenized c-string
+    char **_data_pointers_;           ///< token_buffer pointers
+    size_t _data_pointers_index_;     ///< data_pointer index
+    size_t _data_pointers_index_max_; ///< data_pointer index max
+    size_t _rec_num_arg_strings_;     ///< number of tokens after first valid token
+    size_t _failed_on_subcommand_;    ///< subcommand error index
+    size_t _current_search_depth_;    ///< current subcommand search depth
+    char _null_;                      ///< char '\0'
+    char _neg_;                       ///< char '-'
+    char _dot_;                       ///< char '.'
 
     bool _stream_buffer_allocated_; ///< this flag is set true on GetCommandFromStream entry if a buffer is not allocated
     bool _new_stream_data_;         ///< if there is new data in *stream_data this is true
     uint8_t *_stream_data_;         ///< pointer to stream input, a string of char
     size_t _stream_data_index_;     ///< the index of stream_data
+    
+    bool _begin_;                   ///< begin() performed flag
     // end constructor initialized variables
 
     // private methods
