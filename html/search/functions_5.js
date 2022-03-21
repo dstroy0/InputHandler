@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['inputhandler_0',['inputHandler',['../d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#ac64a624b8389507b3acfe114531999c8',1,'inputHandler(output_buffer, 512, &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;\&quot;&quot;):&#160;cli_setup.h'],['../d8/d7c/esp_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#ac64a624b8389507b3acfe114531999c8',1,'inputHandler(output_buffer, 512, &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;\&quot;&quot;):&#160;cli_setup.h']]],
-  ['inputhandler_5fsetup_1',['InputHandler_setup',['../d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7103a388c227e87eb1b8a245efb4450b',1,'InputHandler_setup():&#160;cli_setup.h'],['../d8/d7c/esp_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7103a388c227e87eb1b8a245efb4450b',1,'InputHandler_setup():&#160;cli_setup.h']]]
+  ['getargs_0',['getArgs',['../dc/d4b/class_user_input.html#a47ec5a6d10e616adb1148b76df1ae098',1,'UserInput']]],
+  ['getargtype_1',['getArgType',['../dc/d4b/class_user_input.html#a98f7d900593705782ca326b87d27864e',1,'UserInput']]],
+  ['getcommandfromstream_2',['getCommandFromStream',['../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a',1,'UserInput']]],
+  ['gettoken_3',['getToken',['../dc/d4b/class_user_input.html#a7e5742909e438a1e5f90536d63bf21f9',1,'UserInput']]]
 ];
