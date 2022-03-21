@@ -1096,9 +1096,22 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
         UserInput::_ui_out(PSTR("root command function pointer cannot be NULL\n"));
         error = false;
     }
-    if (strlen(prm.command) != prm.command_length)
+    size_t cmd_len = strlen(prm.command);
+    if (cmd_len > UI_MAX_CMD_LEN)
     {
-        UserInput::_ui_out(PSTR("command or command_length\n"));
+        UserInput::_ui_out(PSTR("command too long, increase UI_MAX_CMD_LEN or reduce command length.\n"));
+        error = false;
+    }
+    if (cmd_len != prm.command_length)
+    {
+        if (cmd_len > prm.command_length)
+        {
+            UserInput::_ui_out(PSTR("command_length too large for command\n"));
+        }
+        else
+        {
+            UserInput::_ui_out(PSTR("command_length too small for command\n"));
+        }
         error = false;
     }
     if (prm.depth > UI_MAX_DEPTH)

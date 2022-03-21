@@ -104,7 +104,7 @@ class UserInput;
 struct Parameters
 {
     void (*function)(UserInput *);    ///< function pointer
-    char command[UI_MAX_CMD_LEN];     ///< command string array
+    char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
     uint16_t command_length;          ///< command length in characters
     uint8_t depth;                    ///< command tree depth
     uint8_t sub_commands;             ///< how many subcommands does this command have
