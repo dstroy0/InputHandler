@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['max_5fnum_5fargs_0',['max_num_args',['../d0/dbf/struct_parameters.html#af2cc56591385d1eb4df0d93e9b1c7cb4',1,'Parameters']]]
+  ['help_5fparam_0',['help_param',['../d3/d4e/arduino_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h'],['../dc/d46/esp_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h']]]
 ];
