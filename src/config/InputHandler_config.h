@@ -119,6 +119,7 @@
 #endif
 
 #if defined(TEENSYDUINO)
+// pgm/ram section type conflict fix
 #define QUO(x) #x
 #define QLINE(x,y) QUO(x)QUO(y)
 #define PFIX QLINE(.progmem.variable, __COUNTER__)
