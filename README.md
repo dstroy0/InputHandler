@@ -3,14 +3,28 @@
 
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-# InputHandler
+## Design Goals
+Low memory use, feature rich.  
+InputHandler should be easy to use for beginners.  
+It should satisfy some more advanced interfacing requirements.  
+It should be able to parse uint8_t hardware output.  
+It should be able to interface with other equipment, and respond to user input.  
 
-Arduino user input handler:  
-Executes arbitrary functions by matching user input command strings.  Feature rich, low memory use.  Each CommandConstructor uses just 6 bytes of RAM (avr).
+## News
 
-Check out the examples for different use cases.  You can use this library to build a remote cli for your equipment.  
+See the releases' descriptions on
+[the library's release page](https://github.com/dstroy0/InputHandler/releases) for a list of
+changes.
 
-Commands are simple to setup, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to `UI_MAX_ARGS`) or as few arguments (`0` minimum) as you wish.
+## InputHandler
+
+This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).    Commands have a tree structure, each command has its own `Parameters` container.  
+
+Individual commands use just 6 bytes of RAM (avr).  
+
+Check out the examples for different use cases.    
+
+Commands are simple to set up, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to `UI_MAX_ARGS`) or as few arguments (`0` minimum) as you wish.  
 
 A command string looks like:  
 
@@ -22,100 +36,96 @@ your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_
 The classes' input methods are:  
 
 ```cpp
-void GetCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
+void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 ```
 
 OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
 
 ```cpp
-void ReadCommandFromBuffer(uint8_t *data, size_t len);
+void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
 InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects:  
 ```cpp  
 struct Parameters
 {
-    void (*function)(UserInput *);
-    char command[UI_MAX_CMD_LEN];
-    uint16_t command_length;
-    uint8_t depth;
-    uint8_t sub_commands;
-    UI_ARGUMENT_FLAG_ENUM argument_flag;
-    uint8_t num_args;
-    uint8_t max_num_args;
-    UITYPE _arg_type[UI_MAX_ARGS];
+    void (*function)(UserInput *);    ///< function pointer
+    char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
+    uint16_t command_length;          ///< command length in characters
+    uint8_t depth;                    ///< command tree depth
+    uint8_t sub_commands;             ///< how many subcommands does this command have
+    UI_ARG_HANDLING argument_flag;    ///< argument handling flag
+    uint8_t num_args;                 ///< minimum number of arguments this command expects
+    uint8_t max_num_args;             ///< maximum number of arguments this command expects
+    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument type array
 };
 ```  
 
 Easily enforce input argument types and construct complex commands with subcommands:  
 
 ```cpp
-// no arguments
-const Parameters no_args_prm[1] PROGMEM =
-    {   // func ptr
-        func,         // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-        "cmd_str",    // command string
-        7,            // command string characters
-        0,            // command depth
-        0,            // subcommands
-        no_arguments, // argument handling
-        0,            // minimum expected number of arguments
-        0,            // maximum expected number of arguments
-        /*
-          UITYPE arguments
-        */
-        {
-            UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-        }
-    };
-CommandConstructor your_command(no_args_prm);
+const PROGMEM Parameters help_param[1] =
+{ // func ptr
+  uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  "help",       // command string
+  4,            // command string characters
+  0,            // command depth
+  0,            // subcommands
+  UI_ARG_HANDLING::no_args,      // argument handling
+  0,            // minimum expected number of arguments
+  0,            // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
-// single argument type
-const Parameters single_type_args_prm[1] PROGMEM =
-    {   // func ptr
-        func,                 // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-        "cmd_str",            // command string
-        7,                    // command string characters
-        0,                    // command depth
-        0,                    // subcommands
-        single_type_argument, // argument handling
-        1,                    // minimum expected number of arguments
-        1,                    // maximum expected number of arguments
-        /*
-          UITYPE arguments
-        */
-        {   // any type except for NO_ARGS is allowed
-            UITYPE::NOTYPE // NOTYPE is a special type that performs no type validation
-        }
-    };
-CommandConstructor your_command(single_type_args_prm);
+const PROGMEM Parameters settings_param[1] =
+{
+  uc_settings,      // function ptr
+  "inputSettings",  // command string
+  13,               // command string characters
+  0,                // command depth
+  0,                // subcommands
+  UI_ARG_HANDLING::no_args,          // argument handling
+  0,                // minimum expected number of arguments
+  0,                // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
+CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
-// argument array
-const Parameters argument_type_array_prm[1] PROGMEM =
-    {   // func ptr
-        func,         // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-        "cmd_str",    // command string
-        7,            // command string characters
-        0,            // command depth
-        0,            // subcommands
-        no_arguments, // argument handling
-        8,            // minimum expected number of arguments
-        8,            // maximum expected number of arguments
-        /*
-          UITYPE arguments
-        */
-        {
-            UITYPE::UINT8_T,    // 8-bit  uint
-            UITYPE::UINT16_T,   // 16-bit uint
-            UITYPE::UINT32_T,   // 32-bit uint
-            UITYPE::INT16_T,    // 16-bit int
-            UITYPE::FLOAT,      // 32-bit float
-            UITYPE::CHAR,       // char
-            UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-            UITYPE::NOTYPE      // special type, no type validation performed
-        }
-    };
-CommandConstructor your_command(argument_type_array_prm);
+const PROGMEM Parameters type_test_param[1] = {
+  uc_test_input_types, // function ptr
+  "test",              // command string
+  4,                   // string length
+  0,                   // command depth
+  0,                   // subcommands
+  UI_ARG_HANDLING::type_arr,            // argument handling
+  8,                   // minimum expected number of arguments
+  8,                   // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE      // special type, no type validation performed
+  }
+};
+CommandConstructor uc_test_(type_test_param);
 
 // nested parameters
 const Parameters nested_cmd_prms_tree_depth_n[n] PROGMEM =
@@ -138,19 +148,19 @@ Class output is enabled by defining a buffer, the class methods format the buffe
 This method will output to any stream (hardware or software Serial):  
 
 ```cpp
-void OutputToStream(Stream &stream);
+void outputToStream(Stream &stream);
 ```
 
 or, you can check to see if output is available with:  
 
 ```cpp
-bool OutputIsAvailable();
+bool outputIsAvailable();
 ```
 
 and then when you are done with the output buffer, it needs to be reinitialized with:  
 
 ```cpp
-void ClearOutputBuffer();
+void clearOutputBuffer();
 ```
 
 The input process will continue to function even if you do not define an output buffer.  

@@ -857,6 +857,7 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
         UserInput::_ui_out(PSTR("func ptr == NULL, load cmd->prm[0]\n"));
         #endif
         memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
+        // deprecated with Parameters error checking
         if (prm.function == NULL) // silent crash guard
         {
             #if defined(__DEBUG_LAUNCH_FUNCTION__)

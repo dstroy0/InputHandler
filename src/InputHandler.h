@@ -473,9 +473,9 @@ private:
     /**
      * @brief determines if input Parameters struct is valid before adding to linked-list
      *
-     * @param cmd CommandConstructor pointer
+     * @param cmd CommandConstructor reference
      * @param prm reference to Parameters struct in addCommand
-     * @param prm_idx Parameters struct index
+     * @param prm_idx Parameters struct index reference
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
