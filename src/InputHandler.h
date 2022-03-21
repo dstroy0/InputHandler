@@ -231,20 +231,22 @@ public:
     void addCommand(CommandConstructor &command);
 
     /**
-     * @brief allocates memory for _data_pointers_, sets _begin_ to true
+     * @brief allocates memory for _data_pointers_, sets _begin_
      * 
+     * @return true if allocation successful
+     * @return false if allocation unsuccessful
      */
     bool begin();
 
     /**
-     * @brief lists commands that will respond to user input
-     *
+     * @brief lists commands that will respond to user input if _begin_ == true
+     * else it will inform the user to use begin() in setup()
      */
     void listCommands();
 
     /**
      * @brief read command(s) from a uint8_t (unsigned char) buffer
-     *
+     * silent return if _begin_ == false
      * @param data a buffer with characters
      * @param len the size of the buffer
      */
@@ -255,6 +257,7 @@ public:
      *
      * https://www.arduino.cc/reference/en/language/functions/communication/stream/
      *
+     * silent return if _begin_ == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
      */
