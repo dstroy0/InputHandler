@@ -111,6 +111,7 @@ void setup()
   Serial.println(F("Set up InputHandler..."));
   inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid  
   inputHandler.addCommand(uc_nested_example_);   // nested commands example
+  inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands();
   inputHandler.outputToStream(Serial); // class output  
 }

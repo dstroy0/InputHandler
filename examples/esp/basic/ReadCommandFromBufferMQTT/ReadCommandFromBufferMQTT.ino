@@ -210,7 +210,7 @@ void setup()
   inputHandler.addCommand(uc_help_);             // lists commands available to the user
   inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.addCommand(uc_test_);             // input type test
-
+  inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands(); // formats output_buffer with the command list
 }
 

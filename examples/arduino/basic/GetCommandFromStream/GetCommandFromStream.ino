@@ -60,9 +60,15 @@ void setup()
   while (!Serial); //  wait for user
 
   inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-    inputHandler.addCommand(uc_test_);             // input type test
-
-  Serial.println(F("enter <hello> to test."));
+  inputHandler.addCommand(uc_test_);             // input type test
+  if (inputHandler.begin())                      // required.  returns true on success.
+  {
+    Serial.println(F("enter <hello> to test."));
+  }
+  else
+  {
+    Serial.println(F("there was an error, please enable output for more verbose error information"));
+  }
 }
 
 void loop()
