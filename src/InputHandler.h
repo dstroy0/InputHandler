@@ -204,7 +204,8 @@ public:
           _stream_buffer_allocated_(false),
           _new_stream_data_(false),
           _stream_data_(NULL),
-          _stream_data_index_(0)
+          _stream_data_index_(0),
+          _begin_(false)
     {
     }
 
@@ -388,7 +389,7 @@ private:
     uint8_t *_stream_data_;         ///< pointer to stream input, a string of char
     size_t _stream_data_index_;     ///< the index of stream_data
     
-    bool _begin_;                   ///< begin() performed flag
+    bool _begin_;                   ///< begin() error flag
     // end constructor initialized variables
 
     // private methods
