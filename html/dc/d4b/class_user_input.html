@@ -112,13 +112,13 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <tr class="memdesc:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds user commands to the input process  <a href="../../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1">More...</a><br /></td></tr>
 <tr class="separator:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">begin</a> ()</td></tr>
-<tr class="memdesc:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="mdescLeft">&#160;</td><td class="mdescRight">allocates memory for <em>data_pointers</em>, sets <em>begin</em> to true  <a href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">More...</a><br /></td></tr>
+<tr class="memdesc:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="mdescLeft">&#160;</td><td class="mdescRight">allocates memory for <em>data_pointers</em>, sets <em>begin</em>  <a href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">More...</a><br /></td></tr>
 <tr class="separator:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1dd5daddbcdbb93af132f723007592f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">listCommands</a> ()</td></tr>
-<tr class="memdesc:af1dd5daddbcdbb93af132f723007592f"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists commands that will respond to user input  <a href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">More...</a><br /></td></tr>
+<tr class="memdesc:af1dd5daddbcdbb93af132f723007592f"><td class="mdescLeft">&#160;</td><td class="mdescRight">lists commands that will respond to user input if <em>begin</em> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for data_pointers, sets begin">begin()</a> in setup()  <a href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">More...</a><br /></td></tr>
 <tr class="separator:af1dd5daddbcdbb93af132f723007592f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68b8edf18d28af2154bc8880f7d770ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca">readCommandFromBuffer</a> (uint8_t *data, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> len)</td></tr>
-<tr class="memdesc:a68b8edf18d28af2154bc8880f7d770ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">read command(s) from a uint8_t (unsigned char) buffer  <a href="../../dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca">More...</a><br /></td></tr>
+<tr class="memdesc:a68b8edf18d28af2154bc8880f7d770ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">read command(s) from a uint8_t (unsigned char) buffer silent return if <em>begin</em> == false  <a href="../../dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca">More...</a><br /></td></tr>
 <tr class="separator:a68b8edf18d28af2154bc8880f7d770ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a76de83b3f92421efd041f08acac24a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a">getCommandFromStream</a> (Stream &amp;stream, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> rx_buffer_size=32)</td></tr>
 <tr class="memdesc:a3a76de83b3f92421efd041f08acac24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer.  <a href="../../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a">More...</a><br /></td></tr>
@@ -269,7 +269,10 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
       </table>
 </div><div class="memdoc">
 
-<p>allocates memory for <em>data_pointers</em>, sets <em>begin</em> to true </p>
+<p>allocates memory for <em>data_pointers</em>, sets <em>begin</em> </p>
+<dl class="section return"><dt>Returns</dt><dd>true if allocation successful </dd>
+<dd>
+false if allocation unsuccessful </dd></dl>
 
 </div>
 </div>
@@ -451,7 +454,7 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 
 <p>Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer. </p>
 <p ><a href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">https://www.arduino.cc/reference/en/language/functions/communication/stream/</a></p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p >silent return if <em>begin</em> == false </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the stream to reference </td></tr>
     <tr><td class="paramname">rx_buffer_size</td><td>the size of our receive buffer </td></tr>
@@ -531,7 +534,7 @@ false for no token </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>lists commands that will respond to user input </p>
+<p>lists commands that will respond to user input if <em>begin</em> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for data_pointers, sets begin">begin()</a> in setup() </p>
 
 </div>
 </div>
@@ -677,7 +680,7 @@ false if not enabled </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>read command(s) from a uint8_t (unsigned char) buffer </p>
+<p>read command(s) from a uint8_t (unsigned char) buffer silent return if <em>begin</em> == false </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>a buffer with characters </td></tr>
