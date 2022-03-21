@@ -106,12 +106,24 @@
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
+#define memcmp_P memcmp
+#define pgm_read_dword(&(x)) (x)
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
+#define memcmp_P memcmp
+#define pgm_read_dword(&(x)) (x)
+#endif
+
+#if defined(TEENSYDUINO)
+#define QUO(x) #x
+#define QLINE(x,y) QUO(x)QUO(y)
+#define PFIX QLINE(.progmem.variable, __COUNTER__)
+#undef PROGMEM
+#define PROGMEM __attribute__((section(PFIX)))
 #endif
 
 // PROGMEM width constants

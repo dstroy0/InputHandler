@@ -173,7 +173,7 @@ public:
      */
     inline UserInput(char *output_buffer = NULL,
                      size_t output_buffer_len = 0,
-                     const char *username = "",
+                     const char *username = NULL,
                      const char *end_of_line_characters = "\r\n",
                      const char *token_delimiter = " ",
                      const char *c_string_delimiter = "\"")

@@ -143,7 +143,7 @@ void UserInput::listCommands()
         return;
     }
     CommandConstructor *cmd;
-    if (_username_ == "")
+    if (_username_ == NULL)
     {
         UserInput::_ui_out(PSTR("Commands available:\n"));
     }
@@ -174,7 +174,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
 
     // this is declared here to test if _token_buffer_ == nullptr (error condition)
-    _token_buffer_ = new char[len + 1](); // place to chop up the input
+    _token_buffer_ = new char[len + 1U](); // place to chop up the input
     if (_token_buffer_ == nullptr)        // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
@@ -227,7 +227,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error condition
 
-    bool input_type_match_flag[_data_pointers_index_max_] = {false};  // argument type-match flag array
+    bool input_type_match_flag[_max_args_]{false};  // argument type-match flag array
     bool all_arguments_valid = true; // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
@@ -403,7 +403,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index)
                 bool delim_char_match = true; // error flag
                 size_t idx = data_index;
                 char inc;
-                for (size_t j = 1; j < (delim_len + 1); ++j)
+                for (size_t j = 1; j < (delim_len + 1U); ++j)
                 {
                     if ((j + i) < len)
                     {
@@ -423,7 +423,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index)
                 }
                 if (delim_char_match == true) // replace delimiter pattern with null
                 {
-                    for (size_t j = 1; j < (delim_len + 1); ++j)
+                    for (size_t j = 1; j < (delim_len + 1U); ++j)
                     {
                         data_index++;
                         _token_buffer_[data_index] = _null_;
@@ -435,7 +435,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index)
         else if (incoming == *_c_str_delim_) // switch logic for c-string input
         {
             _token_buffer_[data_index] = _null_;             // replace the c-string delimiter
-            if ((data_index + 1) < len) //  don't need to do this if we're at the end of user input
+            if ((data_index + 1U) < len) //  don't need to do this if we're at the end of user input
             {
                 bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
                 data_index++;
@@ -759,12 +759,12 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
         if (command_matched == true)
         {
             // constrain err_n_args to UI_MAX_ARGS + 1
-            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1) > (UI_MAX_ARGS + 1))
+            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1))
                                     ? (UI_MAX_ARGS + 1)
-                                    : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1);
+                                    : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             if (err_n_args > 0)
             {
-                for (size_t i = 0; i < (_failed_on_subcommand_ + 1); ++i)
+                for (size_t i = 0; i < (_failed_on_subcommand_ + 1U); ++i)
                 {
                     UserInput::_ui_out(PSTR("%s "), _data_pointers_[i]); // add subcommands to echo
                 }
@@ -975,7 +975,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     if (_current_search_depth_ <= (cmd->tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
-        for (size_t j = 1; j < (cmd->param_array_len + 1); ++j) // through the parameter array
+        for (size_t j = 1; j < (cmd->param_array_len + 1U); ++j) // through the parameter array
         {
             prm_idx = j;
             #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
