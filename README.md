@@ -175,7 +175,8 @@ ATMegaNG -- flash
 
 If your board is not listed as not supported open an issue if you'd like it added to build coverage.  
 
-NOTE: vsnprintf and dtostrf implemented on the following platforms:  
+NOTE: [vsnprintf](https://en.cppreference.com/w/c/io/vfprintf) and 
+[dtostrf](https://www.delftstack.com/howto/arduino/arduino-dtostrf/) implemented on the following platforms:  
 (see: src/config/InputHandler_config.h portability directives subsection)  
 SAMD,  
 MBED,  
