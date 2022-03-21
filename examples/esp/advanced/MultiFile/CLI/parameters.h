@@ -14,10 +14,10 @@
 #include "cli_setup.h"
 
 /**
- * @brief UserInput::Parameters struct for uc_help_
+ * @brief Parameters struct for uc_help_
  * 
  */
-const Parameters help_param[1] PROGMEM =
+const PROGMEM Parameters help_param[1] =
 { // func ptr
   uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
   "help",       // command string
@@ -37,10 +37,10 @@ const Parameters help_param[1] PROGMEM =
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 /**
- * @brief UserInput::Parameters struct for uc_settings_
+ * @brief Parameters struct for uc_settings_
  * 
  */
-const Parameters settings_param[1] PROGMEM =
+const PROGMEM Parameters settings_param[1] =
 {
   uc_settings,      // function ptr
   "inputSettings",  // command string
@@ -60,10 +60,10 @@ const Parameters settings_param[1] PROGMEM =
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 /**
- * @brief UserInput::Parameters struct for uc_test_
+ * @brief Parameters struct for uc_test_
  * 
  */
-const Parameters type_test_param[1] PROGMEM = {
+const PROGMEM Parameters type_test_param[1] = {
   uc_test_input_types, // function ptr
   "test",              // command string
   4,                   // string length
