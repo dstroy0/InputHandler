@@ -2,6 +2,7 @@ var class_user_input =
 [
     [ "UserInput", "dc/d4b/class_user_input.html#ac9017d6b70d00933c3d42f57e52b4471", null ],
     [ "addCommand", "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1", null ],
+    [ "begin", "dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369", null ],
     [ "clearOutputBuffer", "dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005", null ],
     [ "defaultFunction", "dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9", null ],
     [ "getArgs", "dc/d4b/class_user_input.html#a47ec5a6d10e616adb1148b76df1ae098", null ],
