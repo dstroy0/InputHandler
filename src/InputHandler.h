@@ -25,7 +25,7 @@
  */
 
 /**
- * @brief strongly typed argument handling flag
+ * @brief strongly typed argument handling flags
  * @enum UI_ARG_HANDLING
  */
 enum class UI_ARG_HANDLING
@@ -103,14 +103,14 @@ class UserInput;
  */
 struct Parameters
 {
-    void (*function)(UserInput *); ///< function pointer
-    char command[UI_MAX_CMD_LEN];  ///< command string array
-    uint16_t command_length;       ///< command length in characters
-    uint8_t depth;                 ///< command tree depth
-    uint8_t sub_commands;          ///< how many subcommands does this command have
-    UI_ARG_HANDLING argument_flag; ///< argument handling flag
-    uint8_t num_args;              ///< minimum number of arguments this command expects
-    uint8_t max_num_args;          ///< maximum number of arguments this command expects
+    void (*function)(UserInput *);    ///< function pointer
+    char command[UI_MAX_CMD_LEN];     ///< command string array
+    uint16_t command_length;          ///< command length in characters
+    uint8_t depth;                    ///< command tree depth
+    uint8_t sub_commands;             ///< how many subcommands does this command have
+    UI_ARG_HANDLING argument_flag;    ///< argument handling flag
+    uint8_t num_args;                 ///< minimum number of arguments this command expects
+    uint8_t max_num_args;             ///< maximum number of arguments this command expects
     UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument type array
 };
 /** @} */
