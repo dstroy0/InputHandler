@@ -711,14 +711,17 @@ void UserInput::_ui_out(const char *fmt, ...)
         va_list args;
         va_start(args, fmt);        
         int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
-        // error if err is less than zero or err + null '\0' is greater than the buffer size        
-        if (err < 0 || (err + _string_pos_) >= _output_buffer_len_)
-        {                         
-            _output_buffer_ = new char[128]();
-            _output_enabled_ = false;
-            snprintf_P(_output_buffer_, 128, 
+        // error if err is less than zero or err + null '\0' is greater than the buffer size
+        if (err < 0 ||
+            (err + _string_pos_) >= _output_buffer_len_)
+        {
+            _output_buffer_ = new char[128](); // init default
+            _output_enabled_ = false;          // disable output
+            // warn
+            snprintf_P(_output_buffer_, 128,
                        PSTR("Insufficient output buffer size, InputHandler output DISABLED."
-                            " Increase output buffer size by %d bytes.\n"), (abs(err) + 1));
+                            " Increase output buffer size by %d bytes.\n"),
+                       (abs(err) + 1));
         }
         else
         {  
@@ -739,13 +742,16 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
     // format a string with useful information
     if (UserInput::outputIsEnabled())
     {
-        // potential silent crash if _failed_on_subcommand_ > cmd->param_array_len
-        // user introduced error condition, if they enter a parameter array length that is
-        // greater than the actual array length
+        /*
+            potential silent crash if _failed_on_subcommand_ > cmd->param_array_len
+            user introduced error condition, if they enter a parameter array length that is
+            greater than the actual array length
+        */
         if (_failed_on_subcommand_ > cmd->param_array_len) // error
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
-            UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"), prm.command);
+            UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"
+                                    "CommandConstructor(Parameters, !fix this number!, tree_depth)\n"), prm.command);
             return;
         }
         memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
