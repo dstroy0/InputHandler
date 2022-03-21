@@ -1,7 +1,7 @@
 var group___user_input =
 [
     [ "Parameters", "d0/dbf/struct_parameters.html", [
-      [ "_arg_type", "d0/dbf/struct_parameters.html#a3170e977bf87d7fea93601067ed6d413", null ],
+      [ "arg_type_arr", "d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2", null ],
       [ "argument_flag", "d0/dbf/struct_parameters.html#a3397bfe84120d79b047bd5c83d2d5c53", null ],
       [ "command", "d0/dbf/struct_parameters.html#ad7bcf9456a39e6b541ab2e3039391acf", null ],
       [ "command_length", "d0/dbf/struct_parameters.html#aa5cdae10169c1ffea5ca38b74043220b", null ],
