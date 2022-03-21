@@ -96,6 +96,7 @@
 #define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 
 // portability directives
+
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
@@ -106,8 +107,11 @@
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
-#define memcmp_P memcmp
-#define pgm_read_dword(&(x)) (x)
+#undef pgm_read_dword
+#define pgm_read_dword(addr) ({ \
+  typeof(addr) _addr = (addr); \
+  *(const unsigned long *)(_addr); \
+})
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
@@ -115,7 +119,11 @@
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
 #define memcmp_P memcmp
-#define pgm_read_dword(&(x)) (x)
+#undef pgm_read_dword
+#define pgm_read_dword(addr) ({ \
+  typeof(addr) _addr = (addr); \
+  *(const unsigned long *)(_addr); \
+})
 #endif
 
 #if defined(TEENSYDUINO)

@@ -233,9 +233,10 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
         // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
+        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));
         if (memcmp_P(_data_pointers_[0],
                      cmd->prm[0].command,
-                     (size_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
+                     cmd_len_pgm) == false) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;      // start searching for subcommands at depth 1
@@ -982,9 +983,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
                                prm.command, _data_pointers_[_data_pointers_index_]);
             #endif
+            size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));
             if (memcmp_P(_data_pointers_[_data_pointers_index_],
                          cmd->prm[j].command,
-                         (size_t)pgm_read_dword(&(cmd->prm[j].command_length))) == false) // match subcommand
+                         cmd_len_pgm) == false) // match subcommand
             {
                 memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
                 if (prm.depth == _current_search_depth_)
