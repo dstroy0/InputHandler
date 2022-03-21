@@ -31,16 +31,40 @@
 
 //  maximum number of arguments per command
 #if !defined(UI_MAX_ARGS)
-#define UI_MAX_ARGS 32
+/*
+  max is 255, 
+  change to uint16_t
+  _max_args_
+  _data_pointers_index_
+  _data_pointers_index_max_
+  _rec_num_arg_strings_
+  to increase max to 65535
+*/
+#define UI_MAX_ARGS 32  
 #endif
 
 //  maximum tree depth
 #if !defined(UI_MAX_DEPTH)
+/*
+   max is 255,
+   change to uint16_t
+   _max_depth_
+   _current_search_depth_
+   to increase max to 65535
+*/
 #define UI_MAX_DEPTH 32
 #endif
 
 //  maximum number of subcommands
 #if !defined(UI_MAX_SUBCOMMANDS)
+/*
+   max is 255,
+   change to uint16_t
+   _data_pointers_index_
+   _data_pointers_index_max_
+   _failed_on_subcommand_
+   to increase max to 65535
+*/
 #define UI_MAX_SUBCOMMANDS 32
 #endif
 
@@ -61,6 +85,11 @@
 
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
+/*
+   max is 65535 - 2
+   change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
+   to increase UI_MAX_IN_LEN (2^32) - 2 
+*/
 #define UI_MAX_IN_LEN (UINT16_MAX - 2)
 #endif
 

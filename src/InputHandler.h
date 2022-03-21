@@ -353,8 +353,8 @@ private:
     // user entered constructor variables
     char *_output_buffer_;            ///< pointer to the output char buffer
     bool _output_enabled_;            ///< true if _output_buffer is not NULL
-    size_t _string_pos_;              ///< _output_buffer's index
-    const size_t _output_buffer_len_; ///< _output_buffer's size
+    uint16_t _string_pos_;              ///< _output_buffer's index
+    const uint16_t _output_buffer_len_; ///< _output_buffer's size
 
     const char *_username_;    ///< username
     const char *_term_;        ///< end of line characters
@@ -363,23 +363,23 @@ private:
     // end user entered constructor variables
 
     // constructor initialized variables
-    size_t _term_index_; ///< eol index
+    uint8_t _term_index_; ///< eol index
 
     void (*_default_function_)(UserInput *); ///< pointer to default function
     CommandConstructor *_commands_head_;     ///< pointer to object list
     CommandConstructor *_commands_tail_;     ///< pointer to object list
-    size_t _commands_count_;                 ///< how many commands are there
-    size_t _max_depth_;                      ///< max command depth found
-    size_t _max_args_;                       ///< max command or subcommand arguments found
+    uint8_t _commands_count_;                 ///< how many commands are there
+    uint8_t _max_depth_;                      ///< max command depth found
+    uint8_t _max_args_;                       ///< max command or subcommand arguments found
 
     bool _output_flag_;               ///< output is available flag, set by member functions
     char *_token_buffer_;             ///< pointer to tokenized c-string
     char **_data_pointers_;           ///< token_buffer pointers
-    size_t _data_pointers_index_;     ///< data_pointer index
-    size_t _data_pointers_index_max_; ///< data_pointer index max
-    size_t _rec_num_arg_strings_;     ///< number of tokens after first valid token
-    size_t _failed_on_subcommand_;    ///< subcommand error index
-    size_t _current_search_depth_;    ///< current subcommand search depth
+    uint8_t _data_pointers_index_;     ///< data_pointer index
+    uint8_t _data_pointers_index_max_; ///< data_pointer index max
+    uint8_t _rec_num_arg_strings_;     ///< number of tokens after first valid token
+    uint8_t _failed_on_subcommand_;    ///< subcommand error index
+    uint8_t _current_search_depth_;    ///< current subcommand search depth
     char _null_;                      ///< char '\0'
     char _neg_;                       ///< char '-'
     char _dot_;                       ///< char '.'
@@ -387,7 +387,7 @@ private:
     bool _stream_buffer_allocated_; ///< this flag is set true on GetCommandFromStream entry if a buffer is not allocated
     bool _new_stream_data_;         ///< if there is new data in *stream_data this is true
     uint8_t *_stream_data_;         ///< pointer to stream input, a string of char
-    size_t _stream_data_index_;     ///< the index of stream_data
+    uint16_t _stream_data_index_;     ///< the index of stream_data
     
     bool _begin_;                   ///< begin() error flag
     // end constructor initialized variables

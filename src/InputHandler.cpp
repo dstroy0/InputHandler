@@ -177,7 +177,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
-    uint8_t tokens_received = 0;  // amount of delimiter separated tokens
+    size_t tokens_received = 0;  // amount of delimiter separated tokens
     size_t data_index = 0;        // data iterator
     _data_pointers_index_ = 0;    // token buffer pointers
     _rec_num_arg_strings_ = 0;    // number of tokens read from data
