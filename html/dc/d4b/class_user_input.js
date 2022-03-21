@@ -1,6 +1,6 @@
 var class_user_input =
 [
-    [ "UserInput", "dc/d4b/class_user_input.html#ac9017d6b70d00933c3d42f57e52b4471", null ],
+    [ "UserInput", "dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1", null ],
     [ "_addCommandAbort", "dc/d4b/class_user_input.html#acf67aca4ab13f808c68f331f8cb79cfa", null ],
     [ "_combineControlCharacters", "dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87", null ],
     [ "_escapeCharactersSoTheyPrint", "dc/d4b/class_user_input.html#adeaee646e050606c1fda2d7a9d21d45a", null ],

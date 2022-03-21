@@ -21,7 +21,7 @@ var searchData=
   ['uint8_5fmax_18',['UINT8_MAX',['../dd/d4e/_input_handler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]],
   ['uint8_5ft_19',['UINT8_T',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
   ['uitype_20',['UITYPE',['../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]],
-  ['userinput_21',['UserInput',['../dc/d4b/class_user_input.html#ac9017d6b70d00933c3d42f57e52b4471',1,'UserInput::UserInput()'],['../dc/d4b/class_user_input.html',1,'UserInput']]],
+  ['userinput_21',['UserInput',['../dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1',1,'UserInput::UserInput()'],['../dc/d4b/class_user_input.html',1,'UserInput']]],
   ['userinput_5fescaped_5fchar_5fpgm_22',['UserInput_escaped_char_pgm',['../de/d8a/group___user_input.html#ga4c0e40e808d6003f53b7cb865943da34',1,'InputHandler.h']]],
   ['userinput_5ftype_5fstrings_5fpgm_23',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
 ];
