@@ -22,7 +22,7 @@
 */
 
 void UserInput::listSettings(UserInput *inputprocess)
-{
+{    
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d\n"), UI_MAX_ARGS);
     UserInput::_ui_out(PSTR("UI_MAX_CMD_LEN (root command) %d\n"), UI_MAX_CMD_LEN);
     UserInput::_ui_out(PSTR("UI_MAX_IN_LEN %u\n\nUserInput constructor:\n"), UI_MAX_IN_LEN);
@@ -51,7 +51,12 @@ void UserInput::listSettings(UserInput *inputprocess)
                                  ? UserInput::_escapeCharactersSoTheyPrint(_c_str_delim_[i], *_c_str_delim_buf[i])
                                  : &_c_str_delim_[i]));
     }
-    UserInput::_ui_out(PSTR("\"\n"));
+    UserInput::_ui_out(PSTR("\"\n_data_pointers_[root + _max_depth_ + _max_args_] == [%02u]\n"
+                            "_max_depth_ = %u\n"
+                            "_max_args_ = %u"), 
+                            (1 + _max_depth_ + _max_args_),
+                            _max_depth_,
+                            _max_args_);
 }
 
 void UserInput::defaultFunction(void (*function)(UserInput *))
