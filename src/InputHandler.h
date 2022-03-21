@@ -144,8 +144,8 @@ public:
     {
     }
     const Parameters *prm;
-    const uint8_t tree_depth;
     const uint8_t param_array_len;
+    const uint8_t tree_depth;    
     CommandConstructor *next_command; /** CommandConstructor iterator/pointer */
 };
 
