@@ -109,7 +109,7 @@ void UserInput::addCommand(CommandConstructor &command)
         }
         else
         {
-            _commands_tail_->next_command_parameters = &command; // single linked-list (next only)
+            _commands_tail_->next_command = &command; // single linked-list (next only)
             _commands_tail_ = &command;                          // move the tail to (this)
         }        
     }
@@ -147,7 +147,7 @@ void UserInput::listCommands()
         UserInput::_ui_out(PSTR("Commands available to %s:\n"), _username_);
     }
     uint8_t i = 1;
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters, ++i)
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
         char buffer[UI_MAX_CMD_LEN];
         memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
@@ -225,7 +225,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     bool input_type_match_flag[_data_pointers_index_max_] = {false};  // argument type-match flag array
     bool all_arguments_valid = true; // error sentinel
 
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command_parameters) // iterate through CommandConstructor linked-list
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
         // cmd->prm[0] is a reference to the root command Parameters struct
         if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, (size_t)pgm_read_dword(&(cmd->prm[0].command_length))) == false) // match root command
@@ -670,9 +670,9 @@ uint8_t UserInput::getArgType(Parameters &prm, size_t index)
     if (prm.argument_flag == UI_ARG_HANDLING::no_args)
         return static_cast<uint8_t>(UITYPE::NO_ARGS);
     if (prm.argument_flag == UI_ARG_HANDLING::one_type)
-        return static_cast<uint8_t>(prm._arg_type[0]);
+        return static_cast<uint8_t>(prm.arg_type_arr[0]);
     if (prm.argument_flag == UI_ARG_HANDLING::type_arr)        
-        return static_cast<uint8_t>(prm._arg_type[index]);
+        return static_cast<uint8_t>(prm.arg_type_arr[index]);
     return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
 }
 

@@ -111,7 +111,7 @@ struct Parameters
     UI_ARG_HANDLING argument_flag; ///< argument handling flag
     uint8_t num_args;              ///< minimum number of arguments this command expects
     uint8_t max_num_args;          ///< maximum number of arguments this command expects
-    UITYPE _arg_type[UI_MAX_ARGS]; ///< argument type array
+    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument type array
 };
 /** @} */
 
@@ -126,7 +126,7 @@ public:
      *
      * https://www.programiz.com/dsa/linked-list
      *
-     * These are chained together as a linked-list; this object contains a reference `next_command_parameters` to the next
+     * These are chained together as a linked-list; this object contains a reference `next_command` to the next
      * node in the CommandConstructor linked-list.
      *
      * Before using, construct a UserInput object and a Parameters object.
@@ -140,13 +140,13 @@ public:
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth),
-          next_command_parameters(NULL)
+          next_command(NULL)
     {
     }
     const Parameters *prm;
     const uint8_t tree_depth;
     const uint8_t param_array_len;
-    CommandConstructor *next_command_parameters; /** CommandConstructor iterator/pointer */
+    CommandConstructor *next_command; /** CommandConstructor iterator/pointer */
 };
 
 /**
