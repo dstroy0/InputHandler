@@ -7,6 +7,9 @@ var _input_handler_8h =
       [ "one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],
       [ "type_arr", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f", null ]
     ] ],
+    [ "UI_CMD_ID", "de/d8a/group___user_input.html#ga166e5457949a4e09a4391b2bacbb1db0", [
+      [ "root", "de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de", null ]
+    ] ],
     [ "UITYPE", "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UINT8_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],
       [ "UINT16_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe", null ],
