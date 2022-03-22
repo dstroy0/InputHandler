@@ -336,7 +336,7 @@ protected:
      * @return true if there is a token
      * @return false for no token
      */
-    bool getToken(uint8_t *data, size_t len, size_t &data_index);
+    inline bool getToken(uint8_t *data, size_t len, size_t &data_index);
 
     /**
      * @brief Tries to determine if input is valid
@@ -464,7 +464,7 @@ private:
      *
      * @return pointer to buf, so you can use this inside of _ui_out()
      */
-    char *_escapeCharactersSoTheyPrint(char input, char &buf);
+    inline char *_escapeCharactersSoTheyPrint(char input, char &buf);
 
     /**
      * @brief Triggers on a user input backslash, if the char immediately
@@ -475,7 +475,7 @@ private:
      * @param input the char after a backslash ie 'r'
      * @return the control character char value ie '\\r'
      */
-    char _combineControlCharacters(char input);
+    inline char _combineControlCharacters(char input);
 
     /**
      * @brief determines if input Parameters struct is valid before adding to linked-list
