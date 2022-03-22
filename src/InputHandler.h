@@ -107,22 +107,24 @@ const PROGMEM char UserInput_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] =
 class UserInput;
 
 /**
- * User Command Parameters struct
  * @brief Parameters struct, this is the container that holds your command parameters
+ * 
+ * Every command and subcommand has an associated Parameters object, this is the information
+ * that the input process needs to know about your command 
  */
 struct Parameters
 {
-    void (*function)(UserInput *);    ///< function pointer
+    void (*function)(UserInput *);    ///< void function pointer, void your_function(UserInput *inputProcess)
     char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
     uint16_t command_length;          ///< command length in characters
-    uint16_t parent_command_id;       ///< parent command's unique id
-    uint16_t command_id;              ///< this command's unique id
-    uint8_t depth;                    ///< command tree depth
-    uint8_t sub_commands;             ///< how many subcommands does this command have
+    uint16_t parent_command_id;       ///< parent command's unique id root-65535
+    uint16_t command_id;              ///< this command's unique id root-65535
+    uint8_t depth;                    ///< command tree depth root-255
+    uint8_t sub_commands;             ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
     UI_ARG_HANDLING argument_flag;    ///< argument handling flag
-    uint8_t num_args;                 ///< minimum number of arguments this command expects
-    uint8_t max_num_args;             ///< maximum number of arguments this command expects
-    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument type array
+    uint8_t num_args;                 ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    uint8_t max_num_args;             ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
+    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument UITYPE array
 };
 /** @} */
 
@@ -135,10 +137,11 @@ public:
     /**
      * @brief CommandConstructor Constructor
      *
-     * https://www.programiz.com/dsa/linked-list
+     * Linked-list primer: https://www.programiz.com/dsa/linked-list
      *
-     * These are chained together as a linked-list; this object contains a reference `next_command` to the next
-     * node in the CommandConstructor linked-list.
+     * These constructors are chained together as a linked-list; this CommandConstructor
+     * object contains a reference CommandConstructor::next_command to the next node 
+     * in the linked-list.  The list is linked together in UserInput::addCommand().
      *
      * Before using, construct a UserInput object and a Parameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
@@ -174,6 +177,10 @@ public:
 
     /**
      * @brief UserInput constructor, no output by default
+     * 
+     * UserInput has no output by default due to the default values passed in by the constructor.
+     * The constructor disables output by setting _output_enabled_ to false if output_buffer is
+     * NULL.
      *
      * @param output_buffer default NULL, if not NULL the constructor will set _output_enabled(true)
      * @param output_buffer_len default ZERO, set to length of output_buffer
@@ -222,6 +229,11 @@ public:
 
     /**
      * @brief lists UserInput class settings
+     * 
+     * Lists all pertinient process information:
+     * class configuration, constructor variables,
+     * and the amount of pointers that were dynamically 
+     * allocated in UserInput::begin()
      *
      * @param inputprocess pointer to class instance
      */
@@ -231,12 +243,20 @@ public:
      * @brief Set the default function, which is the function called
      * when there is no command match, or when input is invalid.
      *
+     * If this function is not NULL it will be called whenever there is invalid
+     * input.
      * @param function a pointer to a user specified function
      */
     void defaultFunction(void (*function)(UserInput *));
 
     /**
      * @brief adds user commands to the input process
+     * 
+     * This function inspects Parameters for errors and 
+     * reports the errors to the user if they have enabled output.
+     * If an error is detected, in the root command or any of 
+     * its subcommands the entire command tree is rejected, and
+     * no sizing for dynamically allocated variables takes place.
      *
      * @param command reference to CommandConstructor
      */
