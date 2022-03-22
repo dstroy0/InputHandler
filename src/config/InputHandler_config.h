@@ -118,7 +118,6 @@
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
-#define memcmp_P memcmp
 #undef pgm_read_dword
 #define pgm_read_dword(addr) ({ \
   typeof(addr) _addr = (addr); \
