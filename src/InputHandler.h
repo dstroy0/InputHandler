@@ -445,6 +445,7 @@ private:
      * @param match boolean command match flag
      * @param input_type_match_flag boolean type match flag array
      * @param subcommand_matched boolean subcommand match flag
+     * @param command_id 16 bit command id
      */
     void _launchLogic(CommandConstructor *cmd,
                       Parameters &prm,
