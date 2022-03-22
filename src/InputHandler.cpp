@@ -143,7 +143,7 @@ void UserInput::listCommands()
         return;
     }
     CommandConstructor *cmd;
-    if (_username_ == NULL)
+    if (_username_[0] == _null_)
     {
         UserInput::_ui_out(PSTR("Commands available:\n"));
     }
@@ -227,7 +227,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error condition
 
-    bool input_type_match_flag[_max_args_]{false};  // argument type-match flag array
+    bool* input_type_match_flag = new bool[_max_args_]();  // argument type-match flag array
     bool all_arguments_valid = true; // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
@@ -268,6 +268,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
         (*_default_function_)(this); // run the default function
     }
     delete[] _token_buffer_;
+    delete[] input_type_match_flag;
 }
 
 void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
@@ -825,7 +826,7 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
 {
     if (UserInput::outputIsEnabled())
     {
-        UserInput::_ui_out(PSTR(">%s $"), _username_, _data_pointers_[0]);
+        UserInput::_ui_out(PSTR(">%s$"), _username_, _data_pointers_[0]);
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
             if (iscntrl(*_data_pointers_[i]))
