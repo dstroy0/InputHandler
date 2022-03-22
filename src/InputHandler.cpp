@@ -702,16 +702,17 @@ void UserInput::_ui_out(const char *fmt, ...)
 {
     if (UserInput::outputIsEnabled())
     {        
-        va_list args;
-        va_start(args, fmt);        
+        va_list args; // ... parameter pack list
+        va_start(args, fmt); // set the parameter pack list index here
         int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
+        va_end(args);   // we are done with the parameter pack
         // error if err is less than zero or err + null '\0' is greater than the buffer size
         if (err < 0 ||
             (err + _string_pos_) >= _output_buffer_len_)
         {
             _output_buffer_ = new char[128](); // init default
             _output_enabled_ = false;          // disable output
-            // warn
+            // attempt warn
             snprintf_P(_output_buffer_, 128,
                        PSTR("Insufficient output buffer size, InputHandler output DISABLED."
                             " Increase output buffer size by %d bytes.\n"),
@@ -720,8 +721,7 @@ void UserInput::_ui_out(const char *fmt, ...)
         else
         {  
             _string_pos_ = _string_pos_ + err;                             
-        }
-        va_end(args);
+        }        
         _output_flag_ = true;
     }
 }
@@ -1180,7 +1180,7 @@ void UserInput::_getArgs(size_t &tokens_received,
                         bool &all_arguments_valid)
 {
     _rec_num_arg_strings_ = 0; // number of tokens read from data
-    for (size_t i = 0; i < (tokens_received - 1); ++i)
+    for (size_t i = 0; i < (tokens_received - 1U); ++i)
     {
         input_type_match_flag[i] = UserInput::validateUserInput(UserInput::_getArgType(prm, i),
                                                      _data_pointers_index_ + i); // validate the token
