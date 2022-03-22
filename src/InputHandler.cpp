@@ -30,7 +30,8 @@ void UserInput::listSettings(UserInput *inputprocess)
     UserInput::_ui_out(PSTR("end_of_line_characters = \""));
 
     size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_;
-    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN];
+    // allocate char buffer large enough to print these potential control characters
+    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
     size_t idx = 0;
     for (size_t i = 0; i < _term_len_; ++i)
     {
@@ -68,7 +69,7 @@ void UserInput::listSettings(UserInput *inputprocess)
                        (1 + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);
-    delete[] buf;
+    delete[] buf;  // free
 }
 
 void UserInput::defaultFunction(void (*function)(UserInput *))

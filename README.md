@@ -7,8 +7,8 @@
 Low memory use, feature rich.  
 InputHandler should be easy to use for beginners.  
 It should satisfy some more advanced interfacing requirements.  
-It should be able to parse uint8_t hardware output.  
-It should be able to interface with other equipment, and respond to user input.  
+It should be able to parse uint8_t.  
+It should be able to be used to interface with other equipment, programs, or sensors that output ASCII or uint8_t.  
 
 ## News
 
@@ -18,9 +18,10 @@ changes.
 
 ## InputHandler
 
-This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).    Commands have a tree structure, each command has its own `Parameters` container.  
+This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
+Commands have a tree structure, each command has its own `Parameters` container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
 
-Individual commands use just 6 bytes of RAM (avr).  
+Individual commands (each call to CommandConstructor) use just 6 bytes of RAM (avr).  
 
 Check out the examples for different use cases.    
 
