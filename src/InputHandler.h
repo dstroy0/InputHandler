@@ -313,6 +313,20 @@ public:
 
 protected:
     /**
+     * @brief transform 2d matrix indices to flat array index
+     * 
+     * use this to access a dynamically allocated array like a 2d matrix,
+     * this is much more performant than looping to allocate a (n>1)d array, 
+     * and looping again to free allocated ram.
+     * 
+     * @param m_width width of the matrix
+     * @param row row you want to access
+     * @param col column you want to access
+     * @return size_t the transformed index
+     */
+    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
+
+    /**
      * @brief Tries to get a token from an input string
      *
      * @param data input data
@@ -334,28 +348,6 @@ protected:
      * @return false type not valid
      */
     bool validateUserInput(uint8_t arg_type, size_t data_pointers_index);
-
-    /**
-     * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
-     *
-     * @param prm command options structure reference
-     * @param index argument number
-     * @return uint8_t argument type
-     */
-    uint8_t getArgType(Parameters &prm, size_t index = 0);
-
-    /**
-     * @brief validate the arguments as specified in the user defined Parameters struct
-     *
-     * @param tokens_received how many tokens are left after matching is performed
-     * @param input_type_match_flag input type validation flags
-     * @param prm Parameters struct reference
-     * @param all_arguments_valid error sentinel
-     */
-    void getArgs(size_t &tokens_received,
-                 bool *input_type_match_flag,
-                 Parameters &prm,
-                 bool &all_arguments_valid);
 
 private:
     /*
@@ -433,7 +425,7 @@ private:
                                            uint8_t *data);
 
     /**
-     * @brief launches a function
+     * @brief launches either (this) function or the root command function
      *
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
@@ -443,7 +435,7 @@ private:
     void _launchFunction(CommandConstructor *cmd, Parameters &prm, uint8_t &prm_idx, size_t tokens_received);
 
     /**
-     * @brief function launch logic
+     * @brief function launch logic, recursive on subcommand match
      *
      * @param cmd CommandConstructor ptr
      * @param prm Parameters reference
@@ -496,16 +488,26 @@ private:
     bool _addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx);
 
     /**
-     * @brief maps matrix to flat array
-     * 
-     * use this to access a dynamically allocated array like a 2d matrix
-     * 
-     * @param m_width width of the matrix
-     * @param row row you want to access
-     * @param col column you want to access
-     * @return size_t the transformed index
+     * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
+     *
+     * @param prm command options structure reference
+     * @param index argument number
+     * @return uint8_t argument type
      */
-    size_t _matrix_index(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
+    uint8_t _getArgType(Parameters &prm, size_t index = 0);
+
+    /**
+     * @brief validate the arguments as specified in the user defined Parameters struct
+     *
+     * @param tokens_received how many tokens are left after matching is performed
+     * @param input_type_match_flag input type validation flags
+     * @param prm Parameters struct reference
+     * @param all_arguments_valid error sentinel
+     */
+    void _getArgs(size_t &tokens_received,
+                 bool *input_type_match_flag,
+                 Parameters &prm,
+                 bool &all_arguments_valid);
     // end private methods
 };
 

@@ -38,7 +38,7 @@ void UserInput::listSettings(UserInput *inputprocess)
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_term_[i])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
                                                   _term_[i],
-                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                                  buf[UserInput::mIndex(buf_sz, i, 0)])
                                             : &_term_[i]));
         idx++;
     }
@@ -49,7 +49,7 @@ void UserInput::listSettings(UserInput *inputprocess)
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_delim_[i - _term_len_])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
                                                   _delim_[i - _term_len_],
-                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                                  buf[UserInput::mIndex(buf_sz, i, 0)])
                                             : &_delim_[i - _term_len_]));
         idx++;
     }
@@ -60,7 +60,7 @@ void UserInput::listSettings(UserInput *inputprocess)
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_c_str_delim_[i - _term_len_ - _delim_len_])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
                                                   _c_str_delim_[i - _term_len_ - _delim_len_],
-                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                                  buf[UserInput::mIndex(buf_sz, i, 0)])
                                             : &_c_str_delim_[i - _term_len_ - _delim_len_]));
     }
     UserInput::_ui_out(PSTR("\"\n_data_pointers_[root + _max_depth_ + _max_args_] == [%02u]\n"
@@ -693,35 +693,6 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     return true;
 }
 
-uint8_t UserInput::getArgType(Parameters &prm, size_t index)
-{
-    if (prm.argument_flag == UI_ARG_HANDLING::no_args)
-        return static_cast<uint8_t>(UITYPE::NO_ARGS);
-    if (prm.argument_flag == UI_ARG_HANDLING::one_type)
-        return static_cast<uint8_t>(prm.arg_type_arr[0]);
-    if (prm.argument_flag == UI_ARG_HANDLING::type_arr)        
-        return static_cast<uint8_t>(prm.arg_type_arr[index]);
-    return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
-}
-
-void UserInput::getArgs(size_t &tokens_received,
-                        bool *input_type_match_flag,
-                        Parameters &prm,
-                        bool &all_arguments_valid)
-{
-    _rec_num_arg_strings_ = 0; // number of tokens read from data
-    for (size_t i = 0; i < (tokens_received - 1); ++i)
-    {
-        input_type_match_flag[i] = UserInput::validateUserInput(UserInput::getArgType(prm, i),
-                                                     _data_pointers_index_ + i); // validate the token
-        _rec_num_arg_strings_++;
-        if (input_type_match_flag[i] == false) // if the token was not valid input
-        {
-            all_arguments_valid = false; // set the error sentinel
-        }
-    }
-}
-
 /*
     private methods
 */
@@ -796,7 +767,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
                     if (input_type_match_flag[i] == false || 
                         _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
-                        uint8_t _type = UserInput::getArgType(prm, i);                        
+                        uint8_t _type = UserInput::_getArgType(prm, i);                        
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
@@ -949,7 +920,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         tokens_received > 1 &&
         prm.max_num_args > 0)
     {
-        UserInput::getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
+        UserInput::_getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
         if (_rec_num_arg_strings_ >= prm.num_args &&
             _rec_num_arg_strings_ <= prm.max_num_args &&
             all_arguments_valid == true)
@@ -972,7 +943,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args > 0 &&
         prm.sub_commands == 0)
     {
-        UserInput::getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
+        UserInput::_getArgs(tokens_received, input_type_match_flag, prm, all_arguments_valid);
         //  if we received at least min and less than max arguments and they are valid
         if (_rec_num_arg_strings_ >= prm.num_args &&
             _rec_num_arg_strings_ <= prm.max_num_args &&
@@ -1185,4 +1156,33 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
         }
     }
     return error;
+}
+
+uint8_t UserInput::_getArgType(Parameters &prm, size_t index)
+{
+    if (prm.argument_flag == UI_ARG_HANDLING::no_args)
+        return static_cast<uint8_t>(UITYPE::NO_ARGS);
+    if (prm.argument_flag == UI_ARG_HANDLING::one_type)
+        return static_cast<uint8_t>(prm.arg_type_arr[0]);
+    if (prm.argument_flag == UI_ARG_HANDLING::type_arr)        
+        return static_cast<uint8_t>(prm.arg_type_arr[index]);
+    return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
+}
+
+void UserInput::_getArgs(size_t &tokens_received,
+                        bool *input_type_match_flag,
+                        Parameters &prm,
+                        bool &all_arguments_valid)
+{
+    _rec_num_arg_strings_ = 0; // number of tokens read from data
+    for (size_t i = 0; i < (tokens_received - 1); ++i)
+    {
+        input_type_match_flag[i] = UserInput::validateUserInput(UserInput::_getArgType(prm, i),
+                                                     _data_pointers_index_ + i); // validate the token
+        _rec_num_arg_strings_++;
+        if (input_type_match_flag[i] == false) // if the token was not valid input
+        {
+            all_arguments_valid = false; // set the error sentinel
+        }
+    }
 }
