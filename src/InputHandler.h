@@ -115,8 +115,8 @@ struct Parameters
     void (*function)(UserInput *);    ///< function pointer
     char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
     uint16_t command_length;          ///< command length in characters
-    uint8_t parent_command_id;        ///< parent command's unique id
-    uint8_t command_id;               ///< this command's unique id
+    uint16_t parent_command_id;       ///< parent command's unique id
+    uint16_t command_id;              ///< this command's unique id
     uint8_t depth;                    ///< command tree depth
     uint8_t sub_commands;             ///< how many subcommands does this command have
     UI_ARG_HANDLING argument_flag;    ///< argument handling flag
@@ -280,7 +280,7 @@ public:
      *
      * @return char*
      */
-    char *nextArgument();
+    inline char *nextArgument();
 
     /**
      * @brief is class output available
@@ -288,7 +288,7 @@ public:
      * @return true if output is available
      * @return false if no output is available
      */
-    bool outputIsAvailable();
+    inline bool outputIsAvailable();
 
     /**
      * @brief is class output enabled
@@ -296,7 +296,7 @@ public:
      * @return true if enabled
      * @return false if not enabled
      */
-    bool outputIsEnabled();
+    inline bool outputIsEnabled();
 
     /**
      * @brief direct class output to stream, clears output buffer automatically

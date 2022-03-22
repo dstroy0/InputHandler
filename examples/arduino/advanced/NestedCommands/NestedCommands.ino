@@ -52,7 +52,7 @@ void uc_nest_two(UserInput *inputProcess)
 const PROGMEM Parameters nested_prms[3] =
 {
   { // root command
-    uc_unrecognized,          // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
+    uc_unrecognized,          // root command not allowed to be NULL
     "launch",                 // command string
     6,                        // command string characters
     root,                     // parent id
