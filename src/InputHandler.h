@@ -453,7 +453,8 @@ private:
                       bool &all_arguments_valid,
                       bool &match,
                       bool *input_type_match_flag,
-                      bool &subcommand_matched);
+                      bool &subcommand_matched,
+                      uint16_t& command_id);
 
     /**
      * @brief Escapes control characters so they will print

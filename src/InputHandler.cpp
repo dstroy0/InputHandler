@@ -264,6 +264,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             _failed_on_subcommand_ = 0;      // subcommand error index
             bool subcommand_matched = false; // subcommand match flag
             uint8_t prm_idx = 0;
+            uint16_t command_id = root;
             // see if command has any subcommands, validate input types, try to launch function
             UserInput::_launchLogic(cmd,        // CommandConstructor pointer, contains target function pointer
                          prm,                   // ReadCommandFromBuffer Parameters structure reference
@@ -272,7 +273,8 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
                          all_arguments_valid,   // type error sentinel
                          match,                 // function launch sentinel
                          input_type_match_flag, // type error flag array
-                         subcommand_matched);   // subcommand match flag
+                         subcommand_matched,    // subcommand match flag
+                         command_id);           // Parameters command unique id
             break;                              // break command iterator for loop
         }                                       // end command logic
     }                                           // end root command for loop
@@ -868,7 +870,8 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                              bool &all_arguments_valid,
                              bool &match,
                              bool *input_type_match_flag,
-                             bool &subcommand_matched)
+                             bool &subcommand_matched,
+                             uint16_t& command_id)
 {
     // error
     if (tokens_received > 1 &&
@@ -977,10 +980,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));
             if (memcmp_P(_data_pointers_[_data_pointers_index_],
                          cmd->prm[j].command,
-                         cmd_len_pgm) == false) // match subcommand
+                         cmd_len_pgm) == false) // match subcommand string
             {
                 memcpy_P(&prm, &(cmd->prm[j]), sizeof(prm));
-                if (prm.depth == _current_search_depth_)
+                if (prm.depth == _current_search_depth_ && prm.parent_command_id == command_id)
                 {
                     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
                     UserInput::_ui_out(PSTR("(%s) subcommand matched, (%d) subcommands, max_num_args (%d)\n"),
@@ -995,6 +998,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                         #endif
                         _data_pointers_index_++;
                     }
+                    command_id = prm.command_id;
                     subcommand_matched = true;  // subcommand matched
                     _failed_on_subcommand_ = j; // set error index
                     break;                      // break out of the loop
@@ -1018,7 +1022,8 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                      all_arguments_valid,
                      match,
                      input_type_match_flag,
-                     subcommand_matched);
+                     subcommand_matched,
+                     command_id);
     }
 }
 
