@@ -349,6 +349,7 @@ Collaboration diagram for UserInput:</div>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> constructor, no output by default. </p>
+<p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <em>output_enabled</em> to false if output_buffer is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">output_buffer</td><td>default NULL, if not NULL the constructor will set _output_enabled(true) </td></tr>
@@ -893,6 +894,7 @@ false if there were one or more errors </dd></dl>
 </div><div class="memdoc">
 
 <p>adds user commands to the input process </p>
+<p >This function inspects <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected, in the root command or any of its subcommands the entire command tree is rejected, and no sizing for dynamically allocated variables takes place.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>reference to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </td></tr>
@@ -960,7 +962,7 @@ false if allocation unsuccessful </dd></dl>
 </div><div class="memdoc">
 
 <p>Set the default function, which is the function called when there is no command match, or when input is invalid. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p >If this function is not NULL it will be called whenever there is invalid input. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">function</td><td>a pointer to a user specified function </td></tr>
   </table>
@@ -1098,6 +1100,7 @@ false for no token </dd></dl>
 </div><div class="memdoc">
 
 <p>lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings </p>
+<p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">inputprocess</td><td>pointer to class instance </td></tr>
