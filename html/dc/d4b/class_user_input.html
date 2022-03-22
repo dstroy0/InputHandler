@@ -268,9 +268,9 @@ Collaboration diagram for UserInput:</div>
 <tr class="memitem:a78f2019a4b4494c4891938f7b8b6b478"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a78f2019a4b4494c4891938f7b8b6b478">_launchFunction</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, uint8_t &amp;prm_idx, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> tokens_received)</td></tr>
 <tr class="memdesc:a78f2019a4b4494c4891938f7b8b6b478"><td class="mdescLeft">&#160;</td><td class="mdescRight">launches either (this) function or the root command function  <a href="../../dc/d4b/class_user_input.html#a78f2019a4b4494c4891938f7b8b6b478">More...</a><br /></td></tr>
 <tr class="separator:a78f2019a4b4494c4891938f7b8b6b478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e3f24f0f4dd3433bd3871016fbf845"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ae0e3f24f0f4dd3433bd3871016fbf845">_launchLogic</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, uint8_t &amp;prm_idx, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> tokens_received, bool &amp;all_arguments_valid, bool &amp;match, bool *input_type_match_flag, bool &amp;subcommand_matched)</td></tr>
-<tr class="memdesc:ae0e3f24f0f4dd3433bd3871016fbf845"><td class="mdescLeft">&#160;</td><td class="mdescRight">function launch logic, recursive on subcommand match  <a href="../../dc/d4b/class_user_input.html#ae0e3f24f0f4dd3433bd3871016fbf845">More...</a><br /></td></tr>
-<tr class="separator:ae0e3f24f0f4dd3433bd3871016fbf845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a345f8c24ec78e7a87b86da643db586b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a345f8c24ec78e7a87b86da643db586b1">_launchLogic</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, uint8_t &amp;prm_idx, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> tokens_received, bool &amp;all_arguments_valid, bool &amp;match, bool *input_type_match_flag, bool &amp;subcommand_matched, uint16_t &amp;command_id)</td></tr>
+<tr class="memdesc:a345f8c24ec78e7a87b86da643db586b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">function launch logic, recursive on subcommand match  <a href="../../dc/d4b/class_user_input.html#a345f8c24ec78e7a87b86da643db586b1">More...</a><br /></td></tr>
+<tr class="separator:a345f8c24ec78e7a87b86da643db586b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeaee646e050606c1fda2d7a9d21d45a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#adeaee646e050606c1fda2d7a9d21d45a">_escapeCharactersSoTheyPrint</a> (char input, char &amp;buf)</td></tr>
 <tr class="memdesc:adeaee646e050606c1fda2d7a9d21d45a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Escapes control characters so they will print.  <a href="../../dc/d4b/class_user_input.html#adeaee646e050606c1fda2d7a9d21d45a">More...</a><br /></td></tr>
 <tr class="separator:adeaee646e050606c1fda2d7a9d21d45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -664,8 +664,8 @@ false if there were one or more errors </dd></dl>
 
 </div>
 </div>
-<a id="ae0e3f24f0f4dd3433bd3871016fbf845" name="ae0e3f24f0f4dd3433bd3871016fbf845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0e3f24f0f4dd3433bd3871016fbf845">&#9670;&nbsp;</a></span>_launchLogic()</h2>
+<a id="a345f8c24ec78e7a87b86da643db586b1" name="a345f8c24ec78e7a87b86da643db586b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a345f8c24ec78e7a87b86da643db586b1">&#9670;&nbsp;</a></span>_launchLogic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -719,7 +719,13 @@ false if there were one or more errors </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>subcommand_matched</em>&#160;</td>
+          <td class="paramname"><em>subcommand_matched</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t &amp;&#160;</td>
+          <td class="paramname"><em>command_id</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

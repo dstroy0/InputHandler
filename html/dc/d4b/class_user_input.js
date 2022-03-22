@@ -7,7 +7,7 @@ var class_user_input =
     [ "_getArgs", "dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74", null ],
     [ "_getArgType", "dc/d4b/class_user_input.html#a2f28fed9fbda993078edb5c80a7eafcc", null ],
     [ "_launchFunction", "dc/d4b/class_user_input.html#a78f2019a4b4494c4891938f7b8b6b478", null ],
-    [ "_launchLogic", "dc/d4b/class_user_input.html#ae0e3f24f0f4dd3433bd3871016fbf845", null ],
+    [ "_launchLogic", "dc/d4b/class_user_input.html#a345f8c24ec78e7a87b86da643db586b1", null ],
     [ "_readCommandFromBufferErrorOutput", "dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f", null ],
     [ "_ui_out", "dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f", null ],
     [ "addCommand", "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1", null ],
