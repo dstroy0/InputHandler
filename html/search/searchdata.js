@@ -3,14 +3,15 @@ var indexSectionsWithContent =
   0: "_abcdfghilmnoprstuv",
   1: "_cipu",
   2: "d",
-  3: "cfipv",
+  3: "cfiprv",
   4: "_abcdgilmnorsuv",
   5: "_acdfhmnopstu",
   6: "_imsv",
   7: "u",
   8: "_cfinortu",
   9: "_uv",
-  10: "c"
+  10: "c",
+  11: "i"
 };
 
 var indexSectionNames =
@@ -25,7 +26,8 @@ var indexSectionNames =
   7: "enums",
   8: "enumvalues",
   9: "defines",
-  10: "groups"
+  10: "groups",
+  11: "pages"
 };
 
 var indexSectionLabels =
@@ -40,6 +42,7 @@ var indexSectionLabels =
   7: "Enumerations",
   8: "Enumerator",
   9: "Macros",
-  10: "Modules"
+  10: "Modules",
+  11: "Pages"
 };
 

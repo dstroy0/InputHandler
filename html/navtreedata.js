@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "InputHandler", "index.html", [
+    [ "Supported Platforms", "index.html#autotoc_md3", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
