@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['inputhandler_2ecpp_0',['InputHandler.cpp',['../dd/dec/_input_handler_8cpp.html',1,'']]],
-  ['inputhandler_2eh_1',['InputHandler.h',['../df/dec/_input_handler_8h.html',1,'']]],
-  ['inputhandler_5fconfig_2eh_2',['InputHandler_config.h',['../dd/d4e/_input_handler__config_8h.html',1,'']]]
+  ['cli_5fsetup_2eh_0',['cli_setup.h',['../d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html',1,'(Global Namespace)'],['../d8/d7c/esp_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html',1,'(Global Namespace)']]]
 ];

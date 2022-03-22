@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['single_5ftype_5fargument_0',['single_type_argument',['../d1/d19/group___constants.html#gga0f773afec48d433e5613c754cc1d767caf4f8271470ef269d7f2cb2475dd79674',1,'InputHandler.h']]]
+  ['root_0',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]]
 ];
