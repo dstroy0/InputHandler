@@ -31,28 +31,30 @@ void UserInput::listSettings(UserInput *inputprocess)
 
     size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_;
     char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN];
-    size_t i = 0;
-    for (i; i < _term_len_; ++i)
+    size_t idx = 0;
+    for (size_t i = 0; i < _term_len_; ++i)
     {
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_term_[i])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
                                                   _term_[i],
                                                   buf[UserInput::_matrix_index(buf_sz, i, 0)])
                                             : &_term_[i]));
+        idx++;
     }
     UserInput::_ui_out(PSTR("\"\ntoken_delimiter = \""));
     // shift iterator, align indices
-    for (i; i < (_term_len_ + _delim_len_); ++i)
+    for (size_t i = idx; i < (size_t)(_term_len_ + _delim_len_); ++i)
     {
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_delim_[i - _term_len_])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
                                                   _delim_[i - _term_len_],
                                                   buf[UserInput::_matrix_index(buf_sz, i, 0)])
                                             : &_delim_[i - _term_len_]));
+        idx++;
     }
     UserInput::_ui_out(PSTR("\"\nc_string_delimiter = \""));
     // shift iterator again, realign indices
-    for (i; i < (_term_len_ + _delim_len_ + _c_str_delim_len_); ++i)
+    for (size_t i = idx; i < (size_t)(_term_len_ + _delim_len_ + _c_str_delim_len_); ++i)
     {
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_c_str_delim_[i - _term_len_ - _delim_len_])
                                             ? UserInput::_escapeCharactersSoTheyPrint(
