@@ -6,6 +6,7 @@ var class_user_input =
     [ "_escapeCharactersSoTheyPrint", "dc/d4b/class_user_input.html#adeaee646e050606c1fda2d7a9d21d45a", null ],
     [ "_launchFunction", "dc/d4b/class_user_input.html#a78f2019a4b4494c4891938f7b8b6b478", null ],
     [ "_launchLogic", "dc/d4b/class_user_input.html#ae0e3f24f0f4dd3433bd3871016fbf845", null ],
+    [ "_matrix_index", "dc/d4b/class_user_input.html#a0b437d350afd886ea9266ed8ac3d1054", null ],
     [ "_readCommandFromBufferErrorOutput", "dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f", null ],
     [ "_ui_out", "dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f", null ],
     [ "addCommand", "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1", null ],
@@ -26,6 +27,7 @@ var class_user_input =
     [ "validateUserInput", "dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3", null ],
     [ "_begin_", "dc/d4b/class_user_input.html#a7a0668fda012a9ef712c10e7ddc8381f", null ],
     [ "_c_str_delim_", "dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a", null ],
+    [ "_c_str_delim_len_", "dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b", null ],
     [ "_commands_count_", "dc/d4b/class_user_input.html#a7d12901b53d132d9003861f12ec5b4f8", null ],
     [ "_commands_head_", "dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987", null ],
     [ "_commands_tail_", "dc/d4b/class_user_input.html#a18a476fdeddeec87fb18659133d5739b", null ],
@@ -35,6 +37,7 @@ var class_user_input =
     [ "_data_pointers_index_max_", "dc/d4b/class_user_input.html#a69d755c9688bb625191b39c93dab3ff8", null ],
     [ "_default_function_", "dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03", null ],
     [ "_delim_", "dc/d4b/class_user_input.html#a4ac51cb680e95b30797f375cec78d814", null ],
+    [ "_delim_len_", "dc/d4b/class_user_input.html#a8b6924fba0d8bfe7c42bd6fbbf4ad599", null ],
     [ "_dot_", "dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab", null ],
     [ "_failed_on_subcommand_", "dc/d4b/class_user_input.html#a22e8e1867e082b75194ac67973ea14c2", null ],
     [ "_max_args_", "dc/d4b/class_user_input.html#a281ff5c48c9df2b0540c35c94d446c85", null ],
@@ -53,6 +56,7 @@ var class_user_input =
     [ "_string_pos_", "dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed", null ],
     [ "_term_", "dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788", null ],
     [ "_term_index_", "dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf", null ],
+    [ "_term_len_", "dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039", null ],
     [ "_token_buffer_", "dc/d4b/class_user_input.html#a8c9e3a80ee1b82866b4cd949d4023913", null ],
     [ "_username_", "dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f", null ]
 ];
