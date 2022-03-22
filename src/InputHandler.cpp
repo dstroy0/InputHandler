@@ -61,8 +61,8 @@ void UserInput::listSettings(UserInput *inputprocess)
                                             : &_c_str_delim_[i - _term_len_ - _delim_len_]));
     }
     UserInput::_ui_out(PSTR("\"\n_data_pointers_[root + _max_depth_ + _max_args_] == [%02u]\n"
-                            "_max_depth_ = %u\n"
-                            "_max_args_ = %u"),
+                            "_max_depth_ (found from input Parameters) = %u\n"
+                            "_max_args_ (found from input Parameters) = %u"),
                        (1 + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);
