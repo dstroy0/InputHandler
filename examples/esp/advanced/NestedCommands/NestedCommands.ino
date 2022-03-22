@@ -49,57 +49,59 @@ void uc_nest_two(UserInput* inputProcess)
   Serial.println(F("made it to uc_nest_two."));
 }
 
-const Parameters nested_prms[3] PROGMEM =
-{
-  { // root command
-    uc_unrecognized,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
-    "launch",       // command string
-    6,            // command string characters
-    0,            // command depth
-    2,            // subcommands  
-    UI_ARG_HANDLING::no_args,      // argument handling
-    0,            // minimum expected number of arguments
-    0,            // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
+const PROGMEM Parameters nested_prms[3] =
     {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  },
-  { // subcommand depth one
-    uc_nest_one,          // unique function
-    "one",                // command string
-    3,                    // command string characters
-    1,                    // command depth
-    0,                    // subcommands    
-    UI_ARG_HANDLING::no_args,              // argument handling
-    0,                    // minimum expected number of arguments
-    0,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  }, 
-  { // subcommand depth one
-    uc_nest_two,          // unique function
-    "two",                // command string
-    3,                    // command string characters
-    1,                    // command depth
-    0,                    // subcommands
-    UI_ARG_HANDLING::no_args,              // argument handling
-    0,                    // minimum expected number of arguments
-    0,                    // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  }
-};
+        {                          // root command
+         uc_unrecognized,          // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch
+         "launch",                 // command string
+         6,                        // command string characters
+         root,                     // parent id
+         root,                     // this command id
+         root,                     // command depth
+         2,                        // subcommands
+         UI_ARG_HANDLING::no_args, // argument handling
+         0,                        // minimum expected number of arguments
+         0,                        // maximum expected number of arguments
+         /*
+           UITYPE arguments
+         */
+         {
+             UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+         }},
+        {                          // subcommand depth one
+         uc_nest_one,              // unique function
+         "one",                    // command string
+         3,                        // command string characters
+         root,                     // parent id
+         1,                        // this command id
+         1,                        // command depth
+         0,                        // subcommands
+         UI_ARG_HANDLING::no_args, // argument handling
+         0,                        // minimum expected number of arguments
+         0,                        // maximum expected number of arguments
+         /*
+           UITYPE arguments
+         */
+         {
+             UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+         }},
+        {                          // subcommand depth one
+         uc_nest_two,              // unique function
+         "two",                    // command string
+         3,                        // command string characters
+         root,                     // parent id
+         2,                        // this command id
+         1,                        // command depth
+         0,                        // subcommands
+         UI_ARG_HANDLING::no_args, // argument handling
+         0,                        // minimum expected number of arguments
+         0,                        // maximum expected number of arguments
+         /*
+           UITYPE arguments
+         */
+         {
+             UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+         }}};
 CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 2); //  uc_help_ has a command string, and function specified
 
 void setup()

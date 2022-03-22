@@ -129,16 +129,22 @@ void uc_test_input_types(UserInput *inputProcess)
   Serial.println(out);
 }
 
-const Parameters help_param[1] PROGMEM =
+/**
+   @brief Parameters struct for uc_help_
+
+*/
+const PROGMEM Parameters help_param[1] =
 { // func ptr
-  uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  "help",       // command string
-  4,            // command string characters
-  0,            // command depth
-  2,            // subcommands
-  UI_ARG_HANDLING::no_args,      // argument handling
-  0,            // minimum expected number of arguments
-  0,            // maximum expected number of arguments
+  uc_help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  "help",                   // command string
+  4,                        // command string characters
+  root,                     // parent id
+  root,                     // this command id
+  root,                     // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -148,16 +154,23 @@ const Parameters help_param[1] PROGMEM =
 };
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
-const Parameters settings_param[1] PROGMEM =
+/**
+   @brief Parameters struct for uc_settings_
+
+*/
+const PROGMEM Parameters settings_param[1] =
 {
-  uc_settings,      // function ptr
-  "inputSettings",  // command string
-  13,               // command string characters
-  0,                // command depth
-  0,                // subcommands
-  UI_ARG_HANDLING::no_args,          // argument handling
-  0,                // minimum expected number of arguments
-  0,                // maximum expected number of arguments
+  uc_settings,     // function ptr
+  "inputSettings", // command string
+  13,              // command string characters
+  root,            // parent id
+  root,            // this command id
+  root,            // command depth
+
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -167,28 +180,33 @@ const Parameters settings_param[1] PROGMEM =
 };
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
-const Parameters type_test_param[1] PROGMEM =
-{
-  uc_test_input_types, // function ptr
-  "test",              // command string
-  4,                   // string length
-  0,                   // command depth
-  0,                   // subcommands
-  UI_ARG_HANDLING::type_arr,            // argument handling
-  8,                   // minimum expected number of arguments
-  8,                   // maximum expected number of arguments
+/**
+   @brief Parameters struct for uc_test_
+
+*/
+const PROGMEM Parameters type_test_param[1] = {
+  uc_test_input_types,       // function ptr
+  "test",                    // command string
+  4,                         // string length
+  root,                      // parent id
+  root,                      // this command id
+  root,                      // command depth
+  0,                         // subcommands
+  UI_ARG_HANDLING::type_arr, // argument handling
+  8,                         // minimum expected number of arguments
+  8,                         // maximum expected number of arguments
   /*
     UITYPE arguments
   */
   {
-    UITYPE::UINT8_T,    // 8-bit  uint
-    UITYPE::UINT16_T,   // 16-bit uint
-    UITYPE::UINT32_T,   // 32-bit uint
-    UITYPE::INT16_T,    // 16-bit int
-    UITYPE::FLOAT,      // 32-bit float
-    UITYPE::CHAR,       // char
-    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-    UITYPE::NOTYPE      // special type, no type validation performed
+    UITYPE::UINT8_T,  // 8-bit  uint
+    UITYPE::UINT16_T, // 16-bit uint
+    UITYPE::UINT32_T, // 32-bit uint
+    UITYPE::INT16_T,  // 16-bit int
+    UITYPE::FLOAT,    // 32-bit float
+    UITYPE::CHAR,     // char
+    UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE    // special type, no type validation performed
   }
 };
 CommandConstructor uc_test_(type_test_param);

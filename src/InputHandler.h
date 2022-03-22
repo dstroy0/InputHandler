@@ -25,6 +25,15 @@
  */
 
 /**
+ * @brief command identifier enum
+ * @enum UI_CMD_ID
+ */
+enum UI_CMD_ID
+{
+    root    ///< this is the root command id
+};
+
+/**
  * @brief strongly typed argument handling flags
  * @enum UI_ARG_HANDLING
  */
@@ -106,6 +115,8 @@ struct Parameters
     void (*function)(UserInput *);    ///< function pointer
     char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
     uint16_t command_length;          ///< command length in characters
+    uint8_t parent_command_id;        ///< parent command's unique id
+    uint8_t command_id;               ///< this command's unique id
     uint8_t depth;                    ///< command tree depth
     uint8_t sub_commands;             ///< how many subcommands does this command have
     UI_ARG_HANDLING argument_flag;    ///< argument handling flag
