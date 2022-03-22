@@ -22,41 +22,51 @@
 */
 
 void UserInput::listSettings(UserInput *inputprocess)
-{    
+{
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d\n"), UI_MAX_ARGS);
     UserInput::_ui_out(PSTR("UI_MAX_CMD_LEN (root command) %d\n"), UI_MAX_CMD_LEN);
     UserInput::_ui_out(PSTR("UI_MAX_IN_LEN %u\n\nUserInput constructor:\n"), UI_MAX_IN_LEN);
     UserInput::_ui_out(PSTR("username = \"%s\"\n"), _username_);
     UserInput::_ui_out(PSTR("end_of_line_characters = \""));
-    char term_buf[strlen(_term_)][UI_ESCAPED_CHAR_PGM_LEN];
-    for (size_t i = 0; i < strlen(_term_); ++i)
+
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_;
+    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN];
+    size_t i = 0;
+    for (i; i < _term_len_; ++i)
     {
         UserInput::_ui_out(PSTR("%s"), (iscntrl(_term_[i])
-                                 ? UserInput::_escapeCharactersSoTheyPrint(_term_[i], *term_buf[i])
-                                 : &_term_[i]));
+                                            ? UserInput::_escapeCharactersSoTheyPrint(
+                                                  _term_[i],
+                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                            : &_term_[i]));
     }
     UserInput::_ui_out(PSTR("\"\ntoken_delimiter = \""));
-    char delim_buf[strlen(_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
-    for (size_t i = 0; i < strlen(_delim_); ++i)
+    // shift iterator, align indices
+    for (i; i < (_term_len_ + _delim_len_); ++i)
     {
-        UserInput::_ui_out(PSTR("%s"), (iscntrl(_delim_[i])
-                                 ? UserInput::_escapeCharactersSoTheyPrint(_delim_[i], *delim_buf[i])
-                                 : &_delim_[i]));
-    }    
+        UserInput::_ui_out(PSTR("%s"), (iscntrl(_delim_[i - _term_len_])
+                                            ? UserInput::_escapeCharactersSoTheyPrint(
+                                                  _delim_[i - _term_len_],
+                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                            : &_delim_[i - _term_len_]));
+    }
     UserInput::_ui_out(PSTR("\"\nc_string_delimiter = \""));
-    char _c_str_delim_buf[strlen(_c_str_delim_)][UI_ESCAPED_CHAR_PGM_LEN];
-    for (size_t i = 0; i < strlen(_c_str_delim_); ++i)
+    // shift iterator again, realign indices
+    for (i; i < (_term_len_ + _delim_len_ + _c_str_delim_len_); ++i)
     {
-        UserInput::_ui_out(PSTR("%s"), (iscntrl(_c_str_delim_[i])
-                                 ? UserInput::_escapeCharactersSoTheyPrint(_c_str_delim_[i], *_c_str_delim_buf[i])
-                                 : &_c_str_delim_[i]));
+        UserInput::_ui_out(PSTR("%s"), (iscntrl(_c_str_delim_[i - _term_len_ - _delim_len_])
+                                            ? UserInput::_escapeCharactersSoTheyPrint(
+                                                  _c_str_delim_[i - _term_len_ - _delim_len_],
+                                                  buf[UserInput::_matrix_index(buf_sz, i, 0)])
+                                            : &_c_str_delim_[i - _term_len_ - _delim_len_]));
     }
     UserInput::_ui_out(PSTR("\"\n_data_pointers_[root + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ = %u\n"
-                            "_max_args_ = %u"), 
-                            (1 + _max_depth_ + _max_args_),
-                            _max_depth_,
-                            _max_args_);
+                            "_max_args_ = %u"),
+                       (1 + _max_depth_ + _max_args_),
+                       _max_depth_,
+                       _max_args_);
+    delete[] buf;
 }
 
 void UserInput::defaultFunction(void (*function)(UserInput *))
@@ -95,7 +105,13 @@ void UserInput::addCommand(CommandConstructor &command)
         }
     }
     if (!err)   // if no error
-    {
+    {        
+        if (_commands_count_ == 0) // do once
+        {
+            _term_len_ = strlen(_term_);
+            _delim_len_ = strlen(_delim_);
+            _c_str_delim_len_ = strlen(_c_str_delim_);
+        }
         _commands_count_++; // increment _commands_count_
 
         // set _max_depth_ to max_depth_found if it is greater than _max_depth_

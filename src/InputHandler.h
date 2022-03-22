@@ -358,8 +358,11 @@ private:
 
     const char *_username_;    ///< username
     const char *_term_;        ///< end of line characters
+    uint8_t _term_len_;        ///< _term_ length in characters, set in begin()
     const char *_delim_;       ///< token delimiter
+    uint8_t _delim_len_;       ///< _delim_ length in characters, set in begin()
     const char *_c_str_delim_; ///< c-string delimiter
+    uint8_t _c_str_delim_len_; ///< _c_str_delim_ length in characters, set in begin()
     // end user entered constructor variables
 
     // constructor initialized variables
@@ -480,6 +483,18 @@ private:
      * @return false if there were one or more errors
      */
     bool _addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx);
+
+    /**
+     * @brief maps matrix to flat array
+     * 
+     * use this to access a dynamically allocated array like a 2d matrix
+     * 
+     * @param m_width width of the matrix
+     * @param row row you want to access
+     * @param col column you want to access
+     * @return size_t the transformed index
+     */
+    size_t _matrix_index(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
     // end private methods
 };
 
