@@ -300,7 +300,7 @@ public:
      *
      * @return char*
      */
-    inline char *nextArgument();
+    char *nextArgument();
 
     /**
      * @brief is class output available
