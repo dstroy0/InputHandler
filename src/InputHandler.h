@@ -153,14 +153,14 @@ public:
                               const uint8_t tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
-          tree_depth(tree_depth),
+          tree_depth(tree_depth + 1U),
           next_command(NULL)
     {
     }
-    const Parameters *prm;
-    const uint8_t param_array_len;
-    const uint8_t tree_depth;    
-    CommandConstructor *next_command; /** CommandConstructor iterator/pointer */
+    const Parameters *prm;            ///< pointer to PROGMEM Parameters array
+    const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
+    const uint8_t tree_depth;         ///< user input depth + 1 
+    CommandConstructor *next_command; ///< CommandConstructor iterator/pointer
 };
 
 /**
@@ -375,23 +375,23 @@ private:
     */
     // user entered constructor variables
     char *_output_buffer_;              ///< pointer to the output char buffer
-    bool _output_enabled_;              ///< true if _output_buffer is not NULL
-    uint16_t _string_pos_;              ///< _output_buffer's index
-    const uint16_t _output_buffer_len_; ///< _output_buffer's size
+    bool _output_enabled_;              ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    uint16_t _string_pos_;              ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    const uint16_t _output_buffer_len_; ///< _output_buffer_ size in bytes
 
-    const char *_username_;    ///< username
-    const char *_term_;        ///< end of line characters
-    uint8_t _term_len_;        ///< _term_ length in characters, set in begin()
-    const char *_delim_;       ///< token delimiter
-    uint8_t _delim_len_;       ///< _delim_ length in characters, set in begin()
-    const char *_c_str_delim_; ///< c-string delimiter
-    uint8_t _c_str_delim_len_; ///< _c_str_delim_ length in characters, set in begin()
+    const char *_username_;    ///< username/project name/equipment name
+    const char *_term_;        ///< end of line characters, terminating characters, default is CRLF
+    uint8_t _term_len_;        ///< _term_ length in characters, determined in begin()
+    const char *_delim_;       ///< input argument delimiter, space by default
+    uint8_t _delim_len_;       ///< _delim_ length in characters, determined in begin()
+    const char *_c_str_delim_; ///< c-string delimiter, default is enclosed with quotation marks "c-string"
+    uint8_t _c_str_delim_len_; ///< _c_str_delim_ length in characters, determined in begin()
     // end user entered constructor variables
 
     // constructor initialized variables
-    uint8_t _term_index_; ///< eol index
+    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
 
-    void (*_default_function_)(UserInput *); ///< pointer to default function
+    void (*_default_function_)(UserInput *); ///< pointer to the default function
     CommandConstructor *_commands_head_;     ///< pointer to object list
     CommandConstructor *_commands_tail_;     ///< pointer to object list
     uint8_t _commands_count_;                ///< how many commands are there

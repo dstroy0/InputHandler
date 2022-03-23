@@ -102,7 +102,7 @@ const PROGMEM Parameters nested_prms[3] =
          {
              UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
          }}};
-CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 2); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); 
 
 void setup()
 {

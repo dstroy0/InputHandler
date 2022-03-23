@@ -62,19 +62,21 @@ struct Parameters
 };
 ```  
 
-Easily enforce input argument types and construct complex commands with subcommands:  
+Easily construct complex commands with subcommands, and enforce argument type:  
 
 ```cpp
 const PROGMEM Parameters help_param[1] =
-{ // func ptr
-  uc_help,      // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  "help",       // command string
-  4,            // command string characters
-  0,            // command depth
-  0,            // subcommands
-  UI_ARG_HANDLING::no_args,      // argument handling
-  0,            // minimum expected number of arguments
-  0,            // maximum expected number of arguments
+{ 
+  uc_help,                  // function pointer
+  "help",                   // command string
+  4,                        // command string characters
+  root,                     // parent id
+  root,                     // this command id
+  root,                     // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -82,18 +84,20 @@ const PROGMEM Parameters help_param[1] =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
+CommandConstructor uc_help_(help_param); 
 
 const PROGMEM Parameters settings_param[1] =
 {
-  uc_settings,      // function ptr
-  "inputSettings",  // command string
-  13,               // command string characters
-  0,                // command depth
-  0,                // subcommands
-  UI_ARG_HANDLING::no_args,          // argument handling
-  0,                // minimum expected number of arguments
-  0,                // maximum expected number of arguments
+  uc_settings,     // function ptr
+  "inputSettings", // command string
+  13,              // command string characters
+  root,            // parent id
+  root,            // this command id
+  root,            // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
   /*
     UITYPE arguments
   */
@@ -101,41 +105,94 @@ const PROGMEM Parameters settings_param[1] =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor uc_settings_(settings_param);
 
 const PROGMEM Parameters type_test_param[1] = {
-  uc_test_input_types, // function ptr
-  "test",              // command string
-  4,                   // string length
-  0,                   // command depth
-  0,                   // subcommands
-  UI_ARG_HANDLING::type_arr,            // argument handling
-  8,                   // minimum expected number of arguments
-  8,                   // maximum expected number of arguments
+  uc_test_input_types,       // function ptr
+  "test",                    // command string
+  4,                         // string length
+  root,                      // parent id
+  root,                      // this command id
+  root,                      // command depth
+  0,                         // subcommands
+  UI_ARG_HANDLING::type_arr, // argument handling
+  8,                         // minimum expected number of arguments
+  8,                         // maximum expected number of arguments
   /*
     UITYPE arguments
   */
   {
-    UITYPE::UINT8_T,    // 8-bit  uint
-    UITYPE::UINT16_T,   // 16-bit uint
-    UITYPE::UINT32_T,   // 32-bit uint
-    UITYPE::INT16_T,    // 16-bit int
-    UITYPE::FLOAT,      // 32-bit float
-    UITYPE::CHAR,       // char
-    UITYPE::C_STRING,   // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-    UITYPE::NOTYPE      // special type, no type validation performed
+    UITYPE::UINT8_T,  // 8-bit  uint
+    UITYPE::UINT16_T, // 16-bit uint
+    UITYPE::UINT32_T, // 32-bit uint
+    UITYPE::INT16_T,  // 16-bit int
+    UITYPE::FLOAT,    // 32-bit float
+    UITYPE::CHAR,     // char
+    UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::NOTYPE    // special type, no type validation performed
   }
 };
 CommandConstructor uc_test_(type_test_param);
 
 // nested parameters
-const Parameters nested_cmd_prms_tree_depth_n[n] PROGMEM =
+const PROGMEM Parameters nested_prms[3] =
 {
-  any_prm_with_function_pointer,  // nested command parameters index zero needs a function pointer, else error
-  any_prm_with_NULL_func_ptr_or_its_own_func_ptr_tree_depth_1,  // NULL func ptr defaults to element zero func ptr, or point this subcommand to its own func
-  ...
+  { // root command
+    uc_unrecognized,          // root command not allowed to be NULL
+    "launch",                 // command string
+    6,                        // command string characters
+    root,                     // parent id
+    root,                     // this command id
+    root,                     // command depth
+    2,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
+  }, // end root
+  { // command "launch" subcommand "one"
+    uc_nest_one,              // function ptr (if NULL, root function is launched)
+    "one",                    // command string
+    3,                        // command string characters
+    root,                     // parent id
+    1,                        // this command id
+    1,                        // command depth
+    0,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
+  },
+  { // command "launch" subcommand "two"
+    uc_nest_two,              // function ptr (if NULL, root function is launched)
+    "two",                    // command string
+    3,                        // command string characters
+    root,                     // parent id
+    2,                        // this command id
+    1,                        // command depth
+    0,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /*
+      UITYPE arguments
+    */
+    {
+      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+    }
+  }
 };
-CommandConstructor your_command(nested_cmd_prms, _N_prms(nested_cmd_prms), tree_depth);
+CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); // 
 ```
 
 Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
@@ -166,7 +223,7 @@ void clearOutputBuffer();
 
 The input process will continue to function even if you do not define an output buffer.  
 
-Target function will not execute if the command string does not match, or any arguments are type-invalid.  
+Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.  
 
 # Supported Platforms
 
