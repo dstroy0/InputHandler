@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['help_5fparam_0',['help_param',['../d3/d4e/arduino_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h'],['../dc/d46/esp_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h']]]
+  ['getcommandfromstream_0',['getCommandFromStream',['../dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a',1,'UserInput']]],
+  ['getcommandfromstream_2eino_1',['GetCommandFromStream.ino',['../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d0/df5/arduino_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d15/esp_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]],
+  ['gettoken_2',['getToken',['../dc/d4b/class_user_input.html#a7e5742909e438a1e5f90536d63bf21f9',1,'UserInput']]]
 ];

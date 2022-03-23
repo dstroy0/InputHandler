@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['index_5fsequence_2eh_0',['index_sequence.h',['../df/dee/index__sequence_8h.html',1,'']]],
-  ['inputhandler_2ecpp_1',['InputHandler.cpp',['../dd/dec/_input_handler_8cpp.html',1,'']]],
-  ['inputhandler_2eh_2',['InputHandler.h',['../df/dec/_input_handler_8h.html',1,'']]],
-  ['inputhandler_5fconfig_2eh_3',['InputHandler_config.h',['../dd/d4e/_input_handler__config_8h.html',1,'']]]
+  ['getcommandfromstream_2eino_0',['GetCommandFromStream.ino',['../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d0/df5/arduino_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d15/esp_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]]
 ];
