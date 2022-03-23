@@ -113,40 +113,40 @@ Collaboration diagram for UserInput:</div>
 <tr class="memdesc:a421d477af4581b35c2147a293d767038"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to the output char buffer  <a href="../../dc/d4b/class_user_input.html#a421d477af4581b35c2147a293d767038">More...</a><br /></td></tr>
 <tr class="separator:a421d477af4581b35c2147a293d767038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79bb9a66bab55a4c62fd328108927f12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">_output_enabled_</a></td></tr>
-<tr class="memdesc:a79bb9a66bab55a4c62fd328108927f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if _output_buffer is not NULL  <a href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">More...</a><br /></td></tr>
+<tr class="memdesc:a79bb9a66bab55a4c62fd328108927f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if <em>output_buffer</em> is not NULL (the user has defined and passed an output buffer to <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>'s constructor)  <a href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">More...</a><br /></td></tr>
 <tr class="separator:a79bb9a66bab55a4c62fd328108927f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61d873d6590bc16c8e8d8804412574ed"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed">_string_pos_</a></td></tr>
-<tr class="memdesc:a61d873d6590bc16c8e8d8804412574ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">_output_buffer's index  <a href="../../dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed">More...</a><br /></td></tr>
+<tr class="memdesc:a61d873d6590bc16c8e8d8804412574ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting  <a href="../../dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed">More...</a><br /></td></tr>
 <tr class="separator:a61d873d6590bc16c8e8d8804412574ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a278f946baa7770f685b20742ba16c9ea"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">_output_buffer_len_</a></td></tr>
-<tr class="memdesc:a278f946baa7770f685b20742ba16c9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">_output_buffer's size  <a href="../../dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">More...</a><br /></td></tr>
+<tr class="memdesc:a278f946baa7770f685b20742ba16c9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>output_buffer</em> size in bytes  <a href="../../dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">More...</a><br /></td></tr>
 <tr class="separator:a278f946baa7770f685b20742ba16c9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f">_username_</a></td></tr>
-<tr class="memdesc:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">username  <a href="../../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f">More...</a><br /></td></tr>
+<tr class="memdesc:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">username/project name/equipment name  <a href="../../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f">More...</a><br /></td></tr>
 <tr class="separator:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0368092c59decb133f083abe2f75a788"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788">_term_</a></td></tr>
-<tr class="memdesc:a0368092c59decb133f083abe2f75a788"><td class="mdescLeft">&#160;</td><td class="mdescRight">end of line characters  <a href="../../dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788">More...</a><br /></td></tr>
+<tr class="memdesc:a0368092c59decb133f083abe2f75a788"><td class="mdescLeft">&#160;</td><td class="mdescRight">end of line characters, terminating characters, default is CRLF  <a href="../../dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788">More...</a><br /></td></tr>
 <tr class="separator:a0368092c59decb133f083abe2f75a788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac250d80ae3233e64dfb3cbfea9c3a039"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039">_term_len_</a></td></tr>
-<tr class="memdesc:ac250d80ae3233e64dfb3cbfea9c3a039"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>term</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039">More...</a><br /></td></tr>
+<tr class="memdesc:ac250d80ae3233e64dfb3cbfea9c3a039"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039">More...</a><br /></td></tr>
 <tr class="separator:ac250d80ae3233e64dfb3cbfea9c3a039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ac51cb680e95b30797f375cec78d814"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a4ac51cb680e95b30797f375cec78d814">_delim_</a></td></tr>
-<tr class="memdesc:a4ac51cb680e95b30797f375cec78d814"><td class="mdescLeft">&#160;</td><td class="mdescRight">token delimiter  <a href="../../dc/d4b/class_user_input.html#a4ac51cb680e95b30797f375cec78d814">More...</a><br /></td></tr>
+<tr class="memdesc:a4ac51cb680e95b30797f375cec78d814"><td class="mdescLeft">&#160;</td><td class="mdescRight">input argument delimiter, space by default  <a href="../../dc/d4b/class_user_input.html#a4ac51cb680e95b30797f375cec78d814">More...</a><br /></td></tr>
 <tr class="separator:a4ac51cb680e95b30797f375cec78d814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b6924fba0d8bfe7c42bd6fbbf4ad599"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8b6924fba0d8bfe7c42bd6fbbf4ad599">_delim_len_</a></td></tr>
-<tr class="memdesc:a8b6924fba0d8bfe7c42bd6fbbf4ad599"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>delim</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#a8b6924fba0d8bfe7c42bd6fbbf4ad599">More...</a><br /></td></tr>
+<tr class="memdesc:a8b6924fba0d8bfe7c42bd6fbbf4ad599"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#a8b6924fba0d8bfe7c42bd6fbbf4ad599">More...</a><br /></td></tr>
 <tr class="separator:a8b6924fba0d8bfe7c42bd6fbbf4ad599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af416608669536c987272f81c74e8fd5a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a">_c_str_delim_</a></td></tr>
-<tr class="memdesc:af416608669536c987272f81c74e8fd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">c-string delimiter  <a href="../../dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a">More...</a><br /></td></tr>
+<tr class="memdesc:af416608669536c987272f81c74e8fd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">c-string delimiter, default is enclosed with quotation marks "c-string"  <a href="../../dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a">More...</a><br /></td></tr>
 <tr class="separator:af416608669536c987272f81c74e8fd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fa98b65514cb5dd8f658e2afaef773b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b">_c_str_delim_len_</a></td></tr>
-<tr class="memdesc:a2fa98b65514cb5dd8f658e2afaef773b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>c_str_delim</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b">More...</a><br /></td></tr>
+<tr class="memdesc:a2fa98b65514cb5dd8f658e2afaef773b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>c_str_delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a>  <a href="../../dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b">More...</a><br /></td></tr>
 <tr class="separator:a2fa98b65514cb5dd8f658e2afaef773b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a478ce06b85c141f351173d65ba8828bf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf">_term_index_</a></td></tr>
-<tr class="memdesc:a478ce06b85c141f351173d65ba8828bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">eol index  <a href="../../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf">More...</a><br /></td></tr>
+<tr class="memdesc:a478ce06b85c141f351173d65ba8828bf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>term</em> index, match all characters in term or reject the message  <a href="../../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf">More...</a><br /></td></tr>
 <tr class="separator:a478ce06b85c141f351173d65ba8828bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d8f531412f4036c644f77fbb16bde03"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03">_default_function_</a> )(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *)</td></tr>
-<tr class="memdesc:a4d8f531412f4036c644f77fbb16bde03"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to default function  <a href="../../dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03">More...</a><br /></td></tr>
+<tr class="memdesc:a4d8f531412f4036c644f77fbb16bde03"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to the default function  <a href="../../dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03">More...</a><br /></td></tr>
 <tr class="separator:a4d8f531412f4036c644f77fbb16bde03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa61672bb64c83426ffb296b295f07987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987">_commands_head_</a></td></tr>
 <tr class="memdesc:aa61672bb64c83426ffb296b295f07987"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to object list  <a href="../../dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987">More...</a><br /></td></tr>
@@ -1400,7 +1400,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>c-string delimiter </p>
+<p>c-string delimiter, default is enclosed with quotation marks "c-string" </p>
 
 </div>
 </div>
@@ -1424,7 +1424,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>c_str_delim</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>c_str_delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -1616,7 +1616,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>pointer to default function </p>
+<p>pointer to the default function </p>
 
 </div>
 </div>
@@ -1640,7 +1640,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>token delimiter </p>
+<p>input argument delimiter, space by default </p>
 
 </div>
 </div>
@@ -1664,7 +1664,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>delim</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -1880,7 +1880,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>_output_buffer's size </p>
+<p><em>output_buffer</em> size in bytes </p>
 
 </div>
 </div>
@@ -1904,7 +1904,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>true if _output_buffer is not NULL </p>
+<p>true if <em>output_buffer</em> is not NULL (the user has defined and passed an output buffer to <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>'s constructor) </p>
 
 </div>
 </div>
@@ -2048,7 +2048,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>_output_buffer's index </p>
+<p>index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
 
 </div>
 </div>
@@ -2072,7 +2072,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>end of line characters </p>
+<p>end of line characters, terminating characters, default is CRLF </p>
 
 </div>
 </div>
@@ -2096,7 +2096,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>eol index </p>
+<p><em>term</em> index, match all characters in term or reject the message </p>
 
 </div>
 </div>
@@ -2120,7 +2120,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>term</em> length in characters, set in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -2168,7 +2168,7 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>username </p>
+<p>username/project name/equipment name </p>
 
 </div>
 </div>
