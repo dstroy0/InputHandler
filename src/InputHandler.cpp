@@ -344,7 +344,8 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
 char *UserInput::nextArgument()
 {
     // return NULL if there are no more arguments
-    if (_data_pointers_index_ < UI_MAX_ARGS && _data_pointers_index_ < _data_pointers_index_max_)
+    if (_data_pointers_index_ < (_max_depth_ + _max_args_) && 
+        _data_pointers_index_ < _data_pointers_index_max_)
     {
         _data_pointers_index_++;
         return _data_pointers_[_data_pointers_index_];
