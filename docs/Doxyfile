@@ -917,6 +917,7 @@ FILE_PATTERNS          = *.c \
                          *.i++ \
                          *.inl \
                          *.idl \
+                         *.ino \
                          *.ddl \
                          *.odl \
                          *.h \
