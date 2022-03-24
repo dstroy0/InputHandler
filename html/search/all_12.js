@@ -27,6 +27,5 @@ var searchData=
   ['uint8_5ft_24',['UINT8_T',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
   ['uitype_25',['UITYPE',['../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]],
   ['userinput_26',['UserInput',['../dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1',1,'UserInput::UserInput()'],['../dc/d4b/class_user_input.html',1,'UserInput']]],
-  ['userinput_5fescaped_5fchar_5fpgm_27',['UserInput_escaped_char_pgm',['../de/d8a/group___user_input.html#ga4c0e40e808d6003f53b7cb865943da34',1,'InputHandler.h']]],
-  ['userinput_5ftype_5fstrings_5fpgm_28',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
+  ['userinput_5ftype_5fstrings_5fpgm_27',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
 ];
