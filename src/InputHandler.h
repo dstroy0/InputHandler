@@ -81,26 +81,6 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 };
 
 /**
- * escaped char string literal PROGMEM array
- * @brief escaped control char
- */
-const PROGMEM char UserInput_escaped_char_pgm[12][UI_ESCAPED_CHAR_PGM_LEN] =
-    {
-        "\\0",  // null
-        "\\a",  // bell
-        "\\b",  // backspace
-        "\\t",  // horizontal tab
-        "\\n",  // newline
-        "\\v",  // vertical tab
-        "\\f",  // form feed
-        "\\r",  // carriage return
-        "\\e",  // GCC escape sequence
-        "\\\"", // quotation mark
-        " ",    // space
-        "er"    // error
-};
-
-/**
  * @brief forward declaration of UserInput class for
  * Parameters struct and CommandConstructor class
  */
@@ -352,11 +332,12 @@ protected:
      * @param data input data
      * @param len length of input data
      * @param data_index index of data
+     * @param token_buffer_index byte index of token buffer
      *
      * @return true if there is a token
      * @return false for no token
      */
-    inline bool getToken(uint8_t *data, size_t len, size_t &data_index);
+    inline bool getToken(uint8_t *data, size_t len, size_t &data_index, size_t& token_buffer_index);
 
     /**
      * @brief Tries to determine if input is valid
@@ -481,11 +462,11 @@ private:
      * @brief Escapes control characters so they will print
      *
      * @param input the input char
-     * @param buf a reference to the output buffer
+     * @param buf the output buffer
      *
      * @return pointer to buf, so you can use this inside of _ui_out()
      */
-    inline char *_escapeCharactersSoTheyPrint(char input, char &buf);
+    char *_escapeCharactersSoTheyPrint(char input, char *buf);
 
     /**
      * @brief Triggers on a user input backslash, if the char immediately
@@ -530,6 +511,17 @@ private:
                  bool *input_type_match_flag,
                  Parameters &prm,
                  bool &all_arguments_valid);
+
+    /**
+     * @brief adds escaped control characters to a buffer
+     * 
+     * @param buf output buffer
+     * @param idx buffer index
+     * @param input string to escape
+     * @param input_len length of string
+     * @return size_t the token's index
+     */
+    size_t _addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);                 
     // end private methods
 };
 
