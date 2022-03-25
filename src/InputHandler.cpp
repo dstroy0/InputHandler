@@ -542,6 +542,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
 {
     size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
     bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
+    size_t start = (found_negative_sign == true) ? 1 : 0;
     if (arg_type < (uint8_t)UITYPE::CHAR)
     {
         // for unsigned integers
@@ -562,24 +563,11 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         // for integer numbers
         if (arg_type == (uint8_t)UITYPE::INT16_T)
         {
-            if (found_negative_sign == true) //  negative
+            for (size_t j = start; j < strlen_data; ++j)
             {
-                for (size_t j = 1; j < (strlen_data - 1); ++j)
+                if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
                 {
-                    if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
-                    {
-                        return false;
-                    }
-                }
-            }
-            else //  positive
-            {
-                for (size_t j = 0; j < strlen_data; ++j)
-                {
-                    if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
         }
@@ -588,54 +576,33 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         {
             uint8_t found_dot = 0;
             uint8_t num_digits = 0;
-            if (found_negative_sign == true) //  negative
+            uint8_t not_digits = 0;
+            for (size_t j = start; j < strlen_data; ++j)
             {
-                uint8_t not_digits = 0;
-                /*
-                    we already know there is a '-' at data[i + 1][0] because found_negative_sign is set
-                    so start the for loop at an index of one
-                */
-                for (size_t j = 1; j < strlen_data; ++j)
-                {
-                    if (_data_pointers_[_data_pointers_index_][j] == _dot_)
-                    {
-                        found_dot++;
-                    }
-                    if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
-                    {
-                        num_digits++;
-                    }
-                    else
-                    {
-                        not_digits++;
-                    }
-                }
-                if (found_dot == 0) // if there is no fraction
+                if (_data_pointers_[_data_pointers_index_][j] == _dot_)
                 {
                     found_dot++;
                 }
-                /*
-                    if we find one '.' and one '-' or one '-' and no '.' increment num_digits to include the sign, else type match will fail
-                    this is to allow negative numbers with no decimal or fraction like "-5" and also input like "-5.0"
-                */
-                if ((not_digits == 2 && found_dot == 1) || (not_digits == 1 && found_dot == 1))
+                if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
                 {
-                    num_digits++; // count the negative sign
+                    num_digits++;
+                }
+                else
+                {
+                    not_digits++;
                 }
             }
-            else //  positive
+            if (found_dot == 0) // if there is no fraction
             {
-                for (size_t j = 0; j < strlen_data; ++j)
-                {
-                    if (_data_pointers_[_data_pointers_index_][j] == _dot_)
-                    {
-                        found_dot++;
-                    }
-                    if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
-                    {
-                        num_digits++;
-                    }
-                }
+                found_dot++;
+            }
+            /*
+                if we find one '.' and one '-' or one '-' and no '.' increment num_digits to include the sign, else type match will fail
+                this is to allow negative numbers with no decimal or fraction like "-5" and also input like "-5.0"
+            */
+            if ((not_digits == 2 && found_dot == 1) || (not_digits == 1 && found_dot == 1))
+            {
+                num_digits++; // count the negative sign
             }
             if (found_dot > 1 || (num_digits + found_dot) != strlen_data)
             {
@@ -647,31 +614,19 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         For char and c-string input.
         Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
     */
-    else if (arg_type == (uint8_t)UITYPE::CHAR)
+    else if (arg_type == (uint8_t)UITYPE::CHAR ||
+             arg_type == (uint8_t)UITYPE::C_STRING)
     {
-        if (strlen_data > 1)
+        if (arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1)
         {
             return false;
         }
-        if (isprint(_data_pointers_[_data_pointers_index_][0]) ||
-            ispunct(_data_pointers_[_data_pointers_index_][0]) ||
-            iscntrl(_data_pointers_[_data_pointers_index_][0]) ||
-            isdigit(_data_pointers_[_data_pointers_index_][0]))
-        {
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else if (arg_type == (uint8_t)UITYPE::C_STRING)
-    {
         for (size_t j = 0; j < strlen_data; ++j)
         {
-            if (isprint(_data_pointers_[_data_pointers_index_][j]) ||
-                ispunct(_data_pointers_[_data_pointers_index_][j]) ||
-                iscntrl(_data_pointers_[_data_pointers_index_][j]) ||
-                isdigit(_data_pointers_[_data_pointers_index_][j]))
+            if (isprint(_data_pointers_[_data_pointers_index_][0]) ||
+                ispunct(_data_pointers_[_data_pointers_index_][0]) ||
+                iscntrl(_data_pointers_[_data_pointers_index_][0]) ||
+                isdigit(_data_pointers_[_data_pointers_index_][0]))
             {
             }
             else
@@ -1017,14 +972,14 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         UserInput::_ui_out(PSTR("recurse\n"));
         #endif
         UserInput::_launchLogic(cmd,
-                     prm,
-                     prm_idx,
-                     tokens_received,
-                     all_arguments_valid,
-                     match,
-                     input_type_match_flag,
-                     subcommand_matched,
-                     command_id);
+                                prm,
+                                prm_idx,
+                                tokens_received,
+                                all_arguments_valid,
+                                match,
+                                input_type_match_flag,
+                                subcommand_matched,
+                                command_id);
     }
 }
 
@@ -1129,11 +1084,13 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
     {
         if (prm.depth > 0)
         {
-            UserInput::_ui_out(PSTR("%s Parameters error! Subcommand not added.\n"), prm.command);
+            UserInput::_ui_out(PSTR("%s Parameters error! Subcommand not added.\n"),
+                               prm.command);
         }
         else
         {
-            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"), prm.command);
+            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"), 
+                               prm.command);
         }
     }
     return error;
@@ -1141,12 +1098,10 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
 
 uint8_t UserInput::_getArgType(Parameters &prm, size_t index)
 {
-    if (prm.argument_flag == UI_ARG_HANDLING::no_args)
-        return static_cast<uint8_t>(UITYPE::NO_ARGS);
-    if (prm.argument_flag == UI_ARG_HANDLING::one_type)
-        return static_cast<uint8_t>(prm.arg_type_arr[0]);
-    if (prm.argument_flag == UI_ARG_HANDLING::type_arr)        
-        return static_cast<uint8_t>(prm.arg_type_arr[index]);
+    if (prm.argument_flag == UI_ARG_HANDLING::no_args) return static_cast<uint8_t>(UITYPE::NO_ARGS);
+    if (prm.argument_flag == UI_ARG_HANDLING::one_type) return static_cast<uint8_t>(prm.arg_type_arr[0]);
+    if (prm.argument_flag == UI_ARG_HANDLING::type_arr) return static_cast<uint8_t>(prm.arg_type_arr[index]);
+
     return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
 }
 
