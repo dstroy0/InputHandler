@@ -30,15 +30,15 @@ void UserInput::listSettings(UserInput *inputprocess)
     size_t term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
     size_t delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
     size_t c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);
-    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d\n"
-                            "UI_MAX_CMD_LEN (root command) %d\n"
-                            "UI_MAX_IN_LEN %u\n"
+    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d max allowed arguments per unique command_id\n"
+                            "UI_MAX_CMD_LEN (root command) %d characters\n"
+                            "UI_MAX_IN_LEN %u bytes\n"
                             "\nUserInput constructor:\n"
-                            "username = \"%s\"\n"
-                            "end_of_line_characters = \"%s\"\n"
-                            "token_delimiter = \"%s\"\n"
-                            "c_string_delimiter = \"%s\"\n"
-                            "_data_pointers_[root + _max_depth_ + _max_args_] == [%02u]\n"
+                            "username = \"%s\", \"\" means the username was blank\n"
+                            "end_of_line_characters = \"%s\", control characters are escaped for display\n"
+                            "token_delimiter = \"%s\", control characters are escaped for display\n"
+                            "c_string_delimiter = \"%s\", control characters are escaped for display\n"
+                            "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ (found from input Parameters) = %u\n"
                             "_max_args_ (found from input Parameters) = %u"),
                        UI_MAX_ARGS,
@@ -578,7 +578,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
                 {
                     found_dot++;
                 }
-                if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
+                else if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
                 {
                     num_digits++;
                 }
@@ -586,20 +586,10 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
                 {
                     not_digits++;
                 }
-            }
-            if (found_dot == 0) // if there is no fraction
-            {
-                found_dot++;
-            }
-            /*
-                if we find one '.' and one '-' or one '-' and no '.' increment num_digits to include the sign, else type match will fail
-                this is to allow negative numbers with no decimal or fraction like "-5" and also input like "-5.0"
-            */
-            if ((not_digits == 2 && found_dot == 1) || (not_digits == 1 && found_dot == 1))
-            {
-                num_digits++; // count the negative sign
-            }
-            if (found_dot > 1 || (num_digits + found_dot) != strlen_data)
+            }                              
+            if (found_dot > 1U || 
+                not_digits > 0U ||
+                (num_digits + found_dot + start) != strlen_data)
             {
                 return false;
             }
@@ -662,8 +652,7 @@ void UserInput::_ui_out(const char *fmt, ...)
             // attempt warn
             snprintf_P(_output_buffer_, 128,
                        PSTR("Insufficient output buffer size, InputHandler output DISABLED."
-                            " Increase output buffer size by %d bytes.\n"),
-                       (abs(err) + 1));
+                            " Increase output buffer size by %i bytes.\n"), err);
         }
         else
         {
