@@ -429,18 +429,16 @@ private:
      * @brief launches either (this) function or the root command function
      *
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference
-     * @param prm_idx Parameters array index
+     * @param prm Parameters struct reference     
      * @param tokens_received amount of tokens in the token buffer
      */
-    void _launchFunction(CommandConstructor *cmd, Parameters &prm, uint8_t &prm_idx, size_t tokens_received);
+    void _launchFunction(CommandConstructor *cmd, Parameters &prm, size_t tokens_received);
 
     /**
      * @brief function launch logic, recursive on subcommand match
      *
      * @param cmd CommandConstructor ptr
      * @param prm Parameters reference
-     * @param prm_idx Parameters array index
      * @param tokens_received number of tokens retreived from input data
      * @param all_arguments_valid boolean array
      * @param match boolean command match flag
@@ -449,8 +447,7 @@ private:
      * @param command_id 16 bit command id
      */
     void _launchLogic(CommandConstructor *cmd,
-                      Parameters &prm,
-                      uint8_t &prm_idx,
+                      Parameters &prm,                      
                       size_t tokens_received,
                       bool &all_arguments_valid,
                       bool &match,
@@ -484,11 +481,10 @@ private:
      *
      * @param cmd CommandConstructor reference
      * @param prm reference to Parameters struct in addCommand
-     * @param prm_idx Parameters struct index reference
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
-    bool _addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx);
+    bool _addCommandAbort(CommandConstructor &cmd, Parameters &prm);
 
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t

@@ -25,7 +25,7 @@ void UserInput::listSettings(UserInput *inputprocess)
 {
     size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3 null separators
     // allocate char buffer large enough to print these potential control characters
-    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();    
+    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
     size_t idx = 0;
     size_t term = 0;
     size_t delim = 0;
@@ -48,9 +48,9 @@ void UserInput::listSettings(UserInput *inputprocess)
                        UI_MAX_CMD_LEN,
                        UI_MAX_IN_LEN,
                        _username_,
-                       (char*)&buf[term],
-                       (char*)&buf[delim],
-                       (char*)&buf[c_str_delim],
+                       (char *)&buf[term],
+                       (char *)&buf[delim],
+                       (char *)&buf[c_str_delim],
                        (1U + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);
@@ -66,17 +66,17 @@ void UserInput::addCommand(CommandConstructor &command)
 {
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
-    Parameters prm;      // this Parameters struct is referenced by the helper function _addCommandAbort()
-    bool err = false;    // Parameters struct error sentinel
+    Parameters prm;             // this Parameters struct is referenced by the helper function _addCommandAbort()
+    bool err = false;           // Parameters struct error sentinel
     /*
-        the reason we run through the whole Parameters array instead of breaking 
-        on error is to give users clues as to what might be wrong with their 
+        the reason we run through the whole Parameters array instead of breaking
+        on error is to give users clues as to what might be wrong with their
         command Parameters
     */
     for (size_t i = 0; i < command.param_array_len; ++i)
     {
         memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
-        if (!UserInput::_addCommandAbort(command, prm, i)) // input Parameters error checking
+        if (!UserInput::_addCommandAbort(command, prm)) // input Parameters error checking
         {
             err = true;
         }
@@ -92,8 +92,8 @@ void UserInput::addCommand(CommandConstructor &command)
                                  : max_args_found;
         }
     }
-    if (!err)   // if no error
-    {        
+    if (!err) // if no error
+    {
         if (_commands_count_ == 0) // do once
         {
             _term_len_ = strlen(_term_);
@@ -104,14 +104,14 @@ void UserInput::addCommand(CommandConstructor &command)
 
         // set _max_depth_ to max_depth_found if it is greater than _max_depth_
         _max_depth_ = (max_depth_found > _max_depth_)
-                            ? max_depth_found
-                            : _max_depth_;
+                          ? max_depth_found
+                          : _max_depth_;
         // set _max_args_ to max_args_found if it is greater than _max_args_
         _max_args_ = (max_args_found > _max_args_)
-                            ? max_args_found
-                            : _max_args_;
-        
-        // linked-list                            
+                         ? max_args_found
+                         : _max_args_;
+
+        // linked-list
         if (_commands_head_ == NULL) // the list is empty
         {
             _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the list
@@ -119,15 +119,15 @@ void UserInput::addCommand(CommandConstructor &command)
         else
         {
             _commands_tail_->next_command = &command; // single linked-list (next only)
-            _commands_tail_ = &command;                          // move the tail to (this)
-        }        
+            _commands_tail_ = &command;               // move the tail to (this)
+        }
     }
 }
 
 bool UserInput::begin()
-{    
-    size_t ptrs = 1 + _max_depth_ + _max_args_;    
-    _data_pointers_ = new char*[ptrs]();
+{
+    size_t ptrs = 1 + _max_depth_ + _max_args_;
+    _data_pointers_ = new char *[ptrs]();
     if (_data_pointers_ == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
@@ -168,7 +168,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 {
     // error checking
     if (!_begin_) // error
-    {    
+    {
         return;
     }
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
@@ -179,22 +179,22 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 
     // this is declared here to test if _token_buffer_ == nullptr (error condition)
     _token_buffer_ = new char[len + 1U](); // place to chop up the input
-    if (_token_buffer_ == nullptr)        // if there was an error allocating the memory
+    if (_token_buffer_ == nullptr)         // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
         return;
     }
     // end error checking
 
-    size_t tokens_received = 0;  // amount of delimiter separated tokens
+    size_t tokens_received = 0;    // amount of delimiter separated tokens
     size_t token_buffer_index = 0; // token buffer index
-    size_t data_index = 0;        // data iterator
-    _data_pointers_index_ = 0;    // token buffer pointers
-    _rec_num_arg_strings_ = 0;    // number of tokens read from data
-    bool match = false;           // command string match
-    bool command_matched = false; // error sentinel
-    CommandConstructor *cmd;      // command parameters pointer
-    Parameters prm;               // Parameters struct
+    size_t data_index = 0;         // data iterator
+    _data_pointers_index_ = 0;     // token buffer pointers
+    _rec_num_arg_strings_ = 0;     // number of tokens read from data
+    bool match = false;            // command string match
+    bool command_matched = false;  // error sentinel
+    CommandConstructor *cmd;       // command parameters pointer
+    Parameters prm;                // Parameters struct
     size_t ptrs = 1 + _max_depth_ + _max_args_;
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
@@ -206,12 +206,12 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     {
         _data_pointers_[i] = NULL;
     }
-    
+
     while (true)
     {
         if (UserInput::getToken(data, len, data_index, token_buffer_index) == true)
         {
-            tokens_received++;                        // increment tokens_received
+            tokens_received++;           // increment tokens_received
             if (tokens_received == ptrs) // index sentinel
             {
                 break;
@@ -222,18 +222,18 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             break;
         }
     }
-    _data_pointers_index_max_ = tokens_received;    // set index max to tokens received
-   
+    _data_pointers_index_max_ = tokens_received; // set index max to tokens received
+
     if (tokens_received == 0) // error condition
     {
         delete[] _token_buffer_;
-        UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), _username_);        
+        UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), _username_);
         return;
     }
     // end error condition
 
-    bool* input_type_match_flag = new bool[_max_args_]();  // argument type-match flag array
-    bool all_arguments_valid = true; // error sentinel
+    bool *input_type_match_flag = new bool[_max_args_](); // argument type-match flag array
+    bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
@@ -244,34 +244,32 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
                      cmd_len_pgm) == false) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
-            _current_search_depth_ = 1;      // start searching for subcommands at depth 1
-            _data_pointers_index_ = 1;       // index 1 of _data_pointers_ is the token after the root command
-            command_matched = true;          // root command match flag
-            _failed_on_subcommand_ = 0;      // subcommand error index
-            bool subcommand_matched = false; // subcommand match flag
-            uint8_t prm_idx = 0;
+            _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
+            _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
+            command_matched = true;                      // root command match flag
+            _failed_on_subcommand_ = 0;                  // subcommand error index
+            bool subcommand_matched = false;             // subcommand match flag
             uint16_t command_id = root;
             // see if command has any subcommands, validate input types, try to launch function
-            UserInput::_launchLogic(cmd,        // CommandConstructor pointer, contains target function pointer
-                         prm,                   // ReadCommandFromBuffer Parameters structure reference
-                         prm_idx,               // Parameters array index
-                         tokens_received,       // how many tokens were retrieved
-                         all_arguments_valid,   // type error sentinel
-                         match,                 // function launch sentinel
-                         input_type_match_flag, // type error flag array
-                         subcommand_matched,    // subcommand match flag
-                         command_id);           // Parameters command unique id
-            break;                              // break command iterator for loop
-        }                                       // end command logic
-    }                                           // end root command for loop
-    if (!match && _default_function_ != NULL)   // if there was no command match and a default function is configured
+            UserInput::_launchLogic(cmd,                   // CommandConstructor pointer, contains target function pointer
+                                    prm,                   // ReadCommandFromBuffer Parameters structure reference
+                                    tokens_received,       // how many tokens were retrieved
+                                    all_arguments_valid,   // type error sentinel
+                                    match,                 // function launch sentinel
+                                    input_type_match_flag, // type error flag array
+                                    subcommand_matched,    // subcommand match flag
+                                    command_id);           // Parameters command unique id
+            break;                                         // break command iterator for loop
+        }                                                  // end command logic
+    }                                                      // end root command for loop
+    if (!match && _default_function_ != NULL)              // if there was no command match and a default function is configured
     {
         UserInput::_readCommandFromBufferErrorOutput(cmd,
-                                          prm,
-                                          command_matched,
-                                          input_type_match_flag,
-                                          all_arguments_valid,
-                                          data);
+                                                     prm,
+                                                     command_matched,
+                                                     input_type_match_flag,
+                                                     all_arguments_valid,
+                                                     data);
         (*_default_function_)(this); // run the default function
     }
     delete[] _token_buffer_;
@@ -281,7 +279,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
 {
     if (!_begin_) // error
-    {    
+    {
         return;
     }
     if (_stream_buffer_allocated_ == false)
@@ -295,7 +293,7 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
         _stream_buffer_allocated_ = true;
         _term_index_ = 0;
     }
-    char *rc = (char *)_stream_data_; // point rc to allocated memory    
+    char *rc = (char *)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
     {
         rc[_stream_data_index_] = stream.read();
@@ -329,7 +327,7 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
 char *UserInput::nextArgument()
 {
     // return NULL if there are no more arguments
-    if (_data_pointers_index_ < (_max_depth_ + _max_args_) && 
+    if (_data_pointers_index_ < (_max_depth_ + _max_args_) &&
         _data_pointers_index_ < _data_pointers_index_max_)
     {
         _data_pointers_index_++;
@@ -393,7 +391,7 @@ bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index, size_t& 
             _token_buffer_[token_buffer_index] = _null_;
             token_buffer_index++;      
         }
-        else if (incoming == _delim_[0]) // replace delimiter
+        else if (incoming == _delim_[0]) // if _delim_len_ == 1 this is a match, else scan for whole delim
         {
             if (_delim_len_ == 1) // incoming is equal to _delim_[0] and the delimiter is one character in length
             {                
@@ -653,11 +651,11 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
 void UserInput::_ui_out(const char *fmt, ...)
 {
     if (UserInput::outputIsEnabled())
-    {        
-        va_list args; // ... parameter pack list
+    {
+        va_list args;        // ... parameter pack list
         va_start(args, fmt); // set the parameter pack list index here
-        int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);        
-        va_end(args);   // we are done with the parameter pack
+        int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);
+        va_end(args); // we are done with the parameter pack
         // error if err is less than zero or err + null '\0' is greater than the buffer size
         if (err < 0 ||
             (err + _string_pos_) >= _output_buffer_len_)
@@ -671,9 +669,9 @@ void UserInput::_ui_out(const char *fmt, ...)
                        (abs(err) + 1));
         }
         else
-        {  
-            _string_pos_ = _string_pos_ + err;                             
-        }        
+        {
+            _string_pos_ = _string_pos_ + err;
+        }
         _output_flag_ = true;
     }
 }
@@ -697,7 +695,8 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
             UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"
-                                    "CommandConstructor(Parameters, !fix this number!, tree_depth)\n"), prm.command);
+                                    "CommandConstructor(Parameters, !fix this number!, tree_depth)\n"),
+                               prm.command);
             return;
         }
         memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
@@ -718,10 +717,10 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
                 bool print_subcmd_err = true;
                 for (size_t i = 0; i < prm.max_num_args; ++i)
                 {
-                    if (input_type_match_flag[i] == false || 
+                    if (input_type_match_flag[i] == false ||
                         _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
-                        uint8_t _type = UserInput::_getArgType(prm, i);                        
+                        uint8_t _type = UserInput::_getArgType(prm, i);
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
@@ -758,14 +757,13 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
         }
         else // command not matched
         {
-            UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char *)data, _data_pointers_[0]);            
+            UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char *)data, _data_pointers_[0]);
         }
     }
 }
 
 void UserInput::_launchFunction(CommandConstructor *cmd,
                                 Parameters &prm,
-                                uint8_t &prm_idx,
                                 size_t tokens_received)
 {
     if (UserInput::outputIsEnabled())
@@ -774,7 +772,7 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
             if (iscntrl(*_data_pointers_[i]))
-            {                
+            {
                 for (size_t j = 0; j < strlen(_data_pointers_[i]); ++j)
                 {
                     char buf[UI_ESCAPED_CHAR_PGM_LEN]{};
@@ -790,44 +788,32 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
         UserInput::_ui_out(PSTR("\n"));
     }
     _data_pointers_index_ = _current_search_depth_ - 1;
-    #if defined(__DEBUG_LAUNCH_FUNCTION__)
-    UserInput::_ui_out(PSTR("prm_idx=%d\n"), prm_idx);
-    #endif
 
     if (prm.function != NULL)
     {
         #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR("func ptr != NULL\n"));
+        UserInput::_ui_out(PSTR("launch command_id %u\n"), prm.command_id);
         #endif
         prm.function(this);
     }
     else
     {
-        #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR("func ptr == NULL, load cmd->prm[0]\n"));
-        #endif
         memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
-        // deprecated with Parameters error checking
-        if (prm.function == NULL) // silent crash guard
-        {
-            #if defined(__DEBUG_LAUNCH_FUNCTION__)
-            UserInput::_ui_out(PSTR("ERROR! Parameters function pointer NULL for (%s), edit your source!\n"), prm.command);
-            #endif
-            return;
-        }
+        #if defined(__DEBUG_LAUNCH_FUNCTION__)
+        UserInput::_ui_out(PSTR("launch command_id %u\n"), prm.command_id);
+        #endif
         prm.function(this);
     }
 }
 
 void UserInput::_launchLogic(CommandConstructor *cmd,
                              Parameters &prm,
-                             uint8_t &prm_idx,
                              size_t tokens_received,
                              bool &all_arguments_valid,
                              bool &match,
                              bool *input_type_match_flag,
                              bool &subcommand_matched,
-                             uint16_t& command_id)
+                             uint16_t &command_id)
 {
     // error
     if (tokens_received > 1 &&
@@ -835,8 +821,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$DEBUG: too many tokens (%d) for command (%s)\n"),
-                _username_, tokens_received, prm.command);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), _username_, prm.command_id);
         #endif
         return;
     }
@@ -847,13 +832,11 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/no args, subcommand match false "
-                     "tokens=0 max_args=0 launchFunction(%s)\n"),
-                _username_, prm.command);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
         #endif
 
-        match = true;                                        // don't run default callback
-        UserInput::_launchFunction(cmd, prm, prm_idx, tokens_received); // launch the matched command
+        match = true;                                          // don't run default callback
+        UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         return;
     }
 
@@ -864,12 +847,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         prm.max_num_args == 0)
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$DEBUG: subcmd w/no args, subcommand match true "
-                     "tokens==0 max_args==0 depth>1 launchFunction(%s)\n"),
-                _username_, prm.command);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
         #endif
-        match = true;                                        // don't run default callback
-        UserInput::_launchFunction(cmd, prm, prm_idx, tokens_received); // launch the matched command
+        match = true;                                          // don't run default callback
+        UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         return;
     }
 
@@ -885,12 +866,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/ args, no subcmd match, subcommand match false "
-                         "tokens>0 max_args>0 depth>1 launchFunction(%s)\n"),
-                    _username_, prm.command);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
             #endif
-            match = true;                                        // don't run default callback
-            UserInput::_launchFunction(cmd, prm, prm_idx, tokens_received); // launch the matched command
+            match = true;                                          // don't run default callback
+            UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         }
         // if !match, error
         return;
@@ -909,10 +888,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$DEBUG: cmd w/args (max depth) launchFunction(%s)\n"), _username_, prm.command);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
             #endif
-            match = true;                                        // don't run default callback
-            UserInput::_launchFunction(cmd, prm, prm_idx, tokens_received); // launch the matched command
+            match = true;                                          // don't run default callback
+            UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         }
         // if !match, error
         return;
@@ -921,18 +900,13 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     // subcommand search
     subcommand_matched = false;
     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-    UserInput::_ui_out(PSTR("search depth (%d)\n"), _current_search_depth);
+    UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), _username_, _current_search_depth);
     #endif
     if (_current_search_depth_ <= (cmd->tree_depth)) // dig starting at depth 1
     {
         // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < (cmd->param_array_len + 1U); ++j) // through the parameter array
         {
-            prm_idx = j;
-            #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-            UserInput::_ui_out(PSTR("match depth cmd=(%s)\ntoken=(%s)\n"),
-                               prm.command, _data_pointers_[_data_pointers_index_]);
-            #endif
             size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));
             if (memcmp_P(_data_pointers_[_data_pointers_index_],
                          cmd->prm[j].command,
@@ -942,22 +916,20 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                 if (prm.depth == _current_search_depth_ && prm.parent_command_id == command_id)
                 {
                     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                    UserInput::_ui_out(PSTR("(%s) subcommand matched, (%d) subcommands, max_num_args (%d)\n"),
-                                       prm.command, prm.sub_commands, prm.max_num_args);
+                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, "
+                                            "command_id (%u), (%d) subcommands, max_num_args (%d)\n"),
+                                       _username_, prm.command, prm.command_id, prm.sub_commands, prm.max_num_args);
                     #endif
                     // subcommand matched
                     if (tokens_received > 0)
                     {
-                        tokens_received--; // subtract subcommand from tokens received
-                        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                        UserInput::_ui_out(PSTR("decrement tokens (%d)\n"), tokens_received);
-                        #endif
-                        _data_pointers_index_++;
+                        tokens_received--;       // subtract subcommand from tokens received
+                        _data_pointers_index_++; // increment to the next token
                     }
-                    command_id = prm.command_id;
-                    subcommand_matched = true;  // subcommand matched
-                    _failed_on_subcommand_ = j; // set error index
-                    break;                      // break out of the loop
+                    command_id = prm.command_id; // set command_id to matched subcommand
+                    subcommand_matched = true;   // subcommand matched
+                    _failed_on_subcommand_ = j;  // set error index
+                    break;                       // break out of the loop
                 }
             }
         }
@@ -969,11 +941,10 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     if (subcommand_matched == true) // recursion
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-        UserInput::_ui_out(PSTR("recurse\n"));
+        UserInput::_ui_out(PSTR("recurse, command_id (%u)\n"), prm.command_id);
         #endif
         UserInput::_launchLogic(cmd,
                                 prm,
-                                prm_idx,
                                 tokens_received,
                                 all_arguments_valid,
                                 match,
@@ -1028,7 +999,7 @@ char UserInput::_combineControlCharacters(char input)
     }
 }
 
-bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_t &prm_idx)
+bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
 {
     bool error = true;
     if (prm.function == NULL && prm.depth == 0)
@@ -1088,7 +1059,7 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm, size_
         }
         else
         {
-            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"), 
+            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"),
                                prm.command);
         }
     }
@@ -1105,15 +1076,15 @@ uint8_t UserInput::_getArgType(Parameters &prm, size_t index)
 }
 
 void UserInput::_getArgs(size_t &tokens_received,
-                        bool *input_type_match_flag,
-                        Parameters &prm,
-                        bool &all_arguments_valid)
+                         bool *input_type_match_flag,
+                         Parameters &prm,
+                         bool &all_arguments_valid)
 {
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
     {
         input_type_match_flag[i] = UserInput::validateUserInput(UserInput::_getArgType(prm, i),
-                                                     _data_pointers_index_ + i); // validate the token
+                                                                _data_pointers_index_ + i); // validate the token
         _rec_num_arg_strings_++;
         if (input_type_match_flag[i] == false) // if the token was not valid input
         {
@@ -1122,19 +1093,19 @@ void UserInput::_getArgs(size_t &tokens_received,
     }
 }
 
-size_t UserInput::_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len)
+size_t UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len)
 {
     size_t start = idx;
-    char tmp_esc_chr [UI_ESCAPED_CHAR_PGM_LEN]{};
+    char tmp_esc_chr[UI_ESCAPED_CHAR_PGM_LEN]{};
     for (size_t i = 0; i < input_len; ++i)
-    {  
+    {
         *tmp_esc_chr = *UserInput::_escapeCharactersSoTheyPrint(input[i], tmp_esc_chr);
-        for(uint8_t i = 0; i < strlen(tmp_esc_chr); ++i)
+        for (uint8_t i = 0; i < strlen(tmp_esc_chr); ++i)
         {
             buf[idx] = tmp_esc_chr[i];
             idx++;
         }
-    }    
+    }
     buf[idx] = _null_; // terminate string
     idx++;
     return start;
