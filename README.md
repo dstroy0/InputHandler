@@ -21,7 +21,7 @@ changes.
 This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
 Commands have a tree structure, each command has its own [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
 
-Individual commands (each call to CommandConstructor) use just 6 bytes of RAM (avr).  
+Individual commands (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html)) use just 6 bytes of RAM (avr).  
 
 Check out the examples for different use cases.    
 
@@ -220,7 +220,7 @@ const PROGMEM Parameters nested_prms[3] =
 CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); // 
 ```
 
-Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
+Each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html) uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
 
 [NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that doesn't perform any type-validation.  
 [NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that explicitly states you wish to pass no arguments.  

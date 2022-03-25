@@ -159,11 +159,11 @@ public:
      * @brief UserInput constructor, no output by default
      * 
      * UserInput has no output by default due to the default values passed in by the constructor.
-     * The constructor disables output by setting _output_enabled_ to false if output_buffer is
+     * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param output_buffer default NULL, if not NULL the constructor will set _output_enabled(true)
-     * @param output_buffer_len default ZERO, set to length of output_buffer
+     * @param output_buffer default NULL, if not NULL the constructor will set `_output_enabled_` true
+     * @param output_buffer_len default ZERO, size this to length of output_buffer
      * @param username default NULL, set to project, equipment, or user name
      * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
