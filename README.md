@@ -34,7 +34,7 @@ your_command arg1 arg... "c-string args can have spaces and are enclosed with qu
 your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...
 ```
 
-The first library object that needs to be initialized is the constructor for the UserInput class:  
+The first library object that needs to be initialized is the constructor for the [UserInput](https://dstroy0.github.io/InputHandler/html/dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1) class:  
 ```cpp
 /*
   UserInput constructor
