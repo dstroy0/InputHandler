@@ -27,11 +27,36 @@ Check out the examples for different use cases.
 
 Commands are simple to set up, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to `UI_MAX_ARGS`) or as few arguments (`0` minimum) as you wish.  
 
-A command string looks like:  
+A valid (default-settings) command string would look something like:  
 
 ```text
 your_command arg1 arg... "c-string args can have spaces and are enclosed with quotes"
 your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...
+```
+
+The first library object that needs to be initialized is the constructor for the UserInput class:  
+```cpp
+/*
+  UserInput constructor
+*/
+char output_buffer[512] = {'\0'};
+UserInput inputHandler
+(   /* UserInput's output buffer */ output_buffer,
+    /* size of UserInput's output buffer */ buffSZ(output_buffer),
+    /* username */ "",
+    /* end of line characters */ "\r\n",
+    /* token delimiter */ " ",
+    /* c-string delimiter */ "\""
+);
+```
+
+or, default-init with no output:  
+
+```cpp
+/*
+  UserInput constructor
+*/
+UserInput inputHandler;
 ```
 
 The classes' input methods are:  
