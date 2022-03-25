@@ -313,11 +313,11 @@ Collaboration diagram for UserInput:</div>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> constructor, no output by default. </p>
-<p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <em>output_enabled</em> to false if output_buffer is NULL.</p>
+<p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <code>_output_enabled_</code> to false if output_buffer is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">output_buffer</td><td>default NULL, if not NULL the constructor will set _output_enabled(true) </td></tr>
-    <tr><td class="paramname">output_buffer_len</td><td>default ZERO, set to length of output_buffer </td></tr>
+    <tr><td class="paramname">output_buffer</td><td>default NULL, if not NULL the constructor will set <code>_output_enabled_</code> true </td></tr>
+    <tr><td class="paramname">output_buffer_len</td><td>default ZERO, size this to length of output_buffer </td></tr>
     <tr><td class="paramname">username</td><td>default NULL, set to project, equipment, or user name </td></tr>
     <tr><td class="paramname">end_of_line_characters</td><td>EOL term, default is '\r\n' </td></tr>
     <tr><td class="paramname">token_delimiter</td><td>token demarcation </td></tr>
