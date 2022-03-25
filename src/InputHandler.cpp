@@ -550,8 +550,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
         {
             return false; // uint cannot be negative
-        }
-        //float and int can be negative
+        }        
         for (size_t j = start; j < strlen_data; ++j)
         {
             if (_data_pointers_[_data_pointers_index_][j] == _dot_)
@@ -566,9 +565,9 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             {
                 not_digits++;
             }
-        }
-        //int error test
-        if (arg_type == (uint8_t)UITYPE::INT16_T && 
+        }        
+        //int/uint error test
+        if (arg_type <= (uint8_t)UITYPE::INT16_T && 
             (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
         {
             return false;
@@ -744,22 +743,23 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
 {
     if (UserInput::outputIsEnabled())
     {
-        UserInput::_ui_out(PSTR(">%s$"), _username_, _data_pointers_[0]);
+        UserInput::_ui_out(PSTR(">%s$"), _username_);
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
-            if (iscntrl(*_data_pointers_[i]))
+            size_t strlen_data = strlen(_data_pointers_[i]);
+            for (size_t j = 0; j < strlen_data; ++j)
             {
-                for (size_t j = 0; j < strlen(_data_pointers_[i]); ++j)
+                if (iscntrl(_data_pointers_[i][j])) // format buffer with escaped char
                 {
                     char buf[UI_ESCAPED_CHAR_PGM_LEN]{};
                     UserInput::_ui_out(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[i][j], buf));
                 }
-                UserInput::_ui_out(PSTR(" "));
+                else
+                {
+                    UserInput::_ui_out(PSTR("%c"), _data_pointers_[i][j]); // single char
+                }
             }
-            else
-            {
-                UserInput::_ui_out(PSTR("%s "), _data_pointers_[i]);
-            }
+            UserInput::_ui_out(PSTR(" ")); // add a space
         }
         UserInput::_ui_out(PSTR("\n"));
     }
