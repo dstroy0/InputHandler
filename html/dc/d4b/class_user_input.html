@@ -238,8 +238,8 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:aef0e4170324bf9eef64da23aec99686f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebb3d0583502972a63ab3caafefcd205"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aebb3d0583502972a63ab3caafefcd205">_launchFunction</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t tokens_received)</td></tr>
 <tr class="separator:aebb3d0583502972a63ab3caafefcd205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6589da6657a4c9283a24ababf96d71f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6589da6657a4c9283a24ababf96d71f6">_launchLogic</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t tokens_received, bool &amp;all_arguments_valid, bool &amp;match, bool *input_type_match_flag, bool &amp;subcommand_matched, uint16_t &amp;command_id)</td></tr>
-<tr class="separator:a6589da6657a4c9283a24ababf96d71f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a109cbbeb887193f54c9b6f010fa45a32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a109cbbeb887193f54c9b6f010fa45a32">_launchLogic</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t tokens_received, bool &amp;all_arguments_valid, bool &amp;launch_attempted, bool *input_type_match_flag, bool &amp;subcommand_matched, uint16_t &amp;command_id)</td></tr>
+<tr class="separator:a109cbbeb887193f54c9b6f010fa45a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41e2ec666f1dfe878fcd04b2cfcee336"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336">_escapeCharactersSoTheyPrint</a> (char input, char *buf)</td></tr>
 <tr class="separator:a41e2ec666f1dfe878fcd04b2cfcee336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16525071fe3d841e92352b5db709e87"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87">_combineControlCharacters</a> (char input)</td></tr>
@@ -676,8 +676,8 @@ false if there were one or more errors </dd></dl>
 
 </div>
 </div>
-<a id="a6589da6657a4c9283a24ababf96d71f6" name="a6589da6657a4c9283a24ababf96d71f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6589da6657a4c9283a24ababf96d71f6">&#9670;&nbsp;</a></span>_launchLogic()</h2>
+<a id="a109cbbeb887193f54c9b6f010fa45a32" name="a109cbbeb887193f54c9b6f010fa45a32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109cbbeb887193f54c9b6f010fa45a32">&#9670;&nbsp;</a></span>_launchLogic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -713,7 +713,7 @@ false if there were one or more errors </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>match</em>, </td>
+          <td class="paramname"><em>launch_attempted</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -753,7 +753,7 @@ false if there were one or more errors </dd></dl>
     <tr><td class="paramname">prm</td><td><a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> reference </td></tr>
     <tr><td class="paramname">tokens_received</td><td>number of tokens retreived from input data </td></tr>
     <tr><td class="paramname">all_arguments_valid</td><td>boolean array </td></tr>
-    <tr><td class="paramname">match</td><td>boolean command match flag </td></tr>
+    <tr><td class="paramname">launch_attempted</td><td>launch attempted flag </td></tr>
     <tr><td class="paramname">input_type_match_flag</td><td>boolean type match flag array </td></tr>
     <tr><td class="paramname">subcommand_matched</td><td>boolean subcommand match flag </td></tr>
     <tr><td class="paramname">command_id</td><td>16 bit command id </td></tr>
