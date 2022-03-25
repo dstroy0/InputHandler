@@ -87,7 +87,7 @@ struct Parameters
 };
 ```  
 
-Easily construct complex commands with subcommands, and enforce argument type:  
+Easily construct complex commands with subcommands, and enforce input type. Nested commands still only use 6 bytes of sram (avr):  
 
 ```cpp
 const PROGMEM Parameters help_param[1] =
@@ -220,7 +220,7 @@ const PROGMEM Parameters nested_prms[3] =
 CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); // 
 ```
 
-Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods.
+Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
 
 `NOTYPE` is a special argument type that doesn't perform any type-validation.  
 `NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
