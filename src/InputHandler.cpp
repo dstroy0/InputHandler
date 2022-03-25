@@ -1000,8 +1000,7 @@ char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
         case (char)'\r': {buf[1] = 'r'; break;}
         case (char)'\e': {buf[1] = 'e'; break;}
         case (char)'\"': {buf[1] = '"'; break;}
-        default:
-            break;
+        default: break;
         }
         buf[2] = _null_; // terminate
         return buf;
