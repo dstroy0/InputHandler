@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('dc/d4b/class_user_input.html','../../'
 <div class="contents">
 
 <p>User input handler methods.  
- <a href="../../dc/d4b/class_user_input.html#details">More...</a></p>
+</p>
 
 <p><code>#include &lt;<a class="el" href="../../df/dec/_input_handler_8h_source.html">InputHandler.h</a>&gt;</code></p>
 <div class="dynheader">
@@ -290,9 +290,7 @@ Collaboration diagram for UserInput:</div>
 <tr class="memdesc:a07fe8e4c9417e15e72af955654627749"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds escaped control characters to a buffer  <a href="../../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749">More...</a><br /></td></tr>
 <tr class="separator:a07fe8e4c9417e15e72af955654627749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >User input handler methods. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a62df272305fd09fc81023c316c7002e1" name="a62df272305fd09fc81023c316c7002e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62df272305fd09fc81023c316c7002e1">&#9670;&nbsp;</a></span>UserInput()</h2>
 
@@ -350,8 +348,6 @@ Collaboration diagram for UserInput:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> constructor, no output by default. </p>
 <p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <em>output_enabled</em> to false if output_buffer is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -401,8 +397,6 @@ Collaboration diagram for UserInput:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>determines if input <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> struct is valid before adding to linked-list </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> reference </td></tr>
@@ -461,8 +455,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>adds escaped control characters to a buffer </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buf</td><td>output buffer </td></tr>
@@ -499,8 +491,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Triggers on a user input backslash, if the char immediately after the backslash would be a valid control char it returns the control char. ie if you input char() + char(r) this will return the control character '\r'. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>the char after a backslash ie 'r' </td></tr>
@@ -544,8 +534,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Escapes control characters so they will print. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>the input char </td></tr>
@@ -602,8 +590,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>validate the arguments as specified in the user defined <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> struct </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokens_received</td><td>how many tokens are left after matching is performed </td></tr>
@@ -649,8 +635,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Get the UITYPE equivalent for the argument, internally we use uint8_t. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prm</td><td>command options structure reference </td></tr>
@@ -701,8 +685,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>launches either (this) function or the root command function </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> pointer </td></tr>
@@ -784,8 +766,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>function launch logic, recursive on subcommand match </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> ptr </td></tr>
@@ -859,8 +839,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>ReadCommandFromBuffer error output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> pointer </td></tr>
@@ -908,8 +886,6 @@ false if there were one or more errors </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> vsnprintf <a href="https://www.cplusplus.com/reference/cstdio/vsprintf/">https://www.cplusplus.com/reference/cstdio/vsprintf/</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fmt</td><td>the format string </td></tr>
@@ -935,8 +911,6 @@ false if there were one or more errors </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>adds user commands to the input process </p>
 <p >This function inspects <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected, in the root command or any of its subcommands the entire command tree is rejected, and no sizing for dynamically allocated variables takes place.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -961,8 +935,6 @@ false if there were one or more errors </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>allocates memory for <code>_data_pointers_</code>, sets <code>_begin_</code> </p>
 <dl class="section return"><dt>Returns</dt><dd>true if allocation successful </dd>
 <dd>
 false if allocation unsuccessful </dd></dl>
@@ -984,8 +956,6 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>clears output buffer, sets index to zero </p>
-
 </div>
 </div>
 <a id="a65286d0a8daf3789af61363828e870c9" name="a65286d0a8daf3789af61363828e870c9"></a>
@@ -1003,8 +973,6 @@ false if allocation unsuccessful </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Set the default function, which is the function called when there is no command match, or when input is invalid. </p>
 <p >If this function is not NULL it will be called whenever there is invalid input. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">function</td><td>a pointer to a user specified function </td></tr>
@@ -1039,8 +1007,6 @@ false if allocation unsuccessful </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer. </p>
 <p ><a href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">https://www.arduino.cc/reference/en/language/functions/communication/stream/</a></p>
 <p >silent return if <code>_begin_</code> == false </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1097,8 +1063,6 @@ false if allocation unsuccessful </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Tries to get a token from an input string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>input data </td></tr>
@@ -1129,8 +1093,6 @@ false for no token </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>lists commands that will respond to user input if <code>_begin_</code> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> in <a class="el" href="../../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup()</a> </p>
-
 </div>
 </div>
 <a id="a466b547b43d36de49fe8f514b5e0532a" name="a466b547b43d36de49fe8f514b5e0532a"></a>
@@ -1148,8 +1110,6 @@ false for no token </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings </p>
 <p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1199,8 +1159,6 @@ false for no token </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>transform 2d matrix indices to flat array index </p>
 <p >use this to access a dynamically allocated array like a 2d matrix, this is much more performant than looping to allocate a (n&gt;1)d array, and looping again to free allocated ram.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1228,8 +1186,6 @@ false for no token </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>returns a pointer to the next token in token_buffer or NULL if there are no more tokens </p>
 <dl class="section return"><dt>Returns</dt><dd>char* </dd></dl>
 
 </div>
@@ -1256,8 +1212,6 @@ false for no token </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>is class output available </p>
 <dl class="section return"><dt>Returns</dt><dd>true if output is available </dd>
 <dd>
 false if no output is available </dd></dl>
@@ -1286,8 +1240,6 @@ false if no output is available </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>is class output enabled </p>
 <dl class="section return"><dt>Returns</dt><dd>true if enabled </dd>
 <dd>
 false if not enabled </dd></dl>
@@ -1309,8 +1261,6 @@ false if not enabled </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>direct class output to stream, clears output buffer automatically </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the stream to print to </td></tr>
@@ -1345,8 +1295,6 @@ false if not enabled </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>read command(s) from a uint8_t (unsigned char) buffer silent return if <code>_begin_</code> == false </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>a buffer with characters </td></tr>
@@ -1390,8 +1338,6 @@ false if not enabled </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Tries to determine if input is valid. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg_type</td><td>the type of argument we are testing </td></tr>
@@ -1426,8 +1372,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> error flag </p>
-
 </div>
 </div>
 <a id="af416608669536c987272f81c74e8fd5a" name="af416608669536c987272f81c74e8fd5a"></a>
@@ -1449,8 +1393,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>c-string delimiter, default is enclosed with quotation marks "c-string" </p>
 
 </div>
 </div>
@@ -1474,8 +1416,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>c_str_delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
-
 </div>
 </div>
 <a id="a7d12901b53d132d9003861f12ec5b4f8" name="a7d12901b53d132d9003861f12ec5b4f8"></a>
@@ -1497,8 +1437,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>how many commands are there </p>
 
 </div>
 </div>
@@ -1522,8 +1460,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>pointer to object list </p>
-
 </div>
 </div>
 <a id="a18a476fdeddeec87fb18659133d5739b" name="a18a476fdeddeec87fb18659133d5739b"></a>
@@ -1545,8 +1481,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>pointer to object list </p>
 
 </div>
 </div>
@@ -1570,8 +1504,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>current subcommand search depth </p>
-
 </div>
 </div>
 <a id="a682b3308f9ee638d4bbb7ad11d06ad66" name="a682b3308f9ee638d4bbb7ad11d06ad66"></a>
@@ -1593,8 +1525,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>token_buffer pointers </p>
 
 </div>
 </div>
@@ -1618,8 +1548,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>data_pointer index </p>
-
 </div>
 </div>
 <a id="a69d755c9688bb625191b39c93dab3ff8" name="a69d755c9688bb625191b39c93dab3ff8"></a>
@@ -1641,8 +1569,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>data_pointer index max </p>
 
 </div>
 </div>
@@ -1666,8 +1592,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>pointer to the default function </p>
-
 </div>
 </div>
 <a id="a4ac51cb680e95b30797f375cec78d814" name="a4ac51cb680e95b30797f375cec78d814"></a>
@@ -1689,8 +1613,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>input argument delimiter, space by default </p>
 
 </div>
 </div>
@@ -1714,8 +1636,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
-
 </div>
 </div>
 <a id="afc3b76d32654daa78a424b3440dbedab" name="afc3b76d32654daa78a424b3440dbedab"></a>
@@ -1737,8 +1657,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>char '.' </p>
 
 </div>
 </div>
@@ -1762,8 +1680,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>subcommand error index </p>
-
 </div>
 </div>
 <a id="a281ff5c48c9df2b0540c35c94d446c85" name="a281ff5c48c9df2b0540c35c94d446c85"></a>
@@ -1785,8 +1701,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>max command or subcommand arguments found </p>
 
 </div>
 </div>
@@ -1810,8 +1724,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>max command depth found </p>
-
 </div>
 </div>
 <a id="ad129cb19ce98376e3afd99dde12a6b46" name="ad129cb19ce98376e3afd99dde12a6b46"></a>
@@ -1833,8 +1745,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>char '-' </p>
 
 </div>
 </div>
@@ -1858,8 +1768,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>if there is new data in *stream_data this is true </p>
-
 </div>
 </div>
 <a id="a0716c92410a23ff77acb76816cb07ccb" name="a0716c92410a23ff77acb76816cb07ccb"></a>
@@ -1881,8 +1789,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>char '\0' </p>
 
 </div>
 </div>
@@ -1906,8 +1812,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>pointer to the output char buffer </p>
-
 </div>
 </div>
 <a id="a51d72c50ef113c2295326b8b661df0a0" name="a51d72c50ef113c2295326b8b661df0a0"></a>
@@ -1929,8 +1833,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
 
 </div>
 </div>
@@ -1954,8 +1856,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>output_buffer</em> size in bytes </p>
-
 </div>
 </div>
 <a id="a79bb9a66bab55a4c62fd328108927f12" name="a79bb9a66bab55a4c62fd328108927f12"></a>
@@ -1977,8 +1877,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>true if <em>output_buffer</em> is not NULL (the user has defined and passed an output buffer to <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>'s constructor) </p>
 
 </div>
 </div>
@@ -2002,8 +1900,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>output is available flag, set by member functions </p>
-
 </div>
 </div>
 <a id="a8cc64ade1f91dd2544241923cdd38e5e" name="a8cc64ade1f91dd2544241923cdd38e5e"></a>
@@ -2025,8 +1921,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>number of tokens after first valid token </p>
 
 </div>
 </div>
@@ -2050,8 +1944,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>this flag is set true on GetCommandFromStream entry if a buffer is not allocated </p>
-
 </div>
 </div>
 <a id="af1b7876de56dcc9e2ca7244e5a54dff9" name="af1b7876de56dcc9e2ca7244e5a54dff9"></a>
@@ -2073,8 +1965,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>pointer to stream input, a string of char </p>
 
 </div>
 </div>
@@ -2098,8 +1988,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>the index of stream_data </p>
-
 </div>
 </div>
 <a id="a0368092c59decb133f083abe2f75a788" name="a0368092c59decb133f083abe2f75a788"></a>
@@ -2121,8 +2009,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>end of line characters, terminating characters, default is CRLF </p>
 
 </div>
 </div>
@@ -2146,8 +2032,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>term</em> index, match all characters in term or reject the message </p>
-
 </div>
 </div>
 <a id="ac250d80ae3233e64dfb3cbfea9c3a039" name="ac250d80ae3233e64dfb3cbfea9c3a039"></a>
@@ -2169,8 +2053,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -2194,8 +2076,6 @@ false type not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>pointer to tokenized c-string </p>
-
 </div>
 </div>
 <a id="aa8a8d4eaafc528610357d9b39c4efa8f" name="aa8a8d4eaafc528610357d9b39c4efa8f"></a>
@@ -2217,8 +2097,6 @@ false type not valid </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>username/project name/equipment name </p>
 
 </div>
 </div>
