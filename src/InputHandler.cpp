@@ -541,29 +541,17 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
     size_t start = (found_negative_sign == true) ? 1 : 0;
 
-    // for unsigned integers and integers
-    if (arg_type <= (size_t)UITYPE::INT16_T)
-    {
-        if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
-        {
-            return false; // uint cannot be negative
-        }
-        for (size_t j = start; j < strlen_data; ++j)
-        {
-            if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // for floating point numbers
-    if (arg_type == (uint8_t)UITYPE::FLOAT)
+    // for unsigned integers, integers, and floating point numbers
+    if (arg_type <= (size_t)UITYPE::FLOAT)
     {
         uint8_t found_dot = 0;
         uint8_t num_digits = 0;
         uint8_t not_digits = 0;
+        if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
+        {
+            return false; // uint cannot be negative
+        }
+        //float and int can be negative
         for (size_t j = start; j < strlen_data; ++j)
         {
             if (_data_pointers_[_data_pointers_index_][j] == _dot_)
@@ -579,13 +567,19 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
                 not_digits++;
             }
         }
-        if (found_dot > 1U ||
-            not_digits > 0U ||
-            (num_digits + found_dot + start) != strlen_data)
+        //int error test
+        if (arg_type == (uint8_t)UITYPE::INT16_T && 
+            (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
         {
             return false;
         }
-        return true;
+        //float error test
+        if (arg_type == (uint8_t)UITYPE::FLOAT && 
+            (found_dot > 1U || not_digits > 0U || (num_digits + found_dot + start) != strlen_data))
+        {
+            return false;
+        }
+        return true; // no errors
     }
 
     // char and c-string
@@ -612,12 +606,12 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
         return true;
     }
 
+    // no type specified
     if (arg_type == (uint8_t)UITYPE::NOTYPE)
     {        
         return true; // no type validation performed
     }
-
-    return false;
+    return false; // error, unknown type
 }
 
 /*
