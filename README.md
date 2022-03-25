@@ -23,9 +23,9 @@ Commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/Dat
 
 Individual commands (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html)) use just 6 bytes of RAM (avr).  
 
-Check out the examples for different use cases.    
+Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.    
 
-Commands are simple to set up, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5)) or as few arguments (`0` minimum) as you wish.  
+[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/arduino/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5)) or as few arguments (`0` minimum) as you wish.  
 
 A valid (default-settings) command string would look something like:  
 
