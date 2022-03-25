@@ -540,69 +540,57 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
     bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
     size_t start = (found_negative_sign == true) ? 1 : 0;
-    if (arg_type < (uint8_t)UITYPE::CHAR)
+
+    // for unsigned integers and integers
+    if (arg_type <= (size_t)UITYPE::INT16_T)
     {
-        // for unsigned integers
-        if (arg_type < (size_t)UITYPE::INT16_T)
+        if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
         {
-            if (found_negative_sign == true)
-            {
-                return false;
-            }
-            for (size_t j = 0; j < strlen_data; ++j)
-            {
-                if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
-                {
-                    return false;
-                }
-            }
+            return false; // uint cannot be negative
         }
-        // for integer numbers
-        if (arg_type == (uint8_t)UITYPE::INT16_T)
+        for (size_t j = start; j < strlen_data; ++j)
         {
-            for (size_t j = start; j < strlen_data; ++j)
-            {
-                if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
-                {
-                    return false;
-                }
-            }
-        }
-        // for floating point numbers
-        if (arg_type == (uint8_t)UITYPE::FLOAT)
-        {
-            uint8_t found_dot = 0;
-            uint8_t num_digits = 0;
-            uint8_t not_digits = 0;
-            for (size_t j = start; j < strlen_data; ++j)
-            {
-                if (_data_pointers_[_data_pointers_index_][j] == _dot_)
-                {
-                    found_dot++;
-                }
-                else if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
-                {
-                    num_digits++;
-                }
-                else
-                {
-                    not_digits++;
-                }
-            }                              
-            if (found_dot > 1U || 
-                not_digits > 0U ||
-                (num_digits + found_dot + start) != strlen_data)
+            if (isdigit(_data_pointers_[_data_pointers_index_][j]) == false)
             {
                 return false;
             }
         }
+        return true;
     }
-    /*
-        For char and c-string input.
-        Types allowed are printable characters, punctuation, control characters \r\n etc, and digits 0-9
-    */
-    else if (arg_type == (uint8_t)UITYPE::CHAR ||
-             arg_type == (uint8_t)UITYPE::C_STRING)
+
+    // for floating point numbers
+    if (arg_type == (uint8_t)UITYPE::FLOAT)
+    {
+        uint8_t found_dot = 0;
+        uint8_t num_digits = 0;
+        uint8_t not_digits = 0;
+        for (size_t j = start; j < strlen_data; ++j)
+        {
+            if (_data_pointers_[_data_pointers_index_][j] == _dot_)
+            {
+                found_dot++;
+            }
+            else if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
+            {
+                num_digits++;
+            }
+            else
+            {
+                not_digits++;
+            }
+        }
+        if (found_dot > 1U ||
+            not_digits > 0U ||
+            (num_digits + found_dot + start) != strlen_data)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    // char and c-string
+    if (arg_type == (uint8_t)UITYPE::CHAR ||
+        arg_type == (uint8_t)UITYPE::C_STRING)
     {
         if (arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1)
         {
@@ -621,17 +609,15 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
                 return false;
             }
         }
-    }
-    else if (arg_type == (uint8_t)UITYPE::NOTYPE)
-    {
-        // no type validation performed
         return true;
     }
-    else //  unknown types always return false
-    {
-        return false;
+
+    if (arg_type == (uint8_t)UITYPE::NOTYPE)
+    {        
+        return true; // no type validation performed
     }
-    return true;
+
+    return false;
 }
 
 /*

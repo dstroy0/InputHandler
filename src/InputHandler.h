@@ -306,7 +306,7 @@ public:
     void outputToStream(Stream &stream);
 
     /**
-     * @brief clears output buffer, sets index to zero
+     * @brief clears output buffer
      *
      */
     void clearOutputBuffer();
@@ -355,10 +355,10 @@ private:
         UserInput Constructor variables
     */
     // user entered constructor variables
-    char *_output_buffer_;              ///< pointer to the output char buffer
-    bool _output_enabled_;              ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    const uint16_t _output_buffer_len_; ///< _output_buffer_ size in bytes
-    uint16_t _output_buffer_bytes_left_;              ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    char *_output_buffer_;               ///< pointer to the output char buffer
+    bool _output_enabled_;               ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
+    uint16_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
     const char *_username_;    ///< username/project name/equipment name
     const char *_term_;        ///< end of line characters, terminating characters, default is CRLF
@@ -515,7 +515,7 @@ private:
      * @param idx buffer index
      * @param input string to escape
      * @param input_len length of string
-     * @return pointer to the escaped char
+     * @return pointer to null terminated escaped control char string
      */
     char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);                 
     // end private methods
