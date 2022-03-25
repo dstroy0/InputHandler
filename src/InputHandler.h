@@ -441,7 +441,7 @@ private:
      * @param prm Parameters reference
      * @param tokens_received number of tokens retreived from input data
      * @param all_arguments_valid boolean array
-     * @param match boolean command match flag
+     * @param launch_attempted launch attempted flag
      * @param input_type_match_flag boolean type match flag array
      * @param subcommand_matched boolean subcommand match flag
      * @param command_id 16 bit command id
@@ -450,7 +450,7 @@ private:
                       Parameters &prm,                      
                       size_t tokens_received,
                       bool &all_arguments_valid,
-                      bool &match,
+                      bool &launch_attempted,
                       bool *input_type_match_flag,
                       bool &subcommand_matched,
                       uint16_t& command_id);

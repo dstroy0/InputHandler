@@ -190,28 +190,22 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     size_t data_index = 0;         // data iterator
     _data_pointers_index_ = 0;     // token buffer pointers
     _rec_num_arg_strings_ = 0;     // number of tokens read from data
-    bool match = false;            // command string match
+    bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor *cmd;       // command parameters pointer
-    Parameters prm;                // Parameters struct
-    size_t ptrs = 1 + _max_depth_ + _max_args_;
+    Parameters prm;                // Parameters struct    
     /*
         this tokenizes an input buffer, it should work with any 8 bit input type that represents char
         char tokenized_string[] = "A\0Tokenized\0C-string\0"
         char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
-    */
-    // reinit _data_pointers_
-    for (size_t i = 0; i < ptrs; ++i)
-    {
-        _data_pointers_[i] = NULL;
-    }
+    */    
 
     while (true)
     {
         if (UserInput::getToken(data, len, data_index, token_buffer_index) == true)
         {
             tokens_received++;           // increment tokens_received
-            if (tokens_received == ptrs) // index sentinel
+            if (tokens_received == (1U + _max_depth_ + _max_args_)) // index sentinel
             {
                 break;
             }
@@ -254,14 +248,14 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
                                     prm,                   // ReadCommandFromBuffer Parameters structure reference
                                     tokens_received,       // how many tokens were retrieved
                                     all_arguments_valid,   // type error sentinel
-                                    match,                 // function launch sentinel
+                                    launch_attempted,      // function launch sentinel
                                     input_type_match_flag, // type error flag array
                                     subcommand_matched,    // subcommand match flag
                                     command_id);           // Parameters command unique id
             break;                                         // break command iterator for loop
         }                                                  // end command logic
     }                                                      // end root command for loop
-    if (!match && _default_function_ != NULL)              // if there was no command match and a default function is configured
+    if (!launch_attempted && _default_function_ != NULL)   // if there was no command match and a default function is configured
     {
         UserInput::_readCommandFromBufferErrorOutput(cmd,
                                                      prm,
@@ -270,6 +264,12 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
                                                      all_arguments_valid,
                                                      data);
         (*_default_function_)(this); // run the default function
+    }
+
+    // cleanup
+    for (size_t i = 0; i < (1U + _max_depth_ + _max_args_); ++i) // reinit _data_pointers_
+    {
+        _data_pointers_[i] = NULL;
     }
     delete[] _token_buffer_;
     delete[] input_type_match_flag;
@@ -786,7 +786,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                              Parameters &prm,
                              size_t tokens_received,
                              bool &all_arguments_valid,
-                             bool &match,
+                             bool &launch_attempted,
                              bool *input_type_match_flag,
                              bool &subcommand_matched,
                              uint16_t &command_id)
@@ -811,7 +811,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
         #endif
 
-        match = true;                                          // don't run default callback
+        launch_attempted = true;                                          // don't run default callback
         UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         return;
     }
@@ -825,7 +825,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
         #endif
-        match = true;                                          // don't run default callback
+        launch_attempted = true;                                          // don't run default callback
         UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         return;
     }
@@ -844,7 +844,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             #if defined(__DEBUG_LAUNCH_LOGIC__)
             UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
             #endif
-            match = true;                                          // don't run default callback
+            launch_attempted = true;                                          // don't run default callback
             UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         }
         // if !match, error
@@ -866,7 +866,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
             #if defined(__DEBUG_LAUNCH_LOGIC__)
             UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
             #endif
-            match = true;                                          // don't run default callback
+            launch_attempted = true;                                          // don't run default callback
             UserInput::_launchFunction(cmd, prm, tokens_received); // launch the matched command
         }
         // if !match, error
@@ -923,7 +923,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
                                 prm,
                                 tokens_received,
                                 all_arguments_valid,
-                                match,
+                                launch_attempted,
                                 input_type_match_flag,
                                 subcommand_matched,
                                 command_id);
