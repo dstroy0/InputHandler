@@ -586,19 +586,22 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     if (arg_type == (uint8_t)UITYPE::CHAR ||
         arg_type == (uint8_t)UITYPE::C_STRING)
     {
-        if (arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1)
+        if (arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1) // error
         {
-            return false;
+            return false; // looking for a single char value, not a c-string
         }
         for (size_t j = 0; j < strlen_data; ++j)
-        {
-            if (isprint(_data_pointers_[_data_pointers_index_][0]) ||
-                ispunct(_data_pointers_[_data_pointers_index_][0]) ||
-                iscntrl(_data_pointers_[_data_pointers_index_][0]) ||
-                isdigit(_data_pointers_[_data_pointers_index_][0]))
-            {
-            }
-            else
+        {   // if we encounter anything that isn't one of these four things, something isn't right
+            size_t test_bool[4] = {false};
+            test_bool[0] = isprint(_data_pointers_[_data_pointers_index_][j]);
+            test_bool[1] = ispunct(_data_pointers_[_data_pointers_index_][j]);
+            test_bool[2] = iscntrl(_data_pointers_[_data_pointers_index_][j]);
+            test_bool[3] = isdigit(_data_pointers_[_data_pointers_index_][j]);
+            // no match
+            if (test_bool[0] == false &&
+                test_bool[1] == false &&
+                test_bool[2] == false &&
+                test_bool[3] == false)
             {
                 return false;
             }
