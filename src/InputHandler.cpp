@@ -26,13 +26,10 @@ void UserInput::listSettings(UserInput *inputprocess)
     size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3 null separators
     // allocate char buffer large enough to print these potential control characters
     char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
-    size_t idx = 0;
-    size_t term = 0;
-    size_t delim = 0;
-    size_t c_str_delim = 0;
-    term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
-    delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
-    c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);
+    size_t idx = 0;    
+    size_t term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
+    size_t delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
+    size_t c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d\n"
                             "UI_MAX_CMD_LEN (root command) %d\n"
                             "UI_MAX_IN_LEN %u\n"
