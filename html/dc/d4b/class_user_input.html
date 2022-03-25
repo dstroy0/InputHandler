@@ -115,12 +115,12 @@ Collaboration diagram for UserInput:</div>
 <tr class="memitem:a79bb9a66bab55a4c62fd328108927f12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">_output_enabled_</a></td></tr>
 <tr class="memdesc:a79bb9a66bab55a4c62fd328108927f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if <em>output_buffer</em> is not NULL (the user has defined and passed an output buffer to <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>'s constructor)  <a href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">More...</a><br /></td></tr>
 <tr class="separator:a79bb9a66bab55a4c62fd328108927f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61d873d6590bc16c8e8d8804412574ed"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed">_string_pos_</a></td></tr>
-<tr class="memdesc:a61d873d6590bc16c8e8d8804412574ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting  <a href="../../dc/d4b/class_user_input.html#a61d873d6590bc16c8e8d8804412574ed">More...</a><br /></td></tr>
-<tr class="separator:a61d873d6590bc16c8e8d8804412574ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a278f946baa7770f685b20742ba16c9ea"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">_output_buffer_len_</a></td></tr>
 <tr class="memdesc:a278f946baa7770f685b20742ba16c9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>output_buffer</em> size in bytes  <a href="../../dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">More...</a><br /></td></tr>
 <tr class="separator:a278f946baa7770f685b20742ba16c9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d72c50ef113c2295326b8b661df0a0"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a51d72c50ef113c2295326b8b661df0a0">_output_buffer_bytes_left_</a></td></tr>
+<tr class="memdesc:a51d72c50ef113c2295326b8b661df0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting  <a href="../../dc/d4b/class_user_input.html#a51d72c50ef113c2295326b8b661df0a0">More...</a><br /></td></tr>
+<tr class="separator:a51d72c50ef113c2295326b8b661df0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f">_username_</a></td></tr>
 <tr class="memdesc:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">username/project name/equipment name  <a href="../../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f">More...</a><br /></td></tr>
 <tr class="separator:aa8a8d4eaafc528610357d9b39c4efa8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -286,9 +286,9 @@ Collaboration diagram for UserInput:</div>
 <tr class="memitem:a33fcc80887114f74a724b70874b94a74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74">_getArgs</a> (<a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> &amp;tokens_received, bool *input_type_match_flag, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, bool &amp;all_arguments_valid)</td></tr>
 <tr class="memdesc:a33fcc80887114f74a724b70874b94a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">validate the arguments as specified in the user defined <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> struct  <a href="../../dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74">More...</a><br /></td></tr>
 <tr class="separator:a33fcc80887114f74a724b70874b94a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc9561d2ee9c775d978f53dea1543f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a9fc9561d2ee9c775d978f53dea1543f9">_addEscapedControlCharToBuffer</a> (char *buf, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> &amp;idx, const char *input, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> input_len)</td></tr>
-<tr class="memdesc:a9fc9561d2ee9c775d978f53dea1543f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds escaped control characters to a buffer  <a href="../../dc/d4b/class_user_input.html#a9fc9561d2ee9c775d978f53dea1543f9">More...</a><br /></td></tr>
-<tr class="separator:a9fc9561d2ee9c775d978f53dea1543f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07fe8e4c9417e15e72af955654627749"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749">_addEscapedControlCharToBuffer</a> (char *buf, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> &amp;idx, const char *input, <a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> input_len)</td></tr>
+<tr class="memdesc:a07fe8e4c9417e15e72af955654627749"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds escaped control characters to a buffer  <a href="../../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749">More...</a><br /></td></tr>
+<tr class="separator:a07fe8e4c9417e15e72af955654627749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >User input handler methods. </p>
@@ -416,8 +416,8 @@ false if there were one or more errors </dd></dl>
 
 </div>
 </div>
-<a id="a9fc9561d2ee9c775d978f53dea1543f9" name="a9fc9561d2ee9c775d978f53dea1543f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fc9561d2ee9c775d978f53dea1543f9">&#9670;&nbsp;</a></span>_addEscapedControlCharToBuffer()</h2>
+<a id="a07fe8e4c9417e15e72af955654627749" name="a07fe8e4c9417e15e72af955654627749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07fe8e4c9417e15e72af955654627749">&#9670;&nbsp;</a></span>_addEscapedControlCharToBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,7 +426,7 @@ false if there were one or more errors </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dee/index__sequence_8h.html#abd662dd0e77bab08282116bb4dd3be39">size_t</a> UserInput::_addEscapedControlCharToBuffer </td>
+          <td class="memname">char * UserInput::_addEscapedControlCharToBuffer </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -472,7 +472,7 @@ false if there were one or more errors </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>size_t the token's index </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to the escaped char </dd></dl>
 
 </div>
 </div>
@@ -1910,6 +1910,30 @@ false type not valid </dd></dl>
 
 </div>
 </div>
+<a id="a51d72c50ef113c2295326b8b661df0a0" name="a51d72c50ef113c2295326b8b661df0a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d72c50ef113c2295326b8b661df0a0">&#9670;&nbsp;</a></span>_output_buffer_bytes_left_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t UserInput::_output_buffer_bytes_left_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
+
+</div>
+</div>
 <a id="a278f946baa7770f685b20742ba16c9ea" name="a278f946baa7770f685b20742ba16c9ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a278f946baa7770f685b20742ba16c9ea">&#9670;&nbsp;</a></span>_output_buffer_len_</h2>
 
@@ -2075,30 +2099,6 @@ false type not valid </dd></dl>
 </div><div class="memdoc">
 
 <p>the index of stream_data </p>
-
-</div>
-</div>
-<a id="a61d873d6590bc16c8e8d8804412574ed" name="a61d873d6590bc16c8e8d8804412574ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61d873d6590bc16c8e8d8804412574ed">&#9670;&nbsp;</a></span>_string_pos_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t UserInput::_string_pos_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>index of <em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
 
 </div>
 </div>

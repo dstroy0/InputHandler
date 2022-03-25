@@ -1,7 +1,7 @@
 var searchData=
 [
   ['_5faddcommandabort_0',['_addCommandAbort',['../dc/d4b/class_user_input.html#aa8ce0d2ee193a643732a6cc87dc4d6a1',1,'UserInput']]],
-  ['_5faddescapedcontrolchartobuffer_1',['_addEscapedControlCharToBuffer',['../dc/d4b/class_user_input.html#a9fc9561d2ee9c775d978f53dea1543f9',1,'UserInput']]],
+  ['_5faddescapedcontrolchartobuffer_1',['_addEscapedControlCharToBuffer',['../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749',1,'UserInput']]],
   ['_5fcombinecontrolcharacters_2',['_combineControlCharacters',['../dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87',1,'UserInput']]],
   ['_5fescapecharacterssotheyprint_3',['_escapeCharactersSoTheyPrint',['../dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336',1,'UserInput']]],
   ['_5fgetargs_4',['_getArgs',['../dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74',1,'UserInput']]],
