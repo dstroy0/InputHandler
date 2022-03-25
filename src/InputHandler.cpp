@@ -27,27 +27,28 @@ void UserInput::listSettings(UserInput *inputprocess)
     // allocate char buffer large enough to print these potential control characters
     char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
     size_t idx = 0;    
-    size_t term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
-    size_t delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
-    size_t c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);
-    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\nUI_MAX_ARGS %d max allowed arguments per unique command_id\n"
-                            "UI_MAX_CMD_LEN (root command) %d characters\n"
+    char *term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
+    char *delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
+    char *c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);    
+    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
+                            "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
+                            "UI_MAX_CMD_LEN (root command) %u characters\n"
                             "UI_MAX_IN_LEN %u bytes\n"
                             "\nUserInput constructor:\n"
-                            "username = \"%s\", \"\" means the username was blank\n"
-                            "end_of_line_characters = \"%s\", control characters are escaped for display\n"
-                            "token_delimiter = \"%s\", control characters are escaped for display\n"
-                            "c_string_delimiter = \"%s\", control characters are escaped for display\n"
+                            "username = \"%s\"\n"
+                            "end_of_line_characters = \"%s\", escaped for display\n"
+                            "token_delimiter = \"%s\", escaped for display\n"
+                            "c_string_delimiter = \"%s\", escaped for display\n"
                             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ (found from input Parameters) = %u\n"
-                            "_max_args_ (found from input Parameters) = %u"),
+                            "_max_args_ (found from input Parameters) = %u\n"),
                        UI_MAX_ARGS,
                        UI_MAX_CMD_LEN,
                        UI_MAX_IN_LEN,
                        _username_,
-                       (char *)&buf[term],
-                       (char *)&buf[delim],
-                       (char *)&buf[c_str_delim],
+                       term,
+                       delim,
+                       c_str_delim,
                        (1U + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);
@@ -96,6 +97,7 @@ void UserInput::addCommand(CommandConstructor &command)
             _term_len_ = strlen(_term_);
             _delim_len_ = strlen(_delim_);
             _c_str_delim_len_ = strlen(_c_str_delim_);
+            _output_buffer_bytes_left_ = _output_buffer_len_;
         }
         _commands_count_++; // increment _commands_count_
 
@@ -360,7 +362,7 @@ void UserInput::clearOutputBuffer()
 {
     if (UserInput::outputIsEnabled())
     {
-        _string_pos_ = 0; //  reset output_buffer's index
+        _output_buffer_bytes_left_ = _output_buffer_len_; //  reset output_buffer's index
         //  this maybe doesnt need to be done
         for (size_t i = 0; i < _output_buffer_len_; ++i)
         {
@@ -641,22 +643,24 @@ void UserInput::_ui_out(const char *fmt, ...)
     {
         va_list args;        // ... parameter pack list
         va_start(args, fmt); // set the parameter pack list index here
-        int err = vsnprintf_P(_output_buffer_ + _string_pos_, _output_buffer_len_, fmt, args);
-        va_end(args); // we are done with the parameter pack
-        // error if err is less than zero or err + null '\0' is greater than the buffer size
-        if (err < 0 ||
-            (err + _string_pos_) >= _output_buffer_len_)
+        int err = vsnprintf_P(_output_buffer_ + abs((int)_output_buffer_bytes_left_ - (int)_output_buffer_len_), _output_buffer_bytes_left_, fmt, args);
+        va_end(args);                   // we are done with the parameter pack
+        if (err >= _output_buffer_bytes_left_) // overflow condition
         {
-            _output_buffer_ = new char[128](); // init default
-            _output_enabled_ = false;          // disable output
             // attempt warn
-            snprintf_P(_output_buffer_, 128,
-                       PSTR("Insufficient output buffer size, InputHandler output DISABLED."
-                            " Increase output buffer size by %i bytes.\n"), err);
+            snprintf_P(_output_buffer_, _output_buffer_len_,
+                       PSTR("Insufficient output buffer size, increase output buffer to %d bytes.\n\0"),
+                       (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
+            _output_flag_ = true;
+            return;
+        }
+        else if (err < 0) // encoding error
+        {
+            return;
         }
         else
         {
-            _string_pos_ = _string_pos_ + err;
+            _output_buffer_bytes_left_ -= err;
         }
         _output_flag_ = true;
     }
@@ -1079,9 +1083,9 @@ void UserInput::_getArgs(size_t &tokens_received,
     }
 }
 
-size_t UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len)
+char *UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len)
 {
-    size_t start = idx;
+    char *start = &buf[idx];
     char tmp_esc_chr[UI_ESCAPED_CHAR_PGM_LEN]{};
     for (size_t i = 0; i < input_len; ++i)
     {

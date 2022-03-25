@@ -176,9 +176,9 @@ public:
                      const char *token_delimiter = " ",
                      const char *c_string_delimiter = "\"")
         : _output_buffer_(output_buffer),
-          _output_enabled_((output_buffer == NULL) ? false : true),
-          _string_pos_(0),
+          _output_enabled_((output_buffer == NULL) ? false : true),          
           _output_buffer_len_(output_buffer_len),
+          _output_buffer_bytes_left_(output_buffer_len),
           _username_(username),
           _term_(end_of_line_characters),
           _delim_(token_delimiter),
@@ -357,8 +357,8 @@ private:
     // user entered constructor variables
     char *_output_buffer_;              ///< pointer to the output char buffer
     bool _output_enabled_;              ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    uint16_t _string_pos_;              ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
     const uint16_t _output_buffer_len_; ///< _output_buffer_ size in bytes
+    uint16_t _output_buffer_bytes_left_;              ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
     const char *_username_;    ///< username/project name/equipment name
     const char *_term_;        ///< end of line characters, terminating characters, default is CRLF
@@ -515,9 +515,9 @@ private:
      * @param idx buffer index
      * @param input string to escape
      * @param input_len length of string
-     * @return size_t the token's index
+     * @return pointer to the escaped char
      */
-    size_t _addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);                 
+    char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);                 
     // end private methods
 };
 

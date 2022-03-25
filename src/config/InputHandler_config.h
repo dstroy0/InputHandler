@@ -90,7 +90,7 @@
    change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
    to increase UI_MAX_IN_LEN (2^32) - 2 
 */
-#define UI_MAX_IN_LEN (UINT16_MAX - 2)
+#define UI_MAX_IN_LEN (UINT16_MAX - 2U)
 #endif
 
 #define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
