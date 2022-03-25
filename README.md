@@ -19,7 +19,7 @@ changes.
 ## InputHandler
 
 This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
-Commands have a tree structure, each command has its own [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
+Commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
 
 Individual commands (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html)) use just 6 bytes of RAM (avr).  
 
