@@ -19,13 +19,13 @@ changes.
 ## InputHandler
 
 This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
-Commands have a tree structure, each command has its own `Parameters` container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
+Commands have a tree structure, each command has its own [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
 
 Individual commands (each call to CommandConstructor) use just 6 bytes of RAM (avr).  
 
 Check out the examples for different use cases.    
 
-Commands are simple to set up, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to `UI_MAX_ARGS`) or as few arguments (`0` minimum) as you wish.  
+Commands are simple to set up, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have as many (up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5)) or as few arguments (`0` minimum) as you wish.  
 
 A valid (default-settings) command string would look something like:  
 
@@ -71,7 +71,7 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for `Parameters` struct objects:  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) struct objects:  
 ```cpp  
 struct Parameters
 {
@@ -222,9 +222,9 @@ CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); //
 
 Each call to CommandConstructor uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
 
-`NOTYPE` is a special argument type that doesn't perform any type-validation.  
-`NO_ARGS` is a special argument type that explicitly states you wish to pass no arguments.  
-`_N_prms(x)` is a macro which expands to `(sizeof(x) / sizeof((x)[0]))` it returns the number of elements in an array.  
+[NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that doesn't perform any type-validation.  
+[NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that explicitly states you wish to pass no arguments.  
+[_N_prms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) is a macro which returns the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
