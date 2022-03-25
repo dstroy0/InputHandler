@@ -94,6 +94,7 @@
 #endif
 
 #define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+#define buffSZ(x) _N_prms(x)  // gets the number of elements in an array
 
 // portability directives
 
