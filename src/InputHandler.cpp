@@ -649,13 +649,16 @@ void UserInput::_ui_out(const char *fmt, ...)
         {
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_,
-                       PSTR("Insufficient output buffer size, increase output buffer to %d bytes.\n\0"),
+                       PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n\0"),
                        (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
             _output_flag_ = true;
             return;
         }
         else if (err < 0) // encoding error
         {
+            // attempt warn
+            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Encoding error.\n\0"));
+            _output_flag_ = true;
             return;
         }
         else
