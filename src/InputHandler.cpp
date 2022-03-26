@@ -125,7 +125,7 @@ void UserInput::addCommand(CommandConstructor &command)
 
 bool UserInput::begin()
 {
-    size_t ptrs = 1 + _max_depth_ + _max_args_;
+    size_t ptrs = 1U + _max_depth_ + _max_args_;
     _data_pointers_ = new char *[ptrs]();
     if (_data_pointers_ == nullptr)
     {
@@ -375,7 +375,7 @@ void UserInput::clearOutputBuffer()
 /*
     protected methods
 */
-bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index, size_t& token_buffer_index)
+bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index, size_t &token_buffer_index)
 {
     bool got_token = false;
     char incoming = _null_;              // cast data[data_index] to char and run tests on incoming
@@ -544,9 +544,9 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     // for unsigned integers, integers, and floating point numbers
     if (arg_type <= (size_t)UITYPE::FLOAT)
     {
-        uint8_t found_dot = 0;
-        uint8_t num_digits = 0;
-        uint8_t not_digits = 0;
+        size_t found_dot = 0;
+        size_t num_digits = 0;
+        size_t not_digits = 0;
         if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
         {
             return false; // uint cannot be negative
@@ -666,7 +666,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
             user introduced error condition, if they enter a parameter array length that is
             greater than the actual array length
         */
-        if (_failed_on_subcommand_ > cmd->param_array_len) // error
+        if (_failed_on_subcommand_ > cmd->param_array_len) // error (deprecated with Parameters checking, redundant)
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
             UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"
@@ -934,7 +934,7 @@ char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
 {
     if (input < (char)32 || input == (char)34)
     {
-        buf[0] = (char)92;
+        buf[0] = (char)92; // (char)92 == '\\'
         switch (input)
         {
         case (char)'\0': {buf[1] = '0'; break;}
@@ -952,9 +952,9 @@ char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
         buf[2] = _null_; // terminate
         return buf;
     }
-    buf[0] = input; // pass through input
-    buf[1] = _null_; // terminate
-    return buf; // not a control char
+    buf[0] = input;  // pass through input
+    buf[1] = _null_; // terminate the string
+    return buf;      // not a control char
 }
 
 char UserInput::_combineControlCharacters(char input)
