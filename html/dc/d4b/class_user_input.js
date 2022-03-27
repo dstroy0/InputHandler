@@ -7,6 +7,7 @@ var class_user_input =
     [ "_escapeCharactersSoTheyPrint", "dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336", null ],
     [ "_getArgs", "dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74", null ],
     [ "_getArgType", "dc/d4b/class_user_input.html#a2f28fed9fbda993078edb5c80a7eafcc", null ],
+    [ "_getTokenScan", "dc/d4b/class_user_input.html#aaa49b9d5b7f4f8c55a097a97ea3ff94f", null ],
     [ "_launchFunction", "dc/d4b/class_user_input.html#aebb3d0583502972a63ab3caafefcd205", null ],
     [ "_launchLogic", "dc/d4b/class_user_input.html#a109cbbeb887193f54c9b6f010fa45a32", null ],
     [ "_readCommandFromBufferErrorOutput", "dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f", null ],
