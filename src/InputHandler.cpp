@@ -375,11 +375,59 @@ void UserInput::clearOutputBuffer()
 /*
     protected methods
 */
+
+bool UserInput::_getTokenScan(char *&ptr,
+                              uint8_t *data,
+                              size_t len,
+                              size_t &pos,
+                              size_t &prev_pos,
+                              const char *scan_term,
+                              size_t scan_term_len)
+{
+    if (pos == 0)
+    {
+        ptr = (char *)memchr(data, scan_term[0], len);
+    }
+    else
+    {
+        ptr = (char *)memchr(ptr, scan_term[0], (len - pos));
+    }
+    if (ptr == NULL)
+    {
+        return false;
+    }
+    if (memcmp(scan_term, ptr, scan_term_len) == 0)
+    {
+        Serial.print(F("found delim "));
+        pos = ptr - (char *)data;
+        size_t token_len = pos - prev_pos - 1;
+        Serial.println(pos);
+        Serial.print(F("token_len "));
+        Serial.println(token_len + 1);
+        // memcpy(_token_buffer_ + pos, (ptr - token_len), token_len);
+        ptr = (char *)(data + pos + scan_term_len);
+        prev_pos = pos;
+        return true;
+    }
+    return false;
+}
+
 bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index, size_t &token_buffer_index)
 {
     bool got_token = false;
     char incoming = _null_;              // cast data[data_index] to char and run tests on incoming
     bool token_flag[2] = {false, false}; // token state machine, point to a token once        
+    
+    // char *tptr;
+    // char *cptr;
+    // size_t pos = 0;
+    // size_t prev_pos = 0;
+
+    // bool r_token = true;    
+    // while (r_token == true)
+    // {
+    //     r_token = _getTokenScan(tptr, data, len, pos, prev_pos, _delim_, _delim_len_);
+    // }
     
     for (size_t i = data_index; i < len; ++i)
     {

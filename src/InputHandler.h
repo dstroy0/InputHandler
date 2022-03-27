@@ -517,7 +517,15 @@ private:
      * @param input_len length of string
      * @return pointer to null terminated escaped control char string
      */
-    char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);                 
+    char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);
+
+    bool _getTokenScan(char *&ptr,
+                       uint8_t *data,
+                       size_t len,
+                       size_t &pos,
+                       size_t &prev_pos,
+                       const char *scan_term,
+                       size_t scan_term_len);
     // end private methods
 };
 
