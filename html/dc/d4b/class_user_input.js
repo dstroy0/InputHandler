@@ -16,7 +16,7 @@ var class_user_input =
     [ "_ui_out", "dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f", null ],
     [ "addCommand", "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1", null ],
     [ "begin", "dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369", null ],
-    [ "clearOutputBuffer", "dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005", null ],
+    [ "clearOutputBuffer", "dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611", null ],
     [ "defaultFunction", "dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9", null ],
     [ "getCommandFromStream", "dc/d4b/class_user_input.html#a3a76de83b3f92421efd041f08acac24a", null ],
     [ "getTokens", "dc/d4b/class_user_input.html#a78c923c60c72d6d8175d6772b46ec0ad", null ],

@@ -226,8 +226,8 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:a852e23ba4a8e45d4220782448fd3bb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96315069a4c3383b45123001d8a540f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f">outputToStream</a> (Stream &amp;stream)</td></tr>
 <tr class="separator:ab96315069a4c3383b45123001d8a540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">clearOutputBuffer</a> ()</td></tr>
-<tr class="separator:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f90ad129c7b2b41c4a45797ebdb611"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611">clearOutputBuffer</a> (bool overwrite_contents=false)</td></tr>
+<tr class="separator:ad1f90ad129c7b2b41c4a45797ebdb611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78c923c60c72d6d8175d6772b46ec0ad"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a78c923c60c72d6d8175d6772b46ec0ad">getTokens</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, char **token_pointers, uint8_t &amp;token_pointer_index, size_t num_token_ptrs, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, const char *c_str_delim, size_t c_str_delim_len, char &amp;token_buffer_sep, const char *control_char_sequence)</td></tr>
 <tr class="separator:a78c923c60c72d6d8175d6772b46ec0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3353bbf00f5c4a4f83668caa224d1030"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030">mIndex</a> (size_t m_width, size_t row, size_t col) const</td></tr>
@@ -1247,8 +1247,8 @@ false if allocation unsuccessful </dd></dl>
 
 </div>
 </div>
-<a id="a6a7cefcc1eb8d80a70191d0ecd0cc005" name="a6a7cefcc1eb8d80a70191d0ecd0cc005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a7cefcc1eb8d80a70191d0ecd0cc005">&#9670;&nbsp;</a></span>clearOutputBuffer()</h2>
+<a id="ad1f90ad129c7b2b41c4a45797ebdb611" name="ad1f90ad129c7b2b41c4a45797ebdb611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1f90ad129c7b2b41c4a45797ebdb611">&#9670;&nbsp;</a></span>clearOutputBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1256,13 +1256,20 @@ false if allocation unsuccessful </dd></dl>
         <tr>
           <td class="memname">void UserInput::clearOutputBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>overwrite_contents</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>clears output buffer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overwrite_contents</td><td>boolean switch, clearOutputBuffer(true) writes null to entire <em>output_buffer</em> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
