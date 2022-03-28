@@ -1052,11 +1052,13 @@ void UserInput::_getTokensCstrings(uint8_t *data,
                     // match
                     // memcpy c-string to token buffer
                     size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
-                    memcpy(token_buffer, ptr, size);
+                    memcpy(token_buffer + token_buffer_index, ptr, size);
                     token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
                     token_pointer_index++;
                     token_buffer_index += size + 1U;
                     token_buffer[token_buffer_index] = '\0';
+                    token_buffer_index++;
+                    data_pos += size + 1U;
                     break;
                 }
                 else
@@ -1078,17 +1080,15 @@ void UserInput::_getTokensCstrings(uint8_t *data,
         if (end_ptr != NULL)
         {
             // memcpy
-            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
-            memcpy(token_buffer, ptr, size);
+            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));            
+            memcpy(token_buffer + token_buffer_index, ptr, size);
             token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
             token_pointer_index++;
             token_buffer_index += size + 1U;
-            data_pos += end_ptr - (char *)data;
-        }
-        else
-        {
-            // no end match
-        }
+            token_buffer[token_buffer_index] = '\0';
+            token_buffer_index++;
+            data_pos += size + 1U;
+        }     
     }
 }
 
