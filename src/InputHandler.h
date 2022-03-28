@@ -316,7 +316,7 @@ public:
      * 
      * @param data pointer to uint8_t array
      * @param len length of uint8_t array
-     * @param token_buffer pointer to char array
+     * @param token_buffer pointer to null terminated char array
      * @param token_buffer_len size of data + 1
      * @param token_pointers number of token pointers
      * @param token_pointer_index index of token_pointers
@@ -326,6 +326,7 @@ public:
      * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
      * @param c_str_delim const char* c string delimiter
      * @param c_str_delim_len strlen of c string delimiter
+     * @param sep token_buffer token delimiter
      * @return size_t number of tokens retrieved from input data
      */
     size_t getTokens(uint8_t *data,
@@ -339,7 +340,8 @@ public:
                      size_t *delimiter_lens,
                      size_t num_delimiters,
                      const char *c_str_delim,
-                     size_t c_str_delim_len);
+                     size_t c_str_delim_len,
+                     char &sep);
 
 protected:
     /**

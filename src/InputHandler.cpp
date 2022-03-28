@@ -213,7 +213,8 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
                                            delimiter_lens,
                                            buffSZ(delimiter_lens), 
                                            _c_str_delim_,
-                                           _c_str_delim_len_);
+                                           _c_str_delim_len_,
+                                           _null_);
     
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
@@ -383,7 +384,8 @@ size_t UserInput::getTokens(uint8_t *data,
                             size_t *delimiter_lens,
                             size_t num_delimiters,
                             const char *c_str_delim,
-                            size_t c_str_delim_len)
+                            size_t c_str_delim_len,
+                            char &sep)
 {
     size_t data_pos = 0;
     size_t token_buffer_index = 0;
