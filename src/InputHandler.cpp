@@ -185,36 +185,36 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
     // end error checking
 
-    size_t tokens_received = 0;    // amount of delimiter separated tokens
-    size_t token_buffer_index = 0; // token buffer index
-    size_t data_index = 0;         // data iterator
-    _data_pointers_index_ = 0;     // token buffer pointers
-    _rec_num_arg_strings_ = 0;     // number of tokens read from data
+    size_t num_ptrs = (1U + _max_depth_ + _max_args_);
+    size_t tokens_received = 0;    // amount of delimiter separated tokens  
+    //_rec_num_arg_strings_ = 0;     // number of tokens read from data    
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor *cmd;       // command parameters pointer
     Parameters prm;                // Parameters struct    
-    /*
-        this tokenizes an input buffer, it should work with any 8 bit input type that represents char
-        char tokenized_string[] = "A\0Tokenized\0C-string\0"
-        char non_tokenized_string[] = "A Non Tokenized C-string" <-- still has a \0 at the end of the string to terminate it
-    */    
-
-    while (true)
+           
+    const char* delimiters[] =
     {
-        if (UserInput::getToken(data, len, data_index, token_buffer_index) == true)
-        {
-            tokens_received++;           // increment tokens_received
-            if (tokens_received == (1U + _max_depth_ + _max_args_)) // index sentinel
-            {
-                break;
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
+        _delim_        
+    };
+    size_t delimiter_lens[] =
+    {
+        _delim_len_        
+    };
+
+    tokens_received = UserInput::getTokens(data,
+                                           len,
+                                           _token_buffer_,
+                                           buffSZ(_token_buffer_),
+                                           _data_pointers_,
+                                           _data_pointers_index_,
+                                           num_ptrs,                                           
+                                           delimiters,
+                                           delimiter_lens,
+                                           buffSZ(delimiter_lens), 
+                                           _c_str_delim_,
+                                           _c_str_delim_len_);
+    
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -376,211 +376,147 @@ void UserInput::clearOutputBuffer()
     protected methods
 */
 
-bool UserInput::_getTokenScan(char *&ptr,
-                              uint8_t *data,
-                              size_t len,
-                              size_t &pos,
-                              size_t &prev_pos,
-                              const char *scan_term,
-                              size_t scan_term_len)
+size_t UserInput::getTokens(uint8_t *data,
+                            size_t len,
+                            char *token_buffer,
+                            size_t token_buffer_len,
+                            char **token_pointers,
+                            uint8_t& token_pointer_index,
+                            size_t num_token_ptrs,
+                            const char **delimiter_strings,
+                            size_t *delimiter_lens,
+                            size_t num_delimiters,
+                            const char *c_str_delim,
+                            size_t c_str_delim_len)
 {
-    if (pos == 0)
-    {
-        ptr = (char *)memchr(data, scan_term[0], len);
-    }
-    else
-    {
-        ptr = (char *)memchr(ptr, scan_term[0], (len - pos));
-    }
-    if (ptr == NULL)
-    {
-        return false;
-    }
-    if (memcmp(scan_term, ptr, scan_term_len) == 0)
-    {
-        Serial.print(F("found delim "));
-        pos = ptr - (char *)data;
-        size_t token_len = pos - prev_pos - 1;
-        Serial.println(pos);
-        Serial.print(F("token_len "));
-        Serial.println(token_len + 1);
-        // memcpy(_token_buffer_ + pos, (ptr - token_len), token_len);
-        ptr = (char *)(data + pos + scan_term_len);
-        prev_pos = pos;
-        return true;
-    }
-    return false;
-}
+    size_t data_pos = 0;
+    size_t token_buffer_index = 0;    
+    bool point_to_beginning_of_token = true;
+    token_pointer_index = 0;
 
-bool UserInput::getToken(uint8_t *data, size_t len, size_t &data_index, size_t &token_buffer_index)
-{
-    bool got_token = false;
-    char incoming = _null_;              // cast data[data_index] to char and run tests on incoming
-    bool token_flag[2] = {false, false}; // token state machine, point to a token once        
-    
-    // char *tptr;
-    // char *cptr;
-    // size_t pos = 0;
-    // size_t prev_pos = 0;
-
-    // bool r_token = true;    
-    // while (r_token == true)
-    // {
-    //     r_token = _getTokenScan(tptr, data, len, pos, prev_pos, _delim_, _delim_len_);
-    // }
-    
-    for (size_t i = data_index; i < len; ++i)
+    while (data_pos < len)
     {
-        incoming = (char)data[data_index];
-        
-        if (iscntrl(incoming)) // remove hanging control characters
-        {            
-            _token_buffer_[token_buffer_index] = _null_;
-            token_buffer_index++;      
-        }
-        else if (incoming == _delim_[0]) // if _delim_len_ == 1 this is a match, else scan for whole delim
+        for (size_t i = 0; i < num_delimiters; ++i) // skip over delimiters
         {
-            if (_delim_len_ == 1) // incoming is equal to _delim_[0] and the delimiter is one character in length
+            if (delimiter_strings[i][0] == (char)data[data_pos])
             {                
-                _token_buffer_[token_buffer_index] = _null_;
-                token_buffer_index++;
-                data_index++;
-                got_token = true;
-                break;
-            }
-            else
-            {                
-                bool delim_char_match = true; // error flag
-                size_t idx = data_index;
-                char inc;
-                for (size_t j = 1; j < (_delim_len_ + 1U); ++j)
+                if (delimiter_lens[i] > 1U)
                 {
-                    if ((j + i) < len)
+                    char *ptr = (char *)&data[data_pos];
+                    if (memcmp(delimiter_strings[i], ptr, delimiter_lens[i]) == 0)
                     {
-                        idx++;
-                        inc = (char)data[idx];
-                        if (inc != _delim_[i])
-                        {
-                            delim_char_match = false;
-                            break; // delimiter char pattern not matched
-                        }
-                    }
-                    else
-                    {
-                        delim_char_match = false;
-                        break; // delimiter char pattern terminated early
-                    }
-                }
-                if (delim_char_match == true) // replace delimiter pattern with null
-                {
-                    _token_buffer_[token_buffer_index] = _null_;
-                    data_index = data_index + _delim_len_;
-                    token_buffer_index++;
-                    got_token = true;
-                    break;
-                }
-            }
-        }
-        else if (incoming == *_c_str_delim_) // switch logic for c-string input
-        {            
-            _token_buffer_[token_buffer_index] = _null_; // replace the c-string delimiter
-            if ((data_index + 1U) < len) //  don't need to do this if we're at the end of user input
-            {
-                bool point_to_beginning_of_c_string = true; // c-string pointer assignment flag
-                data_index++;
-                token_buffer_index++;
-                for (size_t j = data_index; j < len; ++j) // this for loop starts at whatever data_index is equal to and has the potential to iterate up to len
-                {
-                    incoming = (char)data[data_index]; // fetch the next incoming char
-                    if (incoming == *_c_str_delim_)     // if the next incoming char is a '\"'
-                    {
-                        _token_buffer_[token_buffer_index] = _null_; // replace the c-string delimiter
-                        data_index++;                      // increment data_index
+                        // match
+                        data_pos += delimiter_lens[i] + 1U; 
+                        point_to_beginning_of_token = true;
+                        token_buffer[token_buffer_index] = '\0';
                         token_buffer_index++;
-                        got_token = true;                        
                         break;
                     }
-                    _token_buffer_[token_buffer_index] = incoming;     // else assign incoming to _token_buffer_[data_index]
-                    if (point_to_beginning_of_c_string == true) // a pointer will be assigned if point_to_beginning_of_c_string == true
-                    {
-                        _data_pointers_[_data_pointers_index_] = &_token_buffer_[token_buffer_index]; // point to this position in _token_buffer_
-                        _data_pointers_index_++;                                               //  increment pointer index
-                        point_to_beginning_of_c_string = false;                                //  only set one pointer per c-string
-                        got_token = true;
-                        #if defined(__DEBUG_GET_TOKEN__)
-                        UserInput::_ui_out(PSTR("\n>%s$DEBUG: got the c-string token.\n"), _username_);
-                        #endif
-                    }
-                    data_index++; // increment data index
-                    token_buffer_index++;
-                }
-            }
-        }
-        else // this is a non c-string token
-        {
-            if (incoming == '\\' && (data_index + 1 < len))
-            {                
-                if (iscntrl(UserInput::_combineControlCharacters((char)data[data_index + 1])))
-                {                    
-                    _token_buffer_[token_buffer_index] = UserInput::_combineControlCharacters((char)data[data_index + 1]);
-                    data_index++;
-                    token_buffer_index++;
                 }
                 else
                 {
-                    _token_buffer_[token_buffer_index] = incoming;
+                    // match
+                    data_pos++;
+                    point_to_beginning_of_token = true;
+                    token_buffer[token_buffer_index] = '\0';
                     token_buffer_index++;
-                }                
+                    break; // break for loop
+                }
+            }
+        }
+        if (c_str_delim != NULL && c_str_delim[0] == (char)data[data_pos])
+        {            
+            if (c_str_delim_len > 1U)
+            {
+                char *ptr = (char *)&data[data_pos];
+                if (memcmp(c_str_delim, ptr, c_str_delim_len) == 0)
+                {
+                    // match
+                    data_pos += c_str_delim_len + 1U;
+                    // point to beginning of c-string
+                    ptr = (char *)&data[data_pos];
+                    // search for next c-string delimiter
+                    char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
+                    while (end_ptr != NULL ||
+                           data_pos < len)
+                    {
+                        if (memcmp(c_str_delim, end_ptr, c_str_delim_len) == 0)
+                        {
+                            // match
+                            // memcpy c-string to token buffer
+                            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
+                            memcpy(token_buffer, ptr, size);
+                            token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                            token_pointer_index++;
+                            token_buffer_index += size + 1U;
+                            token_buffer[token_buffer_index] = '\0';
+                            break;
+                        }
+                        else
+                        {
+                            end_ptr = (char *)memchr(end_ptr, c_str_delim[0], (len - data_pos));
+                            data_pos += end_ptr - (char *)data;
+                        }
+                    }
+                }
             }
             else
             {
-                _token_buffer_[token_buffer_index] = incoming; // assign incoming to _token_buffer_ at data_index 
+                // match
+                data_pos++;
+                // point to beginning of c-string
+                char *ptr = (char *)&data[data_pos];
+                // search for next c-string delimiter
+                char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
+                if (end_ptr != NULL)
+                {
+                    // memcpy
+                    size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
+                    memcpy(token_buffer, ptr, size);
+                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                    token_pointer_index++;                    
+                    token_buffer_index += size + 1U;
+                    data_pos += end_ptr - (char *)data;
+                }
+                else
+                {
+                    // no end match
+                    
+                }
+            }
+        }
+        else // non c-string
+        {                        
+            if ((char)data[data_pos] == '\\' && (data_pos + 1 < len))
+            {
+                if (iscntrl(UserInput::_combineControlCharacters((char)data[data_pos + 1])))
+                {
+                    token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)data[data_pos + 1]);
+                    if (point_to_beginning_of_token)
+                    {
+                        token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                        token_pointer_index++;
+                        point_to_beginning_of_token = false;
+                    }
+                    data_pos++;
+                    token_buffer_index++;
+                }
+            }
+            else
+            {
+                token_buffer[token_buffer_index] = data[data_pos];
+                if (point_to_beginning_of_token)
+                {
+                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                    token_pointer_index++;
+                    point_to_beginning_of_token = false;
+                }
                 token_buffer_index++;
+                data_pos++;
             }
-            token_flag[0] = true;                   // set token available sentinel to true
-        }
-
-        if (token_flag[0] != token_flag[1]) // if the token state has changed
-        {
-            if (token_flag[0] == true) // if there's a new token
-            {
-                _data_pointers_[_data_pointers_index_] = &_token_buffer_[token_buffer_index - 1]; // assign a pointer the beginning of it                          
-                _data_pointers_index_++;                                               // and increment the pointer index                
-            }
-            else
-            {
-                #if defined(__DEBUG_GET_TOKEN__)
-                UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken got_token == true token state machine.\n"),
-                        _username_);
-                #endif
-                got_token = true;
-                break;
-            }
-            token_flag[1] = token_flag[0]; // track the state
-        }
-        if (token_flag[0] == true && data_index == (len - 1))
-        {
-            #if defined(__DEBUG_GET_TOKEN__)
-            UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken() got_token == true end of data.\n"),
-                    _username_);
-            #endif
-            got_token = true;
-        }
-
-        if (data_index < len) // if we are at the end of input data
-        {
-            data_index++; // increment buffer index                   
-        }
-
-        if (got_token == true)
-        {
-            #if defined(__DEBUG_GET_TOKEN__)
-            UserInput::_ui_out(PSTR("\n>%s$DEBUG: UserInput::getToken() break for loop.\n"), _username_);
-            #endif
-            break;
         }
     }
-    return got_token;
+    return token_pointer_index;
 }
 
 bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_)

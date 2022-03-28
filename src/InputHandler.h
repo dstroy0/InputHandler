@@ -327,17 +327,34 @@ protected:
     size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
 
     /**
-     * @brief Tries to get a token from an input string
-     *
-     * @param data input data
-     * @param len length of input data
-     * @param data_index index of data
-     * @param token_buffer_index byte index of token buffer
-     *
-     * @return true if there is a token
-     * @return false for no token
+     * @brief put tokens found in data into token_buffer
+     * 
+     * @param data pointer to uint8_t array
+     * @param len length of uint8_t array
+     * @param token_buffer pointer to char array
+     * @param token_buffer_len size of data + 1
+     * @param token_pointers number of token pointers
+     * @param token_pointer_index index of token_pointers
+     * @param num_token_ptrs token_pointers[MAX]
+     * @param delimiter_strings array of const char*
+     * @param delimiter_lens strlen of each delimiter
+     * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
+     * @param c_str_delim const char* c string delimiter
+     * @param c_str_delim_len strlen of c string delimiter
+     * @return size_t number of tokens retrieved from input data
      */
-    inline bool getToken(uint8_t *data, size_t len, size_t &data_index, size_t& token_buffer_index);
+    size_t getTokens(uint8_t *data,
+                     size_t len,
+                     char *token_buffer,
+                     size_t token_buffer_len,
+                     char **token_pointers,
+                     uint8_t& token_pointer_index,
+                     size_t num_token_ptrs,
+                     const char **delimiter_strings,
+                     size_t *delimiter_lens,
+                     size_t num_delimiters,
+                     const char *c_str_delim,
+                     size_t c_str_delim_len);
 
     /**
      * @brief Tries to determine if input is valid
@@ -519,13 +536,6 @@ private:
      */
     char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);
 
-    bool _getTokenScan(char *&ptr,
-                       uint8_t *data,
-                       size_t len,
-                       size_t &pos,
-                       size_t &prev_pos,
-                       const char *scan_term,
-                       size_t scan_term_len);
     // end private methods
 };
 
