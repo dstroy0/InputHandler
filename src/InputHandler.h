@@ -348,6 +348,24 @@ public:
                      size_t c_str_delim_len,
                      char &token_buffer_sep,
                      const char *control_char_sequence);
+    
+    /**
+     * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
+     *
+     * @param arg_type the UITYPE to test
+     * @param token_pointers pointers to null separated tokens
+     * @param token_pointer_index index of token_pointers to test
+     * @param neg_sign single char neg sign, if different than '-' parseInt and the like will not assign your input negative
+     * @param float_sep whole and fraction separator
+     *
+     * @return true type is valid
+     * @return false type not valid
+     */
+    bool validateNullSepInput(UITYPE arg_type,
+                              char **token_pointers,
+                              size_t token_pointer_index,
+                              char &neg_sign,
+                              char &float_sep);
 
 protected:
     /**
@@ -362,18 +380,7 @@ protected:
      * @param col column you want to access
      * @return size_t the transformed index
      */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
-
-    /**
-     * @brief Tries to determine if input is valid
-     *
-     * @param arg_type the type of argument we are testing
-     * @param data_pointers_index index of token pointers
-     *
-     * @return true type is valid
-     * @return false type not valid
-     */
-    bool validateUserInput(uint8_t arg_type, size_t data_pointers_index);
+    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}    
 
 private:
     /*
@@ -516,9 +523,9 @@ private:
      *
      * @param prm command options structure reference
      * @param index argument number
-     * @return uint8_t argument type
+     * @return UITYPE argument type
      */
-    uint8_t _getArgType(Parameters &prm, size_t index = 0);
+    UITYPE _getArgType(Parameters &prm, size_t index = 0);
 
     /**
      * @brief validate the arguments as specified in the user defined Parameters struct

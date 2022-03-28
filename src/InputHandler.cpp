@@ -446,32 +446,32 @@ size_t UserInput::getTokens(uint8_t *data,
     return token_pointer_index;
 }
 
-/*
-    protected methods
-*/
-bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_)
+bool UserInput::validateNullSepInput(UITYPE arg_type,
+                                     char **token_pointers,
+                                     size_t token_pointer_index,
+                                     char &neg_sign,
+                                     char &float_sep)
 {
-    size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
-    bool found_negative_sign = ((char)_data_pointers_[_data_pointers_index_][0] == _neg_) ? true : false;
-    size_t start = (found_negative_sign == true) ? 1 : 0;
-
+    size_t strlen_data = strlen(token_pointers[token_pointer_index]);    
+    size_t start = ((char)token_pointers[token_pointer_index][0] == neg_sign) ? 1 : 0;
+    
     // for unsigned integers, integers, and floating point numbers
-    if (arg_type <= (size_t)UITYPE::FLOAT)
+    if ((uint8_t)arg_type <= (size_t)UITYPE::FLOAT)
     {
         size_t found_dot = 0;
         size_t num_digits = 0;
         size_t not_digits = 0;
-        if (arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
+        if ((uint8_t)arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
         {
             return false; // uint cannot be negative
         }        
         for (size_t j = start; j < strlen_data; ++j)
         {
-            if (_data_pointers_[_data_pointers_index_][j] == _dot_)
+            if (token_pointers[token_pointer_index][j] == float_sep)
             {
                 found_dot++;
             }
-            else if (isdigit(_data_pointers_[_data_pointers_index_][j]) == true)
+            else if (isdigit(token_pointers[token_pointer_index][j]) == true)
             {
                 num_digits++;
             }
@@ -481,13 +481,13 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
             }
         }        
         //int/uint error test
-        if (arg_type <= (uint8_t)UITYPE::INT16_T && 
+        if ((uint8_t)arg_type <= (uint8_t)UITYPE::INT16_T && 
             (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
         {
             return false;
         }
         //float error test
-        if (arg_type == (uint8_t)UITYPE::FLOAT && 
+        if ((uint8_t)arg_type == (uint8_t)UITYPE::FLOAT && 
             (found_dot > 1U || not_digits > 0U || (num_digits + found_dot + start) != strlen_data))
         {
             return false;
@@ -496,20 +496,20 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     }
 
     // char and c-string
-    if (arg_type == (uint8_t)UITYPE::CHAR ||
-        arg_type == (uint8_t)UITYPE::C_STRING)
+    if ((uint8_t)arg_type == (uint8_t)UITYPE::CHAR ||
+        (uint8_t)arg_type == (uint8_t)UITYPE::C_STRING)
     {
-        if (arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1) // error
+        if ((uint8_t)arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1) // error
         {
             return false; // looking for a single char value, not a c-string
         }
         for (size_t j = 0; j < strlen_data; ++j)
         {   // if we encounter anything that isn't one of these four things, something isn't right
             size_t test_bool[4] = {false};
-            test_bool[0] = isprint(_data_pointers_[_data_pointers_index_][j]);
-            test_bool[1] = ispunct(_data_pointers_[_data_pointers_index_][j]);
-            test_bool[2] = iscntrl(_data_pointers_[_data_pointers_index_][j]);
-            test_bool[3] = isdigit(_data_pointers_[_data_pointers_index_][j]);
+            test_bool[0] = isprint(token_pointers[token_pointer_index][j]);
+            test_bool[1] = ispunct(token_pointers[token_pointer_index][j]);
+            test_bool[2] = iscntrl(token_pointers[token_pointer_index][j]);
+            test_bool[3] = isdigit(token_pointers[token_pointer_index][j]);
             // no match
             if (test_bool[0] == false &&
                 test_bool[1] == false &&
@@ -523,7 +523,7 @@ bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_
     }
 
     // no type specified
-    if (arg_type == (uint8_t)UITYPE::NOTYPE)
+    if ((uint8_t)arg_type == (uint8_t)UITYPE::NOTYPE)
     {        
         return true; // no type validation performed
     }
@@ -609,7 +609,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
                     if (input_type_match_flag[i] == false ||
                         _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
-                        uint8_t _type = UserInput::_getArgType(prm, i);
+                        uint8_t _type = (uint8_t)UserInput::_getArgType(prm, i);
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
@@ -956,13 +956,13 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
     return error;
 }
 
-uint8_t UserInput::_getArgType(Parameters &prm, size_t index)
+UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 {
-    if (prm.argument_flag == UI_ARG_HANDLING::no_args) return static_cast<uint8_t>(UITYPE::NO_ARGS);
-    if (prm.argument_flag == UI_ARG_HANDLING::one_type) return static_cast<uint8_t>(prm.arg_type_arr[0]);
-    if (prm.argument_flag == UI_ARG_HANDLING::type_arr) return static_cast<uint8_t>(prm.arg_type_arr[index]);
+    if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
+    if (prm.argument_flag == UI_ARG_HANDLING::one_type) return prm.arg_type_arr[0];
+    if (prm.argument_flag == UI_ARG_HANDLING::type_arr) return prm.arg_type_arr[index];
 
-    return static_cast<uint8_t>(UITYPE::_LAST); // return error if no match
+    return UITYPE::_LAST; // return error if no match
 }
 
 void UserInput::_getArgs(size_t &tokens_received,
@@ -973,8 +973,11 @@ void UserInput::_getArgs(size_t &tokens_received,
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
     {
-        input_type_match_flag[i] = UserInput::validateUserInput(UserInput::_getArgType(prm, i),
-                                                                _data_pointers_index_ + i); // validate the token
+        input_type_match_flag[i] = UserInput::validateNullSepInput(UserInput::_getArgType(prm, i),
+                                                                   _data_pointers_,
+                                                                   _data_pointers_index_ + i,
+                                                                   _neg_,
+                                                                   _dot_); // validate the token
         _rec_num_arg_strings_++;
         if (input_type_match_flag[i] == false) // if the token was not valid input
         {
