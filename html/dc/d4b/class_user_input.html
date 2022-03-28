@@ -226,10 +226,10 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:ab96315069a4c3383b45123001d8a540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">clearOutputBuffer</a> ()</td></tr>
 <tr class="separator:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3353bbf00f5c4a4f83668caa224d1030"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030">mIndex</a> (size_t m_width, size_t row, size_t col) const</td></tr>
-<tr class="separator:a3353bbf00f5c4a4f83668caa224d1030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21f7d0de0d269777793b8292d862589c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a21f7d0de0d269777793b8292d862589c">getTokens</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, char **token_pointers, uint8_t &amp;token_pointer_index, size_t num_token_ptrs, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, const char *c_str_delim, size_t c_str_delim_len)</td></tr>
 <tr class="separator:a21f7d0de0d269777793b8292d862589c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3353bbf00f5c4a4f83668caa224d1030"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030">mIndex</a> (size_t m_width, size_t row, size_t col) const</td></tr>
+<tr class="separator:a3353bbf00f5c4a4f83668caa224d1030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
 <tr class="separator:a53407496c37967a3186bd136f5620dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0c0335fed0fc12f54d4bbe0ebc3e41f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f">_ui_out</a> (const char *fmt,...)</td></tr>
@@ -252,6 +252,12 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:a33fcc80887114f74a724b70874b94a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07fe8e4c9417e15e72af955654627749"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749">_addEscapedControlCharToBuffer</a> (char *buf, size_t &amp;idx, const char *input, size_t input_len)</td></tr>
 <tr class="separator:a07fe8e4c9417e15e72af955654627749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a971b14828492da78f7e299a427534"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a96a971b14828492da78f7e299a427534">_getTokensDelimiters</a> (uint8_t *data, size_t &amp;data_pos, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, char *token_buffer, size_t &amp;token_buffer_index, bool &amp;point_to_beginning_of_token)</td></tr>
+<tr class="separator:a96a971b14828492da78f7e299a427534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0f77b924ef689075affec40c991082c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ab0f77b924ef689075affec40c991082c">_getTokensCstrings</a> (uint8_t *data, size_t len, size_t &amp;data_pos, const char *c_str_delim, size_t c_str_delim_len, char *token_buffer, size_t &amp;token_buffer_index, bool &amp;point_to_beginning_of_token, char **token_pointers, uint8_t &amp;token_pointer_index)</td></tr>
+<tr class="separator:ab0f77b924ef689075affec40c991082c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8076ad75f8ce5219993281c42599e0be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8076ad75f8ce5219993281c42599e0be">_getTokensChar</a> (uint8_t *data, size_t len, size_t &amp;data_pos, char *token_buffer, size_t &amp;token_buffer_index, bool &amp;point_to_beginning_of_token, char **token_pointers, uint8_t &amp;token_pointer_index)</td></tr>
+<tr class="separator:a8076ad75f8ce5219993281c42599e0be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a62df272305fd09fc81023c316c7002e1" name="a62df272305fd09fc81023c316c7002e1"></a>
@@ -620,6 +626,281 @@ false if there were one or more errors </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t argument type </dd></dl>
+
+</div>
+</div>
+<a id="a8076ad75f8ce5219993281c42599e0be" name="a8076ad75f8ce5219993281c42599e0be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8076ad75f8ce5219993281c42599e0be">&#9670;&nbsp;</a></span>_getTokensChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserInput::_getTokensChar </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>data_pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>token_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>token_buffer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>point_to_beginning_of_token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>token_pointers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;&#160;</td>
+          <td class="paramname"><em>token_pointer_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add char/control char to token_buffer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to uint8_t array </td></tr>
+    <tr><td class="paramname">len</td><td>len of data </td></tr>
+    <tr><td class="paramname">data_pos</td><td>index of data </td></tr>
+    <tr><td class="paramname">token_buffer</td><td>char array </td></tr>
+    <tr><td class="paramname">token_buffer_index</td><td>token_buffer index </td></tr>
+    <tr><td class="paramname">point_to_beginning_of_token</td><td>boolean sentinel </td></tr>
+    <tr><td class="paramname">token_pointers</td><td>pointers to token_buffer </td></tr>
+    <tr><td class="paramname">token_pointer_index</td><td>token_pointers index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab0f77b924ef689075affec40c991082c" name="ab0f77b924ef689075affec40c991082c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0f77b924ef689075affec40c991082c">&#9670;&nbsp;</a></span>_getTokensCstrings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserInput::_getTokensCstrings </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>data_pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>c_str_delim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>c_str_delim_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>token_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>token_buffer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>point_to_beginning_of_token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>token_pointers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;&#160;</td>
+          <td class="paramname"><em>token_pointer_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get delimited c-strings from input data </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to uint8_t array </td></tr>
+    <tr><td class="paramname">len</td><td>len of data </td></tr>
+    <tr><td class="paramname">data_pos</td><td>index of data </td></tr>
+    <tr><td class="paramname">c_str_delim</td><td>c-string delimiter </td></tr>
+    <tr><td class="paramname">c_str_delim_len</td><td>c-string delimiter length </td></tr>
+    <tr><td class="paramname">token_buffer</td><td>char array </td></tr>
+    <tr><td class="paramname">token_buffer_index</td><td>token_buffer index </td></tr>
+    <tr><td class="paramname">point_to_beginning_of_token</td><td>boolean sentinel </td></tr>
+    <tr><td class="paramname">token_pointers</td><td>pointers to token_buffer </td></tr>
+    <tr><td class="paramname">token_pointer_index</td><td>token_pointers index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a96a971b14828492da78f7e299a427534" name="a96a971b14828492da78f7e299a427534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a971b14828492da78f7e299a427534">&#9670;&nbsp;</a></span>_getTokensDelimiters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UserInput::_getTokensDelimiters </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>data_pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>delimiter_strings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>delimiter_lens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>num_delimiters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>token_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>token_buffer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>point_to_beginning_of_token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>find delimiters in input data </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to input data </td></tr>
+    <tr><td class="paramname">data_pos</td><td>data index </td></tr>
+    <tr><td class="paramname">delimiter_strings</td><td>delimiter array </td></tr>
+    <tr><td class="paramname">delimiter_lens</td><td>delimiter strlen array </td></tr>
+    <tr><td class="paramname">num_delimiters</td><td>delimiter_strings[MAX] &amp;&amp; delimiter_lens[MAX] </td></tr>
+    <tr><td class="paramname">token_buffer</td><td>char array </td></tr>
+    <tr><td class="paramname">token_buffer_index</td><td>token_buffer index </td></tr>
+    <tr><td class="paramname">point_to_beginning_of_token</td><td>boolean sentinel </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1018,9 +1299,6 @@ false if allocation unsuccessful </dd></dl>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">size_t UserInput::getTokens </td>
@@ -1100,11 +1378,6 @@ false if allocation unsuccessful </dd></dl>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>put tokens found in data into token_buffer </p>
