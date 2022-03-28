@@ -329,7 +329,8 @@ public:
      * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
      * @param c_str_delim const char* c string delimiter
      * @param c_str_delim_len strlen of c string delimiter
-     * @param sep token_buffer token delimiter
+     * @param token_buffer_sep token_buffer token delimiter
+     * @param control_char_sequence two character sequence preceding a switch char
      * @return size_t number of tokens retrieved from input data
      */
     size_t getTokens(uint8_t *data,
