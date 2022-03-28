@@ -22,7 +22,7 @@ var searchData=
   ['_5fescapecharacterssotheyprint_19',['_escapeCharactersSoTheyPrint',['../dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336',1,'UserInput']]],
   ['_5ffailed_5fon_5fsubcommand_5f_20',['_failed_on_subcommand_',['../dc/d4b/class_user_input.html#a22e8e1867e082b75194ac67973ea14c2',1,'UserInput']]],
   ['_5fgetargs_21',['_getArgs',['../dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74',1,'UserInput']]],
-  ['_5fgetargtype_22',['_getArgType',['../dc/d4b/class_user_input.html#a2f28fed9fbda993078edb5c80a7eafcc',1,'UserInput']]],
+  ['_5fgetargtype_22',['_getArgType',['../dc/d4b/class_user_input.html#a1bcc48da9ae92581effb4d947326971f',1,'UserInput']]],
   ['_5fgettokenschar_23',['_getTokensChar',['../dc/d4b/class_user_input.html#a29c449565ba880e3ad5ca6ce50e3f063',1,'UserInput']]],
   ['_5fgettokenscstrings_24',['_getTokensCstrings',['../dc/d4b/class_user_input.html#a9c190a9d2773254ee695880f7aa2a65c',1,'UserInput']]],
   ['_5fgettokensdelimiters_25',['_getTokensDelimiters',['../dc/d4b/class_user_input.html#a4c84b524bccb2e0d28dec8934990368b',1,'UserInput']]],

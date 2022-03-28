@@ -230,10 +230,10 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:ad1f90ad129c7b2b41c4a45797ebdb611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78c923c60c72d6d8175d6772b46ec0ad"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a78c923c60c72d6d8175d6772b46ec0ad">getTokens</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, char **token_pointers, uint8_t &amp;token_pointer_index, size_t num_token_ptrs, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, const char *c_str_delim, size_t c_str_delim_len, char &amp;token_buffer_sep, const char *control_char_sequence)</td></tr>
 <tr class="separator:a78c923c60c72d6d8175d6772b46ec0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1d2a3d494c314c1ed9754b9ee69229"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#afe1d2a3d494c314c1ed9754b9ee69229">validateNullSepInput</a> (<a class="el" href="../../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a> arg_type, char **token_pointers, size_t token_pointer_index, char &amp;neg_sign, char &amp;float_sep)</td></tr>
+<tr class="separator:afe1d2a3d494c314c1ed9754b9ee69229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3353bbf00f5c4a4f83668caa224d1030"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030">mIndex</a> (size_t m_width, size_t row, size_t col) const</td></tr>
 <tr class="separator:a3353bbf00f5c4a4f83668caa224d1030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
-<tr class="separator:a53407496c37967a3186bd136f5620dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0c0335fed0fc12f54d4bbe0ebc3e41f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f">_ui_out</a> (const char *fmt,...)</td></tr>
 <tr class="separator:aa0c0335fed0fc12f54d4bbe0ebc3e41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef0e4170324bf9eef64da23aec99686f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f">_readCommandFromBufferErrorOutput</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, bool &amp;command_matched, bool *input_type_match_flag, bool &amp;all_arguments_valid, uint8_t *data)</td></tr>
@@ -248,8 +248,8 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:ac16525071fe3d841e92352b5db709e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8ce0d2ee193a643732a6cc87dc4d6a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa8ce0d2ee193a643732a6cc87dc4d6a1">_addCommandAbort</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> &amp;cmd, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm)</td></tr>
 <tr class="separator:aa8ce0d2ee193a643732a6cc87dc4d6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f28fed9fbda993078edb5c80a7eafcc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a2f28fed9fbda993078edb5c80a7eafcc">_getArgType</a> (<a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t index=0)</td></tr>
-<tr class="separator:a2f28fed9fbda993078edb5c80a7eafcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bcc48da9ae92581effb4d947326971f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a1bcc48da9ae92581effb4d947326971f">_getArgType</a> (<a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, size_t index=0)</td></tr>
+<tr class="separator:a1bcc48da9ae92581effb4d947326971f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33fcc80887114f74a724b70874b94a74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74">_getArgs</a> (size_t &amp;tokens_received, bool *input_type_match_flag, <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;prm, bool &amp;all_arguments_valid)</td></tr>
 <tr class="separator:a33fcc80887114f74a724b70874b94a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07fe8e4c9417e15e72af955654627749"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749">_addEscapedControlCharToBuffer</a> (char *buf, size_t &amp;idx, const char *input, size_t input_len)</td></tr>
@@ -592,8 +592,8 @@ false if there were one or more errors </dd></dl>
 
 </div>
 </div>
-<a id="a2f28fed9fbda993078edb5c80a7eafcc" name="a2f28fed9fbda993078edb5c80a7eafcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f28fed9fbda993078edb5c80a7eafcc">&#9670;&nbsp;</a></span>_getArgType()</h2>
+<a id="a1bcc48da9ae92581effb4d947326971f" name="a1bcc48da9ae92581effb4d947326971f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bcc48da9ae92581effb4d947326971f">&#9670;&nbsp;</a></span>_getArgType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,7 +602,7 @@ false if there were one or more errors </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t UserInput::_getArgType </td>
+          <td class="memname"><a class="el" href="../../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a> UserInput::_getArgType </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> &amp;&#160;</td>
           <td class="paramname"><em>prm</em>, </td>
@@ -634,7 +634,7 @@ false if there were one or more errors </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint8_t argument type </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>UITYPE argument type </dd></dl>
 
 </div>
 </div>
@@ -1703,26 +1703,41 @@ false if not enabled </dd></dl>
 
 </div>
 </div>
-<a id="a53407496c37967a3186bd136f5620dd3" name="a53407496c37967a3186bd136f5620dd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53407496c37967a3186bd136f5620dd3">&#9670;&nbsp;</a></span>validateUserInput()</h2>
+<a id="afe1d2a3d494c314c1ed9754b9ee69229" name="afe1d2a3d494c314c1ed9754b9ee69229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1d2a3d494c314c1ed9754b9ee69229">&#9670;&nbsp;</a></span>validateNullSepInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool UserInput::validateUserInput </td>
+          <td class="memname">bool UserInput::validateNullSepInput </td>
           <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramtype"><a class="el" href="../../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70">UITYPE</a>&#160;</td>
           <td class="paramname"><em>arg_type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>token_pointers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>data_pointers_index</em>&#160;</td>
+          <td class="paramname"><em>token_pointer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char &amp;&#160;</td>
+          <td class="paramname"><em>neg_sign</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char &amp;&#160;</td>
+          <td class="paramname"><em>float_sep</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1730,18 +1745,16 @@ false if not enabled </dd></dl>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Tries to determine if input is valid. </p>
+<p>Tries to determine if input is valid in NULL TERMINATED char arrays. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">arg_type</td><td>the type of argument we are testing </td></tr>
-    <tr><td class="paramname">data_pointers_index</td><td>index of token pointers</td></tr>
+    <tr><td class="paramname">arg_type</td><td>the UITYPE to test </td></tr>
+    <tr><td class="paramname">token_pointers</td><td>pointers to null separated tokens </td></tr>
+    <tr><td class="paramname">token_pointer_index</td><td>index of token_pointers to test </td></tr>
+    <tr><td class="paramname">neg_sign</td><td>single char neg sign, if different than '-' parseInt and the like will not assign your input negative </td></tr>
+    <tr><td class="paramname">float_sep</td><td>whole and fraction separator</td></tr>
   </table>
   </dd>
 </dl>

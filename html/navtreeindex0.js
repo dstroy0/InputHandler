@@ -198,13 +198,13 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749":[2,0,2,2],
 "dc/d4b/class_user_input.html#a109cbbeb887193f54c9b6f010fa45a32":[2,0,2,11],
 "dc/d4b/class_user_input.html#a18a476fdeddeec87fb18659133d5739b":[2,0,2,34],
+"dc/d4b/class_user_input.html#a1bcc48da9ae92581effb4d947326971f":[2,0,2,6],
 "dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369":[2,0,2,15],
 "dc/d4b/class_user_input.html#a22e8e1867e082b75194ac67973ea14c2":[2,0,2,44],
 "dc/d4b/class_user_input.html#a260a1236b8abca71a87b89f354ff31dd":[2,0,2,48],
 "dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea":[2,0,2,52],
 "dc/d4b/class_user_input.html#a281ff5c48c9df2b0540c35c94d446c85":[2,0,2,45],
 "dc/d4b/class_user_input.html#a29c449565ba880e3ad5ca6ce50e3f063":[2,0,2,7],
-"dc/d4b/class_user_input.html#a2f28fed9fbda993078edb5c80a7eafcc":[2,0,2,6],
 "dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b":[2,0,2,31],
 "dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd":[2,0,2,23],
 "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030":[2,0,2,22],
@@ -221,7 +221,6 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03":[2,0,2,40],
 "dc/d4b/class_user_input.html#a4de8e2d97019ccfab71ddd6b7368a50c":[2,0,2,54],
 "dc/d4b/class_user_input.html#a51d72c50ef113c2295326b8b661df0a0":[2,0,2,51],
-"dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3":[2,0,2,28],
 "dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9":[2,0,2,17],
 "dc/d4b/class_user_input.html#a682b3308f9ee638d4bbb7ad11d06ad66":[2,0,2,37],
 "dc/d4b/class_user_input.html#a68b8edf18d28af2154bc8880f7d770ca":[2,0,2,27],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039":[2,0,2,61],
 "dc/d4b/class_user_input.html#acee1812eac7354e20935df8e34a43b33":[2,0,2,38],
 "dc/d4b/class_user_input.html#ad129cb19ce98376e3afd99dde12a6b46":[2,0,2,47],
-"dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611":[2,0,2,16]
+"dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611":[2,0,2,16],
+"dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b":[2,0,2,56]
 };

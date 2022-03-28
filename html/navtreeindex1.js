@@ -1,12 +1,12 @@
 var NAVTREEINDEX1 =
 {
-"dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b":[2,0,2,56],
 "dc/d4b/class_user_input.html#aebb3d0583502972a63ab3caafefcd205":[2,0,2,10],
 "dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f":[2,0,2,12],
 "dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9":[2,0,2,57],
 "dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f":[2,0,2,20],
 "dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a":[2,0,2,30],
 "dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab":[2,0,2,43],
+"dc/d4b/class_user_input.html#afe1d2a3d494c314c1ed9754b9ee69229":[2,0,2,28],
 "dd/d4e/_input_handler__config_8h.html":[3,0,1,0,0],
 "dd/d4e/_input_handler__config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f":[3,0,1,0,0,8],
 "dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934":[3,0,1,0,0,5],
