@@ -1,9 +1,8 @@
 var NAVTREEINDEX1 =
 {
-"dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9":[2,0,2,54],
-"dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f":[2,0,2,18],
-"dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a":[2,0,2,28],
-"dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab":[2,0,2,40],
+"dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f":[2,0,2,17],
+"dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a":[2,0,2,27],
+"dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab":[2,0,2,39],
 "dd/d4e/_input_handler__config_8h.html":[3,0,1,0,0],
 "dd/d4e/_input_handler__config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f":[3,0,1,0,0,8],
 "dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934":[3,0,1,0,0,5],
