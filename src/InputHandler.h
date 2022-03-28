@@ -311,21 +311,6 @@ public:
      */
     void clearOutputBuffer();
 
-protected:
-    /**
-     * @brief transform 2d matrix indices to flat array index
-     * 
-     * use this to access a dynamically allocated array like a 2d matrix,
-     * this is much more performant than looping to allocate a (n>1)d array, 
-     * and looping again to free allocated ram.
-     * 
-     * @param m_width width of the matrix
-     * @param row row you want to access
-     * @param col column you want to access
-     * @return size_t the transformed index
-     */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
-
     /**
      * @brief put tokens found in data into token_buffer
      * 
@@ -355,6 +340,21 @@ protected:
                      size_t num_delimiters,
                      const char *c_str_delim,
                      size_t c_str_delim_len);
+
+protected:
+    /**
+     * @brief transform 2d matrix indices to flat array index
+     * 
+     * use this to access a dynamically allocated array like a 2d matrix,
+     * this is much more performant than looping to allocate a (n>1)d array, 
+     * and looping again to free allocated ram.
+     * 
+     * @param m_width width of the matrix
+     * @param row row you want to access
+     * @param col column you want to access
+     * @return size_t the transformed index
+     */
+    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}
 
     /**
      * @brief Tries to determine if input is valid
@@ -535,6 +535,73 @@ private:
      * @return pointer to null terminated escaped control char string
      */
     char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);
+
+    /**
+     * @brief find delimiters in input data
+     *
+     * @param data pointer to input data
+     * @param data_pos data index
+     * @param delimiter_strings delimiter array
+     * @param delimiter_lens delimiter strlen array
+     * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
+     * @param token_buffer char array
+     * @param token_buffer_index token_buffer index
+     * @param point_to_beginning_of_token boolean sentinel
+     */
+    void _getTokensDelimiters(uint8_t *data,
+                              size_t &data_pos,
+                              const char **delimiter_strings,
+                              size_t *delimiter_lens,
+                              size_t num_delimiters,
+                              char *token_buffer,
+                              size_t &token_buffer_index,
+                              bool &point_to_beginning_of_token);
+
+    /**
+     * @brief get delimited c-strings from input data
+     *
+     * @param data pointer to uint8_t array
+     * @param len len of data
+     * @param data_pos index of data
+     * @param c_str_delim c-string delimiter
+     * @param c_str_delim_len c-string delimiter length
+     * @param token_buffer char array
+     * @param token_buffer_index token_buffer index
+     * @param point_to_beginning_of_token boolean sentinel
+     * @param token_pointers pointers to token_buffer
+     * @param token_pointer_index token_pointers index
+     */
+    void _getTokensCstrings(uint8_t *data,
+                            size_t len,
+                            size_t &data_pos,
+                            const char *c_str_delim,
+                            size_t c_str_delim_len,
+                            char *token_buffer,
+                            size_t &token_buffer_index,
+                            bool &point_to_beginning_of_token,
+                            char **token_pointers,
+                            uint8_t &token_pointer_index);
+
+    /**
+     * @brief add char/control char to token_buffer
+     *
+     * @param data pointer to uint8_t array
+     * @param len len of data
+     * @param data_pos index of data
+     * @param token_buffer char array
+     * @param token_buffer_index token_buffer index
+     * @param point_to_beginning_of_token boolean sentinel
+     * @param token_pointers pointers to token_buffer
+     * @param token_pointer_index token_pointers index
+     */
+    void _getTokensChar(uint8_t *data,
+                        size_t len,
+                        size_t &data_pos,
+                        char *token_buffer,
+                        size_t &token_buffer_index,
+                        bool &point_to_beginning_of_token,
+                        char **token_pointers,
+                        uint8_t &token_pointer_index);
 
     // end private methods
 };

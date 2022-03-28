@@ -372,16 +372,12 @@ void UserInput::clearOutputBuffer()
     _output_flag_ = false;
 }
 
-/*
-    protected methods
-*/
-
 size_t UserInput::getTokens(uint8_t *data,
                             size_t len,
                             char *token_buffer,
                             size_t token_buffer_len,
                             char **token_pointers,
-                            uint8_t& token_pointer_index,
+                            uint8_t &token_pointer_index,
                             size_t num_token_ptrs,
                             const char **delimiter_strings,
                             size_t *delimiter_lens,
@@ -390,135 +386,51 @@ size_t UserInput::getTokens(uint8_t *data,
                             size_t c_str_delim_len)
 {
     size_t data_pos = 0;
-    size_t token_buffer_index = 0;    
+    size_t token_buffer_index = 0;
     bool point_to_beginning_of_token = true;
     token_pointer_index = 0;
 
     while (data_pos < len)
     {
-        for (size_t i = 0; i < num_delimiters; ++i) // skip over delimiters
-        {
-            if (delimiter_strings[i][0] == (char)data[data_pos])
-            {                
-                if (delimiter_lens[i] > 1U)
-                {
-                    char *ptr = (char *)&data[data_pos];
-                    if (memcmp(delimiter_strings[i], ptr, delimiter_lens[i]) == 0)
-                    {
-                        // match
-                        data_pos += delimiter_lens[i] + 1U; 
-                        point_to_beginning_of_token = true;
-                        token_buffer[token_buffer_index] = '\0';
-                        token_buffer_index++;
-                        break;
-                    }
-                }
-                else
-                {
-                    // match
-                    data_pos++;
-                    point_to_beginning_of_token = true;
-                    token_buffer[token_buffer_index] = '\0';
-                    token_buffer_index++;
-                    break; // break for loop
-                }
-            }
-        }
+        UserInput::_getTokensDelimiters(data,
+                                        data_pos,
+                                        delimiter_strings,
+                                        delimiter_lens,
+                                        num_delimiters,
+                                        token_buffer,
+                                        token_buffer_index,
+                                        point_to_beginning_of_token);
         if (c_str_delim != NULL && c_str_delim[0] == (char)data[data_pos])
-        {            
-            if (c_str_delim_len > 1U)
-            {
-                char *ptr = (char *)&data[data_pos];
-                if (memcmp(c_str_delim, ptr, c_str_delim_len) == 0)
-                {
-                    // match
-                    data_pos += c_str_delim_len + 1U;
-                    // point to beginning of c-string
-                    ptr = (char *)&data[data_pos];
-                    // search for next c-string delimiter
-                    char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
-                    while (end_ptr != NULL ||
-                           data_pos < len)
-                    {
-                        if (memcmp(c_str_delim, end_ptr, c_str_delim_len) == 0)
-                        {
-                            // match
-                            // memcpy c-string to token buffer
-                            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
-                            memcpy(token_buffer, ptr, size);
-                            token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-                            token_pointer_index++;
-                            token_buffer_index += size + 1U;
-                            token_buffer[token_buffer_index] = '\0';
-                            break;
-                        }
-                        else
-                        {
-                            end_ptr = (char *)memchr(end_ptr, c_str_delim[0], (len - data_pos));
-                            data_pos += end_ptr - (char *)data;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // match
-                data_pos++;
-                // point to beginning of c-string
-                char *ptr = (char *)&data[data_pos];
-                // search for next c-string delimiter
-                char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
-                if (end_ptr != NULL)
-                {
-                    // memcpy
-                    size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
-                    memcpy(token_buffer, ptr, size);
-                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-                    token_pointer_index++;                    
-                    token_buffer_index += size + 1U;
-                    data_pos += end_ptr - (char *)data;
-                }
-                else
-                {
-                    // no end match
-                    
-                }
-            }
+        {
+            UserInput::_getTokensCstrings(data,
+                                          len,
+                                          data_pos,
+                                          c_str_delim,
+                                          c_str_delim_len,
+                                          token_buffer,
+                                          token_buffer_index,
+                                          point_to_beginning_of_token,
+                                          token_pointers,
+                                          token_pointer_index);
         }
         else // non c-string
-        {                        
-            if ((char)data[data_pos] == '\\' && (data_pos + 1 < len))
-            {
-                if (iscntrl(UserInput::_combineControlCharacters((char)data[data_pos + 1])))
-                {
-                    token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)data[data_pos + 1]);
-                    if (point_to_beginning_of_token)
-                    {
-                        token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-                        token_pointer_index++;
-                        point_to_beginning_of_token = false;
-                    }
-                    data_pos++;
-                    token_buffer_index++;
-                }
-            }
-            else
-            {
-                token_buffer[token_buffer_index] = data[data_pos];
-                if (point_to_beginning_of_token)
-                {
-                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-                    token_pointer_index++;
-                    point_to_beginning_of_token = false;
-                }
-                token_buffer_index++;
-                data_pos++;
-            }
+        {
+            UserInput::_getTokensChar(data,
+                                      len,
+                                      data_pos,
+                                      token_buffer,
+                                      token_buffer_index,
+                                      point_to_beginning_of_token,
+                                      token_pointers,
+                                      token_pointer_index);
         }
     }
     return token_pointer_index;
 }
 
+/*
+    protected methods
+*/
 bool UserInput::validateUserInput(uint8_t arg_type, size_t _data_pointers_index_)
 {
     size_t strlen_data = strlen(_data_pointers_[_data_pointers_index_]);
@@ -1069,4 +981,151 @@ char *UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const ch
     buf[idx] = _null_; // terminate string
     idx++;
     return start;
+}
+
+void UserInput::_getTokensDelimiters(uint8_t *data,
+                                     size_t &data_pos,
+                                     const char **delimiter_strings,
+                                     size_t *delimiter_lens,
+                                     size_t num_delimiters,
+                                     char *token_buffer,
+                                     size_t &token_buffer_index,
+                                     bool &point_to_beginning_of_token)
+{
+    for (size_t i = 0; i < num_delimiters; ++i) // skip over delimiters
+    {
+        if (delimiter_strings[i][0] == (char)data[data_pos])
+        {
+            if (delimiter_lens[i] > 1U)
+            {
+                char *ptr = (char *)&data[data_pos];
+                if (memcmp(delimiter_strings[i], ptr, delimiter_lens[i]) == 0)
+                {
+                    // match
+                    data_pos += delimiter_lens[i] + 1U;
+                    point_to_beginning_of_token = true;
+                    token_buffer[token_buffer_index] = '\0';
+                    token_buffer_index++;
+                    break;
+                }
+            }
+            else
+            {
+                // match
+                data_pos++;
+                point_to_beginning_of_token = true;
+                token_buffer[token_buffer_index] = '\0';
+                token_buffer_index++;
+                break; // break for loop
+            }
+        }
+    }
+}
+
+void UserInput::_getTokensCstrings(uint8_t *data,
+                                   size_t len,
+                                   size_t &data_pos,
+                                   const char *c_str_delim,
+                                   size_t c_str_delim_len,
+                                   char *token_buffer,
+                                   size_t &token_buffer_index,
+                                   bool &point_to_beginning_of_token,
+                                   char **token_pointers,
+                                   uint8_t &token_pointer_index)
+{
+    if (c_str_delim_len > 1U)
+    {
+        char *ptr = (char *)&data[data_pos];
+        if (memcmp(c_str_delim, ptr, c_str_delim_len) == 0)
+        {
+            // match
+            data_pos += c_str_delim_len + 1U;
+            // point to beginning of c-string
+            ptr = (char *)&data[data_pos];
+            // search for next c-string delimiter
+            char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
+            while (end_ptr != NULL ||
+                   data_pos < len)
+            {
+                if (memcmp(c_str_delim, end_ptr, c_str_delim_len) == 0)
+                {
+                    // match
+                    // memcpy c-string to token buffer
+                    size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
+                    memcpy(token_buffer, ptr, size);
+                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                    token_pointer_index++;
+                    token_buffer_index += size + 1U;
+                    token_buffer[token_buffer_index] = '\0';
+                    break;
+                }
+                else
+                {
+                    end_ptr = (char *)memchr(end_ptr, c_str_delim[0], (len - data_pos));
+                    data_pos += end_ptr - (char *)data;
+                }
+            }
+        }
+    }
+    else
+    {
+        // match
+        data_pos++;
+        // point to beginning of c-string
+        char *ptr = (char *)&data[data_pos];
+        // search for next c-string delimiter
+        char *end_ptr = (char *)memchr(ptr, c_str_delim[0], (len - data_pos));
+        if (end_ptr != NULL)
+        {
+            // memcpy
+            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
+            memcpy(token_buffer, ptr, size);
+            token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+            token_pointer_index++;
+            token_buffer_index += size + 1U;
+            data_pos += end_ptr - (char *)data;
+        }
+        else
+        {
+            // no end match
+        }
+    }
+}
+
+void UserInput::_getTokensChar(uint8_t *data,
+                               size_t len,
+                               size_t &data_pos,
+                               char *token_buffer,
+                               size_t &token_buffer_index,
+                               bool &point_to_beginning_of_token,
+                               char **token_pointers,
+                               uint8_t &token_pointer_index)
+{
+    if ((char)data[data_pos] == '\\' && (data_pos + 1 < len))
+    {
+        if (iscntrl(UserInput::_combineControlCharacters((char)data[data_pos + 1])))
+        {
+            token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)data[data_pos + 1]);
+            if (point_to_beginning_of_token)
+            {
+                token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                token_pointer_index++;
+                point_to_beginning_of_token = false;
+            }
+            data_pos++;
+            token_buffer_index++;
+        }
+    }
+    else
+    {
+        token_buffer[token_buffer_index] = data[data_pos];
+        if (point_to_beginning_of_token)
+        {
+            token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+            token_pointer_index++;
+            point_to_beginning_of_token = false;
+        }
+        token_buffer_index++;
+        data_pos++;
+    }
 }
