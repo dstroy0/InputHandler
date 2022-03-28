@@ -23,13 +23,10 @@
 
 void UserInput::listSettings(UserInput *inputprocess)
 {
-    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3 null separators
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator
     // allocate char buffer large enough to print these potential control characters
     char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
-    size_t idx = 0;    
-    char *term = _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_);
-    char *delim = _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_);
-    char *c_str_delim = _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_);    
+    size_t idx = 0;       
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
                             "UI_MAX_CMD_LEN (root command) %u characters\n"
@@ -46,9 +43,9 @@ void UserInput::listSettings(UserInput *inputprocess)
                        UI_MAX_CMD_LEN,
                        UI_MAX_IN_LEN,
                        _username_,
-                       term,
-                       delim,
-                       c_str_delim,
+                       _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_),
+                       _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_),
+                       _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_),
                        (1U + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);
