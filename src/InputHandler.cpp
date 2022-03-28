@@ -192,29 +192,32 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     bool command_matched = false;  // error sentinel
     CommandConstructor *cmd;       // command parameters pointer
     Parameters prm;                // Parameters struct    
-           
+
+    // delimiter string literal array       
     const char* delimiters[] =
     {
         _delim_        
     };
+    // delimiter length string literal array
     size_t delimiter_lens[] =
     {
         _delim_len_        
     };
 
-    tokens_received = UserInput::getTokens(data,
-                                           len,
-                                           _token_buffer_,
-                                           buffSZ(_token_buffer_),
-                                           _data_pointers_,
-                                           _data_pointers_index_,
-                                           num_ptrs,                                           
-                                           delimiters,
-                                           delimiter_lens,
-                                           buffSZ(delimiter_lens), 
-                                           _c_str_delim_,
-                                           _c_str_delim_len_,
-                                           _null_);
+    // tokenize the input
+    tokens_received = UserInput::getTokens(data,                    // input data uint8_t array
+                                           len,                     // input len
+                                           _token_buffer_,          // pointer to char array, size of len + 1
+                                           buffSZ(_token_buffer_),  // the size of token_buffer
+                                           _data_pointers_,         // token_buffer pointers
+                                           _data_pointers_index_,   // index of token_buffer pointer array
+                                           num_ptrs,                // _data_pointers_[MAX], _data_pointers_index_[MAX]
+                                           delimiters,              // delimiter string literal array, const char**
+                                           delimiter_lens,          // delimiter strlen array
+                                           buffSZ(delimiter_lens),  // delimiters[MAX], delimiter_lens[MAX]
+                                           _c_str_delim_,           // const char* c-string delimiter
+                                           _c_str_delim_len_,       // c-string delim len
+                                           _null_);                 // token_buffer sep char, _null_ == '\0'
     
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
