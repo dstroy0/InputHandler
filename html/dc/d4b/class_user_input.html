@@ -226,8 +226,8 @@ Collaboration diagram for UserInput:</div>
 <tr class="separator:ab96315069a4c3383b45123001d8a540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a6a7cefcc1eb8d80a70191d0ecd0cc005">clearOutputBuffer</a> ()</td></tr>
 <tr class="separator:a6a7cefcc1eb8d80a70191d0ecd0cc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21f7d0de0d269777793b8292d862589c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a21f7d0de0d269777793b8292d862589c">getTokens</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, char **token_pointers, uint8_t &amp;token_pointer_index, size_t num_token_ptrs, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, const char *c_str_delim, size_t c_str_delim_len)</td></tr>
-<tr class="separator:a21f7d0de0d269777793b8292d862589c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fa68c2f52e080b967245053e90ac794"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a0fa68c2f52e080b967245053e90ac794">getTokens</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, char **token_pointers, uint8_t &amp;token_pointer_index, size_t num_token_ptrs, const char **delimiter_strings, size_t *delimiter_lens, size_t num_delimiters, const char *c_str_delim, size_t c_str_delim_len, char &amp;sep)</td></tr>
+<tr class="separator:a0fa68c2f52e080b967245053e90ac794"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3353bbf00f5c4a4f83668caa224d1030"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030">mIndex</a> (size_t m_width, size_t row, size_t col) const</td></tr>
 <tr class="separator:a3353bbf00f5c4a4f83668caa224d1030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53407496c37967a3186bd136f5620dd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a53407496c37967a3186bd136f5620dd3">validateUserInput</a> (uint8_t arg_type, size_t data_pointers_index)</td></tr>
@@ -1294,8 +1294,8 @@ false if allocation unsuccessful </dd></dl>
 
 </div>
 </div>
-<a id="a21f7d0de0d269777793b8292d862589c" name="a21f7d0de0d269777793b8292d862589c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21f7d0de0d269777793b8292d862589c">&#9670;&nbsp;</a></span>getTokens()</h2>
+<a id="a0fa68c2f52e080b967245053e90ac794" name="a0fa68c2f52e080b967245053e90ac794"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fa68c2f52e080b967245053e90ac794">&#9670;&nbsp;</a></span>getTokens()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1370,7 +1370,13 @@ false if allocation unsuccessful </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>c_str_delim_len</em>&#160;</td>
+          <td class="paramname"><em>c_str_delim_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char &amp;&#160;</td>
+          <td class="paramname"><em>sep</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1385,7 +1391,7 @@ false if allocation unsuccessful </dd></dl>
   <table class="params">
     <tr><td class="paramname">data</td><td>pointer to uint8_t array </td></tr>
     <tr><td class="paramname">len</td><td>length of uint8_t array </td></tr>
-    <tr><td class="paramname">token_buffer</td><td>pointer to char array </td></tr>
+    <tr><td class="paramname">token_buffer</td><td>pointer to null terminated char array </td></tr>
     <tr><td class="paramname">token_buffer_len</td><td>size of data + 1 </td></tr>
     <tr><td class="paramname">token_pointers</td><td>number of token pointers </td></tr>
     <tr><td class="paramname">token_pointer_index</td><td>index of token_pointers </td></tr>
@@ -1395,6 +1401,7 @@ false if allocation unsuccessful </dd></dl>
     <tr><td class="paramname">num_delimiters</td><td>delimiter_strings[MAX] &amp;&amp; delimiter_lens[MAX] </td></tr>
     <tr><td class="paramname">c_str_delim</td><td>const char* c string delimiter </td></tr>
     <tr><td class="paramname">c_str_delim_len</td><td>strlen of c string delimiter </td></tr>
+    <tr><td class="paramname">sep</td><td>token_buffer token delimiter </td></tr>
   </table>
   </dd>
 </dl>
