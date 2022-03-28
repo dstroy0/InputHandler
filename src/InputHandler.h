@@ -168,6 +168,7 @@ public:
      * @param end_of_line_characters EOL term, default is '\\r\\n'
      * @param token_delimiter token demarcation
      * @param c_string_delimiter c-string demarcation
+     * @param input_control_char_sequence two character sequence that precedes a switch char
      */
     inline UserInput(char *output_buffer = NULL,
                      size_t output_buffer_len = 0,
