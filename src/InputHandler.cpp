@@ -363,15 +363,21 @@ void UserInput::outputToStream(Stream &stream)
     }
 }
 
-void UserInput::clearOutputBuffer()
+void UserInput::clearOutputBuffer(bool overwrite_contents)
 {
     if (UserInput::outputIsEnabled())
     {
-        _output_buffer_bytes_left_ = _output_buffer_len_; //  reset output_buffer's index
-        //  this maybe doesnt need to be done
-        for (size_t i = 0; i < _output_buffer_len_; ++i)
+        _output_buffer_bytes_left_ = _output_buffer_len_; //  reset output_buffer's index        
+        if (!overwrite_contents)
         {
-            _output_buffer_[i] = _null_; // reinit output_buffer
+            _output_buffer_[0] = _null_; // soft reinit _output_buffer_ 
+        }
+        else
+        {
+            for(size_t i = 0; i < _output_buffer_len_; ++i)
+            {
+                _output_buffer_[i] = _null_;    // overwrite buffer contents
+            }
         }
     }
     _output_flag_ = false;
@@ -393,9 +399,9 @@ size_t UserInput::getTokens(uint8_t *data,
                             const char *control_char_sequence)
 {
     size_t data_pos = 0;
-    size_t token_buffer_index = 0;
-    bool point_to_beginning_of_token = true;
+    size_t token_buffer_index = 0;    
     token_pointer_index = 0;
+    bool point_to_beginning_of_token = true; // assign pointer to &token_buffer[token_buffer_index] if true
 
     while (data_pos < len)
     {
@@ -408,6 +414,7 @@ size_t UserInput::getTokens(uint8_t *data,
                                         token_buffer_index,
                                         point_to_beginning_of_token,
                                         token_buffer_sep);
+
         if (c_str_delim != NULL && c_str_delim[0] == (char)data[data_pos])
         {
             UserInput::_getTokensCstrings(data,
@@ -534,7 +541,7 @@ void UserInput::_ui_out(const char *fmt, ...)
         va_start(args, fmt); // set the parameter pack list index here
         int err = vsnprintf_P(_output_buffer_ + abs((int)_output_buffer_bytes_left_ - (int)_output_buffer_len_), _output_buffer_bytes_left_, fmt, args);
         va_end(args);                   // we are done with the parameter pack
-        if (err >= _output_buffer_bytes_left_) // overflow condition
+        if (err > _output_buffer_bytes_left_) // overflow condition
         {
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_,
@@ -1065,13 +1072,16 @@ void UserInput::_getTokensCstrings(uint8_t *data,
                     // match
                     // memcpy c-string to token buffer
                     size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
-                    memcpy(token_buffer + token_buffer_index, ptr, size);
-                    token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-                    token_pointer_index++;
-                    token_buffer_index += size + 1U;
-                    token_buffer[token_buffer_index] = sep;
-                    token_buffer_index++;
-                    data_pos += size + 1U;
+                    if ((size + 1U) < (len - data_pos))
+                    {
+                        memcpy(token_buffer + token_buffer_index, ptr, size);
+                        token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                        token_pointer_index++;
+                        token_buffer_index += size + 1U;
+                        token_buffer[token_buffer_index] = sep;
+                        token_buffer_index++;
+                        data_pos += size + 1U;
+                    }
                     break;
                 }
                 else
@@ -1093,14 +1103,17 @@ void UserInput::_getTokensCstrings(uint8_t *data,
         if (end_ptr != NULL)
         {
             // memcpy
-            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));            
-            memcpy(token_buffer + token_buffer_index, ptr, size);
-            token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
-            token_pointer_index++;
-            token_buffer_index += size + 1U;
-            token_buffer[token_buffer_index] = sep;
-            token_buffer_index++;
-            data_pos += size + 1U;
+            size_t size = ((end_ptr - (char *)data) - (ptr - (char *)data));
+            if ((size + 1U) < (len - data_pos))
+            {
+                memcpy(token_buffer + token_buffer_index, ptr, size);
+                token_pointers[token_pointer_index] = &token_buffer[token_buffer_index];
+                token_pointer_index++;
+                token_buffer_index += size + 1U;
+                token_buffer[token_buffer_index] = sep;
+                token_buffer_index++;
+                data_pos += size + 1U;
+            }
         }     
     }
 }

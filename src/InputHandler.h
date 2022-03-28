@@ -310,8 +310,9 @@ public:
     /**
      * @brief clears output buffer
      *
+     * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire _output_buffer_
      */
-    void clearOutputBuffer();
+    void clearOutputBuffer(bool overwrite_contents = false);
 
     /**
      * @brief put tokens found in data into token_buffer
