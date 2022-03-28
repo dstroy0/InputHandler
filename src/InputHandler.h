@@ -174,7 +174,8 @@ public:
                      const char *username = NULL,
                      const char *end_of_line_characters = "\r\n",
                      const char *token_delimiter = " ",
-                     const char *c_string_delimiter = "\"")
+                     const char *c_string_delimiter = "\"",
+                     const char *input_control_char_sequence = "\\")
         : _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),          
           _output_buffer_len_(output_buffer_len),
@@ -183,6 +184,7 @@ public:
           _term_(end_of_line_characters),
           _delim_(token_delimiter),
           _c_str_delim_(c_string_delimiter),
+          _control_char_sequence_(input_control_char_sequence),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -341,7 +343,8 @@ public:
                      size_t num_delimiters,
                      const char *c_str_delim,
                      size_t c_str_delim_len,
-                     char &sep);
+                     char &token_buffer_sep,
+                     const char *control_char_sequence);
 
 protected:
     /**
@@ -379,13 +382,14 @@ private:
     const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
     uint16_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
-    const char *_username_;    ///< username/project name/equipment name
-    const char *_term_;        ///< end of line characters, terminating characters, default is CRLF
-    uint8_t _term_len_;        ///< _term_ length in characters, determined in begin()
-    const char *_delim_;       ///< input argument delimiter, space by default
-    uint8_t _delim_len_;       ///< _delim_ length in characters, determined in begin()
-    const char *_c_str_delim_; ///< c-string delimiter, default is enclosed with quotation marks "c-string"
-    uint8_t _c_str_delim_len_; ///< _c_str_delim_ length in characters, determined in begin()
+    const char *_username_;              ///< username/project name/equipment name
+    const char *_term_;                  ///< end of line characters, terminating characters, default is CRLF
+    uint8_t _term_len_;                  ///< _term_ length in characters, determined in begin()
+    const char *_delim_;                 ///< input argument delimiter, space by default
+    uint8_t _delim_len_;                 ///< _delim_ length in characters, determined in begin()
+    const char *_c_str_delim_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
+    uint8_t _c_str_delim_len_;           ///< _c_str_delim_ length in characters, determined in begin()
+    const char *_control_char_sequence_; ///< input a control char sequence
     // end user entered constructor variables
 
     // constructor initialized variables
@@ -485,12 +489,11 @@ private:
     char *_escapeCharactersSoTheyPrint(char input, char *buf);
 
     /**
-     * @brief Triggers on a user input backslash, if the char immediately
-     * after the backslash would be a valid control char it returns the
-     * control char. ie if you input char(\) + char(r)  this will return
-     * the control character '\\r'
+     * @brief Triggers on a control character sequence, if the char immediately
+     * after the control char is a char known to UserInput::_combineControlCharacters
+     * this returns a control char, else it returns the input char
      *
-     * @param input the char after a backslash ie 'r'
+     * @param input the char the control character sequence
      * @return the control character char value ie '\\r'
      */
     inline char _combineControlCharacters(char input);
@@ -549,6 +552,7 @@ private:
      * @param token_buffer char array
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
+     * @param token_buffer_sep token_buffer token delimiter char
      */
     void _getTokensDelimiters(uint8_t *data,
                               size_t &data_pos,
@@ -557,7 +561,8 @@ private:
                               size_t num_delimiters,
                               char *token_buffer,
                               size_t &token_buffer_index,
-                              bool &point_to_beginning_of_token);
+                              bool &point_to_beginning_of_token,
+                              char& token_buffer_sep);
 
     /**
      * @brief get delimited c-strings from input data
@@ -572,6 +577,7 @@ private:
      * @param point_to_beginning_of_token boolean sentinel
      * @param token_pointers pointers to token_buffer
      * @param token_pointer_index token_pointers index
+     * @param token_buffer_sep token_buffer token delimiter char
      */
     void _getTokensCstrings(uint8_t *data,
                             size_t len,
@@ -582,10 +588,11 @@ private:
                             size_t &token_buffer_index,
                             bool &point_to_beginning_of_token,
                             char **token_pointers,
-                            uint8_t &token_pointer_index);
+                            uint8_t &token_pointer_index,
+                            char& token_buffer_sep);
 
     /**
-     * @brief add char/control char to token_buffer
+     * @brief add uchar to token_buffer
      *
      * @param data pointer to uint8_t array
      * @param len len of data
@@ -595,6 +602,8 @@ private:
      * @param point_to_beginning_of_token boolean sentinel
      * @param token_pointers pointers to token_buffer
      * @param token_pointer_index token_pointers index
+     * @param token_buffer_sep token_buffer token delimiter char
+     * @param control_char_sequence two character sequence preceding a single char
      */
     void _getTokensChar(uint8_t *data,
                         size_t len,
@@ -603,7 +612,9 @@ private:
                         size_t &token_buffer_index,
                         bool &point_to_beginning_of_token,
                         char **token_pointers,
-                        uint8_t &token_pointer_index);
+                        uint8_t &token_pointer_index,
+                        char& token_buffer_sep,
+                        const char *control_char_sequence);
 
     // end private methods
 };
