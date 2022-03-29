@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('dd/d4e/_input_handler__config_8h_sourc
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//  maximum number of arguments per command</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#if !defined(UI_MAX_ARGS)</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">  max is 255, </span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">  max is 255,</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">  change to uint16_t</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">  _max_args_</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">  _data_pointers_index_</span></div>
@@ -148,7 +148,7 @@ $(document).ready(function(){initNavTree('dd/d4e/_input_handler__config_8h_sourc
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">  _rec_num_arg_strings_</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">  to increase max to 65535</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">   43</a></span><span class="preprocessor">#define UI_MAX_ARGS 32  </span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">   43</a></span><span class="preprocessor">#define UI_MAX_ARGS 32</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//  maximum tree depth</span></div>
@@ -196,13 +196,13 @@ $(document).ready(function(){initNavTree('dd/d4e/_input_handler__config_8h_sourc
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">   max is 65535 - 2</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">   change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">   to increase UI_MAX_IN_LEN (2^32) - 2 </span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">   to increase UI_MAX_IN_LEN (2^32) - 2</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#a4f376dd1800f7322379979be7d05ca20">   93</a></span><span class="preprocessor">#define UI_MAX_IN_LEN (UINT16_MAX - 2U)</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">   96</a></span><span class="preprocessor">#define nprms(x) (sizeof(x) / sizeof((x)[0])) </span><span class="comment">// gets the number of elements in an array</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">   97</a></span><span class="preprocessor">#define buffsz(x) nprms(x)  </span><span class="comment">// gets the number of elements in an array</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">   97</a></span><span class="preprocessor">#define buffsz(x) nprms(x)                    </span><span class="comment">// gets the number of elements in an array</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">// portability directives</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
@@ -217,9 +217,9 @@ $(document).ready(function(){initNavTree('dd/d4e/_input_handler__config_8h_sourc
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddc/vsnprintf_8h.html">utility/vsnprintf.h</a>&quot;</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#define vsnprintf_P vsnprintf</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#undef pgm_read_dword</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#define pgm_read_dword(addr) ({ \</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">  typeof(addr) _addr = (addr); \</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">  *(const unsigned long *)(_addr); \</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#define pgm_read_dword(addr) ({     \</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">   typeof(addr) _addr = (addr);     \</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">   *(const unsigned long *)(_addr); \</span></div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">})</span></div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
@@ -228,9 +228,9 @@ $(document).ready(function(){initNavTree('dd/d4e/_input_handler__config_8h_sourc
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddc/vsnprintf_8h.html">utility/vsnprintf.h</a>&quot;</span></div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#define vsnprintf_P vsnprintf</span></div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#undef pgm_read_dword</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#define pgm_read_dword(addr) ({ \</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">  typeof(addr) _addr = (addr); \</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">  *(const unsigned long *)(_addr); \</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#define pgm_read_dword(addr) ({     \</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">   typeof(addr) _addr = (addr);     \</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">   *(const unsigned long *)(_addr); \</span></div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">})</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
