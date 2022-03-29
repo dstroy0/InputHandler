@@ -209,7 +209,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             data,                   // input data uint8_t array
             len,                    // input len
             _token_buffer_,         // pointer to char array, size of len + 1
-            buffsz(_token_buffer_), // the size of token_buffer
+            (len + 1U),             // the size of token_buffer
             _data_pointers_,        // token_buffer pointers
             _data_pointers_index_,  // index of token_buffer pointer array
             num_ptrs,               // _data_pointers_[MAX], _data_pointers_index_[MAX]
@@ -1022,20 +1022,29 @@ inline void UserInput::_getTokensChar(getTokensParam &gtprm, size_t &data_pos, s
 {
     if ((char)gtprm.data[data_pos] == gtprm.control_char_sequence[0] &&
         (char)gtprm.data[data_pos + 1U] == gtprm.control_char_sequence[1] &&
-        (data_pos + 3 < gtprm.len))
+        (data_pos + 3U < gtprm.len))
     {
-        if (iscntrl(UserInput::_combineControlCharacters((char)gtprm.data[data_pos + 2])))
+        if (point_to_beginning_of_token)
         {
-            gtprm.token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)gtprm.data[data_pos + 2]);
-            if (point_to_beginning_of_token)
-            {
-                gtprm.token_pointers[gtprm.token_pointer_index] = &gtprm.token_buffer[token_buffer_index];
-                gtprm.token_pointer_index++;
-                point_to_beginning_of_token = false;
-            }
-            data_pos = data_pos + 3;
-            token_buffer_index++;
+            gtprm.token_pointers[gtprm.token_pointer_index] = &gtprm.token_buffer[token_buffer_index];
+            gtprm.token_pointer_index++;
+            point_to_beginning_of_token = false;
         }
+        if (UserInput::_combineControlCharacters((char)gtprm.data[data_pos + 2U]) == '*') // error
+        {
+            gtprm.token_buffer[token_buffer_index] = gtprm.control_char_sequence[0];
+            gtprm.token_buffer[token_buffer_index + 1] = gtprm.control_char_sequence[1];
+            gtprm.token_buffer[token_buffer_index + 2] = UserInput::_combineControlCharacters((char)gtprm.data[data_pos + 2U]);
+            token_buffer_index = token_buffer_index + 3U;
+            data_pos = data_pos + 3U;
+            return;            
+        }
+        else
+        {
+            gtprm.token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)gtprm.data[data_pos + 2U]);
+        }                
+        token_buffer_index++;
+        data_pos = data_pos + 3U;
     }
     else
     {
