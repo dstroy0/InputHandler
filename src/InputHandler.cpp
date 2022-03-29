@@ -21,37 +21,6 @@
     public methods
 */
 
-void UserInput::listSettings(UserInput *inputprocess)
-{
-    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator
-    // allocate char buffer large enough to print these potential control characters
-    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
-    size_t idx = 0;       
-    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
-                            "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
-                            "UI_MAX_CMD_LEN (root command) %u characters\n"
-                            "UI_MAX_IN_LEN %u bytes\n"
-                            "\nUserInput constructor:\n"
-                            "username = \"%s\"\n"
-                            "end_of_line_characters = \"%s\", escaped for display\n"
-                            "token_delimiter = \"%s\", escaped for display\n"
-                            "c_string_delimiter = \"%s\", escaped for display\n"
-                            "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
-                            "_max_depth_ (found from input Parameters) = %u\n"
-                            "_max_args_ (found from input Parameters) = %u\n"),
-                       UI_MAX_ARGS,
-                       UI_MAX_CMD_LEN,
-                       UI_MAX_IN_LEN,
-                       _username_,
-                       _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_),
-                       _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_),
-                       _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_),
-                       (1U + _max_depth_ + _max_args_),
-                       _max_depth_,
-                       _max_args_);
-    delete[] buf; // free
-}
-
 void UserInput::defaultFunction(void (*function)(UserInput *))
 {
     _default_function_ = function;
@@ -135,11 +104,47 @@ bool UserInput::begin()
     return _begin_;
 }
 
+void UserInput::listSettings(UserInput *inputprocess)
+{
+    if (!_begin_)
+    {
+        UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
+        return;
+    }
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator
+    // allocate char buffer large enough to print these potential control characters
+    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
+    size_t idx = 0;       
+    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
+                            "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
+                            "UI_MAX_CMD_LEN (root command) %u characters\n"
+                            "UI_MAX_IN_LEN %u bytes\n"
+                            "\nUserInput constructor:\n"
+                            "username = \"%s\"\n"
+                            "end_of_line_characters = \"%s\", escaped for display\n"
+                            "token_delimiter = \"%s\", escaped for display\n"
+                            "c_string_delimiter = \"%s\", escaped for display\n"
+                            "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
+                            "_max_depth_ (found from input Parameters) = %u\n"
+                            "_max_args_ (found from input Parameters) = %u\n"),
+                       UI_MAX_ARGS,
+                       UI_MAX_CMD_LEN,
+                       UI_MAX_IN_LEN,
+                       _username_,
+                       _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_),
+                       _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_),
+                       _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_),
+                       (1U + _max_depth_ + _max_args_),
+                       _max_depth_,
+                       _max_args_);
+    delete[] buf; // free
+}
+
 void UserInput::listCommands()
 {
     if (!_begin_)
     {
-        UserInput::_ui_out(PSTR("Use begin() in setup()"));
+        UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
     CommandConstructor *cmd;
@@ -326,19 +331,15 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
 }
 
 char *UserInput::nextArgument()
-{
-    // return NULL if there are no more arguments
+{    
     if (_data_pointers_index_ < (_max_depth_ + _max_args_) &&
         _data_pointers_index_ < _data_pointers_index_max_)
     {
         _data_pointers_index_++;
         return _data_pointers_[_data_pointers_index_];
     }
-    else
-    {
-        return NULL;
-    }
-    return NULL; // guard return
+  
+    return NULL; // else return NULL
 }
 
 bool UserInput::outputIsAvailable()
@@ -453,12 +454,12 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
     size_t start = ((char)token_pointers[token_pointer_index][0] == neg_sign) ? 1 : 0;
     
     // for unsigned integers, integers, and floating point numbers
-    if ((uint8_t)arg_type <= (size_t)UITYPE::FLOAT)
+    if (arg_type <= UITYPE::FLOAT)
     {
         size_t found_dot = 0;
         size_t num_digits = 0;
         size_t not_digits = 0;
-        if ((uint8_t)arg_type < (size_t)UITYPE::INT16_T && start == 1) // error
+        if (arg_type < UITYPE::INT16_T && start == 1) // error
         {
             return false; // uint cannot be negative
         }        
@@ -478,13 +479,13 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
             }
         }        
         //int/uint error test
-        if ((uint8_t)arg_type <= (uint8_t)UITYPE::INT16_T && 
+        if (arg_type <= UITYPE::INT16_T && 
             (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
         {
             return false;
         }
         //float error test
-        if ((uint8_t)arg_type == (uint8_t)UITYPE::FLOAT && 
+        if (arg_type == UITYPE::FLOAT && 
             (found_dot > 1U || not_digits > 0U || (num_digits + found_dot + start) != strlen_data))
         {
             return false;
@@ -493,10 +494,10 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
     }
 
     // char and c-string
-    if ((uint8_t)arg_type == (uint8_t)UITYPE::CHAR ||
-        (uint8_t)arg_type == (uint8_t)UITYPE::C_STRING)
+    if (arg_type == UITYPE::CHAR ||
+        arg_type == UITYPE::C_STRING)
     {
-        if ((uint8_t)arg_type == (uint8_t)UITYPE::CHAR && strlen_data > 1) // error
+        if (arg_type == UITYPE::CHAR && strlen_data > 1) // error
         {
             return false; // looking for a single char value, not a c-string
         }
@@ -520,7 +521,7 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
     }
 
     // no type specified
-    if ((uint8_t)arg_type == (uint8_t)UITYPE::NOTYPE)
+    if (arg_type == UITYPE::NOTYPE)
     {        
         return true; // no type validation performed
     }
@@ -530,7 +531,7 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
 /*
     private methods
 */
-void UserInput::_ui_out(const char *fmt, ...)
+inline void UserInput::_ui_out(const char *fmt, ...)
 {
     if (UserInput::outputIsEnabled())
     {
@@ -542,7 +543,7 @@ void UserInput::_ui_out(const char *fmt, ...)
         {
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_,
-                       PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n\0"),
+                       PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n"),
                        (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
             _output_flag_ = true;
             return;
@@ -550,7 +551,7 @@ void UserInput::_ui_out(const char *fmt, ...)
         else if (err < 0) // encoding error
         {
             // attempt warn
-            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Encoding error.\n\0"));
+            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Encoding error.\n"));
             _output_flag_ = true;
             return;
         }
@@ -562,7 +563,7 @@ void UserInput::_ui_out(const char *fmt, ...)
     }
 }
 
-void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
+inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
                                                   Parameters &prm,
                                                   bool &command_matched,
                                                   bool *input_type_match_flag,
@@ -648,7 +649,7 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
     }
 }
 
-void UserInput::_launchFunction(CommandConstructor *cmd,
+inline void UserInput::_launchFunction(CommandConstructor *cmd,
                                 Parameters &prm,
                                 size_t tokens_received)
 {
@@ -693,7 +694,7 @@ void UserInput::_launchFunction(CommandConstructor *cmd,
     }
 }
 
-void UserInput::_launchLogic(CommandConstructor *cmd,
+inline void UserInput::_launchLogic(CommandConstructor *cmd,
                              Parameters &prm,
                              size_t tokens_received,
                              bool &all_arguments_valid,
@@ -841,7 +842,7 @@ void UserInput::_launchLogic(CommandConstructor *cmd,
     }
 }
 
-char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
+inline char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
 {
     if (input < (char)32 || input == (char)34)
     {
@@ -868,7 +869,7 @@ char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
     return buf;      // not a control char
 }
 
-char UserInput::_combineControlCharacters(char input)
+inline char UserInput::_combineControlCharacters(char input)
 {
     switch (input)
     {
@@ -953,7 +954,7 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
     return error;
 }
 
-UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
+inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 {
     if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
     if (prm.argument_flag == UI_ARG_HANDLING::one_type) return prm.arg_type_arr[0];
@@ -962,7 +963,7 @@ UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
     return UITYPE::_LAST; // return error if no match
 }
 
-void UserInput::_getArgs(size_t &tokens_received,
+inline void UserInput::_getArgs(size_t &tokens_received,
                          bool *input_type_match_flag,
                          Parameters &prm,
                          bool &all_arguments_valid)
@@ -983,7 +984,7 @@ void UserInput::_getArgs(size_t &tokens_received,
     }
 }
 
-char *UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len)
+inline char *UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len)
 {
     char *start = &buf[idx];
     char tmp_esc_chr[UI_ESCAPED_CHAR_PGM_LEN]{};
@@ -1001,7 +1002,7 @@ char *UserInput::_addEscapedControlCharToBuffer(char *buf, size_t &idx, const ch
     return start;
 }
 
-void UserInput::_getTokensDelimiters(uint8_t *data,
+inline void UserInput::_getTokensDelimiters(uint8_t *data,
                                      size_t &data_pos,
                                      const char **delimiter_strings,
                                      size_t *delimiter_lens,
@@ -1041,7 +1042,7 @@ void UserInput::_getTokensDelimiters(uint8_t *data,
     }
 }
 
-void UserInput::_getTokensCstrings(uint8_t *data,
+inline void UserInput::_getTokensCstrings(uint8_t *data,
                                    size_t len,
                                    size_t &data_pos,
                                    const char *c_str_delim,
@@ -1118,7 +1119,7 @@ void UserInput::_getTokensCstrings(uint8_t *data,
     }
 }
 
-void UserInput::_getTokensChar(uint8_t *data,
+inline void UserInput::_getTokensChar(uint8_t *data,
                                size_t len,
                                size_t &data_pos,
                                char *token_buffer,
@@ -1128,13 +1129,13 @@ void UserInput::_getTokensChar(uint8_t *data,
                                uint8_t &token_pointer_index,
                                char& token_buffer_sep,
                                const char *control_char_sequence)
-{
+{    
     if ((char)data[data_pos] == control_char_sequence[0] && 
         (char)data[data_pos + 1U] == control_char_sequence[1] && 
-        (data_pos + 2 < len))
-    {
-        if (iscntrl(UserInput::_combineControlCharacters((char)data[data_pos + 1])))
-        {
+        (data_pos + 3 < len))
+    {        
+        if (iscntrl(UserInput::_combineControlCharacters((char)data[data_pos + 2])))
+        {            
             token_buffer[token_buffer_index] = UserInput::_combineControlCharacters((char)data[data_pos + 2]);
             if (point_to_beginning_of_token)
             {
@@ -1142,7 +1143,7 @@ void UserInput::_getTokensChar(uint8_t *data,
                 token_pointer_index++;
                 point_to_beginning_of_token = false;
             }
-            data_pos = data_pos + 2;
+            data_pos = data_pos + 3;
             token_buffer_index++;
         }
     }

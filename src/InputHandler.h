@@ -128,9 +128,9 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    inline CommandConstructor(const Parameters *parameters,
-                              const uint8_t parameter_array_elements = 1,
-                              const uint8_t tree_depth = 0)
+    CommandConstructor(const Parameters *parameters,
+                       const uint8_t parameter_array_elements = 1,
+                       const uint8_t tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -170,15 +170,15 @@ public:
      * @param c_string_delimiter c-string demarcation
      * @param input_control_char_sequence two character sequence that precedes a switch char
      */
-    inline UserInput(char *output_buffer = NULL,
-                     size_t output_buffer_len = 0,
-                     const char *username = NULL,
-                     const char *end_of_line_characters = "\r\n",
-                     const char *token_delimiter = " ",
-                     const char *c_string_delimiter = "\"",
-                     const char *input_control_char_sequence = "\\")
+    UserInput(char *output_buffer = NULL,
+              size_t output_buffer_len = 0,
+              const char *username = NULL,
+              const char *end_of_line_characters = "\r\n",
+              const char *token_delimiter = " ",
+              const char *c_string_delimiter = "\"",
+              const char *input_control_char_sequence = "##")
         : _output_buffer_(output_buffer),
-          _output_enabled_((output_buffer == NULL) ? false : true),          
+          _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_len_(output_buffer_len),
           _output_buffer_bytes_left_(output_buffer_len),
           _username_(username),
@@ -209,18 +209,6 @@ public:
           _begin_(false)
     {
     }
-
-    /**
-     * @brief lists UserInput class settings
-     * 
-     * Lists all pertinient process information:
-     * class configuration, constructor variables,
-     * and the amount of pointers that were dynamically 
-     * allocated in UserInput::begin()
-     *
-     * @param inputprocess pointer to class instance
-     */
-    void listSettings(UserInput *inputprocess);
 
     /**
      * @brief Set the default function, which is the function called
@@ -254,6 +242,18 @@ public:
     bool begin();
 
     /**
+     * @brief lists UserInput class settings
+     * 
+     * Lists all pertinient process information:
+     * class configuration, constructor variables,
+     * and the amount of pointers that were dynamically 
+     * allocated in UserInput::begin()
+     *
+     * @param inputprocess pointer to class instance
+     */
+    void listSettings(UserInput *inputprocess);
+
+    /**
      * @brief lists commands that will respond to user input if `_begin_` == true
      * else it will inform the user to use begin() in setup()
      */
@@ -279,7 +279,7 @@ public:
     void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 
     /**
-     * @brief returns a pointer to the next token in token_buffer or NULL if there are no more tokens
+     * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
      *
      * @return char*
      */
@@ -291,7 +291,7 @@ public:
      * @return true if output is available
      * @return false if no output is available
      */
-    inline bool outputIsAvailable();
+    bool outputIsAvailable();
 
     /**
      * @brief is class output enabled
@@ -299,7 +299,7 @@ public:
      * @return true if enabled
      * @return false if not enabled
      */
-    inline bool outputIsEnabled();
+    bool outputIsEnabled();
 
     /**
      * @brief direct class output to stream, clears output buffer automatically
@@ -439,7 +439,7 @@ private:
      * @param fmt   the format string
      * @param ...   arguments
      */
-    inline void _ui_out(const char *fmt, ...);
+    void _ui_out(const char *fmt, ...);
 
     /**
      * @brief ReadCommandFromBuffer error output
@@ -506,7 +506,7 @@ private:
      * @param input the char the control character sequence
      * @return the control character char value ie '\\r'
      */
-    inline char _combineControlCharacters(char input);
+    char _combineControlCharacters(char input);
 
     /**
      * @brief determines if input Parameters struct is valid before adding to linked-list
