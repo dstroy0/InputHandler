@@ -30,7 +30,7 @@
  */
 enum UI_CMD_ID
 {
-    root    ///< this is the root command id
+    root ///< this is the root command id
 };
 
 /**
@@ -88,9 +88,9 @@ class UserInput;
 
 /**
  * @brief Parameters struct, this is the container that holds your command parameters
- * 
+ *
  * Every command and subcommand has an associated Parameters object, this is the information
- * that the input process needs to know about your command 
+ * that the input process needs to know about your command
  */
 struct Parameters
 {
@@ -120,7 +120,7 @@ public:
      * Linked-list primer: https://www.programiz.com/dsa/linked-list
      *
      * These constructors are chained together as a linked-list; this CommandConstructor
-     * object contains a reference CommandConstructor::next_command to the next node 
+     * object contains a reference CommandConstructor::next_command to the next node
      * in the linked-list.  The list is linked together in UserInput::addCommand().
      *
      * Before using, construct a UserInput object and a Parameters object.
@@ -139,7 +139,7 @@ public:
     }
     const Parameters *prm;            ///< pointer to PROGMEM Parameters array
     const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
-    const uint8_t tree_depth;         ///< user input depth + 1 
+    const uint8_t tree_depth;         ///< user input depth + 1
     CommandConstructor *next_command; ///< CommandConstructor iterator/pointer
 };
 
@@ -157,7 +157,7 @@ public:
 
     /**
      * @brief UserInput constructor, no output by default
-     * 
+     *
      * UserInput has no output by default due to the default values passed in by the constructor.
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
@@ -222,10 +222,10 @@ public:
 
     /**
      * @brief adds user commands to the input process
-     * 
-     * This function inspects Parameters for errors and 
+     *
+     * This function inspects Parameters for errors and
      * reports the errors to the user if they have enabled output.
-     * If an error is detected, in the root command or any of 
+     * If an error is detected, in the root command or any of
      * its subcommands the entire command tree is rejected, and
      * no sizing for dynamically allocated variables takes place.
      *
@@ -243,10 +243,10 @@ public:
 
     /**
      * @brief lists UserInput class settings
-     * 
+     *
      * Lists all pertinient process information:
      * class configuration, constructor variables,
-     * and the amount of pointers that were dynamically 
+     * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
      *
      * @param inputprocess pointer to class instance
@@ -316,39 +316,34 @@ public:
     void clearOutputBuffer(bool overwrite_contents = false);
 
     /**
-     * @brief put tokens found in data into token_buffer
-     * 
-     * @param data pointer to uint8_t array
-     * @param len length of uint8_t array
-     * @param token_buffer pointer to null terminated char array
-     * @param token_buffer_len size of data + 1
-     * @param token_pointers number of token pointers
-     * @param token_pointer_index index of token_pointers
-     * @param num_token_ptrs token_pointers[MAX]
-     * @param delimiter_strings array of const char*
-     * @param delimiter_lens strlen of each delimiter
-     * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
-     * @param c_str_delim const char* c string delimiter
-     * @param c_str_delim_len strlen of c string delimiter
-     * @param token_buffer_sep token_buffer token delimiter
-     * @param control_char_sequence two character sequence preceding a switch char
-     * @return size_t number of tokens retrieved from input data
+     * @brief UserInput::getTokensParam UserInput::getTokens() parameters data structure
      */
-    size_t getTokens(uint8_t *data,
-                     size_t len,
-                     char *token_buffer,
-                     size_t token_buffer_len,
-                     char **token_pointers,
-                     uint8_t& token_pointer_index,
-                     size_t num_token_ptrs,
-                     const char **delimiter_strings,
-                     size_t *delimiter_lens,
-                     size_t num_delimiters,
-                     const char *c_str_delim,
-                     size_t c_str_delim_len,
-                     char &token_buffer_sep,
-                     const char *control_char_sequence);
-    
+    struct getTokensParam
+    {
+        uint8_t *data;                     ///< pointer to uint8_t array
+        size_t len;                        ///< length of uint8_t array
+        char *token_buffer;                ///< pointer to null terminated char array
+        size_t token_buffer_len;           ///< size of data + 1
+        char **token_pointers;             ///< number of token pointers
+        uint8_t &token_pointer_index;      ///< index of token_pointers
+        size_t num_token_ptrs;             ///< token_pointers[MAX]
+        const char **delimiter_strings;    ///< array of const char*
+        size_t *delimiter_lens;            ///< strlen of each delimiter
+        size_t num_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
+        const char *c_str_delim;           ///< const char* c string delimiter
+        size_t c_str_delim_len;            ///< strlen of c string delimiter
+        char &token_buffer_sep;            ///< token_buffer token delimiter
+        const char *control_char_sequence; ///< two character sequence preceding a switch char
+    };
+
+    /**
+     * @brief puts tokens into the token buffer pointed to in getTokensParam
+     *
+     * @param gtprm UserInput::getTokensParam struct reference
+     * @return size_t number of tokens retrieved
+     */
+    size_t getTokens(getTokensParam &gtprm);
+
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
      *
@@ -370,17 +365,17 @@ public:
 protected:
     /**
      * @brief transform 2d matrix indices to flat array index
-     * 
+     *
      * use this to access a dynamically allocated array like a 2d matrix,
-     * this is much more performant than looping to allocate a (n>1)d array, 
+     * this is much more performant than looping to allocate a (n>1)d array,
      * and looping again to free allocated ram.
-     * 
+     *
      * @param m_width width of the matrix
      * @param row row you want to access
      * @param col column you want to access
      * @return size_t the transformed index
      */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const {return row + m_width * col;}    
+    size_t mIndex(size_t m_width, size_t row, size_t col) const { return row + m_width * col; }
 
 private:
     /*
@@ -462,31 +457,31 @@ private:
      * @brief launches either (this) function or the root command function
      *
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference     
+     * @param prm Parameters struct reference
      * @param tokens_received amount of tokens in the token buffer
      */
     void _launchFunction(CommandConstructor *cmd, Parameters &prm, size_t tokens_received);
 
     /**
+     * @brief UserInput:_launchLogic() parameters structure
+     */
+    struct _launchLogicParam
+    {
+        CommandConstructor *cmd;     ///< CommandConstructor ptr
+        Parameters &prm;             ///< Parameters struct reference
+        size_t tokens_received;      ///< number of tokens retrieved from input data
+        bool &all_arguments_valid;   ///< boolean array
+        bool &launch_attempted;      ///< launch attempted flag
+        bool *input_type_match_flag; ///< boolean type match flag array
+        bool &subcommand_matched;    ///< boolean subcommand match flag
+        uint16_t &command_id;        ///< 16 bit command id
+    };
+    /**
      * @brief function launch logic, recursive on subcommand match
      *
-     * @param cmd CommandConstructor ptr
-     * @param prm Parameters reference
-     * @param tokens_received number of tokens retreived from input data
-     * @param all_arguments_valid boolean array
-     * @param launch_attempted launch attempted flag
-     * @param input_type_match_flag boolean type match flag array
-     * @param subcommand_matched boolean subcommand match flag
-     * @param command_id 16 bit command id
+     * @param LLprm
      */
-    void _launchLogic(CommandConstructor *cmd,
-                      Parameters &prm,                      
-                      size_t tokens_received,
-                      bool &all_arguments_valid,
-                      bool &launch_attempted,
-                      bool *input_type_match_flag,
-                      bool &subcommand_matched,
-                      uint16_t& command_id);
+    void _launchLogic(_launchLogicParam &LLprm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -536,95 +531,50 @@ private:
      * @param all_arguments_valid error sentinel
      */
     void _getArgs(size_t &tokens_received,
-                 bool *input_type_match_flag,
-                 Parameters &prm,
-                 bool &all_arguments_valid);
+                  bool *input_type_match_flag,
+                  Parameters &prm,
+                  bool &all_arguments_valid);
 
     /**
      * @brief adds escaped control characters to a buffer
-     * 
+     *
      * @param buf output buffer
      * @param idx buffer index
      * @param input string to escape
      * @param input_len length of string
      * @return pointer to null terminated escaped control char string
      */
-    char *_addEscapedControlCharToBuffer(char *buf, size_t& idx, const char* input, size_t input_len);
+    char *_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len);
 
     /**
      * @brief find delimiters in input data
      *
-     * @param data pointer to input data
+     * @param gtprm reference to getTokensParam struct in getTokens
      * @param data_pos data index
-     * @param delimiter_strings delimiter array
-     * @param delimiter_lens delimiter strlen array
-     * @param num_delimiters delimiter_strings[MAX] && delimiter_lens[MAX]
-     * @param token_buffer char array
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
-     * @param token_buffer_sep token_buffer token delimiter char
      */
-    void _getTokensDelimiters(uint8_t *data,
-                              size_t &data_pos,
-                              const char **delimiter_strings,
-                              size_t *delimiter_lens,
-                              size_t num_delimiters,
-                              char *token_buffer,
-                              size_t &token_buffer_index,
-                              bool &point_to_beginning_of_token,
-                              char& token_buffer_sep);
+    void _getTokensDelimiters(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token);
 
     /**
      * @brief get delimited c-strings from input data
      *
-     * @param data pointer to uint8_t array
-     * @param len len of data
-     * @param data_pos index of data
-     * @param c_str_delim c-string delimiter
-     * @param c_str_delim_len c-string delimiter length
-     * @param token_buffer char array
+     * @param gtprm reference to getTokensParam struct in getTokens
+     * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
-     * @param token_pointers pointers to token_buffer
-     * @param token_pointer_index token_pointers index
-     * @param token_buffer_sep token_buffer token delimiter char
      */
-    void _getTokensCstrings(uint8_t *data,
-                            size_t len,
-                            size_t &data_pos,
-                            const char *c_str_delim,
-                            size_t c_str_delim_len,
-                            char *token_buffer,
-                            size_t &token_buffer_index,
-                            bool &point_to_beginning_of_token,
-                            char **token_pointers,
-                            uint8_t &token_pointer_index,
-                            char& token_buffer_sep);
+    void _getTokensCstrings(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token);
 
     /**
      * @brief add uchar to token_buffer
      *
-     * @param data pointer to uint8_t array
-     * @param len len of data
-     * @param data_pos index of data
-     * @param token_buffer char array
+     * @param gtprm reference to getTokensParam struct in getTokens
+     * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
-     * @param token_pointers pointers to token_buffer
-     * @param token_pointer_index token_pointers index
-     * @param token_buffer_sep token_buffer token delimiter char
-     * @param control_char_sequence two character sequence preceding a single char
      */
-    void _getTokensChar(uint8_t *data,
-                        size_t len,
-                        size_t &data_pos,
-                        char *token_buffer,
-                        size_t &token_buffer_index,
-                        bool &point_to_beginning_of_token,
-                        char **token_pointers,
-                        uint8_t &token_pointer_index,
-                        char& token_buffer_sep,
-                        const char *control_char_sequence);
+    void _getTokensChar(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token);
 
     // end private methods
 };
