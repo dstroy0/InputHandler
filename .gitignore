@@ -1,3 +1,4 @@
 **/.vscode
 .development
 docs/html/
+**/index_sequence.h
