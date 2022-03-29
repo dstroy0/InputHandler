@@ -32,7 +32,7 @@
 //  maximum number of arguments per command
 #if !defined(UI_MAX_ARGS)
 /*
-  max is 255, 
+  max is 255,
   change to uint16_t
   _max_args_
   _data_pointers_index_
@@ -40,7 +40,7 @@
   _rec_num_arg_strings_
   to increase max to 65535
 */
-#define UI_MAX_ARGS 32  
+#define UI_MAX_ARGS 32
 #endif
 
 //  maximum tree depth
@@ -88,13 +88,13 @@
 /*
    max is 65535 - 2
    change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
-   to increase UI_MAX_IN_LEN (2^32) - 2 
+   to increase UI_MAX_IN_LEN (2^32) - 2
 */
 #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
 #endif
 
 #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
-#define buffsz(x) nprms(x)  // gets the number of elements in an array
+#define buffsz(x) nprms(x)                    // gets the number of elements in an array
 
 // portability directives
 
@@ -109,9 +109,9 @@
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
 #undef pgm_read_dword
-#define pgm_read_dword(addr) ({ \
-  typeof(addr) _addr = (addr); \
-  *(const unsigned long *)(_addr); \
+#define pgm_read_dword(addr) ({     \
+   typeof(addr) _addr = (addr);     \
+   *(const unsigned long *)(_addr); \
 })
 #endif
 
@@ -120,9 +120,9 @@
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
 #undef pgm_read_dword
-#define pgm_read_dword(addr) ({ \
-  typeof(addr) _addr = (addr); \
-  *(const unsigned long *)(_addr); \
+#define pgm_read_dword(addr) ({     \
+   typeof(addr) _addr = (addr);     \
+   *(const unsigned long *)(_addr); \
 })
 #endif
 
