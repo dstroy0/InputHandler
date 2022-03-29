@@ -1,7 +1,7 @@
 var _input_handler__config_8h =
 [
-    [ "_N_prms", "dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79", null ],
-    [ "buffSZ", "dd/d4e/_input_handler__config_8h.html#a7185a7e3fa457d785ef552cfb27d40cd", null ],
+    [ "buffsz", "dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178", null ],
+    [ "nprms", "dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586", null ],
     [ "UI_ESCAPED_CHAR_PGM_LEN", "dd/d4e/_input_handler__config_8h.html#a4024a3cfbd96c66ac14f41edfea585b5", null ],
     [ "UI_INPUT_TYPE_STRINGS_PGM_LEN", "dd/d4e/_input_handler__config_8h.html#aa99472679c6ff32ae0725c7577ab37d7", null ],
     [ "UI_MAX_ARGS", "dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5", null ],

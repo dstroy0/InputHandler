@@ -7,7 +7,7 @@ var esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino =
     [ "uc_test_input_types", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#aa5bc0db6d35957ddbe8beb5346d52b84", null ],
     [ "uc_unrecognized", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ad788839a36a76970581e00115020f08e", null ],
     [ "help_param", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a85688eca98c590cc222acbcd441dc266", null ],
-    [ "inputHandler", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#aa103ac78420db458fa5dd42a7f899199", null ],
+    [ "inputHandler", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#aaef96f0115faf51aa72add4256542817", null ],
     [ "output_buffer", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ad520b29e3db0d23c00126db0d0c64e30", null ],
     [ "settings_param", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a0f94096f5904d14fb94d75928f28db8a", null ],
     [ "type_test_param", "d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a7ade8c5209539ba01c1f3eccd4aa9023", null ],
