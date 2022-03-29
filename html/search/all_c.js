@@ -7,5 +7,7 @@ var searchData=
   ['no_5fargs_4',['NO_ARGS',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716',1,'InputHandler.h']]],
   ['no_5fargs_5',['no_args',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741',1,'InputHandler.h']]],
   ['notype_6',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]],
-  ['num_5fargs_7',['num_args',['../d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559',1,'Parameters']]]
+  ['num_5fargs_7',['num_args',['../d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559',1,'Parameters']]],
+  ['num_5fdelimiters_8',['num_delimiters',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a09dd657cb2b61e16d1b540f56e6cbf17',1,'UserInput::getTokensParam']]],
+  ['num_5ftoken_5fptrs_9',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]]
 ];

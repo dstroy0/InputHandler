@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
   0: "_abcdefghilmnoprstuv",
-  1: "cpu",
+  1: "_cgpu",
   2: "cfgimnprv",
   3: "_abcdgilmnorsuv",
-  4: "_acdefhimnopstu",
+  4: "_acdefhilmnopstu",
   5: "v",
   6: "u",
   7: "_cfinortu",

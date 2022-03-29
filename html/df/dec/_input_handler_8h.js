@@ -2,6 +2,8 @@ var _input_handler_8h =
 [
     [ "CommandConstructor", "df/d68/class_command_constructor.html", "df/d68/class_command_constructor" ],
     [ "UserInput", "dc/d4b/class_user_input.html", "dc/d4b/class_user_input" ],
+    [ "UserInput::getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
+    [ "UserInput::_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
     [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
       [ "no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
       [ "one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],

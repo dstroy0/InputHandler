@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['userinput_0',['UserInput',['../dc/d4b/class_user_input.html',1,'']]]
+  ['gettokensparam_0',['getTokensParam',['../d7/d74/struct_user_input_1_1get_tokens_param.html',1,'UserInput']]]
 ];
