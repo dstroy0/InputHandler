@@ -209,13 +209,13 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
             data,                   // input data uint8_t array
             len,                    // input len
             _token_buffer_,         // pointer to char array, size of len + 1
-            buffSZ(_token_buffer_), // the size of token_buffer
+            buffsz(_token_buffer_), // the size of token_buffer
             _data_pointers_,        // token_buffer pointers
             _data_pointers_index_,  // index of token_buffer pointer array
             num_ptrs,               // _data_pointers_[MAX], _data_pointers_index_[MAX]
             delimiters,             // delimiter string literal array, const char**
             delimiter_lens,         // delimiter strlen array
-            buffSZ(delimiter_lens), // delimiters[MAX], delimiter_lens[MAX]
+            buffsz(delimiter_lens), // delimiters[MAX], delimiter_lens[MAX]
             _c_str_delim_,          // const char* c-string delimiter
             _c_str_delim_len_,      // c-string delim len
             _null_,                 // token_buffer sep char, _null_ == '\0'

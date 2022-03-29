@@ -93,8 +93,8 @@
 #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
 #endif
 
-#define _N_prms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
-#define buffSZ(x) _N_prms(x)  // gets the number of elements in an array
+#define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+#define buffsz(x) nprms(x)  // gets the number of elements in an array
 
 // portability directives
 

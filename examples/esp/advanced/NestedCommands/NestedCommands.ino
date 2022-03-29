@@ -21,7 +21,7 @@ char output_buffer[512] = {'\0'}; //  output buffer
   UserInput constructor
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffSZ(output_buffer),
+    /* size of UserInput's output buffer */ buffsz(output_buffer),
     /* username */ "",
     /* end of line characters */ "\r\n",
     /* token delimiter */ " ",
@@ -102,7 +102,7 @@ const PROGMEM Parameters nested_prms[3] =
          {
              UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
          }}};
-CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); 
+CommandConstructor uc_nested_example_(nested_prms, nprms(nested_prms), 1); 
 
 void setup()
 {

@@ -42,7 +42,7 @@ The first library object that needs to be initialized is the constructor for the
 char output_buffer[512] = {'\0'};
 UserInput inputHandler
 (   /* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffSZ(output_buffer),
+    /* size of UserInput's output buffer */ buffsz(output_buffer),
     /* username */ "",
     /* end of line characters */ "\r\n",
     /* token delimiter */ " ",
@@ -217,14 +217,14 @@ const PROGMEM Parameters nested_prms[3] =
     }
   }
 };
-CommandConstructor uc_nested_example_(nested_prms, _N_prms(nested_prms), 1); // 
+CommandConstructor uc_nested_example_(nested_prms, nprms(nested_prms), 1); // 
 ```
 
 Each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html) uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
 
 [NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that doesn't perform any type-validation.  
 [NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that explicitly states you wish to pass no arguments.  
-[_N_prms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) is a macro which returns the number of elements in an array.  
+[nprms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) and [buffsz(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) are macros which return the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 

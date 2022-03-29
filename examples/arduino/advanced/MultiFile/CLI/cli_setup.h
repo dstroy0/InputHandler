@@ -26,7 +26,7 @@ char output_buffer[512] = {'\0'}; //  output buffer
   UserInput constructor one
 */
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffSZ(output_buffer),
+    /* size of UserInput's output buffer */ buffsz(output_buffer),
     /* username */ "",
     /* end of line characters */ "\r\n",
     /* token delimiter */ " ",
