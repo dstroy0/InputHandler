@@ -26,6 +26,6 @@ var searchData=
   ['uint8_5fmax_23',['UINT8_MAX',['../dd/d4e/_input_handler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]],
   ['uint8_5ft_24',['UINT8_T',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca',1,'InputHandler.h']]],
   ['uitype_25',['UITYPE',['../de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70',1,'InputHandler.h']]],
-  ['userinput_26',['UserInput',['../dc/d4b/class_user_input.html#a75460bd7509786e503a320876198e2e0',1,'UserInput::UserInput()'],['../dc/d4b/class_user_input.html',1,'UserInput']]],
+  ['userinput_26',['UserInput',['../dc/d4b/class_user_input.html#aabd5e3819e1cfcc0ccbe49ea14d6d07d',1,'UserInput::UserInput()'],['../dc/d4b/class_user_input.html',1,'UserInput']]],
   ['userinput_5ftype_5fstrings_5fpgm_27',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
 ];
