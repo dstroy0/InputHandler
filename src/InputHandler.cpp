@@ -964,8 +964,7 @@ inline void UserInput::_getTokensCstrings(getTokensParam &gtprm, size_t &data_po
             ptr = (char *)&gtprm.data[data_pos];
             // search for next c-string delimiter
             char *end_ptr = (char *)memchr(ptr, gtprm.c_str_delim[0], (gtprm.len - data_pos));
-            while (end_ptr != NULL ||
-                   data_pos < gtprm.len)
+            while (end_ptr != NULL || data_pos < gtprm.len)
             {
                 if (memcmp(gtprm.c_str_delim, end_ptr, gtprm.c_str_delim_len) == 0)
                 {
