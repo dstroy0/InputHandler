@@ -536,7 +536,21 @@ inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd
                     }
                     else
                     {
-                        UserInput::_ui_out(PSTR(" '%s'(OK)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
+                        UserInput::_ui_out(PSTR(" '"));
+                        size_t strlen_data = strlen(_data_pointers_[1 + _failed_on_subcommand_ + i]);
+                        for (size_t j = 0; j < strlen_data; ++j)
+                        {
+                            if (iscntrl(_data_pointers_[1 + _failed_on_subcommand_ + i][j])) // format buffer with escaped char
+                            {
+                                char buf[UI_ESCAPED_CHAR_PGM_LEN]{};
+                                UserInput::_ui_out(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[1 + _failed_on_subcommand_ + i][j], buf));
+                            }
+                            else
+                            {
+                                UserInput::_ui_out(PSTR("%c"), _data_pointers_[1 + _failed_on_subcommand_ + i][j]); // single char
+                            }
+                        }
+                        UserInput::_ui_out(PSTR("'(OK)\n"));                        
                     }
                 }
                 UserInput::_ui_out(PSTR("\n"));
