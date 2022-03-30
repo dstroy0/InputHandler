@@ -45,15 +45,9 @@ void UserInput::addCommand(CommandConstructor &command)
             err = true;
         }
         else
-        {
-            // if the current command's tree depth is greater than what we have found
-            max_depth_found = (command.tree_depth > max_depth_found)
-                                  ? command.tree_depth
-                                  : max_depth_found;
-            // if the current command's max num args is greater than what we have found
-            max_args_found = (prm.max_num_args > max_args_found)
-                                 ? prm.max_num_args
-                                 : max_args_found;
+        {            
+            max_depth_found = (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;            
+            max_args_found = (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
         }
     }
     if (!err) // if no error
@@ -65,21 +59,13 @@ void UserInput::addCommand(CommandConstructor &command)
             _c_str_delim_len_ = strlen(_c_str_delim_);
             _output_buffer_bytes_left_ = _output_buffer_len_;
         }
-        _commands_count_++; // increment _commands_count_
-
-        // set _max_depth_ to max_depth_found if it is greater than _max_depth_
-        _max_depth_ = (max_depth_found > _max_depth_)
-                          ? max_depth_found
-                          : _max_depth_;
-        // set _max_args_ to max_args_found if it is greater than _max_args_
-        _max_args_ = (max_args_found > _max_args_)
-                         ? max_args_found
-                         : _max_args_;
-
-        // linked-list
-        if (_commands_head_ == NULL) // the list is empty
+        _commands_count_++;        
+        _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;        
+        _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;        
+        
+        if (_commands_head_ == NULL) // the linked-list is empty
         {
-            _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the list
+            _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the linked-list
         }
         else
         {
@@ -111,9 +97,8 @@ void UserInput::listSettings(UserInput *inputprocess)
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator
-    // allocate char buffer large enough to print these potential control characters
-    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator    
+    char *buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN](); // allocate char buffer large enough to print these potential control characters
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
@@ -176,9 +161,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
-    }
-
-    // this is declared here to test if _token_buffer_ == nullptr (error condition)
+    }    
     _token_buffer_ = new char[len + 1U](); // place to chop up the input
     if (_token_buffer_ == nullptr)         // if there was an error allocating the memory
     {
@@ -188,8 +171,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     // end error checking
 
     size_t num_ptrs = (1U + _max_depth_ + _max_args_);
-    size_t tokens_received = 0; // amount of delimiter separated tokens
-    //_rec_num_arg_strings_ = 0;     // number of tokens read from data
+    size_t tokens_received = 0; // amount of delimiter separated tokens    
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor *cmd;       // command parameters pointer
@@ -239,8 +221,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
-        // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
-        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));
+        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length)); // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
         if (memcmp_P(_data_pointers_[0],
                      cmd->prm[0].command,
                      cmd_len_pgm) == false) // match root command
@@ -275,9 +256,9 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     }
 
     // cleanup
-    for (size_t i = 0; i < (1U + _max_depth_ + _max_args_); ++i) // reinit _data_pointers_
+    for (size_t i = 0; i < num_ptrs; ++i) 
     {
-        _data_pointers_[i] = NULL;
+        _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
     delete[] _token_buffer_;
     delete[] input_type_match_flag;
@@ -405,17 +386,11 @@ size_t UserInput::getTokens(getTokensParam &gtprm)
     return gtprm.token_pointer_index;
 }
 
-bool UserInput::validateNullSepInput(UITYPE arg_type,
-                                     char **token_pointers,
-                                     size_t token_pointer_index,
-                                     char &neg_sign,
-                                     char &float_sep)
+bool UserInput::validateNullSepInput(UITYPE arg_type, char **token_pointers, size_t token_pointer_index, char &neg_sign, char &float_sep)
 {
     size_t strlen_data = strlen(token_pointers[token_pointer_index]);
-    size_t start = ((char)token_pointers[token_pointer_index][0] == neg_sign) ? 1 : 0;
-
-    // for unsigned integers, integers, and floating point numbers
-    if (arg_type <= UITYPE::FLOAT)
+    size_t start = ((char)token_pointers[token_pointer_index][0] == neg_sign) ? 1 : 0;    
+    if (arg_type <= UITYPE::FLOAT) // for unsigned integers, integers, and floating point numbers
     {
         size_t found_dot = 0;
         size_t num_digits = 0;
@@ -451,9 +426,8 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
         }
         return true; // no errors
     }
-
-    // char and c-string
-    if (arg_type == UITYPE::CHAR || arg_type == UITYPE::C_STRING)
+    
+    if (arg_type == UITYPE::CHAR || arg_type == UITYPE::C_STRING) // char and c-string
     {
         if (arg_type == UITYPE::CHAR && strlen_data > 1) // error
         {
@@ -461,16 +435,9 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
         }
         for (size_t j = 0; j < strlen_data; ++j)
         { // if we encounter anything that isn't one of these four things, something isn't right
-            size_t test_bool[4] = {false};
-            test_bool[0] = isprint(token_pointers[token_pointer_index][j]);
-            test_bool[1] = ispunct(token_pointers[token_pointer_index][j]);
-            test_bool[2] = iscntrl(token_pointers[token_pointer_index][j]);
-            test_bool[3] = isdigit(token_pointers[token_pointer_index][j]);
-            // no match
-            if (test_bool[0] == false &&
-                test_bool[1] == false &&
-                test_bool[2] == false &&
-                test_bool[3] == false)
+            size_t test_bool[4] = {isprint(token_pointers[token_pointer_index][j]), ispunct(token_pointers[token_pointer_index][j]),
+                                   iscntrl(token_pointers[token_pointer_index][j]), isdigit(token_pointers[token_pointer_index][j])};
+            if (test_bool[0] == false && test_bool[1] == false && test_bool[2] == false && test_bool[3] == false) // no match
             {
                 return false;
             }
@@ -483,6 +450,7 @@ bool UserInput::validateNullSepInput(UITYPE arg_type,
     {
         return true; // no type validation performed
     }
+
     return false; // error, unknown type
 }
 
@@ -500,9 +468,7 @@ inline void UserInput::_ui_out(const char *fmt, ...)
         if (err > _output_buffer_bytes_left_) // overflow condition
         {
             // attempt warn
-            snprintf_P(_output_buffer_, _output_buffer_len_,
-                       PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n"),
-                       (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
+            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n"), (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
             _output_flag_ = true;
             return;
         }
@@ -521,37 +487,16 @@ inline void UserInput::_ui_out(const char *fmt, ...)
     }
 }
 
-inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd,
-                                                         Parameters &prm,
-                                                         bool &command_matched,
-                                                         bool *input_type_match_flag,
-                                                         bool &all_arguments_valid,
-                                                         uint8_t *data)
-{
-    // format a string with useful information
-    if (UserInput::outputIsEnabled())
-    {
-        /*
-            potential silent crash if _failed_on_subcommand_ > cmd->param_array_len
-            user introduced error condition, if they enter a parameter array length that is
-            greater than the actual array length
-        */
-        if (_failed_on_subcommand_ > cmd->param_array_len) // error (deprecated with Parameters checking, redundant)
-        {
-            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
-            UserInput::_ui_out(PSTR("OOB Parameters array element access attempted for command %s.\n"
-                                    "CommandConstructor(Parameters, !fix this number!, tree_depth)\n"),
-                               prm.command);
-            return;
-        }
+inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor *cmd, Parameters &prm, bool &command_matched, bool *input_type_match_flag, bool &all_arguments_valid, uint8_t *data)
+{    
+    if (UserInput::outputIsEnabled()) // format a string with useful information
+    {        
         memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), _username_);
         if (command_matched == true)
         {
             // constrain err_n_args to UI_MAX_ARGS + 1
-            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1))
-                                    ? (UI_MAX_ARGS + 1)
-                                    : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
+            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             if (err_n_args > 0)
             {
                 for (size_t i = 0; i < (_failed_on_subcommand_ + 1U); ++i)
@@ -651,18 +596,16 @@ inline void UserInput::_launchFunction(CommandConstructor *cmd, Parameters &prm,
 }
 
 inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
-{
-    // error
-    if (LLprm.tokens_received > 1 && LLprm.prm.sub_commands == 0 && LLprm.prm.max_num_args == 0)
+{    
+    if (LLprm.tokens_received > 1 && LLprm.prm.sub_commands == 0 && LLprm.prm.max_num_args == 0) // error
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), _username_, prm.command_id);
         #endif
         return;
     }
-
-    // command with no arguments
-    if (LLprm.subcommand_matched == false && LLprm.tokens_received == 1 && LLprm.prm.max_num_args == 0)
+    
+    if (LLprm.subcommand_matched == false && LLprm.tokens_received == 1 && LLprm.prm.max_num_args == 0) // command with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
@@ -672,9 +615,8 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
         UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received); // launch the matched command
         return;
     }
-
-    // subcommand with no arguments
-    if (LLprm.tokens_received == 1 && _current_search_depth_ > 1 && LLprm.subcommand_matched == true && LLprm.prm.max_num_args == 0)
+    
+    if (LLprm.tokens_received == 1 && _current_search_depth_ > 1 && LLprm.subcommand_matched == true && LLprm.prm.max_num_args == 0) // subcommand with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
@@ -683,9 +625,8 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
         UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received); // launch the matched command
         return;
     }
-
-    // command with arguments, potentially has subcommands but none were entered
-    if (LLprm.subcommand_matched == false && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0)
+    
+    if (LLprm.subcommand_matched == false && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
     {
         UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true)
@@ -695,26 +636,22 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
             #endif
             LLprm.launch_attempted = true;                                           // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received); // launch the matched command
-        }
-        // if !match, error
-        return;
+        }        
+        return; // if !match, error
     }
 
-    // command with arguments (max depth)
-    if (_current_search_depth_ == (LLprm.cmd->tree_depth) && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0 && LLprm.prm.sub_commands == 0)
+    if (_current_search_depth_ == (LLprm.cmd->tree_depth) && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0 && LLprm.prm.sub_commands == 0) // command with arguments (max depth)
     {
-        UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);
-        //  if we received at least min and less than max arguments and they are valid
-        if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true)
+        UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);        
+        if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
             UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), _username_, prm.command_id);
             #endif
             LLprm.launch_attempted = true;                                           // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received); // launch the matched command
-        }
-        // if !match, error
-        return;
+        }        
+        return; // if !match, error
     }
 
     // subcommand search
@@ -723,8 +660,7 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
     UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), _username_, _current_search_depth);
     #endif
     if (_current_search_depth_ <= (LLprm.cmd->tree_depth)) // dig starting at depth 1
-    {
-        // this index starts at one because the parameter array's first element will be the root command
+    { // this index starts at one because the parameter array's first element will be the root command        
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {
             size_t cmd_len_pgm = pgm_read_dword(&(LLprm.cmd->prm[0].command_length));
@@ -734,12 +670,9 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
                 if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
                 {
                     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, "
-                                            "command_id (%u), (%d) subcommands, max_num_args (%d)\n"),
-                                       _username_, prm.command, prm.command_id, prm.sub_commands, prm.max_num_args);
-                    #endif
-                    // subcommand matched
-                    if (LLprm.tokens_received > 0)
+                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), _username_, prm.command, prm.command_id, prm.sub_commands, prm.max_num_args);
+                    #endif                    
+                    if (LLprm.tokens_received > 0) // subcommand matched
                     {
                         LLprm.tokens_received--; // subtract subcommand from tokens received
                         _data_pointers_index_++; // increment to the next token
@@ -877,12 +810,9 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
 
 inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 {
-    if (prm.argument_flag == UI_ARG_HANDLING::no_args)
-        return UITYPE::NO_ARGS;
-    if (prm.argument_flag == UI_ARG_HANDLING::one_type)
-        return prm.arg_type_arr[0];
-    if (prm.argument_flag == UI_ARG_HANDLING::type_arr)
-        return prm.arg_type_arr[index];
+    if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
+    if (prm.argument_flag == UI_ARG_HANDLING::one_type) return prm.arg_type_arr[0];
+    if (prm.argument_flag == UI_ARG_HANDLING::type_arr) return prm.arg_type_arr[index];
 
     return UITYPE::_LAST; // return error if no match
 }
@@ -928,9 +858,8 @@ inline void UserInput::_getTokensDelimiters(getTokensParam &gtprm, size_t &data_
             if (gtprm.delimiter_lens[i] > 1U)
             {
                 char *ptr = (char *)&gtprm.data[data_pos];
-                if (memcmp(gtprm.delimiter_strings[i], ptr, gtprm.delimiter_lens[i]) == 0)
-                {
-                    // match
+                if (memcmp(gtprm.delimiter_strings[i], ptr, gtprm.delimiter_lens[i]) == 0) // match
+                {                    
                     data_pos += gtprm.delimiter_lens[i] + 1U;
                     point_to_beginning_of_token = true;
                     gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
@@ -938,9 +867,8 @@ inline void UserInput::_getTokensDelimiters(getTokensParam &gtprm, size_t &data_
                     break;
                 }
             }
-            else
-            {
-                // match
+            else // match
+            {                
                 data_pos++;
                 point_to_beginning_of_token = true;
                 gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
@@ -956,21 +884,16 @@ inline void UserInput::_getTokensCstrings(getTokensParam &gtprm, size_t &data_po
     if (gtprm.c_str_delim_len > 1U)
     {
         char *ptr = (char *)&gtprm.data[data_pos];
-        if (memcmp(gtprm.c_str_delim, ptr, gtprm.c_str_delim_len) == 0)
-        {
-            // match
-            data_pos += gtprm.c_str_delim_len + 1U;
-            // point to beginning of c-string
-            ptr = (char *)&gtprm.data[data_pos];
-            // search for next c-string delimiter
-            char *end_ptr = (char *)memchr(ptr, gtprm.c_str_delim[0], (gtprm.len - data_pos));
+        if (memcmp(gtprm.c_str_delim, ptr, gtprm.c_str_delim_len) == 0) // match
+        {            
+            data_pos += gtprm.c_str_delim_len + 1U;            
+            ptr = (char *)&gtprm.data[data_pos]; // point to beginning of c-string         
+            char *end_ptr = (char *)memchr(ptr, gtprm.c_str_delim[0], (gtprm.len - data_pos)); // search for next c-string delimiter
             while (end_ptr != NULL || data_pos < gtprm.len)
             {
-                if (memcmp(gtprm.c_str_delim, end_ptr, gtprm.c_str_delim_len) == 0)
-                {
-                    // match
-                    // memcpy c-string to token buffer
-                    size_t size = ((end_ptr - (char *)gtprm.data) - (ptr - (char *)gtprm.data));
+                if (memcmp(gtprm.c_str_delim, end_ptr, gtprm.c_str_delim_len) == 0) // match
+                {                    
+                    size_t size = ((end_ptr - (char *)gtprm.data) - (ptr - (char *)gtprm.data)); // memcpy c-string to token buffer
                     if ((size + 1U) < (gtprm.len - data_pos))
                     {
                         memcpy(gtprm.token_buffer + token_buffer_index, ptr, size);
@@ -991,17 +914,13 @@ inline void UserInput::_getTokensCstrings(getTokensParam &gtprm, size_t &data_po
             }
         }
     }
-    else
-    {
-        // match
-        data_pos++;
-        // point to beginning of c-string
-        char *ptr = (char *)&gtprm.data[data_pos];
-        // search for next c-string delimiter
-        char *end_ptr = (char *)memchr(ptr, gtprm.c_str_delim[0], (gtprm.len - data_pos));
-        if (end_ptr != NULL)
-        {
-            // memcpy
+    else // match
+    {        
+        data_pos++;        
+        char *ptr = (char *)&gtprm.data[data_pos]; // point to beginning of c-string        
+        char *end_ptr = (char *)memchr(ptr, gtprm.c_str_delim[0], (gtprm.len - data_pos)); // search for next c-string delimiter
+        if (end_ptr != NULL) // memcpy
+        {            
             size_t size = ((end_ptr - (char *)gtprm.data) - (ptr - (char *)gtprm.data));
             if ((size + 1U) < (gtprm.len - data_pos))
             {
@@ -1019,9 +938,7 @@ inline void UserInput::_getTokensCstrings(getTokensParam &gtprm, size_t &data_po
 
 inline void UserInput::_getTokensChar(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token)
 {
-    if ((char)gtprm.data[data_pos] == gtprm.control_char_sequence[0] &&
-        (char)gtprm.data[data_pos + 1U] == gtprm.control_char_sequence[1] &&
-        (data_pos + 3U < gtprm.len))
+    if ((char)gtprm.data[data_pos] == gtprm.control_char_sequence[0] && (char)gtprm.data[data_pos + 1U] == gtprm.control_char_sequence[1] && (data_pos + 3U < gtprm.len))
     {
         if (point_to_beginning_of_token)
         {
