@@ -119,6 +119,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>_begin_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a7a0668fda012a9ef712c10e7ddc8381f">UserInput</a></li>
 <li>_c_str_delim_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#af416608669536c987272f81c74e8fd5a">UserInput</a></li>
 <li>_c_str_delim_len_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a2fa98b65514cb5dd8f658e2afaef773b">UserInput</a></li>
+<li>_checksum()&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a5e98e3656d6cb512a28e3704333cfe2c">NMEAparse</a></li>
 <li>_combineControlCharacters()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87">UserInput</a></li>
 <li>_commands_count_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a7d12901b53d132d9003861f12ec5b4f8">UserInput</a></li>
 <li>_commands_head_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987">UserInput</a></li>
@@ -136,6 +137,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>_failed_on_subcommand_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a22e8e1867e082b75194ac67973ea14c2">UserInput</a></li>
 <li>_getArgs()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a33fcc80887114f74a724b70874b94a74">UserInput</a></li>
 <li>_getArgType()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a1bcc48da9ae92581effb4d947326971f">UserInput</a></li>
+<li>_getSentenceFromStream()&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a6ddde7cb775f3cfd7421b46a6997f812">NMEAparse</a></li>
 <li>_getTokensChar()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a5b4daf5d4bb2def3b6b9f9116455bd8e">UserInput</a></li>
 <li>_getTokensCstrings()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a026cc2c2c36233a5bc2c9a4aa46846dd">UserInput</a></li>
 <li>_getTokensDelimiters()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a16450787cd7073135e1eb64c8fd35276">UserInput</a></li>
@@ -151,6 +153,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>_output_buffer_len_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a278f946baa7770f685b20742ba16c9ea">UserInput</a></li>
 <li>_output_enabled_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">UserInput</a></li>
 <li>_output_flag_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a4de8e2d97019ccfab71ddd6b7368a50c">UserInput</a></li>
+<li>_parseSentence()&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a646d896f974d5c588a143fd8b7a23a20">NMEAparse</a></li>
 <li>_readCommandFromBufferErrorOutput()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f">UserInput</a></li>
 <li>_rec_num_arg_strings_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a8cc64ade1f91dd2544241923cdd38e5e">UserInput</a></li>
 <li>_stream_buffer_allocated_&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b">UserInput</a></li>
@@ -233,6 +236,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_n" name="index_n"></a>- n -</h3><ul>
 <li>next_command&#160;:&#160;<a class="el" href="df/d68/class_command_constructor.html#acf385c16d839794f2bbe7ad7d1db4de3">CommandConstructor</a></li>
 <li>nextArgument()&#160;:&#160;<a class="el" href="dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd">UserInput</a></li>
+<li>NMEA_sentence_buffer&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a34fb69b1ff5590b4d7277bfb8253310f">NMEAparse</a></li>
 <li>num_args&#160;:&#160;<a class="el" href="d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559">Parameters</a></li>
 <li>num_delimiters&#160;:&#160;<a class="el" href="d7/d74/struct_user_input_1_1get_tokens_param.html#a09dd657cb2b61e16d1b540f56e6cbf17">UserInput::getTokensParam</a></li>
 <li>num_token_ptrs&#160;:&#160;<a class="el" href="d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef">UserInput::getTokensParam</a></li>
@@ -249,7 +253,10 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_p" name="index_p"></a>- p -</h3><ul>
 <li>param_array_len&#160;:&#160;<a class="el" href="df/d68/class_command_constructor.html#af3f46284fca20b49c41b1fad04977e7f">CommandConstructor</a></li>
 <li>parent_command_id&#160;:&#160;<a class="el" href="d0/dbf/struct_parameters.html#ae5e50dee61b9c44378e92e01768054e8">Parameters</a></li>
+<li>parse()&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a57ee1494ead5eded4c9fca64079df9fe">NMEAparse</a></li>
 <li>prm&#160;:&#160;<a class="el" href="df/d68/class_command_constructor.html#a36f5e0ca68674b1a7a6b28d0ac4df69a">CommandConstructor</a>, <a class="el" href="dc/de3/struct_user_input_1_1__launch_logic_param.html#a464e44adbc43a4c9fbc5216df1156970">UserInput::_launchLogicParam</a></li>
+<li>ptrs&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a266e830e67c2eea77e8b699e5aad08f5">NMEAparse</a></li>
+<li>ptrs_index&#160;:&#160;<a class="el" href="df/d2a/class_n_m_e_aparse.html#a3cd956cd5b7836d6b92da3e35f565970">NMEAparse</a></li>
 </ul>
 
 
