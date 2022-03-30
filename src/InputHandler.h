@@ -263,9 +263,11 @@ public:
      * @brief read command(s) from a uint8_t (unsigned char) buffer
      * silent return if `_begin_` == false
      * @param data a buffer with characters
-     * @param len the size of the buffer
+     * @param len the size of the buffer     
+     * @param num_zdc size of Parameters pointers array
+     * @param zdc array of Parameters pointers
      */
-    void readCommandFromBuffer(uint8_t *data, size_t len);
+    void readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc = 0, Parameters **zdc = NULL);
 
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
@@ -340,9 +342,11 @@ public:
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
      * @param gtprm UserInput::getTokensParam struct reference
+     * @param num_zdc size of Parameters pointers array
+     * @param zdc array of Parameters pointers     
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam &gtprm);
+    size_t getTokens(getTokensParam &gtprm, size_t num_zdc = 0, Parameters **zdc = NULL);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays

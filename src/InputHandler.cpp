@@ -150,7 +150,7 @@ void UserInput::listCommands()
     }
 }
 
-void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
+void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc, Parameters **zdc)
 {
     // error checking
     if (!_begin_) // error
@@ -161,8 +161,8 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len)
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
-    }    
-    _token_buffer_ = new char[len + 1U](); // place to chop up the input
+    }        
+    _token_buffer_ = new char[len + ((num_zdc > 0) ? 1 : 0) + 1U](); // place to chop up the input
     if (_token_buffer_ == nullptr)         // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
