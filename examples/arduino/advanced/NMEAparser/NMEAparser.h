@@ -11,10 +11,11 @@
 #define __NMEAparser_H__
 
 #include <InputHandler.h> // include for UserInput object
+#include "NMEAsentenceparam.h"
 
 extern char output_buffer[];   // output buffer declared in NMEAparser.ino
 extern UserInput sensorParser; // UserInput object declared in NMEAparser.ino
-extern const Parameters sentence_param[], sentence_error_param[];
+extern const Parameters sentence_param[], sentence_error_param[]; // zero delim command
 
 #define NMEA_SENTENCE_FIELDS_BUFFER_SIZE 128      // class NMEA sentence fields token buffer len
 #define NMEA_SENTENCE_MAX_NUM_FIELDS 32           // ???
@@ -40,7 +41,7 @@ public:
     }
 
     void emptyOutputBuffer()
-    {
+    {        
         _ptrs_index = 0;
         for (size_t i = 0; i < NMEA_SENTENCE_FIELDS_BUFFER_SIZE; ++i)
         {
@@ -62,7 +63,7 @@ public:
     {
         NMEAparse::emptyOutputBuffer();
         // search for checksum, perform validation if found
-        
+
         // _ptrs_index_max = get_tokens add 
 
         _ptrs_index = 0; // set ptrs index back to zero so that nextField() works

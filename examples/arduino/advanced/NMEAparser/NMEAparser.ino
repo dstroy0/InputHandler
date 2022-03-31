@@ -36,7 +36,7 @@
     All data fields that follow are comma-delimited.
     Where data is unavailable, the corresponding field remains blank (it contains no character before the next delimiter
     The first character that immediately follows the last data field character is an asterisk, but it is only included if a checksum is supplied.
-    The asterisk is immediately followed by a checksum represented as a two-digit hexadecimal number. The checksum is the bitwise exclusive OR of ASCII 
+    The asterisk is immediately followed by a checksum represented as a two-digit hexadecimal number. The checksum is the bitwise exclusive OR of ASCII
     codes of all characters between the $ and *, not inclusive. According to the official specification, the checksum is optional for most data sentences, but is compulsory for RMA, RMB, and RMC (among others).
     <CR><LF> ends the message.
 */
@@ -44,111 +44,74 @@
 #include <InputHandler.h>
 #include "NMEAparser.h"
 
-NMEAparse NMEA;
-
 char output_buffer[256] = {'\0'}; //  UserInput output buffer
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffsz(output_buffer),
-    /* username */ "",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "");
+                       /* size of UserInput's output buffer */ buffsz(output_buffer),
+                       /* username */ "",
+                       /* end of line characters */ "\r\n",
+                       /* token delimiter */ " ",
+                       /* c-string delimiter */ "");
 
 UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffsz(output_buffer),
-    /* username */ "",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "");
+                       /* size of UserInput's output buffer */ buffsz(output_buffer),
+                       /* username */ "",
+                       /* end of line characters */ "\r\n",
+                       /* token delimiter */ " ",
+                       /* c-string delimiter */ "");
+
+NMEAparse NMEA;
+
+extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands
 
 /*
    default function, called if nothing matches or if there is an error
 */
 void uc_unrecognized(UserInput* inputProcess)
 {
-  // error output
-  inputProcess->outputToStream(Serial);
+    // error output
+    inputProcess->outputToStream(Serial);
 }
 
-void NMEA_parse_test(UserInput *inputProcess)
+void NMEA_parse_test(UserInput* inputProcess)
 {
-
 }
 
-/**
-   @brief Parameters struct for NMEA sentence error
-
-*/
-const PROGMEM Parameters sentence_error_param[1] = {
-  NMEA_parse_test,           // function ptr
-  "!",                       // command string
-  1,                         // string length
-  root,                      // parent id
-  root,                      // this command id
-  root,                      // command depth
-  0,                         // subcommands
-  UI_ARG_HANDLING::one_type, // argument handling
-  0,                         // minimum expected number of arguments
-  32,                         // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {    
-    UITYPE::NOTYPE    // special type, no type validation performed
-  }
-
-  // reference to nested sentence decomposer params
-};
-CommandConstructor NMEA_sentence_error(sentence_error_param);
-
-/**
-   @brief Parameters struct for NMEA sentence
-*/
-const PROGMEM Parameters sentence_param[1] = {
-  NMEA_parse_test,           // function ptr
-  "$",                       // command string
-  1,                         // string length
-  root,                      // parent id
-  root,                      // this command id
-  root,                      // command depth
-  0,                         // subcommands
-  UI_ARG_HANDLING::one_type, // argument handling
-  0,                         // minimum expected number of arguments
-  32,                         // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {    
-    UITYPE::NOTYPE    // special type, no type validation performed
-  }
-
-  // reference to nested sentence decomposer params
-};
 CommandConstructor NMEA_sentence(sentence_param);
+CommandConstructor NMEA_sentence_error(sentence_error_param);
 
 void setup()
 {
-  delay(500); // startup delay for reprogramming
-  
-  Serial.begin(115200); //  set up Serial object (Stream object)
- 
-  while (!Serial); //  wait for user
+    delay(500); // startup delay for reprogramming
 
-  Serial.println(F("Set up InputHandler..."));
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
- 
-  sensorParser.addCommand(NMEA_sentence); // regular sentence
-  sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
-  inputHandler.begin();                          // required.  returns true on success.  
-  sensorParser.begin();
-  
-  inputHandler.outputToStream(Serial); // class output
+    Serial.begin(115200); //  set up Serial object (Stream object)
+
+    while (!Serial)
+        ; //  wait for user
+
+    Serial.println(F("Set up InputHandler..."));
+    inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+
+    sensorParser.addCommand(NMEA_sentence);       // regular sentence
+    sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
+    inputHandler.begin();                         // required.  returns true on success.
+    sensorParser.begin();
+
+    inputHandler.outputToStream(Serial); // class output
+
+    for(size_t i = 0; i < 24; ++i) // verify prm access
+    {
+      Parameters prm;
+      memcpy_P(&prm, &(sentence_param[i]), sizeof(prm));
+      char buffer[128]{};
+      snprintf_P(buffer, 128, PSTR("%s"), prm.command);
+      Serial.println(buffer);
+    }
 }
 
 void loop()
-{  
-  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work    
-  inputHandler.outputToStream(Serial); // class output
+{
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+    inputHandler.outputToStream(Serial);       // class output
 
-  NMEA.getSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+    NMEA.getSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }
