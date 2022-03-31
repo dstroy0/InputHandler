@@ -716,6 +716,7 @@ inline void UserInput::_launchLogic(_launchLogicParam &LLprm)
     }
 }
 
+// clang-format off
 inline char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
 {
     if (input < (char)32 || input == (char)34)
@@ -760,6 +761,7 @@ inline char UserInput::_combineControlCharacters(char input)
         default:  return (char)'*'; // * error
     }
 }
+// clang-format on
 
 bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
 {
@@ -826,6 +828,7 @@ bool UserInput::_addCommandAbort(CommandConstructor &cmd, Parameters &prm)
     return error;
 }
 
+// clang-format off
 inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 {
     if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
@@ -834,6 +837,7 @@ inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 
     return UITYPE::_LAST; // return error if no match
 }
+// clang-format on
 
 inline void UserInput::_getArgs(size_t &tokens_received, bool *input_type_match_flag, Parameters &prm, bool &all_arguments_valid)
 {

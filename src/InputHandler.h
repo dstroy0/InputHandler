@@ -263,7 +263,7 @@ public:
      * @brief read command(s) from a uint8_t (unsigned char) buffer
      * silent return if `_begin_` == false
      * @param data a buffer with characters
-     * @param len the size of the buffer     
+     * @param len the size of the buffer
      * @param num_zdc size of Parameters pointers array
      * @param zdc array of Parameters pointers
      */
@@ -343,7 +343,7 @@ public:
     /**
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
-     * @param gtprm UserInput::getTokensParam struct reference   
+     * @param gtprm UserInput::getTokensParam struct reference
      * @return size_t number of tokens retrieved
      */
     size_t getTokens(getTokensParam &gtprm);
@@ -582,7 +582,7 @@ private:
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
-     * 
+     *
      * @param data uint8_t array
      * @param len data len
      * @param token_buffer pointer to char array
@@ -590,7 +590,7 @@ private:
      * @param num_zdc number of zero delim commands
      * @param zdc pointers to zero delim commands
      */
-    void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters **zdc);
+    void _splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters **zdc);
     // end private methods
 };
 
