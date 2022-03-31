@@ -327,19 +327,17 @@ public:
         uint8_t *data;                     ///< pointer to uint8_t array
         size_t len;                        ///< length of uint8_t array
         char *token_buffer;                ///< pointer to null terminated char array
-        size_t token_buffer_len;           ///< size of data + 1
-        char **token_pointers;             ///< number of token pointers
+        size_t token_buffer_len;           ///< size of data + 1 + 1(if there are zero delim commands)
+        char **token_pointers;             ///< array of token_buffer pointers
         uint8_t &token_pointer_index;      ///< index of token_pointers
         size_t num_token_ptrs;             ///< token_pointers[MAX]
-        const char **delimiter_strings;    ///< array of const char*
+        const char **delimiter_strings;    ///< array of const char* delimiter strings
         size_t *delimiter_lens;            ///< strlen of each delimiter
         size_t num_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
         const char *c_str_delim;           ///< const char* c string delimiter
         size_t c_str_delim_len;            ///< strlen of c string delimiter
         char &token_buffer_sep;            ///< token_buffer token delimiter
         const char *control_char_sequence; ///< two character sequence preceding a switch char
-        size_t num_zdc;
-        Parameters **zdc;
     };
 
     /**
@@ -359,8 +357,8 @@ public:
      * @param neg_sign single char neg sign, if different than '-' parseInt and the like will not assign your input negative
      * @param float_sep whole and fraction separator
      *
-     * @return true type is valid
-     * @return false type not valid
+     * @return true argument-type is valid
+     * @return false argument-type is not valid
      */
     bool validateNullSepInput(UITYPE arg_type,
                               char **token_pointers,

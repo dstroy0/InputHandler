@@ -996,14 +996,14 @@ inline void UserInput::_getTokensChar(getTokensParam &gtprm, size_t &data_pos, s
 
 void UserInput::_splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc)
 {
-    for (size_t i = 0; i < num_zdc; ++i)
+    for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
     {
-        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length));
-        if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
+        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from Parameters object
+        if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false)      // match zdc
         {
-            memcpy(token_buffer, data, cmd_len_pgm);
-            memcpy((token_buffer + cmd_len_pgm), _delim_, _delim_len_);
-            memcpy((token_buffer + cmd_len_pgm + _delim_len_), data, (len - cmd_len_pgm));
+            memcpy(token_buffer, data, cmd_len_pgm);                                       // copy the command into token buffer
+            memcpy((token_buffer + cmd_len_pgm), _delim_, _delim_len_);                    // copy the delimiter into token buffer after the command
+            memcpy((token_buffer + cmd_len_pgm + _delim_len_), data, (len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
         }
     }
 }
