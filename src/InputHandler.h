@@ -277,8 +277,10 @@ public:
      * silent return if `_begin_` == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
+     * @param num_zdc size of Parameters pointers array
+     * @param zdc array of Parameters pointers
      */
-    void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
+    void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32, size_t num_zdc = 0, Parameters **zdc = NULL);
 
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
@@ -336,17 +338,17 @@ public:
         size_t c_str_delim_len;            ///< strlen of c string delimiter
         char &token_buffer_sep;            ///< token_buffer token delimiter
         const char *control_char_sequence; ///< two character sequence preceding a switch char
+        size_t num_zdc;
+        Parameters **zdc;
     };
 
     /**
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
-     * @param gtprm UserInput::getTokensParam struct reference
-     * @param num_zdc size of Parameters pointers array
-     * @param zdc array of Parameters pointers     
+     * @param gtprm UserInput::getTokensParam struct reference   
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam &gtprm, size_t num_zdc = 0, Parameters **zdc = NULL);
+    size_t getTokens(getTokensParam &gtprm);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
@@ -580,6 +582,7 @@ private:
      */
     void _getTokensChar(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token);
 
+    void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc);
     // end private methods
 };
 

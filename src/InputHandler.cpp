@@ -161,14 +161,20 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc,
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
-    }        
-    _token_buffer_ = new char[len + ((num_zdc > 0) ? 1 : 0) + 1U](); // place to chop up the input
+    }
+    size_t token_buffer_len = len + ((num_zdc > 0U) ? 1U : 0U) + 1U;         
+    _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)         // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
         return;
     }
     // end error checking
+
+    if (num_zdc != 0) // if there are zero delim commands
+    {
+        UserInput::_splitZDC(data, len, _token_buffer_, token_buffer_len, num_zdc, zdc);
+    }
 
     size_t num_ptrs = (1U + _max_depth_ + _max_args_);
     size_t tokens_received = 0; // amount of delimiter separated tokens    
@@ -264,7 +270,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc,
     delete[] input_type_match_flag;
 }
 
-void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
+void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size, size_t num_zdc, Parameters **zdc)
 {
     if (!_begin_) // error
     {
@@ -304,7 +310,7 @@ void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size)
     }
     if (_new_stream_data_ == true)
     {
-        UserInput::readCommandFromBuffer(_stream_data_, _stream_data_index_);
+        UserInput::readCommandFromBuffer(_stream_data_, _stream_data_index_, num_zdc, zdc);
         _stream_data_index_ = 0;
         _new_stream_data_ = false;
         delete[] _stream_data_;
@@ -987,5 +993,19 @@ inline void UserInput::_getTokensChar(getTokensParam &gtprm, size_t &data_pos, s
         }
         token_buffer_index++;
         data_pos++;
+    }
+}
+
+void UserInput::_splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc)
+{
+    for (size_t i = 0; i < num_zdc; ++i)
+    {
+        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length));
+        if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
+        {
+            memcpy(token_buffer, data, cmd_len_pgm);
+            token_buffer[cmd_len_pgm + 1U] = _null_;
+            memcpy((token_buffer + cmd_len_pgm + 1U), data, (len - cmd_len_pgm));
+        }
     }
 }
