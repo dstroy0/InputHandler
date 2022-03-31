@@ -6,6 +6,5 @@ var searchData=
   ['nmea_5fsentence_5fbuffer_3',['NMEA_sentence_buffer',['../df/d2a/class_n_m_e_aparse.html#a34fb69b1ff5590b4d7277bfb8253310f',1,'NMEAparse']]],
   ['num_5fargs_4',['num_args',['../d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559',1,'Parameters']]],
   ['num_5fdelimiters_5',['num_delimiters',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a09dd657cb2b61e16d1b540f56e6cbf17',1,'UserInput::getTokensParam']]],
-  ['num_5ftoken_5fptrs_6',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
-  ['num_5fzdc_7',['num_zdc',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a94c242e6eec17b4a5f651420bdcf15d3',1,'UserInput::getTokensParam']]]
+  ['num_5ftoken_5fptrs_6',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]]
 ];
