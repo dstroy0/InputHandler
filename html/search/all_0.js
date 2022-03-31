@@ -45,13 +45,14 @@ var searchData=
   ['_5fparsesentence_42',['_parseSentence',['../df/d2a/class_n_m_e_aparse.html#a646d896f974d5c588a143fd8b7a23a20',1,'NMEAparse']]],
   ['_5freadcommandfrombuffererroroutput_43',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f',1,'UserInput']]],
   ['_5frec_5fnum_5farg_5fstrings_5f_44',['_rec_num_arg_strings_',['../dc/d4b/class_user_input.html#a8cc64ade1f91dd2544241923cdd38e5e',1,'UserInput']]],
-  ['_5fstream_5fbuffer_5fallocated_5f_45',['_stream_buffer_allocated_',['../dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b',1,'UserInput']]],
-  ['_5fstream_5fdata_5f_46',['_stream_data_',['../dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9',1,'UserInput']]],
-  ['_5fstream_5fdata_5findex_5f_47',['_stream_data_index_',['../dc/d4b/class_user_input.html#a84ad5746df6427467c5c8ff38d679ea3',1,'UserInput']]],
-  ['_5fterm_5f_48',['_term_',['../dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788',1,'UserInput']]],
-  ['_5fterm_5findex_5f_49',['_term_index_',['../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf',1,'UserInput']]],
-  ['_5fterm_5flen_5f_50',['_term_len_',['../dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039',1,'UserInput']]],
-  ['_5ftoken_5fbuffer_5f_51',['_token_buffer_',['../dc/d4b/class_user_input.html#a8c9e3a80ee1b82866b4cd949d4023913',1,'UserInput']]],
-  ['_5fui_5fout_52',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]],
-  ['_5fusername_5f_53',['_username_',['../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f',1,'UserInput']]]
+  ['_5fsplitzdc_45',['_splitZDC',['../dc/d4b/class_user_input.html#a1ccf698e6f8ffa7354d8eed53b852806',1,'UserInput']]],
+  ['_5fstream_5fbuffer_5fallocated_5f_46',['_stream_buffer_allocated_',['../dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b',1,'UserInput']]],
+  ['_5fstream_5fdata_5f_47',['_stream_data_',['../dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9',1,'UserInput']]],
+  ['_5fstream_5fdata_5findex_5f_48',['_stream_data_index_',['../dc/d4b/class_user_input.html#a84ad5746df6427467c5c8ff38d679ea3',1,'UserInput']]],
+  ['_5fterm_5f_49',['_term_',['../dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788',1,'UserInput']]],
+  ['_5fterm_5findex_5f_50',['_term_index_',['../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf',1,'UserInput']]],
+  ['_5fterm_5flen_5f_51',['_term_len_',['../dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039',1,'UserInput']]],
+  ['_5ftoken_5fbuffer_5f_52',['_token_buffer_',['../dc/d4b/class_user_input.html#a8c9e3a80ee1b82866b4cd949d4023913',1,'UserInput']]],
+  ['_5fui_5fout_53',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]],
+  ['_5fusername_5f_54',['_username_',['../dc/d4b/class_user_input.html#aa8a8d4eaafc528610357d9b39c4efa8f',1,'UserInput']]]
 ];

@@ -15,5 +15,6 @@ var searchData=
   ['_5flaunchlogic_12',['_launchLogic',['../dc/d4b/class_user_input.html#aef66cd23ce4fbb5d646384c5dc6a67c2',1,'UserInput']]],
   ['_5fparsesentence_13',['_parseSentence',['../df/d2a/class_n_m_e_aparse.html#a646d896f974d5c588a143fd8b7a23a20',1,'NMEAparse']]],
   ['_5freadcommandfrombuffererroroutput_14',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f',1,'UserInput']]],
-  ['_5fui_5fout_15',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]]
+  ['_5fsplitzdc_15',['_splitZDC',['../dc/d4b/class_user_input.html#a1ccf698e6f8ffa7354d8eed53b852806',1,'UserInput']]],
+  ['_5fui_5fout_16',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]]
 ];
