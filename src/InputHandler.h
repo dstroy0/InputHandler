@@ -267,7 +267,7 @@ public:
      * @param num_zdc size of Parameters pointers array
      * @param zdc array of Parameters pointers
      */
-    void readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc = 0, Parameters **zdc = NULL);
+    void readCommandFromBuffer(uint8_t *data, size_t len, const size_t num_zdc = 0, const Parameters **zdc = NULL);
 
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
@@ -280,7 +280,7 @@ public:
      * @param num_zdc size of Parameters pointers array
      * @param zdc array of Parameters pointers
      */
-    void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32, size_t num_zdc = 0, Parameters **zdc = NULL);
+    void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const Parameters **zdc = NULL);
 
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
@@ -590,7 +590,7 @@ private:
      * @param num_zdc number of zero delim commands
      * @param zdc pointers to zero delim commands
      */
-    void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc);
+    void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters **zdc);
     // end private methods
 };
 

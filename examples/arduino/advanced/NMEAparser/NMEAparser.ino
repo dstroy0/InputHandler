@@ -52,6 +52,13 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
     /* token delimiter */ " ",
     /* c-string delimiter */ "");
 
+UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
+    /* size of UserInput's output buffer */ buffsz(output_buffer),
+    /* username */ "",
+    /* end of line characters */ "\r\n",
+    /* token delimiter */ " ",
+    /* c-string delimiter */ "");
+
 /*
    default function, called if nothing matches or if there is an error
 */
@@ -127,36 +134,63 @@ void uc_test_input_types(UserInput *inputProcess)
   Serial.println(out);
 }
 
+void NMEA_parse_test(UserInput *inputProcess)
+{
+
+}
+
 /**
-   @brief Parameters struct for uc_test_
+   @brief Parameters struct for NMEA sentence error
 
 */
-const PROGMEM Parameters type_test_param[1] = {
-  uc_test_input_types,       // function ptr
-  "test",                    // command string
-  4,                         // string length
+const PROGMEM Parameters sentence_error_param[1] = {
+  NMEA_parse_test,           // function ptr
+  "!",                       // command string
+  1,                         // string length
   root,                      // parent id
   root,                      // this command id
   root,                      // command depth
   0,                         // subcommands
-  UI_ARG_HANDLING::type_arr, // argument handling
-  8,                         // minimum expected number of arguments
-  8,                         // maximum expected number of arguments
+  UI_ARG_HANDLING::one_type, // argument handling
+  0,                         // minimum expected number of arguments
+  32,                         // maximum expected number of arguments
   /*
     UITYPE arguments
   */
-  {
-    UITYPE::UINT8_T,  // 8-bit  uint
-    UITYPE::UINT16_T, // 16-bit uint
-    UITYPE::UINT32_T, // 32-bit uint
-    UITYPE::INT16_T,  // 16-bit int
-    UITYPE::FLOAT,    // 32-bit float
-    UITYPE::CHAR,     // char
-    UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+  {    
     UITYPE::NOTYPE    // special type, no type validation performed
   }
+
+  // reference to nested sentence decomposer params
 };
-CommandConstructor uc_test_(type_test_param);
+CommandConstructor NMEA_sentence_error(sentence_error_param);
+
+/**
+   @brief Parameters struct for NMEA sentence
+*/
+const PROGMEM Parameters sentence_param[1] = {
+  NMEA_parse_test,           // function ptr
+  "$",                       // command string
+  1,                         // string length
+  root,                      // parent id
+  root,                      // this command id
+  root,                      // command depth
+  0,                         // subcommands
+  UI_ARG_HANDLING::one_type, // argument handling
+  0,                         // minimum expected number of arguments
+  32,                         // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {    
+    UITYPE::NOTYPE    // special type, no type validation performed
+  }
+
+  // reference to nested sentence decomposer params
+};
+CommandConstructor NMEA_sentence(sentence_param);
+
+
 
 void setup()
 {
@@ -169,9 +203,11 @@ void setup()
   Serial.println(F("Set up InputHandler..."));
   inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
  
-  inputHandler.addCommand(uc_test_);             // input type test
+  sensorParser.addCommand(NMEA_sentence); // regular sentence
+  sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
   inputHandler.begin();                          // required.  returns true on success.  
-
+  sensorParser.begin();
+  
   inputHandler.outputToStream(Serial); // class output
 }
 

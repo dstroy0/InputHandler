@@ -150,7 +150,7 @@ void UserInput::listCommands()
     }
 }
 
-void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc, Parameters **zdc)
+void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, const size_t num_zdc, const Parameters **zdc)
 {
     // error checking
     if (!_begin_) // error
@@ -268,7 +268,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc,
     delete[] input_type_match_flag;
 }
 
-void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size, size_t num_zdc, Parameters **zdc)
+void UserInput::getCommandFromStream(Stream &stream, size_t rx_buffer_size, const size_t num_zdc, const Parameters **zdc)
 {
     if (!_begin_) // error
     {
@@ -994,7 +994,7 @@ inline void UserInput::_getTokensChar(getTokensParam &gtprm, size_t &data_pos, s
     }
 }
 
-void UserInput::_splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc)
+void UserInput::_splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters **zdc)
 {
     for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
     {
