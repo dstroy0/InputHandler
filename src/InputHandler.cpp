@@ -1004,8 +1004,8 @@ void UserInput::_splitZDC(uint8_t *data, size_t len, char *token_buffer, size_t 
         if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
         {
             memcpy(token_buffer, data, cmd_len_pgm);
-            token_buffer[cmd_len_pgm + 1U] = _null_;
-            memcpy((token_buffer + cmd_len_pgm + 1U), data, (len - cmd_len_pgm));
+            memcpy((token_buffer + cmd_len_pgm), _delim_, _delim_len_);
+            memcpy((token_buffer + cmd_len_pgm + _delim_len_), data, (len - cmd_len_pgm));
         }
     }
 }

@@ -582,6 +582,16 @@ private:
      */
     void _getTokensChar(getTokensParam &gtprm, size_t &data_pos, size_t &token_buffer_index, bool &point_to_beginning_of_token);
 
+    /**
+     * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
+     * 
+     * @param data uint8_t array
+     * @param len data len
+     * @param token_buffer pointer to char array
+     * @param token_buffer_len len of char array
+     * @param num_zdc number of zero delim commands
+     * @param zdc pointers to zero delim commands
+     */
     void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, size_t num_zdc, Parameters **zdc);
     // end private methods
 };
