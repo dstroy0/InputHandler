@@ -1,6 +1,7 @@
 <map id="examples/arduino/advanced/NMEAparser/NMEAparser.h" name="examples/arduino/advanced/NMEAparser/NMEAparser.h">
 <area shape="rect" id="node1" title="a class to assist in parsing NMEA 183 ASCII strings" alt="" coords="5,5,212,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="50,95,167,121"/>
-<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="34,169,183,211"/>
-<area shape="rect" id="node4" title=" " alt="" coords="67,259,151,285"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="50,169,167,196"/>
+<area shape="rect" id="node5" href="$da/dff/_n_m_e_asentenceparam_8h.html" title=" " alt="" coords="84,95,259,121"/>
+<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="34,244,183,285"/>
+<area shape="rect" id="node4" title=" " alt="" coords="67,333,151,360"/>
 </map>
