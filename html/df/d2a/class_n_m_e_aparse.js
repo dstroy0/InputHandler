@@ -1,12 +1,14 @@
 var class_n_m_e_aparse =
 [
-    [ "_checksum", "df/d2a/class_n_m_e_aparse.html#a5e98e3656d6cb512a28e3704333cfe2c", null ],
-    [ "_getSentenceFromStream", "df/d2a/class_n_m_e_aparse.html#a6ddde7cb775f3cfd7421b46a6997f812", null ],
-    [ "_parseSentence", "df/d2a/class_n_m_e_aparse.html#a3a7140815eab70281c4e9669e7a89c85", null ],
-    [ "emptyBuffer", "df/d2a/class_n_m_e_aparse.html#a817a9346d44d0f7120ef7fd69240102c", null ],
-    [ "parse", "df/d2a/class_n_m_e_aparse.html#a90c2a2143ec413744a5ca0db86a56e7f", null ],
-    [ "parse", "df/d2a/class_n_m_e_aparse.html#a325d8c06a3f1f3f1f0b1c61041402204", null ],
+    [ "calcChecksum", "df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09", null ],
+    [ "emptyOutputBuffer", "df/d2a/class_n_m_e_aparse.html#a5c4741dba58e561cc1da85f0610ac130", null ],
+    [ "getSentence", "df/d2a/class_n_m_e_aparse.html#a7e4511864ed0c6cea1a1d1b0b5555171", null ],
+    [ "getSentence", "df/d2a/class_n_m_e_aparse.html#a49285520e20e72fc24f6c7b670c6f585", null ],
+    [ "nextField", "df/d2a/class_n_m_e_aparse.html#a88112abf6332125aeb29ada57b271082", null ],
+    [ "parseErrorSentence", "df/d2a/class_n_m_e_aparse.html#a36fe462e039319799b0d5f84476b14d0", null ],
+    [ "parseSentence", "df/d2a/class_n_m_e_aparse.html#ac9afe4dd7f437243d95e1491e82e5bd8", null ],
     [ "_NMEA_sentence_fields_buffer", "df/d2a/class_n_m_e_aparse.html#af8e60a98c70bd1f7d50a85905148027b", null ],
-    [ "_ptrs", "df/d2a/class_n_m_e_aparse.html#ac62516a11be244783d84851047a5f4db", null ],
-    [ "_ptrs_index", "df/d2a/class_n_m_e_aparse.html#a464bf98bae723c78c2b269fccbf94e20", null ]
+    [ "_ptrs", "df/d2a/class_n_m_e_aparse.html#a16ca462904b176c329ea6553847c490e", null ],
+    [ "_ptrs_index", "df/d2a/class_n_m_e_aparse.html#a464bf98bae723c78c2b269fccbf94e20", null ],
+    [ "_ptrs_index_max", "df/d2a/class_n_m_e_aparse.html#a78ed73807494642dde393fec6ce24f91", null ]
 ];

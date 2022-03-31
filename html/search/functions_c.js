@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parse_0',['parse',['../df/d2a/class_n_m_e_aparse.html#a325d8c06a3f1f3f1f0b1c61041402204',1,'NMEAparse::parse(uint8_t *buffer, size_t size)'],['../df/d2a/class_n_m_e_aparse.html#a90c2a2143ec413744a5ca0db86a56e7f',1,'NMEAparse::parse(Stream &amp;stream)']]]
+  ['parseerrorsentence_0',['parseErrorSentence',['../df/d2a/class_n_m_e_aparse.html#a36fe462e039319799b0d5f84476b14d0',1,'NMEAparse']]],
+  ['parsesentence_1',['parseSentence',['../df/d2a/class_n_m_e_aparse.html#ac9afe4dd7f437243d95e1491e82e5bd8',1,'NMEAparse']]]
 ];

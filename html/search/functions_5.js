@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['emptybuffer_0',['emptyBuffer',['../df/d2a/class_n_m_e_aparse.html#a817a9346d44d0f7120ef7fd69240102c',1,'NMEAparse']]]
+  ['emptyoutputbuffer_0',['emptyOutputBuffer',['../df/d2a/class_n_m_e_aparse.html#a5c4741dba58e561cc1da85f0610ac130',1,'NMEAparse']]]
 ];
