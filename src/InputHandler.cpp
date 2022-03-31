@@ -197,7 +197,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc,
             data,                   // input data uint8_t array
             len,                    // input len
             _token_buffer_,         // pointer to char array, size of len + 1
-            (len + 1U),             // the size of token_buffer
+            token_buffer_len,       // the size of token_buffer
             _data_pointers_,        // token_buffer pointers
             _data_pointers_index_,  // index of token_buffer pointer array
             num_ptrs,               // _data_pointers_[MAX], _data_pointers_index_[MAX]
@@ -228,9 +228,7 @@ void UserInput::readCommandFromBuffer(uint8_t *data, size_t len, size_t num_zdc,
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
         size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length)); // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
-        if (memcmp_P(_data_pointers_[0],
-                     cmd->prm[0].command,
-                     cmd_len_pgm) == false) // match root command
+        if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, cmd_len_pgm) == false) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
