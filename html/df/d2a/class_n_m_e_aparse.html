@@ -113,8 +113,8 @@ $(document).ready(function(){initNavTree('df/d2a/class_n_m_e_aparse.html','../..
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d2/dae/class_n_m_e_aparse-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">NMEAparse Class Reference</div></div>
 </div><!--header-->
@@ -124,19 +124,12 @@ $(document).ready(function(){initNavTree('df/d2a/class_n_m_e_aparse.html','../..
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a57ee1494ead5eded4c9fca64079df9fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a57ee1494ead5eded4c9fca64079df9fe">parse</a> (char *buffer, size_t size)</td></tr>
-<tr class="separator:a57ee1494ead5eded4c9fca64079df9fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817a9346d44d0f7120ef7fd69240102c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a817a9346d44d0f7120ef7fd69240102c">emptyBuffer</a> ()</td></tr>
+<tr class="separator:a817a9346d44d0f7120ef7fd69240102c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a325d8c06a3f1f3f1f0b1c61041402204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a325d8c06a3f1f3f1f0b1c61041402204">parse</a> (uint8_t *buffer, size_t size)</td></tr>
+<tr class="separator:a325d8c06a3f1f3f1f0b1c61041402204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90c2a2143ec413744a5ca0db86a56e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a90c2a2143ec413744a5ca0db86a56e7f">parse</a> (Stream &amp;stream)</td></tr>
 <tr class="separator:a90c2a2143ec413744a5ca0db86a56e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a34fb69b1ff5590b4d7277bfb8253310f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a34fb69b1ff5590b4d7277bfb8253310f">NMEA_sentence_buffer</a> [85] {}</td></tr>
-<tr class="separator:a34fb69b1ff5590b4d7277bfb8253310f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a266e830e67c2eea77e8b699e5aad08f5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a266e830e67c2eea77e8b699e5aad08f5">ptrs</a> [32]</td></tr>
-<tr class="separator:a266e830e67c2eea77e8b699e5aad08f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cd956cd5b7836d6b92da3e35f565970"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a3cd956cd5b7836d6b92da3e35f565970">ptrs_index</a> = 0</td></tr>
-<tr class="separator:a3cd956cd5b7836d6b92da3e35f565970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -144,8 +137,17 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a5e98e3656d6cb512a28e3704333cfe2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ddde7cb775f3cfd7421b46a6997f812"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a6ddde7cb775f3cfd7421b46a6997f812">_getSentenceFromStream</a> (Stream &amp;stream)</td></tr>
 <tr class="separator:a6ddde7cb775f3cfd7421b46a6997f812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a646d896f974d5c588a143fd8b7a23a20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a646d896f974d5c588a143fd8b7a23a20">_parseSentence</a> (char *buffer, size_t size)</td></tr>
-<tr class="separator:a646d896f974d5c588a143fd8b7a23a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a7140815eab70281c4e9669e7a89c85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a3a7140815eab70281c4e9669e7a89c85">_parseSentence</a> (uint8_t *buffer, size_t size)</td></tr>
+<tr class="separator:a3a7140815eab70281c4e9669e7a89c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af8e60a98c70bd1f7d50a85905148027b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#af8e60a98c70bd1f7d50a85905148027b">_NMEA_sentence_fields_buffer</a> [<a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#a70fc76ba8dc599626cf2626de31c2b64">NMEA_SENTENCE_FIELDS_BUFFER_SIZE</a>] {}</td></tr>
+<tr class="separator:af8e60a98c70bd1f7d50a85905148027b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac62516a11be244783d84851047a5f4db"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#ac62516a11be244783d84851047a5f4db">_ptrs</a> [32]</td></tr>
+<tr class="separator:ac62516a11be244783d84851047a5f4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a464bf98bae723c78c2b269fccbf94e20"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a464bf98bae723c78c2b269fccbf94e20">_ptrs_index</a> = 0</td></tr>
+<tr class="separator:a464bf98bae723c78c2b269fccbf94e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5e98e3656d6cb512a28e3704333cfe2c" name="a5e98e3656d6cb512a28e3704333cfe2c"></a>
@@ -200,8 +202,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a646d896f974d5c588a143fd8b7a23a20" name="a646d896f974d5c588a143fd8b7a23a20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a646d896f974d5c588a143fd8b7a23a20">&#9670;&nbsp;</a></span>_parseSentence()</h2>
+<a id="a3a7140815eab70281c4e9669e7a89c85" name="a3a7140815eab70281c4e9669e7a89c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a7140815eab70281c4e9669e7a89c85">&#9670;&nbsp;</a></span>_parseSentence()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +214,7 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void NMEAparse::_parseSentence </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
         </tr>
         <tr>
@@ -236,8 +238,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a57ee1494ead5eded4c9fca64079df9fe" name="a57ee1494ead5eded4c9fca64079df9fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57ee1494ead5eded4c9fca64079df9fe">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
+<a id="a817a9346d44d0f7120ef7fd69240102c" name="a817a9346d44d0f7120ef7fd69240102c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a817a9346d44d0f7120ef7fd69240102c">&#9670;&nbsp;</a></span>emptyBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,21 +248,10 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NMEAparse::parse </td>
+          <td class="memname">void NMEAparse::emptyBuffer </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -273,7 +264,7 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a90c2a2143ec413744a5ca0db86a56e7f" name="a90c2a2143ec413744a5ca0db86a56e7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90c2a2143ec413744a5ca0db86a56e7f">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a90c2a2143ec413744a5ca0db86a56e7f">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,45 +289,105 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a325d8c06a3f1f3f1f0b1c61041402204" name="a325d8c06a3f1f3f1f0b1c61041402204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a325d8c06a3f1f3f1f0b1c61041402204">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NMEAparse::parse </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a34fb69b1ff5590b4d7277bfb8253310f" name="a34fb69b1ff5590b4d7277bfb8253310f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34fb69b1ff5590b4d7277bfb8253310f">&#9670;&nbsp;</a></span>NMEA_sentence_buffer</h2>
+<a id="af8e60a98c70bd1f7d50a85905148027b" name="af8e60a98c70bd1f7d50a85905148027b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e60a98c70bd1f7d50a85905148027b">&#9670;&nbsp;</a></span>_NMEA_sentence_fields_buffer</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char NMEAparse::NMEA_sentence_buffer[85] {}</td>
+          <td class="memname">uint8_t NMEAparse::_NMEA_sentence_fields_buffer[<a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#a70fc76ba8dc599626cf2626de31c2b64">NMEA_SENTENCE_FIELDS_BUFFER_SIZE</a>] {}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a266e830e67c2eea77e8b699e5aad08f5" name="a266e830e67c2eea77e8b699e5aad08f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a266e830e67c2eea77e8b699e5aad08f5">&#9670;&nbsp;</a></span>ptrs</h2>
+<a id="ac62516a11be244783d84851047a5f4db" name="ac62516a11be244783d84851047a5f4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac62516a11be244783d84851047a5f4db">&#9670;&nbsp;</a></span>_ptrs</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char* NMEAparse::ptrs[32]</td>
+          <td class="memname">char* NMEAparse::_ptrs[32]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3cd956cd5b7836d6b92da3e35f565970" name="a3cd956cd5b7836d6b92da3e35f565970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cd956cd5b7836d6b92da3e35f565970">&#9670;&nbsp;</a></span>ptrs_index</h2>
+<a id="a464bf98bae723c78c2b269fccbf94e20" name="a464bf98bae723c78c2b269fccbf94e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a464bf98bae723c78c2b269fccbf94e20">&#9670;&nbsp;</a></span>_ptrs_index</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t NMEAparse::ptrs_index = 0</td>
+          <td class="memname">size_t NMEAparse::_ptrs_index = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
