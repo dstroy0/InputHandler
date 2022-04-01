@@ -85,17 +85,20 @@ public:
             // i think an easier way to detect is if the char after ',' isdigit or isalpha
             if ((char)buffer[i] == ',' && ((char)buffer[i + 1] == ',' || (char)buffer[i + 1] == '*' || (char)buffer[i + 1] == '\0') || (iscntrl((char)buffer[i + 1]) == true))
             {
-                // corrected_input[i] = (char)buffer[i];
-                // corrected_input_idx++;
-                // memcpy(corrected_input + corrected_input_idx, empty_field_ph, strlen(empty_field_ph));
-                // corrected_input_idx += strlen(empty_field_ph);
+                corrected_input[corrected_input_idx] = (char)buffer[i];
+                corrected_input_idx++;
+                memcpy(corrected_input + corrected_input_idx, empty_field_ph, strlen(empty_field_ph));
+                corrected_input_idx += strlen(empty_field_ph);
             }
             else
             {
-                // corrected_input[i] = (char)buffer[i];
-                // corrected_input_idx++;
+                corrected_input[corrected_input_idx] = (char)buffer[i];
+                corrected_input_idx++;
             }
         }
+
+        Serial.println((char*)buffer);
+        Serial.println(corrected_input);
 
         // set up getTokensParam
         char _null_ = '\0';

@@ -44,6 +44,8 @@
 #include <InputHandler.h>
 #include "NMEAparser.h"
 
+extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands
+
 char output_buffer[256] = {'\0'}; //  UserInput output buffer
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
                        /* size of UserInput's output buffer */ buffsz(output_buffer),
@@ -61,7 +63,8 @@ UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
 
 NMEAparse NMEA;
 
-extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands
+//temp
+const char* gpbwc = "$GPBWC,081837,,,,,,T,,M,,N,*13\r\n";
 
 /*
    default function, called if nothing matches or if there is an error
@@ -98,14 +101,9 @@ void setup()
 
     inputHandler.outputToStream(Serial); // class output
 
-    for(size_t i = 0; i < 24; ++i) // verify prm access
-    {
-      Parameters prm;
-      memcpy_P(&prm, &(sentence_param[i]), sizeof(prm));
-      char buffer[128]{};
-      snprintf_P(buffer, 128, PSTR("%s"), prm.command);
-      Serial.println(buffer);
-    }
+    uint8_t buffer[36]{};
+    memcpy(buffer, gpbwc, strlen(gpbwc));
+    NMEA.parseSentence(buffer, strlen(gpbwc));
 }
 
 void loop()
