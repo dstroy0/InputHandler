@@ -9,6 +9,6 @@ var class_n_m_e_aparse =
     [ "parseSentence", "df/d2a/class_n_m_e_aparse.html#ac9afe4dd7f437243d95e1491e82e5bd8", null ],
     [ "_NMEA_sentence_fields_buffer", "df/d2a/class_n_m_e_aparse.html#af8e60a98c70bd1f7d50a85905148027b", null ],
     [ "_ptrs", "df/d2a/class_n_m_e_aparse.html#a16ca462904b176c329ea6553847c490e", null ],
-    [ "_ptrs_index", "df/d2a/class_n_m_e_aparse.html#a464bf98bae723c78c2b269fccbf94e20", null ],
+    [ "_ptrs_index", "df/d2a/class_n_m_e_aparse.html#ae55c0e164c91098fdd59dd8f83d9b0b1", null ],
     [ "_ptrs_index_max", "df/d2a/class_n_m_e_aparse.html#a78ed73807494642dde393fec6ce24f91", null ]
 ];

@@ -28,7 +28,7 @@ var searchData=
   ['_5foutput_5fenabled_5f_25',['_output_enabled_',['../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12',1,'UserInput']]],
   ['_5foutput_5fflag_5f_26',['_output_flag_',['../dc/d4b/class_user_input.html#a4de8e2d97019ccfab71ddd6b7368a50c',1,'UserInput']]],
   ['_5fptrs_27',['_ptrs',['../df/d2a/class_n_m_e_aparse.html#a16ca462904b176c329ea6553847c490e',1,'NMEAparse']]],
-  ['_5fptrs_5findex_28',['_ptrs_index',['../df/d2a/class_n_m_e_aparse.html#a464bf98bae723c78c2b269fccbf94e20',1,'NMEAparse']]],
+  ['_5fptrs_5findex_28',['_ptrs_index',['../df/d2a/class_n_m_e_aparse.html#ae55c0e164c91098fdd59dd8f83d9b0b1',1,'NMEAparse']]],
   ['_5fptrs_5findex_5fmax_29',['_ptrs_index_max',['../df/d2a/class_n_m_e_aparse.html#a78ed73807494642dde393fec6ce24f91',1,'NMEAparse']]],
   ['_5frec_5fnum_5farg_5fstrings_5f_30',['_rec_num_arg_strings_',['../dc/d4b/class_user_input.html#a8cc64ade1f91dd2544241923cdd38e5e',1,'UserInput']]],
   ['_5fstream_5fbuffer_5fallocated_5f_31',['_stream_buffer_allocated_',['../dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b',1,'UserInput']]],
