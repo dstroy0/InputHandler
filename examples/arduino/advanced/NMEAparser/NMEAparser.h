@@ -21,10 +21,14 @@ extern const Parameters sentence_param[], sentence_error_param[]; // zero delim 
 #define NMEA_SENTENCE_MAX_NUM_FIELDS 32           // ???
 #define NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE 85 // Stream object input wrapper buffer len
 
+#define NMEA_SENTENCE_MAX_EMPTY_FIELDS 32
+
 // zero delimiter command Parameters struct pointers and array size
 const byte num_zdc = 2;
 const Parameters *zdc[num_zdc] = {sentence_param,
                                   sentence_error_param};
+
+const char *empty_field_ph = "blank"; // empty sentence field placeholder
 
 class NMEAparse
 {
@@ -63,8 +67,27 @@ public:
     {
         NMEAparse::emptyOutputBuffer();
         // search for checksum, perform validation if found
+        // checksum validation is performed on the string between the ! or $ and *
+        // insert empty field ph into empty fields
+        char *corrected_input = new char[size + (strlen(empty_field_ph) * NMEA_SENTENCE_MAX_EMPTY_FIELDS)]();
+        for (size_t i = 0; i < size; ++i)
+        {
+            // if the char following a field sep ',' is another field sep
+            // or a null
+            // or a control char
+            // or the checksum delimiter
 
-        // _ptrs_index_max = get_tokens add 
+            // i think an easier way to detect is if the char after ',' isdigit or isalpha
+            if ((char)buffer[i] == ',' && 
+               ((char)buffer[i + 1] == ',' || 
+                (char)buffer[i + 1] == '*' || 
+                (char)buffer[i + 1] == '\0') ||
+                (iscntrl((char)buffer[i + 1]) == true)
+               )
+            {
+
+            }
+        }
 
         _ptrs_index = 0; // set ptrs index back to zero so that nextField() works
     }
