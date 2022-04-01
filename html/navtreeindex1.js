@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"dc/d4b/class_user_input.html#a026cc2c2c36233a5bc2c9a4aa46846dd":[2,0,3,10],
+"dc/d4b/class_user_input.html#a0368092c59decb133f083abe2f75a788":[2,0,3,62],
 "dc/d4b/class_user_input.html#a0716c92410a23ff77acb76816cb07ccb":[2,0,3,52],
 "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749":[2,0,3,4],
 "dc/d4b/class_user_input.html#a16450787cd7073135e1eb64c8fd35276":[2,0,3,11],
