@@ -47,7 +47,7 @@ public:
         NMEAparse::parseSentence((uint8_t*)stream_buffer, idx); // pass stream buffer to NMEAparse::getSentence(uint8_t*, size_t)
     }
 
-    // 2 char following '*','HEX','HEX'
+    // 2 char following '*''HEX''HEX'
     // send this function the char between $ and *
     int calcChecksum(const char* s) // NMEA checksum validation
     {
@@ -62,6 +62,8 @@ public:
 private:
     void _parseSentence(uint8_t* buffer, size_t len)
     {
+        // perform preprocessing on input before feeding it into UserInput::readCommandFromBuffer()
+        
         // todo:
         // search for checksum, perform validation if found
         // checksum validation is performed on the string between the ! or $ and *

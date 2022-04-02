@@ -62,7 +62,7 @@ void UserInput::addCommand(CommandConstructor& command)
         _commands_count_++;
         _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
         _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
-                
+
         if (_commands_head_ == NULL) // the linked-list is empty
         {
             _commands_head_ = _commands_tail_ = &command; // (this) is the beginning of the linked-list
@@ -164,25 +164,25 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     size_t input_len = len;
     size_t token_buffer_len = input_len + 1U;
-    uint8_t *split_input = NULL;
+    uint8_t* split_input = NULL;
     if (num_zdc != 0) // if there are zero delim commands
     {
         input_len = input_len + 2U;
         token_buffer_len++;
         split_input = new uint8_t[input_len]();
-        if(UserInput::_splitZDC(data, input_len, (char*)split_input, input_len, num_zdc, zdc))
-        {            
-            data = split_input;            
+        if (UserInput::_splitZDC(data, input_len, (char*)split_input, input_len, num_zdc, zdc))
+        {
+            data = split_input;
         }
     }
-    
+
     _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
         return;
     }
-    // end error checking    
+    // end error checking
 
     size_t num_ptrs = (1U + _max_depth_ + _max_args_);
     size_t tokens_received = 0;    // amount of delimiter separated tokens
@@ -215,7 +215,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _control_char_sequence_ // control character sequence
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm);    
+    tokens_received = UserInput::getTokens(gtprm);
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -323,7 +323,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
 char* UserInput::nextArgument()
 {
     if (_data_pointers_index_ < (_max_depth_ + _max_args_) && _data_pointers_index_ < _data_pointers_index_max_)
-    {        
+    {
         _data_pointers_index_++;
         return _data_pointers_[_data_pointers_index_];
     }
@@ -1001,17 +1001,17 @@ inline void UserInput::_getTokensChar(getTokensParam& gtprm, size_t& data_pos, s
 }
 
 bool UserInput::_splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters** zdc)
-{    
+{
     for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
     {
         size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from Parameters object
         if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false)      // match zdc
         {
-            memcpy(token_buffer, data, cmd_len_pgm);                                       // copy the command into token buffer
-            memcpy((token_buffer + cmd_len_pgm), _delim_, _delim_len_);                    // copy the delimiter into token buffer after the command
-            memcpy((token_buffer + cmd_len_pgm + _delim_len_), data + cmd_len_pgm, (len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer            
+            memcpy(token_buffer, data, cmd_len_pgm);                                                     // copy the command into token buffer
+            memcpy((token_buffer + cmd_len_pgm), _delim_, _delim_len_);                                  // copy the delimiter into token buffer after the command
+            memcpy((token_buffer + cmd_len_pgm + _delim_len_), data + cmd_len_pgm, (len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
             return true;
         }
-    }    
+    }
     return false;
 }
