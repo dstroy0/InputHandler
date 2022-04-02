@@ -89,6 +89,11 @@ public:
                 corrected_input_idx++;
                 memcpy(corrected_input + corrected_input_idx, empty_field_ph, strlen(empty_field_ph));
                 corrected_input_idx += strlen(empty_field_ph);
+                if ((char)buffer[i + 1] == '*')
+                {
+                    corrected_input[corrected_input_idx] = ',';
+                    corrected_input_idx++;
+                }
             }
             else
             {
@@ -100,35 +105,10 @@ public:
         Serial.println((char*)buffer);
         Serial.println(corrected_input);
 
-        // set up getTokensParam
-        char _null_ = '\0';
-        // delimiter string literal array
-        const char* delimiters[] = {
-            ","};
-        // delimiter length string literal array
-        size_t delimiter_lens[] = {
-            1};
-        UserInput::getTokensParam gtprm = {
-            (uint8_t*)corrected_input,           // input data uint8_t array
-            corrected_input_size,                // input len
-            (char*)_NMEA_sentence_fields_buffer, // pointer to char array, size of len + 1
-            NMEA_SENTENCE_FIELDS_BUFFER_SIZE,    // the size of token_buffer
-            _ptrs,                               // token_buffer pointers
-            _ptrs_index,                         // index of token_buffer pointer array
-            _ptrs_index_max,                     // _data_pointers_[MAX], _data_pointers_index_[MAX]
-            delimiters,                          // delimiter string literal array, const char**
-            delimiter_lens,                      // delimiter strlen array
-            buffsz(delimiter_lens),              // delimiters[MAX], delimiter_lens[MAX]
-            NULL,                                // const char* c-string delimiter
-            0,                                   // c-string delim len
-            _null_,                              // token_buffer sep char, _null_ == '\0'
-            NULL                                 // control character sequence
-        };
-        // feed corrected_input to getTokens
-        // fields_received = getTokens(gtprm);
-
+        sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
+        
         // free corrected_input (delete[])
-
+        delete[] corrected_input;
         _ptrs_index = 0; // set ptrs index back to zero so that nextField() works
     }
 

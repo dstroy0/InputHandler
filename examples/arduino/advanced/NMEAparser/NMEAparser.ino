@@ -46,7 +46,7 @@
 
 extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands
 
-char output_buffer[256] = {'\0'}; //  UserInput output buffer
+char output_buffer[1024] = {'\0'}; //  UserInput output buffer
 UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
                        /* size of UserInput's output buffer */ buffsz(output_buffer),
                        /* username */ "",
@@ -56,9 +56,9 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
 
 UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
                        /* size of UserInput's output buffer */ buffsz(output_buffer),
-                       /* username */ "",
+                       /* username */ "NMEA",
                        /* end of line characters */ "\r\n",
-                       /* token delimiter */ " ",
+                       /* token delimiter */ ",",
                        /* c-string delimiter */ "");
 
 NMEAparse NMEA;
@@ -77,10 +77,20 @@ void uc_unrecognized(UserInput* inputProcess)
 
 void NMEA_parse_test(UserInput* inputProcess)
 {
+  Serial.println(F("NMEA parse fields"));
+  char* ptr = inputProcess->nextArgument(); 
+  size_t idx = 0;
+  while(ptr != NULL)
+  {
+    Serial.print(idx); Serial.print(F(" ")); Serial.println(ptr);
+    ptr = inputProcess->nextArgument();     
+    idx++;
+  }
+  Serial.println(F("end NMEA parse fields"));
 }
 
-CommandConstructor NMEA_sentence(sentence_param);
-CommandConstructor NMEA_sentence_error(sentence_error_param);
+CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 1);
+CommandConstructor NMEA_sentence_error(sentence_error_param, nprms(sentence_error_param), 1);
 
 void setup()
 {

@@ -416,7 +416,7 @@ const PROGMEM Parameters GPXTR[1] = {
     1,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
-    0,                         // minimum expected number of arguments
+    1,                         // minimum expected number of arguments
     32,                        // maximum expected number of arguments
     /*
       UITYPE arguments

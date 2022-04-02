@@ -584,15 +584,17 @@ private:
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
-     *
-     * @param data uint8_t array
-     * @param len data len
-     * @param token_buffer pointer to char array
-     * @param token_buffer_len len of char array
-     * @param num_zdc number of zero delim commands
-     * @param zdc pointers to zero delim commands
+     * 
+     * @param data input data
+     * @param len input data length
+     * @param split_input place to split input
+     * @param input_len split input len
+     * @param num_zdc zero delim commands
+     * @param zdc num zdc
+     * @return true if split
+     * @return false no match no split
      */
-    void _splitZDC(uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
     // end private methods
 };
 
