@@ -3,7 +3,7 @@
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that demonstrates how to use InputHandler to parse NMEA sentences
    @version 0.9
-   @date 2022-03-30
+   @date 2022-04-02
 
    @copyright Copyright (c) 2022
 */
@@ -39,6 +39,9 @@
     The asterisk is immediately followed by a checksum represented as a two-digit hexadecimal number. The checksum is the bitwise exclusive OR of ASCII
     codes of all characters between the $ and *, not inclusive. According to the official specification, the checksum is optional for most data sentences, but is compulsory for RMA, RMB, and RMC (among others).
     <CR><LF> ends the message.
+
+    Lots of interesting NMEA 0183 information:
+    https://gpsd.gitlab.io/gpsd/NMEA.html
 */
 
 #include <InputHandler.h>
@@ -113,7 +116,7 @@ void setup()
 
     uint8_t buffer[36]{};
     memcpy(buffer, gpbwc, strlen(gpbwc));
-    NMEA.getSentence(buffer, strlen(gpbwc));
+    NMEA.parseSentence(buffer, strlen(gpbwc));
 }
 
 void loop()
@@ -121,5 +124,5 @@ void loop()
     inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial);       // class output
 
-    NMEA.getSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+    NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }

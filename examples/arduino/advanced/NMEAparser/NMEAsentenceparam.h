@@ -1,16 +1,25 @@
+/**
+   @file NMEAsentenceparam.h
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief NMEA 0183 sentence Parameters structs
+   @version 1.0
+   @date 2022-04-02
+
+   @copyright Copyright (c) 2022
+*/
+
 #if !defined(__NMEAsentenceparam_H__)
     #define __NMEAsentenceparam_H__
 
     #include <InputHandler.h>
 
-/**
- * @brief Parameters struct with NMEA sentence types
- *
- */
-
 extern void uc_unrecognized(UserInput* inputProcess);
 extern void NMEA_parse_test(UserInput* inputProcess);
 
+/**
+ * @brief AAM NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPAAM[1] = {
     NMEA_parse_test,           // function ptr
     "GPAAM",                   // command string
@@ -29,6 +38,10 @@ const PROGMEM Parameters GPAAM[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief APA NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPAPA[1] = {
     NMEA_parse_test,           // function ptr
     "GPAPA",                   // command string
@@ -47,6 +60,10 @@ const PROGMEM Parameters GPAPA[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief APB NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPAPB[1] = {
     NMEA_parse_test,           // function ptr
     "GPAPB",                   // command string
@@ -65,6 +82,10 @@ const PROGMEM Parameters GPAPB[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief BOD NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPBOD[1] = {
     NMEA_parse_test,           // function ptr
     "GPBOD",                   // command string
@@ -83,6 +104,10 @@ const PROGMEM Parameters GPBOD[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief BWC NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPBWC[1] = {
     NMEA_parse_test,           // function ptr
     "GPBWC",                   // command string
@@ -101,6 +126,10 @@ const PROGMEM Parameters GPBWC[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief BWR NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPBWR[1] = {
     NMEA_parse_test,           // function ptr
     "GPBWR",                   // command string
@@ -119,6 +148,10 @@ const PROGMEM Parameters GPBWR[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief DBT NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPDBT[1] = {
     NMEA_parse_test,           // function ptr
     "GPDBT",                   // command string
@@ -137,6 +170,10 @@ const PROGMEM Parameters GPDBT[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief DPT NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPDPT[1] = {
     NMEA_parse_test,           // function ptr
     "GPDPT",                   // command string
@@ -155,6 +192,10 @@ const PROGMEM Parameters GPDPT[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief GGA NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPGGA[1] = {
     NMEA_parse_test,           // function ptr
     "GPGGA",                   // command string
@@ -173,6 +214,10 @@ const PROGMEM Parameters GPGGA[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief GLL NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPGLL[1] = {
     NMEA_parse_test,           // function ptr
     "GPGLL",                   // command string
@@ -191,6 +236,10 @@ const PROGMEM Parameters GPGLL[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief GSA NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPGSA[1] = {
     NMEA_parse_test,           // function ptr
     "GPGSA",                   // command string
@@ -209,6 +258,10 @@ const PROGMEM Parameters GPGSA[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief GSV NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPGSV[1] = {
     NMEA_parse_test,           // function ptr
     "GPGSV",                   // command string
@@ -227,6 +280,10 @@ const PROGMEM Parameters GPGSV[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief HDM NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPHDM[1] = {
     NMEA_parse_test,           // function ptr
     "GPHDM",                   // command string
@@ -245,6 +302,10 @@ const PROGMEM Parameters GPHDM[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief HDT NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPHDT[1] = {
     NMEA_parse_test,           // function ptr
     "GPHDT",                   // command string
@@ -263,6 +324,10 @@ const PROGMEM Parameters GPHDT[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief HSC NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPHSC[1] = {
     NMEA_parse_test,           // function ptr
     "GPHSC",                   // command string
@@ -281,6 +346,10 @@ const PROGMEM Parameters GPHSC[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief MWT NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPMTW[1] = {
     NMEA_parse_test,           // function ptr
     "GPMTW",                   // command string
@@ -299,6 +368,10 @@ const PROGMEM Parameters GPMTW[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief RMB NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPRMB[1] = {
     NMEA_parse_test,           // function ptr
     "GPRMB",                   // command string
@@ -317,6 +390,10 @@ const PROGMEM Parameters GPRMB[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief RMC NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPRMC[1] = {
     NMEA_parse_test,           // function ptr
     "GPRMC",                   // command string
@@ -335,6 +412,10 @@ const PROGMEM Parameters GPRMC[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief VTG NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPVTG[1] = {
     NMEA_parse_test,           // function ptr
     "GPVTG",                   // command string
@@ -353,6 +434,10 @@ const PROGMEM Parameters GPVTG[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief WCV NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPWCV[1] = {
     NMEA_parse_test,           // function ptr
     "GPWCV",                   // command string
@@ -371,6 +456,10 @@ const PROGMEM Parameters GPWCV[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief WPL NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPWPL[1] = {
     NMEA_parse_test,           // function ptr
     "GPWPL",                   // command string
@@ -389,6 +478,10 @@ const PROGMEM Parameters GPWPL[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief XTE NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPXTE[1] = {
     NMEA_parse_test,           // function ptr
     "GPXTE",                   // command string
@@ -407,6 +500,10 @@ const PROGMEM Parameters GPXTE[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+/**
+ * @brief XTR NMEA 0183 sentence command setup
+ *
+ */
 const PROGMEM Parameters GPXTR[1] = {
     NMEA_parse_test,           // function ptr
     "GPXTR",                   // command string
