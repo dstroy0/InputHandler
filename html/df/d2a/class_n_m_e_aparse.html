@@ -123,17 +123,17 @@ $(document).ready(function(){initNavTree('df/d2a/class_n_m_e_aparse.html','../..
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4df1e841e194a330ed7d3ba392065553"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a4df1e841e194a330ed7d3ba392065553">getSentence</a> (uint8_t *buffer, size_t len)</td></tr>
-<tr class="separator:a4df1e841e194a330ed7d3ba392065553"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e4511864ed0c6cea1a1d1b0b5555171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a7e4511864ed0c6cea1a1d1b0b5555171">getSentence</a> (Stream &amp;stream)</td></tr>
-<tr class="separator:a7e4511864ed0c6cea1a1d1b0b5555171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f766f5171a6651a211442ca2529e76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#a62f766f5171a6651a211442ca2529e76">parseSentence</a> (uint8_t *buffer, size_t len)</td></tr>
+<tr class="separator:a62f766f5171a6651a211442ca2529e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0551afb659ca88b6c98fd111672507e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#af0551afb659ca88b6c98fd111672507e">parseSentence</a> (Stream &amp;stream)</td></tr>
+<tr class="separator:af0551afb659ca88b6c98fd111672507e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef173dab88af775f5251379a5544ae09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09">calcChecksum</a> (const char *s)</td></tr>
+<tr class="separator:aef173dab88af775f5251379a5544ae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ab87efcd0ab66bc4d221e99704dc9176d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#ab87efcd0ab66bc4d221e99704dc9176d">_parseSentence</a> (uint8_t *buffer, size_t len)</td></tr>
 <tr class="separator:ab87efcd0ab66bc4d221e99704dc9176d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef173dab88af775f5251379a5544ae09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09">calcChecksum</a> (const char *s)</td></tr>
-<tr class="separator:aef173dab88af775f5251379a5544ae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab87efcd0ab66bc4d221e99704dc9176d" name="ab87efcd0ab66bc4d221e99704dc9176d"></a>
@@ -191,15 +191,15 @@ Private Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7e4511864ed0c6cea1a1d1b0b5555171" name="a7e4511864ed0c6cea1a1d1b0b5555171"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e4511864ed0c6cea1a1d1b0b5555171">&#9670;&nbsp;</a></span>getSentence() <span class="overload">[1/2]</span></h2>
+<a id="af0551afb659ca88b6c98fd111672507e" name="af0551afb659ca88b6c98fd111672507e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0551afb659ca88b6c98fd111672507e">&#9670;&nbsp;</a></span>parseSentence() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +208,7 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NMEAparse::getSentence </td>
+          <td class="memname">void NMEAparse::parseSentence </td>
           <td>(</td>
           <td class="paramtype">Stream &amp;&#160;</td>
           <td class="paramname"><em>stream</em></td><td>)</td>
@@ -224,8 +224,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4df1e841e194a330ed7d3ba392065553" name="a4df1e841e194a330ed7d3ba392065553"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4df1e841e194a330ed7d3ba392065553">&#9670;&nbsp;</a></span>getSentence() <span class="overload">[2/2]</span></h2>
+<a id="a62f766f5171a6651a211442ca2529e76" name="a62f766f5171a6651a211442ca2529e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f766f5171a6651a211442ca2529e76">&#9670;&nbsp;</a></span>parseSentence() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +234,7 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NMEAparse::getSentence </td>
+          <td class="memname">void NMEAparse::parseSentence </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>

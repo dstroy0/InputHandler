@@ -2,9 +2,9 @@
 <area shape="rect" id="node1" title="InputHandler library header file." alt="" coords="1687,5,1827,32"/>
 <area shape="rect" id="node2" href="$d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html" title="An example that demonstrates how to use all of the available methods." alt="" coords="5,80,296,136"/>
 <area shape="rect" id="node3" href="$d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="321,87,527,129"/>
-<area shape="rect" id="node7" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 183 ASCII strings" alt="" coords="782,184,989,225"/>
+<area shape="rect" id="node7" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="782,184,989,225"/>
 <area shape="rect" id="node8" href="$dd/d65/_n_m_e_aparser_8ino.html" title="An example that demonstrates how to use InputHandler to parse NMEA sentences." alt="" coords="849,273,1063,315"/>
-<area shape="rect" id="node9" href="$da/dff/_n_m_e_asentenceparam_8h.html" title=" " alt="" coords="726,87,989,129"/>
+<area shape="rect" id="node9" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence Parameters structs." alt="" coords="726,87,989,129"/>
 <area shape="rect" id="node10" href="$d0/d5d/arduino_2advanced_2_nested_commands_2_nested_commands_8ino.html" title="An example that demonstrates subcommands." alt="" coords="1065,87,1359,129"/>
 <area shape="rect" id="node11" href="$d0/df5/arduino_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html" title="A basic InputHandler demonstration." alt="" coords="1383,80,1603,136"/>
 <area shape="rect" id="node12" href="$d2/d6a/arduino_2basic_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html" title="An example that demonstrates receiving commands and sending an echo over MQTT." alt="" coords="1628,80,1887,136"/>
