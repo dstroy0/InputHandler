@@ -268,8 +268,8 @@ Classes</h2></td></tr>
 <tr class="separator:a026cc2c2c36233a5bc2c9a4aa46846dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b4daf5d4bb2def3b6b9f9116455bd8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a5b4daf5d4bb2def3b6b9f9116455bd8e">_getTokensChar</a> (<a class="el" href="../../d7/d74/struct_user_input_1_1get_tokens_param.html">getTokensParam</a> &amp;gtprm, size_t &amp;data_pos, size_t &amp;token_buffer_index, bool &amp;point_to_beginning_of_token)</td></tr>
 <tr class="separator:a5b4daf5d4bb2def3b6b9f9116455bd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dc9e54c487d1c42b341721798978b1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a9dc9e54c487d1c42b341721798978b1f">_splitZDC</a> (uint8_t *data, size_t len, char *token_buffer, size_t token_buffer_len, const size_t <a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929">num_zdc</a>, const <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> **<a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a>)</td></tr>
-<tr class="separator:a9dc9e54c487d1c42b341721798978b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac27c09484be09328afa83ad616bee879"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ac27c09484be09328afa83ad616bee879">_splitZDC</a> (uint8_t *data, size_t len, char *split_input, size_t input_len, const size_t <a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929">num_zdc</a>, const <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> **<a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a>)</td></tr>
+<tr class="separator:ac27c09484be09328afa83ad616bee879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aabd5e3819e1cfcc0ccbe49ea14d6d07d" name="aabd5e3819e1cfcc0ccbe49ea14d6d07d"></a>
@@ -984,8 +984,8 @@ false if there were one or more errors </dd></dl>
 
 </div>
 </div>
-<a id="a9dc9e54c487d1c42b341721798978b1f" name="a9dc9e54c487d1c42b341721798978b1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dc9e54c487d1c42b341721798978b1f">&#9670;&nbsp;</a></span>_splitZDC()</h2>
+<a id="ac27c09484be09328afa83ad616bee879" name="ac27c09484be09328afa83ad616bee879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac27c09484be09328afa83ad616bee879">&#9670;&nbsp;</a></span>_splitZDC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -994,7 +994,7 @@ false if there were one or more errors </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void UserInput::_splitZDC </td>
+          <td class="memname">bool UserInput::_splitZDC </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -1009,13 +1009,13 @@ false if there were one or more errors </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>token_buffer</em>, </td>
+          <td class="paramname"><em>split_input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>token_buffer_len</em>, </td>
+          <td class="paramname"><em>input_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1045,15 +1045,18 @@ false if there were one or more errors </dd></dl>
 <p>split a zero delimiter command, separate command and string with token delimiter for further processing </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>uint8_t array </td></tr>
-    <tr><td class="paramname">len</td><td>data len </td></tr>
-    <tr><td class="paramname">token_buffer</td><td>pointer to char array </td></tr>
-    <tr><td class="paramname">token_buffer_len</td><td>len of char array </td></tr>
-    <tr><td class="paramname">num_zdc</td><td>number of zero delim commands </td></tr>
-    <tr><td class="paramname">zdc</td><td>pointers to zero delim commands </td></tr>
+    <tr><td class="paramname">data</td><td>input data </td></tr>
+    <tr><td class="paramname">len</td><td>input data length </td></tr>
+    <tr><td class="paramname">split_input</td><td>place to split input </td></tr>
+    <tr><td class="paramname">input_len</td><td>split input len </td></tr>
+    <tr><td class="paramname">num_zdc</td><td>zero delim commands </td></tr>
+    <tr><td class="paramname">zdc</td><td>num zdc </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>true if split </dd>
+<dd>
+false no match no split </dd></dl>
 
 </div>
 </div>
