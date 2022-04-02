@@ -165,7 +165,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     size_t input_len = len;
     size_t token_buffer_len = input_len + 1U;
     uint8_t *split_input = NULL;
-     if (num_zdc != 0) // if there are zero delim commands
+    if (num_zdc != 0) // if there are zero delim commands
     {
         input_len = input_len + 2U;
         token_buffer_len++;
