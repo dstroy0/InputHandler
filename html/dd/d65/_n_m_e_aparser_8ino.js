@@ -9,7 +9,7 @@ var _n_m_e_aparser_8ino =
     [ "NMEA", "dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e", null ],
     [ "NMEA_sentence", "dd/d65/_n_m_e_aparser_8ino.html#a6b6210e816951d220d8f8e2668052d4a", null ],
     [ "NMEA_sentence_error", "dd/d65/_n_m_e_aparser_8ino.html#ac17fc3cf74567235c2428316b7078019", null ],
-    [ "output_buffer", "dd/d65/_n_m_e_aparser_8ino.html#a7fb2fd4f365a137e5d3b295510382c74", null ],
+    [ "output_buffer", "dd/d65/_n_m_e_aparser_8ino.html#a1fa5b857ccd7fbb9d47f9b8deeb8def4", null ],
     [ "sensorParser", "dd/d65/_n_m_e_aparser_8ino.html#a8d8d23a7c6ec3be759b7f6161100f0ee", null ],
     [ "sentence_error_param", "dd/d65/_n_m_e_aparser_8ino.html#a2bc27fab6e2e5b153d3937293001f28d", null ],
     [ "sentence_param", "dd/d65/_n_m_e_aparser_8ino.html#a90aac22f54ccda6d76fcabe4d7fe0015", null ]
