@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('da/d60/_n_m_e_aparser_8h_source.html',
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_function" href="../../df/d2a/class_n_m_e_aparse.html#a62f766f5171a6651a211442ca2529e76">NMEAparse::parseSentence</a>((uint8_t*)stream_buffer, idx); <span class="comment">// pass stream buffer to NMEAparse::getSentence(uint8_t*, size_t)</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// 2 char following &#39;*&#39;,&#39;HEX&#39;,&#39;HEX&#39;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// 2 char following &#39;*&#39;&#39;HEX&#39;&#39;HEX&#39;</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// send this function the char between $ and *</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09">   52</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09">calcChecksum</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* s) <span class="comment">// NMEA checksum validation</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
@@ -170,47 +170,49 @@ $(document).ready(function(){initNavTree('da/d60/_n_m_e_aparser_8h_source.html',
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../df/d2a/class_n_m_e_aparse.html#ab87efcd0ab66bc4d221e99704dc9176d">   63</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d2a/class_n_m_e_aparse.html#ab87efcd0ab66bc4d221e99704dc9176d">_parseSentence</a>(uint8_t* buffer, <span class="keywordtype">size_t</span> len)</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// todo:</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// search for checksum, perform validation if found</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="comment">// checksum validation is performed on the string between the ! or $ and *</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">// insert empty field ph into empty fields</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">size_t</span> fields_received = 0;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordtype">size_t</span> corrected_input_idx = 0;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">size_t</span> corrected_input_size = len + (strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>) * <a class="code hl_define" href="../../da/d60/_n_m_e_aparser_8h.html#a72e93a14607b3f08a8e2d055db345a59">NMEA_SENTENCE_MAX_EMPTY_FIELDS</a>);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">char</span>* corrected_input = <span class="keyword">new</span> <span class="keywordtype">char</span>[corrected_input_size]();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; len; ++i)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="comment">// if the char following a field sep &#39;,&#39; is another field sep</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="comment">// or a null</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="comment">// or a control char</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="comment">// or the checksum delimiter</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="comment">// i think an easier way to detect is if the char after &#39;,&#39; isdigit or isalpha</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="keywordflow">if</span> ((<span class="keywordtype">char</span>)buffer[i] == <span class="charliteral">&#39;,&#39;</span> &amp;&amp; ((char)buffer[i + 1] == <span class="charliteral">&#39;,&#39;</span> || (<span class="keywordtype">char</span>)buffer[i + 1] == <span class="charliteral">&#39;*&#39;</span> || (char)buffer[i + 1] == <span class="charliteral">&#39;\0&#39;</span>) || (iscntrl((<span class="keywordtype">char</span>)buffer[i + 1]) == <span class="keyword">true</span>))</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                corrected_input[corrected_input_idx] = (char)buffer[i];</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                corrected_input_idx++;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                memcpy(corrected_input + corrected_input_idx, <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>, strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>));</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                corrected_input_idx += strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                <span class="keywordflow">if</span> ((<span class="keywordtype">char</span>)buffer[i + 1] == <span class="charliteral">&#39;*&#39;</span>)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                    corrected_input[corrected_input_idx] = <span class="charliteral">&#39;,&#39;</span>;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                    corrected_input_idx++;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                corrected_input[corrected_input_idx] = (char)buffer[i];</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                corrected_input_idx++;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#ab6fc15b656f569aba9928533bdd77138">sensorParser</a>.<a class="code hl_function" href="../../dc/d4b/class_user_input.html#a79dc7ddb2a0b4a633d7d891c3e80524c">readCommandFromBuffer</a>((uint8_t*)corrected_input, strlen(corrected_input), <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929">num_zdc</a>, <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a>);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">delete</span>[] corrected_input;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// perform preprocessing on input before feeding it into UserInput::readCommandFromBuffer()</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="comment">// todo:</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="comment">// search for checksum, perform validation if found</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">// checksum validation is performed on the string between the ! or $ and *</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">// insert empty field ph into empty fields</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">size_t</span> fields_received = 0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">size_t</span> corrected_input_idx = 0;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">size_t</span> corrected_input_size = len + (strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>) * <a class="code hl_define" href="../../da/d60/_n_m_e_aparser_8h.html#a72e93a14607b3f08a8e2d055db345a59">NMEA_SENTENCE_MAX_EMPTY_FIELDS</a>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">char</span>* corrected_input = <span class="keyword">new</span> <span class="keywordtype">char</span>[corrected_input_size]();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; len; ++i)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="comment">// if the char following a field sep &#39;,&#39; is another field sep</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="comment">// or a null</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="comment">// or a control char</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="comment">// or the checksum delimiter</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="comment">// i think an easier way to detect is if the char after &#39;,&#39; isdigit or isalpha</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">if</span> ((<span class="keywordtype">char</span>)buffer[i] == <span class="charliteral">&#39;,&#39;</span> &amp;&amp; ((char)buffer[i + 1] == <span class="charliteral">&#39;,&#39;</span> || (<span class="keywordtype">char</span>)buffer[i + 1] == <span class="charliteral">&#39;*&#39;</span> || (char)buffer[i + 1] == <span class="charliteral">&#39;\0&#39;</span>) || (iscntrl((<span class="keywordtype">char</span>)buffer[i + 1]) == <span class="keyword">true</span>))</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                corrected_input[corrected_input_idx] = (char)buffer[i];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                corrected_input_idx++;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                memcpy(corrected_input + corrected_input_idx, <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>, strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>));</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                corrected_input_idx += strlen(<a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd">empty_field_ph</a>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">if</span> ((<span class="keywordtype">char</span>)buffer[i + 1] == <span class="charliteral">&#39;*&#39;</span>)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                    corrected_input[corrected_input_idx] = <span class="charliteral">&#39;,&#39;</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                    corrected_input_idx++;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                corrected_input[corrected_input_idx] = (char)buffer[i];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                corrected_input_idx++;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#ab6fc15b656f569aba9928533bdd77138">sensorParser</a>.<a class="code hl_function" href="../../dc/d4b/class_user_input.html#a79dc7ddb2a0b4a633d7d891c3e80524c">readCommandFromBuffer</a>((uint8_t*)corrected_input, strlen(corrected_input), <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929">num_zdc</a>, <a class="code hl_variable" href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keyword">delete</span>[] corrected_input;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_input_handler_8h_html"><div class="ttname"><a href="../../df/dec/_input_handler_8h.html">InputHandler.h</a></div><div class="ttdoc">InputHandler library header file.</div></div>
 <div class="ttc" id="a_n_m_e_aparser_8h_html_a076b1295a2104e94ac7a6cf51fac9127"><div class="ttname"><a href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a></div><div class="ttdeci">const Parameters * zdc[num_zdc]</div><div class="ttdef"><b>Definition:</b> NMEAparser.h:25</div></div>
 <div class="ttc" id="a_n_m_e_aparser_8h_html_a2bc27fab6e2e5b153d3937293001f28d"><div class="ttname"><a href="../../da/d60/_n_m_e_aparser_8h.html#a2bc27fab6e2e5b153d3937293001f28d">sentence_error_param</a></div><div class="ttdeci">const Parameters sentence_error_param[]</div><div class="ttdef"><b>Definition:</b> NMEAparser.h:21</div></div>
