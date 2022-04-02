@@ -523,8 +523,8 @@ const PROGMEM Parameters GPXTR[1] = {
     }};
 
 /**
-   @brief Parameters struct for NMEA sentence
-*/
+ * @brief Parameters struct for NMEA sentence
+ */
 const PROGMEM Parameters sentence_param[24] = {
     {uc_unrecognized,          // function ptr
      "$",                      // command string
@@ -567,9 +567,8 @@ const PROGMEM Parameters sentence_param[24] = {
     *GPXTR};
 
 /**
-   @brief Parameters struct for NMEA sentence error
-
-*/
+ * @brief Parameters struct for NMEA sentence error
+ */
 const PROGMEM Parameters sentence_error_param[24] = {
     {uc_unrecognized,          // function ptr
      "!",                      // command string

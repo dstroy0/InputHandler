@@ -66,7 +66,7 @@ UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
 
 NMEAparse NMEA;
 
-//temp
+// temp
 const char* gpbwc = "$GPBWC,081837,,,,,,T,,M,,N,*13\r\n";
 
 /*
@@ -80,16 +80,18 @@ void uc_unrecognized(UserInput* inputProcess)
 
 void NMEA_parse_test(UserInput* inputProcess)
 {
-  Serial.println(F("NMEA parse fields"));
-  char* ptr = inputProcess->nextArgument(); 
-  size_t idx = 0;
-  while(ptr != NULL)
-  {
-    Serial.print(idx); Serial.print(F(" ")); Serial.println(ptr);
-    ptr = inputProcess->nextArgument();     
-    idx++;
-  }
-  Serial.println(F("end NMEA parse fields"));
+    Serial.println(F("NMEA parse fields"));
+    char* ptr = inputProcess->nextArgument();
+    size_t idx = 0;
+    while (ptr != NULL)
+    {
+        Serial.print(idx);
+        Serial.print(F(" "));
+        Serial.println(ptr);
+        ptr = inputProcess->nextArgument();
+        idx++;
+    }
+    Serial.println(F("end NMEA parse fields"));
 }
 
 CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 1);
@@ -114,7 +116,7 @@ void setup()
 
     inputHandler.outputToStream(Serial); // class output
 
-    uint8_t buffer[36]{};
+    uint8_t buffer[36] {};
     memcpy(buffer, gpbwc, strlen(gpbwc));
     NMEA.parseSentence(buffer, strlen(gpbwc));
 }

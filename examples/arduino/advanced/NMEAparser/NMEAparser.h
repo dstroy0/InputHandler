@@ -10,18 +10,18 @@
 #if !defined(__NMEAparser_H__)
     #define __NMEAparser_H__
 
-    #include <InputHandler.h> // include for UserInput object
+    #include <InputHandler.h>      // include for UserInput object
     #include "NMEAsentenceparam.h" // NMEA commands setup
 
     #define NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE 85 // Stream object input wrapper buffer len
     #define NMEA_SENTENCE_MAX_EMPTY_FIELDS         32 // parseSentence input buffer size == input_len + (this * strlen(empty_field_ph))
 
-// external objects 
+// external objects
 extern UserInput sensorParser;                                    // UserInput object declared in NMEAparser.ino
 extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands declared in NMEAsentenceparam.h
 // end external objects
 
-const byte num_zdc = 2; // number of zero delim commands
+const byte num_zdc = 2;                                                  // number of zero delim commands
 const Parameters* zdc[num_zdc] = {sentence_param, sentence_error_param}; // zero delim command Parameters structure pointers
 
 const char* empty_field_ph = "blank"; // empty sentence field placeholder (temporary)
@@ -98,7 +98,7 @@ private:
             }
         }
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
-    }   
+    }
 };
 
 #endif
