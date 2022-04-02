@@ -182,11 +182,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
         return;
     }
-    // end error checking
-
-   
-
-    Serial.println(_token_buffer_);
+    // end error checking    
 
     size_t num_ptrs = (1U + _max_depth_ + _max_args_);
     size_t tokens_received = 0;    // amount of delimiter separated tokens
@@ -219,14 +215,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _control_char_sequence_ // control character sequence
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm);
-    Serial.println(tokens_received);
+    tokens_received = UserInput::getTokens(gtprm);    
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
-
-    for(size_t i = 0; i < _data_pointers_index_max_; ++i)
-    {
-        Serial.println(_data_pointers_[i]);
-    }
 
     if (tokens_received == 0) // error condition
     {

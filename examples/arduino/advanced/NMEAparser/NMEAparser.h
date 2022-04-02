@@ -33,39 +33,27 @@ const char* empty_field_ph = "blank"; // empty sentence field placeholder
 class NMEAparse
 {
 public:
-    char* nextField()
+    void getSentence(uint8_t* buffer, size_t len) // input wrapper
     {
-        if (_ptrs_index < NMEA_SENTENCE_MAX_NUM_FIELDS && _ptrs_index < _ptrs_index_max)
-        {
-            _ptrs_index++;
-            return _ptrs[_ptrs_index];
-        }
-        return NULL; // else return NULL
-    }
-
-    void emptyOutputBuffer()
-    {
-        _ptrs_index = 0;
-        for (size_t i = 0; i < NMEA_SENTENCE_FIELDS_BUFFER_SIZE; ++i)
-        {
-            _NMEA_sentence_fields_buffer[i] = '\0';
-        }
-    }
-
-    void getSentence(uint8_t* buffer, size_t size) // input wrapper
-    {
-        sensorParser.readCommandFromBuffer(buffer, size, num_zdc, zdc);
+        NMEAparse::_parseSentence(buffer, len);
     }
 
     void getSentence(Stream& stream) // input wrapper
     {
-        sensorParser.getCommandFromStream(stream, NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE, num_zdc, zdc);
+        // read stream
+        char stream_buffer[NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE]{};
+        size_t idx = 0;
+        while (stream.available() > 0)
+        {
+            stream_buffer[idx] = stream.read();
+            idx++;
+        }
+        NMEAparse::getSentence((uint8_t*)stream_buffer, idx);
     }
 
-    void parseSentence(uint8_t* buffer, size_t size)
-    {
-        NMEAparse::emptyOutputBuffer();
-
+private:
+    void _parseSentence(uint8_t* buffer, size_t len)
+    {        
         // search for checksum, perform validation if found
 
         // checksum validation is performed on the string between the ! or $ and *
@@ -73,9 +61,9 @@ public:
         // insert empty field ph into empty fields
         size_t fields_received = 0;
         size_t corrected_input_idx = 0;
-        size_t corrected_input_size = size + (strlen(empty_field_ph) * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
+        size_t corrected_input_size = len + (strlen(empty_field_ph) * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
         char* corrected_input = new char[corrected_input_size]();
-        for (size_t i = 0; i < size; ++i)
+        for (size_t i = 0; i < len; ++i)
         {
             // if the char following a field sep ',' is another field sep
             // or a null
@@ -101,22 +89,7 @@ public:
                 corrected_input_idx++;
             }
         }
-
-        Serial.println((char*)buffer);
-        Serial.println(corrected_input);
-
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
-        
-        // free corrected_input (delete[])
-        delete[] corrected_input;
-        _ptrs_index = 0; // set ptrs index back to zero so that nextField() works
-    }
-
-    void parseErrorSentence(uint8_t* buffer, size_t size)
-    {
-        NMEAparse::emptyOutputBuffer(); // clear output
-
-        _ptrs_index = 0; // set ptrs index back to zero so that nextField() works
     }
 
     // 2 char following '*'
@@ -130,12 +103,6 @@ public:
         }
         return c;
     }
-
-private:
-    uint8_t _NMEA_sentence_fields_buffer[NMEA_SENTENCE_FIELDS_BUFFER_SIZE] {}; // char buffer
-    char* _ptrs[NMEA_SENTENCE_MAX_NUM_FIELDS];                                 // NMEA field ptrs size?
-    uint8_t _ptrs_index = 0;
-    size_t _ptrs_index_max = NMEA_SENTENCE_MAX_NUM_FIELDS; // temp, needs to be sized in parse
 };
 
 #endif

@@ -113,7 +113,7 @@ void setup()
 
     uint8_t buffer[36]{};
     memcpy(buffer, gpbwc, strlen(gpbwc));
-    NMEA.parseSentence(buffer, strlen(gpbwc));
+    NMEA.getSentence(buffer, strlen(gpbwc));
 }
 
 void loop()
