@@ -11,7 +11,8 @@ var searchData=
   ['_5fgettokensdelimiters_8',['_getTokensDelimiters',['../dc/d4b/class_user_input.html#a16450787cd7073135e1eb64c8fd35276',1,'UserInput']]],
   ['_5flaunchfunction_9',['_launchFunction',['../dc/d4b/class_user_input.html#aebb3d0583502972a63ab3caafefcd205',1,'UserInput']]],
   ['_5flaunchlogic_10',['_launchLogic',['../dc/d4b/class_user_input.html#aef66cd23ce4fbb5d646384c5dc6a67c2',1,'UserInput']]],
-  ['_5freadcommandfrombuffererroroutput_11',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f',1,'UserInput']]],
-  ['_5fsplitzdc_12',['_splitZDC',['../dc/d4b/class_user_input.html#ac27c09484be09328afa83ad616bee879',1,'UserInput']]],
-  ['_5fui_5fout_13',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]]
+  ['_5fparsesentence_11',['_parseSentence',['../df/d2a/class_n_m_e_aparse.html#ab87efcd0ab66bc4d221e99704dc9176d',1,'NMEAparse']]],
+  ['_5freadcommandfrombuffererroroutput_12',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#aef0e4170324bf9eef64da23aec99686f',1,'UserInput']]],
+  ['_5fsplitzdc_13',['_splitZDC',['../dc/d4b/class_user_input.html#ac27c09484be09328afa83ad616bee879',1,'UserInput']]],
+  ['_5fui_5fout_14',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]]
 ];

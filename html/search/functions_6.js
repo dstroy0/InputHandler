@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['getcommandfromstream_0',['getCommandFromStream',['../dc/d4b/class_user_input.html#aa8e02f71aad131892c331b39c7c04a11',1,'UserInput']]],
-  ['getsentence_1',['getSentence',['../df/d2a/class_n_m_e_aparse.html#a49285520e20e72fc24f6c7b670c6f585',1,'NMEAparse::getSentence(uint8_t *buffer, size_t size)'],['../df/d2a/class_n_m_e_aparse.html#a7e4511864ed0c6cea1a1d1b0b5555171',1,'NMEAparse::getSentence(Stream &amp;stream)']]],
-  ['gettokens_2',['getTokens',['../dc/d4b/class_user_input.html#a33d426b23d0bc85fb99c6b6a32386247',1,'UserInput']]]
+  ['inputhandler_0',['inputHandler',['../d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7d0b7e2a5ac0b674c5a17378dd3b7002',1,'inputHandler(output_buffer, buffsz(output_buffer), &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;\&quot;&quot;):&#160;cli_setup.h'],['../d8/d7c/esp_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7d0b7e2a5ac0b674c5a17378dd3b7002',1,'inputHandler(output_buffer, buffsz(output_buffer), &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;\&quot;&quot;):&#160;cli_setup.h']]],
+  ['inputhandler_5fsetup_1',['InputHandler_setup',['../d5/dac/arduino_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7103a388c227e87eb1b8a245efb4450b',1,'InputHandler_setup():&#160;cli_setup.h'],['../d8/d7c/esp_2advanced_2_multi_file_2_c_l_i_2cli__setup_8h.html#a7103a388c227e87eb1b8a245efb4450b',1,'InputHandler_setup():&#160;cli_setup.h']]]
 ];
