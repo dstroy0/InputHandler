@@ -98,6 +98,7 @@ private:
             }
         }
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
+        delete[] corrected_input;
     }
 };
 
