@@ -181,6 +181,10 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), _username_);
+        if (num_zdc != 0)
+        {
+            delete[] split_input;
+        }
         return;
     }
     // end error checking
