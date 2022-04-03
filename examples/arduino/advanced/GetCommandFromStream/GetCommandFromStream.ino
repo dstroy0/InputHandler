@@ -15,7 +15,7 @@
   you have to empty it out yourself with
   OutputToStream()
 */
-char output_buffer[512] = {'\0'}; //  output buffer
+char output_buffer[570] = {'\0'}; //  output buffer
 
 /*
   UserInput constructor one

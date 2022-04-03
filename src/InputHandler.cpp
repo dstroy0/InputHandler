@@ -51,14 +51,7 @@ void UserInput::addCommand(CommandConstructor& command)
         }
     }
     if (!err) // if no error
-    {
-        if (_commands_count_ == 0) // do once
-        {
-            _term_len_ = strlen(_term_);
-            _delim_len_ = strlen(_delim_);
-            _c_str_delim_len_ = strlen(_c_str_delim_);
-            _output_buffer_bytes_left_ = _output_buffer_len_;
-        }
+    { 
         _commands_count_++;
         _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
         _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
@@ -109,6 +102,7 @@ void UserInput::listSettings(UserInput* inputprocess)
                             "end_of_line_characters = \"%s\", escaped for display\n"
                             "token_delimiter = \"%s\", escaped for display\n"
                             "c_string_delimiter = \"%s\", escaped for display\n"
+                            "input_control_char_sequence = \"%s\", escaped for display\n"
                             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ (found from input Parameters) = %u\n"
                             "_max_args_ (found from input Parameters) = %u\n"),
@@ -119,6 +113,7 @@ void UserInput::listSettings(UserInput* inputprocess)
                        _addEscapedControlCharToBuffer(buf, idx, _term_, _term_len_),
                        _addEscapedControlCharToBuffer(buf, idx, _delim_, _delim_len_),
                        _addEscapedControlCharToBuffer(buf, idx, _c_str_delim_, _c_str_delim_len_),
+                       _addEscapedControlCharToBuffer(buf, idx, _control_char_sequence_, _control_char_sequence_len_),
                        (1U + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_);

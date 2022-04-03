@@ -182,9 +182,13 @@ public:
           _output_buffer_bytes_left_(output_buffer_len),
           _username_(username),
           _term_(end_of_line_characters),
+          _term_len_(strlen(end_of_line_characters)),
           _delim_(token_delimiter),
+          _delim_len_(strlen(token_delimiter)),
           _c_str_delim_(c_string_delimiter),
+          _c_str_delim_len_(strlen(c_string_delimiter)),
           _control_char_sequence_(input_control_char_sequence),
+          _control_char_sequence_len_(strlen(input_control_char_sequence)),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -233,7 +237,7 @@ public:
     void addCommand(CommandConstructor& command);
 
     /**
-     * @brief allocates memory for `_data_pointers_`, sets `_begin_`
+     * @brief Allocates memory for `_data_pointers_`, sets `_begin_`
      *
      * @return true if allocation successful
      * @return false if allocation unsuccessful
@@ -241,19 +245,22 @@ public:
     bool begin();
 
     /**
-     * @brief lists UserInput class settings
+     * @brief Lists UserInput class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer.
      *
      * Lists all pertinient process information:
      * class configuration, constructor variables,
      * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
+     * 
+     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared, 
+     * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
      *
      * @param inputprocess pointer to class instance
      */
     void listSettings(UserInput* inputprocess);
 
     /**
-     * @brief lists commands that will respond to user input if `_begin_` == true
+     * @brief Lists commands that will respond to user input if `_begin_` == true
      * else it will inform the user to use begin() in setup()
      */
     void listCommands();
@@ -401,6 +408,7 @@ private:
     const char* _c_str_delim_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
     uint8_t _c_str_delim_len_;           ///< _c_str_delim_ length in characters, determined in begin()
     const char* _control_char_sequence_; ///< input a control char sequence
+    uint8_t _control_char_sequence_len_; ///< control char sequence len
     // end user entered constructor variables
 
     // constructor initialized variables
