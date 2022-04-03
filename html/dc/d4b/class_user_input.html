@@ -164,6 +164,8 @@ Classes</h2></td></tr>
 <tr class="separator:a2fa98b65514cb5dd8f658e2afaef773b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7429fd0b10e3c02c94d795b4f1df06ac"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a7429fd0b10e3c02c94d795b4f1df06ac">_control_char_sequence_</a></td></tr>
 <tr class="separator:a7429fd0b10e3c02c94d795b4f1df06ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab49610a522acb64b3ed80f02baea2334"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ab49610a522acb64b3ed80f02baea2334">_control_char_sequence_len_</a></td></tr>
+<tr class="separator:ab49610a522acb64b3ed80f02baea2334"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a478ce06b85c141f351173d65ba8828bf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf">_term_index_</a></td></tr>
 <tr class="separator:a478ce06b85c141f351173d65ba8828bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d8f531412f4036c644f77fbb16bde03"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03">_default_function_</a> )(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *)</td></tr>
@@ -1147,7 +1149,7 @@ false no match no split </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>allocates memory for <code>_data_pointers_</code>, sets <code>_begin_</code> </p>
+<p>Allocates memory for <code>_data_pointers_</code>, sets <code>_begin_</code> </p>
 <dl class="section return"><dt>Returns</dt><dd>true if allocation successful </dd>
 <dd>
 false if allocation unsuccessful </dd></dl>
@@ -1300,7 +1302,7 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>lists commands that will respond to user input if <code>_begin_</code> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> in <a class="el" href="../../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup()</a> </p>
+<p>Lists commands that will respond to user input if <code>_begin_</code> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> in <a class="el" href="../../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup()</a> </p>
 
 </div>
 </div>
@@ -1320,8 +1322,9 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings </p>
-<p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a></p>
+<p>Lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer. </p>
+<p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a></p>
+<p >REQUIRES 570 byte output_buffer. If an insufficient buffer size is declared, <a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f" title="UserInput vsnprintf https://www.cplusplus.com/reference/cstdio/vsprintf/.">UserInput::_ui_out()</a> will warn the user to increase the buffer to the required size.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">inputprocess</td><td>pointer to class instance </td></tr>
@@ -1608,7 +1611,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> error flag </p>
+<p><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> error flag </p>
 
 </div>
 </div>
@@ -1656,7 +1659,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>c_str_delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>c_str_delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -1753,6 +1756,30 @@ false argument-type is not valid </dd></dl>
 </div><div class="memdoc">
 
 <p>input a control char sequence </p>
+
+</div>
+</div>
+<a id="ab49610a522acb64b3ed80f02baea2334" name="ab49610a522acb64b3ed80f02baea2334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab49610a522acb64b3ed80f02baea2334">&#9670;&nbsp;</a></span>_control_char_sequence_len_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UserInput::_control_char_sequence_len_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>control char sequence len </p>
 
 </div>
 </div>
@@ -1920,7 +1947,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>delim</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>
@@ -2376,7 +2403,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
 
 </div>
 </div>

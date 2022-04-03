@@ -8,7 +8,7 @@ var arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino =
     [ "uc_unrecognized", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ad788839a36a76970581e00115020f08e", null ],
     [ "help_param", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a85688eca98c590cc222acbcd441dc266", null ],
     [ "inputHandler", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#aaef96f0115faf51aa72add4256542817", null ],
-    [ "output_buffer", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ad520b29e3db0d23c00126db0d0c64e30", null ],
+    [ "output_buffer", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a34fb82d0ca2844516ba75a135881bac5", null ],
     [ "settings_param", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a0f94096f5904d14fb94d75928f28db8a", null ],
     [ "type_test_param", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a7ade8c5209539ba01c1f3eccd4aa9023", null ],
     [ "uc_help_", "d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#abea6eca563b083379230aa0fd5fe0750", null ],
