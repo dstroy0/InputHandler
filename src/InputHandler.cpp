@@ -166,6 +166,11 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         input_len = input_len + 2U;
         token_buffer_len++;
         split_input = new uint8_t[input_len]();
+        if (split_input == nullptr) // if there was an error allocating the memory
+        {
+            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), _username_);
+            return;
+        }
         if (UserInput::_splitZDC(input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
         {
             input_data = split_input;
@@ -220,7 +225,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         {
             delete[] split_input;
         }
-        delete[] _token_buffer_;        
+        delete[] _token_buffer_;
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), _username_);
         return;
     }
