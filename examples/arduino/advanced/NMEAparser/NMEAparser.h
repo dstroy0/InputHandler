@@ -63,15 +63,14 @@ private:
     void _parseSentence(uint8_t* buffer, size_t len)
     {
         // perform preprocessing on input before feeding it into UserInput::readCommandFromBuffer()
-        
+
         // todo:
         // search for checksum, perform validation if found
         // checksum validation is performed on the string between the ! or $ and *
-
-        // insert empty field ph into empty fields
-        size_t fields_received = 0;
+        size_t empty_field_ph_len = strlen(empty_field_ph);
+        size_t buffer_idx = 0;
         size_t corrected_input_idx = 0;
-        size_t corrected_input_size = len + (strlen(empty_field_ph) * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
+        size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
         char* corrected_input = new char[corrected_input_size]();
         for (size_t i = 0; i < len; ++i)
         {
@@ -81,24 +80,45 @@ private:
             // or the checksum delimiter
 
             // i think an easier way to detect is if the char after ',' isdigit or isalpha
-            if ((char)buffer[i] == ',' && ((char)buffer[i + 1] == ',' || (char)buffer[i + 1] == '*' || (char)buffer[i + 1] == '\0') || (iscntrl((char)buffer[i + 1]) == true))
+            if (iscntrl((char)buffer[buffer_idx]) == true)
             {
-                corrected_input[corrected_input_idx] = (char)buffer[i];
+                buffer_idx++;
+            }
+            else if ((char)buffer[buffer_idx] == ','
+                && ((char)buffer[buffer_idx + 1U] == ','
+                    || (char)buffer[buffer_idx + 1U] == '*'
+                    //|| (char)buffer[buffer_idx + 1U] == '\0'
+                    ))
+            {
+                corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
-                memcpy(corrected_input + corrected_input_idx, empty_field_ph, strlen(empty_field_ph));
-                corrected_input_idx += strlen(empty_field_ph);
-                if ((char)buffer[i + 1] == '*')
+                buffer_idx++;
+                memcpy(corrected_input + corrected_input_idx, empty_field_ph, empty_field_ph_len);
+                corrected_input_idx += empty_field_ph_len;
+                if ((char)buffer[buffer_idx] == '*')
                 {
                     corrected_input[corrected_input_idx] = ',';
                     corrected_input_idx++;
-                }
+                }                
+            }
+            else if ((char)buffer[buffer_idx] == '$'
+                || (char)buffer[buffer_idx] == '!'
+                    && buffer_idx < 5U)
+            {
+                memcpy(corrected_input + corrected_input_idx, buffer + buffer_idx, 3U);
+                corrected_input_idx += 3U;
+                buffer_idx += 3U;
+                corrected_input[corrected_input_idx] = ',';
+                corrected_input_idx++;
             }
             else
             {
-                corrected_input[corrected_input_idx] = (char)buffer[i];
+                corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
+                buffer_idx++;
             }
         }
+        Serial.println(corrected_input);
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
         delete[] corrected_input;
     }

@@ -78,24 +78,8 @@ void uc_unrecognized(UserInput* inputProcess)
     inputProcess->outputToStream(Serial);
 }
 
-void NMEA_parse_test(UserInput* inputProcess)
-{
-    Serial.println(F("NMEA parse fields"));
-    char* ptr = inputProcess->nextArgument();
-    size_t idx = 0;
-    while (ptr != NULL)
-    {
-        Serial.print(idx);
-        Serial.print(F(" "));
-        Serial.println(ptr);
-        ptr = inputProcess->nextArgument();
-        idx++;
-    }
-    Serial.println(F("end NMEA parse fields"));
-}
-
-CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 1);
-CommandConstructor NMEA_sentence_error(sentence_error_param, nprms(sentence_error_param), 1);
+CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 2);
+CommandConstructor NMEA_sentence_error(sentence_error_param, nprms(sentence_error_param), 2);
 
 void setup()
 {
@@ -125,6 +109,6 @@ void loop()
 {
     inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial);       // class output
-
-    NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+    sensorParser.outputToStream(Serial);
+    //NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }

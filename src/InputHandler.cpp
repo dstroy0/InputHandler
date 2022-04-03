@@ -683,7 +683,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
     {                                                                  // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {
-            size_t cmd_len_pgm = pgm_read_dword(&(LLprm.cmd->prm[0].command_length));
+            size_t cmd_len_pgm = pgm_read_dword(&(LLprm.cmd->prm[j].command_length));
             if (memcmp_P(_data_pointers_[_data_pointers_index_], LLprm.cmd->prm[j].command, cmd_len_pgm) == false) // match subcommand string
             {
                 memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[j]), sizeof(LLprm.prm));
@@ -696,7 +696,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
                     {
                         LLprm.tokens_received--; // subtract subcommand from tokens received
                         _data_pointers_index_++; // increment to the next token
-                    }
+                    }                    
                     LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
                     LLprm.subcommand_matched = true;         // subcommand matched
                     _failed_on_subcommand_ = j;              // set error index

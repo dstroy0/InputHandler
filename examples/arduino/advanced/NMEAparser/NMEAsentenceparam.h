@@ -12,6 +12,7 @@
     #define __NMEAsentenceparam_H__
 
     #include <InputHandler.h>
+    #include "NMEAsentencefunc.h"
 
 extern void uc_unrecognized(UserInput* inputProcess);
 extern void NMEA_parse_test(UserInput* inputProcess);
@@ -20,13 +21,13 @@ extern void NMEA_parse_test(UserInput* inputProcess);
  * @brief AAM NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPAAM[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPAAM",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    1,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters AAM[1] = {
+    NMEA_0183_AAM,             // function ptr
+    "AAM",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    2,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -42,13 +43,13 @@ const PROGMEM Parameters GPAAM[1] = {
  * @brief APA NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPAPA[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPAPA",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    2,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters APA[1] = {
+    NMEA_0183_APA,             // function ptr
+    "APA",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    3,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -64,13 +65,13 @@ const PROGMEM Parameters GPAPA[1] = {
  * @brief APB NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPAPB[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPAPB",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    3,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters APB[1] = {
+    NMEA_0183_APB,             // function ptr
+    "APB",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    4,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -86,13 +87,13 @@ const PROGMEM Parameters GPAPB[1] = {
  * @brief BOD NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPBOD[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPBOD",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    4,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters BOD[1] = {
+    NMEA_0183_BOD,             // function ptr
+    "BOD",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    5,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -108,13 +109,13 @@ const PROGMEM Parameters GPBOD[1] = {
  * @brief BWC NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPBWC[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPBWC",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    5,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters BWC[1] = {
+    NMEA_0183_BWC,             // function ptr
+    "BWC",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    6,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -130,13 +131,13 @@ const PROGMEM Parameters GPBWC[1] = {
  * @brief BWR NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPBWR[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPBWR",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    6,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters BWR[1] = {
+    NMEA_0183_BWR,             // function ptr
+    "BWR",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    7,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -152,13 +153,13 @@ const PROGMEM Parameters GPBWR[1] = {
  * @brief DBT NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPDBT[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPDBT",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    7,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters DBT[1] = {
+    NMEA_0183_DBT,             // function ptr
+    "DBT",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    8,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -174,13 +175,13 @@ const PROGMEM Parameters GPDBT[1] = {
  * @brief DPT NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPDPT[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPDPT",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    8,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters DPT[1] = {
+    NMEA_0183_DPT,             // function ptr
+    "DPT",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    9,                         // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -196,13 +197,13 @@ const PROGMEM Parameters GPDPT[1] = {
  * @brief GGA NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPGGA[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPGGA",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    9,                         // this command id
-    1,                         // command depth
+const PROGMEM Parameters GGA[1] = {
+    NMEA_0183_GGA,             // function ptr
+    "GGA",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    10,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -218,13 +219,13 @@ const PROGMEM Parameters GPGGA[1] = {
  * @brief GLL NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPGLL[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPGLL",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    10,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters GLL[1] = {
+    NMEA_0183_GLL,             // function ptr
+    "GLL",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    11,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -240,13 +241,13 @@ const PROGMEM Parameters GPGLL[1] = {
  * @brief GSA NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPGSA[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPGSA",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    11,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters GSA[1] = {
+    NMEA_0183_GSA,             // function ptr
+    "GSA",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    12,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -262,13 +263,13 @@ const PROGMEM Parameters GPGSA[1] = {
  * @brief GSV NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPGSV[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPGSV",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    12,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters GSV[1] = {
+    NMEA_0183_GSV,             // function ptr
+    "GSV",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    13,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -284,13 +285,13 @@ const PROGMEM Parameters GPGSV[1] = {
  * @brief HDM NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPHDM[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPHDM",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    13,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters HDM[1] = {
+    NMEA_0183_HDM,             // function ptr
+    "HDM",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    14,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -306,13 +307,13 @@ const PROGMEM Parameters GPHDM[1] = {
  * @brief HDT NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPHDT[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPHDT",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    14,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters HDT[1] = {
+    NMEA_0183_HDT,             // function ptr
+    "HDT",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    15,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -328,13 +329,13 @@ const PROGMEM Parameters GPHDT[1] = {
  * @brief HSC NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPHSC[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPHSC",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    15,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters HSC[1] = {
+    NMEA_0183_HSC,             // function ptr
+    "HSC",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    16,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -347,16 +348,16 @@ const PROGMEM Parameters GPHSC[1] = {
     }};
 
 /**
- * @brief MWT NMEA 0183 sentence command setup
+ * @brief MTW NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPMTW[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPMTW",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    16,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters MTW[1] = {
+    NMEA_0183_MTW,             // function ptr
+    "MTW",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    17,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -372,13 +373,13 @@ const PROGMEM Parameters GPMTW[1] = {
  * @brief RMB NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPRMB[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPRMB",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    17,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters RMB[1] = {
+    NMEA_0183_RMB,             // function ptr
+    "RMB",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    18,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -394,13 +395,13 @@ const PROGMEM Parameters GPRMB[1] = {
  * @brief RMC NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPRMC[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPRMC",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    18,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters RMC[1] = {
+    NMEA_0183_RMC,             // function ptr
+    "RMC",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    19,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -416,13 +417,13 @@ const PROGMEM Parameters GPRMC[1] = {
  * @brief VTG NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPVTG[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPVTG",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    19,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters VTG[1] = {
+    NMEA_0183_VTG,             // function ptr
+    "VTG",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    20,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -438,13 +439,13 @@ const PROGMEM Parameters GPVTG[1] = {
  * @brief WCV NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPWCV[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPWCV",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    20,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters WCV[1] = {
+    NMEA_0183_WCV,             // function ptr
+    "WCV",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    21,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -460,13 +461,13 @@ const PROGMEM Parameters GPWCV[1] = {
  * @brief WPL NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPWPL[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPWPL",                   // command string
-    5,                         // string length
+const PROGMEM Parameters WPL[1] = {
+    NMEA_0183_WPL,             // function ptr
+    "WPL",                     // command string
+    3,                         // string length
     root,                      // parent id
-    21,                        // this command id
-    1,                         // command depth
+    22,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -482,13 +483,13 @@ const PROGMEM Parameters GPWPL[1] = {
  * @brief XTE NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPXTE[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPXTE",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    22,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters XTE[1] = {
+    NMEA_0183_XTE,             // function ptr
+    "XTE",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    23,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     0,                         // minimum expected number of arguments
@@ -504,13 +505,13 @@ const PROGMEM Parameters GPXTE[1] = {
  * @brief XTR NMEA 0183 sentence command setup
  *
  */
-const PROGMEM Parameters GPXTR[1] = {
-    NMEA_parse_test,           // function ptr
-    "GPXTR",                   // command string
-    5,                         // string length
-    root,                      // parent id
-    23,                        // this command id
-    1,                         // command depth
+const PROGMEM Parameters XTR[1] = {
+    NMEA_0183_XTR,             // function ptr
+    "XTR",                     // command string
+    3,                         // string length
+    1,                         // parent id
+    24,                        // this command id
+    2,                         // command depth
     0,                         // subcommands
     UI_ARG_HANDLING::one_type, // argument handling
     1,                         // minimum expected number of arguments
@@ -522,90 +523,99 @@ const PROGMEM Parameters GPXTR[1] = {
         UITYPE::NOTYPE // special type, no type validation performed
     }};
 
+const PROGMEM Parameters talker_GP[1] = {
+    uc_unrecognized,          // function ptr
+    "GP",                     // command string
+    2,                        // string length
+    root,                     // parent id
+    1,                        // this command id
+    1,                        // command depth
+    23,                       // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS}};
+
 /**
  * @brief Parameters struct for NMEA sentence
  */
-const PROGMEM Parameters sentence_param[24] = {
+const PROGMEM Parameters sentence_param[25] = {
     {uc_unrecognized,          // function ptr
      "$",                      // command string
      1,                        // string length
      root,                     // parent id
      root,                     // this command id
      root,                     // command depth
-     23,                       // subcommands
+     1,                        // subcommands
      UI_ARG_HANDLING::no_args, // argument handling
      0,                        // minimum expected number of arguments
      0,                        // maximum expected number of arguments
-     /*
-       UITYPE arguments
-     */
-     {
-         UITYPE::NOTYPE // special type, no type validation performed
-     }},
-    *GPAAM,
-    *GPAPA,
-    *GPAPB,
-    *GPBOD,
-    *GPBWC,
-    *GPBWR,
-    *GPDBT,
-    *GPDPT,
-    *GPGGA,
-    *GPGLL,
-    *GPGSA,
-    *GPGSV,
-    *GPHDM,
-    *GPHDT,
-    *GPHSC,
-    *GPMTW,
-    *GPRMB,
-    *GPRMC,
-    *GPVTG,
-    *GPWCV,
-    *GPWPL,
-    *GPXTE,
-    *GPXTR};
+     /* UITYPE arguments */
+     {UITYPE::NO_ARGS}},
+    *talker_GP,
+    *AAM,
+    *APA,
+    *APB,
+    *BOD,
+    *BWC,
+    *BWR,
+    *DBT,
+    *DPT,
+    *GGA,
+    *GLL,
+    *GSA,
+    *GSV,
+    *HDM,
+    *HDT,
+    *HSC,
+    *MTW,
+    *RMB,
+    *RMC,
+    *VTG,
+    *WCV,
+    *WPL,
+    *XTE,
+    *XTR};
 
 /**
  * @brief Parameters struct for NMEA sentence error
  */
-const PROGMEM Parameters sentence_error_param[24] = {
+const PROGMEM Parameters sentence_error_param[25] = {
     {uc_unrecognized,          // function ptr
      "!",                      // command string
      1,                        // string length
      root,                     // parent id
      root,                     // this command id
      root,                     // command depth
-     23,                       // subcommands
+     1,                        // subcommands
      UI_ARG_HANDLING::no_args, // argument handling
      0,                        // minimum expected number of arguments
      0,                        // maximum expected number of arguments
-     /*
-       UITYPE arguments
-     */
-     {
-         UITYPE::NO_ARGS}},
-    *GPAAM,
-    *GPAPA,
-    *GPAPB,
-    *GPBOD,
-    *GPBWC,
-    *GPBWR,
-    *GPDBT,
-    *GPDPT,
-    *GPGGA,
-    *GPGLL,
-    *GPGSA,
-    *GPGSV,
-    *GPHDM,
-    *GPHDT,
-    *GPHSC,
-    *GPMTW,
-    *GPRMB,
-    *GPRMC,
-    *GPVTG,
-    *GPWCV,
-    *GPWPL,
-    *GPXTE,
-    *GPXTR};
+     /* UITYPE arguments */
+     {UITYPE::NO_ARGS}},
+    *talker_GP,
+    *AAM,
+    *APA,
+    *APB,
+    *BOD,
+    *BWC,
+    *BWR,
+    *DBT,
+    *DPT,
+    *GGA,
+    *GLL,
+    *GSA,
+    *GSV,
+    *HDM,
+    *HDT,
+    *HSC,
+    *MTW,
+    *RMB,
+    *RMC,
+    *VTG,
+    *WCV,
+    *WPL,
+    *XTE,
+    *XTR};
 #endif
