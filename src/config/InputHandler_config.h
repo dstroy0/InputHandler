@@ -102,6 +102,11 @@
 #include <avr/dtostrf.h>
 #include "utility/vsnprintf.h"
 #define vsnprintf_P vsnprintf
+#undef pgm_read_dword
+#define pgm_read_dword(addr) ({     \
+   typeof(addr) _addr = (addr);     \
+   *(const unsigned long *)(_addr); \
+})
 #endif
 
 #if defined(__MBED_CONFIG_DATA__)
