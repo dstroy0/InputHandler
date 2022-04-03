@@ -471,8 +471,8 @@ inline void UserInput::_ui_out(const char* fmt, ...)
         va_list args;        // ... parameter pack list
         va_start(args, fmt); // set the parameter pack list index here
         int err = vsnprintf_P(_output_buffer_ + abs((int)_output_buffer_bytes_left_ - (int)_output_buffer_len_), _output_buffer_bytes_left_, fmt, args);
-        va_end(args);                         // we are done with the parameter pack
-        if (err > _output_buffer_bytes_left_) // overflow condition
+        va_end(args);                               // we are done with the parameter pack
+        if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n"), (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
