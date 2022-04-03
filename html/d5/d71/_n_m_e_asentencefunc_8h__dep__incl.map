@@ -1,5 +1,5 @@
 <map id="examples/arduino/advanced/NMEAparser/NMEAsentencefunc.h" name="examples/arduino/advanced/NMEAparser/NMEAsentencefunc.h">
-<area shape="rect" id="node1" title=" " alt="" coords="13,5,261,47"/>
+<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="13,5,261,47"/>
 <area shape="rect" id="node2" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence Parameters structs." alt="" coords="5,95,268,136"/>
 <area shape="rect" id="node3" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="33,184,240,225"/>
 <area shape="rect" id="node4" href="$dd/d65/_n_m_e_aparser_8ino.html" title="An example that demonstrates how to use InputHandler to parse NMEA sentences." alt="" coords="30,273,243,315"/>
