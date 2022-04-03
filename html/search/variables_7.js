@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['help_5fparam_0',['help_param',['../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;GetCommandFromStream.ino'],['../d3/d4e/arduino_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h'],['../d2/d6a/arduino_2basic_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferMQTT.ino'],['../d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;GetCommandFromStream.ino'],['../dc/d46/esp_2advanced_2_multi_file_2_c_l_i_2parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h'],['../d1/d8a/esp_2basic_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferWebSerial.ino']]]
+  ['gga_0',['GGA',['../da/dff/_n_m_e_asentenceparam_8h.html#a3d4919884d92c22946344eee7de5d4bb',1,'NMEAsentenceparam.h']]],
+  ['gll_1',['GLL',['../da/dff/_n_m_e_asentenceparam_8h.html#aff9da7049167dd7980224453b9e38a02',1,'NMEAsentenceparam.h']]],
+  ['gpbwc_2',['gpbwc',['../dd/d65/_n_m_e_aparser_8ino.html#acad89f5dd048dba77e2f05c4ff30558f',1,'NMEAparser.ino']]],
+  ['gsa_3',['GSA',['../da/dff/_n_m_e_asentenceparam_8h.html#a1a210b598ffe7b8710ecd17297c60d45',1,'NMEAsentenceparam.h']]],
+  ['gsv_4',['GSV',['../da/dff/_n_m_e_asentenceparam_8h.html#adbaadcf327e619b574845f606f66e190',1,'NMEAsentenceparam.h']]]
 ];
