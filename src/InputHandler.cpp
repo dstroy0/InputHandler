@@ -51,7 +51,7 @@ void UserInput::addCommand(CommandConstructor& command)
         }
     }
     if (!err) // if no error
-    { 
+    {
         _commands_count_++;
         _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
         _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
@@ -90,8 +90,8 @@ void UserInput::listSettings(UserInput* inputprocess)
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + _control_char_sequence_len_ + 4; // +3; 2 null separators and terminator
-    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();         // allocate char buffer large enough to print these potential control characters
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + _control_char_sequence_len_ + 4; // +4; 3 null separators and terminator
+    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();                                       // allocate char buffer large enough to print these potential control characters
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
@@ -157,6 +157,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _username_);
         return;
     }
+    uint8_t* input_data = data;
     size_t input_len = len;
     size_t token_buffer_len = input_len + 1U;
     uint8_t* split_input = NULL;
@@ -165,9 +166,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         input_len = input_len + 2U;
         token_buffer_len++;
         split_input = new uint8_t[input_len]();
-        if (UserInput::_splitZDC(data, input_len, (char*)split_input, input_len, num_zdc, zdc))
+        if (UserInput::_splitZDC(input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
         {
-            data = split_input;
+            input_data = split_input;
         }
     }
 
@@ -194,7 +195,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _delim_len_};
     // getTokens parameters structure
     getTokensParam gtprm = {
-        data,                   // input data uint8_t array
+        input_data,             // input data uint8_t array
         input_len,              // input len
         _token_buffer_,         // pointer to char array, size of len + 1
         token_buffer_len,       // the size of token_buffer
@@ -253,7 +254,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }                                                    // end root command for loop
     if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(cmd, prm, command_matched, input_type_match_flag, all_arguments_valid, data);
+        UserInput::_readCommandFromBufferErrorOutput(cmd, prm, command_matched, input_type_match_flag, all_arguments_valid, input_data);
         (*_default_function_)(this); // run the default function
     }
 
@@ -262,7 +263,10 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
-    delete[] split_input;
+    if (num_zdc != 0) // if there are zero delim commands
+    {
+        delete[] split_input;
+    }
     delete[] _token_buffer_;
     delete[] input_type_match_flag;
 }
