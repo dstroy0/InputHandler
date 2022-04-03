@@ -80,15 +80,13 @@ private:
             // or the checksum delimiter
 
             // i think an easier way to detect is if the char after ',' isdigit or isalpha
-            if (iscntrl((char)buffer[buffer_idx]) == true)
+            if (iscntrl((char)buffer[buffer_idx])) // remove control char
             {
                 buffer_idx++;
             }
             else if ((char)buffer[buffer_idx] == ','
-                && ((char)buffer[buffer_idx + 1U] == ','
-                    || (char)buffer[buffer_idx + 1U] == '*'
-                    //|| (char)buffer[buffer_idx + 1U] == '\0'
-                    ))
+                     && ((char)buffer[buffer_idx + 1U] == ','
+                         || (char)buffer[buffer_idx + 1U] == '*'))
             {
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
@@ -99,11 +97,11 @@ private:
                 {
                     corrected_input[corrected_input_idx] = ',';
                     corrected_input_idx++;
-                }                
+                }
             }
-            else if ((char)buffer[buffer_idx] == '$'
-                || (char)buffer[buffer_idx] == '!'
-                    && buffer_idx < 5U)
+            else if (((char)buffer[buffer_idx] == '$'
+                      || (char)buffer[buffer_idx] == '!')
+                     && (buffer_idx < 5U))
             {
                 memcpy(corrected_input + corrected_input_idx, buffer + buffer_idx, 3U);
                 corrected_input_idx += 3U;
@@ -117,8 +115,7 @@ private:
                 corrected_input_idx++;
                 buffer_idx++;
             }
-        }
-        Serial.println(corrected_input);
+        }        
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
         delete[] corrected_input;
     }

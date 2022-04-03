@@ -696,7 +696,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
                     {
                         LLprm.tokens_received--; // subtract subcommand from tokens received
                         _data_pointers_index_++; // increment to the next token
-                    }                    
+                    }
                     LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
                     LLprm.subcommand_matched = true;         // subcommand matched
                     _failed_on_subcommand_ = j;              // set error index

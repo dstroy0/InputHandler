@@ -12,6 +12,11 @@
     #define __NMEA_SENTENCE_FUNC__
     #include <InputHandler.h>
 
+/*
+    char* ptr = inputProcess->nextArgument(); // point to first field in message
+    ptr = inputProcess->nextArgument(); // point to subsequent message fields
+*/
+
 void NMEA_0183_AAM(UserInput* inputProcess)
 {
     Serial.println(F("NMEA parse AAM fields"));

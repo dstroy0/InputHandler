@@ -66,7 +66,7 @@ UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
 
 NMEAparse NMEA;
 
-// temp
+// temp for testing
 const char* gpbwc = "$GPBWC,081837,,,,,,T,,M,,N,*13\r\n";
 
 /*
@@ -100,6 +100,7 @@ void setup()
 
     inputHandler.outputToStream(Serial); // class output
 
+    // temp testing
     uint8_t buffer[36] {};
     memcpy(buffer, gpbwc, strlen(gpbwc));
     NMEA.parseSentence(buffer, strlen(gpbwc));
@@ -110,5 +111,5 @@ void loop()
     inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial);       // class output
     sensorParser.outputToStream(Serial);
-    //NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+    // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }

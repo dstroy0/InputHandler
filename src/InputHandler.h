@@ -584,7 +584,7 @@ private:
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
-     * 
+     *
      * @param data input data
      * @param len input data length
      * @param split_input place to split input
