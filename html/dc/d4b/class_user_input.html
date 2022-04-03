@@ -220,8 +220,8 @@ Classes</h2></td></tr>
 <tr class="separator:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">begin</a> ()</td></tr>
 <tr class="separator:a1f1dfef01fd160e4ba9686a4c59e0369"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a466b547b43d36de49fe8f514b5e0532a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a466b547b43d36de49fe8f514b5e0532a">listSettings</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputprocess)</td></tr>
-<tr class="separator:a466b547b43d36de49fe8f514b5e0532a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a587c2ab21bab0771881cb117e7930b78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a587c2ab21bab0771881cb117e7930b78">listSettings</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputProcess)</td></tr>
+<tr class="separator:a587c2ab21bab0771881cb117e7930b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1dd5daddbcdbb93af132f723007592f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f">listCommands</a> ()</td></tr>
 <tr class="separator:af1dd5daddbcdbb93af132f723007592f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79dc7ddb2a0b4a633d7d891c3e80524c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a79dc7ddb2a0b4a633d7d891c3e80524c">readCommandFromBuffer</a> (uint8_t *data, size_t len, const size_t <a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929">num_zdc</a>=0, const <a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a> **<a class="el" href="../../da/d60/_n_m_e_aparser_8h.html#a076b1295a2104e94ac7a6cf51fac9127">zdc</a>=NULL)</td></tr>
@@ -1124,7 +1124,7 @@ false no match no split </dd></dl>
 </div><div class="memdoc">
 
 <p>adds user commands to the input process </p>
-<p >This function inspects <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected, in the root command or any of its subcommands the entire command tree is rejected, and no sizing for dynamically allocated variables takes place.</p>
+<p >This function inspects <a class="el" href="../../d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters.">Parameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected in the root command or any of its subcommands, the entire command tree is rejected. No sizing for dynamically allocated variables takes place.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>reference to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </td></tr>
@@ -1306,8 +1306,8 @@ false if allocation unsuccessful </dd></dl>
 
 </div>
 </div>
-<a id="a466b547b43d36de49fe8f514b5e0532a" name="a466b547b43d36de49fe8f514b5e0532a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a466b547b43d36de49fe8f514b5e0532a">&#9670;&nbsp;</a></span>listSettings()</h2>
+<a id="a587c2ab21bab0771881cb117e7930b78" name="a587c2ab21bab0771881cb117e7930b78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587c2ab21bab0771881cb117e7930b78">&#9670;&nbsp;</a></span>listSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1316,7 +1316,7 @@ false if allocation unsuccessful </dd></dl>
           <td class="memname">void UserInput::listSettings </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *&#160;</td>
-          <td class="paramname"><em>inputprocess</em></td><td>)</td>
+          <td class="paramname"><em>inputProcess</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1327,7 +1327,7 @@ false if allocation unsuccessful </dd></dl>
 <p >REQUIRES 570 byte output_buffer. If an insufficient buffer size is declared, <a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f" title="UserInput vsnprintf https://www.cplusplus.com/reference/cstdio/vsprintf/.">UserInput::_ui_out()</a> will warn the user to increase the buffer to the required size.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">inputprocess</td><td>pointer to class instance </td></tr>
+    <tr><td class="paramname">inputProcess</td><td>pointer to class instance </td></tr>
   </table>
   </dd>
 </dl>

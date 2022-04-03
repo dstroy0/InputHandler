@@ -24,7 +24,7 @@ var class_user_input =
     [ "getCommandFromStream", "dc/d4b/class_user_input.html#aa8e02f71aad131892c331b39c7c04a11", null ],
     [ "getTokens", "dc/d4b/class_user_input.html#a33d426b23d0bc85fb99c6b6a32386247", null ],
     [ "listCommands", "dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f", null ],
-    [ "listSettings", "dc/d4b/class_user_input.html#a466b547b43d36de49fe8f514b5e0532a", null ],
+    [ "listSettings", "dc/d4b/class_user_input.html#a587c2ab21bab0771881cb117e7930b78", null ],
     [ "mIndex", "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030", null ],
     [ "nextArgument", "dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd", null ],
     [ "outputIsAvailable", "dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683", null ],
