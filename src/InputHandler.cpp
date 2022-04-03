@@ -175,6 +175,10 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         {
             input_data = split_input;
         }
+        else
+        {
+            delete[] split_input;
+        }
     }
 
     _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
