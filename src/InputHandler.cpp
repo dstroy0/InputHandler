@@ -216,7 +216,11 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 
     if (tokens_received == 0) // error condition
     {
-        delete[] _token_buffer_;
+        if (num_zdc != 0)
+        {
+            delete[] split_input;
+        }
+        delete[] _token_buffer_;        
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), _username_);
         return;
     }
