@@ -90,7 +90,7 @@ void UserInput::listSettings(UserInput* inputprocess)
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + 3; // +3; 2 null separators and terminator
+    size_t buf_sz = _term_len_ + _delim_len_ + _c_str_delim_len_ + _control_char_sequence_len_ + 4; // +3; 2 null separators and terminator
     char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN]();         // allocate char buffer large enough to print these potential control characters
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
