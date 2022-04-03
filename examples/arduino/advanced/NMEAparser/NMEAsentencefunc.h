@@ -1,6 +1,16 @@
+/**
+   @file NMEAsentencefunc.h
+   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @brief NMEA 0183 sentence functions
+   @version 1.0
+   @date 2022-04-02
+
+   @copyright Copyright (c) 2022
+*/
+
 #if !defined(__NMEA_SENTENCE_FUNC__)
-#define __NMEA_SENTENCE_FUNC__
-#include <InputHandler.h>
+    #define __NMEA_SENTENCE_FUNC__
+    #include <InputHandler.h>
 
 void NMEA_0183_AAM(UserInput* inputProcess)
 {
@@ -63,7 +73,7 @@ void NMEA_0183_BOD(UserInput* inputProcess)
         ptr = inputProcess->nextArgument();
         idx++;
     }
-    Serial.println(F("end NMEA parse BOD fields"));    
+    Serial.println(F("end NMEA parse BOD fields"));
 }
 
 void NMEA_0183_BWC(UserInput* inputProcess)
