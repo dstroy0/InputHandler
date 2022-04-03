@@ -228,9 +228,9 @@ public:
      *
      * This function inspects Parameters for errors and
      * reports the errors to the user if they have enabled output.
-     * If an error is detected, in the root command or any of
-     * its subcommands the entire command tree is rejected, and
-     * no sizing for dynamically allocated variables takes place.
+     * If an error is detected in the root command or any of
+     * its subcommands, the entire command tree is rejected.
+     * No sizing for dynamically allocated variables takes place.
      *
      * @param command reference to CommandConstructor
      */
@@ -255,9 +255,9 @@ public:
      * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared, 
      * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
      *
-     * @param inputprocess pointer to class instance
+     * @param inputProcess pointer to class instance
      */
-    void listSettings(UserInput* inputprocess);
+    void listSettings(UserInput* inputProcess);
 
     /**
      * @brief Lists commands that will respond to user input if `_begin_` == true
