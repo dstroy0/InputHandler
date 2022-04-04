@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['nested_5fprms_0',['nested_prms',['../d0/d5d/arduino_2advanced_2_nested_commands_2_nested_commands_8ino.html#a5735c791b8ee82905ac074e51940a0a0',1,'nested_prms():&#160;NestedCommands.ino'],['../d2/db7/esp_2advanced_2_nested_commands_2_nested_commands_8ino.html#a5735c791b8ee82905ac074e51940a0a0',1,'nested_prms():&#160;NestedCommands.ino']]],
-  ['nestedcommands_2eino_1',['NestedCommands.ino',['../d0/d5d/arduino_2advanced_2_nested_commands_2_nested_commands_8ino.html',1,'(Global Namespace)'],['../d2/db7/esp_2advanced_2_nested_commands_2_nested_commands_8ino.html',1,'(Global Namespace)']]],
+  ['nested_5fprms_0',['nested_prms',['../da/d0f/_nested_commands_8ino.html#a5735c791b8ee82905ac074e51940a0a0',1,'NestedCommands.ino']]],
+  ['nestedcommands_2eino_1',['NestedCommands.ino',['../da/d0f/_nested_commands_8ino.html',1,'']]],
   ['next_5fcommand_2',['next_command',['../df/d68/class_command_constructor.html#acf385c16d839794f2bbe7ad7d1db4de3',1,'CommandConstructor']]],
   ['nextargument_3',['nextArgument',['../dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd',1,'UserInput']]],
   ['nmea_4',['NMEA',['../dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e',1,'NMEAparser.ino']]],

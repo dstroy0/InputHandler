@@ -1,5 +1,5 @@
-<map id="examples/esp/basic/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino" name="examples/esp/basic/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino">
-<area shape="rect" id="node1" title="An example that uses ReadCommandFromBuffer and WebSerial." alt="" coords="102,5,388,61"/>
+<map id="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino" name="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino">
+<area shape="rect" id="node1" title="An example that uses ReadCommandFromBuffer and WebSerial." alt="" coords="114,5,376,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="10,273,94,300"/>
 <area shape="rect" id="node3" title=" " alt="" coords="34,109,96,136"/>
 <area shape="rect" id="node4" title=" " alt="" coords="120,109,215,136"/>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['getargument_0',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
   ['getcommandfromstream_1',['getCommandFromStream',['../dc/d4b/class_user_input.html#aa8e02f71aad131892c331b39c7c04a11',1,'UserInput']]],
-  ['getcommandfromstream_2eino_2',['GetCommandFromStream.ino',['../d0/ded/arduino_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d0/df5/arduino_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d09/esp_2advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d2/d15/esp_2basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]],
+  ['getcommandfromstream_2eino_2',['GetCommandFromStream.ino',['../db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]],
   ['gettokens_3',['getTokens',['../dc/d4b/class_user_input.html#a33d426b23d0bc85fb99c6b6a32386247',1,'UserInput']]],
   ['gettokensparam_4',['getTokensParam',['../d7/d74/struct_user_input_1_1get_tokens_param.html',1,'UserInput']]],
   ['gga_5',['GGA',['../da/dff/_n_m_e_asentenceparam_8h.html#a3d4919884d92c22946344eee7de5d4bb',1,'NMEAsentenceparam.h']]],
