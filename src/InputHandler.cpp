@@ -163,7 +163,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     uint8_t* split_input = NULL;
     if (num_zdc != 0) // if there are zero delim commands
     {
-        input_len = input_len + 2U;
+        input_len = input_len + _delim_len_ + 1U;
         token_buffer_len++;
         split_input = new uint8_t[input_len]();
         if (split_input == nullptr) // if there was an error allocating the memory
@@ -173,11 +173,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         if (UserInput::_splitZDC(input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
         {
-            input_data = split_input;
+            input_data = split_input; // the input command and data have been split
         }
-        else
+        else // free allocated memory and fail-through
         {
+            input_len = input_len - (_delim_len_ + 1U); // resize input len
             delete[] split_input;
+
         }
     }
 
