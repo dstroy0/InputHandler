@@ -294,6 +294,13 @@ public:
      * @return char*
      */
     char* nextArgument();
+    
+    /**
+     * @brief returns a pointer to `argument_number` token in UserInput::_token_buffer_ or NULL if there is no `argument_number` token
+     *
+     * @return char*
+     */
+    char* getArgument(size_t argument_number);
 
     /**
      * @brief is class output available

@@ -345,7 +345,15 @@ char* UserInput::nextArgument()
         _data_pointers_index_++;
         return _data_pointers_[_data_pointers_index_];
     }
+    return NULL; // else return NULL
+}
 
+char* UserInput::getArgument(size_t argument_number)
+{
+    if (argument_number < (_max_depth_ + _max_args_) && argument_number < _data_pointers_index_max_)
+    {        
+        return _data_pointers_[argument_number];
+    }
     return NULL; // else return NULL
 }
 
