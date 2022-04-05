@@ -36,7 +36,7 @@ const PROGMEM uint8_t start_stop_lens[2] =
 {
   1, 1
 };
-const PROGMEM UserInput_ctor_prm ui_prm[] = // UserInput constructor parameters
+const PROGMEM UserInput_ctor_prm ui_prm[1] = // UserInput constructor parameters
 {
  output_buffer,
  570,
@@ -44,10 +44,10 @@ const PROGMEM UserInput_ctor_prm ui_prm[] = // UserInput constructor parameters
  "\r\n",
  "##",
  1,
- *delims,
+ delims,
  delim_lens,
  1,
- *start_stops,
+ start_stops,
  start_stop_lens
 };
 UserInput inputHandler(ui_prm);

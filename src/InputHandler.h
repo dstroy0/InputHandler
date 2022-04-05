@@ -91,10 +91,10 @@ struct UserInput_ctor_prm
     const char* end_of_line_term;
     const char* input_single_control_char_sequence; ///< two char len sequence to input a control char
     size_t num_token_delimiters;                    ///< the number of token delimiters in delimiter_sequences
-    const char* delimiter_sequences[UI_MAX_DELIM_SEQ];               ///< string-literal "" delimiter sequence array
+    const char (*delimiter_sequences)[UI_MAX_DELIM_SEQ];               ///< string-literal "" delimiter sequence array
     const uint8_t* delimiter_lens;
     size_t num_start_stop_sequences;                ///< num start/stop sequences
-    const char * start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ];         ///< start/stop sequences.  Match start, match end, copy what is between
+    const char (*start_stop_sequence_pairs)[UI_MAX_DELIM_SEQ];         ///< start/stop sequences.  Match start, match end, copy what is between
     const uint8_t* start_stop_sequence_lens;
 };
 
@@ -183,20 +183,20 @@ public:
      * @param ui_prm UserInput_ctor_prm struct
      */
     UserInput(const UserInput_ctor_prm* ui_prm)
-        : _ui_prm_(ui_prm),
-          _output_buffer_((char*)pgm_read_ptr(&_ui_prm_->output_buffer)),
-          _output_enabled_((_output_buffer_ == NULL) ? false : true),
-          _output_buffer_len_(pgm_read_dword(&_ui_prm_->output_buffer_len)),
-          _output_buffer_bytes_left_(_output_buffer_len_),
-          _process_name_((const char*)pgm_read_dword(&_ui_prm_->process_name)),
-          _term_((const char*)pgm_read_dword(&_ui_prm_->end_of_line_term)),
-          _term_len_(strlen(_term_)),
-          _delims_((const char**)pgm_read_ptr(&_ui_prm_->delimiter_sequences)),
-          _delim_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->delimiter_lens)),
-          _start_stop_seqs_((const char**)pgm_read_ptr(&_ui_prm_->start_stop_sequence_pairs)),
-          _start_stop_seq_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->start_stop_sequence_lens)),
-          _input_control_char_sequence_((const char*)pgm_read_dword(&_ui_prm_->input_single_control_char_sequence)),
-          _input_control_char_sequence_len_(strlen(_input_control_char_sequence_)),
+        : //_ui_ctor_prm_(memcpy_P(&_ui_ctor_prm_, ui_prm, sizeof(_ui_ctor_prm_))),
+        //   _output_buffer_((char*)pgm_read_ptr(&_ui_prm_->output_buffer)),
+        //   _output_enabled_((_output_buffer_ == NULL) ? false : true),
+        //   _output_buffer_len_(pgm_read_dword(&_ui_prm_->output_buffer_len)),
+        //   _output_buffer_bytes_left_(_output_buffer_len_),
+        //   _process_name_((const char*)pgm_read_dword(&_ui_prm_->process_name)),
+        //   _term_((const char*)pgm_read_dword(&_ui_prm_->end_of_line_term)),
+        //   _term_len_(strlen(_term_)),
+        //   _delims_((const char**)pgm_read_ptr(&_ui_prm_->delimiter_sequences)),
+        //   _delim_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->delimiter_lens)),
+        //   _start_stop_seqs_((const char**)pgm_read_ptr(&_ui_prm_->start_stop_sequence_pairs)),
+        //   _start_stop_seq_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->start_stop_sequence_lens)),
+        //   _input_control_char_sequence_((const char*)pgm_read_dword(&_ui_prm_->input_single_control_char_sequence)),
+        //   _input_control_char_sequence_len_(strlen(_input_control_char_sequence_)),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -219,6 +219,10 @@ public:
           _stream_data_index_(0),
           _begin_(false)
     {
+        memcpy_P(&_ui_ctor_prm_, ui_prm, sizeof(_ui_ctor_prm_));
+        _term_len_ = strlen(_ui_ctor_prm_.end_of_line_term);
+        _output_enabled_ = (_ui_ctor_prm_.output_buffer == NULL) ? false : true;
+        _output_buffer_bytes_left_ = _ui_ctor_prm_.output_buffer_len;
     }
 
     /**
@@ -355,11 +359,11 @@ public:
 
         size_t num_token_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
         const uint8_t* delimiter_lens;            ///< strlen of each delimiter
-        const char* delimiter_sequences[UI_MAX_DELIM_SEQ];    ///< array of const char* delimiter strings
+        const char (*delimiter_sequences)[UI_MAX_DELIM_SEQ];    ///< array of const char* delimiter strings
         
         size_t num_start_stop_sequences;
         const uint8_t* start_stop_sequence_lens;            ///< strlen of c string delimiter
-        const char* start_stop_sequence_pairs[UI_MAX_DELIM_SEQ];           ///< const char* c string delimiter
+        const char (*start_stop_sequence_pairs)[UI_MAX_DELIM_SEQ];           ///< const char* c string delimiter
         
         char& token_buffer_sep;            ///< token_buffer token delimiter
         const char* control_char_sequence; ///< two character sequence preceding a switch char
@@ -415,25 +419,25 @@ private:
     */
     
     // user entered constructor variables
-    const UserInput_ctor_prm* _ui_prm_;  ///< user input constructor parameters pointer
+    
     // end user entered constructor variables
 
-    // constructor initialized variables
-    char* _output_buffer_;               ///< pointer to the output char buffer
+    // // constructor initialized variables
+    // char* _output_buffer_;               ///< pointer to the output char buffer
     bool _output_enabled_;               ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
-    uint16_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    // const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
+    size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
-    const char* _process_name_;          ///< username/project name/equipment name
-    const char* _term_;                  ///< end of line characters, terminating characters, default is CRLF
+    // const char* _process_name_;          ///< username/project name/equipment name
+    // const char* _term_;                  ///< end of line characters, terminating characters, default is CRLF
     uint8_t _term_len_;                  ///< _term_ length in characters, determined in begin()
     
-    const char** _delims_;                 ///< input argument delimiter, space by default
-    uint8_t* _delim_lens_;                 ///< _delim_ length in characters, determined in begin()
-    const char** _start_stop_seqs_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
-    uint8_t* _start_stop_seq_lens_;           ///< _c_str_delim_ length in characters, determined in begin()
-    const char* _input_control_char_sequence_; ///< input a control char sequence
-    uint8_t _input_control_char_sequence_len_; ///< control char sequence len    
+    // const char** _delims_;                 ///< input argument delimiter, space by default
+    // uint8_t* _delim_lens_;                 ///< _delim_ length in characters, determined in begin()
+    // const char** _start_stop_seqs_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
+    // uint8_t* _start_stop_seq_lens_;           ///< _c_str_delim_ length in characters, determined in begin()
+    // const char* _input_control_char_sequence_; ///< input a control char sequence
+    // uint8_t _input_control_char_sequence_len_; ///< control char sequence len    
     
     uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
 
@@ -462,6 +466,8 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
+    
+    UserInput_ctor_prm _ui_ctor_prm_;  ///< user input constructor parameters pointer
     // end constructor initialized variables
 
     // private methods
