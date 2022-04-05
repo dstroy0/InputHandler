@@ -83,6 +83,9 @@
 #define UI_MAX_CMD_LEN 32
 #endif
 
+#define UI_MAX_DELIM_SEQ 5
+#define UI_MAX_START_STOP_SEQ 5
+
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
 /*
@@ -141,7 +144,8 @@
 #endif
 
 // PROGMEM width constants
-#define UI_INPUT_TYPE_STRINGS_PGM_LEN 9
+#define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
 #define UI_ESCAPED_CHAR_PGM_LEN 3
+#define UI_MAX_DELIM_PGM_LEN 5
 
 #endif

@@ -50,16 +50,16 @@ enum class UI_ARG_HANDLING
  */
 enum class UITYPE
 {
-    UINT8_T,  ///<  8-bit unsigned integer
-    UINT16_T, ///<  16-bit unsigned integer
-    UINT32_T, ///<  32-bit unsigned integer
-    INT16_T,  ///<  16-bit signed integer
-    FLOAT,    ///<  32-bit float
-    CHAR,     ///<  8-bit char
-    C_STRING, ///<  array of 8-bit char
-    NOTYPE,   ///<  no type validation
-    NO_ARGS,  ///<  no arguments expected
-    _LAST     ///<  reserved
+    UINT8_T,    ///<  8-bit unsigned integer
+    UINT16_T,   ///<  16-bit unsigned integer
+    UINT32_T,   ///<  32-bit unsigned integer
+    INT16_T,    ///<  16-bit signed integer
+    FLOAT,      ///<  32-bit float
+    CHAR,       ///<  8-bit char
+    START_STOP, ///<  array of 8-bit char
+    NOTYPE,     ///<  no type validation
+    NO_ARGS,    ///<  no arguments expected
+    _LAST       ///<  reserved
 };
 
 /**
@@ -67,16 +67,35 @@ enum class UITYPE
  * @brief type string literals
  */
 const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",  // 8-bit unsigned integer
-    "UINT16_T", // 16-bit unsigned integer
-    "UINT32_T", // 32-bit unsigned integer
-    "INT16_T",  // 16-bit signed integer
-    "FLOAT",    // 32-bit floating point number
-    "CHAR",     // single char
-    "C-STRING", // c-string without spaces if not enclosed with ""
-    "NOTYPE",   // user defined NOTYPE
-    "NO_ARGS",  // no arguments expected
-    "error"     // error
+    "UINT8_T",   // 8-bit unsigned integer
+    "UINT16_T",  // 16-bit unsigned integer
+    "UINT32_T",  // 32-bit unsigned integer
+    "INT16_T",   // 16-bit signed integer
+    "FLOAT",     // 32-bit floating point number
+    "CHAR",      // single char
+    "STARTSTOP", // c-string enclosed with start/stop delimiters
+    "NOTYPE",    // user defined NOTYPE
+    "NO_ARGS",   // no arguments expected
+    "error"      // error
+};
+
+/**
+ * @brief proposed UserInput ctor parameters struct
+ *
+ */
+struct UserInput_ctor_prm
+{
+    char* output_buffer;                            ///< pointer to output char buffer
+    size_t output_buffer_len;                       ///< len of output char buffer
+    const char* process_name;                       ///< this process' name, can be NULL
+    const char* end_of_line_term;
+    const char* input_single_control_char_sequence; ///< two char len sequence to input a control char
+    size_t num_token_delimiters;                    ///< the number of token delimiters in delimiter_sequences
+    const char* delimiter_sequences[UI_MAX_DELIM_SEQ];               ///< string-literal "" delimiter sequence array
+    const uint8_t* delimiter_lens;
+    size_t num_start_stop_sequences;                ///< num start/stop sequences
+    const char * start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ];         ///< start/stop sequences.  Match start, match end, copy what is between
+    const uint8_t* start_stop_sequence_lens;
 };
 
 /**
@@ -161,34 +180,23 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param output_buffer default NULL, if not NULL the constructor will set `_output_enabled_` true
-     * @param output_buffer_len default ZERO, size this to length of output_buffer
-     * @param username default NULL, set to project, equipment, or user name
-     * @param end_of_line_characters EOL term, default is '\\r\\n'
-     * @param token_delimiter token demarcation
-     * @param c_string_delimiter c-string demarcation
-     * @param input_control_char_sequence two character sequence that precedes a switch char
+     * @param ui_prm UserInput_ctor_prm struct
      */
-    UserInput(char* output_buffer = NULL,
-              size_t output_buffer_len = 0,
-              const char* username = NULL,
-              const char* end_of_line_characters = "\r\n",
-              const char* token_delimiter = " ",
-              const char* c_string_delimiter = "\"",
-              const char* input_control_char_sequence = "##")
-        : _output_buffer_(output_buffer),
-          _output_enabled_((output_buffer == NULL) ? false : true),
-          _output_buffer_len_(output_buffer_len),
-          _output_buffer_bytes_left_(output_buffer_len),
-          _username_(username),
-          _term_(end_of_line_characters),
-          _term_len_(strlen(end_of_line_characters)),
-          _delim_(token_delimiter),
-          _delim_len_(strlen(token_delimiter)),
-          _c_str_delim_(c_string_delimiter),
-          _c_str_delim_len_(strlen(c_string_delimiter)),
-          _control_char_sequence_(input_control_char_sequence),
-          _control_char_sequence_len_(strlen(input_control_char_sequence)),
+    UserInput(const UserInput_ctor_prm* ui_prm)
+        : _ui_prm_(ui_prm),
+          _output_buffer_((char*)pgm_read_ptr(&_ui_prm_->output_buffer)),
+          _output_enabled_((_output_buffer_ == NULL) ? false : true),
+          _output_buffer_len_(pgm_read_dword(&_ui_prm_->output_buffer_len)),
+          _output_buffer_bytes_left_(_output_buffer_len_),
+          _process_name_((const char*)pgm_read_dword(&_ui_prm_->process_name)),
+          _term_((const char*)pgm_read_dword(&_ui_prm_->end_of_line_term)),
+          _term_len_(strlen(_term_)),
+          _delims_((const char**)pgm_read_ptr(&_ui_prm_->delimiter_sequences)),
+          _delim_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->delimiter_lens)),
+          _start_stop_seqs_((const char**)pgm_read_ptr(&_ui_prm_->start_stop_sequence_pairs)),
+          _start_stop_seq_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->start_stop_sequence_lens)),
+          _input_control_char_sequence_((const char*)pgm_read_dword(&_ui_prm_->input_single_control_char_sequence)),
+          _input_control_char_sequence_len_(strlen(_input_control_char_sequence_)),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -251,8 +259,8 @@ public:
      * class configuration, constructor variables,
      * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
-     * 
-     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared, 
+     *
+     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared,
      * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
      *
      * @param inputProcess pointer to class instance
@@ -294,7 +302,7 @@ public:
      * @return char*
      */
     char* nextArgument();
-    
+
     /**
      * @brief returns a pointer to `argument_number` token in UserInput::_token_buffer_ or NULL if there is no `argument_number` token
      *
@@ -341,14 +349,18 @@ public:
         size_t len;                        ///< length of uint8_t array
         char* token_buffer;                ///< pointer to null terminated char array
         size_t token_buffer_len;           ///< size of data + 1 + 1(if there are zero delim commands)
-        char** token_pointers;             ///< array of token_buffer pointers
-        uint8_t& token_pointer_index;      ///< index of token_pointers
         size_t num_token_ptrs;             ///< token_pointers[MAX]
-        const char** delimiter_strings;    ///< array of const char* delimiter strings
-        size_t* delimiter_lens;            ///< strlen of each delimiter
-        size_t num_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
-        const char* c_str_delim;           ///< const char* c string delimiter
-        size_t c_str_delim_len;            ///< strlen of c string delimiter
+        uint8_t& token_pointer_index;      ///< index of token_pointers
+        char** token_pointers;             ///< array of token_buffer pointers        
+
+        size_t num_token_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
+        const uint8_t* delimiter_lens;            ///< strlen of each delimiter
+        const char* delimiter_sequences[UI_MAX_DELIM_SEQ];    ///< array of const char* delimiter strings
+        
+        size_t num_start_stop_sequences;
+        const uint8_t* start_stop_sequence_lens;            ///< strlen of c string delimiter
+        const char* start_stop_sequence_pairs[UI_MAX_DELIM_SEQ];           ///< const char* c string delimiter
+        
         char& token_buffer_sep;            ///< token_buffer token delimiter
         const char* control_char_sequence; ///< two character sequence preceding a switch char
     };
@@ -401,24 +413,28 @@ private:
     /*
         UserInput Constructor variables
     */
+    
     // user entered constructor variables
+    const UserInput_ctor_prm* _ui_prm_;  ///< user input constructor parameters pointer
+    // end user entered constructor variables
+
+    // constructor initialized variables
     char* _output_buffer_;               ///< pointer to the output char buffer
     bool _output_enabled_;               ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
     uint16_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
-    const char* _username_;              ///< username/project name/equipment name
+    const char* _process_name_;          ///< username/project name/equipment name
     const char* _term_;                  ///< end of line characters, terminating characters, default is CRLF
     uint8_t _term_len_;                  ///< _term_ length in characters, determined in begin()
-    const char* _delim_;                 ///< input argument delimiter, space by default
-    uint8_t _delim_len_;                 ///< _delim_ length in characters, determined in begin()
-    const char* _c_str_delim_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
-    uint8_t _c_str_delim_len_;           ///< _c_str_delim_ length in characters, determined in begin()
-    const char* _control_char_sequence_; ///< input a control char sequence
-    uint8_t _control_char_sequence_len_; ///< control char sequence len
-    // end user entered constructor variables
-
-    // constructor initialized variables
+    
+    const char** _delims_;                 ///< input argument delimiter, space by default
+    uint8_t* _delim_lens_;                 ///< _delim_ length in characters, determined in begin()
+    const char** _start_stop_seqs_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
+    uint8_t* _start_stop_seq_lens_;           ///< _c_str_delim_ length in characters, determined in begin()
+    const char* _input_control_char_sequence_; ///< input a control char sequence
+    uint8_t _input_control_char_sequence_len_; ///< control char sequence len    
+    
     uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function

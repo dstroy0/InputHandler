@@ -20,23 +20,37 @@ char output_buffer[570] = {'\0'}; //  output buffer
 /*
   UserInput constructor one
 */
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffsz(output_buffer),
-    /* username */ "",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
-
-/*
-  UserInput constructor two
-  you can share one output buffer
-*/
-//UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
-//    /* size of UserInput's output buffer */ 512,
-//    /* username */ "sensor parser",
-//    /* end of line characters */ "arbitrary",
-//    /* token delimiter */ ",",
-//    /* c-string delimiter */ "^");
+const PROGMEM char delims[1][UI_MAX_DELIM_PGM_LEN] = // token delimiters
+{
+  " "
+};
+const PROGMEM uint8_t delim_lens[1] =
+{
+  1
+};
+const PROGMEM char start_stops[2][UI_MAX_DELIM_PGM_LEN] = // start stop sequence pairs
+{
+  "\"","\""
+};
+const PROGMEM uint8_t start_stop_lens[2] =
+{
+  1, 1
+};
+const PROGMEM UserInput_ctor_prm ui_prm[] = // UserInput constructor parameters
+{
+ output_buffer,
+ 570,
+ "",
+ "\r\n",
+ "##",
+ 1,
+ *delims,
+ delim_lens,
+ 1,
+ *start_stops,
+ start_stop_lens
+};
+UserInput inputHandler(ui_prm);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -205,7 +219,7 @@ const PROGMEM Parameters type_test_param[1] = {
     UITYPE::INT16_T,  // 16-bit int
     UITYPE::FLOAT,    // 32-bit float
     UITYPE::CHAR,     // char
-    UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
+    UITYPE::START_STOP, // regex-like start stop char sequences
     UITYPE::NOTYPE    // special type, no type validation performed
   }
 };
