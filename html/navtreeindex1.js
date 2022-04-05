@@ -1,15 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"dc/d7a/struct_user_input__ctor__prm.html#a59a90c4efa4459213abed9f2c7efd647":[1,3,0,1],
-"dc/d7a/struct_user_input__ctor__prm.html#a5fa56a9bab0abc0ad6fa218cc665922a":[1,3,0,6],
-"dc/d7a/struct_user_input__ctor__prm.html#a77fdffbba8067f0192516e7939bab6f1":[1,3,0,0],
-"dc/d7a/struct_user_input__ctor__prm.html#a9b9aacb3e590a2001c29b209df305db4":[1,3,0,2],
-"dc/d7a/struct_user_input__ctor__prm.html#accb98717ee4fcae33bb15b51a2b4d707":[1,3,0,8],
-"dc/d7a/struct_user_input__ctor__prm.html#aee1c3e33eedacecf87af9f7199fd0f91":[1,3,0,7],
-"dc/de3/struct_user_input_1_1__launch_logic_param.html":[2,0,3,0],
-"dc/de3/struct_user_input_1_1__launch_logic_param.html#a20c3f37516513ad745c71ed73d82b940":[2,0,3,0,2],
-"dc/de3/struct_user_input_1_1__launch_logic_param.html#a464e44adbc43a4c9fbc5216df1156970":[2,0,3,0,5],
-"dc/de3/struct_user_input_1_1__launch_logic_param.html#a5e05657abdde42ee1f3573b797912142":[2,0,3,0,4],
 "dc/de3/struct_user_input_1_1__launch_logic_param.html#a6fed1fcb62752985f70e154607a29eb1":[2,0,3,0,7],
 "dc/de3/struct_user_input_1_1__launch_logic_param.html#ac2a664c6f4122f41e5753ef6a571c948":[2,0,3,0,6],
 "dc/de3/struct_user_input_1_1__launch_logic_param.html#ac3ca9260c75ff01ba0cfdd91f8ab1b08":[2,0,3,0,3],

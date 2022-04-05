@@ -18,5 +18,5 @@ var advanced_2_get_command_from_stream_2_get_command_from_stream_8ino =
     [ "uc_help_", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#abea6eca563b083379230aa0fd5fe0750", null ],
     [ "uc_settings_", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a2437fc0cec5e390bfb2da00affe1ce18", null ],
     [ "uc_test_", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#af3b53c15fba8771b601cd4912811bea7", null ],
-    [ "ui_prm", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a03344b2750768094cb276f2ed25828f4", null ]
+    [ "ui_prm", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a21da9da223d405ee366ca4aae5b5f4d4", null ]
 ];
