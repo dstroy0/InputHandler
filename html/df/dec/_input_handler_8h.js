@@ -19,7 +19,7 @@ var _input_handler_8h =
       [ "INT16_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436", null ],
       [ "FLOAT", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6", null ],
       [ "CHAR", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063", null ],
-      [ "C_STRING", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00", null ],
+      [ "START_STOP", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef", null ],
       [ "NOTYPE", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc", null ],
       [ "NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]

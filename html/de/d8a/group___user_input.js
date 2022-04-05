@@ -1,5 +1,18 @@
 var group___user_input =
 [
+    [ "UserInput_ctor_prm", "dc/d7a/struct_user_input__ctor__prm.html", [
+      [ "delimiter_lens", "dc/d7a/struct_user_input__ctor__prm.html#a77fdffbba8067f0192516e7939bab6f1", null ],
+      [ "delimiter_sequences", "dc/d7a/struct_user_input__ctor__prm.html#a59a90c4efa4459213abed9f2c7efd647", null ],
+      [ "end_of_line_term", "dc/d7a/struct_user_input__ctor__prm.html#a9b9aacb3e590a2001c29b209df305db4", null ],
+      [ "input_single_control_char_sequence", "dc/d7a/struct_user_input__ctor__prm.html#a4c5ce62565f0c64b34772bc36ca86951", null ],
+      [ "num_start_stop_sequences", "dc/d7a/struct_user_input__ctor__prm.html#a4a55c6adddce445a0b38e50df82c5ef4", null ],
+      [ "num_token_delimiters", "dc/d7a/struct_user_input__ctor__prm.html#a0bca8270283a0a55e15000338d8d471e", null ],
+      [ "output_buffer", "dc/d7a/struct_user_input__ctor__prm.html#a5fa56a9bab0abc0ad6fa218cc665922a", null ],
+      [ "output_buffer_len", "dc/d7a/struct_user_input__ctor__prm.html#aee1c3e33eedacecf87af9f7199fd0f91", null ],
+      [ "process_name", "dc/d7a/struct_user_input__ctor__prm.html#accb98717ee4fcae33bb15b51a2b4d707", null ],
+      [ "start_stop_sequence_lens", "dc/d7a/struct_user_input__ctor__prm.html#a244f669c5c27de2e9dcd0e05f6e8ab5f", null ],
+      [ "start_stop_sequence_pairs", "dc/d7a/struct_user_input__ctor__prm.html#a1988983e973bfdec9ba27966d632e72c", null ]
+    ] ],
     [ "Parameters", "d0/dbf/struct_parameters.html", [
       [ "arg_type_arr", "d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2", null ],
       [ "argument_flag", "d0/dbf/struct_parameters.html#a3397bfe84120d79b047bd5c83d2d5c53", null ],
@@ -28,7 +41,7 @@ var group___user_input =
       [ "UITYPE::INT16_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436", null ],
       [ "UITYPE::FLOAT", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6", null ],
       [ "UITYPE::CHAR", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063", null ],
-      [ "UITYPE::C_STRING", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00", null ],
+      [ "UITYPE::START_STOP", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef", null ],
       [ "UITYPE::NOTYPE", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc", null ],
       [ "UITYPE::NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "UITYPE::_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]

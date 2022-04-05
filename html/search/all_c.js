@@ -38,12 +38,13 @@ var searchData=
   ['nmeaparser_2eino_35',['NMEAparser.ino',['../dd/d65/_n_m_e_aparser_8ino.html',1,'']]],
   ['nmeasentencefunc_2eh_36',['NMEAsentencefunc.h',['../d2/d20/_n_m_e_asentencefunc_8h.html',1,'']]],
   ['nmeasentenceparam_2eh_37',['NMEAsentenceparam.h',['../da/dff/_n_m_e_asentenceparam_8h.html',1,'']]],
-  ['no_5fargs_38',['no_args',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741',1,'InputHandler.h']]],
-  ['no_5fargs_39',['NO_ARGS',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716',1,'InputHandler.h']]],
+  ['no_5fargs_38',['NO_ARGS',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716',1,'InputHandler.h']]],
+  ['no_5fargs_39',['no_args',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741',1,'InputHandler.h']]],
   ['notype_40',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]],
   ['nprms_41',['nprms',['../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'InputHandler_config.h']]],
   ['num_5fargs_42',['num_args',['../d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559',1,'Parameters']]],
-  ['num_5fdelimiters_43',['num_delimiters',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a09dd657cb2b61e16d1b540f56e6cbf17',1,'UserInput::getTokensParam']]],
-  ['num_5ftoken_5fptrs_44',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
-  ['num_5fzdc_45',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
+  ['num_5fstart_5fstop_5fsequences_43',['num_start_stop_sequences',['../dc/d7a/struct_user_input__ctor__prm.html#a4a55c6adddce445a0b38e50df82c5ef4',1,'UserInput_ctor_prm::num_start_stop_sequences()'],['../d7/d74/struct_user_input_1_1get_tokens_param.html#a7e09504ba842a6f8ae93272547179088',1,'UserInput::getTokensParam::num_start_stop_sequences()']]],
+  ['num_5ftoken_5fdelimiters_44',['num_token_delimiters',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a45a115dcee89ee7f3f0b10243faa0422',1,'UserInput::getTokensParam::num_token_delimiters()'],['../dc/d7a/struct_user_input__ctor__prm.html#a0bca8270283a0a55e15000338d8d471e',1,'UserInput_ctor_prm::num_token_delimiters()']]],
+  ['num_5ftoken_5fptrs_45',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
+  ['num_5fzdc_46',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
 ];

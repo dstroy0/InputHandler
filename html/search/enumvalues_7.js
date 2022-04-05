@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_5farr_0',['type_arr',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f',1,'InputHandler.h']]]
+  ['start_5fstop_0',['START_STOP',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef',1,'InputHandler.h']]]
 ];

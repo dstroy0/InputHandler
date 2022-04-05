@@ -121,6 +121,8 @@ $(document).ready(function(){initNavTree('de/d8a/group___user_input.html','../..
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d7a/struct_user_input__ctor__prm.html">UserInput_ctor_prm</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dbf/struct_parameters.html">Parameters</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -142,7 +144,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6">UITYPE::FLOAT</a>
 , <a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063">UITYPE::CHAR</a>
-, <a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00">UITYPE::C_STRING</a>
+, <a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef">UITYPE::START_STOP</a>
 , <a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>
 , <br />
 &#160;&#160;<a class="el" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">UITYPE::NO_ARGS</a>
@@ -244,7 +246,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063"></a>CHAR&#160;</td><td class="fielddoc"><p >8-bit char </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a60951cfc231191b9a8b9b435957ddc00"></a>C_STRING&#160;</td><td class="fielddoc"><p >array of 8-bit char </p>
+<tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef" name="gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef"></a>START_STOP&#160;</td><td class="fielddoc"><p >array of 8-bit char </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc" name="gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"></a>NOTYPE&#160;</td><td class="fielddoc"><p >no type validation </p>
 </td></tr>
@@ -269,16 +271,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    <span class="stringliteral">&quot;UINT8_T&quot;</span>,  </div>
-<div class="line">    <span class="stringliteral">&quot;UINT16_T&quot;</span>, </div>
-<div class="line">    <span class="stringliteral">&quot;UINT32_T&quot;</span>, </div>
-<div class="line">    <span class="stringliteral">&quot;INT16_T&quot;</span>,  </div>
-<div class="line">    <span class="stringliteral">&quot;FLOAT&quot;</span>,    </div>
-<div class="line">    <span class="stringliteral">&quot;CHAR&quot;</span>,     </div>
-<div class="line">    <span class="stringliteral">&quot;C-STRING&quot;</span>, </div>
-<div class="line">    <span class="stringliteral">&quot;NOTYPE&quot;</span>,   </div>
-<div class="line">    <span class="stringliteral">&quot;NO_ARGS&quot;</span>,  </div>
-<div class="line">    <span class="stringliteral">&quot;error&quot;</span>     </div>
+<div class="line">    <span class="stringliteral">&quot;UINT8_T&quot;</span>,   </div>
+<div class="line">    <span class="stringliteral">&quot;UINT16_T&quot;</span>,  </div>
+<div class="line">    <span class="stringliteral">&quot;UINT32_T&quot;</span>,  </div>
+<div class="line">    <span class="stringliteral">&quot;INT16_T&quot;</span>,   </div>
+<div class="line">    <span class="stringliteral">&quot;FLOAT&quot;</span>,     </div>
+<div class="line">    <span class="stringliteral">&quot;CHAR&quot;</span>,      </div>
+<div class="line">    <span class="stringliteral">&quot;STARTSTOP&quot;</span>, </div>
+<div class="line">    <span class="stringliteral">&quot;NOTYPE&quot;</span>,    </div>
+<div class="line">    <span class="stringliteral">&quot;NO_ARGS&quot;</span>,   </div>
+<div class="line">    <span class="stringliteral">&quot;error&quot;</span>      </div>
 <div class="line">}</div>
 </div><!-- fragment -->
 <p>type string literals </p>
