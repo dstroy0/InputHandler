@@ -39,7 +39,7 @@ const PROGMEM uint8_t start_stop_lens[2] =
 const PROGMEM UserInput_ctor_prm ui_prm[1] = // UserInput constructor parameters
 {
  output_buffer,
- 570,
+ buffsz(output_buffer),
  "",
  "\r\n",
  "##",
@@ -242,7 +242,7 @@ void setup()
   inputHandler.addCommand(uc_test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands();               // formats output_buffer with the command list
-
+  inputHandler.listSettings(&inputHandler);
   inputHandler.outputToStream(Serial); // class output
 }
 
