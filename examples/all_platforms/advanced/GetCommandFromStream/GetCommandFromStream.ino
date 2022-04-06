@@ -15,42 +15,26 @@
   you have to empty it out yourself with
   OutputToStream()
 */
-char output_buffer[570] = {'\0'}; //  output buffer
+char output_buffer[627] = {'\0'}; //  output buffer
 
-/*
-  UserInput constructor one
-*/
-const PROGMEM char delims[1][UI_MAX_DELIM_PGM_LEN] = // token delimiters
+const PROGMEM UserInput_input_prm input_prm =
 {
-  " "
+  "",
+  "\r\n",
+  "##",
+  2,
+  {" ", ","},
+  {1, 1},
+  1,
+  {"\"", "\""},
+  {1, 1}
 };
-const PROGMEM uint8_t delim_lens[1] =
+const PROGMEM UserInput_output_prm output_prm =
 {
-  1
+  output_buffer,
+  buffsz(output_buffer)
 };
-const PROGMEM char start_stops[2][UI_MAX_DELIM_PGM_LEN] = // start stop sequence pairs
-{
-  "\"","\""
-};
-const PROGMEM uint8_t start_stop_lens[2] =
-{
-  1, 1
-};
-const PROGMEM UserInput_ctor_prm ui_prm[1] = // UserInput constructor parameters
-{
- output_buffer,
- buffsz(output_buffer),
- "",
- "\r\n",
- "##",
- 1,
- delims,
- delim_lens,
- 1,
- start_stops,
- start_stop_lens
-};
-UserInput inputHandler(ui_prm);
+UserInput inputHandler(input_prm, output_prm);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -241,8 +225,11 @@ void setup()
   inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
   inputHandler.addCommand(uc_test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
-  inputHandler.listCommands();               // formats output_buffer with the command list
+  
   inputHandler.listSettings(&inputHandler);
+  inputHandler.outputToStream(Serial); // class output
+
+  inputHandler.listCommands();               // formats output_buffer with the command list
   inputHandler.outputToStream(Serial); // class output
 }
 

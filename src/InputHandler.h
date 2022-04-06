@@ -79,23 +79,23 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
     "error"      // error
 };
 
-/**
- * @brief proposed UserInput ctor parameters struct
- *
- */
-struct UserInput_ctor_prm
+struct UserInput_input_prm
 {
-    char* output_buffer;                            ///< pointer to output char buffer
-    size_t output_buffer_len;                       ///< len of output char buffer
-    const char* process_name;                       ///< this process' name, can be NULL
-    const char* end_of_line_term;
-    const char* input_single_control_char_sequence; ///< two char len sequence to input a control char
-    size_t num_token_delimiters;                    ///< the number of token delimiters in delimiter_sequences
-    const char (*delimiter_sequences)[UI_MAX_DELIM_SEQ];               ///< string-literal "" delimiter sequence array
-    const uint8_t* delimiter_lens;
-    size_t num_start_stop_sequences;                ///< num start/stop sequences
-    const char (*start_stop_sequence_pairs)[UI_MAX_DELIM_SEQ];         ///< start/stop sequences.  Match start, match end, copy what is between
-    const uint8_t* start_stop_sequence_lens;
+    char process_name[UI_PROCESS_NAME_PGM_LEN];                          ///< this process' name, can be NULL
+    char end_of_line_term[UI_EOL_SEQ_PGM_LEN];                           ///<
+    char input_control_char_sequence[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN]; ///< two char len sequence to input a control char
+    size_t num_token_delimiters;                                         ///< the number of token delimiters in delimiter_sequences
+    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN];    ///< string-literal "" delimiter sequence array
+    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];
+    size_t num_start_stop_sequences;                                                  ///< num start/stop sequences
+    char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
+    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];
+};
+
+struct UserInput_output_prm
+{
+    char* output_buffer;      ///< pointer to output char buffer
+    size_t output_buffer_len; ///< len of output char buffer
 };
 
 /**
@@ -182,21 +182,14 @@ public:
      *
      * @param ui_prm UserInput_ctor_prm struct
      */
-    UserInput(const UserInput_ctor_prm* ui_prm)
-        : //_ui_ctor_prm_(memcpy_P(&_ui_ctor_prm_, ui_prm, sizeof(_ui_ctor_prm_))),
-        //   _output_buffer_((char*)pgm_read_ptr(&_ui_prm_->output_buffer)),
-        //   _output_enabled_((_output_buffer_ == NULL) ? false : true),
-        //   _output_buffer_len_(pgm_read_dword(&_ui_prm_->output_buffer_len)),
-        //   _output_buffer_bytes_left_(_output_buffer_len_),
-        //   _process_name_((const char*)pgm_read_dword(&_ui_prm_->process_name)),
-        //   _term_((const char*)pgm_read_dword(&_ui_prm_->end_of_line_term)),
-        //   _term_len_(strlen(_term_)),
-        //   _delims_((const char**)pgm_read_ptr(&_ui_prm_->delimiter_sequences)),
-        //   _delim_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->delimiter_lens)),
-        //   _start_stop_seqs_((const char**)pgm_read_ptr(&_ui_prm_->start_stop_sequence_pairs)),
-        //   _start_stop_seq_lens_((uint8_t*)pgm_read_ptr(&_ui_prm_->start_stop_sequence_lens)),
-        //   _input_control_char_sequence_((const char*)pgm_read_dword(&_ui_prm_->input_single_control_char_sequence)),
-        //   _input_control_char_sequence_len_(strlen(_input_control_char_sequence_)),
+    UserInput(const UserInput_input_prm& input_prm, const UserInput_output_prm& output_prm)
+        : _input_prm_(input_prm),
+          _output_prm_(output_prm),
+          _output_buffer_((char*)pgm_read_ptr(&output_prm.output_buffer)),
+          _output_enabled_((((char*)pgm_read_ptr(&output_prm.output_buffer)) == NULL) ? false : true),
+          _output_buffer_len_(pgm_read_dword(&output_prm.output_buffer_len)),
+          _output_buffer_bytes_left_(pgm_read_dword(&output_prm.output_buffer_len)),
+          _term_len_(strlen((char*)pgm_read_dword(&input_prm.end_of_line_term))),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -219,10 +212,6 @@ public:
           _stream_data_index_(0),
           _begin_(false)
     {
-        memcpy_P(&_ui_ctor_prm_, ui_prm, sizeof(_ui_ctor_prm_));
-        _term_len_ = strlen(_ui_ctor_prm_.end_of_line_term);
-        _output_enabled_ = (_ui_ctor_prm_.output_buffer == NULL) ? false : true;
-        _output_buffer_bytes_left_ = _ui_ctor_prm_.output_buffer_len;
     }
 
     /**
@@ -349,24 +338,14 @@ public:
      */
     struct getTokensParam
     {
-        uint8_t* data;                     ///< pointer to uint8_t array
-        size_t len;                        ///< length of uint8_t array
-        char* token_buffer;                ///< pointer to null terminated char array
-        size_t token_buffer_len;           ///< size of data + 1 + 1(if there are zero delim commands)
-        size_t num_token_ptrs;             ///< token_pointers[MAX]
-        uint8_t& token_pointer_index;      ///< index of token_pointers
-        char** token_pointers;             ///< array of token_buffer pointers        
-
-        size_t num_token_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
-        const uint8_t* delimiter_lens;            ///< strlen of each delimiter
-        const char (*delimiter_sequences)[UI_MAX_DELIM_SEQ];    ///< array of const char* delimiter strings
-        
-        size_t num_start_stop_sequences;
-        const uint8_t* start_stop_sequence_lens;            ///< strlen of c string delimiter
-        const char (*start_stop_sequence_pairs)[UI_MAX_DELIM_SEQ];           ///< const char* c string delimiter
-        
-        char& token_buffer_sep;            ///< token_buffer token delimiter
-        const char* control_char_sequence; ///< two character sequence preceding a switch char
+        uint8_t* data;                ///< pointer to uint8_t array
+        size_t len;                   ///< length of uint8_t array
+        char* token_buffer;           ///< pointer to null terminated char array
+        size_t token_buffer_len;      ///< size of data + 1 + 1(if there are zero delim commands)
+        size_t num_token_ptrs;        ///< token_pointers[MAX]
+        uint8_t& token_pointer_index; ///< index of token_pointers
+        char** token_pointers;        ///< array of token_buffer pointers
+        char& token_buffer_sep;       ///< token_buffer token delimiter
     };
 
     /**
@@ -375,7 +354,7 @@ public:
      * @param gtprm UserInput::getTokensParam struct reference
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm);
+    size_t getTokens(getTokensParam& gtprm, const UserInput_input_prm& input_prm);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
@@ -417,28 +396,17 @@ private:
     /*
         UserInput Constructor variables
     */
-    
+
     // user entered constructor variables
-    
+
     // end user entered constructor variables
 
     // // constructor initialized variables
-    // char* _output_buffer_;               ///< pointer to the output char buffer
-    bool _output_enabled_;               ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    // const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
+    char* _output_buffer_;             ///< pointer to the output char buffer
+    bool _output_enabled_;             ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
     size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
-
-    // const char* _process_name_;          ///< username/project name/equipment name
-    // const char* _term_;                  ///< end of line characters, terminating characters, default is CRLF
-    uint8_t _term_len_;                  ///< _term_ length in characters, determined in begin()
-    
-    // const char** _delims_;                 ///< input argument delimiter, space by default
-    // uint8_t* _delim_lens_;                 ///< _delim_ length in characters, determined in begin()
-    // const char** _start_stop_seqs_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
-    // uint8_t* _start_stop_seq_lens_;           ///< _c_str_delim_ length in characters, determined in begin()
-    // const char* _input_control_char_sequence_; ///< input a control char sequence
-    // uint8_t _input_control_char_sequence_len_; ///< control char sequence len    
-    
+    uint8_t _term_len_; ///< _term_ length in characters, determined in begin()
     uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
@@ -466,8 +434,9 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
-    
-    UserInput_ctor_prm _ui_ctor_prm_;  ///< user input constructor parameters pointer
+
+    const UserInput_input_prm& _input_prm_; ///< user input constructor parameters pointer
+    const UserInput_output_prm& _output_prm_;
     // end constructor initialized variables
 
     // private methods
@@ -489,7 +458,8 @@ private:
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(CommandConstructor* cmd,
+    void _readCommandFromBufferErrorOutput(const UserInput_input_prm& input_prm,
+                                           CommandConstructor* cmd,
                                            Parameters& prm,
                                            bool& command_matched,
                                            bool* input_type_match_flag,
@@ -503,7 +473,7 @@ private:
      * @param prm Parameters struct reference
      * @param tokens_received amount of tokens in the token buffer
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received);
+    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UserInput_input_prm input_prm);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -524,7 +494,7 @@ private:
      *
      * @param LLprm
      */
-    void _launchLogic(_launchLogicParam& LLprm);
+    void _launchLogic(_launchLogicParam& LLprm, const UserInput_input_prm input_prm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -597,7 +567,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensDelimiters(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief get delimited c-strings from input data
@@ -607,7 +577,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensCstrings(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensCstrings(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief add uchar to token_buffer
@@ -617,7 +587,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensChar(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensChar(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
@@ -631,7 +601,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(UserInput_input_prm& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
     // end private methods
 };
 
