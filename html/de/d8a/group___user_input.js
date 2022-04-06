@@ -1,19 +1,15 @@
 var group___user_input =
 [
-    [ "UserInput_input_prm", "d1/d58/struct_user_input__input__prm.html", [
-      [ "delimiter_lens", "d1/d58/struct_user_input__input__prm.html#a8fd5492056b38d2e9dedf8b8f31e2bd5", null ],
-      [ "delimiter_sequences", "d1/d58/struct_user_input__input__prm.html#afabf81af3c5917f38cc0062d1beff358", null ],
-      [ "end_of_line_term", "d1/d58/struct_user_input__input__prm.html#ac426074d3983caa43c996facca910aa0", null ],
-      [ "input_control_char_sequence", "d1/d58/struct_user_input__input__prm.html#ae013d3470eb40b8d513c6af2e02cd530", null ],
-      [ "num_start_stop_sequences", "d1/d58/struct_user_input__input__prm.html#ade55ee4faee198abdb9974954a50dbce", null ],
-      [ "num_token_delimiters", "d1/d58/struct_user_input__input__prm.html#a77f387d0ec85bc73928fde9d66ec82cc", null ],
-      [ "process_name", "d1/d58/struct_user_input__input__prm.html#a4745fcd807fec010b3556036f6e61577", null ],
-      [ "start_stop_sequence_lens", "d1/d58/struct_user_input__input__prm.html#a775b0e38afacdc5180bcc1d8106f57a5", null ],
-      [ "start_stop_sequence_pairs", "d1/d58/struct_user_input__input__prm.html#a7a6080b0e5c2036d92eb0e077e9cc4b5", null ]
-    ] ],
-    [ "UserInput_output_prm", "d9/ddd/struct_user_input__output__prm.html", [
-      [ "output_buffer", "d9/ddd/struct_user_input__output__prm.html#a9c556a8283979a2b0a5d30144c2c6339", null ],
-      [ "output_buffer_len", "d9/ddd/struct_user_input__output__prm.html#a2e01ea4ec72de15e5e2cd591587d9d73", null ]
+    [ "UI_input_prm", "d4/d1a/struct_u_i__input__prm.html", [
+      [ "delimiter_lens", "d4/d1a/struct_u_i__input__prm.html#a963d8b8f7ba547714d2c5f8f315ac60c", null ],
+      [ "delimiter_sequences", "d4/d1a/struct_u_i__input__prm.html#a379310630abab4a8a97ca128ce76e1cd", null ],
+      [ "end_of_line_term", "d4/d1a/struct_u_i__input__prm.html#a9619a10c98eca19dab7d9d49923211f3", null ],
+      [ "input_control_char_sequence", "d4/d1a/struct_u_i__input__prm.html#a9970d29ed36f1b8420b86495aabbf203", null ],
+      [ "num_start_stop_sequences", "d4/d1a/struct_u_i__input__prm.html#a193c8e93881ecdda87f20a76097fbe9f", null ],
+      [ "num_token_delimiters", "d4/d1a/struct_u_i__input__prm.html#aa9f2245b0c409b4b8f3218442a773c60", null ],
+      [ "process_name", "d4/d1a/struct_u_i__input__prm.html#a09f87a213f6d5643a7dc9e73e751ffdf", null ],
+      [ "start_stop_sequence_lens", "d4/d1a/struct_u_i__input__prm.html#a780825f9a2faec2da51e595b89b002ce", null ],
+      [ "start_stop_sequence_pairs", "d4/d1a/struct_u_i__input__prm.html#a618be7918a78b61e6dd343000f062462", null ]
     ] ],
     [ "Parameters", "d0/dbf/struct_parameters.html", [
       [ "arg_type_arr", "d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2", null ],
@@ -48,5 +44,6 @@ var group___user_input =
       [ "UITYPE::NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "UITYPE::_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
+    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#ga6a1a8ab5b251ae1e6485cd362f4f885d", null ],
     [ "UserInput_type_strings_pgm", "de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];

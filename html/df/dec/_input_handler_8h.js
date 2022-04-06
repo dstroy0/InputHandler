@@ -24,5 +24,6 @@ var _input_handler_8h =
       [ "NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
+    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#ga6a1a8ab5b251ae1e6485cd362f4f885d", null ],
     [ "UserInput_type_strings_pgm", "de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];
