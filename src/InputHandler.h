@@ -79,23 +79,37 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
     "error"      // error
 };
 
-struct UserInput_input_prm
+/**
+ * @brief UserInput input parameters
+ *
+ */
+struct UI_input_prm
 {
-    char process_name[UI_PROCESS_NAME_PGM_LEN];                          ///< this process' name, can be NULL
-    char end_of_line_term[UI_EOL_SEQ_PGM_LEN];                           ///<
-    char input_control_char_sequence[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN]; ///< two char len sequence to input a control char
-    size_t num_token_delimiters;                                         ///< the number of token delimiters in delimiter_sequences
-    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN];    ///< string-literal "" delimiter sequence array
-    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];
+    char process_name[UI_PROCESS_NAME_PGM_LEN];                                       ///< this process' name, can be NULL
+    char end_of_line_term[UI_EOL_SEQ_PGM_LEN];                                        ///< end of line term
+    char input_control_char_sequence[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];              ///< two char len sequence to input a control char
+    size_t num_token_delimiters;                                                      ///< the number of token delimiters in delimiter_sequences
+    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN];                 ///< string-literal "" delimiter sequence array
+    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                                         ///< delimiter sequence lens
     size_t num_start_stop_sequences;                                                  ///< num start/stop sequences
     char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
-    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];
+    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
 };
 
-struct UserInput_output_prm
-{
-    char* output_buffer;      ///< pointer to output char buffer
-    size_t output_buffer_len; ///< len of output char buffer
+/**
+ * @brief UserInput default UI_input_prm
+ *
+ */
+const PROGMEM UI_input_prm _DEFAULT_UI_INPUT_PRM_[1] = {
+    "",           ///< process name
+    "\r\n",       ///< eol term
+    "##",         ///< input control char sequence
+    2,            ///< number of delimiter sequences
+    {" ", ","},   ///< delimiter sequences
+    {1, 1},       ///< delimiter sequence lens
+    1,            ///< num start stop sequence pairs
+    {"\"", "\""}, ///< start stop sequence pairs
+    {1, 1}        ///< start stop sequence lens
 };
 
 /**
@@ -182,14 +196,13 @@ public:
      *
      * @param ui_prm UserInput_ctor_prm struct
      */
-    UserInput(const UserInput_input_prm& input_prm, const UserInput_output_prm& output_prm)
-        : _input_prm_(input_prm),
-          _output_prm_(output_prm),
-          _output_buffer_((char*)pgm_read_ptr(&output_prm.output_buffer)),
-          _output_enabled_((((char*)pgm_read_ptr(&output_prm.output_buffer)) == NULL) ? false : true),
-          _output_buffer_len_(pgm_read_dword(&output_prm.output_buffer_len)),
-          _output_buffer_bytes_left_(pgm_read_dword(&output_prm.output_buffer_len)),
-          _term_len_(strlen((char*)pgm_read_dword(&input_prm.end_of_line_term))),
+    UserInput(const UI_input_prm* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
+        : _input_prm_((input_prm == NULL) ? *_DEFAULT_UI_INPUT_PRM_ : *input_prm),
+          _output_buffer_(output_buffer),
+          _output_enabled_((output_buffer == NULL) ? false : true),
+          _output_buffer_len_(output_buffer_len),
+          _output_buffer_bytes_left_(output_buffer_len),
+          _term_len_(strlen_P(input_prm->end_of_line_term)),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -354,7 +367,7 @@ public:
      * @param gtprm UserInput::getTokensParam struct reference
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm, const UserInput_input_prm& input_prm);
+    size_t getTokens(getTokensParam& gtprm, const UI_input_prm& input_prm);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
@@ -401,13 +414,14 @@ private:
 
     // end user entered constructor variables
 
-    // // constructor initialized variables
+    // constructor initialized variables
+    const UI_input_prm& _input_prm_; ///< user input constructor parameters pointer
     char* _output_buffer_;             ///< pointer to the output char buffer
     bool _output_enabled_;             ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
     size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
-    uint8_t _term_len_; ///< _term_ length in characters, determined in begin()
-    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
+    uint8_t _term_len_;                ///< _term_ length in characters, determined in begin()
+    uint8_t _term_index_;              ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
     CommandConstructor* _commands_head_;    ///< pointer to object list
@@ -434,10 +448,7 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
-
-    const UserInput_input_prm& _input_prm_; ///< user input constructor parameters pointer
-    const UserInput_output_prm& _output_prm_;
-    // end constructor initialized variables
+    //  end constructor initialized variables
 
     // private methods
     /**
@@ -458,7 +469,7 @@ private:
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(const UserInput_input_prm& input_prm,
+    void _readCommandFromBufferErrorOutput(const UI_input_prm& input_prm,
                                            CommandConstructor* cmd,
                                            Parameters& prm,
                                            bool& command_matched,
@@ -473,7 +484,7 @@ private:
      * @param prm Parameters struct reference
      * @param tokens_received amount of tokens in the token buffer
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UserInput_input_prm input_prm);
+    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UI_input_prm input_prm);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -494,7 +505,7 @@ private:
      *
      * @param LLprm
      */
-    void _launchLogic(_launchLogicParam& LLprm, const UserInput_input_prm input_prm);
+    void _launchLogic(_launchLogicParam& LLprm, const UI_input_prm input_prm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -567,7 +578,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensDelimiters(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief get delimited c-strings from input data
@@ -577,7 +588,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensCstrings(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensCstrings(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief add uchar to token_buffer
@@ -587,7 +598,7 @@ private:
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensChar(getTokensParam& gtprm, const UserInput_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensChar(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
@@ -601,7 +612,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(UserInput_input_prm& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(UI_input_prm& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
     // end private methods
 };
 
