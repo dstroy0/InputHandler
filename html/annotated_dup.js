@@ -4,5 +4,6 @@ var annotated_dup =
     [ "NMEAparse", "df/d2a/class_n_m_e_aparse.html", "df/d2a/class_n_m_e_aparse" ],
     [ "Parameters", "d0/dbf/struct_parameters.html", "d0/dbf/struct_parameters" ],
     [ "UserInput", "dc/d4b/class_user_input.html", "dc/d4b/class_user_input" ],
-    [ "UserInput_ctor_prm", "dc/d7a/struct_user_input__ctor__prm.html", "dc/d7a/struct_user_input__ctor__prm" ]
+    [ "UserInput_input_prm", "d1/d58/struct_user_input__input__prm.html", "d1/d58/struct_user_input__input__prm" ],
+    [ "UserInput_output_prm", "d9/ddd/struct_user_input__output__prm.html", "d9/ddd/struct_user_input__output__prm" ]
 ];

@@ -1,6 +1,7 @@
 <map id="UserInput" name="UserInput">
-<area shape="rect" id="node1" title="User input handler methods." alt="" coords="274,199,359,225"/>
+<area shape="rect" id="node1" title="User input handler methods." alt="" coords="359,199,445,225"/>
 <area shape="rect" id="node2" href="$df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="5,95,169,121"/>
 <area shape="rect" id="node3" href="$d0/dbf/struct_parameters.html" title="Parameters struct, this is the container that holds your command parameters." alt="" coords="39,5,135,32"/>
-<area shape="rect" id="node4" href="$dc/d7a/struct_user_input__ctor__prm.html" title="proposed UserInput ctor parameters struct" alt="" coords="323,95,473,121"/>
+<area shape="rect" id="node4" href="$d1/d58/struct_user_input__input__prm.html" title=" " alt="" coords="323,95,481,121"/>
+<area shape="rect" id="node5" href="$d9/ddd/struct_user_input__output__prm.html" title=" " alt="" coords="505,95,672,121"/>
 </map>

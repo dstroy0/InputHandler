@@ -1,17 +1,19 @@
 var group___user_input =
 [
-    [ "UserInput_ctor_prm", "dc/d7a/struct_user_input__ctor__prm.html", [
-      [ "delimiter_lens", "dc/d7a/struct_user_input__ctor__prm.html#a77fdffbba8067f0192516e7939bab6f1", null ],
-      [ "delimiter_sequences", "dc/d7a/struct_user_input__ctor__prm.html#a26a3cbfeb1f660c46d5998d0fa9dcf93", null ],
-      [ "end_of_line_term", "dc/d7a/struct_user_input__ctor__prm.html#a9b9aacb3e590a2001c29b209df305db4", null ],
-      [ "input_single_control_char_sequence", "dc/d7a/struct_user_input__ctor__prm.html#a4c5ce62565f0c64b34772bc36ca86951", null ],
-      [ "num_start_stop_sequences", "dc/d7a/struct_user_input__ctor__prm.html#a4a55c6adddce445a0b38e50df82c5ef4", null ],
-      [ "num_token_delimiters", "dc/d7a/struct_user_input__ctor__prm.html#a0bca8270283a0a55e15000338d8d471e", null ],
-      [ "output_buffer", "dc/d7a/struct_user_input__ctor__prm.html#a5fa56a9bab0abc0ad6fa218cc665922a", null ],
-      [ "output_buffer_len", "dc/d7a/struct_user_input__ctor__prm.html#aee1c3e33eedacecf87af9f7199fd0f91", null ],
-      [ "process_name", "dc/d7a/struct_user_input__ctor__prm.html#accb98717ee4fcae33bb15b51a2b4d707", null ],
-      [ "start_stop_sequence_lens", "dc/d7a/struct_user_input__ctor__prm.html#a244f669c5c27de2e9dcd0e05f6e8ab5f", null ],
-      [ "start_stop_sequence_pairs", "dc/d7a/struct_user_input__ctor__prm.html#a0fca94cb80aee94a3cf9a0b4ce3933b9", null ]
+    [ "UserInput_input_prm", "d1/d58/struct_user_input__input__prm.html", [
+      [ "delimiter_lens", "d1/d58/struct_user_input__input__prm.html#a8fd5492056b38d2e9dedf8b8f31e2bd5", null ],
+      [ "delimiter_sequences", "d1/d58/struct_user_input__input__prm.html#afabf81af3c5917f38cc0062d1beff358", null ],
+      [ "end_of_line_term", "d1/d58/struct_user_input__input__prm.html#ac426074d3983caa43c996facca910aa0", null ],
+      [ "input_control_char_sequence", "d1/d58/struct_user_input__input__prm.html#ae013d3470eb40b8d513c6af2e02cd530", null ],
+      [ "num_start_stop_sequences", "d1/d58/struct_user_input__input__prm.html#ade55ee4faee198abdb9974954a50dbce", null ],
+      [ "num_token_delimiters", "d1/d58/struct_user_input__input__prm.html#a77f387d0ec85bc73928fde9d66ec82cc", null ],
+      [ "process_name", "d1/d58/struct_user_input__input__prm.html#a4745fcd807fec010b3556036f6e61577", null ],
+      [ "start_stop_sequence_lens", "d1/d58/struct_user_input__input__prm.html#a775b0e38afacdc5180bcc1d8106f57a5", null ],
+      [ "start_stop_sequence_pairs", "d1/d58/struct_user_input__input__prm.html#a7a6080b0e5c2036d92eb0e077e9cc4b5", null ]
+    ] ],
+    [ "UserInput_output_prm", "d9/ddd/struct_user_input__output__prm.html", [
+      [ "output_buffer", "d9/ddd/struct_user_input__output__prm.html#a9c556a8283979a2b0a5d30144c2c6339", null ],
+      [ "output_buffer_len", "d9/ddd/struct_user_input__output__prm.html#a2e01ea4ec72de15e5e2cd591587d9d73", null ]
     ] ],
     [ "Parameters", "d0/dbf/struct_parameters.html", [
       [ "arg_type_arr", "d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2", null ],
