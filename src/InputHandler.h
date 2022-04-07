@@ -194,7 +194,9 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param ui_prm UserInput_ctor_prm struct
+     * @param input_prm UI_input_prm struct
+     * @param output_buffer char buffer
+     * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
     UserInput(const UI_input_prm* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
         : _input_prm_((input_prm == NULL) ? *_DEFAULT_UI_INPUT_PRM_ : *input_prm),
@@ -365,6 +367,8 @@ public:
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
      * @param gtprm UserInput::getTokensParam struct reference
+     * @param input_prm reference to UI_input_prm struct
+     * 
      * @return size_t number of tokens retrieved
      */
     size_t getTokens(getTokensParam& gtprm, const UI_input_prm& input_prm);
@@ -462,6 +466,7 @@ private:
     /**
      * @brief ReadCommandFromBuffer error output
      *
+     * @param input_prm reference to UI_input_prm struct
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
      * @param command_matched boolean reference
@@ -483,8 +488,9 @@ private:
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
      * @param tokens_received amount of tokens in the token buffer
+     * @param input_prm reference to UI_input_prm struct
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UI_input_prm input_prm);
+    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UI_input_prm& input_prm);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -504,8 +510,9 @@ private:
      * @brief function launch logic, recursive on subcommand match
      *
      * @param LLprm
+     * @param input_prm reference to UI_input_prm struct
      */
-    void _launchLogic(_launchLogicParam& LLprm, const UI_input_prm input_prm);
+    void _launchLogic(_launchLogicParam& LLprm, const UI_input_prm& input_prm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -574,6 +581,7 @@ private:
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to UI_input_prm struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
@@ -584,6 +592,7 @@ private:
      * @brief get delimited c-strings from input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to UI_input_prm struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
@@ -594,6 +603,7 @@ private:
      * @brief add uchar to token_buffer
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to UI_input_prm struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
@@ -603,6 +613,7 @@ private:
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
+     * @param input_prm reference to UI_input_prm struct
      * @param data input data
      * @param len input data length
      * @param split_input place to split input
