@@ -169,7 +169,7 @@ public:
           next_command(NULL)
     {
     }
-    const CommandParameters* prm;            ///< pointer to PROGMEM CommandParameters array
+    const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
     const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
     const uint8_t tree_depth;         ///< user input depth + 1
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
@@ -368,7 +368,7 @@ public:
      *
      * @param gtprm UserInput::getTokensParam struct reference
      * @param input_prm reference to InputProcessParameters struct
-     * 
+     *
      * @return size_t number of tokens retrieved
      */
     size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
@@ -420,12 +420,12 @@ private:
 
     // constructor initialized variables
     const InputProcessParameters& _input_prm_; ///< user input constructor parameters pointer
-    char* _output_buffer_;             ///< pointer to the output char buffer
-    bool _output_enabled_;             ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
-    size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
-    uint8_t _term_len_;                ///< _term_ length in characters, determined in begin()
-    uint8_t _term_index_;              ///< _term_ index, match all characters in term or reject the message
+    char* _output_buffer_;                     ///< pointer to the output char buffer
+    bool _output_enabled_;                     ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_len_;                ///< _output_buffer_ size in bytes
+    size_t _output_buffer_bytes_left_;         ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    uint8_t _term_len_;                        ///< _term_ length in characters, determined in begin()
+    uint8_t _term_index_;                      ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
     CommandConstructor* _commands_head_;    ///< pointer to object list
@@ -498,7 +498,7 @@ private:
     struct _launchLogicParam
     {
         CommandConstructor* cmd;     ///< CommandConstructor ptr
-        CommandParameters& prm;             ///< CommandParameters struct reference
+        CommandParameters& prm;      ///< CommandParameters struct reference
         size_t tokens_received;      ///< number of tokens retrieved from input data
         bool& all_arguments_valid;   ///< boolean array
         bool& launch_attempted;      ///< launch attempted flag

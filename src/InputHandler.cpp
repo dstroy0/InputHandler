@@ -30,7 +30,7 @@ void UserInput::addCommand(CommandConstructor& command)
 {
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
-    CommandParameters prm;             // this CommandParameters struct is referenced by the helper function _addCommandAbort()
+    CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
     bool err = false;           // CommandParameters struct error sentinel
     /*
         the reason we run through the whole CommandParameters array instead of breaking
@@ -223,7 +223,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor* cmd;       // command parameters pointer
-    CommandParameters prm;                // CommandParameters struct
+    CommandParameters prm;         // CommandParameters struct
 
     // getTokens parameters structure
     getTokensParam gtprm = {

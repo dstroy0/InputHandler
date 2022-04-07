@@ -1,5 +1,6 @@
 nprms		LITERAL1
 buffsz		LITERAL1
+nelems		LITERAL1
 root	KEYWORD2
 UserInput	KEYWORD2
 UITYPE		KEYWORD2
@@ -10,13 +11,16 @@ UINT32_T	KEYWORD2
 INT16_T		KEYWORD2
 FLOAT		KEYWORD2
 CHAR		KEYWORD2
-C_STRING	KEYWORD2
+START_STOP	KEYWORD2
 NOTYPE		KEYWORD2
 NO_ARGS		KEYWORD2
 _LAST		KEYWORD2
-Parameters	KEYWORD2
+InputProcessParameters	KEYWORD2
+CommandParameters	KEYWORD2
 CommandConstructor	KEYWORD2
+begin		KEYWORD2
 nextArgument		KEYWORD2
+getArgument		KEYWORD2
 addCommand		KEYWORD2
 readCommandFromBuffer	KEYWORD2
 getCommandFromStream	KEYWORD2
@@ -27,6 +31,9 @@ outputIsAvailable	KEYWORD2
 outputIsEnabled		KEYWORD2
 outputToStream		KEYWORD2
 clearOutputBuffer	KEYWORD2
+getTokens	KEYWORD2
+validateNullSepInput	KEYWORD2
+mIndex	KEYWORD2
 inputHandler		KEYWORD1
 inputProcess		KEYWORD1
 no_args		KEYWORD2
