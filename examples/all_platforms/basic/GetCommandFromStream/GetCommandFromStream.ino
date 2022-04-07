@@ -34,7 +34,7 @@ void uc_hello_(UserInput *inputProcess)
 /*
   command parameters
 */
-const PROGMEM Parameters type_test_param[1] =
+const PROGMEM CommandParameters type_test_param[1] =
 {
   uc_hello_,                // function name
   "hello",                  // command string

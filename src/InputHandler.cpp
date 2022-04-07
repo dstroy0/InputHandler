@@ -175,7 +175,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         return;
     }
     InputProcessParameters input_prm;
-    memcpy_P(&input_prm, &_input_prm_, sizeof(input_prm));
+    memcpy_P(&input_prm, &_input_prm_, sizeof(input_prm));        
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), input_prm.process_name);
@@ -317,12 +317,12 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         }
         _stream_buffer_allocated_ = true;
         _term_index_ = 0;
-    }
+    }    
     InputProcessParameters input_prm;
     memcpy_P(&input_prm, &_input_prm_, sizeof(input_prm));
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
-    {
+    {        
         rc[_stream_data_index_] = stream.read();
         if (rc[_stream_data_index_] == input_prm.end_of_line_term[_term_index_])
         {
@@ -342,7 +342,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         }
     }
     if (_new_stream_data_ == true)
-    {
+    {        
         UserInput::readCommandFromBuffer(_stream_data_, _stream_data_index_, num_zdc, zdc);
         _stream_data_index_ = 0;
         _new_stream_data_ = false;

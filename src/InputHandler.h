@@ -204,7 +204,7 @@ public:
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_len_(output_buffer_len),
           _output_buffer_bytes_left_(output_buffer_len),
-          _term_len_(strlen_P(input_prm->end_of_line_term)),
+          _term_len_(strlen_P(((input_prm == NULL) ? _DEFAULT_UI_INPUT_PRM_->end_of_line_term : input_prm->end_of_line_term))),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
