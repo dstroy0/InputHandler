@@ -75,7 +75,7 @@ var NAVTREEINDEX0 =
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html":[3,0,0,0,1,0,0],
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a13c4d15205902cce6ede1956aa3695c5":[3,0,0,0,1,0,0,2],
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d":[3,0,0,0,1,0,0,1],
-"d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a7ade8c5209539ba01c1f3eccd4aa9023":[3,0,0,0,1,0,0,5],
+"d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ab38d8ada24e71cc390858ef569d1c5ef":[3,0,0,0,1,0,0,5],
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ad788839a36a76970581e00115020f08e":[3,0,0,0,1,0,0,3],
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ae9a111587bc2d93326b9948306f16142":[3,0,0,0,1,0,0,4],
 "d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#af3b53c15fba8771b601cd4912811bea7":[3,0,0,0,1,0,0,6],
