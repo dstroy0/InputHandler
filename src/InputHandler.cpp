@@ -30,17 +30,17 @@ void UserInput::addCommand(CommandConstructor& command)
 {
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
-    Parameters prm;             // this Parameters struct is referenced by the helper function _addCommandAbort()
-    bool err = false;           // Parameters struct error sentinel
+    CommandParameters prm;             // this CommandParameters struct is referenced by the helper function _addCommandAbort()
+    bool err = false;           // CommandParameters struct error sentinel
     /*
-        the reason we run through the whole Parameters array instead of breaking
+        the reason we run through the whole CommandParameters array instead of breaking
         on error is to give users clues as to what might be wrong with their
-        command Parameters
+        command CommandParameters
     */
     for (size_t i = 0; i < command.param_array_len; ++i)
     {
         memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
-        if (!UserInput::_addCommandAbort(command, prm)) // input Parameters error checking
+        if (!UserInput::_addCommandAbort(command, prm)) // input CommandParameters error checking
         {
             err = true;
         }
@@ -115,8 +115,8 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "\nUserInput constructor:\n"
                             "username = \"%s\"\n"
                             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
-                            "_max_depth_ (found from input Parameters) = %u\n"
-                            "_max_args_ (found from input Parameters) = %u\n"
+                            "_max_depth_ (found from input CommandParameters) = %u\n"
+                            "_max_args_ (found from input CommandParameters) = %u\n"
                             "input_control_char_sequence = \"%s\", escaped for display\n"
                             "end_of_line_characters = \"%s\", escaped for display\n"),
                        UI_MAX_ARGS,
@@ -167,7 +167,7 @@ void UserInput::listCommands()
     }
 }
 
-void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const Parameters** zdc)
+void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
 {
     // error checking
     if (!_begin_) // error
@@ -223,7 +223,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor* cmd;       // command parameters pointer
-    Parameters prm;                // Parameters struct
+    CommandParameters prm;                // CommandParameters struct
 
     // getTokens parameters structure
     getTokensParam gtprm = {
@@ -260,7 +260,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));          // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
         if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, cmd_len_pgm) == false) // match root command
         {
-            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move Parameters variables from PROGMEM to sram for work
+            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
             _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
             command_matched = true;                      // root command match flag
@@ -301,7 +301,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     delete[] input_type_match_flag;
 }
 
-void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const Parameters** zdc)
+void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
 {
     if (!_begin_) // error
     {
@@ -533,7 +533,7 @@ inline void UserInput::_ui_out(const char* fmt, ...)
     }
 }
 
-inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm, CommandConstructor* cmd, Parameters& prm, bool& command_matched, bool* input_type_match_flag, bool& all_arguments_valid, uint8_t* data)
+inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm, CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool* input_type_match_flag, bool& all_arguments_valid, uint8_t* data)
 {
     if (UserInput::outputIsEnabled()) // format a string with useful information
     {
@@ -612,7 +612,7 @@ inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParam
 }
 
 // clang-format off
-inline void UserInput::_launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const InputProcessParameters& input_prm)
+inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const InputProcessParameters& input_prm)
 {
     if (UserInput::outputIsEnabled())
     {
@@ -804,7 +804,7 @@ inline char UserInput::_combineControlCharacters(char input)
 }
 // clang-format on
 
-bool UserInput::_addCommandAbort(CommandConstructor& cmd, Parameters& prm)
+bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
 {
     bool error = true;
     if (prm.function == NULL && prm.depth == 0)
@@ -859,18 +859,18 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, Parameters& prm)
     {
         if (prm.depth > 0)
         {
-            UserInput::_ui_out(PSTR("%s Parameters error! Subcommand not added.\n"), prm.command);
+            UserInput::_ui_out(PSTR("%s CommandParameters error! Subcommand not added.\n"), prm.command);
         }
         else
         {
-            UserInput::_ui_out(PSTR("%s Parameters error! Command not added.\n"), prm.command);
+            UserInput::_ui_out(PSTR("%s CommandParameters error! Command not added.\n"), prm.command);
         }
     }
     return error;
 }
 
 // clang-format off
-inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
+inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
 {
     if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
     if (prm.argument_flag == UI_ARG_HANDLING::one_type) return prm.arg_type_arr[0];
@@ -880,7 +880,7 @@ inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 }
 // clang-format on
 
-inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_flag, Parameters& prm, bool& all_arguments_valid)
+inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid)
 {
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
@@ -1042,11 +1042,11 @@ inline void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessP
     }
 }
 
-bool UserInput::_splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const Parameters** zdc)
+bool UserInput::_splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const CommandParameters** zdc)
 {
     for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
     {
-        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from Parameters object
+        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from CommandParameters object
         if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false)      // match zdc
         {
             memcpy(token_buffer, data, cmd_len_pgm);                                                                     // copy the command into token buffer

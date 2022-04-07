@@ -80,7 +80,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 };
 
 /**
- * @brief UserInput input parameters
+ * @brief UserInput input process parameters, constructor parameters
  *
  */
 struct InputProcessParameters
@@ -114,17 +114,17 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_[1] = {
 
 /**
  * @brief forward declaration of UserInput class for
- * Parameters struct and CommandConstructor class
+ * CommandParameters struct and CommandConstructor class
  */
 class UserInput;
 
 /**
- * @brief Parameters struct, this is the container that holds your command parameters
+ * @brief CommandParameters struct, this is the container that holds your command parameters
  *
- * Every command and subcommand has an associated Parameters object, this is the information
+ * Every command and subcommand has an associated CommandParameters object, this is the information
  * that the input process needs to know about your command
  */
-struct Parameters
+struct CommandParameters
 {
     void (*function)(UserInput*);     ///< void function pointer, void your_function(UserInput *inputProcess)
     char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
@@ -155,12 +155,12 @@ public:
      * object contains a reference CommandConstructor::next_command to the next node
      * in the linked-list.  The list is linked together in UserInput::addCommand().
      *
-     * Before using, construct a UserInput object and a Parameters object.
+     * Before using, construct a UserInput object and a CommandParameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const Parameters* parameters,
+    CommandConstructor(const CommandParameters* parameters,
                        const uint8_t parameter_array_elements = 1,
                        const uint8_t tree_depth = 0)
         : prm(parameters),
@@ -169,7 +169,7 @@ public:
           next_command(NULL)
     {
     }
-    const Parameters* prm;            ///< pointer to PROGMEM Parameters array
+    const CommandParameters* prm;            ///< pointer to PROGMEM CommandParameters array
     const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
     const uint8_t tree_depth;         ///< user input depth + 1
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
@@ -242,7 +242,7 @@ public:
     /**
      * @brief adds user commands to the input process
      *
-     * This function inspects Parameters for errors and
+     * This function inspects CommandParameters for errors and
      * reports the errors to the user if they have enabled output.
      * If an error is detected in the root command or any of
      * its subcommands, the entire command tree is rejected.
@@ -286,10 +286,10 @@ public:
      * silent return if `_begin_` == false
      * @param data a buffer with characters
      * @param len the size of the buffer
-     * @param num_zdc size of Parameters pointers array
-     * @param zdc array of Parameters pointers
+     * @param num_zdc size of CommandParameters pointers array
+     * @param zdc array of CommandParameters pointers
      */
-    void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
@@ -299,10 +299,10 @@ public:
      * silent return if `_begin_` == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param num_zdc size of Parameters pointers array
-     * @param zdc array of Parameters pointers
+     * @param num_zdc size of CommandParameters pointers array
+     * @param zdc array of CommandParameters pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
@@ -468,7 +468,7 @@ private:
      *
      * @param input_prm reference to InputProcessParameters struct
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param command_matched boolean reference
      * @param input_type_match_flag boolean argument type match flag array
      * @param all_arguments_valid argument error sentinel
@@ -476,7 +476,7 @@ private:
      */
     void _readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm,
                                            CommandConstructor* cmd,
-                                           Parameters& prm,
+                                           CommandParameters& prm,
                                            bool& command_matched,
                                            bool* input_type_match_flag,
                                            bool& all_arguments_valid,
@@ -486,11 +486,11 @@ private:
      * @brief launches either (this) function or the root command function
      *
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param tokens_received amount of tokens in the token buffer
      * @param input_prm reference to InputProcessParameters struct
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const InputProcessParameters& input_prm);
+    void _launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const InputProcessParameters& input_prm);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -498,7 +498,7 @@ private:
     struct _launchLogicParam
     {
         CommandConstructor* cmd;     ///< CommandConstructor ptr
-        Parameters& prm;             ///< Parameters struct reference
+        CommandParameters& prm;             ///< CommandParameters struct reference
         size_t tokens_received;      ///< number of tokens retrieved from input data
         bool& all_arguments_valid;   ///< boolean array
         bool& launch_attempted;      ///< launch attempted flag
@@ -535,14 +535,14 @@ private:
     char _combineControlCharacters(char input);
 
     /**
-     * @brief determines if input Parameters struct is valid before adding to linked-list
+     * @brief determines if input CommandParameters struct is valid before adding to linked-list
      *
      * @param cmd CommandConstructor reference
-     * @param prm reference to Parameters struct in addCommand
+     * @param prm reference to CommandParameters struct in addCommand
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
-    bool _addCommandAbort(CommandConstructor& cmd, Parameters& prm);
+    bool _addCommandAbort(CommandConstructor& cmd, CommandParameters& prm);
 
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
@@ -551,19 +551,19 @@ private:
      * @param index argument number
      * @return UITYPE argument type
      */
-    UITYPE _getArgType(Parameters& prm, size_t index = 0);
+    UITYPE _getArgType(CommandParameters& prm, size_t index = 0);
 
     /**
-     * @brief validate the arguments as specified in the user defined Parameters struct
+     * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
      * @param tokens_received how many tokens are left after matching is performed
      * @param input_type_match_flag input type validation flags
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param all_arguments_valid error sentinel
      */
     void _getArgs(size_t& tokens_received,
                   bool* input_type_match_flag,
-                  Parameters& prm,
+                  CommandParameters& prm,
                   bool& all_arguments_valid);
 
     /**
@@ -623,7 +623,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
     // end private methods
 };
 

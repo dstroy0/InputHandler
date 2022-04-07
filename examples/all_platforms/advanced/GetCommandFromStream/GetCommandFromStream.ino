@@ -122,10 +122,10 @@ void uc_test_input_types(UserInput* inputProcess)
 }
 
 /**
-   @brief Parameters struct for uc_help_
+   @brief CommandParameters struct for uc_help_
 
 */
-const PROGMEM Parameters help_param[1] =
+const PROGMEM CommandParameters help_param[1] =
 {
   uc_help,                               // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
   "help",                                // command string
@@ -147,10 +147,10 @@ const PROGMEM Parameters help_param[1] =
 CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
 
 /**
-   @brief Parameters struct for uc_settings_
+   @brief CommandParameters struct for uc_settings_
 
 */
-const PROGMEM Parameters settings_param[1] = {
+const PROGMEM CommandParameters settings_param[1] = {
   uc_settings,              // function ptr
   "inputSettings",          // command string
   13,                       // command string characters
@@ -171,10 +171,10 @@ const PROGMEM Parameters settings_param[1] = {
 CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
 
 /**
-   @brief Parameters struct for uc_test_
+   @brief CommandParameters struct for uc_test_
 
 */
-const PROGMEM Parameters type_test_param[1] = {
+const PROGMEM CommandParameters type_test_param[1] = {
   uc_test_input_types,       // function ptr
   "test",                    // command string
   4,                         // string length
