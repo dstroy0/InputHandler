@@ -1,28 +1,28 @@
 var group___user_input =
 [
-    [ "UI_input_prm", "d4/d1a/struct_u_i__input__prm.html", [
-      [ "delimiter_lens", "d4/d1a/struct_u_i__input__prm.html#a963d8b8f7ba547714d2c5f8f315ac60c", null ],
-      [ "delimiter_sequences", "d4/d1a/struct_u_i__input__prm.html#a379310630abab4a8a97ca128ce76e1cd", null ],
-      [ "end_of_line_term", "d4/d1a/struct_u_i__input__prm.html#a9619a10c98eca19dab7d9d49923211f3", null ],
-      [ "input_control_char_sequence", "d4/d1a/struct_u_i__input__prm.html#a9970d29ed36f1b8420b86495aabbf203", null ],
-      [ "num_start_stop_sequences", "d4/d1a/struct_u_i__input__prm.html#a193c8e93881ecdda87f20a76097fbe9f", null ],
-      [ "num_token_delimiters", "d4/d1a/struct_u_i__input__prm.html#aa9f2245b0c409b4b8f3218442a773c60", null ],
-      [ "process_name", "d4/d1a/struct_u_i__input__prm.html#a09f87a213f6d5643a7dc9e73e751ffdf", null ],
-      [ "start_stop_sequence_lens", "d4/d1a/struct_u_i__input__prm.html#a780825f9a2faec2da51e595b89b002ce", null ],
-      [ "start_stop_sequence_pairs", "d4/d1a/struct_u_i__input__prm.html#a618be7918a78b61e6dd343000f062462", null ]
+    [ "InputProcessParameters", "db/dda/struct_input_process_parameters.html", [
+      [ "delimiter_lens", "db/dda/struct_input_process_parameters.html#a1925a7e1a2b78b668f826ff92d33e102", null ],
+      [ "delimiter_sequences", "db/dda/struct_input_process_parameters.html#a3cfbd82752a7d5be15e068b0701eea34", null ],
+      [ "end_of_line_term", "db/dda/struct_input_process_parameters.html#a0b6ee1140c2d292ac2c4be330e42ea42", null ],
+      [ "input_control_char_sequence", "db/dda/struct_input_process_parameters.html#a7b1607dae97d55885cf967c8518b3523", null ],
+      [ "num_start_stop_sequences", "db/dda/struct_input_process_parameters.html#a4ad8850958920bebaf60791e6c73fffc", null ],
+      [ "num_token_delimiters", "db/dda/struct_input_process_parameters.html#a61cf97d58c6c6dca116f0f0d5bd4b2ad", null ],
+      [ "process_name", "db/dda/struct_input_process_parameters.html#abf6544287053ec8faaa287cb6fe43f58", null ],
+      [ "start_stop_sequence_lens", "db/dda/struct_input_process_parameters.html#a79fc9a6765190ad5fed886ada7ca2559", null ],
+      [ "start_stop_sequence_pairs", "db/dda/struct_input_process_parameters.html#a64c1b18003507d676026aa229edc5d8a", null ]
     ] ],
-    [ "Parameters", "d0/dbf/struct_parameters.html", [
-      [ "arg_type_arr", "d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2", null ],
-      [ "argument_flag", "d0/dbf/struct_parameters.html#a3397bfe84120d79b047bd5c83d2d5c53", null ],
-      [ "command", "d0/dbf/struct_parameters.html#a7cc888298da23b006285662341a53191", null ],
-      [ "command_id", "d0/dbf/struct_parameters.html#a1c12cf390e3bf37f187c351b0497723f", null ],
-      [ "command_length", "d0/dbf/struct_parameters.html#aa5cdae10169c1ffea5ca38b74043220b", null ],
-      [ "depth", "d0/dbf/struct_parameters.html#a010c4c82c6956cb129b423ef20b8f279", null ],
-      [ "function", "d0/dbf/struct_parameters.html#abb290cdb27d954c02656940d91bab100", null ],
-      [ "max_num_args", "d0/dbf/struct_parameters.html#af2cc56591385d1eb4df0d93e9b1c7cb4", null ],
-      [ "num_args", "d0/dbf/struct_parameters.html#a157e4e306872390657e1f7be5100c559", null ],
-      [ "parent_command_id", "d0/dbf/struct_parameters.html#ae5e50dee61b9c44378e92e01768054e8", null ],
-      [ "sub_commands", "d0/dbf/struct_parameters.html#a50cf8f9bc0161410c3a486a54e99108e", null ]
+    [ "CommandParameters", "db/d11/struct_command_parameters.html", [
+      [ "arg_type_arr", "db/d11/struct_command_parameters.html#a8ec6d2a00ce2d51de923141279a9f59c", null ],
+      [ "argument_flag", "db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c", null ],
+      [ "command", "db/d11/struct_command_parameters.html#aebefb5f2bbec51fbccfe1a608c08b64e", null ],
+      [ "command_id", "db/d11/struct_command_parameters.html#ae5c1fa390d94d9c20191d596fd3d614d", null ],
+      [ "command_length", "db/d11/struct_command_parameters.html#a11cb31aafbf143d0e96a93495adf6aee", null ],
+      [ "depth", "db/d11/struct_command_parameters.html#affba46c4921986df545de81380e5f7ad", null ],
+      [ "function", "db/d11/struct_command_parameters.html#a76011eabd753ca404b23a141d068a71a", null ],
+      [ "max_num_args", "db/d11/struct_command_parameters.html#a30e668e0105d9cc09aefa19b5014b4b1", null ],
+      [ "num_args", "db/d11/struct_command_parameters.html#afba2aca9b9a8ee7ec3de4893e17b4655", null ],
+      [ "parent_command_id", "db/d11/struct_command_parameters.html#ab085fbef59ea7887ea77e2abffb823b3", null ],
+      [ "sub_commands", "db/d11/struct_command_parameters.html#a95074f7281ccee928cae5da3c3f85ff8", null ]
     ] ],
     [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
       [ "UI_ARG_HANDLING::no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
@@ -44,6 +44,6 @@ var group___user_input =
       [ "UITYPE::NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "UITYPE::_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
-    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#ga6a1a8ab5b251ae1e6485cd362f4f885d", null ],
+    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#gad1fd388441b5a56cd193c790f8475712", null ],
     [ "UserInput_type_strings_pgm", "de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];

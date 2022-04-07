@@ -5,6 +5,6 @@ var searchData=
   ['apa_2',['APA',['../da/dff/_n_m_e_asentenceparam_8h.html#a7d400c798c1b7e5fb6ebe77ec85a29b2',1,'NMEAsentenceparam.h']]],
   ['apb_3',['APB',['../da/dff/_n_m_e_asentenceparam_8h.html#a0d17a8ea8c969d9b644c06cd2d7e81b2',1,'NMEAsentenceparam.h']]],
   ['arduinoclient_4',['arduinoClient',['../df/da5/arduino_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html#a2d84864c640baaff3dc91c10777adc9d',1,'ReadCommandFromBufferMQTT.ino']]],
-  ['arg_5ftype_5farr_5',['arg_type_arr',['../d0/dbf/struct_parameters.html#a26ff294eb7d0d02ea1c224d10e3d44e2',1,'Parameters']]],
-  ['argument_5fflag_6',['argument_flag',['../d0/dbf/struct_parameters.html#a3397bfe84120d79b047bd5c83d2d5c53',1,'Parameters']]]
+  ['arg_5ftype_5farr_5',['arg_type_arr',['../db/d11/struct_command_parameters.html#a8ec6d2a00ce2d51de923141279a9f59c',1,'CommandParameters']]],
+  ['argument_5fflag_6',['argument_flag',['../db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c',1,'CommandParameters']]]
 ];
