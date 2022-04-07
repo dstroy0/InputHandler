@@ -83,7 +83,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
  * @brief UserInput input parameters
  *
  */
-struct UI_input_prm
+struct InputProcessParameters
 {
     char process_name[UI_PROCESS_NAME_PGM_LEN];                                       ///< this process' name, can be NULL
     char end_of_line_term[UI_EOL_SEQ_PGM_LEN];                                        ///< end of line term
@@ -97,10 +97,10 @@ struct UI_input_prm
 };
 
 /**
- * @brief UserInput default UI_input_prm
+ * @brief UserInput default InputProcessParameters
  *
  */
-const PROGMEM UI_input_prm _DEFAULT_UI_INPUT_PRM_[1] = {
+const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_[1] = {
     "",           ///< process name
     "\r\n",       ///< eol term
     "##",         ///< input control char sequence
@@ -194,11 +194,11 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param input_prm UI_input_prm struct
+     * @param input_prm InputProcessParameters struct
      * @param output_buffer char buffer
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
-    UserInput(const UI_input_prm* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
+    UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
         : _input_prm_((input_prm == NULL) ? *_DEFAULT_UI_INPUT_PRM_ : *input_prm),
           _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),
@@ -367,11 +367,11 @@ public:
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
      * @param gtprm UserInput::getTokensParam struct reference
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * 
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm, const UI_input_prm& input_prm);
+    size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
@@ -419,7 +419,7 @@ private:
     // end user entered constructor variables
 
     // constructor initialized variables
-    const UI_input_prm& _input_prm_; ///< user input constructor parameters pointer
+    const InputProcessParameters& _input_prm_; ///< user input constructor parameters pointer
     char* _output_buffer_;             ///< pointer to the output char buffer
     bool _output_enabled_;             ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
@@ -466,7 +466,7 @@ private:
     /**
      * @brief ReadCommandFromBuffer error output
      *
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
      * @param command_matched boolean reference
@@ -474,7 +474,7 @@ private:
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(const UI_input_prm& input_prm,
+    void _readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm,
                                            CommandConstructor* cmd,
                                            Parameters& prm,
                                            bool& command_matched,
@@ -488,9 +488,9 @@ private:
      * @param cmd CommandConstructor pointer
      * @param prm Parameters struct reference
      * @param tokens_received amount of tokens in the token buffer
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const UI_input_prm& input_prm);
+    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received, const InputProcessParameters& input_prm);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -510,9 +510,9 @@ private:
      * @brief function launch logic, recursive on subcommand match
      *
      * @param LLprm
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      */
-    void _launchLogic(_launchLogicParam& LLprm, const UI_input_prm& input_prm);
+    void _launchLogic(_launchLogicParam& LLprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -581,39 +581,39 @@ private:
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief get delimited c-strings from input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensCstrings(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief add uchar to token_buffer
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensChar(getTokensParam& gtprm, const UI_input_prm& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
-     * @param input_prm reference to UI_input_prm struct
+     * @param input_prm reference to InputProcessParameters struct
      * @param data input data
      * @param len input data length
      * @param split_input place to split input
@@ -623,7 +623,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(UI_input_prm& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
     // end private methods
 };
 

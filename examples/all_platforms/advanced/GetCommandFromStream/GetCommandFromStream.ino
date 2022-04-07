@@ -17,7 +17,7 @@
 */
 char output_buffer[627] = {'\0'}; //  output buffer
 
-const PROGMEM UI_input_prm input_prm[1] = {
+const PROGMEM InputProcessParameters input_prm[1] = {
   "",
   "\r\n",
   "##",
