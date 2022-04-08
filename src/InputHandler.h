@@ -254,8 +254,8 @@ public:
      * @param output_buffer char buffer
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
-    UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
-        : _input_prm_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+    UserInput(char* output_buffer = NULL, size_t output_buffer_len = 0, const InputProcessParameters* input_prm = NULL)
+        : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
           _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_len_(output_buffer_len),
@@ -283,6 +283,7 @@ public:
           _stream_data_index_(0),
           _begin_(false)
     {
+        memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
     }
 
     /**
@@ -475,7 +476,8 @@ private:
     // end user entered constructor variables
 
     // constructor initialized variables
-    const InputProcessParameters* _input_prm_; ///< user input constructor parameters pointer
+    const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
+    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
     char* _output_buffer_;                     ///< pointer to the output char buffer
     bool _output_enabled_;                     ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_len_;                ///< _output_buffer_ size in bytes

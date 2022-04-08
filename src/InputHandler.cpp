@@ -90,18 +90,16 @@ void UserInput::listSettings(UserInput* inputProcess)
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    InputProcessParameters input_prm;
-    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
     IH_pname pname;
-    memcpy_P(&pname, input_prm.pname, sizeof(pname));
+    memcpy_P(&pname, _input_prm_.pname, sizeof(pname));
     IH_eol eol;
-    memcpy_P(&eol, input_prm.peol, sizeof(eol));
+    memcpy_P(&eol, _input_prm_.peol, sizeof(eol));
     IH_input_cc ccseq;
-    memcpy_P(&ccseq, input_prm.pinputcc, sizeof(ccseq));
+    memcpy_P(&ccseq, _input_prm_.pinputcc, sizeof(ccseq));
     InputProcessDelimiterSequences delimseqs;
-    memcpy_P(&delimseqs, input_prm.pdelimseq, sizeof(delimseqs));
+    memcpy_P(&delimseqs, _input_prm_.pdelimseq, sizeof(delimseqs));
     InputProcessStartStopSequences ststpseqs;
-    memcpy_P(&ststpseqs, input_prm.pststpseq, sizeof(ststpseqs));
+    memcpy_P(&ststpseqs, _input_prm_.pststpseq, sizeof(ststpseqs));
     size_t buf_sz = strlen((char*)eol) + strlen((char*)ccseq);
 
     for (size_t i = 0; i < ((delimseqs.num_seq > ststpseqs.num_seq) ? delimseqs.num_seq : ststpseqs.num_seq); ++i)
@@ -167,9 +165,7 @@ void UserInput::listCommands()
     }
     CommandConstructor* cmd;
     IH_pname process_name;
-    InputProcessParameters input_prm;
-    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
-    memcpy_P(&process_name, input_prm.pname, sizeof(process_name));
+    memcpy_P(&process_name, _input_prm_.pname, sizeof(process_name));
     if (process_name[0] == _null_)
     {
         UserInput::_ui_out(PSTR("Commands available:\n"));
@@ -194,11 +190,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         return;
     }
-    InputProcessParameters input_prm;
-    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
-        UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(input_prm.pname));
+        UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         return;
     }
     uint8_t* input_data = data;
@@ -208,13 +202,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     if (num_zdc != 0) // if there are zero delim commands
     {
         InputProcessDelimiterSequences pdelimseq;
-        memcpy_P(&pdelimseq, input_prm.pdelimseq, sizeof(pdelimseq));
+        memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
         input_len = input_len + pdelimseq.delimiter_lens[0] + 1U;
         token_buffer_len++;
         split_input = new uint8_t[input_len]();
         if (split_input == nullptr) // if there was an error allocating the memory
         {
-            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(input_prm.pname));
+            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
             return;
         }
         if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
@@ -231,7 +225,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
-        UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(input_prm.pname));
+        UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         if (num_zdc != 0)
         {
             delete[] split_input;
@@ -259,7 +253,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm, input_prm);
+    tokens_received = UserInput::getTokens(gtprm, _input_prm_);
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -269,7 +263,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             delete[] split_input;
         }
         delete[] _token_buffer_;
-        UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(&input_prm.pname));
+        UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         return;
     }
     // end error condition
@@ -300,13 +294,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
                 subcommand_matched,
                 command_id};
 
-            UserInput::_launchLogic(LLprm, input_prm);   // see if command has any subcommands, validate input types, try to launch function
+            UserInput::_launchLogic(LLprm, _input_prm_); // see if command has any subcommands, validate input types, try to launch function
             break;                                       // break command iterator for loop
         }                                                // end command logic
     }                                                    // end root command for loop
     if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(input_prm, cmd, prm, command_matched, input_type_match_flag, all_arguments_valid, input_data);
+        UserInput::_readCommandFromBufferErrorOutput(_input_prm_, cmd, prm, command_matched, input_type_match_flag, all_arguments_valid, input_data);
         (*_default_function_)(this); // run the default function
     }
 
@@ -334,16 +328,14 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         _stream_data_ = new uint8_t[rx_buffer_size]; // an array to store the received data
         if (_stream_data_ == nullptr)                // if there was an error allocating the memory
         {
-            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _stream_data_\n"), (char*)pgm_read_dword(&_input_prm_->pname));
+            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _stream_data_\n"), (char*)pgm_read_dword(_input_prm_.pname));
             return;
         }
         _stream_buffer_allocated_ = true;
         _term_index_ = 0;
     }
     IH_eol eol;
-    InputProcessParameters input_prm;
-    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
-    memcpy_P(&eol, input_prm.peol, sizeof(eol));
+    memcpy_P(&eol, _input_prm_.peol, sizeof(eol));
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
     {
@@ -937,31 +929,46 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
 {
     InputProcessDelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.pdelimseq, sizeof(delimseq));
-    for (size_t i = 0; i < delimseq.num_seq; ++i) // skip over delimiters
+    bool found_delimiter_sequence = false;    
+    do // skip over delimiters
     {
-        if (delimseq.delimiter_sequences[i][0] == (char)gtprm.data[data_pos])
+        bool match = false; // match delimiter sequence sentinel
+        for (size_t i = 0; i < delimseq.num_seq; ++i) 
         {
-            if (delimseq.delimiter_lens[i] > 1U)
+            if (delimseq.delimiter_sequences[i][0] == (char)gtprm.data[data_pos])
             {
-                char* ptr = (char*)&gtprm.data[data_pos];
-                if (memcmp(ptr, delimseq.delimiter_sequences[i], delimseq.delimiter_lens[i]) == 0) // match
+                if (delimseq.delimiter_lens[i] > 1U)
                 {
-                    data_pos += delimseq.delimiter_lens[i] + 1U;
-                    point_to_beginning_of_token = true;
-                    gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
-                    token_buffer_index++;
-                    break;
+                    char* ptr = (char*)&gtprm.data[data_pos];
+                    if (memcmp(ptr, delimseq.delimiter_sequences[i], delimseq.delimiter_lens[i]) == 0) // match
+                    {
+                        data_pos += delimseq.delimiter_lens[i] + 1U;
+                        match = true;
+                        break;
+                    }                    
+                }
+                else // match
+                {
+                    data_pos++;                    
+                    match = true;
+                    break; // break for loop
                 }
             }
-            else // match
-            {
-                data_pos++;
-                point_to_beginning_of_token = true;
-                gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
-                token_buffer_index++;
-                break; // break for loop
-            }
+        }                
+        if (match == true)
+        {               
+            found_delimiter_sequence = true;                        
         }
+        else
+        {            
+            found_delimiter_sequence = false;
+        }
+    } while (found_delimiter_sequence == true);
+    if (found_delimiter_sequence == true && (data_pos < gtprm.len))
+    {
+        point_to_beginning_of_token = true;
+        gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
+        token_buffer_index++;
     }
 }
 

@@ -40,7 +40,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
   &pdelimseq,
   &pststpseq
 };
-UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
+UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
 
 /*
    default function, called if nothing matches or if there is an error
