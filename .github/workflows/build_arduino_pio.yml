@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/arduino/advanced/GetCommandFromStream/GetCommandFromStream.ino, 
-                  examples/arduino/basic/GetCommandFromStream/GetCommandFromStream.ino]
+        example: [examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino, 
+                  examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino]
 
     steps:
     - uses: actions/checkout@v2

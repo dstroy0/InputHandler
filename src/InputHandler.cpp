@@ -333,12 +333,12 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         }
         _stream_buffer_allocated_ = true;
         _term_index_ = 0;
-    }
-    IH_eol eol;
-    memcpy_P(&eol, _input_prm_.peol, sizeof(eol));
+    }    
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
     {
+        IH_eol eol;
+        memcpy_P(&eol, _input_prm_.peol, sizeof(eol));
         rc[_stream_data_index_] = stream.read();
         if (rc[_stream_data_index_] == eol[_term_index_])
         {
