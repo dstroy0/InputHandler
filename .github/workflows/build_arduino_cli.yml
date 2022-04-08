@@ -20,8 +20,8 @@ jobs:
             - '*.hpp'
             - '*.h'
           target-paths: |
-            - examples/arduino/basic/GetCommandFromStream/
-            - examples/arduino/advanced/GetCommandFromStream/
+            - examples/all_platforms/basic/GetCommandFromStream/
+            - examples/all_platforms/advanced/GetCommandFromStream/
   
   build:
     needs: check_formatting
@@ -81,6 +81,6 @@ jobs:
         uses: arduino/compile-sketches@main
         with:          
           sketch-paths: |
-            - examples/arduino/basic/GetCommandFromStream/
-            - examples/arduino/advanced/GetCommandFromStream/
+            - examples/all_platforms/basic/GetCommandFromStream/
+            - examples/all_platforms/advanced/GetCommandFromStream/
           fqbn: ${{ matrix.fqbn }}

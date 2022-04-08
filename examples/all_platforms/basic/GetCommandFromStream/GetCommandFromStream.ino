@@ -34,7 +34,7 @@ void uc_hello_(UserInput *inputProcess)
 /*
   command parameters
 */
-const PROGMEM Parameters type_test_param[1] =
+const PROGMEM CommandParameters type_test_param[1] =
 {
   uc_hello_,                // function name
   "hello",                  // command string
@@ -46,12 +46,8 @@ const PROGMEM Parameters type_test_param[1] =
   UI_ARG_HANDLING::no_args, // argument handling
   0,                        // minimum expected number of arguments
   0,                        // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS
-  }
+  /* UITYPE arguments */
+  { UITYPE::NO_ARGS }
 };
 CommandConstructor uc_test_(type_test_param);
 

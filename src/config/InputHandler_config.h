@@ -83,6 +83,11 @@
 #define UI_MAX_CMD_LEN 32
 #endif
 
+#define UI_MAX_DELIM_SEQ 5
+#define UI_MAX_START_STOP_SEQ 5
+
+
+
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
 /*
@@ -95,6 +100,7 @@
 
 #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
 #define buffsz(x) nprms(x)                    // gets the number of elements in an array
+#define nelems(x) nprms(x)                    // gets the number of elements in an array
 
 // portability directives
 
@@ -141,7 +147,13 @@
 #endif
 
 // PROGMEM width constants
-#define UI_INPUT_TYPE_STRINGS_PGM_LEN 9
+#define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
 #define UI_ESCAPED_CHAR_PGM_LEN 3
+#define UI_EOL_SEQ_PGM_LEN 5
+#define UI_DELIM_SEQ_PGM_LEN 5
+#define UI_START_STOP_SEQ_PGM_LEN 5
+#define UI_PROCESS_NAME_PGM_LEN 12
+#define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
+
 
 #endif

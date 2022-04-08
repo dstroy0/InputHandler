@@ -50,16 +50,16 @@ enum class UI_ARG_HANDLING
  */
 enum class UITYPE
 {
-    UINT8_T,  ///<  8-bit unsigned integer
-    UINT16_T, ///<  16-bit unsigned integer
-    UINT32_T, ///<  32-bit unsigned integer
-    INT16_T,  ///<  16-bit signed integer
-    FLOAT,    ///<  32-bit float
-    CHAR,     ///<  8-bit char
-    C_STRING, ///<  array of 8-bit char
-    NOTYPE,   ///<  no type validation
-    NO_ARGS,  ///<  no arguments expected
-    _LAST     ///<  reserved
+    UINT8_T,    ///<  8-bit unsigned integer
+    UINT16_T,   ///<  16-bit unsigned integer
+    UINT32_T,   ///<  32-bit unsigned integer
+    INT16_T,    ///<  16-bit signed integer
+    FLOAT,      ///<  32-bit float
+    CHAR,       ///<  8-bit char
+    START_STOP, ///<  array of 8-bit char
+    NOTYPE,     ///<  no type validation
+    NO_ARGS,    ///<  no arguments expected
+    _LAST       ///<  reserved
 };
 
 /**
@@ -67,31 +67,120 @@ enum class UITYPE
  * @brief type string literals
  */
 const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",  // 8-bit unsigned integer
-    "UINT16_T", // 16-bit unsigned integer
-    "UINT32_T", // 32-bit unsigned integer
-    "INT16_T",  // 16-bit signed integer
-    "FLOAT",    // 32-bit floating point number
-    "CHAR",     // single char
-    "C-STRING", // c-string without spaces if not enclosed with ""
-    "NOTYPE",   // user defined NOTYPE
-    "NO_ARGS",  // no arguments expected
-    "error"     // error
+    "UINT8_T",   // 8-bit unsigned integer
+    "UINT16_T",  // 16-bit unsigned integer
+    "UINT32_T",  // 32-bit unsigned integer
+    "INT16_T",   // 16-bit signed integer
+    "FLOAT",     // 32-bit floating point number
+    "CHAR",      // single char
+    "STARTSTOP", // c-string enclosed with start/stop delimiters
+    "NOTYPE",    // user defined NOTYPE
+    "NO_ARGS",   // no arguments expected
+    "error"      // error
+};
+
+/**
+ * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
+ *
+ */
+struct InputProcessDelimiterSequences
+{
+    size_t num_seq;                                      ///< the number of token delimiters in delimiter_sequences
+    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
+    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
+};
+
+/**
+ * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
+ *
+ */
+struct InputProcessStartStopSequences
+{
+    size_t num_seq;                                             ///< num start/stop sequences
+    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
+    char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
+};
+
+/**
+ * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
+ *
+ */
+typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
+
+/**
+ * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
+ *
+ */
+typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
+
+/**
+ * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
+ *
+ */
+typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
+
+/**
+ * @brief UserInput input process parameters, constructor parameters
+ *
+ */
+struct InputProcessParameters
+{
+    const IH_pname* pname;                           ///< this process' name, can be NULL
+    const IH_eol* peol;                              ///< end of line term
+    const IH_input_cc* pinputcc;                     ///< two char len sequence to input a control char
+    const InputProcessDelimiterSequences* pdelimseq; ///< reference to InputProcessDelimiterSequences struct
+    const InputProcessStartStopSequences* pststpseq; ///< reference to InputProcessStartStopSequences struct
+};
+
+const PROGMEM IH_pname _pname = "";         ///< default process name
+const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters
+const PROGMEM IH_input_cc _pinputcc = "##"; ///< default input control character sequence
+
+/**
+ * @brief default delimiter sequences
+ *
+ */
+const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
+    2,         ///< number of delimiter sequences
+    {1, 1},    ///< delimiter sequence lens
+    {" ", ","} ///< delimiter sequences
+};
+
+/**
+ * @brief default start stop sequences
+ *
+ */
+const PROGMEM InputProcessStartStopSequences _pststpseq = {
+    1,           ///< num start stop sequence pairs
+    {1, 1},      ///< start stop sequence lens
+    {"\"", "\""} ///< start stop sequence pairs
+};
+
+/**
+ * @brief UserInput default InputProcessParameters
+ *
+ */
+const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
+    &_pname,     ///< process name
+    &_peol,      ///< process eol term
+    &_pinputcc,  ///< process input control char sequence
+    &_pdelimseq, ///< process default delimiter sequences
+    &_pststpseq  ///< process default start/stop sequences
 };
 
 /**
  * @brief forward declaration of UserInput class for
- * Parameters struct and CommandConstructor class
+ * CommandParameters struct and CommandConstructor class
  */
 class UserInput;
 
 /**
- * @brief Parameters struct, this is the container that holds your command parameters
+ * @brief CommandParameters struct, this is the container that holds your command parameters
  *
- * Every command and subcommand has an associated Parameters object, this is the information
+ * Every command and subcommand has an associated CommandParameters object, this is the information
  * that the input process needs to know about your command
  */
-struct Parameters
+struct CommandParameters
 {
     void (*function)(UserInput*);     ///< void function pointer, void your_function(UserInput *inputProcess)
     char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
@@ -122,12 +211,12 @@ public:
      * object contains a reference CommandConstructor::next_command to the next node
      * in the linked-list.  The list is linked together in UserInput::addCommand().
      *
-     * Before using, construct a UserInput object and a Parameters object.
+     * Before using, construct a UserInput object and a CommandParameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const Parameters* parameters,
+    CommandConstructor(const CommandParameters* parameters,
                        const uint8_t parameter_array_elements = 1,
                        const uint8_t tree_depth = 0)
         : prm(parameters),
@@ -136,7 +225,7 @@ public:
           next_command(NULL)
     {
     }
-    const Parameters* prm;            ///< pointer to PROGMEM Parameters array
+    const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
     const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
     const uint8_t tree_depth;         ///< user input depth + 1
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
@@ -161,34 +250,17 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param output_buffer default NULL, if not NULL the constructor will set `_output_enabled_` true
-     * @param output_buffer_len default ZERO, size this to length of output_buffer
-     * @param username default NULL, set to project, equipment, or user name
-     * @param end_of_line_characters EOL term, default is '\\r\\n'
-     * @param token_delimiter token demarcation
-     * @param c_string_delimiter c-string demarcation
-     * @param input_control_char_sequence two character sequence that precedes a switch char
+     * @param input_prm InputProcessParameters struct
+     * @param output_buffer char buffer
+     * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
-    UserInput(char* output_buffer = NULL,
-              size_t output_buffer_len = 0,
-              const char* username = NULL,
-              const char* end_of_line_characters = "\r\n",
-              const char* token_delimiter = " ",
-              const char* c_string_delimiter = "\"",
-              const char* input_control_char_sequence = "##")
-        : _output_buffer_(output_buffer),
+    UserInput(char* output_buffer = NULL, size_t output_buffer_len = 0, const InputProcessParameters* input_prm = NULL)
+        : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+          _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_len_(output_buffer_len),
           _output_buffer_bytes_left_(output_buffer_len),
-          _username_(username),
-          _term_(end_of_line_characters),
-          _term_len_(strlen(end_of_line_characters)),
-          _delim_(token_delimiter),
-          _delim_len_(strlen(token_delimiter)),
-          _c_str_delim_(c_string_delimiter),
-          _c_str_delim_len_(strlen(c_string_delimiter)),
-          _control_char_sequence_(input_control_char_sequence),
-          _control_char_sequence_len_(strlen(input_control_char_sequence)),
+          _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -211,6 +283,7 @@ public:
           _stream_data_index_(0),
           _begin_(false)
     {
+        memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
     }
 
     /**
@@ -226,7 +299,7 @@ public:
     /**
      * @brief adds user commands to the input process
      *
-     * This function inspects Parameters for errors and
+     * This function inspects CommandParameters for errors and
      * reports the errors to the user if they have enabled output.
      * If an error is detected in the root command or any of
      * its subcommands, the entire command tree is rejected.
@@ -251,8 +324,8 @@ public:
      * class configuration, constructor variables,
      * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
-     * 
-     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared, 
+     *
+     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared,
      * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
      *
      * @param inputProcess pointer to class instance
@@ -270,10 +343,10 @@ public:
      * silent return if `_begin_` == false
      * @param data a buffer with characters
      * @param len the size of the buffer
-     * @param num_zdc size of Parameters pointers array
-     * @param zdc array of Parameters pointers
+     * @param num_zdc size of CommandParameters pointers array
+     * @param zdc array of CommandParameters pointers
      */
-    void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
@@ -283,10 +356,10 @@ public:
      * silent return if `_begin_` == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param num_zdc size of Parameters pointers array
-     * @param zdc array of Parameters pointers
+     * @param num_zdc size of CommandParameters pointers array
+     * @param zdc array of CommandParameters pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
@@ -294,7 +367,7 @@ public:
      * @return char*
      */
     char* nextArgument();
-    
+
     /**
      * @brief returns a pointer to `argument_number` token in UserInput::_token_buffer_ or NULL if there is no `argument_number` token
      *
@@ -337,29 +410,25 @@ public:
      */
     struct getTokensParam
     {
-        uint8_t* data;                     ///< pointer to uint8_t array
-        size_t len;                        ///< length of uint8_t array
-        char* token_buffer;                ///< pointer to null terminated char array
-        size_t token_buffer_len;           ///< size of data + 1 + 1(if there are zero delim commands)
-        char** token_pointers;             ///< array of token_buffer pointers
-        uint8_t& token_pointer_index;      ///< index of token_pointers
-        size_t num_token_ptrs;             ///< token_pointers[MAX]
-        const char** delimiter_strings;    ///< array of const char* delimiter strings
-        size_t* delimiter_lens;            ///< strlen of each delimiter
-        size_t num_delimiters;             ///< delimiter_strings[MAX] && delimiter_lens[MAX]
-        const char* c_str_delim;           ///< const char* c string delimiter
-        size_t c_str_delim_len;            ///< strlen of c string delimiter
-        char& token_buffer_sep;            ///< token_buffer token delimiter
-        const char* control_char_sequence; ///< two character sequence preceding a switch char
+        uint8_t* data;                ///< pointer to uint8_t array
+        size_t len;                   ///< length of uint8_t array
+        char* token_buffer;           ///< pointer to null terminated char array
+        size_t token_buffer_len;      ///< size of data + 1 + 1(if there are zero delim commands)
+        size_t num_token_ptrs;        ///< token_pointers[MAX]
+        uint8_t& token_pointer_index; ///< index of token_pointers
+        char** token_pointers;        ///< array of token_buffer pointers
+        char& token_buffer_sep;       ///< token_buffer token delimiter
     };
 
     /**
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
      * @param gtprm UserInput::getTokensParam struct reference
+     * @param input_prm reference to InputProcessParameters struct
+     *
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm);
+    size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
@@ -401,25 +470,20 @@ private:
     /*
         UserInput Constructor variables
     */
-    // user entered constructor variables
-    char* _output_buffer_;               ///< pointer to the output char buffer
-    bool _output_enabled_;               ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    const uint16_t _output_buffer_len_;  ///< _output_buffer_ size in bytes
-    uint16_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
-    const char* _username_;              ///< username/project name/equipment name
-    const char* _term_;                  ///< end of line characters, terminating characters, default is CRLF
-    uint8_t _term_len_;                  ///< _term_ length in characters, determined in begin()
-    const char* _delim_;                 ///< input argument delimiter, space by default
-    uint8_t _delim_len_;                 ///< _delim_ length in characters, determined in begin()
-    const char* _c_str_delim_;           ///< c-string delimiter, default is enclosed with quotation marks "c-string"
-    uint8_t _c_str_delim_len_;           ///< _c_str_delim_ length in characters, determined in begin()
-    const char* _control_char_sequence_; ///< input a control char sequence
-    uint8_t _control_char_sequence_len_; ///< control char sequence len
+    // user entered constructor variables
+
     // end user entered constructor variables
 
     // constructor initialized variables
-    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
+    const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
+    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
+    char* _output_buffer_;                     ///< pointer to the output char buffer
+    bool _output_enabled_;                     ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_len_;                ///< _output_buffer_ size in bytes
+    size_t _output_buffer_bytes_left_;         ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    uint8_t _term_len_;                        ///< _term_ length in characters, determined in begin()
+    uint8_t _term_index_;                      ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
     CommandConstructor* _commands_head_;    ///< pointer to object list
@@ -446,7 +510,7 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
-    // end constructor initialized variables
+    //  end constructor initialized variables
 
     // private methods
     /**
@@ -460,15 +524,17 @@ private:
     /**
      * @brief ReadCommandFromBuffer error output
      *
+     * @param input_prm reference to InputProcessParameters struct
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param command_matched boolean reference
      * @param input_type_match_flag boolean argument type match flag array
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(CommandConstructor* cmd,
-                                           Parameters& prm,
+    void _readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm,
+                                           CommandConstructor* cmd,
+                                           CommandParameters& prm,
                                            bool& command_matched,
                                            bool* input_type_match_flag,
                                            bool& all_arguments_valid,
@@ -478,10 +544,11 @@ private:
      * @brief launches either (this) function or the root command function
      *
      * @param cmd CommandConstructor pointer
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param tokens_received amount of tokens in the token buffer
+     * @param pname IH_pname char array
      */
-    void _launchFunction(CommandConstructor* cmd, Parameters& prm, size_t tokens_received);
+    void _launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const IH_pname& pname);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -489,7 +556,7 @@ private:
     struct _launchLogicParam
     {
         CommandConstructor* cmd;     ///< CommandConstructor ptr
-        Parameters& prm;             ///< Parameters struct reference
+        CommandParameters& prm;      ///< CommandParameters struct reference
         size_t tokens_received;      ///< number of tokens retrieved from input data
         bool& all_arguments_valid;   ///< boolean array
         bool& launch_attempted;      ///< launch attempted flag
@@ -501,8 +568,9 @@ private:
      * @brief function launch logic, recursive on subcommand match
      *
      * @param LLprm
+     * @param input_prm reference to InputProcessParameters struct
      */
-    void _launchLogic(_launchLogicParam& LLprm);
+    void _launchLogic(_launchLogicParam& LLprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -525,14 +593,14 @@ private:
     char _combineControlCharacters(char input);
 
     /**
-     * @brief determines if input Parameters struct is valid before adding to linked-list
+     * @brief determines if input CommandParameters struct is valid before adding to linked-list
      *
      * @param cmd CommandConstructor reference
-     * @param prm reference to Parameters struct in addCommand
+     * @param prm reference to CommandParameters struct in addCommand
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
-    bool _addCommandAbort(CommandConstructor& cmd, Parameters& prm);
+    bool _addCommandAbort(CommandConstructor& cmd, CommandParameters& prm);
 
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
@@ -541,19 +609,19 @@ private:
      * @param index argument number
      * @return UITYPE argument type
      */
-    UITYPE _getArgType(Parameters& prm, size_t index = 0);
+    UITYPE _getArgType(CommandParameters& prm, size_t index = 0);
 
     /**
-     * @brief validate the arguments as specified in the user defined Parameters struct
+     * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
      * @param tokens_received how many tokens are left after matching is performed
      * @param input_type_match_flag input type validation flags
-     * @param prm Parameters struct reference
+     * @param prm CommandParameters struct reference
      * @param all_arguments_valid error sentinel
      */
     void _getArgs(size_t& tokens_received,
                   bool* input_type_match_flag,
-                  Parameters& prm,
+                  CommandParameters& prm,
                   bool& all_arguments_valid);
 
     /**
@@ -571,35 +639,39 @@ private:
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief get delimited c-strings from input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensCstrings(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief add uchar to token_buffer
      *
      * @param gtprm reference to getTokensParam struct in getTokens
+     * @param input_prm reference to InputProcessParameters struct
      * @param data_pos data index
      * @param token_buffer_index token_buffer index
      * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensChar(getTokensParam& gtprm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
+     * @param pdelimseq reference to process delimiter sequence struct
      * @param data input data
      * @param len input data length
      * @param split_input place to split input
@@ -609,7 +681,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
     // end private methods
 };
 
