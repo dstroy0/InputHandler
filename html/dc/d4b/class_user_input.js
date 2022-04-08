@@ -2,7 +2,7 @@ var class_user_input =
 [
     [ "_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
     [ "getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
-    [ "UserInput", "dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343", null ],
+    [ "UserInput", "dc/d4b/class_user_input.html#a1b90648301d62ab0b0227bfd7044decb", null ],
     [ "_addCommandAbort", "dc/d4b/class_user_input.html#ada6f5999561309d3067f799397ea7edf", null ],
     [ "_addEscapedControlCharToBuffer", "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749", null ],
     [ "_combineControlCharacters", "dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87", null ],
@@ -44,7 +44,8 @@ var class_user_input =
     [ "_default_function_", "dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03", null ],
     [ "_dot_", "dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab", null ],
     [ "_failed_on_subcommand_", "dc/d4b/class_user_input.html#a22e8e1867e082b75194ac67973ea14c2", null ],
-    [ "_input_prm_", "dc/d4b/class_user_input.html#ad4fe4f39dbf5b7b7cf75780c347170e3", null ],
+    [ "_input_prm_", "dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706", null ],
+    [ "_input_prm_ptr_", "dc/d4b/class_user_input.html#a8929b496e93f52dedeee8c82a1ca4e9d", null ],
     [ "_max_args_", "dc/d4b/class_user_input.html#a281ff5c48c9df2b0540c35c94d446c85", null ],
     [ "_max_depth_", "dc/d4b/class_user_input.html#a46018123018afa030ee257108fce1359", null ],
     [ "_neg_", "dc/d4b/class_user_input.html#ad129cb19ce98376e3afd99dde12a6b46", null ],
