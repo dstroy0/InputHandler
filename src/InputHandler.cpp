@@ -89,10 +89,10 @@ void UserInput::listSettings(UserInput* inputProcess)
     {
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
-    }     
+    }
     InputProcessParameters input_prm;
     memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
-    IH_pname pname;    
+    IH_pname pname;
     memcpy_P(&pname, input_prm.pname, sizeof(pname));
     IH_eol eol;
     memcpy_P(&eol, input_prm.peol, sizeof(eol));
@@ -117,7 +117,7 @@ void UserInput::listSettings(UserInput* inputProcess)
             buf_sz++;
         }
     }
-    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN](); // allocate char buffer large enough to print these potential control characters    
+    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN](); // allocate char buffer large enough to print these potential control characters
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
@@ -140,18 +140,18 @@ void UserInput::listSettings(UserInput* inputProcess)
                        _max_args_,
                        _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
                        _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
-    UserInput::_ui_out(PSTR("\ndelim_sequences = \n"));
+    UserInput::_ui_out(PSTR("delim_sequences = \n"));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
-        UserInput::_ui_out(PSTR("|%s|%c%c"), 
+        UserInput::_ui_out(PSTR("|%s|%c%c"),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
                            ((i < delimseqs.num_seq - 1) ? ',' : ' '),
                            ((i % 5 == 0) ? ' ' : '\n'));
     }
-    UserInput::_ui_out(PSTR("\n\nstart_stop_sequence_pairs = \n"));
+    UserInput::_ui_out(PSTR("\nstart_stop_sequence_pairs = \n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
-        UserInput::_ui_out(PSTR("start:|%s|, stop:|%s|;"), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
+        UserInput::_ui_out(PSTR("start|%s|, stop|%s|; "), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
     UserInput::_ui_out(PSTR("\n"));
@@ -164,11 +164,11 @@ void UserInput::listCommands()
     {
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
-    }    
+    }
     CommandConstructor* cmd;
     IH_pname process_name;
     InputProcessParameters input_prm;
-    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));    
+    memcpy_P(&input_prm, _input_prm_, sizeof(input_prm));
     memcpy_P(&process_name, input_prm.pname, sizeof(process_name));
     if (process_name[0] == _null_)
     {
@@ -259,7 +259,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm, input_prm);    
+    tokens_received = UserInput::getTokens(gtprm, input_prm);
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -346,7 +346,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     memcpy_P(&eol, input_prm.peol, sizeof(eol));
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
-    {        
+    {
         rc[_stream_data_index_] = stream.read();
         if (rc[_stream_data_index_] == eol[_term_index_])
         {
@@ -366,7 +366,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         }
     }
     if (_new_stream_data_ == true)
-    {        
+    {
         UserInput::readCommandFromBuffer(_stream_data_, _stream_data_index_, num_zdc, zdc);
         _stream_data_index_ = 0;
         _new_stream_data_ = false;
@@ -967,7 +967,7 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
 
 inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
-    InputProcessStartStopSequences ststpseq{};
+    InputProcessStartStopSequences ststpseq {};
     memcpy_P(&ststpseq, input_prm.pststpseq, sizeof(ststpseq));
     if (ststpseq.start_stop_sequence_pairs[0] != NULL && ststpseq.start_stop_sequence_pairs[0][0] == (char)gtprm.data[data_pos])
     {
@@ -979,7 +979,7 @@ inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProc
                 if (memcmp(ptr, ststpseq.start_stop_sequence_pairs[i], ststpseq.start_stop_sequence_lens[i]) == 0) // match
                 {
                     data_pos += ststpseq.start_stop_sequence_lens[i] + 1U;
-                    ptr = (char*)&gtprm.data[data_pos];                                                                        // point to beginning of c-string
+                    ptr = (char*)&gtprm.data[data_pos];                                                                       // point to beginning of c-string
                     char* end_ptr = (char*)memchr(ptr, ststpseq.start_stop_sequence_pairs[i + 1][0], (gtprm.len - data_pos)); // search for next c-string delimiter
                     while (end_ptr != NULL || data_pos < gtprm.len)
                     {
@@ -1009,9 +1009,9 @@ inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProc
             else // match
             {
                 data_pos++;
-                char* ptr = (char*)&gtprm.data[data_pos];                                                                  // point to beginning of c-string
+                char* ptr = (char*)&gtprm.data[data_pos];                                                                 // point to beginning of c-string
                 char* end_ptr = (char*)memchr(ptr, ststpseq.start_stop_sequence_pairs[i + 1][0], (gtprm.len - data_pos)); // search for next c-string delimiter
-                if (end_ptr != NULL)                                                                                       // memcpy
+                if (end_ptr != NULL)                                                                                      // memcpy
                 {
                     size_t size = ((end_ptr - (char*)gtprm.data) - (ptr - (char*)gtprm.data));
                     if ((size + 1U) < (gtprm.len - data_pos))
