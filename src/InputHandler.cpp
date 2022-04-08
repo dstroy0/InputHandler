@@ -122,13 +122,13 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "UI_MAX_CMD_LEN (root command) %u characters\n"
                             "UI_MAX_IN_LEN %u bytes\n"
                             "\nUserInput constructor:\n"
-                            "username = \"%s\"\n"
+                            "pname = \"%s\"\n"
                             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ (found from input CommandParameters) = %u\n"
                             "_max_args_ (found from input CommandParameters) = %u\n"
                             "\nEscaped for display:\n"
-                            "input_control_char_sequence = \"%s\"\n"
-                            "end_of_line_characters = \"%s\"\n"),
+                            "pinputcc = \"%s\"\n"
+                            "peol = \"%s\"\n"),
                        UI_MAX_ARGS,
                        UI_MAX_CMD_LEN,
                        UI_MAX_IN_LEN,
@@ -138,7 +138,7 @@ void UserInput::listSettings(UserInput* inputProcess)
                        _max_args_,
                        _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
                        _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
-    UserInput::_ui_out(PSTR("delim_sequences = \n"));
+    UserInput::_ui_out(PSTR("pdelimseqs = \n"));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
         UserInput::_ui_out(PSTR("|%s|%c%c"),
@@ -146,7 +146,7 @@ void UserInput::listSettings(UserInput* inputProcess)
                            ((i < delimseqs.num_seq - 1) ? ',' : ' '),
                            ((i % 5 == 0) ? ' ' : '\n'));
     }
-    UserInput::_ui_out(PSTR("\nstart_stop_sequence_pairs = \n"));
+    UserInput::_ui_out(PSTR("\npststpseqs = \n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
         UserInput::_ui_out(PSTR("start|%s|, stop|%s|; "), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
