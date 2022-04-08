@@ -22,15 +22,15 @@ const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
 
 const PROGMEM InputProcessDelimiterSequences pdelimseq = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
-    {" ", ","} ///< delimiter sequences
+  2,         ///< number of delimiter sequences
+  {1, 1},    ///< delimiter sequence lens
+  {" ", ","} ///< delimiter sequences
 };
 
 const PROGMEM InputProcessStartStopSequences pststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
-    {"\"", "\""} ///< start stop sequence pairs
+  1,           ///< num start stop sequence pairs
+  {1, 1},      ///< start stop sequence lens
+  {"\"", "\""} ///< start stop sequence pairs
 };
 
 const PROGMEM InputProcessParameters input_prm[1] = {
