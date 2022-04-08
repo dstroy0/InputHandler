@@ -253,7 +253,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm, _input_prm_);
+    tokens_received = UserInput::getTokens(gtprm, _input_prm_);    
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -925,14 +925,15 @@ inline char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, c
     return start;
 }
 
-inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
+void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
     InputProcessDelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.pdelimseq, sizeof(delimseq));
     bool found_delimiter_sequence = false;    
+    bool match = false; // match delimiter sequence sentinel
     do // skip over delimiters
     {
-        bool match = false; // match delimiter sequence sentinel
+        match = false;
         for (size_t i = 0; i < delimseq.num_seq; ++i) 
         {
             if (delimseq.delimiter_sequences[i][0] == (char)gtprm.data[data_pos])
@@ -958,13 +959,9 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
         if (match == true)
         {               
             found_delimiter_sequence = true;                        
-        }
-        else
-        {            
-            found_delimiter_sequence = false;
-        }
-    } while (found_delimiter_sequence == true);
-    if (found_delimiter_sequence == true && (data_pos < gtprm.len))
+        }        
+    } while (match == true);
+    if (found_delimiter_sequence == true && (data_pos + _term_len_ < gtprm.len))
     {
         point_to_beginning_of_token = true;
         gtprm.token_buffer[token_buffer_index] = gtprm.token_buffer_sep;
@@ -972,7 +969,7 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
     }
 }
 
-inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
+void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
     InputProcessStartStopSequences ststpseq {};
     memcpy_P(&ststpseq, input_prm.pststpseq, sizeof(ststpseq));
@@ -1037,7 +1034,7 @@ inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProc
     }
 }
 
-inline void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
+void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
     IH_input_cc ccseq;
     memcpy_P(&ccseq, input_prm.pinputcc, sizeof(ccseq));
