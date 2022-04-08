@@ -1,15 +1,21 @@
 var group___user_input =
 [
+    [ "InputProcessDelimiterSequences", "dc/da2/struct_input_process_delimiter_sequences.html", [
+      [ "delimiter_lens", "dc/da2/struct_input_process_delimiter_sequences.html#a84aef0df737642a23113fbd15ea2faca", null ],
+      [ "delimiter_sequences", "dc/da2/struct_input_process_delimiter_sequences.html#ad71a57459f3f59bcad9a998482873a16", null ],
+      [ "num_seq", "dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735", null ]
+    ] ],
+    [ "InputProcessStartStopSequences", "d4/dc0/struct_input_process_start_stop_sequences.html", [
+      [ "num_seq", "d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2", null ],
+      [ "start_stop_sequence_lens", "d4/dc0/struct_input_process_start_stop_sequences.html#a373e310e2c97d02db616b80b646975d8", null ],
+      [ "start_stop_sequence_pairs", "d4/dc0/struct_input_process_start_stop_sequences.html#ac19ed1f0e1947f266f2cc39f0f416b0f", null ]
+    ] ],
     [ "InputProcessParameters", "db/dda/struct_input_process_parameters.html", [
-      [ "delimiter_lens", "db/dda/struct_input_process_parameters.html#a1925a7e1a2b78b668f826ff92d33e102", null ],
-      [ "delimiter_sequences", "db/dda/struct_input_process_parameters.html#a3cfbd82752a7d5be15e068b0701eea34", null ],
-      [ "end_of_line_term", "db/dda/struct_input_process_parameters.html#a0b6ee1140c2d292ac2c4be330e42ea42", null ],
-      [ "input_control_char_sequence", "db/dda/struct_input_process_parameters.html#a7b1607dae97d55885cf967c8518b3523", null ],
-      [ "num_start_stop_sequences", "db/dda/struct_input_process_parameters.html#a4ad8850958920bebaf60791e6c73fffc", null ],
-      [ "num_token_delimiters", "db/dda/struct_input_process_parameters.html#a61cf97d58c6c6dca116f0f0d5bd4b2ad", null ],
-      [ "process_name", "db/dda/struct_input_process_parameters.html#abf6544287053ec8faaa287cb6fe43f58", null ],
-      [ "start_stop_sequence_lens", "db/dda/struct_input_process_parameters.html#a79fc9a6765190ad5fed886ada7ca2559", null ],
-      [ "start_stop_sequence_pairs", "db/dda/struct_input_process_parameters.html#a64c1b18003507d676026aa229edc5d8a", null ]
+      [ "pdelimseq", "db/dda/struct_input_process_parameters.html#a4d46d07bcae67e41687f29d0b82f91da", null ],
+      [ "peol", "db/dda/struct_input_process_parameters.html#ad0d79ca1524fcb7c3e88d9d6d45e643f", null ],
+      [ "pinputcc", "db/dda/struct_input_process_parameters.html#ac4e31c2f184aaa59871ae9271a160244", null ],
+      [ "pname", "db/dda/struct_input_process_parameters.html#ac563baf1d4691e7022cdfb83b9b6c32f", null ],
+      [ "pststpseq", "db/dda/struct_input_process_parameters.html#abb2b7bddf8634a935079db7587295223", null ]
     ] ],
     [ "CommandParameters", "db/d11/struct_command_parameters.html", [
       [ "arg_type_arr", "db/d11/struct_command_parameters.html#a8ec6d2a00ce2d51de923141279a9f59c", null ],
@@ -24,6 +30,9 @@ var group___user_input =
       [ "parent_command_id", "db/d11/struct_command_parameters.html#ab085fbef59ea7887ea77e2abffb823b3", null ],
       [ "sub_commands", "db/d11/struct_command_parameters.html#a95074f7281ccee928cae5da3c3f85ff8", null ]
     ] ],
+    [ "IH_eol", "de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02", null ],
+    [ "IH_input_cc", "de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698", null ],
+    [ "IH_pname", "de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f", null ],
     [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
       [ "UI_ARG_HANDLING::no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
       [ "UI_ARG_HANDLING::one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],
@@ -44,6 +53,11 @@ var group___user_input =
       [ "UITYPE::NO_ARGS", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716", null ],
       [ "UITYPE::_LAST", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948", null ]
     ] ],
-    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#gad1fd388441b5a56cd193c790f8475712", null ],
+    [ "_DEFAULT_UI_INPUT_PRM_", "de/d8a/group___user_input.html#ga1b8250d1ff59794560036a419e0423b8", null ],
+    [ "_pdelimseq", "de/d8a/group___user_input.html#ga2a598377b17768e0e9bb3be40f439c3a", null ],
+    [ "_peol", "de/d8a/group___user_input.html#ga648dd8cd47317e8f8764a383f85b4d52", null ],
+    [ "_pinputcc", "de/d8a/group___user_input.html#gae949edb22aa21bc0604c634a238ebb6d", null ],
+    [ "_pname", "de/d8a/group___user_input.html#gae02e75f336946c2667c75c61b302baeb", null ],
+    [ "_pststpseq", "de/d8a/group___user_input.html#ga43c58059001edf0ce5f70fb14817c504", null ],
     [ "UserInput_type_strings_pgm", "de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];

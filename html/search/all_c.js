@@ -44,8 +44,7 @@ var searchData=
   ['notype_41',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]],
   ['nprms_42',['nprms',['../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'InputHandler_config.h']]],
   ['num_5fargs_43',['num_args',['../db/d11/struct_command_parameters.html#afba2aca9b9a8ee7ec3de4893e17b4655',1,'CommandParameters']]],
-  ['num_5fstart_5fstop_5fsequences_44',['num_start_stop_sequences',['../db/dda/struct_input_process_parameters.html#a4ad8850958920bebaf60791e6c73fffc',1,'InputProcessParameters']]],
-  ['num_5ftoken_5fdelimiters_45',['num_token_delimiters',['../db/dda/struct_input_process_parameters.html#a61cf97d58c6c6dca116f0f0d5bd4b2ad',1,'InputProcessParameters']]],
-  ['num_5ftoken_5fptrs_46',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
-  ['num_5fzdc_47',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
+  ['num_5fseq_44',['num_seq',['../d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2',1,'InputProcessStartStopSequences::num_seq()'],['../dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735',1,'InputProcessDelimiterSequences::num_seq()']]],
+  ['num_5ftoken_5fptrs_45',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
+  ['num_5fzdc_46',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
 ];
