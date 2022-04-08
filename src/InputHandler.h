@@ -80,36 +80,92 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 };
 
 /**
+ * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
+ *
+ */
+struct InputProcessDelimiterSequences
+{
+    size_t num_seq;                                      ///< the number of token delimiters in delimiter_sequences
+    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
+    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
+};
+
+/**
+ * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
+ *
+ */
+struct InputProcessStartStopSequences
+{
+    size_t num_seq;                                             ///< num start/stop sequences
+    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
+    char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
+};
+
+/**
+ * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
+ *
+ */
+typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
+
+/**
+ * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
+ *
+ */
+typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
+
+/**
+ * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
+ *
+ */
+typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
+
+/**
  * @brief UserInput input process parameters, constructor parameters
  *
  */
 struct InputProcessParameters
 {
-    char process_name[UI_PROCESS_NAME_PGM_LEN];                                       ///< this process' name, can be NULL
-    char end_of_line_term[UI_EOL_SEQ_PGM_LEN];                                        ///< end of line term
-    char input_control_char_sequence[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];              ///< two char len sequence to input a control char
-    size_t num_token_delimiters;                                                      ///< the number of token delimiters in delimiter_sequences
-    char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN];                 ///< string-literal "" delimiter sequence array
-    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                                         ///< delimiter sequence lens
-    size_t num_start_stop_sequences;                                                  ///< num start/stop sequences
-    char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
-    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
+    const IH_pname* pname;                           ///< this process' name, can be NULL
+    const IH_eol* peol;                              ///< end of line term
+    const IH_input_cc* pinputcc;                     ///< two char len sequence to input a control char
+    const InputProcessDelimiterSequences* pdelimseq; ///< reference to InputProcessDelimiterSequences struct
+    const InputProcessStartStopSequences* pststpseq; ///< reference to InputProcessStartStopSequences struct
+};
+
+const PROGMEM IH_pname _pname = "";         ///< default process name
+const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters
+const PROGMEM IH_input_cc _pinputcc = "##"; ///< default input control character sequence
+
+/**
+ * @brief default delimiter sequences
+ *
+ */
+const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
+    2,         ///< number of delimiter sequences
+    {1, 1},    ///< delimiter sequence lens
+    {" ", ","} ///< delimiter sequences
+};
+
+/**
+ * @brief default start stop sequences
+ *
+ */
+const PROGMEM InputProcessStartStopSequences _pststpseq = {
+    1,           ///< num start stop sequence pairs
+    {1, 1},      ///< start stop sequence lens
+    {"\"", "\""} ///< start stop sequence pairs
 };
 
 /**
  * @brief UserInput default InputProcessParameters
  *
  */
-const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_[1] = {
-    "",           ///< process name
-    "\r\n",       ///< eol term
-    "##",         ///< input control char sequence
-    2,            ///< number of delimiter sequences
-    {" ", ","},   ///< delimiter sequences
-    {1, 1},       ///< delimiter sequence lens
-    1,            ///< num start stop sequence pairs
-    {"\"", "\""}, ///< start stop sequence pairs
-    {1, 1}        ///< start stop sequence lens
+const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
+    &_pname,     ///< process name
+    &_peol,      ///< process eol term
+    &_pinputcc,  ///< process input control char sequence
+    &_pdelimseq, ///< process default delimiter sequences
+    &_pststpseq  ///< process default start/stop sequences
 };
 
 /**
@@ -199,12 +255,12 @@ public:
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
     UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
-        : _input_prm_((input_prm == NULL) ? *_DEFAULT_UI_INPUT_PRM_ : *input_prm),
+        : _input_prm_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
           _output_buffer_(output_buffer),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_len_(output_buffer_len),
           _output_buffer_bytes_left_(output_buffer_len),
-          _term_len_(strlen_P(((input_prm == NULL) ? _DEFAULT_UI_INPUT_PRM_->end_of_line_term : input_prm->end_of_line_term))),
+          _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -419,7 +475,7 @@ private:
     // end user entered constructor variables
 
     // constructor initialized variables
-    const InputProcessParameters& _input_prm_; ///< user input constructor parameters pointer
+    const InputProcessParameters* _input_prm_; ///< user input constructor parameters pointer
     char* _output_buffer_;                     ///< pointer to the output char buffer
     bool _output_enabled_;                     ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_len_;                ///< _output_buffer_ size in bytes
@@ -488,9 +544,9 @@ private:
      * @param cmd CommandConstructor pointer
      * @param prm CommandParameters struct reference
      * @param tokens_received amount of tokens in the token buffer
-     * @param input_prm reference to InputProcessParameters struct
+     * @param pname IH_pname char array
      */
-    void _launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const InputProcessParameters& input_prm);
+    void _launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const IH_pname& pname);
 
     /**
      * @brief UserInput:_launchLogic() parameters structure
@@ -613,7 +669,7 @@ private:
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
-     * @param input_prm reference to InputProcessParameters struct
+     * @param pdelimseq reference to process delimiter sequence struct
      * @param data input data
      * @param len input data length
      * @param split_input place to split input
@@ -623,7 +679,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(InputProcessParameters& input_prm, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
+    bool _splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
     // end private methods
 };
 
