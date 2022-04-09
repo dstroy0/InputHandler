@@ -202,7 +202,7 @@ class UserInput;
 struct CommandParameters
 {
     void (*function)(UserInput*);      ///< void function pointer, void your_function(UserInput *inputProcess)
-    bool has_wildcard;                 ///< if true this command has one or more wildcard char
+    bool has_wildcards;                ///< if true this command has one or more wildcard char
     char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
     uint16_t command_length;           ///< command length in characters
     uint16_t parent_command_id;        ///< parent command's unique id root-65535
