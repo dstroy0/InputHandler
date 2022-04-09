@@ -7,6 +7,7 @@ var _input_handler_8h =
     [ "IH_eol", "de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02", null ],
     [ "IH_input_cc", "de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698", null ],
     [ "IH_pname", "de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f", null ],
+    [ "IH_wcc", "de/d8a/group___user_input.html#gae5ba9d1632e0bccd924cf01102d0af3d", null ],
     [ "UI_ARG_HANDLING", "de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9", [
       [ "no_args", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741", null ],
       [ "one_type", "de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67", null ],
@@ -14,6 +15,10 @@ var _input_handler_8h =
     ] ],
     [ "UI_CMD_ID", "de/d8a/group___user_input.html#ga166e5457949a4e09a4391b2bacbb1db0", [
       [ "root", "de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de", null ]
+    ] ],
+    [ "UI_WC_FLAG", "de/d8a/group___user_input.html#gae655f6a50054ff5649f7ab9509d64f14", [
+      [ "no_wildcards", "de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14a0681c51d081bef2c026443ddb77c8127", null ],
+      [ "has_wildcards", "de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e", null ]
     ] ],
     [ "UITYPE", "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70", [
       [ "UINT8_T", "de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca", null ],
@@ -33,5 +38,6 @@ var _input_handler_8h =
     [ "_pinputcc", "de/d8a/group___user_input.html#gae949edb22aa21bc0604c634a238ebb6d", null ],
     [ "_pname", "de/d8a/group___user_input.html#gae02e75f336946c2667c75c61b302baeb", null ],
     [ "_pststpseq", "de/d8a/group___user_input.html#ga43c58059001edf0ce5f70fb14817c504", null ],
+    [ "_pwcc", "de/d8a/group___user_input.html#ga4aaf7ae99900377fc18b6ac5631c21de", null ],
     [ "UserInput_type_strings_pgm", "de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11", null ]
 ];

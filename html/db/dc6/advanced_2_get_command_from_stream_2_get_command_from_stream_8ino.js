@@ -15,6 +15,7 @@ var advanced_2_get_command_from_stream_2_get_command_from_stream_8ino =
     [ "pinputcc", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a79cb83fee1312ff01031a7b49b64116b", null ],
     [ "pname", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03", null ],
     [ "pststpseq", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5", null ],
+    [ "pwcc", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb", null ],
     [ "settings_param", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a12135cc5a77c485c69839d1b2345deb2", null ],
     [ "type_test_param", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ab38d8ada24e71cc390858ef569d1c5ef", null ],
     [ "uc_help_", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#abea6eca563b083379230aa0fd5fe0750", null ],

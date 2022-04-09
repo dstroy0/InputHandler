@@ -124,8 +124,10 @@ $(document).ready(function(){initNavTree('db/d11/struct_command_parameters.html'
 Public Attributes</h2></td></tr>
 <tr class="memitem:a76011eabd753ca404b23a141d068a71a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#a76011eabd753ca404b23a141d068a71a">function</a> )(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *)</td></tr>
 <tr class="separator:a76011eabd753ca404b23a141d068a71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebefb5f2bbec51fbccfe1a608c08b64e"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#aebefb5f2bbec51fbccfe1a608c08b64e">command</a> [<a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934">UI_MAX_CMD_LEN</a>+1]</td></tr>
-<tr class="separator:aebefb5f2bbec51fbccfe1a608c08b64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8602e41b66f5147834888737e1d84b27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#a8602e41b66f5147834888737e1d84b27">has_wildcard</a></td></tr>
+<tr class="separator:a8602e41b66f5147834888737e1d84b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970c31ca969daa721979a9e7e37f62cd"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#a970c31ca969daa721979a9e7e37f62cd">command</a> [<a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934">UI_MAX_CMD_LEN</a>+1U]</td></tr>
+<tr class="separator:a970c31ca969daa721979a9e7e37f62cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11cb31aafbf143d0e96a93495adf6aee"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#a11cb31aafbf143d0e96a93495adf6aee">command_length</a></td></tr>
 <tr class="separator:a11cb31aafbf143d0e96a93495adf6aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab085fbef59ea7887ea77e2abffb823b3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d11/struct_command_parameters.html#ab085fbef59ea7887ea77e2abffb823b3">parent_command_id</a></td></tr>
@@ -180,14 +182,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aebefb5f2bbec51fbccfe1a608c08b64e" name="aebefb5f2bbec51fbccfe1a608c08b64e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebefb5f2bbec51fbccfe1a608c08b64e">&#9670;&nbsp;</a></span>command</h2>
+<a id="a970c31ca969daa721979a9e7e37f62cd" name="a970c31ca969daa721979a9e7e37f62cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970c31ca969daa721979a9e7e37f62cd">&#9670;&nbsp;</a></span>command</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char CommandParameters::command[<a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934">UI_MAX_CMD_LEN</a>+1]</td>
+          <td class="memname">char CommandParameters::command[<a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934">UI_MAX_CMD_LEN</a>+1U]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -257,6 +259,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>void function pointer, void your_function(UserInput *inputProcess) </p>
+
+</div>
+</div>
+<a id="a8602e41b66f5147834888737e1d84b27" name="a8602e41b66f5147834888737e1d84b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8602e41b66f5147834888737e1d84b27">&#9670;&nbsp;</a></span>has_wildcard</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CommandParameters::has_wildcard</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>if true this command has one or more wildcard char </p>
 
 </div>
 </div>
