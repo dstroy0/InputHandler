@@ -7,7 +7,7 @@ var struct_command_parameters =
     [ "command_length", "db/d11/struct_command_parameters.html#a11cb31aafbf143d0e96a93495adf6aee", null ],
     [ "depth", "db/d11/struct_command_parameters.html#affba46c4921986df545de81380e5f7ad", null ],
     [ "function", "db/d11/struct_command_parameters.html#a76011eabd753ca404b23a141d068a71a", null ],
-    [ "has_wildcard", "db/d11/struct_command_parameters.html#a8602e41b66f5147834888737e1d84b27", null ],
+    [ "has_wildcards", "db/d11/struct_command_parameters.html#ad464168b6811b65633cab4f6f4ede715", null ],
     [ "max_num_args", "db/d11/struct_command_parameters.html#a30e668e0105d9cc09aefa19b5014b4b1", null ],
     [ "num_args", "db/d11/struct_command_parameters.html#afba2aca9b9a8ee7ec3de4893e17b4655", null ],
     [ "parent_command_id", "db/d11/struct_command_parameters.html#ab085fbef59ea7887ea77e2abffb823b3", null ],

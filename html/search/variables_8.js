@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['has_5fwildcard_0',['has_wildcard',['../db/d11/struct_command_parameters.html#a8602e41b66f5147834888737e1d84b27',1,'CommandParameters']]],
+  ['has_5fwildcards_0',['has_wildcards',['../db/d11/struct_command_parameters.html#ad464168b6811b65633cab4f6f4ede715',1,'CommandParameters']]],
   ['hdm_1',['HDM',['../da/dff/_n_m_e_asentenceparam_8h.html#aaeb083c750216fcea0e458efc9903135',1,'NMEAsentenceparam.h']]],
   ['hdt_2',['HDT',['../da/dff/_n_m_e_asentenceparam_8h.html#ad42167a83ca06e5ea0de41b4b4652ef7',1,'NMEAsentenceparam.h']]],
   ['help_5fparam_3',['help_param',['../db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;GetCommandFromStream.ino'],['../d6/d3b/parameters_8h.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;parameters.h'],['../df/da5/arduino_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferMQTT.ino'],['../df/dd6/esp_2_read_command_from_buffer_m_q_t_t_2_read_command_from_buffer_m_q_t_t_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a85688eca98c590cc222acbcd441dc266',1,'help_param():&#160;ReadCommandFromBufferWebSerial.ino']]],
