@@ -253,7 +253,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm, _input_prm_);    
+    tokens_received = UserInput::getTokens(gtprm, _input_prm_);
     _data_pointers_index_max_ = tokens_received; // set index max to tokens received
 
     if (tokens_received == 0) // error condition
@@ -333,7 +333,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         }
         _stream_buffer_allocated_ = true;
         _term_index_ = 0;
-    }    
+    }
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
     {
@@ -681,7 +681,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.subcommand_matched == false && LLprm.tokens_received == 1 && LLprm.prm.max_num_args == 0) // command with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
         #endif
 
         LLprm.launch_attempted = true;                                                      // don't run default callback
@@ -692,7 +692,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.tokens_received == 1 && _current_search_depth_ > 1 && LLprm.subcommand_matched == true && LLprm.prm.max_num_args == 0) // subcommand with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
         #endif
         LLprm.launch_attempted = true;                                                      // don't run default callback
         UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -705,7 +705,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), pname, prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
             #endif
             LLprm.launch_attempted = true;                                                      // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -719,7 +719,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: command_id %u\n"), pname, prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
             #endif
             LLprm.launch_attempted = true;                                                      // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -765,7 +765,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.subcommand_matched == true) // recursion
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-        UserInput::_ui_out(PSTR(">%s$_launchLogic recurse, command_id (%u)\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, prm.command_id);
         #endif
         UserInput::_launchLogic(LLprm, input_prm);
     }
@@ -929,12 +929,12 @@ void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessPa
 {
     InputProcessDelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.pdelimseq, sizeof(delimseq));
-    bool found_delimiter_sequence = false;    
+    bool found_delimiter_sequence = false;
     bool match = false; // match delimiter sequence sentinel
-    do // skip over delimiters
+    do                  // skip over delimiters
     {
         match = false;
-        for (size_t i = 0; i < delimseq.num_seq; ++i) 
+        for (size_t i = 0; i < delimseq.num_seq; ++i)
         {
             if (delimseq.delimiter_sequences[i][0] == (char)gtprm.data[data_pos])
             {
@@ -946,20 +946,20 @@ void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessPa
                         data_pos += delimseq.delimiter_lens[i] + 1U;
                         match = true;
                         break;
-                    }                    
+                    }
                 }
                 else // match
                 {
-                    data_pos++;                    
+                    data_pos++;
                     match = true;
                     break; // break for loop
                 }
             }
-        }                
+        }
         if (match == true)
-        {               
-            found_delimiter_sequence = true;                        
-        }        
+        {
+            found_delimiter_sequence = true;
+        }
     } while (match == true);
     if (found_delimiter_sequence == true && (data_pos + _term_len_ < gtprm.len))
     {

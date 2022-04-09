@@ -34,6 +34,16 @@ enum UI_CMD_ID
 };
 
 /**
+ * @brief command wildcard flag enum
+ * @enum UI_WC_FLAG
+ */
+enum UI_WC_FLAG
+{
+    no_wildcards = false, ///< this command has no wildcard char (false (0))
+    has_wildcards = true  ///< this command contains one or more wildcard char (true (1))
+};
+
+/**
  * @brief strongly typed argument handling flags
  * @enum UI_ARG_HANDLING
  */
@@ -85,7 +95,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
  */
 struct InputProcessDelimiterSequences
 {
-    size_t num_seq;                                      ///< the number of token delimiters in delimiter_sequences
+    size_t num_seq;                                                   ///< the number of token delimiters in delimiter_sequences
     uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
     char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
 };
@@ -96,7 +106,7 @@ struct InputProcessDelimiterSequences
  */
 struct InputProcessStartStopSequences
 {
-    size_t num_seq;                                             ///< num start/stop sequences
+    size_t num_seq;                                                                   ///< num start/stop sequences
     uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
     char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
 };
@@ -120,6 +130,12 @@ typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
+ * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
+ *
+ */
+typedef char IH_wcc[2];
+
+/**
  * @brief UserInput input process parameters, constructor parameters
  *
  */
@@ -128,13 +144,15 @@ struct InputProcessParameters
     const IH_pname* pname;                           ///< this process' name, can be NULL
     const IH_eol* peol;                              ///< end of line term
     const IH_input_cc* pinputcc;                     ///< two char len sequence to input a control char
+    const IH_wcc* pwcc;                              ///< single char wildcard char
     const InputProcessDelimiterSequences* pdelimseq; ///< reference to InputProcessDelimiterSequences struct
     const InputProcessStartStopSequences* pststpseq; ///< reference to InputProcessStartStopSequences struct
 };
 
 const PROGMEM IH_pname _pname = "";         ///< default process name
 const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters
-const PROGMEM IH_input_cc _pinputcc = "##"; ///< default input control character sequence
+const PROGMEM IH_input_cc _pinputcc = "##"; ///< default process input control character sequence
+const PROGMEM IH_wcc _pwcc = "*";           ///< default process wildcard char
 
 /**
  * @brief default delimiter sequences
@@ -164,6 +182,7 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
     &_pname,     ///< process name
     &_peol,      ///< process eol term
     &_pinputcc,  ///< process input control char sequence
+    &_pwcc,      ///< process wildcard char
     &_pdelimseq, ///< process default delimiter sequences
     &_pststpseq  ///< process default start/stop sequences
 };
@@ -182,17 +201,18 @@ class UserInput;
  */
 struct CommandParameters
 {
-    void (*function)(UserInput*);     ///< void function pointer, void your_function(UserInput *inputProcess)
-    char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
-    uint16_t command_length;          ///< command length in characters
-    uint16_t parent_command_id;       ///< parent command's unique id root-65535
-    uint16_t command_id;              ///< this command's unique id root-65535
-    uint8_t depth;                    ///< command tree depth root-255
-    uint8_t sub_commands;             ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
-    UI_ARG_HANDLING argument_flag;    ///< argument handling flag
-    uint8_t num_args;                 ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    uint8_t max_num_args;             ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
-    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument UITYPE array
+    void (*function)(UserInput*);      ///< void function pointer, void your_function(UserInput *inputProcess)
+    bool has_wildcard;                 ///< if true this command has one or more wildcard char
+    char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
+    uint16_t command_length;           ///< command length in characters
+    uint16_t parent_command_id;        ///< parent command's unique id root-65535
+    uint16_t command_id;               ///< this command's unique id root-65535
+    uint8_t depth;                     ///< command tree depth root-255
+    uint8_t sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
+    UI_ARG_HANDLING argument_flag;     ///< argument handling flag
+    uint8_t num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    uint8_t max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
+    UITYPE arg_type_arr[UI_MAX_ARGS];  ///< argument UITYPE array
 };
 /** @} */
 
@@ -477,13 +497,13 @@ private:
 
     // constructor initialized variables
     const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
-    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
-    char* _output_buffer_;                     ///< pointer to the output char buffer
-    bool _output_enabled_;                     ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    size_t _output_buffer_len_;                ///< _output_buffer_ size in bytes
-    size_t _output_buffer_bytes_left_;         ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
-    uint8_t _term_len_;                        ///< _term_ length in characters, determined in begin()
-    uint8_t _term_index_;                      ///< _term_ index, match all characters in term or reject the message
+    InputProcessParameters _input_prm_;            ///< user input process parameters pointer struct
+    char* _output_buffer_;                         ///< pointer to the output char buffer
+    bool _output_enabled_;                         ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_len_;                    ///< _output_buffer_ size in bytes
+    size_t _output_buffer_bytes_left_;             ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+    uint8_t _term_len_;                            ///< _term_ length in characters, determined in begin()
+    uint8_t _term_index_;                          ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
     CommandConstructor* _commands_head_;    ///< pointer to object list

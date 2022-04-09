@@ -37,6 +37,7 @@ void uc_hello_(UserInput *inputProcess)
 const PROGMEM CommandParameters type_test_param[1] =
 {
   uc_hello_,                // function name
+  no_wildcards,
   "hello",                  // command string
   5,                        // string length
   root,                     // parent id
