@@ -48,6 +48,10 @@ void UserInput::addCommand(CommandConstructor& command)
         {
             max_depth_found = (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;
             max_args_found = (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
+            if (prm.has_wildcards == true)
+            {
+                // compute command memcmp ranges around wildcard chars, noninclusive
+            }
         }
     }
     if (!err) // if no error
