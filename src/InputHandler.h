@@ -193,6 +193,13 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
  */
 class UserInput;
 
+struct CommandRuntimeCalc
+{
+    uint8_t num_memcmp_ranges;
+    uint8_t* memcmp_ranges_arr;
+    uint8_t max_found_tree_depth;
+};
+
 /**
  * @brief CommandParameters struct, this is the container that holds your command parameters
  *
@@ -246,8 +253,9 @@ public:
     {
     }
     const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
-    const uint8_t param_array_len;    ///< user input param array len, either as digits or through _N_prms
+    const uint8_t param_array_len;    ///< user input param array len, either as digits or through nprms
     const uint8_t tree_depth;         ///< user input depth + 1
+    CommandRuntimeCalc* calc;
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
 };
 
@@ -702,6 +710,25 @@ private:
      * @return false no match no split
      */
     bool _splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
+    
+    /**
+     * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
+     * 
+     * @param command reference to a CommandConstructor class
+     * @param prm reference to a CommandParameters struct
+     */
+    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm);
+
+    /**
+     * @brief compares the command at cmd->prm
+     * 
+     * @param cmd pointer to CommandConstructor     
+     * @param prm_idx index of CommandParameters to array test
+     * @param str c-string
+     * @return true if match
+     * @return false if no match
+     */
+    bool _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
 

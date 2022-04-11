@@ -48,10 +48,9 @@ void UserInput::addCommand(CommandConstructor& command)
         {
             max_depth_found = (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;
             max_args_found = (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
-            if (prm.has_wildcards == true)
-            {
-                // compute command memcmp ranges around wildcard chars, noninclusive
-            }
+
+            // compute command memcmp ranges around wildcard chars, noninclusive
+            UserInput::_calcCmdMemcmpRanges(command, prm);
         }
     }
     if (!err) // if no error
@@ -276,9 +275,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
-    {
-        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[0].command_length));          // cmd->prm[0].command is a pointer to the root command c-string in PROGMEM
-        if (memcmp_P(_data_pointers_[0], cmd->prm[0].command, cmd_len_pgm) == false) // match root command
+    {                
+        if (UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0])) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
@@ -739,10 +737,9 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (_current_search_depth_ <= (LLprm.cmd->tree_depth))             // dig starting at depth 1
     {                                                                  // this index starts at one because the parameter array's first element will be the root command
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
-        {
-            size_t cmd_len_pgm = pgm_read_dword(&(LLprm.cmd->prm[j].command_length));
-            if (memcmp_P(_data_pointers_[_data_pointers_index_], LLprm.cmd->prm[j].command, cmd_len_pgm) == false) // match subcommand string
-            {
+        {                        
+            if (UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_])) // match subcommand string
+            {                
                 memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[j]), sizeof(LLprm.prm));
                 if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
                 {
@@ -823,17 +820,38 @@ inline char UserInput::_combineControlCharacters(char input)
 
 bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
 {
-    bool error = true;
+    bool error_not = true;
+    size_t cmd_len = strlen(prm.command);
+
+    if (prm.has_wildcards == true)
+    {
+        size_t num_wcc = 0;
+        IH_wcc wcc;
+        memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc));
+        for (size_t i = 0; i < cmd_len; ++i)
+        {
+            if (prm.command[i] == wcc[0])
+            {
+                num_wcc++;
+            }
+        }
+        if (num_wcc == cmd_len)
+        {
+            UserInput::_ui_out(PSTR("command string has too many wildcards\n"));
+            error_not = false;
+        }
+    }
+
     if (prm.function == NULL && prm.depth == 0)
     {
         UserInput::_ui_out(PSTR("root command function pointer cannot be NULL\n"));
-        error = false;
+        error_not = false;
     }
-    size_t cmd_len = strlen(prm.command);
+
     if (cmd_len > UI_MAX_CMD_LEN)
     {
         UserInput::_ui_out(PSTR("command too long, increase UI_MAX_CMD_LEN or reduce command length.\n"));
-        error = false;
+        error_not = false;
     }
     if (cmd_len != prm.command_length)
     {
@@ -845,34 +863,34 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
         {
             UserInput::_ui_out(PSTR("command_length too small for command\n"));
         }
-        error = false;
+        error_not = false;
     }
     if (prm.depth > UI_MAX_DEPTH)
     {
         UserInput::_ui_out(PSTR("depth\n"));
-        error = false;
+        error_not = false;
     }
     if (prm.sub_commands > UI_MAX_SUBCOMMANDS)
     {
         UserInput::_ui_out(PSTR("sub_commands\n"));
-        error = false;
+        error_not = false;
     }
     if (prm.num_args > UI_MAX_ARGS)
     {
         UserInput::_ui_out(PSTR("num_args\n"));
-        error = false;
+        error_not = false;
     }
     if (prm.max_num_args > UI_MAX_ARGS)
     {
         UserInput::_ui_out(PSTR("max_num_args\n"));
-        error = false;
+        error_not = false;
     }
     if (prm.num_args > prm.max_num_args)
     {
         UserInput::_ui_out(PSTR("num_args must be less than max_num_args\n"));
-        error = false;
+        error_not = false;
     }
-    if (error == false)
+    if (error_not == false) // error condition
     {
         if (prm.depth > 0)
         {
@@ -883,7 +901,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
             UserInput::_ui_out(PSTR("%s CommandParameters error! Command not added.\n"), prm.command);
         }
     }
-    return error;
+    return error_not;
 }
 
 // clang-format off
@@ -1092,6 +1110,85 @@ bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* da
             memcpy((token_buffer + cmd_len_pgm + pdelimseq.delimiter_lens[0]), data + cmd_len_pgm, (len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
             return true;
         }
+    }
+    return false;
+}
+
+void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm)
+{
+    if (prm.has_wildcards == true)
+    {
+        IH_wcc wcc;
+        size_t cmd_str_pos = 0;
+        uint8_t memcmp_ranges[32] {};
+        uint8_t memcmp_ranges_idx = 0;
+        bool start_memcmp_range = true;
+        memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc));
+        while (cmd_str_pos < prm.command_length)
+        {
+            if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true)
+            {
+                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
+                memcmp_ranges_idx++;
+                start_memcmp_range = false;
+            }
+            if (prm.command[cmd_str_pos] == wcc[0] && prm.command[cmd_str_pos - 1] != wcc[0]) // end memcmp range
+            {
+                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos - 1;
+                memcmp_ranges_idx++;
+                start_memcmp_range = true;
+            }
+            cmd_str_pos++;
+        }
+        if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
+        {
+            memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
+            memcmp_ranges_idx++;
+        }
+        command.calc->num_memcmp_ranges = memcmp_ranges_idx;
+        Serial.print(F("num memcmp ranges: "));
+        Serial.println(command.calc->num_memcmp_ranges);
+        Serial.println(F("memcmp ranges: "));
+        for (size_t i = 0; i < memcmp_ranges_idx; ++i)
+        {
+            if (i % 2 == 0)
+            {
+                Serial.print(memcmp_ranges[i]);
+                Serial.print(F(", "));
+            }
+            else
+            {
+                Serial.println(memcmp_ranges[i]);
+            }
+        }
+    }
+}
+
+bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
+{
+    if ((bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards) == true)
+    {
+        for (size_t i = 0; i < (cmd->calc->num_memcmp_ranges - 2); i = i + 2)
+        {
+            size_t size = ((size_t)abs((int)cmd->calc->memcmp_ranges_arr[i + 1] - (int)cmd->calc->memcmp_ranges_arr[i]) == 0)
+                ? 1
+                : (size_t)abs(cmd->calc->memcmp_ranges_arr[i + 1] - cmd->calc->memcmp_ranges_arr[i]);
+            char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[i]];
+            if (memcmp_P(cmp_ptr, &cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[i]], size) != 0) // doesn't match
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));        
+        if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match
+        {
+            return false;
+        }        
+        return true;
     }
     return false;
 }
