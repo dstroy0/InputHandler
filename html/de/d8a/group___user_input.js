@@ -18,6 +18,11 @@ var group___user_input =
       [ "pststpseq", "db/dda/struct_input_process_parameters.html#abb2b7bddf8634a935079db7587295223", null ],
       [ "pwcc", "db/dda/struct_input_process_parameters.html#a5dea4f7c34e26ab9832e1d4bf431ea3f", null ]
     ] ],
+    [ "CommandRuntimeCalc", "dc/d3d/struct_command_runtime_calc.html", [
+      [ "max_found_tree_depth", "dc/d3d/struct_command_runtime_calc.html#a49ae987a3d49e65bf892b898b718f528", null ],
+      [ "memcmp_ranges_arr", "dc/d3d/struct_command_runtime_calc.html#aef7b1cdc2c661b45cb214999ef5c9cd0", null ],
+      [ "num_memcmp_ranges", "dc/d3d/struct_command_runtime_calc.html#a343c3b743e6bd9825ac5468da526b02f", null ]
+    ] ],
     [ "CommandParameters", "db/d11/struct_command_parameters.html", [
       [ "arg_type_arr", "db/d11/struct_command_parameters.html#a8ec6d2a00ce2d51de923141279a9f59c", null ],
       [ "argument_flag", "db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c", null ],

@@ -1,8 +1,9 @@
 <map id="UserInput" name="UserInput">
-<area shape="rect" id="node1" title="User input handler methods." alt="" coords="437,199,522,225"/>
-<area shape="rect" id="node2" href="$db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters." alt="" coords="293,95,471,121"/>
+<area shape="rect" id="node1" title="User input handler methods." alt="" coords="719,92,804,119"/>
+<area shape="rect" id="node2" href="$db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters." alt="" coords="363,47,541,73"/>
 <area shape="rect" id="node3" href="$dc/da2/struct_input_process_delimiter_sequences.html" title="InputProcessDelimiterSequences struct holds user defined input data delimiters." alt="" coords="5,5,241,32"/>
-<area shape="rect" id="node4" href="$d4/dc0/struct_input_process_start_stop_sequences.html" title="InputProcessStartStopSequences struct holds regex&#45;like start&#45;stop match sequence pairs." alt="" coords="265,5,499,32"/>
-<area shape="rect" id="node5" href="$df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="509,95,673,121"/>
-<area shape="rect" id="node6" href="$db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters." alt="" coords="523,5,686,32"/>
+<area shape="rect" id="node4" href="$d4/dc0/struct_input_process_start_stop_sequences.html" title="InputProcessStartStopSequences struct holds regex&#45;like start&#45;stop match sequence pairs." alt="" coords="6,56,241,83"/>
+<area shape="rect" id="node5" href="$df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="370,136,534,163"/>
+<area shape="rect" id="node6" href="$db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters." alt="" coords="42,125,205,152"/>
+<area shape="rect" id="node7" href="$dc/d3d/struct_command_runtime_calc.html" title=" " alt="" coords="37,176,209,203"/>
 </map>
