@@ -723,6 +723,8 @@ private:
      * @param command reference to a CommandConstructor class
      * @param prm reference to a CommandParameters struct
      * @param prm_idx prm index
+     * @param memcmp_ranges_idx index of memcmp_ranges
+     * @param memcmp_ranges memcmp ranges array
      */
     void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges);
 
