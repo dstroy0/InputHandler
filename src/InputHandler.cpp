@@ -263,6 +263,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         {
             input_len = input_len - (pdelimseq.delimiter_lens[0] + 1U); // resize input len
             delete[] split_input;
+            split_input = NULL;
         }
     }
 
@@ -272,7 +273,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         if (num_zdc != 0)
         {
-            delete[] split_input;
+            delete[] split_input;            
         }
         return;
     }
@@ -352,7 +353,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
-    if (num_zdc != 0) // if there are zero delim commands
+    if (split_input != NULL) // if there are zero delim commands
     {
         delete[] split_input;
     }
