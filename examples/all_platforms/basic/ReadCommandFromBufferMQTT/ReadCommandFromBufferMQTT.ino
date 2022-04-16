@@ -8,22 +8,31 @@
    @copyright Copyright (c) 2022
 */
 
+
+
+// esp
+#if defined(ARDUINO_ARCH_ESP32 || ARDUINO_ARCH_ESP8266)
 #include <WiFi.h>
+#else
+// arduino
+#include <SPI.h>
+#include <WiFiNINA.h>
 #include <PubSubClient.h>
+#endif
 #include <InputHandler.h>
 
-const char *ssid = "REPLACE_WITH_YOUR_SSID";
-const char *password = "REPLACE_WITH_YOUR_PASSWORD";
-const char *mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
+const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS";
 
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClient arduinoClient;
+PubSubClient client(arduinoClient);
 char msg[50]; // command rx buffer
 
 /*
   this output buffer is formatted by UserInput's methods
   you have to empty it out yourself with
-  clearOutputBuffer()
+  ClearOutputBuffer()
 */
 char output_buffer[512] = {'\0'}; //  output buffer
 
@@ -40,19 +49,19 @@ UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput *inputProcess)
+void uc_unrecognized(UserInput* inputProcess)
 {
   // do your error output here
-  if (inputProcess->outputIsAvailable())
+  if (inputHandler->outputIsAvailable())
   {
     client.publish("esp/output", output_buffer);
-    inputProcess->clearOutputBuffer();
+    inputHandler->clearOutputBuffer();
   }
 }
 /*
    lists the settings passed to UserInput's constructor, or default parameters
 */
-void uc_settings(UserInput *inputProcess)
+void uc_settings(UserInput* inputProcess)
 {
   inputProcess->listSettings(inputProcess);
 }
@@ -60,7 +69,7 @@ void uc_settings(UserInput *inputProcess)
 /*
    lists commands available to the user
 */
-void uc_help(UserInput *inputProcess)
+void uc_help(UserInput* inputProcess)
 {
   inputProcess->listCommands();
 }
@@ -210,20 +219,6 @@ const PROGMEM Parameters type_test_param[1] = {
     }};
 CommandConstructor uc_test_(type_test_param);
 
-void setup()
-{
-  setup_wifi();
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(mqtt_callback);
-
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(uc_help_);             // lists commands available to the user
-  inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.addCommand(uc_test_);             // input type test
-  inputHandler.begin();                          // required.  returns true on success.
-  inputHandler.listCommands(); // formats output_buffer with the command list
-}
-
 void setup_wifi()
 {
   WiFi.begin(ssid, password);
@@ -239,10 +234,10 @@ void reconnect_mqtt()
   // Loop until we're reconnected
   while (!client.connected())
   {
-    if (client.connect("ESPClient"))
+    if (client.connect("ArduinoClient"))
     {
       // Subscribe
-      client.subscribe("esp/command");
+      client.subscribe("arduino/command");
     }
     else
     {
@@ -253,9 +248,23 @@ void reconnect_mqtt()
 }
 
 // incoming command
-void mqtt_callback(char *topic, byte *message, unsigned int length)
+void mqtt_callback(char* topic, byte* message, unsigned int length)
 {
   inputHandler.readCommandFromBuffer(message, length);
+}
+
+void setup()
+{
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(mqtt_callback);
+
+  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.addCommand(uc_help_);             // lists commands available to the user
+  inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
+  inputHandler.addCommand(uc_test_);             // input type test
+  inputHandler.begin();                          // required.  returns true on success.
+  inputHandler.listCommands(); // formats output_buffer with the command list
 }
 
 void loop()
@@ -269,7 +278,7 @@ void loop()
 
   if (inputHandler.outputIsAvailable())
   {
-    client.publish("esp/output", output_buffer);
+    client.publish("arduino/output", output_buffer);
     inputHandler.clearOutputBuffer();
   }
 }
