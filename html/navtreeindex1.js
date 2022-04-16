@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"dc/d4b/class_user_input.html#afe1d2a3d494c314c1ed9754b9ee69229":[2,0,7,34],
 "dc/da2/struct_input_process_delimiter_sequences.html":[1,3,0],
 "dc/da2/struct_input_process_delimiter_sequences.html#a84aef0df737642a23113fbd15ea2faca":[1,3,0,0],
 "dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735":[1,3,0,2],

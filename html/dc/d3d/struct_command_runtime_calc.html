@@ -122,53 +122,77 @@ $(document).ready(function(){initNavTree('dc/d3d/struct_command_runtime_calc.htm
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a343c3b743e6bd9825ac5468da526b02f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#a343c3b743e6bd9825ac5468da526b02f">num_memcmp_ranges</a></td></tr>
-<tr class="separator:a343c3b743e6bd9825ac5468da526b02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7b1cdc2c661b45cb214999ef5c9cd0"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#aef7b1cdc2c661b45cb214999ef5c9cd0">memcmp_ranges_arr</a></td></tr>
-<tr class="separator:aef7b1cdc2c661b45cb214999ef5c9cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ae987a3d49e65bf892b898b718f528"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#a49ae987a3d49e65bf892b898b718f528">max_found_tree_depth</a></td></tr>
-<tr class="separator:a49ae987a3d49e65bf892b898b718f528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45e5baf0d3544b9e2a8a76cc07265cea"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#a45e5baf0d3544b9e2a8a76cc07265cea">num_prm_with_wc</a></td></tr>
+<tr class="separator:a45e5baf0d3544b9e2a8a76cc07265cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72599d9f68158f6b5bb3c91aca9e6263"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#a72599d9f68158f6b5bb3c91aca9e6263">idx_of_prm_with_wc</a></td></tr>
+<tr class="separator:a72599d9f68158f6b5bb3c91aca9e6263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8c7bada5d8ae12f0d18ec8bae035e5b"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#ae8c7bada5d8ae12f0d18ec8bae035e5b">num_memcmp_ranges_this_row</a></td></tr>
+<tr class="separator:ae8c7bada5d8ae12f0d18ec8bae035e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636463dca9a800bee8202d96ebedd957"><td class="memItemLeft" align="right" valign="top">uint8_t **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3d/struct_command_runtime_calc.html#a636463dca9a800bee8202d96ebedd957">memcmp_ranges_arr</a></td></tr>
+<tr class="separator:a636463dca9a800bee8202d96ebedd957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a49ae987a3d49e65bf892b898b718f528" name="a49ae987a3d49e65bf892b898b718f528"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49ae987a3d49e65bf892b898b718f528">&#9670;&nbsp;</a></span>max_found_tree_depth</h2>
+<a id="a72599d9f68158f6b5bb3c91aca9e6263" name="a72599d9f68158f6b5bb3c91aca9e6263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72599d9f68158f6b5bb3c91aca9e6263">&#9670;&nbsp;</a></span>idx_of_prm_with_wc</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t CommandRuntimeCalc::max_found_tree_depth</td>
+          <td class="memname">uint8_t* CommandRuntimeCalc::idx_of_prm_with_wc</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>indices of Parameters struct that contain wcc </p>
+
 </div>
 </div>
-<a id="aef7b1cdc2c661b45cb214999ef5c9cd0" name="aef7b1cdc2c661b45cb214999ef5c9cd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef7b1cdc2c661b45cb214999ef5c9cd0">&#9670;&nbsp;</a></span>memcmp_ranges_arr</h2>
+<a id="a636463dca9a800bee8202d96ebedd957" name="a636463dca9a800bee8202d96ebedd957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a636463dca9a800bee8202d96ebedd957">&#9670;&nbsp;</a></span>memcmp_ranges_arr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t* CommandRuntimeCalc::memcmp_ranges_arr</td>
+          <td class="memname">uint8_t** CommandRuntimeCalc::memcmp_ranges_arr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>2d array[row][col], each [row] is for one Parameters command string which contains wcc </p>
+
 </div>
 </div>
-<a id="a343c3b743e6bd9825ac5468da526b02f" name="a343c3b743e6bd9825ac5468da526b02f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a343c3b743e6bd9825ac5468da526b02f">&#9670;&nbsp;</a></span>num_memcmp_ranges</h2>
+<a id="ae8c7bada5d8ae12f0d18ec8bae035e5b" name="ae8c7bada5d8ae12f0d18ec8bae035e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8c7bada5d8ae12f0d18ec8bae035e5b">&#9670;&nbsp;</a></span>num_memcmp_ranges_this_row</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t CommandRuntimeCalc::num_memcmp_ranges</td>
+          <td class="memname">uint8_t* CommandRuntimeCalc::num_memcmp_ranges_this_row</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the number of memcmp ranges for this Parameters command string, array members always an even number </p>
+
+</div>
+</div>
+<a id="a45e5baf0d3544b9e2a8a76cc07265cea" name="a45e5baf0d3544b9e2a8a76cc07265cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45e5baf0d3544b9e2a8a76cc07265cea">&#9670;&nbsp;</a></span>num_prm_with_wc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CommandRuntimeCalc::num_prm_with_wc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>the number of Parameters structs in this command that contain IH_wcc[0]; the WildCard Character </p>
 
 </div>
 </div>
