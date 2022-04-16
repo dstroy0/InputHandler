@@ -1,5 +1,5 @@
-<map id="examples/arduino/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino" name="examples/arduino/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino">
-<area shape="rect" id="node1" title="An example that demonstrates receiving commands and sending an echo over MQTT." alt="" coords="43,5,351,61"/>
+<map id="examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino" name="examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino">
+<area shape="rect" id="node1" title="An example that demonstrates receiving commands and sending an echo over MQTT." alt="" coords="48,5,345,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,109,60,136"/>
 <area shape="rect" id="node3" title=" " alt="" coords="84,109,179,136"/>
 <area shape="rect" id="node4" title=" " alt="" coords="203,109,323,136"/>

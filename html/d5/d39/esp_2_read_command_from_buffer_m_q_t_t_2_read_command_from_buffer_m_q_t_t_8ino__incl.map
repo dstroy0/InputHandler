@@ -1,8 +1,0 @@
-<map id="examples/esp/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino" name="examples/esp/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino">
-<area shape="rect" id="node1" title="An example that demonstrates receiving commands and sending an echo over MQTT." alt="" coords="18,5,287,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,109,68,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="93,109,213,136"/>
-<area shape="rect" id="node4" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="237,109,354,136"/>
-<area shape="rect" id="node5" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="221,184,370,225"/>
-<area shape="rect" id="node6" title=" " alt="" coords="253,273,337,300"/>
-</map>
