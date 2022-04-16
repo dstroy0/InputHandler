@@ -3,7 +3,7 @@
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that demonstrates how to use all of the available methods
    @version 0.9
-   @date 2022-03-18
+   @date 2022-04-16
 
    @copyright Copyright (c) 2022
 */
@@ -142,7 +142,7 @@ void uc_test_input_types(UserInput* inputProcess)
 const PROGMEM CommandParameters help_param[1] =
 {
   uc_help,                               // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  no_wildcards,
+  no_wildcards,                          // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "help",                                // command string
   4,                                     // command string characters
   root,                                  // parent id
@@ -167,7 +167,7 @@ CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and 
 */
 const PROGMEM CommandParameters settings_param[1] = {
   uc_settings,              // function ptr
-  no_wildcards,
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "inputSettings",          // command string
   13,                       // command string characters
   root,                     // parent id
@@ -192,7 +192,7 @@ CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command s
 */
 const PROGMEM CommandParameters type_test_param[1] = {
   uc_test_input_types,       // function ptr
-  no_wildcards,
+  no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "test",                    // command string
   4,                         // string length
   root,                      // parent id

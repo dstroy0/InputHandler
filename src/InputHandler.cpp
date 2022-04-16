@@ -31,7 +31,9 @@ void UserInput::addCommand(CommandConstructor& command)
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
     CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
-    bool err = false;           // CommandParameters struct error sentinel
+    size_t wc_containing_prm_found = 0;
+    uint8_t wc_containing_prm_index_arr[32] {};
+    bool err = false; // CommandParameters struct error sentinel
     /*
         the reason we run through the whole CommandParameters array instead of breaking
         on error is to give users clues as to what might be wrong with their
@@ -48,13 +50,52 @@ void UserInput::addCommand(CommandConstructor& command)
         {
             max_depth_found = (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;
             max_args_found = (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
-
-            // compute command memcmp ranges around wildcard chars, noninclusive
-            UserInput::_calcCmdMemcmpRanges(command, prm);
+            if (prm.has_wildcards == true)
+            {
+                wc_containing_prm_index_arr[wc_containing_prm_found] = i;
+                wc_containing_prm_found++;
+            }
         }
     }
     if (!err) // if no error
     {
+        if (wc_containing_prm_found > 0)
+        {
+            command.calc = new CommandRuntimeCalc();
+            command.calc->num_prm_with_wc = wc_containing_prm_found;
+            command.calc->idx_of_prm_with_wc = new uint8_t[wc_containing_prm_found]();
+            command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found];
+            command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
+            memcpy(&command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);
+            for (size_t i = 0; i < wc_containing_prm_found; ++i)
+            {
+                uint8_t memcmp_ranges[32] {};
+                uint8_t memcmp_ranges_idx = 0;
+                memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
+                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                
+                command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
+                (command.calc->memcmp_ranges_arr[i]) = new uint8_t[memcmp_ranges_idx]();
+                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);                               
+                #if defined(__DEBUG_ADDCOMMAND__)
+                UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, command.calc->num_memcmp_ranges_this_row[i]);
+                for (size_t j = 0; j < command.calc->num_memcmp_ranges_this_row[i]; ++j)
+                {
+                    if (j % 2 == 0)
+                    {
+                        UserInput::_ui_out(PSTR("%u, "), command.calc->memcmp_ranges_arr[i][j]);                     
+                    }
+                    else
+                    {
+                        UserInput::_ui_out(PSTR("%u\n"), command.calc->memcmp_ranges_arr[i][j]);                        
+                    }
+                }
+                #endif
+            }
+        }
+        else
+        {
+            command.calc = NULL;
+        }
         _commands_count_++;
         _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
         _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
@@ -149,7 +190,7 @@ void UserInput::listSettings(UserInput* inputProcess)
                            ((i < delimseqs.num_seq - 1) ? ',' : ' '),
                            ((i % 5 == 0) ? ' ' : '\n'));
     }
-    UserInput::_ui_out(PSTR("\npststpseqs = \n"));
+    UserInput::_ui_out(PSTR("pststpseqs = \n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
         UserInput::_ui_out(PSTR("start|%s|, stop|%s|; "), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
@@ -275,7 +316,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
-    {                
+    {
         if (UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0])) // match root command
         {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
@@ -1114,21 +1155,19 @@ bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* da
     return false;
 }
 
-void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm)
+void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges)
 {
-    if (prm.has_wildcards == true)
+    if (prm.has_wildcards == true) // if this command has wildcards
     {
-        IH_wcc wcc;
-        size_t cmd_str_pos = 0;
-        uint8_t memcmp_ranges[32] {};
-        uint8_t memcmp_ranges_idx = 0;
-        bool start_memcmp_range = true;
-        memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc));
-        while (cmd_str_pos < prm.command_length)
+        IH_wcc wcc; // char array to hold WildCard Character (wcc)
+        size_t cmd_str_pos = 0; // prm.command char array index
+        bool start_memcmp_range = true; // sentinel
+        memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc)); // copy WildCard Character (wcc) to ram
+        while (cmd_str_pos < prm.command_length) // iterate over whole command len
         {
-            if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true)
+            if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
             {
-                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
+                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; 
                 memcmp_ranges_idx++;
                 start_memcmp_range = false;
             }
@@ -1138,56 +1177,42 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
                 memcmp_ranges_idx++;
                 start_memcmp_range = true;
             }
-            cmd_str_pos++;
+            cmd_str_pos++; // increment char array index
         }
         if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
         {
-            memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
+            memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; // remember the end of the array
             memcmp_ranges_idx++;
-        }
-        command.calc->num_memcmp_ranges = memcmp_ranges_idx;
-        Serial.print(F("num memcmp ranges: "));
-        Serial.println(command.calc->num_memcmp_ranges);
-        Serial.println(F("memcmp ranges: "));
-        for (size_t i = 0; i < memcmp_ranges_idx; ++i)
-        {
-            if (i % 2 == 0)
-            {
-                Serial.print(memcmp_ranges[i]);
-                Serial.print(F(", "));
-            }
-            else
-            {
-                Serial.println(memcmp_ranges[i]);
-            }
         }
     }
 }
 
 bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
-    if ((bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards) == true)
-    {
-        for (size_t i = 0; i < (cmd->calc->num_memcmp_ranges - 2); i = i + 2)
-        {
-            size_t size = ((size_t)abs((int)cmd->calc->memcmp_ranges_arr[i + 1] - (int)cmd->calc->memcmp_ranges_arr[i]) == 0)
-                ? 1
-                : (size_t)abs(cmd->calc->memcmp_ranges_arr[i + 1] - cmd->calc->memcmp_ranges_arr[i]);
-            char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[i]];
-            if (memcmp_P(cmp_ptr, &cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[i]], size) != 0) // doesn't match
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    else
-    {
-        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));        
+    if (cmd->calc == NULL) // no wildcards
+    {        
+        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
         if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match
         {
             return false;
-        }        
+        }
+        return true;
+    }
+    else // has wildcards
+    {        
+        for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
+        {            
+            long size = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
+            size = abs(size);
+            size_t result = ((size_t)size == 0)
+                ? 1
+                : (size_t)size;            
+            char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
+            if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
+            {                            
+                return false;
+            }
+        }
         return true;
     }
     return false;

@@ -3,7 +3,7 @@
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief A basic InputHandler demonstration
    @version 0.9
-   @date 2022-03-18
+   @date 2022-04-68
 
    @copyright Copyright (c) 2022
 */
@@ -37,7 +37,7 @@ void uc_hello_(UserInput *inputProcess)
 const PROGMEM CommandParameters type_test_param[1] =
 {
   uc_hello_,                // function name
-  no_wildcards,
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "hello",                  // command string
   5,                        // string length
   root,                     // parent id
