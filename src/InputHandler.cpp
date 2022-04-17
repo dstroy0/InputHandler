@@ -596,6 +596,7 @@ inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParam
         {
             // constrain err_n_args to UI_MAX_ARGS + 1
             size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
+            err_n_args = (err_n_args == 0 && prm.num_args > 0) ? 1 : err_n_args;
             if (err_n_args > 0)
             {
                 for (size_t i = 0; i < (_failed_on_subcommand_ + 1U); ++i)
