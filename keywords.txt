@@ -15,6 +15,12 @@ START_STOP	KEYWORD2
 NOTYPE		KEYWORD2
 NO_ARGS		KEYWORD2
 _LAST		KEYWORD2
+InputProcessDelimiterSequences	KEYWORD2
+InputProcessStartStopSequences	KEYWORD2
+IH_pname	KEYWORD2
+IH_eol	KEYWORD2
+IH_input_cc	KEYWORD2
+IH_wcc	KEYWORD2
 InputProcessParameters	KEYWORD2
 CommandParameters	KEYWORD2
 CommandConstructor	KEYWORD2

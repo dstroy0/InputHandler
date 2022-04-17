@@ -505,38 +505,45 @@ private:
         UserInput Constructor variables
     */
 
-    // user entered constructor variables
-
-    // end user entered constructor variables
-
-    // constructor initialized variables
-    const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
-    InputProcessParameters _input_prm_;            ///< user input process parameters pointer struct
+    // (potentially) user entered constructor variables
     char* _output_buffer_;                         ///< pointer to the output char buffer
     bool _output_enabled_;                         ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
-    size_t _output_buffer_len_;                    ///< _output_buffer_ size in bytes
-    size_t _output_buffer_bytes_left_;             ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
-    uint8_t _term_len_;                            ///< _term_ length in characters, determined in begin()
-    uint8_t _term_index_;                          ///< _term_ index, match all characters in term or reject the message
+    const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
+    // end user entered constructor variables
+
+    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
+
+    size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
+    size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
+
+    uint8_t _term_len_;   ///< _term_ length in characters, determined in begin()
+    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
 
     void (*_default_function_)(UserInput*); ///< pointer to the default function
-    CommandConstructor* _commands_head_;    ///< pointer to object list
-    CommandConstructor* _commands_tail_;    ///< pointer to object list
-    uint8_t _commands_count_;               ///< how many commands are there
-    uint8_t _max_depth_;                    ///< max command depth found
-    uint8_t _max_args_;                     ///< max command or subcommand arguments found
 
-    bool _output_flag_;                ///< output is available flag, set by member functions
+    // linked-list
+    CommandConstructor* _commands_head_; ///< pointer to object list
+    CommandConstructor* _commands_tail_; ///< pointer to object list
+    // end linked-list
+
+    uint8_t _commands_count_; ///< how many commands are there
+    uint8_t _max_depth_;      ///< max command depth found
+    uint8_t _max_args_;       ///< max command or subcommand arguments found
+
+    bool _output_flag_; ///< output is available flag, set by member functions
+
     char* _token_buffer_;              ///< pointer to tokenized c-string
     char** _data_pointers_;            ///< token_buffer pointers
     uint8_t _data_pointers_index_;     ///< data_pointer index
     uint8_t _data_pointers_index_max_; ///< data_pointer index max
-    uint8_t _rec_num_arg_strings_;     ///< number of tokens after first valid token
-    uint8_t _failed_on_subcommand_;    ///< subcommand error index
-    uint8_t _current_search_depth_;    ///< current subcommand search depth
-    char _null_;                       ///< char '\0'
-    char _neg_;                        ///< char '-'
-    char _dot_;                        ///< char '.'
+
+    uint8_t _rec_num_arg_strings_;  ///< number of tokens after first valid token
+    uint8_t _failed_on_subcommand_; ///< subcommand error index
+    uint8_t _current_search_depth_; ///< current subcommand search depth
+
+    char _null_; ///< char '\0'
+    char _neg_;  ///< char '-'
+    char _dot_;  ///< char '.'
 
     bool _stream_buffer_allocated_; ///< this flag is set true on GetCommandFromStream entry if a buffer is not allocated
     bool _new_stream_data_;         ///< if there is new data in *stream_data this is true
@@ -729,7 +736,7 @@ private:
     void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges);
 
     /**
-     * @brief compares the command at cmd->prm
+     * @brief compares str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
      * @param prm_idx index of CommandParameters to array test
