@@ -300,6 +300,9 @@ public:
           _commands_head_(NULL),
           _commands_tail_(NULL),
           _commands_count_(0),
+          _max_depth_(0),
+          _max_args_(0),
+          _input_type_match_flags_(NULL),
           _output_flag_(false),
           _token_buffer_(NULL),
           _data_pointers_(NULL),
@@ -530,6 +533,7 @@ private:
     uint8_t _commands_count_; ///< how many commands are there
     uint8_t _max_depth_;      ///< max command depth found
     uint8_t _max_args_;       ///< max command or subcommand arguments found
+    bool* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
 
     bool _output_flag_; ///< output is available flag, set by member functions
 

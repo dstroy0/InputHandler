@@ -116,6 +116,7 @@ void UserInput::addCommand(CommandConstructor& command)
 bool UserInput::begin()
 {
     _p_num_ptrs_ = 1U + _max_depth_ + _max_args_;
+    _input_type_match_flags_ = new bool[_max_args_]();
     _data_pointers_ = new char*[_p_num_ptrs_]();
     if (_data_pointers_ == nullptr)
     {
@@ -312,8 +313,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         return;
     }
     // end error condition
-
-    bool* input_type_match_flag = new bool[_max_args_](); // argument type-match flag array
+    
     bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
@@ -334,7 +334,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
                 tokens_received,
                 all_arguments_valid,
                 launch_attempted,
-                input_type_match_flag,
+                _input_type_match_flags_,
                 subcommand_matched,
                 command_id};
             UserInput::_launchLogic(LLprm, _input_prm_); // see if command has any subcommands, validate input types, try to launch function
@@ -344,7 +344,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }                                                    // end root command for loop
     if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(_input_prm_, cmd, prm, command_matched, input_type_match_flag, all_arguments_valid, input_data);
+        UserInput::_readCommandFromBufferErrorOutput(_input_prm_, cmd, prm, command_matched, _input_type_match_flags_, all_arguments_valid, input_data);
         (*_default_function_)(this); // run the default function
     }
 
@@ -357,8 +357,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         delete[] split_input;
     }
-    delete[] _token_buffer_;
-    delete[] input_type_match_flag;
+    delete[] _token_buffer_;    
 }
 
 void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
