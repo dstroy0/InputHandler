@@ -7,5 +7,5 @@ var searchData=
   ['validatenullsepinput_4',['validateNullSepInput',['../dc/d4b/class_user_input.html#afe1d2a3d494c314c1ed9754b9ee69229',1,'UserInput']]],
   ['vsnprintf_5',['vsnprintf',['../dd/ddc/vsnprintf_8h.html#abf97ffe3965625d5aff552f38ceb8153',1,'vsnprintf.h']]],
   ['vsnprintf_2eh_6',['vsnprintf.h',['../dd/ddc/vsnprintf_8h.html',1,'']]],
-  ['vtg_7',['VTG',['../da/dff/_n_m_e_asentenceparam_8h.html#a91758df8924b29db0b21d096c14e94c9',1,'NMEAsentenceparam.h']]]
+  ['vtg_7',['VTG',['../da/dff/_n_m_e_asentenceparam_8h.html#aa3628cdfd0330bc9daa3d2bfd4fb4e42',1,'NMEAsentenceparam.h']]]
 ];

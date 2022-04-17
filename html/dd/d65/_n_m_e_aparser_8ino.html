@@ -129,7 +129,7 @@ Include dependency graph for NMEAparser.ino:</div>
 <area shape="rect" href="../../da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="137,95,250,121"/>
 <area shape="rect" href="../../dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="100,393,249,435"/>
 <area shape="rect" title=" " alt="" coords="133,483,217,509"/>
-<area shape="rect" href="../../da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence Parameters structs." alt="" coords="187,169,362,196"/>
+<area shape="rect" href="../../da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="187,169,362,196"/>
 <area shape="rect" href="../../d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="237,244,397,271"/>
 </map>
 </div>
@@ -145,23 +145,41 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a90aac22f54ccda6d76fcabe4d7fe0015"><td class="memItemLeft" align="right" valign="top">const Parameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a90aac22f54ccda6d76fcabe4d7fe0015">sentence_param</a> []</td></tr>
-<tr class="separator:a90aac22f54ccda6d76fcabe4d7fe0015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bc27fab6e2e5b153d3937293001f28d"><td class="memItemLeft" align="right" valign="top">const Parameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a2bc27fab6e2e5b153d3937293001f28d">sentence_error_param</a> []</td></tr>
-<tr class="separator:a2bc27fab6e2e5b153d3937293001f28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fa5b857ccd7fbb9d47f9b8deeb8def4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1fa5b857ccd7fbb9d47f9b8deeb8def4">output_buffer</a> [256] = {'\0'}</td></tr>
-<tr class="separator:a1fa5b857ccd7fbb9d47f9b8deeb8def4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcc9ea6e4da50b881c92422c088c6185"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#afcc9ea6e4da50b881c92422c088c6185">inputHandler</a> (<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;&quot;)</td></tr>
-<tr class="separator:afcc9ea6e4da50b881c92422c088c6185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d8d23a7c6ec3be759b7f6161100f0ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a8d8d23a7c6ec3be759b7f6161100f0ee">sensorParser</a> (<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), &quot;NMEA&quot;, &quot;\r\n&quot;, &quot;,&quot;, &quot;&quot;)</td></tr>
-<tr class="separator:a8d8d23a7c6ec3be759b7f6161100f0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa7c88fd59bb49e26d5c6fb2f48a2cd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#affa7c88fd59bb49e26d5c6fb2f48a2cd">sentence_param</a> []</td></tr>
+<tr class="separator:affa7c88fd59bb49e26d5c6fb2f48a2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8c178791ae7966143e2dc16a573f3b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a0a8c178791ae7966143e2dc16a573f3b">sentence_error_param</a> []</td></tr>
+<tr class="separator:a0a8c178791ae7966143e2dc16a573f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6fad681109967cdd91199eba68ac6c8"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ac6fad681109967cdd91199eba68ac6c8">output_buffer</a> [4000] = {'\0'}</td></tr>
+<tr class="separator:ac6fad681109967cdd91199eba68ac6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a8fb60df49ed1c3950a0bd0717cc03"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a> = &quot;_test_&quot;</td></tr>
+<tr class="separator:a49a8fb60df49ed1c3950a0bd0717cc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d5220287a9fed34d299577749a1e46"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02">IH_eol</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a> = &quot;\r\n&quot;</td></tr>
+<tr class="separator:a61d5220287a9fed34d299577749a1e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79cb83fee1312ff01031a7b49b64116b"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698">IH_input_cc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a> = &quot;##&quot;</td></tr>
+<tr class="separator:a79cb83fee1312ff01031a7b49b64116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa6088f7cb93207f24d0ffff3dde3eb"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#gae5ba9d1632e0bccd924cf01102d0af3d">IH_wcc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a> = &quot;*&quot;</td></tr>
+<tr class="separator:abaa6088f7cb93207f24d0ffff3dde3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba17c1ae84278f0965b64b0860775b6f"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../dc/da2/struct_input_process_delimiter_sequences.html">InputProcessDelimiterSequences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a></td></tr>
+<tr class="separator:aba17c1ae84278f0965b64b0860775b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af714e2365c476e8714cf16ccbced9e7e"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../dc/da2/struct_input_process_delimiter_sequences.html">InputProcessDelimiterSequences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a></td></tr>
+<tr class="separator:af714e2365c476e8714cf16ccbced9e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d43a9b5ee2bda82f27eb2970a2e30a5"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../d4/dc0/struct_input_process_start_stop_sequences.html">InputProcessStartStopSequences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></td></tr>
+<tr class="separator:a1d43a9b5ee2bda82f27eb2970a2e30a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084afcadb360781f4e8183987435076c"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a> [1]</td></tr>
+<tr class="separator:a084afcadb360781f4e8183987435076c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20c0984976fc016b2095795890af59b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a20c0984976fc016b2095795890af59b4">inputHandler</a> (<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), <a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a>)</td></tr>
+<tr class="separator:a20c0984976fc016b2095795890af59b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42986df66e06c58241dceea85c6e611"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611">sensor_prm</a> [1]</td></tr>
+<tr class="separator:ac42986df66e06c58241dceea85c6e611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce779a2c885b0eb3e07a8745b3d8cd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a5ce779a2c885b0eb3e07a8745b3d8cd3">sensorParser</a> (<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), <a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611">sensor_prm</a>)</td></tr>
+<tr class="separator:a5ce779a2c885b0eb3e07a8745b3d8cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e5284c636008446accd678d517a6f1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d2a/class_n_m_e_aparse.html">NMEAparse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e">NMEA</a></td></tr>
 <tr class="separator:a3e5284c636008446accd678d517a6f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acad89f5dd048dba77e2f05c4ff30558f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#acad89f5dd048dba77e2f05c4ff30558f">gpbwc</a> = &quot;$GPBWC,081837,,,,,,T,,M,,N,*13\r\n&quot;</td></tr>
 <tr class="separator:acad89f5dd048dba77e2f05c4ff30558f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeafab347975344ab7daf92051b1b64e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#aeafab347975344ab7daf92051b1b64e2">NMEA_sentence</a> (<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>), 2)</td></tr>
+<tr class="memitem:aeafab347975344ab7daf92051b1b64e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#aeafab347975344ab7daf92051b1b64e2">NMEA_sentence</a> (<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>), 2)</td></tr>
 <tr class="separator:aeafab347975344ab7daf92051b1b64e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0a060c6e9c8ed30712e76edd907ae9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#aa0a060c6e9c8ed30712e76edd907ae9c">NMEA_sentence_error</a> (<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>), 2)</td></tr>
+<tr class="memitem:aa0a060c6e9c8ed30712e76edd907ae9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#aa0a060c6e9c8ed30712e76edd907ae9c">NMEA_sentence_error</a> (<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>), 2)</td></tr>
 <tr class="separator:aa0a060c6e9c8ed30712e76edd907ae9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -237,14 +255,42 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afcc9ea6e4da50b881c92422c088c6185" name="afcc9ea6e4da50b881c92422c088c6185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcc9ea6e4da50b881c92422c088c6185">&#9670;&nbsp;</a></span>inputHandler</h2>
+<a id="a084afcadb360781f4e8183987435076c" name="a084afcadb360781f4e8183987435076c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084afcadb360781f4e8183987435076c">&#9670;&nbsp;</a></span>input_prm</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> inputHandler(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), &quot;&quot;, &quot;\r\n&quot;, &quot; &quot;, &quot;&quot;) </td>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> input_prm[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a1d43a9b5ee2bda82f27eb2970a2e30a5"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div><div class="ttdeci">const PROGMEM InputProcessStartStopSequences pststpseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:71</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a49a8fb60df49ed1c3950a0bd0717cc03"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a></div><div class="ttdeci">const PROGMEM IH_pname pname</div><div class="ttdoc">default process name</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:54</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a61d5220287a9fed34d299577749a1e46"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a></div><div class="ttdeci">const PROGMEM IH_eol peol</div><div class="ttdoc">default process eol characters</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:55</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a79cb83fee1312ff01031a7b49b64116b"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a></div><div class="ttdeci">const PROGMEM IH_input_cc pinputcc</div><div class="ttdoc">default input control character sequence</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:56</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_aba17c1ae84278f0965b64b0860775b6f"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences pipdelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:59</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_abaa6088f7cb93207f24d0ffff3dde3eb"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a></div><div class="ttdeci">const PROGMEM IH_wcc pwcc</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:57</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a20c0984976fc016b2095795890af59b4" name="a20c0984976fc016b2095795890af59b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20c0984976fc016b2095795890af59b4">&#9670;&nbsp;</a></span>inputHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> inputHandler(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), <a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>&#160;</td>
           <td class="paramname">, </td>
@@ -258,25 +304,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&quot;&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;\r\n&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot; &quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;&quot;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -310,15 +338,15 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> NMEA_sentence(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>), 2) </td>
+          <td class="memname"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> NMEA_sentence(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>), 2) </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a803044c0991447ade150da402a327bde">sentence_param</a>)&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a>)&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -344,15 +372,15 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> NMEA_sentence_error(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>), 2) </td>
+          <td class="memname"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> NMEA_sentence_error(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>), 2) </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a25b15af9181fe4cb38bdcaf52f8fe5d5">sentence_error_param</a>)&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a>(<a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a>)&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -371,28 +399,170 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a1fa5b857ccd7fbb9d47f9b8deeb8def4" name="a1fa5b857ccd7fbb9d47f9b8deeb8def4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fa5b857ccd7fbb9d47f9b8deeb8def4">&#9670;&nbsp;</a></span>output_buffer</h2>
+<a id="ac6fad681109967cdd91199eba68ac6c8" name="ac6fad681109967cdd91199eba68ac6c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fad681109967cdd91199eba68ac6c8">&#9670;&nbsp;</a></span>output_buffer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char output_buffer[256] = {'\0'}</td>
+          <td class="memname">char output_buffer[4000] = {'\0'}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8d8d23a7c6ec3be759b7f6161100f0ee" name="a8d8d23a7c6ec3be759b7f6161100f0ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d8d23a7c6ec3be759b7f6161100f0ee">&#9670;&nbsp;</a></span>sensorParser</h2>
+<a id="a61d5220287a9fed34d299577749a1e46" name="a61d5220287a9fed34d299577749a1e46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61d5220287a9fed34d299577749a1e46">&#9670;&nbsp;</a></span>peol</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> sensorParser(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), &quot;NMEA&quot;, &quot;\r\n&quot;, &quot;,&quot;, &quot;&quot;) </td>
+          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02">IH_eol</a> peol = &quot;\r\n&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>default process eol characters </p>
+
+</div>
+</div>
+<a id="a79cb83fee1312ff01031a7b49b64116b" name="a79cb83fee1312ff01031a7b49b64116b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79cb83fee1312ff01031a7b49b64116b">&#9670;&nbsp;</a></span>pinputcc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698">IH_input_cc</a> pinputcc = &quot;##&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>default input control character sequence </p>
+
+</div>
+</div>
+<a id="aba17c1ae84278f0965b64b0860775b6f" name="aba17c1ae84278f0965b64b0860775b6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba17c1ae84278f0965b64b0860775b6f">&#9670;&nbsp;</a></span>pipdelimseq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../dc/da2/struct_input_process_delimiter_sequences.html">InputProcessDelimiterSequences</a> pipdelimseq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">  1,    </div>
+<div class="line">  {1},  </div>
+<div class="line">  {<span class="stringliteral">&quot; &quot;</span>} </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a49a8fb60df49ed1c3950a0bd0717cc03" name="a49a8fb60df49ed1c3950a0bd0717cc03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49a8fb60df49ed1c3950a0bd0717cc03">&#9670;&nbsp;</a></span>pname</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a> pname = &quot;_test_&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>default process name </p>
+
+</div>
+</div>
+<a id="af714e2365c476e8714cf16ccbced9e7e" name="af714e2365c476e8714cf16ccbced9e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af714e2365c476e8714cf16ccbced9e7e">&#9670;&nbsp;</a></span>psensordelimseq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../dc/da2/struct_input_process_delimiter_sequences.html">InputProcessDelimiterSequences</a> psensordelimseq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">  1,    </div>
+<div class="line">  {1},  </div>
+<div class="line">  {<span class="stringliteral">&quot;,&quot;</span>} </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1d43a9b5ee2bda82f27eb2970a2e30a5" name="a1d43a9b5ee2bda82f27eb2970a2e30a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d43a9b5ee2bda82f27eb2970a2e30a5">&#9670;&nbsp;</a></span>pststpseq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../d4/dc0/struct_input_process_start_stop_sequences.html">InputProcessStartStopSequences</a> pststpseq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">  1,           </div>
+<div class="line">  {1, 1},      </div>
+<div class="line">  {<span class="stringliteral">&quot;\&quot;&quot;</span>, <span class="stringliteral">&quot;\&quot;&quot;</span>} </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abaa6088f7cb93207f24d0ffff3dde3eb" name="abaa6088f7cb93207f24d0ffff3dde3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaa6088f7cb93207f24d0ffff3dde3eb">&#9670;&nbsp;</a></span>pwcc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#gae5ba9d1632e0bccd924cf01102d0af3d">IH_wcc</a> pwcc = &quot;*&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac42986df66e06c58241dceea85c6e611" name="ac42986df66e06c58241dceea85c6e611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42986df66e06c58241dceea85c6e611">&#9670;&nbsp;</a></span>sensor_prm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> sensor_prm[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a>,</div>
+<div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_af714e2365c476e8714cf16ccbced9e7e"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences psensordelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:65</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5ce779a2c885b0eb3e07a8745b3d8cd3" name="a5ce779a2c885b0eb3e07a8745b3d8cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce779a2c885b0eb3e07a8745b3d8cd3">&#9670;&nbsp;</a></span>sensorParser</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> sensorParser(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>, <a class="el" href="../../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz</a>(<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>), <a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611">sensor_prm</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>&#160;</td>
           <td class="paramname">, </td>
@@ -406,31 +576,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&quot;NMEA&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;\r\n&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&quot;&quot;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611">sensor_prm</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -443,22 +589,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2bc27fab6e2e5b153d3937293001f28d" name="a2bc27fab6e2e5b153d3937293001f28d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bc27fab6e2e5b153d3937293001f28d">&#9670;&nbsp;</a></span>sentence_error_param</h2>
+<a id="a0a8c178791ae7966143e2dc16a573f3b" name="a0a8c178791ae7966143e2dc16a573f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8c178791ae7966143e2dc16a573f3b">&#9670;&nbsp;</a></span>sentence_error_param</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const Parameters sentence_error_param[]</td>
+          <td class="memname">const <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> sentence_error_param[]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a90aac22f54ccda6d76fcabe4d7fe0015" name="a90aac22f54ccda6d76fcabe4d7fe0015"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90aac22f54ccda6d76fcabe4d7fe0015">&#9670;&nbsp;</a></span>sentence_param</h2>
+<a id="affa7c88fd59bb49e26d5c6fb2f48a2cd" name="affa7c88fd59bb49e26d5c6fb2f48a2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa7c88fd59bb49e26d5c6fb2f48a2cd">&#9670;&nbsp;</a></span>sentence_param</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,7 +613,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const Parameters sentence_param[]</td>
+          <td class="memname">const <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> sentence_param[]</td>
         </tr>
       </table>
   </td>
@@ -477,7 +623,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parameters struct for NMEA sentence. </p>
+<p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct for NMEA sentence. </p>
 
 </div>
 </div>

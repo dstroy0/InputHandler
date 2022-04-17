@@ -1,5 +1,5 @@
 <map id="examples/all_platforms/advanced/NMEAparser/NMEAsentenceparam.h" name="examples/all_platforms/advanced/NMEAparser/NMEAsentenceparam.h">
-<area shape="rect" id="node1" title="NMEA 0183 sentence Parameters structs." alt="" coords="5,5,335,47"/>
+<area shape="rect" id="node1" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="5,5,335,47"/>
 <area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="111,169,229,196"/>
 <area shape="rect" id="node5" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="149,95,309,121"/>
 <area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="95,244,245,285"/>
