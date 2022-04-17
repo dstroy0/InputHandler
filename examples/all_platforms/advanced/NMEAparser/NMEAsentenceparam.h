@@ -531,7 +531,7 @@ const PROGMEM CommandParameters sentence_error_param[24] = {
     root,                     // parent id
     root,                     // this command id
     root,                     // command depth
-    1,                        // subcommands
+    23,                       // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments

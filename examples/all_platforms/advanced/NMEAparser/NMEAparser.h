@@ -107,9 +107,7 @@ class NMEAparse
         //   corrected_input_idx += 3U;          
           corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
           corrected_input_idx++;
-          buffer_idx++;
-          corrected_input[corrected_input_idx] = ',';
-          corrected_input_idx++;
+          buffer_idx++;  
         }
         else
         {

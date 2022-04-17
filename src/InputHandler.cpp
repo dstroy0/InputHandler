@@ -62,8 +62,7 @@ void UserInput::addCommand(CommandConstructor& command)
         if (wc_containing_prm_found > 0)
         {
             command.calc = new CommandRuntimeCalc();
-            command.calc->num_prm_with_wc = wc_containing_prm_found;
-            Serial.println(wc_containing_prm_found);
+            command.calc->num_prm_with_wc = wc_containing_prm_found;            
             command.calc->idx_of_prm_with_wc = new uint8_t[wc_containing_prm_found]();
             command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found];
             command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
@@ -76,8 +75,7 @@ void UserInput::addCommand(CommandConstructor& command)
                 UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
                 (command.calc->memcmp_ranges_arr[i]) = new uint8_t[memcmp_ranges_idx]();
-                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);                               
-                //Serial.print(memcmp_ranges[0]);Serial.println(memcmp_ranges[1]);
+                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);                
                 #if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, (uint8_t)command.calc->num_memcmp_ranges_this_row[i]);
                 for (size_t j = 0; j < command.calc->num_memcmp_ranges_this_row[i]; ++j)
@@ -96,6 +94,7 @@ void UserInput::addCommand(CommandConstructor& command)
         }
         else
         {
+            // CommandConstructor sets this pointer null, this is here for clarity
             command.calc = NULL;
         }
         _commands_count_++;
@@ -259,7 +258,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
         {
-            input_data = split_input; // the input command and data have been split
+            input_data = split_input; // the input command and data have been split      
         }
         else // free allocated memory and fail-through
         {
@@ -301,8 +300,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     };
     // tokenize the input
     tokens_received = UserInput::getTokens(gtprm, _input_prm_);
-    _data_pointers_index_max_ = tokens_received; // set index max to tokens received
-
+    _data_pointers_index_max_ = tokens_received; // set index max to tokens received    
     if (tokens_received == 0) // error condition
     {
         if (num_zdc != 0)
@@ -319,9 +317,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
-    {
+    {              
         if (UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0])) // match root command
-        {
+        {            
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
             _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
@@ -719,7 +717,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.tokens_received > 1 && LLprm.prm.sub_commands == 0 && LLprm.prm.max_num_args == 0) // error
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), pname, LLprm.prm.command_id);
         #endif
         return;
     }
@@ -727,7 +725,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.subcommand_matched == false && LLprm.tokens_received == 1 && LLprm.prm.max_num_args == 0) // command with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
         #endif
 
         LLprm.launch_attempted = true;                                                      // don't run default callback
@@ -738,7 +736,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.tokens_received == 1 && _current_search_depth_ > 1 && LLprm.subcommand_matched == true && LLprm.prm.max_num_args == 0) // subcommand with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
         #endif
         LLprm.launch_attempted = true;                                                      // don't run default callback
         UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -751,7 +749,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
             #endif
             LLprm.launch_attempted = true;                                                      // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -765,7 +763,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
             #endif
             LLprm.launch_attempted = true;                                                      // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
@@ -788,7 +786,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
                 if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
                 {
                     #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, prm.command, prm.command_id, prm.sub_commands, prm.max_num_args);
+                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, LLprm.prm.command, LLprm.prm.command_id, LLprm.prm.sub_commands, LLprm.prm.max_num_args);
                     #endif
                     if (LLprm.tokens_received > 0) // subcommand matched
                     {
@@ -810,7 +808,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
     if (LLprm.subcommand_matched == true) // recursion
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, LLprm.prm.command_id);
         #endif
         UserInput::_launchLogic(LLprm, input_prm);
     }
@@ -1196,8 +1194,8 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
 
 bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
-    if (cmd->calc == NULL) // no wildcards
-    {        
+    if (!(bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards)) // no wildcards
+    {              
         size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
         if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match
         {
@@ -1206,7 +1204,7 @@ bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx,
         return true;
     }
     else // has wildcards
-    {        
+    {              
         for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
         {            
             long size = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
