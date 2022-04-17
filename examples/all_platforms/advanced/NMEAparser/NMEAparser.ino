@@ -130,7 +130,7 @@ void setup()
   inputHandler.begin();                         // required.  returns true on success.
   sensorParser.begin();
 
-  inputHandler.outputToStream(Serial); // class output
+  inputHandler.outputToStream(Serial); // class output  
 
   // temp testing
   uint8_t buffer[36] {};
@@ -141,7 +141,7 @@ void setup()
 }
 
 void loop()
-{
+{      
   inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
   inputHandler.outputToStream(Serial);       // class output
   sensorParser.outputToStream(Serial);
