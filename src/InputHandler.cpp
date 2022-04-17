@@ -1208,11 +1208,11 @@ bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx,
     {
         for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
         {
-            long size = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
-            size = abs(size);
-            size_t result = ((size_t)size == 0)
+            long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
+            result = abs(result);
+            size_t size = ((size_t)result == 0)
                 ? 1
-                : (size_t)size;
+                : (size_t)result;
             char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
             if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
             {
