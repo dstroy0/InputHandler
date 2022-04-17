@@ -115,8 +115,8 @@ void UserInput::addCommand(CommandConstructor& command)
 
 bool UserInput::begin()
 {
-    size_t ptrs = 1U + _max_depth_ + _max_args_;
-    _data_pointers_ = new char*[ptrs]();
+    _p_num_ptrs_ = 1U + _max_depth_ + _max_args_;
+    _data_pointers_ = new char*[_p_num_ptrs_]();
     if (_data_pointers_ == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
@@ -180,7 +180,7 @@ void UserInput::listSettings(UserInput* inputProcess)
                        UI_MAX_IN_LEN,
                        _output_buffer_len_,
                        pname,
-                       (1U + _max_depth_ + _max_args_),
+                       _p_num_ptrs_,
                        _max_depth_,
                        _max_args_,
                        _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
@@ -280,8 +280,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         return;
     }
     // end error checking
-
-    size_t num_ptrs = (1U + _max_depth_ + _max_args_);
+    
     size_t tokens_received = 0;    // amount of delimiter separated tokens
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
@@ -294,7 +293,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         input_len,             // input len
         _token_buffer_,        // pointer to char array, size of len + 1
         token_buffer_len,      // the size of token_buffer
-        num_ptrs,              // _data_pointers_[MAX], _data_pointers_index_[MAX]
+        _p_num_ptrs_,              // _data_pointers_[MAX], _data_pointers_index_[MAX]
         _data_pointers_index_, // index of token_buffer pointer array
         _data_pointers_,       // token_buffer pointers
         _null_,                // token_buffer sep char, _null_ == '\0'
@@ -338,8 +337,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
                 input_type_match_flag,
                 subcommand_matched,
                 command_id};
-
             UserInput::_launchLogic(LLprm, _input_prm_); // see if command has any subcommands, validate input types, try to launch function
+            
             break;                                       // break command iterator for loop
         }                                                // end command logic
     }                                                    // end root command for loop
@@ -350,7 +349,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
 
     // cleanup
-    for (size_t i = 0; i < num_ptrs; ++i)
+    for (size_t i = 0; i < _p_num_ptrs_; ++i)
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }

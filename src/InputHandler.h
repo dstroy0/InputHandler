@@ -305,6 +305,7 @@ public:
           _data_pointers_(NULL),
           _data_pointers_index_(0),
           _data_pointers_index_max_(0),
+          _p_num_ptrs_(0),
           _rec_num_arg_strings_(0),
           _failed_on_subcommand_(0),
           _current_search_depth_(1),
@@ -536,6 +537,7 @@ private:
     char** _data_pointers_;            ///< token_buffer pointers
     uint8_t _data_pointers_index_;     ///< data_pointer index
     uint8_t _data_pointers_index_max_; ///< data_pointer index max
+    uint8_t _p_num_ptrs_;              ///< computed in UserInput::begin()
 
     uint8_t _rec_num_arg_strings_;  ///< number of tokens after first valid token
     uint8_t _failed_on_subcommand_; ///< subcommand error index
