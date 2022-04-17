@@ -4,6 +4,7 @@ var _n_m_e_aparser_8ino =
     [ "setup", "dd/d65/_n_m_e_aparser_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
     [ "uc_unrecognized", "dd/d65/_n_m_e_aparser_8ino.html#ad788839a36a76970581e00115020f08e", null ],
     [ "gpbwc", "dd/d65/_n_m_e_aparser_8ino.html#acad89f5dd048dba77e2f05c4ff30558f", null ],
+    [ "gpgsa", "dd/d65/_n_m_e_aparser_8ino.html#aa3acf2440c044ba5bee1da3c6a920b31", null ],
     [ "input_prm", "dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c", null ],
     [ "inputHandler", "dd/d65/_n_m_e_aparser_8ino.html#a20c0984976fc016b2095795890af59b4", null ],
     [ "NMEA", "dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e", null ],
