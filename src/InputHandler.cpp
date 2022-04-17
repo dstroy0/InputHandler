@@ -63,6 +63,7 @@ void UserInput::addCommand(CommandConstructor& command)
         {
             command.calc = new CommandRuntimeCalc();
             command.calc->num_prm_with_wc = wc_containing_prm_found;
+            Serial.println(wc_containing_prm_found);
             command.calc->idx_of_prm_with_wc = new uint8_t[wc_containing_prm_found]();
             command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found];
             command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
@@ -76,8 +77,9 @@ void UserInput::addCommand(CommandConstructor& command)
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
                 (command.calc->memcmp_ranges_arr[i]) = new uint8_t[memcmp_ranges_idx]();
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);                               
+                //Serial.print(memcmp_ranges[0]);Serial.println(memcmp_ranges[1]);
                 #if defined(__DEBUG_ADDCOMMAND__)
-                UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, command.calc->num_memcmp_ranges_this_row[i]);
+                UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, (uint8_t)command.calc->num_memcmp_ranges_this_row[i]);
                 for (size_t j = 0; j < command.calc->num_memcmp_ranges_this_row[i]; ++j)
                 {
                     if (j % 2 == 0)
@@ -1166,6 +1168,10 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
         memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc)); // copy WildCard Character (wcc) to ram
         while (cmd_str_pos < prm.command_length) // iterate over whole command len
         {
+            if (prm.command[cmd_str_pos] == wcc[0])
+            {
+                cmd_str_pos++;
+            }
             if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
             {
                 memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; 

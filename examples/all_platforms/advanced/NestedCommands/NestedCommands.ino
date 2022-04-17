@@ -15,17 +15,34 @@
   you have to empty it out yourself with
   OutputToStream()
 */
-char output_buffer[512] = {'\0'}; //  output buffer
+char output_buffer[650] = {'\0'}; //  output buffer
 
-/*
-  UserInput constructor
-*/
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffsz(output_buffer),
-    /* username */ "",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\"");
+const PROGMEM IH_pname pname = "_test_";         ///< default process name
+const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
+const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
+const PROGMEM IH_wcc pwcc = "*"; 
+
+const PROGMEM InputProcessDelimiterSequences pdelimseq = {
+  2,         ///< number of delimiter sequences
+  {1, 1},    ///< delimiter sequence lens
+  {" ", ","} ///< delimiter sequences
+};
+
+const PROGMEM InputProcessStartStopSequences pststpseq = {
+  1,           ///< num start stop sequence pairs
+  {1, 1},      ///< start stop sequence lens
+  {"\"", "\""} ///< start stop sequence pairs
+};
+
+const PROGMEM InputProcessParameters input_prm[1] = {
+  &pname,
+  &peol,
+  &pinputcc,
+  &pwcc,
+  &pdelimseq,
+  &pststpseq
+};
+UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
 
 /*
    default function, called if nothing matches or if there is an error
@@ -49,10 +66,11 @@ void uc_nest_two(UserInput *inputProcess)
   Serial.println(F("made it to uc_nest_two."));
 }
 
-const PROGMEM Parameters nested_prms[3] =
+const PROGMEM CommandParameters nested_prms[3] =
 {
   { // root command
     uc_unrecognized,          // root command not allowed to be NULL
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "launch",                 // command string
     6,                        // command string characters
     root,                     // parent id
@@ -71,6 +89,7 @@ const PROGMEM Parameters nested_prms[3] =
   },
   { // subcommand depth one
     uc_nest_one,              // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "one",                    // command string
     3,                        // command string characters
     root,                     // parent id
@@ -89,6 +108,7 @@ const PROGMEM Parameters nested_prms[3] =
   },
   { // subcommand depth one
     uc_nest_two,              // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "two",                    // command string
     3,                        // command string characters
     root,                     // parent id

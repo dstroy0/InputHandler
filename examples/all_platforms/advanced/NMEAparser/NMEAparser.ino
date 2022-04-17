@@ -24,7 +24,7 @@
      <LF>  0x0a   10    Line feed, end delimiter
       !    0x21   33    Start of encapsulation sentence delimiter
       $    0x24   36    Start delimiter
-      *    0x2a   42    Checksum delimiter
+           0x2a   42    Checksum delimiter
       ,    0x2c   44    Field delimiter
       \    0x5c   92    TAG block delimiter
       ^    0x5e   94    Code delimiter for HEX representation of ISO/IEC 8859-1 (ASCII) characters
@@ -47,22 +47,53 @@
 #include <InputHandler.h>
 #include "NMEAparser.h"
 
-extern const Parameters sentence_param[], sentence_error_param[]; // zero delim commands
+extern const CommandParameters sentence_param[], sentence_error_param[]; // zero delim commands
 
-char output_buffer[256] = {'\0'}; //  UserInput output buffer
-UserInput inputHandler(/* UserInput's output buffer */ output_buffer,
-                       /* size of UserInput's output buffer */ buffsz(output_buffer),
-                       /* username */ "",
-                       /* end of line characters */ "\r\n",
-                       /* token delimiter */ " ",
-                       /* c-string delimiter */ "");
+char output_buffer[4000] = {'\0'}; //  UserInput output buffer
 
-UserInput sensorParser(/* UserInput's output buffer */ output_buffer,
-                       /* size of UserInput's output buffer */ buffsz(output_buffer),
-                       /* username */ "NMEA",
-                       /* end of line characters */ "\r\n",
-                       /* token delimiter */ ",",
-                       /* c-string delimiter */ "");
+const PROGMEM IH_pname pname = "_test_";   ///< default process name
+const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
+const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
+const PROGMEM IH_wcc pwcc = "*";
+
+const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
+  1,    ///< number of delimiter sequences
+  {1},  ///< delimiter sequence lens
+  {" "} ///< delimiter sequences
+};
+
+const PROGMEM InputProcessDelimiterSequences psensordelimseq = {
+  1,    ///< number of delimiter sequences
+  {1},  ///< delimiter sequence lens
+  {","} ///< delimiter sequences
+};
+
+const PROGMEM InputProcessStartStopSequences pststpseq = {
+  1,           ///< num start stop sequence pairs
+  {1, 1},      ///< start stop sequence lens
+  {"\"", "\""} ///< start stop sequence pairs
+};
+
+const PROGMEM InputProcessParameters input_prm[1] = {
+  &pname,
+  &peol,
+  &pinputcc,
+  &pwcc,
+  &pipdelimseq,
+  &pststpseq
+};
+
+UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+
+const PROGMEM InputProcessParameters sensor_prm[1] = {
+  &pname,
+  &peol,
+  &pinputcc,
+  &pwcc,
+  &psensordelimseq,
+  &pststpseq
+};
+UserInput sensorParser(output_buffer, buffsz(output_buffer), sensor_prm);
 
 NMEAparse NMEA;
 
@@ -74,8 +105,8 @@ const char* gpbwc = "$GPBWC,081837,,,,,,T,,M,,N,*13\r\n";
 */
 void uc_unrecognized(UserInput* inputProcess)
 {
-    // error output
-    inputProcess->outputToStream(Serial);
+  // error output
+  inputProcess->outputToStream(Serial);
 }
 
 CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 2);
@@ -83,33 +114,33 @@ CommandConstructor NMEA_sentence_error(sentence_error_param, nprms(sentence_erro
 
 void setup()
 {
-    delay(500); // startup delay for reprogramming
+  delay(500); // startup delay for reprogramming
 
-    Serial.begin(115200); //  set up Serial object (Stream object)
+  Serial.begin(115200); //  set up Serial object (Stream object)
 
-    while (!Serial)
-        ; //  wait for user
+  while (!Serial)
+    ; //  wait for user
 
-    Serial.println(F("Set up InputHandler..."));
-    inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  Serial.println(F("Set up InputHandler..."));
+  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
 
-    sensorParser.addCommand(NMEA_sentence);       // regular sentence
-    sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
-    inputHandler.begin();                         // required.  returns true on success.
-    sensorParser.begin();
+  sensorParser.addCommand(NMEA_sentence);       // regular sentence
+  sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
+  inputHandler.begin();                         // required.  returns true on success.
+  sensorParser.begin();
 
-    inputHandler.outputToStream(Serial); // class output
+  inputHandler.outputToStream(Serial); // class output
 
-    // temp testing
-    uint8_t buffer[36] {};
-    memcpy(buffer, gpbwc, strlen(gpbwc));
-    NMEA.parseSentence(buffer, strlen(gpbwc));
+  // temp testing
+  uint8_t buffer[36] {};
+  memcpy(buffer, gpbwc, strlen(gpbwc));
+  NMEA.parseSentence(buffer, strlen(gpbwc));
 }
 
 void loop()
 {
-    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-    inputHandler.outputToStream(Serial);       // class output
-    sensorParser.outputToStream(Serial);
-    // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+  inputHandler.outputToStream(Serial);       // class output
+  sensorParser.outputToStream(Serial);
+  // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }
