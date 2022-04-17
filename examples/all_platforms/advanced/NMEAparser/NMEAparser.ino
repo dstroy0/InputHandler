@@ -49,7 +49,7 @@
 
 extern const CommandParameters sentence_param[], sentence_error_param[]; // zero delim commands
 
-char output_buffer[512] = {'\0'}; //  UserInput output buffer
+char output_buffer[512] {}; //  UserInput output buffer
 
 const PROGMEM IH_pname pname = "_test_";   ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
@@ -130,7 +130,7 @@ void setup()
   inputHandler.begin();                         // required.  returns true on success.
   sensorParser.begin();
 
-  inputHandler.outputToStream(Serial); // class output  
+  inputHandler.outputToStream(Serial); // class output
 
   // temp testing
   uint8_t buffer[36] {};
@@ -141,7 +141,7 @@ void setup()
 }
 
 void loop()
-{      
+{
   inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
   inputHandler.outputToStream(Serial);       // class output
   sensorParser.outputToStream(Serial);

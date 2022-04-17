@@ -27,7 +27,7 @@ void UserInput::defaultFunction(void (*function)(UserInput*))
 }
 
 void UserInput::addCommand(CommandConstructor& command)
-{
+{    
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
     CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
@@ -64,32 +64,32 @@ void UserInput::addCommand(CommandConstructor& command)
             command.calc = new CommandRuntimeCalc();
             command.calc->num_prm_with_wc = wc_containing_prm_found;
             command.calc->idx_of_prm_with_wc = new uint8_t[wc_containing_prm_found]();
-            command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found];
+            command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found]();
             command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
             memcpy(&command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);
             for (size_t i = 0; i < wc_containing_prm_found; ++i)
-            {
+            {                
                 uint8_t memcmp_ranges[32] {};
                 uint8_t memcmp_ranges_idx = 0;
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
-                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);
+                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
-                (command.calc->memcmp_ranges_arr[i]) = new uint8_t[memcmp_ranges_idx]();
+                command.calc->memcmp_ranges_arr[i] = new uint8_t[memcmp_ranges_idx]();
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-#if defined(__DEBUG_ADDCOMMAND__)
-                UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, (uint8_t)command.calc->num_memcmp_ranges_this_row[i]);
-                for (size_t j = 0; j < command.calc->num_memcmp_ranges_this_row[i]; ++j)
-                {
+                #if defined(__DEBUG_ADDCOMMAND__)
+                UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
+                for (size_t j = 0; j < memcmp_ranges_idx; ++j)
+                {                    
                     if (j % 2 == 0)
                     {
-                        UserInput::_ui_out(PSTR("%u, "), command.calc->memcmp_ranges_arr[i][j]);
+                        UserInput::_ui_out(PSTR("%d, "), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
                     }
                     else
                     {
-                        UserInput::_ui_out(PSTR("%u\n"), command.calc->memcmp_ranges_arr[i][j]);
+                        UserInput::_ui_out(PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
                     }
                 }
-#endif
+                #endif
             }
         }
         else
@@ -370,7 +370,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     }
     if (_stream_buffer_allocated_ == false)
     {
-        _stream_data_ = new uint8_t[rx_buffer_size]; // an array to store the received data
+        _stream_data_ = new uint8_t[rx_buffer_size](); // an array to store the received data
         if (_stream_data_ == nullptr)                // if there was an error allocating the memory
         {
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _stream_data_\n"), (char*)pgm_read_dword(_input_prm_.pname));
@@ -878,7 +878,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
                 num_wcc++;
             }
         }
-        if (num_wcc == cmd_len)
+        if (num_wcc > cmd_len)
         {
             UserInput::_ui_out(PSTR("command string has too many wildcards\n"));
             error_not = false;
