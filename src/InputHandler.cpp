@@ -62,7 +62,7 @@ void UserInput::addCommand(CommandConstructor& command)
         if (wc_containing_prm_found > 0)
         {
             command.calc = new CommandRuntimeCalc();
-            command.calc->num_prm_with_wc = wc_containing_prm_found;            
+            command.calc->num_prm_with_wc = wc_containing_prm_found;
             command.calc->idx_of_prm_with_wc = new uint8_t[wc_containing_prm_found]();
             command.calc->num_memcmp_ranges_this_row = new uint8_t[wc_containing_prm_found];
             command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
@@ -72,24 +72,24 @@ void UserInput::addCommand(CommandConstructor& command)
                 uint8_t memcmp_ranges[32] {};
                 uint8_t memcmp_ranges_idx = 0;
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
-                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                
+                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
                 (command.calc->memcmp_ranges_arr[i]) = new uint8_t[memcmp_ranges_idx]();
-                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);                
-                #if defined(__DEBUG_ADDCOMMAND__)
+                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
+#if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %u\nmemcmp ranges: \n"), prm.command, (uint8_t)command.calc->num_memcmp_ranges_this_row[i]);
                 for (size_t j = 0; j < command.calc->num_memcmp_ranges_this_row[i]; ++j)
                 {
                     if (j % 2 == 0)
                     {
-                        UserInput::_ui_out(PSTR("%u, "), command.calc->memcmp_ranges_arr[i][j]);                     
+                        UserInput::_ui_out(PSTR("%u, "), command.calc->memcmp_ranges_arr[i][j]);
                     }
                     else
                     {
-                        UserInput::_ui_out(PSTR("%u\n"), command.calc->memcmp_ranges_arr[i][j]);                        
+                        UserInput::_ui_out(PSTR("%u\n"), command.calc->memcmp_ranges_arr[i][j]);
                     }
                 }
-                #endif
+#endif
             }
         }
         else
@@ -258,7 +258,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
         {
-            input_data = split_input; // the input command and data have been split      
+            input_data = split_input; // the input command and data have been split
         }
         else // free allocated memory and fail-through
         {
@@ -274,7 +274,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         if (num_zdc != 0)
         {
-            delete[] split_input;            
+            delete[] split_input;
         }
         return;
     }
@@ -300,8 +300,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     };
     // tokenize the input
     tokens_received = UserInput::getTokens(gtprm, _input_prm_);
-    _data_pointers_index_max_ = tokens_received; // set index max to tokens received    
-    if (tokens_received == 0) // error condition
+    _data_pointers_index_max_ = tokens_received; // set index max to tokens received
+    if (tokens_received == 0)                    // error condition
     {
         if (num_zdc != 0)
         {
@@ -317,9 +317,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool all_arguments_valid = true;                      // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
-    {              
+    {
         if (UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0])) // match root command
-        {            
+        {
             memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
             _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
             _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
@@ -1160,11 +1160,11 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
 {
     if (prm.has_wildcards == true) // if this command has wildcards
     {
-        IH_wcc wcc; // char array to hold WildCard Character (wcc)
-        size_t cmd_str_pos = 0; // prm.command char array index
-        bool start_memcmp_range = true; // sentinel
+        IH_wcc wcc;                                    // char array to hold WildCard Character (wcc)
+        size_t cmd_str_pos = 0;                        // prm.command char array index
+        bool start_memcmp_range = true;                // sentinel
         memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc)); // copy WildCard Character (wcc) to ram
-        while (cmd_str_pos < prm.command_length) // iterate over whole command len
+        while (cmd_str_pos < prm.command_length)       // iterate over whole command len
         {
             if (prm.command[cmd_str_pos] == wcc[0])
             {
@@ -1172,7 +1172,7 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
             }
             if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
             {
-                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; 
+                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
                 memcmp_ranges_idx++;
                 start_memcmp_range = false;
             }
@@ -1195,7 +1195,7 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
 bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
     if (!(bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards)) // no wildcards
-    {              
+    {
         size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
         if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match
         {
@@ -1204,17 +1204,17 @@ bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx,
         return true;
     }
     else // has wildcards
-    {              
+    {
         for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
-        {            
+        {
             long size = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
             size = abs(size);
             size_t result = ((size_t)size == 0)
                 ? 1
-                : (size_t)size;            
+                : (size_t)size;
             char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
             if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
-            {                            
+            {
                 return false;
             }
         }

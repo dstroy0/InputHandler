@@ -34,129 +34,127 @@
 
 //  maximum number of arguments per command
 #if !defined(UI_MAX_ARGS)
-/*
-  max is 255,
-  change to uint16_t
-  _max_args_
-  _data_pointers_index_
-  _data_pointers_index_max_
-  _rec_num_arg_strings_
-  to increase max to 65535
-*/
-#define UI_MAX_ARGS 32
+    /*
+      max is 255,
+      change to uint16_t
+      _max_args_
+      _data_pointers_index_
+      _data_pointers_index_max_
+      _rec_num_arg_strings_
+      to increase max to 65535
+    */
+    #define UI_MAX_ARGS 32
 #endif
 
 //  maximum tree depth
 #if !defined(UI_MAX_DEPTH)
-/*
-   max is 255,
-   change to uint16_t
-   _max_depth_
-   _current_search_depth_
-   to increase max to 65535
-*/
-#define UI_MAX_DEPTH 32
+    /*
+       max is 255,
+       change to uint16_t
+       _max_depth_
+       _current_search_depth_
+       to increase max to 65535
+    */
+    #define UI_MAX_DEPTH 32
 #endif
 
 //  maximum number of subcommands
 #if !defined(UI_MAX_SUBCOMMANDS)
-/*
-   max is 255,
-   change to uint16_t
-   _data_pointers_index_
-   _data_pointers_index_max_
-   _failed_on_subcommand_
-   to increase max to 65535
-*/
-#define UI_MAX_SUBCOMMANDS 32
+    /*
+       max is 255,
+       change to uint16_t
+       _data_pointers_index_
+       _data_pointers_index_max_
+       _failed_on_subcommand_
+       to increase max to 65535
+    */
+    #define UI_MAX_SUBCOMMANDS 32
 #endif
 
 //  max value of a sixteen bit unsigned integer
 #if !defined(UINT16_MAX)
-#define UINT16_MAX 65535
+    #define UINT16_MAX 65535
 #endif
 
 //  max value of an eight bit unsigned integer
 #if !defined(UINT8_MAX)
-#define UINT8_MAX 255
+    #define UINT8_MAX 255
 #endif
 
 //  maximum command length
 #if !defined(UI_MAX_CMD_LEN)
-#define UI_MAX_CMD_LEN 32
+    #define UI_MAX_CMD_LEN 32
 #endif
 
-#define UI_MAX_DELIM_SEQ 5
+#define UI_MAX_DELIM_SEQ      5
 #define UI_MAX_START_STOP_SEQ 5
-
-
 
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
-/*
-   max is 65535 - 2
-   change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
-   to increase UI_MAX_IN_LEN (2^32) - 2
-*/
-#define UI_MAX_IN_LEN (UINT16_MAX - 2U)
+    /*
+       max is 65535 - 2
+       change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
+       to increase UI_MAX_IN_LEN (2^32) - 2
+    */
+    #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
 #endif
 
-#define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
-#define buffsz(x) nprms(x)                    // gets the number of elements in an array
-#define nelems(x) nprms(x)                    // gets the number of elements in an array
+#define nprms(x)  (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+#define buffsz(x) nprms(x)                     // gets the number of elements in an array
+#define nelems(x) nprms(x)                     // gets the number of elements in an array
 
 // portability directives
 
 #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
-#include <avr/dtostrf.h>
-#include "utility/vsnprintf.h"
-#define vsnprintf_P vsnprintf
-#undef pgm_read_dword
-#define pgm_read_dword(addr) ({     \
-   typeof(addr) _addr = (addr);     \
-   *(const unsigned long *)(_addr); \
-})
+    #include <avr/dtostrf.h>
+    #include "utility/vsnprintf.h"
+    #define vsnprintf_P vsnprintf
+    #undef pgm_read_dword
+    #define pgm_read_dword(addr) ({     \
+        typeof(addr) _addr = (addr);    \
+        *(const unsigned long*)(_addr); \
+    })
 #endif
 
 #if defined(__MBED_CONFIG_DATA__)
-#include <avr/dtostrf.h>
-#include "utility/vsnprintf.h"
-#define vsnprintf_P vsnprintf
-#undef pgm_read_dword
-#define pgm_read_dword(addr) ({     \
-   typeof(addr) _addr = (addr);     \
-   *(const unsigned long *)(_addr); \
-})
+    #include <avr/dtostrf.h>
+    #include "utility/vsnprintf.h"
+    #define vsnprintf_P vsnprintf
+    #undef pgm_read_dword
+    #define pgm_read_dword(addr) ({     \
+        typeof(addr) _addr = (addr);    \
+        *(const unsigned long*)(_addr); \
+    })
 #endif
 
 #if defined(ARDUINO_SAM_DUE)
-#include <avr/dtostrf.h>
-#include "utility/vsnprintf.h"
-#define vsnprintf_P vsnprintf
-#undef pgm_read_dword
-#define pgm_read_dword(addr) ({     \
-   typeof(addr) _addr = (addr);     \
-   *(const unsigned long *)(_addr); \
-})
+    #include <avr/dtostrf.h>
+    #include "utility/vsnprintf.h"
+    #define vsnprintf_P vsnprintf
+    #undef pgm_read_dword
+    #define pgm_read_dword(addr) ({     \
+        typeof(addr) _addr = (addr);    \
+        *(const unsigned long*)(_addr); \
+    })
 #endif
 
 #if defined(TEENSYDUINO)
-// pgm/ram section type conflict fix
-#define QUO(x) #x
-#define QLINE(x,y) QUO(x)QUO(y)
-#define PFIX QLINE(.progmem.variable, __COUNTER__)
-#undef PROGMEM
-#define PROGMEM __attribute__((section(PFIX)))
+    // pgm/ram section type conflict fix
+    #define QUO(x)      #x
+    #define QLINE(x, y) QUO(x) \
+    QUO(y)
+    #define PFIX QLINE(.progmem.variable, __COUNTER__)
+    #undef PROGMEM
+    #define PROGMEM __attribute__((section(PFIX)))
 #endif
 
 // PROGMEM width constants
-#define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
-#define UI_ESCAPED_CHAR_PGM_LEN 3
-#define UI_EOL_SEQ_PGM_LEN 5
-#define UI_DELIM_SEQ_PGM_LEN 5
-#define UI_START_STOP_SEQ_PGM_LEN 5
-#define UI_PROCESS_NAME_PGM_LEN 12
+#define UI_INPUT_TYPE_STRINGS_PGM_LEN     10
+#define UI_ESCAPED_CHAR_PGM_LEN           3
+#define UI_EOL_SEQ_PGM_LEN                5
+#define UI_DELIM_SEQ_PGM_LEN              5
+#define UI_START_STOP_SEQ_PGM_LEN         5
+#define UI_PROCESS_NAME_PGM_LEN           12
 #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
-
 
 #endif
