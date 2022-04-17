@@ -2,6 +2,7 @@ var class_user_input =
 [
     [ "_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
     [ "getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
+    [ "validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", "dc/d98/struct_user_input_1_1validate_null_sep_input_param" ],
     [ "UserInput", "dc/d4b/class_user_input.html#a1b90648301d62ab0b0227bfd7044decb", null ],
     [ "_addCommandAbort", "dc/d4b/class_user_input.html#ada6f5999561309d3067f799397ea7edf", null ],
     [ "_addEscapedControlCharToBuffer", "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749", null ],
@@ -34,7 +35,7 @@ var class_user_input =
     [ "outputIsEnabled", "dc/d4b/class_user_input.html#a852e23ba4a8e45d4220782448fd3bb8c", null ],
     [ "outputToStream", "dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f", null ],
     [ "readCommandFromBuffer", "dc/d4b/class_user_input.html#a7f6ab5712afedca76ee55220276f8828", null ],
-    [ "validateNullSepInput", "dc/d4b/class_user_input.html#afe1d2a3d494c314c1ed9754b9ee69229", null ],
+    [ "validateNullSepInput", "dc/d4b/class_user_input.html#a0aca041755aea2c5021e68f546bff259", null ],
     [ "_begin_", "dc/d4b/class_user_input.html#a7a0668fda012a9ef712c10e7ddc8381f", null ],
     [ "_commands_count_", "dc/d4b/class_user_input.html#a7d12901b53d132d9003861f12ec5b4f8", null ],
     [ "_commands_head_", "dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987", null ],
