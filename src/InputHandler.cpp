@@ -287,7 +287,6 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool command_matched = false;  // error sentinel
     CommandConstructor* cmd;       // command parameters pointer
     CommandParameters prm;         // CommandParameters struct
-
     // getTokens parameters structure
     getTokensParam gtprm = {
         input_data,            // input data uint8_t array
@@ -484,26 +483,26 @@ size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters&
     return gtprm.token_pointer_index;
 }
 
-bool UserInput::validateNullSepInput(UITYPE arg_type, char** token_pointers, size_t token_pointer_index, char& neg_sign, char& float_sep)
+bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 {
-    size_t strlen_data = strlen(token_pointers[token_pointer_index]);
-    size_t start = ((char)token_pointers[token_pointer_index][0] == neg_sign) ? 1 : 0;
-    if (arg_type <= UITYPE::FLOAT) // for unsigned integers, integers, and floating point numbers
+    size_t strlen_data = strlen(vprm.token_pointers[vprm.token_pointer_index]);
+    size_t start = ((char)vprm.token_pointers[vprm.token_pointer_index][0] == vprm.neg_sign) ? 1 : 0;
+    if (vprm.arg_type <= UITYPE::FLOAT) // for unsigned integers, integers, and floating point numbers
     {
         size_t found_dot = 0;
         size_t num_digits = 0;
         size_t not_digits = 0;
-        if (arg_type < UITYPE::INT16_T && start == 1) // error
+        if (vprm.arg_type < UITYPE::INT16_T && start == 1) // error
         {
             return false; // uint cannot be negative
         }
         for (size_t j = start; j < strlen_data; ++j)
         {
-            if (token_pointers[token_pointer_index][j] == float_sep)
+            if (vprm.token_pointers[vprm.token_pointer_index][j] == vprm.float_sep)
             {
                 found_dot++;
             }
-            else if (isdigit(token_pointers[token_pointer_index][j]) == true)
+            else if (isdigit(vprm.token_pointers[vprm.token_pointer_index][j]) == true)
             {
                 num_digits++;
             }
@@ -513,28 +512,28 @@ bool UserInput::validateNullSepInput(UITYPE arg_type, char** token_pointers, siz
             }
         }
         // int/uint error test
-        if (arg_type <= UITYPE::INT16_T && (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
+        if (vprm.arg_type <= UITYPE::INT16_T && (found_dot > 0U || not_digits > 0U || (num_digits + start) != strlen_data))
         {
             return false;
         }
         // float error test
-        if (arg_type == UITYPE::FLOAT && (found_dot > 1U || not_digits > 0U || (num_digits + found_dot + start) != strlen_data))
+        if (vprm.arg_type == UITYPE::FLOAT && (found_dot > 1U || not_digits > 0U || (num_digits + found_dot + start) != strlen_data))
         {
             return false;
         }
         return true; // no errors
     }
 
-    if (arg_type == UITYPE::CHAR || arg_type == UITYPE::START_STOP) // char and start/stop
+    if (vprm.arg_type == UITYPE::CHAR || vprm.arg_type == UITYPE::START_STOP) // char and start/stop
     {
-        if (arg_type == UITYPE::CHAR && strlen_data > 1) // error
+        if (vprm.arg_type == UITYPE::CHAR && strlen_data > 1) // error
         {
             return false; // looking for a single char value, not a c-string
         }
         for (size_t j = 0; j < strlen_data; ++j)
         { // if we encounter anything that isn't one of these four things, something isn't right
-            int test_bool[4] = {isprint(token_pointers[token_pointer_index][j]), ispunct(token_pointers[token_pointer_index][j]),
-                                iscntrl(token_pointers[token_pointer_index][j]), isdigit(token_pointers[token_pointer_index][j])};
+            int test_bool[4] = {isprint(vprm.token_pointers[vprm.token_pointer_index][j]), ispunct(vprm.token_pointers[vprm.token_pointer_index][j]),
+                                iscntrl(vprm.token_pointers[vprm.token_pointer_index][j]), isdigit(vprm.token_pointers[vprm.token_pointer_index][j])};
             if (test_bool[0] == 0 && test_bool[1] == 0 && test_bool[2] == 0 && test_bool[3] == 0) // no match
             {
                 return false;
@@ -544,7 +543,7 @@ bool UserInput::validateNullSepInput(UITYPE arg_type, char** token_pointers, siz
     }
 
     // no type specified
-    if (arg_type == UITYPE::NOTYPE)
+    if (vprm.arg_type == UITYPE::NOTYPE)
     {
         return true; // no type validation performed
     }
@@ -961,7 +960,15 @@ inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
     {
-        input_type_match_flag[i] = UserInput::validateNullSepInput(UserInput::_getArgType(prm, i), _data_pointers_, _data_pointers_index_ + i, _neg_, _dot_); // validate the token
+        validateNullSepInputParam vprm =
+        {
+            UserInput::_getArgType(prm, i), 
+            _data_pointers_, 
+            _data_pointers_index_ + i, 
+            _neg_, 
+            _dot_
+        };
+        input_type_match_flag[i] = UserInput::validateNullSepInput(vprm); // validate the token
         _rec_num_arg_strings_++;
         if (input_type_match_flag[i] == false) // if the token was not valid input
         {

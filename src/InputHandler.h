@@ -469,22 +469,27 @@ public:
     size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
+     * @brief validateNullSepInputParam struct
+     * 
+     */
+    struct validateNullSepInputParam
+    {
+        UITYPE arg_type; ///< the UITYPE to test
+        char** token_pointers; ///< pointers to null separated tokens
+        size_t token_pointer_index; ///< index of token_pointers to test
+        char& neg_sign; ///< single char neg sign, if different than '-' parseInt and the like will not assign your input negative
+        char& float_sep; ///< whole and fraction separator
+    };
+
+   /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
      *
-     * @param arg_type the UITYPE to test
-     * @param token_pointers pointers to null separated tokens
-     * @param token_pointer_index index of token_pointers to test
-     * @param neg_sign single char neg sign, if different than '-' parseInt and the like will not assign your input negative
-     * @param float_sep whole and fraction separator
-     *
+     * @param vprm validateNullSepInputParam struct reference
+     * 
      * @return true argument-type is valid
      * @return false argument-type is not valid
      */
-    bool validateNullSepInput(UITYPE arg_type,
-                              char** token_pointers,
-                              size_t token_pointer_index,
-                              char& neg_sign,
-                              char& float_sep);
+    bool validateNullSepInput(validateNullSepInputParam& vprm);
 
 protected:
     /**
