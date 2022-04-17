@@ -167,6 +167,7 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "UI_MAX_CMD_LEN (root command) %u characters\n"
                             "UI_MAX_IN_LEN %u bytes\n"
                             "\nUserInput constructor:\n"
+                            "output buffer size in bytes = %u\n"
                             "pname = \"%s\"\n"
                             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
                             "_max_depth_ (found from input CommandParameters) = %u\n"
@@ -177,24 +178,24 @@ void UserInput::listSettings(UserInput* inputProcess)
                        UI_MAX_ARGS,
                        UI_MAX_CMD_LEN,
                        UI_MAX_IN_LEN,
+                       _output_buffer_len_,
                        pname,
                        (1U + _max_depth_ + _max_args_),
                        _max_depth_,
                        _max_args_,
                        _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
                        _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
-    UserInput::_ui_out(PSTR("pdelimseqs = \n"));
+    UserInput::_ui_out(PSTR("pdelimseqs = delim<\"\">\n"));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
-        UserInput::_ui_out(PSTR("|%s|%c%c"),
-                           UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
-                           ((i < delimseqs.num_seq - 1) ? ',' : ' '),
-                           ((i % 5 == 0) ? ' ' : '\n'));
+        UserInput::_ui_out(PSTR("<\"%s\">%c"),
+                           UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),                           
+                           ((i % 5 == 0) ? '|' : '\n'));
     }
-    UserInput::_ui_out(PSTR("pststpseqs = \n"));
+    UserInput::_ui_out(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
-        UserInput::_ui_out(PSTR("start|%s|, stop|%s|; "), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
+        UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
     UserInput::_ui_out(PSTR("\n"));

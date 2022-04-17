@@ -1,9 +1,9 @@
 /**
    @file NestedCommands.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that demonstrates subcommands
-   @version 0.9
-   @date 2022-03-18
+   @brief An example that demonstrates nested subcommands
+   @version 1.0
+   @date 2022-04-17
 
    @copyright Copyright (c) 2022
 */
@@ -12,37 +12,11 @@
 
 /*
   this output buffer is formatted by UserInput's methods
-  you have to empty it out yourself with
-  OutputToStream()
 */
-char output_buffer[650] = {'\0'}; //  output buffer
+char output_buffer[64] = {'\0'}; //  output buffer
 
-const PROGMEM IH_pname pname = "_test_";         ///< default process name
-const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
-const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
-const PROGMEM IH_wcc pwcc = "*"; 
-
-const PROGMEM InputProcessDelimiterSequences pdelimseq = {
-  2,         ///< number of delimiter sequences
-  {1, 1},    ///< delimiter sequence lens
-  {" ", ","} ///< delimiter sequences
-};
-
-const PROGMEM InputProcessStartStopSequences pststpseq = {
-  1,           ///< num start stop sequence pairs
-  {1, 1},      ///< start stop sequence lens
-  {"\"", "\""} ///< start stop sequence pairs
-};
-
-const PROGMEM InputProcessParameters input_prm[1] = {
-  &pname,
-  &peol,
-  &pinputcc,
-  &pwcc,
-  &pdelimseq,
-  &pststpseq
-};
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+// default constructor with output
+UserInput inputHandler(output_buffer, buffsz(output_buffer));
 
 /*
    default function, called if nothing matches or if there is an error
