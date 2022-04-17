@@ -58,6 +58,7 @@ var class_user_input =
     [ "_output_buffer_len_", "dc/d4b/class_user_input.html#aa8e369723f3546650cc59c0609f63645", null ],
     [ "_output_enabled_", "dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12", null ],
     [ "_output_flag_", "dc/d4b/class_user_input.html#a4de8e2d97019ccfab71ddd6b7368a50c", null ],
+    [ "_p_num_ptrs_", "dc/d4b/class_user_input.html#a8466f282888e678e255717e1536d6059", null ],
     [ "_rec_num_arg_strings_", "dc/d4b/class_user_input.html#a8cc64ade1f91dd2544241923cdd38e5e", null ],
     [ "_stream_buffer_allocated_", "dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b", null ],
     [ "_stream_data_", "dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9", null ],
