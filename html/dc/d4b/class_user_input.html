@@ -144,14 +144,14 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader">UserInput class</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp43a9c1485e9bffc15da731380f59b84f"></a>These are the methods you use to operate the input handler </p>
 </td></tr>
-<tr class="memitem:a8929b496e93f52dedeee8c82a1ca4e9d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8929b496e93f52dedeee8c82a1ca4e9d">_input_prm_ptr_</a></td></tr>
-<tr class="separator:a8929b496e93f52dedeee8c82a1ca4e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ebce425119293926546d9d7090c6706"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706">_input_prm_</a></td></tr>
-<tr class="separator:a8ebce425119293926546d9d7090c6706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a421d477af4581b35c2147a293d767038"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a421d477af4581b35c2147a293d767038">_output_buffer_</a></td></tr>
 <tr class="separator:a421d477af4581b35c2147a293d767038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79bb9a66bab55a4c62fd328108927f12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a79bb9a66bab55a4c62fd328108927f12">_output_enabled_</a></td></tr>
 <tr class="separator:a79bb9a66bab55a4c62fd328108927f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8929b496e93f52dedeee8c82a1ca4e9d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8929b496e93f52dedeee8c82a1ca4e9d">_input_prm_ptr_</a></td></tr>
+<tr class="separator:a8929b496e93f52dedeee8c82a1ca4e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ebce425119293926546d9d7090c6706"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706">_input_prm_</a></td></tr>
+<tr class="separator:a8ebce425119293926546d9d7090c6706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e369723f3546650cc59c0609f63645"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa8e369723f3546650cc59c0609f63645">_output_buffer_len_</a></td></tr>
 <tr class="separator:aa8e369723f3546650cc59c0609f63645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa33f498f09a1ca363cd7961281a27441"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa33f498f09a1ca363cd7961281a27441">_output_buffer_bytes_left_</a></td></tr>
@@ -575,7 +575,7 @@ false if there were one or more errors </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>compares the command at cmd-&gt;prm </p>
+<p>compares str to cmd-&gt;prm[prm_idx].command </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td>pointer to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </td></tr>
