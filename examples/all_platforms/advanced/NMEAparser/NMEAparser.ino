@@ -99,6 +99,7 @@ NMEAparse NMEA;
 
 // temp for testing
 const char* gpbwc = "$GPBWC,081837,,,,,,T,,M,,N,*13\r\n";
+const char* gpgsa = "$GPGSA,081837,,,,,,T,,M,,N,*13\r\n";
 
 /*
    default function, called if nothing matches or if there is an error
@@ -135,6 +136,8 @@ void setup()
   uint8_t buffer[36] {};
   memcpy(buffer, gpbwc, strlen(gpbwc));
   NMEA.parseSentence(buffer, strlen(gpbwc));
+  memcpy(buffer, gpgsa, strlen(gpgsa));
+  NMEA.parseSentence(buffer, strlen(gpgsa));
 }
 
 void loop()
