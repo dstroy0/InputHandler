@@ -756,9 +756,9 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         }
         return; // if !match, error
     }
-
-    if (_current_search_depth_ == (LLprm.cmd->tree_depth) && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0 && LLprm.prm.sub_commands == 0) // command with arguments (max depth)
-    {
+    
+    if (_current_search_depth_ == (LLprm.prm.depth + 1) && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0 && LLprm.prm.sub_commands == 0) // command with arguments (max depth)
+    {        
         UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);
         if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
@@ -767,17 +767,17 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
             #endif
             LLprm.launch_attempted = true;                                                      // don't run default callback
             UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
-        }
+        }        
         return; // if !match, error
     }
 
     // subcommand search
-    LLprm.subcommand_matched = false;
-    #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-    UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
-    #endif
+    LLprm.subcommand_matched = false;    
     if (_current_search_depth_ <= (LLprm.cmd->tree_depth))             // dig starting at depth 1
     {                                                                  // this index starts at one because the parameter array's first element will be the root command
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+        UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
+        #endif
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {                        
             if (UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_])) // match subcommand string
