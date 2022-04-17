@@ -696,7 +696,7 @@ inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameter
     if (prm.function != NULL)
     {
         #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR("launch command_id %u\n"), prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, prm.command_id);
         #endif
         prm.function(this);
     }
@@ -704,7 +704,7 @@ inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameter
     {
         memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
         #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR("launch command_id %u\n"), prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, prm.command_id);
         #endif
         prm.function(this);
     }

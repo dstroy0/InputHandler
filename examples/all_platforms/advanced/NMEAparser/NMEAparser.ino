@@ -49,7 +49,7 @@
 
 extern const CommandParameters sentence_param[], sentence_error_param[]; // zero delim commands
 
-char output_buffer[4000] = {'\0'}; //  UserInput output buffer
+char output_buffer[512] = {'\0'}; //  UserInput output buffer
 
 const PROGMEM IH_pname pname = "_test_";   ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
