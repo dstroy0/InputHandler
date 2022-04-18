@@ -27,7 +27,7 @@ void UserInput::defaultFunction(void (*function)(UserInput*))
 }
 
 void UserInput::addCommand(CommandConstructor& command)
-{    
+{
     size_t max_depth_found = 0; // for _data_pointers_ array sizing
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
     CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
@@ -68,18 +68,18 @@ void UserInput::addCommand(CommandConstructor& command)
             command.calc->memcmp_ranges_arr = new uint8_t*[wc_containing_prm_found]();
             memcpy(&command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);
             for (size_t i = 0; i < wc_containing_prm_found; ++i)
-            {                
+            {
                 uint8_t memcmp_ranges[32] {};
                 uint8_t memcmp_ranges_idx = 0;
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
-                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                
+                UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
                 command.calc->memcmp_ranges_arr[i] = new uint8_t[memcmp_ranges_idx]();
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-                #if defined(__DEBUG_ADDCOMMAND__)
+#if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
                 for (size_t j = 0; j < memcmp_ranges_idx; ++j)
-                {                    
+                {
                     if (j % 2 == 0)
                     {
                         UserInput::_ui_out(PSTR("%d, "), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
@@ -89,7 +89,7 @@ void UserInput::addCommand(CommandConstructor& command)
                         UserInput::_ui_out(PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
                     }
                 }
-                #endif
+#endif
             }
         }
         else
@@ -190,8 +190,8 @@ void UserInput::listSettings(UserInput* inputProcess)
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
         UserInput::_ui_out(PSTR("<\"%s\">%c"),
-                           UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),                           
-                           ((i % 5 == 0) ? '|' : '\n'));
+                           UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
+                           (((delimseqs.num_seq > 1) && (i % 5 != 0)) ? '|' : ((i % 5 == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a newline every 5 sequences
     }
     UserInput::_ui_out(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
@@ -199,7 +199,6 @@ void UserInput::listSettings(UserInput* inputProcess)
         UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
-    UserInput::_ui_out(PSTR("\n"));
     delete[] buf; // free
 }
 
@@ -239,7 +238,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#endif
         return;
     }
     uint8_t* input_data = data;
@@ -255,7 +256,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         split_input = new uint8_t[input_len]();
         if (split_input == nullptr) // if there was an error allocating the memory
         {
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#endif
             return;
         }
         if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
@@ -273,7 +276,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#endif
         if (num_zdc != 0)
         {
             delete[] split_input;
@@ -281,7 +286,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         return;
     }
     // end error checking
-    
+
     size_t tokens_received = 0;    // amount of delimiter separated tokens
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
@@ -293,7 +298,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         input_len,             // input len
         _token_buffer_,        // pointer to char array, size of len + 1
         token_buffer_len,      // the size of token_buffer
-        _p_num_ptrs_,              // _data_pointers_[MAX], _data_pointers_index_[MAX]
+        _p_num_ptrs_,          // _data_pointers_[MAX], _data_pointers_index_[MAX]
         _data_pointers_index_, // index of token_buffer pointer array
         _data_pointers_,       // token_buffer pointers
         _null_,                // token_buffer sep char, _null_ == '\0'
@@ -308,12 +313,14 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             delete[] split_input;
         }
         delete[] _token_buffer_;
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#endif
         return;
     }
     // end error condition
-    
-    bool all_arguments_valid = true;                      // error sentinel
+
+    bool all_arguments_valid = true; // error sentinel
 
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
@@ -337,7 +344,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
                 subcommand_matched,
                 command_id};
             UserInput::_launchLogic(LLprm, _input_prm_); // see if command has any subcommands, validate input types, try to launch function
-            
+
             break;                                       // break command iterator for loop
         }                                                // end command logic
     }                                                    // end root command for loop
@@ -356,7 +363,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         delete[] split_input;
     }
-    delete[] _token_buffer_;    
+    delete[] _token_buffer_;
 }
 
 void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
@@ -368,9 +375,11 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     if (_stream_buffer_allocated_ == false)
     {
         _stream_data_ = new uint8_t[rx_buffer_size](); // an array to store the received data
-        if (_stream_data_ == nullptr)                // if there was an error allocating the memory
+        if (_stream_data_ == nullptr)                  // if there was an error allocating the memory
         {
-            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _stream_data_\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
+            UserInput::_ui_out(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"), (char*)pgm_read_dword(_input_prm_.pname));
+#endif
             return;
         }
         _stream_buffer_allocated_ = true;
@@ -565,7 +574,7 @@ inline void UserInput::_ui_out(const char* fmt, ...)
         if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
             // attempt warn
-            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Insufficient output buffer, increase output buffer to %d bytes.\n"), (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
+            snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Increase output buffer to %d bytes.\n"), (abs(err - (int)_output_buffer_bytes_left_) + (int)_output_buffer_len_));
             _output_flag_ = true;
             return;
         }
@@ -652,7 +661,6 @@ inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParam
                         UserInput::_ui_out(PSTR("'(OK)\n"));
                     }
                 }
-                UserInput::_ui_out(PSTR("\n"));
                 return;
             }
             UserInput::_ui_out(PSTR("%s\n"), (char*)data);
@@ -961,14 +969,12 @@ inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
     {
-        validateNullSepInputParam vprm =
-        {
-            UserInput::_getArgType(prm, i), 
-            _data_pointers_, 
-            _data_pointers_index_ + i, 
-            _neg_, 
-            _dot_
-        };
+        validateNullSepInputParam vprm = {
+            UserInput::_getArgType(prm, i),
+            _data_pointers_,
+            _data_pointers_index_ + i,
+            _neg_,
+            _dot_};
         input_type_match_flag[i] = UserInput::validateNullSepInput(vprm); // validate the token
         _rec_num_arg_strings_++;
         if (input_type_match_flag[i] == false) // if the token was not valid input

@@ -25,6 +25,8 @@
 
 // uncomment which method(s) to debug
 #if defined(__DEBUG_USER_INPUT__)
+//#define __DEBUG_GETCOMMANDFROMSTREAM__
+//#define __DEBUG_READCOMMANDFROMBUFFER__
 //#define __DEBUG_GET_TOKEN__
 //#define __DEBUG_SUBCOMMAND_SEARCH__
 //#define __DEBUG_ADDCOMMAND__
