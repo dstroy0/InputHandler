@@ -3,6 +3,9 @@
 
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
+# WARNING
+This library is in the prerelease stage. It is being updated frequently, none of the examples are guaranteed to work and the API may undergo drastic changes without warning.  It is a work in progress nearing completion.
+
 ## Design Goals
 Low memory use, feature rich.  
 InputHandler should be easy to use for beginners.  
@@ -16,7 +19,7 @@ See the releases' descriptions on
 [the library's release page](https://github.com/dstroy0/InputHandler/releases) for a list of
 changes.
 
-## InputHandler
+# InputHandler
 
 This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
 Commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
