@@ -1,11 +1,20 @@
 /**
    @file NMEAparser.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that demonstrates how to use InputHandler to parse NMEA sentences
+   @brief An example that demonstrates how to use InputHandler's public methods to parse NMEA 0183 sentences
    @version 0.9
-   @date 2022-04-02
+   @date 2022-04-17
 
    @copyright Copyright (c) 2022
+*/
+
+/*
+  go to parser/NMEAsentencefunc.cpp to edit the sentence functions and add more functionality than displaying
+  the sentence fields
+
+  to add a new message type, define the message in parser/NMEAsentenceparam.h as a CommandParameters struct
+  syntactically identical to the other structs found there, and then add your struct name to
+  sentence_param AND sentence_error_param
 */
 
 /*
@@ -45,13 +54,13 @@
 */
 
 #include <InputHandler.h>
-#include "NMEAparser.h"
+#include "parser/NMEAparser.h"
 
 extern const CommandParameters sentence_param[], sentence_error_param[]; // zero delim commands
 
 char output_buffer[512] {}; //  UserInput output buffer
 
-const PROGMEM IH_pname pname = "_test_";   ///< default process name
+const PROGMEM IH_pname pname = "";   ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
 const PROGMEM IH_wcc pwcc = "*";

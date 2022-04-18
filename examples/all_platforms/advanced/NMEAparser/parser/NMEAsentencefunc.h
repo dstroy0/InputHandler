@@ -8,14 +8,9 @@
    @copyright Copyright (c) 2022
 */
 
-#if !defined(__NMEA_SENTENCE_FUNC__)
-    #define __NMEA_SENTENCE_FUNC__
+#if !defined(__NMEA_SENTENCE_FUNC_H__)
+    #define __NMEA_SENTENCE_FUNC_H__
     #include <InputHandler.h>
-
-/*
-    char* ptr = inputProcess->nextArgument(); // point to first field in message
-    ptr = inputProcess->nextArgument(); // point to subsequent message fields
-*/
 
 void NMEA_0183_AAM(UserInput* inputProcess)
 {
@@ -384,5 +379,4 @@ void NMEA_0183_XTR(UserInput* inputProcess)
     }
     Serial.println(F("end NMEA parse XTR fields"));
 }
-
 #endif
