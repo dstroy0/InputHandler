@@ -283,16 +283,16 @@ public:
      * UserInput has no output by default due to the default values passed in by the constructor.
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
-     *
-     * @param input_prm InputProcessParameters struct
+     *     
      * @param output_buffer char buffer
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
+     * @param input_prm InputProcessParameters struct
      */
     UserInput(char* output_buffer = NULL, size_t output_buffer_len = 0, const InputProcessParameters* input_prm = NULL)
-        : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
-          _output_buffer_(output_buffer),
-          _output_enabled_((output_buffer == NULL) ? false : true),
+        : _output_buffer_(output_buffer),
           _output_buffer_len_(output_buffer_len),
+          _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+          _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_bytes_left_(output_buffer_len),
           _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),
           _term_index_(0),
@@ -470,22 +470,22 @@ public:
 
     /**
      * @brief validateNullSepInputParam struct
-     * 
+     *
      */
     struct validateNullSepInputParam
     {
-        UITYPE arg_type; ///< the UITYPE to test
-        char** token_pointers; ///< pointers to null separated tokens
+        UITYPE arg_type;            ///< the UITYPE to test
+        char** token_pointers;      ///< pointers to null separated tokens
         size_t token_pointer_index; ///< index of token_pointers to test
-        char& neg_sign; ///< single char neg sign, if different than '-' parseInt and the like will not assign your input negative
-        char& float_sep; ///< whole and fraction separator
+        char& neg_sign;             ///< single char neg sign, if different than '-' parseInt and the like will not assign your input negative
+        char& float_sep;            ///< whole and fraction separator
     };
 
-   /**
+    /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
      *
      * @param vprm validateNullSepInputParam struct reference
-     * 
+     *
      * @return true argument-type is valid
      * @return false argument-type is not valid
      */
@@ -516,13 +516,11 @@ private:
 
     // (potentially) user entered constructor variables
     char* _output_buffer_;                         ///< pointer to the output char buffer
-    bool _output_enabled_;                         ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_len_;                    ///< _output_buffer_ size in bytes
     const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
     // end user entered constructor variables
 
-    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
-
-    size_t _output_buffer_len_;        ///< _output_buffer_ size in bytes
+    bool _output_enabled_;             ///< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting
 
     uint8_t _term_len_;   ///< _term_ length in characters, determined in begin()
@@ -535,9 +533,9 @@ private:
     CommandConstructor* _commands_tail_; ///< pointer to object list
     // end linked-list
 
-    uint8_t _commands_count_; ///< how many commands are there
-    uint8_t _max_depth_;      ///< max command depth found
-    uint8_t _max_args_;       ///< max command or subcommand arguments found
+    uint8_t _commands_count_;       ///< how many commands are there
+    uint8_t _max_depth_;            ///< max command depth found
+    uint8_t _max_args_;             ///< max command or subcommand arguments found
     bool* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
 
     bool _output_flag_; ///< output is available flag, set by member functions
@@ -546,7 +544,7 @@ private:
     char** _data_pointers_;            ///< token_buffer pointers
     uint8_t _data_pointers_index_;     ///< data_pointer index
     uint8_t _data_pointers_index_max_; ///< data_pointer index max
-    uint8_t _p_num_ptrs_;              ///< computed in UserInput::begin()
+    uint8_t _p_num_ptrs_;              ///< "p"rocess number of pointers, computed in UserInput::begin()
 
     uint8_t _rec_num_arg_strings_;  ///< number of tokens after first valid token
     uint8_t _failed_on_subcommand_; ///< subcommand error index
@@ -562,6 +560,9 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
+
+    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
+
     //  end constructor initialized variables
 
     // private methods
