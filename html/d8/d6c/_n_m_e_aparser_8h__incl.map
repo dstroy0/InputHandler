@@ -1,8 +1,8 @@
-<map id="examples/all_platforms/advanced/NMEAparser/NMEAparser.h" name="examples/all_platforms/advanced/NMEAparser/NMEAparser.h">
-<area shape="rect" id="node1" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="5,5,273,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="69,244,186,271"/>
-<area shape="rect" id="node5" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="115,95,289,121"/>
-<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="53,319,202,360"/>
-<area shape="rect" id="node4" title=" " alt="" coords="85,408,169,435"/>
-<area shape="rect" id="node6" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="165,169,325,196"/>
+<map id="examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h" name="examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h">
+<area shape="rect" id="node1" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="5,5,224,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="44,259,161,285"/>
+<area shape="rect" id="node5" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="90,109,265,136"/>
+<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="28,333,177,375"/>
+<area shape="rect" id="node4" title=" " alt="" coords="61,423,145,449"/>
+<area shape="rect" id="node6" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="140,184,300,211"/>
 </map>

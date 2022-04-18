@@ -1,6 +1,6 @@
-<map id="examples/all_platforms/advanced/NMEAparser/NMEAsentencefunc.h" name="examples/all_platforms/advanced/NMEAparser/NMEAsentencefunc.h">
-<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="5,5,320,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="104,95,221,121"/>
-<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="88,169,237,211"/>
-<area shape="rect" id="node4" title=" " alt="" coords="121,259,205,285"/>
+<map id="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h" name="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h">
+<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="5,5,224,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="56,109,173,136"/>
+<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="40,184,189,225"/>
+<area shape="rect" id="node4" title=" " alt="" coords="73,273,157,300"/>
 </map>

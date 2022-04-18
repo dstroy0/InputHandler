@@ -118,19 +118,19 @@ $(document).ready(function(){initNavTree('dd/d65/_n_m_e_aparser_8ino.html','../.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../df/dec/_input_handler_8h_source.html">InputHandler.h</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d60/_n_m_e_aparser_8h_source.html">NMEAparser.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d60/_n_m_e_aparser_8h_source.html">parser/NMEAparser.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for NMEAparser.ino:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/dce/_n_m_e_aparser_8ino__incl.png" border="0" usemap="#aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2_n_m_e_aparser_8ino" alt=""/></div>
 <map name="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2_n_m_e_aparser_8ino" id="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2_n_m_e_aparser_8ino">
-<area shape="rect" title="An example that demonstrates how to use InputHandler to parse NMEA sentences." alt="" coords="5,5,285,47"/>
-<area shape="rect" href="../../df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="116,319,233,345"/>
-<area shape="rect" href="../../da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="137,95,250,121"/>
-<area shape="rect" href="../../dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="100,393,249,435"/>
-<area shape="rect" title=" " alt="" coords="133,483,217,509"/>
-<area shape="rect" href="../../da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="187,169,362,196"/>
-<area shape="rect" href="../../d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="237,244,397,271"/>
+<area shape="rect" title="An example that demonstrates how to use InputHandler&#39;s public methods to parse NMEA 0183 sentences." alt="" coords="5,5,285,47"/>
+<area shape="rect" href="../../df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="104,319,221,345"/>
+<area shape="rect" href="../../da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="125,95,283,121"/>
+<area shape="rect" href="../../dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="88,393,237,435"/>
+<area shape="rect" title=" " alt="" coords="121,483,205,509"/>
+<area shape="rect" href="../../da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="175,169,350,196"/>
+<area shape="rect" href="../../d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="225,244,385,271"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -151,7 +151,7 @@ Variables</h2></td></tr>
 <tr class="separator:a0a8c178791ae7966143e2dc16a573f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad520b29e3db0d23c00126db0d0c64e30"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a> [512] {}</td></tr>
 <tr class="separator:ad520b29e3db0d23c00126db0d0c64e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49a8fb60df49ed1c3950a0bd0717cc03"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a> = &quot;_test_&quot;</td></tr>
+<tr class="memitem:a49a8fb60df49ed1c3950a0bd0717cc03"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a> = &quot;&quot;</td></tr>
 <tr class="separator:a49a8fb60df49ed1c3950a0bd0717cc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61d5220287a9fed34d299577749a1e46"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02">IH_eol</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a> = &quot;\r\n&quot;</td></tr>
 <tr class="separator:a61d5220287a9fed34d299577749a1e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,7 +187,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Douglas Quigg (dstroy0 <a href="#" onclick="location.href='mai'+'lto:'+'dqu'+'ig'+'g12'+'3@'+'gma'+'il'+'.co'+'m'; return false;">dquig<span class="obfuscator">.nosp@m.</span>g123<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.9 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2022-04-02</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-04-17</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="afe461d27b9c48d5921c00d521181f12f" name="afe461d27b9c48d5921c00d521181f12f"></a>
@@ -290,12 +290,12 @@ Variables</h2></td></tr>
 <div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a>,</div>
 <div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div>
 <div class="line">}</div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_a1d43a9b5ee2bda82f27eb2970a2e30a5"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div><div class="ttdeci">const PROGMEM InputProcessStartStopSequences pststpseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:71</div></div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_a49a8fb60df49ed1c3950a0bd0717cc03"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a></div><div class="ttdeci">const PROGMEM IH_pname pname</div><div class="ttdoc">default process name</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:54</div></div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_a61d5220287a9fed34d299577749a1e46"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a></div><div class="ttdeci">const PROGMEM IH_eol peol</div><div class="ttdoc">default process eol characters</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:55</div></div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_a79cb83fee1312ff01031a7b49b64116b"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a></div><div class="ttdeci">const PROGMEM IH_input_cc pinputcc</div><div class="ttdoc">default input control character sequence</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:56</div></div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_aba17c1ae84278f0965b64b0860775b6f"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences pipdelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:59</div></div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_abaa6088f7cb93207f24d0ffff3dde3eb"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a></div><div class="ttdeci">const PROGMEM IH_wcc pwcc</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:57</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a1d43a9b5ee2bda82f27eb2970a2e30a5"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div><div class="ttdeci">const PROGMEM InputProcessStartStopSequences pststpseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:80</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a49a8fb60df49ed1c3950a0bd0717cc03"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a49a8fb60df49ed1c3950a0bd0717cc03">pname</a></div><div class="ttdeci">const PROGMEM IH_pname pname</div><div class="ttdoc">default process name</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:63</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a61d5220287a9fed34d299577749a1e46"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a61d5220287a9fed34d299577749a1e46">peol</a></div><div class="ttdeci">const PROGMEM IH_eol peol</div><div class="ttdoc">default process eol characters</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:64</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_a79cb83fee1312ff01031a7b49b64116b"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#a79cb83fee1312ff01031a7b49b64116b">pinputcc</a></div><div class="ttdeci">const PROGMEM IH_input_cc pinputcc</div><div class="ttdoc">default input control character sequence</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:65</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_aba17c1ae84278f0965b64b0860775b6f"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#aba17c1ae84278f0965b64b0860775b6f">pipdelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences pipdelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:68</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_abaa6088f7cb93207f24d0ffff3dde3eb"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb">pwcc</a></div><div class="ttdeci">const PROGMEM IH_wcc pwcc</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:66</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -487,7 +487,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a> pname = &quot;_test_&quot;</td>
+          <td class="memname">const PROGMEM <a class="el" href="../../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f">IH_pname</a> pname = &quot;&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -567,7 +567,7 @@ Variables</h2></td></tr>
 <div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a>,</div>
 <div class="line">  &amp;<a class="code hl_variable" href="../../dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5">pststpseq</a></div>
 <div class="line">}</div>
-<div class="ttc" id="a_n_m_e_aparser_8ino_html_af714e2365c476e8714cf16ccbced9e7e"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences psensordelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:65</div></div>
+<div class="ttc" id="a_n_m_e_aparser_8ino_html_af714e2365c476e8714cf16ccbced9e7e"><div class="ttname"><a href="../../dd/d65/_n_m_e_aparser_8ino.html#af714e2365c476e8714cf16ccbced9e7e">psensordelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences psensordelimseq</div><div class="ttdef"><b>Definition:</b> NMEAparser.ino:74</div></div>
 </div><!-- fragment -->
 </div>
 </div>
