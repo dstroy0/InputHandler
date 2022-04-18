@@ -76,7 +76,7 @@ void UserInput::addCommand(CommandConstructor& command)
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
                 command.calc->memcmp_ranges_arr[i] = new uint8_t[memcmp_ranges_idx]();
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-#if defined(__DEBUG_ADDCOMMAND__)
+                #if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
                 for (size_t j = 0; j < memcmp_ranges_idx; ++j)
                 {
@@ -89,7 +89,7 @@ void UserInput::addCommand(CommandConstructor& command)
                         UserInput::_ui_out(PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
                     }
                 }
-#endif
+                #endif
             }
         }
         else
@@ -238,9 +238,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     if (len > UI_MAX_IN_LEN) // 65535 - 1(index align) - 1(space for null '\0')
     {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.pname));
-#endif
+        #endif
         return;
     }
     uint8_t* input_data = data;
@@ -256,9 +256,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         split_input = new uint8_t[input_len]();
         if (split_input == nullptr) // if there was an error allocating the memory
         {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+            #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
-#endif
+            #endif
             return;
         }
         if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
@@ -276,9 +276,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
-#endif
+        #endif
         if (num_zdc != 0)
         {
             delete[] split_input;
@@ -313,9 +313,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             delete[] split_input;
         }
         delete[] _token_buffer_;
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
-#endif
+        #endif
         return;
     }
     // end error condition
@@ -377,9 +377,9 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         _stream_data_ = new uint8_t[rx_buffer_size](); // an array to store the received data
         if (_stream_data_ == nullptr)                  // if there was an error allocating the memory
         {
-#if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
+            #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
             UserInput::_ui_out(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"), (char*)pgm_read_dword(_input_prm_.pname));
-#endif
+            #endif
             return;
         }
         _stream_buffer_allocated_ = true;
