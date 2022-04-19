@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['server_0',['server',['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a85f30d66aa1231313c8553fd485b22b1',1,'ReadCommandFromBufferWebSerial.ino']]],
-  ['setup_1',['setup',['../db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;GetCommandFromStream.ino'],['../d6/d12/_multi_file_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;MultiFile.ino'],['../da/d0f/_nested_commands_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;NestedCommands.ino'],['../dd/d65/_n_m_e_aparser_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;NMEAparser.ino'],['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;GetCommandFromStream.ino'],['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;ReadCommandFromBufferWebSerial.ino']]],
-  ['setup_5fwifi_2',['setup_wifi',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae5b88d967e3185d98053cf055c8b4f1f',1,'setup_wifi():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ae5b88d967e3185d98053cf055c8b4f1f',1,'setup_wifi():&#160;ReadCommandFromBufferWebSerial.ino']]]
+  ['readcommandfrombuffer_0',['readCommandFromBuffer',['../dc/d4b/class_user_input.html#a7f6ab5712afedca76ee55220276f8828',1,'UserInput']]],
+  ['reconnect_5fmqtt_1',['reconnect_mqtt',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a36c917f8a7a7142669385533300ada1a',1,'ReadCommandFromBufferMQTT.ino']]],
+  ['recvmsg_2',['recvMsg',['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ab83c7cf48ac3f1d98eb23af3778b2c1e',1,'ReadCommandFromBufferWebSerial.ino']]]
 ];
