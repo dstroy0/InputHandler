@@ -113,7 +113,7 @@ const char* gpgsa = "$GPGSA,081837,,,,,,T,,M,,N,*13\r\n";
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput* inputProcess)
+void unrecognized(UserInput* inputProcess)
 {
   // error output
   inputProcess->outputToStream(Serial);
@@ -132,7 +132,7 @@ void setup()
     ; //  wait for user
 
   Serial.println(F("Set up InputHandler..."));
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
 
   sensorParser.addCommand(NMEA_sentence);       // regular sentence
   sensorParser.addCommand(NMEA_sentence_error); // one or more field errors

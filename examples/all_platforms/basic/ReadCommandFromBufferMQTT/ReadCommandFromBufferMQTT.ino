@@ -42,7 +42,7 @@ UserInput inputHandler(output_buffer, buffsz(output_buffer));
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput* inputProcess)
+void unrecognized(UserInput* inputProcess)
 {
   // do your error output here
   if (inputProcess->outputIsAvailable())
@@ -54,7 +54,7 @@ void uc_unrecognized(UserInput* inputProcess)
 /*
    lists the settings passed to UserInput's constructor, or default parameters
 */
-void uc_settings(UserInput* inputProcess)
+void settings(UserInput* inputProcess)
 {
   inputProcess->listSettings(inputProcess);
 }
@@ -62,7 +62,7 @@ void uc_settings(UserInput* inputProcess)
 /*
    lists commands available to the user
 */
-void uc_help(UserInput* inputProcess)
+void help(UserInput* inputProcess)
 {
   inputProcess->listCommands();
 }
@@ -70,7 +70,7 @@ void uc_help(UserInput* inputProcess)
 /*
    test all available input types
 */
-void uc_test_input_types(UserInput *inputProcess)
+void test_input_types(UserInput *inputProcess)
 {
   inputProcess->outputToStream(Serial);                                             // class output, doesn't have to output to the input stream
   char *str_ptr = inputProcess->nextArgument();                                     //  init str_ptr and point it at the next argument input by the user
@@ -134,11 +134,11 @@ void uc_test_input_types(UserInput *inputProcess)
 }
 
 /**
-   @brief CommandParameters struct for uc_help_
+   @brief CommandParameters struct for help_
 
 */
 const PROGMEM CommandParameters help_param[1] = {
-  uc_help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
   no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "help",                   // command string
   4,                        // command string characters
@@ -156,14 +156,14 @@ const PROGMEM CommandParameters help_param[1] = {
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_help_(help_param); //  uc_help_ has a command string, and function specified
+CommandConstructor help_(help_param); //  help_ has a command string, and function specified
 
 /**
-   @brief CommandParameters struct for uc_settings_
+   @brief CommandParameters struct for settings_
 
 */
 const PROGMEM CommandParameters settings_param[1] = {
-  uc_settings,              // function ptr
+  settings,              // function ptr
   no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "inputSettings",          // command string
   13,                       // command string characters
@@ -181,14 +181,14 @@ const PROGMEM CommandParameters settings_param[1] = {
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(settings_param); // uc_settings_ has a command string, and function specified
+CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
 
 /**
-   @brief CommandParameters struct for uc_test_
+   @brief CommandParameters struct for test_
 
 */
 const PROGMEM CommandParameters type_test_param[1] = {
-  uc_test_input_types,       // function ptr
+  test_input_types,       // function ptr
   no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "test",                    // command string
   4,                         // string length
@@ -213,7 +213,7 @@ const PROGMEM CommandParameters type_test_param[1] = {
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(type_test_param);
+CommandConstructor test_(type_test_param);
 
 void setup_wifi()
 {
@@ -255,10 +255,10 @@ void setup()
   client.setServer(mqtt_server, 1883);
   client.setCallback(mqtt_callback);
 
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(uc_help_);             // lists commands available to the user
-  inputHandler.addCommand(uc_settings_);         // lists UserInput class settings
-  inputHandler.addCommand(uc_test_);             // input type test
+  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.addCommand(help_);             // lists commands available to the user
+  inputHandler.addCommand(settings_);         // lists UserInput class settings
+  inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands(); // formats output_buffer with the command list
 }

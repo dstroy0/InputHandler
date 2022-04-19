@@ -14,7 +14,7 @@
     #include <InputHandler.h>
     #include "NMEAsentencefunc.h"
 
-extern void uc_unrecognized(UserInput* inputProcess);
+extern void unrecognized(UserInput* inputProcess);
 extern void NMEA_parse_test(UserInput* inputProcess);
 
 /**
@@ -481,7 +481,7 @@ const PROGMEM CommandParameters XTR[1] = {
    @brief CommandParameters struct for NMEA sentence
 */
 const PROGMEM CommandParameters sentence_param[24] = {
-    {uc_unrecognized,          // function ptr
+    {unrecognized,          // function ptr
      no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
      "$",                      // command string
      1,                        // string length
@@ -522,7 +522,7 @@ const PROGMEM CommandParameters sentence_param[24] = {
    @brief CommandParameters struct for NMEA sentence error
 */
 const PROGMEM CommandParameters sentence_error_param[24] = {
-    {uc_unrecognized,          // function ptr
+    {unrecognized,          // function ptr
      no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
      "!",                      // command string
      1,                        // string length

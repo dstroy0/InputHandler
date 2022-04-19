@@ -18,15 +18,15 @@ UserInput inputHandler;
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput *inputProcess)
+void unrecognized(UserInput *inputProcess)
 {
-  Serial.println(F("made it to uc_unrecognized"));
+  Serial.println(F("made it to unrecognized"));
 }
 
 /*
    test callback function
 */
-void uc_hello_(UserInput *inputProcess)
+void hello(UserInput *inputProcess)
 {
   Serial.println(F("hello"));
 }
@@ -34,9 +34,9 @@ void uc_hello_(UserInput *inputProcess)
 /*
   command parameters
 */
-const PROGMEM CommandParameters type_test_param[1] =
+const PROGMEM CommandParameters test_param[1] =
 {
-  uc_hello_,                // function name
+  hello,                    // function name
   no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "hello",                  // command string
   5,                        // string length
@@ -50,7 +50,7 @@ const PROGMEM CommandParameters type_test_param[1] =
   /* UITYPE arguments */
   { UITYPE::NO_ARGS }
 };
-CommandConstructor uc_test_(type_test_param);
+CommandConstructor test(test_param);
 
 void setup()
 {
@@ -59,8 +59,8 @@ void setup()
   while (!Serial)
     ; //  wait for user
 
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(uc_test_);             // input type test
+  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.addCommand(test);             // input type test
   if (inputHandler.begin())                      // required.  returns true on success.
   {
     Serial.println(F("enter <hello> to test."));

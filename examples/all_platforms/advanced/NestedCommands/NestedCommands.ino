@@ -21,29 +21,29 @@ UserInput inputHandler(output_buffer, buffsz(output_buffer));
 /*
    default function, called if nothing matches or if there is an error
 */
-void uc_unrecognized(UserInput *inputProcess)
+void unrecognized(UserInput *inputProcess)
 {
   // error output
   inputProcess->outputToStream(Serial);
   Serial.println(F("error."));
 }
 
-void uc_nest_one(UserInput *inputProcess)
+void nest_one(UserInput *inputProcess)
 {
   inputHandler.outputToStream(Serial); // class output
-  Serial.println(F("made it to uc_nest_one."));
+  Serial.println(F("made it to nest_one."));
 }
 
-void uc_nest_two(UserInput *inputProcess)
+void nest_two(UserInput *inputProcess)
 {
   inputHandler.outputToStream(Serial); // class output
-  Serial.println(F("made it to uc_nest_two."));
+  Serial.println(F("made it to nest_two."));
 }
 
 const PROGMEM CommandParameters nested_prms[3] =
 {
   { // root command
-    uc_unrecognized,          // root command not allowed to be NULL
+    unrecognized,             // root command not allowed to be NULL
     no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "launch",                 // command string
     6,                        // command string characters
@@ -54,15 +54,11 @@ const PROGMEM CommandParameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
   },
   { // subcommand depth one
-    uc_nest_one,              // unique function
+    nest_one,                 // unique function
     no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "one",                    // command string
     3,                        // command string characters
@@ -73,15 +69,11 @@ const PROGMEM CommandParameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
   },
   { // subcommand depth one
-    uc_nest_two,              // unique function
+    nest_two,                 // unique function
     no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "two",                    // command string
     3,                        // command string characters
@@ -92,15 +84,11 @@ const PROGMEM CommandParameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
   }
 };
-CommandConstructor uc_nested_example_(nested_prms, nprms(nested_prms), 1); //  uc_help_ has a command string, and function specified
+CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
 
 void setup()
 {
@@ -110,8 +98,8 @@ void setup()
     ; //  wait for user
 
   Serial.println(F("Set up InputHandler..."));
-  inputHandler.defaultFunction(uc_unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(uc_nested_example_);   // nested commands example
+  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+  inputHandler.addCommand(nested_example_);   // nested commands example
   inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands();
   inputHandler.outputToStream(Serial); // class output
