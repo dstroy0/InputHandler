@@ -198,7 +198,6 @@ var NAVTREEINDEX0 =
 "dc/d3d/struct_command_runtime_calc.html#ae8c7bada5d8ae12f0d18ec8bae035e5b":[3,0,3,2],
 "dc/d4b/class_user_input.html":[4,0,7],
 "dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d":[4,0,7,25],
-"dc/d4b/class_user_input.html#a01fe6650e24adcae78c40860d22fa10d":[4,0,7,16],
 "dc/d4b/class_user_input.html#a0716c92410a23ff77acb76816cb07ccb":[4,0,7,54],
 "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749":[4,0,7,5],
 "dc/d4b/class_user_input.html#a0aca041755aea2c5021e68f546bff259":[4,0,7,35],
@@ -215,7 +214,6 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd":[4,0,7,30],
 "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030":[4,0,7,29],
 "dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718":[4,0,7,26],
-"dc/d4b/class_user_input.html#a34a9f3e8709ec9f59aa72e2b1412fcc7":[4,0,7,17],
 "dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336":[4,0,7,9],
 "dc/d4b/class_user_input.html#a421d477af4581b35c2147a293d767038":[4,0,7,55],
 "dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683":[4,0,7,31],
@@ -244,10 +242,12 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#a8cc64ade1f91dd2544241923cdd38e5e":[4,0,7,61],
 "dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706":[4,0,7,47],
 "dc/d4b/class_user_input.html#a94ca12d9787360d86db21b1a8290d9cf":[4,0,7,6],
+"dc/d4b/class_user_input.html#a97535fd073503e31a59df171d7fe6905":[4,0,7,17],
 "dc/d4b/class_user_input.html#a9c7c0f142ff875a43633d03cf26d07e1":[4,0,7,10],
 "dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f":[4,0,7,19],
 "dc/d4b/class_user_input.html#aa33f498f09a1ca363cd7961281a27441":[4,0,7,56],
 "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1":[4,0,7,20],
 "dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987":[4,0,7,38],
-"dc/d4b/class_user_input.html#aa8e369723f3546650cc59c0609f63645":[4,0,7,57]
+"dc/d4b/class_user_input.html#aa8e369723f3546650cc59c0609f63645":[4,0,7,57],
+"dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f":[4,0,7,33]
 };

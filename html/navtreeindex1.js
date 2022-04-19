@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f":[4,0,7,33],
 "dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87":[4,0,7,7],
 "dc/d4b/class_user_input.html#ac250d80ae3233e64dfb3cbfea9c3a039":[4,0,7,66],
 "dc/d4b/class_user_input.html#acee1812eac7354e20935df8e34a43b33":[4,0,7,42],
@@ -9,6 +8,7 @@ var NAVTREEINDEX1 =
 "dc/d4b/class_user_input.html#ada6f5999561309d3067f799397ea7edf":[4,0,7,4],
 "dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb":[4,0,7,24],
 "dc/d4b/class_user_input.html#ae77e31ab2a198236e1e69330910c524b":[4,0,7,62],
+"dc/d4b/class_user_input.html#aef66cd23ce4fbb5d646384c5dc6a67c2":[4,0,7,16],
 "dc/d4b/class_user_input.html#af1b7876de56dcc9e2ca7244e5a54dff9":[4,0,7,63],
 "dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f":[4,0,7,27],
 "dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab":[4,0,7,45],

@@ -12,9 +12,9 @@ var searchData=
   ['_5fgettokenscstrings_9',['_getTokensCstrings',['../dc/d4b/class_user_input.html#a296bbb8529eda439215311b87a7e9e59',1,'UserInput']]],
   ['_5fgettokensdelimiters_10',['_getTokensDelimiters',['../dc/d4b/class_user_input.html#a593806a582e74279a6c9a638282644bf',1,'UserInput']]],
   ['_5flaunchfunction_11',['_launchFunction',['../dc/d4b/class_user_input.html#a8178bdebbb9beb7d1e68762a68169dc7',1,'UserInput']]],
-  ['_5flaunchlogic_12',['_launchLogic',['../dc/d4b/class_user_input.html#a01fe6650e24adcae78c40860d22fa10d',1,'UserInput']]],
+  ['_5flaunchlogic_12',['_launchLogic',['../dc/d4b/class_user_input.html#aef66cd23ce4fbb5d646384c5dc6a67c2',1,'UserInput']]],
   ['_5fparsesentence_13',['_parseSentence',['../df/d2a/class_n_m_e_aparse.html#ab87efcd0ab66bc4d221e99704dc9176d',1,'NMEAparse']]],
-  ['_5freadcommandfrombuffererroroutput_14',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#a34a9f3e8709ec9f59aa72e2b1412fcc7',1,'UserInput']]],
+  ['_5freadcommandfrombuffererroroutput_14',['_readCommandFromBufferErrorOutput',['../dc/d4b/class_user_input.html#a97535fd073503e31a59df171d7fe6905',1,'UserInput']]],
   ['_5fsplitzdc_15',['_splitZDC',['../dc/d4b/class_user_input.html#a86019bf870863f0ddcc9a85a779d30b6',1,'UserInput']]],
   ['_5fui_5fout_16',['_ui_out',['../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f',1,'UserInput']]]
 ];
