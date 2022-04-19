@@ -576,22 +576,14 @@ private:
 
     /**
      * @brief ReadCommandFromBuffer error output
-     *
-     * @param input_prm reference to InputProcessParameters struct
+     *     
      * @param cmd CommandConstructor pointer
      * @param prm CommandParameters struct reference
      * @param command_matched boolean reference
-     * @param input_type_match_flag boolean argument type match flag array
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm,
-                                           CommandConstructor* cmd,
-                                           CommandParameters& prm,
-                                           bool& command_matched,
-                                           bool* input_type_match_flag,
-                                           bool& all_arguments_valid,
-                                           uint8_t* data);
+    void _readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data);
 
     /**
      * @brief launches either (this) function or the root command function
@@ -620,10 +612,9 @@ private:
     /**
      * @brief function launch logic, recursive on subcommand match
      *
-     * @param LLprm
-     * @param input_prm reference to InputProcessParameters struct
+     * @param LLprm     
      */
-    void _launchLogic(_launchLogicParam& LLprm, const InputProcessParameters& input_prm);
+    void _launchLogic(_launchLogicParam& LLprm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -672,10 +663,7 @@ private:
      * @param prm CommandParameters struct reference
      * @param all_arguments_valid error sentinel
      */
-    void _getArgs(size_t& tokens_received,
-                  bool* input_type_match_flag,
-                  CommandParameters& prm,
-                  bool& all_arguments_valid);
+    void _getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid);
 
     /**
      * @brief adds escaped control characters to a buffer

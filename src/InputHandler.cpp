@@ -279,7 +279,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
-        if (num_zdc != 0)
+        if (split_input != NULL)
         {
             delete[] split_input;
         }
@@ -343,14 +343,14 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
                 _input_type_match_flags_,
                 subcommand_matched,
                 command_id};
-            UserInput::_launchLogic(LLprm, _input_prm_); // see if command has any subcommands, validate input types, try to launch function
+            UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
 
             break;                                       // break command iterator for loop
         }                                                // end command logic
     }                                                    // end root command for loop
     if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(_input_prm_, cmd, prm, command_matched, _input_type_match_flags_, all_arguments_valid, input_data);
+        UserInput::_readCommandFromBufferErrorOutput(cmd, prm, command_matched, all_arguments_valid, input_data);
         (*_default_function_)(this); // run the default function
     }
 
@@ -593,13 +593,13 @@ inline void UserInput::_ui_out(const char* fmt, ...)
     }
 }
 
-inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParameters& input_prm, CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool* input_type_match_flag, bool& all_arguments_valid, uint8_t* data)
+inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data)
 {
     if (UserInput::outputIsEnabled()) // format a string with useful information
     {
         memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
         IH_pname pname;
-        memcpy_P(&pname, input_prm.pname, sizeof(pname));
+        memcpy_P(&pname, _input_prm_.pname, sizeof(pname));
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), pname);
         if (command_matched == true)
         {
@@ -616,7 +616,7 @@ inline void UserInput::_readCommandFromBufferErrorOutput(const InputProcessParam
                 bool print_subcmd_err = true;
                 for (size_t i = 0; i < prm.max_num_args; ++i)
                 {
-                    if (input_type_match_flag[i] == false || _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
+                    if (_input_type_match_flags_[i] == false || _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
                         uint8_t _type = (uint8_t)UserInput::_getArgType(prm, i);
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
@@ -717,10 +717,10 @@ inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameter
     }
 }
 
-inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcessParameters& input_prm)
+inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
 {    
     IH_pname pname;
-    memcpy_P(&pname, input_prm.pname, sizeof(pname));    
+    memcpy_P(&pname, _input_prm_.pname, sizeof(pname));    
     if (LLprm.tokens_received > 1 && LLprm.prm.sub_commands == 0 && LLprm.prm.max_num_args == 0) // error
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
@@ -817,7 +817,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm, const InputProcess
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, LLprm.prm.command_id);
         #endif
-        UserInput::_launchLogic(LLprm, input_prm);
+        UserInput::_launchLogic(LLprm);
     }
 }
 
