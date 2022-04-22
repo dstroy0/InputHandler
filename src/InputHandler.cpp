@@ -355,7 +355,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         all_wcc_cmd = NULL;
         size_t idx = 0;
         size_t all_wcc_idx = 0;
-        
+
         _launchLogicParam LLprm = 
         {
             cmd,
@@ -919,7 +919,13 @@ inline char UserInput::_combineControlCharacters(char input)
 bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
 {
     bool error_not = true;
-    size_t cmd_len = strlen(prm.command);
+    size_t cmd_len = strlen(prm.command);    
+
+    if (prm.function == NULL && prm.depth == 0)
+    {
+        UserInput::_ui_out(PSTR("command <%s> root command function pointer cannot be NULL\n"), prm.command);
+        error_not = false;
+    }
 
     if (prm.has_wildcards == true)
     {
@@ -933,71 +939,60 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
                 num_wcc++;
             }
         }
-        if (num_wcc > cmd_len)
+        if (num_wcc == 0)
         {
-            UserInput::_ui_out(PSTR("command string has too many wildcards\n"));
+            UserInput::_ui_out(PSTR("command <%s> has_wildcard is set, but no wildcards were found in the command\n"), prm.command);
             error_not = false;
         }
     }
 
-    if (prm.function == NULL && prm.depth == 0)
-    {
-        UserInput::_ui_out(PSTR("root command function pointer cannot be NULL\n"));
-        error_not = false;
-    }
-
     if (cmd_len > UI_MAX_CMD_LEN)
     {
-        UserInput::_ui_out(PSTR("command too long, increase UI_MAX_CMD_LEN or reduce command length.\n"));
+        UserInput::_ui_out(PSTR("command <%s> command too long, increase UI_MAX_CMD_LEN or reduce command length.\n"), prm.command);
         error_not = false;
     }
     if (cmd_len != prm.command_length)
     {
         if (cmd_len > prm.command_length)
         {
-            UserInput::_ui_out(PSTR("command_length too large for command\n"));
+            UserInput::_ui_out(PSTR("command <%s> command_length too large for command\n"), prm.command);
         }
         else
         {
-            UserInput::_ui_out(PSTR("command_length too small for command\n"));
+            UserInput::_ui_out(PSTR("command <%s> command_length too small for command\n"), prm.command);
         }
         error_not = false;
     }
     if (prm.depth > UI_MAX_DEPTH)
     {
-        UserInput::_ui_out(PSTR("depth\n"));
+        UserInput::_ui_out(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
         error_not = false;
     }
     if (prm.sub_commands > UI_MAX_SUBCOMMANDS)
     {
-        UserInput::_ui_out(PSTR("sub_commands\n"));
+        UserInput::_ui_out(PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
         error_not = false;
     }
     if (prm.num_args > UI_MAX_ARGS)
     {
-        UserInput::_ui_out(PSTR("num_args\n"));
+        UserInput::_ui_out(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
         error_not = false;
     }
     if (prm.max_num_args > UI_MAX_ARGS)
     {
-        UserInput::_ui_out(PSTR("max_num_args\n"));
+        UserInput::_ui_out(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
         error_not = false;
     }
     if (prm.num_args > prm.max_num_args)
     {
-        UserInput::_ui_out(PSTR("num_args must be less than max_num_args\n"));
+        UserInput::_ui_out(PSTR("command <%s> num_args must be less than max_num_args\n"), prm.command);
         error_not = false;
     }
     if (error_not == false) // error condition
-    {
-        if (prm.depth > 0)
-        {
-            UserInput::_ui_out(PSTR("%s CommandParameters error! Subcommand not added.\n"), prm.command);
-        }
-        else
-        {
-            UserInput::_ui_out(PSTR("%s CommandParameters error! Command not added.\n"), prm.command);
-        }
+    {        
+            char tmp[UI_MAX_CMD_LEN]{};
+            memcpy_P(&tmp, &(cmd.prm[0].command), (size_t)pgm_read_dword(&cmd.prm[0].command_length));
+            UserInput::_ui_out(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"), prm.command, tmp);                
     }
     return error_not;
 }
