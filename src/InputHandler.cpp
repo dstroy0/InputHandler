@@ -589,6 +589,7 @@ bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 /*
     private methods
 */
+// I don't think gcc can inline variadic functions
 inline void UserInput::_ui_out(const char* fmt, ...)
 {
     if (UserInput::outputIsEnabled())
@@ -916,7 +917,7 @@ inline char UserInput::_combineControlCharacters(char input)
 }
 // clang-format on
 
-bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
+inline bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
 {
     bool error_not = true;
     size_t cmd_len = strlen(prm.command);    
@@ -1197,7 +1198,7 @@ void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParamete
     }
 }
 
-bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const CommandParameters** zdc)
+inline bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const CommandParameters** zdc)
 {
     for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
     {
@@ -1213,7 +1214,7 @@ bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* da
     return false;
 }
 
-void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges)
+inline void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges)
 {
     if (prm.has_wildcards == true) // if this command has wildcards
     {
@@ -1266,7 +1267,7 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
     }
 }
 
-UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
+inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
     size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
     size_t input_len = strlen(str);
