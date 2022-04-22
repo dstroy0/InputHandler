@@ -9,7 +9,7 @@ var searchData=
   ['_5fcommands_5fcount_5f_6',['_commands_count_',['../dc/d4b/class_user_input.html#a7d12901b53d132d9003861f12ec5b4f8',1,'UserInput']]],
   ['_5fcommands_5fhead_5f_7',['_commands_head_',['../dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987',1,'UserInput']]],
   ['_5fcommands_5ftail_5f_8',['_commands_tail_',['../dc/d4b/class_user_input.html#a18a476fdeddeec87fb18659133d5739b',1,'UserInput']]],
-  ['_5fcomparecommandtostring_9',['_compareCommandToString',['../dc/d4b/class_user_input.html#a682430c80079d0e0155cac0b3fd023dc',1,'UserInput']]],
+  ['_5fcomparecommandtostring_9',['_compareCommandToString',['../dc/d4b/class_user_input.html#ae583f9970092fd45ded5fcbe1ae179f9',1,'UserInput']]],
   ['_5fcurrent_5fsearch_5fdepth_5f_10',['_current_search_depth_',['../dc/d4b/class_user_input.html#a6cb9ffc5ed6250f75be80a819abaa03d',1,'UserInput']]],
   ['_5fdata_5fpointers_5f_11',['_data_pointers_',['../dc/d4b/class_user_input.html#a682b3308f9ee638d4bbb7ad11d06ad66',1,'UserInput']]],
   ['_5fdata_5fpointers_5findex_5f_12',['_data_pointers_index_',['../dc/d4b/class_user_input.html#acee1812eac7354e20935df8e34a43b33',1,'UserInput']]],
