@@ -96,7 +96,7 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) struct objects:  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) struct objects:  
 ```cpp  
 struct CommandParameters
 {
