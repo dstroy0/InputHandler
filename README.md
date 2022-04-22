@@ -116,9 +116,13 @@ struct Parameters
 Easily construct complex commands with subcommands, and enforce input type. Nested commands still only use 6 bytes of sram (avr):  
 
 ```cpp
-const PROGMEM Parameters help_param[1] =
-{ 
-  uc_help,                  // function pointer
+/**
+   @brief CommandParameters struct for help_
+
+*/
+const PROGMEM CommandParameters help_param[1] = {
+  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "help",                   // command string
   4,                        // command string characters
   root,                     // parent id
@@ -135,16 +139,20 @@ const PROGMEM Parameters help_param[1] =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_help_(help_param); 
+CommandConstructor help_(help_param); //  help_ has a command string, and function specified
 
-const PROGMEM Parameters settings_param[1] =
-{
-  uc_settings,     // function ptr
-  "inputSettings", // command string
-  13,              // command string characters
-  root,            // parent id
-  root,            // this command id
-  root,            // command depth
+/**
+   @brief CommandParameters struct for settings_
+
+*/
+const PROGMEM CommandParameters settings_param[1] = {
+  settings,              // function ptr
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+  "inputSettings",          // command string
+  13,                       // command string characters
+  root,                     // parent id
+  root,                     // this command id
+  root,                     // command depth
   0,                        // subcommands
   UI_ARG_HANDLING::no_args, // argument handling
   0,                        // minimum expected number of arguments
@@ -156,10 +164,15 @@ const PROGMEM Parameters settings_param[1] =
     UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
   }
 };
-CommandConstructor uc_settings_(settings_param);
+CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
 
-const PROGMEM Parameters type_test_param[1] = {
-  uc_test_input_types,       // function ptr
+/**
+   @brief CommandParameters struct for test_
+
+*/
+const PROGMEM CommandParameters type_test_param[1] = {
+  test_input_types,       // function ptr
+  no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "test",                    // command string
   4,                         // string length
   root,                      // parent id
@@ -173,23 +186,25 @@ const PROGMEM Parameters type_test_param[1] = {
     UITYPE arguments
   */
   {
-    UITYPE::UINT8_T,  // 8-bit  uint
-    UITYPE::UINT16_T, // 16-bit uint
-    UITYPE::UINT32_T, // 32-bit uint
-    UITYPE::INT16_T,  // 16-bit int
-    UITYPE::FLOAT,    // 32-bit float
-    UITYPE::CHAR,     // char
-    UITYPE::C_STRING, // c-string, pass without quotes if there are no spaces, or pass with quotes if there are
-    UITYPE::NOTYPE    // special type, no type validation performed
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::START_STOP, // regex-like start stop char sequences
+    UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor uc_test_(type_test_param);
+CommandConstructor test_(type_test_param);
 
-// nested parameters
-const PROGMEM Parameters nested_prms[3] =
+// nest parameters like this
+
+const PROGMEM CommandParameters nested_prms[3] =
 {
   { // root command
-    uc_unrecognized,          // root command not allowed to be NULL
+    unrecognized,             // root command not allowed to be NULL
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "launch",                 // command string
     6,                        // command string characters
     root,                     // parent id
@@ -199,15 +214,12 @@ const PROGMEM Parameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
-  }, // end root
-  { // command "launch" subcommand "one"
-    uc_nest_one,              // function ptr (if NULL, root function is launched)
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  },
+  { // subcommand depth one
+    nest_one,                 // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "one",                    // command string
     3,                        // command string characters
     root,                     // parent id
@@ -217,15 +229,12 @@ const PROGMEM Parameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
   },
-  { // command "launch" subcommand "two"
-    uc_nest_two,              // function ptr (if NULL, root function is launched)
+  { // subcommand depth one
+    nest_two,                 // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "two",                    // command string
     3,                        // command string characters
     root,                     // parent id
@@ -235,15 +244,70 @@ const PROGMEM Parameters nested_prms[3] =
     UI_ARG_HANDLING::no_args, // argument handling
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-      UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
   }
 };
-CommandConstructor uc_nested_example_(nested_prms, nprms(nested_prms), 1); // 
+CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
+
+// or this
+
+const PROGMEM CommandParameters nest_one_[1] =
+{ // subcommand depth one
+    nest_one,                 // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "one",                    // command string
+    3,                        // command string characters
+    root,                     // parent id
+    1,                        // this command id
+    1,                        // command depth
+    0,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+};
+
+const PROGMEM CommandParameters nest_two_[1] =
+{ // subcommand depth one
+    nest_two,                 // unique function
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "two",                    // command string
+    3,                        // command string characters
+    root,                     // parent id
+    2,                        // this command id
+    1,                        // command depth
+    0,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
+};
+
+const PROGMEM CommandParameters nested_prms[3] =
+{
+  { // root command
+    unrecognized,             // root command not allowed to be NULL
+    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "launch",                 // command string
+    6,                        // command string characters
+    root,                     // parent id
+    root,                     // this command id
+    root,                     // command depth
+    2,                        // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  },
+  *nest_one_,
+  *nest_two_
+};
+CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
+
 ```
 
 Each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html) uses 6 bytes of RAM (avr).  It doesn't matter how many parameters it contains, the Parameters structures are stored in PROGMEM and read by UserInput's methods (ultimately [memcpy_P](https://www.nongnu.org/avr-libc/user-manual/group__avr__pgmspace.html#gad92fa2ebe26e65fa424051047d21a0eb)).  
