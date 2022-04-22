@@ -581,11 +581,11 @@ false if there were one or more errors </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>compares str to cmd-&gt;prm[prm_idx].command </p>
+<p>compares (memcmp) str to cmd-&gt;prm[prm_idx].command </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cmd</td><td>pointer to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </td></tr>
-    <tr><td class="paramname">prm_idx</td><td>index of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> that matched </td></tr>
+    <tr><td class="paramname">matched_prm_idx</td><td>index of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> that matched </td></tr>
     <tr><td class="paramname">str</td><td>c-string </td></tr>
   </table>
   </dd>
