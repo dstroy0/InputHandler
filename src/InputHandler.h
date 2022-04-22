@@ -44,6 +44,18 @@ enum UI_WC_FLAG
 };
 
 /**
+ * @brief UserInput::_compareCommandToString() return values
+ * @enum UI_COMPARE
+ * 
+ */
+enum UI_COMPARE
+{
+    no_match,           ///< no match
+    match_all_wcc_cmd,  ///< match all wcc command
+    match               ///< match command        
+};
+
+/**
  * @brief strongly typed argument handling flags
  * @enum UI_ARG_HANDLING
  */
@@ -739,13 +751,14 @@ private:
      * @brief compares str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
-     * @param prm_idx index of CommandParameters to array test
+     * @param prm_idx index of CommandParameters that matched
      * @param str c-string
-     * @return true if match
-     * @return false if no match
+     * @return UI_COMPARE match type
      */
-    bool _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
+    UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t matched_prm_idx, char* str);
     // end private methods
 };
 
 #endif
+
+// end of file

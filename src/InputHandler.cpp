@@ -291,7 +291,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     bool launch_attempted = false; // made it to launchFunction if true
     bool command_matched = false;  // error sentinel
     CommandConstructor* cmd;       // command parameters pointer
-    CommandParameters prm;         // CommandParameters struct
+    CommandConstructor* all_wcc_cmd = NULL;
+    CommandParameters prm; // CommandParameters struct
     // getTokens parameters structure
     getTokensParam gtprm = {
         input_data,            // input data uint8_t array
@@ -321,33 +322,48 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     // end error condition
 
     bool all_arguments_valid = true; // error sentinel
-
+    UI_COMPARE result;    
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
-        if (UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0])) // match root command
+        result = UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0]);
+        if (result == match)
+        {            
+            break; // break command iterator for loop
+        }
+        if (all_wcc_cmd == NULL && result == match_all_wcc_cmd)
         {
-            memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
-            _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
-            _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
-            command_matched = true;                      // root command match flag
-            _failed_on_subcommand_ = 0;                  // subcommand error index
-            bool subcommand_matched = false;             // subcommand match flag
-            uint16_t command_id = root;
+            all_wcc_cmd = cmd;
+        }        
+    } // end root command for loop
 
-            _launchLogicParam LLprm = {
-                cmd,
-                prm,
-                tokens_received,
-                all_arguments_valid,
-                launch_attempted,
-                _input_type_match_flags_,
-                subcommand_matched,
-                command_id};
-            UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
+    if (result != match && all_wcc_cmd != NULL)
+    {
+        result = match_all_wcc_cmd;
+        cmd = all_wcc_cmd;
+    }
 
-            break;                                       // break command iterator for loop
-        }                                                // end command logic
-    }                                                    // end root command for loop
+    if (result >= match_all_wcc_cmd) // match root command
+    {
+        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
+        _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
+        _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
+        command_matched = true;                      // root command match flag
+        _failed_on_subcommand_ = 0;                  // subcommand error index
+        bool subcommand_matched = false;             // subcommand match flag
+        uint16_t command_id = root;
+
+        _launchLogicParam LLprm = {
+            cmd,
+            prm,
+            tokens_received,
+            all_arguments_valid,
+            launch_attempted,
+            _input_type_match_flags_,
+            subcommand_matched,
+            command_id};
+        UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
+    }                                   // end command logic
+
     if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
         UserInput::_readCommandFromBufferErrorOutput(cmd, prm, command_matched, all_arguments_valid, input_data);
@@ -785,28 +801,51 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
         #endif
+        UI_COMPARE result;
+        CommandConstructor *all_wcc_cmd;
+        size_t idx = 0;
+        size_t all_wcc_idx = 0;
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
-        {                        
-            if (UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_])) // match subcommand string
-            {                
-                memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[j]), sizeof(LLprm.prm));
-                if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
-                {
-                    #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                    UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, LLprm.prm.command, LLprm.prm.command_id, LLprm.prm.sub_commands, LLprm.prm.max_num_args);
-                    #endif
-                    if (LLprm.tokens_received > 0) // subcommand matched
-                    {
-                        LLprm.tokens_received--; // subtract subcommand from tokens received
-                        _data_pointers_index_++; // increment to the next token
-                    }
-                    LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
-                    LLprm.subcommand_matched = true;         // subcommand matched
-                    _failed_on_subcommand_ = j;              // set error index
-                    break;                                   // break out of the loop
-                }
+        {
+            result = UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_]);
+            if (result == match)
+            {
+                idx = j;
+                break; // break command iterator for loop
+            }
+            if (all_wcc_cmd == NULL && result == match_all_wcc_cmd)
+            {
+                all_wcc_idx = j;
+                all_wcc_cmd = LLprm.cmd;
             }
         }
+
+        if (result != match && all_wcc_cmd != NULL)
+        {
+            result = match_all_wcc_cmd;
+            LLprm.cmd = all_wcc_cmd;
+            idx = all_wcc_idx;
+        }
+            
+        if (result >= match_all_wcc_cmd) // match subcommand string
+        {                
+            memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[idx]), sizeof(LLprm.prm));
+            if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
+            {
+                #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+                UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, LLprm.prm.command, LLprm.prm.command_id, LLprm.prm.sub_commands, LLprm.prm.max_num_args);
+                #endif
+                if (LLprm.tokens_received > 0) // subcommand matched
+                {
+                    LLprm.tokens_received--; // subtract subcommand from tokens received
+                    _data_pointers_index_++; // increment to the next token
+                }
+                LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
+                LLprm.subcommand_matched = true;         // subcommand matched
+                _failed_on_subcommand_ = idx;            // set error index                
+            }
+        }
+        
         if (_current_search_depth_ < (LLprm.cmd->tree_depth))
         {
             _current_search_depth_++;
@@ -1177,61 +1216,100 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
         size_t cmd_str_pos = 0;                        // prm.command char array index
         bool start_memcmp_range = true;                // sentinel
         memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc)); // copy WildCard Character (wcc) to ram
-        while (cmd_str_pos < prm.command_length)       // iterate over whole command len
+        for (size_t i = 0; i < prm.command_length; ++i)
         {
             if (prm.command[cmd_str_pos] == wcc[0])
             {
                 cmd_str_pos++;
             }
-            if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
-            {
-                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
-                memcmp_ranges_idx++;
-                start_memcmp_range = false;
-            }
-            if (prm.command[cmd_str_pos] == wcc[0] && prm.command[cmd_str_pos - 1] != wcc[0]) // end memcmp range
-            {
-                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos - 1;
-                memcmp_ranges_idx++;
-                start_memcmp_range = true;
-            }
-            cmd_str_pos++; // increment char array index
         }
-        if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
+        if (cmd_str_pos == strlen(prm.command))
         {
-            memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; // remember the end of the array
-            memcmp_ranges_idx++;
+            memcmp_ranges[0] = 255;
+            memcmp_ranges[1] = 255;
+            memcmp_ranges_idx = 2;
+        }
+        else
+        {
+            cmd_str_pos = 0;
+            while (cmd_str_pos < prm.command_length) // iterate over whole command len
+            {
+                if (prm.command[cmd_str_pos] == wcc[0])
+                {
+                    cmd_str_pos++;
+                }
+                if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
+                {
+                    memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
+                    memcmp_ranges_idx++;
+                    start_memcmp_range = false;
+                }
+                if (prm.command[cmd_str_pos] == wcc[0] && prm.command[cmd_str_pos - 1] != wcc[0]) // end memcmp range
+                {
+                    memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos - 1;
+                    memcmp_ranges_idx++;
+                    start_memcmp_range = true;
+                }
+                cmd_str_pos++; // increment char array index
+            }
+            if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
+            {
+                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; // remember the end of the array
+                memcmp_ranges_idx++;
+            }
         }
     }
 }
 
-bool UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
+UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
+    size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
+    size_t input_len = strlen(str);
+    UI_COMPARE retval = no_match;
+
+    if (input_len != cmd_len_pgm)
+    {
+        retval = no_match;
+    }
     if (!(bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards)) // no wildcards
     {
-        size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
         if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match
         {
-            return false;
+            retval = no_match;
         }
-        return true;
+        else
+        {
+            retval = match;
+        }
     }
     else // has wildcards
     {
-        for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
+        if (cmd->calc->memcmp_ranges_arr[prm_idx][0] != 255 && cmd->calc->memcmp_ranges_arr[prm_idx][1] != 255)
         {
-            long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
-            result = abs(result);
-            size_t size = ((size_t)result == 0)
-                ? 1
-                : (size_t)result;
-            char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
-            if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
+            for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
             {
-                return false;
-            }
+                long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
+                result = abs(result);
+                size_t size = ((size_t)result == 0)
+                    ? 1
+                    : (size_t)result;
+                char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
+                if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
+                {
+                    retval = no_match;
+                }
+                else
+                {
+                    retval = match;
+                }
+            }            
         }
-        return true;
+        else if (cmd_len_pgm == input_len && cmd->calc->memcmp_ranges_arr[prm_idx][0] == 255 && cmd->calc->memcmp_ranges_arr[prm_idx][1] == 255) // all wcc
+        {
+            retval = match_all_wcc_cmd;
+        }
     }
-    return false;
+    return retval;
 }
+
+// end of file

@@ -160,3 +160,5 @@
 #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
 
 #endif
+
+// end of file

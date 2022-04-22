@@ -21,3 +21,5 @@ int	vsnprintf (char *__restrict, size_t, const char *__restrict, __VALIST)
                _ATTRIBUTE ((__format__ (__printf__, 3, 0)));
 
 #endif
+
+// end of file
