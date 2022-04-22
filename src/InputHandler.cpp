@@ -1265,12 +1265,14 @@ UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t pr
 {
     size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
     size_t input_len = strlen(str);
-    UI_COMPARE retval = no_match;
-
-    if (input_len != cmd_len_pgm)
+    
+    if (input_len != cmd_len_pgm) // no match (length different)
     {
-        retval = no_match;
+        return no_match;
     }
+    
+    UI_COMPARE retval = no_match;
+    
     if (!(bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards)) // no wildcards
     {
         if (memcmp_P(str, cmd->prm[prm_idx].command, cmd_len_pgm) != 0) // doesn't match

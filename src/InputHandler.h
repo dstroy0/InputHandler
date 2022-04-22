@@ -211,8 +211,8 @@ class UserInput;
  */
 struct CommandRuntimeCalc
 {
-    uint8_t num_prm_with_wc;             ///< the number of Parameters structs in this command that contain IH_wcc[0]; the WildCard Character
-    uint8_t* idx_of_prm_with_wc;         ///< indices of Parameters struct that contain wcc
+    uint8_t num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
+    uint8_t* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
     uint8_t* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
     uint8_t** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
