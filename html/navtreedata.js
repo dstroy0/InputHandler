@@ -25,10 +25,6 @@
 var NAVTREE =
 [
   [ "InputHandler", "index.html", [
-    [ "WARNING", "index.html#autotoc_md0", [
-      [ "Design Goals", "index.html#autotoc_md1", null ],
-      [ "News", "index.html#autotoc_md2", null ]
-    ] ],
     [ "InputHandler", "index.html#autotoc_md3", null ],
     [ "Supported Platforms", "index.html#autotoc_md4", null ],
     [ "Modules", "modules.html", "modules" ],
