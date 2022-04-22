@@ -755,7 +755,7 @@ private:
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
-     * @param matched_prm_idx index of CommandParameters to compare
+     * @param prm_idx index of CommandParameters to compare
      * @param str c-string
      * @return UI_COMPARE match type
      */
