@@ -748,10 +748,10 @@ private:
     void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges);
 
     /**
-     * @brief compares str to cmd->prm[prm_idx].command
+     * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
-     * @param prm_idx index of CommandParameters that matched
+     * @param matched_prm_idx index of CommandParameters that matched
      * @param str c-string
      * @return UI_COMPARE match type
      */
