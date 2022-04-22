@@ -26,7 +26,7 @@ Commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/Dat
 
 Individual commands that do not contain a wildcard character (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html)) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.  
 
-To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `command((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated `CommandRuntimeCalc` struct.
+To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `command((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated [CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/html/dc/d3d/struct_command_runtime_calc.html) struct.
 
 Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.    
 
