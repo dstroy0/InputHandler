@@ -3,14 +3,14 @@
 
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-# WARNING
+## WARNING
 This library is in the prerelease stage. It is being updated frequently, none of the examples are guaranteed to work and the API may undergo drastic changes without warning.  It is a work in progress nearing completion.
 
 ## Design Goals
 Low memory use, feature rich.  
 InputHandler should be easy to use for beginners.  
 It should satisfy some more advanced interfacing requirements.  
-It should be able to parse uint8_t.  
+It should be able to parse uint8_t.
 It should be able to be used to interface with other equipment, programs, or sensors that output ASCII or uint8_t.  
 
 ## News
@@ -97,19 +97,22 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/html/d0/dbf/struct_parameters.html) struct objects:  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) struct objects:  
 ```cpp  
-struct Parameters
+struct CommandParameters
 {
-    void (*function)(UserInput *);    ///< function pointer
-    char command[UI_MAX_CMD_LEN + 1]; ///< command string + '\0'
-    uint16_t command_length;          ///< command length in characters
-    uint8_t depth;                    ///< command tree depth
-    uint8_t sub_commands;             ///< how many subcommands does this command have
-    UI_ARG_HANDLING argument_flag;    ///< argument handling flag
-    uint8_t num_args;                 ///< minimum number of arguments this command expects
-    uint8_t max_num_args;             ///< maximum number of arguments this command expects
-    UITYPE arg_type_arr[UI_MAX_ARGS]; ///< argument type array
+    void (*function)(UserInput*);      ///< void function pointer with UserInput class pointer parameter, void your_function(UserInput *inputProcess)
+    bool has_wildcards;                ///< if true this command has one or more wildcard char
+    char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
+    uint16_t command_length;           ///< command length in characters
+    uint16_t parent_command_id;        ///< parent command's unique id root-65535
+    uint16_t command_id;               ///< this command's unique id root-65535
+    uint8_t depth;                     ///< command tree depth root-255
+    uint8_t sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
+    UI_ARG_HANDLING argument_flag;     ///< argument handling flag
+    uint8_t num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    uint8_t max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
+    UITYPE arg_type_arr[UI_MAX_ARGS];  ///< argument UITYPE array
 };
 ```  
 
@@ -310,9 +313,9 @@ CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
 
 ```  
 
-[NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that doesn't perform any type-validation.  
-[NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70) is a special argument type that explicitly states you wish to pass no arguments.  
-[nprms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) and [buffsz(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#acedaeea0ea767f43653abdf77453de79) are macros which return the number of elements in an array.  
+[NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc) is a special argument type that doesn't perform any type-validation.  
+[NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716) is a special argument type that explicitly states you wish to pass no arguments.  
+[nprms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
