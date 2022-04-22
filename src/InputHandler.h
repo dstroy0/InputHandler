@@ -620,10 +620,10 @@ private:
         bool* input_type_match_flag; ///< boolean type match flag array
         bool& subcommand_matched;    ///< boolean subcommand match flag
         uint16_t& command_id;        ///< 16 bit command id
-        UI_COMPARE& result;
-        CommandConstructor *all_wcc_cmd;
-        size_t& idx;
-        size_t& all_wcc_idx;
+        UI_COMPARE& result;          ///< the result of UserInput::_compareCommandToString()
+        CommandConstructor *all_wcc_cmd; ///< pointer to wcc containing command tree that matched
+        size_t& idx; ///< current parameters index
+        size_t& all_wcc_idx; ///< CommandConstructor->prm[index] of wcc command that matched
     };
     /**
      * @brief function launch logic, recursive on subcommand match
