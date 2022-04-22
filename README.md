@@ -3,9 +3,6 @@
 
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-## WARNING
-This library is in the prerelease stage. It is being updated frequently, none of the examples are guaranteed to work and the API may undergo drastic changes without warning.  It is a work in progress nearing completion.
-
 ## Design Goals
 Low memory use, feature rich.  
 InputHandler should be easy to use for beginners.  
