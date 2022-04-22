@@ -620,6 +620,10 @@ private:
         bool* input_type_match_flag; ///< boolean type match flag array
         bool& subcommand_matched;    ///< boolean subcommand match flag
         uint16_t& command_id;        ///< 16 bit command id
+        UI_COMPARE& result;
+        CommandConstructor *all_wcc_cmd;
+        size_t& idx;
+        size_t& all_wcc_idx;
     };
     /**
      * @brief function launch logic, recursive on subcommand match

@@ -322,7 +322,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     // end error condition
 
     bool all_arguments_valid = true; // error sentinel
-    UI_COMPARE result;    
+    UI_COMPARE result = no_match;    
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
     {
         result = UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0]);
@@ -351,8 +351,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _failed_on_subcommand_ = 0;                  // subcommand error index
         bool subcommand_matched = false;             // subcommand match flag
         uint16_t command_id = root;
-
-        _launchLogicParam LLprm = {
+        result = no_match;
+        all_wcc_cmd = NULL;
+        size_t idx = 0;
+        size_t all_wcc_idx = 0;
+        
+        _launchLogicParam LLprm = 
+        {
             cmd,
             prm,
             tokens_received,
@@ -360,7 +365,12 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             launch_attempted,
             _input_type_match_flags_,
             subcommand_matched,
-            command_id};
+            command_id,
+            result,
+            all_wcc_cmd,
+            idx,
+            all_wcc_idx
+        };
         UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
     }                                   // end command logic
 
@@ -801,35 +811,35 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
         #endif
-        UI_COMPARE result;
-        CommandConstructor *all_wcc_cmd;
-        size_t idx = 0;
-        size_t all_wcc_idx = 0;
+        LLprm.result = no_match;
+        LLprm.all_wcc_cmd = NULL;
+        LLprm.idx = 0;
+        LLprm.all_wcc_idx = 0;
         for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {
-            result = UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_]);
-            if (result == match)
+            LLprm.result = UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_]);
+            if (LLprm.result == match)
             {
-                idx = j;
+                LLprm.idx = j;
                 break; // break command iterator for loop
             }
-            if (all_wcc_cmd == NULL && result == match_all_wcc_cmd)
+            if (LLprm.all_wcc_cmd == NULL && LLprm.result == match_all_wcc_cmd)
             {
-                all_wcc_idx = j;
-                all_wcc_cmd = LLprm.cmd;
+                LLprm.all_wcc_idx = j;
+                LLprm.all_wcc_cmd = LLprm.cmd;
             }
         }
 
-        if (result != match && all_wcc_cmd != NULL)
+        if (LLprm.result != match && LLprm.all_wcc_cmd != NULL)
         {
-            result = match_all_wcc_cmd;
-            LLprm.cmd = all_wcc_cmd;
-            idx = all_wcc_idx;
+            LLprm.result = match_all_wcc_cmd;
+            LLprm.cmd = LLprm.all_wcc_cmd;
+            LLprm.idx = LLprm.all_wcc_idx;
         }
             
-        if (result >= match_all_wcc_cmd) // match subcommand string
+        if (LLprm.result >= match_all_wcc_cmd) // match subcommand string
         {                
-            memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[idx]), sizeof(LLprm.prm));
+            memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[LLprm.idx]), sizeof(LLprm.prm));
             if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
             {
                 #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
@@ -842,7 +852,7 @@ inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
                 }
                 LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
                 LLprm.subcommand_matched = true;         // subcommand matched
-                _failed_on_subcommand_ = idx;            // set error index                
+                _failed_on_subcommand_ = LLprm.idx;      // set error index                
             }
         }
         
