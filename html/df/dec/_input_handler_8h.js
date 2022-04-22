@@ -17,6 +17,11 @@ var _input_handler_8h =
     [ "UI_CMD_ID", "de/d8a/group___user_input.html#ga166e5457949a4e09a4391b2bacbb1db0", [
       [ "root", "de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de", null ]
     ] ],
+    [ "UI_COMPARE", "de/d8a/group___user_input.html#ga6d345262e77318723edf20f58dc745b6", [
+      [ "no_match", "de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf", null ],
+      [ "match_all_wcc_cmd", "de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb", null ],
+      [ "match", "de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069", null ]
+    ] ],
     [ "UI_WC_FLAG", "de/d8a/group___user_input.html#gae655f6a50054ff5649f7ab9509d64f14", [
       [ "no_wildcards", "de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14a0681c51d081bef2c026443ddb77c8127", null ],
       [ "has_wildcards", "de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e", null ]

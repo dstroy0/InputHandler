@@ -153,6 +153,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a> = true
  }</td></tr>
 <tr class="separator:gae655f6a50054ff5649f7ab9509d64f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d345262e77318723edf20f58dc745b6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8a/group___user_input.html#ga6d345262e77318723edf20f58dc745b6">UI_COMPARE</a> { <a class="el" href="../../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf">no_match</a>
+, <a class="el" href="../../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb">match_all_wcc_cmd</a>
+, <a class="el" href="../../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069">match</a>
+ }</td></tr>
+<tr class="separator:ga6d345262e77318723edf20f58dc745b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf7aee82204b26b1dc80fcefa29ea8b9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8a/group___user_input.html#gaaf7aee82204b26b1dc80fcefa29ea8b9">UI_ARG_HANDLING</a> { <a class="el" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741">UI_ARG_HANDLING::no_args</a>
 , <a class="el" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>
 , <a class="el" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f">UI_ARG_HANDLING::type_arr</a>
@@ -313,6 +318,31 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ga6d345262e77318723edf20f58dc745b6" name="ga6d345262e77318723edf20f58dc745b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6d345262e77318723edf20f58dc745b6">&#9670;&nbsp;</a></span>UI_COMPARE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../de/d8a/group___user_input.html#ga6d345262e77318723edf20f58dc745b6">UI_COMPARE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../dc/d4b/class_user_input.html#a682430c80079d0e0155cac0b3fd023dc" title="compares str to cmd-&gt;prm[prm_idx].command">UserInput::_compareCommandToString()</a> return values. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf" name="gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf"></a>no_match&#160;</td><td class="fielddoc"><p >no match </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb" name="gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb"></a>match_all_wcc_cmd&#160;</td><td class="fielddoc"><p >match all wcc command </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069" name="gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069"></a>match&#160;</td><td class="fielddoc"><p >match command <br  />
+ </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="gae655f6a50054ff5649f7ab9509d64f14" name="gae655f6a50054ff5649f7ab9509d64f14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae655f6a50054ff5649f7ab9509d64f14">&#9670;&nbsp;</a></span>UI_WC_FLAG</h2>
 
@@ -401,12 +431,12 @@ Variables</h2></td></tr>
 <div class="line">    &amp;<a class="code hl_variable" href="../../de/d8a/group___user_input.html#ga2a598377b17768e0e9bb3be40f439c3a">_pdelimseq</a>, </div>
 <div class="line">    &amp;<a class="code hl_variable" href="../../de/d8a/group___user_input.html#ga43c58059001edf0ce5f70fb14817c504">_pststpseq</a>  </div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___user_input_html_ga2a598377b17768e0e9bb3be40f439c3a"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga2a598377b17768e0e9bb3be40f439c3a">_pdelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences _pdelimseq</div><div class="ttdoc">default delimiter sequences</div><div class="ttdef"><b>Definition:</b> InputHandler.h:161</div></div>
-<div class="ttc" id="agroup___user_input_html_ga43c58059001edf0ce5f70fb14817c504"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga43c58059001edf0ce5f70fb14817c504">_pststpseq</a></div><div class="ttdeci">const PROGMEM InputProcessStartStopSequences _pststpseq</div><div class="ttdoc">default start stop sequences</div><div class="ttdef"><b>Definition:</b> InputHandler.h:171</div></div>
-<div class="ttc" id="agroup___user_input_html_ga4aaf7ae99900377fc18b6ac5631c21de"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga4aaf7ae99900377fc18b6ac5631c21de">_pwcc</a></div><div class="ttdeci">const PROGMEM IH_wcc _pwcc</div><div class="ttdoc">default process wildcard char</div><div class="ttdef"><b>Definition:</b> InputHandler.h:155</div></div>
-<div class="ttc" id="agroup___user_input_html_ga648dd8cd47317e8f8764a383f85b4d52"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga648dd8cd47317e8f8764a383f85b4d52">_peol</a></div><div class="ttdeci">const PROGMEM IH_eol _peol</div><div class="ttdoc">default process eol characters</div><div class="ttdef"><b>Definition:</b> InputHandler.h:153</div></div>
-<div class="ttc" id="agroup___user_input_html_gae02e75f336946c2667c75c61b302baeb"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gae02e75f336946c2667c75c61b302baeb">_pname</a></div><div class="ttdeci">const PROGMEM IH_pname _pname</div><div class="ttdoc">default process name</div><div class="ttdef"><b>Definition:</b> InputHandler.h:152</div></div>
-<div class="ttc" id="agroup___user_input_html_gae949edb22aa21bc0604c634a238ebb6d"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gae949edb22aa21bc0604c634a238ebb6d">_pinputcc</a></div><div class="ttdeci">const PROGMEM IH_input_cc _pinputcc</div><div class="ttdoc">default process input control character sequence</div><div class="ttdef"><b>Definition:</b> InputHandler.h:154</div></div>
+<div class="ttc" id="agroup___user_input_html_ga2a598377b17768e0e9bb3be40f439c3a"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga2a598377b17768e0e9bb3be40f439c3a">_pdelimseq</a></div><div class="ttdeci">const PROGMEM InputProcessDelimiterSequences _pdelimseq</div><div class="ttdoc">default delimiter sequences</div><div class="ttdef"><b>Definition:</b> InputHandler.h:173</div></div>
+<div class="ttc" id="agroup___user_input_html_ga43c58059001edf0ce5f70fb14817c504"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga43c58059001edf0ce5f70fb14817c504">_pststpseq</a></div><div class="ttdeci">const PROGMEM InputProcessStartStopSequences _pststpseq</div><div class="ttdoc">default start stop sequences</div><div class="ttdef"><b>Definition:</b> InputHandler.h:183</div></div>
+<div class="ttc" id="agroup___user_input_html_ga4aaf7ae99900377fc18b6ac5631c21de"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga4aaf7ae99900377fc18b6ac5631c21de">_pwcc</a></div><div class="ttdeci">const PROGMEM IH_wcc _pwcc</div><div class="ttdoc">default process wildcard char</div><div class="ttdef"><b>Definition:</b> InputHandler.h:167</div></div>
+<div class="ttc" id="agroup___user_input_html_ga648dd8cd47317e8f8764a383f85b4d52"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ga648dd8cd47317e8f8764a383f85b4d52">_peol</a></div><div class="ttdeci">const PROGMEM IH_eol _peol</div><div class="ttdoc">default process eol characters</div><div class="ttdef"><b>Definition:</b> InputHandler.h:165</div></div>
+<div class="ttc" id="agroup___user_input_html_gae02e75f336946c2667c75c61b302baeb"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gae02e75f336946c2667c75c61b302baeb">_pname</a></div><div class="ttdeci">const PROGMEM IH_pname _pname</div><div class="ttdoc">default process name</div><div class="ttdef"><b>Definition:</b> InputHandler.h:164</div></div>
+<div class="ttc" id="agroup___user_input_html_gae949edb22aa21bc0604c634a238ebb6d"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gae949edb22aa21bc0604c634a238ebb6d">_pinputcc</a></div><div class="ttdeci">const PROGMEM IH_input_cc _pinputcc</div><div class="ttdoc">default process input control character sequence</div><div class="ttdef"><b>Definition:</b> InputHandler.h:166</div></div>
 </div><!-- fragment -->
 <p><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> default <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters.">InputProcessParameters</a>. </p>
 

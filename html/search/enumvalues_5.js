@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['no_5fargs_0',['NO_ARGS',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716',1,'InputHandler.h']]],
-  ['no_5fargs_1',['no_args',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741',1,'InputHandler.h']]],
-  ['no_5fwildcards_2',['no_wildcards',['../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14a0681c51d081bef2c026443ddb77c8127',1,'InputHandler.h']]],
-  ['notype_3',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]]
+  ['match_0',['match',['../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069',1,'InputHandler.h']]],
+  ['match_5fall_5fwcc_5fcmd_1',['match_all_wcc_cmd',['../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb',1,'InputHandler.h']]]
 ];

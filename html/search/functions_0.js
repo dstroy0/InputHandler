@@ -4,7 +4,7 @@ var searchData=
   ['_5faddescapedcontrolchartobuffer_1',['_addEscapedControlCharToBuffer',['../dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749',1,'UserInput']]],
   ['_5fcalccmdmemcmpranges_2',['_calcCmdMemcmpRanges',['../dc/d4b/class_user_input.html#a94ca12d9787360d86db21b1a8290d9cf',1,'UserInput']]],
   ['_5fcombinecontrolcharacters_3',['_combineControlCharacters',['../dc/d4b/class_user_input.html#ac16525071fe3d841e92352b5db709e87',1,'UserInput']]],
-  ['_5fcomparecommandtostring_4',['_compareCommandToString',['../dc/d4b/class_user_input.html#a148e3d4b207b13f3f689fbe905667e95',1,'UserInput']]],
+  ['_5fcomparecommandtostring_4',['_compareCommandToString',['../dc/d4b/class_user_input.html#a682430c80079d0e0155cac0b3fd023dc',1,'UserInput']]],
   ['_5fescapecharacterssotheyprint_5',['_escapeCharactersSoTheyPrint',['../dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336',1,'UserInput']]],
   ['_5fgetargs_6',['_getArgs',['../dc/d4b/class_user_input.html#a9c7c0f142ff875a43633d03cf26d07e1',1,'UserInput']]],
   ['_5fgetargtype_7',['_getArgType',['../dc/d4b/class_user_input.html#a5063cef5970bcf4e448cfd69b7fc8024',1,'UserInput']]],
