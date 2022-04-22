@@ -444,7 +444,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     }
 }
 
-char* UserInput::nextArgument()
+inline char* UserInput::nextArgument()
 {
     if (_data_pointers_index_ < (_max_depth_ + _max_args_) && _data_pointers_index_ < _data_pointers_index_max_)
     {
@@ -454,7 +454,7 @@ char* UserInput::nextArgument()
     return NULL; // else return NULL
 }
 
-char* UserInput::getArgument(size_t argument_number)
+inline char* UserInput::getArgument(size_t argument_number)
 {
     if (argument_number < (_max_depth_ + _max_args_) && argument_number < _data_pointers_index_max_)
     {
@@ -463,12 +463,12 @@ char* UserInput::getArgument(size_t argument_number)
     return NULL; // else return NULL
 }
 
-bool UserInput::outputIsAvailable()
+inline bool UserInput::outputIsAvailable()
 {
     return _output_flag_;
 }
 
-bool UserInput::outputIsEnabled()
+inline bool UserInput::outputIsEnabled()
 {
     return _output_enabled_;
 }
@@ -482,7 +482,7 @@ void UserInput::outputToStream(Stream& stream)
     }
 }
 
-void UserInput::clearOutputBuffer(bool overwrite_contents)
+inline void UserInput::clearOutputBuffer(bool overwrite_contents)
 {
     if (UserInput::outputIsEnabled())
     {
@@ -518,7 +518,7 @@ size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters&
     return gtprm.token_pointer_index;
 }
 
-bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
+inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 {
     size_t strlen_data = strlen(vprm.token_pointers[vprm.token_pointer_index]);
     size_t start = ((char)vprm.token_pointers[vprm.token_pointer_index][0] == vprm.neg_sign) ? 1 : 0;
@@ -589,8 +589,7 @@ bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 /*
     private methods
 */
-// I don't think gcc can inline variadic functions
-inline void UserInput::_ui_out(const char* fmt, ...)
+void UserInput::_ui_out(const char* fmt, ...)
 {
     if (UserInput::outputIsEnabled())
     {
@@ -620,7 +619,7 @@ inline void UserInput::_ui_out(const char* fmt, ...)
     }
 }
 
-inline void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data)
+void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data)
 {
     if (UserInput::outputIsEnabled()) // format a string with useful information
     {
@@ -744,7 +743,7 @@ inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameter
     }
 }
 
-inline void UserInput::_launchLogic(_launchLogicParam& LLprm)
+void UserInput::_launchLogic(_launchLogicParam& LLprm)
 {    
     IH_pname pname;
     memcpy_P(&pname, _input_prm_.pname, sizeof(pname));    
@@ -917,7 +916,7 @@ inline char UserInput::_combineControlCharacters(char input)
 }
 // clang-format on
 
-inline bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
+bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
 {
     bool error_not = true;
     size_t cmd_len = strlen(prm.command);    
@@ -1009,7 +1008,7 @@ inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
 }
 // clang-format on
 
-inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid)
+void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid)
 {
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (tokens_received - 1U); ++i)
@@ -1029,7 +1028,7 @@ inline void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_
     }
 }
 
-inline char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len)
+char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len)
 {
     char* start = &buf[idx];
     char tmp_esc_chr[UI_ESCAPED_CHAR_PGM_LEN] {};
@@ -1047,7 +1046,7 @@ inline char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, c
     return start;
 }
 
-void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
+inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
     InputProcessDelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.pdelimseq, sizeof(delimseq));
@@ -1091,7 +1090,7 @@ void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessPa
     }
 }
 
-void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
+inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token)
 {
     InputProcessStartStopSequences ststpseq {};
     memcpy_P(&ststpseq, input_prm.pststpseq, sizeof(ststpseq));
