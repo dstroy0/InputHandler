@@ -20,7 +20,7 @@ char output_buffer[650] = {'\0'}; //  output buffer
 const PROGMEM IH_pname pname = "_test_";   ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
-const PROGMEM IH_wcc pwcc = "*";
+const PROGMEM IH_wcc pwcc = "*";           ///< default process wildcard character
 
 const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
   1,    ///< number of delimiter sequences

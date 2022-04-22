@@ -42,15 +42,38 @@ The first library object that needs to be initialized is the constructor for the
 /*
   UserInput constructor
 */
-char output_buffer[512] = {'\0'};
-UserInput inputHandler
-(   /* UserInput's output buffer */ output_buffer,
-    /* size of UserInput's output buffer */ buffsz(output_buffer),
-    /* username */ "",
-    /* end of line characters */ "\r\n",
-    /* token delimiter */ " ",
-    /* c-string delimiter */ "\""
-);
+char output_buffer[650] = {'\0'}; //  output buffer
+
+const PROGMEM IH_pname pname = "_test_";   ///< default process name
+const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
+const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
+const PROGMEM IH_wcc pwcc = "*";           ///< default process wildcard character
+
+const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
+  1,    ///< number of delimiter sequences
+  {1},  ///< delimiter sequence lens
+  {" "} ///< delimiter sequences
+};
+
+const PROGMEM InputProcessStartStopSequences pststpseq = {
+  1,           ///< num start stop sequence pairs
+  {1, 1},      ///< start stop sequence lens
+  {"\"", "\""} ///< start stop sequence pairs
+};
+
+const PROGMEM InputProcessParameters input_prm[1] = {
+  &pname,
+  &peol,
+  &pinputcc,
+  &pwcc,
+  &pipdelimseq,
+  &pststpseq
+};
+UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+
+// or use default input parameters and define your output buffer
+UserInput inputHandler(output_buffer, buffsz(output_buffer));
+
 ```
 
 or, default-init with no output:  
