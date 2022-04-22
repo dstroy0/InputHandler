@@ -118,7 +118,7 @@ struct CommandParameters
 };
 ```  
 
-Easily construct complex commands with subcommands, and enforce input type. Nested commands still only use 6 bytes of sram (avr):  
+Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr):  
 
 ```cpp
 /**
