@@ -122,7 +122,7 @@ Collaboration diagram for UserInput::_launchLogicParam:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d13/struct_user_input_1_1__launch_logic_param__coll__graph.png" border="0" usemap="#a_user_input_1_1__launch_logic_param_coll__map" alt="Collaboration graph"/></div>
 <map name="a_user_input_1_1__launch_logic_param_coll__map" id="a_user_input_1_1__launch_logic_param_coll__map">
-<area shape="rect" title="UserInput:_launchLogic() parameters structure." alt="" coords="23,184,241,211"/>
+<area shape="rect" title="UserInput:_launchLogic() parameters structure." alt="" coords="23,199,241,225"/>
 <area shape="rect" href="../../df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="142,95,306,121"/>
 <area shape="rect" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters." alt="" coords="5,5,168,32"/>
 <area shape="rect" href="../../dc/d3d/struct_command_runtime_calc.html" title="CommandRuntimeCalc struct contains arrays and indices determined at runtime." alt="" coords="193,5,365,32"/>
@@ -147,6 +147,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac2a664c6f4122f41e5753ef6a571c948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20c3f37516513ad745c71ed73d82b940"><td class="memItemLeft" align="right" valign="top">uint16_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de3/struct_user_input_1_1__launch_logic_param.html#a20c3f37516513ad745c71ed73d82b940">command_id</a></td></tr>
 <tr class="separator:a20c3f37516513ad745c71ed73d82b940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc06bc2f997e519bbbc461af7b42179f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d8a/group___user_input.html#ga6d345262e77318723edf20f58dc745b6">UI_COMPARE</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de3/struct_user_input_1_1__launch_logic_param.html#adc06bc2f997e519bbbc461af7b42179f">result</a></td></tr>
+<tr class="separator:adc06bc2f997e519bbbc461af7b42179f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a945db604bff30a7807fc6ab5e1f30783"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de3/struct_user_input_1_1__launch_logic_param.html#a945db604bff30a7807fc6ab5e1f30783">all_wcc_cmd</a></td></tr>
+<tr class="separator:a945db604bff30a7807fc6ab5e1f30783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31327369be446178e53a0bbdfb5c0416"><td class="memItemLeft" align="right" valign="top">size_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de3/struct_user_input_1_1__launch_logic_param.html#a31327369be446178e53a0bbdfb5c0416">idx</a></td></tr>
+<tr class="separator:a31327369be446178e53a0bbdfb5c0416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f95836273fd7752873acf8f2298839"><td class="memItemLeft" align="right" valign="top">size_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de3/struct_user_input_1_1__launch_logic_param.html#a50f95836273fd7752873acf8f2298839">all_wcc_idx</a></td></tr>
+<tr class="separator:a50f95836273fd7752873acf8f2298839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ad5675f02c7968969d98a62d5c1e4cd32" name="ad5675f02c7968969d98a62d5c1e4cd32"></a>
@@ -162,6 +170,34 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>boolean array </p>
+
+</div>
+</div>
+<a id="a945db604bff30a7807fc6ab5e1f30783" name="a945db604bff30a7807fc6ab5e1f30783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a945db604bff30a7807fc6ab5e1f30783">&#9670;&nbsp;</a></span>all_wcc_cmd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a>* UserInput::_launchLogicParam::all_wcc_cmd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50f95836273fd7752873acf8f2298839" name="a50f95836273fd7752873acf8f2298839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f95836273fd7752873acf8f2298839">&#9670;&nbsp;</a></span>all_wcc_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t&amp; UserInput::_launchLogicParam::all_wcc_idx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -194,6 +230,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>16 bit command id </p>
+
+</div>
+</div>
+<a id="a31327369be446178e53a0bbdfb5c0416" name="a31327369be446178e53a0bbdfb5c0416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31327369be446178e53a0bbdfb5c0416">&#9670;&nbsp;</a></span>idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t&amp; UserInput::_launchLogicParam::idx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -242,6 +292,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct reference. </p>
+
+</div>
+</div>
+<a id="adc06bc2f997e519bbbc461af7b42179f" name="adc06bc2f997e519bbbc461af7b42179f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc06bc2f997e519bbbc461af7b42179f">&#9670;&nbsp;</a></span>result</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d8a/group___user_input.html#ga6d345262e77318723edf20f58dc745b6">UI_COMPARE</a>&amp; UserInput::_launchLogicParam::result</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
