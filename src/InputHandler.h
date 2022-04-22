@@ -755,11 +755,11 @@ private:
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
-     * @param matched_prm_idx index of CommandParameters that matched
+     * @param matched_prm_idx index of CommandParameters to compare
      * @param str c-string
      * @return UI_COMPARE match type
      */
-    UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t matched_prm_idx, char* str);
+    UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
 
