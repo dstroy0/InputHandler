@@ -388,6 +388,26 @@ public:
      */
     void listCommands();
 
+    struct _rcfbprm
+    {
+        bool launch_attempted;
+        bool command_matched;
+        bool all_arguments_valid;
+        bool subcommand_matched;
+        CommandConstructor* cmd;
+        CommandConstructor* all_wcc_cmd;
+        UI_COMPARE result;
+        uint16_t command_id;
+        size_t idx;
+        size_t all_wcc_idx;
+        size_t input_len;
+        size_t token_buffer_len;
+        size_t tokens_received;                                
+        CommandParameters prm;
+        uint8_t* input_data;
+        uint8_t* split_input;        
+    };
+
     /**
      * @brief read command(s) from a uint8_t (unsigned char) buffer
      * silent return if `_begin_` == false

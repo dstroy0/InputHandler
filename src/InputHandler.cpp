@@ -122,8 +122,7 @@ bool UserInput::begin()
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
         _begin_ = false;
-        delete[] _data_pointers_;
-        return _begin_;
+        delete[] _data_pointers_;       
     }
     _begin_ = true;
     return _begin_;
@@ -243,75 +242,76 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         #endif
         return;
     }
-    uint8_t* input_data = data;
-    size_t input_len = len;
-    size_t token_buffer_len = input_len + 1U;
-    uint8_t* split_input = NULL;
+    _rcfbprm rprm;
+    rprm.input_data = data;
+    rprm.input_len = len;
+    rprm.token_buffer_len = rprm.input_len + 1U;
+    rprm.split_input = NULL;
     if (num_zdc != 0) // if there are zero delim commands
     {
         InputProcessDelimiterSequences pdelimseq;
         memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
-        input_len = input_len + pdelimseq.delimiter_lens[0] + 1U;
-        token_buffer_len++;
-        split_input = new uint8_t[input_len]();
-        if (split_input == nullptr) // if there was an error allocating the memory
+        rprm.input_len = rprm.input_len + pdelimseq.delimiter_lens[0] + 1U;
+        rprm.token_buffer_len++;
+        rprm.split_input = new uint8_t[rprm.input_len]();
+        if (rprm.split_input == nullptr) // if there was an error allocating the memory
         {
             #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
             #endif
             return;
         }
-        if (UserInput::_splitZDC(pdelimseq, input_data, input_len, (char*)split_input, input_len, num_zdc, zdc))
+        if (UserInput::_splitZDC(pdelimseq, rprm.input_data, rprm.input_len, (char*)rprm.split_input, rprm.input_len, num_zdc, zdc))
         {
-            input_data = split_input; // the input command and data have been split
+            rprm.input_data = rprm.split_input; // the input command and data have been split
         }
         else // free allocated memory and fail-through
         {
-            input_len = input_len - (pdelimseq.delimiter_lens[0] + 1U); // resize input len
-            delete[] split_input;
-            split_input = NULL;
+            rprm.input_len = rprm.input_len - (pdelimseq.delimiter_lens[0] + 1U); // resize input len
+            delete[] rprm.split_input;
+            rprm.split_input = NULL;
         }
     }
 
-    _token_buffer_ = new char[token_buffer_len](); // place to chop up the input
+    _token_buffer_ = new char[rprm.token_buffer_len](); // place to chop up the input
     if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
-        if (split_input != NULL)
+        if (rprm.split_input != NULL)
         {
-            delete[] split_input;
+            delete[] rprm.split_input;
         }
         return;
     }
     // end error checking
 
-    size_t tokens_received = 0;    // amount of delimiter separated tokens
-    bool launch_attempted = false; // made it to launchFunction if true
-    bool command_matched = false;  // error sentinel
-    CommandConstructor* cmd;       // command parameters pointer
-    CommandConstructor* all_wcc_cmd = NULL;
-    CommandParameters prm; // CommandParameters struct
+    rprm.tokens_received = 0;    // amount of delimiter separated tokens
+    rprm.launch_attempted = false; // made it to launchFunction if true
+    rprm.command_matched = false;  // error sentinel
+    rprm.cmd = NULL;       // command parameters pointer
+    rprm.all_wcc_cmd = NULL;
+    
     // getTokens parameters structure
     getTokensParam gtprm = {
-        input_data,            // input data uint8_t array
-        input_len,             // input len
+        rprm.input_data,            // input data uint8_t array
+        rprm.input_len,             // input len
         _token_buffer_,        // pointer to char array, size of len + 1
-        token_buffer_len,      // the size of token_buffer
+        rprm.token_buffer_len,      // the size of token_buffer
         _p_num_ptrs_,          // _data_pointers_[MAX], _data_pointers_index_[MAX]
         _data_pointers_index_, // index of token_buffer pointer array
         _data_pointers_,       // token_buffer pointers
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    tokens_received = UserInput::getTokens(gtprm, _input_prm_);
-    _data_pointers_index_max_ = tokens_received; // set index max to tokens received
-    if (tokens_received == 0)                    // error condition
+    rprm.tokens_received = UserInput::getTokens(gtprm, _input_prm_);
+    _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received
+    if (rprm.tokens_received == 0)                    // error condition
     {
         if (num_zdc != 0)
         {
-            delete[] split_input;
+            delete[] rprm.split_input;
         }
         delete[] _token_buffer_;
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
@@ -321,62 +321,62 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     // end error condition
 
-    bool all_arguments_valid = true; // error sentinel
-    UI_COMPARE result = no_match;    
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command) // iterate through CommandConstructor linked-list
+    rprm.all_arguments_valid = true; // error sentinel
+    rprm.result = no_match;    
+    for (rprm.cmd = _commands_head_; rprm.cmd != NULL; rprm.cmd = rprm.cmd->next_command) // iterate through CommandConstructor linked-list
     {
-        result = UserInput::_compareCommandToString(cmd, 0, _data_pointers_[0]);
-        if (result == match)
+        rprm.result = UserInput::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]);
+        if (rprm.result == match)
         {            
             break; // break command iterator for loop
         }
-        if (all_wcc_cmd == NULL && result == match_all_wcc_cmd)
+        if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd)
         {
-            all_wcc_cmd = cmd;
+            rprm.all_wcc_cmd = rprm.cmd;
         }        
     } // end root command for loop
 
-    if (result != match && all_wcc_cmd != NULL)
+    if (rprm.result != match && rprm.all_wcc_cmd != NULL)
     {
-        result = match_all_wcc_cmd;
-        cmd = all_wcc_cmd;
+        rprm.result = match_all_wcc_cmd;
+        rprm.cmd = rprm.all_wcc_cmd;
     }
 
-    if (result >= match_all_wcc_cmd) // match root command
+    if (rprm.result >= match_all_wcc_cmd) // match root command
     {
-        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm)); // move CommandParameters variables from PROGMEM to sram for work
+        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm)); // move CommandParameters variables from PROGMEM to sram for work
         _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
         _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
-        command_matched = true;                      // root command match flag
+        rprm.command_matched = true;                      // root command match flag
         _failed_on_subcommand_ = 0;                  // subcommand error index
-        bool subcommand_matched = false;             // subcommand match flag
-        uint16_t command_id = root;
-        result = no_match;
-        all_wcc_cmd = NULL;
-        size_t idx = 0;
-        size_t all_wcc_idx = 0;
+        rprm.subcommand_matched = false;             // subcommand match flag
+        rprm.command_id = root;
+        rprm.result = no_match;
+        rprm.all_wcc_cmd = NULL;
+        rprm.idx = 0;
+        rprm.all_wcc_idx = 0;
 
         _launchLogicParam LLprm = 
         {
-            cmd,
-            prm,
-            tokens_received,
-            all_arguments_valid,
-            launch_attempted,
+            rprm.cmd,
+            rprm.prm,
+            rprm.tokens_received,
+            rprm.all_arguments_valid,
+            rprm.launch_attempted,
             _input_type_match_flags_,
-            subcommand_matched,
-            command_id,
-            result,
-            all_wcc_cmd,
-            idx,
-            all_wcc_idx
+            rprm.subcommand_matched,
+            rprm.command_id,
+            rprm.result,
+            rprm.all_wcc_cmd,
+            rprm.idx,
+            rprm.all_wcc_idx
         };
         UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
     }                                   // end command logic
 
-    if (!launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
+    if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(cmd, prm, command_matched, all_arguments_valid, input_data);
+        UserInput::_readCommandFromBufferErrorOutput(rprm.cmd, rprm.prm, rprm.command_matched, rprm.all_arguments_valid, rprm.input_data);
         (*_default_function_)(this); // run the default function
     }
 
@@ -385,9 +385,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
-    if (split_input != NULL) // if there are zero delim commands
+    if (rprm.split_input != NULL) // if there are zero delim commands
     {
-        delete[] split_input;
+        delete[] rprm.split_input;
     }
     delete[] _token_buffer_;
 }
@@ -444,7 +444,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     }
 }
 
-inline char* UserInput::nextArgument()
+char* UserInput::nextArgument()
 {
     if (_data_pointers_index_ < (_max_depth_ + _max_args_) && _data_pointers_index_ < _data_pointers_index_max_)
     {
@@ -454,7 +454,7 @@ inline char* UserInput::nextArgument()
     return NULL; // else return NULL
 }
 
-inline char* UserInput::getArgument(size_t argument_number)
+char* UserInput::getArgument(size_t argument_number)
 {
     if (argument_number < (_max_depth_ + _max_args_) && argument_number < _data_pointers_index_max_)
     {
