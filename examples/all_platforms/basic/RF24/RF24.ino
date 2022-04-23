@@ -29,8 +29,8 @@ bool radioNumber = 1; // 0 uses address[0] to transmit, 1 uses address[1] to tra
 bool role = false;  // true = TX role, false = RX role
 
 // For this example, we'll be using a payload that is
-// a char buffer the maximum size of the radio's hardware buffer + 1
-char payload[33] {}; // zero-initialized buffer https://en.cppreference.com/w/cpp/language/zero_initialization
+// a char buffer the maximum size of the radio's hardware buffer
+char payload[32] {}; // zero-initialized buffer https://en.cppreference.com/w/cpp/language/zero_initialization
 uint8_t payload_index = 0;
 
 // UserInput default constructor with output
@@ -55,7 +55,7 @@ void remote_device(UserInput* inputProcess)
 }
 
 /**
-   @brief CommandParameters struct for receiver_param
+   @brief CommandParameters struct for help_
 
 */
 const PROGMEM CommandParameters receiver_param[1] = {
@@ -141,16 +141,15 @@ void loop() {
   if (role) {
     // This device is a TX node
 
-    while (Serial.available() && payload_index < 33) // get user input, and place it in the payload buffer
+    while (Serial.available() && payload_index < 32) // get user input, and place it in the payload buffer
     {
       char rc = Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
       payload[payload_index] = rc; // put the received char into the payload buffer
       payload_index++; // increment payload_index, this means the same as payload_index = payload_index + 1;
     }
-
     if (payload_index > 0) {
       unsigned long start_timer = micros();                    // start the timer
-      bool report = radio.write(&payload, sizeof(float));      // transmit & save the report
+      bool report = radio.write(&payload, payload_index);      // transmit & save the report
       unsigned long end_timer = micros();                      // end the timer
       payload_index = 0;
       if (report) {
