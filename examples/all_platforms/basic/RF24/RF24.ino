@@ -1,13 +1,13 @@
 /*
- * See documentation at https://nRF24.github.io/RF24
- * See License information at root directory of this library
- * Authors: Brendan Doherty (2bndy5), Douglas Quigg (dstroy0)
- */
+   See documentation at https://nRF24.github.io/RF24 & https://dstroy0.github.io/InputHandler/html/index.html
+   See License information at root directory of this library, and RF24's license at https://github.com/nRF24/RF24/blob/master/LICENSE
+   Authors: Brendan Doherty (2bndy5), Douglas Quigg (dstroy0)
+*/
 
 /**
- * A simple example of sending data from 1 nRF24L01 transceiver to another, and
- * using InputHandler's framework to construct a basic remote cli
- */
+   A simple example of sending data from 1 nRF24L01 transceiver to another, and
+   using InputHandler's framework to construct a very basic remote cli
+*/
 #include <SPI.h>
 #include "printf.h"
 #include "RF24.h"
@@ -30,11 +30,11 @@ bool role = false;  // true = TX role, false = RX role
 
 // For this example, we'll be using a payload that is
 // a char buffer the maximum size of the radio's hardware buffer + 1
-char payload[33]{}; // zero-initialized buffer https://en.cppreference.com/w/cpp/language/zero_initialization
+char payload[33] {}; // zero-initialized buffer https://en.cppreference.com/w/cpp/language/zero_initialization
 uint8_t payload_index = 0;
 
 // UserInput default constructor with output
-char output_buffer[256]{}; // zero-initialized class output buffer
+char output_buffer[64] {}; // zero-initialized class output buffer
 UserInput inputHandler(output_buffer, buffsz(output_buffer));
 
 /*
@@ -46,10 +46,12 @@ void unrecognized(UserInput* inputProcess)
   inputProcess->outputToStream(Serial);
 }
 
+/*
+   function that will be called on the RX device
+*/
 void remote_device(UserInput* inputProcess)
 {
-  // error output
-  inputProcess->outputToStream(Serial);
+  Serial.println(F("Reached 'remote_device' function"));
 }
 
 /**
@@ -69,7 +71,7 @@ const PROGMEM CommandParameters receiver_param[1] = {
   0,                        // minimum expected number of arguments
   0,                        // maximum expected number of arguments
   /* UITYPE arguments */
-  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 CommandConstructor remote_(receiver_param); // remote command
 
@@ -139,28 +141,28 @@ void loop() {
   if (role) {
     // This device is a TX node
 
-    while(Serial.available() && payload_index < 33) // get user input, and place it in the payload buffer
+    while (Serial.available() && payload_index < 33) // get user input, and place it in the payload buffer
     {
-        char rc = Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
-        payload[payload_index] = rc; // put the received char into the payload buffer
-        payload_index++; // increment payload_index, this means the same as payload_index = payload_index + 1;
-    }        
-    
+      char rc = Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
+      payload[payload_index] = rc; // put the received char into the payload buffer
+      payload_index++; // increment payload_index, this means the same as payload_index = payload_index + 1;
+    }
+
     if (payload_index > 0) {
-        unsigned long start_timer = micros();                    // start the timer
-        bool report = radio.write(&payload, sizeof(float));      // transmit & save the report
-        unsigned long end_timer = micros();                      // end the timer
-        payload_index = 0;
-        if (report) {
-            Serial.print(F("Transmission successful! "));          // payload was delivered
-            Serial.print(F("Time to transmit = "));
-            Serial.print(end_timer - start_timer);                 // print the timer result
-            Serial.print(F(" us. Sent: "));
-            Serial.println(payload);                               // print payload sent      
-        } else {
-            Serial.println(F("Transmission failed or timed out")); // payload was not delivered
-        }
-    }        
+      unsigned long start_timer = micros();                    // start the timer
+      bool report = radio.write(&payload, sizeof(float));      // transmit & save the report
+      unsigned long end_timer = micros();                      // end the timer
+      payload_index = 0;
+      if (report) {
+        Serial.print(F("Transmission successful! "));          // payload was delivered
+        Serial.print(F("Time to transmit = "));
+        Serial.print(end_timer - start_timer);                 // print the timer result
+        Serial.print(F(" us. Sent: "));
+        Serial.println(payload);                               // print payload sent
+      } else {
+        Serial.println(F("Transmission failed or timed out")); // payload was not delivered
+      }
+    }
   } else {
     // This device is a RX node
 
@@ -175,6 +177,7 @@ void loop() {
       Serial.print(F(": "));
       Serial.println(payload);                // print the payload's value
       inputHandler.readCommandFromBuffer((uint8_t*)payload, bytes);
+      inputHandler.outputToStream(Serial); // print inputHandler's output buffer
     }
   } // role
 } // loop
