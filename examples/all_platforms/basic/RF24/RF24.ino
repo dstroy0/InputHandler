@@ -37,20 +37,14 @@ uint8_t payload_index = 0;
 char output_buffer[64] {}; // zero-initialized class output buffer
 UserInput inputHandler(output_buffer, buffsz(output_buffer));
 
-/*
-   default function, called if nothing matches or if there is an error
-*/
-void unrecognized(UserInput* inputProcess)
-{
+// default function, called if nothing matches or if there is an error
+void unrecognized(UserInput* inputProcess) {
   // error output
   inputProcess->outputToStream(Serial);
 }
 
-/*
-   function that will be called on the RX device
-*/
-void remote_device(UserInput* inputProcess)
-{
+// function that will be called on the RX device
+void remote_device(UserInput* inputProcess) {
   Serial.println(F("Reached 'remote_device' function"));
 }
 
