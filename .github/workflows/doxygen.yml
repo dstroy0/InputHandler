@@ -33,9 +33,8 @@ jobs:
           name: "InputHandler_doxygen_docs"
           path: ${{ github.workspace }}/docs/html
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: ./docs/html # The folder the action should deploy.
-          target-folder: '.'
+          folder: ./docs/html # The folder the action should deploy.          
           clean-exclude: index.html # leave gh-pages root redirect index.html alone
