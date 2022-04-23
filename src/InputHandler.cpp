@@ -243,10 +243,23 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         return;
     }
     _rcfbprm rprm;
-    rprm.input_data = data;
+
+    rprm.launch_attempted = false; // made it to launchFunction if true
+    rprm.command_matched = false;  // error sentinel
+    rprm.all_arguments_valid = true; // error sentinel
+    rprm.subcommand_matched = false;             // subcommand match flag
+    rprm.cmd = NULL;       // command parameters pointer
+    rprm.all_wcc_cmd = NULL;
+    rprm.result = no_match;
+    rprm.command_id = root;
+    rprm.idx = 0;
+    rprm.all_wcc_idx = 0;    
     rprm.input_len = len;
     rprm.token_buffer_len = rprm.input_len + 1U;
+    rprm.tokens_received = 0;    // amount of delimiter separated tokens    
+    rprm.input_data = data;
     rprm.split_input = NULL;
+    
     if (num_zdc != 0) // if there are zero delim commands
     {
         InputProcessDelimiterSequences pdelimseq;
@@ -285,13 +298,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         return;
     }
-    // end error checking
-
-    rprm.tokens_received = 0;    // amount of delimiter separated tokens
-    rprm.launch_attempted = false; // made it to launchFunction if true
-    rprm.command_matched = false;  // error sentinel
-    rprm.cmd = NULL;       // command parameters pointer
-    rprm.all_wcc_cmd = NULL;
+    // end error checking  
     
     // getTokens parameters structure
     getTokensParam gtprm = {
@@ -321,8 +328,6 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     // end error condition
 
-    rprm.all_arguments_valid = true; // error sentinel
-    rprm.result = no_match;    
     for (rprm.cmd = _commands_head_; rprm.cmd != NULL; rprm.cmd = rprm.cmd->next_command) // iterate through CommandConstructor linked-list
     {
         rprm.result = UserInput::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]);
@@ -348,35 +353,16 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
         _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
         rprm.command_matched = true;                      // root command match flag
-        _failed_on_subcommand_ = 0;                  // subcommand error index
-        rprm.subcommand_matched = false;             // subcommand match flag
-        rprm.command_id = root;
+        _failed_on_subcommand_ = 0;                  // subcommand error index        
         rprm.result = no_match;
         rprm.all_wcc_cmd = NULL;
-        rprm.idx = 0;
-        rprm.all_wcc_idx = 0;
 
-        _launchLogicParam LLprm = 
-        {
-            rprm.cmd,
-            rprm.prm,
-            rprm.tokens_received,
-            rprm.all_arguments_valid,
-            rprm.launch_attempted,
-            _input_type_match_flags_,
-            rprm.subcommand_matched,
-            rprm.command_id,
-            rprm.result,
-            rprm.all_wcc_cmd,
-            rprm.idx,
-            rprm.all_wcc_idx
-        };
-        UserInput::_launchLogic(LLprm); // see if command has any subcommands, validate input types, try to launch function
+        UserInput::_launchLogic(rprm); // see if command has any subcommands, validate input types, try to launch function
     }                                   // end command logic
 
     if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(rprm.cmd, rprm.prm, rprm.command_matched, rprm.all_arguments_valid, rprm.input_data);
+        UserInput::_readCommandFromBufferErrorOutput(rprm);
         (*_default_function_)(this); // run the default function
     }
 
@@ -619,19 +605,19 @@ void UserInput::_ui_out(const char* fmt, ...)
     }
 }
 
-void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data)
+void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
     if (UserInput::outputIsEnabled()) // format a string with useful information
     {
-        memcpy_P(&prm, &(cmd->prm[_failed_on_subcommand_]), sizeof(prm));
+        memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]), sizeof(rprm.prm));
         IH_pname pname;
         memcpy_P(&pname, _input_prm_.pname, sizeof(pname));
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), pname);
-        if (command_matched == true)
+        if (rprm.command_matched == true)
         {
             // constrain err_n_args to UI_MAX_ARGS + 1
             size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
-            err_n_args = (err_n_args == 0 && prm.num_args > 0) ? 1 : err_n_args;
+            err_n_args = (err_n_args == 0 && rprm.prm.num_args > 0) ? 1 : err_n_args;
             if (err_n_args > 0)
             {
                 for (size_t i = 0; i < (_failed_on_subcommand_ + 1U); ++i)
@@ -640,11 +626,11 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, Comma
                 }
                 UserInput::_ui_out(PSTR("\n"));
                 bool print_subcmd_err = true;
-                for (size_t i = 0; i < prm.max_num_args; ++i)
+                for (size_t i = 0; i < rprm.prm.max_num_args; ++i)
                 {
                     if (_input_type_match_flags_[i] == false || _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
-                        uint8_t _type = (uint8_t)UserInput::_getArgType(prm, i);
+                        uint8_t _type = (uint8_t)UserInput::_getArgType(rprm.prm, i);
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
@@ -653,12 +639,12 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, Comma
                         }
                         else
                         {
-                            if (prm.sub_commands > 0 && print_subcmd_err == true)
+                            if (rprm.prm.sub_commands > 0 && print_subcmd_err == true)
                             {
                                 print_subcmd_err = false;
                                 UserInput::_ui_out(PSTR(" '%s'*(ENTER VALID SUBCOMMAND)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
                             }
-                            else if ((prm.sub_commands == 0 || err_n_args > 1) && (UITYPE)_type == UITYPE::NO_ARGS)
+                            else if ((rprm.prm.sub_commands == 0 || err_n_args > 1) && (UITYPE)_type == UITYPE::NO_ARGS)
                             {
                                 UserInput::_ui_out(PSTR(" '%s'*(LEAVE BLANK)\n"), _data_pointers_[1 + _failed_on_subcommand_ + i]);
                             }
@@ -689,18 +675,18 @@ void UserInput::_readCommandFromBufferErrorOutput(CommandConstructor* cmd, Comma
                 }
                 return;
             }
-            UserInput::_ui_out(PSTR("%s\n"), (char*)data);
+            UserInput::_ui_out(PSTR("%s\n"), (char*)rprm.input_data);
             return;
         }
         else // command not matched
         {
-            UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char*)data, _data_pointers_[0]);
+            UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char*)rprm.input_data, _data_pointers_[0]);
         }
     }
 }
 
 // clang-format off
-inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const IH_pname& pname)
+inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
 {
     if (UserInput::outputIsEnabled())
     {
@@ -726,147 +712,147 @@ inline void UserInput::_launchFunction(CommandConstructor* cmd, CommandParameter
     }
     _data_pointers_index_ = _current_search_depth_ - 1;
 
-    if (prm.function != NULL)
+    if (rprm.prm.function != NULL)
     {
         #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, rprm.prm.command_id);
         #endif
-        prm.function(this);
+        rprm.prm.function(this);
     }
     else
     {
-        memcpy_P(&prm, &(cmd->prm[0]), sizeof(prm));
+        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
         #if defined(__DEBUG_LAUNCH_FUNCTION__)
-        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, rprm.prm.command_id);
         #endif
-        prm.function(this);
+        rprm.prm.function(this);
     }
 }
 
-void UserInput::_launchLogic(_launchLogicParam& LLprm)
+void UserInput::_launchLogic(_rcfbprm& rprm)
 {    
     IH_pname pname;
     memcpy_P(&pname, _input_prm_.pname, sizeof(pname));    
-    if (LLprm.tokens_received > 1 && LLprm.prm.sub_commands == 0 && LLprm.prm.max_num_args == 0) // error
+    if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), pname, LLprm.prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), pname, rprm.prm.command_id);
         #endif
         return;
     }
 
-    if (LLprm.subcommand_matched == false && LLprm.tokens_received == 1 && LLprm.prm.max_num_args == 0) // command with no arguments
+    if (rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
         #endif
 
-        LLprm.launch_attempted = true;                                                      // don't run default callback
-        UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
+        rprm.launch_attempted = true; // don't run default callback
+        UserInput::_launchFunction(rprm, pname); // launch the matched command
         return;
     }
 
-    if (LLprm.tokens_received == 1 && _current_search_depth_ > 1 && LLprm.subcommand_matched == true && LLprm.prm.max_num_args == 0) // subcommand with no arguments
+    if (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0) // subcommand with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
         #endif
-        LLprm.launch_attempted = true;                                                      // don't run default callback
-        UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
+        rprm.launch_attempted = true;                                                      // don't run default callback
+        UserInput::_launchFunction(rprm, pname); // launch the matched command
         return;
     }
 
-    if (LLprm.subcommand_matched == false && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
+    if (rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
     {
-        UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);
-        if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true)
+        UserInput::_getArgs(rprm.tokens_received, _input_type_match_flags_, rprm.prm, rprm.all_arguments_valid);
+        if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
             #endif
-            LLprm.launch_attempted = true;                                                      // don't run default callback
-            UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
+            rprm.launch_attempted = true;                                                      // don't run default callback
+            UserInput::_launchFunction(rprm, pname); // launch the matched command
         }
         return; // if !match, error
     }
     
-    if (_current_search_depth_ == (LLprm.prm.depth + 1) && LLprm.tokens_received > 1 && LLprm.prm.max_num_args > 0 && LLprm.prm.sub_commands == 0) // command with arguments (max depth)
+    if (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0) // command with arguments (max depth)
     {        
-        UserInput::_getArgs(LLprm.tokens_received, LLprm.input_type_match_flag, LLprm.prm, LLprm.all_arguments_valid);
-        if (_rec_num_arg_strings_ >= LLprm.prm.num_args && _rec_num_arg_strings_ <= LLprm.prm.max_num_args && LLprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
+        UserInput::_getArgs(rprm.tokens_received, _input_type_match_flags_, rprm.prm, rprm.all_arguments_valid);
+        if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, LLprm.prm.command_id);
+            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
             #endif
-            LLprm.launch_attempted = true;                                                      // don't run default callback
-            UserInput::_launchFunction(LLprm.cmd, LLprm.prm, LLprm.tokens_received, pname); // launch the matched command
+            rprm.launch_attempted = true;                                                      // don't run default callback
+            UserInput::_launchFunction(rprm, pname); // launch the matched command
         }        
         return; // if !match, error
     }
 
     // subcommand search
-    LLprm.subcommand_matched = false;    
-    if (_current_search_depth_ <= (LLprm.cmd->tree_depth))             // dig starting at depth 1
+    rprm.subcommand_matched = false;    
+    if (_current_search_depth_ <= (rprm.cmd->tree_depth))             // dig starting at depth 1
     {                                                                  // this index starts at one because the parameter array's first element will be the root command
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
         #endif
-        LLprm.result = no_match;
-        LLprm.all_wcc_cmd = NULL;
-        LLprm.idx = 0;
-        LLprm.all_wcc_idx = 0;
-        for (size_t j = 1; j < (LLprm.cmd->param_array_len + 1U); ++j) // through the parameter array
+        rprm.result = no_match;
+        rprm.all_wcc_cmd = NULL;
+        rprm.idx = 0;
+        rprm.all_wcc_idx = 0;
+        for (size_t j = 1; j < (rprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {
-            LLprm.result = UserInput::_compareCommandToString(LLprm.cmd, j, _data_pointers_[_data_pointers_index_]);
-            if (LLprm.result == match)
+            rprm.result = UserInput::_compareCommandToString(rprm.cmd, j, _data_pointers_[_data_pointers_index_]);
+            if (rprm.result == match)
             {
-                LLprm.idx = j;
+                rprm.idx = j;
                 break; // break command iterator for loop
             }
-            if (LLprm.all_wcc_cmd == NULL && LLprm.result == match_all_wcc_cmd)
+            if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd)
             {
-                LLprm.all_wcc_idx = j;
-                LLprm.all_wcc_cmd = LLprm.cmd;
+                rprm.all_wcc_idx = j;
+                rprm.all_wcc_cmd = rprm.cmd;
             }
         }
 
-        if (LLprm.result != match && LLprm.all_wcc_cmd != NULL)
+        if (rprm.result != match && rprm.all_wcc_cmd != NULL)
         {
-            LLprm.result = match_all_wcc_cmd;
-            LLprm.cmd = LLprm.all_wcc_cmd;
-            LLprm.idx = LLprm.all_wcc_idx;
+            rprm.result = match_all_wcc_cmd;
+            rprm.cmd = rprm.all_wcc_cmd;
+            rprm.idx = rprm.all_wcc_idx;
         }
             
-        if (LLprm.result >= match_all_wcc_cmd) // match subcommand string
+        if (rprm.result >= match_all_wcc_cmd) // match subcommand string
         {                
-            memcpy_P(&LLprm.prm, &(LLprm.cmd->prm[LLprm.idx]), sizeof(LLprm.prm));
-            if (LLprm.prm.depth == _current_search_depth_ && LLprm.prm.parent_command_id == LLprm.command_id)
+            memcpy_P(&rprm.prm, &(rprm.cmd->prm[rprm.idx]), sizeof(rprm.prm));
+            if (rprm.prm.depth == _current_search_depth_ && rprm.prm.parent_command_id == rprm.command_id)
             {
                 #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-                UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, LLprm.prm.command, LLprm.prm.command_id, LLprm.prm.sub_commands, LLprm.prm.max_num_args);
+                UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, rprm.prm.command, rprm.prm.command_id, rprm.prm.sub_commands, rprm.prm.max_num_args);
                 #endif
-                if (LLprm.tokens_received > 0) // subcommand matched
+                if (rprm.tokens_received > 0) // subcommand matched
                 {
-                    LLprm.tokens_received--; // subtract subcommand from tokens received
+                    rprm.tokens_received--; // subtract subcommand from tokens received
                     _data_pointers_index_++; // increment to the next token
                 }
-                LLprm.command_id = LLprm.prm.command_id; // set command_id to matched subcommand
-                LLprm.subcommand_matched = true;         // subcommand matched
-                _failed_on_subcommand_ = LLprm.idx;      // set error index                
+                rprm.command_id = rprm.prm.command_id; // set command_id to matched subcommand
+                rprm.subcommand_matched = true;         // subcommand matched
+                _failed_on_subcommand_ = rprm.idx;      // set error index                
             }
         }
         
-        if (_current_search_depth_ < (LLprm.cmd->tree_depth))
+        if (_current_search_depth_ < (rprm.cmd->tree_depth))
         {
             _current_search_depth_++;
         }
     }                                     // end subcommand search
-    if (LLprm.subcommand_matched == true) // recursion
+    if (rprm.subcommand_matched == true) // recursion
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, LLprm.prm.command_id);
+        UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, rprm.prm.command_id);
         #endif
-        UserInput::_launchLogic(LLprm);
+        UserInput::_launchLogic(rprm);
     }
 }
 

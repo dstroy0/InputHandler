@@ -615,7 +615,7 @@ private:
      * @param all_arguments_valid argument error sentinel
      * @param data raw data in
      */
-    void _readCommandFromBufferErrorOutput(CommandConstructor* cmd, CommandParameters& prm, bool& command_matched, bool& all_arguments_valid, uint8_t* data);
+    void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
 
     /**
      * @brief launches either (this) function or the root command function
@@ -625,32 +625,14 @@ private:
      * @param tokens_received amount of tokens in the token buffer
      * @param pname IH_pname char array
      */
-    void _launchFunction(CommandConstructor* cmd, CommandParameters& prm, size_t tokens_received, const IH_pname& pname);
+    void _launchFunction(_rcfbprm& rprm, const IH_pname& pname);
 
-    /**
-     * @brief UserInput:_launchLogic() parameters structure
-     */
-    struct _launchLogicParam
-    {
-        CommandConstructor* cmd;     ///< CommandConstructor ptr
-        CommandParameters& prm;      ///< CommandParameters struct reference
-        size_t tokens_received;      ///< number of tokens retrieved from input data
-        bool& all_arguments_valid;   ///< boolean array
-        bool& launch_attempted;      ///< launch attempted flag
-        bool* input_type_match_flag; ///< boolean type match flag array
-        bool& subcommand_matched;    ///< boolean subcommand match flag
-        uint16_t& command_id;        ///< 16 bit command id
-        UI_COMPARE& result;          ///< the result of UserInput::_compareCommandToString()
-        CommandConstructor *all_wcc_cmd; ///< pointer to wcc containing command tree that matched
-        size_t& idx; ///< current parameters index
-        size_t& all_wcc_idx; ///< CommandConstructor->prm[index] of wcc command that matched
-    };
     /**
      * @brief function launch logic, recursive on subcommand match
      *
      * @param LLprm     
      */
-    void _launchLogic(_launchLogicParam& LLprm);
+    void _launchLogic(_rcfbprm& rprm);
 
     /**
      * @brief Escapes control characters so they will print
