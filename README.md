@@ -32,7 +32,7 @@ Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examp
 A valid (default-settings) command string would look something like:  
 
 ```text
-your_command arg1 arg... "c-string args can have spaces and are enclosed with quotes"
+your_command arg1 arg... "arguments enclosed with delimiter sequences can have any char value 0-255, you can memcpy them directly into a recipient struct as uint8_t"
 your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...
 ```
 
