@@ -75,7 +75,7 @@ UserInput inputHandler(output_buffer, buffsz(output_buffer));
 
 ```
 
-or, default-init with no output:  
+Or, default-init with no output:  
 
 ```cpp
 /*
