@@ -39,4 +39,4 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: ./docs/html # The folder the action should deploy.
           clean: true          
-          clean-exclude: ./index.html # leave gh-pages root redirect index.html alone
+          clean-exclude: index.html # leave gh-pages root redirect index.html alone
