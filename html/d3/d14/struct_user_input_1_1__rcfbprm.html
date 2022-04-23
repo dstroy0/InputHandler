@@ -124,7 +124,7 @@ Collaboration diagram for UserInput::_rcfbprm:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d04/struct_user_input_1_1__rcfbprm__coll__graph.png" border="0" usemap="#a_user_input_1_1__rcfbprm_coll__map" alt="Collaboration graph"/></div>
 <map name="a_user_input_1_1__rcfbprm_coll__map" id="a_user_input_1_1__rcfbprm_coll__map">
-<area shape="rect" title=" " alt="" coords="57,199,207,225"/>
+<area shape="rect" title="Used internally by UserInput::readCommandFromBuffer() and passed by reference." alt="" coords="57,199,207,225"/>
 <area shape="rect" href="../../df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="142,95,306,121"/>
 <area shape="rect" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters." alt="" coords="5,5,168,32"/>
 <area shape="rect" href="../../dc/d3d/struct_command_runtime_calc.html" title="CommandRuntimeCalc struct contains arrays and indices determined at runtime." alt="" coords="193,5,365,32"/>
@@ -179,6 +179,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>argument error sentinel </p>
+
 </div>
 </div>
 <a id="a8cf69cb336d69dba68a01aeff646ae98" name="a8cf69cb336d69dba68a01aeff646ae98"></a>
@@ -192,6 +194,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>pointer to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </p>
 
 </div>
 </div>
@@ -207,6 +211,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>index of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> that has an all wcc command </p>
+
 </div>
 </div>
 <a id="a46afb120a58d87e74c66d3e299cb25cf" name="a46afb120a58d87e74c66d3e299cb25cf"></a>
@@ -220,6 +226,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>pointer to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </p>
 
 </div>
 </div>
@@ -235,6 +243,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>16-bit command id </p>
+
 </div>
 </div>
 <a id="a7b972d18e110c26699473490172aa86d" name="a7b972d18e110c26699473490172aa86d"></a>
@@ -248,6 +258,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>matched root command if true </p>
 
 </div>
 </div>
@@ -263,6 +275,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> index. </p>
+
 </div>
 </div>
 <a id="ac7437b555704352bc3b95a278db1f253" name="ac7437b555704352bc3b95a278db1f253"></a>
@@ -276,6 +290,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>pointer to input_data </p>
 
 </div>
 </div>
@@ -291,6 +307,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>length of input data </p>
+
 </div>
 </div>
 <a id="a03f4838c41cc2b1508425fef1be1053e" name="a03f4838c41cc2b1508425fef1be1053e"></a>
@@ -304,6 +322,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>function launch attempted if true </p>
 
 </div>
 </div>
@@ -319,6 +339,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct. </p>
+
 </div>
 </div>
 <a id="a506be749cff006ec95ccbb5c95207c5a" name="a506be749cff006ec95ccbb5c95207c5a"></a>
@@ -332,6 +354,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>result of <a class="el" href="../../dc/d4b/class_user_input.html#ae583f9970092fd45ded5fcbe1ae179f9" title="compares (memcmp) str to cmd-&gt;prm[prm_idx].command">UserInput::_compareCommandToString()</a> </p>
 
 </div>
 </div>
@@ -347,6 +371,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>pointer to <a class="el" href="../../dc/d4b/class_user_input.html#a86019bf870863f0ddcc9a85a779d30b6" title="split a zero delimiter command, separate command and string with token delimiter for further processi...">UserInput::_splitZDC()</a> modified data </p>
+
 </div>
 </div>
 <a id="a04dda94e09f0a49755df02f66b5c8318" name="a04dda94e09f0a49755df02f66b5c8318"></a>
@@ -360,6 +386,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>matched a subcommand </p>
 
 </div>
 </div>
@@ -375,6 +403,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>length of token buffer </p>
+
 </div>
 </div>
 <a id="a5743b2602bba5371f8636b8f3d5cb269" name="a5743b2602bba5371f8636b8f3d5cb269"></a>
@@ -388,6 +418,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>how many tokens we received </p>
 
 </div>
 </div>

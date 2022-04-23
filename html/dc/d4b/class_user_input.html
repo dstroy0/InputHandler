@@ -980,9 +980,7 @@ false if there were one or more errors </dd></dl>
 <p>launches either (this) function or the root command function </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> pointer </td></tr>
-    <tr><td class="paramname">prm</td><td><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct reference </td></tr>
-    <tr><td class="paramname">tokens_received</td><td>amount of tokens in the token buffer </td></tr>
+    <tr><td class="paramname">rprm</td><td>reference to <a class="el" href="../../d3/d14/struct_user_input_1_1__rcfbprm.html" title="Used internally by UserInput::readCommandFromBuffer() and passed by reference.">UserInput::_rcfbprm</a> </td></tr>
     <tr><td class="paramname">pname</td><td>IH_pname char array </td></tr>
   </table>
   </dd>
@@ -1017,8 +1015,7 @@ false if there were one or more errors </dd></dl>
 <p>function launch logic, recursive on subcommand match </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">LLprm</td><td><br  />
- </td></tr>
+    <tr><td class="paramname">rprm</td><td>reference to <a class="el" href="../../d3/d14/struct_user_input_1_1__rcfbprm.html" title="Used internally by UserInput::readCommandFromBuffer() and passed by reference.">UserInput::_rcfbprm</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -1052,11 +1049,7 @@ false if there were one or more errors </dd></dl>
 <p>ReadCommandFromBuffer error output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cmd</td><td><a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> pointer </td></tr>
-    <tr><td class="paramname">prm</td><td><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct reference </td></tr>
-    <tr><td class="paramname">command_matched</td><td>boolean reference </td></tr>
-    <tr><td class="paramname">all_arguments_valid</td><td>argument error sentinel </td></tr>
-    <tr><td class="paramname">data</td><td>raw data in </td></tr>
+    <tr><td class="paramname">rprm</td><td>reference to <a class="el" href="../../d3/d14/struct_user_input_1_1__rcfbprm.html" title="Used internally by UserInput::readCommandFromBuffer() and passed by reference.">UserInput::_rcfbprm</a> </td></tr>
   </table>
   </dd>
 </dl>
