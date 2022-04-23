@@ -232,6 +232,7 @@ var NAVTREEINDEX0 =
 "dc/d3d/struct_command_runtime_calc.html#ae8c7bada5d8ae12f0d18ec8bae035e5b":[2,2,3,2],
 "dc/d4b/class_user_input.html":[3,0,7],
 "dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d":[3,0,7,25],
+"dc/d4b/class_user_input.html#a03a73458f2704b0493146329903c2a35":[3,0,7,18],
 "dc/d4b/class_user_input.html#a0716c92410a23ff77acb76816cb07ccb":[3,0,7,54],
 "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749":[3,0,7,5],
 "dc/d4b/class_user_input.html#a0aca041755aea2c5021e68f546bff259":[3,0,7,35],
@@ -244,10 +245,9 @@ var NAVTREEINDEX0 =
 "dc/d4b/class_user_input.html#a281ff5c48c9df2b0540c35c94d446c85":[3,0,7,50],
 "dc/d4b/class_user_input.html#a291719f97d813b49731943fe26d84e3e":[3,0,7,49],
 "dc/d4b/class_user_input.html#a296bbb8529eda439215311b87a7e9e59":[3,0,7,13],
+"dc/d4b/class_user_input.html#a2f20b08994699f3e45e1bf0af3c7cb0c":[3,0,7,10],
 "dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd":[3,0,7,30],
 "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030":[3,0,7,29],
 "dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718":[3,0,7,26],
-"dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336":[3,0,7,9],
-"dc/d4b/class_user_input.html#a421d477af4581b35c2147a293d767038":[3,0,7,55],
-"dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683":[3,0,7,31]
+"dc/d4b/class_user_input.html#a41e2ec666f1dfe878fcd04b2cfcee336":[3,0,7,9]
 };
