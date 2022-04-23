@@ -37,5 +37,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: ./docs/html # The folder the action should deploy.          
-          clean-exclude: index.html # leave gh-pages root redirect index.html alone
+          folder: ./docs/html # The folder the action should deploy.
+          clean: true          
+          clean-exclude: ./index.html # leave gh-pages root redirect index.html alone
