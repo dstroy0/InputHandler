@@ -13,7 +13,7 @@
 /*
   this output buffer is formatted by UserInput's methods
 */
-char output_buffer[650] = {'\0'}; //  output buffer
+char output_buffer[650] = {'\0'}; // output buffer
 
 /*
     default constructor with output, default wildcard char is asterisk '*'
