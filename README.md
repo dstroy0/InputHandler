@@ -32,8 +32,8 @@ Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examp
 A valid (default-settings) command string would look something like:  
 
 ```text
-your_command arg1 arg... "arguments enclosed with delimiter sequences can have any char value 0-255, you can memcpy them directly into a recipient struct as uint8_t"
-your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...
+your_command arg_1 arg_2 arg... "arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t"
+your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
 ```
 
 The first library object that needs to be initialized is the constructor for the [UserInput](https://dstroy0.github.io/InputHandler/html/dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1) class:  
