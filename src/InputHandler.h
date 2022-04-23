@@ -15,9 +15,9 @@
  version 3 as published by the Free Software Foundation.
  */
 #ifndef __USER_INPUT_HANDLER_H__
-#define __USER_INPUT_HANDLER_H__
+    #define __USER_INPUT_HANDLER_H__
 
-#include "config/InputHandler_config.h"
+    #include "config/InputHandler_config.h"
 
 /**
  * @defgroup UserInput class constants
@@ -46,13 +46,13 @@ enum UI_WC_FLAG
 /**
  * @brief UserInput::_compareCommandToString() return values
  * @enum UI_COMPARE
- * 
+ *
  */
 enum UI_COMPARE
 {
-    no_match,           ///< no match
-    match_all_wcc_cmd,  ///< match all wcc command
-    match               ///< match command        
+    no_match,          ///< no match
+    match_all_wcc_cmd, ///< match all wcc command
+    match              ///< match command
 };
 
 /**
@@ -295,7 +295,7 @@ public:
      * UserInput has no output by default due to the default values passed in by the constructor.
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
-     *     
+     *
      * @param output_buffer char buffer
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      * @param input_prm InputProcessParameters struct
@@ -388,24 +388,28 @@ public:
      */
     void listCommands();
 
+    /**
+     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
+     *
+     */
     struct _rcfbprm
     {
-        bool launch_attempted;
-        bool command_matched;
-        bool all_arguments_valid;
-        bool subcommand_matched;
-        CommandConstructor* cmd;
-        CommandConstructor* all_wcc_cmd;
-        UI_COMPARE result;
-        uint16_t command_id;
-        size_t idx;
-        size_t all_wcc_idx;
-        size_t input_len;
-        size_t token_buffer_len;
-        size_t tokens_received;                                
-        CommandParameters prm;
-        uint8_t* input_data;
-        uint8_t* split_input;        
+        bool launch_attempted;           ///< function launch attempted if true
+        bool command_matched;            ///< matched root command if true
+        bool all_arguments_valid;        ///< argument error sentinel
+        bool subcommand_matched;         ///< matched a subcommand
+        CommandConstructor* cmd;         ///< pointer to CommandConstructor
+        CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
+        UI_COMPARE result;               ///< result of UserInput::_compareCommandToString()
+        uint16_t command_id;             ///< 16-bit command id
+        size_t idx;                      ///< CommandParameters index
+        size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
+        size_t input_len;                ///< length of input data
+        size_t token_buffer_len;         ///< length of token buffer
+        size_t tokens_received;          ///< how many tokens we received
+        CommandParameters prm;           ///< CommandParameters struct
+        uint8_t* input_data;             ///< pointer to input_data
+        uint8_t* split_input;            ///< pointer to UserInput::_splitZDC() modified data
     };
 
     /**
@@ -608,21 +612,15 @@ private:
 
     /**
      * @brief ReadCommandFromBuffer error output
-     *     
-     * @param cmd CommandConstructor pointer
-     * @param prm CommandParameters struct reference
-     * @param command_matched boolean reference
-     * @param all_arguments_valid argument error sentinel
-     * @param data raw data in
+     *
+     * @param rprm reference to UserInput::_rcfbprm
      */
     void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
 
     /**
      * @brief launches either (this) function or the root command function
      *
-     * @param cmd CommandConstructor pointer
-     * @param prm CommandParameters struct reference
-     * @param tokens_received amount of tokens in the token buffer
+     * @param rprm reference to UserInput::_rcfbprm
      * @param pname IH_pname char array
      */
     void _launchFunction(_rcfbprm& rprm, const IH_pname& pname);
@@ -630,7 +628,7 @@ private:
     /**
      * @brief function launch logic, recursive on subcommand match
      *
-     * @param LLprm     
+     * @param rprm reference to UserInput::_rcfbprm
      */
     void _launchLogic(_rcfbprm& rprm);
 
