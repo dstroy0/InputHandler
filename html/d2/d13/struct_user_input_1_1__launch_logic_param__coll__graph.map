@@ -1,6 +1,0 @@
-<map id="UserInput::_launchLogicParam" name="UserInput::_launchLogicParam">
-<area shape="rect" id="node1" title="UserInput:_launchLogic() parameters structure." alt="" coords="23,199,241,225"/>
-<area shape="rect" id="node2" href="$df/d68/class_command_constructor.html" title="user command constructor class" alt="" coords="142,95,306,121"/>
-<area shape="rect" id="node3" href="$db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters." alt="" coords="5,5,168,32"/>
-<area shape="rect" id="node4" href="$dc/d3d/struct_command_runtime_calc.html" title="CommandRuntimeCalc struct contains arrays and indices determined at runtime." alt="" coords="193,5,365,32"/>
-</map>

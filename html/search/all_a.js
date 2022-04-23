@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['launch_5fattempted_0',['launch_attempted',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a03f4838c41cc2b1508425fef1be1053e',1,'UserInput::_rcfbprm::launch_attempted()'],['../dc/de3/struct_user_input_1_1__launch_logic_param.html#a5e05657abdde42ee1f3573b797912142',1,'UserInput::_launchLogicParam::launch_attempted()']]],
+  ['launch_5fattempted_0',['launch_attempted',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a03f4838c41cc2b1508425fef1be1053e',1,'UserInput::_rcfbprm']]],
   ['len_1',['len',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ab7c0019e9d110da5c3eabf257d91f905',1,'UserInput::getTokensParam']]],
   ['listcommands_2',['listCommands',['../dc/d4b/class_user_input.html#af1dd5daddbcdbb93af132f723007592f',1,'UserInput']]],
   ['listsettings_3',['listSettings',['../dc/d4b/class_user_input.html#a587c2ab21bab0771881cb117e7930b78',1,'UserInput']]],

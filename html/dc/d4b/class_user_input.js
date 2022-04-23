@@ -1,6 +1,5 @@
 var class_user_input =
 [
-    [ "_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
     [ "_rcfbprm", "d3/d14/struct_user_input_1_1__rcfbprm.html", "d3/d14/struct_user_input_1_1__rcfbprm" ],
     [ "getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
     [ "validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", "dc/d98/struct_user_input_1_1validate_null_sep_input_param" ],
@@ -16,9 +15,9 @@ var class_user_input =
     [ "_getTokensChar", "dc/d4b/class_user_input.html#a1c697851dbf9f3d1cc560bdf25a90b6a", null ],
     [ "_getTokensCstrings", "dc/d4b/class_user_input.html#a296bbb8529eda439215311b87a7e9e59", null ],
     [ "_getTokensDelimiters", "dc/d4b/class_user_input.html#a593806a582e74279a6c9a638282644bf", null ],
-    [ "_launchFunction", "dc/d4b/class_user_input.html#a8178bdebbb9beb7d1e68762a68169dc7", null ],
-    [ "_launchLogic", "dc/d4b/class_user_input.html#aef66cd23ce4fbb5d646384c5dc6a67c2", null ],
-    [ "_readCommandFromBufferErrorOutput", "dc/d4b/class_user_input.html#a97535fd073503e31a59df171d7fe6905", null ],
+    [ "_launchFunction", "dc/d4b/class_user_input.html#addb7174b44571e0964f9730c21d7c439", null ],
+    [ "_launchLogic", "dc/d4b/class_user_input.html#aff5215d9d714b7709a8edb16fcb88149", null ],
+    [ "_readCommandFromBufferErrorOutput", "dc/d4b/class_user_input.html#abee67b17028905734105606801c9a31f", null ],
     [ "_splitZDC", "dc/d4b/class_user_input.html#a86019bf870863f0ddcc9a85a779d30b6", null ],
     [ "_ui_out", "dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f", null ],
     [ "addCommand", "dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1", null ],

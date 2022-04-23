@@ -5,7 +5,6 @@ var _input_handler_8h =
     [ "UserInput::_rcfbprm", "d3/d14/struct_user_input_1_1__rcfbprm.html", "d3/d14/struct_user_input_1_1__rcfbprm" ],
     [ "UserInput::getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
     [ "UserInput::validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", "dc/d98/struct_user_input_1_1validate_null_sep_input_param" ],
-    [ "UserInput::_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
     [ "IH_eol", "de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02", null ],
     [ "IH_input_cc", "de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698", null ],
     [ "IH_pname", "de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f", null ],
