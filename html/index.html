@@ -144,8 +144,8 @@ InputHandler</h1>
 </p>
 <p >A valid (default-settings) command string would look something like: <br  />
 </p>
-<div class="fragment"><div class="line">your_command arg1 arg... &quot;c-string args can have spaces and are enclosed with quotes&quot;</div>
-<div class="line">your_command subcommand1 subcommand2 ... subcommandN subcommand_arg1 subcommand_arg2 ...</div>
+<div class="fragment"><div class="line">your_command arg_1 arg_2 arg... &quot;arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t&quot;</div>
+<div class="line">your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...</div>
 </div><!-- fragment --><p >The first library object that needs to be initialized is the constructor for the <a href="https://dstroy0.github.io/InputHandler/html/dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1">UserInput</a> class: <br  />
  </p><div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment">  UserInput constructor</span></div>
