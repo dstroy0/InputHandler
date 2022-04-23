@@ -261,10 +261,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     rprm.split_input = NULL;
     
     if (num_zdc != 0) // if there are zero delim commands
-    {
-        InputProcessDelimiterSequences pdelimseq;
-        memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
-        rprm.input_len = rprm.input_len + pdelimseq.delimiter_lens[0] + 1U;
+    {   
+        uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);     
+        rprm.input_len = rprm.input_len + delim_len + 1U;
         rprm.token_buffer_len++;
         rprm.split_input = new uint8_t[rprm.input_len]();
         if (rprm.split_input == nullptr) // if there was an error allocating the memory
@@ -274,13 +273,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             #endif
             return;
         }
-        if (UserInput::_splitZDC(pdelimseq, rprm.input_data, rprm.input_len, (char*)rprm.split_input, rprm.input_len, num_zdc, zdc))
+        if (UserInput::_splitZDC(rprm, num_zdc, zdc))
         {
             rprm.input_data = rprm.split_input; // the input command and data have been split
         }
         else // free allocated memory and fail-through
         {
-            rprm.input_len = rprm.input_len - (pdelimseq.delimiter_lens[0] + 1U); // resize input len
+            rprm.input_len = rprm.input_len - (delim_len + 1U); // resize input len
             delete[] rprm.split_input;
             rprm.split_input = NULL;
         }
@@ -764,7 +763,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
 
     if (rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
     {
-        UserInput::_getArgs(rprm.tokens_received, _input_type_match_flags_, rprm.prm, rprm.all_arguments_valid);
+        UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
@@ -778,7 +777,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     
     if (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0) // command with arguments (max depth)
     {        
-        UserInput::_getArgs(rprm.tokens_received, _input_type_match_flags_, rprm.prm, rprm.all_arguments_valid);
+        UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
             #if defined(__DEBUG_LAUNCH_LOGIC__)
@@ -994,22 +993,22 @@ inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
 }
 // clang-format on
 
-void UserInput::_getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid)
+void UserInput::_getArgs(_rcfbprm& rprm)
 {
     _rec_num_arg_strings_ = 0; // number of tokens read from data
-    for (size_t i = 0; i < (tokens_received - 1U); ++i)
+    for (size_t i = 0; i < (rprm.tokens_received - 1U); ++i)
     {
         validateNullSepInputParam vprm = {
-            UserInput::_getArgType(prm, i),
+            UserInput::_getArgType(rprm.prm, i),
             _data_pointers_,
             _data_pointers_index_ + i,
             _neg_,
             _dot_};
-        input_type_match_flag[i] = UserInput::validateNullSepInput(vprm); // validate the token
+        _input_type_match_flags_[i] = UserInput::validateNullSepInput(vprm); // validate the token
         _rec_num_arg_strings_++;
-        if (input_type_match_flag[i] == false) // if the token was not valid input
+        if (_input_type_match_flags_[i] == false) // if the token was not valid input
         {
-            all_arguments_valid = false; // set the error sentinel
+            rprm.all_arguments_valid = false; // set the error sentinel
         }
     }
 }
@@ -1183,16 +1182,18 @@ void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParamete
     }
 }
 
-inline bool UserInput::_splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* token_buffer, size_t token_buffer_len, const size_t num_zdc, const CommandParameters** zdc)
+inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc)
 {
-    for (size_t i = 0; i < num_zdc; ++i) // look for sero delim commands and put a delimiter between the command and data
+    InputProcessDelimiterSequences pdelimseq;
+    memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
+    for (size_t i = 0; i < num_zdc; ++i) // look for zero delim commands and put a delimiter between the command and data
     {
         size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from CommandParameters object
-        if (memcmp_P(data, zdc[i]->command, cmd_len_pgm) == false)      // match zdc
+        if (memcmp_P(rprm.input_data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
         {
-            memcpy(token_buffer, data, cmd_len_pgm);                                                                     // copy the command into token buffer
-            memcpy((token_buffer + cmd_len_pgm), pdelimseq.delimiter_sequences[0], pdelimseq.delimiter_lens[0]);         // copy the delimiter into token buffer after the command
-            memcpy((token_buffer + cmd_len_pgm + pdelimseq.delimiter_lens[0]), data + cmd_len_pgm, (len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
+            memcpy(_token_buffer_, rprm.input_data, cmd_len_pgm);                                                                     // copy the command into token buffer
+            memcpy((_token_buffer_ + cmd_len_pgm), pdelimseq.delimiter_sequences[0], pdelimseq.delimiter_lens[0]);         // copy the delimiter into token buffer after the command
+            memcpy((_token_buffer_ + cmd_len_pgm + pdelimseq.delimiter_lens[0]), rprm.input_data + cmd_len_pgm, (rprm.input_len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
             return true;
         }
     }

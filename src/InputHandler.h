@@ -414,7 +414,7 @@ public:
 
     /**
      * @brief read command(s) from a uint8_t (unsigned char) buffer
-     * silent return if `_begin_` == false
+     * silent return if UserInput::_begin_ == false
      * @param data a buffer with characters
      * @param len the size of the buffer
      * @param num_zdc size of CommandParameters pointers array
@@ -423,11 +423,11 @@ public:
     void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     /**
-     * @brief Gets bytes from a Stream object and feeds a buffer to ReadCommandFromBuffer
+     * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
      *
      * https://www.arduino.cc/reference/en/language/functions/communication/stream/
      *
-     * silent return if `_begin_` == false
+     * silent return if UserInput::_begin_ == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
      * @param num_zdc size of CommandParameters pointers array
@@ -674,12 +674,9 @@ private:
     /**
      * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
-     * @param tokens_received how many tokens are left after matching is performed
-     * @param input_type_match_flag input type validation flags
-     * @param prm CommandParameters struct reference
-     * @param all_arguments_valid error sentinel
+     * @param rprm reference to UserInput::_rcfbprm
      */
-    void _getArgs(size_t& tokens_received, bool* input_type_match_flag, CommandParameters& prm, bool& all_arguments_valid);
+    void _getArgs(_rcfbprm& rprm);
 
     /**
      * @brief adds escaped control characters to a buffer
@@ -728,17 +725,13 @@ private:
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
-     * @param pdelimseq reference to process delimiter sequence struct
-     * @param data input data
-     * @param len input data length
-     * @param split_input place to split input
-     * @param input_len split input len
+     * @param rprm reference to UserInput::_rcfbprm
      * @param num_zdc zero delim commands
      * @param zdc num zdc
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(InputProcessDelimiterSequences& pdelimseq, uint8_t* data, size_t len, char* split_input, size_t input_len, const size_t num_zdc, const CommandParameters** zdc);
+    bool _splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc);
 
     /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
