@@ -1,6 +1,7 @@
 var class_user_input =
 [
     [ "_launchLogicParam", "dc/de3/struct_user_input_1_1__launch_logic_param.html", "dc/de3/struct_user_input_1_1__launch_logic_param" ],
+    [ "_rcfbprm", "d3/d14/struct_user_input_1_1__rcfbprm.html", "d3/d14/struct_user_input_1_1__rcfbprm" ],
     [ "getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
     [ "validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", "dc/d98/struct_user_input_1_1validate_null_sep_input_param" ],
     [ "UserInput", "dc/d4b/class_user_input.html#a1b90648301d62ab0b0227bfd7044decb", null ],
