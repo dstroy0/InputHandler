@@ -28,14 +28,14 @@ jobs:
           echo "@INCLUDE = doxygenAction" >> Doxyfile
       - name: Generate Documentation
         run: ./doxygen ./docs/Doxyfile                        
-      - name: Save doxygen docs as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: "InputHandler_doxygen_docs"
-          path: ${{ github.workspace }}/docs/html
+      #- name: Save doxygen docs as artifact
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: "InputHandler_doxygen_docs"
+      #    path: ${{ github.workspace }}/docs/html
       - name: Deploy 🚀        
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ${{ github.workspace }}/docs/html
-          destination_dir: /docs
+          destination_dir: ./docs
