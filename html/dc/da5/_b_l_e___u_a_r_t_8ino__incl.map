@@ -1,0 +1,11 @@
+<map id="examples/all_platforms/basic/BLE_UART/BLE_UART.ino" name="examples/all_platforms/basic/BLE_UART/BLE_UART.ino">
+<area shape="rect" id="node1" title=" " alt="" coords="221,5,444,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="12,273,96,300"/>
+<area shape="rect" id="node3" title=" " alt="" coords="36,102,91,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="115,102,233,129"/>
+<area shape="rect" id="node5" title=" " alt="" coords="257,95,409,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="433,95,585,136"/>
+<area shape="rect" id="node7" href="$d2/df9/_bluefruit_config_8h.html" title=" " alt="" coords="609,102,739,129"/>
+<area shape="rect" id="node8" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="763,102,881,129"/>
+<area shape="rect" id="node9" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="391,184,541,225"/>
+</map>
