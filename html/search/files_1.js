@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['freeram_2eh_0',['freeRam.h',['../d5/d8e/free_ram_8h.html',1,'']]],
-  ['functions_2eh_1',['functions.h',['../d8/d5c/functions_8h.html',1,'']]]
+  ['cli_5fsetup_2eh_0',['cli_setup.h',['../d0/dd9/cli__setup_8h.html',1,'']]]
 ];
