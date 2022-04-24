@@ -47,7 +47,7 @@ void remote_device(UserInput* inputProcess) {
 }
 
 /**
-   @brief CommandParameters struct for help_
+   @brief CommandParameters struct for receiver_param
 
 */
 const PROGMEM CommandParameters receiver_param[1] = {
