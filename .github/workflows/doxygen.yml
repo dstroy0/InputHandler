@@ -14,8 +14,8 @@ jobs:
       - name: Build
         uses: mattnotmitt/doxygen-action@v1.9.3
         with:
-          working-directory: '/github/workspace/docs/'
-          doxyfile-path: 'Doxyfile'
+          working-directory: '/github/workspace/'
+          doxyfile-path: 'docs/Doxyfile'
       #- name: install Doxygen
       #  run: |
       #    sudo apt-get update
@@ -41,6 +41,5 @@ jobs:
       - name: Deploy 🚀        
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
-          # destination_dir: ./docs
+          github_token: ${{ secrets.GITHUB_TOKEN }}          
+          publish_dir: docs/html/          
