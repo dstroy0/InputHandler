@@ -15,7 +15,7 @@ jobs:
         uses: mattnotmitt/doxygen-action@v1.9.3
         with:
           working-directory: '/github/workspace/'
-          doxyfile-path: 'docs/'
+          doxyfile-path: '/docs/'
       #- name: install Doxygen
       #  run: |
       #    sudo apt-get update
