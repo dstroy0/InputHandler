@@ -12,9 +12,9 @@ jobs:
         with: 
           fetch-depth: 0
       - name: Build
-        uses: mattnotmitt/doxygen-action@v1.9
+        uses: mattnotmitt/doxygen-action@v1.9.3
         with:
-          working-directory: '.'
+          working-directory: '/github/workspace'
           doxyfile-path: '/docs'
       #- name: install Doxygen
       #  run: |
