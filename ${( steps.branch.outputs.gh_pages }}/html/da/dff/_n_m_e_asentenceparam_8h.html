@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>InputHandler: examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h File Reference</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="../../doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="../../toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+</script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../Logolarge.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">InputHandler
+   &#160;<span id="projectnumber">1.00</span>
+   </div>
+   <div id="projectbrief">CLI construction tool</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search",'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('da/dff/_n_m_e_asentenceparam_8h.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">NMEAsentenceparam.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="../../df/dec/_input_handler_8h_source.html">InputHandler.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d20/_n_m_e_asentencefunc_8h_source.html">NMEAsentencefunc.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for NMEAsentenceparam.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d5/d95/_n_m_e_asentenceparam_8h__incl.png" border="0" usemap="#aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8h" alt=""/></div>
+<map name="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8h" id="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8h">
+<area shape="rect" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="5,5,205,61"/>
+<area shape="rect" href="../../df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="52,184,159,211"/>
+<area shape="rect" href="../../d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="87,109,235,136"/>
+<area shape="rect" href="../../dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="38,259,173,300"/>
+<area shape="rect" title=" " alt="" coords="67,348,143,375"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d5/dc5/_n_m_e_asentenceparam_8h__dep__incl.png" border="0" usemap="#aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8hdep" alt=""/></div>
+<map name="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8hdep" id="aexamples_2all__platforms_2advanced_2_n_m_e_aparser_2parser_2_n_m_e_asentenceparam_8hdep">
+<area shape="rect" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="35,5,235,61"/>
+<area shape="rect" href="../../da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="35,109,235,165"/>
+<area shape="rect" href="../../dd/d65/_n_m_e_aparser_8ino.html" title="An example that demonstrates how to use InputHandler&#39;s public methods to parse NMEA 0183 sentences." alt="" coords="5,213,264,255"/>
+</map>
+</div>
+</div>
+<p><a href="../../da/dff/_n_m_e_asentenceparam_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:af1c9961e6ce9d564faa79ba105238e86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#af1c9961e6ce9d564faa79ba105238e86">unrecognized</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputProcess)</td></tr>
+<tr class="separator:af1c9961e6ce9d564faa79ba105238e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dbdd8da6b7116741131e773096d82b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a0dbdd8da6b7116741131e773096d82b3">NMEA_parse_test</a> (<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *inputProcess)</td></tr>
+<tr class="separator:a0dbdd8da6b7116741131e773096d82b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6fea0ad68ef8b61321c58fe49180f99a"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a6fea0ad68ef8b61321c58fe49180f99a">AAM</a> [1]</td></tr>
+<tr class="separator:a6fea0ad68ef8b61321c58fe49180f99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08882dca3e238b4dd29173f2be183b38"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a08882dca3e238b4dd29173f2be183b38">APA</a> [1]</td></tr>
+<tr class="separator:a08882dca3e238b4dd29173f2be183b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cc8943602b18649d4305ff9afb5b321"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a0cc8943602b18649d4305ff9afb5b321">APB</a> [1]</td></tr>
+<tr class="separator:a0cc8943602b18649d4305ff9afb5b321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08fa041f057f1b06c0dc62393218dfc9"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a08fa041f057f1b06c0dc62393218dfc9">BOD</a> [1]</td></tr>
+<tr class="separator:a08fa041f057f1b06c0dc62393218dfc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab31e95ea4a87b0b7557871a071f8e28f"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ab31e95ea4a87b0b7557871a071f8e28f">BWC</a> [1]</td></tr>
+<tr class="separator:ab31e95ea4a87b0b7557871a071f8e28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e2989f0cece186c8a718e3582ba48b9"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a6e2989f0cece186c8a718e3582ba48b9">BWR</a> [1]</td></tr>
+<tr class="separator:a6e2989f0cece186c8a718e3582ba48b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdba61b4cdaf2a7bd22ec64fa472495a"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#acdba61b4cdaf2a7bd22ec64fa472495a">DBT</a> [1]</td></tr>
+<tr class="separator:acdba61b4cdaf2a7bd22ec64fa472495a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af459aad899af73560e47b413d674f5d4"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4">DPT</a> [1]</td></tr>
+<tr class="separator:af459aad899af73560e47b413d674f5d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a642729dbf77b6e30a778fc5ee8c22f2c"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a642729dbf77b6e30a778fc5ee8c22f2c">GGA</a> [1]</td></tr>
+<tr class="separator:a642729dbf77b6e30a778fc5ee8c22f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d6169a800b0a252bf2c401b7f8dabc"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ad2d6169a800b0a252bf2c401b7f8dabc">GLL</a> [1]</td></tr>
+<tr class="separator:ad2d6169a800b0a252bf2c401b7f8dabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0dcaa9c72a28929af907720c32f83a3"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ad0dcaa9c72a28929af907720c32f83a3">GSA</a> [1]</td></tr>
+<tr class="separator:ad0dcaa9c72a28929af907720c32f83a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a214a2bcf7b1258e25e2ca2c350231895"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a214a2bcf7b1258e25e2ca2c350231895">GSV</a> [1]</td></tr>
+<tr class="separator:a214a2bcf7b1258e25e2ca2c350231895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4edd1344aff7a118db6f880e03102e86"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a4edd1344aff7a118db6f880e03102e86">HDM</a> [1]</td></tr>
+<tr class="separator:a4edd1344aff7a118db6f880e03102e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c820cf8f3d7c6ae454ba7ebd96e648e"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a0c820cf8f3d7c6ae454ba7ebd96e648e">HDT</a> [1]</td></tr>
+<tr class="separator:a0c820cf8f3d7c6ae454ba7ebd96e648e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe18c91bff02c35c3c246a64ef12f055"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#abe18c91bff02c35c3c246a64ef12f055">HSC</a> [1]</td></tr>
+<tr class="separator:abe18c91bff02c35c3c246a64ef12f055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5143f81a6d4ad8a17de0531854f00af"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ab5143f81a6d4ad8a17de0531854f00af">MTW</a> [1]</td></tr>
+<tr class="separator:ab5143f81a6d4ad8a17de0531854f00af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f40c18950743ce9fc029fd3d2b4dd91"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a8f40c18950743ce9fc029fd3d2b4dd91">RMB</a> [1]</td></tr>
+<tr class="separator:a8f40c18950743ce9fc029fd3d2b4dd91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a2a575b4b4e85c4d798bf69350551d"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d">RMC</a> [1]</td></tr>
+<tr class="separator:ad8a2a575b4b4e85c4d798bf69350551d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3628cdfd0330bc9daa3d2bfd4fb4e42"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#aa3628cdfd0330bc9daa3d2bfd4fb4e42">VTG</a> [1]</td></tr>
+<tr class="separator:aa3628cdfd0330bc9daa3d2bfd4fb4e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a652775a37d1a7c47cfb722fd498ef42d"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a652775a37d1a7c47cfb722fd498ef42d">WCV</a> [1]</td></tr>
+<tr class="separator:a652775a37d1a7c47cfb722fd498ef42d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b5debc65d2c9f8c7a25ba55e29f7f6"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a10b5debc65d2c9f8c7a25ba55e29f7f6">WPL</a> [1]</td></tr>
+<tr class="separator:a10b5debc65d2c9f8c7a25ba55e29f7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6730ed5888fcf367727f4a94901ee1fb"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a6730ed5888fcf367727f4a94901ee1fb">XTE</a> [1]</td></tr>
+<tr class="separator:a6730ed5888fcf367727f4a94901ee1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8384f3ac55b19be73cb8d3cca7e9f14c"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#a8384f3ac55b19be73cb8d3cca7e9f14c">XTR</a> [1]</td></tr>
+<tr class="separator:a8384f3ac55b19be73cb8d3cca7e9f14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb72f3428bb476998ed795055014d19c"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#adb72f3428bb476998ed795055014d19c">sentence_param</a> [24]</td></tr>
+<tr class="separator:adb72f3428bb476998ed795055014d19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6911d54ae2848d6b53832b72415fb79"><td class="memItemLeft" align="right" valign="top">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79">sentence_error_param</a> [24]</td></tr>
+<tr class="separator:ae6911d54ae2848d6b53832b72415fb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Douglas Quigg (dstroy0 <a href="#" onclick="location.href='mai'+'lto:'+'dqu'+'ig'+'g12'+'3@'+'gma'+'il'+'.co'+'m'; return false;">dquig<span class="obfuscator">.nosp@m.</span>g123<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-04-02</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0dbdd8da6b7116741131e773096d82b3" name="a0dbdd8da6b7116741131e773096d82b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dbdd8da6b7116741131e773096d82b3">&#9670;&nbsp;</a></span>NMEA_parse_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NMEA_parse_test </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *&#160;</td>
+          <td class="paramname"><em>inputProcess</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af1c9961e6ce9d564faa79ba105238e86" name="af1c9961e6ce9d564faa79ba105238e86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1c9961e6ce9d564faa79ba105238e86">&#9670;&nbsp;</a></span>unrecognized()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void unrecognized </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *&#160;</td>
+          <td class="paramname"><em>inputProcess</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a6fea0ad68ef8b61321c58fe49180f99a" name="a6fea0ad68ef8b61321c58fe49180f99a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fea0ad68ef8b61321c58fe49180f99a">&#9670;&nbsp;</a></span>AAM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> AAM[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a3286d5a138422c3b038b8079a6dab6ae">NMEA_0183_AAM</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**AAM&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    1,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a3286d5a138422c3b038b8079a6dab6ae"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a3286d5a138422c3b038b8079a6dab6ae">NMEA_0183_AAM</a></div><div class="ttdeci">void NMEA_0183_AAM(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:15</div></div>
+<div class="ttc" id="agroup___user_input_html_gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a></div><div class="ttdeci">@ root</div><div class="ttdoc">this is the root command id</div><div class="ttdef"><b>Definition:</b> InputHandler.h:33</div></div>
+<div class="ttc" id="agroup___user_input_html_gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"><div class="ttname"><a href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a></div><div class="ttdeci">@ NOTYPE</div><div class="ttdoc">no type validation</div></div>
+<div class="ttc" id="agroup___user_input_html_ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a></div><div class="ttdeci">@ one_type</div><div class="ttdoc">every argument is of the same type</div></div>
+<div class="ttc" id="agroup___user_input_html_ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e"><div class="ttname"><a href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a></div><div class="ttdeci">@ has_wildcards</div><div class="ttdoc">this command contains one or more wildcard char (true (1))</div><div class="ttdef"><b>Definition:</b> InputHandler.h:43</div></div>
+</div><!-- fragment -->
+<p>AAM NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a08882dca3e238b4dd29173f2be183b38" name="a08882dca3e238b4dd29173f2be183b38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08882dca3e238b4dd29173f2be183b38">&#9670;&nbsp;</a></span>APA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> APA[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ab5ce64e2055d2029e204d0b3c7141af7">NMEA_0183_APA</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**APA&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    2,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_ab5ce64e2055d2029e204d0b3c7141af7"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ab5ce64e2055d2029e204d0b3c7141af7">NMEA_0183_APA</a></div><div class="ttdeci">void NMEA_0183_APA(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:31</div></div>
+</div><!-- fragment -->
+<p>APA NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a0cc8943602b18649d4305ff9afb5b321" name="a0cc8943602b18649d4305ff9afb5b321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cc8943602b18649d4305ff9afb5b321">&#9670;&nbsp;</a></span>APB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> APB[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a62d27bce00efc2cbfcf7b4a4a92b9af3">NMEA_0183_APB</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**APB&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    3,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a62d27bce00efc2cbfcf7b4a4a92b9af3"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a62d27bce00efc2cbfcf7b4a4a92b9af3">NMEA_0183_APB</a></div><div class="ttdeci">void NMEA_0183_APB(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:47</div></div>
+</div><!-- fragment -->
+<p>APB NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a08fa041f057f1b06c0dc62393218dfc9" name="a08fa041f057f1b06c0dc62393218dfc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08fa041f057f1b06c0dc62393218dfc9">&#9670;&nbsp;</a></span>BOD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> BOD[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a09f57b4d06b4ba4e21014f50e5847f81">NMEA_0183_BOD</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**BOD&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    4,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a09f57b4d06b4ba4e21014f50e5847f81"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a09f57b4d06b4ba4e21014f50e5847f81">NMEA_0183_BOD</a></div><div class="ttdeci">void NMEA_0183_BOD(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:63</div></div>
+</div><!-- fragment -->
+<p>BOD NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ab31e95ea4a87b0b7557871a071f8e28f" name="ab31e95ea4a87b0b7557871a071f8e28f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31e95ea4a87b0b7557871a071f8e28f">&#9670;&nbsp;</a></span>BWC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> BWC[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a6ba82706dc76eb2a0677075379323d23">NMEA_0183_BWC</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**BWC&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    5,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a6ba82706dc76eb2a0677075379323d23"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a6ba82706dc76eb2a0677075379323d23">NMEA_0183_BWC</a></div><div class="ttdeci">void NMEA_0183_BWC(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:79</div></div>
+</div><!-- fragment -->
+<p>BWC NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a6e2989f0cece186c8a718e3582ba48b9" name="a6e2989f0cece186c8a718e3582ba48b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2989f0cece186c8a718e3582ba48b9">&#9670;&nbsp;</a></span>BWR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> BWR[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#af86c46cb30430f55f26fc1f5632e54fd">NMEA_0183_BWR</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**BWR&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    6,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_af86c46cb30430f55f26fc1f5632e54fd"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#af86c46cb30430f55f26fc1f5632e54fd">NMEA_0183_BWR</a></div><div class="ttdeci">void NMEA_0183_BWR(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:95</div></div>
+</div><!-- fragment -->
+<p>BWR NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="acdba61b4cdaf2a7bd22ec64fa472495a" name="acdba61b4cdaf2a7bd22ec64fa472495a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdba61b4cdaf2a7bd22ec64fa472495a">&#9670;&nbsp;</a></span>DBT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> DBT[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a6bf6909d39136b642465ef7c40fe1b33">NMEA_0183_DBT</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**DBT&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    7,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a6bf6909d39136b642465ef7c40fe1b33"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a6bf6909d39136b642465ef7c40fe1b33">NMEA_0183_DBT</a></div><div class="ttdeci">void NMEA_0183_DBT(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:111</div></div>
+</div><!-- fragment -->
+<p>DBT NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="af459aad899af73560e47b413d674f5d4" name="af459aad899af73560e47b413d674f5d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af459aad899af73560e47b413d674f5d4">&#9670;&nbsp;</a></span>DPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> DPT[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a16a10b4db24ce0a31f8b0ec3c96d4844">NMEA_0183_DPT</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**DPT&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    8,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a16a10b4db24ce0a31f8b0ec3c96d4844"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a16a10b4db24ce0a31f8b0ec3c96d4844">NMEA_0183_DPT</a></div><div class="ttdeci">void NMEA_0183_DPT(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:127</div></div>
+</div><!-- fragment -->
+<p>DPT NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a642729dbf77b6e30a778fc5ee8c22f2c" name="a642729dbf77b6e30a778fc5ee8c22f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a642729dbf77b6e30a778fc5ee8c22f2c">&#9670;&nbsp;</a></span>GGA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> GGA[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ab4fb37e98ff6b5e187ce6746e17a8d4f">NMEA_0183_GGA</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**GGA&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    9,                         </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_ab4fb37e98ff6b5e187ce6746e17a8d4f"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ab4fb37e98ff6b5e187ce6746e17a8d4f">NMEA_0183_GGA</a></div><div class="ttdeci">void NMEA_0183_GGA(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:143</div></div>
+</div><!-- fragment -->
+<p>GGA NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ad2d6169a800b0a252bf2c401b7f8dabc" name="ad2d6169a800b0a252bf2c401b7f8dabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d6169a800b0a252bf2c401b7f8dabc">&#9670;&nbsp;</a></span>GLL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> GLL[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#aa5675f2bc05b335b1e46610a6f1b27b3">NMEA_0183_GLL</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**GLL&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    10,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_aa5675f2bc05b335b1e46610a6f1b27b3"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#aa5675f2bc05b335b1e46610a6f1b27b3">NMEA_0183_GLL</a></div><div class="ttdeci">void NMEA_0183_GLL(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:159</div></div>
+</div><!-- fragment -->
+<p>GLL NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ad0dcaa9c72a28929af907720c32f83a3" name="ad0dcaa9c72a28929af907720c32f83a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0dcaa9c72a28929af907720c32f83a3">&#9670;&nbsp;</a></span>GSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> GSA[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a90db35c84e763e70d238dfd68da9e501">NMEA_0183_GSA</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**GSA&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    11,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a90db35c84e763e70d238dfd68da9e501"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a90db35c84e763e70d238dfd68da9e501">NMEA_0183_GSA</a></div><div class="ttdeci">void NMEA_0183_GSA(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:175</div></div>
+</div><!-- fragment -->
+<p>GSA NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a214a2bcf7b1258e25e2ca2c350231895" name="a214a2bcf7b1258e25e2ca2c350231895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a214a2bcf7b1258e25e2ca2c350231895">&#9670;&nbsp;</a></span>GSV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> GSV[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a56cf3611e2b22de60f778cfd7bb97a20">NMEA_0183_GSV</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**GSV&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    12,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a56cf3611e2b22de60f778cfd7bb97a20"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a56cf3611e2b22de60f778cfd7bb97a20">NMEA_0183_GSV</a></div><div class="ttdeci">void NMEA_0183_GSV(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:191</div></div>
+</div><!-- fragment -->
+<p>GSV NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a4edd1344aff7a118db6f880e03102e86" name="a4edd1344aff7a118db6f880e03102e86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4edd1344aff7a118db6f880e03102e86">&#9670;&nbsp;</a></span>HDM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> HDM[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a43ae7be595ecfea25ff8add9abd39cde">NMEA_0183_HDM</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**HDM&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    13,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a43ae7be595ecfea25ff8add9abd39cde"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a43ae7be595ecfea25ff8add9abd39cde">NMEA_0183_HDM</a></div><div class="ttdeci">void NMEA_0183_HDM(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:207</div></div>
+</div><!-- fragment -->
+<p>HDM NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a0c820cf8f3d7c6ae454ba7ebd96e648e" name="a0c820cf8f3d7c6ae454ba7ebd96e648e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c820cf8f3d7c6ae454ba7ebd96e648e">&#9670;&nbsp;</a></span>HDT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> HDT[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a33012459b04189b9fa27bab7aaf0ad58">NMEA_0183_HDT</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**HDT&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    14,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a33012459b04189b9fa27bab7aaf0ad58"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a33012459b04189b9fa27bab7aaf0ad58">NMEA_0183_HDT</a></div><div class="ttdeci">void NMEA_0183_HDT(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:223</div></div>
+</div><!-- fragment -->
+<p>HDT NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="abe18c91bff02c35c3c246a64ef12f055" name="abe18c91bff02c35c3c246a64ef12f055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe18c91bff02c35c3c246a64ef12f055">&#9670;&nbsp;</a></span>HSC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> HSC[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a93d0c77d0a5f1f7930b383b880b3fba1">NMEA_0183_HSC</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**HSC&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    15,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a93d0c77d0a5f1f7930b383b880b3fba1"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a93d0c77d0a5f1f7930b383b880b3fba1">NMEA_0183_HSC</a></div><div class="ttdeci">void NMEA_0183_HSC(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:239</div></div>
+</div><!-- fragment -->
+<p>HSC NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ab5143f81a6d4ad8a17de0531854f00af" name="ab5143f81a6d4ad8a17de0531854f00af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5143f81a6d4ad8a17de0531854f00af">&#9670;&nbsp;</a></span>MTW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> MTW[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ac73dd6c05ddcc63d5138cd87e98165ee">NMEA_0183_MTW</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**MTW&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    16,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_ac73dd6c05ddcc63d5138cd87e98165ee"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#ac73dd6c05ddcc63d5138cd87e98165ee">NMEA_0183_MTW</a></div><div class="ttdeci">void NMEA_0183_MTW(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:255</div></div>
+</div><!-- fragment -->
+<p>MTW NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a8f40c18950743ce9fc029fd3d2b4dd91" name="a8f40c18950743ce9fc029fd3d2b4dd91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f40c18950743ce9fc029fd3d2b4dd91">&#9670;&nbsp;</a></span>RMB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> RMB[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a7cc5c170f60f7c967ac613bb84bf6122">NMEA_0183_RMB</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**RMB&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    17,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a7cc5c170f60f7c967ac613bb84bf6122"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a7cc5c170f60f7c967ac613bb84bf6122">NMEA_0183_RMB</a></div><div class="ttdeci">void NMEA_0183_RMB(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:271</div></div>
+</div><!-- fragment -->
+<p>RMB NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ad8a2a575b4b4e85c4d798bf69350551d" name="ad8a2a575b4b4e85c4d798bf69350551d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8a2a575b4b4e85c4d798bf69350551d">&#9670;&nbsp;</a></span>RMC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> RMC[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a91477ee195bb5043e94f9c4921948289">NMEA_0183_RMC</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**RMC&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    18,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a91477ee195bb5043e94f9c4921948289"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a91477ee195bb5043e94f9c4921948289">NMEA_0183_RMC</a></div><div class="ttdeci">void NMEA_0183_RMC(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:287</div></div>
+</div><!-- fragment -->
+<p>RMC NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="ae6911d54ae2848d6b53832b72415fb79" name="ae6911d54ae2848d6b53832b72415fb79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6911d54ae2848d6b53832b72415fb79">&#9670;&nbsp;</a></span>sentence_error_param</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> sentence_error_param[24]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct for NMEA sentence error. </p>
+
+</div>
+</div>
+<a id="adb72f3428bb476998ed795055014d19c" name="adb72f3428bb476998ed795055014d19c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb72f3428bb476998ed795055014d19c">&#9670;&nbsp;</a></span>sentence_param</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> sentence_param[24]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> struct for NMEA sentence. </p>
+
+</div>
+</div>
+<a id="aa3628cdfd0330bc9daa3d2bfd4fb4e42" name="aa3628cdfd0330bc9daa3d2bfd4fb4e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3628cdfd0330bc9daa3d2bfd4fb4e42">&#9670;&nbsp;</a></span>VTG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> VTG[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a20e9c25ed0060892ef8543b7ddb56ae6">NMEA_0183_VTG</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**VTG&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    19,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a20e9c25ed0060892ef8543b7ddb56ae6"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a20e9c25ed0060892ef8543b7ddb56ae6">NMEA_0183_VTG</a></div><div class="ttdeci">void NMEA_0183_VTG(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:303</div></div>
+</div><!-- fragment -->
+<p>VTG NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a652775a37d1a7c47cfb722fd498ef42d" name="a652775a37d1a7c47cfb722fd498ef42d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a652775a37d1a7c47cfb722fd498ef42d">&#9670;&nbsp;</a></span>WCV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> WCV[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a832d6f2262507ce2740d2e7b0c264114">NMEA_0183_WCV</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**WCV&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    20,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a832d6f2262507ce2740d2e7b0c264114"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a832d6f2262507ce2740d2e7b0c264114">NMEA_0183_WCV</a></div><div class="ttdeci">void NMEA_0183_WCV(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:319</div></div>
+</div><!-- fragment -->
+<p>WCV NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a10b5debc65d2c9f8c7a25ba55e29f7f6" name="a10b5debc65d2c9f8c7a25ba55e29f7f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b5debc65d2c9f8c7a25ba55e29f7f6">&#9670;&nbsp;</a></span>WPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> WPL[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a7516bc93b5f7f855057d7ae20324bd39">NMEA_0183_WPL</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**WPL&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    21,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_a7516bc93b5f7f855057d7ae20324bd39"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#a7516bc93b5f7f855057d7ae20324bd39">NMEA_0183_WPL</a></div><div class="ttdeci">void NMEA_0183_WPL(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:335</div></div>
+</div><!-- fragment -->
+<p>WPL NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a6730ed5888fcf367727f4a94901ee1fb" name="a6730ed5888fcf367727f4a94901ee1fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6730ed5888fcf367727f4a94901ee1fb">&#9670;&nbsp;</a></span>XTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> XTE[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#af4379cefc2a9c460b2ccc6ee687582c9">NMEA_0183_XTE</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**XTE&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    22,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    0,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_af4379cefc2a9c460b2ccc6ee687582c9"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#af4379cefc2a9c460b2ccc6ee687582c9">NMEA_0183_XTE</a></div><div class="ttdeci">void NMEA_0183_XTE(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:351</div></div>
+</div><!-- fragment -->
+<p>XTE NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+<a id="a8384f3ac55b19be73cb8d3cca7e9f14c" name="a8384f3ac55b19be73cb8d3cca7e9f14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8384f3ac55b19be73cb8d3cca7e9f14c">&#9670;&nbsp;</a></span>XTR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const PROGMEM <a class="el" href="../../db/d11/struct_command_parameters.html">CommandParameters</a> XTR[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_function" href="../../d2/d20/_n_m_e_asentencefunc_8h.html#adfaeeb1ad868c2121263347f44915e76">NMEA_0183_XTR</a>,             </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e">has_wildcards</a>,             </div>
+<div class="line">    <span class="stringliteral">&quot;**XTR&quot;</span>,                   </div>
+<div class="line">    5,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de">root</a>,                      </div>
+<div class="line">    23,                        </div>
+<div class="line">    1,                         </div>
+<div class="line">    0,                         </div>
+<div class="line">    <a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67">UI_ARG_HANDLING::one_type</a>, </div>
+<div class="line">    1,                         </div>
+<div class="line">    32,                        </div>
+<div class="line">    </div>
+<div class="line">    {<a class="code hl_enumvalue" href="../../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">UITYPE::NOTYPE</a>} </div>
+<div class="line">}</div>
+<div class="ttc" id="a_n_m_e_asentencefunc_8h_html_adfaeeb1ad868c2121263347f44915e76"><div class="ttname"><a href="../../d2/d20/_n_m_e_asentencefunc_8h.html#adfaeeb1ad868c2121263347f44915e76">NMEA_0183_XTR</a></div><div class="ttdeci">void NMEA_0183_XTR(UserInput *inputProcess)</div><div class="ttdef"><b>Definition:</b> NMEAsentencefunc.h:367</div></div>
+</div><!-- fragment -->
+<p>XTR NMEA 0183 sentence command setup. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="../../dir_7e7debf23c06755bbadb27664e1a95c8.html">all_platforms</a></li><li class="navelem"><a class="el" href="../../dir_f64c5401ecde094f8488f2d5876a87d7.html">advanced</a></li><li class="navelem"><a class="el" href="../../dir_7ee976d93af4f6c560d023a9aae4584e.html">NMEAparser</a></li><li class="navelem"><a class="el" href="../../dir_0b89ff7db9ce025ae007f4afc9b2495d.html">parser</a></li><li class="navelem"><a class="el" href="../../da/dff/_n_m_e_asentenceparam_8h.html">NMEAsentenceparam.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

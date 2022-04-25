@@ -1,0 +1,9 @@
+<map id="examples/all_platforms/advanced/MultiFile/MultiFile.ino" name="examples/all_platforms/advanced/MultiFile/MultiFile.ino">
+<area shape="rect" id="node1" title="An example that demonstrates multiple file setup." alt="" coords="89,5,297,47"/>
+<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="138,95,247,121"/>
+<area shape="rect" id="node3" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="19,169,126,196"/>
+<area shape="rect" id="node6" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="150,169,235,196"/>
+<area shape="rect" id="node7" href="$d6/d3b/parameters_8h.html" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="260,169,357,196"/>
+<area shape="rect" id="node4" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="5,244,140,285"/>
+<area shape="rect" id="node5" title=" " alt="" coords="35,333,111,360"/>
+</map>
