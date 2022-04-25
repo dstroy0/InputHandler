@@ -2,16 +2,8 @@
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: src-cpp-linter CI
 
-on:
-  push:
-    paths-ignore: 
-      - "docs/**"
-      - "examples/**"
-  pull_request:
-    paths-ignore: 
-      - "docs/**"
-      - "examples/**"
-
+on: [workflow_dispatch]
+    
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
