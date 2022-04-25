@@ -14,8 +14,8 @@ jobs:
       - name: Build
         uses: mattnotmitt/doxygen-action@edge
         with:
-          working-directory: '${{ github.workspace }}/'
-          doxyfile-path: '/docs'
+          working-directory: '.'
+          doxyfile-path: './docs'
       #- name: install Doxygen
       #  run: |
       #    sudo apt-get update
