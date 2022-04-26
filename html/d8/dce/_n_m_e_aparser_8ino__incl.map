@@ -1,9 +1,0 @@
-<map id="examples/all_platforms/advanced/NMEAparser/NMEAparser.ino" name="examples/all_platforms/advanced/NMEAparser/NMEAparser.ino">
-<area shape="rect" id="node1" title="An example that demonstrates how to use InputHandler&#39;s public methods to parse NMEA 0183 sentences." alt="" coords="5,5,264,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="103,319,209,345"/>
-<area shape="rect" id="node5" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="117,95,264,121"/>
-<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="89,393,223,435"/>
-<area shape="rect" id="node4" title=" " alt="" coords="118,483,194,509"/>
-<area shape="rect" id="node6" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="169,169,327,196"/>
-<area shape="rect" id="node7" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="219,244,367,271"/>
-</map>
