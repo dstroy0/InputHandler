@@ -299,7 +299,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     // end error checking
 
-    // getTokens parameters structure
+    // getTokens parameters
     getTokensParam gtprm = {
         rprm.input_data,       // input data uint8_t array
         rprm.input_len,        // input len
