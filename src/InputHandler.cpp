@@ -244,25 +244,25 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     _rcfbprm rprm;
 
-    rprm.launch_attempted = false; // made it to launchFunction if true
-    rprm.command_matched = false;  // error sentinel
+    rprm.launch_attempted = false;   // made it to launchFunction if true
+    rprm.command_matched = false;    // error sentinel
     rprm.all_arguments_valid = true; // error sentinel
-    rprm.subcommand_matched = false;             // subcommand match flag
-    rprm.cmd = NULL;       // command parameters pointer
+    rprm.subcommand_matched = false; // subcommand match flag
+    rprm.cmd = NULL;                 // command parameters pointer
     rprm.all_wcc_cmd = NULL;
     rprm.result = no_match;
     rprm.command_id = root;
     rprm.idx = 0;
-    rprm.all_wcc_idx = 0;    
+    rprm.all_wcc_idx = 0;
     rprm.input_len = len;
     rprm.token_buffer_len = rprm.input_len + 1U;
-    rprm.tokens_received = 0;    // amount of delimiter separated tokens    
+    rprm.tokens_received = 0; // amount of delimiter separated tokens
     rprm.input_data = data;
     rprm.split_input = NULL;
-    
+
     if (num_zdc != 0) // if there are zero delim commands
-    {   
-        uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);     
+    {
+        uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);
         rprm.input_len = rprm.input_len + delim_len + 1U;
         rprm.token_buffer_len++;
         rprm.split_input = new uint8_t[rprm.input_len]();
@@ -286,7 +286,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
 
     _token_buffer_ = new char[rprm.token_buffer_len](); // place to chop up the input
-    if (_token_buffer_ == nullptr)                 // if there was an error allocating the memory
+    if (_token_buffer_ == nullptr)                      // if there was an error allocating the memory
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
@@ -297,14 +297,14 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         return;
     }
-    // end error checking  
-    
+    // end error checking
+
     // getTokens parameters structure
     getTokensParam gtprm = {
-        rprm.input_data,            // input data uint8_t array
-        rprm.input_len,             // input len
+        rprm.input_data,       // input data uint8_t array
+        rprm.input_len,        // input len
         _token_buffer_,        // pointer to char array, size of len + 1
-        rprm.token_buffer_len,      // the size of token_buffer
+        rprm.token_buffer_len, // the size of token_buffer
         _p_num_ptrs_,          // _data_pointers_[MAX], _data_pointers_index_[MAX]
         _data_pointers_index_, // index of token_buffer pointer array
         _data_pointers_,       // token_buffer pointers
@@ -331,13 +331,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         rprm.result = UserInput::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]);
         if (rprm.result == match)
-        {            
+        {
             break; // break command iterator for loop
         }
         if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd)
         {
             rprm.all_wcc_cmd = rprm.cmd;
-        }        
+        }
     } // end root command for loop
 
     if (rprm.result != match && rprm.all_wcc_cmd != NULL)
@@ -349,15 +349,15 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     if (rprm.result >= match_all_wcc_cmd) // match root command
     {
         memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm)); // move CommandParameters variables from PROGMEM to sram for work
-        _current_search_depth_ = 1;                  // start searching for subcommands at depth 1
-        _data_pointers_index_ = 1;                   // index 1 of _data_pointers_ is the token after the root command
-        rprm.command_matched = true;                      // root command match flag
-        _failed_on_subcommand_ = 0;                  // subcommand error index        
+        _current_search_depth_ = 1;                                 // start searching for subcommands at depth 1
+        _data_pointers_index_ = 1;                                  // index 1 of _data_pointers_ is the token after the root command
+        rprm.command_matched = true;                                // root command match flag
+        _failed_on_subcommand_ = 0;                                 // subcommand error index
         rprm.result = no_match;
         rprm.all_wcc_cmd = NULL;
 
         UserInput::_launchLogic(rprm); // see if command has any subcommands, validate input types, try to launch function
-    }                                   // end command logic
+    }                                  // end command logic
 
     if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
