@@ -1,5 +1,0 @@
-<map id="InputProcessParameters" name="InputProcessParameters">
-<area shape="rect" id="node1" title="UserInput input process parameters, constructor parameters." alt="" coords="149,95,316,121"/>
-<area shape="rect" id="node2" href="$dc/da2/struct_input_process_delimiter_sequences.html" title="InputProcessDelimiterSequences struct holds user defined input data delimiters." alt="" coords="5,5,220,32"/>
-<area shape="rect" id="node3" href="$d4/dc0/struct_input_process_start_stop_sequences.html" title="InputProcessStartStopSequences struct holds regex&#45;like start&#45;stop match sequence pairs." alt="" coords="245,5,463,32"/>
-</map>
