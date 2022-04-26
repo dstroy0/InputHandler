@@ -484,14 +484,17 @@ public:
      */
     struct getTokensParam
     {
-        uint8_t* data;                ///< pointer to uint8_t array
-        size_t len;                   ///< length of uint8_t array
-        char* token_buffer;           ///< pointer to null terminated char array
-        size_t token_buffer_len;      ///< size of data + 1 + 1(if there are zero delim commands)
-        size_t num_token_ptrs;        ///< token_pointers[MAX]
-        uint8_t& token_pointer_index; ///< index of token_pointers
-        char** token_pointers;        ///< array of token_buffer pointers
-        char& token_buffer_sep;       ///< token_buffer token delimiter
+        uint8_t* data;                    ///< pointer to uint8_t array
+        size_t len;                       ///< length of uint8_t array
+        size_t data_pos;                  ///< index of data
+        char* token_buffer;               ///< pointer to null terminated char array
+        size_t token_buffer_len;          ///< size of data + 1 + 1(if there are zero delim commands)
+        size_t token_buffer_index;        ///< index of token_buffer
+        size_t num_token_ptrs;            ///< token_pointers[MAX]
+        uint8_t& token_pointer_index;     ///< index of token_pointers
+        char** token_pointers;            ///< array of token_buffer pointers
+        bool point_to_beginning_of_token; ///< assign pointer to &token_buffer[token_buffer_index] if true
+        char& token_buffer_sep;           ///< token_buffer token delimiter
     };
 
     /**
@@ -693,34 +696,25 @@ private:
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to InputProcessParameters struct
-     * @param data_pos data index
-     * @param token_buffer_index token_buffer index
-     * @param point_to_beginning_of_token boolean sentinel
+     * @param input_prm reference to InputProcessParameters struct   
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief get delimited c-strings from input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
-     * @param data_pos data index
-     * @param token_buffer_index token_buffer index
-     * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief add uchar to token_buffer
      *
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
-     * @param data_pos data index
-     * @param token_buffer_index token_buffer index
-     * @param point_to_beginning_of_token boolean sentinel
      */
-    void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm, size_t& data_pos, size_t& token_buffer_index, bool& point_to_beginning_of_token);
+    void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing

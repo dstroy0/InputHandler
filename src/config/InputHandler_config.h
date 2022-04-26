@@ -90,6 +90,7 @@
 
 #define UI_MAX_DELIM_SEQ      5
 #define UI_MAX_START_STOP_SEQ 5
+#define UI_MAX_PER_CMD_MEMCMP_RANGES (UI_MAX_SUBCOMMANDS + 1) * 2
 
 //  maximum user input length
 #if !defined(UI_MAX_IN_LEN)
