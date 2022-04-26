@@ -10,10 +10,11 @@ var searchData=
   ['ui_5fmax_5fdelim_5fseq_7',['UI_MAX_DELIM_SEQ',['../dd/d4e/_input_handler__config_8h.html#a5de563ee2695c5a60324eed33992f870',1,'InputHandler_config.h']]],
   ['ui_5fmax_5fdepth_8',['UI_MAX_DEPTH',['../dd/d4e/_input_handler__config_8h.html#ae0e0abf71a409d9bafc561f9ce683540',1,'InputHandler_config.h']]],
   ['ui_5fmax_5fin_5flen_9',['UI_MAX_IN_LEN',['../dd/d4e/_input_handler__config_8h.html#a4f376dd1800f7322379979be7d05ca20',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fstart_5fstop_5fseq_10',['UI_MAX_START_STOP_SEQ',['../dd/d4e/_input_handler__config_8h.html#a082a06f981c078776a9e20cc316d3aaa',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fsubcommands_11',['UI_MAX_SUBCOMMANDS',['../dd/d4e/_input_handler__config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f',1,'InputHandler_config.h']]],
-  ['ui_5fprocess_5fname_5fpgm_5flen_12',['UI_PROCESS_NAME_PGM_LEN',['../dd/d4e/_input_handler__config_8h.html#a079ebd19acb6c152f33062ecd6404d5a',1,'InputHandler_config.h']]],
-  ['ui_5fstart_5fstop_5fseq_5fpgm_5flen_13',['UI_START_STOP_SEQ_PGM_LEN',['../dd/d4e/_input_handler__config_8h.html#a715135949254e7a2c450664134ba4901',1,'InputHandler_config.h']]],
-  ['uint16_5fmax_14',['UINT16_MAX',['../dd/d4e/_input_handler__config_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_config.h']]],
-  ['uint8_5fmax_15',['UINT8_MAX',['../dd/d4e/_input_handler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]]
+  ['ui_5fmax_5fper_5fcmd_5fmemcmp_5franges_10',['UI_MAX_PER_CMD_MEMCMP_RANGES',['../dd/d4e/_input_handler__config_8h.html#a69a8775b591a7f206a93d39830811f28',1,'InputHandler_config.h']]],
+  ['ui_5fmax_5fstart_5fstop_5fseq_11',['UI_MAX_START_STOP_SEQ',['../dd/d4e/_input_handler__config_8h.html#a082a06f981c078776a9e20cc316d3aaa',1,'InputHandler_config.h']]],
+  ['ui_5fmax_5fsubcommands_12',['UI_MAX_SUBCOMMANDS',['../dd/d4e/_input_handler__config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f',1,'InputHandler_config.h']]],
+  ['ui_5fprocess_5fname_5fpgm_5flen_13',['UI_PROCESS_NAME_PGM_LEN',['../dd/d4e/_input_handler__config_8h.html#a079ebd19acb6c152f33062ecd6404d5a',1,'InputHandler_config.h']]],
+  ['ui_5fstart_5fstop_5fseq_5fpgm_5flen_14',['UI_START_STOP_SEQ_PGM_LEN',['../dd/d4e/_input_handler__config_8h.html#a715135949254e7a2c450664134ba4901',1,'InputHandler_config.h']]],
+  ['uint16_5fmax_15',['UINT16_MAX',['../dd/d4e/_input_handler__config_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_config.h']]],
+  ['uint8_5fmax_16',['UINT8_MAX',['../dd/d4e/_input_handler__config_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_config.h']]]
 ];
