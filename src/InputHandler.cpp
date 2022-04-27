@@ -168,6 +168,11 @@ void UserInput::listSettings(UserInput* inputProcess)
         }
     }
     char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN](); // allocate char buffer large enough to print these potential control characters
+    if (buf == nullptr)
+    {
+        UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));
+        return;
+    }
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
