@@ -117,12 +117,19 @@ bool UserInput::begin()
 {
     _p_num_ptrs_ = 1U + _max_depth_ + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())
     _input_type_match_flags_ = new bool[_max_args_](); // this array lives the lifetime of the process
+    if (_input_type_match_flags_ == nullptr)
+    {
+        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _input_type_match_flags_\n"));
+        _begin_ = false;        
+        return _begin_;       
+    }
     _data_pointers_ = new char*[_p_num_ptrs_](); // as does this array of pointers
     if (_data_pointers_ == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
-        _begin_ = false;
-        delete[] _data_pointers_;       
+        _begin_ = false;        
+        delete[] _input_type_match_flags_;
+        return _begin_;       
     }
     _begin_ = true;
     return _begin_;
