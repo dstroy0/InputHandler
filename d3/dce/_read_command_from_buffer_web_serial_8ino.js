@@ -14,8 +14,6 @@ var _read_command_from_buffer_web_serial_8ino =
     [ "inputHandler", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#a9bd3ddff66c1c3c92974df9f119ea881", null ],
     [ "output_buffer", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30", null ],
     [ "password", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#aa4a2ebcb494493f648ae1e6975672575", null ],
-    [ "settings_", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#a14958bf6d249e763f22c42533500dae9", null ],
-    [ "settings_param", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#a12135cc5a77c485c69839d1b2345deb2", null ],
     [ "ssid", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#a587ba0cb07f02913598610049a3bbb79", null ],
     [ "test_", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#a7a82674a80ac549402fcdd2a34f567d2", null ],
     [ "type_test_param", "d3/dce/_read_command_from_buffer_web_serial_8ino.html#ab38d8ada24e71cc390858ef569d1c5ef", null ]

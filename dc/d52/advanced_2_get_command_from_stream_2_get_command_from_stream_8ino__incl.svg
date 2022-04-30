@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="An example that demonstrates how to use all of the available methods.">
+<g id="a_node1"><a xlink:title="An example that demonstrates how to retrieve type&#45;valid arguments from a Stream.">
 <polygon fill="#bfbfbf" stroke="black" points="0,-179.5 0,-220.5 179,-220.5 179,-179.5 0,-179.5"/>
 <text text-anchor="start" x="8" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00">examples/all_platforms</text>
 <text text-anchor="start" x="8" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00">/advanced/GetCommandFromStream</text>
