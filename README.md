@@ -5,10 +5,10 @@
 
 ## Design Goals
 Low memory use, feature rich.  
-InputHandler should be easy to use for beginners.  
-It should satisfy some more advanced interfacing requirements.  
-It should be able to parse uint8_t.
-It should be able to be used to interface with other equipment, programs, or sensors that output ASCII or uint8_t.  
+InputHandler is easy to start using.  
+It satisfies some more advanced interfacing requirements.  
+It can parse uint8_t, unsigned char, any value 0-255 char strings.  
+It can be used to interface your project with other equipment, programs, and sensors.  
 
 ## News
 
@@ -18,16 +18,16 @@ changes.
 
 # InputHandler
 
-This library is meant to assist in interfacing with hardware, either through a buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/).  
-Commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [CommandParameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) container that holds all pertinient command information, subcommands, and argument-types which are stored in PROGMEM.  
+This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/), like a [Serial](https://www.arduino.cc/en/reference/serial) object.  
+User-defined commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct which is stored in non-volatile program memory ([PROGMEM](https://www.arduino.cc/reference/en/language/variables/utilities/progmem/)).  
 
-Individual commands that do not contain a wildcard character (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/html/df/d68/class_command_constructor.html)) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.  
+Individual commands that do not contain a wildcard character (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/df/d68/class_command_constructor.html)) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.  
 
-To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `command((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated [CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/html/dc/d3d/struct_command_runtime_calc.html) struct.  
+To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated [CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/dc/d3d/struct_command_runtime_calc.html) struct.  
 
 Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.    
 
-[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/html/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
+[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
 
 A valid (default-settings) command string would look something like:  
 
@@ -36,7 +36,7 @@ your_command arg_1 arg_2 arg... "arguments enclosed with start/stop delimiter se
 your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
 ```
 
-The first library object that needs to be initialized is the constructor for the [UserInput](https://dstroy0.github.io/InputHandler/html/dc/d4b/class_user_input.html#a62df272305fd09fc81023c316c7002e1) class:  
+The first library object that needs to be initialized is the constructor for the [UserInput](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html) class:  
 ```cpp
 /*
   UserInput constructor
@@ -96,7 +96,7 @@ OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/langu
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/html/db/d11/struct_command_parameters.html) struct objects:  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct objects:  
 ```cpp  
 struct CommandParameters
 {
@@ -312,9 +312,9 @@ CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
 
 ```  
 
-[NOTYPE](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc) is a special argument type that doesn't perform any type-validation.  
-[NO_ARGS](https://dstroy0.github.io/InputHandler/html/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716) is a special argument type that explicitly states you wish to pass no arguments.  
-[nprms(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/html/dd/d4e/_input_handler__config_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
+[NOTYPE](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc) is a special argument type that doesn't perform any type-validation.  
+[NO_ARGS](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716) is a special argument type that explicitly states you wish to pass no arguments.  
+[nprms(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
