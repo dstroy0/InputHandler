@@ -52,8 +52,7 @@ void InputHandler_setup()
 {
     Serial.println(F("Set up InputHandler..."));
     inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
-    inputHandler.addCommand(help_);             // lists commands available to the user
-    inputHandler.addCommand(settings_);         // lists UserInput class settings
+    inputHandler.addCommand(help_);             // lists commands available to the user    
     inputHandler.addCommand(test_);             // input type test
     inputHandler.begin();                          // required.  returns true on success.
     inputHandler.listCommands();                   // formats output_buffer with the command list

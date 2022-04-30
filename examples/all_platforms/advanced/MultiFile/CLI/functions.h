@@ -23,14 +23,6 @@ void unrecognized(UserInput* inputProcess)
 }
 
 /*
-   lists the settings passed to UserInput's constructor, or default parameters
-*/
-void settings(UserInput* inputProcess)
-{
-    inputProcess->listSettings(inputProcess);
-}
-
-/*
    lists commands available to the user
 */
 void help(UserInput* inputProcess)

@@ -146,30 +146,6 @@ const PROGMEM CommandParameters help_param[1] = {
 CommandConstructor help_(help_param); //  help_ has a command string, and function specified
 
 /**
-   @brief CommandParameters struct for settings_
-
-*/
-const PROGMEM CommandParameters settings_param[1] = {
-    settings,              // function ptr
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "inputSettings",          // command string
-    13,                       // command string characters
-    root,                     // parent id
-    root,                     // this command id
-    root,                     // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-        UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }};
-CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
-
-/**
    @brief CommandParameters struct for test_
 
 */
@@ -222,8 +198,7 @@ void setup()
   setup_wifi();
 
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(help_);             // lists commands available to the user
-  inputHandler.addCommand(settings_);         // lists UserInput class settings
+  inputHandler.addCommand(help_);             // lists commands available to the user  
   inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands(); // formats output_buffer with the command list

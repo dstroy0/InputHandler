@@ -1,7 +1,7 @@
 /**
    @file GetCommandFromStream.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that demonstrates how to use all of the available methods
+   @brief An example that demonstrates how to retrieve type-valid arguments from a Stream
    @version 0.9
    @date 2022-04-16
 
@@ -10,13 +10,10 @@
 
 #include <InputHandler.h>
 
+char output_buffer[128] {}; // output buffer
 /*
-  this output buffer is formatted by UserInput's methods
-  you have to empty it out yourself with
-  OutputToStream()
+  UserInput constructor settings
 */
-char output_buffer[650] = {'\0'}; //  output buffer
-
 const PROGMEM IH_pname pname = "_test_";   ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
@@ -42,36 +39,16 @@ const PROGMEM InputProcessParameters input_prm[1] = {
   &pipdelimseq,
   &pststpseq
 };
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm); // UserInput constructor
 
-/*
-   default function, called if nothing matches or if there is an error
-*/
+// default function, called if nothing matches or if there is an error
 void unrecognized(UserInput* inputProcess)
 {
   // error output
   inputProcess->outputToStream(Serial);
 }
 
-/*
-   lists the settings passed to UserInput's constructor, or default parameters
-*/
-void settings(UserInput* inputProcess)
-{
-  inputProcess->listSettings(inputProcess);
-}
-
-/*
-   lists commands available to the user
-*/
-void help(UserInput* inputProcess)
-{
-  inputProcess->listCommands();
-}
-
-/*
-   test all available input types
-*/
+// test all available input types
 void test_input_types(UserInput* inputProcess)
 {
   inputProcess->outputToStream(Serial);                                             // class output, doesn't have to output to the input stream
@@ -110,9 +87,7 @@ void test_input_types(UserInput* inputProcess)
   char out[512] = {'\0'};         //  function output buffer
   uint16_t string_pos = 0;        // function output buffer index
 
-  /*
-       format out[] with all of the arguments received
-  */
+  // format out[] with all of the arguments received
   string_pos += snprintf_P(out + string_pos, 512,
                            PSTR("Test user input types:\n"
                                 " uint8_t %u\n"
@@ -136,59 +111,8 @@ void test_input_types(UserInput* inputProcess)
 }
 
 /**
-   @brief CommandParameters struct for help_
-
-*/
-const PROGMEM CommandParameters help_param[1] = {
-  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "help",                   // command string
-  4,                        // command string characters
-  root,                     // parent id
-  root,                     // this command id
-  root,                     // command depth
-  0,                        // subcommands
-  UI_ARG_HANDLING::no_args, // argument handling
-  0,                        // minimum expected number of arguments
-  0,                        // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor help_(help_param); //  help_ has a command string, and function specified
-
-/**
-   @brief CommandParameters struct for settings_
-
-*/
-const PROGMEM CommandParameters settings_param[1] = {
-  settings,              // function ptr
-  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "inputSettings",          // command string
-  13,                       // command string characters
-  root,                     // parent id
-  root,                     // this command id
-  root,                     // command depth
-  0,                        // subcommands
-  UI_ARG_HANDLING::no_args, // argument handling
-  0,                        // minimum expected number of arguments
-  0,                        // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
-
-/**
-   @brief CommandParameters struct for test_
-
-*/
+ * test enforces type-valid input
+ */
 const PROGMEM CommandParameters type_test_param[1] = {
   test_input_types,       // function ptr
   no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
@@ -230,8 +154,6 @@ void setup()
 
   Serial.println(F("Set up InputHandler..."));
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(help_);             // lists commands available to the user
-  inputHandler.addCommand(settings_);         // lists UserInput class settings
   inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
 
