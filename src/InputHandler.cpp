@@ -339,8 +339,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         return;
-    }
-    // end error condition
+    } // end error condition
 
     for (rprm.cmd = _commands_head_; rprm.cmd != NULL; rprm.cmd = rprm.cmd->next_command) // iterate through CommandConstructor linked-list
     {
@@ -357,8 +356,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 
     if (rprm.result != match && rprm.all_wcc_cmd != NULL) // if there was not a "match" but we found an all wcc command (this makes all wcc commands lower priority than a regular match)
     {
-        rprm.result = match_all_wcc_cmd;
-        rprm.cmd = rprm.all_wcc_cmd;
+        rprm.result = match_all_wcc_cmd; // set result to all wcc
+        rprm.cmd = rprm.all_wcc_cmd; // point to the all wcc CommandConstructor
     }
 
     if (rprm.result >= match_all_wcc_cmd) // match root command
@@ -368,7 +367,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _data_pointers_index_ = 1;                                  // index 1 of _data_pointers_ is the token after the root command
         rprm.command_matched = true;                                // root command match flag
         _failed_on_subcommand_ = 0;                                 // subcommand error index
-        rprm.result = no_match;
+        rprm.result = no_match;                                     // UI_COMPARE input/command compare result
         rprm.all_wcc_cmd = NULL;
 
         UserInput::_launchLogic(rprm); // see if command has any subcommands, validate input types, try to launch function
@@ -376,7 +375,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 
     if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
-        UserInput::_readCommandFromBufferErrorOutput(rprm);
+        UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
         (*_default_function_)(this); // run the default function
     }
 
