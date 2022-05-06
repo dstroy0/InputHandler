@@ -19,8 +19,83 @@
 #define __USER_INPUT_HANDLER_CONFIG_H__
 
 #include <Arduino.h>
+#include "InputHandler_portability.h"
+#include "InputHandler_functionlike_macros.h"
+#include "InputHandler_PROGMEM_settings.h"
 
-//  uncomment to debug functions (ensure you have a large enough output buffer)
+//  maximum number of arguments per command
+#if !defined(UI_MAX_ARGS)
+    /*
+      max is 255
+    */
+    #define UI_MAX_ARGS 32
+#else
+    #error UI_MAX_ARGS already defined in __FILE__ at line __LINE__
+#endif
+
+//  maximum tree depth
+#if !defined(UI_MAX_DEPTH)
+    /*
+       max is 255
+    */
+    #define UI_MAX_DEPTH 32
+#else
+    #error UI_MAX_DEPTH already defined in __FILE__ at line __LINE__
+#endif
+
+//  maximum number of subcommands that a command can branch to
+#if !defined(UI_MAX_SUBCOMMANDS)
+    /*
+       max is 255
+    */
+    #define UI_MAX_SUBCOMMANDS 32
+#else
+    #error UI_MAX_SUBCOMMANDS already defined in __FILE__ at line __LINE__
+#endif
+
+//  maximum command/subcommand char length
+#if !defined(UI_MAX_CMD_LEN)
+    /*
+       max is 255
+    */
+    #define UI_MAX_CMD_LEN 32
+#else
+    #error UI_MAX_CMD_LEN already defined in __FILE__ at line __LINE__
+#endif // end UI_MAX_CMD_LEN
+
+// maximum number of delimiter sequences
+#if !defined(UI_MAX_DELIM_SEQ)
+        /*
+          max is 255, increas
+        */
+#define UI_MAX_DELIM_SEQ      5
+#else
+    #error UI_MAX_DELIM_SEQ already defined in __FILE__ at line __LINE__
+#endif // end UI_MAX_DELIM_SEQ
+
+// maximum number of start stop sequence pairs
+#if !defined(UI_MAX_START_STOP_SEQ)
+#define UI_MAX_START_STOP_SEQ 5
+#else
+    #error UI_MAX_START_STOP_SEQ already defined in __FILE__ at line __LINE__
+#endif // end UI_MAX_DELIM_SEQ
+
+//  maximum user input length
+#if !defined(UI_MAX_IN_LEN)
+    /*
+       max is 65535 - 2
+       change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
+       to increase UI_MAX_IN_LEN (2^32) - 2
+    */
+    #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
+#else
+    #error UI_MAX_IN_LEN already defined in __FILE__ at line __LINE__
+#endif // end UI_MAX_IN_LEN
+
+/*
+    Debug
+    uncomment for debug output from process methods 
+*/
 //#define __DEBUG_USER_INPUT__
 
 // uncomment which method(s) to debug
@@ -32,134 +107,13 @@
 //#define __DEBUG_ADDCOMMAND__
 //#define __DEBUG_LAUNCH_LOGIC__
 //#define __DEBUG_LAUNCH_FUNCTION__
-#endif
+#endif // debug section
 
-//  maximum number of arguments per command
-#if !defined(UI_MAX_ARGS)
-    /*
-      max is 255,
-      change to uint16_t
-      _max_args_
-      _data_pointers_index_
-      _data_pointers_index_max_
-      _rec_num_arg_strings_
-      to increase max to 65535
-    */
-    #define UI_MAX_ARGS 32
-#endif
-
-//  maximum tree depth
-#if !defined(UI_MAX_DEPTH)
-    /*
-       max is 255,
-       change to uint16_t
-       _max_depth_
-       _current_search_depth_
-       to increase max to 65535
-    */
-    #define UI_MAX_DEPTH 32
-#endif
-
-//  maximum number of subcommands
-#if !defined(UI_MAX_SUBCOMMANDS)
-    /*
-       max is 255,
-       change to uint16_t
-       _data_pointers_index_
-       _data_pointers_index_max_
-       _failed_on_subcommand_
-       to increase max to 65535
-    */
-    #define UI_MAX_SUBCOMMANDS 32
-#endif
-
-//  max value of a sixteen bit unsigned integer
-#if !defined(UINT16_MAX)
-    #define UINT16_MAX 65535
-#endif
-
-//  max value of an eight bit unsigned integer
-#if !defined(UINT8_MAX)
-    #define UINT8_MAX 255
-#endif
-
-//  maximum command length
-#if !defined(UI_MAX_CMD_LEN)
-    #define UI_MAX_CMD_LEN 32
-#endif
-
-#define UI_MAX_DELIM_SEQ      5
-#define UI_MAX_START_STOP_SEQ 5
+/*
+    do not edit
+*/
 #define UI_MAX_PER_CMD_MEMCMP_RANGES (UI_MAX_SUBCOMMANDS + 1) * 2
+#define UI_ESCAPED_CHAR_STRLEN 3
 
-//  maximum user input length
-#if !defined(UI_MAX_IN_LEN)
-    /*
-       max is 65535 - 2
-       change to (UINT32_MAX - 2) POTENTIALLY LOTS OF RAM!!!
-       to increase UI_MAX_IN_LEN (2^32) - 2
-    */
-    #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
-#endif
-
-#define nprms(x)  (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
-#define buffsz(x) nprms(x)                     // gets the number of elements in an array
-#define nelems(x) nprms(x)                     // gets the number of elements in an array
-
-// portability directives
-
-#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
-    #include <avr/dtostrf.h>
-    #include "utility/vsnprintf.h"
-    #define vsnprintf_P vsnprintf
-    #undef pgm_read_dword
-    #define pgm_read_dword(addr) ({     \
-        typeof(addr) _addr = (addr);    \
-        *(const unsigned long*)(_addr); \
-    })
-#endif
-
-#if defined(__MBED_CONFIG_DATA__)
-    #include <avr/dtostrf.h>
-    #include "utility/vsnprintf.h"
-    #define vsnprintf_P vsnprintf
-    #undef pgm_read_dword
-    #define pgm_read_dword(addr) ({     \
-        typeof(addr) _addr = (addr);    \
-        *(const unsigned long*)(_addr); \
-    })
-#endif
-
-#if defined(ARDUINO_SAM_DUE)
-    #include <avr/dtostrf.h>
-    #include "utility/vsnprintf.h"
-    #define vsnprintf_P vsnprintf
-    #undef pgm_read_dword
-    #define pgm_read_dword(addr) ({     \
-        typeof(addr) _addr = (addr);    \
-        *(const unsigned long*)(_addr); \
-    })
-#endif
-
-#if defined(TEENSYDUINO)
-    // pgm/ram section type conflict fix
-    #define QUO(x)      #x
-    #define QLINE(x, y) QUO(x) \
-    QUO(y)
-    #define PFIX QLINE(.progmem.variable, __COUNTER__)
-    #undef PROGMEM
-    #define PROGMEM __attribute__((section(PFIX)))
-#endif
-
-// PROGMEM width constants
-#define UI_INPUT_TYPE_STRINGS_PGM_LEN     10
-#define UI_ESCAPED_CHAR_PGM_LEN           3
-#define UI_EOL_SEQ_PGM_LEN                5
-#define UI_DELIM_SEQ_PGM_LEN              5
-#define UI_START_STOP_SEQ_PGM_LEN         5
-#define UI_PROCESS_NAME_PGM_LEN           12
-#define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
-
-#endif
-
+#endif // include guard
 // end of file

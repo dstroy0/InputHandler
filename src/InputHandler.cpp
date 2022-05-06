@@ -167,7 +167,7 @@ void UserInput::listSettings(UserInput* inputProcess)
             buf_sz++;
         }
     }
-    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_PGM_LEN](); // allocate char buffer large enough to print these potential control characters
+    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_STRLEN](); // allocate char buffer large enough to print these potential control characters
     if (buf == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));
@@ -672,7 +672,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                         {
                             if (iscntrl(_data_pointers_[1 + _failed_on_subcommand_ + i][j])) // format buffer with escaped char
                             {
-                                char buf[UI_ESCAPED_CHAR_PGM_LEN] {};
+                                char buf[UI_ESCAPED_CHAR_STRLEN] {};
                                 UserInput::_ui_out(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[1 + _failed_on_subcommand_ + i][j], buf));
                             }
                             else
@@ -708,7 +708,7 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
             {
                 if (iscntrl(_data_pointers_[i][j])) // format buffer with escaped char
                 {
-                    char buf[UI_ESCAPED_CHAR_PGM_LEN] {};
+                    char buf[UI_ESCAPED_CHAR_STRLEN] {};
                     UserInput::_ui_out(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[i][j], buf));
                 }
                 else
@@ -1027,7 +1027,7 @@ void UserInput::_getArgs(_rcfbprm& rprm)
 char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len)
 {
     char* start = &buf[idx];
-    char tmp_esc_chr[UI_ESCAPED_CHAR_PGM_LEN] {};
+    char tmp_esc_chr[UI_ESCAPED_CHAR_STRLEN] {};
     for (size_t i = 0; i < input_len; ++i)
     {
         *tmp_esc_chr = *UserInput::_escapeCharactersSoTheyPrint(input[i], tmp_esc_chr);
