@@ -1,5 +1,8 @@
 <map id="src/InputHandler.h" name="src/InputHandler.h">
-<area shape="rect" id="node1" title="InputHandler library header file." alt="" coords="9,5,137,32"/>
-<area shape="rect" id="node2" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="5,80,140,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="35,169,111,196"/>
+<area shape="rect" id="node1" title="InputHandler library header file." alt="" coords="222,5,350,32"/>
+<area shape="rect" id="node2" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="219,80,353,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,177,81,203"/>
+<area shape="rect" id="node4" href="$d3/dcd/_input_handler__portability_8h.html" title=" " alt="" coords="106,177,274,203"/>
+<area shape="rect" id="node5" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title=" " alt="" coords="299,169,468,211"/>
+<area shape="rect" id="node6" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title=" " alt="" coords="493,169,663,211"/>
 </map>

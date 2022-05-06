@@ -16,7 +16,7 @@ var searchData=
   ['bluefruit_5fuart_5frts_5fpin_13',['BLUEFRUIT_UART_RTS_PIN',['../d2/df9/_bluefruit_config_8h.html#a2fef983f3c48c678ffab135ae7ffb7f1',1,'BluefruitConfig.h']]],
   ['bluefruitconfig_2eh_14',['BluefruitConfig.h',['../d2/df9/_bluefruit_config_8h.html',1,'']]],
   ['bod_15',['BOD',['../da/dff/_n_m_e_asentenceparam_8h.html#a08fa041f057f1b06c0dc62393218dfc9',1,'NMEAsentenceparam.h']]],
-  ['buffsz_16',['buffsz',['../dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178',1,'InputHandler_config.h']]],
+  ['buffsz_16',['buffsz',['../d1/d39/_input_handler__functionlike__macros_8h.html#abd56e27b6e10765f411acdc3ef1b2178',1,'InputHandler_functionlike_macros.h']]],
   ['bufsize_17',['BUFSIZE',['../d2/df9/_bluefruit_config_8h.html#aeca034f67218340ecb2261a22c2f3dcd',1,'BluefruitConfig.h']]],
   ['bwc_18',['BWC',['../da/dff/_n_m_e_asentenceparam_8h.html#ab31e95ea4a87b0b7557871a071f8e28f',1,'NMEAsentenceparam.h']]],
   ['bwr_19',['BWR',['../da/dff/_n_m_e_asentenceparam_8h.html#a6e2989f0cece186c8a718e3582ba48b9',1,'NMEAsentenceparam.h']]]
