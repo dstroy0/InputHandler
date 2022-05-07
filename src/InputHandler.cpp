@@ -235,7 +235,7 @@ void UserInput::listCommands()
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
         char buffer[UI_MAX_CMD_LEN];
-        memcpy_P(&buffer, cmd->prm->command, sizeof(buffer));
+        memcpy_P(&buffer, cmd->prm[0].command, sizeof(buffer));
         UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
     }
 }
@@ -345,7 +345,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         rprm.result = UserInput::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]); // compare the root command to the first token
         if (rprm.result == match)
-        {
+        {           
             break; // break command iterator for loop
         }
         if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd) // remember first all wcc cmd
@@ -362,7 +362,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 
     if (rprm.result >= match_all_wcc_cmd) // match root command
     {
-        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm)); // move CommandParameters variables from PROGMEM to sram for work
+        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm)); // move CommandParameters variables from PROGMEM to sram for work        
         _current_search_depth_ = 1;                                 // start searching for subcommands at depth 1
         _data_pointers_index_ = 1;                                  // index 1 of _data_pointers_ is the token after the root command
         rprm.command_matched = true;                                // root command match flag
@@ -370,7 +370,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         rprm.result = no_match;                                     // UI_COMPARE input/command compare result
         rprm.all_wcc_cmd = NULL;
 
-        UserInput::_launchLogic(rprm); // see if command has any subcommands, validate input types, try to launch function
+        UserInput::_launchLogic(rprm); // see if command has any subcommands, validate input types, try to launch function        
     }                                  // end command logic
 
     if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
@@ -618,13 +618,13 @@ void UserInput::_ui_out(const char* fmt, ...)
 void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
     if (UserInput::outputIsEnabled()) // format a string with useful information
-    {
-        memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]), sizeof(rprm.prm));
+    {                           
         IH_pname pname;
         memcpy_P(&pname, _input_prm_.pname, sizeof(pname));
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), pname);
         if (rprm.command_matched == true)
         {
+            memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
             // constrain err_n_args to UI_MAX_ARGS + 1
             size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             err_n_args = (err_n_args == 0 && rprm.prm.num_args > 0) ? 1 : err_n_args;
@@ -742,7 +742,7 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
 void UserInput::_launchLogic(_rcfbprm& rprm)
 {    
     IH_pname pname;
-    memcpy_P(&pname, _input_prm_.pname, sizeof(pname));    
+    memcpy_P(&pname, _input_prm_.pname, sizeof(pname));        
     if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__)
@@ -801,18 +801,22 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     }
 
     // subcommand search
-    rprm.subcommand_matched = false;    
+    rprm.subcommand_matched = false;       
     if (_current_search_depth_ <= (rprm.cmd->tree_depth))             // dig starting at depth 1
-    {                                                                  // this index starts at one because the parameter array's first element will be the root command
+    {                                                                  // this index starts at one because the parameter array's first element will be the root command        
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
         UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
         #endif
         rprm.result = no_match;
         rprm.all_wcc_cmd = NULL;
         rprm.idx = 0;
-        rprm.all_wcc_idx = 0;
+        rprm.all_wcc_idx = 0;        
         for (size_t j = 1; j < (rprm.cmd->param_array_len + 1U); ++j) // through the parameter array
         {
+            if (rprm.tokens_received == 1) // pointer index protection
+            {
+                break;
+            }
             rprm.result = UserInput::_compareCommandToString(rprm.cmd, j, _data_pointers_[_data_pointers_index_]);
             if (rprm.result == match)
             {
@@ -824,7 +828,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
                 rprm.all_wcc_idx = j;
                 rprm.all_wcc_cmd = rprm.cmd;
             }
-        }
+        }        
 
         if (rprm.result != match && rprm.all_wcc_cmd != NULL)
         {
@@ -1267,8 +1271,8 @@ inline void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, Command
 inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {
     size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
-    size_t input_len = strlen(str);
-    
+    size_t input_len = strlen(str);    
+
     if (input_len != cmd_len_pgm) // no match (length different)
     {
         return no_match;

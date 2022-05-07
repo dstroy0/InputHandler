@@ -10,7 +10,7 @@
 
 #include <InputHandler.h>
 
-char output_buffer[128] {}; // output buffer
+char output_buffer[650] {}; // output buffer
 /*
   UserInput constructor settings
 */
