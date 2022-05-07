@@ -624,7 +624,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), pname);
         if (rprm.command_matched == true)
         {
-            memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
+            memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]), sizeof(rprm.prm)); // only load if a command matched
             // constrain err_n_args to UI_MAX_ARGS + 1
             size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             err_n_args = (err_n_args == 0 && rprm.prm.num_args > 0) ? 1 : err_n_args;
