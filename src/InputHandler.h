@@ -17,7 +17,7 @@
 #ifndef __USER_INPUT_HANDLER_H__
     #define __USER_INPUT_HANDLER_H__
 
-    #include "config/InputHandler_config.h"
+    #include "config/InputHandler_noedit.h"
 
 /**
  * @defgroup UserInput class constants
@@ -367,6 +367,7 @@ public:
      */
     bool begin();
 
+    #if defined(ENABLE_listSettings)
     /**
      * @brief Lists UserInput class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer.
      *
@@ -381,13 +382,16 @@ public:
      * @param inputProcess pointer to class instance
      */
     void listSettings(UserInput* inputProcess);
+    #endif
 
+    #if defined(ENABLE_listCommands)
     /**
      * @brief Lists commands that will respond to user input if `_begin_` == true
      * else it will inform the user to use begin() in setup()
      */
     void listCommands();
-
+    #endif
+    
     /**
      * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
      *
@@ -422,6 +426,7 @@ public:
      */
     void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
+    #if defined(ENABLE_getCommandFromStream)
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
      *
@@ -434,21 +439,27 @@ public:
      * @param zdc array of CommandParameters pointers
      */
     void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
+    #endif
 
+    #if defined(ENABLE_nextArgument)
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
      *
      * @return char*
      */
     char* nextArgument();
+    #endif
 
+    #if defined(ENABLE_getArgument)
     /**
      * @brief returns a pointer to `argument_number` token in UserInput::_token_buffer_ or NULL if there is no `argument_number` token
      *
      * @return char*
      */
     char* getArgument(size_t argument_number);
+    #endif
 
+    #if defined(ENABLE_outputIsAvailable)
     /**
      * @brief is class output available
      *
@@ -456,7 +467,9 @@ public:
      * @return false if no output is available
      */
     bool outputIsAvailable();
+    #endif
 
+    #if defined(ENABLE_outputIsEnabled)
     /**
      * @brief is class output enabled
      *
@@ -464,13 +477,16 @@ public:
      * @return false if not enabled
      */
     bool outputIsEnabled();
+    #endif
 
+    #if defined(ENABLE_outputToStream)
     /**
      * @brief direct class output to stream, clears output buffer automatically
      *
      * @param stream the stream to print to
      */
     void outputToStream(Stream& stream);
+    #endif
 
     /**
      * @brief clears output buffer
@@ -613,12 +629,14 @@ private:
      */
     void _ui_out(const char* fmt, ...);
 
+    #if defined(ENABLE_readCommandFromBufferErrorOutput)
     /**
      * @brief ReadCommandFromBuffer error output
      *
      * @param rprm reference to UserInput::_rcfbprm
      */
     void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
+    #endif // end ENABLE_readCommandFromBufferErrorOutput
 
     /**
      * @brief launches either (this) function or the root command function
@@ -696,7 +714,7 @@ private:
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to InputProcessParameters struct   
+     * @param input_prm reference to InputProcessParameters struct
      */
     void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 

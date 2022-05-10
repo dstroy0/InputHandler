@@ -135,6 +135,7 @@ bool UserInput::begin()
     return _begin_;
 }
 
+#if defined(ENABLE_listSettings)
 void UserInput::listSettings(UserInput* inputProcess)
 {
     if (!_begin_)
@@ -212,7 +213,9 @@ void UserInput::listSettings(UserInput* inputProcess)
     }
     delete[] buf; // free
 }
+#endif // end ENABLE_listSettings
 
+#if defined(ENABLE_listCommands)
 void UserInput::listCommands()
 {
     if (!_begin_)
@@ -239,6 +242,7 @@ void UserInput::listCommands()
         UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
     }
 }
+#endif // end ENABLE_listCommands
 
 void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
 {
@@ -375,7 +379,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 
     if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
     {
+        #if defined(ENABLE_readCommandFromBufferErrorOutput)
         UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
+        #endif // end ENABLE_readCommandFromBufferErrorOutput
         (*_default_function_)(this); // run the default function
     }
 
@@ -391,6 +397,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     delete[] _token_buffer_;
 }
 
+#if defined(ENABLE_getCommandFromStream)
 void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
 {
     if (!_begin_) // error
@@ -442,7 +449,9 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         _stream_buffer_allocated_ = false;
     }
 }
+#endif // end ENABLE_getCommandFromStream
 
+#if defined(ENABLE_nextArgument)
 char* UserInput::nextArgument()
 {
     if (_data_pointers_index_ < (_max_depth_ + _max_args_) && _data_pointers_index_ < _data_pointers_index_max_)
@@ -452,7 +461,9 @@ char* UserInput::nextArgument()
     }
     return NULL; // else return NULL
 }
+#endif // end ENABLE_nextArgument
 
+#if defined(ENABLE_getArgument)
 char* UserInput::getArgument(size_t argument_number)
 {
     if (argument_number < (_max_depth_ + _max_args_) && argument_number < _data_pointers_index_max_)
@@ -461,29 +472,37 @@ char* UserInput::getArgument(size_t argument_number)
     }
     return NULL; // else return NULL
 }
+#endif // end ENABLE_getArgument
 
+#if defined(ENABLE_outputIsAvailable)
 inline bool UserInput::outputIsAvailable()
 {
     return _output_flag_;
 }
+#endif // end ENABLE_outputIsAvailable
 
+#if defined(ENABLE_outputIsEnabled)
 inline bool UserInput::outputIsEnabled()
 {
     return _output_enabled_;
 }
+#endif // end ENABLE_outputIsEnabled
 
+#if defined(ENABLE_outputToStream)
 void UserInput::outputToStream(Stream& stream)
 {
-    if (UserInput::outputIsAvailable()) // if there's something to print
+    if (_output_flag_) // if there's something to print
     {
         stream.println(_output_buffer_); // print output_buffer, which is formatted into a string by UserInput's methods
         UserInput::clearOutputBuffer();
     }
 }
+#endif // end ENABLE_outputToStream
 
+#if defined(ENABLE_clearOutputBuffer)
 inline void UserInput::clearOutputBuffer(bool overwrite_contents)
 {
-    if (UserInput::outputIsEnabled())
+    if (_output_enabled_)
     {
         _output_buffer_bytes_left_ = _output_buffer_len_; //  reset output_buffer's index
         if (!overwrite_contents)
@@ -500,6 +519,7 @@ inline void UserInput::clearOutputBuffer(bool overwrite_contents)
     }
     _output_flag_ = false;
 }
+#endif // end ENABLE_clearOutputBuffer
 
 size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm)
 {    
@@ -587,7 +607,7 @@ inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 */
 void UserInput::_ui_out(const char* fmt, ...)
 {
-    if (UserInput::outputIsEnabled())
+    if (_output_enabled_)
     {
         va_list args;        // ... parameter pack list
         va_start(args, fmt); // set the parameter pack list index here
@@ -615,9 +635,10 @@ void UserInput::_ui_out(const char* fmt, ...)
     }
 }
 
+#if defined(ENABLE_readCommandFromBufferErrorOutput)
 void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
-    if (UserInput::outputIsEnabled()) // format a string with useful information
+    if (_output_enabled_) // format a string with useful information
     {                           
         IH_pname pname;
         memcpy_P(&pname, _input_prm_.pname, sizeof(pname));
@@ -694,11 +715,12 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
         }
     }
 }
+#endif // end ENABLE_readCommandFromBufferErrorOutput
 
 // clang-format off
 inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
 {
-    if (UserInput::outputIsEnabled())
+    if (_output_enabled_)
     {
         UserInput::_ui_out(PSTR(">%s$"), pname);
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
