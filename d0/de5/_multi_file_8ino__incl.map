@@ -1,12 +1,13 @@
 <map id="examples/all_platforms/advanced/MultiFile/MultiFile.ino" name="examples/all_platforms/advanced/MultiFile/MultiFile.ino">
-<area shape="rect" id="node1" title="An example that demonstrates multiple file setup." alt="" coords="302,5,510,47"/>
-<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="351,95,461,121"/>
-<area shape="rect" id="node3" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="233,169,339,196"/>
-<area shape="rect" id="node9" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="363,169,449,196"/>
-<area shape="rect" id="node10" href="$d6/d3b/parameters_8h.html" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="473,169,571,196"/>
-<area shape="rect" id="node4" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="219,244,353,285"/>
+<area shape="rect" id="node1" title="An example that demonstrates multiple file setup." alt="" coords="377,5,585,47"/>
+<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="426,95,535,121"/>
+<area shape="rect" id="node3" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="307,169,414,196"/>
+<area shape="rect" id="node10" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="438,169,523,196"/>
+<area shape="rect" id="node11" href="$d6/d3b/parameters_8h.html" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="548,169,645,196"/>
+<area shape="rect" id="node4" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="293,244,428,285"/>
 <area shape="rect" id="node5" title=" " alt="" coords="5,341,81,367"/>
-<area shape="rect" id="node6" href="$d3/dcd/_input_handler__portability_8h.html" title=" " alt="" coords="106,341,274,367"/>
-<area shape="rect" id="node7" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title=" " alt="" coords="299,333,468,375"/>
-<area shape="rect" id="node8" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title=" " alt="" coords="493,333,663,375"/>
+<area shape="rect" id="node6" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,341,253,367"/>
+<area shape="rect" id="node7" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="277,341,445,367"/>
+<area shape="rect" id="node8" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="469,333,639,375"/>
+<area shape="rect" id="node9" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="663,333,834,375"/>
 </map>

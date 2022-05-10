@@ -1,13 +1,14 @@
 <map id="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino" name="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino">
 <area shape="rect" id="node1" title="An example that uses ReadCommandFromBuffer and WebSerial." alt="" coords="115,5,354,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="79,281,155,307"/>
+<area shape="rect" id="node2" title=" " alt="" coords="90,281,166,307"/>
 <area shape="rect" id="node3" title=" " alt="" coords="29,109,88,136"/>
-<area shape="rect" id="node4" title=" " alt="" coords="113,109,207,136"/>
+<area shape="rect" id="node4" title=" " alt="" coords="112,109,207,136"/>
 <area shape="rect" id="node5" title=" " alt="" coords="231,109,390,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="415,109,505,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="414,109,505,136"/>
 <area shape="rect" id="node7" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="529,109,636,136"/>
-<area shape="rect" id="node8" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="453,184,587,225"/>
-<area shape="rect" id="node9" href="$d3/dcd/_input_handler__portability_8h.html" title=" " alt="" coords="243,281,411,307"/>
-<area shape="rect" id="node10" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title=" " alt="" coords="435,273,605,315"/>
-<area shape="rect" id="node11" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title=" " alt="" coords="629,273,800,315"/>
+<area shape="rect" id="node8" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="480,184,615,225"/>
+<area shape="rect" id="node9" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="258,281,405,307"/>
+<area shape="rect" id="node10" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="429,281,597,307"/>
+<area shape="rect" id="node11" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="622,273,791,315"/>
+<area shape="rect" id="node12" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="816,273,986,315"/>
 </map>

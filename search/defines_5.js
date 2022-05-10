@@ -1,20 +1,7 @@
 var searchData=
 [
-  ['ui_5fdelim_5fseq_5fpgm_5flen_0',['UI_DELIM_SEQ_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#afd9add4e3c1737134633acbf5d973943',1,'InputHandler_PROGMEM_settings.h']]],
-  ['ui_5feol_5fseq_5fpgm_5flen_1',['UI_EOL_SEQ_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#acd1c3d1cf30cf7e2da8924a04d4729cc',1,'InputHandler_PROGMEM_settings.h']]],
-  ['ui_5fescaped_5fchar_5fstrlen_2',['UI_ESCAPED_CHAR_STRLEN',['../dd/d4e/_input_handler__config_8h.html#a027fe3f70969f8a4f883d648ee61b0d5',1,'InputHandler_config.h']]],
-  ['ui_5finput_5fcontrol_5fchar_5fseq_5fpgm_5flen_3',['UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#a67ca907db29466e83f0dfb3035a54039',1,'InputHandler_PROGMEM_settings.h']]],
-  ['ui_5finput_5ftype_5fstrings_5fpgm_5flen_4',['UI_INPUT_TYPE_STRINGS_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#aa99472679c6ff32ae0725c7577ab37d7',1,'InputHandler_PROGMEM_settings.h']]],
-  ['ui_5fmax_5fargs_5',['UI_MAX_ARGS',['../dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fcmd_5flen_6',['UI_MAX_CMD_LEN',['../dd/d4e/_input_handler__config_8h.html#a3838a09964eae8d28f9f58c69df91934',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fdelim_5fseq_7',['UI_MAX_DELIM_SEQ',['../dd/d4e/_input_handler__config_8h.html#a5de563ee2695c5a60324eed33992f870',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fdepth_8',['UI_MAX_DEPTH',['../dd/d4e/_input_handler__config_8h.html#ae0e0abf71a409d9bafc561f9ce683540',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fin_5flen_9',['UI_MAX_IN_LEN',['../dd/d4e/_input_handler__config_8h.html#a4f376dd1800f7322379979be7d05ca20',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fper_5fcmd_5fmemcmp_5franges_10',['UI_MAX_PER_CMD_MEMCMP_RANGES',['../dd/d4e/_input_handler__config_8h.html#a69a8775b591a7f206a93d39830811f28',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fstart_5fstop_5fseq_11',['UI_MAX_START_STOP_SEQ',['../dd/d4e/_input_handler__config_8h.html#a082a06f981c078776a9e20cc316d3aaa',1,'InputHandler_config.h']]],
-  ['ui_5fmax_5fsubcommands_12',['UI_MAX_SUBCOMMANDS',['../dd/d4e/_input_handler__config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f',1,'InputHandler_config.h']]],
-  ['ui_5fprocess_5fname_5fpgm_5flen_13',['UI_PROCESS_NAME_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#a079ebd19acb6c152f33062ecd6404d5a',1,'InputHandler_PROGMEM_settings.h']]],
-  ['ui_5fstart_5fstop_5fseq_5fpgm_5flen_14',['UI_START_STOP_SEQ_PGM_LEN',['../df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html#a715135949254e7a2c450664134ba4901',1,'InputHandler_PROGMEM_settings.h']]],
-  ['uint16_5fmax_15',['UINT16_MAX',['../d3/dcd/_input_handler__portability_8h.html#a3ea490c9b3617d4479bd80ef93cd5602',1,'InputHandler_portability.h']]],
-  ['uint8_5fmax_16',['UINT8_MAX',['../d3/dcd/_input_handler__portability_8h.html#aeb4e270a084ee26fe73e799861bd0252',1,'InputHandler_portability.h']]]
+  ['nelems_0',['nelems',['../d1/d39/_input_handler__functionlike__macros_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a',1,'InputHandler_functionlike_macros.h']]],
+  ['nmea_5fsentence_5fmax_5fempty_5ffields_1',['NMEA_SENTENCE_MAX_EMPTY_FIELDS',['../da/d60/_n_m_e_aparser_8h.html#a72e93a14607b3f08a8e2d055db345a59',1,'NMEAparser.h']]],
+  ['nmea_5fsentence_5fstream_5finput_5fbuffer_5fsize_2',['NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE',['../da/d60/_n_m_e_aparser_8h.html#a4fde412627a94713a997eef362f7fc1a',1,'NMEAparser.h']]],
+  ['nprms_3',['nprms',['../d1/d39/_input_handler__functionlike__macros_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'InputHandler_functionlike_macros.h']]]
 ];

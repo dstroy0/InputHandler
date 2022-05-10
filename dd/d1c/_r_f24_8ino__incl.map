@@ -1,12 +1,13 @@
 <map id="examples/all_platforms/basic/RF24/RF24.ino" name="examples/all_platforms/basic/RF24/RF24.ino">
-<area shape="rect" id="node1" title=" " alt="" coords="81,5,235,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,60,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="85,95,146,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="171,95,233,121"/>
-<area shape="rect" id="node5" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="258,95,365,121"/>
-<area shape="rect" id="node6" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="244,169,379,211"/>
-<area shape="rect" id="node7" title=" " alt="" coords="31,266,107,293"/>
-<area shape="rect" id="node8" href="$d3/dcd/_input_handler__portability_8h.html" title=" " alt="" coords="131,266,299,293"/>
-<area shape="rect" id="node9" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title=" " alt="" coords="324,259,493,300"/>
-<area shape="rect" id="node10" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title=" " alt="" coords="518,259,689,300"/>
+<area shape="rect" id="node1" title=" " alt="" coords="130,5,285,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="55,95,109,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="134,95,195,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="220,95,283,121"/>
+<area shape="rect" id="node5" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="307,95,414,121"/>
+<area shape="rect" id="node6" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="293,169,428,211"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,266,81,293"/>
+<area shape="rect" id="node8" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,266,253,293"/>
+<area shape="rect" id="node9" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="277,266,445,293"/>
+<area shape="rect" id="node10" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="469,259,639,300"/>
+<area shape="rect" id="node11" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="663,259,834,300"/>
 </map>

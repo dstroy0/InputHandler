@@ -1,9 +1,10 @@
 <map id="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h" name="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h">
-<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="186,5,386,61"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="233,109,339,136"/>
-<area shape="rect" id="node3" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library configuration file." alt="" coords="219,184,353,225"/>
+<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="261,5,461,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="307,109,414,136"/>
+<area shape="rect" id="node3" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="293,184,428,225"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,281,81,307"/>
-<area shape="rect" id="node5" href="$d3/dcd/_input_handler__portability_8h.html" title=" " alt="" coords="106,281,274,307"/>
-<area shape="rect" id="node6" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title=" " alt="" coords="299,273,468,315"/>
-<area shape="rect" id="node7" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title=" " alt="" coords="493,273,663,315"/>
+<area shape="rect" id="node5" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,281,253,307"/>
+<area shape="rect" id="node6" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="277,281,445,307"/>
+<area shape="rect" id="node7" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="469,273,639,315"/>
+<area shape="rect" id="node8" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="663,273,834,315"/>
 </map>

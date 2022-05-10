@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['nelems_0',['nelems',['../d1/d39/_input_handler__functionlike__macros_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a',1,'InputHandler_functionlike_macros.h']]],
-  ['nmea_5fsentence_5fmax_5fempty_5ffields_1',['NMEA_SENTENCE_MAX_EMPTY_FIELDS',['../da/d60/_n_m_e_aparser_8h.html#a72e93a14607b3f08a8e2d055db345a59',1,'NMEAparser.h']]],
-  ['nmea_5fsentence_5fstream_5finput_5fbuffer_5fsize_2',['NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE',['../da/d60/_n_m_e_aparser_8h.html#a4fde412627a94713a997eef362f7fc1a',1,'NMEAparser.h']]],
-  ['nprms_3',['nprms',['../d1/d39/_input_handler__functionlike__macros_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'InputHandler_functionlike_macros.h']]]
+  ['minimum_5ffirmware_5fversion_0',['MINIMUM_FIRMWARE_VERSION',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a11e674e9b958aa147644ac2faec3e116',1,'BLE_UART.ino']]],
+  ['mode_5fled_5fbehaviour_1',['MODE_LED_BEHAVIOUR',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab436b7ea43ed67b9f08ccdd5f34cadda',1,'BLE_UART.ino']]]
 ];
