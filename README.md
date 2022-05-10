@@ -350,7 +350,7 @@ If your board is not listed as not supported open an issue if you'd like it adde
 
 NOTE: [vsnprintf](https://en.cppreference.com/w/c/io/vfprintf) and 
 [dtostrf](https://www.delftstack.com/howto/arduino/arduino-dtostrf/) implemented on the following platforms:  
-(see: [src/config/InputHandler_config.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/InputHandler_config.h) portability directives subsection)  
+(see: [src/config/InputHandler_portability.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/InputHandler_portability.h) for your platform's implementation)  
 SAMD,  
 MBED,  
 arduino DUE  
