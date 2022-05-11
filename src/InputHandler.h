@@ -26,15 +26,18 @@
 
 /**
  * @brief command identifier enum
+ * this is used to explicitly state something is related to a root command
+ * in the context of UserInput::CommandParameters
  * @enum UI_CMD_ID
  */
 enum UI_CMD_ID
 {
-    root ///< this is the root command id
+    root ///< this is the root command id, it's the number 0 ALWAYS
 };
 
 /**
  * @brief command wildcard flag enum
+ * these flags are used inside of UserInput::CommandParameters
  * @enum UI_WC_FLAG
  */
 enum UI_WC_FLAG
@@ -45,6 +48,8 @@ enum UI_WC_FLAG
 
 /**
  * @brief UserInput::_compareCommandToString() return values
+ * these flags are only used to provide clarity to UserInput::_compareCommandToString(),
+ * they make it easy to understand what is happening inside of that method
  * @enum UI_COMPARE
  *
  */
@@ -57,6 +62,8 @@ enum UI_COMPARE
 
 /**
  * @brief strongly typed argument handling flags
+ * this is used in UserInput::CommandParameters as a visual reminder of
+ * how the process will handle your arguments
  * @enum UI_ARG_HANDLING
  */
 enum class UI_ARG_HANDLING
@@ -68,6 +75,8 @@ enum class UI_ARG_HANDLING
 
 /**
  * @brief UserInput type specifier
+ * these are the different types of user input the process can accept
+ * NOTYPE and START_STOP can be any 0-255 value
  * @enum UITYPE
  */
 enum class UITYPE
@@ -84,9 +93,10 @@ enum class UITYPE
     _LAST       ///<  reserved
 };
 
-/**
- * input type string literal PROGMEM array
+/** 
  * @brief type string literals
+ * input type string literal PROGMEM array, each of the types in UITYPE has 
+ * a corresponding string literal for display purposes
  */
 const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "UINT8_T",   // 8-bit unsigned integer
@@ -103,7 +113,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 
 /**
  * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
- *
+ * this struct holds information about the delimiter sequences the process will be using
  */
 struct InputProcessDelimiterSequences
 {
@@ -114,7 +124,7 @@ struct InputProcessDelimiterSequences
 
 /**
  * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
- *
+ * this struct holds information about the start-stop sequence pairs the process will be using
  */
 struct InputProcessStartStopSequences
 {
@@ -125,31 +135,32 @@ struct InputProcessStartStopSequences
 
 /**
  * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
- *
+ * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
- *
+ * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
- *
+ * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
- *
+ * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_wcc[2];
 
 /**
  * @brief UserInput input process parameters, constructor parameters
- *
+ * this struct is an array of pointers to other structs/arrays contained in PROGMEM
+ * it's required by the input process
  */
 struct InputProcessParameters
 {
@@ -200,14 +211,9 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
 };
 
 /**
- * @brief forward declaration of UserInput class for
- * CommandParameters struct and CommandConstructor class
- */
-class UserInput;
-
-/**
  * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime
- *
+ * these structs are associated with wildcard commands; every CommandConstructor 
+ * that has a CommandParameters which contains wildcards will have a CommandRuntimeCalc
  */
 struct CommandRuntimeCalc
 {
@@ -216,6 +222,12 @@ struct CommandRuntimeCalc
     uint8_t* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
     uint8_t** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
+
+/**
+ * @brief forward declaration of UserInput class for
+ * CommandParameters struct and CommandConstructor class
+ */
+class UserInput;
 
 /**
  * @brief CommandParameters struct, this is the container that holds your command parameters
