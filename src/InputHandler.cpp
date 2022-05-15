@@ -120,15 +120,15 @@ bool UserInput::begin()
     {
         _input_type_match_flags_ = (bool*) calloc(_max_args_, _max_args_ * sizeof(bool)); // this array lives the lifetime of the process
     }
-    if (_input_type_match_flags_ == nullptr && _max_args_ != 0)
+    if (_input_type_match_flags_ == NULL && _max_args_ != 0)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _input_type_match_flags_\n"));
         _begin_ = false;        
         return _begin_;       
-    }
-    _data_pointers_ = (char**) calloc(_p_num_ptrs_, _p_num_ptrs_ * sizeof(char*)); // as does this array of pointers
-    if (_data_pointers_ == nullptr)
-    {
+    }    
+    _data_pointers_ = (char**) calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
+    if (_data_pointers_ == NULL)
+    {        
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
         _begin_ = false;        
         free(_input_type_match_flags_);
@@ -393,7 +393,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }    
-    if (rprm.split_input != NULL || rprm.split_input != nullptr)
+    if (rprm.split_input != NULL)
     {
         free(rprm.split_input);
     }
