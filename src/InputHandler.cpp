@@ -63,9 +63,9 @@ void UserInput::addCommand(CommandConstructor& command)
         {             
             command.calc = (struct CommandRuntimeCalc*) calloc(1, sizeof(struct CommandRuntimeCalc));
             command.calc->num_prm_with_wc = (uint8_t)wc_containing_prm_found; 
-            command.calc->idx_of_prm_with_wc = new uint8_t[(uint8_t)wc_containing_prm_found](); 
-            command.calc->num_memcmp_ranges_this_row = (uint8_t*) calloc(wc_containing_prm_found, wc_containing_prm_found*sizeof(uint8_t));                        
-            command.calc->memcmp_ranges_arr = (uint8_t**) calloc(wc_containing_prm_found, wc_containing_prm_found*sizeof(uint8_t*));                        
+            command.calc->idx_of_prm_with_wc = (uint8_t*) calloc(wc_containing_prm_found, wc_containing_prm_found * sizeof(uint8_t));
+            command.calc->num_memcmp_ranges_this_row = (uint8_t*) calloc(wc_containing_prm_found, wc_containing_prm_found * sizeof(uint8_t));                        
+            command.calc->memcmp_ranges_arr = (uint8_t**) calloc(wc_containing_prm_found, wc_containing_prm_found * sizeof(uint8_t*));                        
             memcpy(command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);            
             for (size_t i = 0; i < wc_containing_prm_found; ++i)
             {                             
@@ -74,7 +74,7 @@ void UserInput::addCommand(CommandConstructor& command)
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));                
                 UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                                                                                
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;              
-                command.calc->memcmp_ranges_arr[i] = new uint8_t[memcmp_ranges_idx]();  
+                command.calc->memcmp_ranges_arr[i] = (uint8_t*) calloc(memcmp_ranges_idx, memcmp_ranges_idx * sizeof(uint8_t));  
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
                 #if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
@@ -115,20 +115,23 @@ void UserInput::addCommand(CommandConstructor& command)
 
 bool UserInput::begin()
 {
-    _p_num_ptrs_ = 1U + _max_depth_ + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())
-    _input_type_match_flags_ = new bool[_max_args_](); // this array lives the lifetime of the process
-    if (_input_type_match_flags_ == nullptr)
+    _p_num_ptrs_ = 1U + _max_depth_ + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())    
+    if (_max_args_ != 0)
+    {
+        _input_type_match_flags_ = (bool*) calloc(_max_args_, _max_args_ * sizeof(bool)); // this array lives the lifetime of the process
+    }
+    if (_input_type_match_flags_ == nullptr && _max_args_ != 0)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _input_type_match_flags_\n"));
         _begin_ = false;        
         return _begin_;       
     }
-    _data_pointers_ = new char*[_p_num_ptrs_](); // as does this array of pointers
+    _data_pointers_ = (char**) calloc(_p_num_ptrs_, _p_num_ptrs_ * sizeof(char*)); // as does this array of pointers
     if (_data_pointers_ == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
         _begin_ = false;        
-        delete[] _input_type_match_flags_;
+        free(_input_type_match_flags_);
         return _begin_;       
     }
     _begin_ = true;
@@ -168,7 +171,7 @@ void UserInput::listSettings(UserInput* inputProcess)
             buf_sz++;
         }
     }
-    char* buf = new char[buf_sz * UI_ESCAPED_CHAR_STRLEN](); // allocate char buffer large enough to print these potential control characters
+    char* buf = (char*) calloc(buf_sz * UI_ESCAPED_CHAR_STRLEN, (buf_sz * UI_ESCAPED_CHAR_STRLEN) * sizeof(char)); // allocate char buffer large enough to print these potential control characters
     if (buf == nullptr)
     {
         UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));
@@ -211,7 +214,7 @@ void UserInput::listSettings(UserInput* inputProcess)
         UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
-    delete[] buf; // free
+    free(buf); // cleanup
 }
 #endif // end ENABLE_listSettings
 
@@ -301,7 +304,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
     }
 
-    _token_buffer_ = new char[rprm.token_buffer_len](); // place to chop up the input into tokens
+    _token_buffer_ = (char*) calloc(rprm.token_buffer_len, rprm.token_buffer_len*sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == nullptr)                      // if there was an error allocating the memory
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
@@ -338,7 +341,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         {
             free(rprm.split_input);
         }
-        delete[] _token_buffer_;
+        free(_token_buffer_);
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
@@ -394,7 +397,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         free(rprm.split_input);
     }
-    delete[] _token_buffer_;
+    free(_token_buffer_);
 }
 
 #if defined(ENABLE_getCommandFromStream)
@@ -406,7 +409,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     }
     if (_stream_buffer_allocated_ == false)
     {
-        _stream_data_ = new uint8_t[rx_buffer_size](); // an array to store the received data
+        _stream_data_ = (uint8_t*) calloc(rx_buffer_size, rx_buffer_size * sizeof(uint8_t)); // an array to store the received data
         if (_stream_data_ == nullptr)                  // if there was an error allocating the memory
         {
             #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
@@ -445,7 +448,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         UserInput::readCommandFromBuffer(_stream_data_, _stream_data_index_, num_zdc, zdc);
         _stream_data_index_ = 0;
         _new_stream_data_ = false;
-        delete[] _stream_data_;
+        free(_stream_data_);
         _stream_buffer_allocated_ = false;
     }
 }
