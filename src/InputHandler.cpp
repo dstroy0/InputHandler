@@ -392,12 +392,12 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     for (size_t i = 0; i < _p_num_ptrs_; ++i)
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
-    }    
+    }
+    free(_token_buffer_);    
     if (rprm.split_input != NULL)
     {
         free(rprm.split_input);
-    }
-    free(_token_buffer_);
+    }    
 }
 
 #if defined(ENABLE_getCommandFromStream)
