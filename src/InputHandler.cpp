@@ -280,10 +280,10 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);
         rprm.input_len = rprm.input_len + delim_len + 1U;
-        rprm.token_buffer_len++;
-        rprm.split_input = new uint8_t[rprm.input_len]();
+        rprm.token_buffer_len++;        
+        rprm.split_input = (uint8_t*) calloc(rprm.input_len, rprm.input_len*sizeof(uint8_t));
         if (rprm.split_input == nullptr) // if there was an error allocating the memory
-        {
+        {            
             #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
             #endif
@@ -295,8 +295,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         }
         else // free allocated memory and fail-through
         {
-            rprm.input_len = rprm.input_len - (delim_len + 1U); // resize input len
-            delete[] rprm.split_input;
+            rprm.input_len = rprm.input_len - (delim_len + 1U); // resize input len            
+            free(rprm.split_input);
             rprm.split_input = NULL;
         }
     }
@@ -308,8 +308,8 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         if (rprm.split_input != NULL)
-        {
-            delete[] rprm.split_input;
+        {            
+            free(rprm.split_input);
         }
         return;
     }
@@ -334,9 +334,9 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received
     if (rprm.tokens_received == 0)                    // error condition
     {
-        if (num_zdc != 0)
+        if (rprm.split_input != NULL)
         {
-            delete[] rprm.split_input;
+            free(rprm.split_input);
         }
         delete[] _token_buffer_;
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
@@ -390,11 +390,11 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }    
-    delete[] _token_buffer_;
-    if (rprm.split_input != NULL) // if there are zero delim commands
+    if (rprm.split_input != NULL || rprm.split_input != nullptr)
     {
-        //delete[] rprm.split_input;
+        free(rprm.split_input);
     }
+    delete[] _token_buffer_;
 }
 
 #if defined(ENABLE_getCommandFromStream)
