@@ -70,7 +70,7 @@ private:
         size_t empty_field_ph_len = strlen(empty_field_ph);
         size_t buffer_idx = 0;
         size_t corrected_input_idx = 0;
-        size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
+        size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);        
         char* corrected_input = new char[corrected_input_size]();
         for (size_t i = 0; i < len; ++i)
         {

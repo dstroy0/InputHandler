@@ -138,13 +138,13 @@ void setup()
   sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
   inputHandler.begin();                         // required.  returns true on success.
   sensorParser.begin();
-
+  Serial.println(F("end InputHandler setup"));
   inputHandler.outputToStream(Serial); // class output
 
   // temp testing
   uint8_t buffer[36] {};
   memcpy(buffer, gpbwc, strlen(gpbwc));
-  NMEA.parseSentence(buffer, strlen(gpbwc));
+  NMEA.parseSentence(buffer, strlen(gpbwc));  
   memcpy(buffer, gpgsa, strlen(gpgsa));
   NMEA.parseSentence(buffer, strlen(gpgsa));
 }

@@ -27,8 +27,8 @@
     /*
         do not edit unless you know what will happen
     */
-    #define UI_MAX_PER_CMD_MEMCMP_RANGES (UI_MAX_SUBCOMMANDS + 1) * 2 ///< UserInput::addCommand array sizing macro
-    #define UI_ESCAPED_CHAR_STRLEN 3                                  ///< sram buffer size for a single escaped char, used by UserInput methods
+    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
+    #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
 
 #endif // end include guard
 // end of file
