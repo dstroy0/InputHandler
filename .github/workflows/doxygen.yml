@@ -12,7 +12,7 @@ jobs:
         with: 
           fetch-depth: 0
       - name: Build
-        uses: mattnotmitt/doxygen-action@v1.9.3
+        uses: mattnotmitt/doxygen-action@edge
         with:
           working-directory: '/github/workspace/'
           doxyfile-path: 'docs/Doxyfile'
