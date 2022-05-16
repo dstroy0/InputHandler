@@ -1,15 +1,13 @@
 <map id="examples/all_platforms/basic/BLE_UART/BLE_UART.ino" name="examples/all_platforms/basic/BLE_UART/BLE_UART.ino">
-<area shape="rect" id="node1" title=" " alt="" coords="204,5,425,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="183,281,259,307"/>
-<area shape="rect" id="node3" title=" " alt="" coords="33,102,87,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="112,102,221,129"/>
-<area shape="rect" id="node5" title=" " alt="" coords="245,95,384,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="408,95,547,136"/>
-<area shape="rect" id="node7" href="$d2/df9/_bluefruit_config_8h.html" title=" " alt="" coords="571,102,687,129"/>
-<area shape="rect" id="node8" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="712,102,819,129"/>
-<area shape="rect" id="node9" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="641,184,775,225"/>
-<area shape="rect" id="node10" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="397,281,544,307"/>
-<area shape="rect" id="node11" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="568,281,736,307"/>
-<area shape="rect" id="node12" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="761,273,930,315"/>
-<area shape="rect" id="node13" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="955,273,1125,315"/>
+<area shape="rect" id="node1" title=" " alt="" coords="200,5,422,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="290,259,366,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="29,102,84,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="108,102,218,129"/>
+<area shape="rect" id="node5" title=" " alt="" coords="242,95,380,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="404,95,543,136"/>
+<area shape="rect" id="node7" href="$d2/df9/_bluefruit_config_8h.html" title=" " alt="" coords="568,102,684,129"/>
+<area shape="rect" id="node8" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="708,102,815,129"/>
+<area shape="rect" id="node9" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="601,184,706,211"/>
+<area shape="rect" id="node10" href="$db/d16/config_8h.html" title=" " alt="" coords="559,259,626,285"/>
+<area shape="rect" id="node11" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="650,259,780,285"/>
 </map>

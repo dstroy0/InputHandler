@@ -1,13 +1,11 @@
 <map id="examples/all_platforms/advanced/NMEAparser/NMEAparser.ino" name="examples/all_platforms/advanced/NMEAparser/NMEAparser.ino">
-<area shape="rect" id="node1" title="An example that demonstrates how to use InputHandler&#39;s public methods to parse NMEA 0183 sentences." alt="" coords="210,5,469,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="307,319,414,345"/>
-<area shape="rect" id="node9" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="322,95,469,121"/>
-<area shape="rect" id="node3" href="$d3/dfb/_input_handler__noedit_8h.html" title="InputHandler library C includes, buffer sizing macros." alt="" coords="293,393,428,435"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,490,81,517"/>
-<area shape="rect" id="node5" href="$dd/d4e/_input_handler__config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,490,253,517"/>
-<area shape="rect" id="node6" href="$d3/dcd/_input_handler__portability_8h.html" title="InputHandler library portability directives." alt="" coords="277,490,445,517"/>
-<area shape="rect" id="node7" href="$d1/d39/_input_handler__functionlike__macros_8h.html" title="InputHandler library function&#45;like macros." alt="" coords="469,483,639,524"/>
-<area shape="rect" id="node8" href="$df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html" title="InputHandler library PROGMEM settings." alt="" coords="663,483,834,524"/>
-<area shape="rect" id="node10" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="373,169,532,196"/>
-<area shape="rect" id="node11" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="424,244,572,271"/>
+<area shape="rect" id="node1" title="An example that demonstrates how to use InputHandler&#39;s public methods to parse NMEA 0183 sentences." alt="" coords="5,5,264,47"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="103,319,209,345"/>
+<area shape="rect" id="node7" href="$da/d60/_n_m_e_aparser_8h.html" title="a class to assist in parsing NMEA 0183 strings" alt="" coords="117,95,264,121"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="103,393,209,420"/>
+<area shape="rect" id="node4" title=" " alt="" coords="22,468,98,495"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title=" " alt="" coords="123,468,189,495"/>
+<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="214,468,343,495"/>
+<area shape="rect" id="node8" href="$da/dff/_n_m_e_asentenceparam_8h.html" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="169,169,327,196"/>
+<area shape="rect" id="node9" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="219,244,367,271"/>
 </map>

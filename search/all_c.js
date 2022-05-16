@@ -1,7 +1,7 @@
 var searchData=
 [
   ['neg_5fsign_0',['neg_sign',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html#a0b267c691799a6f8919c5fc892360d55',1,'UserInput::validateNullSepInputParam']]],
-  ['nelems_1',['nelems',['../d1/d39/_input_handler__functionlike__macros_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a',1,'InputHandler_functionlike_macros.h']]],
+  ['nelems_1',['nelems',['../da/dc7/noedit_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a',1,'noedit.h']]],
   ['nest_5fone_2',['nest_one',['../da/d0f/_nested_commands_8ino.html#adcfb96b2eed5c48436cbf795e7b533b4',1,'NestedCommands.ino']]],
   ['nest_5fone_5f_3',['nest_one_',['../da/d0f/_nested_commands_8ino.html#afc356762969dbb43ded0aabceeb7e3a1',1,'NestedCommands.ino']]],
   ['nest_5ftwo_4',['nest_two',['../da/d0f/_nested_commands_8ino.html#af89cb0fa8587215c744b438b1979cc45',1,'NestedCommands.ino']]],
@@ -49,12 +49,13 @@ var searchData=
   ['no_5fargs_46',['no_args',['../de/d8a/group___user_input.html#ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741',1,'InputHandler.h']]],
   ['no_5fmatch_47',['no_match',['../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf',1,'InputHandler.h']]],
   ['no_5fwildcards_48',['no_wildcards',['../de/d8a/group___user_input.html#ggae655f6a50054ff5649f7ab9509d64f14a0681c51d081bef2c026443ddb77c8127',1,'InputHandler.h']]],
-  ['notype_49',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]],
-  ['nprms_50',['nprms',['../d1/d39/_input_handler__functionlike__macros_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'InputHandler_functionlike_macros.h']]],
-  ['num_5fargs_51',['num_args',['../db/d11/struct_command_parameters.html#afba2aca9b9a8ee7ec3de4893e17b4655',1,'CommandParameters']]],
-  ['num_5fmemcmp_5franges_5fthis_5frow_52',['num_memcmp_ranges_this_row',['../dc/d3d/struct_command_runtime_calc.html#ae8c7bada5d8ae12f0d18ec8bae035e5b',1,'CommandRuntimeCalc']]],
-  ['num_5fprm_5fwith_5fwc_53',['num_prm_with_wc',['../dc/d3d/struct_command_runtime_calc.html#a45e5baf0d3544b9e2a8a76cc07265cea',1,'CommandRuntimeCalc']]],
-  ['num_5fseq_54',['num_seq',['../d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2',1,'InputProcessStartStopSequences::num_seq()'],['../dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735',1,'InputProcessDelimiterSequences::num_seq()']]],
-  ['num_5ftoken_5fptrs_55',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
-  ['num_5fzdc_56',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
+  ['noedit_2eh_49',['noedit.h',['../da/dc7/noedit_8h.html',1,'']]],
+  ['notype_50',['NOTYPE',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc',1,'InputHandler.h']]],
+  ['nprms_51',['nprms',['../da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'noedit.h']]],
+  ['num_5fargs_52',['num_args',['../db/d11/struct_command_parameters.html#afba2aca9b9a8ee7ec3de4893e17b4655',1,'CommandParameters']]],
+  ['num_5fmemcmp_5franges_5fthis_5frow_53',['num_memcmp_ranges_this_row',['../dc/d3d/struct_command_runtime_calc.html#ae8c7bada5d8ae12f0d18ec8bae035e5b',1,'CommandRuntimeCalc']]],
+  ['num_5fprm_5fwith_5fwc_54',['num_prm_with_wc',['../dc/d3d/struct_command_runtime_calc.html#a45e5baf0d3544b9e2a8a76cc07265cea',1,'CommandRuntimeCalc']]],
+  ['num_5fseq_55',['num_seq',['../d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2',1,'InputProcessStartStopSequences::num_seq()'],['../dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735',1,'InputProcessDelimiterSequences::num_seq()']]],
+  ['num_5ftoken_5fptrs_56',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
+  ['num_5fzdc_57',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
 ];

@@ -11,6 +11,6 @@ var searchData=
   ['bluefruit_5fuart_5fcts_5fpin_8',['BLUEFRUIT_UART_CTS_PIN',['../d2/df9/_bluefruit_config_8h.html#a7044be5e83b0688bc0ebecaa83ae1ccb',1,'BluefruitConfig.h']]],
   ['bluefruit_5fuart_5fmode_5fpin_9',['BLUEFRUIT_UART_MODE_PIN',['../d2/df9/_bluefruit_config_8h.html#a3b9e671cc7cff949da4898533174aa4f',1,'BluefruitConfig.h']]],
   ['bluefruit_5fuart_5frts_5fpin_10',['BLUEFRUIT_UART_RTS_PIN',['../d2/df9/_bluefruit_config_8h.html#a2fef983f3c48c678ffab135ae7ffb7f1',1,'BluefruitConfig.h']]],
-  ['buffsz_11',['buffsz',['../d1/d39/_input_handler__functionlike__macros_8h.html#abd56e27b6e10765f411acdc3ef1b2178',1,'InputHandler_functionlike_macros.h']]],
+  ['buffsz_11',['buffsz',['../da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178',1,'noedit.h']]],
   ['bufsize_12',['BUFSIZE',['../d2/df9/_bluefruit_config_8h.html#aeca034f67218340ecb2261a22c2f3dcd',1,'BluefruitConfig.h']]]
 ];

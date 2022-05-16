@@ -1,8 +1,6 @@
 var dir_7e83d1792d529f4aa7126ac7e0b3b699 =
 [
-    [ "InputHandler_config.h", "dd/d4e/_input_handler__config_8h.html", "dd/d4e/_input_handler__config_8h" ],
-    [ "InputHandler_functionlike_macros.h", "d1/d39/_input_handler__functionlike__macros_8h.html", "d1/d39/_input_handler__functionlike__macros_8h" ],
-    [ "InputHandler_noedit.h", "d3/dfb/_input_handler__noedit_8h.html", "d3/dfb/_input_handler__noedit_8h" ],
-    [ "InputHandler_portability.h", "d3/dcd/_input_handler__portability_8h.html", "d3/dcd/_input_handler__portability_8h" ],
-    [ "InputHandler_PROGMEM_settings.h", "df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h.html", "df/d25/_input_handler___p_r_o_g_m_e_m__settings_8h" ]
+    [ "advanced_config.h", "d5/d4a/advanced__config_8h.html", "d5/d4a/advanced__config_8h" ],
+    [ "config.h", "db/d16/config_8h.html", "db/d16/config_8h" ],
+    [ "noedit.h", "da/dc7/noedit_8h.html", "da/dc7/noedit_8h" ]
 ];
