@@ -4,6 +4,7 @@
 [![Doxygen CI](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/doxygen.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
 ## Design Goals
+Implementation flexibility.
 Low memory use, feature rich.  
 InputHandler is easy to start using.  
 It satisfies some more advanced interfacing requirements.  
@@ -27,7 +28,7 @@ To make matching more performant, [memcmp](https://www.cplusplus.com/reference/c
 
 Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.    
 
-[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
+[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
 
 A valid (default-settings) command string would look something like:  
 
@@ -314,7 +315,7 @@ CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
 
 [NOTYPE](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc) is a special argument type that doesn't perform any type-validation.  
 [NO_ARGS](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716) is a special argument type that explicitly states you wish to pass no arguments.  
-[nprms(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
+[nprms(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
@@ -350,7 +351,7 @@ If your board is not listed as not supported open an issue if you'd like it adde
 
 NOTE: [vsnprintf](https://en.cppreference.com/w/c/io/vfprintf) and 
 [dtostrf](https://www.delftstack.com/howto/arduino/arduino-dtostrf/) implemented on the following platforms:  
-(see: [src/config/InputHandler_portability.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/InputHandler_portability.h) for your platform's implementation)  
+(see: [src/config/noedit.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h) for your platform's implementation)  
 SAMD,  
 MBED,  
 arduino DUE  
