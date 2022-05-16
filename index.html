@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </p>
 <h2><a class="anchor" id="autotoc_md0"></a>
 Design Goals</h2>
-<p >Low memory use, feature rich. <br  />
+<p >Implementation flexibility. Low memory use, feature rich. <br  />
  InputHandler is easy to start using. <br  />
  It satisfies some more advanced interfacing requirements. <br  />
  It can parse uint8_t, unsigned char, any value 0-255 char strings. <br  />
@@ -142,7 +142,7 @@ InputHandler</h1>
 </p>
 <p >Check out the <a href="https://github.com/dstroy0/InputHandler/tree/main/examples">examples</a> for different use cases. <br  />
 </p>
-<p ><a href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">This library is easy to start using</a>, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command. You can have up to <a href="https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">UI_MAX_ARGS</a> number of arguments. At runtime, <a class="el" href="dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> scans your input <a href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of <a href="https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">UserInput::begin()</a>) <br  />
+<p ><a href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">This library is easy to start using</a>, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command. You can have up to <a href="https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">UI_MAX_ARGS</a> number of arguments. At runtime, <a class="el" href="dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> scans your input <a href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of <a href="https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">UserInput::begin()</a>) <br  />
 </p>
 <p >A valid (default-settings) command string would look something like: <br  />
 </p>
@@ -461,7 +461,7 @@ InputHandler</h1>
 <div class="ttc" id="anoedit_8h_html_a478361b897ab0ecfafbf38dc51ca3586"><div class="ttname"><a href="da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms</a></div><div class="ttdeci">#define nprms(x)</div><div class="ttdef"><b>Definition:</b> noedit.h:34</div></div>
 </div><!-- fragment --><p ><a href="https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">NOTYPE</a> is a special argument type that doesn't perform any type-validation. <br  />
  <a href="https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">NO_ARGS</a> is a special argument type that explicitly states you wish to pass no arguments. <br  />
- <a href="https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms(x)</a>, <a href="https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz(x)</a>, and <a href="https://dstroy0.github.io/InputHandler/dd/d4e/_input_handler__config_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a">nelems(x)</a> are macros which return the number of elements in an array. <br  />
+ <a href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms(x)</a>, <a href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz(x)</a>, and <a href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a">nelems(x)</a> are macros which return the number of elements in an array. <br  />
 </p>
 <p >Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information. <br  />
 </p>
@@ -487,7 +487,7 @@ Supported Platforms</h1>
 <p >If your board is not listed as not supported open an issue if you'd like it added to build coverage. <br  />
 </p>
 <p >NOTE: <a href="https://en.cppreference.com/w/c/io/vfprintf">vsnprintf</a> and <a href="https://www.delftstack.com/howto/arduino/arduino-dtostrf/">dtostrf</a> implemented on the following platforms: <br  />
- (see: <a href="https://github.com/dstroy0/InputHandler/blob/main/src/config/InputHandler_portability.h">src/config/InputHandler_portability.h</a> for your platform's implementation) <br  />
+ (see: <a href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h">src/config/noedit.h</a> for your platform's implementation) <br  />
  SAMD, <br  />
  MBED, <br  />
  arduino DUE <br  />
