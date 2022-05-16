@@ -133,7 +133,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="../../db/d16/config_8h.html" target="_top" xlink:title=" ">
+<g id="a_node9"><a xlink:href="../../db/d16/config_8h.html" target="_top" xlink:title="InputHandler library user configurable items.">
 <polygon fill="none" stroke="black" points="314.78,-0.5 314.78,-19.5 364.78,-19.5 364.78,-0.5 314.78,-0.5"/>
 <text text-anchor="middle" x="339.78" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">config.h</text>
 </a>
