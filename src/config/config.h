@@ -1,5 +1,5 @@
 /**
-   @file InputHandler_config.h
+   @file config.h
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief InputHandler library user configurable items
    @version 1.0
