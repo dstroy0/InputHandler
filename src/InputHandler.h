@@ -77,6 +77,8 @@ enum class UI_ARG_HANDLING
  * @brief UserInput type specifier
  * these are the different types of user input the process can accept
  * NOTYPE and START_STOP can be any 0-255 value
+ * This is strongly typed to help avoid name conflicts, and as an indicator that
+ * these types are not built-in.
  * @enum UITYPE
  */
 enum class UITYPE
@@ -164,27 +166,27 @@ typedef char IH_wcc[2];
  */
 struct InputProcessParameters
 {
-    const IH_pname* pname;                           ///< this process' name, can be NULL
-    const IH_eol* peol;                              ///< end of line term
+    const IH_pname* pname;                           ///< this process' name, can be NULL; MAX len == UI_PROCESS_NAME_PGM_LEN
+    const IH_eol* peol;                              ///< end of line term; MAX len == UI_EOL_SEQ_PGM_LEN
     const IH_input_cc* pinputcc;                     ///< two char len sequence to input a control char
     const IH_wcc* pwcc;                              ///< single char wildcard char
     const InputProcessDelimiterSequences* pdelimseq; ///< reference to InputProcessDelimiterSequences struct
     const InputProcessStartStopSequences* pststpseq; ///< reference to InputProcessStartStopSequences struct
 };
 
-const PROGMEM IH_pname _pname = "";         ///< default process name
-const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters
-const PROGMEM IH_input_cc _pinputcc = "##"; ///< default process input control character sequence
-const PROGMEM IH_wcc _pwcc = "*";           ///< default process wildcard char
+const PROGMEM IH_pname _pname = "";         ///< default process name == ""
+const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters "\\r\\n"
+const PROGMEM IH_input_cc _pinputcc = "##"; ///< default process input control character sequence "##"
+const PROGMEM IH_wcc _pwcc = "*";           ///< default process wildcard char '*'
 
 /**
  * @brief default delimiter sequences
  *
  */
 const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
-    {" ", ","} ///< delimiter sequences
+    2,         ///< default number of delimiter sequences
+    {1, 1},    ///< default delimiter sequence lens
+    {" ", ","} ///< default delimiter sequences
 };
 
 /**
@@ -192,9 +194,9 @@ const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
  *
  */
 const PROGMEM InputProcessStartStopSequences _pststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
-    {"\"", "\""} ///< start stop sequence pairs
+    1,           ///< default num start stop sequence pairs
+    {1, 1},      ///< default start stop sequence lens
+    {"\"", "\""} ///< default start stop sequence pair sequences
 };
 
 /**
@@ -202,12 +204,12 @@ const PROGMEM InputProcessStartStopSequences _pststpseq = {
  *
  */
 const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
-    &_pname,     ///< process name
-    &_peol,      ///< process eol term
-    &_pinputcc,  ///< process input control char sequence
-    &_pwcc,      ///< process wildcard char
-    &_pdelimseq, ///< process default delimiter sequences
-    &_pststpseq  ///< process default start/stop sequences
+    &_pname,     ///< default process name
+    &_peol,      ///< default process eol term
+    &_pinputcc,  ///< default process input control char sequence
+    &_pwcc,      ///< default process wildcard char
+    &_pdelimseq, ///< default process default delimiter sequences
+    &_pststpseq  ///< default process default start/stop sequences
 };
 
 /**
@@ -272,9 +274,7 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const CommandParameters* parameters,
-                       const uint8_t parameter_array_elements = 1,
-                       const uint8_t tree_depth = 0)
+    CommandConstructor(const CommandParameters* parameters, const uint8_t parameter_array_elements = 1, const uint8_t tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -349,12 +349,11 @@ public:
     }
 
     /**
-     * @brief Set the default function, which is the function called
-     * when there is no command match, or when input is invalid.
+     * @brief Sets the _default_function_ pointer
+     * When there is no command match, or when input is invalid, this function is called
+     * if the pointer is not NULL
      *
-     * If this function is not NULL it will be called whenever there is invalid
-     * input.
-     * @param function a pointer to a user specified function
+     * @param function a pointer to a user specified default function
      */
     void defaultFunction(void (*function)(UserInput*));
 
@@ -364,15 +363,16 @@ public:
      * This function inspects CommandParameters for errors and
      * reports the errors to the user if they have enabled output.
      * If an error is detected in the root command or any of
-     * its subcommands, the entire command tree is rejected.
-     * No sizing for dynamically allocated variables takes place.
+     * its subcommands, the entire command tree is rejected,
+     * and sizing for dynamically allocated variables does not
+     * take place.
      *
-     * @param command reference to CommandConstructor
+     * @param command reference to CommandConstructor object
      */
     void addCommand(CommandConstructor& command);
 
     /**
-     * @brief Allocates memory for `_data_pointers_`, sets `_begin_`
+     * @brief Allocates memory for _data_pointers_ and _input_type_match_flags_, sets _begin_
      *
      * @return true if allocation successful
      * @return false if allocation unsuccessful
@@ -388,7 +388,7 @@ public:
      * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
      *
-     * REQUIRES 570 byte output_buffer.  If an insufficient buffer size is declared,
+     * REQUIRES a 650 byte output_buffer.  If an insufficient buffer size is declared,
      * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
      *
      * @param inputProcess pointer to class instance
@@ -433,8 +433,8 @@ public:
      * silent return if UserInput::_begin_ == false
      * @param data a buffer with characters
      * @param len the size of the buffer
-     * @param num_zdc size of CommandParameters pointers array
-     * @param zdc array of CommandParameters pointers
+     * @param num_zdc size of CommandParameters zero delimiter command pointers array 
+     * @param zdc array of CommandParameters zero delimiter command pointers
      */
     void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
@@ -447,8 +447,8 @@ public:
      * silent return if UserInput::_begin_ == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param num_zdc size of CommandParameters pointers array
-     * @param zdc array of CommandParameters pointers
+     * @param num_zdc size of CommandParameters zero delimiter command pointers array 
+     * @param zdc array of CommandParameters zero delimiter command pointers
      */
     void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
     #endif
@@ -464,7 +464,7 @@ public:
 
     #if defined(ENABLE_getArgument)
     /**
-     * @brief returns a pointer to `argument_number` token in UserInput::_token_buffer_ or NULL if there is no `argument_number` token
+     * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if there is no argument_number token
      *
      * @return char*
      */
