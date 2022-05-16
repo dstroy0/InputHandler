@@ -64,9 +64,9 @@
 
     // maximum number of delimiter sequences
     #if !defined(UI_MAX_DELIM_SEQ)
-    /*
-      max is 255, increas
-    */
+        /*
+           max is 255
+        */
         #define UI_MAX_DELIM_SEQ 5
     #else
         #error UI_MAX_DELIM_SEQ already defined in __FILE__ at line (__LINE__ - 2)
@@ -90,44 +90,6 @@
     #else
         #error UI_MAX_IN_LEN already defined in __FILE__ at line (__LINE__ - 2)
     #endif // end UI_MAX_IN_LEN
-
-    /*
-        Debug
-        uncomment for debug output from process methods
-    */
-    //#define __DEBUG_USER_INPUT__
-
-    // uncomment which method(s) to debug
-    #if defined(__DEBUG_USER_INPUT__)
-    //#define __DEBUG_GETCOMMANDFROMSTREAM__
-    //#define __DEBUG_READCOMMANDFROMBUFFER__
-    //#define __DEBUG_GET_TOKEN__
-    //#define __DEBUG_SUBCOMMAND_SEARCH__
-    //#define __DEBUG_ADDCOMMAND__
-    //#define __DEBUG_LAUNCH_LOGIC__
-    //#define __DEBUG_LAUNCH_FUNCTION__
-    #endif // debug section
-
-    /*
-        Advanced
-
-        optional methods, comment out to DISABLE and save some program space
-        for your implementation, disabling these methods will break some examples
-        some of these methods depend on other methods, 
-    */
     
-    //  public methods
-    #define ENABLE_listSettings
-    #define ENABLE_listCommands
-    #define ENABLE_getCommandFromStream
-    #define ENABLE_nextArgument
-    #define ENABLE_getArgument
-    #define ENABLE_outputIsAvailable
-    #define ENABLE_outputIsEnabled
-    #define ENABLE_outputToStream
-    #define ENABLE_clearOutputBuffer
-    // private methods
-    #define ENABLE_readCommandFromBufferErrorOutput
-
 #endif // end include guard
 // end of file

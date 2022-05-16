@@ -137,7 +137,8 @@ void setup()
   sensorParser.addCommand(NMEA_sentence);       // regular sentence
   sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
   inputHandler.begin();                         // required.  returns true on success.  
-  sensorParser.begin();    
+  sensorParser.begin();  
+  Serial.println(F("end setup"));
   inputHandler.outputToStream(Serial); // class output
 
   // temp testing

@@ -1,9 +1,9 @@
 /**
-   @file InputHandler_portability.h
+   @file noedit.h
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief InputHandler library portability directives
+   @brief InputHandler library C includes
    @version 1.0
-   @date 2022-05-10
+   @date 2022-05-16
 
    @copyright Copyright (c) 2022
 */
@@ -15,12 +15,27 @@
  version 3 as published by the Free Software Foundation.
  */
 
-#if !defined(__INPUTHANDLER_PORTABILITY_H__)
-    #define __INPUTHANDLER_PORTABILITY_H__
-/*
-    portability directives
-*/
+#if !defined(__INPUTHANDLER_NOEDIT_H__)
+    #define __INPUTHANDLER_NOEDIT_H__
+    
+    #include <Arduino.h>
+    #include "config.h"
+    #include "advanced_config.h"
 
+    /*
+        do not edit the sections below unless you know what will happen
+    */
+
+    // sizing macros
+    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
+    #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
+
+    // function-like macros
+    #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
+    #define buffsz(x) nprms(x)                    // gets the number of elements in an array
+    #define nelems(x) nprms(x)                    // gets the number of elements in an array
+
+    // portability directives
     #if !defined(UINT16_MAX)
         #define UINT16_MAX 65535 ///< max value of a sixteen bit unsigned integer
     #endif
@@ -73,5 +88,5 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
 
-#endif // include guard
+#endif // end include guard
 // end of file

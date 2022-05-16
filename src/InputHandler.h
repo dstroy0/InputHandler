@@ -17,7 +17,7 @@
 #ifndef __USER_INPUT_HANDLER_H__
     #define __USER_INPUT_HANDLER_H__
 
-    #include "config/InputHandler_noedit.h"
+    #include "config/noedit.h"
 
 /**
  * @defgroup UserInput class constants
