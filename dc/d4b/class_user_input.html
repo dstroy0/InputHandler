@@ -1078,10 +1078,10 @@ false no match no split </dd></dl>
 </div><div class="memdoc">
 
 <p>adds user commands to the input process </p>
-<p >This function inspects <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected in the root command or any of its subcommands, the entire command tree is rejected. No sizing for dynamically allocated variables takes place.</p>
+<p >This function inspects <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> for errors and reports the errors to the user if they have enabled output. If an error is detected in the root command or any of its subcommands, the entire command tree is rejected, and sizing for dynamically allocated variables does not take place.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">command</td><td>reference to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> </td></tr>
+    <tr><td class="paramname">command</td><td>reference to <a class="el" href="../../df/d68/class_command_constructor.html" title="user command constructor class">CommandConstructor</a> object </td></tr>
   </table>
   </dd>
 </dl>
@@ -1103,7 +1103,7 @@ false no match no split </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Allocates memory for <code>_data_pointers_</code>, sets <code>_begin_</code> </p>
+<p>Allocates memory for <em>data_pointers</em> and <em>input_type_match_flags</em>, sets <em>begin</em> </p>
 <dl class="section return"><dt>Returns</dt><dd>true if allocation successful </dd>
 <dd>
 false if allocation unsuccessful </dd></dl>
@@ -1160,10 +1160,10 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Set the default function, which is the function called when there is no command match, or when input is invalid. </p>
-<p >If this function is not NULL it will be called whenever there is invalid input. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets the <em>default_function</em> pointer When there is no command match, or when input is invalid, this function is called if the pointer is not NULL. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">function</td><td>a pointer to a user specified function </td></tr>
+    <tr><td class="paramname">function</td><td>a pointer to a user specified default function </td></tr>
   </table>
   </dd>
 </dl>
@@ -1186,7 +1186,7 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>returns a pointer to <code>argument_number</code> token in <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>::<em>token_buffer</em> or NULL if there is no <code>argument_number</code> token </p>
+<p>returns a pointer to argument_number token in <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a>::<em>token_buffer</em> or NULL if there is no argument_number token </p>
 <dl class="section return"><dt>Returns</dt><dd>char* </dd></dl>
 
 </div>
@@ -1235,8 +1235,8 @@ false if allocation unsuccessful </dd></dl>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the stream to reference </td></tr>
     <tr><td class="paramname">rx_buffer_size</td><td>the size of our receive buffer </td></tr>
-    <tr><td class="paramname">num_zdc</td><td>size of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> pointers array </td></tr>
-    <tr><td class="paramname">zdc</td><td>array of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> pointers </td></tr>
+    <tr><td class="paramname">num_zdc</td><td>size of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> zero delimiter command pointers array </td></tr>
+    <tr><td class="paramname">zdc</td><td>array of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> zero delimiter command pointers </td></tr>
   </table>
   </dd>
 </dl>
@@ -1296,7 +1296,7 @@ false if allocation unsuccessful </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Lists commands that will respond to user input if <code>_begin_</code> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> in <a class="el" href="../../d4/ded/debugging_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup()</a> </p>
+<p>Lists commands that will respond to user input if <code>_begin_</code> == true else it will inform the user to use <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for data_pointers and input_type_match_flags, sets begin">begin()</a> in <a class="el" href="../../d4/ded/debugging_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup()</a> </p>
 
 </div>
 </div>
@@ -1317,8 +1317,8 @@ false if allocation unsuccessful </dd></dl>
 </div><div class="memdoc">
 
 <p>Lists <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer. </p>
-<p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a></p>
-<p >REQUIRES 570 byte output_buffer. If an insufficient buffer size is declared, <a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f" title="UserInput vsnprintf https://www.cplusplus.com/reference/cstdio/vsprintf/.">UserInput::_ui_out()</a> will warn the user to increase the buffer to the required size.</p>
+<p >Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for data_pointers and input_type_match_flags, sets begin">UserInput::begin()</a></p>
+<p >REQUIRES a 650 byte output_buffer. If an insufficient buffer size is declared, <a class="el" href="../../dc/d4b/class_user_input.html#aa0c0335fed0fc12f54d4bbe0ebc3e41f" title="UserInput vsnprintf https://www.cplusplus.com/reference/cstdio/vsprintf/.">UserInput::_ui_out()</a> will warn the user to increase the buffer to the required size.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">inputProcess</td><td>pointer to class instance </td></tr>
@@ -1531,8 +1531,8 @@ false if not enabled </dd></dl>
   <table class="params">
     <tr><td class="paramname">data</td><td>a buffer with characters </td></tr>
     <tr><td class="paramname">len</td><td>the size of the buffer </td></tr>
-    <tr><td class="paramname">num_zdc</td><td>size of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> pointers array </td></tr>
-    <tr><td class="paramname">zdc</td><td>array of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> pointers </td></tr>
+    <tr><td class="paramname">num_zdc</td><td>size of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> zero delimiter command pointers array </td></tr>
+    <tr><td class="paramname">zdc</td><td>array of <a class="el" href="../../db/d11/struct_command_parameters.html" title="CommandParameters struct, this is the container that holds your command parameters.">CommandParameters</a> zero delimiter command pointers </td></tr>
   </table>
   </dd>
 </dl>
@@ -1597,7 +1597,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> error flag </p>
+<p><a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for data_pointers and input_type_match_flags, sets begin">begin()</a> error flag </p>
 
 </div>
 </div>
@@ -2173,7 +2173,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>"p"rocess number of pointers, computed in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">UserInput::begin()</a> </p>
+<p>"p"rocess number of pointers, computed in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for data_pointers and input_type_match_flags, sets begin">UserInput::begin()</a> </p>
 
 </div>
 </div>
@@ -2317,7 +2317,7 @@ false argument-type is not valid </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for _data_pointers_, sets _begin_">begin()</a> </p>
+<p><em>term</em> length in characters, determined in <a class="el" href="../../dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369" title="Allocates memory for data_pointers and input_type_match_flags, sets begin">begin()</a> </p>
 
 </div>
 </div>
