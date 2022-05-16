@@ -28,8 +28,11 @@
           max is 255
         */
         #define UI_MAX_ARGS 32
-    #else
-        #error UI_MAX_ARGS already defined in __FILE__ at line (__LINE__ - 2)
+    #endif
+
+    // error checking
+    #if UI_MAX_ARGS > 255
+        #error UI_MAX_ARGS MAX == 255
     #endif
 
     //  maximum tree depth
@@ -38,8 +41,11 @@
            max is 255
         */
         #define UI_MAX_DEPTH 32
-    #else
-        #error UI_MAX_DEPTH already defined in __FILE__ at line (__LINE__ - 2)
+    #endif
+
+    // error checking
+    #if UI_MAX_DEPTH > 255
+        #error UI_MAX_DEPTH MAX == 255
     #endif
 
     //  maximum number of subcommands that a command can branch to
@@ -48,8 +54,11 @@
            max is 255
         */
         #define UI_MAX_SUBCOMMANDS 32
-    #else
-        #error UI_MAX_SUBCOMMANDS already defined in __FILE__ at line (__LINE__ - 2)
+    #endif
+    
+    // error checking
+    #if UI_MAX_SUBCOMMANDS > 255
+        #error UI_MAX_SUBCOMMANDS MAX == 255
     #endif
 
     //  maximum command/subcommand char length
@@ -58,9 +67,12 @@
            max is 255
         */
         #define UI_MAX_CMD_LEN 32
-    #else
-        #error UI_MAX_CMD_LEN already defined in __FILE__ at line (__LINE__ - 2)
-    #endif // end UI_MAX_CMD_LEN
+    #endif
+
+    // error checking
+    #if UI_MAX_CMD_LEN > 255
+        #error UI_MAX_CMD_LEN MAX == 255
+    #endif
 
     // maximum number of delimiter sequences
     #if !defined(UI_MAX_DELIM_SEQ)
@@ -68,16 +80,25 @@
            max is 255
         */
         #define UI_MAX_DELIM_SEQ 5
-    #else
-        #error UI_MAX_DELIM_SEQ already defined in __FILE__ at line (__LINE__ - 2)
-    #endif // end UI_MAX_DELIM_SEQ
+    #endif
 
-    // maximum number of start stop sequence pairs
+    // error checking
+    #if UI_MAX_DELIM_SEQ > 255
+        #error UI_MAX_DELIM_SEQ MAX == 255
+    #endif
+
+    // maximum number of start stop sequence len
     #if !defined(UI_MAX_START_STOP_SEQ)
+        /*
+           max is 255
+        */
         #define UI_MAX_START_STOP_SEQ 5
-    #else
-        #error UI_MAX_START_STOP_SEQ already defined in __FILE__ at line (__LINE__ - 2)
-    #endif // end UI_MAX_DELIM_SEQ
+    #endif
+
+    // error checking
+    #if UI_MAX_START_STOP_SEQ > 255
+        #error UI_MAX_START_STOP_SEQ MAX == 255
+    #endif
 
     //  maximum user input length
     #if !defined(UI_MAX_IN_LEN)
@@ -87,8 +108,11 @@
            to increase UI_MAX_IN_LEN (2^32) - 2
         */
         #define UI_MAX_IN_LEN (UINT16_MAX - 2U)
-    #else
-        #error UI_MAX_IN_LEN already defined in __FILE__ at line (__LINE__ - 2)
+    #endif
+
+    // error checking
+    #if UI_MAX_IN_LEN > 65533
+        #error UI_MAX_IN_LEN MAX exceeded
     #endif // end UI_MAX_IN_LEN
     
 #endif // end include guard

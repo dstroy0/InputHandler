@@ -18,51 +18,100 @@
 #if !defined(__INPUTHANDLER_ADVANCED_CONFIG_H__)
     #define __INPUTHANDLER_ADVANCED_CONFIG_H__
 
-    // uncomment to enable debug
-    //#define __DEBUG_USER_INPUT__
+    /*
+        DEBUGGING
 
-    // then uncomment which method(s) to debug
-    #if defined(__DEBUG_USER_INPUT__)
-    //#define __DEBUG_GETCOMMANDFROMSTREAM__
-    //#define __DEBUG_READCOMMANDFROMBUFFER__
-    //#define __DEBUG_GET_TOKEN__
-    //#define __DEBUG_SUBCOMMAND_SEARCH__
-    //#define __DEBUG_ADDCOMMAND__
-    //#define __DEBUG_LAUNCH_LOGIC__
-    //#define __DEBUG_LAUNCH_FUNCTION__
-    #endif // debug section
+        switch these on/off by using #define before including the library
+    */
+
+    #if defined(DEBUG_GETCOMMANDFROMSTREAM)
+        #define __DEBUG_GETCOMMANDFROMSTREAM__
+    #endif
+    #if defined(DEBUG_READCOMMANDFROMBUFFER)
+        #define __DEBUG_READCOMMANDFROMBUFFER__
+    #endif
+    #if defined(DEBUG_GET_TOKEN)
+        #define __DEBUG_GET_TOKEN__
+    #endif
+    #if defined(DEBUG_SUBCOMMAND_SEARCH)
+        #define __DEBUG_SUBCOMMAND_SEARCH__
+    #endif
+    #if defined(DEBUG_ADDCOMMAND)
+        #define __DEBUG_ADDCOMMAND__
+    #endif
+    #if defined(DEBUG_LAUNCH_LOGIC)
+        #define __DEBUG_LAUNCH_LOGIC__
+    #endif
+    #if defined(DEBUG_LAUNCH_FUNCTION)
+        #define __DEBUG_LAUNCH_FUNCTION__
+    #endif
 
     /*
         OPTIONAL METHODS
 
-        comment out to DISABLE and save some program space
-        for your implementation, disabling these methods will break some examples
-        some of these methods depend on other methods, 
+        switch these on/off by using #define DISABLE_<method> before including the library        
     */
     
     //  public methods
-    #define ENABLE_listSettings
-    #define ENABLE_listCommands
-    #define ENABLE_getCommandFromStream
-    #define ENABLE_nextArgument
-    #define ENABLE_getArgument
-    #define ENABLE_outputIsAvailable
-    #define ENABLE_outputIsEnabled
-    #define ENABLE_outputToStream
-    #define ENABLE_clearOutputBuffer
+    #if !defined(DISABLE_listSettings)
+        #define ENABLE_listSettings
+    #endif
+    #if !defined(DISABLE_listCommands)
+        #define ENABLE_listCommands
+    #endif
+    #if !defined(DISABLE_getCommandFromStream)
+        #define ENABLE_getCommandFromStream
+    #endif
+    #if !defined(DISABLE_nextArgument)
+        #define ENABLE_nextArgument
+    #endif
+    #if !defined(DISABLE_getArgument)
+        #define ENABLE_getArgument
+    #endif
+    #if !defined(DISABLE_outputIsAvailable)
+        #define ENABLE_outputIsAvailable
+    #endif
+    #if !defined(DISABLE_outputIsEnabled)
+        #define ENABLE_outputIsEnabled
+    #endif
+    #if !defined(DISABLE_outputToStream)
+        #define ENABLE_outputToStream
+    #endif
+    #if !defined(DISABLE_clearOutputBuffer)
+        #define ENABLE_clearOutputBuffer
+    #endif
     // private methods
-    #define ENABLE_readCommandFromBufferErrorOutput
+    #if !defined(DISABLE_readCommandFromBufferErrorOutput)
+        #define ENABLE_readCommandFromBufferErrorOutput
+    #endif
 
     /*
         fine-tune the program space needed for your implementation
     */
+   
     // PROGMEM width constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10    ///< UserInput_type_strings_pgm width in bytes
-    #define UI_EOL_SEQ_PGM_LEN 5                ///< IH_eol width in bytes
-    #define UI_DELIM_SEQ_PGM_LEN 5              ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes
-    #define UI_START_STOP_SEQ_PGM_LEN 5         ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b width in bytes
-    #define UI_PROCESS_NAME_PGM_LEN 12          ///< IH_pname width in bytes
-    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc width in bytes
-
+    #if !defined(UI_INPUT_TYPE_STRINGS_PGM_LEN)
+        #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10    ///< UserInput_type_strings_pgm width in bytes
+    #endif
+    
+    #if !defined(UI_EOL_SEQ_PGM_LEN)
+        #define UI_EOL_SEQ_PGM_LEN 5                ///< IH_eol width in bytes
+    #endif
+    
+    #if !defined(UI_DELIM_SEQ_PGM_LEN)
+        #define UI_DELIM_SEQ_PGM_LEN 5              ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes
+    #endif
+    
+    #if !defined(UI_START_STOP_SEQ_PGM_LEN)
+        #define UI_START_STOP_SEQ_PGM_LEN 5         ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b width in bytes
+    #endif
+    
+    #if !defined(UI_PROCESS_NAME_PGM_LEN)
+        #define UI_PROCESS_NAME_PGM_LEN 12          ///< IH_pname width in bytes
+    #endif
+    
+    #if !defined(UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN)
+        #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc width in bytes
+    #endif
 #endif // include guard
 // end of file
