@@ -71,7 +71,7 @@ private:
         size_t buffer_idx = 0;
         size_t corrected_input_idx = 0;
         size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);        
-        char* corrected_input = new char[corrected_input_size]();
+        char* corrected_input = (char*) calloc(corrected_input_size, sizeof(char));        
         for (size_t i = 0; i < len; ++i)
         {
             // if the char following a field sep ',' is another field sep
@@ -91,7 +91,8 @@ private:
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
                 buffer_idx++;
-                memcpy(corrected_input + corrected_input_idx, empty_field_ph, empty_field_ph_len);
+                char* ptr = corrected_input + corrected_input_idx;
+                memcpy(ptr, empty_field_ph, empty_field_ph_len);
                 corrected_input_idx += empty_field_ph_len;
                 if ((char)buffer[buffer_idx] == '*')
                 {
@@ -113,9 +114,9 @@ private:
                 corrected_input_idx++;
                 buffer_idx++;
             }
-        }
+        }        
         sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
-        delete[] corrected_input;
+        free(corrected_input);
     }
 };
 
