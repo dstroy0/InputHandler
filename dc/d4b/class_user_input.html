@@ -137,8 +137,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">UserInput class</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p >These are the methods you use to operate the input handler </p>
-</td></tr>
 <tr class="memitem:a421d477af4581b35c2147a293d767038"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a421d477af4581b35c2147a293d767038">_output_buffer_</a></td></tr>
 <tr class="separator:a421d477af4581b35c2147a293d767038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e369723f3546650cc59c0609f63645"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa8e369723f3546650cc59c0609f63645">_output_buffer_len_</a></td></tr>
@@ -315,9 +313,9 @@ Classes</h2></td></tr>
 <p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <code>_output_enabled_</code> to false if output_buffer is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">output_buffer</td><td>char buffer </td></tr>
+    <tr><td class="paramname">output_buffer</td><td>class output char buffer, implementation specific. NULL by default. </td></tr>
     <tr><td class="paramname">output_buffer_len</td><td>size of output_buffer <a class="el" href="../../da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz(output_buffer)</a> </td></tr>
-    <tr><td class="paramname">input_prm</td><td><a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
+    <tr><td class="paramname">input_prm</td><td><a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct pointer. NULL by default, which causes the ctor to use <em>DEFAULT_UI_INPUT_PRM</em> unless you define your own </td></tr>
   </table>
   </dd>
 </dl>
@@ -751,7 +749,7 @@ false if there were one or more errors </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gtprm</td><td>reference to <a class="el" href="../../d7/d74/struct_user_input_1_1get_tokens_param.html" title="UserInput::getTokensParam UserInput::getTokens() parameters data structure.">getTokensParam</a> struct in getTokens </td></tr>
-    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
+    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
   </table>
   </dd>
 </dl>
@@ -796,7 +794,7 @@ false if there were one or more errors </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gtprm</td><td>reference to <a class="el" href="../../d7/d74/struct_user_input_1_1get_tokens_param.html" title="UserInput::getTokensParam UserInput::getTokens() parameters data structure.">getTokensParam</a> struct in getTokens </td></tr>
-    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
+    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
   </table>
   </dd>
 </dl>
@@ -841,7 +839,7 @@ false if there were one or more errors </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gtprm</td><td>reference to <a class="el" href="../../d7/d74/struct_user_input_1_1get_tokens_param.html" title="UserInput::getTokensParam UserInput::getTokens() parameters data structure.">getTokensParam</a> struct in getTokens </td></tr>
-    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
+    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct </td></tr>
   </table>
   </dd>
 </dl>
@@ -1273,7 +1271,7 @@ false if allocation unsuccessful </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gtprm</td><td><a class="el" href="../../d7/d74/struct_user_input_1_1get_tokens_param.html" title="UserInput::getTokensParam UserInput::getTokens() parameters data structure.">UserInput::getTokensParam</a> struct reference </td></tr>
-    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">InputProcessParameters</a> struct</td></tr>
+    <tr><td class="paramname">input_prm</td><td>reference to <a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct</td></tr>
   </table>
   </dd>
 </dl>

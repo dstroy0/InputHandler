@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="UserInput input process parameters, constructor parameters this struct is an array of pointers to oth...">
+<g id="a_node1"><a xlink:title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">
 <polygon fill="#bfbfbf" stroke="black" points="108,-0.5 108,-19.5 233,-19.5 233,-0.5 108,-0.5"/>
 <text text-anchor="middle" x="170.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputProcessParameters</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="../../dc/da2/struct_input_process_delimiter_sequences.html" target="_top" xlink:title="InputProcessDelimiterSequences struct holds user defined input data delimiters this struct holds info...">
+<g id="a_node2"><a xlink:href="../../dc/da2/struct_input_process_delimiter_sequences.html" target="_top" xlink:title="InputProcessDelimiterSequences struct holds user defined input data delimiters This struct holds info...">
 <polygon fill="none" stroke="black" points="0,-67.5 0,-86.5 161,-86.5 161,-67.5 0,-67.5"/>
 <text text-anchor="middle" x="80.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputProcessDelimiterSequences</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="../../d4/dc0/struct_input_process_start_stop_sequences.html" target="_top" xlink:title="InputProcessStartStopSequences struct holds regex&#45;like start&#45;stop match sequence pairs this struct ho...">
+<g id="a_node3"><a xlink:href="../../d4/dc0/struct_input_process_start_stop_sequences.html" target="_top" xlink:title="InputProcessStartStopSequences struct holds regex&#45;like start&#45;stop match sequence pairs This struct ho...">
 <polygon fill="none" stroke="black" points="179.5,-67.5 179.5,-86.5 343.5,-86.5 343.5,-67.5 179.5,-67.5"/>
 <text text-anchor="middle" x="261.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">InputProcessStartStopSequences</text>
 </a>
