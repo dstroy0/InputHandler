@@ -380,8 +380,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
     if (rprm.split_input != NULL)
-    {
-        Serial.println(F("free split_input"));
+    {        
         free(rprm.split_input);
         rprm.split_input = NULL;
     }
