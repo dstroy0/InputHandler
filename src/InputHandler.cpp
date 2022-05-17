@@ -264,13 +264,13 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _rcfbprm rprm;
     // initial settings
     rprm.launch_attempted = false;               // made it to launchFunction if true
-    rprm.command_matched = false;                // error sentinel
-    rprm.all_arguments_valid = true;             // error sentinel
-    rprm.subcommand_matched = false;             // subcommand match flag
-    rprm.cmd = NULL;                             // command parameters pointer
+    rprm.command_matched = false;                // error sentinel, true if error
+    rprm.all_arguments_valid = true;             // error sentinel, false if error
+    rprm.subcommand_matched = false;             // subcommand match flag, true on match
+    rprm.cmd = NULL;                             // command parameters pointer (for loop linked-list iterator)
     rprm.all_wcc_cmd = NULL;                     // all wcc cmd ptr, NULL if no all wcc cmd
     rprm.result = no_match;                      // the result of UserInput::_compareCommandToString
-    rprm.command_id = root;                      // 16-bit command id
+    rprm.command_id = root;                      // 16-bit command id starts at root
     rprm.idx = 0;                                // CommandParameters index
     rprm.all_wcc_idx = 0;                        // index of all wcc CommandParameters
     rprm.input_len = len;                        // input_len can change, len cannot
@@ -279,40 +279,21 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     rprm.input_data = data;                      // working pointer, can point at data or split_input
     rprm.split_input = NULL;                     // split input will be NULL unless there are zero delim commands
 
-    if (num_zdc != 0) // if there are zero delim commands
+    if (UserInput::_splitZDC(rprm, num_zdc, zdc))
     {
-        uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);
-        rprm.input_len = rprm.input_len + delim_len + 1U;
-        rprm.token_buffer_len++;        
-        rprm.split_input = (uint8_t*) calloc(rprm.input_len, sizeof(uint8_t));
-        if (rprm.split_input == nullptr) // if there was an error allocating the memory
-        {            
-            #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
-            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
-            #endif
-            return;
-        }
-        if (UserInput::_splitZDC(rprm, num_zdc, zdc))
-        {
-            rprm.input_data = rprm.split_input; // the input command and data have been split
-        }
-        else // free allocated memory and fail-through
-        {
-            rprm.input_len = rprm.input_len - (delim_len + 1U); // resize input len            
-            free(rprm.split_input);
-            rprm.split_input = NULL;
-        }
+        rprm.input_data = rprm.split_input; // the input command and data have been split
     }
 
-    _token_buffer_ = (char*) calloc(rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
+    _token_buffer_ = (char *) calloc(rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == nullptr)                      // if there was an error allocating the memory
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         if (rprm.split_input != NULL)
-        {            
+        {               
             free(rprm.split_input);
+            rprm.split_input = NULL;
         }
         return;
     }
@@ -333,15 +314,20 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         _null_,                // token_buffer sep char, _null_ == '\0'
     };
     // tokenize the input
-    rprm.tokens_received = UserInput::getTokens(gtprm, _input_prm_);
-    _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received
+    rprm.tokens_received = UserInput::getTokens(gtprm, _input_prm_);        
+    _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received    
     if (rprm.tokens_received == 0)                    // error condition
     {
         if (rprm.split_input != NULL)
-        {
+        {            
             free(rprm.split_input);
+            rprm.split_input = NULL;
         }
-        free(_token_buffer_);
+        if (_token_buffer_ != NULL)
+        {
+            free(_token_buffer_);
+            _token_buffer_ = NULL;
+        }
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
@@ -393,10 +379,16 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         _data_pointers_[i] = NULL; // reinit _data_pointers_
     }
-    free(_token_buffer_);    
     if (rprm.split_input != NULL)
     {
+        Serial.println(F("free split_input"));
         free(rprm.split_input);
+        rprm.split_input = NULL;
+    }
+    if (_token_buffer_ != NULL)
+    {
+        free(_token_buffer_);
+        _token_buffer_ = NULL;
     }    
 }
 
@@ -1224,21 +1216,39 @@ void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParamete
 
 inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc)
 {
-    InputProcessDelimiterSequences pdelimseq;
-    memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
-    for (size_t i = 0; i < num_zdc; ++i) // look for zero delim commands and put a delimiter between the command and data
+    if (num_zdc != 0) // if there are zero delim commands
     {
-        size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length)); // read command len from CommandParameters object
-        if (memcmp_P(rprm.input_data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
-        {            
-            char* ptr = (char*)rprm.split_input;
-            memcpy(rprm.split_input, rprm.input_data, cmd_len_pgm);                                                                     // copy the command into token buffer
-            ptr = (char*)rprm.split_input + cmd_len_pgm;
-            memcpy(ptr, pdelimseq.delimiter_sequences[0], pdelimseq.delimiter_lens[0]);         // copy the delimiter into token buffer after the command
-            ptr = (char*)rprm.split_input + cmd_len_pgm + pdelimseq.delimiter_lens[0];
-            memcpy(ptr, rprm.input_data + cmd_len_pgm, (rprm.input_len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer            
-            return true;
+        InputProcessDelimiterSequences pdelimseq;
+        uint8_t delim_len = pgm_read_byte(&_input_prm_.pdelimseq->delimiter_lens[0]);
+        size_t split_input_len = rprm.input_len + delim_len + 1U;
+
+        rprm.split_input = (uint8_t*)calloc(split_input_len, sizeof(uint8_t));
+        if (rprm.split_input == NULL) // if there was an error allocating the memory
+        {
+            #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+            UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
+            #endif
+            return false;
         }
+
+        memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
+        for (size_t i = 0; i < num_zdc; ++i) // look for zero delim commands and put a delimiter between the command and data
+        {
+            size_t cmd_len_pgm = pgm_read_dword(&(zdc[i]->command_length));       // read command len from CommandParameters object
+            if (memcmp_P(rprm.input_data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
+            {
+                char* ptr = (char*)rprm.split_input;
+                memcpy(rprm.split_input, rprm.input_data, cmd_len_pgm); // copy the command into token buffer
+                ptr = (char*)rprm.split_input + cmd_len_pgm;
+                memcpy(ptr, pdelimseq.delimiter_sequences[0], pdelimseq.delimiter_lens[0]); // copy the delimiter into token buffer after the command
+                ptr = (char*)rprm.split_input + cmd_len_pgm + pdelimseq.delimiter_lens[0];
+                char* src = (char*)rprm.input_data + cmd_len_pgm;
+                memcpy(ptr, src, (rprm.input_len - delim_len)); // copy the data after the command and delimiter into token buffer
+                rprm.token_buffer_len++;
+                rprm.input_len = split_input_len;
+                return true;
+            }
+        } // end for loop
     }
     return false;
 }
