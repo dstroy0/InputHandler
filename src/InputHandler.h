@@ -17,6 +17,8 @@
 #ifndef __USER_INPUT_HANDLER_H__
     #define __USER_INPUT_HANDLER_H__
 
+    // user configurable items located in src/config/config.h and src/config/advanced_config.h
+    // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
 
 /**
