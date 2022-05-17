@@ -1245,6 +1245,7 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
 
 void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges)
 {
+    // this function is only used inside of UserInput::addCommand() and is not iterated over in loop()
     if (prm.has_wildcards == true) // if this command has wildcards
     {
         IH_wcc wcc;                                    // char array to hold WildCard Character (wcc)
@@ -1253,15 +1254,15 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
         memcpy_P(&wcc, _input_prm_.pwcc, sizeof(wcc)); // copy WildCard Character (wcc) to ram
         for (size_t i = 0; i < prm.command_length; ++i)
         {
-            if (prm.command[cmd_str_pos] == wcc[0])
+            if (prm.command[i] == wcc[0]) // detect wildcard char
             {
-                cmd_str_pos++;
+                cmd_str_pos++; // use cmd_str_pos as temp counter
             }
         }
-        if (cmd_str_pos == strlen(prm.command))
+        if (cmd_str_pos == strlen(prm.command)) // all wildcard char command, strlen is safe to use on prm.command
         {
-            memcmp_ranges[0] = 255;
-            memcmp_ranges[1] = 255;
+            memcmp_ranges[0] = UI_ALL_WCC_CMD;
+            memcmp_ranges[1] = UI_ALL_WCC_CMD;
             memcmp_ranges_idx = 2;
         }
         else
@@ -1287,7 +1288,7 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
                 }
                 cmd_str_pos++; // increment char array index
             }
-            if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
+            if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2 
             {
                 memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; // remember the end of the array                
                 memcmp_ranges_idx++;

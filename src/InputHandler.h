@@ -115,7 +115,12 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 
 /**
  * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
- * this struct holds information about the delimiter sequences the process will be using
+ * This struct holds information about the delimiter sequences the process will be using.
+ * A delimiter sequence is a predefined number or set of numbers that is used to separate
+ * input arguments, subcommands or data.  The input process needs to know three things
+ * about the delimiter sequences you want to use.  The number of delimiter sequences there are
+ * (up to UI_MAX_DELIM_SEQ), the 8-bit byte (char) length of each delimiter sequence, and 
+ * finally each delimiter sequence which can be up to UI_DELIM_SEQ_PGM_LEN in length.
  */
 struct InputProcessDelimiterSequences
 {
@@ -126,7 +131,14 @@ struct InputProcessDelimiterSequences
 
 /**
  * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
- * this struct holds information about the start-stop sequence pairs the process will be using
+ * This struct holds information about the start-stop sequence pairs the process will be using.
+ * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
+ * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
+ * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know 
+ * three things about the start-stop sequences you want to use.  The number of start-stop 
+ * sequences there are (up to UI_MAX_START_STOP_SEQ), the 8-bit byte (char) length of each 
+ * start-stop sequence, and finally each start-stop sequence which can be up to 
+ * UI_START_STOP_SEQ_PGM_LEN in length.
  */
 struct InputProcessStartStopSequences
 {
@@ -137,32 +149,32 @@ struct InputProcessStartStopSequences
 
 /**
  * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
- * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
- * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
- * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
- * this is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_wcc[2];
 
 /**
  * @brief UserInput input process parameters, constructor parameters
- * this struct is an array of pointers to other structs/arrays contained in PROGMEM
- * it's required by the input process
+ * This struct is an array of pointers to other structs/arrays contained in PROGMEM
+ * It's required by the input process, all together they define the input process behavior
  */
 struct InputProcessParameters
 {
@@ -297,8 +309,6 @@ class UserInput
 public:
     /**
      * @name UserInput class
-     *
-     * These are the methods you use to operate the input handler
      */
 
     /**
@@ -308,9 +318,9 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param output_buffer char buffer
+     * @param output_buffer class output char buffer, implementation specific.  NULL by default.
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
-     * @param input_prm InputProcessParameters struct
+     * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the ctor to use _DEFAULT_UI_INPUT_PRM_ unless you define your own
      */
     UserInput(char* output_buffer = NULL, size_t output_buffer_len = 0, const InputProcessParameters* input_prm = NULL)
         : _output_buffer_(output_buffer),

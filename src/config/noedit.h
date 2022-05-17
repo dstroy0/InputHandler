@@ -30,6 +30,9 @@
     #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
     #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
 
+    // UserInput::_calcCmdMemcmpRanges specific
+    #define UI_ALL_WCC_CMD 255 // this should be the MAX of the containing array
+
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
     #define buffsz(x) nprms(x)                    // gets the number of elements in an array
