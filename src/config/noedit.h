@@ -17,7 +17,7 @@
 
 #if !defined(__INPUTHANDLER_NOEDIT_H__)
     #define __INPUTHANDLER_NOEDIT_H__
-    
+
     #include <Arduino.h>
     #include "config.h"
     #include "advanced_config.h"
