@@ -172,7 +172,7 @@ void UserInput::listSettings(UserInput* inputProcess)
         }
     }
     char* buf = (char*) calloc(buf_sz * UI_ESCAPED_CHAR_STRLEN, sizeof(char)); // allocate char buffer large enough to print these potential control characters
-    if (buf == nullptr)
+    if (buf == NULL)
     {
         UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));
         return;
@@ -285,7 +285,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
 
     _token_buffer_ = (char *) calloc(rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
-    if (_token_buffer_ == nullptr)                      // if there was an error allocating the memory
+    if (_token_buffer_ == NULL)                      // if there was an error allocating the memory
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
@@ -401,7 +401,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
     if (_stream_buffer_allocated_ == false)
     {
         _stream_data_ = (uint8_t*) calloc(rx_buffer_size, sizeof(uint8_t)); // an array to store the received data
-        if (_stream_data_ == nullptr)                  // if there was an error allocating the memory
+        if (_stream_data_ == NULL)                  // if there was an error allocating the memory
         {
             #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
             UserInput::_ui_out(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"), (char*)pgm_read_dword(_input_prm_.pname));
@@ -1068,7 +1068,7 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
     memcpy_P(&delimseq, input_prm.pdelimseq, sizeof(delimseq));
     bool found_delimiter_sequence = false;
     bool match = false; // match delimiter sequence sentinel
-    do                  // skip over delimiters
+    do                  // skip over delimiters; do-while loops iterate at least once
     {
         match = false;
         for (size_t i = 0; i < delimseq.num_seq; ++i)
@@ -1097,7 +1097,7 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
         {
             found_delimiter_sequence = true;
         }
-    } while (match == true);
+    } while (match == true); // end do-while loop
     if (found_delimiter_sequence == true && (gtprm.data_pos + _term_len_ < gtprm.len))
     {
         gtprm.point_to_beginning_of_token = true;
@@ -1306,15 +1306,15 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
 }
 
 inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
-{
-    size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length));
-    size_t input_len = strlen(str);    
+{    
+    size_t cmd_len_pgm = pgm_read_dword(&(cmd->prm[prm_idx].command_length)); // the length of the command in PROGMEM
+    size_t input_len = strlen(str); // the length of the input, str is a token in _token_buffer_ it is safe to assume it is null terminated
 
     if (input_len != cmd_len_pgm) // no match (length different)
     {
         return no_match;
     }
-    
+
     UI_COMPARE retval = no_match;
     
     if (!(bool)pgm_read_byte(&cmd->prm[prm_idx].has_wildcards)) // no wildcards
@@ -1330,12 +1330,12 @@ inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, si
     }
     else // has wildcards
     {
-        if (cmd->calc->memcmp_ranges_arr[prm_idx][0] != 255 && cmd->calc->memcmp_ranges_arr[prm_idx][1] != 255)
+        if (cmd->calc->memcmp_ranges_arr[prm_idx][0] != UI_ALL_WCC_CMD && cmd->calc->memcmp_ranges_arr[prm_idx][1] != UI_ALL_WCC_CMD) // but is not an all wcc cmd
         {
-            for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2)
+            for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2) // iterate through memcmp range sets
             {
                 long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
-                result = abs(result);
+                result = abs(result); // remove the sign
                 size_t size = ((size_t)result == 0)
                     ? 1
                     : (size_t)result;
@@ -1350,7 +1350,7 @@ inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, si
                 }
             }            
         }
-        else if (cmd_len_pgm == input_len && cmd->calc->memcmp_ranges_arr[prm_idx][0] == 255 && cmd->calc->memcmp_ranges_arr[prm_idx][1] == 255) // all wcc
+        else if (cmd_len_pgm == input_len && cmd->calc->memcmp_ranges_arr[prm_idx][0] == UI_ALL_WCC_CMD && cmd->calc->memcmp_ranges_arr[prm_idx][1] == UI_ALL_WCC_CMD) // all wcc
         {
             retval = match_all_wcc_cmd;
         }

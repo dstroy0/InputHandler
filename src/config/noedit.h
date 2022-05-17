@@ -29,8 +29,12 @@
     // sizing macros
     #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
     #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
+    
+    // alloc TYPE macros
 
-    // UserInput::_calcCmdMemcmpRanges specific
+
+
+    // UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
     #define UI_ALL_WCC_CMD 255 // this should be the MAX of the containing array
 
     // function-like macros
