@@ -1230,7 +1230,6 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
             #endif
             return false;
         }
-
         memcpy_P(&pdelimseq, _input_prm_.pdelimseq, sizeof(pdelimseq));
         for (size_t i = 0; i < num_zdc; ++i) // look for zero delim commands and put a delimiter between the command and data
         {
