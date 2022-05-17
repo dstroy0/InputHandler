@@ -1242,7 +1242,7 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
                 memcpy(ptr, pdelimseq.delimiter_sequences[0], pdelimseq.delimiter_lens[0]); // copy the delimiter into token buffer after the command
                 ptr = (char*)rprm.split_input + cmd_len_pgm + pdelimseq.delimiter_lens[0];
                 char* src = (char*)rprm.input_data + cmd_len_pgm;
-                memcpy(ptr, src, (rprm.input_len - delim_len)); // copy the data after the command and delimiter into token buffer
+                memcpy(ptr, src, (rprm.input_len - cmd_len_pgm)); // copy the data after the command and delimiter into token buffer
                 rprm.token_buffer_len++;
                 rprm.input_len = split_input_len;
                 return true;
