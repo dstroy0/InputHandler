@@ -95,9 +95,9 @@ enum class UITYPE
     _LAST       ///<  reserved
 };
 
-/** 
+/**
  * @brief type string literals
- * input type string literal PROGMEM array, each of the types in UITYPE has 
+ * input type string literal PROGMEM array, each of the types in UITYPE has
  * a corresponding string literal for display purposes
  */
 const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
@@ -119,7 +119,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
  * input arguments, subcommands or data.  The input process needs to know three things
  * about the delimiter sequences you want to use.  The number of delimiter sequences there are
- * (up to UI_MAX_DELIM_SEQ), the 8-bit byte (char) length of each delimiter sequence, and 
+ * (up to UI_MAX_DELIM_SEQ), the 8-bit byte (char) length of each delimiter sequence, and
  * finally each delimiter sequence which can be up to UI_DELIM_SEQ_PGM_LEN in length.
  */
 struct InputProcessDelimiterSequences
@@ -134,10 +134,10 @@ struct InputProcessDelimiterSequences
  * This struct holds information about the start-stop sequence pairs the process will be using.
  * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
  * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
- * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know 
- * three things about the start-stop sequences you want to use.  The number of start-stop 
- * sequences there are (up to UI_MAX_START_STOP_SEQ), the 8-bit byte (char) length of each 
- * start-stop sequence, and finally each start-stop sequence which can be up to 
+ * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know
+ * three things about the start-stop sequences you want to use.  The number of start-stop
+ * sequences there are (up to UI_MAX_START_STOP_SEQ), the 8-bit byte (char) length of each
+ * start-stop sequence, and finally each start-stop sequence which can be up to
  * UI_START_STOP_SEQ_PGM_LEN in length.
  */
 struct InputProcessStartStopSequences
@@ -226,7 +226,7 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
 
 /**
  * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime
- * these structs are associated with wildcard commands; every CommandConstructor 
+ * these structs are associated with wildcard commands; every CommandConstructor
  * that has a CommandParameters which contains wildcards will have a CommandRuntimeCalc
  */
 struct CommandRuntimeCalc
@@ -413,7 +413,7 @@ public:
      */
     void listCommands();
     #endif
-    
+
     /**
      * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
      *
@@ -443,7 +443,7 @@ public:
      * silent return if UserInput::_begin_ == false
      * @param data a buffer with characters
      * @param len the size of the buffer
-     * @param num_zdc size of CommandParameters zero delimiter command pointers array 
+     * @param num_zdc size of CommandParameters zero delimiter command pointers array
      * @param zdc array of CommandParameters zero delimiter command pointers
      */
     void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
@@ -457,7 +457,7 @@ public:
      * silent return if UserInput::_begin_ == false
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param num_zdc size of CommandParameters zero delimiter command pointers array 
+     * @param num_zdc size of CommandParameters zero delimiter command pointers array
      * @param zdc array of CommandParameters zero delimiter command pointers
      */
     void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);

@@ -55,7 +55,7 @@
         */
         #define UI_MAX_SUBCOMMANDS 32
     #endif
-    
+
     // error checking
     #if UI_MAX_SUBCOMMANDS > 255
         #error UI_MAX_SUBCOMMANDS MAX == 255
@@ -114,6 +114,6 @@
     #if UI_MAX_IN_LEN > 65533
         #error UI_MAX_IN_LEN MAX exceeded
     #endif // end UI_MAX_IN_LEN
-    
+
 #endif // end include guard
 // end of file
