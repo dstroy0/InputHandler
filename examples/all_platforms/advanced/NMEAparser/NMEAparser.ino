@@ -126,7 +126,7 @@ void setup()
 {
   delay(500); // startup delay for reprogramming
 
-  Serial.begin(115200); //  set up Serial object (Stream object)
+  Serial.begin(2000000); //  set up Serial object (Stream object)
 
   while (!Serial)
     ; //  wait for user
@@ -136,17 +136,23 @@ void setup()
 
   sensorParser.addCommand(NMEA_sentence);       // regular sentence
   sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
-  inputHandler.begin();                         // required.  returns true on success.  
-  sensorParser.begin();  
+  inputHandler.begin();                         // required.  returns true on success.
+  sensorParser.begin();
   Serial.println(F("end setup"));
   inputHandler.outputToStream(Serial); // class output
 
   // temp testing
   uint8_t buffer[36] {};
-  memcpy(buffer, gpbwc, strlen(gpbwc));  
-  NMEA.parseSentence(buffer, strlen(gpbwc));      
-  memcpy(buffer, gpgsa, strlen(gpgsa));
-  NMEA.parseSentence(buffer, strlen(gpgsa));  
+  for (size_t i = 0; i < 1000000; ++i)
+  {
+    memcpy(buffer, gpbwc, strlen(gpbwc));
+    NMEA.parseSentence(buffer, strlen(gpbwc));
+    sensorParser.outputToStream(Serial);
+    memcpy(buffer, gpgsa, strlen(gpgsa));
+    NMEA.parseSentence(buffer, strlen(gpgsa));
+    sensorParser.outputToStream(Serial);
+    Serial.println(i);
+  }
 }
 
 void loop()
