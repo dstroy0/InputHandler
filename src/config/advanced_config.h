@@ -45,6 +45,9 @@
     #if defined(DEBUG_LAUNCH_FUNCTION)
         #define __DEBUG_LAUNCH_FUNCTION__
     #endif
+    #if defined(DEBUG_INCLUDE_FREERAM)
+        #include "utility/freeRam.h"
+    #endif 
 
     /*
         OPTIONAL METHODS

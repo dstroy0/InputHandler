@@ -53,6 +53,7 @@
     https://gpsd.gitlab.io/gpsd/NMEA.html
 */
 
+#define DEBUG_INCLUDE_FREERAM 1
 #include <InputHandler.h>
 #include "parser/NMEAparser.h"
 
@@ -126,7 +127,7 @@ void setup()
 {
   delay(500); // startup delay for reprogramming
 
-  Serial.begin(2000000); //  set up Serial object (Stream object)
+  Serial.begin(115200); //  set up Serial object (Stream object)
 
   while (!Serial)
     ; //  wait for user
@@ -140,7 +141,29 @@ void setup()
   sensorParser.begin();
   Serial.println(F("end setup"));
   inputHandler.outputToStream(Serial); // class output
-
+  Serial.println(F("continue? y/n"));
+  while(!Serial.available()) 
+  {
+    delay(1);
+  }
+  bool halt = false;
+  while(Serial.available())
+  {
+    char rc = Serial.read();
+    if (rc == 'y')
+    {
+      break;
+    }
+    if (rc =='n')
+    {
+      halt = true;
+      break;
+    }
+  }
+  if (halt == true)
+  {
+    while(1);
+  }
   // temp testing
   uint8_t buffer[36] {};
   for (size_t i = 0; i < 1000000; ++i)
@@ -151,7 +174,7 @@ void setup()
     memcpy(buffer, gpgsa, strlen(gpgsa));
     NMEA.parseSentence(buffer, strlen(gpgsa));
     sensorParser.outputToStream(Serial);
-    Serial.println(i);
+    Serial.print(F("free ram: "));Serial.print(freeRam());Serial.print(F(" iteration: "));Serial.println(i);
   }
 }
 
