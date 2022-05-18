@@ -1,5 +1,6 @@
 var _n_m_e_aparser_8ino =
 [
+    [ "DEBUG_INCLUDE_FREERAM", "dd/d65/_n_m_e_aparser_8ino.html#ad757fda0b6670fbe80442d684eb7061b", null ],
     [ "loop", "dd/d65/_n_m_e_aparser_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
     [ "setup", "dd/d65/_n_m_e_aparser_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
     [ "unrecognized", "dd/d65/_n_m_e_aparser_8ino.html#af1c9961e6ce9d564faa79ba105238e86", null ],
