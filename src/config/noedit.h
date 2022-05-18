@@ -31,7 +31,7 @@
     #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
     
     // alloc TYPE macros
-
+    
 
 
     // UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
