@@ -29,11 +29,14 @@
           int v;
           return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
         }
-    #endif
 
     // esp "freeRam" built-in ESP.getFreeHeap()
-    #if defined(ESP32) || defined(ESP8266)
+    #elif defined(ESP32) || defined(ESP8266)
         #define freeRam() ESP.getFreeHeap()
+    
+    // add support
+    #else
+        #define freeRam() "not supported"
     #endif
 
 #endif
