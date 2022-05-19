@@ -29,18 +29,18 @@
     // sizing macros
     #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
     #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
-    
-    // alloc TYPE macros
-    
 
+    // alloc TYPE macros
 
     // UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
     #define UI_ALL_WCC_CMD 255 // this should be the MAX of the containing array
+    // end magic number
 
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
     #define buffsz(x) nprms(x)                    // gets the number of elements in an array
     #define nelems(x) nprms(x)                    // gets the number of elements in an array
+    // end function-like macros
 
     // portability directives
     #if !defined(UINT16_MAX)
@@ -94,6 +94,31 @@
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
+    // end portability directives
+
+    // config error checking
+    #if UI_MAX_ARGS > 255
+        #error UI_MAX_ARGS MAX == 255
+    #endif
+    #if UI_MAX_DEPTH > 255
+        #error UI_MAX_DEPTH MAX == 255
+    #endif
+    #if UI_MAX_SUBCOMMANDS > 255
+        #error UI_MAX_SUBCOMMANDS MAX == 255
+    #endif
+    #if UI_MAX_CMD_LEN > 255
+        #error UI_MAX_CMD_LEN MAX == 255
+    #endif
+    #if UI_MAX_DELIM_SEQ > 255
+        #error UI_MAX_DELIM_SEQ MAX == 255
+    #endif
+    #if UI_MAX_START_STOP_SEQ > 255
+        #error UI_MAX_START_STOP_SEQ MAX == 255
+    #endif
+    #if UI_MAX_IN_LEN > 65533
+        #error UI_MAX_IN_LEN MAX exceeded
+    #endif
+    // end config error checking
 
 #endif // end include guard
 // end of file
