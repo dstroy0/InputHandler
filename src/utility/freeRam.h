@@ -20,9 +20,9 @@
 
     #include <Arduino.h>
 
-    // not esp32 or esp8266 freeRam()
+    // avr
     // https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8
-    #if !defined(ESP32) || !defined(ESP8266)
+    #if defined(ARDUINO_ARCH_AVR)
         int freeRam()
         {
           extern int __heap_start, *__brkval;
@@ -33,7 +33,19 @@
     // esp "freeRam" built-in ESP.getFreeHeap()
     #elif defined(ESP32) || defined(ESP8266)
         #define freeRam() ESP.getFreeHeap()
-    
+
+    // teensy 4.x freeram()
+    // Paul Stoffregen - 
+    // https://forum.pjrc.com/threads/33443-How-to-display-free-ram
+    #elif defined(TEENSYDUINO)
+        extern unsigned long _heap_start;
+        extern unsigned long _heap_end;
+        extern char* __brkval;
+        int freeram()
+        {
+          return (char*)&_heap_end - __brkval;
+        }
+
     // add support
     #else
         #define freeRam() "not supported"
