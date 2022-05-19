@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['getargument_0',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
-  ['getcommandfromstream_1',['getCommandFromStream',['../dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d',1,'UserInput']]],
-  ['gettokens_2',['getTokens',['../dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718',1,'UserInput']]],
-  ['getuserinput_3',['getUserInput',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a3f308f9158c987649962e11efb7a0cec',1,'BLE_UART.ino']]]
+  ['hello_0',['hello',['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ada85df6483e8ab9967f07c78c3a86e6c',1,'GetCommandFromStream.ino']]],
+  ['help_1',['help',['../d4/ded/debugging_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;debugging.ino'],['../d8/d5c/functions_8h.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;functions.h'],['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;ReadCommandFromBufferMQTT.ino'],['../d1/d96/_wildcard_commands_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;WildcardCommands.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;ReadCommandFromBufferWebSerial.ino']]],
+  ['help_5f_2',['help_',['../d6/d3b/parameters_8h.html#ab397598925f5b2756a9e58e8eb72fcac',1,'parameters.h']]]
 ];

@@ -129,10 +129,10 @@ $(document).ready(function(){initNavTree('d5/d8e/free_ram_8h_source.html','../..
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    #include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// not esp32 or esp8266 freeRam()</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// avr</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">    #if !defined(ESP32) || !defined(ESP8266)</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d5/d8e/free_ram_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">   26</a></span>        <span class="keywordtype">int</span> <a class="code hl_function" href="../../d5/d8e/free_ram_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">    #if defined(ARDUINO_ARCH_AVR)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">int</span> <a class="code hl_define" href="../../d5/d8e/free_ram_8h.html#ae84ff4a2378dde052719e37314ab0e57">freeRam</a>()</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>          <span class="keyword">extern</span> <span class="keywordtype">int</span> __heap_start, *__brkval;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>          <span class="keywordtype">int</span> v;</div>
@@ -142,16 +142,28 @@ $(document).ready(function(){initNavTree('d5/d8e/free_ram_8h_source.html','../..
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// esp &quot;freeRam&quot; built-in ESP.getFreeHeap()</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">    #elif defined(ESP32) || defined(ESP8266)</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">        #define freeRam() ESP.getFreeHeap()</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// add support</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">        #define freeRam() &quot;not supported&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// end of file</span></div>
-<div class="ttc" id="afree_ram_8h_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="../../d5/d8e/free_ram_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdef"><b>Definition:</b> freeRam.h:26</div></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// teensy 4.x freeram()</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">// Paul Stoffregen - </span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// https://forum.pjrc.com/threads/33443-How-to-display-free-ram</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">    #elif defined(TEENSYDUINO)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> _heap_start;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> _heap_end;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">extern</span> <span class="keywordtype">char</span>* __brkval;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">int</span> freeram()</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          <span class="keywordflow">return</span> (<span class="keywordtype">char</span>*)&amp;_heap_end - __brkval;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// add support</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../d5/d8e/free_ram_8h.html#ae84ff4a2378dde052719e37314ab0e57">   51</a></span><span class="preprocessor">        #define freeRam() &quot;not supported&quot;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// end of file</span></div>
+<div class="ttc" id="afree_ram_8h_html_ae84ff4a2378dde052719e37314ab0e57"><div class="ttname"><a href="../../d5/d8e/free_ram_8h.html#ae84ff4a2378dde052719e37314ab0e57">freeRam</a></div><div class="ttdeci">#define freeRam()</div><div class="ttdef"><b>Definition:</b> freeRam.h:51</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
