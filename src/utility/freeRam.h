@@ -35,9 +35,9 @@
         #define freeRam() ESP.getFreeHeap()
 
     // teensy 4.x freeram()
-    // Paul Stoffregen - 
-    // https://forum.pjrc.com/threads/33443-How-to-display-free-ram
-    #elif defined(TEENSYDUINO)
+    // Paul Stoffregen - https://forum.pjrc.com/threads/62104-Teensy-4-and-4-1-pre-processor-defines
+    // Paul Stoffregen - https://forum.pjrc.com/threads/33443-How-to-display-free-ram
+    #elif defined(DARDUINO_TEENSY41) || defined(DARDUINO_TEENSY4)
         extern unsigned long _heap_start;
         extern unsigned long _heap_end;
         extern char* __brkval;
