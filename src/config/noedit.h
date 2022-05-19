@@ -96,7 +96,7 @@
     #endif
     // end portability directives
 
-    // config error checking
+    // config error checking -- replace these with alloc sizing macros
     #if UI_MAX_ARGS > 255
         #error UI_MAX_ARGS MAX == 255
     #endif
