@@ -233,10 +233,10 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
  */
 struct CommandRuntimeCalc
 {
-    commandruntimecalc_idx_type num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
-    commandruntimecalc_idx_type* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
-    commandruntimecalc_num_memcmp_ranges_type* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
-    commandruntimecalc_num_memcmp_ranges_type** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
+    memcmp_idx_type num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
+    memcmp_idx_type* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
+    num_memcmp_ranges_type* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
+    num_memcmp_ranges_type** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
 
 /**
@@ -612,9 +612,9 @@ private:
     CommandConstructor* _commands_tail_; ///< pointer to object list
     // end linked-list
 
-    uint8_t _commands_count_;       ///< how many commands are there
-    uint8_t _max_depth_;            ///< max command depth found
-    uint8_t _max_args_;             ///< max command or subcommand arguments found
+    max_command_type _commands_count_;       ///< how many commands are there
+    tree_depth_type _max_depth_;            ///< max command depth found
+    num_args_group_type _max_args_;             ///< max command or subcommand arguments found
     input_type_match_flags_type* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
 
     bool _output_flag_; ///< output is available flag, set by member functions
@@ -627,7 +627,7 @@ private:
 
     uint8_t _rec_num_arg_strings_;  ///< number of tokens after first valid token
     uint8_t _failed_on_subcommand_; ///< subcommand error index
-    uint8_t _current_search_depth_; ///< current subcommand search depth
+    tree_depth_type _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char '\0'
     char _neg_;  ///< char '-'
@@ -778,7 +778,7 @@ private:
      * @param memcmp_ranges_idx index of memcmp_ranges
      * @param memcmp_ranges memcmp ranges array
      */
-    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, uint8_t& memcmp_ranges_idx, uint8_t* memcmp_ranges);
+    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, memcmp_idx_type& memcmp_ranges_idx, memcmp_ranges_type* memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command

@@ -28,10 +28,11 @@
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
-
-    // alloc TYPE macros
-    
+    /*
+        Type macros
+    */
     // CommandParameters related macros
+    #define max_command_type uint8_t
     #define command_length_type uint16_t
     #define command_id_group_type uint16_t // affects progmem and ram
     #define tree_depth_type uint8_t
@@ -42,13 +43,13 @@
     #define input_type_match_flags_type bool
 
     // CommandRuntimeCalc
-    #define commandruntimecalc_idx_type uint8_t  // if you want more than 255 commands with wcc change this to uint16_t
-    #define commandruntimecalc_num_memcmp_ranges_type uint8_t // if you want more than 255 memcmp ranges in one command (default is 5)
-    #define commandruntimecalc_memcmp_ranges_type uint8_t // if your commands are longer than 255, change this to uint16_t
+    #define memcmp_idx_type uint8_t  // if you want more than 255 commands with wcc change this to uint16_t
+    #define num_memcmp_ranges_type uint8_t // if you want more than 255 memcmp ranges in one command (default is 5)
+    #define memcmp_ranges_type uint8_t // if your commands are longer than 255, change this to uint16_t
 
     
     // UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
-    #define UI_ALL_WCC_CMD 255 // this should be the MAX of the containing array
+    #define UI_ALL_WCC_CMD ((memcmp_ranges_type)-1) // this should be the MAX of the containing array
     // end magic number
 
     // function-like macros
@@ -112,8 +113,7 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
     // end portability directives
-
-    // config error checking -- replace these with alloc sizing macros
+    
     #if UI_MAX_ARGS > 255
         #error UI_MAX_ARGS MAX == 255
     #endif
@@ -123,8 +123,8 @@
     #if UI_MAX_SUBCOMMANDS > 255
         #error UI_MAX_SUBCOMMANDS MAX == 255
     #endif
-    #if UI_MAX_CMD_LEN > 255
-        #error UI_MAX_CMD_LEN MAX == 255
+    #if UI_MAX_CMD_LEN > 65535
+        #error UI_MAX_CMD_LEN MAX == 65535
     #endif
     #if UI_MAX_DELIM_SEQ > 255
         #error UI_MAX_DELIM_SEQ MAX == 255

@@ -22,7 +22,7 @@
   the size of the output buffer if you try and use "inputSettings",
   this is the buffer it's asking you to increase
 */
-char output_buffer[650] {}; // output buffer
+char output_buffer[652] {}; // output buffer
 
 const PROGMEM IH_pname pname = "_test_";   ///< test process name
 const PROGMEM IH_eol peol = "\r\n";        ///< test process eol characters
@@ -151,7 +151,7 @@ void setup()
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.addCommand(help_);             // lists user commands
   inputHandler.addCommand(settings_);
-  inputHandler.addCommand(rejected_); // this command will be rejected by addCommand error checking, it will not show up in help  
+  inputHandler.addCommand(rejected_); // this command will be rejected by addCommand error checking, it will not show up in help
   inputHandler.begin(); // required.  returns true on success.
   post = freeRam();
   process = pre - post;
@@ -160,9 +160,8 @@ void setup()
   Serial.print(F(" bytes of ram; "));
   Serial.print(post);
   Serial.println(F(" bytes available."));
-  Serial.println((uint8_t)-1);
-  
-  // put the commands you want to test here before begin()  
+
+  // put the commands you want to test here before begin()
 
   Serial.println(F("Do you want to perform a memory-leak test? y/n"));
   while (!Serial.available())
@@ -189,25 +188,25 @@ void setup()
     }
 
     iterations = Serial.parseInt();
-  }
 
-  Serial.print(F("pre-test free ram: "));
-  Serial.println(freeRam());
-  // temp testing
-  for (size_t i = 0; i < iterations; ++i)
-  {
-    inputHandler.listSettings(&inputHandler);
-    inputHandler.outputToStream(Serial); // class output
+    Serial.print(F("pre-test free ram: "));
+    Serial.println(freeRam());
+    // temp testing
+    for (size_t i = 0; i < iterations; ++i)
+    {
+      inputHandler.listSettings(&inputHandler);
+      inputHandler.outputToStream(Serial); // class output
 
-    inputHandler.listCommands();         // formats output_buffer with the command list
-    inputHandler.outputToStream(Serial); // class output
-    Serial.print(F("free ram: "));
-    Serial.print(freeRam());
-    Serial.print(F(" iteration: "));
-    Serial.println(i);
+      inputHandler.listCommands();         // formats output_buffer with the command list
+      inputHandler.outputToStream(Serial); // class output
+      Serial.print(F("free ram: "));
+      Serial.print(freeRam());
+      Serial.print(F(" iteration: "));
+      Serial.println(i);
+    }
+    Serial.print(F("post-test free ram: "));
+    Serial.println(freeRam());
   }
-  Serial.print(F("post-test free ram: "));
-  Serial.println(freeRam());
 }
 
 void loop()
