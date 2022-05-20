@@ -18,9 +18,6 @@
 */
 // start your config
 
-// enable DEBUG before including InputHandler.h
-// #define DEBUG_GETCOMMANDFROMSTREAM // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
-
 // disable OPTIONAL methods before including InputHandler.h
 // #define DISABLE_listSettings 1 // uncomment to DISABLE UserInput::listSettings(); see src/config/advanced_config.h for all the methods you can disable this way
 
