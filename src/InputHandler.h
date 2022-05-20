@@ -298,7 +298,7 @@ public:
     }
     const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
     const uint8_t param_array_len;    ///< user input param array len, either as digits or through nprms
-    const uint8_t tree_depth;         ///< user input depth + 1
+    const tree_depth_type tree_depth;         ///< user input depth + 1
     CommandRuntimeCalc* calc;         ///< pointer to CommandRuntimeCalc struct
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
 };
