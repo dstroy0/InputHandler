@@ -1,10 +1,10 @@
 var searchData=
 [
   ['_5fbegin_5f_0',['_begin_',['../dc/d4b/class_user_input.html#a7a0668fda012a9ef712c10e7ddc8381f',1,'UserInput']]],
-  ['_5fcommands_5fcount_5f_1',['_commands_count_',['../dc/d4b/class_user_input.html#a7d12901b53d132d9003861f12ec5b4f8',1,'UserInput']]],
+  ['_5fcommands_5fcount_5f_1',['_commands_count_',['../dc/d4b/class_user_input.html#a531eff35f3e0f0b4c8b635086d05f649',1,'UserInput']]],
   ['_5fcommands_5fhead_5f_2',['_commands_head_',['../dc/d4b/class_user_input.html#aa61672bb64c83426ffb296b295f07987',1,'UserInput']]],
   ['_5fcommands_5ftail_5f_3',['_commands_tail_',['../dc/d4b/class_user_input.html#a18a476fdeddeec87fb18659133d5739b',1,'UserInput']]],
-  ['_5fcurrent_5fsearch_5fdepth_5f_4',['_current_search_depth_',['../dc/d4b/class_user_input.html#a6cb9ffc5ed6250f75be80a819abaa03d',1,'UserInput']]],
+  ['_5fcurrent_5fsearch_5fdepth_5f_4',['_current_search_depth_',['../dc/d4b/class_user_input.html#a0e3900434d78b1a83bc36938dc139baa',1,'UserInput']]],
   ['_5fdata_5fpointers_5f_5',['_data_pointers_',['../dc/d4b/class_user_input.html#a682b3308f9ee638d4bbb7ad11d06ad66',1,'UserInput']]],
   ['_5fdata_5fpointers_5findex_5f_6',['_data_pointers_index_',['../dc/d4b/class_user_input.html#acee1812eac7354e20935df8e34a43b33',1,'UserInput']]],
   ['_5fdata_5fpointers_5findex_5fmax_5f_7',['_data_pointers_index_max_',['../dc/d4b/class_user_input.html#a69d755c9688bb625191b39c93dab3ff8',1,'UserInput']]],
@@ -15,8 +15,8 @@ var searchData=
   ['_5finput_5fprm_5f_12',['_input_prm_',['../dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706',1,'UserInput']]],
   ['_5finput_5fprm_5fptr_5f_13',['_input_prm_ptr_',['../dc/d4b/class_user_input.html#a8929b496e93f52dedeee8c82a1ca4e9d',1,'UserInput']]],
   ['_5finput_5ftype_5fmatch_5fflags_5f_14',['_input_type_match_flags_',['../dc/d4b/class_user_input.html#acd0892dd7e542928632f8b8be0d05e6e',1,'UserInput']]],
-  ['_5fmax_5fargs_5f_15',['_max_args_',['../dc/d4b/class_user_input.html#a281ff5c48c9df2b0540c35c94d446c85',1,'UserInput']]],
-  ['_5fmax_5fdepth_5f_16',['_max_depth_',['../dc/d4b/class_user_input.html#a46018123018afa030ee257108fce1359',1,'UserInput']]],
+  ['_5fmax_5fargs_5f_15',['_max_args_',['../dc/d4b/class_user_input.html#a79ad058fdb8f7c68cb5fe2112eb3646e',1,'UserInput']]],
+  ['_5fmax_5fdepth_5f_16',['_max_depth_',['../dc/d4b/class_user_input.html#abb02ea98965dc7372eb2213808e87830',1,'UserInput']]],
   ['_5fneg_5f_17',['_neg_',['../dc/d4b/class_user_input.html#ad129cb19ce98376e3afd99dde12a6b46',1,'UserInput']]],
   ['_5fnew_5fstream_5fdata_5f_18',['_new_stream_data_',['../dc/d4b/class_user_input.html#a260a1236b8abca71a87b89f354ff31dd',1,'UserInput']]],
   ['_5fnull_5f_19',['_null_',['../dc/d4b/class_user_input.html#a0716c92410a23ff77acb76816cb07ccb',1,'UserInput']]],

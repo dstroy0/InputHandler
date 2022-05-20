@@ -54,9 +54,10 @@ var searchData=
   ['nprms_51',['nprms',['../da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586',1,'noedit.h']]],
   ['num_5fargs_52',['num_args',['../db/d11/struct_command_parameters.html#a34ac93ce5e1682cce15a760e35bc8d7e',1,'CommandParameters']]],
   ['num_5fargs_5fgroup_5ftype_53',['num_args_group_type',['../da/dc7/noedit_8h.html#a6bd1be54a67615ce13ab1f7625c34bc1',1,'noedit.h']]],
-  ['num_5fmemcmp_5franges_5fthis_5frow_54',['num_memcmp_ranges_this_row',['../dc/d3d/struct_command_runtime_calc.html#a928bffc6fe0d2c8b4208fea1e93db26b',1,'CommandRuntimeCalc']]],
-  ['num_5fprm_5fwith_5fwc_55',['num_prm_with_wc',['../dc/d3d/struct_command_runtime_calc.html#a976e201597bf8c94b15a0396a4e6999b',1,'CommandRuntimeCalc']]],
-  ['num_5fseq_56',['num_seq',['../d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2',1,'InputProcessStartStopSequences::num_seq()'],['../dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735',1,'InputProcessDelimiterSequences::num_seq()']]],
-  ['num_5ftoken_5fptrs_57',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
-  ['num_5fzdc_58',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
+  ['num_5fmemcmp_5franges_5fthis_5frow_54',['num_memcmp_ranges_this_row',['../dc/d3d/struct_command_runtime_calc.html#a3bd425572fb28aab5043d02bfa6a10da',1,'CommandRuntimeCalc']]],
+  ['num_5fmemcmp_5franges_5ftype_55',['num_memcmp_ranges_type',['../da/dc7/noedit_8h.html#aa0062caa8ffa4f7d2648612ab7f4126c',1,'noedit.h']]],
+  ['num_5fprm_5fwith_5fwc_56',['num_prm_with_wc',['../dc/d3d/struct_command_runtime_calc.html#a3d398bdc92cd607832519ab20c46d3b2',1,'CommandRuntimeCalc']]],
+  ['num_5fseq_57',['num_seq',['../d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2',1,'InputProcessStartStopSequences::num_seq()'],['../dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735',1,'InputProcessDelimiterSequences::num_seq()']]],
+  ['num_5ftoken_5fptrs_58',['num_token_ptrs',['../d7/d74/struct_user_input_1_1get_tokens_param.html#ac68db1c8d437f0e8cfdee99c247878ef',1,'UserInput::getTokensParam']]],
+  ['num_5fzdc_59',['num_zdc',['../da/d60/_n_m_e_aparser_8h.html#afa6db1fae1d4fc8eeee022d526a96929',1,'NMEAparser.h']]]
 ];
