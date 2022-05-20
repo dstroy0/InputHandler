@@ -53,7 +53,6 @@
     https://gpsd.gitlab.io/gpsd/NMEA.html
 */
 
-#define DEBUG_INCLUDE_FREERAM 1
 #include <InputHandler.h>
 #include "parser/NMEAparser.h"
 
@@ -61,48 +60,46 @@ extern const CommandParameters sentence_param[], sentence_error_param[]; // zero
 
 char output_buffer[512] {}; //  UserInput output buffer
 
-const PROGMEM IH_pname pname = "";   ///< default process name
+const PROGMEM IH_pname pname = "";         ///< default process name
 const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
 const PROGMEM IH_wcc pwcc = "*";
 
 const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
-  1,    ///< number of delimiter sequences
-  {1},  ///< delimiter sequence lens
-  {" "} ///< delimiter sequences
+    1,    ///< number of delimiter sequences
+    {1},  ///< delimiter sequence lens
+    {" "} ///< delimiter sequences
 };
 
 const PROGMEM InputProcessDelimiterSequences psensordelimseq = {
-  1,    ///< number of delimiter sequences
-  {1},  ///< delimiter sequence lens
-  {","} ///< delimiter sequences
+    1,    ///< number of delimiter sequences
+    {1},  ///< delimiter sequence lens
+    {","} ///< delimiter sequences
 };
 
 const PROGMEM InputProcessStartStopSequences pststpseq = {
-  1,           ///< num start stop sequence pairs
-  {1, 1},      ///< start stop sequence lens
-  {"\"", "\""} ///< start stop sequence pairs
+    1,           ///< num start stop sequence pairs
+    {1, 1},      ///< start stop sequence lens
+    {"\"", "\""} ///< start stop sequence pairs
 };
 
 const PROGMEM InputProcessParameters input_prm[1] = {
-  &pname,
-  &peol,
-  &pinputcc,
-  &pwcc,
-  &pipdelimseq,
-  &pststpseq
-};
+    &pname,
+    &peol,
+    &pinputcc,
+    &pwcc,
+    &pipdelimseq,
+    &pststpseq};
 
 UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
 
 const PROGMEM InputProcessParameters sensor_prm[1] = {
-  &pname,
-  &peol,
-  &pinputcc,
-  &pwcc,
-  &psensordelimseq,
-  &pststpseq
-};
+    &pname,
+    &peol,
+    &pinputcc,
+    &pwcc,
+    &psensordelimseq,
+    &pststpseq};
 UserInput sensorParser(output_buffer, buffsz(output_buffer), sensor_prm);
 
 NMEAparse NMEA;
@@ -116,8 +113,8 @@ const char* gpgsa = "$GPGSA,081837,,,,,,T,,M,,N,*13\r\n";
 */
 void unrecognized(UserInput* inputProcess)
 {
-  // error output
-  inputProcess->outputToStream(Serial);
+    // error output
+    inputProcess->outputToStream(Serial);
 }
 
 CommandConstructor NMEA_sentence(sentence_param, nprms(sentence_param), 2);
@@ -125,63 +122,38 @@ CommandConstructor NMEA_sentence_error(sentence_error_param, nprms(sentence_erro
 
 void setup()
 {
-  delay(500); // startup delay for reprogramming
+    delay(500); // startup delay for reprogramming
 
-  Serial.begin(115200); //  set up Serial object (Stream object)
+    Serial.begin(115200); //  set up Serial object (Stream object)
 
-  while (!Serial)
-    ; //  wait for user
+    while (!Serial)
+        ; //  wait for user
 
-  Serial.println(F("Set up InputHandler..."));
-  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+    Serial.println(F("Set up InputHandler..."));
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
 
-  sensorParser.addCommand(NMEA_sentence);       // regular sentence
-  sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
-  inputHandler.begin();                         // required.  returns true on success.
-  sensorParser.begin();
-  Serial.println(F("end setup"));
-  inputHandler.outputToStream(Serial); // class output
-  Serial.println(F("continue? y/n"));
-  while(!Serial.available()) 
-  {
-    delay(1);
-  }
-  bool halt = false;
-  while(Serial.available())
-  {
-    char rc = Serial.read();
-    if (rc == 'y')
-    {
-      break;
-    }
-    if (rc =='n')
-    {
-      halt = true;
-      break;
-    }
-  }
-  if (halt == true)
-  {
-    while(1);
-  }
-  // temp testing
-  uint8_t buffer[36] {};
-  for (size_t i = 0; i < 1000000; ++i)
-  {
+    sensorParser.addCommand(NMEA_sentence);       // regular sentence
+    sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
+    inputHandler.begin();                         // required.  returns true on success.
+    sensorParser.begin();
+    Serial.println(F("end InputHandler setup"));
+    inputHandler.outputToStream(Serial); // class output    
+
+    // temp testing
+    uint8_t buffer[36] {};
+
     memcpy(buffer, gpbwc, strlen(gpbwc));
     NMEA.parseSentence(buffer, strlen(gpbwc));
     sensorParser.outputToStream(Serial);
     memcpy(buffer, gpgsa, strlen(gpgsa));
     NMEA.parseSentence(buffer, strlen(gpgsa));
     sensorParser.outputToStream(Serial);
-    Serial.print(F("free ram: "));Serial.print(freeRam());Serial.print(F(" iteration: "));Serial.println(i);
-  }
 }
 
 void loop()
 {
-  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  inputHandler.outputToStream(Serial);       // class output
-  sensorParser.outputToStream(Serial);
-  // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
+    inputHandler.outputToStream(Serial);       // class output
+    sensorParser.outputToStream(Serial);
+    // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t size)
 }

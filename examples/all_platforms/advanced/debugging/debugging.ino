@@ -8,6 +8,11 @@
    @copyright Copyright (c) 2022
 */
 
+// enable DEBUG before including InputHandler.h
+// #define DEBUG_GETCOMMANDFROMSTREAM // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
+
+#define DEBUG_INCLUDE_FREERAM 1 // freeRam() returns how much free heap there is, use inside of Serial.print()
+
 #include <InputHandler.h>
 
 /*
@@ -151,18 +156,49 @@ void setup()
   inputHandler.addCommand(help_);             // lists user commands
   inputHandler.addCommand(settings_);
   inputHandler.addCommand(rejected_);         // this command will be rejected by addCommand error checking, it will not show up in help
-  
+  Serial.println(F("end InputHandler setup"));
   
   // put the commands you want to test here before begin()
 
 
   inputHandler.begin();                          // required.  returns true on success.
 
-  inputHandler.listSettings(&inputHandler);
-  inputHandler.outputToStream(Serial); // class output
+  Serial.println(F("continue? y/n"));
+  while(!Serial.available()) 
+  {
+    delay(1);
+  }
+  bool halt = false;
+  while(Serial.available())
+  {
+    char rc = Serial.read();
+    if (rc == 'y')
+    {
+      break;
+    }
+    if (rc =='n')
+    {
+      halt = true;
+      break;
+    }
+  }
+  if (halt == true)
+  {
+    while(1);
+  }
 
-  inputHandler.listCommands();         // formats output_buffer with the command list
-  inputHandler.outputToStream(Serial); // class output
+  // temp testing
+  for (size_t i = 0; i < 1000000; ++i)
+  {
+    inputHandler.listSettings(&inputHandler);
+    inputHandler.outputToStream(Serial); // class output
+
+    inputHandler.listCommands();         // formats output_buffer with the command list
+    inputHandler.outputToStream(Serial); // class output
+    Serial.print(F("free ram: "));Serial.print(freeRam());Serial.print(F(" iteration: "));Serial.println(i);
+  }
+  
+  
 }
 
 void loop()

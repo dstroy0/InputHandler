@@ -8,18 +8,6 @@
    @copyright Copyright (c) 2022
 */
 
-// enable DEBUG before including InputHandler.h
-// #define DEBUG_GETCOMMANDFROMSTREAM // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
-
-// disable OPTIONAL methods before including InputHandler.h
-// #define DISABLE_listSettings 1 // uncomment to DISABLE UserInput::listSettings(); see src/config/advanced_config.h for all the methods you can disable this way
-
-// change process constants before including InputHandler.h
-// #define UI_MAX_ARGS 33 // preprocessor error checking performed, compiler error thrown on unacceptable value; see src/config/config.h for all the constants you can edit this way
-
-// change PROGMEM constants before including InputHandler.h
-// #define UI_EOL_SEQ_PGM_LEN 6 // see src/config/advanced_config.h for all the PROGMEM constants you can edit this way
-
 #include <InputHandler.h>
 
 char output_buffer[650] {}; // output buffer
