@@ -10,6 +10,6 @@ var searchData=
   ['ssid_7',['ssid',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a587ba0cb07f02913598610049a3bbb79',1,'ssid():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a587ba0cb07f02913598610049a3bbb79',1,'ssid():&#160;ReadCommandFromBufferWebSerial.ino']]],
   ['start_5fstop_5fsequence_5flens_8',['start_stop_sequence_lens',['../d4/dc0/struct_input_process_start_stop_sequences.html#a373e310e2c97d02db616b80b646975d8',1,'InputProcessStartStopSequences']]],
   ['start_5fstop_5fsequence_5fpairs_9',['start_stop_sequence_pairs',['../d4/dc0/struct_input_process_start_stop_sequences.html#ac19ed1f0e1947f266f2cc39f0f416b0f',1,'InputProcessStartStopSequences']]],
-  ['sub_5fcommands_10',['sub_commands',['../db/d11/struct_command_parameters.html#a95074f7281ccee928cae5da3c3f85ff8',1,'CommandParameters']]],
+  ['sub_5fcommands_10',['sub_commands',['../db/d11/struct_command_parameters.html#aeb5c02789b5153cfc5a9a4b1f2e70090',1,'CommandParameters']]],
   ['subcommand_5fmatched_11',['subcommand_matched',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a04dda94e09f0a49755df02f66b5c8318',1,'UserInput::_rcfbprm']]]
 ];

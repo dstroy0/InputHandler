@@ -2,8 +2,8 @@ var searchData=
 [
   ['match_0',['match',['../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069',1,'InputHandler.h']]],
   ['match_5fall_5fwcc_5fcmd_1',['match_all_wcc_cmd',['../de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb',1,'InputHandler.h']]],
-  ['max_5fnum_5fargs_2',['max_num_args',['../db/d11/struct_command_parameters.html#a30e668e0105d9cc09aefa19b5014b4b1',1,'CommandParameters']]],
-  ['memcmp_5franges_5farr_3',['memcmp_ranges_arr',['../dc/d3d/struct_command_runtime_calc.html#a636463dca9a800bee8202d96ebedd957',1,'CommandRuntimeCalc']]],
+  ['max_5fnum_5fargs_2',['max_num_args',['../db/d11/struct_command_parameters.html#a890545aeb0f2650092a9127c6d42258a',1,'CommandParameters']]],
+  ['memcmp_5franges_5farr_3',['memcmp_ranges_arr',['../dc/d3d/struct_command_runtime_calc.html#a912a61f861cba1d935b922d8e6b57bf6',1,'CommandRuntimeCalc']]],
   ['mindex_4',['mIndex',['../dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030',1,'UserInput']]],
   ['minimum_5ffirmware_5fversion_5',['MINIMUM_FIRMWARE_VERSION',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a11e674e9b958aa147644ac2faec3e116',1,'BLE_UART.ino']]],
   ['mode_5fled_5fbehaviour_6',['MODE_LED_BEHAVIOUR',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab436b7ea43ed67b9f08ccdd5f34cadda',1,'BLE_UART.ino']]],
