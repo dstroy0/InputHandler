@@ -25,9 +25,9 @@
     #if defined(ARDUINO_ARCH_AVR)
         int freeRam()
         {
-          extern int __heap_start, *__brkval;
-          int v;
-          return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+            extern int __heap_start, *__brkval;
+            int v;
+            return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
         }
 
     // esp "freeRam" built-in ESP.getFreeHeap()
@@ -43,8 +43,27 @@
         extern char* __brkval;
         int freeRam()
         {
-          return (char*)&_heap_end - __brkval;
+            return (char*)&_heap_end - __brkval;
         }
+
+    // SAM, teensy3.x
+    // Paul Stoffregen - https://forum.pjrc.com/threads/62104-Teensy-4-and-4-1-pre-processor-defines
+    #elif (defined(__arm__) || defined(__ARM__)) && defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
+        #if defined(__arm__)
+            extern "C" char* sbrk(int incr);
+        #else
+            extern char* __brkval;
+        #endif
+            int freeRam()
+            {
+            #if defined(__arm__)
+                return &top - reinterpret_cast<char*>(sbrk(0));
+            #elif defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
+                return &top - __brkval;
+            #else
+                return __brkval ? &top - __brkval : &top - __malloc_heap_start;
+            #endif
+            }
 
     // add support
     #else
