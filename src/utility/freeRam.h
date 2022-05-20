@@ -67,7 +67,7 @@
 
     // add support
     #else
-        #define freeRam() "not supported"
+        #define freeRam() 0
     #endif
 
 #endif

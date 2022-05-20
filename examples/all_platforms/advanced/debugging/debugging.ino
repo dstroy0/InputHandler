@@ -145,17 +145,23 @@ void setup()
   Serial.begin(115200); //  set up Serial object (Stream object)
   while (!Serial)
     ; //  wait for user
-
+  int pre, post, process;
+  pre = freeRam();
   Serial.println(F("Set up InputHandler..."));
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.addCommand(help_);             // lists user commands
   inputHandler.addCommand(settings_);
-  inputHandler.addCommand(rejected_); // this command will be rejected by addCommand error checking, it will not show up in help
-  Serial.println(F("end InputHandler setup"));
-
-  // put the commands you want to test here before begin()
-
+  inputHandler.addCommand(rejected_); // this command will be rejected by addCommand error checking, it will not show up in help  
   inputHandler.begin(); // required.  returns true on success.
+  post = freeRam();
+  process = pre - post;
+  Serial.print(F("end InputHandler setup, process using "));
+  Serial.print(process);
+  Serial.print(F(" bytes of ram; "));
+  Serial.print(post);
+  Serial.println(F(" bytes available."));
+  
+  // put the commands you want to test here before begin()  
 
   Serial.println(F("Do you want to perform a memory-leak test? y/n"));
   while (!Serial.available())
@@ -182,7 +188,6 @@ void setup()
     }
 
     iterations = Serial.parseInt();
-
   }
 
   Serial.print(F("pre-test free ram: "));
