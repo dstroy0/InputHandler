@@ -57,5 +57,10 @@
         #define UI_MAX_IN_LEN 65533
     #endif
 
+    // maximum number of memcmp ranges per command
+    #if !defined(UI_MAX_PER_CMD_MEMCMP_RANGES)
+        #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)
+    #endif
+
 #endif // end include guard
 // end of file

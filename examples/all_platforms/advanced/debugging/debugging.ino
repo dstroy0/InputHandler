@@ -160,6 +160,7 @@ void setup()
   Serial.print(F(" bytes of ram; "));
   Serial.print(post);
   Serial.println(F(" bytes available."));
+  Serial.println(uint8_t);
   
   // put the commands you want to test here before begin()  
 

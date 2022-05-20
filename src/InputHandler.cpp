@@ -32,7 +32,7 @@ void UserInput::addCommand(CommandConstructor& command)
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
     CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
     size_t wc_containing_prm_found = 0;
-    uint8_t wc_containing_prm_index_arr[UI_MAX_SUBCOMMANDS + 1] {}; // max possible amount of subcommands + root command
+    commandruntimecalc_idx_type wc_containing_prm_index_arr[UI_MAX_SUBCOMMANDS + 1] {}; // max possible amount of subcommands + root command
     bool err = false; // CommandParameters struct error sentinel
     /*
         the reason we run through the whole CommandParameters array instead of breaking
@@ -62,19 +62,19 @@ void UserInput::addCommand(CommandConstructor& command)
         if (wc_containing_prm_found > 0) // if the number of wildcard containing CommandParameters is greater than zero
         {             
             command.calc = (struct CommandRuntimeCalc*) calloc(1, sizeof(struct CommandRuntimeCalc));
-            command.calc->num_prm_with_wc = (uint8_t)wc_containing_prm_found; 
-            command.calc->idx_of_prm_with_wc = (uint8_t*) calloc(wc_containing_prm_found, sizeof(uint8_t));
-            command.calc->num_memcmp_ranges_this_row = (uint8_t*) calloc(wc_containing_prm_found, sizeof(uint8_t));                        
-            command.calc->memcmp_ranges_arr = (uint8_t**) calloc(wc_containing_prm_found, sizeof(uint8_t*));                        
+            command.calc->num_prm_with_wc = (commandruntimecalc_idx_type)wc_containing_prm_found; 
+            command.calc->idx_of_prm_with_wc = (commandruntimecalc_idx_type*) calloc(wc_containing_prm_found, sizeof(commandruntimecalc_idx_type));
+            command.calc->num_memcmp_ranges_this_row = (commandruntimecalc_num_memcmp_ranges_type*) calloc(wc_containing_prm_found, sizeof(commandruntimecalc_num_memcmp_ranges_type));                        
+            command.calc->memcmp_ranges_arr = (commandruntimecalc_memcmp_ranges_type**) calloc(wc_containing_prm_found, sizeof(commandruntimecalc_memcmp_ranges_type*));                        
             memcpy(command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);            
             for (size_t i = 0; i < wc_containing_prm_found; ++i)
             {                             
-                uint8_t memcmp_ranges[UI_MAX_PER_CMD_MEMCMP_RANGES] {};
-                uint8_t memcmp_ranges_idx = 0;
+                commandruntimecalc_memcmp_ranges_type memcmp_ranges[UI_MAX_PER_CMD_MEMCMP_RANGES] {};
+                commandruntimecalc_memcmp_ranges_type memcmp_ranges_idx = 0;
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));                
                 UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                                                                                
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;              
-                command.calc->memcmp_ranges_arr[i] = (uint8_t*) calloc(memcmp_ranges_idx, sizeof(uint8_t));  
+                command.calc->memcmp_ranges_arr[i] = (commandruntimecalc_memcmp_ranges_type*) calloc(memcmp_ranges_idx, sizeof(commandruntimecalc_memcmp_ranges_type));  
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
                 #if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
@@ -118,7 +118,7 @@ bool UserInput::begin()
     _p_num_ptrs_ = 1U + _max_depth_ + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())    
     if (_max_args_ != 0)
     {
-        _input_type_match_flags_ = (bool*) calloc(_max_args_, sizeof(bool)); // this array lives the lifetime of the process
+        _input_type_match_flags_ = (input_type_match_flags_type*) calloc(_max_args_, sizeof(input_type_match_flags_type)); // this array lives the lifetime of the process
     }
     if (_input_type_match_flags_ == NULL && _max_args_ != 0)
     {

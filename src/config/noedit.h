@@ -27,11 +27,26 @@
     */
 
     // sizing macros
-    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro
-    #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size for a single escaped char, used by UserInput methods
+    #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
 
     // alloc TYPE macros
+    
+    // CommandParameters related macros
+    #define command_length_type uint16_t
+    #define command_id_group_type uint16_t // affects progmem and ram
+    #define tree_depth_type uint8_t
+    #define sub_commands_type uint8_t    
+    #define num_args_group_type uint8_t
 
+    // UserInput private member type
+    #define input_type_match_flags_type bool
+
+    // CommandRuntimeCalc
+    #define commandruntimecalc_idx_type uint8_t  // if you want more than 255 commands with wcc change this to uint16_t
+    #define commandruntimecalc_num_memcmp_ranges_type uint8_t // if you want more than 255 memcmp ranges in one command (default is 5)
+    #define commandruntimecalc_memcmp_ranges_type uint8_t // if your commands are longer than 255, change this to uint16_t
+
+    
     // UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
     #define UI_ALL_WCC_CMD 255 // this should be the MAX of the containing array
     // end magic number
@@ -41,14 +56,16 @@
     #define buffsz(x) nprms(x)                    // gets the number of elements in an array
     #define nelems(x) nprms(x)                    // gets the number of elements in an array
     // end function-like macros
-
+    
     // portability directives
-    #if !defined(UINT16_MAX)
-        #define UINT16_MAX 65535 ///< max value of a sixteen bit unsigned integer
+    #if !defined(UINT32_MAX)
+        #define UINT32_MAX ((uint32_t)-1)
     #endif
-
+    #if !defined(UINT16_MAX)
+        #define UINT16_MAX ((uint16_t)-1) ///< max value of a sixteen bit unsigned integer
+    #endif
     #if !defined(UINT8_MAX)
-        #define UINT8_MAX 255 ///< max value of an eight bit unsigned integer
+        #define UINT8_MAX ((uint8_t)-1) ///< max value of an eight bit unsigned integer
     #endif
 
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
@@ -117,6 +134,9 @@
     #endif
     #if UI_MAX_IN_LEN > 65533
         #error UI_MAX_IN_LEN MAX exceeded
+    #endif
+    #if UI_MAX_PER_CMD_MEMCMP_RANGES > 255
+        #error UI_MAX_PER_CMD_MEMCMP_RANGES MAX == 255
     #endif
     // end config error checking
 

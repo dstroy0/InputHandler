@@ -233,10 +233,10 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
  */
 struct CommandRuntimeCalc
 {
-    uint8_t num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
-    uint8_t* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
-    uint8_t* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
-    uint8_t** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
+    commandruntimecalc_idx_type num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
+    commandruntimecalc_idx_type* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
+    commandruntimecalc_num_memcmp_ranges_type* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
+    commandruntimecalc_num_memcmp_ranges_type** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
 
 /**
@@ -256,14 +256,14 @@ struct CommandParameters
     void (*function)(UserInput*);      ///< void function pointer, void your_function(UserInput *inputProcess)
     bool has_wildcards;                ///< if true this command has one or more wildcard char
     char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
-    uint16_t command_length;           ///< command length in characters
-    uint16_t parent_command_id;        ///< parent command's unique id root-65535
-    uint16_t command_id;               ///< this command's unique id root-65535
-    uint8_t depth;                     ///< command tree depth root-255
-    uint8_t sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
+    command_length_type command_length;           ///< command length in characters
+    command_id_group_type parent_command_id;        ///< parent command's unique id root-65535
+    command_id_group_type command_id;               ///< this command's unique id root-65535
+    tree_depth_type depth;                     ///< command tree depth root-255
+    sub_commands_type sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
     UI_ARG_HANDLING argument_flag;     ///< argument handling flag
-    uint8_t num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    uint8_t max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
+    num_args_group_type num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    num_args_group_type max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
     UITYPE arg_type_arr[UI_MAX_ARGS];  ///< argument UITYPE array
 };
 /** @} */
@@ -429,7 +429,7 @@ public:
         CommandConstructor* cmd;         ///< pointer to CommandConstructor
         CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
         UI_COMPARE result;               ///< result of UserInput::_compareCommandToString()
-        uint16_t command_id;             ///< 16-bit command id
+        command_id_group_type command_id;///< type set by macro
         size_t idx;                      ///< CommandParameters index
         size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
         size_t input_len;                ///< length of input data
@@ -615,7 +615,7 @@ private:
     uint8_t _commands_count_;       ///< how many commands are there
     uint8_t _max_depth_;            ///< max command depth found
     uint8_t _max_args_;             ///< max command or subcommand arguments found
-    bool* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
+    input_type_match_flags_type* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
 
     bool _output_flag_; ///< output is available flag, set by member functions
 
