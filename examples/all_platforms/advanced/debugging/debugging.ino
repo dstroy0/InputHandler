@@ -9,7 +9,7 @@
 */
 
 // enable DEBUG before including InputHandler.h
-// #define DEBUG_GETCOMMANDFROMSTREAM // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
+// #define DEBUG_ADDCOMMAND // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
 
 #define DEBUG_INCLUDE_FREERAM 1 // freeRam() returns how much free heap there is, use inside of Serial.print()
 
@@ -19,7 +19,7 @@
   output char buffer
   650 is large enough for default values
   if you are testing longer delimiters then it may ask you to increase
-  the size of the output buffer if you try and use "inputSettings", 
+  the size of the output buffer if you try and use "inputSettings",
   this is the buffer it's asking you to increase
 */
 char output_buffer[650] {}; // output buffer
@@ -80,7 +80,7 @@ void help(UserInput* inputProcess)
    not added with addCommand
 */
 const PROGMEM CommandParameters help_param[1] = {
-  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  help,                     // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
   no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "help",                   // command string
   4,                        // command string characters
@@ -92,7 +92,7 @@ const PROGMEM CommandParameters help_param[1] = {
   0,                        // minimum expected number of arguments
   0,                        // maximum expected number of arguments
   /* UITYPE arguments */
-  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 CommandConstructor help_(help_param); //  help_ has a command string, and function specified
 
@@ -114,10 +114,9 @@ const PROGMEM CommandParameters settings_param[1] = {
   0,                        // minimum expected number of arguments
   0,                        // maximum expected number of arguments
   /* UITYPE arguments */
-  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
-
 
 /**
    this command will be REJECTED because the command string and user defined string length are different
@@ -135,19 +134,15 @@ const PROGMEM CommandParameters these_param_will_be_rejected[1] = {
   0,                        // minimum expected number of arguments
   0,                        // maximum expected number of arguments
   /* UITYPE arguments */
-  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 CommandConstructor rejected_(these_param_will_be_rejected); //  help_ has a command string, and function specified
-
 
 void setup()
 {
   delay(500); // startup delay for reprogramming
-  // uncomment as needed
+
   Serial.begin(115200); //  set up Serial object (Stream object)
-  // Serial2.begin(115200);
-  // Serial3.begin(115200);
-  // Serial4.begin(115200);
   while (!Serial)
     ; //  wait for user
 
@@ -155,74 +150,62 @@ void setup()
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
   inputHandler.addCommand(help_);             // lists user commands
   inputHandler.addCommand(settings_);
-  inputHandler.addCommand(rejected_);         // this command will be rejected by addCommand error checking, it will not show up in help
+  inputHandler.addCommand(rejected_); // this command will be rejected by addCommand error checking, it will not show up in help
   Serial.println(F("end InputHandler setup"));
-  
+
   // put the commands you want to test here before begin()
 
+  inputHandler.begin(); // required.  returns true on success.
 
-  inputHandler.begin();                          // required.  returns true on success.
-
-  Serial.println(F("continue? y/n"));
-  while(!Serial.available()) 
+  Serial.println(F("Do you want to perform a memory-leak test? y/n"));
+  while (!Serial.available())
   {
     delay(1);
   }
-  bool halt = false;
-  while(Serial.available())
+  bool perform_test = false;
+  uint32_t iterations = 0;
+  while (Serial.available())
   {
     char rc = Serial.read();
     if (rc == 'y')
     {
-      break;
-    }
-    if (rc =='n')
-    {
-      halt = true;
-      break;
+      perform_test = true;
     }
   }
-  if (halt == true)
+  if (perform_test == true)
   {
-    while(1);
+    Serial.println(F("Pause autoscroll before entering how many iterations you want to perform, and copy the free ram."));
+    Serial.println(F("How many iterations? 0-UINT32_MAX"));
+    while (!Serial.available())
+    {
+      delay(1);
+    }
+
+    iterations = Serial.parseInt();
+
   }
 
+  Serial.print(F("pre-test free ram: "));
+  Serial.println(freeRam());
   // temp testing
-  for (size_t i = 0; i < 1000000; ++i)
+  for (size_t i = 0; i < iterations; ++i)
   {
     inputHandler.listSettings(&inputHandler);
     inputHandler.outputToStream(Serial); // class output
 
     inputHandler.listCommands();         // formats output_buffer with the command list
     inputHandler.outputToStream(Serial); // class output
-    Serial.print(F("free ram: "));Serial.print(freeRam());Serial.print(F(" iteration: "));Serial.println(i);
+    Serial.print(F("free ram: "));
+    Serial.print(freeRam());
+    Serial.print(F(" iteration: "));
+    Serial.println(i);
   }
-  
-  
+  Serial.print(F("post-test free ram: "));
+  Serial.println(freeRam());
 }
 
 void loop()
 {
-  // uncomment as needed
-  inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
-  // inputHandler.getCommandFromStream(Serial2);  // Serial2
-  // inputHandler.getCommandFromStream(Serial3);  // Serial3
-  // inputHandler.getCommandFromStream(Serial4);  // Serial4
-
-  // choose one stream to output to
+  inputHandler.getCommandFromStream(Serial); //  read commands from a stream
   inputHandler.outputToStream(Serial); // class output
-
-  // or output to multiple streams like this
-  /*
-    if(inputHandler.outputIsAvailable())
-    {
-    Serial.println(output_buffer);
-    Serial2.println(output_buffer);
-    Serial3.println(output_buffer);
-    Serial4.println(output_buffer);
-
-    // and clear the output buffer when you are finished
-    inputHandler.clearOutputBuffer();
-    }
-  */
 }
