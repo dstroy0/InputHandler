@@ -1,5 +1,6 @@
 var debugging_8ino =
 [
+    [ "DEBUG_INCLUDE_FREERAM", "d4/ded/debugging_8ino.html#ad757fda0b6670fbe80442d684eb7061b", null ],
     [ "help", "d4/ded/debugging_8ino.html#afc08a3592e986eec757ce96900b0fadf", null ],
     [ "loop", "d4/ded/debugging_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
     [ "settings", "d4/ded/debugging_8ino.html#a374ec74334279864975aac2c4527c3d4", null ],
