@@ -199,6 +199,7 @@
     #elif UI_MAX_PER_CMD_MEMCMP_RANGES > UINT32_MAX
         #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than (UINT32_MAX - 2U) __FILE__ at __LINE__
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
+    
     // end config error checking
 
 #endif // end include guard
