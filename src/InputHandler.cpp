@@ -156,7 +156,7 @@ void UserInput::listSettings(UserInput* inputProcess)
     memcpy_P(&delimseqs, _input_prm_.pdelimseq, sizeof(delimseqs));
     InputProcessStartStopSequences ststpseqs;
     memcpy_P(&ststpseqs, _input_prm_.pststpseq, sizeof(ststpseqs));
-    size_t buf_sz = strlen((char*)eol) + strlen((char*)ccseq);
+    size_t buf_sz = strlen((char*)eol) + strlen((char*)ccseq) + 2U;
 
     // should loop through and strlen everything
     for (size_t i = 0; i < ((delimseqs.num_seq > ststpseqs.num_seq) ? delimseqs.num_seq : ststpseqs.num_seq); ++i)
@@ -207,7 +207,7 @@ void UserInput::listSettings(UserInput* inputProcess)
     {
         UserInput::_ui_out(PSTR("<\"%s\">%c"),
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
-                           (((delimseqs.num_seq > 1) && (i % 5 != 0)) ? '|' : ((i % 5 == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a newline every 5 sequences
+                           (((delimseqs.num_seq > 1) && (i % 5U != 0)) ? '|' : ((i % 5U == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a newline every 5 sequences
     }
     UserInput::_ui_out(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
