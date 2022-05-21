@@ -13,9 +13,10 @@ var searchData=
   ['split_5finput_10',['split_input',['../d3/d14/struct_user_input_1_1__rcfbprm.html#afa1254cbec003fa0611b8058ed11b66a',1,'UserInput::_rcfbprm']]],
   ['ssid_11',['ssid',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a587ba0cb07f02913598610049a3bbb79',1,'ssid():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a587ba0cb07f02913598610049a3bbb79',1,'ssid():&#160;ReadCommandFromBufferWebSerial.ino']]],
   ['start_5fstop_12',['START_STOP',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef',1,'InputHandler.h']]],
-  ['start_5fstop_5fsequence_5flens_13',['start_stop_sequence_lens',['../d4/dc0/struct_input_process_start_stop_sequences.html#a373e310e2c97d02db616b80b646975d8',1,'InputProcessStartStopSequences']]],
-  ['start_5fstop_5fsequence_5fpairs_14',['start_stop_sequence_pairs',['../d4/dc0/struct_input_process_start_stop_sequences.html#ac19ed1f0e1947f266f2cc39f0f416b0f',1,'InputProcessStartStopSequences']]],
-  ['sub_5fcommands_15',['sub_commands',['../db/d11/struct_command_parameters.html#aeb5c02789b5153cfc5a9a4b1f2e70090',1,'CommandParameters']]],
-  ['sub_5fcommands_5ftype_16',['sub_commands_type',['../da/dc7/noedit_8h.html#a9e4012eb887b17d7df654def3e50e8da',1,'noedit.h']]],
-  ['subcommand_5fmatched_17',['subcommand_matched',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a04dda94e09f0a49755df02f66b5c8318',1,'UserInput::_rcfbprm']]]
+  ['start_5fstop_5fsequence_5flens_13',['start_stop_sequence_lens',['../d4/dc0/struct_input_process_start_stop_sequences.html#ab98ec19898bade60ce70ea51b63359b0',1,'InputProcessStartStopSequences']]],
+  ['start_5fstop_5fsequence_5flens_5ftype_14',['start_stop_sequence_lens_type',['../da/dc7/noedit_8h.html#a6c1d34d589232527e03489b95a0cfe54',1,'noedit.h']]],
+  ['start_5fstop_5fsequence_5fpairs_15',['start_stop_sequence_pairs',['../d4/dc0/struct_input_process_start_stop_sequences.html#ac19ed1f0e1947f266f2cc39f0f416b0f',1,'InputProcessStartStopSequences']]],
+  ['sub_5fcommands_16',['sub_commands',['../db/d11/struct_command_parameters.html#aeb5c02789b5153cfc5a9a4b1f2e70090',1,'CommandParameters']]],
+  ['sub_5fcommands_5ftype_17',['sub_commands_type',['../da/dc7/noedit_8h.html#a9e4012eb887b17d7df654def3e50e8da',1,'noedit.h']]],
+  ['subcommand_5fmatched_18',['subcommand_matched',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a04dda94e09f0a49755df02f66b5c8318',1,'UserInput::_rcfbprm']]]
 ];

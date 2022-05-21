@@ -1,13 +1,13 @@
 var group___user_input =
 [
     [ "InputProcessDelimiterSequences", "dc/da2/struct_input_process_delimiter_sequences.html", [
-      [ "delimiter_lens", "dc/da2/struct_input_process_delimiter_sequences.html#a84aef0df737642a23113fbd15ea2faca", null ],
+      [ "delimiter_lens", "dc/da2/struct_input_process_delimiter_sequences.html#ae3a16a62cbbb23f62404c5280a99108e", null ],
       [ "delimiter_sequences", "dc/da2/struct_input_process_delimiter_sequences.html#ad71a57459f3f59bcad9a998482873a16", null ],
       [ "num_seq", "dc/da2/struct_input_process_delimiter_sequences.html#aa5e59800105c63f84fc23fc123535735", null ]
     ] ],
     [ "InputProcessStartStopSequences", "d4/dc0/struct_input_process_start_stop_sequences.html", [
       [ "num_seq", "d4/dc0/struct_input_process_start_stop_sequences.html#a029c10296c09f2c7c42d7d352b2080d2", null ],
-      [ "start_stop_sequence_lens", "d4/dc0/struct_input_process_start_stop_sequences.html#a373e310e2c97d02db616b80b646975d8", null ],
+      [ "start_stop_sequence_lens", "d4/dc0/struct_input_process_start_stop_sequences.html#ab98ec19898bade60ce70ea51b63359b0", null ],
       [ "start_stop_sequence_pairs", "d4/dc0/struct_input_process_start_stop_sequences.html#ac19ed1f0e1947f266f2cc39f0f416b0f", null ]
     ] ],
     [ "InputProcessParameters", "db/dda/struct_input_process_parameters.html", [
