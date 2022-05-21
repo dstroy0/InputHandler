@@ -127,7 +127,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 struct InputProcessDelimiterSequences
 {
     size_t num_seq;                                                   ///< the number of token delimiters in delimiter_sequences
-    uint8_t delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
+    delim_lens_type delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
     char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
 };
 
@@ -145,7 +145,7 @@ struct InputProcessDelimiterSequences
 struct InputProcessStartStopSequences
 {
     size_t num_seq;                                                                   ///< num start/stop sequences
-    uint8_t start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
+    start_stop_sequence_lens_type start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
     char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
 };
 
