@@ -113,91 +113,91 @@
     #if UI_MAX_ARGS > UINT8_MAX && UI_MAX_ARGS < UINT16_MAX
         #undef max_command_type
         #define max_command_type uint16_t
-        #warning max_command_type type changed from uint8_t to uint16_t
+        #warning max_command_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_ARGS > UINT16_MAX && UI_MAX_ARGS < UINT32_MAX
         #undef max_command_type
         #define max_command_type uint32_t
-        #warning max_command_type type changed from uint8_t to uint32_t
+        #warning max_command_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_ARGS > UINT32_MAX
-        #error UI_MAX_ARGS cannot be greater than UINT32_MAX
+        #error UI_MAX_ARGS cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_ARGS
     
     #if UI_MAX_DEPTH > UINT8_MAX && UI_MAX_DEPTH < UINT16_MAX
         #undef tree_depth_type
         #define tree_depth_type uint16_t
-        #warning tree_depth_type type changed from uint8_t to uint16_t
+        #warning tree_depth_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_DEPTH > UINT16_MAX && UI_MAX_DEPTH < UINT32_MAX
         #undef tree_depth_type
         #define tree_depth_type uint32_t
-        #warning tree_depth_type type changed from uint8_t to uint32_t
+        #warning tree_depth_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_DEPTH > UINT32_MAX
-        #error UI_MAX_DEPTH cannot be greater than UINT32_MAX
+        #error UI_MAX_DEPTH cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_DEPTH
 
     #if UI_MAX_SUBCOMMANDS > UINT8_MAX && UI_MAX_SUBCOMMANDS < UINT16_MAX
         #undef sub_commands_type
         #define sub_commands_type uint16_t
-        #warning tree_depth_type type changed from uint8_t to uint16_t
+        #warning tree_depth_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_SUBCOMMANDS > UINT16_MAX && UI_MAX_SUBCOMMANDS < UINT32_MAX
         #undef sub_commands_type
         #define sub_commands_type uint32_t
-        #warning tree_depth_type type changed from uint8_t to uint32_t
+        #warning tree_depth_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_SUBCOMMANDS > UINT32_MAX
-        #error UI_MAX_SUBCOMMANDS cannot be greater than UINT32_MAX
+        #error UI_MAX_SUBCOMMANDS cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_SUBCOMMANDS
 
     #if UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN < UINT16_MAX
         #undef command_length_type
         #define command_length_type uint16_t
-        #warning command_length_type type changed from uint8_t to uint16_t
+        #warning command_length_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN < UINT32_MAX
         #undef command_length_type
         #define command_length_type uint32_t
-        #warning command_length_type type changed from uint8_t to uint32_t    
+        #warning command_length_type type changed from uint8_t to uint32_t __FILE__ at __LINE__   
     #elif UI_MAX_CMD_LEN > UINT32_MAX
-        #error UI_MAX_SUBCOMMANDS cannot be greater than UINT32_MAX
+        #error UI_MAX_SUBCOMMANDS cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_CMD_LEN
 
     #if UI_MAX_DELIM_SEQ > UINT8_MAX && UI_MAX_DELIM_SEQ < UINT16_MAX
         #undef delim_lens_type
         #define delim_lens_type uint16_t
-        #warning delim_lens_type type changed from uint8_t to uint16_t
+        #warning delim_lens_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_DELIM_SEQ > UINT16_MAX && UI_MAX_DELIM_SEQ < UINT32_MAX
         #undef delim_lens_type
         #define delim_lens_type uint32_t
-        #warning delim_lens_type type changed from uint8_t to uint32_t
+        #warning delim_lens_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_DELIM_SEQ > UINT32_MAX
-        #error UI_MAX_DELIM_SEQ cannot be greater than UINT32_MAX
+        #error UI_MAX_DELIM_SEQ cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_DELIM_SEQ
 
     #if UI_MAX_START_STOP_SEQ > UINT8_MAX && UI_MAX_START_STOP_SEQ < UINT16_MAX
         #undef delim_lens_type
         #define delim_lens_type uint16_t
-        #warning delim_lens_type type changed from uint8_t to uint16_t
+        #warning delim_lens_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_START_STOP_SEQ > UINT16_MAX && UI_MAX_START_STOP_SEQ < UINT32_MAX
         #undef delim_lens_type
         #define delim_lens_type uint32_t
-        #warning delim_lens_type type changed from uint8_t to uint32_t
+        #warning delim_lens_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_START_STOP_SEQ > UINT32_MAX
-        #error UI_MAX_START_STOP_SEQ cannot be greater than UINT32_MAX
+        #error UI_MAX_START_STOP_SEQ cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_START_STOP_SEQ
 
     #if UI_MAX_IN_LEN > (UINT16_MAX - 2U)
-        #warning UI_MAX_IN_LEN is large, InputHandler makes copies of the original buffer so this can use a lot of RAM
+        #warning UI_MAX_IN_LEN is large, InputHandler makes copies of the original buffer so this can use a lot of RAM __FILE__ at __LINE__
     #elif UI_MAX_IN_LEN > (UINT32_MAX - 2U)
-        #error UI_MAX_IN_LEN cannot be greater than (UINT32_MAX - 2U)
+        #error UI_MAX_IN_LEN cannot be greater than (UINT32_MAX - 2U) __FILE__ at __LINE__
     #endif // end UI_MAX_IN_LEN
 
     #if UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES < UINT16_MAX
         #undef num_memcmp_ranges_type
         #define num_memcmp_ranges_type uint16_t
-        #warning num_memcmp_ranges_type changed from uint8_t to uint16_t
+        #warning num_memcmp_ranges_type changed from uint8_t to uint16_t __FILE__ at __LINE__
     #elif UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES < UINT32_MAX
         #undef num_memcmp_ranges_type
         #define num_memcmp_ranges_type uint32_t
-        #warning num_memcmp_ranges_type changed from uint8_t to uint32_t
+        #warning num_memcmp_ranges_type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_PER_CMD_MEMCMP_RANGES > UINT32_MAX
-        #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than (UINT32_MAX - 2U)
+        #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than (UINT32_MAX - 2U) __FILE__ at __LINE__
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
     // end config error checking
 
