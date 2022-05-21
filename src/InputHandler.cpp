@@ -180,26 +180,26 @@ void UserInput::listSettings(UserInput* inputProcess)
     }
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
-                            "UI_MAX_ARGS %u max allowed arguments per unique command_id\n"
-                            "UI_MAX_CMD_LEN (root command) %u characters\n"
-                            "UI_MAX_IN_LEN %u bytes\n"
+                            "UI_MAX_ARGS %lu max allowed arguments per unique command_id\n"
+                            "UI_MAX_CMD_LEN (root command) %lu characters\n"
+                            "UI_MAX_IN_LEN %lu bytes\n"
                             "\nUserInput constructor:\n"
-                            "output buffer size in bytes = %u\n"
+                            "output buffer size in bytes = %lu\n"
                             "pname = \"%s\"\n"
-                            "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02u]\n"
-                            "_max_depth_ (found from input CommandParameters) = %u\n"
-                            "_max_args_ (found from input CommandParameters) = %u\n"
+                            "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02lu]\n"
+                            "_max_depth_ (found from input CommandParameters) = %lu\n"
+                            "_max_args_ (found from input CommandParameters) = %lu\n"
                             "\nEscaped for display:\n"
                             "pinputcc = \"%s\"\n"
                             "peol = \"%s\"\n"),
-                       UI_MAX_ARGS,
-                       UI_MAX_CMD_LEN,
-                       UI_MAX_IN_LEN,
-                       _output_buffer_len_,
+                       (uint32_t)UI_MAX_ARGS,
+                       (uint32_t)UI_MAX_CMD_LEN,
+                       (uint32_t)UI_MAX_IN_LEN,
+                       (uint32_t)_output_buffer_len_,
                        (char*)pname,
-                       _p_num_ptrs_,
-                       _max_depth_,
-                       _max_args_,
+                       (uint32_t)_p_num_ptrs_,
+                       (uint32_t)_max_depth_,
+                       (uint32_t)_max_args_,
                        _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
                        _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
     UserInput::_ui_out(PSTR("pdelimseqs = delim<\"\">\n"));

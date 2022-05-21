@@ -32,9 +32,9 @@
         Type macros
     */
     // CommandParameters related macros
-    #define max_command_type uint8_t
+    #define max_command_type uint8_t // max number of commands
     #define command_length_type uint16_t
-    #define command_id_group_type uint16_t // affects progmem and ram
+    #define command_id_group_type uint16_t // parent and this command id
     #define tree_depth_type uint8_t
     #define sub_commands_type uint8_t    
     #define num_args_group_type uint8_t

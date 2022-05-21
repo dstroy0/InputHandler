@@ -288,7 +288,7 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const CommandParameters* parameters, const uint8_t parameter_array_elements = 1, const uint8_t tree_depth = 0)
+    CommandConstructor(const CommandParameters* parameters, const max_command_type parameter_array_elements = 1, const tree_depth_type tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -297,7 +297,7 @@ public:
     {
     }
     const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
-    const uint8_t param_array_len;    ///< user input param array len, either as digits or through nprms
+    const max_command_type param_array_len;    ///< user input param array len, either as digits or through nprms
     const tree_depth_type tree_depth;         ///< user input depth + 1
     CommandRuntimeCalc* calc;         ///< pointer to CommandRuntimeCalc struct
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
@@ -621,12 +621,12 @@ private:
 
     char* _token_buffer_;              ///< pointer to tokenized c-string
     char** _data_pointers_;            ///< token_buffer pointers
-    uint8_t _data_pointers_index_;     ///< data_pointer index
-    uint8_t _data_pointers_index_max_; ///< data_pointer index max
-    uint8_t _p_num_ptrs_;              ///< "p"rocess number of pointers, computed in UserInput::begin()
+    num_args_group_type _data_pointers_index_;     ///< data_pointer index
+    num_args_group_type _data_pointers_index_max_; ///< data_pointer index max
+    num_args_group_type _p_num_ptrs_;              ///< "p"rocess number of pointers, computed in UserInput::begin()
 
-    uint8_t _rec_num_arg_strings_;  ///< number of tokens after first valid token
-    uint8_t _failed_on_subcommand_; ///< subcommand error index
+    num_args_group_type _rec_num_arg_strings_;  ///< number of tokens after first valid token
+    sub_commands_type _failed_on_subcommand_; ///< subcommand error index
     tree_depth_type _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char '\0'
