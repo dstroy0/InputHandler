@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['command_5fid_5fgroup_5ftype_0',['command_id_group_type',['../da/dc7/noedit_8h.html#a7a963c6f349889ef685950299ea5f57e',1,'noedit.h']]],
-  ['command_5flength_5ftype_1',['command_length_type',['../da/dc7/noedit_8h.html#acc8b66651a81e6de54da8e5f6d78424d',1,'noedit.h']]]
+  ['debug_5finclude_5ffreeram_0',['DEBUG_INCLUDE_FREERAM',['../d1/d98/config__howto_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;config_howto.ino'],['../d4/ded/debugging_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;debugging.ino']]]
 ];

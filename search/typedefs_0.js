@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['ih_5feol_0',['IH_eol',['../de/d8a/group___user_input.html#gafbde6b816485ab1d1e6e22b3b0cb9f02',1,'InputHandler.h']]],
-  ['ih_5finput_5fcc_1',['IH_input_cc',['../de/d8a/group___user_input.html#ga85f676c44db484981373328e3dbf0698',1,'InputHandler.h']]],
-  ['ih_5fpname_2',['IH_pname',['../de/d8a/group___user_input.html#ga561fa7484e19f7dfebcf361ecd585f2f',1,'InputHandler.h']]],
-  ['ih_5fwcc_3',['IH_wcc',['../de/d8a/group___user_input.html#gae5ba9d1632e0bccd924cf01102d0af3d',1,'InputHandler.h']]]
+  ['command_5fid_5fgroup_5ftype_0',['command_id_group_type',['../d2/d0c/namespace_i_h.html#a9f0b843a60af9c6260dd15b7aaa5a9ad',1,'IH']]],
+  ['command_5flength_5ftype_1',['command_length_type',['../d2/d0c/namespace_i_h.html#af58e2cb527201d3d13bfd36e9a60cafd',1,'IH']]]
 ];
