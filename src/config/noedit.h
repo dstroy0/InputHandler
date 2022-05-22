@@ -80,8 +80,9 @@
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN 3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
+
 /*
-    Type macros
+    Type macros, early testing
 */
 namespace IH {
 // InputProcessDelimiterSequences
