@@ -80,9 +80,9 @@
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN 3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
-                                     /*
-                                         Type macros
-                                     */
+/*
+    Type macros
+*/
 namespace IH {
 // InputProcessDelimiterSequences
 typedef uint8_t delim_lens_type;
@@ -114,13 +114,16 @@ typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255,
     #if UI_MAX_COMMANDS <= UINT8_MAX
 // typedef const uint8_t const_max_command_type;
 typedef uint8_t max_command_type;
-    #elif UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
+    #endif
+    #if UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
 typedef uint16_t max_command_type;
         #warning max_command_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
-    #elif UI_MAX_COMMANDSS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
+    #endif
+    #if UI_MAX_COMMANDS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
 typedef uint32_t max_command_type;
         #warning max_command_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
-    #elif UI_MAX_COMMANDS > UINT32_MAX
+    #endif
+    #if UI_MAX_COMMANDS > UINT32_MAX
         #error UI_MAX_ARGS cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_COMMANDS
 

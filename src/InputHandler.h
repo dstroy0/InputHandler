@@ -24,7 +24,7 @@
 /**
  * @defgroup UserInput class constants
  * @{
- */
+ */                                     
 
 /**
  * @brief command identifier enum
@@ -792,6 +792,6 @@ private:
     // end private methods
 };
 
-#endif
+#endif // header guard include
 
 // end of file

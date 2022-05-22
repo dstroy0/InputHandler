@@ -87,34 +87,6 @@
     #if !defined(DISABLE_readCommandFromBufferErrorOutput)
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-
-    /*
-        fine-tune the program space needed for your implementation
-    */
-
-    // PROGMEM width constants
-    #if !defined(UI_INPUT_TYPE_STRINGS_PGM_LEN)
-        #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< UserInput_type_strings_pgm width in bytes
-    #endif
-
-    #if !defined(UI_EOL_SEQ_PGM_LEN)
-        #define UI_EOL_SEQ_PGM_LEN 5 ///< IH_eol width in bytes
-    #endif
-
-    #if !defined(UI_DELIM_SEQ_PGM_LEN)
-        #define UI_DELIM_SEQ_PGM_LEN 5 ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes
-    #endif
-
-    #if !defined(UI_START_STOP_SEQ_PGM_LEN)
-        #define UI_START_STOP_SEQ_PGM_LEN 5 ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b width in bytes
-    #endif
-
-    #if !defined(UI_PROCESS_NAME_PGM_LEN)
-        #define UI_PROCESS_NAME_PGM_LEN 12 ///< IH_pname width in bytes
-    #endif
-
-    #if !defined(UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN)
-        #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc width in bytes
-    #endif
+    
 #endif // include guard
 // end of file
