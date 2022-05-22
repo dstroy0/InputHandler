@@ -127,7 +127,7 @@ const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 struct InputProcessDelimiterSequences
 {
     size_t num_seq;                                                   ///< the number of token delimiters in delimiter_sequences
-    delim_lens_type delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
+    IH::delim_lens_type delimiter_lens[UI_MAX_DELIM_SEQ];                         ///< delimiter sequence lens
     char delimiter_sequences[UI_MAX_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
 };
 
@@ -145,7 +145,7 @@ struct InputProcessDelimiterSequences
 struct InputProcessStartStopSequences
 {
     size_t num_seq;                                                                   ///< num start/stop sequences
-    start_stop_sequence_lens_type start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
+    IH::start_stop_sequence_lens_type start_stop_sequence_lens[UI_MAX_START_STOP_SEQ];                          ///< start stop sequence lens
     char start_stop_sequence_pairs[UI_MAX_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match start, match end, copy what is between
 };
 
@@ -233,10 +233,10 @@ const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
  */
 struct CommandRuntimeCalc
 {
-    memcmp_idx_type num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
-    memcmp_idx_type* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
-    num_memcmp_ranges_type* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
-    num_memcmp_ranges_type** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
+    IH::memcmp_idx_type num_prm_with_wc;             ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
+    IH::memcmp_idx_type* idx_of_prm_with_wc;         ///< indices of CommandParameters struct that contain wcc
+    IH::num_memcmp_ranges_type* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
+    IH::num_memcmp_ranges_type** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
 
 /**
@@ -256,14 +256,14 @@ struct CommandParameters
     void (*function)(UserInput*);      ///< void function pointer, void your_function(UserInput *inputProcess)
     bool has_wildcards;                ///< if true this command has one or more wildcard char
     char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
-    command_length_type command_length;           ///< command length in characters
-    command_id_group_type parent_command_id;        ///< parent command's unique id root-65535
-    command_id_group_type command_id;               ///< this command's unique id root-65535
-    tree_depth_type depth;                     ///< command tree depth root-255
-    sub_commands_type sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
+    IH::command_length_type command_length;           ///< command length in characters
+    IH::command_id_group_type parent_command_id;        ///< parent command's unique id root-65535
+    IH::command_id_group_type command_id;               ///< this command's unique id root-65535
+    IH::tree_depth_type depth;                     ///< command tree depth root-255
+    IH::sub_commands_type sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
     UI_ARG_HANDLING argument_flag;     ///< argument handling flag
-    num_args_group_type num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    num_args_group_type max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
+    IH::num_args_group_type num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    IH::num_args_group_type max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
     UITYPE arg_type_arr[UI_MAX_ARGS];  ///< argument UITYPE array
 };
 /** @} */
@@ -288,7 +288,7 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const CommandParameters* parameters, const max_command_type parameter_array_elements = 1, const tree_depth_type tree_depth = 0)
+    CommandConstructor(const CommandParameters* parameters, const IH::max_command_type parameter_array_elements = 1, const IH::tree_depth_type tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -297,8 +297,8 @@ public:
     {
     }
     const CommandParameters* prm;     ///< pointer to PROGMEM CommandParameters array
-    const max_command_type param_array_len;    ///< user input param array len, either as digits or through nprms
-    const tree_depth_type tree_depth;         ///< user input depth + 1
+    const IH::max_command_type param_array_len;    ///< user input param array len, either as digits or through nprms
+    const IH::tree_depth_type tree_depth;         ///< user input depth + 1
     CommandRuntimeCalc* calc;         ///< pointer to CommandRuntimeCalc struct
     CommandConstructor* next_command; ///< CommandConstructor iterator/pointer
 };
@@ -429,7 +429,7 @@ public:
         CommandConstructor* cmd;         ///< pointer to CommandConstructor
         CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
         UI_COMPARE result;               ///< result of UserInput::_compareCommandToString()
-        command_id_group_type command_id;///< type set by macro
+        IH::command_id_group_type command_id;///< type set by macro
         size_t idx;                      ///< CommandParameters index
         size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
         size_t input_len;                ///< length of input data
@@ -612,22 +612,22 @@ private:
     CommandConstructor* _commands_tail_; ///< pointer to object list
     // end linked-list
 
-    max_command_type _commands_count_;       ///< how many commands are there
-    tree_depth_type _max_depth_;            ///< max command depth found
-    num_args_group_type _max_args_;             ///< max command or subcommand arguments found
-    input_type_match_flags_type* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
+    IH::max_command_type _commands_count_;       ///< how many commands are there
+    IH::tree_depth_type _max_depth_;            ///< max command depth found
+    IH::num_args_group_type _max_args_;             ///< max command or subcommand arguments found
+    IH::input_type_match_flags_type* _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
 
     bool _output_flag_; ///< output is available flag, set by member functions
 
     char* _token_buffer_;              ///< pointer to tokenized c-string
     char** _data_pointers_;            ///< token_buffer pointers
-    num_args_group_type _data_pointers_index_;     ///< data_pointer index
-    num_args_group_type _data_pointers_index_max_; ///< data_pointer index max
-    num_args_group_type _p_num_ptrs_;              ///< "p"rocess number of pointers, computed in UserInput::begin()
+    IH::num_args_group_type _data_pointers_index_;     ///< data_pointer index
+    IH::num_args_group_type _data_pointers_index_max_; ///< data_pointer index max
+    IH::num_args_group_type _p_num_ptrs_;              ///< "p"rocess number of pointers, computed in UserInput::begin()
 
-    num_args_group_type _rec_num_arg_strings_;  ///< number of tokens after first valid token
-    sub_commands_type _failed_on_subcommand_; ///< subcommand error index
-    tree_depth_type _current_search_depth_; ///< current subcommand search depth
+    IH::num_args_group_type _rec_num_arg_strings_;  ///< number of tokens after first valid token
+    IH::sub_commands_type _failed_on_subcommand_; ///< subcommand error index
+    IH::tree_depth_type _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char '\0'
     char _neg_;  ///< char '-'
@@ -778,7 +778,7 @@ private:
      * @param memcmp_ranges_idx index of memcmp_ranges
      * @param memcmp_ranges memcmp ranges array
      */
-    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, memcmp_idx_type& memcmp_ranges_idx, memcmp_ranges_type* memcmp_ranges);
+    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_type& memcmp_ranges_idx, IH::memcmp_ranges_type* memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command

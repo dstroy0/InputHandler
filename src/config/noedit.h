@@ -24,15 +24,15 @@
 
     /*
         do not edit the sections below unless you know what will happen
-    */    
+    */
 
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) // gets the number of elements in an array
     #define buffsz(x) nprms(x)                    // gets the number of elements in an array
     #define nelems(x) nprms(x)                    // gets the number of elements in an array
     // end function-like macros
-    
-    // portability directives    
+
+    // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
         #include <avr/dtostrf.h>
         #include "utility/vsnprintf.h"
@@ -77,51 +77,54 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
     // end portability directives
-    
+
     // sizing macros
-    #define UI_ESCAPED_CHAR_STRLEN 3       ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
-    /*
-        Type macros
-    */
-    // InputProcessDelimiterSequences
-    #define delim_lens_type uint8_t
+    #define UI_ESCAPED_CHAR_STRLEN 3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
+                                     /*
+                                         Type macros
+                                     */
+namespace IH {
+// InputProcessDelimiterSequences
+typedef uint8_t delim_lens_type;
 
-    // InputProcessStartStopSequences
-    #define start_stop_sequence_lens_type uint8_t
+// InputProcessStartStopSequences
+typedef uint8_t start_stop_sequence_lens_type;
 
-    // CommandParameters related macros
-    #define max_command_type uint8_t // max number of commands
-    #define command_length_type uint8_t
-    #define command_id_group_type uint16_t // parent and this command id
-    #define tree_depth_type uint8_t
-    #define sub_commands_type uint8_t    
-    #define num_args_group_type uint8_t
+// CommandParameters related macros
+// typedef uint8_t max_command_type; // max number of commands
+typedef uint8_t command_length_type;
+typedef uint16_t command_id_group_type; // parent and this command id
+typedef uint8_t tree_depth_type;
+typedef uint8_t sub_commands_type;
+typedef uint8_t num_args_group_type;
 
-    // UserInput private member type
-    #define input_type_match_flags_type bool
+// UserInput private member type
+typedef bool input_type_match_flags_type;
 
-    // CommandRuntimeCalc
-    #define memcmp_idx_type uint8_t  // if you want more than 255 commands with wcc change this to uint16_t
-    #define num_memcmp_ranges_type uint8_t // if you want more than 255 memcmp ranges in one command (default is 5)
-    #define memcmp_ranges_type uint8_t // if your commands are longer than 255, change this to uint16_t    
-    
+// CommandRuntimeCalc
+typedef uint8_t memcmp_idx_type;        // if you want more than 255 commands with wcc change this to uint16_t
+typedef uint8_t num_memcmp_ranges_type; // if you want more than 255 memcmp ranges in one command (default is 5)
+typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255, change this to uint16_t
+
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
-    #define UI_ALL_WCC_CMD ((memcmp_ranges_type)-1) // this should be the MAX of the containing array    
+    #define UI_ALL_WCC_CMD ((IH::memcmp_ranges_type)-1) // this should be the MAX of the containing array
 
-    // config error checking
-
-    #if UI_MAX_ARGS > UINT8_MAX && UI_MAX_ARGS < UINT16_MAX
-        #undef max_command_type
-        #define max_command_type uint16_t
+// this is for testing, and is not necessarily correct
+// config error checking
+    #if UI_MAX_COMMANDS <= UINT8_MAX
+// typedef const uint8_t const_max_command_type;
+typedef uint8_t max_command_type;
+    #elif UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
+typedef uint16_t max_command_type;
         #warning max_command_type type changed from uint8_t to uint16_t __FILE__ at __LINE__
-    #elif UI_MAX_ARGS > UINT16_MAX && UI_MAX_ARGS < UINT32_MAX
-        #undef max_command_type
-        #define max_command_type uint32_t
+    #elif UI_MAX_COMMANDSS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
+typedef uint32_t max_command_type;
         #warning max_command_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
-    #elif UI_MAX_ARGS > UINT32_MAX
+    #elif UI_MAX_COMMANDS > UINT32_MAX
         #error UI_MAX_ARGS cannot be greater than UINT32_MAX __FILE__ at __LINE__
-    #endif // end UI_MAX_ARGS
-    
+    #endif // end UI_MAX_COMMANDS
+
+/*
     #if UI_MAX_DEPTH > UINT8_MAX && UI_MAX_DEPTH < UINT16_MAX
         #undef tree_depth_type
         #define tree_depth_type uint16_t
@@ -153,7 +156,7 @@
     #elif UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN < UINT32_MAX
         #undef command_length_type
         #define command_length_type uint32_t
-        #warning command_length_type type changed from uint8_t to uint32_t __FILE__ at __LINE__   
+        #warning command_length_type type changed from uint8_t to uint32_t __FILE__ at __LINE__
     #elif UI_MAX_CMD_LEN > UINT32_MAX
         #error UI_MAX_SUBCOMMANDS cannot be greater than UINT32_MAX __FILE__ at __LINE__
     #endif // end UI_MAX_CMD_LEN
@@ -199,8 +202,8 @@
     #elif UI_MAX_PER_CMD_MEMCMP_RANGES > UINT32_MAX
         #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than (UINT32_MAX - 2U) __FILE__ at __LINE__
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
-    
-    // end config error checking
-
+*/
+// end config error checking
+} // namespace IH
 #endif // end include guard
 // end of file
