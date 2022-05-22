@@ -127,56 +127,54 @@ $(document).ready(function(){initNavTree('db/d16/config_8h_source.html','../../'
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifndef __USER_INPUT_HANDLER_CONFIG_H__</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">    #define __USER_INPUT_HANDLER_CONFIG_H__</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">        User Configurable items</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">    */</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// maxumum number of root commands</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">    #if !defined(UI_MAX_COMMANDS)</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a801c40a6d65deaf339cad78b0b96eaee">   26</a></span><span class="preprocessor">        #define UI_MAX_COMMANDS 32</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">//  maximum number of arguments per command</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">    #if !defined(UI_MAX_ARGS)</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">   31</a></span><span class="preprocessor">        #define UI_MAX_ARGS 32</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">//  maximum tree depth</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">    #if !defined(UI_MAX_DEPTH)</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#ae0e0abf71a409d9bafc561f9ce683540">   36</a></span><span class="preprocessor">        #define UI_MAX_DEPTH 32</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    User Configurable items</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// maxumum number of root commands</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a801c40a6d65deaf339cad78b0b96eaee">   25</a></span><span class="preprocessor">    #define UI_MAX_COMMANDS 32</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//  maximum number of arguments per command</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">   28</a></span><span class="preprocessor">    #define UI_MAX_ARGS 32</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//  maximum tree depth</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#ae0e0abf71a409d9bafc561f9ce683540">   31</a></span><span class="preprocessor">    #define UI_MAX_DEPTH 32</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//  maximum number of subcommands that a command can branch to</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f">   34</a></span><span class="preprocessor">    #define UI_MAX_SUBCOMMANDS 32</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//  maximum command/subcommand char length</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a3838a09964eae8d28f9f58c69df91934">   37</a></span><span class="preprocessor">    #define UI_MAX_CMD_LEN 32</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">//  maximum number of subcommands that a command can branch to</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">    #if !defined(UI_MAX_SUBCOMMANDS)</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f">   41</a></span><span class="preprocessor">        #define UI_MAX_SUBCOMMANDS 32</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">//  maximum command/subcommand char length</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">    #if !defined(UI_MAX_CMD_LEN)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a3838a09964eae8d28f9f58c69df91934">   46</a></span><span class="preprocessor">        #define UI_MAX_CMD_LEN 32</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// maximum number of delimiter sequences</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    #if !defined(UI_MAX_DELIM_SEQ)</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a5de563ee2695c5a60324eed33992f870">   51</a></span><span class="preprocessor">        #define UI_MAX_DELIM_SEQ 5</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// maximum number of start stop sequence len</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">    #if !defined(UI_MAX_START_STOP_SEQ)</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a082a06f981c078776a9e20cc316d3aaa">   56</a></span><span class="preprocessor">        #define UI_MAX_START_STOP_SEQ 5</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// maximum number of delimiter sequences</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a5de563ee2695c5a60324eed33992f870">   40</a></span><span class="preprocessor">    #define UI_MAX_DELIM_SEQ 5</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// maximum number of start stop sequence len</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a082a06f981c078776a9e20cc316d3aaa">   43</a></span><span class="preprocessor">    #define UI_MAX_START_STOP_SEQ 5</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//  maximum user input length</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a4f376dd1800f7322379979be7d05ca20">   46</a></span><span class="preprocessor">    #define UI_MAX_IN_LEN 65533</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// maximum number of memcmp ranges per command</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a69a8775b591a7f206a93d39830811f28">   49</a></span><span class="preprocessor">    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 </span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">    fine-tune the program space needed for your implementation</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// PROGMEM width constants</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#aa99472679c6ff32ae0725c7577ab37d7">   55</a></span><span class="preprocessor">    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 </span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#acd1c3d1cf30cf7e2da8924a04d4729cc">   57</a></span><span class="preprocessor">    #define UI_EOL_SEQ_PGM_LEN 5 </span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">//  maximum user input length</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">    #if !defined(UI_MAX_IN_LEN)</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a4f376dd1800f7322379979be7d05ca20">   61</a></span><span class="preprocessor">        #define UI_MAX_IN_LEN 65533</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// maximum number of memcmp ranges per command</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">    #if !defined(UI_MAX_PER_CMD_MEMCMP_RANGES)</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a69a8775b591a7f206a93d39830811f28">   66</a></span><span class="preprocessor">        #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 </span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif </span><span class="comment">// end include guard</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">// end of file</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#afd9add4e3c1737134633acbf5d973943">   59</a></span><span class="preprocessor">    #define UI_DELIM_SEQ_PGM_LEN 5 </span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a715135949254e7a2c450664134ba4901">   61</a></span><span class="preprocessor">    #define UI_START_STOP_SEQ_PGM_LEN 5 </span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a079ebd19acb6c152f33062ecd6404d5a">   63</a></span><span class="preprocessor">    #define UI_PROCESS_NAME_PGM_LEN 12 </span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a67ca907db29466e83f0dfb3035a54039">   65</a></span><span class="preprocessor">    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 </span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif </span><span class="comment">// end include guard</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// end of file</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
