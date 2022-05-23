@@ -8,7 +8,7 @@ var searchData=
   ['ui_5finput_5ftype_5fstrings_5fpgm_5flen_5',['UI_INPUT_TYPE_STRINGS_PGM_LEN',['../db/d16/config_8h.html#aa99472679c6ff32ae0725c7577ab37d7',1,'config.h']]],
   ['ui_5fmax_5fargs_6',['UI_MAX_ARGS',['../db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5',1,'config.h']]],
   ['ui_5fmax_5fcmd_5flen_7',['UI_MAX_CMD_LEN',['../db/d16/config_8h.html#a3838a09964eae8d28f9f58c69df91934',1,'config.h']]],
-  ['ui_5fmax_5fcommands_8',['UI_MAX_COMMANDS',['../d4/ded/debugging_8ino.html#a801c40a6d65deaf339cad78b0b96eaee',1,'UI_MAX_COMMANDS():&#160;debugging.ino'],['../db/d16/config_8h.html#a801c40a6d65deaf339cad78b0b96eaee',1,'UI_MAX_COMMANDS():&#160;config.h']]],
+  ['ui_5fmax_5fcommands_8',['UI_MAX_COMMANDS',['../db/d16/config_8h.html#a801c40a6d65deaf339cad78b0b96eaee',1,'config.h']]],
   ['ui_5fmax_5fdelim_5fseq_9',['UI_MAX_DELIM_SEQ',['../db/d16/config_8h.html#a5de563ee2695c5a60324eed33992f870',1,'config.h']]],
   ['ui_5fmax_5fdepth_10',['UI_MAX_DEPTH',['../db/d16/config_8h.html#ae0e0abf71a409d9bafc561f9ce683540',1,'config.h']]],
   ['ui_5fmax_5fin_5flen_11',['UI_MAX_IN_LEN',['../db/d16/config_8h.html#a4f376dd1800f7322379979be7d05ca20',1,'config.h']]],
