@@ -47,7 +47,7 @@
     #endif
     #if defined(DEBUG_INCLUDE_FREERAM)
         #include "utility/freeRam.h"
-    #endif 
+    #endif
 
     /*
         OPTIONAL METHODS
@@ -87,6 +87,6 @@
     #if !defined(DISABLE_readCommandFromBufferErrorOutput)
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-    
+
 #endif // include guard
 // end of file

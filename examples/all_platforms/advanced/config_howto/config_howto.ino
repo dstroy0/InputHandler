@@ -8,29 +8,28 @@
    @copyright Copyright (c) 2022
 */
 
-/*
-    user configurable items are found in src/config/config.h and src/config/advanced_config.h
-    
-    The preprocessor directives get switched on/off or altered by #defining them before you 
-    #include <InputHandler.h>
-
-    This makes it so you can easily make config settings templates for your various implementations.
+/*    
+    Optional and debugging methods are switched on/off or altered by #defining their switch
+    before including the library.
 */
-// start your config
-
 // disable OPTIONAL methods before including InputHandler.h
-// #define DISABLE_listSettings 1 // uncomment to DISABLE UserInput::listSettings(); see src/config/advanced_config.h for all the methods you can disable this way
+// #define DISABLE_listSettings // uncomment to DISABLE UserInput::listSettings(); see src/config/advanced_config.h for all the methods you can disable this way
 
-// change process constants before including InputHandler.h
-// #define UI_MAX_ARGS 33 // preprocessor error checking performed, compiler error thrown on unacceptable value; see src/config/config.h for all the constants you can edit this way
+// enable DEBUGGING methods before including InputHandler.h
+#define DEBUG_INCLUDE_FREERAM // freeRam returns how much free heap there is, use inside of Serial.print()
 
-// change PROGMEM constants before including InputHandler.h
-// #define UI_EOL_SEQ_PGM_LEN 6 // see src/config/advanced_config.h for all the PROGMEM constants you can edit this way
+/*
+    Copy the library folder "InputHandler" to your sketch folder and then edit the config for project specific settings
+    
+    cue the compiler to look for the local copy of the libary first by using "" around the #include
+    #include "InputHandler.h"
+    
+    This makes it so you can easily make project specific configurations.
 
-#define DEBUG_INCLUDE_FREERAM 1 // freeRam returns how much free heap there is, use inside of Serial.print()
-
-// end your config
-#include <InputHandler.h>
+    users: edit library settings in src/config/config.h
+    advanced users: types are set in src/config/noedit.h inside of the namespace IH using preprocessor macros.
+*/
+#include "InputHandler.h"
 
 /*
   output char buffer

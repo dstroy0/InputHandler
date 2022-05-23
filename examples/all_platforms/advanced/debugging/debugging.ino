@@ -11,8 +11,7 @@
 // enable DEBUG before including InputHandler.h
 // #define DEBUG_ADDCOMMAND // ensure you have a large enough output buffer to include debugging, see src/config/advanced_config.h for all debug methods available
 
-#define UI_MAX_COMMANDS 256
-#define DEBUG_INCLUDE_FREERAM 1 // freeRam() returns how much free heap there is, use inside of Serial.print()
+#define DEBUG_INCLUDE_FREERAM // freeRam() returns how much free heap there is, use inside of Serial.print()
 
 #include <InputHandler.h>
 
