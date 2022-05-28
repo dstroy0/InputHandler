@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['s_0',['S',['../da/dc7/noedit_8h.html#ac4a3ed3432929804c708f7760fb79e28',1,'noedit.h']]],
+  ['s_0',['S',['../da/dc7/noedit_8h.html#a8fa17c8cf4c36df48f4108c36da8573e',1,'noedit.h']]],
   ['sensor_5fprm_1',['sensor_prm',['../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611',1,'NMEAparser.ino']]],
   ['sensorparser_2',['sensorParser',['../dd/d65/_n_m_e_aparser_8ino.html#a5ce779a2c885b0eb3e07a8745b3d8cd3',1,'sensorParser():&#160;NMEAparser.ino'],['../da/d60/_n_m_e_aparser_8h.html#ab6fc15b656f569aba9928533bdd77138',1,'sensorParser():&#160;NMEAparser.h']]],
   ['sentence_5ferror_5fparam_3',['sentence_error_param',['../dd/d65/_n_m_e_aparser_8ino.html#a0a8c178791ae7966143e2dc16a573f3b',1,'sentence_error_param():&#160;NMEAparser.ino'],['../da/d60/_n_m_e_aparser_8h.html#a0a8c178791ae7966143e2dc16a573f3b',1,'sentence_error_param():&#160;NMEAparser.h'],['../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79',1,'sentence_error_param():&#160;NMEAsentenceparam.h']]],
@@ -16,7 +16,7 @@ var searchData=
   ['start_5fstop_13',['START_STOP',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef',1,'InputHandler.h']]],
   ['start_5fstop_5fsequence_5flens_14',['start_stop_sequence_lens',['../d4/dc0/struct_input_process_start_stop_sequences.html#a973a2e504cb3d923f4c51d46f8739543',1,'InputProcessStartStopSequences']]],
   ['start_5fstop_5fsequence_5fpairs_15',['start_stop_sequence_pairs',['../d4/dc0/struct_input_process_start_stop_sequences.html#a4b80219c01989fc6fa5f692cab0a03ee',1,'InputProcessStartStopSequences']]],
-  ['str_16',['STR',['../da/dc7/noedit_8h.html#a18d295a837ac71add5578860b55e5502',1,'noedit.h']]],
+  ['str_16',['STR',['../da/dc7/noedit_8h.html#a6388870e639eee9c0a69446876f1f8cc',1,'noedit.h']]],
   ['sub_5fcommands_17',['sub_commands',['../db/d11/struct_command_parameters.html#a017e01b538a133469d18bc51e029195f',1,'CommandParameters']]],
   ['subcommand_5fmatched_18',['subcommand_matched',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a04dda94e09f0a49755df02f66b5c8318',1,'UserInput::_rcfbprm']]]
 ];

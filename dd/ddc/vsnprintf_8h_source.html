@@ -118,11 +118,11 @@ $(document).ready(function(){initNavTree('dd/ddc/vsnprintf_8h_source.html','../.
 <a href="../../dd/ddc/vsnprintf_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#if !defined(__USER_INPUT_VSNPRINTF__)</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __USER_INPUT_VSNPRINTF__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef __va_list__</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#if !defined(__va_list__)</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../dd/ddc/vsnprintf_8h.html#a8c1b94dabde2c11f430bb83e37bdb0a1">    5</a></span><span class="keyword">typedef</span> __gnuc_va_list <a class="code hl_typedef" href="../../dd/ddc/vsnprintf_8h.html#a8c1b94dabde2c11f430bb83e37bdb0a1">va_list</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif </span><span class="comment">/* not __va_list__ */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef __VALIST</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(__VALIST)</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifdef __GNUC__</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define __VALIST __gnuc_va_list</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#else</span></div>
