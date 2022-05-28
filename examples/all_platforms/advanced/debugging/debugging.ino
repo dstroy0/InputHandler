@@ -22,7 +22,7 @@
   the size of the output buffer if you try and use "inputSettings",
   this is the buffer it's asking you to increase
 */
-char output_buffer[652] {}; // output buffer
+char output_buffer[700] {}; // output buffer
 
 const PROGMEM IH_pname pname = "_test_";   ///< test process name
 const PROGMEM IH_eol peol = "\r\n";        ///< test process eol characters

@@ -106,32 +106,25 @@
  * auto type sizing macros, uses src/config.h as input
  */
 namespace IH {
-
-// CommandParameters related macros
-typedef uint16_t cmd_id_grp_t;
-
-// UserInput private member type
+// UserInput private member type (future bit array)
 typedef bool input_type_match_flags_type;
 
-// CommandRuntimeCalc
-        // if you want more than 255 commands with wcc change this to uint16_t
-//typedef uint8_t num_memcmp_ranges_type; // if you want more than 255 memcmp ranges in one command (default is 5)
-//typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255, change this to uint16_t
-
 // config error checking
-
     #if UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX
         typedef uint8_t ui_max_commands_in_tree_t;
+        typedef uint8_t cmd_id_grp_t;
     #endif    
     #if UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX
         typedef uint16_t ui_max_commands_in_tree_t; 
+        typedef uint16_t cmd_id_grp_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t changed from uint8_t to uint16_t        
+        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint16_t        
     #endif
     #if UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX
         typedef uint32_t ui_max_commands_in_tree_t;
+        typedef uint32_t cmd_id_grp_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t changed from uint8_t to uint32_t
+        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint32_t
     #endif
     #if UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX) - 1)
         #pragma message(" at " LOCATION)
@@ -284,8 +277,9 @@ typedef bool input_type_match_flags_type;
         #pragma message(" at " LOCATION)
         #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
-
 // end config error checking
+
 } // end namespace IH
+
 #endif // end include guard
 // end of file
