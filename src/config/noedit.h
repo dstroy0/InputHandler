@@ -142,6 +142,6 @@ typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255,
 
 
 // end config error checking
-} // namespace IH
+} // end namespace IH
 #endif // end include guard
 // end of file
