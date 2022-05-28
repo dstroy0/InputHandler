@@ -2,8 +2,8 @@
  * @file InputHandler.h
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief InputHandler library header file
- * @version 1.0
- * @date 2022-03-02
+ * @version 1.1
+ * @date 2022-05-28
  *
  * @copyright Copyright (c) 2022
  */
@@ -14,7 +14,7 @@
  modify it under the terms of the GNU General Public License
  version 3 as published by the Free Software Foundation.
  */
-#ifndef __USER_INPUT_HANDLER_H__
+#if !defined(__USER_INPUT_HANDLER_H__)
     #define __USER_INPUT_HANDLER_H__
 
     // user configurable items located in src/config/config.h and src/config/advanced_config.h

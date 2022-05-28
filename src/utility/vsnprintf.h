@@ -1,11 +1,11 @@
 #if !defined(__USER_INPUT_VSNPRINTF__)
 #define __USER_INPUT_VSNPRINTF__
 
-#ifndef __va_list__
+#if !defined(__va_list__)
 typedef __gnuc_va_list va_list;
 #endif /* not __va_list__ */
 
-#ifndef __VALIST
+#if !defined(__VALIST)
 #ifdef __GNUC__
 #define __VALIST __gnuc_va_list
 #else

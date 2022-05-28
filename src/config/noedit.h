@@ -31,14 +31,13 @@
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
     #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
-    #define S(x) #x                               ///< gnu direct # stringify macro
-    #define STR(x) S(x)                           ///< gnu indirect # stringify macro
-    // end function-like macros
-
+    #define S(s) #s                               ///< gnu direct # stringify macro
+    #define STR(s) S(s)                           ///< gnu indirect # stringify macro    
     // file location directive    
     #define LOC __FILE__ : __LINE__ ///< direct non-stringified file and line macro
     #define LOCATION STR(LOC)       ///< indirect stringified file and line macro
     // end file location directive
+    // end function-like macros
 
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability

@@ -2,8 +2,8 @@
    @file config.h
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief InputHandler library user configurable items
-   @version 1.0
-   @date 2022-03-02
+   @version 1.1
+   @date 2022-05-28
 
    @copyright Copyright (c) 2022
 */
@@ -15,7 +15,7 @@
  version 3 as published by the Free Software Foundation.
  */
 
-#ifndef __USER_INPUT_HANDLER_CONFIG_H__
+#if !defined(__USER_INPUT_HANDLER_CONFIG_H__)
     #define __USER_INPUT_HANDLER_CONFIG_H__
 
 /*
