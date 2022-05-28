@@ -9,5 +9,6 @@ var searchData=
   ['enable_5foutputisavailable_6',['ENABLE_outputIsAvailable',['../d5/d4a/advanced__config_8h.html#a87b4c0d185b94d9171e7cad754bce84f',1,'advanced_config.h']]],
   ['enable_5foutputisenabled_7',['ENABLE_outputIsEnabled',['../d5/d4a/advanced__config_8h.html#a7b959a7fa16ca8f397696bca4aa0b7ee',1,'advanced_config.h']]],
   ['enable_5foutputtostream_8',['ENABLE_outputToStream',['../d5/d4a/advanced__config_8h.html#a2aaf2b870ef542077c6852b24f3bfeb3',1,'advanced_config.h']]],
-  ['enable_5freadcommandfrombuffererroroutput_9',['ENABLE_readCommandFromBufferErrorOutput',['../d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe',1,'advanced_config.h']]]
+  ['enable_5freadcommandfrombuffererroroutput_9',['ENABLE_readCommandFromBufferErrorOutput',['../d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe',1,'advanced_config.h']]],
+  ['enable_5fui_5fout_10',['ENABLE_ui_out',['../d5/d4a/advanced__config_8h.html#a3993c53011a6c54c908722ee96194d24',1,'advanced_config.h']]]
 ];

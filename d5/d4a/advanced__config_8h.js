@@ -9,5 +9,7 @@ var advanced__config_8h =
     [ "ENABLE_outputIsAvailable", "d5/d4a/advanced__config_8h.html#a87b4c0d185b94d9171e7cad754bce84f", null ],
     [ "ENABLE_outputIsEnabled", "d5/d4a/advanced__config_8h.html#a7b959a7fa16ca8f397696bca4aa0b7ee", null ],
     [ "ENABLE_outputToStream", "d5/d4a/advanced__config_8h.html#a2aaf2b870ef542077c6852b24f3bfeb3", null ],
-    [ "ENABLE_readCommandFromBufferErrorOutput", "d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe", null ]
+    [ "ENABLE_readCommandFromBufferErrorOutput", "d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe", null ],
+    [ "ENABLE_ui_out", "d5/d4a/advanced__config_8h.html#a3993c53011a6c54c908722ee96194d24", null ],
+    [ "UI_VERBOSE", "d5/d4a/advanced__config_8h.html#a1182320002d7bb6466667181dc46c61b", null ]
 ];

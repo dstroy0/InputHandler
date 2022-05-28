@@ -11,5 +11,6 @@ var searchData=
   ['enable_5foutputisenabled_8',['ENABLE_outputIsEnabled',['../d5/d4a/advanced__config_8h.html#a7b959a7fa16ca8f397696bca4aa0b7ee',1,'advanced_config.h']]],
   ['enable_5foutputtostream_9',['ENABLE_outputToStream',['../d5/d4a/advanced__config_8h.html#a2aaf2b870ef542077c6852b24f3bfeb3',1,'advanced_config.h']]],
   ['enable_5freadcommandfrombuffererroroutput_10',['ENABLE_readCommandFromBufferErrorOutput',['../d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe',1,'advanced_config.h']]],
-  ['error_11',['error',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ae8c47cdda23ce86a833936ce90ef1dc5',1,'BLE_UART.ino']]]
+  ['enable_5fui_5fout_11',['ENABLE_ui_out',['../d5/d4a/advanced__config_8h.html#a3993c53011a6c54c908722ee96194d24',1,'advanced_config.h']]],
+  ['error_12',['error',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ae8c47cdda23ce86a833936ce90ef1dc5',1,'BLE_UART.ino']]]
 ];

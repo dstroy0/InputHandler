@@ -153,8 +153,10 @@ var NAVTREEINDEX0 =
 "d4/ded/debugging_8ino.html#afc08a3592e986eec757ce96900b0fadf":[5,0,0,0,0,1,0,1],
 "d4/ded/debugging_8ino.html#afe461d27b9c48d5921c00d521181f12f":[5,0,0,0,0,1,0,2],
 "d5/d4a/advanced__config_8h.html":[5,0,1,0,0],
+"d5/d4a/advanced__config_8h.html#a1182320002d7bb6466667181dc46c61b":[5,0,1,0,0,11],
 "d5/d4a/advanced__config_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe":[5,0,1,0,0,9],
 "d5/d4a/advanced__config_8h.html#a2aaf2b870ef542077c6852b24f3bfeb3":[5,0,1,0,0,8],
+"d5/d4a/advanced__config_8h.html#a3993c53011a6c54c908722ee96194d24":[5,0,1,0,0,10],
 "d5/d4a/advanced__config_8h.html#a62c5d5f7c8920285344b127175162eac":[5,0,1,0,0,4],
 "d5/d4a/advanced__config_8h.html#a7b959a7fa16ca8f397696bca4aa0b7ee":[5,0,1,0,0,7],
 "d5/d4a/advanced__config_8h.html#a873a6df63ff76da2907084a19927ad95":[5,0,1,0,0,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586":[5,0,1,0,2,4],
 "da/dc7/noedit_8h.html#a824d410663553d9f3fdf30fdf920002e":[5,0,1,0,2,9],
 "da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178":[5,0,1,0,2,0],
-"da/dc7/noedit_8h.html#ac27b81440ce6781d5bfcab7a9bbdef99":[5,0,1,0,2,2],
-"da/dc7/noedit_8h.html#ac4a3ed3432929804c708f7760fb79e28":[5,0,1,0,2,5],
-"da/dc7/noedit_8h_source.html":[5,0,1,0,2]
+"da/dc7/noedit_8h.html#ac27b81440ce6781d5bfcab7a9bbdef99":[5,0,1,0,2,2]
 };

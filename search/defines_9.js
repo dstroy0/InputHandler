@@ -16,5 +16,6 @@ var searchData=
   ['ui_5fmax_5fper_5fcmd_5fmemcmp_5franges_13',['UI_MAX_PER_CMD_MEMCMP_RANGES',['../db/d16/config_8h.html#a69a8775b591a7f206a93d39830811f28',1,'config.h']]],
   ['ui_5fmax_5ftree_5fdepth_5fper_5fcommand_14',['UI_MAX_TREE_DEPTH_PER_COMMAND',['../db/d16/config_8h.html#a758994f5a006936d1f71bc5c471c4312',1,'config.h']]],
   ['ui_5fprocess_5fname_5fpgm_5flen_15',['UI_PROCESS_NAME_PGM_LEN',['../db/d16/config_8h.html#a079ebd19acb6c152f33062ecd6404d5a',1,'config.h']]],
-  ['ui_5fstart_5fstop_5fseq_5fpgm_5flen_16',['UI_START_STOP_SEQ_PGM_LEN',['../db/d16/config_8h.html#a715135949254e7a2c450664134ba4901',1,'config.h']]]
+  ['ui_5fstart_5fstop_5fseq_5fpgm_5flen_16',['UI_START_STOP_SEQ_PGM_LEN',['../db/d16/config_8h.html#a715135949254e7a2c450664134ba4901',1,'config.h']]],
+  ['ui_5fverbose_17',['UI_VERBOSE',['../d5/d4a/advanced__config_8h.html#a1182320002d7bb6466667181dc46c61b',1,'advanced_config.h']]]
 ];
