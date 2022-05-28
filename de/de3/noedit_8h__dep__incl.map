@@ -1,5 +1,5 @@
 <map id="src/config/noedit.h" name="src/config/noedit.h">
-<area shape="rect" id="node1" title="InputHandler library C includes." alt="" coords="1517,5,1644,32"/>
+<area shape="rect" id="node1" title="InputHandler library C includes, do not edit." alt="" coords="1517,5,1644,32"/>
 <area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="1517,80,1645,107"/>
 <area shape="rect" id="node3" href="$db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html" title="An example that demonstrates how to retrieve type&#45;valid arguments from a Stream." alt="" coords="5,155,244,211"/>
 <area shape="rect" id="node4" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="269,155,429,211"/>

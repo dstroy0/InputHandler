@@ -154,7 +154,7 @@ Macros</h2></td></tr>
 <tr class="separator:ac4a3ed3432929804c708f7760fb79e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18d295a837ac71add5578860b55e5502"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a18d295a837ac71add5578860b55e5502">STR</a>(x)&#160;&#160;&#160;<a class="el" href="../../da/dc7/noedit_8h.html#ac4a3ed3432929804c708f7760fb79e28">S</a>(x)</td></tr>
 <tr class="separator:a18d295a837ac71add5578860b55e5502"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fee446a4a4ef6536664bc1ff47ff694"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a0fee446a4a4ef6536664bc1ff47ff694">LOC</a>&#160;&#160;&#160;__FILE__:__LINE__</td></tr>
+<tr class="memitem:a0fee446a4a4ef6536664bc1ff47ff694"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a0fee446a4a4ef6536664bc1ff47ff694">LOC</a>&#160;&#160;&#160;__FILE__ : __LINE__</td></tr>
 <tr class="separator:a0fee446a4a4ef6536664bc1ff47ff694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac27b81440ce6781d5bfcab7a9bbdef99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#ac27b81440ce6781d5bfcab7a9bbdef99">LOCATION</a>&#160;&#160;&#160;<a class="el" href="../../da/dc7/noedit_8h.html#a18d295a837ac71add5578860b55e5502">STR</a>(<a class="el" href="../../da/dc7/noedit_8h.html#a0fee446a4a4ef6536664bc1ff47ff694">LOC</a>)</td></tr>
 <tr class="separator:ac27b81440ce6781d5bfcab7a9bbdef99"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,6 +212,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gets the number of elements in an array </p>
+
 </div>
 </div>
 <a id="a0fee446a4a4ef6536664bc1ff47ff694" name="a0fee446a4a4ef6536664bc1ff47ff694"></a>
@@ -221,10 +223,12 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define LOC&#160;&#160;&#160;__FILE__:__LINE__</td>
+          <td class="memname">#define LOC&#160;&#160;&#160;__FILE__ : __LINE__</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>direct non-stringified file and line macro </p>
 
 </div>
 </div>
@@ -239,6 +243,8 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>indirect stringified file and line macro </p>
 
 </div>
 </div>
@@ -258,6 +264,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gets the number of elements in an array </p>
+
 </div>
 </div>
 <a id="a478361b897ab0ecfafbf38dc51ca3586" name="a478361b897ab0ecfafbf38dc51ca3586"></a>
@@ -275,6 +283,8 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>gets the number of elements in an array </p>
 
 </div>
 </div>
@@ -294,6 +304,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gnu direct # stringify macro </p>
+
 </div>
 </div>
 <a id="a18d295a837ac71add5578860b55e5502" name="a18d295a837ac71add5578860b55e5502"></a>
@@ -312,6 +324,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gnu indirect # stringify macro </p>
+
 </div>
 </div>
 <a id="a3f8c0d478351bde8c9bfa3e5104a5770" name="a3f8c0d478351bde8c9bfa3e5104a5770"></a>
@@ -325,6 +339,8 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>UI_ALL_WCC_CMD is Type MAX. </p>
 
 </div>
 </div>
@@ -340,7 +356,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>sram buffer size in bytes for a single escaped char, used by <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> methods </p>
+<p>&lt; SAMD portability </p>
+<p >&lt; MBED portability &lt; DUE portability &lt; teensy portability sram buffer size in bytes for a single escaped char, used by <a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> methods </p>
 
 </div>
 </div>

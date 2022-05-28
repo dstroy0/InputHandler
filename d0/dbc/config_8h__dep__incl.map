@@ -1,6 +1,6 @@
 <map id="src/config/config.h" name="src/config/config.h">
 <area shape="rect" id="node1" title="InputHandler library user configurable items." alt="" coords="1517,5,1644,32"/>
-<area shape="rect" id="node2" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="1517,80,1644,107"/>
+<area shape="rect" id="node2" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="1517,80,1644,107"/>
 <area shape="rect" id="node3" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="1517,155,1645,181"/>
 <area shape="rect" id="node4" href="$db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html" title="An example that demonstrates how to retrieve type&#45;valid arguments from a Stream." alt="" coords="5,229,244,285"/>
 <area shape="rect" id="node5" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="269,229,429,285"/>

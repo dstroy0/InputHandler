@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="NMEA 0183 sentence CommandParameters structs." alt="" coords="58,5,258,61"/>
 <area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="105,184,211,211"/>
 <area shape="rect" id="node7" href="$d2/d20/_n_m_e_asentencefunc_8h.html" title="NMEA 0183 sentence functions." alt="" coords="140,109,288,136"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="105,259,211,285"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="105,259,211,285"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,333,81,360"/>
 <area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,333,210,360"/>
 <area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="235,333,401,360"/>
