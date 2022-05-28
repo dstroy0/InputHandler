@@ -52,8 +52,9 @@
     fine-tune the program space needed for your implementation
 */
 // PROGMEM width constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< UserInput_type_strings_pgm width in bytes
+    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< UserInput_type_strings_pgm width in bytes, don't change this unless you also edit the members of UserInput_type_strings_pgm src/InputHandler.h:105 
 
+    // if you edit these, some examples might break and your compiler might yell at you about some variables in the UserInput constants section of InputHandler.h
     #define UI_EOL_SEQ_PGM_LEN 5 ///< IH_eol width in bytes
 
     #define UI_DELIM_SEQ_PGM_LEN 5 ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes
