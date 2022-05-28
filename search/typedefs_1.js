@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ui_5fmax_5fper_5fcmd_5fmemcmp_5franges_5ft_0',['ui_max_per_cmd_memcmp_ranges_t',['../d7/d28/edit_8h.html#a2131e4403e56e1e9e923dd9e8054d2df',1,'edit.h']]]
+  ['va_5flist_0',['va_list',['../dd/ddc/vsnprintf_8h.html#a8c1b94dabde2c11f430bb83e37bdb0a1',1,'vsnprintf.h']]]
 ];
