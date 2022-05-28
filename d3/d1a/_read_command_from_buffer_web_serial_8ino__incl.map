@@ -1,12 +1,12 @@
 <map id="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino" name="examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino">
 <area shape="rect" id="node1" title="An example that uses ReadCommandFromBuffer and WebSerial." alt="" coords="115,5,354,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="200,259,276,285"/>
+<area shape="rect" id="node2" title=" " alt="" coords="191,259,267,285"/>
 <area shape="rect" id="node3" title=" " alt="" coords="29,109,88,136"/>
 <area shape="rect" id="node4" title=" " alt="" coords="112,109,207,136"/>
 <area shape="rect" id="node5" title=" " alt="" coords="231,109,390,136"/>
 <area shape="rect" id="node6" title=" " alt="" coords="414,109,505,136"/>
 <area shape="rect" id="node7" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="529,109,636,136"/>
-<area shape="rect" id="node8" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="467,184,572,211"/>
-<area shape="rect" id="node9" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="425,259,492,285"/>
-<area shape="rect" id="node10" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="516,259,646,285"/>
+<area shape="rect" id="node8" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="470,184,575,211"/>
+<area shape="rect" id="node9" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="410,259,514,285"/>
+<area shape="rect" id="node10" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="539,259,706,285"/>
 </map>

@@ -1,8 +1,8 @@
 <map id="examples/all_platforms/advanced/debugging/debugging.ino" name="examples/all_platforms/advanced/debugging/debugging.ino">
-<area shape="rect" id="node1" title="An example that demonstrates how to use built in methods to assist in debugging process settings and ..." alt="" coords="25,5,253,47"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="86,95,193,121"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="87,169,192,196"/>
+<area shape="rect" id="node1" title="An example that demonstrates how to use built in methods to assist in debugging process settings and ..." alt="" coords="44,5,272,47"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="105,95,211,121"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="105,169,211,196"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,244,81,271"/>
-<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,244,173,271"/>
-<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="197,244,327,271"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,244,210,271"/>
+<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="235,244,401,271"/>
 </map>

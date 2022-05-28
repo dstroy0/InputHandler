@@ -1,8 +1,8 @@
 <map id="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h" name="examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h">
-<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="39,5,239,61"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="86,109,193,136"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="87,184,192,211"/>
+<area shape="rect" id="node1" title="NMEA 0183 sentence functions." alt="" coords="58,5,258,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="105,109,211,136"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes." alt="" coords="105,184,211,211"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,259,81,285"/>
-<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,259,173,285"/>
-<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="197,259,327,285"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,259,210,285"/>
+<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="235,259,401,285"/>
 </map>

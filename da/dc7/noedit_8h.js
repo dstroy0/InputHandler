@@ -13,6 +13,7 @@ var noedit_8h =
     [ "command_length_type", "da/dc7/noedit_8h.html#af58e2cb527201d3d13bfd36e9a60cafd", null ],
     [ "delim_lens_type", "da/dc7/noedit_8h.html#abd01919f36a57c22e0fb8f21ea820398", null ],
     [ "input_type_match_flags_type", "da/dc7/noedit_8h.html#a824d410663553d9f3fdf30fdf920002e", null ],
+    [ "max_command_type", "da/dc7/noedit_8h.html#ad762d539f6e55217c2c6e1a665c1f985", null ],
     [ "memcmp_idx_type", "da/dc7/noedit_8h.html#aa3c6ce06a4c68590555c87b280878200", null ],
     [ "memcmp_ranges_type", "da/dc7/noedit_8h.html#aff211ab94b06d2b439cebf8b0776c2a8", null ],
     [ "num_args_group_type", "da/dc7/noedit_8h.html#af7dcad15a0c7e11279321070db44f547", null ],
