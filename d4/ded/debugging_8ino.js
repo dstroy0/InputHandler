@@ -10,7 +10,7 @@ var debugging_8ino =
     [ "help_param", "d4/ded/debugging_8ino.html#a37dc520806193edda7db40a2faa3457e", null ],
     [ "input_prm", "d4/ded/debugging_8ino.html#a084afcadb360781f4e8183987435076c", null ],
     [ "inputHandler", "d4/ded/debugging_8ino.html#a20c0984976fc016b2095795890af59b4", null ],
-    [ "output_buffer", "d4/ded/debugging_8ino.html#a12707b8ee8e0f40555e4407ca8e6646f", null ],
+    [ "output_buffer", "d4/ded/debugging_8ino.html#ad3346a9317c58e434d7a6fe02dcc7052", null ],
     [ "peol", "d4/ded/debugging_8ino.html#a61d5220287a9fed34d299577749a1e46", null ],
     [ "pinputcc", "d4/ded/debugging_8ino.html#a79cb83fee1312ff01031a7b49b64116b", null ],
     [ "pipdelimseq", "d4/ded/debugging_8ino.html#aba17c1ae84278f0965b64b0860775b6f", null ],
