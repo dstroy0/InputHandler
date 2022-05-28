@@ -748,7 +748,7 @@ private:
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
      */
-    void _getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm);
+    void _getTokensStartStop(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
      * @brief add uchar to token_buffer

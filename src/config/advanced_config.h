@@ -19,11 +19,17 @@
     #define __INPUTHANDLER_ADVANCED_CONFIG_H__
 
 /*
+    library output
+*/
+    #if !defined(UI_ECHO_ONLY)
+        #define UI_VERBOSE
+    #endif
+
+/*
     DEBUGGING
 
     switch these on/off by using #define before including the library
 */
-
     #if defined(DEBUG_GETCOMMANDFROMSTREAM)
         #define __DEBUG_GETCOMMANDFROMSTREAM__
     #endif
@@ -86,6 +92,9 @@
     // private methods
     #if !defined(DISABLE_readCommandFromBufferErrorOutput)
         #define ENABLE_readCommandFromBufferErrorOutput
+    #endif
+    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined      
+        #define ENABLE_ui_out
     #endif
 
 #endif // include guard

@@ -24,7 +24,7 @@
 void UserInput::defaultFunction(void (*function)(UserInput*))
 {
     _default_function_ = function;
-}
+} // end defaultFunction
 
 void UserInput::addCommand(CommandConstructor& command)
 {
@@ -76,7 +76,7 @@ void UserInput::addCommand(CommandConstructor& command)
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;              
                 command.calc->memcmp_ranges_arr[i] = (IH::ui_max_per_cmd_memcmp_ranges_t*) calloc(memcmp_ranges_idx, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t));  
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-                #if defined(__DEBUG_ADDCOMMAND__)
+                #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
                 for (size_t j = 0; j < memcmp_ranges_idx; ++j)
                 {
@@ -111,7 +111,7 @@ void UserInput::addCommand(CommandConstructor& command)
             _commands_tail_ = &command;               // move the tail to (this)
         }
     }
-}
+} // end addCommand
 
 bool UserInput::begin()
 {
@@ -122,28 +122,32 @@ bool UserInput::begin()
     }
     if (_input_type_match_flags_ == NULL && _max_args_ != 0)
     {
+        #if defined(UI_VERBOSE) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _input_type_match_flags_\n"));
+        #endif
         _begin_ = false;        
         return _begin_;       
     }    
     _data_pointers_ = (char**) calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
     if (_data_pointers_ == NULL)
-    {        
+    {   
+        #if defined(UI_VERBOSE) && defined(ENABLE_ui_out)     
         UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
+        #endif
         _begin_ = false;        
         free(_input_type_match_flags_);
         return _begin_;       
     }
     _begin_ = true;
     return _begin_;
-}
+} // end begin
 
-#if defined(ENABLE_listSettings)
+#if defined(ENABLE_listSettings) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listSettings(UserInput* inputProcess)
 {
     if (!_begin_)
-    {
-        UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
+    {        
+        UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));        
         return;
     }
     IH_pname pname;
@@ -174,11 +178,11 @@ void UserInput::listSettings(UserInput* inputProcess)
     }
     char* buf = (char*) calloc(buf_sz * UI_ESCAPED_CHAR_STRLEN, sizeof(char)); // allocate char buffer large enough to print these potential control characters
     if (buf == NULL)
-    {
-        UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));
+    {        
+        UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char so they will print.\n"));        
         return;
     }
-    size_t idx = 0;
+    size_t idx = 0;    
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
                             "UI_MAX_ARGS_PER_COMMAND %lu max allowed arguments per unique command_id\n"
                             "UI_MAX_CMD_LEN (root command) %lu characters\n"
@@ -216,10 +220,10 @@ void UserInput::listSettings(UserInput* inputProcess)
                            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
     free(buf); // cleanup
-}
+} // end listSettings
 #endif // end ENABLE_listSettings
 
-#if defined(ENABLE_listCommands)
+#if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listCommands()
 {
     if (!_begin_)
@@ -245,7 +249,7 @@ void UserInput::listCommands()
         memcpy_P(&buffer, cmd->prm[0].command, sizeof(buffer));
         UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
     }
-}
+} // end listCommands
 #endif // end ENABLE_listCommands
 
 void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
@@ -257,7 +261,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     }
     if (len > UI_MAX_INPUT_LEN) 
     {
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         return;
@@ -288,7 +292,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     _token_buffer_ = (char *) calloc(rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == NULL)                      // if there was an error allocating the memory
     {
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         if (rprm.split_input != NULL)
@@ -329,7 +333,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
             free(_token_buffer_);
             _token_buffer_ = NULL;
         }
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"), (char*)pgm_read_dword(_input_prm_.pname));
         #endif
         return;
@@ -390,7 +394,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
         free(_token_buffer_);
         _token_buffer_ = NULL;
     }    
-}
+} // end readCommandFromBuffer
 
 #if defined(ENABLE_getCommandFromStream)
 void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
@@ -404,7 +408,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         _stream_data_ = (uint8_t*) calloc(rx_buffer_size, sizeof(uint8_t)); // an array to store the received data
         if (_stream_data_ == NULL)                  // if there was an error allocating the memory
         {
-            #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
+            #if defined(__DEBUG_GETCOMMANDFROMSTREAM__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"), (char*)pgm_read_dword(_input_prm_.pname));
             #endif
             return;
@@ -443,7 +447,7 @@ void UserInput::getCommandFromStream(Stream& stream, size_t rx_buffer_size, cons
         free(_stream_data_);
         _stream_buffer_allocated_ = false;
     }
-}
+} // end getCommandFromStream
 #endif // end ENABLE_getCommandFromStream
 
 #if defined(ENABLE_nextArgument)
@@ -455,7 +459,7 @@ char* UserInput::nextArgument()
         return _data_pointers_[_data_pointers_index_];
     }
     return NULL; // else return NULL
-}
+} // end nextArgument
 #endif // end ENABLE_nextArgument
 
 #if defined(ENABLE_getArgument)
@@ -466,21 +470,21 @@ char* UserInput::getArgument(size_t argument_number)
         return _data_pointers_[argument_number];
     }
     return NULL; // else return NULL
-}
+} // end getArgument
 #endif // end ENABLE_getArgument
 
 #if defined(ENABLE_outputIsAvailable)
 inline bool UserInput::outputIsAvailable()
 {
     return _output_flag_;
-}
+} // end outputIsAvailable
 #endif // end ENABLE_outputIsAvailable
 
 #if defined(ENABLE_outputIsEnabled)
 inline bool UserInput::outputIsEnabled()
 {
     return _output_enabled_;
-}
+} // end outputIsEnabled
 #endif // end ENABLE_outputIsEnabled
 
 #if defined(ENABLE_outputToStream)
@@ -491,7 +495,7 @@ void UserInput::outputToStream(Stream& stream)
         stream.println(_output_buffer_); // print output_buffer, which is formatted into a string by UserInput's methods
         UserInput::clearOutputBuffer();
     }
-}
+} // end outputToStream
 #endif // end ENABLE_outputToStream
 
 #if defined(ENABLE_clearOutputBuffer)
@@ -513,7 +517,7 @@ inline void UserInput::clearOutputBuffer(bool overwrite_contents)
         }
     }
     _output_flag_ = false;
-}
+} // end clearOutputBuffer
 #endif // end ENABLE_clearOutputBuffer
 
 size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm)
@@ -523,11 +527,11 @@ size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters&
     while (gtprm.data_pos < gtprm.len)
     {
         UserInput::_getTokensDelimiters(gtprm, input_prm);
-        UserInput::_getTokensCstrings(gtprm, input_prm);
+        UserInput::_getTokensStartStop(gtprm, input_prm);
         UserInput::_getTokensChar(gtprm, input_prm);
     }
     return gtprm.token_pointer_index;
-}
+} // end getTokens
 
 inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 {
@@ -595,11 +599,12 @@ inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
     }
 
     return false; // error, unknown type
-}
+} // end validateNullSepInput
 
 /*
     private methods
 */
+#if defined(ENABLE_ui_out)
 void UserInput::_ui_out(const char* fmt, ...)
 {
     if (_output_enabled_)
@@ -622,17 +627,19 @@ void UserInput::_ui_out(const char* fmt, ...)
             _output_flag_ = true;
             return;
         }
-        else
+        else // normal condition
         {
-            _output_buffer_bytes_left_ -= err;
+            _output_buffer_bytes_left_ -= err; // decrement amount of bytes left in buffer
         }
-        _output_flag_ = true;
+        _output_flag_ = true; // output is available
     }
-}
+} // end _ui_out
+#endif
 
-#if defined(ENABLE_readCommandFromBufferErrorOutput)
+#if defined(ENABLE_readCommandFromBufferErrorOutput) && defined(ENABLE_ui_out)
 void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
+#if defined(UI_VERBOSE)
     if (_output_enabled_) // format a string with useful information
     {                           
         IH_pname pname;
@@ -701,7 +708,10 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                 }
                 return;
             }
+#endif // end UI_VERBOSE
+            // this is the library output with UI_ECHO_ONLY defined
             UserInput::_ui_out(PSTR("%s\n"), (char*)rprm.input_data);
+#if defined(UI_VERBOSE)
             return;
         }
         else // command not matched
@@ -709,15 +719,19 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
             UserInput::_ui_out(PSTR("%s\n command <%s> unknown\n"), (char*)rprm.input_data, _data_pointers_[0]);
         }
     }
-}
+#endif // end UI_VERBOSE
+} // end _readCommandFromBufferErrorOutput
 #endif // end ENABLE_readCommandFromBufferErrorOutput
 
 // clang-format off
 inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
-{
+{   
+    #if defined(UI_VERBOSE)
     if (_output_enabled_)
     {
+        #if defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$"), pname);
+        #endif
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
             size_t strlen_data = strlen(_data_pointers_[i]);
@@ -726,22 +740,31 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
                 if (iscntrl(_data_pointers_[i][j])) // format buffer with escaped char
                 {
                     char buf[UI_ESCAPED_CHAR_STRLEN] {};
+                    #if defined(ENABLE_ui_out)
                     UserInput::_ui_out(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[i][j], buf));
+                    #endif
                 }
                 else
                 {
+                    #if defined(ENABLE_ui_out)
                     UserInput::_ui_out(PSTR("%c"), _data_pointers_[i][j]); // single char
+                    #endif
                 }
             }
+            #if defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR(" ")); // add a space
+            #endif
         }
+        #if defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("\n"));
+        #endif
     }
+    #endif // UI_VERBOSE
     _data_pointers_index_ = _current_search_depth_ - 1;
 
     if (rprm.prm.function != NULL)
     {
-        #if defined(__DEBUG_LAUNCH_FUNCTION__)
+        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, rprm.prm.command_id);
         #endif
         rprm.prm.function(this);
@@ -749,12 +772,12 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& pname)
     else
     {
         memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
-        #if defined(__DEBUG_LAUNCH_FUNCTION__)
+        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$_launchFunction: launch command_id %u\n"), pname, rprm.prm.command_id);
         #endif
         rprm.prm.function(this);
     }
-}
+} // end _launchFunction
 
 void UserInput::_launchLogic(_rcfbprm& rprm)
 {    
@@ -762,7 +785,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     memcpy_P(&pname, _input_prm_.pname, sizeof(pname));        
     if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__)
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), pname, rprm.prm.command_id);
         #endif
         return;
@@ -770,7 +793,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
 
     if (rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__)
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
         #endif
 
@@ -781,7 +804,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
 
     if (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0) // subcommand with no arguments
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__)
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
         #endif
         rprm.launch_attempted = true;                                                      // don't run default callback
@@ -794,7 +817,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
         UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
         {
-            #if defined(__DEBUG_LAUNCH_LOGIC__)
+            #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
             #endif
             rprm.launch_attempted = true;                                                      // don't run default callback
@@ -808,7 +831,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
         UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
         {
-            #if defined(__DEBUG_LAUNCH_LOGIC__)
+            #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), pname, rprm.prm.command_id);
             #endif
             rprm.launch_attempted = true;                                                      // don't run default callback
@@ -821,7 +844,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     rprm.subcommand_matched = false;       
     if (_current_search_depth_ <= (rprm.cmd->tree_depth))             // dig starting at depth 1
     {                                                                  // this index starts at one because the parameter array's first element will be the root command        
-        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: search depth (%d)\n"), pname, _current_search_depth_);
         #endif
         rprm.result = no_match;
@@ -859,7 +882,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[rprm.idx]), sizeof(rprm.prm));
             if (rprm.prm.depth == _current_search_depth_ && rprm.prm.parent_command_id == rprm.command_id)
             {
-                #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+                #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
                 UserInput::_ui_out(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), pname, rprm.prm.command, rprm.prm.command_id, rprm.prm.sub_commands, rprm.prm.max_num_args);
                 #endif
                 if (rprm.tokens_received > 0) // subcommand matched
@@ -880,12 +903,12 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     }                                     // end subcommand search
     if (rprm.subcommand_matched == true) // recursion
     {
-        #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), pname, rprm.prm.command_id);
         #endif
         UserInput::_launchLogic(rprm);
     }
-}
+} // end _launchLogic
 
 inline char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
 {
@@ -912,7 +935,7 @@ inline char *UserInput::_escapeCharactersSoTheyPrint(char input, char *buf)
     buf[0] = input;  // pass through input
     buf[1] = _null_; // terminate the string
     return buf;      // not a control char
-}
+} // end _escapeCharactersSoTheyPrint
 
 inline char UserInput::_combineControlCharacters(char input)
 {
@@ -930,7 +953,7 @@ inline char UserInput::_combineControlCharacters(char input)
         case '"': return (char)'\"';
         default:  return (char)'*'; // * error
     }
-}
+} // end _combineControlCharacters
 // clang-format on
 
 bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
@@ -940,7 +963,9 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
 
     if (prm.function == NULL && prm.depth == 0)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> root command function pointer cannot be NULL\n"), prm.command);
+        #endif
         error_not = false;
     }
 
@@ -958,59 +983,79 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
         }
         if (num_wcc == 0)
         {
+            #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
             UserInput::_ui_out(PSTR("command <%s> has_wildcard is set, but no wildcards were found in the command\n"), prm.command);
+            #endif
             error_not = false;
         }
     }
 
     if (cmd_len > UI_MAX_CMD_LEN)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> command too long, increase UI_MAX_CMD_LEN or reduce command length.\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (cmd_len != prm.command_length)
     {
         if (cmd_len > prm.command_length)
         {
+            #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
             UserInput::_ui_out(PSTR("command <%s> command_length too large for command\n"), prm.command);
+            #endif
         }
         else
         {
+            #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
             UserInput::_ui_out(PSTR("command <%s> command_length too small for command\n"), prm.command);
+            #endif
         }
         error_not = false;
     }
     if (prm.depth > UI_MAX_TREE_DEPTH_PER_COMMAND)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (prm.sub_commands > UI_MAX_NUM_CHILD_COMMANDS)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (prm.num_args > UI_MAX_ARGS_PER_COMMAND)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (prm.max_num_args > UI_MAX_ARGS_PER_COMMAND)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (prm.num_args > prm.max_num_args)
     {
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
         UserInput::_ui_out(PSTR("command <%s> num_args must be less than max_num_args\n"), prm.command);
+        #endif
         error_not = false;
     }
     if (error_not == false) // error condition
-    {                    
-            UserInput::_ui_out(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"), prm.command, prm.command);                
+    {   
+        #if defined(ENABLE_ui_out) && defined(UI_VERBOSE)                 
+        UserInput::_ui_out(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"), prm.command, prm.command);                
+        #endif
     }
     return error_not;
-}
+} // end _addCommandAbort
 
 // clang-format off
 inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
@@ -1020,7 +1065,7 @@ inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
     if (prm.argument_flag == UI_ARG_HANDLING::type_arr) return prm.arg_type_arr[index];
 
     return UITYPE::_LAST; // return error if no match
-}
+} // end _getArgType
 // clang-format on
 
 void UserInput::_getArgs(_rcfbprm& rprm)
@@ -1041,7 +1086,7 @@ void UserInput::_getArgs(_rcfbprm& rprm)
             rprm.all_arguments_valid = false; // set the error sentinel
         }
     }
-}
+} // end _getArgs
 
 char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len)
 {
@@ -1059,7 +1104,7 @@ char* UserInput::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const ch
     buf[idx] = _null_; // terminate string
     idx++;
     return start;
-}
+} // end _addEscapedControlCharToBuffer
 
 inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm)
 {
@@ -1103,9 +1148,9 @@ inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputPr
         gtprm.token_buffer[gtprm.token_buffer_index] = gtprm.token_buffer_sep;
         gtprm.token_buffer_index++;
     }
-}
+} // end _getTokensDelimiters
 
-inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProcessParameters& input_prm)
+inline void UserInput::_getTokensStartStop(getTokensParam& gtprm, const InputProcessParameters& input_prm)
 {
     InputProcessStartStopSequences ststpseq {};
     memcpy_P(&ststpseq, input_prm.pststpseq, sizeof(ststpseq));
@@ -1168,7 +1213,7 @@ inline void UserInput::_getTokensCstrings(getTokensParam& gtprm, const InputProc
             }
         }
     }
-}
+} // end _getTokensStartStop
 
 void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm)
 {
@@ -1210,7 +1255,7 @@ void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParamete
         gtprm.token_buffer_index++;
         gtprm.data_pos++;
     }
-}
+} // end _getTokensChar
 
 inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc)
 {
@@ -1223,7 +1268,7 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
         rprm.split_input = (uint8_t*)calloc(split_input_len, sizeof(uint8_t));
         if (rprm.split_input == NULL) // if there was an error allocating the memory
         {
-            #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
+            #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"), (char*)pgm_read_dword(_input_prm_.pname));
             #endif
             return false;
@@ -1248,7 +1293,7 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
         } // end for loop
     }
     return false;
-}
+} // end _splitZDC
 
 void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
 {
@@ -1302,7 +1347,7 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
             }
         }
     }
-}
+} // end _calcCmdMemcmpRanges
 
 inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str)
 {    
@@ -1355,6 +1400,6 @@ inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, si
         }
     }
     return retval;
-}
+} // end _compareCommandToString()
 
 // end of file
