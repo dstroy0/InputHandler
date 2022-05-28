@@ -120,12 +120,12 @@ $(document).ready(function(){initNavTree('da/dc7/noedit_8h.html','../../'); init
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d16/config_8h_source.html">config/config.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/d4a/advanced__config_8h_source.html">config/advanced_config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d16/config_8h_source.html">config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d4a/advanced__config_8h_source.html">advanced_config.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for noedit.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/daf/noedit_8h__incl.svg" width="407" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/daf/noedit_8h__incl.svg" width="332" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -160,38 +160,18 @@ Macros</h2></td></tr>
 <tr class="separator:ac27b81440ce6781d5bfcab7a9bbdef99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a027fe3f70969f8a4f883d648ee61b0d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a027fe3f70969f8a4f883d648ee61b0d5">UI_ESCAPED_CHAR_STRLEN</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:a027fe3f70969f8a4f883d648ee61b0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f8c0d478351bde8c9bfa3e5104a5770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a3f8c0d478351bde8c9bfa3e5104a5770">UI_ALL_WCC_CMD</a>&#160;&#160;&#160;((<a class="el" href="../../d2/d0c/namespace_i_h.html#aff211ab94b06d2b439cebf8b0776c2a8">IH::memcmp_ranges_type</a>)-1)</td></tr>
+<tr class="memitem:a3f8c0d478351bde8c9bfa3e5104a5770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dc7/noedit_8h.html#a3f8c0d478351bde8c9bfa3e5104a5770">UI_ALL_WCC_CMD</a>&#160;&#160;&#160;((<a class="el" href="../../d7/d28/edit_8h.html#a2131e4403e56e1e9e923dd9e8054d2df">IH::ui_max_per_cmd_memcmp_ranges_t</a>)-1)</td></tr>
 <tr class="separator:a3f8c0d478351bde8c9bfa3e5104a5770"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:abd01919f36a57c22e0fb8f21ea820398"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#abd01919f36a57c22e0fb8f21ea820398">IH::delim_lens_type</a></td></tr>
-<tr class="separator:abd01919f36a57c22e0fb8f21ea820398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a269d219c4a544eee5a160a7d1944242a"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#a269d219c4a544eee5a160a7d1944242a">IH::start_stop_sequence_lens_type</a></td></tr>
-<tr class="separator:a269d219c4a544eee5a160a7d1944242a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af58e2cb527201d3d13bfd36e9a60cafd"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#af58e2cb527201d3d13bfd36e9a60cafd">IH::command_length_type</a></td></tr>
-<tr class="separator:af58e2cb527201d3d13bfd36e9a60cafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0b843a60af9c6260dd15b7aaa5a9ad"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#a9f0b843a60af9c6260dd15b7aaa5a9ad">IH::command_id_group_type</a></td></tr>
-<tr class="separator:a9f0b843a60af9c6260dd15b7aaa5a9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af35acdec46e5757e5ab787912298cac7"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#af35acdec46e5757e5ab787912298cac7">IH::tree_depth_type</a></td></tr>
-<tr class="separator:af35acdec46e5757e5ab787912298cac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af20a806639f8670fedb55c33f64c06db"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#af20a806639f8670fedb55c33f64c06db">IH::sub_commands_type</a></td></tr>
-<tr class="separator:af20a806639f8670fedb55c33f64c06db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7dcad15a0c7e11279321070db44f547"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#af7dcad15a0c7e11279321070db44f547">IH::num_args_group_type</a></td></tr>
-<tr class="separator:af7dcad15a0c7e11279321070db44f547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ccaff06a5f14f0a53943c5b65ba7535"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#a5ccaff06a5f14f0a53943c5b65ba7535">IH::cmd_id_grp_t</a></td></tr>
+<tr class="separator:a5ccaff06a5f14f0a53943c5b65ba7535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a824d410663553d9f3fdf30fdf920002e"><td class="memItemLeft" align="right" valign="top">typedef bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#a824d410663553d9f3fdf30fdf920002e">IH::input_type_match_flags_type</a></td></tr>
 <tr class="separator:a824d410663553d9f3fdf30fdf920002e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3c6ce06a4c68590555c87b280878200"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#aa3c6ce06a4c68590555c87b280878200">IH::memcmp_idx_type</a></td></tr>
-<tr class="separator:aa3c6ce06a4c68590555c87b280878200"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78a8e61080b4bffb4d412ff9d182bec9"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#a78a8e61080b4bffb4d412ff9d182bec9">IH::num_memcmp_ranges_type</a></td></tr>
-<tr class="separator:a78a8e61080b4bffb4d412ff9d182bec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff211ab94b06d2b439cebf8b0776c2a8"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#aff211ab94b06d2b439cebf8b0776c2a8">IH::memcmp_ranges_type</a></td></tr>
-<tr class="separator:aff211ab94b06d2b439cebf8b0776c2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad762d539f6e55217c2c6e1a665c1f985"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0c/namespace_i_h.html#ad762d539f6e55217c2c6e1a665c1f985">IH::max_command_type</a></td></tr>
-<tr class="separator:ad762d539f6e55217c2c6e1a665c1f985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Douglas Quigg (dstroy0 <a href="#" onclick="location.href='mai'+'lto:'+'dqu'+'ig'+'g12'+'3@'+'gma'+'il'+'.co'+'m'; return false;">dquig<span class="obfuscator">.nosp@m.</span>g123<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+<div class="textblock"><dl class="section author"><dt>Authors</dt><dd>Douglas Quigg (dstroy0 <a href="#" onclick="location.href='mai'+'lto:'+'dqu'+'ig'+'g12'+'3@'+'gma'+'il'+'.co'+'m'; return false;">dquig<span class="obfuscator">.nosp@m.</span>g123<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) and Brendan Doherty (2bndy5 <a href="#" onclick="location.href='mai'+'lto:'+'2bn'+'dy'+'5@g'+'ma'+'il.'+'co'+'m'; return false;">2bndy<span class="obfuscator">.nosp@m.</span>5@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-05-16</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
@@ -335,7 +315,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define UI_ALL_WCC_CMD&#160;&#160;&#160;((<a class="el" href="../../d2/d0c/namespace_i_h.html#aff211ab94b06d2b439cebf8b0776c2a8">IH::memcmp_ranges_type</a>)-1)</td>
+          <td class="memname">#define UI_ALL_WCC_CMD&#160;&#160;&#160;((<a class="el" href="../../d7/d28/edit_8h.html#a2131e4403e56e1e9e923dd9e8054d2df">IH::ui_max_per_cmd_memcmp_ranges_t</a>)-1)</td>
         </tr>
       </table>
 </div><div class="memdoc">

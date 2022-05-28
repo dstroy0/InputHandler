@@ -1,8 +1,8 @@
 <map id="examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino" name="examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino">
-<area shape="rect" id="node1" title="An example that demonstrates wildcard commands." alt="" coords="69,5,247,61"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="105,109,211,136"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="105,184,211,211"/>
+<area shape="rect" id="node1" title="An example that demonstrates wildcard commands." alt="" coords="51,5,228,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="86,109,193,136"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="87,184,192,211"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,259,81,285"/>
-<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,259,210,285"/>
-<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="235,259,401,285"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,259,173,285"/>
+<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="197,259,327,285"/>
 </map>

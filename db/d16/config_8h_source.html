@@ -130,29 +130,29 @@ $(document).ready(function(){initNavTree('db/d16/config_8h_source.html','../../'
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">    User Configurable items</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// maxumum number of root commands</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a801c40a6d65deaf339cad78b0b96eaee">   25</a></span><span class="preprocessor">    #define UI_MAX_COMMANDS 32</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// maxumum number of tree commands including root</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a80ce91664b26c528c3cb229f2d40d88b">   25</a></span><span class="preprocessor">    #define UI_MAX_COMMANDS_IN_TREE 32</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//  maximum number of arguments per command</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">   28</a></span><span class="preprocessor">    #define UI_MAX_ARGS 32</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a49baf240972f4fcbaf973521da34aaa9">   28</a></span><span class="preprocessor">    #define UI_MAX_ARGS_PER_COMMAND 32</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//  maximum tree depth</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#ae0e0abf71a409d9bafc561f9ce683540">   31</a></span><span class="preprocessor">    #define UI_MAX_DEPTH 32</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//  maximum command tree depth</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a758994f5a006936d1f71bc5c471c4312">   31</a></span><span class="preprocessor">    #define UI_MAX_TREE_DEPTH_PER_COMMAND 32</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//  maximum number of subcommands that a command can branch to</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a1176ffa1e8b59f659cd13d02e2298a7f">   34</a></span><span class="preprocessor">    #define UI_MAX_SUBCOMMANDS 32</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//  maximum number of child commands that any command can branch to</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a12823f7dd05646695e5b6b12fd0f5e05">   34</a></span><span class="preprocessor">    #define UI_MAX_NUM_CHILD_COMMANDS 32</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//  maximum command/subcommand char length</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a3838a09964eae8d28f9f58c69df91934">   37</a></span><span class="preprocessor">    #define UI_MAX_CMD_LEN 32</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// maximum number of delimiter sequences</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a5de563ee2695c5a60324eed33992f870">   40</a></span><span class="preprocessor">    #define UI_MAX_DELIM_SEQ 5</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#afc899b6154710261674ea0cfdf08e40b">   40</a></span><span class="preprocessor">    #define UI_MAX_NUM_DELIM_SEQ 5</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// maximum number of start stop sequence len</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a082a06f981c078776a9e20cc316d3aaa">   43</a></span><span class="preprocessor">    #define UI_MAX_START_STOP_SEQ 5</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a2c108dee311479de346895eaedc068c1">   43</a></span><span class="preprocessor">    #define UI_MAX_NUM_START_STOP_SEQ 5</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//  maximum user input length</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a4f376dd1800f7322379979be7d05ca20">   46</a></span><span class="preprocessor">    #define UI_MAX_IN_LEN 65533</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a40e8bda9072bdd1d88b4cff453a84d3c">   46</a></span><span class="preprocessor">    #define UI_MAX_INPUT_LEN 255</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// maximum number of memcmp ranges per command</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../db/d16/config_8h.html#a69a8775b591a7f206a93d39830811f28">   49</a></span><span class="preprocessor">    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 </span></div>

@@ -1,8 +1,8 @@
 <map id="src/InputHandler.cpp" name="src/InputHandler.cpp">
-<area shape="rect" id="node1" title="InputHandler library cpp file." alt="" coords="87,5,229,32"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="105,80,211,107"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="105,155,211,181"/>
+<area shape="rect" id="node1" title="InputHandler library cpp file." alt="" coords="68,5,211,32"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="86,80,193,107"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="87,155,192,181"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,229,81,256"/>
-<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,229,210,256"/>
-<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="235,229,401,256"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,229,173,256"/>
+<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="197,229,327,256"/>
 </map>
