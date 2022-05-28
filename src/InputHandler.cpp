@@ -32,7 +32,7 @@ void UserInput::addCommand(CommandConstructor& command)
     size_t max_args_found = 0;  // for _data_pointers_ array sizing
     CommandParameters prm;      // this CommandParameters struct is referenced by the helper function _addCommandAbort()
     size_t wc_containing_prm_found = 0;
-    IH::memcmp_idx_type wc_containing_prm_index_arr[UI_MAX_SUBCOMMANDS + 1] {}; // max possible amount of subcommands + root command
+    IH::memcmp_idx_t wc_containing_prm_index_arr[UI_MAX_COMMANDS_IN_TREE] {}; // max possible amount of subcommands + root command
     bool err = false; // CommandParameters struct error sentinel
     /*
         the reason we run through the whole CommandParameters array instead of breaking
@@ -62,19 +62,19 @@ void UserInput::addCommand(CommandConstructor& command)
         if (wc_containing_prm_found > 0) // if the number of wildcard containing CommandParameters is greater than zero
         {             
             command.calc = (struct CommandRuntimeCalc*) calloc(1, sizeof(struct CommandRuntimeCalc));
-            command.calc->num_prm_with_wc = (IH::memcmp_idx_type)wc_containing_prm_found; 
-            command.calc->idx_of_prm_with_wc = (IH::memcmp_idx_type*) calloc(wc_containing_prm_found, sizeof(IH::memcmp_idx_type));
-            command.calc->num_memcmp_ranges_this_row = (IH::num_memcmp_ranges_type*) calloc(wc_containing_prm_found, sizeof(IH::num_memcmp_ranges_type));                        
-            command.calc->memcmp_ranges_arr = (IH::memcmp_ranges_type**) calloc(wc_containing_prm_found, sizeof(IH::memcmp_ranges_type*));                        
+            command.calc->num_prm_with_wc = (IH::memcmp_idx_t)wc_containing_prm_found; 
+            command.calc->idx_of_prm_with_wc = (IH::memcmp_idx_t*) calloc(wc_containing_prm_found, sizeof(IH::memcmp_idx_t));
+            command.calc->num_memcmp_ranges_this_row = (IH::ui_max_per_cmd_memcmp_ranges_t*) calloc(wc_containing_prm_found, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t));                        
+            command.calc->memcmp_ranges_arr = (IH::ui_max_per_cmd_memcmp_ranges_t**) calloc(wc_containing_prm_found, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t*));                        
             memcpy(command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr, wc_containing_prm_found);            
             for (size_t i = 0; i < wc_containing_prm_found; ++i)
             {                             
-                IH::memcmp_ranges_type memcmp_ranges[UI_MAX_PER_CMD_MEMCMP_RANGES] {};
-                IH::memcmp_ranges_type memcmp_ranges_idx = 0;
+                IH::ui_max_per_cmd_memcmp_ranges_t memcmp_ranges[UI_MAX_PER_CMD_MEMCMP_RANGES] {};
+                IH::ui_max_per_cmd_memcmp_ranges_t memcmp_ranges_idx = 0;
                 memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));                
                 UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);                                                                                
                 command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;              
-                command.calc->memcmp_ranges_arr[i] = (IH::memcmp_ranges_type*) calloc(memcmp_ranges_idx, sizeof(IH::memcmp_ranges_type));  
+                command.calc->memcmp_ranges_arr[i] = (IH::ui_max_per_cmd_memcmp_ranges_t*) calloc(memcmp_ranges_idx, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t));  
                 memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
                 #if defined(__DEBUG_ADDCOMMAND__)
                 UserInput::_ui_out(PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"), prm.command, memcmp_ranges_idx);
@@ -180,7 +180,7 @@ void UserInput::listSettings(UserInput* inputProcess)
     }
     size_t idx = 0;
     UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
-                            "UI_MAX_ARGS %lu max allowed arguments per unique command_id\n"
+                            "UI_MAX_ARGS_PER_COMMAND %lu max allowed arguments per unique command_id\n"
                             "UI_MAX_CMD_LEN (root command) %lu characters\n"
                             "UI_MAX_IN_LEN %lu bytes\n"
                             "\nUserInput constructor:\n"
@@ -192,9 +192,9 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "\nEscaped for display:\n"
                             "pinputcc = \"%s\"\n"
                             "peol = \"%s\"\n"),
-                       (uint32_t)UI_MAX_ARGS,
+                       (uint32_t)UI_MAX_ARGS_PER_COMMAND,
                        (uint32_t)UI_MAX_CMD_LEN,
-                       (uint32_t)UI_MAX_IN_LEN,
+                       (uint32_t)UI_MAX_INPUT_LEN,
                        (uint32_t)_output_buffer_len_,
                        (char*)pname,
                        (uint32_t)_p_num_ptrs_,
@@ -255,7 +255,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     {
         return;
     }
-    if (len > UI_MAX_IN_LEN) 
+    if (len > UI_MAX_INPUT_LEN) 
     {
         #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.pname));
@@ -642,7 +642,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
         {
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]), sizeof(rprm.prm)); // only load if a command matched
             // constrain err_n_args to UI_MAX_ARGS + 1
-            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS + 1)) ? (UI_MAX_ARGS + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
+            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS_PER_COMMAND + 1)) ? (UI_MAX_ARGS_PER_COMMAND + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             err_n_args = (err_n_args == 0 && rprm.prm.num_args > 0) ? 1 : err_n_args;
             if (err_n_args > 0)
             {
@@ -980,22 +980,22 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
         }
         error_not = false;
     }
-    if (prm.depth > UI_MAX_DEPTH)
+    if (prm.depth > UI_MAX_TREE_DEPTH_PER_COMMAND)
     {
         UserInput::_ui_out(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
         error_not = false;
     }
-    if (prm.sub_commands > UI_MAX_SUBCOMMANDS)
+    if (prm.sub_commands > UI_MAX_NUM_CHILD_COMMANDS)
     {
         UserInput::_ui_out(PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
         error_not = false;
     }
-    if (prm.num_args > UI_MAX_ARGS)
+    if (prm.num_args > UI_MAX_ARGS_PER_COMMAND)
     {
         UserInput::_ui_out(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
         error_not = false;
     }
-    if (prm.max_num_args > UI_MAX_ARGS)
+    if (prm.max_num_args > UI_MAX_ARGS_PER_COMMAND)
     {
         UserInput::_ui_out(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
         error_not = false;
@@ -1250,7 +1250,7 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
     return false;
 }
 
-void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_type& memcmp_ranges_idx, IH::memcmp_ranges_type* memcmp_ranges)
+void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
 {
     // this function is only used inside of UserInput::addCommand() and is not iterated over in loop()
     if (prm.has_wildcards == true) // if this command has wildcards

@@ -21,29 +21,29 @@
 /*
     User Configurable items
 */
-// maxumum number of root commands
-    #define UI_MAX_COMMANDS 32
+// maxumum number of tree commands including root
+    #define UI_MAX_COMMANDS_IN_TREE 32
 
 //  maximum number of arguments per command
-    #define UI_MAX_ARGS 32
+    #define UI_MAX_ARGS_PER_COMMAND 32
 
-//  maximum tree depth
-    #define UI_MAX_DEPTH 32
+//  maximum command tree depth
+    #define UI_MAX_TREE_DEPTH_PER_COMMAND 32
 
-//  maximum number of subcommands that a command can branch to
-    #define UI_MAX_SUBCOMMANDS 32
+//  maximum number of child commands that any command can branch to
+    #define UI_MAX_NUM_CHILD_COMMANDS 32
 
 //  maximum command/subcommand char length
     #define UI_MAX_CMD_LEN 32
 
 // maximum number of delimiter sequences
-    #define UI_MAX_DELIM_SEQ 5
+    #define UI_MAX_NUM_DELIM_SEQ 5
 
 // maximum number of start stop sequence len
-    #define UI_MAX_START_STOP_SEQ 5
+    #define UI_MAX_NUM_START_STOP_SEQ 5
 
 //  maximum user input length
-    #define UI_MAX_IN_LEN 65533
+    #define UI_MAX_INPUT_LEN 255
 
 // maximum number of memcmp ranges per command
     #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)

@@ -1,6 +1,6 @@
 /**
    @file noedit.h
-   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+   @authors Douglas Quigg (dstroy0 dquigg123@gmail.com) and Brendan Doherty (2bndy5 2bndy5@gmail.com)
    @brief InputHandler library C includes, do not edit
    @version 1.0
    @date 2022-05-16
@@ -13,14 +13,14 @@
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  version 3 as published by the Free Software Foundation.
- */
+*/
 
 #if !defined(__INPUTHANDLER_NOEDIT_H__)
     #define __INPUTHANDLER_NOEDIT_H__
 
     #include <Arduino.h>
-    #include "config/config.h" // user config file
-    #include "config/advanced_config.h" // advanced and debugging toggleable options
+    #include "config.h" // user config file
+    #include "advanced_config.h" // advanced and debugging toggleable options
 
     /*
         DO NOT EDIT the sections below unless you know what will happen, incorrect entry
@@ -97,7 +97,7 @@
     */
 
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
-    #define UI_ALL_WCC_CMD ((IH::memcmp_ranges_type)-1) ///< UI_ALL_WCC_CMD is Type MAX
+    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) ///< UI_ALL_WCC_CMD is Type MAX
 
 /**
  * @namespace IH
@@ -106,48 +106,184 @@
  * auto type sizing macros, uses src/config.h as input
  */
 namespace IH {
-// InputProcessDelimiterSequences
-typedef uint8_t delim_lens_type;
-
-// InputProcessStartStopSequences
-typedef uint8_t start_stop_sequence_lens_type;
 
 // CommandParameters related macros
-// typedef uint8_t max_command_type; // max number of commands
-typedef uint8_t command_length_type;
-typedef uint16_t command_id_group_type; // parent and this command id
-typedef uint8_t tree_depth_type;
-typedef uint8_t sub_commands_type;
-typedef uint8_t num_args_group_type;
+typedef uint16_t cmd_id_grp_t;
 
 // UserInput private member type
 typedef bool input_type_match_flags_type;
 
 // CommandRuntimeCalc
-typedef uint8_t memcmp_idx_type;        // if you want more than 255 commands with wcc change this to uint16_t
-typedef uint8_t num_memcmp_ranges_type; // if you want more than 255 memcmp ranges in one command (default is 5)
-typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255, change this to uint16_t
+        // if you want more than 255 commands with wcc change this to uint16_t
+//typedef uint8_t num_memcmp_ranges_type; // if you want more than 255 memcmp ranges in one command (default is 5)
+//typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255, change this to uint16_t
 
 // config error checking
 
-    #if UI_MAX_COMMANDS <= UINT8_MAX
-        typedef uint8_t max_command_type;
+    #if UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX
+        typedef uint8_t ui_max_commands_in_tree_t;
     #endif    
-    #if UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
-        typedef uint16_t max_command_type; 
+    #if UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX
+        typedef uint16_t ui_max_commands_in_tree_t; 
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS|max_command_type changed from uint8_t to uint16_t        
+        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t changed from uint8_t to uint16_t        
     #endif
-    #if UI_MAX_COMMANDS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
-        typedef uint32_t max_command_type;
+    #if UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX
+        typedef uint32_t ui_max_commands_in_tree_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS|max_command_type changed from uint8_t to uint32_t
+        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t changed from uint8_t to uint32_t
     #endif
-    #if UI_MAX_COMMANDS > UINT32_MAX
+    #if UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX) - 1)
         #pragma message(" at " LOCATION)
-        #error UI_MAX_COMMANDS cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_COMMANDS
+        #error UI_MAX_COMMANDS_IN_TREE cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_COMMANDS_IN_TREE
 
+    #if UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX
+        typedef uint8_t ui_max_args_t;
+    #endif    
+    #if UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX
+        typedef uint16_t ui_max_args_t; 
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t        
+    #endif
+    #if UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX
+        typedef uint32_t ui_max_args_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_ARGS_PER_COMMAND > ((UINT32_MAX) - 1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_ARGS_PER_COMMAND
+
+    #if UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX
+        typedef uint8_t ui_max_tree_depth_per_command_t;
+    #endif    
+    #if UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX
+        typedef uint16_t ui_max_tree_depth_per_command_t; 
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t        
+    #endif
+    #if UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX
+        typedef uint32_t ui_max_tree_depth_per_command_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX) - 1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
+
+    #if UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX
+        typedef uint8_t ui_max_num_child_commands_t;        
+    #endif
+    #if UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX
+        typedef uint16_t ui_max_num_child_commands_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX
+        typedef uint32_t ui_max_num_child_commands_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_NUM_CHILD_COMMANDS
+
+    #if UI_MAX_CMD_LEN <= UINT8_MAX
+        typedef uint8_t ui_max_cmd_len_t;
+    #endif
+    #if UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX
+        typedef uint16_t ui_max_cmd_len_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX
+        typedef uint32_t ui_max_cmd_len_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_CMD_LEN > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_CMD_LEN
+
+    #if UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX
+        typedef uint8_t ui_max_num_delim_seq_t;
+    #endif
+    #if UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX
+        typedef uint16_t ui_max_num_delim_seq_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX
+        typedef uint32_t ui_max_num_delim_seq_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_NUM_DELIM_SEQ
+
+    #if UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX
+        typedef uint8_t ui_max_num_start_stop_seq_t;
+    #endif
+    #if UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX
+        typedef uint16_t ui_max_num_start_stop_seq_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX
+        typedef uint32_t ui_max_num_start_stop_seq_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_NUM_START_STOP_SEQ
+
+    #if UI_MAX_INPUT_LEN <= UINT8_MAX
+        typedef uint8_t ui_max_input_len_t;
+    #endif
+    #if UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX
+        typedef uint16_t ui_max_input_len_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX
+        typedef uint32_t ui_max_input_len_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_INPUT_LEN > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_INPUT_LEN
+
+    #if UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX
+        typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
+        typedef uint8_t memcmp_idx_t;
+    #endif
+    #if UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX
+        typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
+        typedef uint16_t memcmp_idx_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t
+    #endif
+    #if UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX
+        typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
+        typedef uint32_t memcmp_idx_t;
+        #pragma message(" at " LOCATION)
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t
+    #endif
+    #if UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1)
+        #pragma message(" at " LOCATION)
+        #error UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
+    #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
 
 // end config error checking
 } // end namespace IH
