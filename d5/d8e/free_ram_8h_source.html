@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('d5/d8e/free_ram_8h_source.html','../..
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordtype">int</span> <a class="code hl_define" href="../../d5/d8e/free_ram_8h.html#ae84ff4a2378dde052719e37314ab0e57">freeRam</a>()</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordtype">char</span> top;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordtype">char</span> top;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">            #if defined(__arm__)</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keywordflow">return</span> &amp;top - <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(sbrk(0));</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">            #elif defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO &gt; 103 &amp;&amp; ARDUINO != 151) </span><span class="comment">// arduino and teensy model macros</span></div>
