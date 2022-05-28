@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['va_5farg_0',['va_arg',['../dd/ddc/vsnprintf_8h.html#a9cfd655f1203c9a345ddd90446f0bcee',1,'vsnprintf.h']]],
-  ['va_5fend_1',['va_end',['../dd/ddc/vsnprintf_8h.html#a823b205416e9129825841b74c3bf8484',1,'vsnprintf.h']]],
-  ['va_5fstart_2',['va_start',['../dd/ddc/vsnprintf_8h.html#aa0628ab596c3d7e78f5e08c2d98e24da',1,'vsnprintf.h']]],
-  ['verbose_5fmode_3',['VERBOSE_MODE',['../d2/df9/_bluefruit_config_8h.html#ad5755cfbc5c4b61d5a5b88782eee01e8',1,'BluefruitConfig.h']]]
+  ['s_0',['S',['../da/dc7/noedit_8h.html#ac4a3ed3432929804c708f7760fb79e28',1,'noedit.h']]],
+  ['str_1',['STR',['../da/dc7/noedit_8h.html#a18d295a837ac71add5578860b55e5502',1,'noedit.h']]]
 ];
