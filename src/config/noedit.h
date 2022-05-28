@@ -108,7 +108,7 @@
  * The idea behind this namespace is to let users set config.h items to
  * whatever they want, sizing variables for the least amount of space, automatically.  
  * The preprocessor evaluates the #if macros in a way that will leave typedefs that 
- * size types to the minimum byte-width required automatically.  It also warns users 
+ * size type aliases to the minimum byte-width required automatically.  It also warns users 
  * about the change.  The only hand-holding that happens is for type sizing, it's up 
  * to you to make sure you have the resources for your settings.
  * A very convenient feature for users.
