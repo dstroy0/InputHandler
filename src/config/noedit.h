@@ -19,8 +19,8 @@
     #define __INPUTHANDLER_NOEDIT_H__
 
     #include <Arduino.h>
-    #include "config.h"
-    #include "advanced_config.h"
+    #include "config/config.h"
+    #include "config/advanced_config.h"
 
     /*
         do not edit the sections below unless you know what will happen
@@ -126,18 +126,21 @@ typedef uint8_t memcmp_ranges_type;     // if your commands are longer than 255,
 // config error checking
 
     #if UI_MAX_COMMANDS <= UINT8_MAX
-        typedef uint8_t max_command_type;    
-    #elif UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
+        typedef uint8_t max_command_type;
+    #endif    
+    #if UI_MAX_COMMANDS > UINT8_MAX && UI_MAX_COMMANDS < UINT16_MAX
         typedef uint16_t max_command_type; 
         #pragma message(" at " LOCATION)
         #warning UI_MAX_COMMANDS|max_command_type changed from uint8_t to uint16_t        
-    #elif UI_MAX_COMMANDS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
+    #endif
+    #if UI_MAX_COMMANDS > UINT16_MAX && UI_MAX_COMMANDS < UINT32_MAX
         typedef uint32_t max_command_type;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_COMMANDS|max_command_type changed from uint8_t to uint32_t
-    #elif UI_MAX_COMMANDS > UINT32_MAX
+    #endif
+    #if UI_MAX_COMMANDS > UINT32_MAX
         #pragma message(" at " LOCATION)
-        #error UI_MAX_ARGS cannot be greater than UINT32_MAX
+        #warning UI_MAX_ARGS cannot be greater than UINT32_MAX
     #endif // end UI_MAX_COMMANDS
 
 
