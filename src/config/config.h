@@ -22,7 +22,7 @@
     User Configurable items
 */
 // maxumum number of root commands
-    #define UI_MAX_COMMANDS 32
+    #define UI_MAX_COMMANDS 256
 
 //  maximum number of arguments per command
     #define UI_MAX_ARGS 32
