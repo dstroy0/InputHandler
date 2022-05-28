@@ -2,8 +2,8 @@
    @file noedit.h
    @authors Douglas Quigg (dstroy0 dquigg123@gmail.com) and Brendan Doherty (2bndy5 2bndy5@gmail.com)
    @brief InputHandler library C includes, do not edit
-   @version 1.0
-   @date 2022-05-16
+   @version 1.1
+   @date 2022-05-28
 
    @copyright Copyright (c) 2022
 */
@@ -103,7 +103,15 @@
  * @namespace IH
  * @brief "auto" type namespace
  *
- * auto type sizing macros, uses src/config.h as input
+ * "auto" type sizing macros, uses src/config.h as input
+ * 
+ * The idea behind this namespace is to let users set config.h items to
+ * whatever they want, sizing variables for the least amount of space, automatically.  
+ * The preprocessor evaluates the #if macros in a way that will leave typedefs that 
+ * size types to the minimum byte-width required automatically.  It also warns users 
+ * about the change.  The only hand-holding that happens is for type sizing, it's up 
+ * to you to make sure you have the resources for your settings.
+ * A very convenient feature for users.
  */
 namespace IH {
 // UserInput private member type (future bit array)
