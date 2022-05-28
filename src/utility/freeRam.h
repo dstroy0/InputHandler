@@ -56,7 +56,7 @@
         #endif
             int freeRam()
             {
-            char top;
+                char top;
             #if defined(__arm__)
                 return &top - reinterpret_cast<char*>(sbrk(0));
             #elif defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
