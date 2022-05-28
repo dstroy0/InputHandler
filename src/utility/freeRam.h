@@ -18,8 +18,7 @@
 #if !defined(__CROSS_PLATFORM_FREERAM_H__)
     #define __CROSS_PLATFORM_FREERAM_H__
 
-    #include <Arduino.h>
-
+    #include <Arduino.h>    
     // avr
     // https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8
     #if defined(ARDUINO_ARCH_AVR)
@@ -67,7 +66,8 @@
             }
 
     // add support
-    #else
+    #else        
+        #warning freeRam() is not supported on your platform, it will return 0.
         #define freeRam() 0
     #endif
 
