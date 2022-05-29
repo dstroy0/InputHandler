@@ -380,10 +380,83 @@ $(document).ready(function(){initNavTree('da/dc7/noedit_8h_source.html','../../'
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>} <span class="comment">// end namespace IH</span></div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">#endif </span><span class="comment">// end include guard</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment">// end of file</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment">// optional method toggles</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="comment">// LIBRARY OUTPUT</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">    #if !defined(UI_ECHO_ONLY)</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a1182320002d7bb6466667181dc46c61b">  294</a></span><span class="preprocessor">        #define UI_VERBOSE</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="comment">// end LIBRARY OUTPUT</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="comment">// DEBUGGING</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">    #if defined(DEBUG_GETCOMMANDFROMSTREAM)</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">        #define __DEBUG_GETCOMMANDFROMSTREAM__</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">    #if defined(DEBUG_READCOMMANDFROMBUFFER)</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">        #define __DEBUG_READCOMMANDFROMBUFFER__</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">    #if defined(DEBUG_GET_TOKEN)</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">        #define __DEBUG_GET_TOKEN__</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">    #if defined(DEBUG_SUBCOMMAND_SEARCH)</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">        #define __DEBUG_SUBCOMMAND_SEARCH__</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">    #if defined(DEBUG_ADDCOMMAND)</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">        #define __DEBUG_ADDCOMMAND__</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">    #if defined(DEBUG_LAUNCH_LOGIC)</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">        #define __DEBUG_LAUNCH_LOGIC__</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="preprocessor">    #if defined(DEBUG_LAUNCH_FUNCTION)</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="preprocessor">        #define __DEBUG_LAUNCH_FUNCTION__</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">    #if defined(DEBUG_INCLUDE_FREERAM)</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">        #include &quot;<a class="code" href="../../d5/d8e/free_ram_8h.html">utility/freeRam.h</a>&quot;</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">    #endif </span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="comment">// end DEBUGGING</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="comment">// OPTIONAL METHODS</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">    #if !defined(DISABLE_listSettings) </span><span class="comment">// public methods</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a62c5d5f7c8920285344b127175162eac">  327</a></span><span class="preprocessor">        #define ENABLE_listSettings</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="preprocessor">    #if !defined(DISABLE_listCommands)</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#ac4ed6cf6b76e56e650b29cde1400e7d0">  330</a></span><span class="preprocessor">        #define ENABLE_listCommands</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="preprocessor">    #if !defined(DISABLE_getCommandFromStream)</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#ace90282a5802f42cd5adf0b0cd0d6f20">  333</a></span><span class="preprocessor">        #define ENABLE_getCommandFromStream</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="preprocessor">    #if !defined(DISABLE_nextArgument)</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a9aea5a8ed1fb6f2112011be838a87b7b">  336</a></span><span class="preprocessor">        #define ENABLE_nextArgument</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">    #if !defined(DISABLE_getArgument)</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#abcd72504517df45ba3ccc79d39a82df6">  339</a></span><span class="preprocessor">        #define ENABLE_getArgument</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="preprocessor">    #if !defined(DISABLE_outputIsAvailable)</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a87b4c0d185b94d9171e7cad754bce84f">  342</a></span><span class="preprocessor">        #define ENABLE_outputIsAvailable</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">    #if !defined(DISABLE_outputIsEnabled)</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a7b959a7fa16ca8f397696bca4aa0b7ee">  345</a></span><span class="preprocessor">        #define ENABLE_outputIsEnabled</span></div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="preprocessor">    #if !defined(DISABLE_outputToStream)</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a2aaf2b870ef542077c6852b24f3bfeb3">  348</a></span><span class="preprocessor">        #define ENABLE_outputToStream</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">    #if !defined(DISABLE_clearOutputBuffer)</span></div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a873a6df63ff76da2907084a19927ad95">  351</a></span><span class="preprocessor">        #define ENABLE_clearOutputBuffer</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">    #endif </span><span class="comment">// end public methods    </span></div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="preprocessor">    #if !defined(DISABLE_readCommandFromBufferErrorOutput) </span><span class="comment">// private methods</span></div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a27f8ef0b70f29a66ef13f196e699e2fe">  354</a></span><span class="preprocessor">        #define ENABLE_readCommandFromBufferErrorOutput</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">    #if !defined(DISABLE_ui_out) </span><span class="comment">// disables all output, even if you have an output buffer defined      </span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno"><a class="line" href="../../da/dc7/noedit_8h.html#a3993c53011a6c54c908722ee96194d24">  357</a></span><span class="preprocessor">        #define ENABLE_ui_out</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">    #endif </span><span class="comment">// end private methods    </span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="comment">// end OPTIONAL METHODS</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    </div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="comment">// end optional method toggles</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="preprocessor">#endif </span><span class="comment">// end include guard</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="comment">// end of file</span></div>
 <div class="ttc" id="aadvanced__config_8h_html"><div class="ttname"><a href="../../d5/d4a/advanced__config_8h.html">advanced_config.h</a></div><div class="ttdoc">InputHandler library advanced user settings.</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="../../db/d16/config_8h.html">config.h</a></div><div class="ttdoc">InputHandler library user configurable items.</div></div>
+<div class="ttc" id="afree_ram_8h_html"><div class="ttname"><a href="../../d5/d8e/free_ram_8h.html">freeRam.h</a></div><div class="ttdoc">cross platform freeRam()</div></div>
 <div class="ttc" id="anamespace_i_h_html"><div class="ttname"><a href="../../d2/d0c/namespace_i_h.html">IH</a></div><div class="ttdoc">&quot;auto&quot; type namespace</div></div>
 <div class="ttc" id="anamespace_i_h_html_a824d410663553d9f3fdf30fdf920002e"><div class="ttname"><a href="../../d2/d0c/namespace_i_h.html#a824d410663553d9f3fdf30fdf920002e">IH::input_type_match_flags_type</a></div><div class="ttdeci">bool input_type_match_flags_type</div><div class="ttdef"><b>Definition:</b> noedit.h:117</div></div>
 <div class="ttc" id="avsnprintf_8h_html"><div class="ttname"><a href="../../dd/ddc/vsnprintf_8h.html">vsnprintf.h</a></div></div>
