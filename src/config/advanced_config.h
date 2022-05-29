@@ -20,11 +20,13 @@
 
 /*
     library output
+    switch this on/off by commenting/uncommenting the #define
 */    
     // #define UI_ECHO_ONLY
 
 /*
     DEBUGGING
+    switch these on/off by commenting/uncommenting the #define
 */
     // #define DEBUG_GETCOMMANDFROMSTREAM
     // #define DEBUG_READCOMMANDFROMBUFFER
@@ -37,7 +39,7 @@
 
 /*
     OPTIONAL METHODS
-    switch these on/off by using #define DISABLE_<method> before including the library
+    switch these on/off by commenting/uncommenting the #define
 */
     // public methods
     // #define DISABLE_listSettings
