@@ -20,82 +20,38 @@
 
 /*
     library output
-*/
-    #if !defined(UI_ECHO_ONLY)
-        #define UI_VERBOSE
-    #endif
+*/    
+    // #define UI_ECHO_ONLY
 
 /*
     DEBUGGING
-
-    switch these on/off by using #define before including the library
 */
-    #if defined(DEBUG_GETCOMMANDFROMSTREAM)
-        #define __DEBUG_GETCOMMANDFROMSTREAM__
-    #endif
-    #if defined(DEBUG_READCOMMANDFROMBUFFER)
-        #define __DEBUG_READCOMMANDFROMBUFFER__
-    #endif
-    #if defined(DEBUG_GET_TOKEN)
-        #define __DEBUG_GET_TOKEN__
-    #endif
-    #if defined(DEBUG_SUBCOMMAND_SEARCH)
-        #define __DEBUG_SUBCOMMAND_SEARCH__
-    #endif
-    #if defined(DEBUG_ADDCOMMAND)
-        #define __DEBUG_ADDCOMMAND__
-    #endif
-    #if defined(DEBUG_LAUNCH_LOGIC)
-        #define __DEBUG_LAUNCH_LOGIC__
-    #endif
-    #if defined(DEBUG_LAUNCH_FUNCTION)
-        #define __DEBUG_LAUNCH_FUNCTION__
-    #endif
-    #if defined(DEBUG_INCLUDE_FREERAM)
-        #include "utility/freeRam.h"
-    #endif
+    // #define DEBUG_GETCOMMANDFROMSTREAM
+    // #define DEBUG_READCOMMANDFROMBUFFER
+    // #define DEBUG_GET_TOKEN
+    // #define DEBUG_SUBCOMMAND_SEARCH
+    // #define DEBUG_ADDCOMMAND
+    // #define DEBUG_LAUNCH_LOGIC
+    // #define DEBUG_LAUNCH_FUNCTION
+    // #define DEBUG_INCLUDE_FREERAM
 
-    /*
-        OPTIONAL METHODS
-
-        switch these on/off by using #define DISABLE_<method> before including the library
-    */
-
-    //  public methods
-    #if !defined(DISABLE_listSettings)
-        #define ENABLE_listSettings
-    #endif
-    #if !defined(DISABLE_listCommands)
-        #define ENABLE_listCommands
-    #endif
-    #if !defined(DISABLE_getCommandFromStream)
-        #define ENABLE_getCommandFromStream
-    #endif
-    #if !defined(DISABLE_nextArgument)
-        #define ENABLE_nextArgument
-    #endif
-    #if !defined(DISABLE_getArgument)
-        #define ENABLE_getArgument
-    #endif
-    #if !defined(DISABLE_outputIsAvailable)
-        #define ENABLE_outputIsAvailable
-    #endif
-    #if !defined(DISABLE_outputIsEnabled)
-        #define ENABLE_outputIsEnabled
-    #endif
-    #if !defined(DISABLE_outputToStream)
-        #define ENABLE_outputToStream
-    #endif
-    #if !defined(DISABLE_clearOutputBuffer)
-        #define ENABLE_clearOutputBuffer
-    #endif
+/*
+    OPTIONAL METHODS
+    switch these on/off by using #define DISABLE_<method> before including the library
+*/
+    // public methods
+    // #define DISABLE_listSettings
+    // #define DISABLE_listCommands
+    // #define DISABLE_getCommandFromStream
+    // #define DISABLE_nextArgument
+    // #define DISABLE_getArgument
+    // #define DISABLE_outputIsAvailable
+    // #define DISABLE_outputIsEnabled
+    // #define DISABLE_outputToStream
+    // #define DISABLE_clearOutputBuffer
+    
     // private methods
-    #if !defined(DISABLE_readCommandFromBufferErrorOutput)
-        #define ENABLE_readCommandFromBufferErrorOutput
-    #endif
-    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined      
-        #define ENABLE_ui_out
-    #endif
-
+    // #define DISABLE_readCommandFromBufferErrorOutput
+    // #define DISABLE_ui_out
 #endif // include guard
 // end of file

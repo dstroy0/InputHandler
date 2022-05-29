@@ -288,5 +288,77 @@ typedef bool input_type_match_flags_type;
 
 } // end namespace IH
 
+// optional method toggles
+    // LIBRARY OUTPUT
+    #if !defined(UI_ECHO_ONLY)
+        #define UI_VERBOSE
+    #endif
+    // end LIBRARY OUTPUT
+
+    // DEBUGGING
+    #if defined(DEBUG_GETCOMMANDFROMSTREAM)
+        #define __DEBUG_GETCOMMANDFROMSTREAM__
+    #endif
+    #if defined(DEBUG_READCOMMANDFROMBUFFER)
+        #define __DEBUG_READCOMMANDFROMBUFFER__
+    #endif
+    #if defined(DEBUG_GET_TOKEN)
+        #define __DEBUG_GET_TOKEN__
+    #endif
+    #if defined(DEBUG_SUBCOMMAND_SEARCH)
+        #define __DEBUG_SUBCOMMAND_SEARCH__
+    #endif
+    #if defined(DEBUG_ADDCOMMAND)
+        #define __DEBUG_ADDCOMMAND__
+    #endif
+    #if defined(DEBUG_LAUNCH_LOGIC)
+        #define __DEBUG_LAUNCH_LOGIC__
+    #endif
+    #if defined(DEBUG_LAUNCH_FUNCTION)
+        #define __DEBUG_LAUNCH_FUNCTION__
+    #endif
+    #if defined(DEBUG_INCLUDE_FREERAM)
+        #include "utility/freeRam.h"
+    #endif 
+    // end DEBUGGING
+
+    // OPTIONAL METHODS
+    #if !defined(DISABLE_listSettings) // public methods
+        #define ENABLE_listSettings
+    #endif
+    #if !defined(DISABLE_listCommands)
+        #define ENABLE_listCommands
+    #endif
+    #if !defined(DISABLE_getCommandFromStream)
+        #define ENABLE_getCommandFromStream
+    #endif
+    #if !defined(DISABLE_nextArgument)
+        #define ENABLE_nextArgument
+    #endif
+    #if !defined(DISABLE_getArgument)
+        #define ENABLE_getArgument
+    #endif
+    #if !defined(DISABLE_outputIsAvailable)
+        #define ENABLE_outputIsAvailable
+    #endif
+    #if !defined(DISABLE_outputIsEnabled)
+        #define ENABLE_outputIsEnabled
+    #endif
+    #if !defined(DISABLE_outputToStream)
+        #define ENABLE_outputToStream
+    #endif
+    #if !defined(DISABLE_clearOutputBuffer)
+        #define ENABLE_clearOutputBuffer
+    #endif // end public methods    
+    #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
+        #define ENABLE_readCommandFromBufferErrorOutput
+    #endif
+    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined      
+        #define ENABLE_ui_out
+    #endif // end private methods    
+    // end OPTIONAL METHODS
+    
+// end optional method toggles
+
 #endif // end include guard
 // end of file
