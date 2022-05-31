@@ -6,15 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1200</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color:rgb(190, 255, 205)</string>
   </property>
  </widget>
  <resources/>

@@ -1,5 +1,10 @@
 import sys
-#print(sys.path)
+print(sys.path + "\n")
+
+import os
+path = os.environ['PATH']
+print(path + "\n")
+
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from Pyqt5.QtWidgets import QDialog, QApplication, Qwidget
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget
