@@ -127,20 +127,21 @@ class MainWindow(QMainWindow):
 
         #TODO
         # save json db to file function
-        def save_json_to_file(self, file_name:str):
+        def save_json_to_file(self, db, file_name:str):
             try:
-                with open(file_name, 'w', newline='') as file:
-                    writer = json.dumps(file_name)
+                with open(file_name, 'w', encoding='utf-8') as file:
+                    file.write(json.dumps(db, file, ensure_ascii=False, indent=4)) # nicer json writing
                     print('File saved.')
             except Exception as e:
                 print(e)
         
         #TODO
         # load json db from file function
-        def load_json_from_file(self, file_name:str):
+        def load_json_from_file(self, db, file_name:str):
             try:
-                with open(file_name, 'r', newline='') as file:
-                    writer = json.loads(file_name)
+                with open(file_name, 'r') as file:
+                    # reader is the loaded json
+                    reader = json.loads(file)
                     print('File load.')
             except Exception as e:
                 print(e)
