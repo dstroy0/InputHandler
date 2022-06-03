@@ -90,8 +90,8 @@ class MainWindow(QMainWindow):
             self.fileMenu.addAction(exitAction)
             
             self.tabWidget = QTabWidget()
-            self.tabWidget.addTab(process_widget, "")
-            self.tabWidget.addTab(parameters_widget, "")
+            self.tabWidget.addTab(process_widget, "Process Settings")
+            self.tabWidget.addTab(parameters_widget, "Command Tree Settings")
 
             self.setCentralWidget(self.tabWidget) #TODO
 
