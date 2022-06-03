@@ -75,6 +75,7 @@ class MainWindow(QMainWindow):
             # self.setWindowIcon(QIcon('icon'))
             self.resize(1200,800)
 
+            # File menu
             self.menuBar = self.menuBar()
             self.fileMenu = self.menuBar.addMenu('File')
 
@@ -83,19 +84,35 @@ class MainWindow(QMainWindow):
             exportAction.setShortcut('Ctrl+E')
             # exportAction.triggered.connect() #TODO
 
+            # save json db to file action
+            #TODO
+            # saveJsonAction = QAction('Save file', self)
+            # saveJsonAction.setShortcut('Ctrl+S')
+            # saveJsonAction.triggered.connect() #TODO
+
+            # open file and load json db action
+            #TODO
+            # openFileLoadJsonAction = QAction('Open file', self)
+            # openFileLoadJsonAction.setShortcut('Ctrl+O')
+            # openFileLoadJsonAction.triggered.connect() #TODO
+
             # exit action
             exitAction = QAction('Exit', self)
             exitAction.setShortcut('Ctrl+Q')
             exitAction.triggered.connect(lambda: app.quit())
 
+            # File menu actions
+            # self.fileMenu.addAction(saveJsonAction)
+            # self.fileMenu.addAction(openFileLoadJsonAction)
             self.fileMenu.addAction(exportAction)
             self.fileMenu.addAction(exitAction)
             
+            # central tab widget
             self.tabWidget = QTabWidget()
             self.tabWidget.addTab(process_widget, "Process Settings")
             self.tabWidget.addTab(parameters_widget, "Command Tree Settings")
 
-            self.setCentralWidget(self.tabWidget) #TODO
+            self.setCentralWidget(self.tabWidget)
 
         def export_to_csv(self, file_name:str):
             try:
@@ -108,7 +125,25 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 print(e)
 
-
+        #TODO
+        # save json db to file function
+        def save_json_to_file(self, file_name:str):
+            try:
+                with open(file_name, 'w', newline='') as file:
+                    writer = json.dumps(file_name)
+                    print('File saved.')
+            except Exception as e:
+                print(e)
+        
+        #TODO
+        # load json db from file function
+        def load_json_from_file(self, file_name:str):
+            try:
+                with open(file_name, 'r', newline='') as file:
+                    writer = json.loads(file_name)
+                    print('File load.')
+            except Exception as e:
+                print(e)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
