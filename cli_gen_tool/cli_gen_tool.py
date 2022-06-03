@@ -98,12 +98,15 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     gen_c_code = QLabel()
     gen_p_code = QLabel()
+
     # generate code preview
     # TODO
     gen_p_code.setText('process code preview')
     gen_c_code.setText('parameters code preview')
-    p = ProcessDataEntryForm(gen_c_code)
-    c = ParametersDataEntryForm(gen_p_code)    
+    
+    # objects to pass to MainWindow
+    p = ProcessDataEntryForm(gen_p_code)
+    c = ParametersDataEntryForm(gen_c_code)    
     cli_gen_tool = MainWindow(p, c)
     cli_gen_tool.show()
     
