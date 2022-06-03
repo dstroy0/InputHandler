@@ -70,7 +70,9 @@ class MainWindow(QMainWindow):
         def __init__(self, process_widget, parameters_widget):
             super().__init__()
             self.setWindowTitle('InputHandler CLI gen tool')
-            #self.setWindowIcon(QIcon(icon path))
+            # generate icon and add as resource
+            #TODO
+            # self.setWindowIcon(QIcon('icon'))
             self.resize(1200,800)
 
             self.menuBar = self.menuBar()
