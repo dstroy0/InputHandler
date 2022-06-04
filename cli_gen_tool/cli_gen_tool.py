@@ -35,11 +35,13 @@ class ParametersDataEntryForm(QWidget):
         self.tree = QTreeWidget()
 
         self.layoutRight = QVBoxLayout()
+        self.layoutRight.setSpacing(10)
 
         self.layoutRight.addWidget(gen_c_code)
 
         self.layout = QHBoxLayout()
         self.layout.addWidget(self.tree, 50)
+        self.layout.addLayout(self.layoutRight, 50)
 
         self.setLayout(self.layout)
 
@@ -58,12 +60,14 @@ class ProcessDataEntryForm(QWidget):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch) # stretch table to window width
 
         self.layoutRight = QVBoxLayout()
-
+        self.layoutRight.setSpacing(10)
+        
         self.layoutRight.addWidget(gen_p_code)
 
         self.layout = QHBoxLayout()
         self.layout.addWidget(self.table, 50)
-
+        self.layout.addLayout(self.layoutRight, 50)
+        
         self.setLayout(self.layout)
 
 class MainWindow(QMainWindow):
@@ -130,19 +134,20 @@ class MainWindow(QMainWindow):
         def save_json_to_file(self, db, file_name:str):
             try:
                 with open(file_name, 'w', encoding='utf-8') as file:
-                    file.write(json.dumps(db, file, ensure_ascii=False, indent=4)) # nicer json writing
+                    file.write(json.dumps(db, file, ensure_ascii=False, indent=4, encoding='utf-8')) # nicer json writing
                     print('File saved.')
             except Exception as e:
                 print(e)
         
         #TODO
         # load json db from file function
-        def load_json_from_file(self, db, file_name:str):
+        def load_json_from_file(self, file_name:str):
             try:
-                with open(file_name, 'r') as file:
-                    # reader is the loaded json
-                    reader = json.loads(file)
+                with open(file_name, 'r', encoding='utf-8') as file:
+                    # db is the loaded json
+                    db = json.loads(file) # this should be in try/except in case of file corruption
                     print('File load.')
+                    return db # this makes usage syntax var = load_json_from_file
             except Exception as e:
                 print(e)
 
