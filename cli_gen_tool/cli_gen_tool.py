@@ -19,9 +19,7 @@ import json  #dump everything, maybe a dict or a tuple -> json
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QMainWindow, QPushButton, QAction, QHeaderView, QLineEdit, QLabel,
                              QTabWidget, QTableWidget, QTreeWidget, QVBoxLayout, QHBoxLayout)
-from PyQt5.QtGui import QPainter, QStandardItemModel, QIcon
 from PyQt5.QtCore import Qt
-from PyQt5.QtChart import QChart, QChartView, QPieSeries
 
 class ParametersDataEntryForm(QWidget):
     def __init__(self, gen_c_code):
@@ -57,15 +55,28 @@ class ProcessDataEntryForm(QWidget):
         self.table = QTableWidget()
         self.table.setColumnCount(2) 
         self.table.setHorizontalHeaderLabels(('Option', 'Setting'))
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch) # stretch table to window width
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch) # stretch table to widget width
+        self.table.setContentsMargins(0,0,0,0)                
+        self.table.setFrameShape(self.table.frameShape())
+        self.table.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.table.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)        
 
+        # code preview
         self.layoutRight = QVBoxLayout()
         self.layoutRight.setSpacing(10)
-        
         self.layoutRight.addWidget(gen_p_code)
 
-        self.layout = QHBoxLayout()
-        self.layout.addWidget(self.table, 50)
+        # buttons
+        self.buttonEdit = QPushButton('Edit')
+        self.buttonDefault = QPushButton('Default')
+        self.buttonClear = QPushButton('Clear')
+
+        # layout
+        self.layout = QHBoxLayout()                
+        self.layout.addWidget(self.table, 50)        
+        self.layout.addWidget(self.buttonEdit, alignment=Qt.AlignLeft | Qt.AlignBottom)
+        self.layout.addWidget(self.buttonClear, alignment=Qt.AlignLeft | Qt.AlignBottom)
+        self.layout.addWidget(self.buttonDefault, alignment=Qt.AlignLeft | Qt.AlignBottom)        
         self.layout.addLayout(self.layoutRight, 50)
         
         self.setLayout(self.layout)
@@ -146,7 +157,7 @@ class MainWindow(QMainWindow):
                 with open(file_name, 'r', encoding='utf-8') as file:
                     # db is the loaded json
                     db = json.loads(file) # this should be in try/except in case of file corruption
-                    print('File load.')
+                    print('File loaded.')
                     return db # this makes usage syntax var = load_json_from_file
             except Exception as e:
                 print(e)
