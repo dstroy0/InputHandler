@@ -1,3 +1,5 @@
+# code snippet junkyard
+
 import sys
 import csv   #for learning basic data entry
 import json  #dump everything, maybe a dict or a tuple -> json
