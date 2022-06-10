@@ -4,4 +4,4 @@ docs/html/
 **/src/utility/index_sequence.h
 **/.venv
 **/.qt_for_python
-
+**/__pycache__
