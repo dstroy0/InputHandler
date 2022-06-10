@@ -166,3 +166,25 @@ if __name__ == '__main__':
     cli_gen_tool.show()
     
     sys.exit(app.exec_())
+
+
+#############################################################
+from PyQt6.QtWidgets import QApplication, QWidget
+from PyQt6 import uic
+ 
+ 
+class UI(QWidget):
+    def __init__(self):
+        super().__init__()
+        
+        working_dir_path = os.path.dirname(os.path.abspath(__file__))
+        # print(working_dir_path)
+        ui_path = os.path.join(working_dir_path, "main.ui")
+        # print(ui_path)
+        # loading the ui file with uic module
+        uic.loadUi(ui_path, self)
+  
+app = QApplication(sys.argv)
+window = UI()
+window.show()
+app.exec()

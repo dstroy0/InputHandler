@@ -14,22 +14,6 @@
 
 import sys
 import os
-from PyQt5 import QtWidgets, uic
 
-class Ui(QtWidgets.QMainWindow):
-    def __init__(self):
-        super(Ui, self).__init__() # Call the inherited classes __init__ method
-
-        working_dir_path = os.path.dirname(os.path.abspath(__file__))
-        # print(working_dir_path)
-        ui_path = os.path.join(working_dir_path, "main.ui")
-        # print(ui_path)
-
-        uic.loadUi(ui_path, self) # Load the .ui file
-        self.show() # Show the GUI
-
-app = QtWidgets.QApplication(sys.argv)
-window = Ui()
-app.exec_()
 
 # end of file
