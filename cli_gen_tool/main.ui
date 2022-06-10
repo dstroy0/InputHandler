@@ -27,13 +27,13 @@
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="ih_settings_tab">
      <attribute name="title">
-      <string>InputHandler settings</string>
+      <string>InputHandler Settings</string>
      </attribute>
-     <widget class="QTableWidget" name="inputhandler_settings_table">
+     <widget class="QTableWidget" name="settings_table">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -71,7 +71,7 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="editButton">
+     <widget class="QPushButton" name="editButton_1">
       <property name="geometry">
        <rect>
         <x>190</x>
@@ -84,7 +84,7 @@
        <string>Edit</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="defaultButton">
+     <widget class="QPushButton" name="defaultButton_1">
       <property name="geometry">
        <rect>
         <x>450</x>
@@ -97,7 +97,7 @@
        <string>Default</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="clearButton">
+     <widget class="QPushButton" name="clearButton_1">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -110,7 +110,7 @@
        <string>Clear</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="tab_1_code_preview_label">
       <property name="geometry">
        <rect>
         <x>1070</x>
@@ -133,7 +133,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="tab_1_settings_table_label">
       <property name="geometry">
        <rect>
         <x>330</x>
@@ -151,7 +151,7 @@
      <attribute name="title">
       <string>Command Tree</string>
      </attribute>
-     <widget class="QTreeView" name="treeView">
+     <widget class="QTreeView" name="command_tree">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -167,7 +167,7 @@
        <enum>Qt::ScrollBarAlwaysOn</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="tab_2_code_preview_label">
       <property name="geometry">
        <rect>
         <x>1070</x>
@@ -190,7 +190,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="deleteButton">
+     <widget class="QPushButton" name="deleteButton_2">
       <property name="geometry">
        <rect>
         <x>450</x>
@@ -216,7 +216,7 @@
        <string>Edit</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="newButton">
+     <widget class="QPushButton" name="newButton_2">
       <property name="geometry">
        <rect>
         <x>190</x>
@@ -229,7 +229,7 @@
        <string>New</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="tab_2_command_tree_label">
       <property name="geometry">
        <rect>
         <x>320</x>
