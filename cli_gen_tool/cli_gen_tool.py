@@ -15,11 +15,12 @@
 import os 
 import sys
 import json
-from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QFileDialog)
-from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QFileDialog, QTextEdit)
+from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream, QByteArray, QDir)
 from ui import Ui_MainWindow
 
 class MainWindow(QMainWindow):
+    cli_settings = ''
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
@@ -46,23 +47,19 @@ class MainWindow(QMainWindow):
         self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
         self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-        
-        # load preferences json
-        file = QFile("preferences.json")
-        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-            return # TODO error
-        out = QTextStream(file)
-        self.preferences = json.loads(out) # TODO try/except
 
         # load defaults json
-        file = QFile("default.json")
+        path = QDir.currentPath() + "/cli_gen_tool/settings.json"
+        print(path)
+        file = QFile(path)                     
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             return # TODO error
-        out = QTextStream(file)
-        self.cli_settings = json.loads(out) # TODO try/except
+        out = QTextStream(file).readAll()        
+        file.close()
+        print('settings opened')        
+        MainWindow.cli_settings = json.loads(out) # TODO try/except
 
-    # actions
-    # TODO
+    # actions    
     def open_file(self):
         print('open file')
         dlg = QFileDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
@@ -74,15 +71,28 @@ class MainWindow(QMainWindow):
             fileName = dlg.selectedFiles()
         else:
             return # dialog cancelled
-        file = QFile(fileName)
+        file = QFile(fileName[0])
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             return # TODO error
-        out = QTextStream(file)
-        self.cli_settings = json.loads(out) # TODO try/except
+        f_text = QTextStream(file).readAll()
+        file.close()        
+        MainWindow.cli_settings = json.loads(f_text) # TODO try/except
 
     # TODO
     def save_file(self):
         print('save file')
+        dlg = QFileDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
+        fileName = dlg.getSaveFileName(self, "Save file", "", ".json")
+        if fileName == '':            
+            return # dialog cancelled
+        fqname = fileName[0] + ".json"
+        file = QFile(fqname)        
+        if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
+            return # TODO error
+        out =  QByteArray(json.dumps(MainWindow.cli_settings))
+        file.write(out)
+        file.close()
+           
         
     # TODO
     def gui_settings(self):
