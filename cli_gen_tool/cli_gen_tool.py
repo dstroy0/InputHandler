@@ -14,8 +14,9 @@
 
 import os 
 import sys
+import json
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout)
-from PySide6.QtCore import QFile, Qt
+from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream)
 from ui import Ui_MainWindow
 
 class MainWindow(QMainWindow):
@@ -29,6 +30,10 @@ class MainWindow(QMainWindow):
         self.ui.actionOpen.triggered.connect(self.open_file)
         self.ui.actionSave.triggered.connect(self.save_file)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
+        # TODO
+        # exit item
+        # generate menu
+        # TODO
         # about menu
         self.ui.actionAbout.triggered.connect(self.gui_about)
         self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
@@ -41,6 +46,20 @@ class MainWindow(QMainWindow):
         self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
         self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
+        
+        # load preferences json
+        file = QFile("preferences.json")
+        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+            return # TODO error
+        out = QTextStream(file)
+        self.preferences = json.loads(out)
+
+        # load defaults json
+        file = QFile("default.json")
+        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+            return # TODO error
+        out = QTextStream(file)
+        self.cli_settings = json.loads(out)
 
     # actions
     # TODO
