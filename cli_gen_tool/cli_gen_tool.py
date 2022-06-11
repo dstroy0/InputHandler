@@ -12,6 +12,7 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+import os 
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import QFile
@@ -56,7 +57,13 @@ class MainWindow(QMainWindow):
         print('about')
     # TODO
     def gui_documentation(self):
-        print('docs')
+        # print('docs')
+        # windows
+        os.system("start \"\" https://dstroy0.github.io/InputHandler/")
+        # macos
+        # os.system("open \"\" https://dstroy0.github.io/InputHandler/")
+        # linux
+        # os.system("xdg-open \"\" https://dstroy0.github.io/InputHandler/")
 
     # buttons
     # tab 1
