@@ -55,7 +55,7 @@ class MainWindow(QMainWindow):
     
     def gui_about(self):
         print('about')
-        dlg = QDialog(self)
+        dlg = QDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg.layout = QVBoxLayout()
         dlg.setWindowTitle('About')
         dlg.git_link_label = QLabel()
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         dlg.layout.addWidget(dlg.author_credit_label)
         dlg.setLayout(dlg.layout)
         dlg.exec()
-        
+
     # TODO
     def gui_documentation(self):
         # print('docs')
