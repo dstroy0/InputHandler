@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         file = QFile(fqname)        
         if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
             return # TODO error
-        out =  QByteArray(json.dumps(MainWindow.cli_settings))
+        out =  QByteArray(json.dumps(MainWindow.cli_settings, indent=4, sort_keys=True)) # dump pretty json
         file.write(out)
         file.close()          
         
