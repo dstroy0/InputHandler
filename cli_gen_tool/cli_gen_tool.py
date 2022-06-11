@@ -14,8 +14,8 @@
 
 import os 
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6.QtCore import QFile
+from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout)
+from PySide6.QtCore import QFile, Qt
 from ui import Ui_MainWindow
 
 class MainWindow(QMainWindow):
@@ -52,9 +52,25 @@ class MainWindow(QMainWindow):
     # TODO
     def gui_settings(self):
         print('preferences')
-    # TODO
+    
     def gui_about(self):
         print('about')
+        dlg = QDialog(self)
+        dlg.layout = QVBoxLayout()
+        dlg.setWindowTitle('About')
+        dlg.git_link_label = QLabel()
+        dlg.git_link_label.setText("<a href=\"https://github.com/dstroy0/InputHandler\">Link to library git</a>")
+        dlg.git_link_label.setAlignment(Qt.AlignCenter)
+        dlg.git_link_label.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        dlg.git_link_label.setOpenExternalLinks(True)
+        dlg.layout.addWidget(dlg.git_link_label)
+        dlg.author_credit_label = QLabel()
+        dlg.author_credit_label.setText("Library authors:\nDouglas Quigg (dstroy0 dquigg123@gmail.com)\nBrendan Doherty (2bndy5 2bndy5@gmail.com)")
+        dlg.author_credit_label.setAlignment(Qt.AlignCenter)
+        dlg.layout.addWidget(dlg.author_credit_label)
+        dlg.setLayout(dlg.layout)
+        dlg.exec()
+        
     # TODO
     def gui_documentation(self):
         # print('docs')
