@@ -52,14 +52,14 @@ class MainWindow(QMainWindow):
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             return # TODO error
         out = QTextStream(file)
-        self.preferences = json.loads(out)
+        self.preferences = json.loads(out) # TODO try/except
 
         # load defaults json
         file = QFile("default.json")
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             return # TODO error
         out = QTextStream(file)
-        self.cli_settings = json.loads(out)
+        self.cli_settings = json.loads(out) # TODO try/except
 
     # actions
     # TODO
