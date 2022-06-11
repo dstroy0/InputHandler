@@ -91,8 +91,7 @@ class MainWindow(QMainWindow):
             return # TODO error
         out =  QByteArray(json.dumps(MainWindow.cli_settings))
         file.write(out)
-        file.close()
-           
+        file.close()          
         
     # TODO
     def gui_settings(self):
