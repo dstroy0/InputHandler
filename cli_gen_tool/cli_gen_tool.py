@@ -15,7 +15,7 @@
 import os 
 import sys
 import json
-from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QFileDialog)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream)
 from ui import Ui_MainWindow
 
@@ -65,15 +65,31 @@ class MainWindow(QMainWindow):
     # TODO
     def open_file(self):
         print('open file')
+        dlg = QFileDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
+        dlg.setFileMode(QFileDialog.ExistingFile)
+        dlg.setNameFilter("Settings json (*.json)")
+        dlg.setViewMode(QFileDialog.Detail)
+        fileName = ""
+        if dlg.exec():
+            fileName = dlg.selectedFiles()
+        else:
+            return # dialog cancelled
+        file = QFile(fileName)
+        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+            return # TODO error
+        out = QTextStream(file)
+        self.cli_settings = json.loads(out) # TODO try/except
+
     # TODO
     def save_file(self):
         print('save file')
+        
     # TODO
     def gui_settings(self):
         print('preferences')
     
     def gui_about(self):
-        print('about')
+        # print('about')
         dlg = QDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg.layout = QVBoxLayout()
         dlg.setWindowTitle('About')
