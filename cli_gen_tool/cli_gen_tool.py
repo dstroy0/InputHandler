@@ -16,9 +16,10 @@ import os
 import sys
 import json
 import platform
+from __future__ import absolute_import
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QFileDialog, QTextEdit)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream, QByteArray, QDir)
-from ui import Ui_MainWindow
+from res.uic.mainWindow import Ui_MainWindow
 
 class MainWindow(QMainWindow):
     cli_settings = ''

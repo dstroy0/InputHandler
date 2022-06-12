@@ -27,7 +27,7 @@
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="ih_settings_tab">
      <attribute name="title">
@@ -44,6 +44,9 @@
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
       <attribute name="horizontalHeaderVisible">
        <bool>false</bool>
@@ -132,6 +135,9 @@
         <height>801</height>
        </rect>
       </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
      </widget>
      <widget class="QLabel" name="tab_1_settings_table_label">
       <property name="geometry">
@@ -166,6 +172,9 @@
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
       </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
      </widget>
      <widget class="QLabel" name="tab_2_code_preview_label">
       <property name="geometry">
@@ -188,6 +197,9 @@
         <width>611</width>
         <height>801</height>
        </rect>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
      </widget>
      <widget class="QPushButton" name="deleteButton_2">
