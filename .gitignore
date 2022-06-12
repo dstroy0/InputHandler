@@ -3,5 +3,8 @@
 docs/html/
 **/src/utility/index_sequence.h
 **/.venv
-**/.qt_for_python
+cli_gen_tool/.qt_for_python/*
+!cli_gen_tool/.qt_for_python/uic
+cli_gen_tool/.qt_for_python/uic/*
+!cli_gen_tool.qt_for_python/uic/main.py
 **/__pycache__

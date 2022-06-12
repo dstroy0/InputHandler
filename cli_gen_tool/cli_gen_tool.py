@@ -79,11 +79,13 @@ class MainWindow(QMainWindow):
         file.close()        
         MainWindow.cli_settings = json.loads(f_text) # TODO try/except
 
-    # TODO
     def save_file(self):
         print('save file')
+        
+    def save_file_as(self):
+        print('save file as')
         dlg = QFileDialog(self) # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        fileName = dlg.getSaveFileName(self, "Save file", "", ".json")
+        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json")
         if fileName == '':            
             return # dialog cancelled
         fqname = fileName[0] + ".json"
