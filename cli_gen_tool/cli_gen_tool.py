@@ -33,11 +33,11 @@ class MainWindow(QMainWindow):
         # file menu
         self.ui.actionOpen.triggered.connect(self.open_file)
         self.ui.actionSave.triggered.connect(self.save_file)
+        self.ui.actionSave_As.triggered.connect(self.save_file_as)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
-        # TODO
-        # exit item
+        self.ui.actionExit.triggered.connect(self.gui_exit)
         # generate menu
-        # TODO
+        self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
         # about menu
         self.ui.actionAbout.triggered.connect(self.gui_about)
         self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
@@ -111,6 +111,15 @@ class MainWindow(QMainWindow):
     # TODO
     def gui_settings(self):
         print('preferences')
+
+    # close gui
+    def gui_exit(self):
+        sys.exit(app.exit())
+
+    # TODO
+    # generate CLI files
+    def generate_cli_files(self):
+        print('generate cli files')
     
     def gui_about(self):
         # print('about')
