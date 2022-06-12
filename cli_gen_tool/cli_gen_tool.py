@@ -15,6 +15,7 @@
 import os 
 import sys
 import json
+import platform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QFileDialog, QTextEdit)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream, QByteArray, QDir)
 from ui import Ui_MainWindow
@@ -114,16 +115,18 @@ class MainWindow(QMainWindow):
         dlg.layout.addWidget(dlg.author_credit_label)
         dlg.setLayout(dlg.layout)
         dlg.exec()
-
-    # TODO
+    
     def gui_documentation(self):
-        # print('docs')
+        os_type = platform.uname().system.lower() # lowercase os type
         # windows
-        os.system("start \"\" https://dstroy0.github.io/InputHandler/")
+        if os_type == "windows":
+            os.system("start \"\" https://dstroy0.github.io/InputHandler/")
         # macos
-        # os.system("open \"\" https://dstroy0.github.io/InputHandler/")
+        elif os_type == "darwin":
+            os.system("open \"\" https://dstroy0.github.io/InputHandler/")
         # linux
-        # os.system("xdg-open \"\" https://dstroy0.github.io/InputHandler/")
+        elif os_type == "linux":
+            os.system("xdg-open \"\" https://dstroy0.github.io/InputHandler/")
 
     # buttons
     # tab 1
