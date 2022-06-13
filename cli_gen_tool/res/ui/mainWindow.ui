@@ -6,74 +6,75 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1413</width>
-    <height>892</height>
+    <width>1420</width>
+    <height>875</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1420</width>
+    <height>875</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>InputHandler CLI generation tool</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1420</width>
+     <height>850</height>
+    </size>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1421</width>
-      <height>871</height>
+      <width>1420</width>
+      <height>850</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1420</width>
+      <height>850</height>
+     </size>
+    </property>
+    <property name="sizeIncrement">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="ih_settings_tab">
      <attribute name="title">
       <string>InputHandler Settings</string>
      </attribute>
-     <widget class="QTableWidget" name="settings_table">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>771</width>
-        <height>761</height>
-       </rect>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="sizeAdjustPolicy">
-       <enum>QAbstractScrollArea::AdjustToContents</enum>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>350</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>50</number>
-      </attribute>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Option</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Setting</string>
-       </property>
-      </column>
-     </widget>
      <widget class="QPushButton" name="editButton_1">
       <property name="geometry">
        <rect>
@@ -152,12 +153,7 @@
        <string>Settings</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="command_tab">
-     <attribute name="title">
-      <string>Command Tree</string>
-     </attribute>
-     <widget class="QTreeView" name="command_tree">
+     <widget class="QTreeWidget" name="settings_tree">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -175,6 +171,40 @@
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="command_tab">
+     <attribute name="title">
+      <string>Command Tree</string>
+     </attribute>
+     <widget class="QTreeWidget" name="command_tree">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>771</width>
+        <height>631</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
      </widget>
      <widget class="QLabel" name="tab_2_code_preview_label">
       <property name="geometry">
@@ -254,6 +284,290 @@
        <string>Commands</string>
       </property>
      </widget>
+     <widget class="QWidget" name="command_settings" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>660</y>
+        <width>781</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>20</y>
+         <width>381</width>
+         <height>101</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBox_4">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>80</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="commandMinArgs">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>60</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="commandDepth">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>0</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>20</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="commandParentId">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>60</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="commandString">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>20</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="commandLengthLabel">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>47</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="functionName">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>0</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>100</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Contains Wildcards</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Function name</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>0</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Command depth</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Command string</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Command length</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>47</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Parent id</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="commandId">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>80</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>47</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="commandSubcommands">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>20</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Subcommands</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>60</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Min. args.</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="commandMaxArgs">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>80</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Max args.</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="commandArgumentHandling">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>40</y>
+         <width>171</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="currentText">
+        <string>No arguments</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>No arguments</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Single argument type</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Argument type array</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>500</x>
+         <y>0</y>
+         <width>211</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Comma separated argument types</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -262,7 +576,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1413</width>
+     <width>1420</width>
      <height>21</height>
     </rect>
    </property>
@@ -293,7 +607,6 @@
    <addaction name="menuGenerate"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
