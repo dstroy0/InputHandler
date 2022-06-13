@@ -37,8 +37,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        #self.setCentralWidget(self.ui.tabWidget)
-        
+
         self.ui.settings_tree.setHeaderLabels(("Setting", "Type", "Value"))
         self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
         self.ui.settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)        
@@ -191,7 +190,7 @@ class MainWindow(QMainWindow):
     # TODO
     def clicked_delete_tab_two(self):
         print('clicked tab 2 delete')
-        
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
