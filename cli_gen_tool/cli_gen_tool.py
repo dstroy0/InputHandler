@@ -97,11 +97,11 @@ class MainWindow(QMainWindow):
         self.session = ''
         # active save filename
         self.saveFileName = ''
-        
-        # cli opt  
+
+        # cli opt
         self.command_settings_dict = {'var': {'num_commands': 0},
                                       'commands': {}}
-        
+
         # command parameters dict keys list
         self.commandParametersKeys = ['functionName',
                                       'commandString',
@@ -114,13 +114,14 @@ class MainWindow(QMainWindow):
                                       'commandArgumentHandling',
                                       'commandMinArgs',
                                       'commandMaxArgs']
-        
+
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultOpt = {"opt": 
-                            {"save_filename":None,
-                             "recent_files":{},
-                             "output_dir":"default",
-                             "window_size":"default"}}
+        self.defaultGuiOpt = {"opt":
+                              {"save_filename": None,
+                               "recent_files": {},
+                               "output_dir": "default",
+                               "window_size": "default"}}
+        # end MainWindow var
 
         # tab 1
         settings_tree_setup(self)  # settings_tree widget setup
@@ -288,32 +289,38 @@ class MainWindow(QMainWindow):
         settings_to_validate = dict.fromkeys(self.commandParametersKeys, False)
         settings_to_validate['functionName'] = self.ui.functionName.text()
         settings_to_validate['commandString'] = self.ui.commandString.text()
-        settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
+        settings_to_validate['commandLength'] = len(
+            settings_to_validate['commandString'])
         settings_to_validate['parentId'] = self.ui.commandParentId.text()
         settings_to_validate['commandId'] = self.ui.commandId.text()
-        settings_to_validate['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked()
+        settings_to_validate['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked(
+        )
         settings_to_validate['commandDepth'] = self.ui.commandDepth.text()
-        settings_to_validate['commandSubcommands'] = self.ui.commandSubcommands.text()
-        settings_to_validate['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex()
+        settings_to_validate['commandSubcommands'] = self.ui.commandSubcommands.text(
+        )
+        settings_to_validate['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex(
+        )
         settings_to_validate['commandMinArgs'] = self.ui.commandMinArgs.text()
         settings_to_validate['commandMaxArgs'] = self.ui.commandMaxArgs.text()
         # validate
         # TODO
         settings_are_valid = True
         if not settings_are_valid:
-            return # invalid setting detected
+            return  # invalid setting detected
         # get array index
         cmd_idx = self.command_settings_dict['var']['num_commands']
         # make dict from defined keys
-        self.command_settings_dict['commands'][cmd_idx] = dict.fromkeys(self.commandParametersKeys, False)
-        # assign result to command dictionary at cmd_idx        
-        self.command_settings_dict['commands'][cmd_idx] = settings_to_validate 
+        self.command_settings_dict['commands'][cmd_idx] = dict.fromkeys(
+            self.commandParametersKeys, False)
+        # assign result to command dictionary at cmd_idx
+        self.command_settings_dict['commands'][cmd_idx] = settings_to_validate
         # command parameters were accepted, so increment the array index
         self.command_settings_dict['var']['num_commands'] = self.command_settings_dict['var']['num_commands'] + 1
 
     def command_string_text_changed(self):
         self.ui.commandLengthLabel.setText(
             str(len(self.ui.commandString.text())))
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
