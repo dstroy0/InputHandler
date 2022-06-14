@@ -69,7 +69,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="ih_settings_tab">
        <property name="sizePolicy">
@@ -226,13 +226,6 @@
          <widget class="QPushButton" name="editButton_2">
           <property name="text">
            <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="newButton_2">
-          <property name="text">
-           <string>New</string>
           </property>
          </widget>
         </item>
@@ -474,7 +467,30 @@
            <item row="2" column="4" rowspan="5" colspan="2">
             <widget class="QTextEdit" name="commandArgumentCSV"/>
            </item>
+           <item row="6" column="2" colspan="2">
+            <widget class="QPushButton" name="commandSettingsMenuApplyButton">
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+           </item>
           </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="openCloseSettingsMenuButton">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>open command settings menu</string>
+          </property>
+          <property name="text">
+           <string>Command settings menu</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -499,16 +515,16 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="openCloseSettingsMenuButton">
-          <property name="maximumSize">
+        <item row="3" column="0">
+         <widget class="QPushButton" name="newButton_2">
+          <property name="minimumSize">
            <size>
-            <width>150</width>
-            <height>16777215</height>
+            <width>250</width>
+            <height>0</height>
            </size>
           </property>
           <property name="text">
-           <string>Command settings menu</string>
+           <string>New</string>
           </property>
          </widget>
         </item>

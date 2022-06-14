@@ -154,11 +154,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.editButton_2, 3, 1, 1, 1)
 
-        self.newButton_2 = QPushButton(self.command_tab)
-        self.newButton_2.setObjectName(u"newButton_2")
-
-        self.gridLayout_2.addWidget(self.newButton_2, 3, 0, 1, 1)
-
         self.command_tree = QTreeWidget(self.command_tab)
         __qtreewidgetitem1 = QTreeWidgetItem()
         __qtreewidgetitem1.setText(0, u"1");
@@ -325,8 +320,19 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.commandArgumentCSV, 2, 4, 5, 2)
 
+        self.commandSettingsMenuApplyButton = QPushButton(self.command_settings)
+        self.commandSettingsMenuApplyButton.setObjectName(u"commandSettingsMenuApplyButton")
+
+        self.gridLayout_3.addWidget(self.commandSettingsMenuApplyButton, 6, 2, 1, 2)
+
 
         self.gridLayout_2.addWidget(self.command_settings, 2, 0, 1, 3)
+
+        self.openCloseSettingsMenuButton = QPushButton(self.command_tab)
+        self.openCloseSettingsMenuButton.setObjectName(u"openCloseSettingsMenuButton")
+        self.openCloseSettingsMenuButton.setMaximumSize(QSize(150, 16777215))
+
+        self.gridLayout_2.addWidget(self.openCloseSettingsMenuButton, 0, 0, 1, 1)
 
         self.tab_2_command_tree_label = QLabel(self.command_tab)
         self.tab_2_command_tree_label.setObjectName(u"tab_2_command_tree_label")
@@ -336,11 +342,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.tab_2_command_tree_label, 0, 1, 1, 1)
 
-        self.openCloseSettingsMenuButton = QPushButton(self.command_tab)
-        self.openCloseSettingsMenuButton.setObjectName(u"openCloseSettingsMenuButton")
-        self.openCloseSettingsMenuButton.setMaximumSize(QSize(150, 16777215))
+        self.newButton_2 = QPushButton(self.command_tab)
+        self.newButton_2.setObjectName(u"newButton_2")
+        self.newButton_2.setMinimumSize(QSize(250, 0))
 
-        self.gridLayout_2.addWidget(self.openCloseSettingsMenuButton, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.newButton_2, 3, 0, 1, 1)
 
         self.tabWidget.addTab(self.command_tab, "")
 
@@ -372,7 +378,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -417,7 +423,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"InputHandler Settings", None))
         self.tab_2_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.editButton_2.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.newButton_2.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.deleteButton_2.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.commandSubcommands_label.setText(QCoreApplication.translate("MainWindow", u"Subcommands", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Comma separated argument types", None))
@@ -440,8 +445,13 @@ class Ui_MainWindow(object):
         self.closeSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"close command settings menu", None))
 #endif // QT_CONFIG(tooltip)
         self.closeSettingsMenuButton.setText(QCoreApplication.translate("MainWindow", u"x", None))
-        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"                          Commands", None))
+        self.commandSettingsMenuApplyButton.setText(QCoreApplication.translate("MainWindow", u"Apply", None))
+#if QT_CONFIG(tooltip)
+        self.openCloseSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
+#endif // QT_CONFIG(tooltip)
         self.openCloseSettingsMenuButton.setText(QCoreApplication.translate("MainWindow", u"Command settings menu", None))
+        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"                          Commands", None))
+        self.newButton_2.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.command_tab), QCoreApplication.translate("MainWindow", u"Command Tree", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
