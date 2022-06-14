@@ -66,6 +66,9 @@ class MainWindow(QMainWindow):
         self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_close_command_settings_menu_tab_two)
         # visible if self.ui.command_settings.isVisible()
         self.ui.closeSettingsMenuButton.clicked.connect(self.clicked_close_command_settings_menu_tab_two)
+        self.ui.commandSettingsMenuApplyButton.clicked.connect(self.clicked_apply_command_settings_menu_tab_two)
+        self.ui.commandString.textChanged.connect(self.command_string_text_changed)
+        
 
         # load tool json
         path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
@@ -203,6 +206,34 @@ class MainWindow(QMainWindow):
     def clicked_close_command_settings_menu_tab_two(self):
         print('clicked close command settings menu')
         self.ui.command_settings.hide()
+        
+    def clicked_apply_command_settings_menu_tab_two(self):
+        print('clicked apply in command settings menu')
+        functionName = self.ui.functionName.text()
+        print(functionName)
+        commandString = self.ui.commandString.text()
+        print(commandString)
+        commandLength = len(commandString)
+        print(commandLength)
+        parentId = self.ui.commandParentId.text()
+        print(parentId)
+        commandId = self.ui.commandId.text()
+        print(commandId)
+        commandHasWildcards = self.ui.commandHasWildcards.isChecked()
+        print(commandHasWildcards)
+        commandDepth = self.ui.commandDepth.text()
+        print(commandDepth)
+        commandSubcommands = self.ui.commandSubcommands.text()
+        print(commandSubcommands)
+        commandArgumentHandling = self.ui.commandArgumentHandling.currentIndex()
+        print(commandArgumentHandling)
+        commandMinArgs = self.ui.commandMinArgs.text()
+        print(commandMinArgs)
+        commandMaxArgs = self.ui.commandMaxArgs.text()
+        print(commandMaxArgs)
+        
+    def command_string_text_changed(self):
+        self.ui.commandLengthLabel.setText(str(len(self.ui.commandString.text())))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

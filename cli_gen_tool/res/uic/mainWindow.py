@@ -280,10 +280,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.label_3, 0, 2, 1, 1)
 
-        self.spinBox_4 = QSpinBox(self.command_settings)
-        self.spinBox_4.setObjectName(u"spinBox_4")
+        self.commandMaxArgs = QSpinBox(self.command_settings)
+        self.commandMaxArgs.setObjectName(u"commandMaxArgs")
 
-        self.gridLayout_3.addWidget(self.spinBox_4, 5, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.commandMaxArgs, 5, 3, 1, 1)
 
         self.commandId = QLineEdit(self.command_settings)
         self.commandId.setObjectName(u"commandId")
@@ -300,10 +300,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.label_7, 5, 0, 1, 1)
 
-        self.commandMaxArgs = QLabel(self.command_settings)
-        self.commandMaxArgs.setObjectName(u"commandMaxArgs")
+        self.commandMaxArgsLabel = QLabel(self.command_settings)
+        self.commandMaxArgsLabel.setObjectName(u"commandMaxArgsLabel")
 
-        self.gridLayout_3.addWidget(self.commandMaxArgs, 5, 2, 1, 1)
+        self.gridLayout_3.addWidget(self.commandMaxArgsLabel, 5, 2, 1, 1)
 
         self.closeSettingsMenuButton = QPushButton(self.command_settings)
         self.closeSettingsMenuButton.setObjectName(u"closeSettingsMenuButton")
@@ -344,7 +344,7 @@ class Ui_MainWindow(object):
 
         self.newButton_2 = QPushButton(self.command_tab)
         self.newButton_2.setObjectName(u"newButton_2")
-        self.newButton_2.setMinimumSize(QSize(250, 0))
+        self.newButton_2.setMinimumSize(QSize(265, 0))
 
         self.gridLayout_2.addWidget(self.newButton_2, 3, 0, 1, 1)
 
@@ -378,7 +378,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -440,7 +440,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Command depth", None))
         self.commandHasWildcards.setText(QCoreApplication.translate("MainWindow", u"Contains Wildcards", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"id", None))
-        self.commandMaxArgs.setText(QCoreApplication.translate("MainWindow", u"Max args.", None))
+        self.commandMaxArgsLabel.setText(QCoreApplication.translate("MainWindow", u"Max args.", None))
 #if QT_CONFIG(tooltip)
         self.closeSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"close command settings menu", None))
 #endif // QT_CONFIG(tooltip)
