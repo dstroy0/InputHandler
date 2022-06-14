@@ -1,6 +1,8 @@
 {    
     "opt": {
         "save_filename":null,
-        "output":null
+        "recent_files":{},
+        "output_dir":"default",
+        "window_size":"default"
     }    
 }

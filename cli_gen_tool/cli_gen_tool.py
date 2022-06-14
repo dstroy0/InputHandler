@@ -29,7 +29,7 @@ from res.uic.mainWindow import Ui_MainWindow
 
 
 def settings_tree_setup(self):
-    print('settings_tree setup')
+    # print('settings_tree setup')
     self.ui.settings_tree.setHeaderLabels(("Setting", "Type", "Value"))
     self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
     self.ui.settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
@@ -38,7 +38,7 @@ def settings_tree_setup(self):
 
 
 def actions_setup(self):
-    print('actions setup')
+    # print('actions setup')
     # file menu
     self.ui.actionOpen.triggered.connect(self.open_file)
     self.ui.actionSave.triggered.connect(self.save_file)
@@ -56,7 +56,7 @@ def actions_setup(self):
 
 
 def buttons_setup(self):
-    print('buttons setup')
+    # print('buttons setup')
     # tab 1
     self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
     self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
@@ -78,7 +78,7 @@ def buttons_setup(self):
 
 
 def triggers_setup(self):
-    print('triggers setup')
+    # print('triggers setup')
     # tab 2
     self.ui.commandString.textChanged.connect(self.command_string_text_changed)
 # end MainWindow setup
@@ -93,10 +93,16 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         # MainWindow var
-        self.session = ''  # session db
-        self.saveFileName = ''  # active save filename
+        # session db
+        self.session = ''
+        # active save filename
+        self.saveFileName = ''
+        
+        # cli opt  
         self.command_settings_dict = {'var': {'num_commands': 0},
                                       'commands': {}}
+        
+        # command parameters dict keys list
         self.commandParametersKeys = ['functionName',
                                       'commandString',
                                       'commandLength',
@@ -108,6 +114,13 @@ class MainWindow(QMainWindow):
                                       'commandArgumentHandling',
                                       'commandMinArgs',
                                       'commandMaxArgs']
+        
+        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
+        self.defaultOpt = {"opt": 
+                            {"save_filename":None,
+                             "recent_files":{},
+                             "output_dir":"default",
+                             "window_size":"default"}}
 
         # tab 1
         settings_tree_setup(self)  # settings_tree widget setup
@@ -128,10 +141,10 @@ class MainWindow(QMainWindow):
         out = QTextStream(file).readAll()
         file.close()
         print('cli_gen_tool.json opened')
-        print(path)
+        # print(path)
         try:
             self.session = json.loads(out)
-            print('cli_gen_tool.json valid')
+            print(self.session)
         except (ValueError, RuntimeError, TypeError, NameError) as e:
             # TODO generate new cli_gen_tool json
             print(e)
@@ -272,31 +285,35 @@ class MainWindow(QMainWindow):
 
     def clicked_apply_command_settings_menu_tab_two(self):
         print('clicked apply in command settings menu')
+        settings_to_validate = dict.fromkeys(self.commandParametersKeys, False)
+        settings_to_validate['functionName'] = self.ui.functionName.text()
+        settings_to_validate['commandString'] = self.ui.commandString.text()
+        settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
+        settings_to_validate['parentId'] = self.ui.commandParentId.text()
+        settings_to_validate['commandId'] = self.ui.commandId.text()
+        settings_to_validate['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked()
+        settings_to_validate['commandDepth'] = self.ui.commandDepth.text()
+        settings_to_validate['commandSubcommands'] = self.ui.commandSubcommands.text()
+        settings_to_validate['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex()
+        settings_to_validate['commandMinArgs'] = self.ui.commandMinArgs.text()
+        settings_to_validate['commandMaxArgs'] = self.ui.commandMaxArgs.text()
         # validate
         # TODO
-
+        settings_are_valid = True
+        if not settings_are_valid:
+            return # invalid setting detected
         # get array index
         cmd_idx = self.command_settings_dict['var']['num_commands']
         # make dict from defined keys
-        self.command_settings_dict['commands'][cmd_idx] = dict.fromkeys(
-            self.commandParametersKeys, False)
-
-        self.command_settings_dict['commands'][cmd_idx]['functionName'] = self.ui.functionName.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandString'] = self.ui.commandString.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandLength'] = len(self.command_settings_dict['commands'][cmd_idx]['commandString'])
-        self.command_settings_dict['commands'][cmd_idx]['parentId'] = self.ui.commandParentId.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandId'] = self.ui.commandId.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked()
-        self.command_settings_dict['commands'][cmd_idx]['commandDepth'] = self.ui.commandDepth.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandSubcommands'] = self.ui.commandSubcommands.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex()
-        self.command_settings_dict['commands'][cmd_idx]['commandMinArgs'] = self.ui.commandMinArgs.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandMaxArgs'] = self.ui.commandMaxArgs.text()
+        self.command_settings_dict['commands'][cmd_idx] = dict.fromkeys(self.commandParametersKeys, False)
+        # assign result to command dictionary at cmd_idx        
+        self.command_settings_dict['commands'][cmd_idx] = settings_to_validate 
+        # command parameters were accepted, so increment the array index
+        self.command_settings_dict['var']['num_commands'] = self.command_settings_dict['var']['num_commands'] + 1
 
     def command_string_text_changed(self):
         self.ui.commandLengthLabel.setText(
             str(len(self.ui.commandString.text())))
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
