@@ -1,8 +1,6 @@
 {    
-    "session": {
-        "save_filename":null
-    },
-    "preferences" : {
-        "output_dir":null
-    }
+    "opt": {
+        "save_filename":null,
+        "output":null
+    }    
 }
