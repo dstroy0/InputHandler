@@ -28,21 +28,19 @@ from res.uic.mainWindow import Ui_MainWindow
 
 # MainWindow setup
 
+def regex_validator(input):
+    exp = QRegularExpression(input)
+    return QRegularExpressionValidator(exp)
+
 # command_settings widget setup
 def command_settings_setup(self):
-    # print('command_settings setup')    
-    exp = QRegularExpression("^([a-zA-Z_])+$")
-    validator = QRegularExpressionValidator(exp)
-    self.ui.functionName.setValidator(validator)
-    exp = QRegularExpression("^([a-zA-Z_*])+$")
-    validator = QRegularExpressionValidator(exp)
-    self.ui.commandString.setValidator(validator)
-    exp = QRegularExpression("^([0-9])+$")
-    validator = QRegularExpressionValidator(exp)
-    self.ui.commandParentId.setValidator(validator)
-    exp = QRegularExpression("^([0-9])+$")
-    validator = QRegularExpressionValidator(exp)
-    self.ui.commandId.setValidator(validator)
+    # print('command_settings setup')
+    eight_bit_exp = "^([0-2][0-5][0-5]|255)$"
+        
+    self.ui.functionName.setValidator(regex_validator("^([a-zA-Z_])+$"))
+    self.ui.commandString.setValidator(regex_validator("^([a-zA-Z_*])+$"))
+    self.ui.commandParentId.setValidator(regex_validator("^([0-9])+$"))
+    self.ui.commandId.setValidator(regex_validator("^([0-9])+$"))
     
 # settings_tree widget setup
 def settings_tree_setup(self):
@@ -64,8 +62,7 @@ def actions_setup(self):
     self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
     # about menu
     self.ui.actionAbout.triggered.connect(self.gui_about)
-    self.ui.actionInputHandler_Documentation.triggered.connect(
-        self.gui_documentation)
+    self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
 
 # button setup
 def buttons_setup(self):
@@ -91,7 +88,40 @@ def buttons_setup(self):
 def triggers_setup(self):
     # print('triggers setup')
     # tab 2
-    self.ui.commandString.textChanged.connect(self.command_string_text_changed)    
+    self.ui.commandString.textChanged.connect(self.command_string_text_changed)
+
+def load_cli_gen_tool_json(self):
+    path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
+    file = QFile(path)
+    if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+        file.close()
+        file = QFile(path)
+        print('cli_gen_tool/cli_gen_tool.json not found, attempting to create a new one.')            
+        if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
+            print('Unable to write new cli_gen_tool.json, please check permissions.')
+            return
+        out = QByteArray(json.dumps(self.defaultGuiOpt, indent=4, sort_keys=True))  # dump pretty json                        
+        file.write(out)
+        print('write successful')                        
+        file.close()
+        file = QFile(path)
+        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+            print('unable to open cli_gen_tool/cli_gen_tool.json')
+    data_in = QTextStream(file).readAll()
+    file.close()        
+    # print(path)
+    try:
+        self.session = json.loads(data_in)
+        print("loaded:", self.session, sep='')
+    except (ValueError, RuntimeError, TypeError, NameError) as e:
+            print('json corrupt, removing')
+            if self.json_except == 1:
+                print('unable to read json, app exit')
+                app.quit()
+            self.json_except = 1
+            os.remove(path) # delete corrupt json
+            load_cli_gen_tool_json(self) # recurse to try and recreate cli_gen_tool.json
+            print(e)
 
 # end MainWindow setup
 
@@ -104,13 +134,14 @@ class MainWindow(QMainWindow):
 
         # MainWindow var
         # session db
-        self.session = ''
+        self.session = {}
         # active save filename
         self.saveFileName = ''
 
         # cli opt
-        self.command_settings_dict = {'var': {'num_commands': 0},
-                                      'commands': {}}        
+        self.cliOpt = {'var': {'num_commands': 0},
+                       'commands': {},
+                       'config':{}}        
         
         # command parameters dict keys list
         self.commandParametersKeys = ['functionName',
@@ -126,11 +157,10 @@ class MainWindow(QMainWindow):
                                       'commandMaxArgs']
 
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = {"opt":
-                              {"save_filename": None,
-                               "recent_files": {},
-                               "output_dir": "default",
-                               "window_size": "default"}}
+        self.defaultGuiOpt = {"opt": { "save_filename": None,
+                                       "recent_files": {},
+                                       "output_dir": "default",
+                                       "window_size": "default"}}
         # end MainWindow var
 
         # tab 1
@@ -146,20 +176,7 @@ class MainWindow(QMainWindow):
         triggers_setup(self)  # triggers setup
 
         # load cli_gen_tool (session) json
-        path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
-        file = QFile(path)
-        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-            return  # TODO generate new cli_gen_tool json
-        out = QTextStream(file).readAll()
-        file.close()
-        print('cli_gen_tool.json opened')
-        # print(path)
-        try:
-            self.session = json.loads(out)
-            print(self.session)
-        except (ValueError, RuntimeError, TypeError, NameError) as e:
-            # TODO generate new cli_gen_tool json
-            print(e)
+        load_cli_gen_tool_json(self)
 
     # actions
     def open_file(self):
@@ -177,9 +194,9 @@ class MainWindow(QMainWindow):
         file = QFile(fileName[0])
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             return  # TODO error
-        f_text = QTextStream(file).readAll()
+        data_in = QTextStream(file).readAll()
         file.close()
-        self.command_settings_dict = json.loads(f_text)  # TODO try/except
+        self.cliOpt = json.loads(data_in)  # TODO try/except
 
     def save_file(self):
         print('save file')
@@ -189,7 +206,7 @@ class MainWindow(QMainWindow):
         file = QFile(self.saveFileName)
         if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
             return  # TODO error
-        out = QByteArray(json.dumps(self.command_settings_dict,
+        out = QByteArray(json.dumps(self.cliOpt,
                          indent=4, sort_keys=True))  # dump pretty json
         file.write(out)
         file.close()
@@ -206,7 +223,7 @@ class MainWindow(QMainWindow):
         file = QFile(fqname)
         if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
             return  # TODO error
-        out = QByteArray(json.dumps(self.command_settings_dict, indent=4,
+        out = QByteArray(json.dumps(self.cliOpt, indent=4,
                          sort_keys=True))  # dump pretty json
         file.write(out)
         file.close()
@@ -217,7 +234,7 @@ class MainWindow(QMainWindow):
 
     # close gui
     def gui_exit(self):
-        sys.exit(app.exit())
+        sys.exit(app.quit())
 
     # TODO
     # generate CLI files
@@ -294,32 +311,32 @@ class MainWindow(QMainWindow):
     def clicked_close_command_settings_menu_tab_two(self):
         print('clicked close command settings menu')
         self.ui.command_settings.hide()
-
+    
     def clicked_apply_command_settings_menu_tab_two(self):
-        
+        settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
+        settings_to_validate['functionName'] = self.ui.functionName.text()
+        settings_to_validate['commandString'] = self.ui.commandString.text()
+        settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
+        settings_to_validate['parentId'] = self.ui.commandParentId.text()
+        settings_to_validate['commandId'] = self.ui.commandId.text()
+        settings_to_validate['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked()
+        settings_to_validate['commandDepth'] = self.ui.commandDepth.text()
+        settings_to_validate['commandSubcommands'] = self.ui.commandSubcommands.text()
+        settings_to_validate['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex()
+        settings_to_validate['commandMinArgs'] = self.ui.commandMinArgs.text()
+        settings_to_validate['commandMaxArgs'] = self.ui.commandMaxArgs.text()    
         
         # get array index
-        cmd_idx = self.command_settings_dict['var']['num_commands']
+        cmd_idx = self.cliOpt['var']['num_commands']
         # make dict from defined keys
-        self.command_settings_dict['commands'][cmd_idx] = dict.fromkeys(self.commandParametersKeys, None)
-        
-        self.command_settings_dict['commands'][cmd_idx]['functionName'] = self.ui.functionName.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandString'] = self.ui.commandString.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandLength'] = len(self.command_settings_dict['commands'][cmd_idx]['commandString'])
-        self.command_settings_dict['commands'][cmd_idx]['parentId'] = self.ui.commandParentId.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandId'] = self.ui.commandId.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandHasWildcards'] = self.ui.commandHasWildcards.isChecked()
-        self.command_settings_dict['commands'][cmd_idx]['commandDepth'] = self.ui.commandDepth.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandSubcommands'] = self.ui.commandSubcommands.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandArgumentHandling'] = self.ui.commandArgumentHandling.currentIndex()
-        self.command_settings_dict['commands'][cmd_idx]['commandMinArgs'] = self.ui.commandMinArgs.text()
-        self.command_settings_dict['commands'][cmd_idx]['commandMaxArgs'] = self.ui.commandMaxArgs.text()        
+        self.cliOpt['commands'][cmd_idx] = settings_to_validate
+        print(self.cliOpt['commands'][cmd_idx])        
         
         # command parameters were accepted, so increment the array index
-        self.command_settings_dict['var']['num_commands'] = self.command_settings_dict['var']['num_commands'] + 1
+        self.cliOpt['var']['num_commands'] = self.cliOpt['var']['num_commands'] + 1
         # print object
-        print(self.command_settings_dict['commands'][cmd_idx])
-
+        print(self.cliOpt['commands'][cmd_idx])
+    
     def command_string_text_changed(self):
         self.ui.commandLengthLabel.setText(str(len(self.ui.commandString.text())))
         
