@@ -129,22 +129,22 @@
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="../../da/dc7/noedit_8h.html" target="_top" xlink:title="InputHandler library C includes, do not edit.">
-<polygon fill="none" stroke="black" points="446.8,-56.5 446.8,-75.5 525.8,-75.5 525.8,-56.5 446.8,-56.5"/>
-<text text-anchor="middle" x="486.3" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">config/noedit.h</text>
+<polygon fill="none" stroke="black" points="400.8,-56.5 400.8,-75.5 479.8,-75.5 479.8,-56.5 400.8,-56.5"/>
+<text text-anchor="middle" x="440.3" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">config/noedit.h</text>
 </a>
 </g>
 </g>
 <!-- Node8&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M555.69,-117.98C542.82,-108.52 521.82,-93.1 506.29,-81.69"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="508.01,-78.61 497.88,-75.51 503.87,-84.25 508.01,-78.61"/>
+<path fill="none" stroke="midnightblue" d="M549.1,-117.98C527.79,-107.99 492.27,-91.35 467.64,-79.81"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="469,-76.58 458.46,-75.51 466.03,-82.92 469,-76.58"/>
 </g>
 <!-- Node9&#45;&gt;Node2 -->
 <g id="edge9" class="edge">
 <title>Node9&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M447.64,-56.44C401.91,-46.32 326.27,-29.58 280.67,-19.49"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="281.39,-16.07 270.87,-17.32 279.88,-22.9 281.39,-16.07"/>
+<path fill="none" stroke="midnightblue" d="M408.93,-56.44C374.24,-46.98 318.34,-31.74 280.97,-21.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="281.52,-18.07 270.95,-18.82 279.68,-24.82 281.52,-18.07"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -158,23 +158,8 @@
 <!-- Node9&#45;&gt;Node10 -->
 <g id="edge10" class="edge">
 <title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M478.7,-56.08C472.07,-48.3 462.28,-36.8 454.24,-27.37"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="456.9,-25.09 447.75,-19.75 451.57,-29.63 456.9,-25.09"/>
-</g>
-<!-- Node11 -->
-<g id="node11" class="node">
-<title>Node11</title>
-<g id="a_node11"><a xlink:href="../../d5/d4a/advanced__config_8h.html" target="_top" xlink:title="InputHandler library advanced user settings.">
-<polygon fill="none" stroke="black" points="483.8,-0.5 483.8,-19.5 580.8,-19.5 580.8,-0.5 483.8,-0.5"/>
-<text text-anchor="middle" x="532.3" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">advanced_config.h</text>
-</a>
-</g>
-</g>
-<!-- Node9&#45;&gt;Node11 -->
-<g id="edge11" class="edge">
-<title>Node9&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M493.89,-56.08C500.53,-48.3 510.32,-36.8 518.36,-27.37"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="521.02,-29.63 524.84,-19.75 515.7,-25.09 521.02,-29.63"/>
+<path fill="none" stroke="midnightblue" d="M440.3,-56.08C440.3,-49.01 440.3,-38.86 440.3,-29.99"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="443.8,-29.75 440.3,-19.75 436.8,-29.75 443.8,-29.75"/>
 </g>
 </g>
 </svg>

@@ -1,8 +1,7 @@
 <map id="examples/all_platforms/advanced/NestedCommands/NestedCommands.ino" name="examples/all_platforms/advanced/NestedCommands/NestedCommands.ino">
-<area shape="rect" id="node1" title="An example that demonstrates nested subcommands." alt="" coords="42,5,237,61"/>
-<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="86,109,193,136"/>
-<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="87,184,192,211"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,259,81,285"/>
-<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,259,173,285"/>
-<area shape="rect" id="node6" href="$d5/d4a/advanced__config_8h.html" title="InputHandler library advanced user settings." alt="" coords="197,259,327,285"/>
+<area shape="rect" id="node1" title="An example that demonstrates nested subcommands." alt="" coords="5,5,200,61"/>
+<area shape="rect" id="node2" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="49,109,156,136"/>
+<area shape="rect" id="node3" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="50,184,155,211"/>
+<area shape="rect" id="node4" title=" " alt="" coords="17,259,93,285"/>
+<area shape="rect" id="node5" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="117,259,184,285"/>
 </map>

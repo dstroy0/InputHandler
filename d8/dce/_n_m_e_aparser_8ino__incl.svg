@@ -33,18 +33,18 @@
 <path fill="none" stroke="midnightblue" d="M89,-336.44C83.87,-326.59 77.69,-312.92 75,-300 62.9,-241.95 89.28,-173.32 103.99,-141.24"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="107.33,-142.37 108.46,-131.83 101,-139.36 107.33,-142.37"/>
 </g>
-<!-- Node7 -->
-<g id="node7" class="node">
-<title>Node7</title>
-<g id="a_node7"><a xlink:href="../../da/d60/_n_m_e_aparser_8h.html" target="_top" xlink:title="a class to assist in parsing NMEA 0183 strings">
+<!-- Node6 -->
+<g id="node6" class="node">
+<title>Node6</title>
+<g id="a_node6"><a xlink:href="../../da/d60/_n_m_e_aparser_8h.html" target="_top" xlink:title="a class to assist in parsing NMEA 0183 strings">
 <polygon fill="none" stroke="black" points="84,-280.5 84,-299.5 194,-299.5 194,-280.5 84,-280.5"/>
 <text text-anchor="middle" x="139" y="-287.5" font-family="Helvetica,sans-Serif" font-size="10.00">parser/NMEAparser.h</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node7 -->
-<g id="edge6" class="edge">
-<title>Node1&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge">
+<title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M106.95,-336.4C112.99,-327.84 120.74,-316.87 127.1,-307.86"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="129.98,-309.85 132.89,-299.66 124.26,-305.81 129.98,-309.85"/>
 </g>
@@ -67,92 +67,77 @@
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="12.5,-0.5 12.5,-19.5 69.5,-19.5 69.5,-0.5 12.5,-0.5"/>
-<text text-anchor="middle" x="41" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arduino.h</text>
+<polygon fill="none" stroke="#bfbfbf" points="48.5,-0.5 48.5,-19.5 105.5,-19.5 105.5,-0.5 48.5,-0.5"/>
+<text text-anchor="middle" x="77" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arduino.h</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M101.43,-56.32C90.58,-48.18 74.12,-35.84 61.12,-26.09"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="62.88,-23.03 52.78,-19.83 58.68,-28.63 62.88,-23.03"/>
+<path fill="none" stroke="midnightblue" d="M107.06,-56.08C102.02,-48.53 94.66,-37.49 88.49,-28.23"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="91.29,-26.13 82.83,-19.75 85.47,-30.01 91.29,-26.13"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="../../db/d16/config_8h.html" target="_top" xlink:title="InputHandler library user configurable items.">
-<polygon fill="none" stroke="black" points="88,-0.5 88,-19.5 138,-19.5 138,-0.5 88,-0.5"/>
-<text text-anchor="middle" x="113" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">config.h</text>
+<polygon fill="none" stroke="black" points="124,-0.5 124,-19.5 174,-19.5 174,-0.5 124,-0.5"/>
+<text text-anchor="middle" x="149" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">config.h</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node3&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M113,-56.08C113,-49.01 113,-38.86 113,-29.99"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="116.5,-29.75 113,-19.75 109.5,-29.75 116.5,-29.75"/>
+<path fill="none" stroke="midnightblue" d="M118.94,-56.08C123.98,-48.53 131.34,-37.49 137.51,-28.23"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="140.53,-30.01 143.17,-19.75 134.71,-26.13 140.53,-30.01"/>
 </g>
-<!-- Node6 -->
-<g id="node6" class="node">
-<title>Node6</title>
-<g id="a_node6"><a xlink:href="../../d5/d4a/advanced__config_8h.html" target="_top" xlink:title="InputHandler library advanced user settings.">
-<polygon fill="none" stroke="black" points="156.5,-0.5 156.5,-19.5 253.5,-19.5 253.5,-0.5 156.5,-0.5"/>
-<text text-anchor="middle" x="205" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">advanced_config.h</text>
-</a>
-</g>
-</g>
-<!-- Node3&#45;&gt;Node6 -->
-<g id="edge5" class="edge">
-<title>Node3&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M127.78,-56.32C142.27,-47.82 164.57,-34.73 181.49,-24.8"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="183.4,-27.74 190.26,-19.65 179.86,-21.7 183.4,-27.74"/>
-</g>
-<!-- Node7&#45;&gt;Node2 -->
-<g id="edge7" class="edge">
-<title>Node7&#45;&gt;Node2</title>
+<!-- Node6&#45;&gt;Node2 -->
+<g id="edge6" class="edge">
+<title>Node6&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M132.11,-280.32C125.73,-271.68 116.69,-257.77 113,-244 103.56,-208.79 106.92,-165.72 110.06,-141.62"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="113.53,-142.1 111.49,-131.71 106.6,-141.11 113.53,-142.1"/>
 </g>
-<!-- Node8 -->
-<g id="node8" class="node">
-<title>Node8</title>
-<g id="a_node8"><a xlink:href="../../da/dff/_n_m_e_asentenceparam_8h.html" target="_top" xlink:title="NMEA 0183 sentence CommandParameters structs.">
+<!-- Node7 -->
+<g id="node7" class="node">
+<title>Node7</title>
+<g id="a_node7"><a xlink:href="../../da/dff/_n_m_e_asentenceparam_8h.html" target="_top" xlink:title="NMEA 0183 sentence CommandParameters structs.">
 <polygon fill="none" stroke="black" points="122.5,-224.5 122.5,-243.5 241.5,-243.5 241.5,-224.5 122.5,-224.5"/>
 <text text-anchor="middle" x="182" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">NMEAsentenceparam.h</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge8" class="edge">
-<title>Node7&#45;&gt;Node8</title>
+<!-- Node6&#45;&gt;Node7 -->
+<g id="edge7" class="edge">
+<title>Node6&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M146.1,-280.08C152.24,-272.38 161.27,-261.03 168.74,-251.65"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="171.54,-253.75 175.03,-243.75 166.06,-249.39 171.54,-253.75"/>
 </g>
-<!-- Node8&#45;&gt;Node2 -->
-<g id="edge9" class="edge">
-<title>Node8&#45;&gt;Node2</title>
+<!-- Node7&#45;&gt;Node2 -->
+<g id="edge8" class="edge">
+<title>Node7&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M175.63,-224.17C169.22,-215.19 159.14,-200.81 151,-188 140.94,-172.18 130.23,-153.68 122.75,-140.47"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="125.67,-138.54 117.72,-131.53 119.57,-141.97 125.67,-138.54"/>
 </g>
-<!-- Node9 -->
-<g id="node9" class="node">
-<title>Node9</title>
-<g id="a_node9"><a xlink:href="../../d2/d20/_n_m_e_asentencefunc_8h.html" target="_top" xlink:title="NMEA 0183 sentence functions.">
+<!-- Node8 -->
+<g id="node8" class="node">
+<title>Node8</title>
+<g id="a_node8"><a xlink:href="../../d2/d20/_n_m_e_asentencefunc_8h.html" target="_top" xlink:title="NMEA 0183 sentence functions.">
 <polygon fill="none" stroke="black" points="160.5,-168.5 160.5,-187.5 271.5,-187.5 271.5,-168.5 160.5,-168.5"/>
 <text text-anchor="middle" x="216" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">NMEAsentencefunc.h</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node9 -->
-<g id="edge10" class="edge">
-<title>Node8&#45;&gt;Node9</title>
+<!-- Node7&#45;&gt;Node8 -->
+<g id="edge9" class="edge">
+<title>Node7&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M187.61,-224.08C192.37,-216.53 199.32,-205.49 205.15,-196.23"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="208.12,-198.08 210.49,-187.75 202.2,-194.35 208.12,-198.08"/>
 </g>
-<!-- Node9&#45;&gt;Node2 -->
-<g id="edge11" class="edge">
-<title>Node9&#45;&gt;Node2</title>
+<!-- Node8&#45;&gt;Node2 -->
+<g id="edge10" class="edge">
+<title>Node8&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M199.45,-168.32C183.01,-159.7 157.57,-146.36 138.53,-136.39"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="139.99,-133.2 129.51,-131.65 136.74,-139.4 139.99,-133.2"/>
 </g>

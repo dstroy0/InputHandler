@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['getcommandfromstream_2eino_0',['GetCommandFromStream.ino',['../db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]]
+  ['inputhandler_2ecpp_0',['InputHandler.cpp',['../dd/dec/_input_handler_8cpp.html',1,'']]],
+  ['inputhandler_2eh_1',['InputHandler.h',['../df/dec/_input_handler_8h.html',1,'']]]
 ];
