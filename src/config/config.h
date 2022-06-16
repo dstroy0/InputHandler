@@ -65,5 +65,43 @@
 
     #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc width in bytes
 
+/*
+    library output
+    switch this on/off by commenting/uncommenting the #define
+*/    
+    // #define UI_ECHO_ONLY
+
+/*
+    DEBUGGING
+    switch these on/off by commenting/uncommenting the #define
+*/
+    // #define DEBUG_GETCOMMANDFROMSTREAM
+    // #define DEBUG_READCOMMANDFROMBUFFER
+    // #define DEBUG_GET_TOKEN
+    // #define DEBUG_SUBCOMMAND_SEARCH
+    // #define DEBUG_ADDCOMMAND
+    // #define DEBUG_LAUNCH_LOGIC
+    // #define DEBUG_LAUNCH_FUNCTION
+    // #define DEBUG_INCLUDE_FREERAM
+
+/*
+    OPTIONAL METHODS
+    switch these on/off by commenting/uncommenting the #define
+*/
+    // public methods
+    // #define DISABLE_listSettings
+    // #define DISABLE_listCommands
+    // #define DISABLE_getCommandFromStream
+    // #define DISABLE_nextArgument
+    // #define DISABLE_getArgument
+    // #define DISABLE_outputIsAvailable
+    // #define DISABLE_outputIsEnabled
+    // #define DISABLE_outputToStream
+    // #define DISABLE_clearOutputBuffer
+    
+    // private methods
+    // #define DISABLE_readCommandFromBufferErrorOutput
+    // #define DISABLE_ui_out
+
 #endif // end include guard
 // end of file

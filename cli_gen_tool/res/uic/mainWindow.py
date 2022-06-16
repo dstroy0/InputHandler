@@ -19,9 +19,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QCheckBox, QComboBox,
     QGridLayout, QHeaderView, QLabel, QLineEdit,
     QMainWindow, QMenu, QMenuBar, QPushButton,
-    QSizePolicy, QSpinBox, QTabWidget, QTextEdit,
-    QTreeView, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QSpinBox, QTabWidget, QTreeView,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -191,49 +190,25 @@ class Ui_MainWindow(object):
         self.command_settings.setSizePolicy(sizePolicy3)
         self.gridLayout_3 = QGridLayout(self.command_settings)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.functionName = QLineEdit(self.command_settings)
-        self.functionName.setObjectName(u"functionName")
+        self.closeSettingsMenuButton = QPushButton(self.command_settings)
+        self.closeSettingsMenuButton.setObjectName(u"closeSettingsMenuButton")
+        sizePolicy3.setHeightForWidth(self.closeSettingsMenuButton.sizePolicy().hasHeightForWidth())
+        self.closeSettingsMenuButton.setSizePolicy(sizePolicy3)
+        self.closeSettingsMenuButton.setMinimumSize(QSize(10, 10))
+        self.closeSettingsMenuButton.setMaximumSize(QSize(25, 16777215))
+        self.closeSettingsMenuButton.setLayoutDirection(Qt.LeftToRight)
 
-        self.gridLayout_3.addWidget(self.functionName, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.closeSettingsMenuButton, 0, 5, 1, 1)
 
-        self.commandSubcommands = QSpinBox(self.command_settings)
-        self.commandSubcommands.setObjectName(u"commandSubcommands")
+        self.label_9 = QLabel(self.command_settings)
+        self.label_9.setObjectName(u"label_9")
 
-        self.gridLayout_3.addWidget(self.commandSubcommands, 2, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.label_9, 4, 2, 1, 1)
 
-        self.commandSubcommands_label = QLabel(self.command_settings)
-        self.commandSubcommands_label.setObjectName(u"commandSubcommands_label")
+        self.label_2 = QLabel(self.command_settings)
+        self.label_2.setObjectName(u"label_2")
 
-        self.gridLayout_3.addWidget(self.commandSubcommands_label, 2, 2, 1, 1)
-
-        self.label = QLabel(self.command_settings)
-        self.label.setObjectName(u"label")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy4)
-        self.label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_3.addWidget(self.label, 0, 4, 1, 1)
-
-        self.commandLengthLabel = QLabel(self.command_settings)
-        self.commandLengthLabel.setObjectName(u"commandLengthLabel")
-
-        self.gridLayout_3.addWidget(self.commandLengthLabel, 3, 1, 1, 1)
-
-        self.commandArgumentHandling = QComboBox(self.command_settings)
-        self.commandArgumentHandling.addItem("")
-        self.commandArgumentHandling.addItem("")
-        self.commandArgumentHandling.addItem("")
-        self.commandArgumentHandling.setObjectName(u"commandArgumentHandling")
-
-        self.gridLayout_3.addWidget(self.commandArgumentHandling, 3, 2, 1, 2)
-
-        self.label_6 = QLabel(self.command_settings)
-        self.label_6.setObjectName(u"label_6")
-
-        self.gridLayout_3.addWidget(self.label_6, 4, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_2, 0, 0, 1, 1)
 
         self.commandDepth = QSpinBox(self.command_settings)
         self.commandDepth.setObjectName(u"commandDepth")
@@ -245,35 +220,25 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.commandParentId, 4, 1, 1, 1)
 
-        self.label_9 = QLabel(self.command_settings)
-        self.label_9.setObjectName(u"label_9")
-
-        self.gridLayout_3.addWidget(self.label_9, 4, 2, 1, 1)
-
         self.commandMinArgs = QSpinBox(self.command_settings)
         self.commandMinArgs.setObjectName(u"commandMinArgs")
 
         self.gridLayout_3.addWidget(self.commandMinArgs, 4, 3, 1, 1)
-
-        self.label_2 = QLabel(self.command_settings)
-        self.label_2.setObjectName(u"label_2")
-
-        self.gridLayout_3.addWidget(self.label_2, 0, 0, 1, 1)
 
         self.commandString = QLineEdit(self.command_settings)
         self.commandString.setObjectName(u"commandString")
 
         self.gridLayout_3.addWidget(self.commandString, 2, 1, 1, 1)
 
-        self.label_4 = QLabel(self.command_settings)
-        self.label_4.setObjectName(u"label_4")
-
-        self.gridLayout_3.addWidget(self.label_4, 2, 0, 1, 1)
-
         self.label_5 = QLabel(self.command_settings)
         self.label_5.setObjectName(u"label_5")
 
         self.gridLayout_3.addWidget(self.label_5, 3, 0, 1, 1)
+
+        self.label_4 = QLabel(self.command_settings)
+        self.label_4.setObjectName(u"label_4")
+
+        self.gridLayout_3.addWidget(self.label_4, 2, 0, 1, 1)
 
         self.label_3 = QLabel(self.command_settings)
         self.label_3.setObjectName(u"label_3")
@@ -305,25 +270,65 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.commandMaxArgsLabel, 5, 2, 1, 1)
 
-        self.closeSettingsMenuButton = QPushButton(self.command_settings)
-        self.closeSettingsMenuButton.setObjectName(u"closeSettingsMenuButton")
-        sizePolicy3.setHeightForWidth(self.closeSettingsMenuButton.sizePolicy().hasHeightForWidth())
-        self.closeSettingsMenuButton.setSizePolicy(sizePolicy3)
-        self.closeSettingsMenuButton.setMinimumSize(QSize(10, 10))
-        self.closeSettingsMenuButton.setMaximumSize(QSize(25, 16777215))
-        self.closeSettingsMenuButton.setLayoutDirection(Qt.LeftToRight)
+        self.commandSubcommands = QSpinBox(self.command_settings)
+        self.commandSubcommands.setObjectName(u"commandSubcommands")
 
-        self.gridLayout_3.addWidget(self.closeSettingsMenuButton, 0, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.commandSubcommands, 2, 3, 1, 1)
 
-        self.commandArgumentCSV = QTextEdit(self.command_settings)
-        self.commandArgumentCSV.setObjectName(u"commandArgumentCSV")
+        self.commandSubcommands_label = QLabel(self.command_settings)
+        self.commandSubcommands_label.setObjectName(u"commandSubcommands_label")
 
-        self.gridLayout_3.addWidget(self.commandArgumentCSV, 2, 4, 5, 2)
+        self.gridLayout_3.addWidget(self.commandSubcommands_label, 2, 2, 1, 1)
+
+        self.functionName = QLineEdit(self.command_settings)
+        self.functionName.setObjectName(u"functionName")
+
+        self.gridLayout_3.addWidget(self.functionName, 0, 1, 1, 1)
+
+        self.label_6 = QLabel(self.command_settings)
+        self.label_6.setObjectName(u"label_6")
+
+        self.gridLayout_3.addWidget(self.label_6, 4, 0, 1, 1)
+
+        self.commandArgumentHandling = QComboBox(self.command_settings)
+        self.commandArgumentHandling.addItem("")
+        self.commandArgumentHandling.addItem("")
+        self.commandArgumentHandling.addItem("")
+        self.commandArgumentHandling.setObjectName(u"commandArgumentHandling")
+
+        self.gridLayout_3.addWidget(self.commandArgumentHandling, 3, 2, 1, 2)
+
+        self.commandLengthLabel = QLabel(self.command_settings)
+        self.commandLengthLabel.setObjectName(u"commandLengthLabel")
+
+        self.gridLayout_3.addWidget(self.commandLengthLabel, 3, 1, 1, 1)
+
+        self.label = QLabel(self.command_settings)
+        self.label.setObjectName(u"label")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy4)
+        self.label.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_3.addWidget(self.label, 0, 4, 1, 1)
 
         self.commandSettingsMenuApplyButton = QPushButton(self.command_settings)
         self.commandSettingsMenuApplyButton.setObjectName(u"commandSettingsMenuApplyButton")
 
         self.gridLayout_3.addWidget(self.commandSettingsMenuApplyButton, 6, 2, 1, 2)
+
+        self.commandArgumentCSV = QLineEdit(self.command_settings)
+        self.commandArgumentCSV.setObjectName(u"commandArgumentCSV")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.commandArgumentCSV.sizePolicy().hasHeightForWidth())
+        self.commandArgumentCSV.setSizePolicy(sizePolicy5)
+        self.commandArgumentCSV.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+
+        self.gridLayout_3.addWidget(self.commandArgumentCSV, 2, 4, 5, 2)
 
 
         self.gridLayout_2.addWidget(self.command_settings, 2, 0, 1, 3)
@@ -378,7 +383,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -424,27 +429,27 @@ class Ui_MainWindow(object):
         self.tab_2_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.editButton_2.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.deleteButton_2.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+#if QT_CONFIG(tooltip)
+        self.closeSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"close command settings menu", None))
+#endif // QT_CONFIG(tooltip)
+        self.closeSettingsMenuButton.setText(QCoreApplication.translate("MainWindow", u"x", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Min. args.", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Function name", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Command length", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Command string", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Command depth", None))
+        self.commandHasWildcards.setText(QCoreApplication.translate("MainWindow", u"Contains Wildcards", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"id", None))
+        self.commandMaxArgsLabel.setText(QCoreApplication.translate("MainWindow", u"Max args.", None))
         self.commandSubcommands_label.setText(QCoreApplication.translate("MainWindow", u"Subcommands", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Comma separated argument types", None))
-        self.commandLengthLabel.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Parent id", None))
         self.commandArgumentHandling.setItemText(0, QCoreApplication.translate("MainWindow", u"No arguments", None))
         self.commandArgumentHandling.setItemText(1, QCoreApplication.translate("MainWindow", u"Single argument type", None))
         self.commandArgumentHandling.setItemText(2, QCoreApplication.translate("MainWindow", u"Argument type array", None))
 
         self.commandArgumentHandling.setCurrentText(QCoreApplication.translate("MainWindow", u"No arguments", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Parent id", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Min. args.", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Function name", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Command string", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Command length", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Command depth", None))
-        self.commandHasWildcards.setText(QCoreApplication.translate("MainWindow", u"Contains Wildcards", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"id", None))
-        self.commandMaxArgsLabel.setText(QCoreApplication.translate("MainWindow", u"Max args.", None))
-#if QT_CONFIG(tooltip)
-        self.closeSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"close command settings menu", None))
-#endif // QT_CONFIG(tooltip)
-        self.closeSettingsMenuButton.setText(QCoreApplication.translate("MainWindow", u"x", None))
+        self.commandLengthLabel.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Comma separated argument types", None))
         self.commandSettingsMenuApplyButton.setText(QCoreApplication.translate("MainWindow", u"Apply", None))
 #if QT_CONFIG(tooltip)
         self.openCloseSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))

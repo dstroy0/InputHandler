@@ -19,8 +19,7 @@
     #define __INPUTHANDLER_NOEDIT_H__
 
     #include <Arduino.h>
-    #include "config.h" // user config file
-    #include "advanced_config.h" // advanced and debugging toggleable options
+    #include "config.h" // user config file    
 
     /*
         DO NOT EDIT the sections below unless you know what will happen, incorrect entry

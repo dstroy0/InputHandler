@@ -69,7 +69,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="ih_settings_tab">
        <property name="sizePolicy">
@@ -294,68 +294,48 @@
            </sizepolicy>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="functionName"/>
-           </item>
-           <item row="2" column="3">
-            <widget class="QSpinBox" name="commandSubcommands"/>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="commandSubcommands_label">
-             <property name="text">
-              <string>Subcommands</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label">
+           <item row="0" column="5">
+            <widget class="QPushButton" name="closeSettingsMenuButton">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
-              <string>Comma separated argument types</string>
+             <property name="minimumSize">
+              <size>
+               <width>10</width>
+               <height>10</height>
+              </size>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+             <property name="maximumSize">
+              <size>
+               <width>25</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>close command settings menu</string>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>x</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="commandLengthLabel">
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>0</string>
+              <string>Min. args.</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2" colspan="2">
-            <widget class="QComboBox" name="commandArgumentHandling">
-             <property name="currentText">
-              <string>No arguments</string>
-             </property>
-             <item>
-              <property name="text">
-               <string>No arguments</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Single argument type</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Argument type array</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Parent id</string>
+              <string>Function name</string>
              </property>
             </widget>
            </item>
@@ -365,37 +345,23 @@
            <item row="4" column="1">
             <widget class="QLineEdit" name="commandParentId"/>
            </item>
-           <item row="4" column="2">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Min. args.</string>
-             </property>
-            </widget>
-           </item>
            <item row="4" column="3">
             <widget class="QSpinBox" name="commandMinArgs"/>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Function name</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="1">
             <widget class="QLineEdit" name="commandString"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Command string</string>
-             </property>
-            </widget>
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="label_5">
              <property name="text">
               <string>Command length</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Command string</string>
              </property>
             </widget>
            </item>
@@ -433,44 +399,88 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="5">
-            <widget class="QPushButton" name="closeSettingsMenuButton">
+           <item row="2" column="3">
+            <widget class="QSpinBox" name="commandSubcommands"/>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="commandSubcommands_label">
+             <property name="text">
+              <string>Subcommands</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="functionName"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Parent id</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2" colspan="2">
+            <widget class="QComboBox" name="commandArgumentHandling">
+             <property name="currentText">
+              <string>No arguments</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>No arguments</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Single argument type</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Argument type array</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="commandLengthLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>10</width>
-               <height>10</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>25</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="toolTip">
-              <string>close command settings menu</string>
-             </property>
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
              <property name="text">
-              <string>x</string>
+              <string>Comma separated argument types</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
-           </item>
-           <item row="2" column="4" rowspan="5" colspan="2">
-            <widget class="QTextEdit" name="commandArgumentCSV"/>
            </item>
            <item row="6" column="2" colspan="2">
             <widget class="QPushButton" name="commandSettingsMenuApplyButton">
              <property name="text">
               <string>Apply</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4" rowspan="5" colspan="2">
+            <widget class="QLineEdit" name="commandArgumentCSV">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
             </widget>
            </item>
