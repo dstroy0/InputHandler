@@ -18,7 +18,7 @@ import sys
 import json
 import platform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
-                               QVBoxLayout, QFileDialog, QHeaderView, )
+                               QVBoxLayout, QFileDialog, QHeaderView, QAbstractButton, QDialogButtonBox)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression, QEvent)
 from PySide6.QtGui import(QValidator, QRegularExpressionValidator, QIntValidator)
@@ -33,21 +33,24 @@ def regex_validator(input):
     exp = QRegularExpression(input)
     return QRegularExpressionValidator(exp)
 
-# command_settings widget setup
-def command_settings_setup(self):
+# command parameters dialog box setup
+def command_parameters_dialog_box_setup(self):
     # print('command_settings setup')    
         
-    self.ui.functionName.setValidator(regex_validator("^([a-zA-Z_])+$"))
-    self.ui.commandString.setValidator(regex_validator("^([a-zA-Z_*])+$"))
-    self.ui.commandParentId.setValidator(regex_validator("^([0-9])+$"))
-    self.ui.commandId.setValidator(regex_validator("^([0-9])+$"))
+    self.ui.commandParametersDialog.dlg.functionName.setValidator(regex_validator("^([a-zA-Z_])+$"))
+    self.ui.commandParametersDialog.dlg.commandString.setValidator(regex_validator("^([a-zA-Z_*])+$"))
+    self.ui.commandParametersDialog.dlg.commandParentId.setValidator(regex_validator("^([0-9])+$"))
+    self.ui.commandParametersDialog.dlg.commandId.setValidator(regex_validator("^([0-9])+$"))
     
-    self.ui.commandDepth.setMaximum(255)
-    self.ui.commandSubcommands.setMaximum(255)
+    self.ui.commandParametersDialog.dlg.commandDepth.setMaximum(255)
+    self.ui.commandParametersDialog.dlg.commandSubcommands.setMaximum(255)
     
-    self.ui.commandMinArgs.setMaximum(255)
-    self.ui.commandMaxArgs.setMaximum(255)
+    self.ui.commandParametersDialog.dlg.commandMinArgs.setMaximum(255)
+    self.ui.commandParametersDialog.dlg.commandMaxArgs.setMaximum(255)
     
+    self.ui.commandParametersDialog.dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
+    self.ui.commandParametersDialog.dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
+    self.ui.commandParametersDialog.dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
     
 # settings_tree widget setup
 def settings_tree_setup(self):
@@ -83,19 +86,14 @@ def buttons_setup(self):
     self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
     self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
     self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-    self.ui.openCloseSettingsMenuButton.clicked.connect(
-        self.clicked_open_close_command_settings_menu_tab_two)
-    # visible if self.ui.command_settings.isVisible()
-    self.ui.closeSettingsMenuButton.clicked.connect(
-        self.clicked_close_command_settings_menu_tab_two)
-    self.ui.commandSettingsMenuApplyButton.clicked.connect(
-        self.clicked_apply_command_settings_menu_tab_two)
+    self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_close_command_settings_menu_tab_two)
+  
 
 # change-driven events
 def triggers_setup(self):
     # print('triggers setup')
     # tab 2
-    self.ui.commandString.textChanged.connect(self.command_string_text_changed)
+    self.ui.commandParametersDialog.dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
 def load_cli_gen_tool_json(self):
     path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
@@ -178,9 +176,8 @@ class MainWindow(QMainWindow):
         # tab 1
         settings_tree_setup(self)  # settings_tree widget setup
 
-        # tab 2
-        self.ui.command_settings.hide()  # hide command settings menu widget
-        command_settings_setup(self) # command_settings widget setup
+        # tab 2        
+        command_parameters_dialog_box_setup(self) # command parameters dialog box setup
         
         # connect objects to methods
         actions_setup(self)  # actions setup
@@ -189,7 +186,7 @@ class MainWindow(QMainWindow):
 
         # load cli_gen_tool (session) json
         load_cli_gen_tool_json(self)
-        
+            
     # actions
     def open_file(self):
         print('open file')
@@ -321,6 +318,14 @@ class MainWindow(QMainWindow):
     def clicked_close_command_settings_menu_tab_two(self):
         print('clicked close command settings menu')
         
+    def clicked_command_parameters_buttonbox_ok(self):        
+        print('ok')
+    
+    def clicked_command_parameters_buttonbox_reset(self):        
+        print('reset')
+        
+    def clicked_command_parameters_buttonbox_cancel(self):        
+        print('cancel')
     
     def clicked_apply_command_settings_menu_tab_two(self):
         settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
