@@ -212,6 +212,64 @@
         <string>Command Tree</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
+        <item row="4" column="0">
+         <widget class="QPushButton" name="newButton_2">
+          <property name="minimumSize">
+           <size>
+            <width>265</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>New</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="tab_2_command_tree_label">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>                          Commands</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="openCloseSettingsMenuButton">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>open command settings menu</string>
+          </property>
+          <property name="text">
+           <string>Command settings menu</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="editButton_2">
+          <property name="text">
+           <string>Edit</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
          <widget class="QLabel" name="tab_2_code_preview_label">
           <property name="text">
@@ -222,10 +280,10 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="editButton_2">
+        <item row="4" column="2">
+         <widget class="QPushButton" name="deleteButton_2">
           <property name="text">
-           <string>Edit</string>
+           <string>Delete</string>
           </property>
          </widget>
         </item>
@@ -259,14 +317,7 @@
           </column>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QPushButton" name="deleteButton_2">
-          <property name="text">
-           <string>Delete</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3" rowspan="3">
+        <item row="1" column="3" rowspan="4">
          <widget class="QTreeView" name="codePreview_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -294,7 +345,14 @@
            </sizepolicy>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="5">
+           <item row="4" column="3">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Min. args.</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
             <widget class="QPushButton" name="closeSettingsMenuButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -325,13 +383,6 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="2">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Min. args.</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_2">
              <property name="text">
@@ -339,24 +390,20 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
+           <item row="0" column="4">
             <widget class="QSpinBox" name="commandDepth"/>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="commandParentId"/>
-           </item>
-           <item row="4" column="3">
-            <widget class="QSpinBox" name="commandMinArgs"/>
            </item>
            <item row="2" column="1">
             <widget class="QLineEdit" name="commandString"/>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Command length</string>
-             </property>
-            </widget>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="commandParentId"/>
+           </item>
+           <item row="4" column="4">
+            <widget class="QSpinBox" name="commandMinArgs"/>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="commandId"/>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_4">
@@ -365,18 +412,29 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="0" column="3">
             <widget class="QLabel" name="label_3">
              <property name="text">
               <string>Command depth</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="3">
+           <item row="5" column="4">
             <widget class="QSpinBox" name="commandMaxArgs"/>
            </item>
-           <item row="5" column="1">
-            <widget class="QLineEdit" name="commandId"/>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Command length</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="3">
+            <widget class="QLabel" name="commandMaxArgsLabel">
+             <property name="text">
+              <string>Max args.</string>
+             </property>
+            </widget>
            </item>
            <item row="6" column="1">
             <widget class="QCheckBox" name="commandHasWildcards">
@@ -385,27 +443,20 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="4">
+            <widget class="QSpinBox" name="commandSubcommands"/>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="commandSubcommands_label">
+             <property name="text">
+              <string>Subcommands</string>
+             </property>
+            </widget>
+           </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_7">
              <property name="text">
               <string>id</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2">
-            <widget class="QLabel" name="commandMaxArgsLabel">
-             <property name="text">
-              <string>Max args.</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QSpinBox" name="commandSubcommands"/>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="commandSubcommands_label">
-             <property name="text">
-              <string>Subcommands</string>
              </property>
             </widget>
            </item>
@@ -419,7 +470,28 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="2" colspan="2">
+           <item row="3" column="1">
+            <widget class="QLabel" name="commandLengthLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="3" colspan="2">
+            <widget class="QPushButton" name="commandSettingsMenuApplyButton">
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QPushButton" name="openArgumentsDialog">
+             <property name="text">
+              <string>Arguments</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
             <widget class="QComboBox" name="commandArgumentHandling">
              <property name="currentText">
               <string>No arguments</string>
@@ -441,101 +513,7 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="commandLengthLabel">
-             <property name="text">
-              <string>0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Comma separated argument types</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="2" colspan="2">
-            <widget class="QPushButton" name="commandSettingsMenuApplyButton">
-             <property name="text">
-              <string>Apply</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4" rowspan="5" colspan="2">
-            <widget class="QLineEdit" name="commandArgumentCSV">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-            </widget>
-           </item>
           </layout>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="openCloseSettingsMenuButton">
-          <property name="maximumSize">
-           <size>
-            <width>150</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>open command settings menu</string>
-          </property>
-          <property name="text">
-           <string>Command settings menu</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="tab_2_command_tree_label">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>350</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>                          Commands</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="newButton_2">
-          <property name="minimumSize">
-           <size>
-            <width>265</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>New</string>
-          </property>
          </widget>
         </item>
        </layout>
@@ -642,6 +620,31 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>openCloseSettingsMenuButton</tabstop>
+  <tabstop>command_tree</tabstop>
+  <tabstop>codePreview_2</tabstop>
+  <tabstop>newButton_2</tabstop>
+  <tabstop>editButton_2</tabstop>
+  <tabstop>deleteButton_2</tabstop>
+  <tabstop>functionName</tabstop>
+  <tabstop>commandString</tabstop>
+  <tabstop>commandParentId</tabstop>
+  <tabstop>commandId</tabstop>
+  <tabstop>commandHasWildcards</tabstop>
+  <tabstop>commandDepth</tabstop>
+  <tabstop>commandSubcommands</tabstop>
+  <tabstop>commandMinArgs</tabstop>
+  <tabstop>commandMaxArgs</tabstop>
+  <tabstop>commandSettingsMenuApplyButton</tabstop>
+  <tabstop>closeSettingsMenuButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>settings_tree</tabstop>
+  <tabstop>codePreview_1</tabstop>
+  <tabstop>editButton_1</tabstop>
+  <tabstop>clearButton_1</tabstop>
+  <tabstop>defaultButton_1</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
