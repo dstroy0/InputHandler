@@ -56,6 +56,19 @@ def command_parameters_dialog_box_setup(self):
     self.ui.commandParametersDialog.dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
     self.ui.commandParametersDialog.dlg.argumentsPane.hide()  
     
+def parse_config_header_file(self):
+    path = QDir()
+    path.cdUp()
+    config_path = path.currentPath() + "/src/config/config.h"    
+    file = open(config_path, 'r')
+    print("opened: ", config_path, sep='')
+    Lines = file.readlines()
+    file.close()
+    
+    count = 0
+    for line in Lines:
+        count += 1
+        print("{}:{}".format(count, line.strip()), sep='')
     
 # settings_tree widget setup
 def settings_tree_setup(self):
@@ -64,6 +77,8 @@ def settings_tree_setup(self):
     self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
     self.ui.settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
     self.ui.settings_tree.setColumnCount(3)
+    
+    parse_config_header_file(self)
     
     tree = self.ui.settings_tree
     
@@ -134,7 +149,7 @@ def load_cli_gen_tool_json(self):
     # print(path)
     try:
         self.session = json.loads(data_in)
-        print("loaded:", self.session, sep='')
+        print("cli_gen_tool.json:", self.session, sep='')
     except (ValueError, RuntimeError, TypeError, NameError) as e:
             print('json corrupt, removing')
             if self.json_except == 1:
