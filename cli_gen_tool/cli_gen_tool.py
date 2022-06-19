@@ -363,7 +363,7 @@ class MainWindow(QMainWindow):
         count = 0
         for line in Lines:
             count += 1
-            print("{}:{}".format(count, line.strip()), sep='')
+            print("{}:{}".format(count, line.strip('\n')), sep='')
             
     def regex_validator(self, input):
         exp = QRegularExpression(input)
