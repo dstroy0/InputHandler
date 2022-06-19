@@ -53,6 +53,7 @@ class Ui_commandParametersDialog(object):
         self.argumentDisplayLabel.setFrameShape(QFrame.StyledPanel)
         self.argumentDisplayLabel.setFrameShadow(QFrame.Sunken)
         self.argumentDisplayLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+        self.argumentDisplayLabel.setWordWrap(True)
         self.argumentDisplayLabel.setTextInteractionFlags(Qt.TextEditorInteraction)
 
         self.gridLayout_2.addWidget(self.argumentDisplayLabel, 4, 3, 8, 1)

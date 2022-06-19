@@ -30,135 +30,6 @@ from res.uic.commandParametersDialog import Ui_commandParametersDialog
 
 # MainWindow setup
 
-def regex_validator(input):
-    exp = QRegularExpression(input)
-    return QRegularExpressionValidator(exp)
-
-# command parameters dialog box setup
-def command_parameters_dialog_box_setup(self):
-    # print('command_settings setup')    
-        
-    self.ui.commandParametersDialog.dlg.functionName.setValidator(regex_validator("^([a-zA-Z_])+$"))
-    self.ui.commandParametersDialog.dlg.commandString.setValidator(regex_validator("^([a-zA-Z_*])+$"))
-    self.ui.commandParametersDialog.dlg.commandParentId.setValidator(regex_validator("^([0-9])+$"))
-    self.ui.commandParametersDialog.dlg.commandId.setValidator(regex_validator("^([0-9])+$"))
-    
-    self.ui.commandParametersDialog.dlg.commandDepth.setMaximum(255)
-    self.ui.commandParametersDialog.dlg.commandSubcommands.setMaximum(255)
-    
-    self.ui.commandParametersDialog.dlg.commandMinArgs.setMaximum(255)
-    self.ui.commandParametersDialog.dlg.commandMaxArgs.setMaximum(255)
-    
-    self.ui.commandParametersDialog.dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
-    self.ui.commandParametersDialog.dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
-    self.ui.commandParametersDialog.dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
-    
-    self.ui.commandParametersDialog.dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
-    self.ui.commandParametersDialog.dlg.argumentsPane.hide()  
-    
-def parse_config_header_file(self):
-    path = QDir()
-    path.cdUp()
-    config_path = path.currentPath() + "/src/config/config.h"    
-    file = open(config_path, 'r')
-    print("opened: ", config_path, sep='')
-    Lines = file.readlines()
-    file.close()
-    
-    count = 0
-    for line in Lines:
-        count += 1
-        print("{}:{}".format(count, line.strip()), sep='')
-    
-# settings_tree widget setup
-def settings_tree_setup(self):
-    # print('settings_tree setup')
-    self.ui.settings_tree.setHeaderLabels(("Setting", "Type", "Value"))
-    self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
-    self.ui.settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
-    self.ui.settings_tree.setColumnCount(3)
-    
-    parse_config_header_file(self)
-    
-    tree = self.ui.settings_tree
-    
-    root = QTreeWidgetItem(tree, ["src/config/config.h"])
-    setting_1 = QTreeWidgetItem(root, ["command length", "uint8_t", "0"])
-    setting_1.setFlags(setting_1.flags() | Qt.ItemIsEditable)
-    
-    tree.setEditTriggers(tree.NoEditTriggers)
-    
-    tree.itemDoubleClicked.connect(self.check_if_col_editable)
-    
-
-# actions setup
-def actions_setup(self):
-    # print('actions setup')
-    # file menu
-    self.ui.actionOpen.triggered.connect(self.open_file)
-    self.ui.actionSave.triggered.connect(self.save_file)
-    self.ui.actionSave_As.triggered.connect(self.save_file_as)
-    self.ui.actionPreferences.triggered.connect(self.gui_settings)
-    self.ui.actionExit.triggered.connect(self.gui_exit)
-    # generate menu
-    self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
-    # about menu
-    self.ui.actionAbout.triggered.connect(self.gui_about)
-    self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
-
-# button setup
-def buttons_setup(self):
-    # print('buttons setup')
-    # tab 1
-    self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
-    self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
-    self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
-    # tab 2
-    # always visible
-    self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
-    self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
-    self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-    self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)
-  
-
-# change-driven events
-def triggers_setup(self):
-    # print('triggers setup')
-    # tab 2
-    self.ui.commandParametersDialog.dlg.commandString.textChanged.connect(self.command_string_text_changed)
-
-def load_cli_gen_tool_json(self):
-    path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
-    file = QFile(path)
-    if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-        file.close()
-        file = QFile(path)
-        print('cli_gen_tool/cli_gen_tool.json not found, attempting to create a new one.')            
-        if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
-            print('Unable to write new cli_gen_tool.json, please check permissions.')
-            return
-        out = QByteArray(json.dumps(self.defaultGuiOpt, indent=4, sort_keys=True))  # dump pretty json                        
-        file.write(out)
-        print('write successful')                        
-        file.close()
-        file = QFile(path)
-        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-            print('unable to open cli_gen_tool/cli_gen_tool.json')
-    data_in = QTextStream(file).readAll()
-    file.close()        
-    # print(path)
-    try:
-        self.session = json.loads(data_in)
-        print("cli_gen_tool.json:", self.session, sep='')
-    except (ValueError, RuntimeError, TypeError, NameError) as e:
-            print('json corrupt, removing')
-            if self.json_except == 1:
-                print('unable to read json, app exit')
-                app.quit()
-            self.json_except = 1
-            os.remove(path) # delete corrupt json
-            load_cli_gen_tool_json(self) # recurse to try and recreate cli_gen_tool.json
-            print(e)
 
 # end MainWindow setup
 
@@ -170,10 +41,11 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         
         # command parameters dialog box
-        self.ui.commandParametersDialog = QDialog(self)
-        self.ui.commandParametersDialog.dlg = Ui_commandParametersDialog()
-        self.ui.commandParametersDialog.dlg.setupUi(self.ui.commandParametersDialog)  
-            
+        self.ui.commandParameters = QDialog(self)
+        self.ui.commandParameters.dlg = Ui_commandParametersDialog()
+        self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)  
+        
+        self.parse_config_header_file()    
         
         # MainWindow var
         # session db
@@ -197,7 +69,8 @@ class MainWindow(QMainWindow):
                                       'commandSubcommands',
                                       'commandArgumentHandling',
                                       'commandMinArgs',
-                                      'commandMaxArgs']
+                                      'commandMaxArgs',
+                                      'commandArguments']
 
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
         self.defaultGuiOpt = {"opt": { "save_filename": None,
@@ -205,20 +78,95 @@ class MainWindow(QMainWindow):
                                        "output_dir": "default",
                                        "window_size": "default"}}
         # end MainWindow var
+        
+        # MainWindow objects
+        
+        # actions setup
+        # file menu
+        self.ui.actionOpen.triggered.connect(self.open_file)
+        self.ui.actionSave.triggered.connect(self.save_file)
+        self.ui.actionSave_As.triggered.connect(self.save_file_as)
+        self.ui.actionPreferences.triggered.connect(self.gui_settings)
+        self.ui.actionExit.triggered.connect(self.gui_exit)
+        # generate menu
+        self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
+        # about menu
+        self.ui.actionAbout.triggered.connect(self.gui_about)
+        self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
+        
+        # buttons setup
+        # tab 1
+        self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
+        self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
+        self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
+        # tab 2
+        # always visible
+        self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
+        self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
+        self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
+        self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)
+        
+        # change driven events
+        # tab 2
+        self.ui.commandParameters.dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
         # tab 1
-        settings_tree_setup(self)  # settings_tree widget setup
+        # settings_tree widget setup
+        self.ui.settings_tree.setHeaderLabels(("Line","Setting", "Type", "Value"))
+        self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.ui.settings_tree.header().setSectionResizeMode(1, QHeaderView.Stretch)
+        self.ui.settings_tree.header().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.ui.settings_tree.setColumnCount(4)        
+    
+        tree = self.ui.settings_tree
+    
+        root = QTreeWidgetItem(tree, ["src/config/config.h"])
+        setting_1 = QTreeWidgetItem(root, ["0", "command length", "uint8_t", "0"])
+        setting_1.setFlags(setting_1.flags() | Qt.ItemIsEditable)
+    
+        tree.setEditTriggers(tree.NoEditTriggers)
+        tree.itemDoubleClicked.connect(self.check_if_col_editable)
 
         # tab 2        
-        command_parameters_dialog_box_setup(self) # command parameters dialog box setup
+        # command parameters dialog box setup
+        self.ui.commandParameters.dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
+        self.ui.commandParameters.dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
+        self.ui.commandParameters.dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
+        self.ui.commandParameters.dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
+    
+        self.ui.commandParameters.dlg.commandDepth.setMaximum(255)
+        self.ui.commandParameters.dlg.commandSubcommands.setMaximum(255)
+    
+        self.ui.commandParameters.dlg.commandMinArgs.setMaximum(255)
+        self.ui.commandParameters.dlg.commandMaxArgs.setMaximum(255)
         
-        # connect objects to methods
-        actions_setup(self)  # actions setup
-        buttons_setup(self)  # buttons setup
-        triggers_setup(self)  # triggers setup
+        self.ui.commandParameters.dlg.add8bituint.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.add16bituint.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.add32bituint.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.add16bitint.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.addfloat.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.addchar.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.addstartstop.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.addnotype.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem1.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem2.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem3.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem4.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem5.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem6.clicked.connect(self.csv_button)
+        self.ui.commandParameters.dlg.rem7.clicked.connect(self.csv_button)
+    
+        self.ui.commandParameters.dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
+        self.ui.commandParameters.dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
+        self.ui.commandParameters.dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
+    
+        self.ui.commandParameters.dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
+        self.ui.commandParameters.dlg.argumentsPane.hide()          
 
         # load cli_gen_tool (session) json
-        load_cli_gen_tool_json(self)
+        self.load_cli_gen_tool_json()
+        # end __init__
             
     # actions
     def open_file(self):
@@ -345,7 +293,7 @@ class MainWindow(QMainWindow):
 
     def clicked_open_command_settings_menu_tab_two(self):
         print('clicked open/close command settings menu')        
-        self.ui.commandParametersDialog.exec()
+        self.ui.commandParameters.exec()
         
     def clicked_close_command_settings_menu_tab_two(self):
         print('clicked close command settings menu')
@@ -353,17 +301,17 @@ class MainWindow(QMainWindow):
     def clicked_command_parameters_buttonbox_ok(self):        
         print('ok')
         settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
-        settings_to_validate['functionName'] = self.ui.commandParametersDialog.dlg.functionName.text()
-        settings_to_validate['commandString'] = self.ui.commandParametersDialog.dlg.commandString.text()
+        settings_to_validate['functionName'] = self.ui.commandParameters.dlg.functionName.text()
+        settings_to_validate['commandString'] = self.ui.commandParameters.dlg.commandString.text()
         settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
-        settings_to_validate['parentId'] = self.ui.commandParametersDialog.dlg.commandParentId.text()
-        settings_to_validate['commandId'] = self.ui.commandParametersDialog.dlg.commandId.text()
-        settings_to_validate['commandHasWildcards'] = self.ui.commandParametersDialog.dlg.commandHasWildcards.isChecked()
-        settings_to_validate['commandDepth'] = self.ui.commandParametersDialog.dlg.commandDepth.text()
-        settings_to_validate['commandSubcommands'] = self.ui.commandParametersDialog.dlg.commandSubcommands.text()
-        settings_to_validate['commandArgumentHandling'] = self.ui.commandParametersDialog.dlg.commandArgumentHandling.currentIndex()
-        settings_to_validate['commandMinArgs'] = self.ui.commandParametersDialog.dlg.commandMinArgs.text()
-        settings_to_validate['commandMaxArgs'] = self.ui.commandParametersDialog.dlg.commandMaxArgs.text()    
+        settings_to_validate['parentId'] = self.ui.commandParameters.dlg.commandParentId.text()
+        settings_to_validate['commandId'] = self.ui.commandParameters.dlg.commandId.text()
+        settings_to_validate['commandHasWildcards'] = self.ui.commandParameters.dlg.commandHasWildcards.isChecked()
+        settings_to_validate['commandDepth'] = self.ui.commandParameters.dlg.commandDepth.text()
+        settings_to_validate['commandSubcommands'] = self.ui.commandParameters.dlg.commandSubcommands.text()
+        settings_to_validate['commandArgumentHandling'] = self.ui.commandParameters.dlg.commandArgumentHandling.currentIndex()
+        settings_to_validate['commandMinArgs'] = self.ui.commandParameters.dlg.commandMinArgs.text()
+        settings_to_validate['commandMaxArgs'] = self.ui.commandParameters.dlg.commandMaxArgs.text()    
         
         # get array index
         cmd_idx = self.cliOpt['var']['num_commands']
@@ -382,23 +330,94 @@ class MainWindow(QMainWindow):
         
     def clicked_command_parameters_buttonbox_cancel(self):        
         print('cancel')
-        self.ui.commandParametersDialog.close()
+        self.ui.commandParameters.close()
         
     def command_string_text_changed(self):
-        self.ui.commandParametersDialog.dlg.commandLengthLabel.setText(str(len(self.ui.commandParametersDialog.dlg.commandString.text())))
+        self.ui.commandParameters.dlg.commandLengthLabel.setText(str(len(self.ui.commandParameters.dlg.commandString.text())))
     
     def argument_handling_changed(self):
         print('argument handling changed')
-        if self.ui.commandParametersDialog.dlg.commandArgumentHandling.currentIndex() != 0:
-            self.ui.commandParametersDialog.dlg.argumentsPane.show()
+        if self.ui.commandParameters.dlg.commandArgumentHandling.currentIndex() != 0:
+            self.ui.commandParameters.dlg.argumentsPane.show()
         else:
-            self.ui.commandParametersDialog.dlg.argumentsPane.hide()
+            self.ui.commandParameters.dlg.argumentsPane.hide()
         
     def check_if_col_editable(self, item, column):
         # allow the third column to be editable
         if column == 2:
             self.ui.settings_tree.editItem(item, column)
-        
+            
+    def parse_config_header_file(self):
+        path = QDir()
+        path.cdUp()
+        config_path = path.currentPath() + "/src/config/config.h"    
+        file = open(config_path, 'r')
+        print("opened: ", config_path, sep='')
+        Lines = file.readlines()
+        file.close()
+        enabled_debug_regexp = "\s*#defined\s*DEBUG_*"
+        disabled_debug_regexp = "[\/][\/]\s*#defined\s*DEBUG_*"
+        enabled_opt_method_regexp = "[\/][\/]\s*#defined\s*DISABLE_*"
+        disabled_opt_method_regexp = "\s*#defined\s*DISABLE_*"
+        setting_regexp = "\s*#defined\s*UI_*"
+        count = 0
+        for line in Lines:
+            count += 1
+            print("{}:{}".format(count, line.strip()), sep='')
+            
+    def regex_validator(self, input):
+        exp = QRegularExpression(input)
+        return QRegularExpressionValidator(exp)       
+    
+    def load_cli_gen_tool_json(self):
+        path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
+        file = QFile(path)
+        if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+            file.close()
+            file = QFile(path)
+            print('cli_gen_tool/cli_gen_tool.json not found, attempting to create a new one.')            
+            if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
+                print('Unable to write new cli_gen_tool.json, please check permissions.')
+                return
+            out = QByteArray(json.dumps(self.defaultGuiOpt, indent=4, sort_keys=True))  # dump pretty json                        
+            file.write(out)
+            print('write successful')                        
+            file.close()
+            file = QFile(path)
+            if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
+                print('unable to open cli_gen_tool/cli_gen_tool.json')
+        data_in = QTextStream(file).readAll()
+        file.close()        
+        # print(path)
+        try:
+            self.session = json.loads(data_in)
+            print("cli_gen_tool.json:", self.session, sep='')
+        except (ValueError, RuntimeError, TypeError, NameError) as e:
+            print('json corrupt, removing')
+            if self.json_except == 1:
+                print('unable to read json, app exit')
+                app.quit()
+            self.json_except = 1
+            os.remove(path) # delete corrupt json
+            self.load_cli_gen_tool_json(self) # recurse to try and recreate cli_gen_tool.json
+            print(e)
+            
+    def list_from_csv_args(self):
+        args_list = []
+        csv = self.ui.commandParameters.argumentDisplayLabel.text()
+        print(csv)
+        regexp = QRegularExpression("(^UINT8_T|$^UINT16_T$|^UINT32_T$|^FLOAT$|^CHAR$|^STARTSTOP$|^NOTYPE$)")
+        csv_pos = regexp.indexIn(csv, 0)
+        while csv_pos != -1:
+            args_list.append(regexp.cap(1))
+            pos += regexp.matchedLength()
+            pos = regexp.indexIn(csv, pos)
+        return args_list
+
+    def csv_button(self):
+        # print button name
+        print(self.sender().objectName())
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
