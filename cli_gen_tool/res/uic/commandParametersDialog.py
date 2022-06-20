@@ -16,15 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QCheckBox, QComboBox,
-    QDialog, QDialogButtonBox, QFrame, QGridLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QDialog, QDialogButtonBox, QGridLayout, QLabel,
+    QLineEdit, QPlainTextEdit, QPushButton, QSizePolicy,
     QSpinBox, QWidget)
 
 class Ui_commandParametersDialog(object):
     def setupUi(self, commandParametersDialog):
         if not commandParametersDialog.objectName():
             commandParametersDialog.setObjectName(u"commandParametersDialog")
-        commandParametersDialog.resize(749, 376)
+        commandParametersDialog.resize(749, 343)
         self.gridLayout = QGridLayout(commandParametersDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.parametersPane = QWidget(commandParametersDialog)
@@ -179,19 +179,6 @@ class Ui_commandParametersDialog(object):
         self.add8bituint.setMaximumSize(QSize(25, 25))
 
         self.gridLayout_2.addWidget(self.add8bituint, 4, 1, 1, 1)
-
-        self.argumentDisplayLabel = QLabel(self.argumentsPane)
-        self.argumentDisplayLabel.setObjectName(u"argumentDisplayLabel")
-        self.argumentDisplayLabel.setMinimumSize(QSize(150, 90))
-        self.argumentDisplayLabel.setMouseTracking(False)
-        self.argumentDisplayLabel.setAutoFillBackground(False)
-        self.argumentDisplayLabel.setFrameShape(QFrame.StyledPanel)
-        self.argumentDisplayLabel.setFrameShadow(QFrame.Sunken)
-        self.argumentDisplayLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
-        self.argumentDisplayLabel.setWordWrap(True)
-        self.argumentDisplayLabel.setTextInteractionFlags(Qt.TextEditorInteraction)
-
-        self.gridLayout_2.addWidget(self.argumentDisplayLabel, 4, 3, 8, 1)
 
         self.label = QLabel(self.argumentsPane)
         self.label.setObjectName(u"label")
@@ -422,6 +409,13 @@ class Ui_commandParametersDialog(object):
 
         self.gridLayout_2.addWidget(self.label_9, 0, 0, 1, 2)
 
+        self.argumentsPlainTextCSV = QPlainTextEdit(self.argumentsPane)
+        self.argumentsPlainTextCSV.setObjectName(u"argumentsPlainTextCSV")
+        self.argumentsPlainTextCSV.setMinimumSize(QSize(0, 255))
+        self.argumentsPlainTextCSV.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
+        self.gridLayout_2.addWidget(self.argumentsPlainTextCSV, 4, 3, 3, 1)
+
 
         self.gridLayout.addWidget(self.argumentsPane, 0, 2, 1, 1)
 
@@ -449,7 +443,6 @@ class Ui_commandParametersDialog(object):
         self.commandArgumentHandling.setCurrentText(QCoreApplication.translate("commandParametersDialog", u"No arguments", None))
         self.label_11.setText(QCoreApplication.translate("commandParametersDialog", u"Command string", None))
         self.add8bituint.setText(QCoreApplication.translate("commandParametersDialog", u"+", None))
-        self.argumentDisplayLabel.setText(QCoreApplication.translate("commandParametersDialog", u"Arguments...", None))
         self.label.setText(QCoreApplication.translate("commandParametersDialog", u"UINT8_T", None))
         self.rem.setText(QCoreApplication.translate("commandParametersDialog", u"-", None))
         self.rem1.setText(QCoreApplication.translate("commandParametersDialog", u"-", None))
@@ -475,5 +468,6 @@ class Ui_commandParametersDialog(object):
         self.label_8.setText(QCoreApplication.translate("commandParametersDialog", u"NOTYPE", None))
         self.commandMaxArgsLabel.setText(QCoreApplication.translate("commandParametersDialog", u"Max args.", None))
         self.label_9.setText(QCoreApplication.translate("commandParametersDialog", u"Min. args.", None))
+        self.argumentsPlainTextCSV.setPlaceholderText(QCoreApplication.translate("commandParametersDialog", u"Arguments...", None))
     # retranslateUi
 

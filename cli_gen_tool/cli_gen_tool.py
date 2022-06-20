@@ -42,8 +42,7 @@ class MainWindow(QMainWindow):
             
         self.ui.commandParameters = QDialog(self)        
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
-        self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
-        
+        self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)        
         self.parse_config_header_file()    
         
         # MainWindow var
@@ -341,13 +340,14 @@ class MainWindow(QMainWindow):
             print('Command cannot have more than 255 subcommands')
             err = True
         if int(settings_to_validate['commandArgumentHandling']) == 1 or 2:
-            if settings_to_validate['commandArgumentHandling'] == 1:
-                tmp = self.dict_from_csv_args()
+            tmp = self.dict_from_csv_args()
+            if settings_to_validate['commandArgumentHandling'] == 1:                
                 # single argument                
-                settings_to_validate['commandArguments'] = tmp
+                settings_to_validate['commandArguments'] = {0: tmp[0]}
             else:
                 # argument array                
-                settings_to_validate['commandArguments'] = self.dict_from_csv_args()
+                settings_to_validate['commandArguments'] = tmp
+        print(settings_to_validate)
         if err == True:
             return
         # get array index
@@ -364,6 +364,8 @@ class MainWindow(QMainWindow):
     
     def clicked_command_parameters_buttonbox_reset(self):        
         print('reset')
+        pre = self.ui.commandParameters.dlg
+        pre.argumentsPlainTextCSV.clear()
         
     def clicked_command_parameters_buttonbox_cancel(self):        
         print('cancel')
@@ -443,31 +445,27 @@ class MainWindow(QMainWindow):
         args_dict = {}
         args_list = []
         arg_num_list = []
-        csv = self.ui.commandParameters.dlg.argumentDisplayLabel.text()
-        print(csv)
-        regexp = QRegularExpression("(^UINT8_T$|^UINT16_T$|^UINT32_T$|^FLOAT$|^CHAR$|^STARTSTOP$|^NOTYPE$)")        
+        csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ','                   
+        regexp = QRegularExpression("(\"(?:[^\"]|\")*\"|[^,\"\n\r]*)(,|\r?\n|\r)")        
         csv_pos = 0
-        i = 1
+        i = 0
         while csv_pos != -1:
             match = regexp.match(csv, csv_pos)            
-            if match.hasMatch():
+            if match.hasMatch():                
                 csv_pos += match.capturedLength()
                 arg_num_list.append(i)
                 i = i + 1
-                args_list.append(match.captured())
+                args_list.append(match.captured().upper().strip(','))
             else:
-                break
-        print(arg_num_list)
-        print(args_list)
-        print(args_dict)
-        args_dict = dict(zip(arg_num_list, args_list))
-        print(args_dict)
+                break                 
+        args_dict = dict(zip(arg_num_list, args_list))        
         return args_dict
 
     def csv_button(self):
         # print button name
         print(self.sender().objectName())
 
+# loop
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
