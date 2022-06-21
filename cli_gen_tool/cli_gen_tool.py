@@ -19,7 +19,7 @@ import json
 import platform
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
-                               QTreeWidgetItem, QStyle)
+                               QTreeWidgetItem, QStyle, QSizePolicy)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression)
 from PySide6.QtGui import(QRegularExpressionValidator, QIcon)
@@ -40,9 +40,11 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
             
-        self.ui.commandParameters = QDialog(self)        
+        self.ui.commandParameters = QDialog(self)               
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)        
+        self.ui.commandParameters.setMaximumSize(0,0)
+        
         self.parse_config_header_file()    
         
         # MainWindow var
@@ -57,6 +59,8 @@ class MainWindow(QMainWindow):
         # active save filename
         self.saveFileName = ''
 
+        self.cfgFileLines = []
+        
         # cli opt db
         self.cliOpt = {'var': {'num_commands': 0},
                        'commands': {},
@@ -392,17 +396,41 @@ class MainWindow(QMainWindow):
         config_path = path.currentPath() + "/src/config/config.h"    
         file = open(config_path, 'r')
         print("opened: ", config_path, sep='')
-        Lines = file.readlines()
+        self.cfgFileLines = file.readlines()
         file.close()
-        enabled_debug_regexp = "\s*#defined\s*DEBUG_*"
-        disabled_debug_regexp = "[\/][\/]\s*#defined\s*DEBUG_*"
-        enabled_opt_method_regexp = "[\/][\/]\s*#defined\s*DISABLE_*"
-        disabled_opt_method_regexp = "\s*#defined\s*DISABLE_*"
-        setting_regexp = "\s*#defined\s*UI_*"
-        count = 0
-        for line in Lines:
-            count += 1
-            print("{}:{}".format(count, line.strip('\n')), sep='')
+        
+        debug_regexp = "(\s*[\/][\/]\s*)(\s*#define\s*)(DEBUG_\S*)"
+        opt_method_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(DISABLE_\S*)"
+        setting_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(UI_\S*\s*)(\d*)"
+        progmem_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(UI_\S*PGM_LEN\s*)(\d*)"        
+        regexp_dict = {'debug methods':debug_regexp,
+                       'optional methods':opt_method_regexp,
+                       'library settings':setting_regexp,
+                       'progmem settings':progmem_regexp}                        
+        self.cfgFileDict = {'library settings':{},
+                            'progmem settings':{},
+                            'optional methods':{},
+                            'debug methods':{}}        
+        index = {'library settings':0,
+                 'progmem settings':0,
+                 'optional methods':0,
+                 'debug methods':0}
+        line_num = 0
+        for line in self.cfgFileLines:
+            for key in regexp_dict:
+                line_pos = 0
+                regexp = QRegularExpression(regexp_dict[key])
+                while line_pos != -1:
+                    match = regexp.match(line, line_pos)
+                    if match.hasMatch():                        
+                        line_pos += match.capturedLength()                                                
+                        entry = {index[key]:{line_num:match.captured()}}
+                        self.cfgFileDict[key].update(entry)
+                        index[key] += 1   
+                    else:
+                        break
+            line_num += 1
+        # print(json.dumps(self.cfgFileDict, indent=4, sort_keys=True))
             
     def regex_validator(self, input):
         exp = QRegularExpression(input)

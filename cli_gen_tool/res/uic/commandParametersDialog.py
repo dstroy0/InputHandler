@@ -24,12 +24,17 @@ class Ui_commandParametersDialog(object):
     def setupUi(self, commandParametersDialog):
         if not commandParametersDialog.objectName():
             commandParametersDialog.setObjectName(u"commandParametersDialog")
-        commandParametersDialog.resize(749, 343)
+        commandParametersDialog.resize(699, 343)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(commandParametersDialog.sizePolicy().hasHeightForWidth())
+        commandParametersDialog.setSizePolicy(sizePolicy)
         self.gridLayout = QGridLayout(commandParametersDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.parametersPane = QWidget(commandParametersDialog)
         self.parametersPane.setObjectName(u"parametersPane")
-        self.parametersPane.setMinimumSize(QSize(350, 0))
+        self.parametersPane.setMinimumSize(QSize(300, 0))
         self.parametersPane.setMaximumSize(QSize(350, 16777215))
         self.gridLayout_3 = QGridLayout(self.parametersPane)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
@@ -41,8 +46,8 @@ class Ui_commandParametersDialog(object):
 
         self.label_10 = QLabel(self.parametersPane)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setMinimumSize(QSize(100, 0))
-        self.label_10.setMaximumSize(QSize(100, 20))
+        self.label_10.setMinimumSize(QSize(90, 0))
+        self.label_10.setMaximumSize(QSize(90, 20))
         self.label_10.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_10, 0, 0, 1, 1)
@@ -62,16 +67,16 @@ class Ui_commandParametersDialog(object):
 
         self.label_13 = QLabel(self.parametersPane)
         self.label_13.setObjectName(u"label_13")
-        self.label_13.setMinimumSize(QSize(100, 20))
-        self.label_13.setMaximumSize(QSize(100, 20))
+        self.label_13.setMinimumSize(QSize(95, 20))
+        self.label_13.setMaximumSize(QSize(95, 20))
         self.label_13.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_13, 3, 0, 1, 1)
 
         self.label_15 = QLabel(self.parametersPane)
         self.label_15.setObjectName(u"label_15")
-        self.label_15.setMinimumSize(QSize(45, 20))
-        self.label_15.setMaximumSize(QSize(100, 20))
+        self.label_15.setMinimumSize(QSize(90, 20))
+        self.label_15.setMaximumSize(QSize(90, 20))
         self.label_15.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_15, 4, 0, 1, 1)
@@ -84,8 +89,8 @@ class Ui_commandParametersDialog(object):
 
         self.label_14 = QLabel(self.parametersPane)
         self.label_14.setObjectName(u"label_14")
-        self.label_14.setMinimumSize(QSize(100, 20))
-        self.label_14.setMaximumSize(QSize(100, 16777215))
+        self.label_14.setMinimumSize(QSize(90, 20))
+        self.label_14.setMaximumSize(QSize(90, 16777215))
         self.label_14.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_14, 5, 0, 1, 1)
@@ -108,7 +113,7 @@ class Ui_commandParametersDialog(object):
 
         self.label_12 = QLabel(self.parametersPane)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setMinimumSize(QSize(100, 0))
+        self.label_12.setMinimumSize(QSize(90, 0))
         self.label_12.setMaximumSize(QSize(100, 20))
         self.label_12.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -116,8 +121,8 @@ class Ui_commandParametersDialog(object):
 
         self.label_16 = QLabel(self.parametersPane)
         self.label_16.setObjectName(u"label_16")
-        self.label_16.setMinimumSize(QSize(80, 0))
-        self.label_16.setMaximumSize(QSize(100, 20))
+        self.label_16.setMinimumSize(QSize(90, 0))
+        self.label_16.setMaximumSize(QSize(90, 20))
         self.label_16.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_16, 9, 0, 1, 1)
@@ -129,8 +134,8 @@ class Ui_commandParametersDialog(object):
 
         self.commandSubcommands_label = QLabel(self.parametersPane)
         self.commandSubcommands_label.setObjectName(u"commandSubcommands_label")
-        self.commandSubcommands_label.setMinimumSize(QSize(75, 0))
-        self.commandSubcommands_label.setMaximumSize(QSize(100, 20))
+        self.commandSubcommands_label.setMinimumSize(QSize(90, 0))
+        self.commandSubcommands_label.setMaximumSize(QSize(90, 20))
         self.commandSubcommands_label.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.commandSubcommands_label, 8, 0, 1, 1)
@@ -153,8 +158,8 @@ class Ui_commandParametersDialog(object):
 
         self.label_11 = QLabel(self.parametersPane)
         self.label_11.setObjectName(u"label_11")
-        self.label_11.setMinimumSize(QSize(100, 20))
-        self.label_11.setMaximumSize(QSize(80, 20))
+        self.label_11.setMinimumSize(QSize(90, 20))
+        self.label_11.setMaximumSize(QSize(90, 20))
         self.label_11.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.label_11, 2, 0, 1, 1)
@@ -170,9 +175,6 @@ class Ui_commandParametersDialog(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.add8bituint = QPushButton(self.argumentsPane)
         self.add8bituint.setObjectName(u"add8bituint")
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.add8bituint.sizePolicy().hasHeightForWidth())
         self.add8bituint.setSizePolicy(sizePolicy)
         self.add8bituint.setMinimumSize(QSize(25, 25))
