@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
         settings_tree.itemDoubleClicked.connect(self.check_if_col_editable)
         
-        print(json.dumps(self.cliOpt, indent=4, sort_keys=True, default=lambda o: ''))
+        # print(json.dumps(self.cliOpt, indent=4, sort_keys=True, default=lambda o: ''))
         
         # tab 2        
         # command parameters dialog box setup
