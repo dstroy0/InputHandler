@@ -1,8 +1,10 @@
 {
     "opt": {
-        "output_dir": "default",
+        "config_file": "default",
+        "output_dir": "output/",
         "recent_files": {},
         "save_filename": null,
         "window_size": "default"
-    }
+    },
+    "tool_version": "0.1"
 }
