@@ -120,18 +120,41 @@ class MainWindow(QMainWindow):
         
         # tab 1
         # settings_tree widget setup
-        self.ui.settings_tree.setHeaderLabels(("Line","Setting", "Type", "Value"))
+        self.ui.settings_tree.setHeaderLabels(("Section","Macro Name", "Type", "Value"))
         self.ui.settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
         self.ui.settings_tree.header().setSectionResizeMode(1, QHeaderView.Stretch)
         self.ui.settings_tree.header().setSectionResizeMode(3, QHeaderView.Stretch)
         self.ui.settings_tree.setColumnCount(4)        
     
-        tree = self.ui.settings_tree
-    
-        root = QTreeWidgetItem(tree, ["src/config/config.h"])
-        root.setIcon(0, self.ui.fileDialogContentsViewIcon)
-        setting_1 = QTreeWidgetItem(root, ["0", "command length", "uint8_t", "0"])
-        setting_1.setFlags(setting_1.flags() | Qt.ItemIsEditable)
+        tree = self.ui.settings_tree        
+        root = QTreeWidgetItem(tree, ["src/config/config.h"])        
+        root.setIcon(0, self.ui.fileDialogContentsViewIcon)        
+        parents = {}
+        for key in self.cfgFileDict:
+            parents.update({key:QTreeWidgetItem(root, [key,'','',''])})
+        # build tree
+        items = {}
+        i = 0
+        for key in self.cfgFileDict:
+            for item in self.cfgFileDict[key]:
+                regexp = QRegularExpression("(\s*[\/][\/]\s*)")
+                match = regexp.match(self.cfgFileDict[key][item]['fields'][1])
+                # sort out boolean fields
+                if match.hasMatch() and (self.cfgFileDict[key][item]['fields'][0] >= 71):                    
+                    self.cfgFileDict[key][item]['fields'].update({4:False})                    
+                    item_list = ['line:'+str(self.cfgFileDict[key][item]['fields'][0]),self.cfgFileDict[key][item]['fields'][3].strip(),"boolean",str(self.cfgFileDict[key][item]['fields'][4])]                    
+                    items.update({i:QTreeWidgetItem(parents[key], item_list)})
+                    items[i].setFlags(items[i].flags() | Qt.ItemIsEditable)
+                elif not match.hasMatch() and (self.cfgFileDict[key][item]['fields'][0] >= 71):
+                    self.cfgFileDict[key][item]['fields'].update({4:True})                    
+                    item_list = ['line:'+str(self.cfgFileDict[key][item]['fields'][0]),self.cfgFileDict[key][item]['fields'][3].strip(),"boolean",str(self.cfgFileDict[key][item]['fields'][4])]
+                    items.update({i:QTreeWidgetItem(parents[key], item_list)})
+                    items[i].setFlags(items[i].flags() | Qt.ItemIsEditable)
+                else:                    
+                    item_list = ['line:'+str(self.cfgFileDict[key][item]['fields'][0]),self.cfgFileDict[key][item]['fields'][3].strip(),"number",self.cfgFileDict[key][item]['fields'][4]]
+                    items.update({i:QTreeWidgetItem(parents[key], item_list)})
+                    items[i].setFlags(items[i].flags() | Qt.ItemIsEditable)
+                i += 1
     
         tree.setEditTriggers(tree.NoEditTriggers)
         tree.itemDoubleClicked.connect(self.check_if_col_editable)
@@ -387,7 +410,7 @@ class MainWindow(QMainWindow):
         
     def check_if_col_editable(self, item, column):
         # allow the third column to be editable
-        if column == 2:
+        if column == 3:
             self.ui.settings_tree.editItem(item, column)
             
     def parse_config_header_file(self):
@@ -403,18 +426,21 @@ class MainWindow(QMainWindow):
         opt_method_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(DISABLE_\S*)"
         setting_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(UI_\S*\s*)(\d*)"
         progmem_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(UI_\S*PGM_LEN\s*)(\d*)"        
-        regexp_dict = {'debug methods':debug_regexp,
-                       'optional methods':opt_method_regexp,
-                       'library settings':setting_regexp,
-                       'progmem settings':progmem_regexp}                        
+        regexp_dict = {'library settings':setting_regexp,
+                       'progmem settings':progmem_regexp,
+                       'debug methods':debug_regexp,
+                       'optional methods':opt_method_regexp                       
+                      }                        
         self.cfgFileDict = {'library settings':{},
-                            'progmem settings':{},
-                            'optional methods':{},
-                            'debug methods':{}}        
+                            'progmem settings':{},                            
+                            'debug methods':{},
+                            'optional methods':{}
+                           }        
         index = {'library settings':0,
                  'progmem settings':0,
                  'optional methods':0,
-                 'debug methods':0}
+                 'debug methods':0
+                }
         line_num = 0
         for line in self.cfgFileLines:
             for key in regexp_dict:
@@ -422,9 +448,12 @@ class MainWindow(QMainWindow):
                 regexp = QRegularExpression(regexp_dict[key])
                 while line_pos != -1:
                     match = regexp.match(line, line_pos)
-                    if match.hasMatch():                        
+                    if match.hasMatch():
+                        fields = {0:line_num}                        
+                        for i in range(1,regexp.captureCount()+1):                            
+                            fields.update({i:match.captured(i)})
                         line_pos += match.capturedLength()                                                
-                        entry = {index[key]:{line_num:match.captured()}}
+                        entry = {index[key]:{'fields':fields}}
                         self.cfgFileDict[key].update(entry)
                         index[key] += 1   
                     else:
