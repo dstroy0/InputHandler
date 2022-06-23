@@ -483,9 +483,14 @@ class MainWindow(QMainWindow):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)       
     
-    def load_cli_gen_tool_json(self):
-        path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
+    # TODO split this method
+    def load_cli_gen_tool_json(self):        
+        path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"        
         file = QFile(path)
+        if not file.exists():
+            self.session = json.loads(self.defaultGuiOpt)
+            print('cli_gen_tool.json doesn\'t exist, using default options')
+            return
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             file.close()
             file = QFile(path)
