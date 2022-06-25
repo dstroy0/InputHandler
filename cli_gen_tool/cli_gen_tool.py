@@ -68,9 +68,9 @@ class MainWindow(QMainWindow):
                               "tool_version":str(version),
                               "opt": { "save_filename": None,
                                        "recent_files": {},
-                                       "config_file": "default",
-                                       "output_dir": "output/",
-                                       "window_size": "default"}}                                
+                                       "input_config_file_path": "",
+                                       "output_dir": "",
+                                       "window_size": ""}}                                
 
         # primitive status db
         self.active = {'settings_tree_edit':{'parent_key':str,
@@ -89,7 +89,6 @@ class MainWindow(QMainWindow):
                                                   'debug methods':{},
                                                   'optional methods':{}}}}}
         
-        # session db
         self.session = {}
         # active save filename
         self.saveFileName = ''
@@ -99,12 +98,14 @@ class MainWindow(QMainWindow):
         path.cdUp()
         self.lib_config_path = path.currentPath() + "/src/config/config.h"
         
-        # load cli_gen_tool (session) json
-        self.load_cli_gen_tool_json()
-        config_path = self.lib_config_path        
+        self.cli_gen_tool_json_path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
         
-        # parse config file
-        self.parse_config_header_file()                        
+        # load cli_gen_tool (session) json
+        self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)        
+        
+        print(json.dumps(self.session, indent=4, sort_keys=True))
+        # parse config file        
+        self.parse_config_header_file(self.session['opt']['input_config_file_path'])                        
 
         # icons
         pixmapapi = QStyle.StandardPixmap.SP_FileDialogContentsView
@@ -140,9 +141,8 @@ class MainWindow(QMainWindow):
         self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)
         
         # change driven events
-        # tab 2
-        prm_dlg = (self.ui.commandParameters.dlg)
-        prm_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+        # tab 2        
+        cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
         
         # tab 1
         # settings_tree widget setup
@@ -157,10 +157,10 @@ class MainWindow(QMainWindow):
         
         tree = (self.cliOpt['config']['tree'])                    
         cfg_dict = (self.cliOpt['config']['tree']['items'])
-        
-        tree.update({'root':QTreeWidgetItem(settings_tree, [str(config_path),""])})
+        cfg_path = self.session['opt']['input_config_file_path']
+        tree.update({'root':QTreeWidgetItem(settings_tree, [cfg_path,""])})
         tree['root'].setIcon(0, self.ui.fileDialogContentsViewIcon)
-        tree['root'].setToolTip(0, config_path)        
+        tree['root'].setToolTip(0, cfg_path)        
                        
         # make these parents children of root using the keys from 'cfg_dict'
         for key in cfg_dict:
@@ -427,9 +427,9 @@ class MainWindow(QMainWindow):
         else:
             cmd_dlg.argumentsPane.setEnabled(False)            
             
-    def parse_config_header_file(self, path=None):
+    def parse_config_header_file(self, path):
         config_path = ''
-        if path == None:
+        if path == '':
             path = QDir()
             path.cdUp()
             config_path = path.currentPath() + "/src/config/config.h"
@@ -482,35 +482,29 @@ class MainWindow(QMainWindow):
     def regex_validator(self, input):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)       
-    
-    # TODO split this method
-    def load_cli_gen_tool_json(self):        
-        path = QDir.currentPath() + "/cli_gen_tool/cli_gen_tool.json"        
+        
+    def load_cli_gen_tool_json(self, path):                
+        session = {}
         file = QFile(path)
-        if not file.exists():
-            self.session = json.loads(self.defaultGuiOpt)
-            print('cli_gen_tool.json doesn\'t exist, using default options')                        
-            return
+        if not file.exists():            
+            print('cli_gen_tool.json doesn\'t exist, using default options')
+            session = self.defaultGuiOpt            
+            session['opt']['default_config_file'] = self.lib_config_path
+            session['opt']['input_config_file_path'] = self.lib_config_path            
+            return session
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-            file.close()
-            file = QFile(path)
-            print('cli_gen_tool.json open error.')            
-            if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
-                print('Unable to write new cli_gen_tool.json, please check permissions.')
-                return
-            out = QByteArray(json.dumps(self.defaultGuiOpt, indent=4, sort_keys=True))  # dump pretty json                        
-            file.write(out)
-            print('write successful')                        
-            file.close()
-            file = QFile(path)
-            if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
-                print('unable to open cli_gen_tool/cli_gen_tool.json')
+            file.close()            
+            print('open cli_gen_tool.json error; using default options')                        
+            session = self.defaultGuiOpt
+            session['opt']['default_config_file'] = self.lib_config_path
+            session['opt']['input_config_file_path'] = self.lib_config_path
+            return session
         data_in = QTextStream(file).readAll()
-        file.close()        
-        # print(path)
+        file.close()                
         try:
-            self.session = json.loads(data_in)
-            print("cli_gen_tool.json:", self.session, sep='')
+            session = json.loads(data_in)
+            print("cli_gen_tool.json:", json.dumps(session, indent=4, sort_keys=True), sep='')
+            return session
         except (ValueError, RuntimeError, TypeError, NameError) as e:
             print('json corrupt, removing')
             if self.json_except == 1:
@@ -518,9 +512,24 @@ class MainWindow(QMainWindow):
                 app.quit()
             self.json_except = 1
             os.remove(path) # delete corrupt json
-            self.load_cli_gen_tool_json(self) # recurse to try and recreate cli_gen_tool.json
+            self.write_cli_gen_tool_json(path, self.defaultGuiOpt) # recreate cli_gen_tool.json
             print(e)
-            
+            session = self.defaultGuiOpt
+            session['opt']['default_config_file'] = self.lib_config_path
+            session['opt']['input_config_file_path'] = self.lib_config_path
+            return session
+    
+    def write_cli_gen_tool_json(self, path, db):
+        file = QFile(path)
+        if (not file.open(QIODevice.WriteOnly | QIODevice.Text)):
+                print('Unable to write new cli_gen_tool.json, please check permissions.')
+                return -1
+        out = QByteArray(json.dumps(db, indent=4, sort_keys=True))  # dump pretty json                        
+        err = file.write(out)
+        print('write successful')                        
+        file.close()
+        return err    
+    
     def dict_from_csv_args(self):
         args_dict = {}
         args_list = []
