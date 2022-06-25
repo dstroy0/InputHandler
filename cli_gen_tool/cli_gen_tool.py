@@ -159,11 +159,11 @@ class MainWindow(QMainWindow):
         tree['root'].setIcon(0, self.ui.fileDialogContentsViewIcon)
         tree['root'].setToolTip(0, config_path)        
                        
-        # make the parents children of root using the keys from 'cfg_dict'
+        # make these parents children of root using the keys from 'cfg_dict'
         for key in cfg_dict:
             tree['parents'].update({key:QTreeWidgetItem(tree['root'], [key,'','',''])})
             
-        # build tree                
+        # populate `settings_tree`
         for key in cfg_dict:
             for item in cfg_dict[key]:
                 regexp = QRegularExpression("(\s*[\/][\/]\s*)")
@@ -386,81 +386,43 @@ class MainWindow(QMainWindow):
         
     def clicked_command_parameters_buttonbox_ok(self):        
         print('ok')
-        settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
-        settings_to_validate['functionName'] = self.ui.commandParameters.dlg.functionName.text()
-        settings_to_validate['commandString'] = self.ui.commandParameters.dlg.commandString.text()
-        settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
-        settings_to_validate['parentId'] = self.ui.commandParameters.dlg.commandParentId.text()
-        settings_to_validate['commandId'] = self.ui.commandParameters.dlg.commandId.text()
-        settings_to_validate['commandHasWildcards'] = self.ui.commandParameters.dlg.commandHasWildcards.isChecked()
-        settings_to_validate['commandDepth'] = self.ui.commandParameters.dlg.commandDepth.text()
-        settings_to_validate['commandSubcommands'] = self.ui.commandParameters.dlg.commandSubcommands.text()
-        settings_to_validate['commandArgumentHandling'] = self.ui.commandParameters.dlg.commandArgumentHandling.currentIndex()
-        settings_to_validate['commandMinArgs'] = self.ui.commandParameters.dlg.commandMinArgs.text()
-        settings_to_validate['commandMaxArgs'] = self.ui.commandParameters.dlg.commandMaxArgs.text() 
-        err = False
-        if settings_to_validate['functionName'] == '':
-            print('Function name cannot be empty')
-            err = True
-        if settings_to_validate['commandString'] == '':
-            print('Command string cannot be empty')
-            err = True
-        if int(settings_to_validate['commandLength']) == 0:
-            print('Command length cannot be zero')
-            err = True
-        if settings_to_validate['parentId'] == '' or int(settings_to_validate['parentId']) > 65535:
-            print('Parent id cannot be greater than 65535')
-            err = True
-        if settings_to_validate['commandId'] == '' or int(settings_to_validate['commandId']) > 65535:
-            print('Command id cannot be greater than 65535')
-            err = True
-        if settings_to_validate['commandDepth'] == '' or int(settings_to_validate['commandDepth']) > 255:
-            print('Command depth cannot be greater than 255')
-            err = True
-        if settings_to_validate['commandSubcommands'] == '' or int(settings_to_validate['commandSubcommands']) > 255:
-            print('Command cannot have more than 255 subcommands')
-            err = True
-        if int(settings_to_validate['commandArgumentHandling']) == 1 or 2:
-            tmp = self.dict_from_csv_args()
-            if settings_to_validate['commandArgumentHandling'] == 1:                
-                # single argument                
-                settings_to_validate['commandArguments'] = {0: tmp[0]}
-            else:
-                # argument array                
-                settings_to_validate['commandArguments'] = tmp
-        print(settings_to_validate)
-        if err == True:
+        
+        validate_result = self.validate_command_parameters()
+        if validate_result[0] == True:
             return
+        validated_result = validate_result[1]
         # get array index
         cmd_idx = self.cliOpt['var']['num_commands']
         # make dict from defined keys
-        self.cliOpt['commands'][cmd_idx] = settings_to_validate
+        self.cliOpt['commands'][cmd_idx] = validated_result
         print(self.cliOpt['commands'][cmd_idx])        
         
         # command parameters were accepted, so increment the array index
-        self.cliOpt['var']['num_commands'] = self.cliOpt['var']['num_commands'] + 1
+        self.cliOpt['var']['num_commands'] += 1
         # print object
         print(self.cliOpt['var'])
         self.ui.commandParameters.close()
     
     def clicked_command_parameters_buttonbox_reset(self):        
         print('reset')
-        pre = self.ui.commandParameters.dlg
-        pre.argumentsPlainTextCSV.clear()
+        cmd_dlg = (self.ui.commandParameters.dlg)
+        cmd_dlg.argumentsPlainTextCSV.clear()
         
     def clicked_command_parameters_buttonbox_cancel(self):        
         print('cancel')
         self.ui.commandParameters.close()
         
     def command_string_text_changed(self):
-        self.ui.commandParameters.dlg.commandLengthLabel.setText(str(len(self.ui.commandParameters.dlg.commandString.text())))
+        cmd_dlg = (self.ui.commandParameters.dlg)
+        cmd_dlg.commandLengthLabel.setText(str(len(cmd_dlg.commandString.text())))
     
     def argument_handling_changed(self):
         print('argument handling changed')
-        if self.ui.commandParameters.dlg.commandArgumentHandling.currentIndex() != 0:
-            self.ui.commandParameters.dlg.argumentsPane.setEnabled(True)
+        cmd_dlg = (self.ui.commandParameters.dlg)
+        if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
+            cmd_dlg.argumentsPane.setEnabled(True)
         else:
-            self.ui.commandParameters.dlg.argumentsPane.setEnabled(False)            
+            cmd_dlg.argumentsPane.setEnabled(False)            
             
     def parse_config_header_file(self, path=None):
         config_path = ''
@@ -633,6 +595,75 @@ class MainWindow(QMainWindow):
                 edit['parent_key'] = key
                 edit['index_of_child'] = index
                 print('editing ',item.text(1),' in ', key,' at index ',index,' current value ',item.data(3,0),sep='')
+    
+    def validate_command_parameters(self):
+        cmd_dlg = (self.ui.commandParameters.dlg)
+        settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
+        settings_to_validate['functionName'] = cmd_dlg.functionName.text()
+        settings_to_validate['commandString'] = cmd_dlg.commandString.text()
+        settings_to_validate['commandLength'] = len(settings_to_validate['commandString'])
+        settings_to_validate['parentId'] = cmd_dlg.commandParentId.text()
+        settings_to_validate['commandId'] = cmd_dlg.commandId.text()
+        settings_to_validate['commandHasWildcards'] = cmd_dlg.commandHasWildcards.isChecked()
+        settings_to_validate['commandDepth'] = cmd_dlg.commandDepth.text()
+        settings_to_validate['commandSubcommands'] = cmd_dlg.commandSubcommands.text()
+        settings_to_validate['commandArgumentHandling'] = cmd_dlg.commandArgumentHandling.currentIndex()
+        settings_to_validate['commandMinArgs'] = cmd_dlg.commandMinArgs.text()
+        settings_to_validate['commandMaxArgs'] = cmd_dlg.commandMaxArgs.text() 
+        # err is the error sentinel
+        err = False
+        if settings_to_validate['functionName'] == '':
+            print('Function name cannot be empty')
+            err = True
+        if settings_to_validate['commandString'] == '':
+            print('Command string cannot be empty')
+            err = True
+        if int(settings_to_validate['commandLength']) == 0:
+            print('Command length cannot be zero')
+            err = True
+        if settings_to_validate['parentId'] == '':
+            print('Parent id cannot be blank')
+            err = True
+        elif int(settings_to_validate['parentId']) > 65535:
+            print('Parent id cannot be greater than 65535')
+            err = True
+        if settings_to_validate['commandId'] == '':
+            print('Command id cannot be blank')
+            err = True
+        elif int(settings_to_validate['commandId']) > 65535:
+            print('Command id cannot be greater than 65535')
+            err = True
+        if settings_to_validate['commandDepth'] == '':
+            print('Command depth cannot be blank')
+            err = True
+        elif int(settings_to_validate['commandDepth']) > 255:
+            print('Command depth cannot be greater than 255')
+            err = True
+        if settings_to_validate['commandSubcommands'] == '':
+            print('Subcommands cannot be blank')
+            err = True            
+        elif int(settings_to_validate['commandSubcommands']) > 255:
+            print('Command cannot have more than 255 subcommands')
+            err = True
+        arg_handling_idx = int(settings_to_validate['commandArgumentHandling'])
+        if arg_handling_idx == 0:
+            settings_to_validate['commandArguments'] = {0: 'NO_ARGS'}
+        elif  arg_handling_idx == 1:                                        
+            # single argument
+            tmp = self.dict_from_csv_args()
+            if tmp[0] == '':
+                err = True
+                print('argument field blank')                
+            settings_to_validate['commandArguments'] = {0: tmp[0]}
+        elif arg_handling_idx == 2:
+            # argument array
+            tmp = self.dict_from_csv_args()  
+            if tmp[0] == '':
+                err = True
+                print('argument field blank')              
+            settings_to_validate['commandArguments'] = tmp            
+        print(settings_to_validate)
+        return {0:err,1:settings_to_validate}
                 
 # loop
 if __name__ == "__main__":
