@@ -64,7 +64,8 @@ class MainWindow(QMainWindow):
                                       'commandArguments']
                 
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = {"tool_version":str(version),
+        self.defaultGuiOpt = {"type":"session",
+                              "tool_version":str(version),
                               "opt": { "save_filename": None,
                                        "recent_files": {},
                                        "config_file": "default",
@@ -76,8 +77,9 @@ class MainWindow(QMainWindow):
                                              'index_of_child':str}}
         
         # cli opt db
-        self.cliOpt = {'var': {'num_commands': 0,
-                               'tool_version':str(version)},
+        self.cliOpt = {'type':'cli options',
+                       'var': {'num_commands': 0,
+                       'tool_version':str(version)},
                        'commands': {},
                        'config':{'file_lines':[],
                                  'tree':{'root':{},
@@ -92,13 +94,14 @@ class MainWindow(QMainWindow):
         # active save filename
         self.saveFileName = ''
         
-        # temp for testing
+        # /InputHandler/src/config/config.h
         path = QDir()
         path.cdUp()
-        config_path = path.currentPath() + "/src/config/config.h"
+        self.lib_config_path = path.currentPath() + "/src/config/config.h"
         
         # load cli_gen_tool (session) json
         self.load_cli_gen_tool_json()
+        config_path = self.lib_config_path        
         
         # parse config file
         self.parse_config_header_file()                        
@@ -486,7 +489,7 @@ class MainWindow(QMainWindow):
         file = QFile(path)
         if not file.exists():
             self.session = json.loads(self.defaultGuiOpt)
-            print('cli_gen_tool.json doesn\'t exist, using default options')
+            print('cli_gen_tool.json doesn\'t exist, using default options')                        
             return
         if (not file.open(QIODevice.ReadOnly | QIODevice.Text)):
             file.close()
@@ -534,14 +537,13 @@ class MainWindow(QMainWindow):
                 i = i + 1
                 args_list.append(match.captured().upper().strip(','))
             else:
-                break                 
-        args_dict = dict(zip(arg_num_list, args_list))        
+                break        
+        args_dict = dict(zip(arg_num_list, args_list[:-1]))             
         return args_dict
 
-    def csv_button(self):        
-        # print button name
-        test_string = self.sender().objectName()
+    def csv_button(self):
         print(self.sender().objectName())
+        test_string = self.sender().objectName()        
         if test_string == 'add8bituint':                        
             self.append_to_arg_csv('UINT8_T,')
         elif test_string == 'add16bituint':                        
@@ -575,36 +577,32 @@ class MainWindow(QMainWindow):
         text.clear()        
         arg_text = ''
         arg_list = list(arg_dict.values())        
-        for index in range(len(arg_list)-2):            
+        for index in range(len(arg_list)-1):            
             arg_text = arg_text + arg_list[index] + ','
         text.insertPlainText(arg_text)
             
-    def update_settings_tree(self):
-        #tree = (self.cliOpt['config']['tree'])                    
+    def update_settings_tree_type_field_text(self):                    
         cfg_dict = (self.cliOpt['config']['tree']['items'])
         for key in cfg_dict:
             for item in cfg_dict[key]:
                 regexp = QRegularExpression("(\s*[\/][\/]\s*)")
                 sub_dict = (cfg_dict[key][item]['fields'])
-                match = regexp.match(sub_dict[1])
-                # sort out boolean fields
-                if match.hasMatch() and (sub_dict[0] >= 71):                    
-                    if sub_dict[4] == True:
-                        print('toggle')
-                        print(sub_dict)                    
-                elif not match.hasMatch() and (sub_dict[0] >= 71):
-                    if sub_dict[4] == False:
-                        print('toggle')
-                        print(sub_dict)                    
-                else:
+                match = regexp.match(sub_dict[1])                                   
+                if not match.hasMatch() and (sub_dict[0] < 71):
                     number_field = int(sub_dict[4])
                     if number_field <= 255:
-                        type_field = "uint8_t" 
+                        type_field = "uint8_t"
+                        sub_dict[5].setToolTip(2, '') 
+                        sub_dict[5].setToolTip(3, '') 
                     elif number_field > 255 and number_field <= 65535:
-                        type_field = "uint16_t"                    
+                        type_field = "uint16_t*"
+                        sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')
+                        sub_dict[5].setToolTip(3, 'The compiler will warn you about this type change')
                     elif number_field > 65535:
-                        type_field = "uint32_t"                    
-                    sub_dict[5].setText(2, type_field)                    
+                        type_field = "uint32_t*"
+                        sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')
+                        sub_dict[5].setToolTip(3, 'The compiler will warn you about this type change')
+                    sub_dict[5].setText(2, type_field)                                        
     
     def settings_tree_item_activated(self, item):
         print('settings tree item activated')
@@ -616,9 +614,9 @@ class MainWindow(QMainWindow):
             self.edit_settings_tree_item(item)
                     
     def col_edit_complete(self, item, col):
-            edit = (self.active['settings_tree_edit'])
-            print(item.text(1),' in ', edit['parent_key'],' at index ',edit['index_of_child'],' changed to ',item.data(col,0),sep='')
-            self.update_settings_tree()
+            edit = (self.active['settings_tree_edit'])                       
+            self.cliOpt['config']['tree']['items'][edit['parent_key']][edit['index_of_child']]['fields'][4] = int(item.data(3,0))            
+            self.update_settings_tree_type_field_text()
     
     def edit_settings_tree_item(self, item):        
         parent = item.parent()
