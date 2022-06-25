@@ -25,13 +25,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1420, 875)
+        MainWindow.resize(1460, 885)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(1420, 875))
+        MainWindow.setMinimumSize(QSize(1460, 885))
         self.actionOpen = QAction(MainWindow)
         self.actionOpen.setObjectName(u"actionOpen")
         self.actionSave = QAction(MainWindow)
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
         self.codePreview_1.setObjectName(u"codePreview_1")
         sizePolicy1.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
         self.codePreview_1.setSizePolicy(sizePolicy1)
-        self.codePreview_1.setMinimumSize(QSize(200, 200))
+        self.codePreview_1.setMinimumSize(QSize(600, 200))
         self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
         self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)
@@ -195,7 +195,7 @@ class Ui_MainWindow(object):
         self.codePreview_2.setObjectName(u"codePreview_2")
         sizePolicy1.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
         self.codePreview_2.setSizePolicy(sizePolicy1)
-        self.codePreview_2.setMinimumSize(QSize(200, 200))
+        self.codePreview_2.setMinimumSize(QSize(600, 200))
         self.codePreview_2.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
         self.gridLayout_2.addWidget(self.codePreview_2, 1, 3, 3, 1)
@@ -207,7 +207,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1420, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1460, 21))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuHelp = QMenu(self.menubar)
