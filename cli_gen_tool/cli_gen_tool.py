@@ -614,7 +614,8 @@ class MainWindow(QMainWindow):
             self.edit_settings_tree_item(item)
                     
     def col_edit_complete(self, item, col):
-            edit = (self.active['settings_tree_edit'])                       
+            edit = (self.active['settings_tree_edit'])
+            # this is where the cliOpt config dict update takes place, after every column edit in settings tree, pull the data from the fourth column                       
             self.cliOpt['config']['tree']['items'][edit['parent_key']][edit['index_of_child']]['fields'][4] = int(item.data(3,0))            
             self.update_settings_tree_type_field_text()
     
