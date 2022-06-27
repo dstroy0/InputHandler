@@ -78,7 +78,7 @@ default_session_structure = {"type":"session",
 
 command_line_interface_options_structure = {'type':'cli options',
                                             'var': {'num_commands': 0,
-                                            'tool_version':str(version)},
+                                                    'tool_version':str(version)},
                                             'commands': {},
                                             'config':{'file_lines':[],
                                                       'tree':{'root':{},
