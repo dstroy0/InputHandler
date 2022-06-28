@@ -21,6 +21,7 @@ import json
 import time # logging timestamp
 import platform
 import datetime
+import qdarktheme
 from collections import OrderedDict
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
@@ -105,10 +106,9 @@ command_arg_types_list = ['UINT8_T',
 
 generated_filename_subdict = {'filename':'',
                               'file_lines_list':[],
-                              'tree_item':'',
-                              'contents_item':'',
-                              'label':'',
-                              'scroll_area':''}
+                              'tree_item':{},
+                              'contents_item':{},
+                              'label':{}}
 generated_filename_dict = OrderedDict()
 generated_filename_dict = {'config.h':generated_filename_subdict,
                            'setup.h':generated_filename_subdict,
@@ -220,39 +220,10 @@ class MainWindow(QMainWindow):
         # change driven events
         # tab 2        
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
-        
-        # code preview
-        code_preview_tab_one = self.ui.codePreview_1
-        code_preview_tab_one.setHeaderLabels(['File', 'Contents'])
-        code_preview_tab_one.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        code_preview_tab_one.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        code_preview_tab_one.setColumnCount(2)
-        code_preview_tab_two = self.ui.codePreview_2
-        self.code_preview_dict = {'files':generated_filename_dict}
-        for key in self.code_preview_dict['files']:
-            self.code_preview_dict['files'][key]['filename'] = key            
-            self.code_preview_dict['files'][key]['tree_item'] = QTreeWidgetItem(code_preview_tab_one, [key,''])
-            self.code_preview_dict['files'][key]['tree_item'].setIcon(0, self.ui.fileIcon)
-            self.code_preview_dict['files'][key]['label'] = QPlainTextEdit()                        
-            label = self.code_preview_dict['files'][key]['label']
-            self.code_preview_dict['files'][key]['contents_item'] = QTreeWidgetItem(self.code_preview_dict['files'][key]['tree_item'])                                    
-            self.code_preview_dict['files'][key]['contents_item'].setFirstColumnSpanned(True)            
-            self.code_preview_dict['files'][key]['file_lines_list'] = self.cliOpt['config']['file_lines']
-            if key == 'config.h':
-                new_line_list = []
-                code_string = ''
-                for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
-                    new_line_list.append(line+'\n')
-                    code_string = code_string + line + '\n'
-                self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
-                self.code_preview_dict['files']['config.h']['label'].setPlainText(code_string)
-                #self.code_preview_dict['files']['config.h']['label'].adjustSize()
-            label.setObjectName(key)
-            code_preview_tab_one.setItemWidget(self.code_preview_dict['files'][key]['contents_item'], 0, label) 
-            
-        
-        #print(self.code_preview_dict['files']['config.h']['file_lines_list'])        
-        #self.code_preview_dict['root'].setIcon(0, self.ui.fileDialogContentsViewIcon)
+                
+        # code preview        
+        self.build_code_preview_tree()      
+        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
         
         # tab 1
         # settings_tree widget setup
@@ -377,8 +348,53 @@ class MainWindow(QMainWindow):
         cmd_dlg.argumentsPane.setEnabled(False)          
         
         # end __init__
-        
-        
+    
+    #update code preview panes
+    def build_code_preview_tree(self):
+        for tab in range(0,2):            
+            if tab == 0:
+                tree = self.ui.codePreview_1
+            else:
+                tree = self.ui.codePreview_2
+            tree.setHeaderLabels(['File', 'Contents'])
+            tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+            tree.setColumnCount(2)        
+            self.code_preview_dict = {'files':generated_filename_dict}
+            for key in self.code_preview_dict['files']:
+                self.code_preview_dict['files'][key]['filename'] = key            
+                self.code_preview_dict['files'][key]['tree_item'][tab] = QTreeWidgetItem(tree, [key,''])
+                self.code_preview_dict['files'][key]['tree_item'][tab].setIcon(0, self.ui.fileIcon)
+                self.code_preview_dict['files'][key]['label'][tab] = QPlainTextEdit()                        
+                label = self.code_preview_dict['files'][key]['label'][tab]
+                self.code_preview_dict['files'][key]['contents_item'][tab] = QTreeWidgetItem(self.code_preview_dict['files'][key]['tree_item'][tab])                                    
+                self.code_preview_dict['files'][key]['contents_item'][tab].setFirstColumnSpanned(True)            
+                self.code_preview_dict['files'][key]['file_lines_list'] = self.cliOpt['config']['file_lines']
+                if key == 'config.h':
+                    new_line_list = []
+                    code_string = ''
+                    for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
+                        new_line_list.append(line+'\n')
+                        code_string = code_string + line + '\n'
+                    self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
+                    self.code_preview_dict['files']['config.h']['label'][tab].setPlainText(code_string)                    
+                    #self.code_preview_dict['files']['config.h']['label'].adjustSize()
+                label.setObjectName(key)
+                tree.setItemWidget(self.code_preview_dict['files'][key]['contents_item'][tab], 0, label)
+    
+    def update_code_preview_tree(self):
+        for tab in range(0,2):                                    
+            for key in self.code_preview_dict['files']:                
+                if key == 'config.h':
+                    new_line_list = []
+                    code_string = ''
+                    for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
+                        new_line_list.append(line+'\n')
+                        code_string = code_string + line + '\n'
+                    self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
+                    self.code_preview_dict['files']['config.h']['label'][tab].setPlainText(code_string)                    
+                    #self.code_preview_dict['files']['config.h']['label'].adjustSize()
+                                
     # actions
     def open_file(self):
         print('open file')
@@ -894,6 +910,8 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
+    app.setStyleSheet(qdarktheme.load_stylesheet())
+    
     window = MainWindow()
     window.show()
 
