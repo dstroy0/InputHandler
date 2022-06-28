@@ -5,7 +5,8 @@
 # @version 0.1
 # @date 2022-06-10
 # @copyright Copyright (c) 2022
-from __future__ import absolute_import # easy import pathing
+from __future__ import absolute_import
+from ast import Or # easy import pathing
 version = 0.1 # save serialization
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 
@@ -17,12 +18,13 @@ version = 0.1 # save serialization
 import os
 import sys
 import json
-import time
+import time # logging timestamp
 import platform
 import datetime
+from collections import OrderedDict
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
-                               QTreeWidgetItem, QStyle, QComboBox)
+                               QTreeWidgetItem, QStyle, QComboBox, QPlainTextEdit)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression)
 from PySide6.QtGui import(QRegularExpressionValidator, QIcon, QTextCursor)
@@ -101,6 +103,19 @@ command_arg_types_list = ['UINT8_T',
                           'STARTSTOP',
                           'NOTYPE']
 
+generated_filename_subdict = {'filename':'',
+                              'file_lines_list':[],
+                              'tree_item':'',
+                              'contents_item':'',
+                              'label':'',
+                              'scroll_area':''}
+generated_filename_dict = OrderedDict()
+generated_filename_dict = {'config.h':generated_filename_subdict,
+                           'setup.h':generated_filename_subdict,
+                           'parameters.h':generated_filename_subdict,
+                           'functions.h':generated_filename_subdict,
+                           'functions.cpp':generated_filename_subdict}
+
 config_file_boolean_define_fields_line_start = 72
 # end dev qol var
 
@@ -159,7 +174,7 @@ class MainWindow(QMainWindow):
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)        
         # print pretty session json
         # session json contains only serializable items, safe to print
-        print(json.dumps(self.session, indent=4, sort_keys=True))
+        print(json.dumps(self.session, indent=4, sort_keys=True))        
         # parse config file
         self.parse_config_header_file(self.session['opt']['input_config_file_path'])                        
 
@@ -170,7 +185,9 @@ class MainWindow(QMainWindow):
         pixmapapi = QStyle.StandardPixmap.SP_MessageBoxCritical
         icon = self.style().standardIcon(pixmapapi)        
         self.ui.messageBoxCriticalIcon = icon
-        
+        pixmapapi = QStyle.StandardPixmap.SP_FileIcon
+        icon = self.style().standardIcon(pixmapapi)        
+        self.ui.fileIcon = icon
         # end MainWindow var
         
         # MainWindow objects
@@ -203,6 +220,39 @@ class MainWindow(QMainWindow):
         # change driven events
         # tab 2        
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+        
+        # code preview
+        code_preview_tab_one = self.ui.codePreview_1
+        code_preview_tab_one.setHeaderLabels(['File', 'Contents'])
+        code_preview_tab_one.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        code_preview_tab_one.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        code_preview_tab_one.setColumnCount(2)
+        code_preview_tab_two = self.ui.codePreview_2
+        self.code_preview_dict = {'files':generated_filename_dict}
+        for key in self.code_preview_dict['files']:
+            self.code_preview_dict['files'][key]['filename'] = key            
+            self.code_preview_dict['files'][key]['tree_item'] = QTreeWidgetItem(code_preview_tab_one, [key,''])
+            self.code_preview_dict['files'][key]['tree_item'].setIcon(0, self.ui.fileIcon)
+            self.code_preview_dict['files'][key]['label'] = QPlainTextEdit()                        
+            label = self.code_preview_dict['files'][key]['label']
+            self.code_preview_dict['files'][key]['contents_item'] = QTreeWidgetItem(self.code_preview_dict['files'][key]['tree_item'])                                    
+            self.code_preview_dict['files'][key]['contents_item'].setFirstColumnSpanned(True)            
+            self.code_preview_dict['files'][key]['file_lines_list'] = self.cliOpt['config']['file_lines']
+            if key == 'config.h':
+                new_line_list = []
+                code_string = ''
+                for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
+                    new_line_list.append(line+'\n')
+                    code_string = code_string + line + '\n'
+                self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
+                self.code_preview_dict['files']['config.h']['label'].setPlainText(code_string)
+                #self.code_preview_dict['files']['config.h']['label'].adjustSize()
+            label.setObjectName(key)
+            code_preview_tab_one.setItemWidget(self.code_preview_dict['files'][key]['contents_item'], 0, label) 
+            
+        
+        #print(self.code_preview_dict['files']['config.h']['file_lines_list'])        
+        #self.code_preview_dict['root'].setIcon(0, self.ui.fileDialogContentsViewIcon)
         
         # tab 1
         # settings_tree widget setup

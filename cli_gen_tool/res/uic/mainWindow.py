@@ -18,8 +18,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QGridLayout, QHeaderView,
     QLabel, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QTabWidget, QTreeView,
-    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QTabWidget, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -93,15 +93,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.settings_tree, 1, 0, 1, 3)
 
-        self.codePreview_1 = QTreeView(self.ih_settings_tab)
-        self.codePreview_1.setObjectName(u"codePreview_1")
-        sizePolicy1.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
-        self.codePreview_1.setSizePolicy(sizePolicy1)
-        self.codePreview_1.setMinimumSize(QSize(600, 200))
-        self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-
-        self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)
-
         self.editButton_1 = QPushButton(self.ih_settings_tab)
         self.editButton_1.setObjectName(u"editButton_1")
         sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
@@ -132,6 +123,18 @@ class Ui_MainWindow(object):
         self.tab_1_settings_table_label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.tab_1_settings_table_label, 0, 0, 1, 3)
+
+        self.codePreview_1 = QTreeWidget(self.ih_settings_tab)
+        __qtreewidgetitem1 = QTreeWidgetItem()
+        __qtreewidgetitem1.setText(0, u"1");
+        self.codePreview_1.setHeaderItem(__qtreewidgetitem1)
+        self.codePreview_1.setObjectName(u"codePreview_1")
+        sizePolicy1.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
+        self.codePreview_1.setSizePolicy(sizePolicy1)
+        self.codePreview_1.setMinimumSize(QSize(600, 200))
+        self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+
+        self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)
 
         self.tabWidget.addTab(self.ih_settings_tab, "")
         self.command_tab = QWidget()
@@ -178,9 +181,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.tab_2_code_preview_label, 0, 3, 1, 1)
 
         self.command_tree = QTreeWidget(self.command_tab)
-        __qtreewidgetitem1 = QTreeWidgetItem()
-        __qtreewidgetitem1.setText(0, u"1");
-        self.command_tree.setHeaderItem(__qtreewidgetitem1)
+        __qtreewidgetitem2 = QTreeWidgetItem()
+        __qtreewidgetitem2.setText(0, u"1");
+        self.command_tree.setHeaderItem(__qtreewidgetitem2)
         self.command_tree.setObjectName(u"command_tree")
         sizePolicy1.setHeightForWidth(self.command_tree.sizePolicy().hasHeightForWidth())
         self.command_tree.setSizePolicy(sizePolicy1)
@@ -191,7 +194,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.command_tree, 1, 0, 1, 3)
 
-        self.codePreview_2 = QTreeView(self.command_tab)
+        self.codePreview_2 = QTreeWidget(self.command_tab)
+        __qtreewidgetitem3 = QTreeWidgetItem()
+        __qtreewidgetitem3.setText(0, u"1");
+        self.codePreview_2.setHeaderItem(__qtreewidgetitem3)
         self.codePreview_2.setObjectName(u"codePreview_2")
         sizePolicy1.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
         self.codePreview_2.setSizePolicy(sizePolicy1)
