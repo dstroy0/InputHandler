@@ -86,11 +86,11 @@ command_line_interface_options_structure = {'type':'cli options',
                                             'commands': {},
                                             'config':{'file_lines':[],
                                                       'tree':{'root':{},
-                                                      'parents':{},
-                                                      'items':{'library settings':{},
-                                                      'progmem settings':{},                            
-                                                      'debug methods':{},
-                                                      'optional methods':{}}}}}
+                                                              'parents':{},
+                                                              'items':{'library settings':{},
+                                                                       'progmem settings':{},                            
+                                                                       'debug methods':{},
+                                                                       'optional methods':{}}}}}
 
 command_arg_types_list = ['UINT8_T',
                           'UINT16_T',
@@ -212,16 +212,9 @@ class MainWindow(QMainWindow):
         settings_tree.header().setMinimumSectionSize(150)
         settings_tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(2, QHeaderView.ResizeToContents)
-        settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)        
         settings_tree.setColumnCount(5)
-        settings_tree.setColumnHidden(4, 1)        
-        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
-        # check if user clicked on the column we want them to edit
-        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
-        # check if user hit enter on an item
-        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
-        # update cliOpt with new value when editing is complete
-        settings_tree.itemChanged.connect(self.settings_tree_edit_complete)             
+        settings_tree.setColumnHidden(4, 1)                            
         
         tree = (self.cliOpt['config']['tree'])                    
         cfg_dict = (self.cliOpt['config']['tree']['items'])
@@ -247,11 +240,12 @@ class MainWindow(QMainWindow):
                     item_list = ['line : '+str(sub_dict[0]),sub_dict[3],"Enable/Disable",'']                    
                     sub_dict.update({5:QTreeWidgetItem(tree['parents'][key], item_list)})                    
                     sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)                                                        
-                    sub_dict[5].setData(5,0,obj_name)
+                    sub_dict[5].setData(4,0,obj_name)
                     sub_dict[6] = QComboBox()                    
                     sub_dict[6].addItem("Disable",'False')
                     sub_dict[6].addItem("Enable",'True')                    
                     sub_dict[6].setObjectName(obj_name)
+                    sub_dict[6].setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
                     settings_tree.setItemWidget(sub_dict[5],3,sub_dict[6])                    
                     sub_dict[6].currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)                    
                 elif not match.hasMatch() and (sub_dict[0] >= config_file_boolean_define_fields_line_start):                                        
@@ -260,11 +254,12 @@ class MainWindow(QMainWindow):
                     item_list = ['line : '+str(sub_dict[0]),sub_dict[3],"Enable/Disable",str(sub_dict[4])]
                     sub_dict.update({5:QTreeWidgetItem(tree['parents'][key], item_list)})
                     sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)
-                    sub_dict[5].setData(5,0,obj_name)                    
+                    sub_dict[5].setData(4,0,obj_name)                    
                     sub_dict[6] = QComboBox()
                     sub_dict[6].addItem("Enable",'True')                    
                     sub_dict[6].addItem("Disable",'False')                    
                     sub_dict[6].setObjectName(obj_name)
+                    sub_dict[6].setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
                     settings_tree.setItemWidget(sub_dict[5],3,sub_dict[6])                    
                     sub_dict[6].currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)   
                 else:
@@ -280,11 +275,19 @@ class MainWindow(QMainWindow):
                     elif number_field > 65535:
                         type_field = "uint32_t"
                     obj_name = key+','+str(item)+','+sub_dict[3]
-                    item_list = ['line : '+str(sub_dict[0]),sub_dict[3].strip(),type_field,str(number_field)]
+                    item_list = ['line : '+str(sub_dict[0]),sub_dict[3],type_field,str(number_field)]
                     sub_dict.update({5:QTreeWidgetItem(tree['parents'][key], item_list)})
                     sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)         
-                    sub_dict[5].setData(5,0,obj_name)
-        # print(json.dumps(self.cliOpt, indent=4, sort_keys=True, default=lambda o: ''))
+                    sub_dict[5].setData(4,0,obj_name)
+        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
+        # update cliOpt with new value when editing is complete
+        settings_tree.itemChanged.connect(self.settings_tree_edit_complete) 
+        # check if user clicked on the column we want them to edit
+        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
+        # check if user hit enter on an item
+        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
+        
+        # print(json.dumps(self.cliOpt, indent=4, sort_keys=True, default=lambda o: 'object'))
         
         # tab 2        
         # command parameters dialog box setup
@@ -509,7 +512,7 @@ class MainWindow(QMainWindow):
         
         file = open(config_path, 'r')        
         self.cliOpt['config']['file_lines'] = file.readlines()
-        file.close()        
+        file.close()                
         self.cliOpt['config']['file_lines'].insert(0,self.file_first_line)
         self.update_file_docstring('config.h','autogenerated InputHandler library config','1.0')                
         doc_list = self.docs.split('\n')
@@ -517,7 +520,9 @@ class MainWindow(QMainWindow):
         
         for i in range(1,len(doc_list)+1):                        
             self.cliOpt['config']['file_lines'][i] = doc_list[i-1]        
-                        
+            self.cliOpt['config']['file_lines'][i] = self.cliOpt['config']['file_lines'][i].strip('\n')
+        for i in range(0,len(self.cliOpt['config']['file_lines'])):
+            self.cliOpt['config']['file_lines'][i] = self.cliOpt['config']['file_lines'][i].rstrip()                                    
         debug_regexp = "(\s*[\/][\/]\s*)(\s*#define\s*)(DEBUG_\S*)"
         opt_method_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(DISABLE_\S*)"
         setting_regexp = "(\s*[\/]*\s*)(\s*#define\s*)(?!\S*PGM_LEN)(UI_\S*\s*)(\d*)"
@@ -666,28 +671,21 @@ class MainWindow(QMainWindow):
             arg_text = arg_text + arg_list[index] + ','
         text.insertPlainText(arg_text)
             
-    def update_settings_tree_type_field_text(self):                    
-        cfg_dict = (self.cliOpt['config']['tree']['items'])
-        for key in cfg_dict:
-            for item in cfg_dict[key]:
-                regexp = QRegularExpression("(\s*[\/][\/]\s*)")
-                sub_dict = (cfg_dict[key][item]['fields'])
-                match = regexp.match(sub_dict[1])                                   
-                if not match.hasMatch() and (sub_dict[0] < config_file_boolean_define_fields_line_start):
-                    number_field = int(sub_dict[4])
-                    if number_field <= 255:
-                        type_field = "uint8_t"
-                        sub_dict[5].setToolTip(2, '') 
-                        sub_dict[5].setToolTip(3, '') 
-                    elif number_field > 255 and number_field <= 65535:
-                        type_field = "uint16_t*"
-                        sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')
-                        sub_dict[5].setToolTip(3, 'The compiler will warn you about this type change')
-                    elif number_field > 65535:
-                        type_field = "uint32_t*"
-                        sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')
-                        sub_dict[5].setToolTip(3, 'The compiler will warn you about this type change')
-                    sub_dict[5].setText(2, type_field)                                        
+    def update_settings_tree_type_field_text(self, item):                            
+        object_string = str(item.data(4,0))                        
+        object_list = object_string.strip('\n').split(',')        
+        sub_dict = (self.cliOpt['config']['tree']['items'][object_list[0]][int(object_list[1])]['fields'])         
+        number_field = int(sub_dict[4])        
+        if number_field <= 255:
+            type_field = "uint8_t"            
+            sub_dict[5].setToolTip(2, '')             
+        elif number_field > 255 and number_field <= 65535:
+            type_field = "uint16_t*"
+            sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')            
+        elif number_field > 65535:
+            type_field = "uint32_t*"
+            sub_dict[5].setToolTip(2, 'The compiler will warn you about this type change')            
+        sub_dict[5].setText(2, type_field)                                        
     
     def settings_tree_combo_box_index_changed(self, index):
         object_string = self.sender().objectName()
@@ -702,6 +700,7 @@ class MainWindow(QMainWindow):
             sub_dict[1] = '    // '
             sub_dict[4] = False        
             print(sub_dict[3].strip('\n'),'disabled')
+        print(sub_dict)
     
     def settings_tree_item_activated(self, item):
         print('settings tree item activated')
@@ -711,32 +710,40 @@ class MainWindow(QMainWindow):
         # allow the third column to be editable
         if column == 3:
             self.edit_settings_tree_item(item)
-                    
-    def settings_tree_edit_complete(self, item):        
-        # update the config dict        
-        object_string = str(item.data(4,0))                
+    
+    # this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
+    def settings_tree_edit_complete(self, item, col):                        
+        if col != 3:
+            return                           
+        object_string = str(item.data(4,0))                        
         object_list = object_string.strip('\n').split(',')
         if len(object_list) < 2:
-            return
-        print(object_string)        
+            return                
         object_list[1] = int(str(object_list[1]))        
         sub_dict = (self.cliOpt['config']['tree']['items'][object_list[0]][object_list[1]]['fields'])                              
-        sub_dict[4] = str(item.data(3,0))
-        print(sub_dict[3], sub_dict[4])
-        self.update_settings_tree_type_field_text()
+        val = str(item.data(3,0))
+        tmp = ''
+        if val == 'enabled':
+            tmp = True
+        elif val == 'disabled':
+            tmp = False
+        else:
+            if val == '':
+                tmp = 0
+            else:
+                tmp = int(val)
+        if tmp == sub_dict[4]:
+            return
+        # update the config dict
+        sub_dict[4] = tmp 
+        self.update_settings_tree_type_field_text(item)        
+        print(sub_dict)        
     
     def edit_settings_tree_item(self, item):        
-        parent = item.parent()
-        key = ''
-        index = ''
-        for key in self.cliOpt['config']['tree']['parents']:
-            if self.cliOpt['config']['tree']['parents'][key] == parent:                    
-                index = parent.indexOfChild(item)            
-                self.ui.settings_tree.editItem(item, 3)                           
-                #edit = (self.active['settings_tree_edit'])
-                #edit['parent_key'] = key
-                #edit['index_of_child'] = index
-                # print('editing ',item.text(1),' in ', key,' at index ',index,' current value ',item.data(3,0),sep='')
+        self.ui.settings_tree.editItem(item, 3)           
+        object_string = str(item.data(4,0))                                
+        object_list = object_string.strip('\n').split(',')                
+        print('selected ',item.text(1).strip(),' in ', object_list[0],' at index ',object_list[1],' current value ',item.data(3,0),sep='')
     
     def validate_command_parameters(self):
         error_list = []
