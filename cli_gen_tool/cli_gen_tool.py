@@ -154,9 +154,7 @@ class MainWindow(QMainWindow):
         self.ui.commandParameters.setWindowIcon(self.messageBoxQuestionIcon)
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)        
-        self.ui.commandParameters.setMaximumSize(0,0)            
-        # object alias
-        cmd_dlg = (self.ui.commandParameters.dlg)
+        self.ui.commandParameters.setMaximumSize(0,0)                            
         
         # MainWindow var
         self.docs = ''
@@ -179,19 +177,22 @@ class MainWindow(QMainWindow):
         self.session = self.defaultGuiOpt        
         # code preview db        
         self.code_preview_dict = {'files':generated_filename_dict}
-                        
+        
+        # pathing                
         path = QDir()
         path.cdUp()
+        self.lib_root_path = path.currentPath()
         # /InputHandler/src/config/config.h
-        self.default_lib_config_path = path.currentPath() + "/src/config/config.h"
+        self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
         # /InputHandler/cli_gen_tool/cli_gen_tool.json
-        self.cli_gen_tool_json_path = path.currentPath() + "/cli_gen_tool/cli_gen_tool.json"
+        self.cli_gen_tool_json_path = self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
         
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)        
         # print pretty session json
         # session json contains only serializable items, safe to print
         print(json.dumps(self.session, indent=4, sort_keys=True))        
+        
         # parse config file
         self.parse_config_header_file(self.session['opt']['input_config_file_path'])                        
 
@@ -208,6 +209,7 @@ class MainWindow(QMainWindow):
         
         # __init__ aliasing
         settings_tree = self.ui.settings_tree
+        cmd_dlg = self.ui.commandParameters.dlg
         # end __init__ aliasing
         # end MainWindow var
         
@@ -563,8 +565,7 @@ class MainWindow(QMainWindow):
         self.ui.commandParameters.exec()        
         
     def clicked_command_parameters_buttonbox_ok(self):        
-        print('ok')
-        
+        print('ok')        
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
@@ -842,7 +843,7 @@ class MainWindow(QMainWindow):
         sub_dict[4] = tmp 
         self.update_settings_tree_type_field_text(item)
         self.update_code_preview_tree()                
-        print(sub_dict)        
+        print('self.cliOpt[\'config\'][\'tree\'][\'items\'][\'{}\'][{}][\'fields\']:'.format(object_list[0],object_list[1]),json.dumps(sub_dict,indent=4,sort_keys=False, default=lambda o: 'object'))        
     
     def edit_settings_tree_item(self, item):        
         self.ui.settings_tree.editItem(item, 3)           
