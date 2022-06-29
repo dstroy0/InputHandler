@@ -223,6 +223,9 @@ class MainWindow(QMainWindow):
         pixmapapi = QStyle.StandardPixmap.SP_FileIcon
         icon = self.style().standardIcon(pixmapapi)        
         self.ui.fileIcon = icon
+        pixmapapi = QStyle.StandardPixmap.SP_CommandLink
+        icon = self.style().standardIcon(pixmapapi)        
+        self.ui.commandLinkIcon = icon
         
         # __init__ aliasing
         settings_tree = self.ui.settings_tree
@@ -327,6 +330,16 @@ class MainWindow(QMainWindow):
         settings_tree.setColumnCount(5)
         settings_tree.setColumnHidden(4, 1)                            
         
+        # process output
+        tree = (self.cliOpt['process output']['tree'])
+        output_buffer_size = self.cliOpt['process output']['var']['buffer_size']
+        tree['root'] = QTreeWidgetItem(settings_tree, ['process output',''])
+        tree['root'].setIcon(0, self.ui.commandLinkIcon)
+        tree['items'] = QTreeWidgetItem(tree['root'], ['','buffer size','bytes',str(output_buffer_size)])
+        tmp = 'buffer size'+','+'0'+','+'buffer size'
+        tree['items'].setData(4,0,tmp)
+        tree['items'].setFlags(tree['items'].flags() | Qt.ItemIsEditable)
+        # config.h
         tree = (self.cliOpt['config']['tree'])                    
         cfg_dict = (self.cliOpt['config']['tree']['items'])
         cfg_path = self.session['opt']['input_config_file_path']
@@ -855,7 +868,12 @@ class MainWindow(QMainWindow):
         object_list = object_string.strip('\n').split(',')
         if len(object_list) < 2:
             return                
-        object_list[1] = int(str(object_list[1]))        
+        object_list[1] = int(str(object_list[1]))
+        # process output
+        if object_list[0] == 'buffer size':
+            print('edited buffer size')
+            return
+        # config.h
         sub_dict = (self.cliOpt['config']['tree']['items'][object_list[0]][object_list[1]]['fields'])                              
         val = str(item.data(3,0))
         tmp = ''
