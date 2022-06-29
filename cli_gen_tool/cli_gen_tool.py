@@ -88,12 +88,25 @@ command_line_interface_options_structure = {'type':'cli options',
                                                     'tool_version':str(version)},
                                             'commands': {},
                                             'config':{'file_lines':[],
-                                                      'tree':{'root':{},
+                                                      'tree':{'root':'',
                                                               'parents':{},
                                                               'items':{'library settings':{},
                                                                        'progmem settings':{},                            
                                                                        'debug methods':{},
-                                                                       'optional methods':{}}}}}
+                                                                       'optional methods':{}}}},
+                                            'process output':{'var':{'buffer_size':0},
+                                                              'tree':{'root':'',
+                                                                      'items':{}}},
+                                            'process parameters':{'var':{'process name':'',
+                                                                         'end of line characters':'\r\n',
+                                                                         'input control char sequence':'##',
+                                                                         'wildcard char':'*',
+                                                                         'data delimiter sequences':{' ',','},
+                                                                         'start stop data delimiter sequences':{'\"','\"'}},
+                                                                  'tree':{'root':'',
+                                                                          'parents':{},
+                                                                          'items':{'data delimiter sequences':{},
+                                                                                   'start stop data delimiter sequences':{}}}}}
 
 command_arg_types_list = ['UINT8_T',
                           'UINT16_T',
@@ -104,6 +117,7 @@ command_arg_types_list = ['UINT8_T',
                           'STARTSTOP',
                           'NOTYPE']
 
+# preserve dict insert order for display purposes
 generated_filename_dict = OrderedDict()
 generated_filename_dict = {'config.h':{'filename':'',
                                        'file_lines_list':[],
@@ -126,10 +140,10 @@ generated_filename_dict = {'config.h':{'filename':'',
                                           'contents_item':{},
                                           'text_widget':{0:'',1:''}},
                            'functions.cpp':{'filename':'',
-                                          'file_lines_list':[],
-                                          'tree_item':{},
-                                          'contents_item':{},
-                                          'text_widget':{0:'',1:''}}}
+                                            'file_lines_list':[],
+                                            'tree_item':{},
+                                            'contents_item':{},
+                                            'text_widget':{0:'',1:''}}}
 
 config_file_boolean_define_fields_line_start = 72
 
