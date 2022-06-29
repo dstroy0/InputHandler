@@ -132,6 +132,9 @@ generated_filename_dict = {'config.h':{'filename':'',
                                           'text_widget':{0:'',1:''}}}
 
 config_file_boolean_define_fields_line_start = 72
+
+# offsets generated code preview line display
+code_preview_text_line_offset = 4
 # end dev qol var
 
 # MainWindow is the parent of all process subwindows (MainWindow is noninteractable when any of its child popups are active)
@@ -440,7 +443,7 @@ class MainWindow(QMainWindow):
             object_list = object_string.strip('\n').split(',')        
             sub_dict = (self.cliOpt['config']['tree']['items'][object_list[0]][int(object_list[1])]['fields'])
             line_num = int(sub_dict[0])
-            cursor = QTextCursor(text_widget.document().findBlockByLineNumber(line_num+5))                                                                                                 
+            cursor = QTextCursor(text_widget.document().findBlockByLineNumber(line_num+code_preview_text_line_offset))                                                                                                 
             text_widget.setTextCursor(cursor)
         
         for tab in range(0,2):                                                            
