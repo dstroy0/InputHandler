@@ -432,8 +432,7 @@ class MainWindow(QMainWindow):
             text_widget = self.code_preview_dict['files']['config.h']['text_widget'][tab]
             text_widget.clear()                
             text_widget.setPlainText(code_string)
-            object_string = ''
-            print(tree_object)
+            object_string = ''            
             if tree_object == None:
                 object_string = self.sender().objectName()
             else:
@@ -819,7 +818,7 @@ class MainWindow(QMainWindow):
             sub_dict[1] = '    // '
             sub_dict[4] = False        
             print(sub_dict[3].strip('\n'),'disabled')
-        print(sub_dict)
+        print('self.cliOpt[\'config\'][\'tree\'][\'items\'][\'{}\'][{}][\'fields\']:'.format(object_list[0],object_list[1]),json.dumps(sub_dict,indent=4,sort_keys=False, default=lambda o: 'object'))
         self.update_code_preview_tree(None)
     
     def settings_tree_item_activated(self, item):
