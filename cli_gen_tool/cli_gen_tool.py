@@ -392,7 +392,10 @@ class MainWindow(QMainWindow):
                 self.code_preview_dict['files'][key]['tree_item'][tab] = QTreeWidgetItem(tree, [key,''])
                 self.code_preview_dict['files'][key]['tree_item'][tab].setIcon(0, self.ui.fileIcon)                
                 self.code_preview_dict['files'][key]['text_widget'][tab] = QPlainTextEdit()                
-                self.code_preview_dict['files'][key]['text_widget'][tab].setObjectName(str(key))                                       
+                self.code_preview_dict['files'][key]['text_widget'][tab].setLineWrapMode(QPlainTextEdit.NoWrap)
+                self.code_preview_dict['files'][key]['text_widget'][tab].setReadOnly(True)
+                self.code_preview_dict['files'][key]['text_widget'][tab].setObjectName(str(key))
+                self.code_preview_dict['files'][key]['text_widget'][tab].setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
                 self.code_preview_dict['files'][key]['contents_item'][tab] = QTreeWidgetItem(self.code_preview_dict['files'][key]['tree_item'][tab])                                    
                 tree.setItemWidget(self.code_preview_dict['files'][key]['contents_item'][tab], 0, self.code_preview_dict['files'][key]['text_widget'][tab])                
                 self.code_preview_dict['files'][key]['contents_item'][tab].setFirstColumnSpanned(True)                            
@@ -404,14 +407,14 @@ class MainWindow(QMainWindow):
                         new_line_list.append(line+'\n')
                         code_string = code_string + line + '\n'
                     self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
-                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                                                                                                 
+                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                    
     # end build_code_preview_tree()
     
     # refreshes the text in the code preview trees
-    def update_code_preview_tree(self):
+    def update_code_preview_tree(self, tree_object):
         print('update code preview')
         # update functions
-        def update_config_h(tab):
+        def update_config_h(tab, tree_object):
             self.code_preview_dict['files']['config.h']['file_lines_list'] = self.cliOpt['config']['file_lines']
             cfg_dict = self.cliOpt['config']['tree']['items']                    
             for key in cfg_dict:                                                
@@ -426,13 +429,25 @@ class MainWindow(QMainWindow):
             code_string = ''
             for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
                 code_string = code_string + line + '\n'
-            self.code_preview_dict['files']['config.h']['text_widget'][tab].clear()                
-            self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)            
+            text_widget = self.code_preview_dict['files']['config.h']['text_widget'][tab]
+            text_widget.clear()                
+            text_widget.setPlainText(code_string)
+            object_string = ''
+            print(tree_object)
+            if tree_object == None:
+                object_string = self.sender().objectName()
+            else:
+                object_string = str(tree_object.data(4,0))                        
+            object_list = object_string.strip('\n').split(',')        
+            sub_dict = (self.cliOpt['config']['tree']['items'][object_list[0]][int(object_list[1])]['fields'])
+            line_num = int(sub_dict[0])
+            cursor = QTextCursor(text_widget.document().findBlockByLineNumber(line_num+5))                                                                                                 
+            text_widget.setTextCursor(cursor)
         
         for tab in range(0,2):                                                            
             for key in self.code_preview_dict['files']:                                                             
                 if key == 'config.h':                    
-                    update_config_h(tab)                    
+                    update_config_h(tab, tree_object)                    
                     
     # end update_code_preview_tree()                    
                                 
@@ -805,7 +820,7 @@ class MainWindow(QMainWindow):
             sub_dict[4] = False        
             print(sub_dict[3].strip('\n'),'disabled')
         print(sub_dict)
-        self.update_code_preview_tree()
+        self.update_code_preview_tree(None)
     
     def settings_tree_item_activated(self, item):
         print('settings tree item activated')
@@ -842,7 +857,7 @@ class MainWindow(QMainWindow):
         # update the config dict
         sub_dict[4] = tmp 
         self.update_settings_tree_type_field_text(item)
-        self.update_code_preview_tree()                
+        self.update_code_preview_tree(item)                
         print('self.cliOpt[\'config\'][\'tree\'][\'items\'][\'{}\'][{}][\'fields\']:'.format(object_list[0],object_list[1]),json.dumps(sub_dict,indent=4,sort_keys=False, default=lambda o: 'object'))        
     
     def edit_settings_tree_item(self, item):        
