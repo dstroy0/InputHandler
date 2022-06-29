@@ -162,7 +162,9 @@ class MainWindow(QMainWindow):
         self.cliOpt = command_line_interface_options_structure
         # session db 
         self.session = self.defaultGuiOpt        
-                
+        # code preview db        
+        self.code_preview_dict = {'files':generated_filename_dict}
+                        
         path = QDir()
         path.cdUp()
         # /InputHandler/src/config/config.h
@@ -188,11 +190,14 @@ class MainWindow(QMainWindow):
         pixmapapi = QStyle.StandardPixmap.SP_FileIcon
         icon = self.style().standardIcon(pixmapapi)        
         self.ui.fileIcon = icon
+        
+        # __init__ aliasing
+        settings_tree = self.ui.settings_tree
+        # end __init__ aliasing
         # end MainWindow var
         
-        # MainWindow objects
-        
-        # actions setup
+        # MainWindow objects        
+        # file menu actions setup
         # file menu
         self.ui.actionOpen.triggered.connect(self.open_file)
         self.ui.actionSave.triggered.connect(self.save_file)
@@ -204,7 +209,7 @@ class MainWindow(QMainWindow):
         # about menu
         self.ui.actionAbout.triggered.connect(self.gui_about)
         self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
-        
+        # end file menu actions setup
         # buttons setup
         # tab 1
         self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
@@ -215,18 +220,69 @@ class MainWindow(QMainWindow):
         self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
         self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-        self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)
-        
-        # change driven events
-        # tab 2        
-        cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
-                
-        # code preview        
+        self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)                        
+        # end buttons setup
+                        
+        # code preview trees       
         self.build_code_preview_tree()      
-        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
+        #self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
         
         # tab 1
-        # settings_tree widget setup
+        # settings_tree widget setup        
+        self.build_lib_settings_tree()
+        
+        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
+        # update cliOpt with new value when editing is complete
+        settings_tree.itemChanged.connect(self.settings_tree_edit_complete) 
+        # check if user clicked on the column we want them to edit
+        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
+        # check if user hit enter on an item
+        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
+        
+        # uncomment to print self.cliOpt as pretty json
+        # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
+        
+        # tab 2        
+        # command parameters dialog box setup
+        cmd_dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
+        cmd_dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
+        cmd_dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
+        cmd_dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
+    
+        cmd_dlg.commandDepth.setMaximum(255)
+        cmd_dlg.commandSubcommands.setMaximum(255)
+    
+        cmd_dlg.commandMinArgs.setMaximum(255)
+        cmd_dlg.commandMaxArgs.setMaximum(255)
+        
+        cmd_dlg.add8bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add16bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add32bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add16bitint.clicked.connect(self.csv_button)
+        cmd_dlg.addfloat.clicked.connect(self.csv_button)
+        cmd_dlg.addchar.clicked.connect(self.csv_button)
+        cmd_dlg.addstartstop.clicked.connect(self.csv_button)
+        cmd_dlg.addnotype.clicked.connect(self.csv_button)
+        cmd_dlg.rem.clicked.connect(self.csv_button)
+        cmd_dlg.rem1.clicked.connect(self.csv_button)
+        cmd_dlg.rem2.clicked.connect(self.csv_button)
+        cmd_dlg.rem3.clicked.connect(self.csv_button)
+        cmd_dlg.rem4.clicked.connect(self.csv_button)
+        cmd_dlg.rem5.clicked.connect(self.csv_button)
+        cmd_dlg.rem6.clicked.connect(self.csv_button)
+        cmd_dlg.rem7.clicked.connect(self.csv_button)
+    
+        cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
+        cmd_dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
+        cmd_dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
+    
+        cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
+        cmd_dlg.argumentsPane.setEnabled(False)          
+        cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+        # end MainWindow objects
+        # end __init__
+        
+    def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section","Macro Name", "Type", "Value"))
         settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
@@ -300,57 +356,12 @@ class MainWindow(QMainWindow):
                     sub_dict.update({5:QTreeWidgetItem(tree['parents'][key], item_list)})
                     sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)         
                     sub_dict[5].setData(4,0,obj_name)
-        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
-        # update cliOpt with new value when editing is complete
-        settings_tree.itemChanged.connect(self.settings_tree_edit_complete) 
-        # check if user clicked on the column we want them to edit
-        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
-        # check if user hit enter on an item
-        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
-        
-        # print(json.dumps(self.cliOpt, indent=4, sort_keys=True, default=lambda o: 'object'))
-        
-        # tab 2        
-        # command parameters dialog box setup
-        cmd_dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
-        cmd_dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
-        cmd_dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
-        cmd_dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
+    # end build_lib_settings_tree()                        
     
-        cmd_dlg.commandDepth.setMaximum(255)
-        cmd_dlg.commandSubcommands.setMaximum(255)
-    
-        cmd_dlg.commandMinArgs.setMaximum(255)
-        cmd_dlg.commandMaxArgs.setMaximum(255)
-        
-        cmd_dlg.add8bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add32bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bitint.clicked.connect(self.csv_button)
-        cmd_dlg.addfloat.clicked.connect(self.csv_button)
-        cmd_dlg.addchar.clicked.connect(self.csv_button)
-        cmd_dlg.addstartstop.clicked.connect(self.csv_button)
-        cmd_dlg.addnotype.clicked.connect(self.csv_button)
-        cmd_dlg.rem.clicked.connect(self.csv_button)
-        cmd_dlg.rem1.clicked.connect(self.csv_button)
-        cmd_dlg.rem2.clicked.connect(self.csv_button)
-        cmd_dlg.rem3.clicked.connect(self.csv_button)
-        cmd_dlg.rem4.clicked.connect(self.csv_button)
-        cmd_dlg.rem5.clicked.connect(self.csv_button)
-        cmd_dlg.rem6.clicked.connect(self.csv_button)
-        cmd_dlg.rem7.clicked.connect(self.csv_button)
-    
-        cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
-        cmd_dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
-        cmd_dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
-    
-        cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
-        cmd_dlg.argumentsPane.setEnabled(False)          
-        
-        # end __init__
-    
-    #update code preview panes
+    # build code preview trees
     def build_code_preview_tree(self):
+        for key in self.code_preview_dict['files']:
+                self.code_preview_dict['files'][key]['filename'] = key 
         for tab in range(0,2):            
             if tab == 0:
                 tree = self.ui.codePreview_1
@@ -359,16 +370,15 @@ class MainWindow(QMainWindow):
             tree.setHeaderLabels(['File', 'Contents'])
             tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
             tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-            tree.setColumnCount(2)        
-            self.code_preview_dict = {'files':generated_filename_dict}
+            tree.setColumnCount(2)                                           
             for key in self.code_preview_dict['files']:
-                self.code_preview_dict['files'][key]['filename'] = key            
                 self.code_preview_dict['files'][key]['tree_item'][tab] = QTreeWidgetItem(tree, [key,''])
-                self.code_preview_dict['files'][key]['tree_item'][tab].setIcon(0, self.ui.fileIcon)
-                self.code_preview_dict['files'][key]['text_widget'][tab] = QPlainTextEdit(self)
-                text_widget = self.code_preview_dict['files'][key]['text_widget'][tab]
-                text_widget.setObjectName(key)                             
+                self.code_preview_dict['files'][key]['tree_item'][tab].setIcon(0, self.ui.fileIcon)                
+                self.code_preview_dict['files'][key]['text_widget'][tab] = QPlainTextEdit()                
+                self.code_preview_dict['files'][key]['text_widget'][tab].setObjectName(str(key))                                       
                 self.code_preview_dict['files'][key]['contents_item'][tab] = QTreeWidgetItem(self.code_preview_dict['files'][key]['tree_item'][tab])                                    
+                tree.setItemWidget(self.code_preview_dict['files'][key]['contents_item'][tab], 0, self.code_preview_dict['files'][key]['text_widget'][tab])
+                print(self.code_preview_dict['files'][key]['text_widget'][tab])
                 self.code_preview_dict['files'][key]['contents_item'][tab].setFirstColumnSpanned(True)            
                 self.code_preview_dict['files'][key]['file_lines_list'] = self.cliOpt['config']['file_lines']
                 if key == 'config.h':
@@ -378,36 +388,41 @@ class MainWindow(QMainWindow):
                         new_line_list.append(line+'\n')
                         code_string = code_string + line + '\n'
                     self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
-                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                    
-                    #self.code_preview_dict['files']['config.h']['label'].adjustSize()                
-                tree.setItemWidget(self.code_preview_dict['files'][key]['contents_item'][tab], 0, text_widget)
+                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)
+        for key in self.code_preview_dict['files']:
+            print(key)
+            print(self.code_preview_dict['files'][key]['text_widget'])                                                                                                  
+    # end build_code_preview_tree()
     
+    # refreshes the text in the code preview trees
     def update_code_preview_tree(self):
         print('update code preview')
-        for tab in range(0,2):                                    
-            for key in self.code_preview_dict['files']:                
-                if key == 'config.h':
-                    new_line_list = []
-                    code_string = ''
-                    cfg_dict = self.cliOpt['config']['tree']['items']                    
-                    for key in cfg_dict:
-                        for item in cfg_dict[key]:
-                            sub_dict = cfg_dict[key][item]['fields']                            
-                            if sub_dict[4] == True or sub_dict[4] == False:
-                                val = ''
-                            else:
-                                val = sub_dict[4]                        
-                            line = str(sub_dict[1]) + str(sub_dict[2]) + str(sub_dict[3]) + str(val)
-                            self.cliOpt['config']['file_lines'][int(sub_dict[0])] = line                            
-                    for line in self.cliOpt['config']['file_lines']:
-                        code_string = code_string + line + '\n'
-                        new_line_list.append(line+'\n')
-                    self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list
-                    self.code_preview_dict['files']['config.h']['text_widget'][tab].clear()                
-                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)
-                        
+        def update_config_h(tab):
+            self.code_preview_dict['files']['config.h']['file_lines_list'] = self.cliOpt['config']['file_lines']
+            cfg_dict = self.cliOpt['config']['tree']['items']                    
+            for key in cfg_dict:                                                
+                for item in cfg_dict[key]:                            
+                    sub_dict = cfg_dict[key][item]['fields']                            
+                    if sub_dict[4] == True or sub_dict[4] == False:
+                        val = ''
+                    else:
+                        val = sub_dict[4]                        
+                    line = str(sub_dict[1]) + str(sub_dict[2]) + str(sub_dict[3]) + str(val)
+                    self.code_preview_dict['files']['config.h']['file_lines_list'][int(sub_dict[0])] = line
+            code_string = ''
+            for line in self.code_preview_dict['files']['config.h']['file_lines_list']:
+                code_string = code_string + line + '\n'
+            self.code_preview_dict['files']['config.h']['text_widget'][tab].clear()                
+            self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)            
+        for tab in range(0,2):                                                            
+            for key in self.code_preview_dict['files']:                                             
+                print(self.code_preview_dict['files'][key]['text_widget'])
+                if key == 'config.h':                    
+                    update_config_h(tab)                    
+                    
+    # end update_code_preview_tree()                    
                                 
-    # actions
+    # MainWindow actions
     def open_file(self):
         print('open file')
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
@@ -502,8 +517,9 @@ class MainWindow(QMainWindow):
         # linux
         elif os_type == "linux":
             os.system("xdg-open \"\" https://dstroy0.github.io/InputHandler/")
-
-    # buttons
+    # end MainWindow actions
+    
+    # MainWindow buttons
     # tab 1
     # TODO
     def clicked_edit_tab_one(self):
@@ -531,11 +547,8 @@ class MainWindow(QMainWindow):
         print('clicked tab 2 delete')
 
     def clicked_open_command_settings_menu_tab_two(self):
-        print('clicked open/close command settings menu')        
-        self.ui.commandParameters.exec()
-        
-    def clicked_close_command_settings_menu_tab_two(self):
-        print('clicked close command settings menu')
+        print('clicked open command settings menu')        
+        self.ui.commandParameters.exec()        
         
     def clicked_command_parameters_buttonbox_ok(self):        
         print('ok')
