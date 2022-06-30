@@ -26,7 +26,7 @@ from collections import OrderedDict
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
                                QTreeWidgetItem, QStyle, QComboBox, QPlainTextEdit,
-                               QTableWidget, QTableWidgetItem, QHBoxLayout)
+                               QTableWidget, QTableWidgetItem, QPushButton)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression)
 from PySide6.QtGui import(QRegularExpressionValidator, QIcon, QTextCursor)
@@ -323,6 +323,29 @@ class MainWindow(QMainWindow):
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
         # end MainWindow objects
         # end __init__
+    
+    def add_data_delimiter_row(self):
+        tree = (self.cliOpt['process parameters']['tree'])
+        table_widget = tree['items']['data delimiter sequences']['QTableWidget']
+        add_row_button = tree['items']['data delimiter sequences']['QTableWidgetItems']['add row button']
+        row = table_widget.rowCount()        
+        table_widget.removeCellWidget(row,0)
+        row = table_widget.rowCount() - 1         
+        tree['items']['data delimiter sequences']['QTableWidgetItems'][row] = QTableWidgetItem()
+        table_widget_item = tree['items']['data delimiter sequences']['QTableWidgetItems'][row]
+        table_widget_item.setText('')
+        table_widget.insertRow(row)
+        row = table_widget.rowCount() - 1
+        tree['items']['data delimiter sequences']['QTableWidgetItems'].update({row:''})
+        tree['items']['data delimiter sequences']['QTableWidgetItems'][row] = QTableWidgetItem()
+        table_widget_item = tree['items']['data delimiter sequences']['QTableWidgetItems'][row]
+        table_widget.setItem(row,0,table_widget_item)
+        table_widget.setCellWidget(row,0,add_row_button)
+        vertical_label_list = []                
+        for i in range(1,row +1):
+            vertical_label_list.append(str(i))
+        vertical_label_list.append('')        
+        tree['items']['data delimiter sequences']['QTableWidget'].setVerticalHeaderLabels(vertical_label_list)        
         
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
@@ -350,15 +373,14 @@ class MainWindow(QMainWindow):
         tree['root'] = QTreeWidgetItem(settings_tree, ['process parameters',''])
         tree['root'].setIcon(0, self.ui.commandLinkIcon)
         tree['parents']['data delimiter sequences'] = QTreeWidgetItem(tree['root'], ['data delimiter sequences',''])
-        tree['items']['data delimiter sequences']['QTreeWidgetItem'] = QTreeWidgetItem(tree['parents']['data delimiter sequences'], ['',''])
-        self.horizontalLayout = QHBoxLayout()
+        tree['items']['data delimiter sequences']['QTreeWidgetItem'] = QTreeWidgetItem(tree['parents']['data delimiter sequences'], ['',''])        
         tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFlags(tree['items']['data delimiter sequences']['QTreeWidgetItem'].flags() | Qt.ItemIsEditable)
         tree['items']['data delimiter sequences']['QTableWidget'] = QTableWidget()
         tree['items']['data delimiter sequences']['QTableWidgetItems'].update({'horizontal header item':QTableWidgetItem('data delimiter sequences')})
-        print(tree['items']['data delimiter sequences']['QTableWidgetItems'])        
-        tree['items']['data delimiter sequences']['QTableWidget'].horizontalHeader().setStretchLastSection(True)
-        self.horizontalLayout.addWidget(tree['items']['data delimiter sequences']['QTableWidget'])
+        tree['items']['data delimiter sequences']['QTableWidgetItems'].update({'add row button':QPushButton('add delimiter sequence')})        
+        tree['items']['data delimiter sequences']['QTableWidget'].horizontalHeader().setStretchLastSection(True)        
         tree['items']['data delimiter sequences']['QTableWidget'].setColumnCount(1)
+        row = 0
         for key in self.cliOpt['process parameters']['var']['data delimiter sequences']:
             row = tree['items']['data delimiter sequences']['QTableWidget'].rowCount()
             tree['items']['data delimiter sequences']['QTableWidget'].insertRow(row)                                                       
@@ -366,10 +388,22 @@ class MainWindow(QMainWindow):
             tree['items']['data delimiter sequences']['QTableWidgetItems'][row] = QTableWidgetItem()
             tree['items']['data delimiter sequences']['QTableWidget'].setItem(row,0,tree['items']['data delimiter sequences']['QTableWidgetItems'][row])                                
             tree['items']['data delimiter sequences']['QTableWidgetItems'][row].setText(str(self.cliOpt['process parameters']['var']['data delimiter sequences'][key]))
+        # add row button
+        row = tree['items']['data delimiter sequences']['QTableWidget'].rowCount()
+        tree['items']['data delimiter sequences']['QTableWidget'].insertRow(row)                                                       
+        vertical_label_list = []                
+        for i in range(1,row +1):
+            vertical_label_list.append(str(i))
+        vertical_label_list.append('')            
+        tree['items']['data delimiter sequences']['QTableWidgetItems'].update({row:''})
+        tree['items']['data delimiter sequences']['QTableWidgetItems'][row] = QTableWidgetItem()
+        tree['items']['data delimiter sequences']['QTableWidget'].setItem(row,0,tree['items']['data delimiter sequences']['QTableWidgetItems'][row])
+        tree['items']['data delimiter sequences']['QTableWidget'].setCellWidget(row,0,tree['items']['data delimiter sequences']['QTableWidgetItems']['add row button'])
         tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFirstColumnSpanned(True)    
         tree['items']['data delimiter sequences']['QTableWidget'].setHorizontalHeaderItem(0, tree['items']['data delimiter sequences']['QTableWidgetItems']['horizontal header item'])
+        tree['items']['data delimiter sequences']['QTableWidget'].setVerticalHeaderLabels(vertical_label_list)
         settings_tree.setItemWidget(tree['items']['data delimiter sequences']['QTreeWidgetItem'],1,tree['items']['data delimiter sequences']['QTableWidget'])
-        
+        tree['items']['data delimiter sequences']['QTableWidgetItems']['add row button'].clicked.connect(self.add_data_delimiter_row)
         
         # config.h
         tree = (self.cliOpt['config']['tree'])                    
