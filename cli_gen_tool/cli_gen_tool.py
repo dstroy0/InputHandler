@@ -26,7 +26,7 @@ from collections import OrderedDict
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
                                QTreeWidgetItem, QStyle, QComboBox, QPlainTextEdit,
-                               QTableWidget, QTableWidgetItem)
+                               QTableWidget, QTableWidgetItem, QHBoxLayout)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression)
 from PySide6.QtGui import(QRegularExpressionValidator, QIcon, QTextCursor)
@@ -351,8 +351,13 @@ class MainWindow(QMainWindow):
         tree['root'].setIcon(0, self.ui.commandLinkIcon)
         tree['parents']['data delimiter sequences'] = QTreeWidgetItem(tree['root'], ['data delimiter sequences',''])
         tree['items']['data delimiter sequences']['QTreeWidgetItem'] = QTreeWidgetItem(tree['parents']['data delimiter sequences'], ['',''])
+        self.horizontalLayout = QHBoxLayout()
         tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFlags(tree['items']['data delimiter sequences']['QTreeWidgetItem'].flags() | Qt.ItemIsEditable)
         tree['items']['data delimiter sequences']['QTableWidget'] = QTableWidget()
+        tree['items']['data delimiter sequences']['QTableWidgetItems'].update({'horizontal header item':QTableWidgetItem('data delimiter sequences')})
+        print(tree['items']['data delimiter sequences']['QTableWidgetItems'])        
+        tree['items']['data delimiter sequences']['QTableWidget'].horizontalHeader().setStretchLastSection(True)
+        self.horizontalLayout.addWidget(tree['items']['data delimiter sequences']['QTableWidget'])
         tree['items']['data delimiter sequences']['QTableWidget'].setColumnCount(1)
         for key in self.cliOpt['process parameters']['var']['data delimiter sequences']:
             row = tree['items']['data delimiter sequences']['QTableWidget'].rowCount()
@@ -362,7 +367,8 @@ class MainWindow(QMainWindow):
             tree['items']['data delimiter sequences']['QTableWidget'].setItem(row,0,tree['items']['data delimiter sequences']['QTableWidgetItems'][row])                                
             tree['items']['data delimiter sequences']['QTableWidgetItems'][row].setText(str(self.cliOpt['process parameters']['var']['data delimiter sequences'][key]))
         tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFirstColumnSpanned(True)    
-        settings_tree.setItemWidget(tree['items']['data delimiter sequences']['QTreeWidgetItem'],0,tree['items']['data delimiter sequences']['QTableWidget'])
+        tree['items']['data delimiter sequences']['QTableWidget'].setHorizontalHeaderItem(0, tree['items']['data delimiter sequences']['QTableWidgetItems']['horizontal header item'])
+        settings_tree.setItemWidget(tree['items']['data delimiter sequences']['QTreeWidgetItem'],1,tree['items']['data delimiter sequences']['QTableWidget'])
         
         
         # config.h
