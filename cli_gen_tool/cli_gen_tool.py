@@ -352,7 +352,7 @@ class MainWindow(QMainWindow):
         tree['parents']['data delimiter sequences'] = QTreeWidgetItem(tree['root'], ['data delimiter sequences',''])
         tree['items']['data delimiter sequences']['QTreeWidgetItem'] = QTreeWidgetItem(tree['parents']['data delimiter sequences'], ['',''])
         tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFlags(tree['items']['data delimiter sequences']['QTreeWidgetItem'].flags() | Qt.ItemIsEditable)
-        tree['items']['data delimiter sequences']['QTableWidget'] = QTableWidget(self)
+        tree['items']['data delimiter sequences']['QTableWidget'] = QTableWidget()
         tree['items']['data delimiter sequences']['QTableWidget'].setColumnCount(1)
         for key in self.cliOpt['process parameters']['var']['data delimiter sequences']:
             row = tree['items']['data delimiter sequences']['QTableWidget'].rowCount()
