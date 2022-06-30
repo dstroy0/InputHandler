@@ -25,7 +25,8 @@ import qdarktheme
 from collections import OrderedDict
 from PySide6.QtWidgets import (QApplication, QMainWindow, QDialog, QLabel,
                                QVBoxLayout, QFileDialog, QHeaderView, QDialogButtonBox,
-                               QTreeWidgetItem, QStyle, QComboBox, QPlainTextEdit)
+                               QTreeWidgetItem, QStyle, QComboBox, QPlainTextEdit,
+                               QTableWidget, QTableWidgetItem)
 from PySide6.QtCore import (QFile, Qt, QIODevice, QTextStream,
                             QByteArray, QDir, QRegularExpression)
 from PySide6.QtGui import(QRegularExpressionValidator, QIcon, QTextCursor)
@@ -101,12 +102,16 @@ command_line_interface_options_structure = {'type':'cli options',
                                                                          'end of line characters':'\r\n',
                                                                          'input control char sequence':'##',
                                                                          'wildcard char':'*',
-                                                                         'data delimiter sequences':{' ',','},
-                                                                         'start stop data delimiter sequences':{'\"','\"'}},
+                                                                         'data delimiter sequences':{0:' ',1:','},
+                                                                         'start stop data delimiter sequences':{0:'\"',1:'\"'}},
                                                                   'tree':{'root':'',
                                                                           'parents':{},
-                                                                          'items':{'data delimiter sequences':{},
-                                                                                   'start stop data delimiter sequences':{}}}}}
+                                                                          'items':{'data delimiter sequences':{'QTreeWidgetItem':'',
+                                                                                                               'QTableWidget':'',
+                                                                                                               'QTableWidgetItems':{}},
+                                                                                   'start stop data delimiter sequences':{'QTreeWidgetItem':'',
+                                                                                                                          'QTableWidget':'',
+                                                                                                                          'QTableWidgetItems':{}}}}}}
 
 command_arg_types_list = ['UINT8_T',
                           'UINT16_T',
@@ -336,9 +341,30 @@ class MainWindow(QMainWindow):
         tree['root'] = QTreeWidgetItem(settings_tree, ['process output',''])
         tree['root'].setIcon(0, self.ui.commandLinkIcon)
         tree['items'] = QTreeWidgetItem(tree['root'], ['','buffer size','bytes',str(output_buffer_size)])
-        tmp = 'buffer size'+','+'0'+','+'buffer size'
-        tree['items'].setData(4,0,tmp)
+        dict_pos = 'buffer size'+','+'0'+','+'buffer size'
+        tree['items'].setData(4,0,dict_pos)
         tree['items'].setFlags(tree['items'].flags() | Qt.ItemIsEditable)
+        
+        # process parameters
+        tree = (self.cliOpt['process parameters']['tree'])
+        tree['root'] = QTreeWidgetItem(settings_tree, ['process parameters',''])
+        tree['root'].setIcon(0, self.ui.commandLinkIcon)
+        tree['parents']['data delimiter sequences'] = QTreeWidgetItem(tree['root'], ['data delimiter sequences',''])
+        tree['items']['data delimiter sequences']['QTreeWidgetItem'] = QTreeWidgetItem(tree['parents']['data delimiter sequences'], ['',''])
+        tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFlags(tree['items']['data delimiter sequences']['QTreeWidgetItem'].flags() | Qt.ItemIsEditable)
+        tree['items']['data delimiter sequences']['QTableWidget'] = QTableWidget(self)
+        tree['items']['data delimiter sequences']['QTableWidget'].setColumnCount(1)
+        for key in self.cliOpt['process parameters']['var']['data delimiter sequences']:
+            row = tree['items']['data delimiter sequences']['QTableWidget'].rowCount()
+            tree['items']['data delimiter sequences']['QTableWidget'].insertRow(row)                                                       
+            tree['items']['data delimiter sequences']['QTableWidgetItems'].update({row:''})
+            tree['items']['data delimiter sequences']['QTableWidgetItems'][row] = QTableWidgetItem()
+            tree['items']['data delimiter sequences']['QTableWidget'].setItem(row,0,tree['items']['data delimiter sequences']['QTableWidgetItems'][row])                                
+            tree['items']['data delimiter sequences']['QTableWidgetItems'][row].setText(str(self.cliOpt['process parameters']['var']['data delimiter sequences'][key]))
+        tree['items']['data delimiter sequences']['QTreeWidgetItem'].setFirstColumnSpanned(True)    
+        settings_tree.setItemWidget(tree['items']['data delimiter sequences']['QTreeWidgetItem'],0,tree['items']['data delimiter sequences']['QTableWidget'])
+        
+        
         # config.h
         tree = (self.cliOpt['config']['tree'])                    
         cfg_dict = (self.cliOpt['config']['tree']['items'])
