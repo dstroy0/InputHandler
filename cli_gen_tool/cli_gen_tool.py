@@ -283,11 +283,7 @@ class MainWindow(QMainWindow):
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
         self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)                        
         # end buttons setup
-                        
-        # code preview trees       
-        self.build_code_preview_tree()      
-        #self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
-        
+                                        
         # tab 1
         # settings_tree widget setup        
         self.build_lib_settings_tree()
@@ -300,46 +296,33 @@ class MainWindow(QMainWindow):
         # check if user hit enter on an item
         settings_tree.itemActivated.connect(self.settings_tree_item_activated)
         
+        # code preview trees       
+        self.build_code_preview_tree()      
+        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
+        
         # uncomment to print self.cliOpt as pretty json
         # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
         
         # tab 2        
         # command parameters dialog box setup
-        cmd_dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
-        cmd_dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
-        cmd_dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
-        cmd_dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
-    
-        cmd_dlg.commandDepth.setMaximum(255)
-        cmd_dlg.commandSubcommands.setMaximum(255)
-    
-        cmd_dlg.commandMinArgs.setMaximum(255)
-        cmd_dlg.commandMaxArgs.setMaximum(255)
+        # This dict contains regexp strings and int limits for user input
+        # the values are placeholder values and will change on user interaction
+        cmd_dlg.validatorDict = {'functionName':"^([a-zA-Z_])+$",
+                                 'commandString':"^([a-zA-Z_*])+$",
+                                 'commandParentId':"^([0-9])+$",
+                                 'commandId':"^([0-9])+$",
+                                 'commandDepth':255,
+                                 'commandSubcommands':255,
+                                 'commandMinArgs':255,
+                                 'commandMaxArgs':255
+                                }
+        # set validators to user preset or defaults
+        self.set_command_parameter_validators()
+        # user interaction triggers
+        self.set_command_parameters_triggers()
         
-        cmd_dlg.add8bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add32bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bitint.clicked.connect(self.csv_button)
-        cmd_dlg.addfloat.clicked.connect(self.csv_button)
-        cmd_dlg.addchar.clicked.connect(self.csv_button)
-        cmd_dlg.addstartstop.clicked.connect(self.csv_button)
-        cmd_dlg.addnotype.clicked.connect(self.csv_button)
-        cmd_dlg.rem.clicked.connect(self.csv_button)
-        cmd_dlg.rem1.clicked.connect(self.csv_button)
-        cmd_dlg.rem2.clicked.connect(self.csv_button)
-        cmd_dlg.rem3.clicked.connect(self.csv_button)
-        cmd_dlg.rem4.clicked.connect(self.csv_button)
-        cmd_dlg.rem5.clicked.connect(self.csv_button)
-        cmd_dlg.rem6.clicked.connect(self.csv_button)
-        cmd_dlg.rem7.clicked.connect(self.csv_button)
-    
-        cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
-        cmd_dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
-        cmd_dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
-    
-        cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)
-        cmd_dlg.argumentsPane.setEnabled(False)          
-        cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+        
+        cmd_dlg.argumentsPane.setEnabled(False)
         # end MainWindow objects
         # end __init__
     
@@ -1159,16 +1142,59 @@ class MainWindow(QMainWindow):
         self.docs_format_list[1] = brief
         self.docs_format_list[2] = version
         self.docs = self.format_docstring.format(*self.docs_format_list)
+    
+    def set_command_parameter_validators(self):
+        cmd_dlg = self.ui.commandParameters.dlg
+        # allowed function name char
+        cmd_dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
+        # allowed command string char
+        cmd_dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
+        cmd_dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
+        cmd_dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
+    
+        cmd_dlg.commandDepth.setMaximum(255)
+        cmd_dlg.commandSubcommands.setMaximum(255)
+    
+        cmd_dlg.commandMinArgs.setMaximum(255)
+        cmd_dlg.commandMaxArgs.setMaximum(255)
+        
+    def set_command_parameters_triggers(self):
+        cmd_dlg = self.ui.commandParameters.dlg
+        cmd_dlg.add8bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add16bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add32bituint.clicked.connect(self.csv_button)
+        cmd_dlg.add16bitint.clicked.connect(self.csv_button)
+        cmd_dlg.addfloat.clicked.connect(self.csv_button)
+        cmd_dlg.addchar.clicked.connect(self.csv_button)
+        cmd_dlg.addstartstop.clicked.connect(self.csv_button)
+        cmd_dlg.addnotype.clicked.connect(self.csv_button)
+        cmd_dlg.rem.clicked.connect(self.csv_button)
+        cmd_dlg.rem1.clicked.connect(self.csv_button)
+        cmd_dlg.rem2.clicked.connect(self.csv_button)
+        cmd_dlg.rem3.clicked.connect(self.csv_button)
+        cmd_dlg.rem4.clicked.connect(self.csv_button)
+        cmd_dlg.rem5.clicked.connect(self.csv_button)
+        cmd_dlg.rem6.clicked.connect(self.csv_button)
+        cmd_dlg.rem7.clicked.connect(self.csv_button)
+    
+        cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.clicked_command_parameters_buttonbox_reset)
+        cmd_dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
+        cmd_dlg.buttonBox.rejected.connect(self.clicked_command_parameters_buttonbox_cancel)
+    
+        cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)                  
+        cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
         
 # loop
 if __name__ == "__main__":
+    # GUI container
     app = QApplication(sys.argv)
-
+    # GUI styling
     app.setStyleSheet(qdarktheme.load_stylesheet())
-    
+    # GUI layout
     window = MainWindow()
+    # show GUI
     window.show()
-
+    # exit on user command
     sys.exit(app.exec())
 
 # end of file
