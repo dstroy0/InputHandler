@@ -192,11 +192,8 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(window_icon_path))
         # init param popup dialog    
         self.ui.commandParameters = QDialog(self)
-        # blue circle question icon
-        pixmapapi = QStyle.StandardPixmap.SP_MessageBoxQuestion
-        icon = self.style().standardIcon(pixmapapi)
-        self.messageBoxQuestionIcon = icon                               
-        self.ui.commandParameters.setWindowIcon(self.messageBoxQuestionIcon)
+        # blue circle question icon                                      
+        self.ui.commandParameters.setWindowIcon(self.get_icon(QStyle.StandardPixmap.SP_MessageBoxQuestion))
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)        
         self.ui.commandParameters.setMaximumSize(0,0)                            
