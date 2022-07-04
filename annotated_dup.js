@@ -1,5 +1,16 @@
 var annotated_dup =
 [
+    [ "cli_gen_tool", "dd/d04/namespacecli__gen__tool.html", [
+      [ "MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", "d3/d6c/classcli__gen__tool_1_1_main_window" ]
+    ] ],
+    [ "uic", "db/d4a/namespaceuic.html", [
+      [ "commandParametersDialog", "da/d81/namespaceuic_1_1command_parameters_dialog.html", [
+        [ "Ui_commandParametersDialog", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog" ]
+      ] ],
+      [ "mainWindow", "d1/d19/namespaceuic_1_1main_window.html", [
+        [ "Ui_MainWindow", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window" ]
+      ] ]
+    ] ],
     [ "CommandConstructor", "df/d68/class_command_constructor.html", "df/d68/class_command_constructor" ],
     [ "CommandParameters", "db/d11/struct_command_parameters.html", "db/d11/struct_command_parameters" ],
     [ "CommandRuntimeCalc", "dc/d3d/struct_command_runtime_calc.html", "dc/d3d/struct_command_runtime_calc" ],

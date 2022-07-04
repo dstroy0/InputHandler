@@ -32,16 +32,18 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -62,8 +64,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"da/dff/_n_m_e_asentenceparam_8h.html",
-"de/d8a/group___user_input.html#gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069"
+"d3/d6c/classcli__gen__tool_1_1_main_window.html#a7cc5c98b38cb166cf4401e9e0aeef9e7",
+"da/dff/_n_m_e_asentenceparam_8h.html#acdba61b4cdaf2a7bd22ec64fa472495a",
+"de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436",
+"globals_l.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

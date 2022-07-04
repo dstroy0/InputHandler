@@ -1,7 +1,20 @@
 var searchData=
 [
   ['calcchecksum_0',['calcChecksum',['../df/d2a/class_n_m_e_aparse.html#aef173dab88af775f5251379a5544ae09',1,'NMEAparse']]],
-  ['clearoutputbuffer_1',['clearOutputBuffer',['../dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611',1,'UserInput']]],
-  ['client_2',['client',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae1471577384597e90435729c9ea54b88',1,'ReadCommandFromBufferMQTT.ino']]],
-  ['commandconstructor_3',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]]
+  ['check_5fif_5fsettings_5ftree_5fcol_5feditable_1',['check_if_settings_tree_col_editable',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aa52f9af4ae1374a348a92012f13e2954',1,'cli_gen_tool::MainWindow']]],
+  ['clearoutputbuffer_2',['clearOutputBuffer',['../dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611',1,'UserInput']]],
+  ['clicked_5fclear_5ftab_5fone_3',['clicked_clear_tab_one',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aae37dd1cd661fed96e0b4e0c6cc74542',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fcommand_5fparameters_5fbuttonbox_5fcancel_4',['clicked_command_parameters_buttonbox_cancel',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a7851d4d561dc645e9640675fc08ef9c4',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fcommand_5fparameters_5fbuttonbox_5fok_5',['clicked_command_parameters_buttonbox_ok',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ac26e83041de0c3c28c10238d1b12cbcc',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fcommand_5fparameters_5fbuttonbox_5freset_6',['clicked_command_parameters_buttonbox_reset',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a96a8070875104a106ca970e5d2e154a1',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fdefault_5ftab_5fone_7',['clicked_default_tab_one',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a388591e32dc130cd25f342fbb6b3dbe6',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fdelete_5ftab_5ftwo_8',['clicked_delete_tab_two',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aca0a4f87fc82b19e6be0ea71c852253d',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fedit_5ftab_5fone_9',['clicked_edit_tab_one',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a670be45a1ffff54feffcfa4d4a10da15',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fedit_5ftab_5ftwo_10',['clicked_edit_tab_two',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a78db6249cab0d8cb742eaf9aac1f0b00',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fnew_5ftab_5ftwo_11',['clicked_new_tab_two',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a65ee16db32acfdb891ff63301d606cbf',1,'cli_gen_tool::MainWindow']]],
+  ['clicked_5fopen_5fcommand_5fsettings_5fmenu_5ftab_5ftwo_12',['clicked_open_command_settings_menu_tab_two',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a80b608ee74ae66cd72279e9236bf6765',1,'cli_gen_tool::MainWindow']]],
+  ['client_13',['client',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae1471577384597e90435729c9ea54b88',1,'ReadCommandFromBufferMQTT.ino']]],
+  ['command_5fstring_5ftext_5fchanged_14',['command_string_text_changed',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ad015fbaaa435de80e7d6a59637db2e07',1,'cli_gen_tool::MainWindow']]],
+  ['commandconstructor_15',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]],
+  ['csv_5fbutton_16',['csv_button',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aef7b76596229e75e09da261d18df8d9b',1,'cli_gen_tool::MainWindow']]]
 ];
