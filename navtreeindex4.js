@@ -1,7 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"globals_d.html":[5,1,0,4],
-"globals_defs.html":[5,1,6],
 "globals_e.html":[5,1,0,5],
 "globals_enum.html":[5,1,4],
 "globals_eval.html":[5,1,5],
