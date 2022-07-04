@@ -177,11 +177,18 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        
+        # pathing                
+        path = QDir()
+        path.cdUp()
+        self.lib_root_path = path.currentPath()
+        # /InputHandler/src/config/config.h
+        self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
+        # /InputHandler/cli_gen_tool/cli_gen_tool.json
+        self.cli_gen_tool_json_path = self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
                 
-        # MainWindow icon
-        window_icon_dir = QDir()
-        window_icon_dir.cdUp()
-        window_icon_path = window_icon_dir.currentPath() + "/docs/img/Logolarge.png"        
+        # MainWindow icon        
+        window_icon_path = self.lib_root_path + "/docs/img/Logolarge.png"        
         self.setWindowIcon(QIcon(window_icon_path))
         # init param popup dialog    
         self.ui.commandParameters = QDialog(self)
@@ -216,95 +223,41 @@ class MainWindow(QMainWindow):
         # code preview db        
         self.code_preview_dict = {'files':generated_filename_dict}
         
-        # pathing                
-        path = QDir()
-        path.cdUp()
-        self.lib_root_path = path.currentPath()
-        # /InputHandler/src/config/config.h
-        self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
-        # /InputHandler/cli_gen_tool/cli_gen_tool.json
-        self.cli_gen_tool_json_path = self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
-        
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)        
         # print pretty session json
         # session json contains only serializable items, safe to print
-        print(json.dumps(self.session, indent=4, sort_keys=True))        
+        print(json.dumps(self.session, indent=4))        
         
         # parse config file
         self.parse_config_header_file(self.session['opt']['input_config_file_path'])                        
 
-        # icons
-        pixmapapi = QStyle.StandardPixmap.SP_FileDialogContentsView
-        icon = self.style().standardIcon(pixmapapi)        
-        self.ui.fileDialogContentsViewIcon = icon
-        pixmapapi = QStyle.StandardPixmap.SP_MessageBoxCritical
-        icon = self.style().standardIcon(pixmapapi)        
-        self.ui.messageBoxCriticalIcon = icon
-        pixmapapi = QStyle.StandardPixmap.SP_FileIcon
-        icon = self.style().standardIcon(pixmapapi)        
-        self.ui.fileIcon = icon
-        pixmapapi = QStyle.StandardPixmap.SP_CommandLink
-        icon = self.style().standardIcon(pixmapapi)        
-        self.ui.commandLinkIcon = icon
-        pixmapapi = QStyle.StandardPixmap.SP_TrashIcon
-        icon = self.style().standardIcon(pixmapapi)        
-        self.ui.trashIcon = icon                
-        
-        # __init__ aliasing
-        settings_tree = self.ui.settings_tree
-        cmd_dlg = self.ui.commandParameters.dlg
-        # end __init__ aliasing
+        # icons        
+        self.ui.fileDialogContentsViewIcon = self.get_icon(QStyle.StandardPixmap.SP_FileDialogContentsView)        
+        self.ui.messageBoxCriticalIcon = self.get_icon(QStyle.StandardPixmap.SP_MessageBoxCritical)        
+        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)                
+        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)        
+        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)      
         # end MainWindow var
         
-        # MainWindow objects        
-        # file menu actions setup
-        # file menu
-        self.ui.actionOpen.triggered.connect(self.open_file)
-        self.ui.actionSave.triggered.connect(self.save_file)
-        self.ui.actionSave_As.triggered.connect(self.save_file_as)
-        self.ui.actionPreferences.triggered.connect(self.gui_settings)
-        self.ui.actionExit.triggered.connect(self.gui_exit)
-        # generate menu
-        self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
-        # about menu
-        self.ui.actionAbout.triggered.connect(self.gui_about)
-        self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation)
-        # end file menu actions setup
-        # buttons setup
-        # tab 1
-        self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
-        self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
-        self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
-        # tab 2
-        # always visible
-        self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
-        self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
-        self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-        self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)                        
-        # end buttons setup
+        # MainWindow actions        
+        self.mainwindow_menu_bar_actions_setup()
+        self.mainwindow_button_actions_setup()
+        # end MainWindow actions
                                         
         # tab 1
         # settings_tree widget setup        
-        self.build_lib_settings_tree()
-        
-        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
-        # update cliOpt with new value when editing is complete
-        settings_tree.itemChanged.connect(self.settings_tree_edit_complete) 
-        # check if user clicked on the column we want them to edit
-        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
-        # check if user hit enter on an item
-        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
+        self.build_lib_settings_tree()        
         
         # code preview trees       
         self.build_code_preview_tree()      
-        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
-        
+                
         # uncomment to print self.cliOpt as pretty json
         # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
         
         # tab 2        
         # command parameters dialog box setup
+        cmd_dlg = self.ui.commandParameters.dlg
         # This dict contains regexp strings and int limits for user input
         # the values are placeholder values and will change on user interaction
         cmd_dlg.validatorDict = {'functionName':"^([a-zA-Z_])+$",
@@ -320,9 +273,9 @@ class MainWindow(QMainWindow):
         self.set_command_parameter_validators()
         # user interaction triggers
         self.set_command_parameters_triggers()
-        
-        
+                
         cmd_dlg.argumentsPane.setEnabled(False)
+        
         # end MainWindow objects
         # end __init__
     
@@ -541,6 +494,14 @@ class MainWindow(QMainWindow):
                     sub_dict.update({5:QTreeWidgetItem(tree['parents'][key], item_list)})
                     sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)         
                     sub_dict[5].setData(4,0,obj_name)
+    
+        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
+        # update cliOpt with new value when editing is complete
+        settings_tree.itemChanged.connect(self.settings_tree_edit_complete) 
+        # check if user clicked on the column we want them to edit
+        settings_tree.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
+        # check if user hit enter on an item
+        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
     # end build_lib_settings_tree()                        
     
     # build code preview trees
@@ -576,6 +537,8 @@ class MainWindow(QMainWindow):
                         code_string = code_string + line + '\n'
                     self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
                     self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                    
+        
+        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
     # end build_code_preview_tree()
     
     # refreshes the text in the code preview trees
@@ -1183,6 +1146,38 @@ class MainWindow(QMainWindow):
     
         cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(self.argument_handling_changed)                  
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+
+    def get_icon(self, pixmapapi):
+        return self.style().standardIcon(pixmapapi)
+    
+    def mainwindow_menu_bar_actions_setup(self):
+        # file menu actions setup
+        # file menu
+        self.ui.actionOpen.triggered.connect(self.open_file)
+        self.ui.actionSave.triggered.connect(self.save_file)
+        self.ui.actionSave_As.triggered.connect(self.save_file_as)
+        self.ui.actionPreferences.triggered.connect(self.gui_settings)
+        self.ui.actionExit.triggered.connect(self.gui_exit)
+        # generate menu
+        self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
+        # about menu
+        self.ui.actionAbout.triggered.connect(self.gui_about)
+        self.ui.actionInputHandler_Documentation.triggered.connect(self.gui_documentation) 
+        # end file menu actions setup
+        
+    def mainwindow_button_actions_setup(self):
+        # buttons setup
+        # tab 1
+        self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
+        self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
+        self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
+        # tab 2
+        # always visible
+        self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
+        self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
+        self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
+        self.ui.openCloseSettingsMenuButton.clicked.connect(self.clicked_open_command_settings_menu_tab_two)                        
+        # end buttons setup
         
 # loop
 if __name__ == "__main__":
