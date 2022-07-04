@@ -20,7 +20,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="d3/d6c/classcli__gen__tool_1_1_main_window.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="d3/d6c/classcli__gen__tool_1_1_main_window.html" target="_top" xlink:title="This is the main display window.">
 <polygon fill="none" stroke="black" points="116,-0.5 116,-19.5 242,-19.5 242,-0.5 116,-0.5"/>
 <text text-anchor="middle" x="179" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">cli_gen_tool.MainWindow</text>
 </a>
