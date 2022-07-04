@@ -40,6 +40,8 @@ var classcli__gen__tool_1_1_main_window =
     [ "rem_settings_tree_table_row", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a79c6813f8e7eaa91eff93025299ae9e1", null ],
     [ "save_file", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a15a02fce8c0a1fbb71bfd0166ed61b7d", null ],
     [ "save_file_as", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a26f2db9f17cfb01dbfa0be451d11c744", null ],
+    [ "set_command_parameter_validators", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ae85480a0f8bfef98ea3619ddc987a817", null ],
+    [ "set_command_parameters_triggers", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a4009dea01edc8e7a6b23e3c33af4e1e5", null ],
     [ "set_table_vertical_labels", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a711a9a64ce34cc63a4a9591fc5bd6fa6", null ],
     [ "settings_tree_combo_box_index_changed", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44cf2583fd02c5266236894ce5631813", null ],
     [ "settings_tree_edit_complete", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8808427e2b1785124973d4d85b680c98", null ],
