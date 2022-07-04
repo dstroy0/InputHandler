@@ -14,7 +14,7 @@ var searchData=
   ['add32bituint_11',['add32bituint',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#aa7d3e93c2df9219cc198e01e1c0fea22',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['add8bituint_12',['add8bituint',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a0ec14a83753fc23534b967482a4c16f8',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['add_5fdata_5fdelimiter_5frow_13',['add_data_delimiter_row',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a625b43381cdb82f4e819b25a2c82e776',1,'cli_gen_tool::MainWindow']]],
-  ['add_5fsettings_5ftree_5ftable_5frow_14',['add_settings_tree_table_row',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a88ddee1d126a7afae290e64a22b0ab8a',1,'cli_gen_tool::MainWindow']]],
+  ['add_5fsettings_5ftree_5ftable_5frow_14',['add_settings_tree_table_row',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a1d79eeaa1db83b7c6ae3c70c3a9d711e',1,'cli_gen_tool::MainWindow']]],
   ['add_5fstart_5fstop_5fdata_5fdelimiter_5frow_15',['add_start_stop_data_delimiter_row',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ad161655bdfe639db0cd8c8333940b752',1,'cli_gen_tool::MainWindow']]],
   ['addchar_16',['addchar',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#ae88f27549a4137630282bb6d92805d9b',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['addcommand_17',['addCommand',['../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1',1,'UserInput']]],
