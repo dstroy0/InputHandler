@@ -533,9 +533,7 @@ class MainWindow(QMainWindow):
                         new_line_list.append(line+'\n')
                         code_string = code_string + line + '\n'
                     self.code_preview_dict['files']['config.h']['file_lines_list'] = new_line_list                
-                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                    
-        
-        self.ui.tabWidget.currentChanged.connect(self.update_code_preview_tree)
+                    self.code_preview_dict['files']['config.h']['text_widget'][tab].setPlainText(code_string)                                    
     # end build_code_preview_tree()
     
     # refreshes the text in the code preview trees
