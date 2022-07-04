@@ -283,33 +283,50 @@ class MainWindow(QMainWindow):
         vertical_label_list.append('')        
         tree['items'][section]['QTableWidget'].setVerticalHeaderLabels(vertical_label_list)
     
-    def add_settings_tree_table_row(self, section, tree, table_widget, add_row_button):
+    def add_settings_tree_table_row(self, dict_key, dict_key2, tree, table_widget, add_row_button, remove_row_button=False):        
         row = table_widget.rowCount()        
-        table_widget.removeCellWidget(row,0)
-        row = table_widget.rowCount() - 1         
-        tree['items'][section]['QTableWidgetItems'][row] = QTableWidgetItem()
-        table_widget_item = tree['items'][section]['QTableWidgetItems'][row]
+        table_widget.removeCellWidget(row-1,0)
+        table_widget_item = table_widget.item(row-1,0)
         table_widget_item.setText('')
         table_widget.insertRow(row)
-        row = table_widget.rowCount() - 1
-        tree['items'][section]['QTableWidgetItems'].update({row:''})
-        tree['items'][section]['QTableWidgetItems'][row] = QTableWidgetItem()
-        table_widget_item = tree['items'][section]['QTableWidgetItems'][row]
+        
+        tree['items'][dict_key2]['QTableWidgetItems'].update({row:''})
+        tree['items'][dict_key2]['QTableWidgetItems'][row] = QTableWidgetItem()
+        table_widget_item = tree['items'][dict_key2]['QTableWidgetItems'][row]                       
         table_widget.setItem(row,0,table_widget_item)
         table_widget.setCellWidget(row,0,add_row_button)
-        self.set_table_vertical_labels(tree,section,row)        
-    
-    def rem_settings_tree_table_row(self,section,tree,table_widget,add_row_button):
-        row = table_widget.rowCount()
+        self.set_table_vertical_labels(tree,dict_key2,row)
         
+        if remove_row_button == 1234:
+            remove_row_buttons = tree['items'][dict_key2]['QTableWidgetItems']['remove row buttons']            
+            remove_row_buttons['items'].update({row:''})
+            remove_row_buttons['items'][row] = QTableWidgetItem()
+            remove_row_buttons['buttons'].update({row:''})
+            remove_row_buttons['buttons'][row] = QPushButton()
+            remove_row_buttons['buttons'][row].setIcon(self.ui.trashIcon)
+            obj_name = 'remove row button,'+str(dict_key)+','+str(dict_key2)+','+str(row)            
+            remove_row_buttons['buttons'][row].setObjectName(obj_name)
+            remove_row_buttons['buttons'][row].clicked.connect(self.rem_settings_tree_table_row)            
+            tree['items'][dict_key2]['QTableWidget'].setItem(row,1,remove_row_buttons['items'][row])
+            tree['items'][dict_key2]['QTableWidget'].setCellWidget(row,1,remove_row_buttons['buttons'][row])                                
+            print('end remove row button')
+    
+    def rem_settings_tree_table_row(self):        
+        object_list = self.sender().objectName().split(',')
+        print(object_list)
+        tree = self.cliOpt[object_list[1]]['tree']
+        table_widget = tree['items'][object_list[2]]['QTableWidget']
+        table_widget.removeRow(int(object_list[3]))
     
     def add_data_delimiter_row(self):
         print('add data delimiter row')
-        section = 'data delimiter sequences'
-        tree = (self.cliOpt['process parameters']['tree'])
-        table_widget = tree['items']['data delimiter sequences']['QTableWidget']
-        add_row_button = tree['items']['data delimiter sequences']['QTableWidgetItems']['add row button']
-        self.add_settings_tree_table_row(section,tree,table_widget,add_row_button)
+        dict_key = 'process parameters'
+        dict_key2 = 'data delimiter sequences'
+        tree = (self.cliOpt[dict_key]['tree'])
+        table_widget = tree['items'][dict_key2]['QTableWidget']
+        add_row_button = tree['items'][dict_key2]['QTableWidgetItems']['add row button']
+        remove_row_button = True
+        self.add_settings_tree_table_row(dict_key,dict_key2,tree,table_widget,add_row_button,remove_row_button)
         
     def add_start_stop_data_delimiter_row(self):
         print('add start stop data delimiter row')
@@ -317,15 +334,7 @@ class MainWindow(QMainWindow):
         tree = (self.cliOpt['process parameters']['tree'])
         table_widget = tree['items']['start stop data delimiter sequences']['QTableWidget']
         add_row_button = tree['items']['start stop data delimiter sequences']['QTableWidgetItems']['add row button']
-        self.add_settings_tree_table_row(section,tree,table_widget,add_row_button)
-        
-    def rem_data_delimiter_row(self):
-        print('rem data delimiter row')
-        section = 'data delimiter sequences'
-        tree = (self.cliOpt['process parameters']['tree'])
-        table_widget = tree['items']['data delimiter sequences']['QTableWidget']
-        add_row_button = tree['items']['data delimiter sequences']['QTableWidgetItems']['add row button']
-        self.rem_settings_tree_table_row(section,tree,table_widget,add_row_button)
+        self.add_settings_tree_table_row(section,tree,table_widget,add_row_button)        
     
     def build_tree_table_widget(self, index, tree, dict_key, dict_key2, columns, add_row_function, remove_row_button=False):                
         tree['parents'][dict_key2] = QTreeWidgetItem(tree['root'], [dict_key2,''])
@@ -346,23 +355,32 @@ class MainWindow(QMainWindow):
             table_header.setSectionResizeMode(columns-1, QHeaderView.ResizeToContents)
         else:
             table_header.setSectionResizeMode(columns-1, QHeaderView.Stretch)        
-        row = 0
+        
         for key in self.cliOpt[dict_key]['var'][dict_key2]:
             row = tree['items'][dict_key2]['QTableWidget'].rowCount()
-            tree['items'][dict_key2]['QTableWidget'].insertRow(row)                                                       
-            tree['items'][dict_key2]['QTableWidgetItems'].update({row:''})
-            tree['items'][dict_key2]['QTableWidgetItems'][row] = QTableWidgetItem()
+            tree['items'][dict_key2]['QTableWidget'].insertRow(row)              
+            table_widget_items = tree['items'][dict_key2]['QTableWidgetItems']
+            table_widget_items.update({row:''})                                                                 
+            table_widget_items[row] = QTableWidgetItem()
+            
             tree['items'][dict_key2]['QTableWidget'].setItem(row,0,tree['items'][dict_key2]['QTableWidgetItems'][row])                                
             tree['items'][dict_key2]['QTableWidgetItems'][row].setText(self.cliOpt[dict_key]['var'][dict_key2][key])
             if remove_row_button == True:
                 remove_row_buttons = tree['items'][dict_key2]['QTableWidgetItems']['remove row buttons']
-                remove_row_buttons.update({'buttons':{key:QPushButton()}})
-                remove_row_buttons['buttons'][key].setIcon(self.ui.trashIcon)
-                remove_row_buttons.update({'items':{key:QTableWidgetItem()}})
-                tree['items'][dict_key2]['QTableWidget'].setItem(row,1,remove_row_buttons['items'][key])
-                tree['items'][dict_key2]['QTableWidget'].setCellWidget(row,1,remove_row_buttons['buttons'][key])        
+                remove_row_buttons['items'].update({row:''})
+                remove_row_buttons['items'][row] = QTableWidgetItem()
+                remove_row_buttons['buttons'].update({row:''})
+                remove_row_buttons['buttons'][row] = QPushButton()
+                remove_row_buttons['buttons'][row].setIcon(self.ui.trashIcon)
+                obj_name = 'remove row button,'+str(dict_key)+','+str(dict_key2)+','+str(row)                           
+                remove_row_buttons['buttons'][row].setObjectName(obj_name)
+                remove_row_buttons['buttons'][row].clicked.connect(self.rem_settings_tree_table_row)
+                tree['items'][dict_key2]['QTableWidget'].setItem(row,1,remove_row_buttons['items'][row])
+                tree['items'][dict_key2]['QTableWidget'].setCellWidget(row,1,remove_row_buttons['buttons'][row])        
+        
         row = tree['items'][dict_key2]['QTableWidget'].rowCount()
         tree['items'][dict_key2]['QTableWidget'].insertRow(row)                                                       
+        
         vertical_label_list = []                
         for i in range(1,row +1):
             vertical_label_list.append(str(i))            
@@ -376,8 +394,8 @@ class MainWindow(QMainWindow):
         tree['items'][dict_key2]['QTableWidget'].setVerticalHeaderLabels(vertical_label_list)        
         self.ui.settings_tree.setItemWidget(tree['items'][dict_key2]['QTreeWidgetItem'],0,tree['items'][dict_key2]['QTableWidget'])
         tree['items'][dict_key2]['QTableWidgetItems']['add row button'].clicked.connect(add_row_function)                        
-        tree['items'][dict_key2]['QTableWidget'].itemPressed.connect(self.edit_table_widget_item)
-    
+        tree['items'][dict_key2]['QTableWidget'].itemPressed.connect(self.edit_table_widget_item)                
+        
     def edit_table_widget_item(self, item):                                                
         print(item)
         current_item = item.currentItem()
