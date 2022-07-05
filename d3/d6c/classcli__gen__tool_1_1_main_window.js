@@ -20,6 +20,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "clicked_edit_tab_two", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a78db6249cab0d8cb742eaf9aac1f0b00", null ],
     [ "clicked_new_tab_two", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a65ee16db32acfdb891ff63301d606cbf", null ],
     [ "clicked_open_command_settings_menu_tab_two", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a80b608ee74ae66cd72279e9236bf6765", null ],
+    [ "closeEvent", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1", null ],
     [ "command_string_text_changed", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ad015fbaaa435de80e7d6a59637db2e07", null ],
     [ "csv_button", "d3/d6c/classcli__gen__tool_1_1_main_window.html#aef7b76596229e75e09da261d18df8d9b", null ],
     [ "dict_from_csv_args", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a69896cbc697f9fe07323331b71d11107", null ],
