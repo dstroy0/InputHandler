@@ -49,6 +49,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "settings_tree_combo_box_index_changed", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44cf2583fd02c5266236894ce5631813", null ],
     [ "settings_tree_edit_complete", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8808427e2b1785124973d4d85b680c98", null ],
     [ "settings_tree_item_activated", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a643a7254ef8dd531d43e6fed5e59c6be", null ],
+    [ "table_widget_item_changed", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ac5fb2acb24aef240744c54a1989f05c1", null ],
     [ "update_code_preview_tree", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7cc5c98b38cb166cf4401e9e0aeef9e7", null ],
     [ "update_file_docstring", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7bd422fbd88777c1c44a7f90a0b2bd59", null ],
     [ "update_settings_tree_type_field_text", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a6e04a25ef38653c73b36443a9b21ea98", null ],
