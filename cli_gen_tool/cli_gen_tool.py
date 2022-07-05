@@ -141,7 +141,7 @@ command_line_interface_options_structure = {
             },
         },
     },
-    "process output": {"var": {"buffer_size": 0}, "tree": {"root": "", "items": {}}},
+    "process output": {"var": {"buffer size": 0}, "tree": {"root": "", "items": {}}},
     "process parameters": {
         "var": {
             "process name": "",
@@ -511,7 +511,7 @@ class MainWindow(QMainWindow):
             table_widget_items["input cells"].update({row: ""})
             table_widget_items["input cells"][row] = QTableWidgetItem()
             table_widget_items["input cells"][row].setText(
-                self.cliOpt[dict_key]["var"][dict_key2][key]
+                repr(self.cliOpt[dict_key]["var"][dict_key2][key])
             )
             table_widget.setItem(row, 0, table_widget_items["input cells"][row])
 
@@ -577,13 +577,25 @@ class MainWindow(QMainWindow):
         if row == table_widget.rowCount() - 1:
             # the user added a row to the table
             return
-        data = str(item.data(0))
+        data = str(item.data(0))        
         object_list = table_widget.objectName().split(",")
         if data != "" and data != None:
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
 
     def build_lib_settings_tree(self):
+        def set_up_child(dict_key, tree, index_of_child, var_name, var_type, var_initial_val):
+            column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
+            tree["items"].update(
+                    {var_name: QTreeWidgetItem(tree["root"], column_label_list)}
+                    )        
+            dict_pos = dict_key+","+str(index_of_child)+","+var_name
+            tree["items"][var_name].setData(4, 0, dict_pos)
+            tree["items"][var_name].setFlags(
+            tree["items"][var_name].flags() | Qt.ItemIsEditable
+            )
+            index_of_child += 1
+            return index_of_child
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
         settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
@@ -595,45 +607,62 @@ class MainWindow(QMainWindow):
         settings_tree.setColumnHidden(4, 1)
 
         # process output
-        tree = self.cliOpt["process output"]["tree"]
-        output_buffer_size = self.cliOpt["process output"]["var"]["buffer_size"]
-        tree["root"] = QTreeWidgetItem(settings_tree, ["process output", ""])
-        tree["root"].setIcon(0, self.ui.commandLinkIcon)
-        tree["items"] = QTreeWidgetItem(
-            tree["root"], ["", "buffer size", "bytes", str(output_buffer_size)]
-        )
-        dict_pos = "process output,0,buffer size"
-        tree["items"].setData(4, 0, dict_pos)
-        tree["items"].setFlags(tree["items"].flags() | Qt.ItemIsEditable)
+        index_of_child = 0
+        dict_key = "process output"
+        tree = self.cliOpt[dict_key]["tree"]        
+        tree["root"] = QTreeWidgetItem(settings_tree, [dict_key, ""])
+        tree["root"].setIcon(0, self.ui.commandLinkIcon)        
+        # process output buffer size option
+        var_name = "buffer size"
+        var_type = "bytes"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(dict_key,tree,index_of_child,var_name,var_type,var_initial_val)        
 
         # process parameters
+        index_of_child = 0
         dict_key = "process parameters"
         tree = self.cliOpt[dict_key]["tree"]
         tree["root"] = QTreeWidgetItem(self.ui.settings_tree, [dict_key, ""])
         tree["root"].setIcon(0, self.ui.commandLinkIcon)
 
-        # process name option
-        column_label_list = ["", "process name", "plain text", ""]
-        tree["items"].update(
-            {"process name": QTreeWidgetItem(tree["root"], column_label_list)}
-        )
-        dict_pos = "process parameters,0,process name"
-        tree["items"]["process name"].setData(4, 0, dict_pos)
-        tree["items"]["process name"].setFlags(
-            tree["items"]["process name"].flags() | Qt.ItemIsEditable
-        )
-
+        # process parameters process name option        
+        var_name = "process name"
+        var_type = "plain text"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(dict_key,tree,index_of_child,var_name,var_type,var_initial_val)        
+                
+        # process parameters end of line characters option
+        var_name = "end of line characters"
+        var_type = "plain text; control char"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(dict_key,tree,index_of_child,var_name,var_type,var_initial_val)        
+        
+        # process parameters input control char sequence option
+        var_name = "input control char sequence"
+        var_type = "plain text; control char"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(dict_key,tree,index_of_child,var_name,var_type,var_initial_val)        
+        
+        # process parameters wildcard char option
+        var_name = "wildcard char"
+        var_type = "plain text; control char"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(dict_key,tree,index_of_child,var_name,var_type,var_initial_val)        
+        
+        # process parameters data delimiter sequences option        
         columns = 1
         remove_row_button = True
         dict_key2 = "data delimiter sequences"
-        add_row_function = self.add_data_delimiter_row
+        add_row_function = self.add_data_delimiter_row        
         self.build_tree_table_widget(
-            1, tree, dict_key, dict_key2, columns, add_row_function, remove_row_button
+            index_of_child, tree, dict_key, dict_key2, columns, add_row_function, remove_row_button
         )
+        index_of_child+=1
+        # process parameters start stop delimiter sequences option        
         dict_key2 = "start stop data delimiter sequences"
-        add_row_function = self.add_start_stop_data_delimiter_row
+        add_row_function = self.add_start_stop_data_delimiter_row        
         self.build_tree_table_widget(
-            2, tree, dict_key, dict_key2, columns, add_row_function, remove_row_button
+            index_of_child, tree, dict_key, dict_key2, columns, add_row_function, remove_row_button
         )
 
         # config.h
