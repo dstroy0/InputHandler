@@ -60,5 +60,6 @@ var searchData=
   ['config_2eh_57',['config.h',['../db/d16/config_8h.html',1,'']]],
   ['config_5ffile_5fboolean_5fdefine_5ffields_5fline_5fstart_58',['config_file_boolean_define_fields_line_start',['../dd/d04/namespacecli__gen__tool.html#ac62feff508636f666e5e1d522f0bf609',1,'cli_gen_tool']]],
   ['config_5fhowto_2eino_59',['config_howto.ino',['../d1/d98/config__howto_8ino.html',1,'']]],
-  ['csv_5fbutton_60',['csv_button',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aef7b76596229e75e09da261d18df8d9b',1,'cli_gen_tool::MainWindow']]]
+  ['create_5fpopup_5fdialog_5fbox_60',['create_popup_dialog_box',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a0d81087bd2cf49e3167cbe8670d989c9',1,'cli_gen_tool::MainWindow']]],
+  ['csv_5fbutton_61',['csv_button',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aef7b76596229e75e09da261d18df8d9b',1,'cli_gen_tool::MainWindow']]]
 ];
