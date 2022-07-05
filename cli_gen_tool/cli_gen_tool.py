@@ -577,11 +577,14 @@ class MainWindow(QMainWindow):
         if row == table_widget.rowCount() - 1:
             # the user added a row to the table
             return
-        data = str(item.data(0))        
+        data = str(item.data(0))
+        if "'" in data:
+            return # already repr        
         object_list = table_widget.objectName().split(",")
         if data != "" and data != None:
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
+            item.setText(str(repr(data)))
 
     def build_lib_settings_tree(self):
         def set_up_child(dict_key, tree, index_of_child, var_name, var_type, var_initial_val):
@@ -1362,6 +1365,9 @@ class MainWindow(QMainWindow):
     def settings_tree_edit_complete(self, item, col):
         if col != 3:
             return
+        val = str(item.data(3, 0))
+        if "'" in val:
+            return # already repr
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
         if len(object_list) < 2:
@@ -1370,15 +1376,16 @@ class MainWindow(QMainWindow):
         # process output
         if object_list[0] == "process output":
             print("edited buffer size")
+            item.setText(3,str(repr(val)))
             return
         if object_list[0] == "process parameters":
             print("edited a process parameter")
+            item.setText(3,str(repr(val)))
             return
         # config.h
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
             object_list[1]
-        ]["fields"]
-        val = str(item.data(3, 0))
+        ]["fields"]                
         tmp = ""
         if val == "enabled":
             tmp = True
@@ -1387,12 +1394,14 @@ class MainWindow(QMainWindow):
         else:
             if val == "":
                 tmp = 0
+                item.setText(3,str(repr(tmp)))
             else:
                 tmp = int(val)
+                item.setText(3,str(repr(tmp)))
         if tmp == sub_dict[4]:
             return
         # update the config dict
-        sub_dict[4] = tmp
+        sub_dict[4] = tmp        
         self.update_settings_tree_type_field_text(item)
         self.update_code_preview_tree(item)
         print(
