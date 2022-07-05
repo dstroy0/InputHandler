@@ -446,7 +446,9 @@ class MainWindow(QMainWindow):
         dict_key2 = "data delimiter sequences"
         add_row_function = self.add_data_delimiter_row
         remove_row_button = True
-        self.add_settings_tree_table_row(dict_key, dict_key2, add_row_function, remove_row_button)
+        self.add_settings_tree_table_row(
+            dict_key, dict_key2, add_row_function, remove_row_button
+        )
 
     def add_start_stop_data_delimiter_row(self):
         print("add start stop data delimiter row")
@@ -454,7 +456,9 @@ class MainWindow(QMainWindow):
         dict_key2 = "start stop data delimiter sequences"
         add_row_function = self.add_start_stop_data_delimiter_row
         remove_row_button = True
-        self.add_settings_tree_table_row(dict_key, dict_key2, add_row_function, remove_row_button)
+        self.add_settings_tree_table_row(
+            dict_key, dict_key2, add_row_function, remove_row_button
+        )
 
     def build_tree_table_widget(
         self,
@@ -556,28 +560,28 @@ class MainWindow(QMainWindow):
 
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
-    def edit_table_widget_item(self, item):        
+    def edit_table_widget_item(self, item):
         # this can get triggered from the QTreeWidget, or a QTreeWidgetItem and we need to know what it is
-        if str(item).find('QTableWidgetItem') != -1:                    
+        if str(item).find("QTableWidgetItem") != -1:
             current_item = item
             item = item.tableWidget()
         else:
-            current_item = item.currentItem()        
-        print(item,current_item)              
+            current_item = item.currentItem()
+        print(item, current_item)
         item.editItem(current_item)
-                                                
+
     def table_widget_item_changed(self, item):
         table_widget = item.tableWidget()
-        row = table_widget.row(item)                
+        row = table_widget.row(item)
         if row == table_widget.rowCount() - 1:
             # the user added a row to the table
             return
-        data = str(item.data(0))        
-        object_list = table_widget.objectName().split(',')                
-        if data != '' and data != None:
-            delim_dict = self.cliOpt[object_list[0]]['var'][object_list[2]]
-            delim_dict.update({row:data})            
-                
+        data = str(item.data(0))
+        object_list = table_widget.objectName().split(",")
+        if data != "" and data != None:
+            delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
+            delim_dict.update({row: data})
+
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
