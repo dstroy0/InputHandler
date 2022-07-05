@@ -245,7 +245,7 @@ class MainWindow(QMainWindow):
     ## The constructor.
     def __init__(self, parent=None):
         super().__init__(parent)
-        print('loading CLI generation tool')
+        print("loading CLI generation tool")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
         cmd_dlg.argumentsPane.setEnabled(False)
 
         # end MainWindow objects
-        print('CLI generation tool ready.')
+        print("CLI generation tool ready.")
         # end __init__
 
     # TODO save session on close, prompt user to save work if there is any
@@ -372,55 +372,66 @@ class MainWindow(QMainWindow):
         )
 
     def add_settings_tree_table_row(
-        self,
-        dict_key,
-        dict_key2,
-        tree,
-        table_widget,
-        add_row_button,
-        remove_row_button=False,
+        self, dict_key, dict_key2, add_row_function, remove_row_button=False
     ):
-        row = table_widget.rowCount()
-        table_widget.removeCellWidget(row - 1, 0)
-        table_widget_item = table_widget.item(row - 1, 0)
-        table_widget_item.setText("")
-        table_widget.insertRow(row)
+        tree = self.cliOpt[dict_key]["tree"]
+        table_widget = tree["items"][dict_key2]["QTableWidget"]
+        add_row_button = tree["items"][dict_key2]["QTableWidgetItems"]["add row"][
+            "button"
+        ]
+        add_row_button_item = tree["items"][dict_key2]["QTableWidgetItems"]["add row"][
+            "item"
+        ]
+        input_cells = tree["items"]["data delimiter sequences"]["QTableWidgetItems"][
+            "input cells"
+        ]
+        remove_row_buttons = tree["items"][dict_key2]["QTableWidgetItems"][
+            "remove row buttons"
+        ]
+        add_row_button = QPushButton("add delimiter sequence")
+        add_row_button.clicked.connect(add_row_function)
+        # get current row count
+        new_row = table_widget.rowCount()
+        last_row = new_row - 1
+        # remove add row button from last row
+        table_widget.removeCellWidget(last_row, 0)
+        # take the table widget item that held the add row button out of the table but dont delete it
+        table_widget.takeItem(last_row, 0)
+        input_cells.update({last_row: ""})
+        input_cells[last_row] = QTableWidgetItem()
 
-        tree["items"][dict_key2]["QTableWidgetItems"].update({row: ""})
-        tree["items"][dict_key2]["QTableWidgetItems"][row] = QTableWidgetItem()
-        table_widget_item = tree["items"][dict_key2]["QTableWidgetItems"][row]
-        table_widget.setItem(row, 0, table_widget_item)
-        table_widget.setCellWidget(row, 0, add_row_button)
-        self.set_table_vertical_labels(tree, dict_key2, row)
+        table_widget.insertRow(new_row)
+        input_cells[last_row].setText("")
+        table_widget.setItem(last_row, 0, input_cells[last_row])
+        print(add_row_button_item)
+        table_widget.setItem(new_row, 0, add_row_button_item)
+        table_widget.setCellWidget(new_row, 0, add_row_button)
+        self.set_table_vertical_labels(tree, dict_key2, new_row)
 
-        if remove_row_button == 1234:
-            remove_row_buttons = tree["items"][dict_key2]["QTableWidgetItems"][
-                "remove row buttons"
-            ]
-            remove_row_buttons["items"].update({row: ""})
-            remove_row_buttons["items"][row] = QTableWidgetItem()
-            remove_row_buttons["buttons"].update({row: ""})
-            remove_row_buttons["buttons"][row] = QPushButton()
-            remove_row_buttons["buttons"][row].setIcon(self.ui.trashIcon)
+        if remove_row_button == True:
+            remove_row_buttons["items"].update({last_row: ""})
+            remove_row_buttons["items"][last_row] = QTableWidgetItem()
+            remove_row_buttons["buttons"].update({last_row: ""})
+            remove_row_buttons["buttons"][last_row] = QPushButton()
+            remove_row_buttons["buttons"][last_row].setIcon(self.ui.trashIcon)
             obj_name = (
                 "remove row button,"
                 + str(dict_key)
                 + ","
                 + str(dict_key2)
                 + ","
-                + str(row)
+                + str(last_row)
             )
-            remove_row_buttons["buttons"][row].setObjectName(obj_name)
-            remove_row_buttons["buttons"][row].clicked.connect(
+            remove_row_buttons["buttons"][last_row].setObjectName(obj_name)
+            remove_row_buttons["buttons"][last_row].clicked.connect(
                 self.rem_settings_tree_table_row
             )
             tree["items"][dict_key2]["QTableWidget"].setItem(
-                row, 1, remove_row_buttons["items"][row]
+                last_row, 1, remove_row_buttons["items"][last_row]
             )
             tree["items"][dict_key2]["QTableWidget"].setCellWidget(
-                row, 1, remove_row_buttons["buttons"][row]
+                last_row, 1, remove_row_buttons["buttons"][last_row]
             )
-            print("end remove row button")
 
     def rem_settings_tree_table_row(self):
         object_list = self.sender().objectName().split(",")
@@ -433,25 +444,17 @@ class MainWindow(QMainWindow):
         print("add data delimiter row")
         dict_key = "process parameters"
         dict_key2 = "data delimiter sequences"
-        tree = self.cliOpt[dict_key]["tree"]
-        table_widget = tree["items"][dict_key2]["QTableWidget"]
-        add_row_button = tree["items"][dict_key2]["QTableWidgetItems"]["add row button"]
+        add_row_function = self.add_data_delimiter_row
         remove_row_button = True
-        self.add_settings_tree_table_row(
-            dict_key, dict_key2, tree, table_widget, add_row_button, remove_row_button
-        )
+        self.add_settings_tree_table_row(dict_key, dict_key2, add_row_function, remove_row_button)
 
     def add_start_stop_data_delimiter_row(self):
         print("add start stop data delimiter row")
-        section = "start stop data delimiter sequences"
-        tree = self.cliOpt["process parameters"]["tree"]
-        table_widget = tree["items"]["start stop data delimiter sequences"][
-            "QTableWidget"
-        ]
-        add_row_button = tree["items"]["start stop data delimiter sequences"][
-            "QTableWidgetItems"
-        ]["add row button"]
-        self.add_settings_tree_table_row(section, tree, table_widget, add_row_button)
+        dict_key = "process parameters"
+        dict_key2 = "start stop data delimiter sequences"
+        add_row_function = self.add_start_stop_data_delimiter_row
+        remove_row_button = True
+        self.add_settings_tree_table_row(dict_key, dict_key2, add_row_function, remove_row_button)
 
     def build_tree_table_widget(
         self,
@@ -551,9 +554,15 @@ class MainWindow(QMainWindow):
 
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
-    def edit_table_widget_item(self, item):
+    def edit_table_widget_item(self, item):        
+        if str(item).find('QTableWidgetItem') != -1:        
+            print('table widget item')
+            current_item = item
+            item = item.tableWidget()
+        else:
+            current_item = item.currentItem()
+        print('edit table widget item')
         print(item)
-        current_item = item.currentItem()
         print(current_item)
         item.editItem(current_item)
 
