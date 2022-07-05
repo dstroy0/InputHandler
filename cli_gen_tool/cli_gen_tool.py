@@ -555,8 +555,8 @@ class MainWindow(QMainWindow):
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
     def edit_table_widget_item(self, item):        
-        if str(item).find('QTableWidgetItem') != -1:        
-            print('table widget item')
+        # this can get triggered from the QTreeWidget, or a QTreeWidgetItem and we need to know what it is
+        if str(item).find('QTableWidgetItem') != -1:                    
             current_item = item
             item = item.tableWidget()
         else:
