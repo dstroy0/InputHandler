@@ -39,6 +39,7 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QTableWidgetItem,
     QPushButton,
+    QHBoxLayout,
 )
 from PySide6.QtCore import (
     QFile,
@@ -354,7 +355,7 @@ class MainWindow(QMainWindow):
         cmd_dlg.argumentsPane.setEnabled(False)
 
         # end MainWindow objects
-        print("CLI generation tool ready.")
+        print("CLI generation tool ready.")        
         # end __init__
 
     # TODO save session on close, prompt user to save work if there is any
@@ -887,10 +888,28 @@ class MainWindow(QMainWindow):
             return  # dialog cancelled
         file = QFile(fileName[0])
         if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            return  # TODO error
+            self.create_popup_dialog_box("File read error.", "Error", self.ui.messageBoxCriticalIcon)
+            return # file read error
         data_in = QTextStream(file).readAll()
         file.close()
-        self.cliOpt = json.loads(data_in)  # TODO try/except
+        data_in_dict = {}
+        err = False
+        try:
+            data_in_dict = json.loads(data_in)
+        except:
+            print("json encoding error")
+            err = True
+        try:
+            if data_in_dict["type"] != "cli options":
+                print("json type error")
+        except:
+            print("json key error")
+            err = True
+        if err == True:
+            return # error flag set
+        else:
+            self.cliOpt = json.loads(data_in)
+            print("CLI options json loaded.")
 
     def save_file(self):
         print("save file")
@@ -899,13 +918,29 @@ class MainWindow(QMainWindow):
             return
         file = QFile(self.saveFileName)
         if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            return  # TODO error
+            self.create_popup_dialog_box("Save file error.", "Error", self.ui.messageBoxCriticalIcon)
+            return # error
+            
         out = QByteArray(
             json.dumps(self.cliOpt, indent=4, sort_keys=True)
         )  # dump pretty json
         file.write(out)
         file.close()
-
+        
+    def create_popup_dialog_box(self, message, window_title=None, icon=None):
+        print(message)
+        # create popup
+        dlg = QDialog(self)
+        dlg.layout = QHBoxLayout()
+        label = QLabel(message)
+        dlg.layout.addWidget(label)
+        dlg.setLayout(dlg.layout)
+        if icon != None:
+            dlg.setWindowIcon(icon)
+        if window_title != None:
+            dlg.setWindowTitle(window_title)
+        dlg.exec()
+        
     def save_file_as(self):
         print("save file as")
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
