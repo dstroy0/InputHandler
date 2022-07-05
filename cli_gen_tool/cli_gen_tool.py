@@ -355,7 +355,7 @@ class MainWindow(QMainWindow):
         cmd_dlg.argumentsPane.setEnabled(False)
 
         # end MainWindow objects
-        print("CLI generation tool ready.")        
+        print("CLI generation tool ready.")
         # end __init__
 
     # TODO save session on close, prompt user to save work if there is any
@@ -888,8 +888,10 @@ class MainWindow(QMainWindow):
             return  # dialog cancelled
         file = QFile(fileName[0])
         if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            self.create_popup_dialog_box("File read error.", "Error", self.ui.messageBoxCriticalIcon)
-            return # file read error
+            self.create_popup_dialog_box(
+                "File read error.", "Error", self.ui.messageBoxCriticalIcon
+            )
+            return  # file read error
         data_in = QTextStream(file).readAll()
         file.close()
         data_in_dict = {}
@@ -906,7 +908,7 @@ class MainWindow(QMainWindow):
             print("json key error")
             err = True
         if err == True:
-            return # error flag set
+            return  # error flag set
         else:
             self.cliOpt = json.loads(data_in)
             print("CLI options json loaded.")
@@ -918,15 +920,17 @@ class MainWindow(QMainWindow):
             return
         file = QFile(self.saveFileName)
         if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            self.create_popup_dialog_box("Save file error.", "Error", self.ui.messageBoxCriticalIcon)
-            return # error
-            
+            self.create_popup_dialog_box(
+                "Save file error.", "Error", self.ui.messageBoxCriticalIcon
+            )
+            return  # error
+
         out = QByteArray(
             json.dumps(self.cliOpt, indent=4, sort_keys=True)
         )  # dump pretty json
         file.write(out)
         file.close()
-        
+
     def create_popup_dialog_box(self, message, window_title=None, icon=None):
         print(message)
         # create popup
@@ -940,7 +944,7 @@ class MainWindow(QMainWindow):
         if window_title != None:
             dlg.setWindowTitle(window_title)
         dlg.exec()
-        
+
     def save_file_as(self):
         print("save file as")
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
