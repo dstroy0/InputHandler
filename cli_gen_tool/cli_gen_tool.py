@@ -247,7 +247,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        
         # pathing
         path = QDir()
         path.cdUp()
@@ -354,7 +354,13 @@ class MainWindow(QMainWindow):
 
         # end MainWindow objects
         # end __init__
-
+    
+    # TODO save session on close, prompt user to save work if there is any
+    def closeEvent(self, event):
+        
+        print('exiting')
+        event.accept()
+        
     def set_table_vertical_labels(self, tree, section, rows):
         vertical_label_list = []
         for i in range(1, rows + 1):
@@ -1435,17 +1441,25 @@ class MainWindow(QMainWindow):
     def set_command_parameter_validators(self):
         cmd_dlg = self.ui.commandParameters.dlg
         # allowed function name char
-        cmd_dlg.functionName.setValidator(self.regex_validator("^([a-zA-Z_])+$"))
+        cmd_dlg.functionName.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["functionName"])
+        )
         # allowed command string char
-        cmd_dlg.commandString.setValidator(self.regex_validator("^([a-zA-Z_*])+$"))
-        cmd_dlg.commandParentId.setValidator(self.regex_validator("^([0-9])+$"))
-        cmd_dlg.commandId.setValidator(self.regex_validator("^([0-9])+$"))
-
-        cmd_dlg.commandDepth.setMaximum(255)
-        cmd_dlg.commandSubcommands.setMaximum(255)
-
-        cmd_dlg.commandMinArgs.setMaximum(255)
-        cmd_dlg.commandMaxArgs.setMaximum(255)
+        cmd_dlg.commandString.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["commandString"])
+        )
+        cmd_dlg.commandParentId.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["commandParentId"])
+        )
+        cmd_dlg.commandId.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["commandId"])
+        )
+        cmd_dlg.commandDepth.setMaximum(cmd_dlg.validatorDict["commandDepth"])
+        cmd_dlg.commandSubcommands.setMaximum(
+            cmd_dlg.validatorDict["commandSubcommands"]
+        )
+        cmd_dlg.commandMinArgs.setMaximum(cmd_dlg.validatorDict["commandMinArgs"])
+        cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
 
     def set_command_parameters_triggers(self):
         cmd_dlg = self.ui.commandParameters.dlg
@@ -1464,8 +1478,7 @@ class MainWindow(QMainWindow):
         cmd_dlg.rem4.clicked.connect(self.csv_button)
         cmd_dlg.rem5.clicked.connect(self.csv_button)
         cmd_dlg.rem6.clicked.connect(self.csv_button)
-        cmd_dlg.rem7.clicked.connect(self.csv_button)
-
+        cmd_dlg.rem7.clicked.connect(self.csv_button)        
         cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.clicked_command_parameters_buttonbox_reset
         )
@@ -1473,7 +1486,6 @@ class MainWindow(QMainWindow):
         cmd_dlg.buttonBox.rejected.connect(
             self.clicked_command_parameters_buttonbox_cancel
         )
-
         cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(
             self.argument_handling_changed
         )
@@ -1514,7 +1526,6 @@ class MainWindow(QMainWindow):
             self.clicked_open_command_settings_menu_tab_two
         )
         # end buttons setup
-
 
 # loop
 if __name__ == "__main__":
