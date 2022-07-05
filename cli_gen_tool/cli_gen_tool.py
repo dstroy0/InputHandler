@@ -245,9 +245,10 @@ class MainWindow(QMainWindow):
     ## The constructor.
     def __init__(self, parent=None):
         super().__init__(parent)
+        print('loading CLI generation tool')
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
+
         # pathing
         path = QDir()
         path.cdUp()
@@ -353,14 +354,14 @@ class MainWindow(QMainWindow):
         cmd_dlg.argumentsPane.setEnabled(False)
 
         # end MainWindow objects
+        print('CLI generation tool ready.')
         # end __init__
-    
+
     # TODO save session on close, prompt user to save work if there is any
     def closeEvent(self, event):
-        
-        print('exiting')
+        print("Exiting CLI generation tool")
         event.accept()
-        
+
     def set_table_vertical_labels(self, tree, section, rows):
         vertical_label_list = []
         for i in range(1, rows + 1):
@@ -1478,7 +1479,7 @@ class MainWindow(QMainWindow):
         cmd_dlg.rem4.clicked.connect(self.csv_button)
         cmd_dlg.rem5.clicked.connect(self.csv_button)
         cmd_dlg.rem6.clicked.connect(self.csv_button)
-        cmd_dlg.rem7.clicked.connect(self.csv_button)        
+        cmd_dlg.rem7.clicked.connect(self.csv_button)
         cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.clicked_command_parameters_buttonbox_reset
         )
@@ -1526,6 +1527,7 @@ class MainWindow(QMainWindow):
             self.clicked_open_command_settings_menu_tab_two
         )
         # end buttons setup
+
 
 # loop
 if __name__ == "__main__":
