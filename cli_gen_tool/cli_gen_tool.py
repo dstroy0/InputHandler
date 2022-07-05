@@ -485,6 +485,7 @@ class MainWindow(QMainWindow):
         tree["items"][dict_key2]["QTableWidget"] = QTableWidget(self)
         table_widget = tree["items"][dict_key2]["QTableWidget"]
         table_header = table_widget.horizontalHeader()
+        table_widget.setObjectName(dict_pos)
         table_widget_items = tree["items"][dict_key2]["QTableWidgetItems"]
 
         if remove_row_button == True:
@@ -551,6 +552,7 @@ class MainWindow(QMainWindow):
 
         table_widget_items["add row"]["button"].clicked.connect(add_row_function)
         table_widget.itemPressed.connect(self.edit_table_widget_item)
+        table_widget.itemChanged.connect(self.table_widget_item_changed)
 
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
@@ -560,12 +562,22 @@ class MainWindow(QMainWindow):
             current_item = item
             item = item.tableWidget()
         else:
-            current_item = item.currentItem()
-        print('edit table widget item')
-        print(item)
-        print(current_item)
+            current_item = item.currentItem()        
+        print(item,current_item)              
         item.editItem(current_item)
-
+                                                
+    def table_widget_item_changed(self, item):
+        table_widget = item.tableWidget()
+        row = table_widget.row(item)                
+        if row == table_widget.rowCount() - 1:
+            # the user added a row to the table
+            return
+        data = str(item.data(0))        
+        object_list = table_widget.objectName().split(',')                
+        if data != '' and data != None:
+            delim_dict = self.cliOpt[object_list[0]]['var'][object_list[2]]
+            delim_dict.update({row:data})            
+                
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
