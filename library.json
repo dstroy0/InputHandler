@@ -1,7 +1,7 @@
 {
     "name": "InputHandler",
     "keywords": "input, output, process, validate, serial, command line interface, CLI",
-    "description": "CLI construction tool/c-string parser.",
+    "description": "Interface construction toolkit.",
     "license": "GPL-3.0-only",
     "repository": {
         "type": "git",
