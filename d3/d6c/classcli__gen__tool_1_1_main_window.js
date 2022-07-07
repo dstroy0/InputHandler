@@ -35,7 +35,6 @@ var classcli__gen__tool_1_1_main_window =
     [ "gui_exit", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0536968551deddb76e5e41bb6222213f", null ],
     [ "gui_settings", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a91649a8f83fdd0ee85060a60d12cad47", null ],
     [ "load_cli_gen_tool_json", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a788e1eedc1d79df73d3b41d51905fec3", null ],
-    [ "loading_splashscreen", "d3/d6c/classcli__gen__tool_1_1_main_window.html#aac200e75eb39ec1ced76988cd8473b25", null ],
     [ "mainwindow_button_actions_setup", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a717d6f0775c6eb259b5a582c11738bd4", null ],
     [ "mainwindow_menu_bar_actions_setup", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7b97b3f00ff551abf07c0753aff9350d", null ],
     [ "open_file", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a158f39319435ad894f72a5b6f7e4236f", null ],
@@ -72,9 +71,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "format_docstring", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a03b4605f3ce2779543262bd324a8d75d", null ],
     [ "json_except", "d3/d6c/classcli__gen__tool_1_1_main_window.html#aa1d67d3c9076c0d045279fe2e115ed7d", null ],
     [ "lib_root_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a83bac3696f9b257de4997a0ecac10686", null ],
-    [ "loading_dlg", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a246e5253650a1aff2ff1927561f8e251", null ],
     [ "saveFileName", "d3/d6c/classcli__gen__tool_1_1_main_window.html#add28b59adaf8fece3496d0371e67ba72", null ],
     [ "session", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0353fc779da7e2c358f9c61271f5365e", null ],
-    [ "splash", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a9d1abc34a45c2afd23e7fcc8802cca04", null ],
     [ "ui", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44b11f6c7d8b61b9554eadc464d9ac70", null ]
 ];
