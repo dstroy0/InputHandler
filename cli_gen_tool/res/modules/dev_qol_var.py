@@ -199,4 +199,58 @@ config_file_boolean_define_fields_line_start = 71
 
 ## This offsets code preview line display; Positive values move text lines down, Negative values move text lines up.
 code_preview_text_line_offset = 4
+
+
+setup_h_addcommand_string = "    {objectname}.addCommand({commandfunctionname});\n"
+
+setup_h_options_string_list = [
+    "    {objectname}.listCommands(); // formats output_buffer with the command list\n",
+    "    {objectname}.outputToStream({stream}); // class output\n",
+]
+
+## setup.h
+setup_h_filestring = """
+#if !defined(__CLI_SETUP__)
+    #define __CLI_SETUP__
+    #include <InputHandler.h>
+    #include "functions.h"
+    #include "parameters.h"
+
+char output_buffer[{buffersize}] = {bufferchar}; // output buffer
+
+const PROGMEM IH_pname pname = "{processname}"; // process name
+const PROGMEM IH_eol peol = "{processeol}"; // process end of line char
+const PROGMEM IH_input_cc pinputcc = "{processinputcontrolchar}"; // input control character sequence
+const PROGMEM IH_wcc pwcc = "{processwildcardchar}"; // process wildcard char
+const PROGMEM InputProcessDelimiterSequences pdelimseq = {
+    {numdelimseq}, // number of delimiter sequences
+    {delimseqlens}, // delimiter sequence lens
+    {delimseqs} // delimiter sequences
+};
+
+const PROGMEM InputProcessStartStopSequences pststpseq = {
+    {numstartstoppairs}, // num start stop sequence pairs
+    {startstopseqlens}, // start stop sequence lens
+    {startstopseqs} // start stop sequence pairs
+};
+
+const PROGMEM InputProcessParameters input_prm[1] = {
+    &pname,
+    &peol,
+    &pinputcc,
+    &pwcc,
+    &pdelimseq,
+    &pststpseq};
+UserInput {objectname}(output_buffer, buffsz(output_buffer), input_prm);
+
+void InputHandler_setup()
+{
+    Serial.println(F("{setupstring}"));
+    {objectname}.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+    {commandlist}
+    {objectname}.begin();                       // required.  returns true on success.
+    {options}
+}
+#endif"""
+
 # end dev qol var

@@ -18,7 +18,13 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QTextCursor
-from res.modules.dev_qol_var import code_preview_text_line_offset
+from res.modules.dev_qol_var import (
+    code_preview_text_line_offset,
+    setup_h_filestring,
+    setup_h_addcommand_string,
+    setup_h_options_string_list,
+)
+
 
 # code preview methods
 class CodePreview(object):
@@ -125,9 +131,54 @@ class CodePreview(object):
 
     def update_setup_h(self, tree_object, place_cursor=False):
         file_lines = self.generate_docstring_list_for_filename("setup.h")
+        self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
+        # process output
+        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
+        buffer_char = "{'\0'}"
+        # process parameters
+        pprm = self.cliOpt["process parameters"]["var"]
+        object_name = "inputHandler"
+        process_name = pprm["process name"]
+        process_eol = pprm["end of line characters"]
+        process_ipcc = pprm["input control char sequence"]
+        process_wcc = pprm["wildcard char"]
+        delim_seq = pprm["data delimiter sequences"]
+        ststp_seq = pprm["start stop data delimiter sequences"]
+
+        num_delim_seq = len(delim_seq)
+        delim_seq_lens = []
+        for key in delim_seq:
+            delim_seq_lens.append(len(delim_seq[key]))
+        
+        delim_seq_lens_string = "{"
+        for i in range(delim_seq_lens):
+            delim_seq_lens_string = delim_seq_lens_string + str(delim_seq_lens[i])
+            if i != len(delim_seq_lens):
+                delim_seq_lens_string = delim_seq_lens_string + ", "
+        delim_seq_lens_string = delim_seq_lens_string + "}"
+        
+        delim_seqs_string = "{"
+        for i in range(delim_seq):
+            delim_seqs_string = delim_seqs_string + '"' + delim_seq[i] + '"'
+            if i != len(delim_seq):
+                delim_seqs_string = delim_seqs_string + ", "
+        delim_seqs_string = delim_seqs_string + "}"
+        
         file_lines_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
-        del file_lines_list[len(file_lines) :]
-        file_lines = file_lines + file_lines_list
+
+        setup_h = setup_h_filestring.format(
+            objectname=object_name,
+            buffersize=buffer_size,
+            bufferchar=buffer_char,
+            processname=process_name,
+            processeol=process_eol,
+            processinputcontrolchar=process_ipcc,
+            processwildcardchar=process_wcc,
+            numdelimseq=num_delim_seq,
+            delimseqlens=delim_seq_lens_string,
+            delimseqs=delim_seqs_string    
+        )
+        
         code_string = self.list_to_code_string(file_lines)
         for tab in range(2):
             text_widget = self.code_preview_dict["files"]["setup.h"]["text_widget"][tab]
