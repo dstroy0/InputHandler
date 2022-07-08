@@ -254,11 +254,12 @@ code_preview_text_line_offset = 4
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows (MainWindow is noninteractable when any of its child popups are active)
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow,SettingsTreeTableMethods):
     ## The constructor.
     def __init__(self, parent=None):
         super().__init__(parent)
-
+        SettingsTreeTableMethods.__init__(self)
+                
         # pathing
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
@@ -457,9 +458,8 @@ class MainWindow(QMainWindow):
         columns = 1
         remove_row_button = True
         dict_key2 = "data delimiter sequences"
-        add_row_function = add_data_delimiter_row
-        build_tree_table_widget(
-            self,
+        add_row_function = self.add_data_delimiter_row
+        self.build_tree_table_widget(            
             index_of_child,
             tree,
             dict_key,
@@ -471,9 +471,8 @@ class MainWindow(QMainWindow):
         index_of_child += 1
         # process parameters start stop delimiter sequences option
         dict_key2 = "start stop data delimiter sequences"
-        add_row_function = add_start_stop_data_delimiter_row
-        build_tree_table_widget(
-            self,
+        add_row_function = self.add_start_stop_data_delimiter_row
+        self.build_tree_table_widget(            
             index_of_child,
             tree,
             dict_key,
