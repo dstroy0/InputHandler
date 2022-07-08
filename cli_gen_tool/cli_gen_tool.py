@@ -7,9 +7,7 @@
 # @copyright Copyright (c) 2022
 from __future__ import absolute_import
 
-
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
-
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
@@ -20,9 +18,7 @@ import sys
 import json
 import time  # logging timestamp
 import platform
-import datetime
 import qdarktheme
-from collections import OrderedDict
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -43,8 +39,7 @@ from PySide6.QtCore import (
     Qt,
     QIODevice,
     QTextStream,
-    QByteArray,
-    QDir,
+    QByteArray,    
     QRegularExpression,
     QTimer,
 )
