@@ -62,7 +62,7 @@ from res.uic.commandParametersDialog import (
     Ui_commandParametersDialog,
 )  # tab two popup dialog box
 # external class methods
-from res.modules.settings_tree_table_methods import *
+from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
 
 # dev qol var
 # these are here for ease of access, clarity, or both
@@ -258,6 +258,8 @@ class MainWindow(QMainWindow,SettingsTreeTableMethods):
     ## The constructor.
     def __init__(self, parent=None):
         super().__init__(parent)
+        
+        # import external methods into this instance of self
         SettingsTreeTableMethods.__init__(self)
                 
         # pathing
