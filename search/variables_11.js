@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['savefilename_0',['saveFileName',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#add28b59adaf8fece3496d0371e67ba72',1,'cli_gen_tool::MainWindow']]],
+  ['savefilename_0',['saveFileName',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a9196e4714d28ee6c81b61efad054ab8c',1,'modules::mainwindow_actions::MainWindowActions']]],
   ['sensor_5fprm_1',['sensor_prm',['../dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611',1,'NMEAparser.ino']]],
   ['sensorparser_2',['sensorParser',['../dd/d65/_n_m_e_aparser_8ino.html#a5ce779a2c885b0eb3e07a8745b3d8cd3',1,'sensorParser():&#160;NMEAparser.ino'],['../da/d60/_n_m_e_aparser_8h.html#ab6fc15b656f569aba9928533bdd77138',1,'sensorParser():&#160;NMEAparser.h']]],
   ['sentence_5ferror_5fparam_3',['sentence_error_param',['../da/dff/_n_m_e_asentenceparam_8h.html#ae6911d54ae2848d6b53832b72415fb79',1,'sentence_error_param():&#160;NMEAsentenceparam.h'],['../da/d60/_n_m_e_aparser_8h.html#a0a8c178791ae7966143e2dc16a573f3b',1,'sentence_error_param():&#160;NMEAparser.h'],['../dd/d65/_n_m_e_aparser_8ino.html#a0a8c178791ae7966143e2dc16a573f3b',1,'sentence_error_param():&#160;NMEAparser.ino']]],

@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a19ab73c7aeb94f71cdfb64fb1231539a',1,'cli_gen_tool::MainWindow']]],
+  ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d',1,'modules::mainwindow_actions::MainWindowActions']]],
   ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#abe38df7fd46ff512ec2008837e4c110b',1,'modules::helper_methods::HelperMethods']]],
   ['get_5ficon_2',['get_icon',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4b68d25ca1cb29de2b4cd5202bb96f24',1,'modules::helper_methods::HelperMethods']]],
   ['getargument_3',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
   ['getcommandfromstream_4',['getCommandFromStream',['../dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d',1,'UserInput']]],
   ['gettokens_5',['getTokens',['../dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718',1,'UserInput']]],
   ['getuserinput_6',['getUserInput',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a3f308f9158c987649962e11efb7a0cec',1,'BLE_UART.ino']]],
-  ['gui_5fabout_7',['gui_about',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#addb53ba7c722bbfe2e92b13ec3efa297',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fdocumentation_8',['gui_documentation',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aa47293e193c80e814f6765011e7db4ae',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fexit_9',['gui_exit',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a0536968551deddb76e5e41bb6222213f',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fsettings_10',['gui_settings',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a91649a8f83fdd0ee85060a60d12cad47',1,'cli_gen_tool::MainWindow']]]
+  ['gui_5fabout_7',['gui_about',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fdocumentation_8',['gui_documentation',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a4fd6726c0392cc7790821f4cba56337a',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fexit_9',['gui_exit',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#aefb8c988f6c0f42584cc24316a4803ba',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fsettings_10',['gui_settings',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab',1,'modules::mainwindow_actions::MainWindowActions']]]
 ];

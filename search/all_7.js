@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a19ab73c7aeb94f71cdfb64fb1231539a',1,'cli_gen_tool::MainWindow']]],
+  ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d',1,'modules::mainwindow_actions::MainWindowActions']]],
   ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#abe38df7fd46ff512ec2008837e4c110b',1,'modules::helper_methods::HelperMethods']]],
   ['generated_5ffilename_5fdict_2',['generated_filename_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a',1,'modules::dev_qol_var']]],
   ['get_5ficon_3',['get_icon',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4b68d25ca1cb29de2b4cd5202bb96f24',1,'modules::helper_methods::HelperMethods']]],
@@ -19,8 +19,8 @@ var searchData=
   ['gridlayout_5f3_16',['gridLayout_3',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a831cc10795a5daa6ff0b43f18d27fb5a',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['gsa_17',['GSA',['../da/dff/_n_m_e_asentenceparam_8h.html#ad0dcaa9c72a28929af907720c32f83a3',1,'NMEAsentenceparam.h']]],
   ['gsv_18',['GSV',['../da/dff/_n_m_e_asentenceparam_8h.html#a214a2bcf7b1258e25e2ca2c350231895',1,'NMEAsentenceparam.h']]],
-  ['gui_5fabout_19',['gui_about',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#addb53ba7c722bbfe2e92b13ec3efa297',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fdocumentation_20',['gui_documentation',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aa47293e193c80e814f6765011e7db4ae',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fexit_21',['gui_exit',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a0536968551deddb76e5e41bb6222213f',1,'cli_gen_tool::MainWindow']]],
-  ['gui_5fsettings_22',['gui_settings',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a91649a8f83fdd0ee85060a60d12cad47',1,'cli_gen_tool::MainWindow']]]
+  ['gui_5fabout_19',['gui_about',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fdocumentation_20',['gui_documentation',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a4fd6726c0392cc7790821f4cba56337a',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fexit_21',['gui_exit',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#aefb8c988f6c0f42584cc24316a4803ba',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fsettings_22',['gui_settings',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab',1,'modules::mainwindow_actions::MainWindowActions']]]
 ];
