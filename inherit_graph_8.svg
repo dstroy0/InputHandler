@@ -12,8 +12,8 @@
 <g id="node1" class="node">
 <title>Node0</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="0,-38.5 0,-57.5 134,-57.5 134,-38.5 0,-38.5"/>
-<text text-anchor="middle" x="67" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">SettingsTreeTableMethods</text>
+<polygon fill="none" stroke="#bfbfbf" points="27,-38.5 27,-57.5 107,-57.5 107,-38.5 27,-38.5"/>
+<text text-anchor="middle" x="67" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMainWindow</text>
 </a>
 </g>
 </g>
@@ -29,23 +29,23 @@
 <!-- Node0&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node0&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M144.22,-39.17C152.77,-38.18 161.42,-37.18 169.77,-36.21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="143.76,-35.7 134.23,-40.33 144.57,-42.65 143.76,-35.7"/>
+<path fill="none" stroke="midnightblue" d="M117.29,-42.29C133.86,-40.37 152.56,-38.2 169.98,-36.18"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="116.81,-38.82 107.28,-43.45 117.62,-45.77 116.81,-38.82"/>
 </g>
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="27,-0.5 27,-19.5 107,-19.5 107,-0.5 27,-0.5"/>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMainWindow</text>
+<polygon fill="none" stroke="#bfbfbf" points="0,-0.5 0,-19.5 134,-19.5 134,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SettingsTreeTableMethods</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M117.29,-15.71C133.86,-17.63 152.56,-19.8 169.98,-21.82"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="117.62,-12.23 107.28,-14.55 116.81,-19.18 117.62,-12.23"/>
+<path fill="none" stroke="midnightblue" d="M144.22,-18.83C152.77,-19.82 161.42,-20.82 169.77,-21.79"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="144.57,-15.35 134.23,-17.67 143.76,-22.3 144.57,-15.35"/>
 </g>
 </g>
 </svg>
