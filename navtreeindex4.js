@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"functions_m.html":[4,3,0,12],
+"functions_n.html":[4,3,0,13],
 "functions_o.html":[4,3,0,14],
 "functions_p.html":[4,3,0,15],
 "functions_r.html":[4,3,0,16],
@@ -68,9 +70,8 @@ var NAVTREEINDEX4 =
 "index.html#autotoc_md3":[1],
 "modules.html":[2],
 "namespacemembers.html":[3,1,0],
-"namespacemembers_func.html":[3,1,1],
-"namespacemembers_type.html":[3,1,3],
-"namespacemembers_vars.html":[3,1,2],
+"namespacemembers_type.html":[3,1,2],
+"namespacemembers_vars.html":[3,1,1],
 "namespaces.html":[3,0],
 "pages.html":[]
 };

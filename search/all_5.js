@@ -1,7 +1,7 @@
 var searchData=
 [
   ['edit_5fsettings_5ftree_5fitem_0',['edit_settings_tree_item',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a46d294f27ed690cfb4fd25a052072164',1,'cli_gen_tool::MainWindow']]],
-  ['edit_5ftable_5fwidget_5fitem_1',['edit_table_widget_item',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html#a75b06047b67217f5fbeebc6cc6d26b55',1,'modules::settings_tree_table_methods']]],
+  ['edit_5ftable_5fwidget_5fitem_1',['edit_table_widget_item',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a0a9795c27e0af078344ea55437b351e2',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
   ['editbutton_5f1_2',['editButton_1',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#ae8b881a23dcb117eb3a253a4ba9667c2',1,'uic::mainWindow::Ui_MainWindow']]],
   ['editbutton_5f2_3',['editButton_2',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a710f271c9d22b989a9f2cc3eacfacb44',1,'uic::mainWindow::Ui_MainWindow']]],
   ['empty_5ffield_5fph_4',['empty_field_ph',['../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd',1,'NMEAparser.h']]],

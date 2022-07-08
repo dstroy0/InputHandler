@@ -3,6 +3,11 @@ var annotated_dup =
     [ "cli_gen_tool", "dd/d04/namespacecli__gen__tool.html", [
       [ "MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", "d3/d6c/classcli__gen__tool_1_1_main_window" ]
     ] ],
+    [ "modules", "dc/dcf/namespacemodules.html", [
+      [ "settings_tree_table_methods", "d1/da1/namespacemodules_1_1settings__tree__table__methods.html", [
+        [ "SettingsTreeTableMethods", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods" ]
+      ] ]
+    ] ],
     [ "uic", "db/d4a/namespaceuic.html", [
       [ "commandParametersDialog", "da/d81/namespaceuic_1_1command_parameters_dialog.html", [
         [ "Ui_commandParametersDialog", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog" ]
