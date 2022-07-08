@@ -1,9 +1,9 @@
 var searchData=
 [
   ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a19ab73c7aeb94f71cdfb64fb1231539a',1,'cli_gen_tool::MainWindow']]],
-  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a97e809c6d59da96456381aed1f7e6f88',1,'cli_gen_tool::MainWindow']]],
-  ['generated_5ffilename_5fdict_2',['generated_filename_dict',['../dd/d04/namespacecli__gen__tool.html#a4c5294531164a40f883bb8377d66b723',1,'cli_gen_tool']]],
-  ['get_5ficon_3',['get_icon',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a8c69c095fd089bfbb0405e770e829e5c',1,'cli_gen_tool::MainWindow']]],
+  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#abe38df7fd46ff512ec2008837e4c110b',1,'modules::helper_methods::HelperMethods']]],
+  ['generated_5ffilename_5fdict_2',['generated_filename_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a',1,'modules::dev_qol_var']]],
+  ['get_5ficon_3',['get_icon',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4b68d25ca1cb29de2b4cd5202bb96f24',1,'modules::helper_methods::HelperMethods']]],
   ['getargument_4',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
   ['getcommandfromstream_5',['getCommandFromStream',['../dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d',1,'UserInput']]],
   ['getcommandfromstream_2eino_6',['GetCommandFromStream.ino',['../db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)'],['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html',1,'(Global Namespace)']]],

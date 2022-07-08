@@ -1,5 +1,6 @@
 <map id="cli_gen_tool.MainWindow" name="cli_gen_tool.MainWindow">
-<area shape="rect" id="node1" title="This is the main display window." alt="" coords="57,80,225,107"/>
+<area shape="rect" id="node1" title="This is the main display window." alt="" coords="141,80,309,107"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,112,32"/>
 <area shape="rect" id="node3" title=" " alt="" coords="136,5,315,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="339,5,450,32"/>
 </map>

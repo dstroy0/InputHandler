@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['data_0',['data',['../d7/d74/struct_user_input_1_1get_tokens_param.html#aea096a9f8f749faed3baf26fad21f4a3',1,'UserInput::getTokensParam::data()'],['../df/d04/namespacetest.html#abf82286dda007f71fa154198b9f80640',1,'test.data()']]],
+  ['data_0',['data',['../df/d04/namespacetest.html#abf82286dda007f71fa154198b9f80640',1,'test.data()'],['../d7/d74/struct_user_input_1_1get_tokens_param.html#aea096a9f8f749faed3baf26fad21f4a3',1,'UserInput::getTokensParam::data()']]],
   ['data_5fpos_1',['data_pos',['../d7/d74/struct_user_input_1_1get_tokens_param.html#a6078af2a8e1ba994337b89e5a93be939',1,'UserInput::getTokensParam']]],
   ['dbt_2',['DBT',['../da/dff/_n_m_e_asentenceparam_8h.html#acdba61b4cdaf2a7bd22ec64fa472495a',1,'NMEAsentenceparam.h']]],
-  ['debug_5finclude_5ffreeram_3',['DEBUG_INCLUDE_FREERAM',['../d4/ded/debugging_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;debugging.ino'],['../d1/d98/config__howto_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;config_howto.ino']]],
+  ['debug_5finclude_5ffreeram_3',['DEBUG_INCLUDE_FREERAM',['../d1/d98/config__howto_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;config_howto.ino'],['../d4/ded/debugging_8ino.html#ad757fda0b6670fbe80442d684eb7061b',1,'DEBUG_INCLUDE_FREERAM():&#160;debugging.ino']]],
   ['debugging_2eino_4',['debugging.ino',['../d4/ded/debugging_8ino.html',1,'']]],
   ['default_5flib_5fconfig_5fpath_5',['default_lib_config_path',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a855bdf49150f54379b244894483d09f4',1,'cli_gen_tool::MainWindow']]],
-  ['default_5fsession_5fstructure_6',['default_session_structure',['../dd/d04/namespacecli__gen__tool.html#aa888883cf0b1e9f42581e38fffc2f148',1,'cli_gen_tool']]],
+  ['default_5fsession_5fstructure_6',['default_session_structure',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ae847b3d5ade9fba7c4ad26fd3f903934',1,'modules::dev_qol_var']]],
   ['defaultbutton_5f1_7',['defaultButton_1',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a67883a4b84fb322c3dd4acec2f2c1fd2',1,'uic::mainWindow::Ui_MainWindow']]],
   ['defaultfunction_8',['defaultFunction',['../dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9',1,'UserInput']]],
   ['defaultguiopt_9',['defaultGuiOpt',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a3e49a8961ad9bfa9753fc62923cf6073',1,'cli_gen_tool::MainWindow']]],
@@ -14,12 +14,13 @@ var searchData=
   ['delimiter_5flens_11',['delimiter_lens',['../dc/da2/struct_input_process_delimiter_sequences.html#ad4472bb6f406e04734b561e8c708928d',1,'InputProcessDelimiterSequences']]],
   ['delimiter_5fsequences_12',['delimiter_sequences',['../dc/da2/struct_input_process_delimiter_sequences.html#a0b48e3457377cb18702fca3cabc2dc92',1,'InputProcessDelimiterSequences']]],
   ['depth_13',['depth',['../db/d11/struct_command_parameters.html#a4efe018e9847be42c96abc933c8497ef',1,'CommandParameters']]],
-  ['dict_5ffrom_5fcsv_5fargs_14',['dict_from_csv_args',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a69896cbc697f9fe07323331b71d11107',1,'cli_gen_tool::MainWindow']]],
-  ['display_5finitial_5fcode_5fpreview_15',['display_initial_code_preview',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aac356b88877fabac7c92c221cb05d5de',1,'cli_gen_tool::MainWindow']]],
-  ['docs_16',['docs',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fbrief_17',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5ffilename_18',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fformat_5flist_19',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fversion_20',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
-  ['dpt_21',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]]
+  ['dev_5fqol_5fvar_2epy_14',['dev_qol_var.py',['../d4/da6/dev__qol__var_8py.html',1,'']]],
+  ['dict_5ffrom_5fcsv_5fargs_15',['dict_from_csv_args',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a69896cbc697f9fe07323331b71d11107',1,'cli_gen_tool::MainWindow']]],
+  ['display_5finitial_5fcode_5fpreview_16',['display_initial_code_preview',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aac356b88877fabac7c92c221cb05d5de',1,'cli_gen_tool::MainWindow']]],
+  ['docs_17',['docs',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#ab48e4748882159ded882eec93205b430',1,'modules.helper_methods.HelperMethods.docs()'],['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool.MainWindow.docs()']]],
+  ['docs_5fbrief_18',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5ffilename_19',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fformat_5flist_20',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fversion_21',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
+  ['dpt_22',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]]
 ];

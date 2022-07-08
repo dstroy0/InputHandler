@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nmeaparse_0',['NMEAparse',['../df/d2a/class_n_m_e_aparse.html',1,'']]]
+  ['mainwindow_0',['MainWindow',['../d3/d6c/classcli__gen__tool_1_1_main_window.html',1,'cli_gen_tool']]]
 ];

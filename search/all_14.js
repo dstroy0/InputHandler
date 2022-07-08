@@ -8,7 +8,7 @@ var searchData=
   ['validatenullsepinput_5',['validateNullSepInput',['../dc/d4b/class_user_input.html#a0aca041755aea2c5021e68f546bff259',1,'UserInput']]],
   ['validatenullsepinputparam_6',['validateNullSepInputParam',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html',1,'UserInput']]],
   ['verbose_5fmode_7',['VERBOSE_MODE',['../d2/df9/_bluefruit_config_8h.html#ad5755cfbc5c4b61d5a5b88782eee01e8',1,'BluefruitConfig.h']]],
-  ['version_8',['version',['../dd/d04/namespacecli__gen__tool.html#a36d18f712278de806ecade54d2500d3d',1,'cli_gen_tool']]],
+  ['version_8',['version',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ad5acab6e7ca3ca06a0e79ed77f1b5302',1,'modules::dev_qol_var']]],
   ['verticallayout_9',['verticalLayout',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a06869ea01577d13d72254e087a4a9ad5',1,'uic::mainWindow::Ui_MainWindow']]],
   ['vsnprintf_10',['vsnprintf',['../dd/ddc/vsnprintf_8h.html#abf97ffe3965625d5aff552f38ceb8153',1,'vsnprintf.h']]],
   ['vsnprintf_2eh_11',['vsnprintf.h',['../dd/ddc/vsnprintf_8h.html',1,'']]],

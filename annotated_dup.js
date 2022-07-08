@@ -4,6 +4,9 @@ var annotated_dup =
       [ "MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", "d3/d6c/classcli__gen__tool_1_1_main_window" ]
     ] ],
     [ "modules", "dc/dcf/namespacemodules.html", [
+      [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", [
+        [ "HelperMethods", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods" ]
+      ] ],
       [ "settings_tree_table_methods", "d1/da1/namespacemodules_1_1settings__tree__table__methods.html", [
         [ "SettingsTreeTableMethods", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods" ]
       ] ]
