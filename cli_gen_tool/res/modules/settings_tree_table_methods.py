@@ -9,7 +9,7 @@ from PySide6.QtCore import (
     Qt,
 )
 
-
+# this is a helper class
 class SettingsTreeTableMethods(object):
     # settings_tree table functions
     def set_table_vertical_labels(self, tree, section, rows):
