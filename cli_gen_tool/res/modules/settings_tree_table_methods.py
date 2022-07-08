@@ -1,3 +1,15 @@
+##
+# @file settings_tree_table_methods.py
+# @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+# @brief MainWindow external methods
+# @version 1.0
+# @date 2022-07-08
+# @copyright Copyright (c) 2022
+# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 3 as published by the Free Software Foundation.
+
 from PySide6.QtWidgets import (
     QHeaderView,
     QTreeWidgetItem,
