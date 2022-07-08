@@ -15,10 +15,11 @@ var searchData=
   ['delimiter_5fsequences_12',['delimiter_sequences',['../dc/da2/struct_input_process_delimiter_sequences.html#a0b48e3457377cb18702fca3cabc2dc92',1,'InputProcessDelimiterSequences']]],
   ['depth_13',['depth',['../db/d11/struct_command_parameters.html#a4efe018e9847be42c96abc933c8497ef',1,'CommandParameters']]],
   ['dict_5ffrom_5fcsv_5fargs_14',['dict_from_csv_args',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a69896cbc697f9fe07323331b71d11107',1,'cli_gen_tool::MainWindow']]],
-  ['docs_15',['docs',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fbrief_16',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5ffilename_17',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fformat_5flist_18',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fversion_19',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
-  ['dpt_20',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]]
+  ['display_5finitial_5fcode_5fpreview_15',['display_initial_code_preview',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#aac356b88877fabac7c92c221cb05d5de',1,'cli_gen_tool::MainWindow']]],
+  ['docs_16',['docs',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fbrief_17',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5ffilename_18',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fformat_5flist_19',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fversion_20',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
+  ['dpt_21',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]]
 ];

@@ -4,6 +4,7 @@ var namespaces_dup =
     [ "IH", "d2/d0c/namespace_i_h.html", [
       [ "input_type_match_flags_type", "d2/d0c/namespace_i_h.html#a824d410663553d9f3fdf30fdf920002e", null ]
     ] ],
+    [ "modules", "dc/dcf/namespacemodules.html", "dc/dcf/namespacemodules" ],
     [ "test", "df/d04/namespacetest.html", [
       [ "data", "df/d04/namespacetest.html#abf82286dda007f71fa154198b9f80640", null ],
       [ "sub_dict", "df/d04/namespacetest.html#a116481a2dfa1efd53e17f4b477b6379e", null ]

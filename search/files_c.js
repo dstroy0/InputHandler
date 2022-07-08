@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test_2epy_0',['test.py',['../df/dba/test_8py.html',1,'']]]
+  ['settings_5ftree_5ftable_5fmethods_2epy_0',['settings_tree_table_methods.py',['../d6/d98/settings__tree__table__methods_8py.html',1,'']]]
 ];
