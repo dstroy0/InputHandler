@@ -12,6 +12,9 @@ var dev__qol__var_8py =
     [ "generated_filename_dict", "d4/da6/dev__qol__var_8py.html#a7183009553deae5da5a782cadb2a2f7a", null ],
     [ "lib_root_path", "d4/da6/dev__qol__var_8py.html#a3e7a3636b0b65ac8428c3c76a8da7599", null ],
     [ "path", "d4/da6/dev__qol__var_8py.html#a8dcb2277898748270d411770a0c222ef", null ],
+    [ "setup_h_addcommand_string", "d4/da6/dev__qol__var_8py.html#aab1f9df64ef416184fcc7c6f3fe4ce73", null ],
+    [ "setup_h_filestring", "d4/da6/dev__qol__var_8py.html#a8f3611328485556faab02fec3f988b35", null ],
+    [ "setup_h_options_string_list", "d4/da6/dev__qol__var_8py.html#ac9ea99c5ea9ee84c6494943c26044c88", null ],
     [ "splashscreen_duration", "d4/da6/dev__qol__var_8py.html#a90324adad133f6fa81f83fdf20536594", null ],
     [ "version", "d4/da6/dev__qol__var_8py.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
 ];
