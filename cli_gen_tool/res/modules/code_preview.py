@@ -134,36 +134,68 @@ class CodePreview(object):
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
-        buffer_char = "{'\0'}"
+        buffer_char = "{'\\0'}"
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
         object_name = "inputHandler"
         process_name = pprm["process name"]
-        process_eol = pprm["end of line characters"]
+        process_eol = str(repr(pprm["end of line characters"])).strip("'")
         process_ipcc = pprm["input control char sequence"]
         process_wcc = pprm["wildcard char"]
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
+        setup_string = "Setting up InputHandler..."
 
         num_delim_seq = len(delim_seq)
         delim_seq_lens = []
         for key in delim_seq:
             delim_seq_lens.append(len(delim_seq[key]))
-        
+
         delim_seq_lens_string = "{"
-        for i in range(delim_seq_lens):
+        for i in range(len(delim_seq_lens)):
             delim_seq_lens_string = delim_seq_lens_string + str(delim_seq_lens[i])
             if i != len(delim_seq_lens):
                 delim_seq_lens_string = delim_seq_lens_string + ", "
         delim_seq_lens_string = delim_seq_lens_string + "}"
-        
+
         delim_seqs_string = "{"
-        for i in range(delim_seq):
+        for i in range(len(delim_seq)):
             delim_seqs_string = delim_seqs_string + '"' + delim_seq[i] + '"'
             if i != len(delim_seq):
                 delim_seqs_string = delim_seqs_string + ", "
         delim_seqs_string = delim_seqs_string + "}"
-        
+
+        num_ststp_pairs = len(ststp_seq) / 2
+        ststp_seq_lens = []
+        for key in ststp_seq:
+            ststp_seq_lens.append(len(ststp_seq[key]))
+
+        ststp_seq_lens_string = "{"
+        for i in range(len(ststp_seq_lens)):
+            ststp_seq_lens_string = ststp_seq_lens_string + str(ststp_seq_lens[i])
+            if i != len(ststp_seq_lens):
+                ststp_seq_lens_string = ststp_seq_lens_string + ", "
+        ststp_seq_lens_string = ststp_seq_lens_string + "}"
+
+        ststp_seqs_string = "{"
+        for i in range(len(ststp_seq)):
+            ststp_seqs_string = ststp_seqs_string + '"' + ststp_seq[i] + '"'
+            if i != len(ststp_seq):
+                ststp_seqs_string = ststp_seqs_string + ", "
+        ststp_seqs_string = ststp_seqs_string + "}"
+
+        command_list_string = ""
+        for key in self.cliOpt["commands"]:
+            # iterate through list
+            command_parameters_name = (
+                str(self.cliOpt["commands"][key]["functionName"]) + "_"
+            )
+            command_list_string = setup_h_addcommand_string.format(
+                objectname=object_name, commandparametersname=command_parameters_name
+            )
+            
+        options_string = ""
+
         file_lines_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
 
         setup_h = setup_h_filestring.format(
@@ -176,10 +208,17 @@ class CodePreview(object):
             processwildcardchar=process_wcc,
             numdelimseq=num_delim_seq,
             delimseqlens=delim_seq_lens_string,
-            delimseqs=delim_seqs_string    
+            delimseqs=delim_seqs_string,
+            numstartstoppairs=num_ststp_pairs,
+            startstopseqlens=ststp_seq_lens_string,
+            startstopseqs=ststp_seqs_string,
+            setupstring=setup_string,
+            commandlist=command_list_string,
+            options=options_string
         )
         
         code_string = self.list_to_code_string(file_lines)
+        code_string = code_string + setup_h
         for tab in range(2):
             text_widget = self.code_preview_dict["files"]["setup.h"]["text_widget"][tab]
             text_widget.clear()
