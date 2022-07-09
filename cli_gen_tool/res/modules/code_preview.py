@@ -146,6 +146,7 @@ class CodePreview(object):
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
 
+        # this can be a function
         num_delim_seq = len(delim_seq)
         delim_seq_lens = []
         for key in delim_seq:
@@ -154,17 +155,18 @@ class CodePreview(object):
         delim_seq_lens_string = "{"
         for i in range(len(delim_seq_lens)):
             delim_seq_lens_string = delim_seq_lens_string + str(delim_seq_lens[i])
-            if i != len(delim_seq_lens):
+            if i != len(delim_seq_lens)-1:
                 delim_seq_lens_string = delim_seq_lens_string + ", "
         delim_seq_lens_string = delim_seq_lens_string + "}"
 
         delim_seqs_string = "{"
         for i in range(len(delim_seq)):
             delim_seqs_string = delim_seqs_string + '"' + delim_seq[i] + '"'
-            if i != len(delim_seq):
+            if i != len(delim_seq)-1:
                 delim_seqs_string = delim_seqs_string + ", "
         delim_seqs_string = delim_seqs_string + "}"
 
+        # this can be a function
         num_ststp_pairs = len(ststp_seq) / 2
         ststp_seq_lens = []
         for key in ststp_seq:
@@ -173,14 +175,14 @@ class CodePreview(object):
         ststp_seq_lens_string = "{"
         for i in range(len(ststp_seq_lens)):
             ststp_seq_lens_string = ststp_seq_lens_string + str(ststp_seq_lens[i])
-            if i != len(ststp_seq_lens):
+            if i != len(ststp_seq_lens)-1:
                 ststp_seq_lens_string = ststp_seq_lens_string + ", "
         ststp_seq_lens_string = ststp_seq_lens_string + "}"
 
         ststp_seqs_string = "{"
         for i in range(len(ststp_seq)):
             ststp_seqs_string = ststp_seqs_string + '"' + ststp_seq[i] + '"'
-            if i != len(ststp_seq):
+            if i != len(ststp_seq)-1:
                 ststp_seqs_string = ststp_seqs_string + ", "
         ststp_seqs_string = ststp_seqs_string + "}"
 
@@ -194,9 +196,7 @@ class CodePreview(object):
                 objectname=object_name, commandparametersname=command_parameters_name
             )
             
-        options_string = ""
-
-        file_lines_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
+        options_string = ""        
 
         setup_h = setup_h_filestring.format(
             objectname=object_name,
@@ -219,6 +219,7 @@ class CodePreview(object):
         
         code_string = self.list_to_code_string(file_lines)
         code_string = code_string + setup_h
+        self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = code_string.split("\n")
         for tab in range(2):
             text_widget = self.code_preview_dict["files"]["setup.h"]["text_widget"][tab]
             text_widget.clear()
