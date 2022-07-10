@@ -88,10 +88,13 @@ class SettingsTreeMethods(object):
         if object_list[0] == "process output":
             print("edited buffer size")
             item.setText(3, str(repr(val)))
+            self.cliOpt["process output"]["var"]["buffer size"] = val
+            self.update_code_preview_tree(item)
             return
         if object_list[0] == "process parameters":
             print("edited a process parameter")
             item.setText(3, str(repr(val)))
+            self.update_code_preview_tree(item)
             return
         # config.h
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][

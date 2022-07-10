@@ -23,6 +23,7 @@ from res.modules.dev_qol_var import (
     setup_h_filestring,
     setup_h_addcommand_string,
     setup_h_options_string_list,
+    setup_h_output_buffer
 )
 
 
@@ -82,12 +83,31 @@ class CodePreview(object):
         if tree_object == None:
             object_string = self.sender().objectName()
         else:
-            object_string = str(tree_object.data(4, 0))
-            object_list = object_string.strip("\n").split(",")
-            sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
-                int(object_list[1])
-            ]["fields"]
-            line_num = int(sub_dict[0])
+            try:
+                # QTreeWidgetItem
+                object_string = str(tree_object.data(4, 0))
+            except:
+                # QTableWidgetItem
+                object_string = str(tree_object.tableWidget().objectName())
+            object_list = object_string.strip("\n").split(",")            
+            line_num = 0
+            if object_list[0] == "process output" or "process name":
+                code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]                
+                for i in range(len(code_list)):
+                    if object_list[2] in code_list[i]:
+                        line_num = i                        
+                        break
+            elif object_list[0] == "process parameters":
+                code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
+                for i in range(len(code_list)):
+                    if object_list[2] in code_list[i]:
+                        line_num = i                        
+                        break
+            else:
+                sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+                    int(object_list[1])
+                ]["fields"]
+                line_num = int(sub_dict[0])
             cursor = QTextCursor(
                 text_widget.document().findBlockByLineNumber(
                     line_num + code_preview_text_line_offset
@@ -128,13 +148,35 @@ class CodePreview(object):
                 if place_cursor == True:
                     self.set_text_cursor(text_widget, tree_object)
         # end update_config_h
-
+        
+    def update_setup_h_string_helper(self, seq):
+        num_seq = len(seq)        
+        seq_lens_string = "{"
+        seqs_string = "{"
+        seq_lens = []
+        seqs = []
+        for key in seq:
+            seq_lens.append(len(seq[key]))            
+            seqs.append(seq[key])
+        for i in range(len(seq_lens)):
+            seq_lens_string = seq_lens_string + str(seq_lens[i])            
+            seqs_string = seqs_string + '"' + str(seqs[i]).strip("'").replace('"', '\\"') + '"'
+            if i != len(seq_lens) - 1:
+                seq_lens_string = seq_lens_string + ", "
+                seqs_string = seqs_string + ", "
+        seq_lens_string = seq_lens_string + "}"
+        seqs_string = seqs_string + "}"
+        return [num_seq, seq_lens_string, seqs_string]
+        
     def update_setup_h(self, tree_object, place_cursor=False):
         file_lines = self.generate_docstring_list_for_filename("setup.h")
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
-        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
+        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]        
         buffer_char = "{'\\0'}"
+        output_buffer = setup_h_output_buffer.format(buffersize=buffer_size,bufferchar=buffer_char)
+        if int(buffer_size) == 0:
+            output_buffer = ""
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
         object_name = "inputHandler"
@@ -145,47 +187,17 @@ class CodePreview(object):
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-
-        # this can be a function
-        num_delim_seq = len(delim_seq)
-        delim_seq_lens = []
-        for key in delim_seq:
-            delim_seq_lens.append(len(delim_seq[key]))
-
-        delim_seq_lens_string = "{"
-        for i in range(len(delim_seq_lens)):
-            delim_seq_lens_string = delim_seq_lens_string + str(delim_seq_lens[i])
-            if i != len(delim_seq_lens)-1:
-                delim_seq_lens_string = delim_seq_lens_string + ", "
-        delim_seq_lens_string = delim_seq_lens_string + "}"
-
-        delim_seqs_string = "{"
-        for i in range(len(delim_seq)):
-            delim_seqs_string = delim_seqs_string + '"' + delim_seq[i] + '"'
-            if i != len(delim_seq)-1:
-                delim_seqs_string = delim_seqs_string + ", "
-        delim_seqs_string = delim_seqs_string + "}"
-
-        # this can be a function
-        num_ststp_pairs = len(ststp_seq) / 2
-        ststp_seq_lens = []
-        for key in ststp_seq:
-            ststp_seq_lens.append(len(ststp_seq[key]))
-
-        ststp_seq_lens_string = "{"
-        for i in range(len(ststp_seq_lens)):
-            ststp_seq_lens_string = ststp_seq_lens_string + str(ststp_seq_lens[i])
-            if i != len(ststp_seq_lens)-1:
-                ststp_seq_lens_string = ststp_seq_lens_string + ", "
-        ststp_seq_lens_string = ststp_seq_lens_string + "}"
-
-        ststp_seqs_string = "{"
-        for i in range(len(ststp_seq)):
-            ststp_seqs_string = ststp_seqs_string + '"' + ststp_seq[i] + '"'
-            if i != len(ststp_seq)-1:
-                ststp_seqs_string = ststp_seqs_string + ", "
-        ststp_seqs_string = ststp_seqs_string + "}"
-
+        
+        result = self.update_setup_h_string_helper(delim_seq)
+        num_delim_seq = result[0]        
+        delim_seq_lens_string = result[1]        
+        delim_seqs_string = result[2]        
+        
+        result = self.update_setup_h_string_helper(ststp_seq)
+        num_ststp_pairs = result[0] / 2        
+        ststp_seq_lens_string = result[1]        
+        ststp_seqs_string = result[2]
+        
         command_list_string = ""
         for key in self.cliOpt["commands"]:
             # iterate through list
@@ -200,8 +212,7 @@ class CodePreview(object):
 
         setup_h = setup_h_filestring.format(
             objectname=object_name,
-            buffersize=buffer_size,
-            bufferchar=buffer_char,
+            outputbuffer=output_buffer,
             processname=process_name,
             processeol=process_eol,
             processinputcontrolchar=process_ipcc,
@@ -230,11 +241,11 @@ class CodePreview(object):
     # refreshes the text in the code preview trees
     def update_code_preview_tree(self, tree_object):
         print("update code preview")
-        # update widgets
+        # update widgets        
         for key in self.code_preview_dict["files"]:
             if key == "config.h":
                 self.update_config_h(tree_object, True)
-            if key == "setup.h":
+            if key == "setup.h":                
                 self.update_setup_h(tree_object, True)
 
     def display_initial_code_preview(self):

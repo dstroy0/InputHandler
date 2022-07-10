@@ -146,7 +146,8 @@ class SettingsTreeTableMethods(object):
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
             item.setText(str(repr(data)))
-
+            self.update_code_preview_tree(item)
+            
     def build_tree_table_widget(
         self,
         index,

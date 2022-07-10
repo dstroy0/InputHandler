@@ -207,7 +207,7 @@ setup_h_options_string_list = [
     "    {objectname}.listCommands(); // formats output_buffer with the command list\n",
     "    {objectname}.outputToStream({stream}); // class output\n",
 ]
-
+setup_h_output_buffer = "\nchar output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
 ## setup.h
 setup_h_filestring = """
 #if !defined(__CLI_SETUP__)
@@ -216,18 +216,20 @@ setup_h_filestring = """
     #include "functions.h"
     #include "parameters.h"
 
-char output_buffer[{buffersize}] = {bufferchar}; // output buffer
-
+{outputbuffer}
 const PROGMEM IH_pname pname = "{processname}"; // process name
-const PROGMEM IH_eol peol = "{processeol}"; // process end of line char
-const PROGMEM IH_input_cc pinputcc = "{processinputcontrolchar}"; // input control character sequence
+const PROGMEM IH_eol peol = "{processeol}"; // process end of line characters
+const PROGMEM IH_input_cc pinputcc = "{processinputcontrolchar}"; // input control char sequence
 const PROGMEM IH_wcc pwcc = "{processwildcardchar}"; // process wildcard char
+
+// data delimiter sequences
 const PROGMEM InputProcessDelimiterSequences pdelimseq = {{
     {numdelimseq}, // number of delimiter sequences
     {delimseqlens}, // delimiter sequence lens
     {delimseqs} // delimiter sequences
 }};
 
+// start stop delimiter sequences
 const PROGMEM InputProcessStartStopSequences pststpseq = {{
     {numstartstoppairs}, // num start stop sequence pairs
     {startstopseqlens}, // start stop sequence lens
@@ -241,6 +243,8 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
     &pwcc,
     &pdelimseq,
     &pststpseq}};
+
+// constructor
 UserInput {objectname}(output_buffer, buffsz(output_buffer), input_prm);
 
 void InputHandler_setup()
@@ -251,6 +255,9 @@ void InputHandler_setup()
     {objectname}.begin();                       // required.  returns true on success.
     {options}
 }}
-#endif"""
+#endif
+// end of file
+"""
 
 # end dev qol var
+# end of file
