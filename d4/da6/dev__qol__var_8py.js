@@ -15,6 +15,7 @@ var dev__qol__var_8py =
     [ "setup_h_addcommand_string", "d4/da6/dev__qol__var_8py.html#aab1f9df64ef416184fcc7c6f3fe4ce73", null ],
     [ "setup_h_filestring", "d4/da6/dev__qol__var_8py.html#a8f3611328485556faab02fec3f988b35", null ],
     [ "setup_h_options_string_list", "d4/da6/dev__qol__var_8py.html#ac9ea99c5ea9ee84c6494943c26044c88", null ],
+    [ "setup_h_output_buffer", "d4/da6/dev__qol__var_8py.html#ad9496b5eee862f01b4e72fbfe73ccc2c", null ],
     [ "splashscreen_duration", "d4/da6/dev__qol__var_8py.html#a90324adad133f6fa81f83fdf20536594", null ],
     [ "version", "d4/da6/dev__qol__var_8py.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
 ];
