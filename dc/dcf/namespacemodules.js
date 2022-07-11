@@ -16,9 +16,11 @@ var namespacemodules =
       [ "lib_root_path", "d6/da0/namespacemodules_1_1dev__qol__var.html#a3e7a3636b0b65ac8428c3c76a8da7599", null ],
       [ "path", "d6/da0/namespacemodules_1_1dev__qol__var.html#a8dcb2277898748270d411770a0c222ef", null ],
       [ "setup_h_addcommand_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#aab1f9df64ef416184fcc7c6f3fe4ce73", null ],
+      [ "setup_h_class_output_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#aad6cb3d8d6f8c71b4e74742447e282d2", null ],
+      [ "setup_h_constructor_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#acb77208af40aa5ebb728b9aea26d6f5e", null ],
       [ "setup_h_filestring", "d6/da0/namespacemodules_1_1dev__qol__var.html#a8f3611328485556faab02fec3f988b35", null ],
       [ "setup_h_options_string_list", "d6/da0/namespacemodules_1_1dev__qol__var.html#ac9ea99c5ea9ee84c6494943c26044c88", null ],
-      [ "setup_h_output_buffer", "d6/da0/namespacemodules_1_1dev__qol__var.html#ad9496b5eee862f01b4e72fbfe73ccc2c", null ],
+      [ "setup_h_output_buffer_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#a111a2821d8e9e74bf6e6b1643ff500fe", null ],
       [ "splashscreen_duration", "d6/da0/namespacemodules_1_1dev__qol__var.html#a90324adad133f6fa81f83fdf20536594", null ],
       [ "version", "d6/da0/namespacemodules_1_1dev__qol__var.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
     ] ],
