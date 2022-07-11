@@ -195,7 +195,7 @@ class MainWindow(
         print("CLI generation tool ready.")        
         # end __init__
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        if event.type() == QEvent.MouseButtonPress:
+        if watched is self.ui.codePreview_1.viewport() and event.type() == QEvent.MouseButtonPress:
             print("click")
             print(watched)
         return super().eventFilter(watched, event)
