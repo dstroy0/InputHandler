@@ -200,15 +200,16 @@ config_file_boolean_define_fields_line_start = 71
 ## This offsets code preview line display; Positive values move text lines down, Negative values move text lines up.
 code_preview_text_line_offset = 4
 
-
+## setup.h
+# these should be in a list or dict
+setup_h_class_output_string = "(output_buffer, buffsz(output_buffer), input_prm)"
+setup_h_constructor_string = "UserInput {objectname}{classoutput};"
 setup_h_addcommand_string = "    {objectname}.addCommand({commandparametersname});\n"
-
 setup_h_options_string_list = [
     "    {objectname}.listCommands(); // formats output_buffer with the command list\n",
     "    {objectname}.outputToStream({stream}); // class output\n",
 ]
-setup_h_output_buffer = "\nchar output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
-## setup.h
+setup_h_output_buffer_string = "\nchar output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
 setup_h_filestring = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
@@ -245,7 +246,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
     &pststpseq}};
 
 // constructor
-UserInput {objectname}(output_buffer, buffsz(output_buffer), input_prm);
+{constructor}
 
 void InputHandler_setup()
 {{
@@ -258,6 +259,22 @@ void InputHandler_setup()
 #endif
 // end of file
 """
+# end setup.h
+
+## functions.h
+# prototypes only
+
+# end functions.h
+
+## functions.cpp
+# non-proto only
+
+# end functions.cpp
+
+## parameters.h
+# only CommandParameters and nests
+
+# end parameters.h
 
 # end dev qol var
 # end of file

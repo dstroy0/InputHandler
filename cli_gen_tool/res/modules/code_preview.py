@@ -17,18 +17,24 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
 )
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QTextCursor
+from PySide6.QtGui import QTextCursor, QMouseEvent
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
     setup_h_filestring,
     setup_h_addcommand_string,
     setup_h_options_string_list,
-    setup_h_output_buffer
+    setup_h_output_buffer_string,
+    setup_h_constructor_string,
+    setup_h_class_output_string,
 )
 
 
 # code preview methods
 class CodePreview(object):
+    def code_preview_mouse_event(self, event):
+        print(event)
+        event.accept()
+
     # build code preview trees
     def build_code_preview_tree(self):
         for tab in range(0, 2):
@@ -40,41 +46,31 @@ class CodePreview(object):
             tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
             tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
             tree.setColumnCount(2)
-            for key in self.code_preview_dict["files"]:
+            for key in self.code_preview_dict["files"]:                
                 self.code_preview_dict["files"][key]["tree_item"][
                     tab
                 ] = QTreeWidgetItem(tree, [key, ""])
-                self.code_preview_dict["files"][key]["tree_item"][tab].setIcon(
-                    0, self.ui.fileIcon
-                )
+                parent = self.code_preview_dict["files"][key][
+                    "tree_item"
+                ][tab]
+                parent.setIcon(0, self.ui.fileIcon)                
                 self.code_preview_dict["files"][key]["text_widget"][
                     tab
                 ] = QPlainTextEdit()
-                self.code_preview_dict["files"][key]["text_widget"][
-                    tab
-                ].setLineWrapMode(QPlainTextEdit.NoWrap)
-                self.code_preview_dict["files"][key]["text_widget"][tab].setReadOnly(
-                    True
-                )
-                self.code_preview_dict["files"][key]["text_widget"][tab].setObjectName(
-                    str(key)
-                )
-                self.code_preview_dict["files"][key]["text_widget"][
-                    tab
-                ].setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+                text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
+                text_widget.setLineWrapMode(QPlainTextEdit.NoWrap)
+                text_widget.setReadOnly(True)
+                text_widget.setObjectName(str(key))
+                text_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
-                ] = QTreeWidgetItem(
-                    self.code_preview_dict["files"][key]["tree_item"][tab]
-                )
-                tree.setItemWidget(
-                    self.code_preview_dict["files"][key]["contents_item"][tab],
-                    0,
-                    self.code_preview_dict["files"][key]["text_widget"][tab],
-                )
-                self.code_preview_dict["files"][key]["contents_item"][
+                ] = QTreeWidgetItem(parent)
+                text_widget_container = self.code_preview_dict["files"][key]["contents_item"][
                     tab
-                ].setFirstColumnSpanned(True)
+                ]
+                tree.setItemWidget(text_widget_container,0,text_widget)
+                text_widget_container.setFirstColumnSpanned(True)
+                
 
     # end build_code_preview_tree()
 
@@ -89,19 +85,23 @@ class CodePreview(object):
             except:
                 # QTableWidgetItem
                 object_string = str(tree_object.tableWidget().objectName())
-            object_list = object_string.strip("\n").split(",")            
+            object_list = object_string.strip("\n").split(",")
             line_num = 0
             if object_list[0] == "process output" or "process name":
-                code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]                
+                code_list = self.code_preview_dict["files"]["setup.h"][
+                    "file_lines_list"
+                ]
                 for i in range(len(code_list)):
                     if object_list[2] in code_list[i]:
-                        line_num = i                        
+                        line_num = i
                         break
             elif object_list[0] == "process parameters":
-                code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
+                code_list = self.code_preview_dict["files"]["setup.h"][
+                    "file_lines_list"
+                ]
                 for i in range(len(code_list)):
                     if object_list[2] in code_list[i]:
-                        line_num = i                        
+                        line_num = i
                         break
             else:
                 sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -148,38 +148,48 @@ class CodePreview(object):
                 if place_cursor == True:
                     self.set_text_cursor(text_widget, tree_object)
         # end update_config_h
-        
+
     def update_setup_h_string_helper(self, seq):
-        num_seq = len(seq)        
+        num_seq = len(seq)
         seq_lens_string = "{"
         seqs_string = "{"
         seq_lens = []
         seqs = []
         for key in seq:
-            seq_lens.append(len(seq[key]))            
+            seq_lens.append(len(seq[key]))
             seqs.append(seq[key])
         for i in range(len(seq_lens)):
-            seq_lens_string = seq_lens_string + str(seq_lens[i])            
-            seqs_string = seqs_string + '"' + str(seqs[i]).strip("'").replace('"', '\\"') + '"'
+            seq_lens_string = seq_lens_string + str(seq_lens[i])
+            seqs_string = (
+                seqs_string + '"' + str(seqs[i]).strip("'").replace('"', '\\"') + '"'
+            )
             if i != len(seq_lens) - 1:
                 seq_lens_string = seq_lens_string + ", "
                 seqs_string = seqs_string + ", "
         seq_lens_string = seq_lens_string + "}"
         seqs_string = seqs_string + "}"
         return [num_seq, seq_lens_string, seqs_string]
-        
+
     def update_setup_h(self, tree_object, place_cursor=False):
         file_lines = self.generate_docstring_list_for_filename("setup.h")
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
-        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]        
+        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
-        output_buffer = setup_h_output_buffer.format(buffersize=buffer_size,bufferchar=buffer_char)
+        object_name = "inputHandler"
+        output_buffer = setup_h_output_buffer_string.format(
+            buffersize=buffer_size, bufferchar=buffer_char
+        )
+        class_constructor = setup_h_constructor_string.format(
+            objectname=object_name, classoutput=setup_h_class_output_string
+        )
         if int(buffer_size) == 0:
             output_buffer = ""
+            class_constructor = setup_h_constructor_string.format(
+                objectname=object_name, classoutput=""
+            )
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
-        object_name = "inputHandler"
         process_name = pprm["process name"]
         process_eol = str(repr(pprm["end of line characters"])).strip("'")
         process_ipcc = pprm["input control char sequence"]
@@ -187,17 +197,17 @@ class CodePreview(object):
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-        
+
         result = self.update_setup_h_string_helper(delim_seq)
-        num_delim_seq = result[0]        
-        delim_seq_lens_string = result[1]        
-        delim_seqs_string = result[2]        
-        
+        num_delim_seq = result[0]
+        delim_seq_lens_string = result[1]
+        delim_seqs_string = result[2]
+
         result = self.update_setup_h_string_helper(ststp_seq)
-        num_ststp_pairs = result[0] / 2        
-        ststp_seq_lens_string = result[1]        
+        num_ststp_pairs = result[0] / 2
+        ststp_seq_lens_string = result[1]
         ststp_seqs_string = result[2]
-        
+
         command_list_string = ""
         for key in self.cliOpt["commands"]:
             # iterate through list
@@ -207,12 +217,13 @@ class CodePreview(object):
             command_list_string = setup_h_addcommand_string.format(
                 objectname=object_name, commandparametersname=command_parameters_name
             )
-            
-        options_string = ""        
+
+        options_string = ""
 
         setup_h = setup_h_filestring.format(
             objectname=object_name,
             outputbuffer=output_buffer,
+            constructor=class_constructor,
             processname=process_name,
             processeol=process_eol,
             processinputcontrolchar=process_ipcc,
@@ -225,12 +236,14 @@ class CodePreview(object):
             startstopseqs=ststp_seqs_string,
             setupstring=setup_string,
             commandlist=command_list_string,
-            options=options_string
+            options=options_string,
         )
-        
+
         code_string = self.list_to_code_string(file_lines)
         code_string = code_string + setup_h
-        self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = code_string.split("\n")
+        self.code_preview_dict["files"]["setup.h"][
+            "file_lines_list"
+        ] = code_string.split("\n")
         for tab in range(2):
             text_widget = self.code_preview_dict["files"]["setup.h"]["text_widget"][tab]
             text_widget.clear()
@@ -241,11 +254,11 @@ class CodePreview(object):
     # refreshes the text in the code preview trees
     def update_code_preview_tree(self, tree_object):
         print("update code preview")
-        # update widgets        
+        # update widgets
         for key in self.code_preview_dict["files"]:
             if key == "config.h":
                 self.update_config_h(tree_object, True)
-            if key == "setup.h":                
+            if key == "setup.h":
                 self.update_setup_h(tree_object, True)
 
     def display_initial_code_preview(self):
