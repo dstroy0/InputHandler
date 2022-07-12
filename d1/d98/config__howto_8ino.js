@@ -9,7 +9,7 @@ var config__howto_8ino =
     [ "help_", "d1/d98/config__howto_8ino.html#a315d4fc5c8b643fad8059d950831b440", null ],
     [ "help_param", "d1/d98/config__howto_8ino.html#a37dc520806193edda7db40a2faa3457e", null ],
     [ "input_prm", "d1/d98/config__howto_8ino.html#a084afcadb360781f4e8183987435076c", null ],
-    [ "inputHandler", "d1/d98/config__howto_8ino.html#a20c0984976fc016b2095795890af59b4", null ],
+    [ "inputHandler", "d1/d98/config__howto_8ino.html#a54bd2c0e28802b928bb5f36e502894ea", null ],
     [ "output_buffer", "d1/d98/config__howto_8ino.html#a2e61e861b0d5c862d83a1fbfd3133091", null ],
     [ "peol", "d1/d98/config__howto_8ino.html#a61d5220287a9fed34d299577749a1e46", null ],
     [ "pinputcc", "d1/d98/config__howto_8ino.html#a79cb83fee1312ff01031a7b49b64116b", null ],

@@ -6,7 +6,7 @@ var _n_m_e_aparser_8ino =
     [ "gpbwc", "dd/d65/_n_m_e_aparser_8ino.html#acad89f5dd048dba77e2f05c4ff30558f", null ],
     [ "gpgsa", "dd/d65/_n_m_e_aparser_8ino.html#aa3acf2440c044ba5bee1da3c6a920b31", null ],
     [ "input_prm", "dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c", null ],
-    [ "inputHandler", "dd/d65/_n_m_e_aparser_8ino.html#a20c0984976fc016b2095795890af59b4", null ],
+    [ "inputHandler", "dd/d65/_n_m_e_aparser_8ino.html#a54bd2c0e28802b928bb5f36e502894ea", null ],
     [ "NMEA", "dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e", null ],
     [ "NMEA_sentence", "dd/d65/_n_m_e_aparser_8ino.html#aeafab347975344ab7daf92051b1b64e2", null ],
     [ "NMEA_sentence_error", "dd/d65/_n_m_e_aparser_8ino.html#aa0a060c6e9c8ed30712e76edd907ae9c", null ],
@@ -19,7 +19,7 @@ var _n_m_e_aparser_8ino =
     [ "pststpseq", "dd/d65/_n_m_e_aparser_8ino.html#a1d43a9b5ee2bda82f27eb2970a2e30a5", null ],
     [ "pwcc", "dd/d65/_n_m_e_aparser_8ino.html#abaa6088f7cb93207f24d0ffff3dde3eb", null ],
     [ "sensor_prm", "dd/d65/_n_m_e_aparser_8ino.html#ac42986df66e06c58241dceea85c6e611", null ],
-    [ "sensorParser", "dd/d65/_n_m_e_aparser_8ino.html#a5ce779a2c885b0eb3e07a8745b3d8cd3", null ],
+    [ "sensorParser", "dd/d65/_n_m_e_aparser_8ino.html#a7b57a2254fc4700a4015ba0762746110", null ],
     [ "sentence_error_param", "dd/d65/_n_m_e_aparser_8ino.html#a0a8c178791ae7966143e2dc16a573f3b", null ],
     [ "sentence_param", "dd/d65/_n_m_e_aparser_8ino.html#affa7c88fd59bb49e26d5c6fb2f48a2cd", null ]
 ];

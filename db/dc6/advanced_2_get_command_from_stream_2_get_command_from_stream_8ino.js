@@ -5,7 +5,7 @@ var advanced_2_get_command_from_stream_2_get_command_from_stream_8ino =
     [ "test_input_types", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ab6eb608c0c6f10ed3d6af2493618af36", null ],
     [ "unrecognized", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#af1c9961e6ce9d564faa79ba105238e86", null ],
     [ "input_prm", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a084afcadb360781f4e8183987435076c", null ],
-    [ "inputHandler", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a20c0984976fc016b2095795890af59b4", null ],
+    [ "inputHandler", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a54bd2c0e28802b928bb5f36e502894ea", null ],
     [ "output_buffer", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a2e61e861b0d5c862d83a1fbfd3133091", null ],
     [ "peol", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a61d5220287a9fed34d299577749a1e46", null ],
     [ "pinputcc", "db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#a79cb83fee1312ff01031a7b49b64116b", null ],

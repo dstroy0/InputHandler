@@ -201,8 +201,8 @@ Classes</h2></td></tr>
 <tr class="separator:a7a0668fda012a9ef712c10e7ddc8381f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ebce425119293926546d9d7090c6706"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a8ebce425119293926546d9d7090c6706">_input_prm_</a></td></tr>
 <tr class="separator:a8ebce425119293926546d9d7090c6706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b90648301d62ab0b0227bfd7044decb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a1b90648301d62ab0b0227bfd7044decb">UserInput</a> (char *<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>=NULL, size_t output_buffer_len=0, const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *<a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a>=NULL)</td></tr>
-<tr class="separator:a1b90648301d62ab0b0227bfd7044decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7cf91e3c4f640149ba0c1669a8d9343"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343">UserInput</a> (const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *<a class="el" href="../../dd/d65/_n_m_e_aparser_8ino.html#a084afcadb360781f4e8183987435076c">input_prm</a>=NULL, char *<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ad520b29e3db0d23c00126db0d0c64e30">output_buffer</a>=NULL, size_t output_buffer_len=0)</td></tr>
+<tr class="separator:aa7cf91e3c4f640149ba0c1669a8d9343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65286d0a8daf3789af61363828e870c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a65286d0a8daf3789af61363828e870c9">defaultFunction</a> (void(*function)(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a> *))</td></tr>
 <tr class="separator:a65286d0a8daf3789af61363828e870c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6067a65dc10a5c4546ce789a3edd4d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1">addCommand</a> (<a class="el" href="../../df/d68/class_command_constructor.html">CommandConstructor</a> &amp;command)</td></tr>
@@ -269,8 +269,8 @@ Classes</h2></td></tr>
 <tr class="separator:ae583f9970092fd45ded5fcbe1ae179f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1b90648301d62ab0b0227bfd7044decb" name="a1b90648301d62ab0b0227bfd7044decb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b90648301d62ab0b0227bfd7044decb">&#9670;&nbsp;</a></span>UserInput()</h2>
+<a id="aa7cf91e3c4f640149ba0c1669a8d9343" name="aa7cf91e3c4f640149ba0c1669a8d9343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7cf91e3c4f640149ba0c1669a8d9343">&#9670;&nbsp;</a></span>UserInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,6 +281,12 @@ Classes</h2></td></tr>
         <tr>
           <td class="memname">UserInput::UserInput </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *&#160;</td>
+          <td class="paramname"><em>input_prm</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>output_buffer</em> = <code>NULL</code>, </td>
         </tr>
@@ -288,13 +294,7 @@ Classes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>output_buffer_len</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../db/dda/struct_input_process_parameters.html">InputProcessParameters</a> *&#160;</td>
-          <td class="paramname"><em>input_prm</em> = <code>NULL</code>&#160;</td>
+          <td class="paramname"><em>output_buffer_len</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -313,9 +313,10 @@ Classes</h2></td></tr>
 <p ><a class="el" href="../../dc/d4b/class_user_input.html" title="User input handler methods.">UserInput</a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <code>_output_enabled_</code> to false if output_buffer is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">output_buffer</td><td>class output char buffer, implementation specific. NULL by default. </td></tr>
-    <tr><td class="paramname">output_buffer_len</td><td>size of output_buffer <a class="el" href="../../da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178" title="gets the number of elements in an array">buffsz(output_buffer)</a> </td></tr>
     <tr><td class="paramname">input_prm</td><td><a class="el" href="../../db/dda/struct_input_process_parameters.html" title="UserInput input process parameters, constructor parameters This struct is an array of pointers to oth...">InputProcessParameters</a> struct pointer. NULL by default, which causes the ctor to use <em>DEFAULT_UI_INPUT_PRM</em> unless you define your own </td></tr>
+    <tr><td class="paramname">output_buffer</td><td>class output char buffer, implementation specific. NULL by default. </td></tr>
+    <tr><td class="paramname">output_buffer_len</td><td>size of output_buffer <a class="el" href="../../da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178" title="gets the number of elements in an array">buffsz(output_buffer)</a> <br  />
+ </td></tr>
   </table>
   </dd>
 </dl>

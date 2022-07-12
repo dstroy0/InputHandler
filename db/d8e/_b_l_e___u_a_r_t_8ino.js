@@ -11,7 +11,8 @@ var _b_l_e___u_a_r_t_8ino =
     [ "remote_device", "db/d8e/_b_l_e___u_a_r_t_8ino.html#ab725fee33f81e0645cd462343598ec4d", null ],
     [ "setup", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a7dfd9b79bc5a37d7df40207afbc5431f", null ],
     [ "unrecognized", "db/d8e/_b_l_e___u_a_r_t_8ino.html#af1c9961e6ce9d564faa79ba105238e86", null ],
-    [ "inputHandler", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a9bd3ddff66c1c3c92974df9f119ea881", null ],
+    [ "defaultConstructor", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a530d8c78dfcc38353adfdad6cf79c794", null ],
+    [ "inputHandler", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a8b19263a7a0b9c530f512e9ee86b848c", null ],
     [ "output_buffer", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a52020a79a2bc930c1cff27264f3cc03c", null ],
     [ "receiver_param", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a2e1ba225701a3362aa526a99247d8524", null ],
     [ "remote_", "db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e", null ]

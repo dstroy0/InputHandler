@@ -3,7 +3,7 @@ var class_user_input =
     [ "_rcfbprm", "d3/d14/struct_user_input_1_1__rcfbprm.html", "d3/d14/struct_user_input_1_1__rcfbprm" ],
     [ "getTokensParam", "d7/d74/struct_user_input_1_1get_tokens_param.html", "d7/d74/struct_user_input_1_1get_tokens_param" ],
     [ "validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", "dc/d98/struct_user_input_1_1validate_null_sep_input_param" ],
-    [ "UserInput", "dc/d4b/class_user_input.html#a1b90648301d62ab0b0227bfd7044decb", null ],
+    [ "UserInput", "dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343", null ],
     [ "_addCommandAbort", "dc/d4b/class_user_input.html#ada6f5999561309d3067f799397ea7edf", null ],
     [ "_addEscapedControlCharToBuffer", "dc/d4b/class_user_input.html#a07fe8e4c9417e15e72af955654627749", null ],
     [ "_calcCmdMemcmpRanges", "dc/d4b/class_user_input.html#acf3997bafd0487fd65feed5d97d3f09e", null ],
