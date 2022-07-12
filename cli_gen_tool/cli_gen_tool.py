@@ -24,15 +24,10 @@ from PySide6.QtWidgets import (
     QStyle,
     QSplashScreen,
 )
-from PySide6.QtCore import (
-    Qt,
-    QTimer, 
-    QPoint, 
-    QSize, QEvent, QObject
-)
+from PySide6.QtCore import Qt, QTimer, QPoint, QSize, QEvent, QObject
 from PySide6.QtGui import (
     QIcon,
-    QPixmap, 
+    QPixmap,
     QMouseEvent,
 )
 
@@ -70,7 +65,7 @@ class MainWindow(
     ## The constructor.
     def __init__(self, app, parent=None):
         super().__init__(parent)
-                
+
         self.app = app  # used in external methods
 
         # import external methods into this instance of self
@@ -192,15 +187,19 @@ class MainWindow(
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
         # end MainWindow objects
-        print("CLI generation tool ready.")        
+        print("CLI generation tool ready.")
         # end __init__
+
     # TODO finish filter, get selected items record mouse beginning and ending geometry, adjust the plaintextedit sizehint on mouserelease (y axis only!)
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        if watched is self.ui.codePreview_1.viewport() and event.type() == QEvent.MouseButtonPress:            
+        if (
+            watched is self.ui.codePreview_1.viewport()
+            and event.type() == QEvent.MouseButtonPress
+        ):
             if QMouseEvent(event).button() == Qt.LeftButton:
                 print(watched)
                 selected_items = self.ui.codePreview_1.selectedItems()
-                print(selected_items)                        
+                print(selected_items)
         return super().eventFilter(watched, event)
 
 
@@ -226,7 +225,7 @@ if __name__ == "__main__":
     splash.timer = QTimer()
     splash.timer.setSingleShot(True)
     # GUI layout
-    window = MainWindow(app) # pass app object to external methods
+    window = MainWindow(app)  # pass app object to external methods
     window.show()
     # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
     splash.timer.timeout.connect(splash.close)
