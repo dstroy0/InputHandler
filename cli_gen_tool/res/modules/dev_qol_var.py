@@ -304,7 +304,8 @@ commandparameters_string = """
 /**
    @brief CommandParameters struct for {functionname}
 */
-const PROGMEM CommandParameters {functionname}_param[1] = {
+const PROGMEM CommandParameters {functionname}_param[1] = 
+{{
     {functionname},                     // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
     {wildcardflag},             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     {commandstring},                   // command string
@@ -318,7 +319,7 @@ const PROGMEM CommandParameters {functionname}_param[1] = {
     {maxnumargs},                        // maximum expected number of arguments
     /* UITYPE arguments */
     {argtypearray} // use NO_ARGS if the function expects no arguments    
-};
+}};
 {commandconstructor}
 """
 
