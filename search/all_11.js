@@ -31,7 +31,7 @@ var searchData=
   ['setup_5fh_5fconstructor_5fstring_28',['setup_h_constructor_string',['../d6/da0/namespacemodules_1_1dev__qol__var.html#acb77208af40aa5ebb728b9aea26d6f5e',1,'modules::dev_qol_var']]],
   ['setup_5fh_5ffilestring_29',['setup_h_filestring',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a8f3611328485556faab02fec3f988b35',1,'modules::dev_qol_var']]],
   ['setup_5fh_5foptions_5fstring_5flist_30',['setup_h_options_string_list',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ac9ea99c5ea9ee84c6494943c26044c88',1,'modules::dev_qol_var']]],
-  ['setup_5fh_5foutput_5fbuffer_5fstring_31',['setup_h_output_buffer_string',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a111a2821d8e9e74bf6e6b1643ff500fe',1,'modules::dev_qol_var']]],
+  ['setup_5fh_5foutput_5fbuffer_5fstring_31',['setup_h_output_buffer_string',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ac672559d758aa527acde40d16e7b1a7f',1,'modules::dev_qol_var']]],
   ['setup_5fwifi_32',['setup_wifi',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae5b88d967e3185d98053cf055c8b4f1f',1,'setup_wifi():&#160;ReadCommandFromBufferMQTT.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ae5b88d967e3185d98053cf055c8b4f1f',1,'setup_wifi():&#160;ReadCommandFromBufferWebSerial.ino']]],
   ['setupui_33',['setupUi',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#adf6b0b0ee4a954081c2199fd9024e694',1,'uic.commandParametersDialog.Ui_commandParametersDialog.setupUi()'],['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a6367eeb7574ccde90d0ad3cce7876de3',1,'uic.mainWindow.Ui_MainWindow.setupUi()']]],
   ['splash_34',['splash',['../dd/d04/namespacecli__gen__tool.html#a39249ed989120c548dd340b6e2f58c4e',1,'cli_gen_tool']]],
