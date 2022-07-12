@@ -194,10 +194,13 @@ class MainWindow(
         # end MainWindow objects
         print("CLI generation tool ready.")        
         # end __init__
+    # TODO finish filter, get selected items record mouse beginning and ending geometry, adjust the plaintextedit sizehint on mouserelease (y axis only!)
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        if watched is self.ui.codePreview_1.viewport() and event.type() == QEvent.MouseButtonPress:
-            print("click")
-            print(watched)
+        if watched is self.ui.codePreview_1.viewport() and event.type() == QEvent.MouseButtonPress:            
+            if QMouseEvent(event).button() == Qt.LeftButton:
+                print(watched)
+                selected_items = self.ui.codePreview_1.selectedItems()
+                print(selected_items)                        
         return super().eventFilter(watched, event)
 
 
