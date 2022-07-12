@@ -320,14 +320,14 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param output_buffer class output char buffer, implementation specific.  NULL by default.
-     * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the ctor to use _DEFAULT_UI_INPUT_PRM_ unless you define your own
+     * @param output_buffer class output char buffer, implementation specific.  NULL by default.
+     * @param output_buffer_len size of output_buffer buffsz(output_buffer)     
      */
-    UserInput(char* output_buffer = NULL, size_t output_buffer_len = 0, const InputProcessParameters* input_prm = NULL)
-        : _output_buffer_(output_buffer),
-          _output_buffer_len_(output_buffer_len),
-          _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+    UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
+        : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+          _output_buffer_(output_buffer),
+          _output_buffer_len_(output_buffer_len),          
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_bytes_left_(output_buffer_len),
           _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),

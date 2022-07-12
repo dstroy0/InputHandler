@@ -67,7 +67,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
     &pwcc,
     &pipdelimseq,
     &pststpseq};
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 /*
    builtin function wrappers

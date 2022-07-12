@@ -37,7 +37,8 @@ char output_buffer[512] = {'\0'}; //  output buffer
 /*
   UserInput constructor
 */
-UserInput inputHandler(output_buffer, buffsz(output_buffer));
+const InputProcessParameters* defaultConstructor = NULL;
+UserInput inputHandler(defaultConstructor, output_buffer, buffsz(output_buffer));
 
 /*
    default function, called if nothing matches or if there is an error

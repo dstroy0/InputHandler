@@ -46,7 +46,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
     &pwcc,
     &pdelimseq,
     &pststpseq};
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 void InputHandler_setup()
 {

@@ -91,7 +91,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
     &pipdelimseq,
     &pststpseq};
 
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 const PROGMEM InputProcessParameters sensor_prm[1] = {
     &pname,
@@ -100,7 +100,7 @@ const PROGMEM InputProcessParameters sensor_prm[1] = {
     &pwcc,
     &psensordelimseq,
     &pststpseq};
-UserInput sensorParser(output_buffer, buffsz(output_buffer), sensor_prm);
+UserInput sensorParser(sensor_prm, output_buffer, buffsz(output_buffer));
 
 NMEAparse NMEA;
 

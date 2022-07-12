@@ -33,7 +33,8 @@
 
 // UserInput default constructor with output
 char output_buffer[64] {}; // zero-initialized class output buffer
-UserInput inputHandler(output_buffer, buffsz(output_buffer));
+const InputProcessParameters* defaultConstructor = NULL;
+UserInput inputHandler(defaultConstructor, output_buffer, buffsz(output_buffer));
 
 // default function, called if nothing matches or if there is an error
 void unrecognized(UserInput* inputProcess) {

@@ -39,7 +39,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
   &pipdelimseq,
   &pststpseq
 };
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm); // UserInput constructor
+UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer)); // UserInput constructor
 
 // default function, called if nothing matches or if there is an error
 void unrecognized(UserInput* inputProcess)

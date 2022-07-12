@@ -46,7 +46,14 @@ const PROGMEM InputProcessParameters input_prm[1] = {
     &pwcc,
     &pdelimseq,
     &pststpseq};
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
+
+// default function, called if nothing matches or if there is an error
+void unrecognized(UserInput* inputProcess)
+{
+  // error output
+  inputProcess->outputToStream(Serial);
+}
 
 void InputHandler_setup()
 {

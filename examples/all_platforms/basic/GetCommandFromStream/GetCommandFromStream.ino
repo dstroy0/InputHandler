@@ -11,7 +11,7 @@
 #include <InputHandler.h>
 
 /*
-  UserInput constructor
+  UserInput constructor; default constructor with no class output
 */
 UserInput inputHandler;
 

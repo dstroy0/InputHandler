@@ -18,7 +18,8 @@ char output_buffer[650] = {'\0'}; // output buffer
 /*
     default constructor with output, default wildcard char is asterisk '*'
 */
-UserInput inputHandler(output_buffer, buffsz(output_buffer));
+const InputProcessParameters* defaultConstructor = NULL;
+UserInput inputHandler(defaultConstructor, output_buffer, buffsz(output_buffer));
 
 /*
    default function, called if nothing matches or if there is an error
