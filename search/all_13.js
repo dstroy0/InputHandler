@@ -39,6 +39,7 @@ var searchData=
   ['update_5fsettings_5ftree_5ftype_5ffield_5ftext_36',['update_settings_tree_type_field_text',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#a5598a731d7dbfd08c24755639557777e',1,'modules::settings_tree::SettingsTreeMethods']]],
   ['update_5fsetup_5fh_37',['update_setup_h',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#ae3522671c10a1cd37762a03c1bc9d453',1,'modules::code_preview::CodePreview']]],
   ['update_5fsetup_5fh_5fstring_5fhelper_38',['update_setup_h_string_helper',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a15633971a3a3d8ca27510687d8023de1',1,'modules::code_preview::CodePreview']]],
-  ['userinput_39',['UserInput',['../dc/d4b/class_user_input.html',1,'UserInput'],['../dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343',1,'UserInput::UserInput()']]],
-  ['userinput_5ftype_5fstrings_5fpgm_40',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
+  ['user_5fresizing_5fcode_5fpreview_5fbox_39',['user_resizing_code_preview_box',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a81e4ad57ccc4623fed0feb1a8a37f24f',1,'cli_gen_tool::MainWindow']]],
+  ['userinput_40',['UserInput',['../dc/d4b/class_user_input.html',1,'UserInput'],['../dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343',1,'UserInput::UserInput()']]],
+  ['userinput_5ftype_5fstrings_5fpgm_41',['UserInput_type_strings_pgm',['../de/d8a/group___user_input.html#ga08f01b3963da682b202040cdf718ea11',1,'InputHandler.h']]]
 ];
