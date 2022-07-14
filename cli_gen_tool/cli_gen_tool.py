@@ -205,38 +205,45 @@ class MainWindow(
         # end MainWindow objects
         print("CLI generation tool ready.")
         # end __init__
-
-    # TODO finish filter, get selected items record mouse beginning and ending geometry, adjust the plaintextedit sizehint on mouserelease (y axis only!)
+    
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         if watched is self.ui.codePreview_1.viewport():
             if event.type() == event.MouseButtonPress and QMouseEvent(event).button() == Qt.LeftButton:
-                selected_items = self.ui.codePreview_1.selectedItems()                
-                if selected_items:  # non empty list
-                    self.qrect = self.ui.codePreview_1.visualItemRect(selected_items[0])
-                    qrect = self.qrect
-                    drag_box_qrect = QRect(
+                print("mouse over widget")
+                
+                selected_item = self.ui.codePreview_1.itemAt(QMouseEvent(event).position().toPoint())
+                
+                self.qrect = self.ui.codePreview_1.visualItemRect(selected_item)
+                qrect = self.qrect
+                drag_box_qrect = QRect(
                         qrect.width() - 15, qrect.y() + qrect.height() - 15, 14, 14
                     )                    
-                    if drag_box_qrect.contains(QMouseEvent(event).position().toPoint()):
-                        print("clicked drag box")
-                        self.user_resizing_code_preview_box = True                    
-                        # selected_items[0].treeWidget().visualItemRect() is the same
-                        # this returns a QRect (x,y,w,h) object
-                        self.drag_resize_qsize = QSize(qrect.width(), qrect.height())
-                        self.selected_drag_to_resize_item = selected_items[0]
-                        
-            if event.type() == event.MouseButtonRelease and self.user_resizing_code_preview_box == True:
-                self.user_resizing_code_preview_box = False
-                ending_y = QMouseEvent(event).position().y()
-                #print(ending_y)
+                if drag_box_qrect.contains(QMouseEvent(event).position().toPoint()):
+                    print("clicked drag box")
+                    self.user_resizing_code_preview_box = True                                        
+                    self.drag_resize_qsize = QSize(qrect.width(), qrect.height())
+                    self.selected_drag_to_resize_item = selected_item
+            
+            if event.type() == event.MouseMove and self.user_resizing_code_preview_box == True:
+                ending_y = QMouseEvent(event).position().y()                
                 self.drag_resize_qsize.setHeight(ending_y)
                 self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
-                widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()
-                print(widget_size)
-                print(self.qrect)
+                widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()                
                 widget_size.setWidth(self.qrect.width() - 40)
-                widget_size.setHeight(ending_y)
-                self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
+                if ending_y >= 192:
+                    widget_size.setHeight(ending_y)
+                    self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
+                            
+            if event.type() == event.MouseButtonRelease and self.user_resizing_code_preview_box == True:
+                self.user_resizing_code_preview_box = False
+                ending_y = QMouseEvent(event).position().y()                
+                self.drag_resize_qsize.setHeight(ending_y)
+                self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
+                widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()                
+                widget_size.setWidth(self.qrect.width() - 40)
+                if ending_y >= 192:
+                    widget_size.setHeight(ending_y)
+                    self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
                 
         return super().eventFilter(watched, event)
 
