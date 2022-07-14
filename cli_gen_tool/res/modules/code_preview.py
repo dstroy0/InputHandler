@@ -14,10 +14,11 @@ from __future__ import absolute_import
 from PySide6.QtWidgets import (
     QHeaderView,
     QTreeWidgetItem,
-    QPlainTextEdit,
+    QPlainTextEdit, 
+    QSizePolicy,
 )
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QTextCursor, QMouseEvent
+from PySide6.QtGui import QTextCursor 
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
     setup_h_filestring,
@@ -46,14 +47,12 @@ class CodePreview(object):
             tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
             tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
             tree.setColumnCount(2)
-            for key in self.code_preview_dict["files"]:                
+            for key in self.code_preview_dict["files"]:
                 self.code_preview_dict["files"][key]["tree_item"][
                     tab
                 ] = QTreeWidgetItem(tree, [key, ""])
-                parent = self.code_preview_dict["files"][key][
-                    "tree_item"
-                ][tab]
-                parent.setIcon(0, self.ui.fileIcon)                
+                parent = self.code_preview_dict["files"][key]["tree_item"][tab]
+                parent.setIcon(0, self.ui.fileIcon)
                 self.code_preview_dict["files"][key]["text_widget"][
                     tab
                 ] = QPlainTextEdit()
@@ -62,13 +61,15 @@ class CodePreview(object):
                 text_widget.setReadOnly(True)
                 text_widget.setObjectName(str(key))
                 text_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+                text_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+                text_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
-                text_widget_container = self.code_preview_dict["files"][key]["contents_item"][
-                    tab
-                ]
-                tree.setItemWidget(text_widget_container,0,text_widget)
+                text_widget_container = self.code_preview_dict["files"][key][
+                    "contents_item"
+                ][tab]
+                tree.setItemWidget(text_widget_container, 0, text_widget)
                 text_widget_container.setFirstColumnSpanned(True)
                 
 

@@ -6,6 +6,7 @@
 # @date 2022-06-10
 # @copyright Copyright (c) 2022
 from __future__ import absolute_import
+from queue import Empty
 
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -22,9 +23,18 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QDialog,
     QStyle,
-    QSplashScreen,
+    QSplashScreen, 
 )
-from PySide6.QtCore import Qt, QTimer, QPoint, QSize, QEvent, QObject
+from PySide6.QtCore import (
+    Qt,
+    QTimer,
+    QPoint,
+    QSize,
+    QEvent,
+    QObject,
+    QRect,
+    QPointF,
+)
 from PySide6.QtGui import (
     QIcon,
     QPixmap,
@@ -112,6 +122,9 @@ class MainWindow(
         self.docs_brief = self.docs_format_list[1]
         self.docs_version = self.docs_format_list[2]
 
+        # code preview interaction
+        self.user_resizing_code_preview_box = False
+        
         # command parameters dict keys list
         self.commandParametersKeys = command_parameters_dict_keys_list
 
@@ -184,22 +197,44 @@ class MainWindow(
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
         cmd_dlg.argumentsPane.setEnabled(False)
+
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
+        
+
         # end MainWindow objects
         print("CLI generation tool ready.")
         # end __init__
 
     # TODO finish filter, get selected items record mouse beginning and ending geometry, adjust the plaintextedit sizehint on mouserelease (y axis only!)
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        if (
-            watched is self.ui.codePreview_1.viewport()
-            and event.type() == QEvent.MouseButtonPress
-        ):
-            if QMouseEvent(event).button() == Qt.LeftButton:
-                print(watched)
-                selected_items = self.ui.codePreview_1.selectedItems()
-                print(selected_items)
+        if watched is self.ui.codePreview_1.viewport():
+            if event.type() == event.MouseButtonPress and QMouseEvent(event).button() == Qt.LeftButton:
+                selected_items = self.ui.codePreview_1.selectedItems()                
+                if selected_items:  # non empty list
+                    qrect = self.ui.codePreview_1.visualItemRect(selected_items[0])
+                    drag_box_qrect = QRect(
+                        qrect.width() - 15, qrect.y() + qrect.height() - 15, 14, 14
+                    )                    
+                    if drag_box_qrect.contains(QMouseEvent(event).position().toPoint()):
+                        print("clicked drag box")
+                        self.user_resizing_code_preview_box = True                    
+                        # selected_items[0].treeWidget().visualItemRect() is the same
+                        # this returns a QRect (x,y,w,h) object
+                        self.drag_resize_qsize = QSize(qrect.width(), qrect.height())
+                        self.selected_drag_to_resize_item = selected_items[0]
+                        
+            if event.type() == event.MouseButtonRelease and self.user_resizing_code_preview_box == True:
+                self.user_resizing_code_preview_box = False
+                ending_y = QMouseEvent(event).position().y()
+                #print(ending_y)
+                self.drag_resize_qsize.setHeight(ending_y)
+                self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
+                widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()
+                print(widget_size)
+                widget_size.setHeight(ending_y)
+                self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
+                
         return super().eventFilter(watched, event)
 
 

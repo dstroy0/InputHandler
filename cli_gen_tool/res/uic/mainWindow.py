@@ -133,8 +133,8 @@ class Ui_MainWindow(object):
         __qtreewidgetitem1.setText(0, u"1");
         self.codePreview_1.setHeaderItem(__qtreewidgetitem1)
         self.codePreview_1.setObjectName(u"codePreview_1")
-        sizePolicy1.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
-        self.codePreview_1.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
+        self.codePreview_1.setSizePolicy(sizePolicy)
         self.codePreview_1.setMinimumSize(QSize(600, 200))
         self.codePreview_1.setMouseTracking(False)
         self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
