@@ -18,6 +18,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "file_first_line", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a5e569d0d02e2092ed288bb2beb5c037e", null ],
     [ "format_docstring", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a03b4605f3ce2779543262bd324a8d75d", null ],
     [ "lib_root_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a83bac3696f9b257de4997a0ecac10686", null ],
+    [ "qrect", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a3ed327804d96745e9f41be53d14d3b87", null ],
     [ "selected_drag_to_resize_item", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ada344ed40a8ea3cc5cc79e4f24878ce1", null ],
     [ "session", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0353fc779da7e2c358f9c61271f5365e", null ],
     [ "ui", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44b11f6c7d8b61b9554eadc464d9ac70", null ],
