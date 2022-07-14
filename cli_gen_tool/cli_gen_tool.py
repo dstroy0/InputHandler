@@ -212,7 +212,8 @@ class MainWindow(
             if event.type() == event.MouseButtonPress and QMouseEvent(event).button() == Qt.LeftButton:
                 selected_items = self.ui.codePreview_1.selectedItems()                
                 if selected_items:  # non empty list
-                    qrect = self.ui.codePreview_1.visualItemRect(selected_items[0])
+                    self.qrect = self.ui.codePreview_1.visualItemRect(selected_items[0])
+                    qrect = self.qrect
                     drag_box_qrect = QRect(
                         qrect.width() - 15, qrect.y() + qrect.height() - 15, 14, 14
                     )                    
@@ -232,6 +233,8 @@ class MainWindow(
                 self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
                 widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()
                 print(widget_size)
+                print(self.qrect)
+                widget_size.setWidth(self.qrect.width() - 40)
                 widget_size.setHeight(ending_y)
                 self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
                 

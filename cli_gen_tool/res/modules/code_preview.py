@@ -69,8 +69,9 @@ class CodePreview(object):
                 text_widget_container = self.code_preview_dict["files"][key][
                     "contents_item"
                 ][tab]
-                tree.setItemWidget(text_widget_container, 0, text_widget)
                 text_widget_container.setFirstColumnSpanned(True)
+                tree.setItemWidget(text_widget_container, 0, text_widget)
+                
                 
 
     # end build_code_preview_tree()
