@@ -213,6 +213,7 @@ class MainWindow(
         # global mouse pos
         mouse_pos = self.qcursor.pos()
         
+        # drag to resize, change cursor to vertical drag and back to arrow
         self.code_preview_events(watched,event,event_type,mouse_button,mouse_pos) 
                         
         return super().eventFilter(watched, event)
