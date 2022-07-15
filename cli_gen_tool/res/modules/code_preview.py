@@ -14,11 +14,11 @@ from __future__ import absolute_import
 from PySide6.QtWidgets import (
     QHeaderView,
     QTreeWidgetItem,
-    QPlainTextEdit, 
+    QPlainTextEdit,
     QSizePolicy,
 )
 from PySide6.QtCore import Qt, QRect, QSize
-from PySide6.QtGui import QTextCursor, QMouseEvent 
+from PySide6.QtGui import QTextCursor, QMouseEvent
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
     setup_h_filestring,
@@ -33,63 +33,91 @@ from res.modules.dev_qol_var import (
 # code preview methods
 class CodePreview(object):
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
-        code_preview_1 = self.ui.codePreview_1                                                              
-        
-        if event_type == event.MouseButtonPress or event_type == event.MouseButtonRelease:
+        code_preview_1 = self.ui.codePreview_1
+
+        if (
+            event_type == event.MouseButtonPress
+            or event_type == event.MouseButtonRelease
+        ):
             mouse_button = QMouseEvent(event).button()
             mouse_pos = QMouseEvent(event).position().toPoint()
         if event_type == event.MouseMove:
             mouse_pos = QMouseEvent(event).position().toPoint()
-            
+
         if watched == code_preview_1.viewport():
-            if event_type == event.HoverEnter or event_type == event.HoverMove or event_type == event.HoverLeave:            
+            if (
+                event_type == event.HoverEnter
+                or event_type == event.HoverMove
+                or event_type == event.HoverLeave
+            ):
                 viewportpos = code_preview_1.viewport().mapFromGlobal(mouse_pos)
-                selected_item = code_preview_1.itemAt(viewportpos)                                            
-                if selected_item and selected_item.childCount() == 0:            
-                    drag_box_qrect = self.get_vertical_drag_icon_geometry(code_preview_1.visualItemRect(selected_item))            
-                    if drag_box_qrect.contains(viewportpos):                                    
+                selected_item = code_preview_1.itemAt(viewportpos)
+                if selected_item and selected_item.childCount() == 0:
+                    drag_box_qrect = self.get_vertical_drag_icon_geometry(
+                        code_preview_1.visualItemRect(selected_item)
+                    )
+                    if drag_box_qrect.contains(viewportpos):
                         self.setCursor(Qt.CursorShape.SizeVerCursor)
-                    elif not drag_box_qrect.contains(viewportpos) and self.user_resizing_code_preview_box == False:
+                    elif (
+                        not drag_box_qrect.contains(viewportpos)
+                        and self.user_resizing_code_preview_box == False
+                    ):
                         self.setCursor(Qt.CursorShape.ArrowCursor)
                 else:
                     # no item being hovered over
                     self.setCursor(Qt.CursorShape.ArrowCursor)
-                                                                
+
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
-            if watched is code_preview_1.viewport():                                 
-                selected_item = code_preview_1.itemAt(mouse_pos)                
+            if watched is code_preview_1.viewport():
+                selected_item = code_preview_1.itemAt(mouse_pos)
                 self.qrect = code_preview_1.visualItemRect(selected_item)
                 qrect = self.qrect
-            
+
                 drag_box_qrect = self.get_vertical_drag_icon_geometry(self.qrect)
                 self.init_mouse_pos = mouse_pos
                 self.init_height = qrect.height()
-                if drag_box_qrect.contains(mouse_pos):                                        
+                if drag_box_qrect.contains(mouse_pos):
                     self.setCursor(Qt.CursorShape.SizeVerCursor)
-                    self.user_resizing_code_preview_box = True                                        
+                    self.user_resizing_code_preview_box = True
                     self.drag_resize_qsize = QSize(qrect.width(), qrect.height())
                     self.selected_drag_to_resize_item = selected_item
-            
-        if event_type == event.MouseMove and self.user_resizing_code_preview_box == True:
+
+        if (
+            event_type == event.MouseMove
+            and self.user_resizing_code_preview_box == True
+        ):
             self.resize_code_preview_tree_item(mouse_pos)
-                                            
-        if event_type == event.MouseButtonRelease and self.user_resizing_code_preview_box == True:
+
+        if (
+            event_type == event.MouseButtonRelease
+            and self.user_resizing_code_preview_box == True
+        ):
             self.user_resizing_code_preview_box = False
-            self.resize_code_preview_tree_item(mouse_pos)            
+            self.resize_code_preview_tree_item(mouse_pos)
             self.setCursor(Qt.CursorShape.ArrowCursor)
-    def get_vertical_drag_icon_geometry(self, widget_qrect):        
-        return QRect(0, widget_qrect.y() + widget_qrect.height() - 3, widget_qrect.width(), 6)
-    
-    def resize_code_preview_tree_item(self, mouse_pos):            
+
+    def get_vertical_drag_icon_geometry(self, widget_qrect):
+        return QRect(
+            0, widget_qrect.y() + widget_qrect.height() - 3, widget_qrect.width(), 6
+        )
+
+    def resize_code_preview_tree_item(self, mouse_pos):
         y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
         self.drag_resize_qsize.setHeight(y_axis)
-        self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
-        widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()                
+        self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)
+        widget_size = (
+            self.selected_drag_to_resize_item.treeWidget()
+            .itemWidget(self.selected_drag_to_resize_item, 0)
+            .sizeHint()
+        )
         widget_size.setWidth(self.qrect.width() - 40)
         if y_axis >= 192:
             widget_size.setHeight(y_axis)
-            self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
+            self.selected_drag_to_resize_item.treeWidget().itemWidget(
+                self.selected_drag_to_resize_item, 0
+            ).resize(widget_size)
             self.selected_drag_to_resize_item.treeWidget().resize(widget_size)
+
     # build code preview trees
     def build_code_preview_tree(self):
         for tab in range(0, 2):
@@ -116,7 +144,9 @@ class CodePreview(object):
                 text_widget.setObjectName(str(key))
                 text_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
                 text_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-                text_widget.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)                                
+                text_widget.setSizePolicy(
+                    QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
+                )
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
@@ -124,9 +154,10 @@ class CodePreview(object):
                     "contents_item"
                 ][tab]
                 text_widget_container.setFirstColumnSpanned(True)
-                text_widget_container.drag_box_qrect = tree.visualItemRect(text_widget_container)                                                
+                text_widget_container.drag_box_qrect = tree.visualItemRect(
+                    text_widget_container
+                )
                 tree.setItemWidget(text_widget_container, 0, text_widget)
-                                                                                                                            
 
     # end build_code_preview_tree()
 

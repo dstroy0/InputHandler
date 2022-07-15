@@ -163,7 +163,7 @@ class SettingsTreeMethods(object):
             index_of_child += 1
             return index_of_child
 
-        settings_tree = self.ui.settings_tree        
+        settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
         settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
         settings_tree.header().setMinimumSectionSize(150)

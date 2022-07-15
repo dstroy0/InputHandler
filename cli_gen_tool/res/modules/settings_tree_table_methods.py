@@ -147,7 +147,7 @@ class SettingsTreeTableMethods(object):
             delim_dict.update({row: data})
             item.setText(str(repr(data)))
             self.update_code_preview_tree(item)
-            
+
     def build_tree_table_widget(
         self,
         index,
