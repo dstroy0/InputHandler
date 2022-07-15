@@ -137,6 +137,8 @@ class Ui_MainWindow(object):
         self.codePreview_1.setSizePolicy(sizePolicy)
         self.codePreview_1.setMinimumSize(QSize(600, 200))
         self.codePreview_1.setMouseTracking(False)
+        self.codePreview_1.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.codePreview_1.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
         self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)

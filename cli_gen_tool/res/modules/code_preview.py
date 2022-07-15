@@ -17,8 +17,8 @@ from PySide6.QtWidgets import (
     QPlainTextEdit, 
     QSizePolicy,
 )
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QTextCursor 
+from PySide6.QtCore import Qt, QRect
+from PySide6.QtGui import QTextCursor, QIcon, QPainter 
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
     setup_h_filestring,
@@ -32,10 +32,19 @@ from res.modules.dev_qol_var import (
 
 # code preview methods
 class CodePreview(object):
-    def code_preview_mouse_event(self, event):
-        print(event)
-        event.accept()
-
+    def get_vertical_drag_icon_geometry(self, widget_qrect):        
+        return QRect(widget_qrect.width()-15, widget_qrect.y() + widget_qrect.height() - 15, 15, 15)
+    
+    def resize_code_preview_tree_item(self, mouse_pos):    
+        ending_y = mouse_pos.y()                
+        self.drag_resize_qsize.setHeight(ending_y)
+        self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
+        widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()                
+        widget_size.setWidth(self.qrect.width() - 40)
+        if ending_y >= 192:
+            widget_size.setHeight(ending_y)
+            self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
+            
     # build code preview trees
     def build_code_preview_tree(self):
         for tab in range(0, 2):
@@ -70,7 +79,15 @@ class CodePreview(object):
                     "contents_item"
                 ][tab]
                 text_widget_container.setFirstColumnSpanned(True)
+                
+                #qrect = self.get_vertical_drag_icon_geometry(tree.visualItemRect(text_widget_container))                
+                #text_widget_container.icon = QIcon(self.ui.verticalDragIconPath).paint(self.painter,qrect,Qt.AlignCenter,QIcon.Mode.Normal,QIcon.State.On)
+                
                 tree.setItemWidget(text_widget_container, 0, text_widget)
+                                            
+                
+                
+                
                 
                 
 
