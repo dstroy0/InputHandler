@@ -36,15 +36,15 @@ class CodePreview(object):
         return QRect(widget_qrect.width()-15, widget_qrect.y() + widget_qrect.height() - 15, 15, 15)
     
     def resize_code_preview_tree_item(self, mouse_pos):    
-        ending_y = mouse_pos.y()                
-        self.drag_resize_qsize.setHeight(ending_y)
+        y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
+        self.drag_resize_qsize.setHeight(y_axis)
         self.selected_drag_to_resize_item.setSizeHint(0,self.drag_resize_qsize)
         widget_size = self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item, 0).sizeHint()                
         widget_size.setWidth(self.qrect.width() - 40)
-        if ending_y >= 192:
-            widget_size.setHeight(ending_y)
+        if y_axis >= 192:
+            widget_size.setHeight(y_axis)
             self.selected_drag_to_resize_item.treeWidget().itemWidget(self.selected_drag_to_resize_item,0).resize(widget_size)
-            
+            self.selected_drag_to_resize_item.treeWidget().resize(widget_size)
     # build code preview trees
     def build_code_preview_tree(self):
         for tab in range(0, 2):
@@ -71,7 +71,7 @@ class CodePreview(object):
                 text_widget.setObjectName(str(key))
                 text_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
                 text_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-                text_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                text_widget.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)                                
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
@@ -79,17 +79,9 @@ class CodePreview(object):
                     "contents_item"
                 ][tab]
                 text_widget_container.setFirstColumnSpanned(True)
-                
-                #qrect = self.get_vertical_drag_icon_geometry(tree.visualItemRect(text_widget_container))                
-                #text_widget_container.icon = QIcon(self.ui.verticalDragIconPath).paint(self.painter,qrect,Qt.AlignCenter,QIcon.Mode.Normal,QIcon.State.On)
-                
+                text_widget_container.drag_box_qrect = tree.visualItemRect(text_widget_container)                                                
                 tree.setItemWidget(text_widget_container, 0, text_widget)
-                                            
-                
-                
-                
-                
-                
+                                                                                                                            
 
     # end build_code_preview_tree()
 
