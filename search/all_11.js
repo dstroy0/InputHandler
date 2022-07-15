@@ -20,13 +20,14 @@ var searchData=
   ['rem7_17',['rem7',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a0ddabf1cf7052453b52c3d4c0b6178e1',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['rem_5ffrom_5farg_5fcsv_18',['rem_from_arg_csv',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ae7e26cf44aa5e452333e78d081fd89d4',1,'modules::command_parameters::CommandParametersMethods']]],
   ['rem_5fsettings_5ftree_5ftable_5frow_19',['rem_settings_tree_table_row',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a8fbacb3e65b878cd6b499c6a97aef3cc',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
-  ['remote_5f_20',['remote_',['../d8/da2/_r_f24_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;RF24.ino'],['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;BLE_UART.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;LoRaReceiver.ino']]],
+  ['remote_5f_20',['remote_',['../dc/d05/_lo_ra_receiver_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;LoRaReceiver.ino'],['../d8/da2/_r_f24_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;RF24.ino'],['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;BLE_UART.ino']]],
   ['remote_5fdevice_21',['remote_device',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;BLE_UART.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;LoRaReceiver.ino'],['../d8/da2/_r_f24_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;RF24.ino']]],
-  ['result_22',['result',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a506be749cff006ec95ccbb5c95207c5a',1,'UserInput::_rcfbprm']]],
-  ['retranslateui_23',['retranslateUi',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a0931f8012f08352f885dcdb4374a9ed8',1,'uic.mainWindow.Ui_MainWindow.retranslateUi()'],['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a7e2195b025601917b0af86548bbd6685',1,'uic.commandParametersDialog.Ui_commandParametersDialog.retranslateUi()']]],
-  ['rf24_2eino_24',['RF24.ino',['../d8/da2/_r_f24_8ino.html',1,'']]],
-  ['rmb_25',['RMB',['../da/dff/_n_m_e_asentenceparam_8h.html#a8f40c18950743ce9fc029fd3d2b4dd91',1,'NMEAsentenceparam.h']]],
-  ['rmc_26',['RMC',['../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d',1,'NMEAsentenceparam.h']]],
-  ['role_27',['role',['../d8/da2/_r_f24_8ino.html#ab5f21c46a16c4dded8a29ef78a7c5944',1,'RF24.ino']]],
-  ['root_28',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]]
+  ['resize_5fcode_5fpreview_5ftree_5fitem_22',['resize_code_preview_tree_item',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a978659bc52b12d4c536cbaf74c14525d',1,'modules::code_preview::CodePreview']]],
+  ['result_23',['result',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a506be749cff006ec95ccbb5c95207c5a',1,'UserInput::_rcfbprm']]],
+  ['retranslateui_24',['retranslateUi',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a0931f8012f08352f885dcdb4374a9ed8',1,'uic.mainWindow.Ui_MainWindow.retranslateUi()'],['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a7e2195b025601917b0af86548bbd6685',1,'uic.commandParametersDialog.Ui_commandParametersDialog.retranslateUi()']]],
+  ['rf24_2eino_25',['RF24.ino',['../d8/da2/_r_f24_8ino.html',1,'']]],
+  ['rmb_26',['RMB',['../da/dff/_n_m_e_asentenceparam_8h.html#a8f40c18950743ce9fc029fd3d2b4dd91',1,'NMEAsentenceparam.h']]],
+  ['rmc_27',['RMC',['../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d',1,'NMEAsentenceparam.h']]],
+  ['role_28',['role',['../d8/da2/_r_f24_8ino.html#ab5f21c46a16c4dded8a29ef78a7c5944',1,'RF24.ino']]],
+  ['root_29',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]]
 ];

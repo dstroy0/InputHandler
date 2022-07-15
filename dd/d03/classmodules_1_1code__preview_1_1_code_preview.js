@@ -1,8 +1,9 @@
 var classmodules_1_1code__preview_1_1_code_preview =
 [
     [ "build_code_preview_tree", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a2f9af5976e2527c4144ec08c16095a14", null ],
-    [ "code_preview_mouse_event", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a40cef02525b03e2d0cbc3bc1d9908459", null ],
     [ "display_initial_code_preview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a11051a7f0b6b26fa8b01609836dbb44e", null ],
+    [ "get_vertical_drag_icon_geometry", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a92b6253b30a176ca983963a5f652e9cb", null ],
+    [ "resize_code_preview_tree_item", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a978659bc52b12d4c536cbaf74c14525d", null ],
     [ "set_text_cursor", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#af185d59dff84ed85fe09c2bf1b406dba", null ],
     [ "update_code_preview_tree", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#afa34e48c0c1e49b780438838d122a144", null ],
     [ "update_config_h", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#af160f5f4b642a231e476fa35e290e0cc", null ],

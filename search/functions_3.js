@@ -15,9 +15,8 @@ var searchData=
   ['clicked_5fopen_5fcommand_5fsettings_5fmenu_5ftab_5ftwo_12',['clicked_open_command_settings_menu_tab_two',['../d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a69dd23cdcd08adf6b2b30450f27b1bb7',1,'modules::mainwindow_buttons::MainWindowButtons']]],
   ['client_13',['client',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae1471577384597e90435729c9ea54b88',1,'ReadCommandFromBufferMQTT.ino']]],
   ['closeevent_14',['closeEvent',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a06ba0bce4afcf177a230c390630ec2e4',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['code_5fpreview_5fmouse_5fevent_15',['code_preview_mouse_event',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a40cef02525b03e2d0cbc3bc1d9908459',1,'modules::code_preview::CodePreview']]],
-  ['command_5fstring_5ftext_5fchanged_16',['command_string_text_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a948ec3be1ff04e7f188be69011e7ecd5',1,'modules::command_parameters::CommandParametersMethods']]],
-  ['commandconstructor_17',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]],
-  ['create_5fpopup_5fdialog_5fbox_18',['create_popup_dialog_box',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a13c02bb085caf4f5aaa6d94e8a90e809',1,'modules::helper_methods::HelperMethods']]],
-  ['csv_5fbutton_19',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
+  ['command_5fstring_5ftext_5fchanged_15',['command_string_text_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a948ec3be1ff04e7f188be69011e7ecd5',1,'modules::command_parameters::CommandParametersMethods']]],
+  ['commandconstructor_16',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]],
+  ['create_5fpopup_5fdialog_5fbox_17',['create_popup_dialog_box',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a13c02bb085caf4f5aaa6d94e8a90e809',1,'modules::helper_methods::HelperMethods']]],
+  ['csv_5fbutton_18',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
 ];
