@@ -18,5 +18,5 @@ var searchData=
   ['docs_5fformat_5flist_15',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
   ['docs_5fversion_16',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
   ['dpt_17',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]],
-  ['drag_5fresize_5fqsize_18',['drag_resize_qsize',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af0abf6669486e820c35e4dd18c179b45',1,'cli_gen_tool::MainWindow']]]
+  ['drag_5fresize_5fqsize_18',['drag_resize_qsize',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0',1,'modules::code_preview::CodePreview']]]
 ];
