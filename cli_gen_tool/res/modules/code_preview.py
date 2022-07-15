@@ -33,7 +33,10 @@ from res.modules.dev_qol_var import (
 # code preview methods
 class CodePreview(object):
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
-        code_preview_1 = self.ui.codePreview_1
+        if watched == self.ui.codePreview_1.viewport():
+            code_preview = self.ui.codePreview_1
+        elif watched == self.ui.codePreview_2.viewport():
+            code_preview = self.ui.codePreview_2
 
         if (
             event_type == event.MouseButtonPress
@@ -44,17 +47,17 @@ class CodePreview(object):
         if event_type == event.MouseMove:
             mouse_pos = QMouseEvent(event).position().toPoint()
 
-        if watched == code_preview_1.viewport():
+        if watched == code_preview.viewport():
             if (
                 event_type == event.HoverEnter
                 or event_type == event.HoverMove
                 or event_type == event.HoverLeave
             ):
-                viewportpos = code_preview_1.viewport().mapFromGlobal(mouse_pos)
-                selected_item = code_preview_1.itemAt(viewportpos)
+                viewportpos = code_preview.viewport().mapFromGlobal(mouse_pos)
+                selected_item = code_preview.itemAt(viewportpos)
                 if selected_item and selected_item.childCount() == 0:
                     drag_box_qrect = self.get_vertical_drag_icon_geometry(
-                        code_preview_1.visualItemRect(selected_item)
+                        code_preview.visualItemRect(selected_item)
                     )
                     if drag_box_qrect.contains(viewportpos):
                         self.setCursor(Qt.CursorShape.SizeVerCursor)
@@ -68,9 +71,9 @@ class CodePreview(object):
                     self.setCursor(Qt.CursorShape.ArrowCursor)
 
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
-            if watched is code_preview_1.viewport():
-                selected_item = code_preview_1.itemAt(mouse_pos)
-                self.qrect = code_preview_1.visualItemRect(selected_item)
+            if watched is code_preview.viewport():
+                selected_item = code_preview.itemAt(mouse_pos)
+                self.qrect = code_preview.visualItemRect(selected_item)
                 qrect = self.qrect
 
                 drag_box_qrect = self.get_vertical_drag_icon_geometry(self.qrect)
@@ -98,7 +101,7 @@ class CodePreview(object):
 
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(
-            0, widget_qrect.y() + widget_qrect.height() - 3, widget_qrect.width(), 6
+            20, widget_qrect.y() + widget_qrect.height() - 4, widget_qrect.width() - 20, 8
         )
 
     def resize_code_preview_tree_item(self, mouse_pos):
@@ -172,35 +175,31 @@ class CodePreview(object):
             except:
                 # QTableWidgetItem
                 object_string = str(tree_object.tableWidget().objectName())
-            object_list = object_string.strip("\n").split(",")
-            line_num = 0
-            if object_list[0] == "process output" or "process name":
-                code_list = self.code_preview_dict["files"]["setup.h"][
-                    "file_lines_list"
-                ]
-                for i in range(len(code_list)):
-                    if object_list[2] in code_list[i]:
-                        line_num = i
-                        break
-            elif object_list[0] == "process parameters":
-                code_list = self.code_preview_dict["files"]["setup.h"][
-                    "file_lines_list"
-                ]
-                for i in range(len(code_list)):
-                    if object_list[2] in code_list[i]:
-                        line_num = i
-                        break
-            else:
-                sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
-                    int(object_list[1])
-                ]["fields"]
-                line_num = int(sub_dict[0])
-            cursor = QTextCursor(
-                text_widget.document().findBlockByLineNumber(
-                    line_num + code_preview_text_line_offset
-                )
+        object_list = object_string.strip("\n").split(",")        
+        line_num = 0
+        if object_list[0] == "process output" or object_list[0] == "process name":
+            code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
+            for i in range(len(code_list)):
+                if object_list[2] in code_list[i]:
+                    line_num = i
+                    break
+        elif object_list[0] == "process parameters":
+            code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
+            for i in range(len(code_list)):
+                if object_list[2] in code_list[i]:
+                    line_num = i
+                    break
+        else:
+            sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+                int(object_list[1])
+            ]["fields"]
+            line_num = int(sub_dict[0])        
+        cursor = QTextCursor(
+            text_widget.document().findBlockByLineNumber(
+                line_num + code_preview_text_line_offset
             )
-            text_widget.setTextCursor(cursor)
+        )
+        text_widget.setTextCursor(cursor)
 
     def update_config_h(self, tree_object, place_cursor=False):
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
@@ -220,7 +219,7 @@ class CodePreview(object):
                 ] = line
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
-        )        
+        )
         for tab in range(2):
             text_widget = self.code_preview_dict["files"]["config.h"]["text_widget"][
                 tab
