@@ -214,26 +214,21 @@ class CodePreview(object):
                     val = ""
                 else:
                     val = sub_dict[4]
-                    line = (
-                        str(sub_dict[1])
-                        + str(sub_dict[2])
-                        + str(sub_dict[3])
-                        + str(val)
-                    )
-                    self.code_preview_dict["files"]["config.h"]["file_lines_list"][
-                        int(sub_dict[0])
-                    ] = line
-            code_string = self.list_to_code_string(
-                self.code_preview_dict["files"]["config.h"]["file_lines_list"]
-            )
-            for tab in range(2):
-                text_widget = self.code_preview_dict["files"]["config.h"][
-                    "text_widget"
-                ][tab]
-                text_widget.clear()
-                text_widget.setPlainText(code_string)
-                if place_cursor == True:
-                    self.set_text_cursor(text_widget, tree_object)
+                line = str(sub_dict[1]) + str(sub_dict[2]) + str(sub_dict[3]) + str(val)
+                self.code_preview_dict["files"]["config.h"]["file_lines_list"][
+                    int(sub_dict[0])
+                ] = line
+        code_string = self.list_to_code_string(
+            self.code_preview_dict["files"]["config.h"]["file_lines_list"]
+        )        
+        for tab in range(2):
+            text_widget = self.code_preview_dict["files"]["config.h"]["text_widget"][
+                tab
+            ]
+            text_widget.clear()
+            text_widget.setPlainText(code_string)
+            if place_cursor == True:
+                self.set_text_cursor(text_widget, tree_object)
         # end update_config_h
 
     def update_setup_h_string_helper(self, seq):

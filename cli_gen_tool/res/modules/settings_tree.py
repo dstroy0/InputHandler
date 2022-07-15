@@ -171,6 +171,7 @@ class SettingsTreeMethods(object):
         settings_tree.header().setSectionResizeMode(2, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)
         settings_tree.setColumnCount(5)
+        # 5th column holds object location in cliOpt
         settings_tree.setColumnHidden(4, 1)
 
         # process output
@@ -258,9 +259,9 @@ class SettingsTreeMethods(object):
         tree = self.cliOpt["config"]["tree"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         cfg_path = self.session["opt"]["input_config_file_path"]
-        tree.update({"root": QTreeWidgetItem(settings_tree, [cfg_path, ""])})
+        tree.update({"root": QTreeWidgetItem(settings_tree, ["Input config: "+cfg_path, ""])})
         tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
-        tree["root"].setToolTip(0, cfg_path)
+        tree["root"].setToolTip(0, "Input config: "+cfg_path)
 
         # make these parents children of root using the keys from 'cfg_dict'
         for key in cfg_dict:
