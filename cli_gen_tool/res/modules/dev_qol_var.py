@@ -167,11 +167,11 @@ generated_filename_sub_dict = {
 }
 ## This dict contains all generated files and associated widgets.
 generated_filename_dict = {
-    "config.h": {**copy.deepcopy(generated_filename_sub_dict)},
-    "setup.h": {**copy.deepcopy(generated_filename_sub_dict)},
-    "parameters.h": {**copy.deepcopy(generated_filename_sub_dict)},
-    "functions.h": {**copy.deepcopy(generated_filename_sub_dict)},
-    "functions.cpp": {**copy.deepcopy(generated_filename_sub_dict)},
+    "config.h": copy.deepcopy(generated_filename_sub_dict),
+    "setup.h": copy.deepcopy(generated_filename_sub_dict),
+    "parameters.h": copy.deepcopy(generated_filename_sub_dict),
+    "functions.h": copy.deepcopy(generated_filename_sub_dict),
+    "functions.cpp": copy.deepcopy(generated_filename_sub_dict),
 }
 
 ## The line in /InputHandler/src/config/config.h that boolean define fields start.
@@ -180,8 +180,8 @@ config_file_boolean_define_fields_line_start = 71
 ## This offsets code preview line display; Positive values move text lines down, Negative values move text lines up.
 code_preview_text_line_offset = 4
 
+# TODO these should be in a dict, filestring_construction_db or something
 ## setup.h
-# these should be in a list or dict
 setup_h_class_output_string = "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))"
 setup_h_constructor_string = "UserInput {objectname}{classoutput};"
 setup_h_addcommand_string = "    {objectname}.addCommand({commandparametersname});\n"
