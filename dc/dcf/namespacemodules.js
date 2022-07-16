@@ -21,6 +21,7 @@ var namespacemodules =
       [ "functions_cpp_filestring", "d6/da0/namespacemodules_1_1dev__qol__var.html#a06274272db0e8d0d0e005d552a5cd884", null ],
       [ "functions_h_filestring", "d6/da0/namespacemodules_1_1dev__qol__var.html#ac58b6c5faffe847dd80c421c9f36f16e", null ],
       [ "generated_filename_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a", null ],
+      [ "generated_filename_sub_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#abc87cbf607ad22f3bb9ac52ebb97426b", null ],
       [ "lib_root_path", "d6/da0/namespacemodules_1_1dev__qol__var.html#a3e7a3636b0b65ac8428c3c76a8da7599", null ],
       [ "nested_commandparameters_child_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#a203671d5eaa8ece38c5be099c4a9e7de", null ],
       [ "nested_commandparameters_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#a1041ba921bfd1f6877088bdd45298ab5", null ],
