@@ -10,6 +10,6 @@ var _nested_commands_8ino =
     [ "nest_one_", "da/d0f/_nested_commands_8ino.html#afc356762969dbb43ded0aabceeb7e3a1", null ],
     [ "nest_two_", "da/d0f/_nested_commands_8ino.html#a219b084017d8dcc77c1d6c60bbdf6641", null ],
     [ "nested_example_", "da/d0f/_nested_commands_8ino.html#a3511f6ff90a0094175a8486bbf72dd8b", null ],
-    [ "nested_prms", "da/d0f/_nested_commands_8ino.html#accfa9a12c699a185afe11a80985feb63", null ],
+    [ "nested_prms", "da/d0f/_nested_commands_8ino.html#a8bf84d075e334033846506bf78f12781", null ],
     [ "output_buffer", "da/d0f/_nested_commands_8ino.html#a52020a79a2bc930c1cff27264f3cc03c", null ]
 ];

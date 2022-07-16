@@ -174,6 +174,8 @@ Variables</h2></td></tr>
 <tr class="separator:a06274272db0e8d0d0e005d552a5cd884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a69f734fffbe44c4ddef01b70829e9d"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a5a69f734fffbe44c4ddef01b70829e9d">commandparameters_string</a></td></tr>
 <tr class="separator:a5a69f734fffbe44c4ddef01b70829e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a203671d5eaa8ece38c5be099c4a9e7de"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a203671d5eaa8ece38c5be099c4a9e7de">nested_commandparameters_child_string</a> = &quot; *{functionname}_param{comma} // pointer to {functionname}_param\n&quot;</td></tr>
+<tr class="separator:a203671d5eaa8ece38c5be099c4a9e7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1041ba921bfd1f6877088bdd45298ab5"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a1041ba921bfd1f6877088bdd45298ab5">nested_commandparameters_string</a></td></tr>
 <tr class="separator:a1041ba921bfd1f6877088bdd45298ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76fb5d6938875edfe84cc9b3999c4d09"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a76fb5d6938875edfe84cc9b3999c4d09">commandconstructor_string</a> = &quot;CommandConstructor {functionname}_({functionname}_param); // <a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#afc08a3592e986eec757ce96900b0fadf">help</a> has a command string, and function specified&quot;</td></tr>
@@ -593,6 +595,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a203671d5eaa8ece38c5be099c4a9e7de" name="a203671d5eaa8ece38c5be099c4a9e7de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a203671d5eaa8ece38c5be099c4a9e7de">&#9670;&nbsp;</a></span>nested_commandparameters_child_string</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string modules.dev_qol_var.nested_commandparameters_child_string = &quot; *{functionname}_param{comma} // pointer to {functionname}_param\n&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1041ba921bfd1f6877088bdd45298ab5" name="a1041ba921bfd1f6877088bdd45298ab5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1041ba921bfd1f6877088bdd45298ab5">&#9670;&nbsp;</a></span>nested_commandparameters_string</h2>
 
@@ -608,7 +624,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">    2</span><span class="stringliteral">/**</span></div>
 <div class="line"><span class="lineno">    3</span><span class="stringliteral">   </span><span class="preprocessor">@brief</span> CommandParameters struct <span class="keywordflow">for</span> {functionname}</div>
 <div class="line"><span class="lineno">    4</span>*/</div>
-<div class="line"><span class="lineno">    5</span>const PROGMEM CommandParameters {functionname}_param[{numberofchildren}] = </div>
+<div class="line"><span class="lineno">    5</span>const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchildren} /* child(ren) */] = </div>
 <div class="line"><span class="lineno">    6</span>{{</div>
 <div class="line"><span class="lineno">    7</span>    {{</div>
 <div class="line"><span class="lineno">    8</span>      {functionname},                     // this <span class="keywordflow">is</span> allowed to be NULL, <span class="keywordflow">if</span> this <span class="keywordflow">is</span> NULL <span class="keywordflow">and</span> the terminating subcommand function ptr <span class="keywordflow">is</span> also NULL nothing will launch (error)</div>
