@@ -76,7 +76,7 @@ const PROGMEM CommandParameters nest_two_[1] =
     {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
 };
 
-const PROGMEM CommandParameters nested_prms[3] =
+const PROGMEM CommandParameters nested_prms[1 /* root */ + 2 /* child(ren) */] =
 {
   { // root command
     unrecognized,             // root command not allowed to be NULL

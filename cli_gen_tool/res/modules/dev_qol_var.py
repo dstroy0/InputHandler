@@ -332,11 +332,13 @@ const PROGMEM CommandParameters {functionname}_param[1] =
 {commandconstructor}
 """
 
+nested_commandparameters_child_string = "    *{functionname}_param{comma} // pointer to {functionname}_param\n"
+
 nested_commandparameters_string = """
 /**
    @brief CommandParameters struct for {functionname}
 */
-const PROGMEM CommandParameters {functionname}_param[{numberofchildren}] = 
+const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchildren} /* child(ren) */] = 
 {{
     {{
       {functionname},                     // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
