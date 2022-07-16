@@ -10,6 +10,7 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+import copy
 import datetime
 from collections import OrderedDict
 from PySide6.QtCore import QDir
@@ -156,43 +157,21 @@ command_arg_types_list = [
 
 ## This dict is ordered to preserve insert order for code preview display.
 generated_filename_dict = OrderedDict()
+## This 'sub' dict is contained by each key in `generated_filename_dict`
+generated_filename_sub_dict = {
+    "filename": "",
+    "file_lines_list": [],
+    "tree_item": {},
+    "contents_item": {},
+    "text_widget": {0: "", 1: ""},    
+}
 ## This dict contains all generated files and associated widgets.
 generated_filename_dict = {
-    "config.h": {
-        "filename": "",
-        "file_lines_list": [],
-        "tree_item": {},
-        "contents_item": {},
-        "text_widget": {0: "", 1: ""},
-    },
-    "setup.h": {
-        "filename": "",
-        "file_lines_list": [],
-        "tree_item": {},
-        "contents_item": {},
-        "text_widget": {0: "", 1: ""},
-    },
-    "parameters.h": {
-        "filename": "",
-        "file_lines_list": [],
-        "tree_item": {},
-        "contents_item": {},
-        "text_widget": {0: "", 1: ""},
-    },
-    "functions.h": {
-        "filename": "",
-        "file_lines_list": [],
-        "tree_item": {},
-        "contents_item": {},
-        "text_widget": {0: "", 1: ""},
-    },
-    "functions.cpp": {
-        "filename": "",
-        "file_lines_list": [],
-        "tree_item": {},
-        "contents_item": {},
-        "text_widget": {0: "", 1: ""},
-    },
+    "config.h": {**copy.deepcopy(generated_filename_sub_dict)},
+    "setup.h": {**copy.deepcopy(generated_filename_sub_dict)},
+    "parameters.h": {**copy.deepcopy(generated_filename_sub_dict)},
+    "functions.h": {**copy.deepcopy(generated_filename_sub_dict)},
+    "functions.cpp": {**copy.deepcopy(generated_filename_sub_dict)},
 }
 
 ## The line in /InputHandler/src/config/config.h that boolean define fields start.
