@@ -3,6 +3,8 @@ var namespacemodules =
     [ "code_preview", "d6/d98/namespacemodules_1_1code__preview.html", "d6/d98/namespacemodules_1_1code__preview" ],
     [ "command_parameters", "dd/dad/namespacemodules_1_1command__parameters.html", "dd/dad/namespacemodules_1_1command__parameters" ],
     [ "dev_qol_var", "d6/da0/namespacemodules_1_1dev__qol__var.html", [
+      [ "builtin_function_statements_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#aca5f946c2ecd229ca8e49d5e0c2689eb", null ],
+      [ "builtin_prototypes_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#a6729e4f66a1f381000c970bbb118b8cf", null ],
       [ "code_preview_text_line_offset", "d6/da0/namespacemodules_1_1dev__qol__var.html#a964286997d7d60696725946a538aa5e8", null ],
       [ "command_arg_types_list", "d6/da0/namespacemodules_1_1dev__qol__var.html#ae754ff9f8407a61614c914f3e9516195", null ],
       [ "command_line_interface_options_structure", "d6/da0/namespacemodules_1_1dev__qol__var.html#a48cb407e943e0652790a092e608a7b69", null ],

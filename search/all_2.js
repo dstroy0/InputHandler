@@ -21,7 +21,9 @@ var searchData=
   ['build_5fcode_5fpreview_5ftree_18',['build_code_preview_tree',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a2f9af5976e2527c4144ec08c16095a14',1,'modules::code_preview::CodePreview']]],
   ['build_5flib_5fsettings_5ftree_19',['build_lib_settings_tree',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#ae722d5662b98a7f9b657cc347e002c8f',1,'modules::settings_tree::SettingsTreeMethods']]],
   ['build_5ftree_5ftable_5fwidget_20',['build_tree_table_widget',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a31c322960a40f1a1e20d1fbc56735c26',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
-  ['buttonbox_21',['buttonBox',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#ae347229dc402d88379b20039784d4a71',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
-  ['bwc_22',['BWC',['../da/dff/_n_m_e_asentenceparam_8h.html#ab31e95ea4a87b0b7557871a071f8e28f',1,'NMEAsentenceparam.h']]],
-  ['bwr_23',['BWR',['../da/dff/_n_m_e_asentenceparam_8h.html#a6e2989f0cece186c8a718e3582ba48b9',1,'NMEAsentenceparam.h']]]
+  ['builtin_5ffunction_5fstatements_5fdict_21',['builtin_function_statements_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#aca5f946c2ecd229ca8e49d5e0c2689eb',1,'modules::dev_qol_var']]],
+  ['builtin_5fprototypes_5fdict_22',['builtin_prototypes_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a6729e4f66a1f381000c970bbb118b8cf',1,'modules::dev_qol_var']]],
+  ['buttonbox_23',['buttonBox',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#ae347229dc402d88379b20039784d4a71',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
+  ['bwc_24',['BWC',['../da/dff/_n_m_e_asentenceparam_8h.html#ab31e95ea4a87b0b7557871a071f8e28f',1,'NMEAsentenceparam.h']]],
+  ['bwr_25',['BWR',['../da/dff/_n_m_e_asentenceparam_8h.html#a6e2989f0cece186c8a718e3582ba48b9',1,'NMEAsentenceparam.h']]]
 ];
