@@ -267,6 +267,11 @@ void InputHandler_setup()
 ## functions.h
 # prototypes only
 function_prototype = "void {functionname}(UserInput* _{objectname});"
+# TODO finish builtin prototypes dict
+builtin_prototypes_dict = {
+    "help" : "",
+    "unrecognized" : ""
+}
 functions_h_filestring = """
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
@@ -281,6 +286,10 @@ functions_h_filestring = """
 
 ## functions.cpp
 # non-proto only
+# TODO finish default function statements
+builtin_function_statements_dict = {
+    "outputToStream" : "  _{objectname}->outputToStream({stream});"
+}
 function_string = """void {functionname}(UserInput* _{objectname})
 {{
     {statements}
