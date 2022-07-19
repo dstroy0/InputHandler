@@ -49,6 +49,8 @@ class Ui_MainWindow(object):
         self.actionSave_As.setObjectName(u"actionSave_As")
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
+        self.actionOpen_Log_History = QAction(MainWindow)
+        self.actionOpen_Log_History.setObjectName(u"actionOpen_Log_History")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setEnabled(True)
@@ -229,6 +231,8 @@ class Ui_MainWindow(object):
         self.menuHelp.setObjectName(u"menuHelp")
         self.menuGenerate = QMenu(self.menubar)
         self.menuGenerate.setObjectName(u"menuGenerate")
+        self.menuLog = QMenu(self.menubar)
+        self.menuLog.setObjectName(u"menuLog")
         MainWindow.setMenuBar(self.menubar)
         QWidget.setTabOrder(self.openCloseSettingsMenuButton, self.command_tree)
         QWidget.setTabOrder(self.command_tree, self.codePreview_2)
@@ -243,6 +247,7 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.clearButton_1, self.defaultButton_1)
 
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuLog.menuAction())
         self.menubar.addAction(self.menuGenerate.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuFile.addAction(self.actionOpen)
@@ -253,6 +258,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionInputHandler_Documentation)
         self.menuHelp.addAction(self.actionAbout)
         self.menuGenerate.addAction(self.actionGenerate_CLI_Files)
+        self.menuLog.addAction(self.actionOpen_Log_History)
 
         self.retranslateUi(MainWindow)
 
@@ -283,7 +289,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionGenerate_CLI_Files.setText(QCoreApplication.translate("MainWindow", u"Generate CLI Files", None))
 #if QT_CONFIG(shortcut)
-        self.actionGenerate_CLI_Files.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
+        self.actionGenerate_CLI_Files.setShortcut(QCoreApplication.translate("MainWindow", u"F2", None))
 #endif // QT_CONFIG(shortcut)
         self.actionSave_As.setText(QCoreApplication.translate("MainWindow", u"Save As", None))
 #if QT_CONFIG(shortcut)
@@ -292,6 +298,10 @@ class Ui_MainWindow(object):
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
 #if QT_CONFIG(shortcut)
         self.actionExit.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+X", None))
+#endif // QT_CONFIG(shortcut)
+        self.actionOpen_Log_History.setText(QCoreApplication.translate("MainWindow", u"Open Log History", None))
+#if QT_CONFIG(shortcut)
+        self.actionOpen_Log_History.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
 #endif // QT_CONFIG(shortcut)
         self.tab_1_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.editButton_1.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
@@ -312,5 +322,6 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
+        self.menuLog.setTitle(QCoreApplication.translate("MainWindow", u"Log", None))
     # retranslateUi
 

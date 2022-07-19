@@ -15,9 +15,15 @@ import json
 from PySide6.QtWidgets import QTreeWidgetItem, QHeaderView, QComboBox
 from PySide6.QtCore import Qt, QRegularExpression
 from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
+from res.modules.logging_setup import Logger
 
 # settings_tree methods
 class SettingsTreeMethods(object):
+    logger = ""
+    def __init__(self):
+        super().__init__()
+        SettingsTreeMethods.logger = Logger.get_logger(self, __name__)
+        
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
@@ -50,12 +56,12 @@ class SettingsTreeMethods(object):
         if sub_dict[6].currentText() == "Enable":
             sub_dict[1] = "       "
             sub_dict[4] = True
-            print(sub_dict[3].strip("\n"), "enabled")
+            SettingsTreeMethods.logger.info(sub_dict[3].strip("\n"), "enabled")
         elif sub_dict[6].currentText() == "Disable":
             sub_dict[1] = "    // "
             sub_dict[4] = False
-            print(sub_dict[3].strip("\n"), "disabled")
-        print(
+            SettingsTreeMethods.logger.info(sub_dict[3].strip("\n"), "disabled")
+        SettingsTreeMethods.logger.debug(
             "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                 object_list[0], object_list[1]
             ),
@@ -64,7 +70,7 @@ class SettingsTreeMethods(object):
         self.update_code_preview_tree(None)
 
     def settings_tree_item_activated(self, item):
-        print("settings tree item activated")
+        SettingsTreeMethods.logger.info("settings tree item activated")
         self.edit_settings_tree_item(item)
 
     def check_if_settings_tree_col_editable(self, item, column):
@@ -85,14 +91,14 @@ class SettingsTreeMethods(object):
             return
         object_list[1] = int(str(object_list[1]))
         # process output
-        if object_list[0] == "process output":
-            print("edited buffer size")
+        if object_list[0] == "process output":            
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"]["buffer size"] = val
             self.update_code_preview_tree(item)
+            SettingsTreeMethods.logger.info("output buffer size "+ str(val) + " bytes")
             return
         if object_list[0] == "process parameters":
-            print("edited a process parameter")
+            SettingsTreeMethods.logger.info("edited a process parameter")
             item.setText(3, str(repr(val)))
             self.update_code_preview_tree(item)
             return

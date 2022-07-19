@@ -411,7 +411,14 @@
     </property>
     <addaction name="actionGenerate_CLI_Files"/>
    </widget>
+   <widget class="QMenu" name="menuLog">
+    <property name="title">
+     <string>Log</string>
+    </property>
+    <addaction name="actionOpen_Log_History"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuLog"/>
    <addaction name="menuGenerate"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -457,7 +464,7 @@
     <string>Generate CLI Files</string>
    </property>
    <property name="shortcut">
-    <string>F1</string>
+    <string>F2</string>
    </property>
   </action>
   <action name="actionSave_As">
@@ -474,6 +481,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionOpen_Log_History">
+   <property name="text">
+    <string>Open Log History</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
  </widget>

@@ -13,7 +13,7 @@
 from PySide6.QtCore import QRegularExpression
 
 # parse inputhandler config
-class ParseInputHandlerConfig(object):
+class ParseInputHandlerConfig(object):    
     def parse_config_header_file(self, path):
         config_path = ""
         if path == "":
