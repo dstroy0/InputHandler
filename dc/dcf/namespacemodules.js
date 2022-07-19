@@ -37,6 +37,7 @@ var namespacemodules =
       [ "version", "d6/da0/namespacemodules_1_1dev__qol__var.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
     ] ],
     [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", "d4/d58/namespacemodules_1_1helper__methods" ],
+    [ "logging_setup", "db/d63/namespacemodules_1_1logging__setup.html", "db/d63/namespacemodules_1_1logging__setup" ],
     [ "mainwindow_actions", "d2/de5/namespacemodules_1_1mainwindow__actions.html", "d2/de5/namespacemodules_1_1mainwindow__actions" ],
     [ "mainwindow_buttons", "d9/da9/namespacemodules_1_1mainwindow__buttons.html", "d9/da9/namespacemodules_1_1mainwindow__buttons" ],
     [ "parse_config", "d9/d41/namespacemodules_1_1parse__config.html", "d9/d41/namespacemodules_1_1parse__config" ],

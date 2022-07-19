@@ -18,11 +18,12 @@ var searchData=
   ['dev_5fqol_5fvar_2epy_15',['dev_qol_var.py',['../d4/da6/dev__qol__var_8py.html',1,'']]],
   ['dict_5ffrom_5fcsv_5fargs_16',['dict_from_csv_args',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a9ecd6e94b64ae72bc7db3773021042a0',1,'modules::command_parameters::CommandParametersMethods']]],
   ['display_5finitial_5fcode_5fpreview_17',['display_initial_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a11051a7f0b6b26fa8b01609836dbb44e',1,'modules::code_preview::CodePreview']]],
-  ['docs_18',['docs',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#ab48e4748882159ded882eec93205b430',1,'modules.helper_methods.HelperMethods.docs()'],['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool.MainWindow.docs()']]],
-  ['docs_5fbrief_19',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5ffilename_20',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fformat_5flist_21',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
-  ['docs_5fversion_22',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
-  ['dpt_23',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]],
-  ['drag_5fresize_5fqsize_24',['drag_resize_qsize',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0',1,'modules::code_preview::CodePreview']]]
+  ['do_5fbefore_5fapp_5fclose_18',['do_before_app_close',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8933d551f9a4e5a8fffd276479380d33',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['docs_19',['docs',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#ab48e4748882159ded882eec93205b430',1,'modules.helper_methods.HelperMethods.docs()'],['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ae5bfdc90d26d62e0d0068d2abb859b2d',1,'cli_gen_tool.MainWindow.docs()']]],
+  ['docs_5fbrief_20',['docs_brief',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af840f6726fca172a9166bc5717f1c814',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5ffilename_21',['docs_filename',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2cc7703587d4a3b27532c44b966fa5d9',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fformat_5flist_22',['docs_format_list',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a26d04daf50a670810dfae19b6c9ac3b7',1,'cli_gen_tool::MainWindow']]],
+  ['docs_5fversion_23',['docs_version',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a2d1bc1b9603de26244e8de0b9583ad60',1,'cli_gen_tool::MainWindow']]],
+  ['dpt_24',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]],
+  ['drag_5fresize_5fqsize_25',['drag_resize_qsize',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0',1,'modules::code_preview::CodePreview']]]
 ];

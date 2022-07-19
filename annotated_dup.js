@@ -13,6 +13,10 @@ var annotated_dup =
       [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", [
         [ "HelperMethods", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods" ]
       ] ],
+      [ "logging_setup", "db/d63/namespacemodules_1_1logging__setup.html", [
+        [ "Logger", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html", "d3/dd3/classmodules_1_1logging__setup_1_1_logger" ],
+        [ "QPlainTextEditLogger", "d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html", "d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger" ]
+      ] ],
       [ "mainwindow_actions", "d2/de5/namespacemodules_1_1mainwindow__actions.html", [
         [ "MainWindowActions", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions" ]
       ] ],
@@ -32,6 +36,9 @@ var annotated_dup =
     [ "uic", "db/d4a/namespaceuic.html", [
       [ "commandParametersDialog", "da/d81/namespaceuic_1_1command_parameters_dialog.html", [
         [ "Ui_commandParametersDialog", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog" ]
+      ] ],
+      [ "logHistoryDialog", "d9/d64/namespaceuic_1_1log_history_dialog.html", [
+        [ "Ui_logHistoryDialog", "d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html", "d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog" ]
       ] ],
       [ "mainWindow", "d1/d19/namespaceuic_1_1main_window.html", [
         [ "Ui_MainWindow", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window" ]

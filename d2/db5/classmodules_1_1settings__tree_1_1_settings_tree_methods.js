@@ -1,5 +1,6 @@
 var classmodules_1_1settings__tree_1_1_settings_tree_methods =
 [
+    [ "__init__", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#aa84a9c5c6a4d89d235ecc446ecdfb6d7", null ],
     [ "build_lib_settings_tree", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#ae722d5662b98a7f9b657cc347e002c8f", null ],
     [ "check_if_settings_tree_col_editable", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#a01f5b2b6c66e276729bf0f0c72d4fd46", null ],
     [ "edit_settings_tree_item", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#aa497a9d98417bad5d656549f48b80e2c", null ],

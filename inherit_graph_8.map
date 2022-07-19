@@ -1,13 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,307,63,334"/>
-<area shape="rect" id="node2" href="$dd/d03/classmodules_1_1code__preview_1_1_code_preview.html" title=" " alt="" coords="124,5,311,47"/>
-<area shape="rect" id="node3" href="$dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html" title=" " alt="" coords="114,71,321,112"/>
-<area shape="rect" id="node4" href="$d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html" title=" " alt="" coords="114,136,321,177"/>
-<area shape="rect" id="node5" href="$d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html" title=" " alt="" coords="121,201,313,243"/>
-<area shape="rect" id="node6" href="$d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html" title=" " alt="" coords="120,267,315,308"/>
-<area shape="rect" id="node7" href="$da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html" title=" " alt="" coords="125,332,309,373"/>
-<area shape="rect" id="node8" href="$d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html" title=" " alt="" coords="117,397,317,439"/>
-<area shape="rect" id="node9" href="$de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html" title=" " alt="" coords="122,462,313,518"/>
-<area shape="rect" id="node10" href="$df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html" title=" " alt="" coords="115,541,320,583"/>
-<area shape="rect" id="node11" href="$d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html" title=" " alt="" coords="111,607,324,634"/>
+<area shape="rect" id="node1" href="$df/d2a/class_n_m_e_aparse.html" title=" " alt="" coords="5,5,97,32"/>
 </map>
