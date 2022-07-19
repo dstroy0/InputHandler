@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QGridLayout, QPlainTextEdit,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QDialog, QGridLayout,
+    QPlainTextEdit, QSizePolicy, QWidget)
 
 class Ui_logHistoryDialog(object):
     def setupUi(self, logHistoryDialog):
@@ -33,7 +33,15 @@ class Ui_logHistoryDialog(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.logHistoryPlainTextEdit = QPlainTextEdit(logHistoryDialog)
         self.logHistoryPlainTextEdit.setObjectName(u"logHistoryPlainTextEdit")
+        sizePolicy.setHeightForWidth(self.logHistoryPlainTextEdit.sizePolicy().hasHeightForWidth())
+        self.logHistoryPlainTextEdit.setSizePolicy(sizePolicy)
         self.logHistoryPlainTextEdit.setMinimumSize(QSize(800, 0))
+        self.logHistoryPlainTextEdit.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.logHistoryPlainTextEdit.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.logHistoryPlainTextEdit.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.logHistoryPlainTextEdit.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.logHistoryPlainTextEdit.setReadOnly(True)
+        self.logHistoryPlainTextEdit.setTextInteractionFlags(Qt.TextSelectableByKeyboard|Qt.TextSelectableByMouse)
 
         self.gridLayout.addWidget(self.logHistoryPlainTextEdit, 0, 0, 1, 1)
 

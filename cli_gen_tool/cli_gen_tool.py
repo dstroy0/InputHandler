@@ -75,11 +75,14 @@ class MainWindow(
         
         # log history
         self.log = QDialog()
+        self.log.setWindowIcon(self.get_icon(
+            QStyle.StandardPixmap.SP_FileDialogContentsView
+        ))
         self.log.dlg = Ui_logHistoryDialog()
         # MainWindow still interactable with log history open
         self.log.dlg.setupUi(self.log)
         # self.log.dlg.logHistoryPlainTextEdit
-        self.log.setMaximumSize(0,0)        
+        #self.log.setMaximumSize(0,0)        
         self.log.close()
         
         logger = Logger.get_logger(self, __name__)
