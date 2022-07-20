@@ -1,5 +1,6 @@
 **/.vscode
 .development
+**/logs
 **/*.log
 docs/html/
 **/src/utility/index_sequence.h

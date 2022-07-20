@@ -11,8 +11,9 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import logging, datetime
-
+import logging, datetime, os
+from logging.handlers import RotatingFileHandler
+from res.modules.dev_qol_var import log_path
 
 class QPlainTextEditLogger(logging.Handler):
     def __init__(self, parent):
@@ -25,15 +26,15 @@ class QPlainTextEditLogger(logging.Handler):
         msg = log_formatter.format(record)
         self.widget.appendPlainText(msg)
 
-class Logger(object):
-    _log_filename = str(datetime.date.today()) + "-cli_gen_tool.log"
+class Logger(object):    
+    _log_filename = str(log_path) + str(datetime.date.today()) + "-cli_gen_tool.log"    
     _log_format = "%(asctime)s - [%(levelname)s] -  %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s"
 
     def __init__(self):
         super().__init__()
 
     def get_file_handler():
-        file_handler = logging.FileHandler(Logger._log_filename)
+        file_handler = RotatingFileHandler(Logger._log_filename,"a",2048,backupCount=5)
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(logging.Formatter(Logger._log_format))
         return file_handler

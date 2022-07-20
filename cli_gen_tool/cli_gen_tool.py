@@ -13,10 +13,9 @@ from __future__ import absolute_import
 # version 3 as published by the Free Software Foundation.
 
 # imports
+import os
 import sys
 import json
-import logging
-import datetime
 import qdarktheme
 from PySide6.QtWidgets import (
     QApplication,
@@ -73,6 +72,9 @@ class MainWindow(
 
         self.app = app  # used in external methods         
         
+        # log pathing
+        if not os.path.isdir(log_path):
+            os.mkdir(log_path)
         # log history
         self.log = QDialog()
         self.log.setWindowIcon(self.get_icon(

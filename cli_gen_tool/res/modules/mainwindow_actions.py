@@ -230,6 +230,7 @@ class MainWindowActions(object):
         )
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
         # end file menu actions setup
+        self.app.aboutToQuit.connect(self.gui_exit)
 
     def mainwindow_button_actions_setup(self):
         # buttons setup
