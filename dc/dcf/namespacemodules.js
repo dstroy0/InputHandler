@@ -23,6 +23,7 @@ var namespacemodules =
       [ "generated_filename_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a", null ],
       [ "generated_filename_sub_dict", "d6/da0/namespacemodules_1_1dev__qol__var.html#abc87cbf607ad22f3bb9ac52ebb97426b", null ],
       [ "lib_root_path", "d6/da0/namespacemodules_1_1dev__qol__var.html#a3e7a3636b0b65ac8428c3c76a8da7599", null ],
+      [ "log_path", "d6/da0/namespacemodules_1_1dev__qol__var.html#ac37fccb6a2f7fa4be798f0298eddfd55", null ],
       [ "nested_commandparameters_child_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#a203671d5eaa8ece38c5be099c4a9e7de", null ],
       [ "nested_commandparameters_string", "d6/da0/namespacemodules_1_1dev__qol__var.html#a1041ba921bfd1f6877088bdd45298ab5", null ],
       [ "parameters_h_filestring", "d6/da0/namespacemodules_1_1dev__qol__var.html#a01646895feb76ef82f59fc582e3d0418", null ],
