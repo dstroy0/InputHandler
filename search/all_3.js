@@ -24,7 +24,7 @@ var searchData=
   ['clicked_5fopen_5fcommand_5fsettings_5fmenu_5ftab_5ftwo_21',['clicked_open_command_settings_menu_tab_two',['../d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a69dd23cdcd08adf6b2b30450f27b1bb7',1,'modules::mainwindow_buttons::MainWindowButtons']]],
   ['client_22',['client',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#ae1471577384597e90435729c9ea54b88',1,'ReadCommandFromBufferMQTT.ino']]],
   ['cliopt_23',['cliOpt',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a4ed024c3d4f0f24934f4a58273a4ea70',1,'cli_gen_tool.MainWindow.cliOpt()'],['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab4de419896739d5af4bb50f0cf5d93d7',1,'modules.mainwindow_actions.MainWindowActions.cliOpt()']]],
-  ['closeevent_24',['closeEvent',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a06ba0bce4afcf177a230c390630ec2e4',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['closeevent_24',['closeEvent',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1',1,'cli_gen_tool::MainWindow']]],
   ['cmd_25',['cmd',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a46afb120a58d87e74c66d3e299cb25cf',1,'UserInput::_rcfbprm']]],
   ['code_5fpreview_2epy_26',['code_preview.py',['../d0/d33/code__preview_8py.html',1,'']]],
   ['code_5fpreview_5fdict_27',['code_preview_dict',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#ac74d0251be0547935dbdc4ce6983aa8a',1,'cli_gen_tool::MainWindow']]],
@@ -68,5 +68,6 @@ var searchData=
   ['config_5ffile_5fboolean_5fdefine_5ffields_5fline_5fstart_65',['config_file_boolean_define_fields_line_start',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a2d5f6fdd5e5b5030a7e1ef0de98a9989',1,'modules::dev_qol_var']]],
   ['config_5fhowto_2eino_66',['config_howto.ino',['../d1/d98/config__howto_8ino.html',1,'']]],
   ['create_5fpopup_5fdialog_5fbox_67',['create_popup_dialog_box',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a13c02bb085caf4f5aaa6d94e8a90e809',1,'modules::helper_methods::HelperMethods']]],
-  ['csv_5fbutton_68',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
+  ['create_5fpopup_5fdialog_5fbox_5fwith_5fbuttons_68',['create_popup_dialog_box_with_buttons',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a45848e9a9394c054cd4e79f9a2cc0b82',1,'modules::helper_methods::HelperMethods']]],
+  ['csv_5fbutton_69',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
 ];

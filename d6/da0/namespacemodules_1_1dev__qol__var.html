@@ -128,6 +128,18 @@ Variables</h2></td></tr>
 <tr class="separator:a3e7a3636b0b65ac8428c3c76a8da7599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac37fccb6a2f7fa4be798f0298eddfd55"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#ac37fccb6a2f7fa4be798f0298eddfd55">log_path</a> = <a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a3e7a3636b0b65ac8428c3c76a8da7599">lib_root_path</a> + &quot;/logs/&quot;</td></tr>
 <tr class="separator:ac37fccb6a2f7fa4be798f0298eddfd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93810a3d943e72404996aad6b9c64113"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a93810a3d943e72404996aad6b9c64113">_KB</a> = 2**10</td></tr>
+<tr class="separator:a93810a3d943e72404996aad6b9c64113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4bc0712bd890078663cfbcb585aabb2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#ab4bc0712bd890078663cfbcb585aabb2">_MB</a> = 2**2**10</td></tr>
+<tr class="separator:ab4bc0712bd890078663cfbcb585aabb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566ce5cc22463035fcdc5468fc9bbfad"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a566ce5cc22463035fcdc5468fc9bbfad">_log_filename</a> = &quot;cli_gen_tool.log&quot;</td></tr>
+<tr class="separator:a566ce5cc22463035fcdc5468fc9bbfad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40eff5c2f9a1a7da44d62a059562a98b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a40eff5c2f9a1a7da44d62a059562a98b">_log_format</a> = &quot;%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s&quot;</td></tr>
+<tr class="separator:a40eff5c2f9a1a7da44d62a059562a98b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18db4f19ef35f5158cb932938f15bc54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a18db4f19ef35f5158cb932938f15bc54">_log_formatter</a> = logging.Formatter(<a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a40eff5c2f9a1a7da44d62a059562a98b">_log_format</a>)</td></tr>
+<tr class="separator:a18db4f19ef35f5158cb932938f15bc54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2e3531ebe2604b8ae9c19bfa39de07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a2c2e3531ebe2604b8ae9c19bfa39de07">log_file_handler</a></td></tr>
+<tr class="separator:a2c2e3531ebe2604b8ae9c19bfa39de07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90324adad133f6fa81f83fdf20536594"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a90324adad133f6fa81f83fdf20536594">splashscreen_duration</a> = 2750</td></tr>
 <tr class="separator:a90324adad133f6fa81f83fdf20536594"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc165421d1c88e2c12c3eb65dbe9311e"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#afc165421d1c88e2c12c3eb65dbe9311e">file_first_line</a></td></tr>
@@ -166,7 +178,7 @@ Variables</h2></td></tr>
 <tr class="separator:a8f3611328485556faab02fec3f988b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06d266c813e2002e5f70849faed92a39"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a06d266c813e2002e5f70849faed92a39">function_prototype</a> = &quot;void {functionname}(<a class="el" href="../../dc/d4b/class_user_input.html">UserInput</a>* _{objectname});&quot;</td></tr>
 <tr class="separator:a06d266c813e2002e5f70849faed92a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6729e4f66a1f381000c970bbb118b8cf"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a6729e4f66a1f381000c970bbb118b8cf">builtin_prototypes_dict</a></td></tr>
+<tr class="memitem:a6729e4f66a1f381000c970bbb118b8cf"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a6729e4f66a1f381000c970bbb118b8cf">builtin_prototypes_dict</a> = {&quot;help&quot;: &quot;&quot;, &quot;<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#af1c9961e6ce9d564faa79ba105238e86">unrecognized</a>&quot;: &quot;&quot;}</td></tr>
 <tr class="separator:a6729e4f66a1f381000c970bbb118b8cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac58b6c5faffe847dd80c421c9f36f16e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#ac58b6c5faffe847dd80c421c9f36f16e">functions_h_filestring</a></td></tr>
 <tr class="separator:ac58b6c5faffe847dd80c421c9f36f16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,8 +190,8 @@ Variables</h2></td></tr>
 <tr class="separator:a06274272db0e8d0d0e005d552a5cd884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a69f734fffbe44c4ddef01b70829e9d"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a5a69f734fffbe44c4ddef01b70829e9d">commandparameters_string</a></td></tr>
 <tr class="separator:a5a69f734fffbe44c4ddef01b70829e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a203671d5eaa8ece38c5be099c4a9e7de"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a203671d5eaa8ece38c5be099c4a9e7de">nested_commandparameters_child_string</a> = &quot; *{functionname}_param{comma} // pointer to {functionname}_param\n&quot;</td></tr>
-<tr class="separator:a203671d5eaa8ece38c5be099c4a9e7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a978cb0a999c325e54c4aee3d24a7f8f9"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a978cb0a999c325e54c4aee3d24a7f8f9">nested_commandparameters_child_string</a></td></tr>
+<tr class="separator:a978cb0a999c325e54c4aee3d24a7f8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1041ba921bfd1f6877088bdd45298ab5"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a1041ba921bfd1f6877088bdd45298ab5">nested_commandparameters_string</a></td></tr>
 <tr class="separator:a1041ba921bfd1f6877088bdd45298ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76fb5d6938875edfe84cc9b3999c4d09"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a76fb5d6938875edfe84cc9b3999c4d09">commandconstructor_string</a> = &quot;CommandConstructor {functionname}_({functionname}_param); // <a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#afc08a3592e986eec757ce96900b0fadf">help</a> has a command string, and function specified&quot;</td></tr>
@@ -188,6 +200,116 @@ Variables</h2></td></tr>
 <tr class="separator:a01646895feb76ef82f59fc582e3d0418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a93810a3d943e72404996aad6b9c64113" name="a93810a3d943e72404996aad6b9c64113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93810a3d943e72404996aad6b9c64113">&#9670;&nbsp;</a></span>_KB</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int modules.dev_qol_var._KB = 2**10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a566ce5cc22463035fcdc5468fc9bbfad" name="a566ce5cc22463035fcdc5468fc9bbfad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566ce5cc22463035fcdc5468fc9bbfad">&#9670;&nbsp;</a></span>_log_filename</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string modules.dev_qol_var._log_filename = &quot;cli_gen_tool.log&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40eff5c2f9a1a7da44d62a059562a98b" name="a40eff5c2f9a1a7da44d62a059562a98b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40eff5c2f9a1a7da44d62a059562a98b">&#9670;&nbsp;</a></span>_log_format</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string modules.dev_qol_var._log_format = &quot;%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18db4f19ef35f5158cb932938f15bc54" name="a18db4f19ef35f5158cb932938f15bc54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18db4f19ef35f5158cb932938f15bc54">&#9670;&nbsp;</a></span>_log_formatter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">modules.dev_qol_var._log_formatter = logging.Formatter(<a class="el" href="../../d6/da0/namespacemodules_1_1dev__qol__var.html#a40eff5c2f9a1a7da44d62a059562a98b">_log_format</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4bc0712bd890078663cfbcb585aabb2" name="ab4bc0712bd890078663cfbcb585aabb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4bc0712bd890078663cfbcb585aabb2">&#9670;&nbsp;</a></span>_MB</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int modules.dev_qol_var._MB = 2**2**10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aca5f946c2ecd229ca8e49d5e0c2689eb" name="aca5f946c2ecd229ca8e49d5e0c2689eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aca5f946c2ecd229ca8e49d5e0c2689eb">&#9670;&nbsp;</a></span>builtin_function_statements_dict</h2>
 
@@ -200,7 +322,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
-<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;outputToStream&quot;</span> : <span class="stringliteral">&quot;  _{objectname}-&gt;outputToStream({stream});&quot;</span></div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;outputToStream&quot;</span>: <span class="stringliteral">&quot;  _{objectname}-&gt;outputToStream({stream});&quot;</span></div>
 <div class="line"><span class="lineno">    3</span>}</div>
 </div><!-- fragment -->
 <p>functions.cpp non-proto only TODO finish default function statements </p>
@@ -214,15 +336,11 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary modules.dev_qol_var.builtin_prototypes_dict</td>
+          <td class="memname">dictionary modules.dev_qol_var.builtin_prototypes_dict = {&quot;help&quot;: &quot;&quot;, &quot;<a class="el" href="../../d3/dce/_read_command_from_buffer_web_serial_8ino.html#af1c9961e6ce9d564faa79ba105238e86">unrecognized</a>&quot;: &quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
-<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;help&quot;</span> : <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;unrecognized&quot;</span> : <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">    4</span>}</div>
-</div><!-- fragment -->
+
 </div>
 </div>
 <a id="a964286997d7d60696725946a538aa5e8" name="a964286997d7d60696725946a538aa5e8"></a>
@@ -601,7 +719,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;file_lines_list&quot;</span>: [],</div>
 <div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;tree_item&quot;</span>: {},</div>
 <div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;contents_item&quot;</span>: {},</div>
-<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;text_widget&quot;</span>: {0: <span class="stringliteral">&quot;&quot;</span>, 1: <span class="stringliteral">&quot;&quot;</span>},    </div>
+<div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;text_widget&quot;</span>: {0: <span class="stringliteral">&quot;&quot;</span>, 1: <span class="stringliteral">&quot;&quot;</span>},</div>
 <div class="line"><span class="lineno">    7</span>}</div>
 </div><!-- fragment -->
 <p>This 'sub' dict is contained by each key in <code>generated_filename_dict</code> </p>
@@ -622,6 +740,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2c2e3531ebe2604b8ae9c19bfa39de07" name="a2c2e3531ebe2604b8ae9c19bfa39de07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2e3531ebe2604b8ae9c19bfa39de07">&#9670;&nbsp;</a></span>log_file_handler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">modules.dev_qol_var.log_file_handler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  RotatingFileHandler(</div>
+<div class="line"><span class="lineno">    2</span>    log_path + _log_filename, <span class="stringliteral">&quot;a&quot;</span>, 10 * _MB, backupCount=5</div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ac37fccb6a2f7fa4be798f0298eddfd55" name="ac37fccb6a2f7fa4be798f0298eddfd55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac37fccb6a2f7fa4be798f0298eddfd55">&#9670;&nbsp;</a></span>log_path</h2>
 
@@ -636,18 +771,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a203671d5eaa8ece38c5be099c4a9e7de" name="a203671d5eaa8ece38c5be099c4a9e7de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a203671d5eaa8ece38c5be099c4a9e7de">&#9670;&nbsp;</a></span>nested_commandparameters_child_string</h2>
+<a id="a978cb0a999c325e54c4aee3d24a7f8f9" name="a978cb0a999c325e54c4aee3d24a7f8f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a978cb0a999c325e54c4aee3d24a7f8f9">&#9670;&nbsp;</a></span>nested_commandparameters_child_string</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string modules.dev_qol_var.nested_commandparameters_child_string = &quot; *{functionname}_param{comma} // pointer to {functionname}_param\n&quot;</td>
+          <td class="memname">tuple modules.dev_qol_var.nested_commandparameters_child_string</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  (</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;    *{functionname}_param{comma} // pointer to {functionname}_param\n&quot;</span></div>
+<div class="line"><span class="lineno">    3</span>)</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a1041ba921bfd1f6877088bdd45298ab5" name="a1041ba921bfd1f6877088bdd45298ab5"></a>

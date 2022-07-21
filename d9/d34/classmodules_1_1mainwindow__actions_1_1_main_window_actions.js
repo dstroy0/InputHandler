@@ -1,7 +1,6 @@
 var classmodules_1_1mainwindow__actions_1_1_main_window_actions =
 [
     [ "__init__", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a6e64930ba66eddaa7fc0fd06dad814db", null ],
-    [ "closeEvent", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a06ba0bce4afcf177a230c390630ec2e4", null ],
     [ "do_before_app_close", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8933d551f9a4e5a8fffd276479380d33", null ],
     [ "generate_cli_files", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d", null ],
     [ "gui_about", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90", null ],

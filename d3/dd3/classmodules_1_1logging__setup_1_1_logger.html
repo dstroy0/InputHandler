@@ -114,7 +114,6 @@ $(document).ready(function(){initNavTree('d3/dd3/classmodules_1_1logging__setup_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="../../da/d79/classmodules_1_1logging__setup_1_1_logger-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">modules.logging_setup.Logger Class Reference</div></div>
 </div><!--header-->
@@ -136,19 +135,14 @@ Collaboration diagram for modules.logging_setup.Logger:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5bf29e05e957a0c5625323cdd70ad222"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a5bf29e05e957a0c5625323cdd70ad222">__init__</a> (self)</td></tr>
 <tr class="separator:a5bf29e05e957a0c5625323cdd70ad222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07842800246521a3041e5ee5f84e734"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#ad07842800246521a3041e5ee5f84e734">setup_file_handler</a> ()</td></tr>
+<tr class="separator:ad07842800246521a3041e5ee5f84e734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe8b246d3e9cc7570df9b9d6d639a39e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#abe8b246d3e9cc7570df9b9d6d639a39e">get_file_handler</a> ()</td></tr>
 <tr class="separator:abe8b246d3e9cc7570df9b9d6d639a39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab2ed7772004b64448111bf50ba65852"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#aab2ed7772004b64448111bf50ba65852">get_stream_handler</a> ()</td></tr>
 <tr class="separator:aab2ed7772004b64448111bf50ba65852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e98d5f8bd6d190b68f3d27cb084c1fd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a8e98d5f8bd6d190b68f3d27cb084c1fd">get_logger</a> (self, name)</td></tr>
 <tr class="separator:a8e98d5f8bd6d190b68f3d27cb084c1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a2c9ee04c0d913fab4a3d973579652fe8"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a2c9ee04c0d913fab4a3d973579652fe8">_log_filename</a> = str(log_path) + str(datetime.date.today()) + &quot;-cli_gen_tool.log&quot;</td></tr>
-<tr class="separator:a2c9ee04c0d913fab4a3d973579652fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a034f73dcbab5043230471b024d8eb82f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a034f73dcbab5043230471b024d8eb82f">_log_format</a> = &quot;%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s&quot;</td></tr>
-<tr class="separator:a034f73dcbab5043230471b024d8eb82f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5bf29e05e957a0c5625323cdd70ad222" name="a5bf29e05e957a0c5625323cdd70ad222"></a>
@@ -232,47 +226,19 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2c9ee04c0d913fab4a3d973579652fe8" name="a2c9ee04c0d913fab4a3d973579652fe8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c9ee04c0d913fab4a3d973579652fe8">&#9670;&nbsp;</a></span>_log_filename</h2>
+<a id="ad07842800246521a3041e5ee5f84e734" name="ad07842800246521a3041e5ee5f84e734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad07842800246521a3041e5ee5f84e734">&#9670;&nbsp;</a></span>setup_file_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string modules.logging_setup.Logger._log_filename = str(log_path) + str(datetime.date.today()) + &quot;-cli_gen_tool.log&quot;</td>
+          <td class="memname">def modules.logging_setup.Logger.setup_file_handler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a034f73dcbab5043230471b024d8eb82f" name="a034f73dcbab5043230471b024d8eb82f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a034f73dcbab5043230471b024d8eb82f">&#9670;&nbsp;</a></span>_log_format</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">string modules.logging_setup.Logger._log_format = &quot;%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

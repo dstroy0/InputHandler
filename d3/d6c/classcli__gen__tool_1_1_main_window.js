@@ -2,6 +2,7 @@ var classcli__gen__tool_1_1_main_window =
 [
     [ "__init__", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ac491c971bccddde568f57a2943d7262a", null ],
     [ "append_to_log_history", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a6d9c016ee9cd25d11ee836879b60aadc", null ],
+    [ "closeEvent", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1", null ],
     [ "eventFilter", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a110b3fd393af84189c93b91f7330417a", null ],
     [ "app", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a60fca167801fb229c8be81b90f1f91e8", null ],
     [ "cli_gen_tool_json_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a126218cfff27282b03b8df83fbea2802", null ],
@@ -23,6 +24,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "log", "d3/d6c/classcli__gen__tool_1_1_main_window.html#af113bc9ca62828fad4f4cb3474330598", null ],
     [ "qcursor", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7c6a7816202411342ed6954dbb92aad8", null ],
     [ "session", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0353fc779da7e2c358f9c61271f5365e", null ],
+    [ "settings", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a2e237d3e824ca8bc6fc764e71d92c407", null ],
     [ "ui", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44b11f6c7d8b61b9554eadc464d9ac70", null ],
     [ "user_resizing_code_preview_box", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a81e4ad57ccc4623fed0feb1a8a37f24f", null ]
 ];

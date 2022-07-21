@@ -1,5 +1,10 @@
 var dev__qol__var_8py =
 [
+    [ "_KB", "d4/da6/dev__qol__var_8py.html#a93810a3d943e72404996aad6b9c64113", null ],
+    [ "_log_filename", "d4/da6/dev__qol__var_8py.html#a566ce5cc22463035fcdc5468fc9bbfad", null ],
+    [ "_log_format", "d4/da6/dev__qol__var_8py.html#a40eff5c2f9a1a7da44d62a059562a98b", null ],
+    [ "_log_formatter", "d4/da6/dev__qol__var_8py.html#a18db4f19ef35f5158cb932938f15bc54", null ],
+    [ "_MB", "d4/da6/dev__qol__var_8py.html#ab4bc0712bd890078663cfbcb585aabb2", null ],
     [ "builtin_function_statements_dict", "d4/da6/dev__qol__var_8py.html#aca5f946c2ecd229ca8e49d5e0c2689eb", null ],
     [ "builtin_prototypes_dict", "d4/da6/dev__qol__var_8py.html#a6729e4f66a1f381000c970bbb118b8cf", null ],
     [ "code_preview_text_line_offset", "d4/da6/dev__qol__var_8py.html#a964286997d7d60696725946a538aa5e8", null ],
@@ -20,8 +25,9 @@ var dev__qol__var_8py =
     [ "generated_filename_dict", "d4/da6/dev__qol__var_8py.html#a7183009553deae5da5a782cadb2a2f7a", null ],
     [ "generated_filename_sub_dict", "d4/da6/dev__qol__var_8py.html#abc87cbf607ad22f3bb9ac52ebb97426b", null ],
     [ "lib_root_path", "d4/da6/dev__qol__var_8py.html#a3e7a3636b0b65ac8428c3c76a8da7599", null ],
+    [ "log_file_handler", "d4/da6/dev__qol__var_8py.html#a2c2e3531ebe2604b8ae9c19bfa39de07", null ],
     [ "log_path", "d4/da6/dev__qol__var_8py.html#ac37fccb6a2f7fa4be798f0298eddfd55", null ],
-    [ "nested_commandparameters_child_string", "d4/da6/dev__qol__var_8py.html#a203671d5eaa8ece38c5be099c4a9e7de", null ],
+    [ "nested_commandparameters_child_string", "d4/da6/dev__qol__var_8py.html#a978cb0a999c325e54c4aee3d24a7f8f9", null ],
     [ "nested_commandparameters_string", "d4/da6/dev__qol__var_8py.html#a1041ba921bfd1f6877088bdd45298ab5", null ],
     [ "parameters_h_filestring", "d4/da6/dev__qol__var_8py.html#a01646895feb76ef82f59fc582e3d0418", null ],
     [ "path", "d4/da6/dev__qol__var_8py.html#a8dcb2277898748270d411770a0c222ef", null ],
