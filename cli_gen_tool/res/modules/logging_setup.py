@@ -11,38 +11,35 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import logging, datetime, os
-from logging.handlers import RotatingFileHandler
-from res.modules.dev_qol_var import log_path
+import logging
+from res.modules.dev_qol_var import log_file_handler, _log_formatter
+
 
 class QPlainTextEditLogger(logging.Handler):
     def __init__(self, parent):
         super(QPlainTextEditLogger, self).__init__()
         self.widget = parent.log.dlg.logHistoryPlainTextEdit
-        # settings for the widget are in the ui file
+        # settings for the widget are in the `logHistoryDialog.ui` file
 
     def emit(self, record):
-        log_formatter = logging.Formatter(Logger._log_format)
-        msg = log_formatter.format(record)
-        self.widget.appendPlainText(msg)
+        self.widget.appendPlainText(_log_formatter.format(record))
 
-class Logger(object):    
-    _log_filename = str(log_path) + str(datetime.date.today()) + "-cli_gen_tool.log"    
-    _log_format = "%(asctime)s - [%(levelname)s] -  %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s"
 
+class Logger(object):
     def __init__(self):
         super().__init__()
 
+    def setup_file_handler():
+        log_file_handler.setLevel(logging.INFO)
+        log_file_handler.setFormatter(_log_formatter)
+
     def get_file_handler():
-        file_handler = RotatingFileHandler(Logger._log_filename,"a",2048,backupCount=5)
-        file_handler.setLevel(logging.INFO)
-        file_handler.setFormatter(logging.Formatter(Logger._log_format))
-        return file_handler
+        return log_file_handler
 
     def get_stream_handler():
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(logging.INFO)
-        stream_handler.setFormatter(logging.Formatter(Logger._log_format))
+        stream_handler.setFormatter(_log_formatter)
         return stream_handler
 
     def get_logger(self, name):

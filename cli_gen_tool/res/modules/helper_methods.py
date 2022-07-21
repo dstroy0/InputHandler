@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from PySide6.QtWidgets import QDialog, QHBoxLayout, QLabel
+from PySide6.QtWidgets import QDialog, QHBoxLayout, QLabel, QDialogButtonBox, QVBoxLayout, QMessageBox
 from res.modules.dev_qol_var import version
 
 # helper method class
@@ -29,6 +29,19 @@ class HelperMethods(object):
         if window_title != None:
             dlg.setWindowTitle(window_title)
         dlg.exec()
+        
+    def create_popup_dialog_box_with_buttons(self, message, window_title=None, icon=None):
+        print(message)
+        # create popup        
+        dlg = QMessageBox(self)
+        dlg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)        
+        dlg.setText(message)                   
+        if icon != None:
+            dlg.setWindowIcon(icon)
+        if window_title != None:
+            dlg.setWindowTitle(window_title)
+        ret = dlg.exec()
+        return ret
 
     def generate_docstring_list_for_filename(self, filename):
         docstring_list = []

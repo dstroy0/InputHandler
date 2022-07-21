@@ -30,6 +30,7 @@ from PySide6.QtCore import (
     QPoint,
     QEvent,
     QObject,
+    QSettings,
 )
 from PySide6.QtGui import QIcon, QPixmap, QCursor
 
@@ -64,31 +65,55 @@ class MainWindow(
     SettingsTreeMethods,
     CommandParametersMethods,
     MainWindowButtons,
-    ParseInputHandlerConfig,    
+    ParseInputHandlerConfig,
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
-        super().__init__(parent)        
+        super().__init__(parent)
 
-        self.app = app  # used in external methods         
-        
+        # app splashscreen
+        splash = QSplashScreen()
+        splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
+        splash.showMessage(
+            "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
+            (Qt.AlignHCenter | Qt.AlignBottom),
+            Qt.white,
+        )
+        splash.setWindowFlags(
+            splash.windowFlags() | Qt.WindowStaysOnTopHint
+        )  # or the windowstaysontophint into QSplashScreen window flags
+        splash.show()
+        #app.processEvents()
+        splash.timer = QTimer()
+        splash.timer.setSingleShot(True)
+        # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
+        splash.timer.timeout.connect(splash.close)
+        splash.timer.start(splashscreen_duration)
+
+        self.app = app  # used in external methods
+
+        self.settings = QSettings("InputHandler", "cli_gen_tool.py")
+
         # log pathing
         if not os.path.isdir(log_path):
             os.mkdir(log_path)
         # log history
         self.log = QDialog()
-        self.log.setWindowIcon(self.get_icon(
-            QStyle.StandardPixmap.SP_FileDialogContentsView
-        ))
+        self.log.setWindowIcon(
+            self.get_icon(QStyle.StandardPixmap.SP_FileDialogContentsView)
+        )
         self.log.dlg = Ui_logHistoryDialog()
         # MainWindow still interactable with log history open
         self.log.dlg.setupUi(self.log)
         # self.log.dlg.logHistoryPlainTextEdit
-        #self.log.setMaximumSize(0,0)        
+        # self.log.setMaximumSize(0,0)
         self.log.close()
-        
+
+        # set up logger
+        Logger.setup_file_handler()
+
         logger = Logger.get_logger(self, __name__)
-        
+
         logger.info("Loading CLI generation tool.")
         logger.info("Importing external classes.")
         HelperMethods.__init__(self)
@@ -99,7 +124,7 @@ class MainWindow(
         SettingsTreeTableMethods.__init__(self)
         CommandParametersMethods.__init__(self)
         CodePreview.__init__(self)
-        
+
         logger.info("Set app pathing.")
         # pathing
         self.lib_root_path = lib_root_path
@@ -112,7 +137,7 @@ class MainWindow(
         logger.info("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
+
         # MainWindow icon
         window_icon_path = self.lib_root_path + "/docs/img/Logolarge.png"
         self.setWindowIcon(QIcon(window_icon_path))
@@ -159,7 +184,7 @@ class MainWindow(
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # print pretty session json
         # session json contains only serializable items, safe to print
-        logger.info("cli_gen_tool.json =\n"+str(json.dumps(self.session, indent=2)))
+        logger.info("cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2)))
 
         # parse config file
         logger.info("Attempt parse config.h")
@@ -226,7 +251,7 @@ class MainWindow(
     def append_to_log_history(self, event):
         print("append to log")
         print(event)
-    
+
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # event_type to avoid repetitive calls to .type() method; events are granular.
         event_type = event.type()
@@ -240,6 +265,10 @@ class MainWindow(
 
         return super().eventFilter(watched, event)
 
+    def closeEvent(self, event):
+        self.do_before_app_close()
+        event.accept()
+
 
 # loop
 if __name__ == "__main__":
@@ -247,27 +276,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     # GUI styling
     app.setStyleSheet(qdarktheme.load_stylesheet())
-    # app splashscreen
-    splash = QSplashScreen()
-    splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
-    splash.showMessage(
-        "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
-        (Qt.AlignHCenter | Qt.AlignBottom),
-        Qt.white,
-    )
-    splash.setWindowFlags(
-        splash.windowFlags() | Qt.WindowStaysOnTopHint
-    )  # or the windowstaysontophint into QSplashScreen window flags
-    splash.show()
-    app.processEvents()
-    splash.timer = QTimer()
-    splash.timer.setSingleShot(True)
     # GUI layout
     window = MainWindow(app)  # pass app object to external methods
     window.show()
-    # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
-    splash.timer.timeout.connect(splash.close)
-    splash.timer.start(splashscreen_duration)
     # exit on user command
     sys.exit(app.exec())
 

@@ -20,10 +20,11 @@ from res.modules.logging_setup import Logger
 # settings_tree methods
 class SettingsTreeMethods(object):
     logger = ""
+
     def __init__(self):
         super().__init__()
         SettingsTreeMethods.logger = Logger.get_logger(self, __name__)
-        
+
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
@@ -91,11 +92,11 @@ class SettingsTreeMethods(object):
             return
         object_list[1] = int(str(object_list[1]))
         # process output
-        if object_list[0] == "process output":            
+        if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"]["buffer size"] = val
             self.update_code_preview_tree(item)
-            SettingsTreeMethods.logger.info("output buffer size "+ str(val) + " bytes")
+            SettingsTreeMethods.logger.info("output buffer size " + str(val) + " bytes")
             return
         if object_list[0] == "process parameters":
             SettingsTreeMethods.logger.info("edited a process parameter")
@@ -265,9 +266,11 @@ class SettingsTreeMethods(object):
         tree = self.cliOpt["config"]["tree"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         cfg_path = self.session["opt"]["input_config_file_path"]
-        tree.update({"root": QTreeWidgetItem(settings_tree, ["Input config: "+cfg_path, ""])})
+        tree.update(
+            {"root": QTreeWidgetItem(settings_tree, ["Input config: " + cfg_path, ""])}
+        )
         tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
-        tree["root"].setToolTip(0, "Input config: "+cfg_path)
+        tree["root"].setToolTip(0, "Input config: " + cfg_path)
 
         # make these parents children of root using the keys from 'cfg_dict'
         for key in cfg_dict:

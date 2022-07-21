@@ -101,7 +101,10 @@ class CodePreview(object):
 
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(
-            20, widget_qrect.y() + widget_qrect.height() - 4, widget_qrect.width() - 20, 8
+            20,
+            widget_qrect.y() + widget_qrect.height() - 4,
+            widget_qrect.width() - 20,
+            8,
         )
 
     def resize_code_preview_tree_item(self, mouse_pos):
@@ -175,7 +178,7 @@ class CodePreview(object):
             except:
                 # QTableWidgetItem
                 object_string = str(tree_object.tableWidget().objectName())
-        object_list = object_string.strip("\n").split(",")        
+        object_list = object_string.strip("\n").split(",")
         line_num = 0
         if object_list[0] == "process output" or object_list[0] == "process name":
             code_list = self.code_preview_dict["files"]["setup.h"]["file_lines_list"]
@@ -193,7 +196,7 @@ class CodePreview(object):
             sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 int(object_list[1])
             ]["fields"]
-            line_num = int(sub_dict[0])        
+            line_num = int(sub_dict[0])
         cursor = QTextCursor(
             text_widget.document().findBlockByLineNumber(
                 line_num + code_preview_text_line_offset
