@@ -23,7 +23,7 @@ class SettingsTreeMethods(object):
 
     def __init__(self):
         super().__init__()
-        SettingsTreeMethods.logger = Logger.get_logger(self, __name__)
+        SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))

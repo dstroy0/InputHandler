@@ -10,6 +10,7 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+from __future__ import absolute_import
 from PySide6.QtWidgets import (
     QHeaderView,
     QTreeWidgetItem,
@@ -20,9 +21,13 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import (
     Qt,
 )
+from res.modules.logging_setup import Logger
 
 # this is a helper class
 class SettingsTreeTableMethods(object):
+    def __init__(self):
+        super(SettingsTreeTableMethods,self).__init__()
+        SettingsTreeTableMethods.logger = Logger.get_child_logger(self.logger,__name__)
     # settings_tree table functions
     def set_table_vertical_labels(self, tree, section, rows):
         vertical_label_list = []
@@ -65,7 +70,7 @@ class SettingsTreeTableMethods(object):
         table_widget.insertRow(new_row)
         input_cells[last_row].setText("")
         table_widget.setItem(last_row, 0, input_cells[last_row])
-        print(add_row_button_item)
+        SettingsTreeTableMethods.logger.info(add_row_button_item)
         table_widget.setItem(new_row, 0, add_row_button_item)
         table_widget.setCellWidget(new_row, 0, add_row_button)
         self.set_table_vertical_labels(tree, dict_key2, new_row)
@@ -97,13 +102,13 @@ class SettingsTreeTableMethods(object):
 
     def rem_settings_tree_table_row(self):
         object_list = self.sender().objectName().split(",")
-        print(object_list)
+        SettingsTreeTableMethods.logger.info(object_list)
         tree = self.cliOpt[object_list[1]]["tree"]
         table_widget = tree["items"][object_list[2]]["QTableWidget"]
         table_widget.removeRow(int(object_list[3]))
 
     def add_data_delimiter_row(self):
-        print("add data delimiter row")
+        SettingsTreeTableMethods.logger.info("add data delimiter row")
         dict_key = "process parameters"
         dict_key2 = "data delimiter sequences"
         add_row_function = self.add_data_delimiter_row
@@ -113,7 +118,7 @@ class SettingsTreeTableMethods(object):
         )
 
     def add_start_stop_data_delimiter_row(self):
-        print("add start stop data delimiter row")
+        SettingsTreeTableMethods.logger.info("add start stop data delimiter row")
         dict_key = "process parameters"
         dict_key2 = "start stop data delimiter sequences"
         add_row_function = self.add_start_stop_data_delimiter_row
@@ -129,7 +134,7 @@ class SettingsTreeTableMethods(object):
             item = item.tableWidget()
         else:
             current_item = item.currentItem()
-        print(item, current_item)
+        SettingsTreeTableMethods.logger.info(item, current_item)
         item.editItem(current_item)
 
     def table_widget_item_changed(self, item):

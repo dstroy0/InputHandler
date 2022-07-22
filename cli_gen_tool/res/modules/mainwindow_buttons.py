@@ -10,23 +10,32 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+from __future__ import absolute_import
+from res.modules.logging_setup import Logger
+
 # mainwindow button methods class
 class MainWindowButtons(object):
+    def __init__(self):
+        super(MainWindowButtons,self).__init__()
+        MainWindowButtons.logger = Logger.get_child_logger(self.logger,__name__)
+    
     # MainWindow buttons
     # tab 1
     # TODO
     def clicked_edit_tab_one(self):
-        print("clicked tab 1 edit")
+        MainWindowButtons.logger.info("clicked tab 1 edit")
+        if self.ui.settings_tree.currentItem() != None:
+            self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(),3)            
 
     # TODO
-
     def clicked_clear_tab_one(self):
-        print("clicked tab 1 clear")
-
+        MainWindowButtons.logger.info("clicked tab 1 clear")
+        if self.ui.settings_tree.currentItem() != None:
+            self.ui.settings_tree.currentItem().setData(3,0,0)
+    
     # TODO
-
     def clicked_default_tab_one(self):
-        print("clicked tab 1 default")
+        MainWindowButtons.logger.info("clicked tab 1 default")
 
     # tab 2
     # TODO
