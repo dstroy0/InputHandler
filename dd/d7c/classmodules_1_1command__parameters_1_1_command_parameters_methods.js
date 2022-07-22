@@ -1,5 +1,6 @@
 var classmodules_1_1command__parameters_1_1_command_parameters_methods =
 [
+    [ "__init__", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#abb617fad35b3df12939f0f1840838ce1", null ],
     [ "append_to_arg_csv", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ace299138340d78e90140277906bb1920", null ],
     [ "argument_handling_changed", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a2cf46a56306cae65e496af04e3f4996a", null ],
     [ "clicked_command_parameters_buttonbox_cancel", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#adbed879c706297a7e210e2a55fa44466", null ],
