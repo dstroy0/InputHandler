@@ -1,5 +1,6 @@
 var classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods =
 [
+    [ "__init__", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#ad9d35d9f5b1ffbb87be1d022722b6224", null ],
     [ "add_data_delimiter_row", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#aea5ed8ca2988c4f96f6cf259f1562976", null ],
     [ "add_settings_tree_table_row", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#afad3585025183d48b9f0b1c34a7431d2", null ],
     [ "add_start_stop_data_delimiter_row", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a0a5035151b83bc008df7ccc1f3b9227b", null ],
