@@ -16,6 +16,7 @@ var classmodules_1_1mainwindow__actions_1_1_main_window_actions =
     [ "save_file_as", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a1decb0f25db2a5ffb2b351741f7cd3c2", null ],
     [ "write_cli_gen_tool_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a955d14780c49442ea6bb62e079e2a797", null ],
     [ "cliOpt", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab4de419896739d5af4bb50f0cf5d93d7", null ],
+    [ "closing_actions_performed", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ad9e762592915e1950a559ede1dcef326", null ],
     [ "json_except", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a9bc5e4ab37dd87566b73d946ea058d60", null ],
     [ "saveFileName", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a9196e4714d28ee6c81b61efad054ab8c", null ]
 ];

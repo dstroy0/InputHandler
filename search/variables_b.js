@@ -22,6 +22,6 @@ var searchData=
   ['log_19',['log',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af113bc9ca62828fad4f4cb3474330598',1,'cli_gen_tool::MainWindow']]],
   ['log_5ffile_5fhandler_20',['log_file_handler',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a2c2e3531ebe2604b8ae9c19bfa39de07',1,'modules::dev_qol_var']]],
   ['log_5fpath_21',['log_path',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ac37fccb6a2f7fa4be798f0298eddfd55',1,'modules::dev_qol_var']]],
-  ['logger_22',['logger',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#af6fa57635783f57f8ca08479dc5a321d',1,'modules.mainwindow_actions.MainWindowActions.logger()'],['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#adc53f6ee0d37e70f1a6d017b5a46a33b',1,'modules.settings_tree.SettingsTreeMethods.logger()']]],
+  ['logger_22',['logger',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a1a4bcdd93839d134d016814a30fcf267',1,'cli_gen_tool.MainWindow.logger()'],['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#adc53f6ee0d37e70f1a6d017b5a46a33b',1,'modules.settings_tree.SettingsTreeMethods.logger()']]],
   ['loghistoryplaintextedit_23',['logHistoryPlainTextEdit',['../d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html#a593fdadd72eda12277bf891aebb6393f',1,'uic::logHistoryDialog::Ui_logHistoryDialog']]]
 ];
