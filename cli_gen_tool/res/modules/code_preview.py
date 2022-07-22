@@ -105,7 +105,7 @@ class CodePreview(object):
             20,
             widget_qrect.y() + widget_qrect.height() - 4,
             widget_qrect.width() - 20,
-            8,
+            25,
         )
 
     def resize_code_preview_tree_item(self, mouse_pos):

@@ -60,11 +60,11 @@ class SettingsTreeMethods(object):
         if sub_dict[6].currentText() == "Enable":
             sub_dict[1] = "       "
             sub_dict[4] = True
-            SettingsTreeMethods.logger.info(sub_dict[3].strip("\n"), "enabled")
+            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n"))+" enabled")
         elif sub_dict[6].currentText() == "Disable":
             sub_dict[1] = "    // "
             sub_dict[4] = False
-            SettingsTreeMethods.logger.info(sub_dict[3].strip("\n"), "disabled")
+            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n"))+" disabled")
         SettingsTreeMethods.logger.debug(
             "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                 object_list[0], object_list[1]

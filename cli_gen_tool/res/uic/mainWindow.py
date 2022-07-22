@@ -156,7 +156,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.openCloseSettingsMenuButton = QPushButton(self.command_tab)
         self.openCloseSettingsMenuButton.setObjectName(u"openCloseSettingsMenuButton")
-        self.openCloseSettingsMenuButton.setMaximumSize(QSize(150, 16777215))
+        self.openCloseSettingsMenuButton.setMaximumSize(QSize(170, 16777215))
 
         self.gridLayout_2.addWidget(self.openCloseSettingsMenuButton, 0, 0, 1, 1)
 
@@ -168,13 +168,14 @@ class Ui_MainWindow(object):
 
         self.editButton_2 = QPushButton(self.command_tab)
         self.editButton_2.setObjectName(u"editButton_2")
+        self.editButton_2.setMinimumSize(QSize(265, 0))
 
         self.gridLayout_2.addWidget(self.editButton_2, 3, 1, 1, 1)
 
         self.tab_2_command_tree_label = QLabel(self.command_tab)
         self.tab_2_command_tree_label.setObjectName(u"tab_2_command_tree_label")
         self.tab_2_command_tree_label.setMinimumSize(QSize(0, 25))
-        self.tab_2_command_tree_label.setMaximumSize(QSize(350, 16777215))
+        self.tab_2_command_tree_label.setMaximumSize(QSize(200, 16777215))
         self.tab_2_command_tree_label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.tab_2_command_tree_label, 0, 1, 1, 1)
@@ -308,18 +309,18 @@ class Ui_MainWindow(object):
         self.clearButton_1.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
         self.defaultButton_1.setText(QCoreApplication.translate("MainWindow", u"Default", None))
         self.tab_1_settings_table_label.setText(QCoreApplication.translate("MainWindow", u"Settings               ", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"InputHandler Settings", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"  InputHandler Settings  ", None))
 #if QT_CONFIG(tooltip)
         self.openCloseSettingsMenuButton.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
 #endif // QT_CONFIG(tooltip)
         self.openCloseSettingsMenuButton.setText(QCoreApplication.translate("MainWindow", u"Command settings menu", None))
         self.newButton_2.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.editButton_2.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"                          Commands", None))
+        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
         self.deleteButton_2.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.tab_2_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.command_tab), QCoreApplication.translate("MainWindow", u"Command Tree", None))
-        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.command_tab), QCoreApplication.translate("MainWindow", u"  Command Tree  ", None))
+        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"  File  ", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
         self.menuLog.setTitle(QCoreApplication.translate("MainWindow", u"Log", None))

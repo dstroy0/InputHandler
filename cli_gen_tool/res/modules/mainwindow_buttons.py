@@ -54,5 +54,5 @@ class MainWindowButtons(object):
         print("clicked tab 2 delete")
 
     def clicked_open_command_settings_menu_tab_two(self):
-        print("clicked open command settings menu")
+        MainWindowButtons.logger.info("clicked open command settings menu")
         self.ui.commandParameters.exec()

@@ -12,9 +12,10 @@
 
 from __future__ import absolute_import
 
-from PySide6.QtCore import QRegularExpression
+from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QVBoxLayout
+from PySide6.QtWidgets import QDialogButtonBox, QStyle
+from res.modules.helper_methods import HelperMethods
 from res.modules.dev_qol_var import command_arg_types_list
 from res.modules.logging_setup import Logger
 
@@ -176,21 +177,20 @@ class CommandParametersMethods(object):
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}
 
-    def err_settings_to_validate(self, error_list):
-        dlg = QDialog(self)
-        dlg.layout = QVBoxLayout()
-        dlg.setWindowTitle("command error")
-        dlg.setWindowIcon(self.ui.messageBoxCriticalIcon)
-        error_label = QLabel()
+    def err_settings_to_validate(self, error_list):        
         error_text = ""
         for item in error_list:
             error_text += item
             if item != error_list[len(error_list) - 1]:
                 error_text += "\n"
-        error_label.setText(error_text)
-        dlg.layout.addWidget(error_label)
-        dlg.setLayout(dlg.layout)
-        dlg.exec()
+        HelperMethods.create_qdialog(
+            self,            
+            error_text,
+            Qt.AlignLeft,
+            "Command Parameters Error",
+            None,
+            HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxCritical),
+            )
 
     def set_command_parameter_validators(self):
         cmd_dlg = self.ui.commandParameters.dlg

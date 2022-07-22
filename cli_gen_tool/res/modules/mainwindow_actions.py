@@ -48,6 +48,7 @@ class MainWindowActions(object):
             dlg = HelperMethods.create_qdialog(
                 self,
                 "Save your work?",
+                Qt.AlignCenter,
                 "Save changes",
                 buttons,
                 HelperMethods.get_icon(
