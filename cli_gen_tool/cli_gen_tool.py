@@ -83,7 +83,7 @@ class MainWindow(
             splash.windowFlags() | Qt.WindowStaysOnTopHint
         )  # or the windowstaysontophint into QSplashScreen window flags
         splash.show()
-        #app.processEvents()
+        # app.processEvents()
         splash.timer = QTimer()
         splash.timer.setSingleShot(True)
         # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
@@ -151,7 +151,7 @@ class MainWindow(
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
 
-        # MainWindow var        
+        # MainWindow var
         self.docs = ""
         self.format_docstring = file_docs_format_string
         self.file_first_line = file_first_line
@@ -184,7 +184,9 @@ class MainWindow(
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # print pretty session json
         # session json contains only serializable items, safe to print
-        self.logger.info("cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2)))
+        self.logger.info(
+            "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
+        )
 
         # parse config file
         self.logger.info("Attempt parse config.h")
@@ -247,10 +249,6 @@ class MainWindow(
         # end MainWindow objects
         self.logger.info("CLI generation tool ready.")
         # end __init__
-
-    def append_to_log_history(self, event):
-        print("append to log")
-        print(event)
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # event_type to avoid repetitive calls to .type() method; events are granular.
