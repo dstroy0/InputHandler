@@ -11,13 +11,18 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from PySide6.QtWidgets import QDialog, QHBoxLayout, QLabel, QDialogButtonBox, QVBoxLayout, QMessageBox
+from PySide6.QtWidgets import QDialog, QHBoxLayout, QLabel, QDialogButtonBox, QWidget, QVBoxLayout
+from res.modules.logging_setup import Logger
 from res.modules.dev_qol_var import version
 
 # helper method class
-class HelperMethods(object):
+class HelperMethods(object):    
+    def __init__(self):
+        super(HelperMethods,self).__init__()
+        HelperMethods.logger = Logger.get_child_logger(self.logger,__name__)
+        
     def create_popup_dialog_box(self, message, window_title=None, icon=None):
-        print(message)
+        HelperMethods.logger.info(message)
         # create popup
         dlg = QDialog(self)
         dlg.layout = QHBoxLayout()
@@ -30,17 +35,44 @@ class HelperMethods(object):
             dlg.setWindowTitle(window_title)
         dlg.exec()
         
-    def create_popup_dialog_box_with_buttons(self, message, window_title=None, icon=None):
-        print(message)
-        # create popup        
-        dlg = QMessageBox(self)
-        dlg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)        
-        dlg.setText(message)                   
+    def create_qdialog(self, message, window_title=None, buttons=None, icon=None):
+        HelperMethods.logger.info("message: "+message+", windowtitle: "+window_title+", buttons: "+str(buttons))
+        _buttons = []        
+        dlg = QDialog(self)
+        def button_box_clicked(button):            
+            _match = 0
+            for i in range(len(_buttons)):
+                if button == _buttons[i]:
+                    _match = i
+                    break                
+            b = QDialogButtonBox.StandardButton
+            if buttons[_match] == b.Ok:                                             
+                dlg.accept()
+            if buttons[_match] == b.Cancel:                
+                dlg.reject()
+            if buttons[_match] == b.Save:              
+                # TODO open save prompt     
+                dlg.done(2)                
+            if buttons[_match] == b.Close:                
+                dlg.reject()
+                
+        # create popup                
+        dlg.layout = QVBoxLayout()        
+        dlg.label = QLabel(message)
+        dlg.layout.addWidget(dlg.label)
+        dlg.button_box = QDialogButtonBox(dlg)                
+        if buttons != None:
+            for item in buttons:
+                _button = dlg.button_box.addButton(item)
+                _buttons.append(_button)
+            dlg.button_box.clicked.connect(button_box_clicked)                        
+            dlg.layout.addWidget(dlg.button_box)
+        dlg.setLayout(dlg.layout)        
         if icon != None:
             dlg.setWindowIcon(icon)
         if window_title != None:
             dlg.setWindowTitle(window_title)
-        ret = dlg.exec()
+        ret = dlg.exec()        
         return ret
 
     def generate_docstring_list_for_filename(self, filename):
@@ -67,5 +99,5 @@ class HelperMethods(object):
         self.docs_format_list[2] = version
         self.docs = self.format_docstring.format(*self.docs_format_list)
 
-    def get_icon(self, pixmapapi):
-        return self.style().standardIcon(pixmapapi)
+    def get_icon(self, pixmapapi):                   
+        return QWidget().style().standardIcon(pixmapapi)

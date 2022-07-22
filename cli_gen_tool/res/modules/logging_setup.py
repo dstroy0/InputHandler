@@ -32,7 +32,10 @@ class Logger(object):
     def setup_file_handler():
         log_file_handler.setLevel(logging.INFO)
         log_file_handler.setFormatter(_log_formatter)
-
+            
+    def get_child_logger(parent,name):
+        return parent.getChild(name)
+    
     def get_file_handler():
         return log_file_handler
 
@@ -43,12 +46,11 @@ class Logger(object):
         return stream_handler
 
     def get_logger(self, name):
-
-        log_handler = QPlainTextEditLogger(self)
-
-        logger = logging.getLogger(name)
-        logger.setLevel(logging.INFO)
+        log_handler = QPlainTextEditLogger(self)        
+        logger = logging.getLogger(name)          
+        logger.setLevel(logging.INFO)                
         logger.addHandler(Logger.get_file_handler())
         logger.addHandler(Logger.get_stream_handler())
         logger.addHandler(log_handler)
         return logger
+        

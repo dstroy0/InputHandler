@@ -112,10 +112,10 @@ class MainWindow(
         # set up logger
         Logger.setup_file_handler()
 
-        logger = Logger.get_logger(self, __name__)
+        self.logger = Logger.get_logger(self, __name__)
 
-        logger.info("Loading CLI generation tool.")
-        logger.info("Importing external classes.")
+        self.logger.info("Loading CLI generation tool.")
+        self.logger.info("Importing external classes.")
         HelperMethods.__init__(self)
         MainWindowActions.__init__(self)
         MainWindowButtons.__init__(self)
@@ -125,7 +125,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CodePreview.__init__(self)
 
-        logger.info("Set app pathing.")
+        self.logger.info("Set app pathing.")
         # pathing
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
@@ -134,7 +134,7 @@ class MainWindow(
         self.cli_gen_tool_json_path = (
             self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
         )
-        logger.info("Loading UI_MainWindow()")
+        self.logger.info("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -151,7 +151,7 @@ class MainWindow(
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
 
-        # MainWindow var
+        # MainWindow var        
         self.docs = ""
         self.format_docstring = file_docs_format_string
         self.file_first_line = file_first_line
@@ -179,15 +179,15 @@ class MainWindow(
         # code preview db
         self.code_preview_dict = {"files": generated_filename_dict}
 
-        logger.info("Attempt session json load.")
+        self.logger.info("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # print pretty session json
         # session json contains only serializable items, safe to print
-        logger.info("cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2)))
+        self.logger.info("cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2)))
 
         # parse config file
-        logger.info("Attempt parse config.h")
+        self.logger.info("Attempt parse config.h")
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
         # icons
@@ -245,7 +245,7 @@ class MainWindow(
         self.ui.codePreview_2.viewport().installEventFilter(self)
 
         # end MainWindow objects
-        logger.info("CLI generation tool ready.")
+        self.logger.info("CLI generation tool ready.")
         # end __init__
 
     def append_to_log_history(self, event):

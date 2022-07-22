@@ -12,33 +12,39 @@
 
 from __future__ import absolute_import
 import platform, json, sys, os
-from PySide6.QtWidgets import QFileDialog, QDialog, QVBoxLayout, QLabel, QMessageBox
+from PySide6.QtWidgets import QFileDialog, QDialog, QVBoxLayout, QLabel, QMessageBox, QStyle, QDialogButtonBox
 from PySide6.QtCore import QFile, QIODevice, QTextStream, QByteArray, Qt
+from PySide6.QtGui import QIcon, QPixmap
 from res.modules.logging_setup import Logger
 from res.modules.helper_methods import HelperMethods
 
 # mainwindow actions class
 class MainWindowActions(object):
-    logger = ""
-
     def __init__(self):
-        super().__init__()
-        MainWindowActions.logger = Logger.get_logger(self, __name__)
-
+        super(MainWindowActions,self).__init__()
+        MainWindowActions.logger = Logger.get_child_logger(self.logger,__name__)    
+        self.closing_actions_performed = False        
+    
     # TODO save session on close, prompt user to save work if there is any
     # do before close
     def do_before_app_close(self):
-        MainWindowActions.logger.info("Exiting CLI generation tool")
-        dlg = HelperMethods.create_popup_dialog_box_with_buttons(
-            self, "Save your work?", "Save before exit prompt"
-        )
-        if dlg == QMessageBox.accepted:
-            print("saving work")
-        self.log.close()
+        if self.closing_actions_performed == False:
+            self.closing_actions_performed = True
+            MainWindowActions.logger.info("Exiting CLI generation tool")  
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Save, b.Cancel]          
+            dlg = HelperMethods.create_qdialog(
+            self, "Save your work?", "Save changes", buttons, HelperMethods.get_icon(self,QStyle.StandardPixmap.SP_MessageBoxQuestion))            
+            if dlg == 2:
+                MainWindowActions.logger.info("saving")
+                # TODO save window geometry
+            elif dlg == 0:
+                MainWindowActions.logger.warning("not saved")
+            self.log.close()
 
     # close gui
     def gui_exit(self):
-        #self.do_before_app_close()
+        self.do_before_app_close()
         sys.exit(self.app.quit())
 
     def load_cli_gen_tool_json(self, path):
