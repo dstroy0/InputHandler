@@ -28,10 +28,14 @@ from res.modules.dev_qol_var import (
     setup_h_constructor_string,
     setup_h_class_output_string,
 )
-
+from res.modules.logging_setup import Logger
 
 # code preview methods
 class CodePreview(object):
+    def __init__(self) -> None:
+        super(CodePreview,self).__init__()
+        CodePreview.logger = Logger.get_child_logger(self.logger,__name__)
+        
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():
             code_preview = self.ui.codePreview_1
@@ -337,7 +341,7 @@ class CodePreview(object):
 
     # refreshes the text in the code preview trees
     def update_code_preview_tree(self, tree_object):
-        print("update code preview")
+        CodePreview.logger.info("update code preview")
         # update widgets
         for key in self.code_preview_dict["files"]:
             if key == "config.h":

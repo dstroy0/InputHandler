@@ -14,10 +14,16 @@ from __future__ import absolute_import
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QDialogButtonBox, QLabel
 from PySide6.QtCore import QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
+
 from res.modules.dev_qol_var import command_arg_types_list
+from res.modules.logging_setup import Logger
 
 # command parameters methods
 class CommandParametersMethods(object):
+    def __init__(self) -> None:
+        super(CommandParametersMethods,self).__init__()
+        CommandParametersMethods.logger = Logger.get_child_logger(self.logger,__name__)
+        
     def regex_validator(self, input):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
@@ -44,7 +50,7 @@ class CommandParametersMethods(object):
         return args_dict
 
     def csv_button(self):
-        print(self.sender().objectName())
+        CommandParametersMethods.logger.info(self.sender().objectName())
         test_string = self.sender().objectName()
         if test_string == "add8bituint":
             self.append_to_arg_csv("UINT8_T,")
@@ -163,8 +169,8 @@ class CommandParametersMethods(object):
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
             settings_to_validate["commandArguments"] = tmp
-        print(settings_to_validate)
-        print(error_list)
+        CommandParametersMethods.logger.info(settings_to_validate)
+        CommandParametersMethods.logger.info(error_list)
         if err == True:
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}
@@ -239,7 +245,7 @@ class CommandParametersMethods(object):
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
     def clicked_command_parameters_buttonbox_ok(self):
-        print("ok")
+        CommandParametersMethods.logger.info("ok")
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
@@ -250,21 +256,20 @@ class CommandParametersMethods(object):
         cmd_idx = self.cliOpt["var"]["num_commands"]
         # make dict from defined keys
         self.cliOpt["commands"][cmd_idx] = validated_result
-        print(self.cliOpt["commands"][cmd_idx])
+        CommandParametersMethods.logger.info(self.cliOpt["commands"][cmd_idx])
 
         # command parameters were accepted, so increment the array index
-        self.cliOpt["var"]["num_commands"] += 1
-        # print object
-        print(self.cliOpt["var"])
+        self.cliOpt["var"]["num_commands"] += 1        
+        CommandParametersMethods.logger.info(self.cliOpt["var"])
         self.ui.commandParameters.close()
 
     def clicked_command_parameters_buttonbox_reset(self):
-        print("reset")
+        CommandParametersMethods.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.argumentsPlainTextCSV.clear()
 
     def clicked_command_parameters_buttonbox_cancel(self):
-        print("cancel")
+        CommandParametersMethods.logger.info("cancel")
         self.ui.commandParameters.close()
 
     def command_string_text_changed(self):
@@ -272,7 +277,7 @@ class CommandParametersMethods(object):
         cmd_dlg.commandLengthLabel.setText(str(len(cmd_dlg.commandString.text())))
 
     def argument_handling_changed(self):
-        print("argument handling changed")
+        CommandParametersMethods.logger.info("argument handling changed")
         cmd_dlg = self.ui.commandParameters.dlg
         if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
             cmd_dlg.argumentsPane.setEnabled(True)
