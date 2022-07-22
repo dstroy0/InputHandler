@@ -30,12 +30,11 @@ var searchData=
   ['apb_27',['APB',['../da/dff/_n_m_e_asentenceparam_8h.html#a0cc8943602b18649d4305ff9afb5b321',1,'NMEAsentenceparam.h']]],
   ['app_28',['app',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a60fca167801fb229c8be81b90f1f91e8',1,'cli_gen_tool.MainWindow.app()'],['../dd/d04/namespacecli__gen__tool.html#a6a5dde868f1e30bbe515f2a8f6056983',1,'cli_gen_tool.app()']]],
   ['append_5fto_5farg_5fcsv_29',['append_to_arg_csv',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ace299138340d78e90140277906bb1920',1,'modules::command_parameters::CommandParametersMethods']]],
-  ['append_5fto_5flog_5fhistory_30',['append_to_log_history',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a6d9c016ee9cd25d11ee836879b60aadc',1,'cli_gen_tool::MainWindow']]],
-  ['arduinoclient_31',['arduinoClient',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a2d84864c640baaff3dc91c10777adc9d',1,'ReadCommandFromBufferMQTT.ino']]],
-  ['arg_5ftype_32',['arg_type',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html#ad4a5c7c965f94d0ed221b2e1dd2ffff6',1,'UserInput::validateNullSepInputParam']]],
-  ['arg_5ftype_5farr_33',['arg_type_arr',['../db/d11/struct_command_parameters.html#a24841ad024481f5a4759a133a1d18bff',1,'CommandParameters']]],
-  ['argument_5fflag_34',['argument_flag',['../db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c',1,'CommandParameters']]],
-  ['argument_5fhandling_5fchanged_35',['argument_handling_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a2cf46a56306cae65e496af04e3f4996a',1,'modules::command_parameters::CommandParametersMethods']]],
-  ['argumentspane_36',['argumentsPane',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a4a540572ba61d96e00df5b02b7e02911',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
-  ['argumentsplaintextcsv_37',['argumentsPlainTextCSV',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]]
+  ['arduinoclient_30',['arduinoClient',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a2d84864c640baaff3dc91c10777adc9d',1,'ReadCommandFromBufferMQTT.ino']]],
+  ['arg_5ftype_31',['arg_type',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html#ad4a5c7c965f94d0ed221b2e1dd2ffff6',1,'UserInput::validateNullSepInputParam']]],
+  ['arg_5ftype_5farr_32',['arg_type_arr',['../db/d11/struct_command_parameters.html#a24841ad024481f5a4759a133a1d18bff',1,'CommandParameters']]],
+  ['argument_5fflag_33',['argument_flag',['../db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c',1,'CommandParameters']]],
+  ['argument_5fhandling_5fchanged_34',['argument_handling_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a2cf46a56306cae65e496af04e3f4996a',1,'modules::command_parameters::CommandParametersMethods']]],
+  ['argumentspane_35',['argumentsPane',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a4a540572ba61d96e00df5b02b7e02911',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
+  ['argumentsplaintextcsv_36',['argumentsPlainTextCSV',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]]
 ];

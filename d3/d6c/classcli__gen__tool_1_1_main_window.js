@@ -1,7 +1,6 @@
 var classcli__gen__tool_1_1_main_window =
 [
     [ "__init__", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ac491c971bccddde568f57a2943d7262a", null ],
-    [ "append_to_log_history", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a6d9c016ee9cd25d11ee836879b60aadc", null ],
     [ "closeEvent", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1", null ],
     [ "eventFilter", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a110b3fd393af84189c93b91f7330417a", null ],
     [ "app", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a60fca167801fb229c8be81b90f1f91e8", null ],
