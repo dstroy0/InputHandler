@@ -11,11 +11,14 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+
 import json
-from PySide6.QtWidgets import QTreeWidgetItem, QHeaderView, QComboBox
-from PySide6.QtCore import Qt, QRegularExpression
+
+from PySide6.QtCore import QRegularExpression, Qt
+from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
 from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
 from res.modules.logging_setup import Logger
+
 
 # settings_tree methods
 class SettingsTreeMethods(object):

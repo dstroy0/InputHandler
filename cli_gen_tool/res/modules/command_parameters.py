@@ -11,19 +11,20 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QDialogButtonBox, QLabel
+
 from PySide6.QtCore import QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
-
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QVBoxLayout
 from res.modules.dev_qol_var import command_arg_types_list
 from res.modules.logging_setup import Logger
+
 
 # command parameters methods
 class CommandParametersMethods(object):
     def __init__(self) -> None:
-        super(CommandParametersMethods,self).__init__()
-        CommandParametersMethods.logger = Logger.get_child_logger(self.logger,__name__)
-        
+        super(CommandParametersMethods, self).__init__()
+        CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
+
     def regex_validator(self, input):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
@@ -259,7 +260,7 @@ class CommandParametersMethods(object):
         CommandParametersMethods.logger.info(self.cliOpt["commands"][cmd_idx])
 
         # command parameters were accepted, so increment the array index
-        self.cliOpt["var"]["num_commands"] += 1        
+        self.cliOpt["var"]["num_commands"] += 1
         CommandParametersMethods.logger.info(self.cliOpt["var"])
         self.ui.commandParameters.close()
 

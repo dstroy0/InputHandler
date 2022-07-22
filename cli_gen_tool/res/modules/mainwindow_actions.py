@@ -11,30 +11,49 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import platform, json, sys, os
-from PySide6.QtWidgets import QFileDialog, QDialog, QVBoxLayout, QLabel, QMessageBox, QStyle, QDialogButtonBox
-from PySide6.QtCore import QFile, QIODevice, QTextStream, QByteArray, Qt
-from PySide6.QtGui import QIcon, QPixmap
-from res.modules.logging_setup import Logger
+
+import json
+import os
+import platform
+import sys
+
+from PySide6.QtCore import QByteArray, QFile, QIODevice, Qt, QTextStream
+from PySide6.QtWidgets import (
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QLabel,    
+    QStyle,
+    QVBoxLayout,
+)
 from res.modules.helper_methods import HelperMethods
+from res.modules.logging_setup import Logger
+
 
 # mainwindow actions class
 class MainWindowActions(object):
     def __init__(self):
-        super(MainWindowActions,self).__init__()
-        MainWindowActions.logger = Logger.get_child_logger(self.logger,__name__)    
-        self.closing_actions_performed = False        
-    
+        super(MainWindowActions, self).__init__()
+        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)
+        self.closing_actions_performed = False
+
     # TODO save session on close, prompt user to save work if there is any
     # do before close
     def do_before_app_close(self):
         if self.closing_actions_performed == False:
             self.closing_actions_performed = True
-            MainWindowActions.logger.info("Exiting CLI generation tool")  
+            MainWindowActions.logger.info("Exiting CLI generation tool")
             b = QDialogButtonBox.StandardButton
-            buttons = [b.Save, b.Cancel]          
+            buttons = [b.Save, b.Cancel]
             dlg = HelperMethods.create_qdialog(
-            self, "Save your work?", "Save changes", buttons, HelperMethods.get_icon(self,QStyle.StandardPixmap.SP_MessageBoxQuestion))            
+                self,
+                "Save your work?",
+                "Save changes",
+                buttons,
+                HelperMethods.get_icon(
+                    self, QStyle.StandardPixmap.SP_MessageBoxQuestion
+                ),
+            )
             if dlg == 2:
                 MainWindowActions.logger.info("saving")
                 # TODO save window geometry

@@ -11,23 +11,24 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QHeaderView,
-    QTreeWidgetItem,
+    QPushButton,
     QTableWidget,
     QTableWidgetItem,
-    QPushButton,
-)
-from PySide6.QtCore import (
-    Qt,
+    QTreeWidgetItem,
 )
 from res.modules.logging_setup import Logger
+
 
 # this is a helper class
 class SettingsTreeTableMethods(object):
     def __init__(self):
-        super(SettingsTreeTableMethods,self).__init__()
-        SettingsTreeTableMethods.logger = Logger.get_child_logger(self.logger,__name__)
+        super(SettingsTreeTableMethods, self).__init__()
+        SettingsTreeTableMethods.logger = Logger.get_child_logger(self.logger, __name__)
+
     # settings_tree table functions
     def set_table_vertical_labels(self, tree, section, rows):
         vertical_label_list = []

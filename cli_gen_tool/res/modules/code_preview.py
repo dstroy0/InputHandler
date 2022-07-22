@@ -11,31 +11,28 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from PySide6.QtWidgets import (
-    QHeaderView,
-    QTreeWidgetItem,
-    QPlainTextEdit,
-    QSizePolicy,
-)
-from PySide6.QtCore import Qt, QRect, QSize
-from PySide6.QtGui import QTextCursor, QMouseEvent
+
+from PySide6.QtCore import QRect, QSize, Qt
+from PySide6.QtGui import QMouseEvent, QTextCursor
+from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
-    setup_h_filestring,
     setup_h_addcommand_string,
+    setup_h_class_output_string,
+    setup_h_constructor_string,
+    setup_h_filestring,
     setup_h_options_string_list,
     setup_h_output_buffer_string,
-    setup_h_constructor_string,
-    setup_h_class_output_string,
 )
 from res.modules.logging_setup import Logger
+
 
 # code preview methods
 class CodePreview(object):
     def __init__(self) -> None:
-        super(CodePreview,self).__init__()
-        CodePreview.logger = Logger.get_child_logger(self.logger,__name__)
-        
+        super(CodePreview, self).__init__()
+        CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
+
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():
             code_preview = self.ui.codePreview_1
