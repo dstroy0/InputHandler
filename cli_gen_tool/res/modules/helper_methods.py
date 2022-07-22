@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+from PySide6.QtCore import Qt
 from res.modules.dev_qol_var import version
 from res.modules.logging_setup import Logger
 
@@ -75,6 +76,8 @@ class HelperMethods(object):
         # create popup
         dlg.layout = QVBoxLayout()
         dlg.label = QLabel(message)
+        dlg.label.setAlignment(Qt.AlignCenter)
+        dlg.label.setFixedHeight(25)
         dlg.layout.addWidget(dlg.label)
         dlg.button_box = QDialogButtonBox(dlg)
         if buttons != None:
