@@ -27,6 +27,20 @@ from res.modules.dev_qol_var import (
 from res.modules.logging_setup import Logger
 
 
+class CodePreviewBrowser(QPlainTextEdit):
+    def __init__(self, name):
+        super(CodePreviewBrowser, self).__init__()
+        self.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.setReadOnly(True)
+        self.setObjectName(str(name))
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+
+    def resizeEvent(self, event):
+        self.centerCursor()
+
+
 # code preview methods
 class CodePreview(object):
     def __init__(self) -> None:
@@ -144,16 +158,9 @@ class CodePreview(object):
                 parent.setIcon(0, self.ui.fileIcon)
                 self.code_preview_dict["files"][key]["text_widget"][
                     tab
-                ] = QPlainTextEdit()
+                ] = CodePreviewBrowser(key)
                 text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
-                text_widget.setLineWrapMode(QPlainTextEdit.NoWrap)
-                text_widget.setReadOnly(True)
-                text_widget.setObjectName(str(key))
-                text_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-                text_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-                text_widget.setSizePolicy(
-                    QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
-                )
+
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
@@ -167,20 +174,21 @@ class CodePreview(object):
                 tree.setItemWidget(text_widget_container, 0, text_widget)
 
     # end build_code_preview_tree()
-    
-    # TODO text positioning geometry (this sets it to the bottom line of available display lines)
-    def set_text_cursor(self, text_widget, item_string):        
-        cursor = QTextCursor(text_widget.document().find(item_string))                
-        text_widget.setTextCursor(cursor)
 
-    def set_code_string(self,filename,code_string,item_string,place_cursor=False):
+    # TODO text positioning geometry (this sets it to the bottom line of available display lines)
+    def set_text_cursor(self, text_widget, item_string):
+        cursor = QTextCursor(text_widget.document().find(item_string))
+        text_widget.setTextCursor(cursor)
+        text_widget.centerCursor()
+
+    def set_code_string(self, filename, code_string, item_string, place_cursor=False):
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
             text_widget.setPlainText(code_string)
             if place_cursor == True:
                 self.set_text_cursor(text_widget, item_string)
-                
+
     def update_config_h(self, item_string, place_cursor=False):
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
             "config"
@@ -200,9 +208,9 @@ class CodePreview(object):
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
         )
-        self.set_code_string("config.h",code_string,item_string,place_cursor)
-        # end update_config_h    
-                
+        self.set_code_string("config.h", code_string, item_string, place_cursor)
+        # end update_config_h
+
     def update_setup_h(self, item_string, place_cursor=False):
         def sequence_string_helper(seq):
             num_seq = len(seq)
@@ -248,7 +256,9 @@ class CodePreview(object):
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
         process_name = pprm["process name"]
-        process_eol = str(repr(pprm["end of line characters"])).strip("'").replace("\\\\","\\")
+        process_eol = (
+            str(repr(pprm["end of line characters"])).strip("'").replace("\\\\", "\\")
+        )
         process_ipcc = pprm["input control char sequence"]
         process_wcc = pprm["wildcard char"]
         delim_seq = pprm["data delimiter sequences"]
@@ -301,12 +311,12 @@ class CodePreview(object):
         self.code_preview_dict["files"]["setup.h"][
             "file_lines_list"
         ] = code_string.split("\n")
-        self.set_code_string("setup.h",code_string,item_string,place_cursor)
+        self.set_code_string("setup.h", code_string, item_string, place_cursor)
 
     # refreshes the text in the code preview trees
     def update_code_preview(self, file, item_string, place_cursor):
         CodePreview.logger.info("update {filename} preview".format(filename=file))
-        # update widgets                
+        # update widgets
         if file == "config.h":
             self.update_config_h(item_string, place_cursor)
         if file == "setup.h":
