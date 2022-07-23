@@ -10,7 +10,6 @@ var classmodules_1_1code__preview_1_1_code_preview =
     [ "update_code_preview_tree", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#afa34e48c0c1e49b780438838d122a144", null ],
     [ "update_config_h", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#af160f5f4b642a231e476fa35e290e0cc", null ],
     [ "update_setup_h", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#ae3522671c10a1cd37762a03c1bc9d453", null ],
-    [ "update_setup_h_string_helper", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a15633971a3a3d8ca27510687d8023de1", null ],
     [ "drag_resize_qsize", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0", null ],
     [ "init_height", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a05b2ecaf4de064ef66af8f96b7432e94", null ],
     [ "init_mouse_pos", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a3575f24999125f6c8cc7d0147a0d7bd9", null ],
