@@ -71,7 +71,7 @@ class SettingsTreeMethods(object):
             ),
             json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
         )
-        self.update_code_preview_tree(None)
+        self.update_code_preview("config.h", sub_dict[3], True)
 
     def settings_tree_item_activated(self, item):
         SettingsTreeMethods.logger.info(str(item) + " selected")
@@ -91,22 +91,29 @@ class SettingsTreeMethods(object):
             return  # already repr
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
+
+        # undefined
         if len(object_list) < 2:
             return
+
         object_list[1] = int(str(object_list[1]))
-        # process output
+
+        # process output (setup.h)
         if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"]["buffer size"] = val
-            self.update_code_preview_tree(item)
             SettingsTreeMethods.logger.info("output buffer size " + str(val) + " bytes")
+            self.update_code_preview("setup.h", "output_buffer", True)
             return
+
+        # process parameters (setup.h)
         if object_list[0] == "process parameters":
             SettingsTreeMethods.logger.info("edited a process parameter")
-            item.setText(3, str(repr(val)))
-            self.update_code_preview_tree(item)
+            item.setText(3, "'" + str(val) + "'")
+            self.cliOpt["process parameters"]["var"][item.text(1)] = val
+            self.update_code_preview("setup.h", item.text(1), True)
             return
-        
+
         # config.h
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
             object_list[1]
@@ -128,7 +135,7 @@ class SettingsTreeMethods(object):
         # update the config dict
         sub_dict[4] = tmp
         self.update_settings_tree_type_field_text(item)
-        self.update_code_preview_tree(item)
+        self.update_code_preview("config.h", sub_dict[3], True)
         SettingsTreeMethods.logger.info(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(

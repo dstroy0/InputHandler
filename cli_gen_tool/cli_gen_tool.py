@@ -59,11 +59,10 @@ class MainWindow(
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
-        super().__init__(parent)                
-        
+        super().__init__(parent)
+
         self.app = app  # used in external methods
-        
-        
+
         self.settings = QSettings("InputHandler", "cli_gen_tool.py")
 
         # log pathing
@@ -229,14 +228,13 @@ class MainWindow(
         mouse_button = False
         # global mouse pos
         mouse_pos = self.qcursor.pos()
-
         # drag to resize, change cursor to vertical drag and back to arrow
         self.code_preview_events(watched, event, event_type, mouse_button, mouse_pos)
-
         return super().eventFilter(watched, event)
-    
+
     def closeEvent(self, event):
-        self.do_before_app_close(event) 
+        self.do_before_app_close(event)
+
 
 # loop
 if __name__ == "__main__":
@@ -248,26 +246,27 @@ if __name__ == "__main__":
     splash = QSplashScreen()
     splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
     splash.showMessage(
-            "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
-            (Qt.AlignHCenter | Qt.AlignBottom),
-            Qt.white,
-        )
+        "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
+        (Qt.AlignHCenter | Qt.AlignBottom),
+        Qt.white,
+    )
     splash.setWindowFlags(
         splash.windowFlags() | Qt.WindowStaysOnTopHint
-        )  # or the windowstaysontophint into QSplashScreen window flags
+    )  # or the windowstaysontophint into QSplashScreen window flags
     splash.show()
-    
+
     # GUI layout
-    window = MainWindow(app)  # pass app object to external methods    
-    
+    window = MainWindow(app)  # pass app object to external methods
+
     # Splashscreen timer
     splash.timer = QTimer()
     splash.timer.setSingleShot(True)
-    splash.timer.start(splashscreen_duration) # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py    
-    splash.timer.timeout.connect(splash.close) # close splash
-    splash.timer.timeout.connect(window.show) # show window to user
-    
-    
+    splash.timer.start(
+        splashscreen_duration
+    )  # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
+    splash.timer.timeout.connect(splash.close)  # close splash
+    splash.timer.timeout.connect(window.show)  # show window to user
+
     # exit on user command
     sys.exit(app.exec())
 
