@@ -30,7 +30,8 @@ class HelperMethods(object):
         super(HelperMethods, self).__init__()
         HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)    
         HelperMethods.parent = self
-    def create_qdialog(self, message, message_text_alignment, window_title=None, buttons=None, icon=None):
+    
+    def create_qdialog(self, message, message_text_alignment, window_title=None, buttons=None, button_text=None, icon=None):
         HelperMethods.logger.info(
             "message: "
             + message
@@ -56,7 +57,7 @@ class HelperMethods(object):
             if buttons[_match] == b.Save:
                 dlg.done(2)
             if buttons[_match] == b.Close:
-                dlg.reject()
+                dlg.done(3)
 
         # create popup
         dlg.layout = QVBoxLayout()
@@ -67,9 +68,13 @@ class HelperMethods(object):
                 
         if buttons != None:
             dlg.button_box = QDialogButtonBox(dlg)
-            for item in buttons:
+            idx = 0
+            for item in buttons:                
                 _button = dlg.button_box.addButton(item)
+                if button_text[idx] != "":
+                    _button.setText(button_text[idx])
                 _buttons.append(_button)
+                idx += 1
             dlg.button_box.clicked.connect(button_box_clicked)
             dlg.layout.addWidget(dlg.button_box)
         dlg.setLayout(dlg.layout)        

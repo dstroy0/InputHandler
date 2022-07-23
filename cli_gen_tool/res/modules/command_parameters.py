@@ -189,6 +189,7 @@ class CommandParametersMethods(object):
             Qt.AlignLeft,
             "Command Parameters Error",
             None,
+            None,
             HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxCritical),
             )
 

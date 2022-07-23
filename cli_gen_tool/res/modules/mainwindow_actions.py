@@ -39,23 +39,31 @@ class MainWindowActions(object):
     # TODO save session on close, prompt user to save work if there is any
     # do before close
     def do_before_app_close(self, event=None):        
-        
+        MainWindowActions.logger.debug(event)
         b = QDialogButtonBox.StandardButton
-        buttons = [b.Save, b.Cancel]
+        buttons = [b.Save, b.Close, b.Cancel]
+        button_text = ["", "Close without saving",""]
         result = HelperMethods.create_qdialog(
                 self,
                 "Save your work?",
                 Qt.AlignCenter,
                 "Save changes",
                 buttons,
+                button_text,
                 HelperMethods.get_icon(
                     self, QStyle.StandardPixmap.SP_MessageBoxQuestion
                 ),
-            )
-        print(type(event))                    
+            )                           
         if result == 2:
             MainWindowActions.logger.info("saving")
             # TODO save window geometry
+            self.log.close()
+            MainWindowActions.logger.info("Exiting CLI generation tool")                                
+            if event != None and type(event) != bool:
+                event.accept()            
+            sys.exit(self.app.quit())
+        elif result == 3:
+            MainWindowActions.logger.warning("not saving")                                
             self.log.close()
             MainWindowActions.logger.info("Exiting CLI generation tool")                                
             if event != None and type(event) != bool:
@@ -64,7 +72,7 @@ class MainWindowActions(object):
         elif result == 0:
             if event != None and type(event) != bool:
                 event.ignore()            
-            MainWindowActions.logger.warning("cancelled")                     
+            MainWindowActions.logger.info("exit cancelled")                     
         
 
     def load_cli_gen_tool_json(self, path):
