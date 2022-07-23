@@ -14,7 +14,6 @@ var searchData=
   ['getuserinput_11',['getUserInput',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a3f308f9158c987649962e11efb7a0cec',1,'BLE_UART.ino']]],
   ['gui_5fabout_12',['gui_about',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90',1,'modules::mainwindow_actions::MainWindowActions']]],
   ['gui_5fdocumentation_13',['gui_documentation',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a4fd6726c0392cc7790821f4cba56337a',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5fexit_14',['gui_exit',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#aefb8c988f6c0f42584cc24316a4803ba',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5flog_5fhistory_15',['gui_log_history',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a399b94d8a30ec0e73470fe8efbaadc00',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5fsettings_16',['gui_settings',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab',1,'modules::mainwindow_actions::MainWindowActions']]]
+  ['gui_5flog_5fhistory_14',['gui_log_history',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a399b94d8a30ec0e73470fe8efbaadc00',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['gui_5fsettings_15',['gui_settings',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab',1,'modules::mainwindow_actions::MainWindowActions']]]
 ];

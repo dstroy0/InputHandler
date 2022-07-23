@@ -1,11 +1,10 @@
 var classmodules_1_1mainwindow__actions_1_1_main_window_actions =
 [
     [ "__init__", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a6e64930ba66eddaa7fc0fd06dad814db", null ],
-    [ "do_before_app_close", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8933d551f9a4e5a8fffd276479380d33", null ],
+    [ "do_before_app_close", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a915f9f83211ad379aa6caeda6dd0f358", null ],
     [ "generate_cli_files", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d", null ],
     [ "gui_about", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90", null ],
     [ "gui_documentation", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a4fd6726c0392cc7790821f4cba56337a", null ],
-    [ "gui_exit", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#aefb8c988f6c0f42584cc24316a4803ba", null ],
     [ "gui_log_history", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a399b94d8a30ec0e73470fe8efbaadc00", null ],
     [ "gui_settings", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab", null ],
     [ "load_cli_gen_tool_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8b531a67e058e7936de4ca6ba8b2d8a3", null ],
