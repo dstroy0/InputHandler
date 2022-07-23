@@ -60,21 +60,21 @@ class SettingsTreeMethods(object):
         if sub_dict[6].currentText() == "Enable":
             sub_dict[1] = "       "
             sub_dict[4] = True
-            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n"))+" enabled")
+            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n")) + " enabled")
         elif sub_dict[6].currentText() == "Disable":
             sub_dict[1] = "    // "
             sub_dict[4] = False
-            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n"))+" disabled")
+            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n")) + " disabled")
         SettingsTreeMethods.logger.debug(
             "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                 object_list[0], object_list[1]
             ),
-            json.dumps(sub_dict, indent=4, sort_keys=False, default=lambda o: "object"),
+            json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
         )
         self.update_code_preview_tree(None)
 
     def settings_tree_item_activated(self, item):
-        SettingsTreeMethods.logger.info("settings tree item activated")
+        SettingsTreeMethods.logger.info(str(item) + " selected")
         self.edit_settings_tree_item(item)
 
     def check_if_settings_tree_col_editable(self, item, column):
@@ -106,6 +106,7 @@ class SettingsTreeMethods(object):
             item.setText(3, str(repr(val)))
             self.update_code_preview_tree(item)
             return
+        
         # config.h
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
             object_list[1]
@@ -128,32 +129,35 @@ class SettingsTreeMethods(object):
         sub_dict[4] = tmp
         self.update_settings_tree_type_field_text(item)
         self.update_code_preview_tree(item)
-        print(
-            "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                object_list[0], object_list[1]
-            ),
-            json.dumps(sub_dict, indent=4, sort_keys=False, default=lambda o: "object"),
+        SettingsTreeMethods.logger.info(
+            str(
+                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
+                    object_list[0], object_list[1]
+                )
+            )
+            + "\n"
+            + str(
+                json.dumps(
+                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
+                )
+            )
         )
 
     def edit_settings_tree_item(self, item):
         widget_present = self.ui.settings_tree.itemWidget(item, 0)
         if widget_present != None:
-            print(item)
             self.edit_table_widget_item(widget_present)
             return
         object_string = str(item.data(4, 0))
         object_string = object_string.strip()
         object_list = object_string.split(",")
-        print(
-            "selected ",
-            object_list[2],
-            " in ",
-            object_list[0],
-            " at index ",
-            object_list[1],
-            " current value ",
-            item.data(3, 0),
-            sep="",
+        SettingsTreeMethods.logger.info(
+            "editing "
+            + str(object_list[2])
+            + " in "
+            + str(object_list[0])
+            + ", current value "
+            + str(item.data(3, 0))
         )
         self.ui.settings_tree.editItem(item, 3)
 

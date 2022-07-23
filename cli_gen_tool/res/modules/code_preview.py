@@ -204,10 +204,7 @@ class CodePreview(object):
             #    line_num + code_preview_text_line_offset
             #)
         )
-        doc = text_widget.document()
-        margin = doc.documentMargin()
-        num_lines = (text_widget.document().size().height() - 2*margin)/text_widget.fontMetrics().height()
-        print(num_lines)
+        
         cursor = text_widget.document().find(sub_dict[3])
         text_widget.setTextCursor(cursor)
 
@@ -349,6 +346,7 @@ class CodePreview(object):
     def update_code_preview_tree(self, tree_object):
         CodePreview.logger.info("update code preview")
         # update widgets
+        
         for key in self.code_preview_dict["files"]:
             if key == "config.h":
                 self.update_config_h(tree_object, True)

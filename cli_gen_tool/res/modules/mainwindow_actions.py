@@ -38,10 +38,11 @@ class MainWindowActions(object):
 
     # TODO save session on close, prompt user to save work if there is any
     # do before close
-    def do_before_app_close(self):        
+    def do_before_app_close(self, event=None):        
+        
         b = QDialogButtonBox.StandardButton
         buttons = [b.Save, b.Cancel]
-        dlg = HelperMethods.create_qdialog(
+        result = HelperMethods.create_qdialog(
                 self,
                 "Save your work?",
                 Qt.AlignCenter,
@@ -50,21 +51,21 @@ class MainWindowActions(object):
                 HelperMethods.get_icon(
                     self, QStyle.StandardPixmap.SP_MessageBoxQuestion
                 ),
-            )            
-        if dlg == 2:
+            )
+        print(type(event))                    
+        if result == 2:
             MainWindowActions.logger.info("saving")
             # TODO save window geometry
             self.log.close()
-        elif dlg == 0:
-            MainWindowActions.logger.warning("not saved")            
-        return dlg
-
-    # close gui
-    def gui_exit(self):
-        result = self.do_before_app_close()
-        if result != 0:
-            MainWindowActions.logger.info("Exiting CLI generation tool")
-            sys.exit(self.app.quit())
+            MainWindowActions.logger.info("Exiting CLI generation tool")                                
+            if event != None and type(event) != bool:
+                event.accept()            
+            sys.exit(self.app.quit())            
+        elif result == 0:
+            if event != None and type(event) != bool:
+                event.ignore()            
+            MainWindowActions.logger.warning("cancelled")                     
+        
 
     def load_cli_gen_tool_json(self, path):
         session = {}
@@ -259,7 +260,8 @@ class MainWindowActions(object):
         self.ui.actionSave.triggered.connect(self.save_file)
         self.ui.actionSave_As.triggered.connect(self.save_file_as)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
-        self.ui.actionExit.triggered.connect(self.gui_exit)
+        self.ui.actionExit.triggered.connect(self.app.quit)
+        
         # generate menu
         self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
         # about menu
@@ -268,8 +270,7 @@ class MainWindowActions(object):
             self.gui_documentation
         )
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
-        # end file menu actions setup
-        self.app.aboutToQuit.connect(self.gui_exit)
+        # end file menu actions setup        
 
     def mainwindow_button_actions_setup(self):
         # buttons setup
