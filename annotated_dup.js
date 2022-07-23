@@ -5,7 +5,8 @@ var annotated_dup =
     ] ],
     [ "modules", "dc/dcf/namespacemodules.html", [
       [ "code_preview", "d6/d98/namespacemodules_1_1code__preview.html", [
-        [ "CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", "dd/d03/classmodules_1_1code__preview_1_1_code_preview" ]
+        [ "CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", "dd/d03/classmodules_1_1code__preview_1_1_code_preview" ],
+        [ "CodePreviewBrowser", "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html", "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser" ]
       ] ],
       [ "command_parameters", "dd/dad/namespacemodules_1_1command__parameters.html", [
         [ "CommandParametersMethods", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods" ]

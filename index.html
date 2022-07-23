@@ -214,8 +214,7 @@ InputHandler</h1>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> getCommandFromStream(Stream &amp;stream, <span class="keywordtype">size_t</span> rx_buffer_size = 32);</div>
 </div><!-- fragment --><p >OR if you don't want to use a <a href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use: <br  />
 </p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> readCommandFromBuffer(uint8_t *<a class="code hl_variable" href="df/d04/namespacetest.html#abf82286dda007f71fa154198b9f80640">data</a>, <span class="keywordtype">size_t</span> len);</div>
-<div class="ttc" id="anamespacetest_html_abf82286dda007f71fa154198b9f80640"><div class="ttname"><a href="df/d04/namespacetest.html#abf82286dda007f71fa154198b9f80640">test.data</a></div><div class="ttdeci">dictionary data</div><div class="ttdef"><b>Definition:</b> test.py:4</div></div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> readCommandFromBuffer(uint8_t *data, <span class="keywordtype">size_t</span> len);</div>
 </div><!-- fragment --><p >InputHandler uses <a href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct objects: <br  />
  </p><div class="fragment"><div class="line"><span class="keyword">struct </span><a class="code hl_struct" href="db/d11/struct_command_parameters.html">CommandParameters</a></div>
 <div class="line">{</div>

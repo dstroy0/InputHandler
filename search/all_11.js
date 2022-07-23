@@ -23,11 +23,12 @@ var searchData=
   ['remote_5f_20',['remote_',['../dc/d05/_lo_ra_receiver_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;LoRaReceiver.ino'],['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;BLE_UART.ino'],['../d8/da2/_r_f24_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;RF24.ino']]],
   ['remote_5fdevice_21',['remote_device',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;BLE_UART.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;LoRaReceiver.ino'],['../d8/da2/_r_f24_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;RF24.ino']]],
   ['resize_5fcode_5fpreview_5ftree_5fitem_22',['resize_code_preview_tree_item',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a978659bc52b12d4c536cbaf74c14525d',1,'modules::code_preview::CodePreview']]],
-  ['result_23',['result',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a506be749cff006ec95ccbb5c95207c5a',1,'UserInput::_rcfbprm']]],
-  ['retranslateui_24',['retranslateUi',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a0931f8012f08352f885dcdb4374a9ed8',1,'uic.mainWindow.Ui_MainWindow.retranslateUi()'],['../d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html#a55c4932b3fba1e3b88808352962d70b7',1,'uic.logHistoryDialog.Ui_logHistoryDialog.retranslateUi()'],['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a7e2195b025601917b0af86548bbd6685',1,'uic.commandParametersDialog.Ui_commandParametersDialog.retranslateUi()']]],
-  ['rf24_2eino_25',['RF24.ino',['../d8/da2/_r_f24_8ino.html',1,'']]],
-  ['rmb_26',['RMB',['../da/dff/_n_m_e_asentenceparam_8h.html#a8f40c18950743ce9fc029fd3d2b4dd91',1,'NMEAsentenceparam.h']]],
-  ['rmc_27',['RMC',['../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d',1,'NMEAsentenceparam.h']]],
-  ['role_28',['role',['../d8/da2/_r_f24_8ino.html#ab5f21c46a16c4dded8a29ef78a7c5944',1,'RF24.ino']]],
-  ['root_29',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]]
+  ['resizeevent_23',['resizeEvent',['../dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html#a2f924618b5a49a0b9a87a0a0cbed7e7e',1,'modules::code_preview::CodePreviewBrowser']]],
+  ['result_24',['result',['../d3/d14/struct_user_input_1_1__rcfbprm.html#a506be749cff006ec95ccbb5c95207c5a',1,'UserInput::_rcfbprm']]],
+  ['retranslateui_25',['retranslateUi',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a0931f8012f08352f885dcdb4374a9ed8',1,'uic.mainWindow.Ui_MainWindow.retranslateUi()'],['../d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html#a55c4932b3fba1e3b88808352962d70b7',1,'uic.logHistoryDialog.Ui_logHistoryDialog.retranslateUi()'],['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a7e2195b025601917b0af86548bbd6685',1,'uic.commandParametersDialog.Ui_commandParametersDialog.retranslateUi()']]],
+  ['rf24_2eino_26',['RF24.ino',['../d8/da2/_r_f24_8ino.html',1,'']]],
+  ['rmb_27',['RMB',['../da/dff/_n_m_e_asentenceparam_8h.html#a8f40c18950743ce9fc029fd3d2b4dd91',1,'NMEAsentenceparam.h']]],
+  ['rmc_28',['RMC',['../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d',1,'NMEAsentenceparam.h']]],
+  ['role_29',['role',['../d8/da2/_r_f24_8ino.html#ab5f21c46a16c4dded8a29ef78a7c5944',1,'RF24.ino']]],
+  ['root_30',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]]
 ];
