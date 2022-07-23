@@ -167,7 +167,7 @@ class CodePreview(object):
                 tree.setItemWidget(text_widget_container, 0, text_widget)
 
     # end build_code_preview_tree()
-
+    # TODO text positioning geometry
     def set_text_cursor(self, text_widget, tree_object):
         object_string = ""
         if tree_object == None:
@@ -198,11 +198,17 @@ class CodePreview(object):
                 int(object_list[1])
             ]["fields"]
             line_num = int(sub_dict[0])
+        
         cursor = QTextCursor(
-            text_widget.document().findBlockByLineNumber(
-                line_num + code_preview_text_line_offset
-            )
+            #text_widget.document().findBlockByLineNumber(
+            #    line_num + code_preview_text_line_offset
+            #)
         )
+        doc = text_widget.document()
+        margin = doc.documentMargin()
+        num_lines = (text_widget.document().size().height() - 2*margin)/text_widget.fontMetrics().height()
+        print(num_lines)
+        cursor = text_widget.document().find(sub_dict[3])
         text_widget.setTextCursor(cursor)
 
     def update_config_h(self, tree_object, place_cursor=False):
@@ -234,28 +240,31 @@ class CodePreview(object):
                 self.set_text_cursor(text_widget, tree_object)
         # end update_config_h
 
-    def update_setup_h_string_helper(self, seq):
-        num_seq = len(seq)
-        seq_lens_string = "{"
-        seqs_string = "{"
-        seq_lens = []
-        seqs = []
-        for key in seq:
-            seq_lens.append(len(seq[key]))
-            seqs.append(seq[key])
-        for i in range(len(seq_lens)):
-            seq_lens_string = seq_lens_string + str(seq_lens[i])
-            seqs_string = (
-                seqs_string + '"' + str(seqs[i]).strip("'").replace('"', '\\"') + '"'
-            )
-            if i != len(seq_lens) - 1:
-                seq_lens_string = seq_lens_string + ", "
-                seqs_string = seqs_string + ", "
-        seq_lens_string = seq_lens_string + "}"
-        seqs_string = seqs_string + "}"
-        return [num_seq, seq_lens_string, seqs_string]
-
     def update_setup_h(self, tree_object, place_cursor=False):
+        def sequence_string_helper(seq):
+            num_seq = len(seq)
+            seq_lens_string = "{"
+            seqs_string = "{"
+            seq_lens = []
+            seqs = []
+            for key in seq:
+                seq_lens.append(len(seq[key]))
+                seqs.append(seq[key])
+            for i in range(len(seq_lens)):
+                seq_lens_string = seq_lens_string + str(seq_lens[i])
+                seqs_string = (
+                    seqs_string
+                    + '"'
+                    + str(seqs[i]).strip("'").replace('"', '\\"')
+                    + '"'
+                )
+                if i != len(seq_lens) - 1:
+                    seq_lens_string = seq_lens_string + ", "
+                    seqs_string = seqs_string + ", "
+            seq_lens_string = seq_lens_string + "}"
+            seqs_string = seqs_string + "}"
+            return [num_seq, seq_lens_string, seqs_string]
+
         file_lines = self.generate_docstring_list_for_filename("setup.h")
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
@@ -283,12 +292,12 @@ class CodePreview(object):
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
 
-        result = self.update_setup_h_string_helper(delim_seq)
+        result = sequence_string_helper(delim_seq)
         num_delim_seq = result[0]
         delim_seq_lens_string = result[1]
         delim_seqs_string = result[2]
 
-        result = self.update_setup_h_string_helper(ststp_seq)
+        result = sequence_string_helper(ststp_seq)
         num_ststp_pairs = result[0] / 2
         ststp_seq_lens_string = result[1]
         ststp_seqs_string = result[2]

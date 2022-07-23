@@ -25,10 +25,11 @@ from res.modules.logging_setup import Logger
 
 # helper method class
 class HelperMethods(object):
+    parent = ''
     def __init__(self):
         super(HelperMethods, self).__init__()
         HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)    
-
+        HelperMethods.parent = self
     def create_qdialog(self, message, message_text_alignment, window_title=None, buttons=None, icon=None):
         HelperMethods.logger.info(
             "message: "
@@ -39,7 +40,7 @@ class HelperMethods(object):
             + str(buttons)
         )
         _buttons = []
-        dlg = QDialog(self)
+        dlg = QDialog(HelperMethods.parent)
 
         def button_box_clicked(button):
             _match = 0

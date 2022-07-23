@@ -31,21 +31,17 @@ from res.modules.logging_setup import Logger
 
 
 # mainwindow actions class
-class MainWindowActions(object):
+class MainWindowActions(object):    
     def __init__(self):
         super(MainWindowActions, self).__init__()
-        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)
-        self.closing_actions_performed = False
+        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)        
 
     # TODO save session on close, prompt user to save work if there is any
     # do before close
-    def do_before_app_close(self):
-        if self.closing_actions_performed == False:
-            self.closing_actions_performed = True
-            MainWindowActions.logger.info("Exiting CLI generation tool")
-            b = QDialogButtonBox.StandardButton
-            buttons = [b.Save, b.Cancel]
-            dlg = HelperMethods.create_qdialog(
+    def do_before_app_close(self):        
+        b = QDialogButtonBox.StandardButton
+        buttons = [b.Save, b.Cancel]
+        dlg = HelperMethods.create_qdialog(
                 self,
                 "Save your work?",
                 Qt.AlignCenter,
@@ -54,18 +50,21 @@ class MainWindowActions(object):
                 HelperMethods.get_icon(
                     self, QStyle.StandardPixmap.SP_MessageBoxQuestion
                 ),
-            )
-            if dlg == 2:
-                MainWindowActions.logger.info("saving")
-                # TODO save window geometry
-            elif dlg == 0:
-                MainWindowActions.logger.warning("not saved")
+            )            
+        if dlg == 2:
+            MainWindowActions.logger.info("saving")
+            # TODO save window geometry
             self.log.close()
+        elif dlg == 0:
+            MainWindowActions.logger.warning("not saved")            
+        return dlg
 
     # close gui
     def gui_exit(self):
-        self.do_before_app_close()
-        sys.exit(self.app.quit())
+        result = self.do_before_app_close()
+        if result != 0:
+            MainWindowActions.logger.info("Exiting CLI generation tool")
+            sys.exit(self.app.quit())
 
     def load_cli_gen_tool_json(self, path):
         session = {}

@@ -59,8 +59,7 @@ class MainWindow(
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
-        super().__init__(parent)
-
+        super().__init__(parent)        
         # app splashscreen
         splash = QSplashScreen()
         splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
@@ -254,8 +253,12 @@ class MainWindow(
         return super().eventFilter(watched, event)
 
     def closeEvent(self, event):
-        self.do_before_app_close()
-        event.accept()
+        result = self.do_before_app_close()
+        if result != 0:
+            MainWindowActions.logger.info("Exiting CLI generation tool")
+            event.accept()
+        else:
+            event.ignore()
 
 
 # loop
