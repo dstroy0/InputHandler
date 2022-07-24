@@ -173,6 +173,7 @@ class MainWindow(
         self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
         self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
         self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
+        self.ui.messageBoxQuestionIcon = self.get_icon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
         # end MainWindow var
 
         # MainWindow actions

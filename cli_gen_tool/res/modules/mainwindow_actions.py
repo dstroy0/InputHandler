@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QFileDialog,
-    QLabel,    
+    QLabel,
     QStyle,
     QVBoxLayout,
 )
@@ -31,49 +31,47 @@ from res.modules.logging_setup import Logger
 
 
 # mainwindow actions class
-class MainWindowActions(object):    
+class MainWindowActions(object):
     def __init__(self):
         super(MainWindowActions, self).__init__()
-        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)        
+        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)
 
     # TODO save session on close, prompt user to save work if there is any
     # do before close
-    def do_before_app_close(self, event=None):        
+    def do_before_app_close(self, event=None):
         MainWindowActions.logger.debug(event)
         b = QDialogButtonBox.StandardButton
         buttons = [b.Save, b.Close, b.Cancel]
-        button_text = ["", "Close without saving",""]
-        result = HelperMethods.create_qdialog(
-                self,
-                "Save your work?",
-                Qt.AlignCenter,
-                "Save changes",
-                buttons,
-                button_text,
-                HelperMethods.get_icon(
-                    self, QStyle.StandardPixmap.SP_MessageBoxQuestion
-                ),
-            )                           
+        button_text = ["", "Close without saving", ""]
+        result = self.create_qdialog(
+            "Save your work?",
+            Qt.AlignCenter,
+            0,
+            "Save changes",
+            buttons,
+            button_text,
+            HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxQuestion),
+        )
         if result == 2:
             MainWindowActions.logger.info("saving")
-            # TODO save window geometry
+            self.settings.setValue("geometry", self.saveGeometry())
+            self.settings.setValue("windowState", self.saveState())
             self.log.close()
-            MainWindowActions.logger.info("Exiting CLI generation tool")                                
+            MainWindowActions.logger.info("Exiting CLI generation tool")
             if event != None and type(event) != bool:
-                event.accept()            
+                event.accept()
             sys.exit(self.app.quit())
         elif result == 3:
-            MainWindowActions.logger.warning("not saving")                                
+            MainWindowActions.logger.warning("not saving")
             self.log.close()
-            MainWindowActions.logger.info("Exiting CLI generation tool")                                
+            MainWindowActions.logger.info("Exiting CLI generation tool")
             if event != None and type(event) != bool:
-                event.accept()            
-            sys.exit(self.app.quit())            
+                event.accept()
+            sys.exit(self.app.quit())
         elif result == 0:
             if event != None and type(event) != bool:
-                event.ignore()            
-            MainWindowActions.logger.info("exit cancelled")                     
-        
+                event.ignore()
+            MainWindowActions.logger.info("exit cancelled")
 
     def load_cli_gen_tool_json(self, path):
         session = {}
@@ -180,8 +178,14 @@ class MainWindowActions(object):
         file = QFile(self.saveFileName)
         if not file.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowActions.logger.warning("Save file error.")
-            self.create_popup_dialog_box(
-                "Save file error.", "Error", self.ui.messageBoxCriticalIcon
+            self.create_qdialog(
+                "Save file error.",
+                Qt.AlignCenter,
+                0,
+                "Error",
+                None,
+                None,
+                self.ui.messageBoxCriticalIcon,
             )
             return  # error
 
@@ -220,26 +224,20 @@ class MainWindowActions(object):
 
     def gui_about(self):
         MainWindowActions.logger.info("open about dialog")
-        # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        dlg = QDialog(self)
-        dlg.layout = QVBoxLayout()
-        dlg.setWindowTitle("About")
-        dlg.git_link_label = QLabel()
-        dlg.git_link_label.setText(
-            '<a href="https://github.com/dstroy0/InputHandler">Link to library git</a>'
+        about_string = """<a href=\"https://github.com/dstroy0/InputHandler\">Link to library github</a><br><br>
+        Library authors:<br>
+        Douglas Quigg (dstroy0 dquigg123@gmail.com)<br>
+        Brendan Doherty (2bndy5 2bndy5@gmail.com)<br>"""
+
+        self.create_qdialog(
+            about_string,
+            Qt.AlignCenter,
+            Qt.TextBrowserInteraction,
+            "About",
+            None,
+            None,
+            self.ui.messageBoxQuestionIcon,
         )
-        dlg.git_link_label.setAlignment(Qt.AlignCenter)
-        dlg.git_link_label.setTextInteractionFlags(Qt.TextBrowserInteraction)
-        dlg.git_link_label.setOpenExternalLinks(True)
-        dlg.layout.addWidget(dlg.git_link_label)
-        dlg.author_credit_label = QLabel()
-        dlg.author_credit_label.setText(
-            "Library authors:\nDouglas Quigg (dstroy0 dquigg123@gmail.com)\nBrendan Doherty (2bndy5 2bndy5@gmail.com)"
-        )
-        dlg.author_credit_label.setAlignment(Qt.AlignCenter)
-        dlg.layout.addWidget(dlg.author_credit_label)
-        dlg.setLayout(dlg.layout)
-        dlg.exec()
 
     def gui_documentation(self):
         MainWindowActions.logger.info("open GUI documentation")
@@ -269,7 +267,7 @@ class MainWindowActions(object):
         self.ui.actionSave_As.triggered.connect(self.save_file_as)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
         self.ui.actionExit.triggered.connect(self.app.quit)
-        
+
         # generate menu
         self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
         # about menu
@@ -278,7 +276,7 @@ class MainWindowActions(object):
             self.gui_documentation
         )
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
-        # end file menu actions setup        
+        # end file menu actions setup
 
     def mainwindow_button_actions_setup(self):
         # buttons setup

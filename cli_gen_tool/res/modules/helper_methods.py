@@ -14,24 +14,36 @@ from __future__ import absolute_import
 
 from PySide6.QtWidgets import (
     QDialog,
-    QDialogButtonBox,    
+    QDialogButtonBox,
     QLabel,
     QVBoxLayout,
-    QWidget,
+    QWidget, 
+    QSizePolicy,
 )
+from PySide6.QtCore import Qt
 from res.modules.dev_qol_var import version
 from res.modules.logging_setup import Logger
 
 
 # helper method class
 class HelperMethods(object):
-    parent = ''
+    parent = ""
+
     def __init__(self):
         super(HelperMethods, self).__init__()
-        HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)    
+        HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)
         HelperMethods.parent = self
-    
-    def create_qdialog(self, message, message_text_alignment, window_title=None, buttons=None, button_text=None, icon=None):
+
+    def create_qdialog(
+        self,
+        message,
+        message_text_alignment,
+        message_text_interaction_flags,
+        window_title=None,
+        buttons=None,
+        button_text=None,
+        icon=None,
+    ):
         HelperMethods.logger.info(
             "message: "
             + message
@@ -39,9 +51,11 @@ class HelperMethods(object):
             + window_title
             + ", buttons: "
             + str(buttons)
+            + ", button text: "
+            + str(button_text)
         )
         _buttons = []
-        dlg = QDialog(HelperMethods.parent)
+        dlg = QDialog(HelperMethods.parent)        
 
         def button_box_clicked(button):
             _match = 0
@@ -61,15 +75,24 @@ class HelperMethods(object):
 
         # create popup
         dlg.layout = QVBoxLayout()
-        dlg.label = QLabel(message)
-        dlg.label.setAlignment(message_text_alignment)                
-        dlg.label.setFixedHeight(dlg.label.sizeHint().height() + 8)
+        dlg.label = QLabel(dlg)                
+        dlg.label.setMinimumSize(0,0)
+        dlg.label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        dlg.label.setTextFormat(Qt.AutoText)
+        dlg.label.setText(message)
+        dlg.label.setAlignment(message_text_alignment)
+        
+        if type(message_text_interaction_flags) == Qt.TextInteractionFlag:
+            dlg.label.setTextInteractionFlags(message_text_interaction_flags)
+        elif type(message_text_interaction_flags) == Qt.TextInteractionFlags:
+            dlg.label.setTextInteractionFlags(message_text_interaction_flags)                
+        dlg.label.setOpenExternalLinks(True)
         dlg.layout.addWidget(dlg.label)
-                
+
         if buttons != None:
             dlg.button_box = QDialogButtonBox(dlg)
             idx = 0
-            for item in buttons:                
+            for item in buttons:
                 _button = dlg.button_box.addButton(item)
                 if button_text[idx] != "":
                     _button.setText(button_text[idx])
@@ -77,7 +100,7 @@ class HelperMethods(object):
                 idx += 1
             dlg.button_box.clicked.connect(button_box_clicked)
             dlg.layout.addWidget(dlg.button_box)
-        dlg.setLayout(dlg.layout)        
+        dlg.setLayout(dlg.layout)
         if icon != None:
             dlg.setWindowIcon(icon)
         if window_title != None:

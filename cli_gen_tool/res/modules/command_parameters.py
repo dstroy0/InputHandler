@@ -177,21 +177,21 @@ class CommandParametersMethods(object):
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}
 
-    def err_settings_to_validate(self, error_list):        
+    def err_settings_to_validate(self, error_list):
         error_text = ""
         for item in error_list:
             error_text += item
             if item != error_list[len(error_list) - 1]:
                 error_text += "\n"
-        HelperMethods.create_qdialog(
-            self,            
+        self.create_qdialog(            
             error_text,
             Qt.AlignLeft,
+            0,
             "Command Parameters Error",
             None,
             None,
-            HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxCritical),
-            )
+            self.get_icon(QStyle.StandardPixmap.SP_MessageBoxCritical),
+        )
 
     def set_command_parameter_validators(self):
         cmd_dlg = self.ui.commandParameters.dlg
