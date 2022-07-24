@@ -173,7 +173,9 @@ class MainWindow(
         self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
         self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
         self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
-        self.ui.messageBoxQuestionIcon = self.get_icon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
+        self.ui.messageBoxQuestionIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_MessageBoxQuestion
+        )
         # end MainWindow var
 
         # MainWindow actions
@@ -224,11 +226,11 @@ class MainWindow(
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # event_type to avoid repetitive calls to .type() method; events are granular.
-        event_type = event.type()
+        event_type = event.type()        
         # mouse button click sentinel
         mouse_button = False
         # global mouse pos
-        mouse_pos = self.qcursor.pos()
+        mouse_pos = self.qcursor.pos()        
         # drag to resize, change cursor to vertical drag and back to arrow
         self.code_preview_events(watched, event, event_type, mouse_button, mouse_pos)
         return super().eventFilter(watched, event)

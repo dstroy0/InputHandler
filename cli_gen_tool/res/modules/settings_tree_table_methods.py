@@ -71,7 +71,7 @@ class SettingsTreeTableMethods(object):
         table_widget.insertRow(new_row)
         input_cells[last_row].setText("")
         table_widget.setItem(last_row, 0, input_cells[last_row])
-        SettingsTreeTableMethods.logger.info(add_row_button_item)
+        SettingsTreeTableMethods.logger.info(str(add_row_button_item))
         table_widget.setItem(new_row, 0, add_row_button_item)
         table_widget.setCellWidget(new_row, 0, add_row_button)
         self.set_table_vertical_labels(tree, dict_key2, new_row)
@@ -81,6 +81,7 @@ class SettingsTreeTableMethods(object):
             remove_row_buttons["items"][last_row] = QTableWidgetItem()
             remove_row_buttons["buttons"].update({last_row: ""})
             remove_row_buttons["buttons"][last_row] = QPushButton()
+            remove_row_buttons["items"][last_row].setText("")
             remove_row_buttons["buttons"][last_row].setIcon(self.ui.trashIcon)
             obj_name = (
                 "remove row button,"
@@ -103,7 +104,7 @@ class SettingsTreeTableMethods(object):
 
     def rem_settings_tree_table_row(self):
         object_list = self.sender().objectName().split(",")
-        SettingsTreeTableMethods.logger.info(object_list)
+        SettingsTreeTableMethods.logger.info(str(object_list))
         tree = self.cliOpt[object_list[1]]["tree"]
         table_widget = tree["items"][object_list[2]]["QTableWidget"]
         table_widget.removeRow(int(object_list[3]))
@@ -135,7 +136,7 @@ class SettingsTreeTableMethods(object):
             item = item.tableWidget()
         else:
             current_item = item.currentItem()
-        SettingsTreeTableMethods.logger.info(item, current_item)
+        SettingsTreeTableMethods.logger.info(str(item) + str(current_item))
         item.editItem(current_item)
 
     def table_widget_item_changed(self, item):
@@ -151,8 +152,8 @@ class SettingsTreeTableMethods(object):
         if data != "" and data != None:
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
-            item.setText(str(repr(data)))
-            self.update_code_preview_tree(item)
+            item.setText(str(repr(data)).replace("\\\\", "\\"))
+            self.update_code_preview("setup.h", object_list[2], True)
 
     def build_tree_table_widget(
         self,
@@ -204,7 +205,9 @@ class SettingsTreeTableMethods(object):
             table_widget_items["input cells"].update({row: ""})
             table_widget_items["input cells"][row] = QTableWidgetItem()
             table_widget_items["input cells"][row].setText(
-                repr(self.cliOpt[dict_key]["var"][dict_key2][key])
+                str(repr(self.cliOpt[dict_key]["var"][dict_key2][key])).replace(
+                    "\\\\", "\\"
+                )
             )
             table_widget.setItem(row, 0, table_widget_items["input cells"][row])
 

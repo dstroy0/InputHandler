@@ -29,14 +29,16 @@ from res.modules.logging_setup import Logger
 
 class CodePreviewBrowser(QPlainTextEdit):
     def __init__(self, name):
-        super(CodePreviewBrowser, self).__init__()
+        super(CodePreviewBrowser, self).__init__()        
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setReadOnly(True)
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-
+        self.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.setCenterOnScroll(True)
+                
     def resizeEvent(self, event):
         self.centerCursor()
 
@@ -46,7 +48,8 @@ class CodePreview(object):
     def __init__(self) -> None:
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
-
+        CodePreview.selected_text_widget = None
+    
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():
             code_preview = self.ui.codePreview_1
@@ -70,7 +73,10 @@ class CodePreview(object):
             ):
                 viewportpos = code_preview.viewport().mapFromGlobal(mouse_pos)
                 selected_item = code_preview.itemAt(viewportpos)
+                
                 if selected_item and selected_item.childCount() == 0:
+                    CodePreview.selected_text_widget = selected_item.treeWidget().itemWidget(selected_item,0)                    
+                    
                     drag_box_qrect = self.get_vertical_drag_icon_geometry(
                         code_preview.visualItemRect(selected_item)
                     )
@@ -80,10 +86,14 @@ class CodePreview(object):
                         not drag_box_qrect.contains(viewportpos)
                         and self.user_resizing_code_preview_box == False
                     ):
-                        self.setCursor(Qt.CursorShape.ArrowCursor)
+                        self.setCursor(Qt.CursorShape.ArrowCursor)                                    
                 else:
                     # no item being hovered over
                     self.setCursor(Qt.CursorShape.ArrowCursor)
+        
+        if event_type == event.Wheel and CodePreview.selected_text_widget != None:            
+            sb = CodePreview.selected_text_widget.verticalScrollBar()
+            sb.setValue(sb.value()+(-(event.angleDelta().y()/8/15)))                            
 
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
             if watched is code_preview.viewport():
@@ -113,6 +123,7 @@ class CodePreview(object):
             self.user_resizing_code_preview_box = False
             self.resize_code_preview_tree_item(mouse_pos)
             self.setCursor(Qt.CursorShape.ArrowCursor)
+        
 
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(
@@ -160,7 +171,7 @@ class CodePreview(object):
                     tab
                 ] = CodePreviewBrowser(key)
                 text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
-
+                
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
@@ -219,14 +230,17 @@ class CodePreview(object):
             seq_lens = []
             seqs = []
             for key in seq:
-                seq_lens.append(len(seq[key]))
+                delim_str = str(seq[key]).strip("'")
+                delim_str_len = len(delim_str)
+                              
+                seq_lens.append(delim_str_len)
                 seqs.append(seq[key])
             for i in range(len(seq_lens)):
                 seq_lens_string = seq_lens_string + str(seq_lens[i])
                 seqs_string = (
                     seqs_string
                     + '"'
-                    + str(seqs[i]).strip("'").replace('"', '\\"')
+                    + str(repr(seqs[i])).strip("'").replace("\\\\", "\\")
                     + '"'
                 )
                 if i != len(seq_lens) - 1:
@@ -259,8 +273,8 @@ class CodePreview(object):
         process_eol = (
             str(repr(pprm["end of line characters"])).strip("'").replace("\\\\", "\\")
         )
-        process_ipcc = pprm["input control char sequence"]
-        process_wcc = pprm["wildcard char"]
+        process_ipcc = str(repr(pprm["input control char sequence"])).strip("'").replace("\\\\", "\\")
+        process_wcc = str(repr(pprm["wildcard char"])).strip("'").replace("\\\\", "\\")
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
@@ -271,7 +285,7 @@ class CodePreview(object):
         delim_seqs_string = result[2]
 
         result = sequence_string_helper(ststp_seq)
-        num_ststp_pairs = result[0] / 2
+        num_ststp_pairs = int(result[0] / 2)
         ststp_seq_lens_string = result[1]
         ststp_seqs_string = result[2]
 

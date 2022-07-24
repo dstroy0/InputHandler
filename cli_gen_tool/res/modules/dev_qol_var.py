@@ -134,7 +134,7 @@ command_line_interface_options_structure = {
             "input control char sequence": "##",
             "wildcard char": "*",
             "data delimiter sequences": {0: " ", 1: ","},
-            "start stop data delimiter sequences": {0: '"', 1: '"'},
+            "start stop data delimiter sequences": {0: "\"", 1: "\""},
         },
         "tree": {
             "root": "",
@@ -232,7 +232,7 @@ const PROGMEM InputProcessDelimiterSequences pdelimseq = {{
     {delimseqs} // delimiter sequences
 }};
 
-// start stop delimiter sequences
+// start stop data delimiter sequences
 const PROGMEM InputProcessStartStopSequences pststpseq = {{
     {numstartstoppairs}, // num start stop sequence pairs
     {startstopseqlens}, // start stop sequence lens
