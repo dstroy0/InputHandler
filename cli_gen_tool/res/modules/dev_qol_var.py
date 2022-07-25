@@ -126,7 +126,14 @@ command_line_interface_options_structure = {
             },
         },
     },
-    "process output": {"var": {"buffer size": 0}, "tree": {"root": "", "items": {}}},
+    "process output": {
+        "var": {"buffer size": 0, "output stream": None},
+        "tree": {"root": "", "items": {}},
+    },
+    "builtin methods": {
+        "var": {"listCommands": False, "listSettings": False},
+        "tree": {"root": "", "items": {}},
+    },
     "process parameters": {
         "var": {
             "process name": "",
@@ -134,7 +141,7 @@ command_line_interface_options_structure = {
             "input control char sequence": "##",
             "wildcard char": "*",
             "data delimiter sequences": {0: " ", 1: ","},
-            "start stop data delimiter sequences": {0: "\"", 1: "\""},
+            "start stop data delimiter sequences": {0: '"', 1: '"'},
         },
         "tree": {
             "root": "",

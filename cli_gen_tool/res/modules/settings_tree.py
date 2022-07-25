@@ -99,17 +99,17 @@ class SettingsTreeMethods(object):
         object_list[1] = int(str(object_list[1]))
 
         # process output (setup.h)
-        if object_list[0] == "process output":
+        if object_list[0] == "process output":            
             item.setText(3, str(repr(val)))
-            self.cliOpt["process output"]["var"]["buffer size"] = val
-            SettingsTreeMethods.logger.info("output buffer size " + str(val) + " bytes")
-            self.update_code_preview("setup.h", "output_buffer", True)
+            self.cliOpt["process output"]["var"][object_list[2]] = val
+            SettingsTreeMethods.logger.info(object_list[2] + str(val))
+            self.update_code_preview("setup.h", object_list[2], True)
             return
 
         # process parameters (setup.h)
-        if object_list[0] == "process parameters":
-            SettingsTreeMethods.logger.info("edited a process parameter")
+        if object_list[0] == "process parameters":            
             item.setText(3, "'" + str(val) + "'")
+            SettingsTreeMethods.logger.info("edited "+ object_list[2] + ", new value " + "'" + str(val) + "'")
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
             self.update_code_preview("setup.h", item.text(1), True)
             return
@@ -206,7 +206,11 @@ class SettingsTreeMethods(object):
         var_type = "bytes"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key, tree, index_of_child, "buffer size", "bytes", var_initial_val
+        )
+        var_initial_val = self.cliOpt["process output"]["var"]["output stream"]
+        index_of_child = index_of_child = set_up_child(
+            dict_key, tree, index_of_child, "output stream", "Stream", var_initial_val
         )
 
         # process parameters
@@ -247,7 +251,7 @@ class SettingsTreeMethods(object):
         index_of_child = set_up_child(
             dict_key, tree, index_of_child, var_name, var_type, var_initial_val
         )
-
+        
         # process parameters data delimiter sequences option
         columns = 1
         remove_row_button = True
