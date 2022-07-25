@@ -122,15 +122,8 @@ class MainWindow(
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
 
-        # MainWindow var
-        self.docs = ""
-        self.format_docstring = file_docs_format_string
-        self.file_first_line = file_first_line
-        self.docs_format_list = file_docs_format_list
-        self.docs_filename = self.docs_format_list[0]
-        self.docs_brief = self.docs_format_list[1]
-        self.docs_version = self.docs_format_list[2]
-
+        # MainWindow var        
+        
         # code preview interaction
         self.user_resizing_code_preview_box = False
         self.init_mouse_pos = QPoint()

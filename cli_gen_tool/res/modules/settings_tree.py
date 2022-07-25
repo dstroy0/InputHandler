@@ -54,24 +54,39 @@ class SettingsTreeMethods(object):
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
-        sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
-            object_list[1]
-        ]["fields"]
-        if sub_dict[6].currentText() == "Enable":
-            sub_dict[1] = "       "
-            sub_dict[4] = True
-            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n")) + " enabled")
-        elif sub_dict[6].currentText() == "Disable":
-            sub_dict[1] = "    // "
-            sub_dict[4] = False
-            SettingsTreeMethods.logger.info(str(sub_dict[3].strip("\n")) + " disabled")
-        SettingsTreeMethods.logger.debug(
-            "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                object_list[0], object_list[1]
-            ),
-            json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
-        )
-        self.update_code_preview("config.h", sub_dict[3], True)
+        if object_list[0] == "builtin methods":            
+            if index == 1:
+                self.cliOpt[object_list[0]]["var"][object_list[2]] = True
+                SettingsTreeMethods.logger.info(object_list[0]+" "+object_list[2]+" enabled")
+            else:
+                self.cliOpt[object_list[0]]["var"][object_list[2]] = False
+                SettingsTreeMethods.logger.info(object_list[0]+" "+object_list[2]+" disabled")
+            
+        if object_list[0] != "builtin methods":
+            sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+                object_list[1]
+            ]["fields"]
+            if sub_dict[6].currentText() == "Enable":
+                sub_dict[1] = "       "
+                sub_dict[4] = True
+                SettingsTreeMethods.logger.info(
+                    str(sub_dict[3].strip("\n")) + " enabled"
+                )
+            elif sub_dict[6].currentText() == "Disable":
+                sub_dict[1] = "    // "
+                sub_dict[4] = False
+                SettingsTreeMethods.logger.info(
+                    str(sub_dict[3].strip("\n")) + " disabled"
+                )
+            SettingsTreeMethods.logger.debug(
+                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
+                    object_list[0], object_list[1]
+                ),
+                json.dumps(
+                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
+                ),
+            )
+            self.update_code_preview("config.h", sub_dict[3], True)
 
     def settings_tree_item_activated(self, item):
         SettingsTreeMethods.logger.info(str(item) + " selected")
@@ -99,17 +114,19 @@ class SettingsTreeMethods(object):
         object_list[1] = int(str(object_list[1]))
 
         # process output (setup.h)
-        if object_list[0] == "process output":            
+        if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"][object_list[2]] = val
-            SettingsTreeMethods.logger.info(object_list[2] + str(val))
+            SettingsTreeMethods.logger.info(object_list[2] + " " + str(val))
             self.update_code_preview("setup.h", object_list[2], True)
             return
 
         # process parameters (setup.h)
-        if object_list[0] == "process parameters":            
+        if object_list[0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
-            SettingsTreeMethods.logger.info("edited "+ object_list[2] + ", new value " + "'" + str(val) + "'")
+            SettingsTreeMethods.logger.info(
+                "edited " + object_list[2] + ", new value " + "'" + str(val) + "'"
+            )
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
             self.update_code_preview("setup.h", item.text(1), True)
             return
@@ -169,8 +186,16 @@ class SettingsTreeMethods(object):
         self.ui.settings_tree.editItem(item, 3)
 
     def build_lib_settings_tree(self):
+        settings_tree = self.ui.settings_tree
+
         def set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key,
+            tree,
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            combobox=False,
         ):
             column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
             tree["items"].update(
@@ -182,6 +207,20 @@ class SettingsTreeMethods(object):
                 tree["items"][var_name].flags() | Qt.ItemIsEditable
             )
             index_of_child += 1
+            if combobox == True:
+                tree["items"]["QComboBox"].update({var_name: QComboBox()})                
+                tree["items"]["QComboBox"][var_name].addItem("Disabled", False)
+                tree["items"]["QComboBox"][var_name].addItem("Enabled", True)
+                tree["items"]["QComboBox"][var_name].setObjectName(dict_pos)
+                tree["items"]["QComboBox"][var_name].setSizeAdjustPolicy(
+                    QComboBox.AdjustToMinimumContentsLengthWithIcon
+                )
+                tree["items"]["QComboBox"][var_name].currentIndexChanged.connect(
+                    self.settings_tree_combo_box_index_changed
+                )
+                settings_tree.setItemWidget(
+                    tree["items"][var_name], 3, tree["items"]["QComboBox"][var_name]
+                )
             return index_of_child
 
         settings_tree = self.ui.settings_tree
@@ -206,11 +245,24 @@ class SettingsTreeMethods(object):
         var_type = "bytes"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, "buffer size", "bytes", var_initial_val
+            dict_key,
+            tree,
+            index_of_child,
+            "buffer size",
+            "bytes",
+            var_initial_val,
+            False,
         )
+        # process output stream
         var_initial_val = self.cliOpt["process output"]["var"]["output stream"]
         index_of_child = index_of_child = set_up_child(
-            dict_key, tree, index_of_child, "output stream", "Stream", var_initial_val
+            dict_key,
+            tree,
+            index_of_child,
+            "output stream",
+            "Stream",
+            var_initial_val,
+            False,
         )
 
         # process parameters
@@ -225,7 +277,7 @@ class SettingsTreeMethods(object):
         var_type = "plain text"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
         )
 
         # process parameters end of line characters option
@@ -233,7 +285,7 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
         )
 
         # process parameters input control char sequence option
@@ -241,7 +293,7 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
         )
 
         # process parameters wildcard char option
@@ -249,9 +301,9 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
         )
-        
+
         # process parameters data delimiter sequences option
         columns = 1
         remove_row_button = True
@@ -278,6 +330,29 @@ class SettingsTreeMethods(object):
             columns,
             add_row_function,
             remove_row_button,
+        )
+
+        # builtin methods
+        index_of_child = 0
+        dict_key = "builtin methods"
+        tree = self.cliOpt[dict_key]["tree"]
+        tree["root"] = QTreeWidgetItem(self.ui.settings_tree, [dict_key, ""])
+        tree["root"].setIcon(0, self.ui.commandLinkIcon)
+
+        # listCommands
+        var_name = "listCommands"
+        var_type = "enable/disable"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, True
+        )
+
+        # listCommands
+        var_name = "listSettings"
+        var_type = "enable/disable"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(
+            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, True
         )
 
         # config.h
