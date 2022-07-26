@@ -188,12 +188,14 @@ class CodePreview(object):
                 tree.setItemWidget(text_widget_container, 0, text_widget)
 
     # end build_code_preview_tree()
-
-    # TODO text positioning geometry (this sets it to the bottom line of available display lines)
-    def set_text_cursor(self, text_widget, item_string):
-        cursor = QTextCursor(text_widget.document().find(item_string))
-        text_widget.setTextCursor(cursor)
-        text_widget.centerCursor()
+    
+    def set_text_cursor(self, text_widget, item_string):        
+        cursor = QTextCursor(text_widget.document().find(item_string))                           
+        cursor.movePosition(cursor.EndOfLine)
+        text_widget.setTextCursor(cursor)                    
+        cursor.movePosition(cursor.StartOfLine,QTextCursor.KeepAnchor,1)                            
+        text_widget.setTextCursor(cursor)    
+        text_widget.centerCursor()  
 
     def set_code_string(self, filename, code_string, item_string, place_cursor=False):
         for tab in range(2):

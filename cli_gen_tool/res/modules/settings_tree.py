@@ -148,16 +148,16 @@ class SettingsTreeMethods(object):
         else:
             if val == "":
                 tmp = 0
-                item.setText(3, str(repr(tmp)))
+                item.setText(3, "'"+str(repr(tmp))+"'")
             else:
                 tmp = int(val)
-                item.setText(3, str(repr(tmp)))
-        if tmp == sub_dict[4]:
+                item.setText(3, "'"+str(repr(tmp))+"'")
+        if tmp == sub_dict[3]:
             return
         # update the config dict
-        sub_dict[4] = tmp
+        sub_dict[3] = tmp
         self.update_settings_tree_type_field_text(item)
-        self.update_code_preview("config.h", sub_dict[3], True)
+        self.update_code_preview("config.h", sub_dict[2], True)
         SettingsTreeMethods.logger.info(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
@@ -192,7 +192,7 @@ class SettingsTreeMethods(object):
 
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
-
+        ## helper method to add children to container items
         def set_up_child(
             dict_key,
             tree,
