@@ -28,7 +28,7 @@ var searchData=
   ['log_25',['log',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#af113bc9ca62828fad4f4cb3474330598',1,'cli_gen_tool::MainWindow']]],
   ['log_5ffile_5fhandler_26',['log_file_handler',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a2c2e3531ebe2604b8ae9c19bfa39de07',1,'modules::dev_qol_var']]],
   ['log_5fpath_27',['log_path',['../d6/da0/namespacemodules_1_1dev__qol__var.html#ac37fccb6a2f7fa4be798f0298eddfd55',1,'modules::dev_qol_var']]],
-  ['logger_28',['logger',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a1a4bcdd93839d134d016814a30fcf267',1,'cli_gen_tool.MainWindow.logger()'],['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#adc53f6ee0d37e70f1a6d017b5a46a33b',1,'modules.settings_tree.SettingsTreeMethods.logger()']]],
+  ['logger_28',['logger',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a1a4bcdd93839d134d016814a30fcf267',1,'cli_gen_tool::MainWindow']]],
   ['logger_29',['Logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html',1,'modules::logging_setup']]],
   ['logging_5fsetup_2epy_30',['logging_setup.py',['../d1/d78/logging__setup_8py.html',1,'']]],
   ['loghistorydialog_2epy_31',['logHistoryDialog.py',['../d7/df3/log_history_dialog_8py.html',1,'']]],

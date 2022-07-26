@@ -35,7 +35,7 @@ var dev__qol__var_8py =
     [ "setup_h_default_function_string", "d4/da6/dev__qol__var_8py.html#a07ed99c1451a56939f95488e5a5d68ef", null ],
     [ "setup_h_filestring", "d4/da6/dev__qol__var_8py.html#a8f3611328485556faab02fec3f988b35", null ],
     [ "setup_h_options_string_list", "d4/da6/dev__qol__var_8py.html#ac9ea99c5ea9ee84c6494943c26044c88", null ],
-    [ "setup_h_output_buffer_string", "d4/da6/dev__qol__var_8py.html#ac672559d758aa527acde40d16e7b1a7f", null ],
+    [ "setup_h_output_buffer_string", "d4/da6/dev__qol__var_8py.html#a111a2821d8e9e74bf6e6b1643ff500fe", null ],
     [ "splashscreen_duration", "d4/da6/dev__qol__var_8py.html#a90324adad133f6fa81f83fdf20536594", null ],
     [ "version", "d4/da6/dev__qol__var_8py.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
 ];
