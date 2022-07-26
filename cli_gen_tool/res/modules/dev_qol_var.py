@@ -104,23 +104,39 @@ command_line_interface_options_structure = {
         "file_lines": [],
         "tree": {
             "root": "",
-            "parents": {},
+            "parents": {
+                "library settings": {"QTreeWidgetItem": {}},
+                "progmem settings": {"QTreeWidgetItem": {}},
+                "debug methods": {"QTreeWidgetItem": {}},
+                "optional methods": {"QTreeWidgetItem": {}},
+            },
             "items": {
-                "QComboBox":{},
-                "library settings": {},
-                "progmem settings": {},
-                "debug methods": {},
-                "optional methods": {},
+                "library settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
+                "progmem settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
+                "debug methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
+                "optional methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
             },
         },
     },
     "process output": {
         "var": {"buffer size": 0, "output stream": None},
-        "tree": {"root": "", "items": {}},
+        "tree": {
+            "root": "",
+            "items": {
+                "buffer size": {"QTreeWidgetItem": {}},
+                "output stream": {"QTreeWidgetItem": {}},
+            },
+        },
     },
     "builtin methods": {
         "var": {"listCommands": False, "listSettings": False},
-        "tree": {"root": "", "items": {"QComboBox":{}}},
+        "tree": {
+            "root": "",
+            "items": {
+                "listCommands": {"QTreeWidgetItem": {}, "QComboBox": {}},
+                "listSettings": {"QTreeWidgetItem": {}, "QComboBox": {}},
+            },
+        },
     },
     "process parameters": {
         "var": {
@@ -135,6 +151,10 @@ command_line_interface_options_structure = {
             "root": "",
             "parents": {},
             "items": {
+                "process name": {"QTreeWidgetItem": {}},
+                "end of line characters": {"QTreeWidgetItem": {}},
+                "input control char sequence": {"QTreeWidgetItem": {}},
+                "wildcard char": {"QTreeWidgetItem": {}},
                 "data delimiter sequences": {
                     "QTreeWidgetItem": "",
                     "QTableWidget": "",
@@ -198,7 +218,7 @@ code_preview_text_line_offset = 4
 # TODO these should be in a dict, filestring_construction_db or something
 ## setup.h
 
-setup_h_default_function_string =  "  {objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
+setup_h_default_function_string = "  {objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
 setup_h_class_output_string = "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))"
 setup_h_constructor_string = "UserInput {objectname}{classoutput};"
 setup_h_addcommand_string = "    {objectname}.addCommand({commandparametersname});\n"
@@ -206,9 +226,7 @@ setup_h_options_string_list = [
     "  {objectname}.listCommands(); // formats output_buffer with the command list\n",
     "  {objectname}.outputToStream({stream}); // class output\n",
 ]
-setup_h_output_buffer_string = (
-    "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
-)
+setup_h_output_buffer_string = "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
 setup_h_filestring = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__

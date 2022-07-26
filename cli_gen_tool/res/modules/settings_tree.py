@@ -13,6 +13,7 @@
 from __future__ import absolute_import
 
 import json
+from operator import index
 
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
@@ -22,10 +23,8 @@ from res.modules.logging_setup import Logger
 
 # settings_tree methods
 class SettingsTreeMethods(object):
-    logger = ""
-
     def __init__(self):
-        super().__init__()
+        super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
     def update_settings_tree_type_field_text(self, item):
@@ -34,59 +33,65 @@ class SettingsTreeMethods(object):
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
             int(object_list[1])
         ]["fields"]
-        number_field = int(sub_dict[4])
+        number_field = int(sub_dict[3])
         if number_field <= 255:
             type_field = "uint8_t"
-            sub_dict[5].setToolTip(2, "")
+            item.setToolTip(2, "")
         elif number_field > 255 and number_field <= 65535:
             type_field = "uint16_t*"
-            sub_dict[5].setToolTip(
-                2, "The compiler will warn you about this type change"
-            )
+            item.setToolTip(2, "The compiler will warn you about this type change")
         elif number_field > 65535:
             type_field = "uint32_t*"
-            sub_dict[5].setToolTip(
-                2, "The compiler will warn you about this type change"
-            )
-        sub_dict[5].setText(2, type_field)
+            item.setToolTip(2, "The compiler will warn you about this type change")
+        item.setText(2, type_field)
 
     def settings_tree_combo_box_index_changed(self, index):
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
-        if object_list[0] == "builtin methods":            
+        if object_list[0] == "builtin methods":
             if index == 1:
                 self.cliOpt[object_list[0]]["var"][object_list[2]] = True
-                SettingsTreeMethods.logger.info(object_list[0]+" "+object_list[2]+" enabled")
+                SettingsTreeMethods.logger.info(
+                    object_list[0] + " " + object_list[2] + " enabled"
+                )
             else:
                 self.cliOpt[object_list[0]]["var"][object_list[2]] = False
-                SettingsTreeMethods.logger.info(object_list[0]+" "+object_list[2]+" disabled")
-            
+                SettingsTreeMethods.logger.info(
+                    object_list[0] + " " + object_list[2] + " disabled"
+                )
+
         if object_list[0] != "builtin methods":
+            combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+                "QComboBox"
+            ][object_list[1]]
             sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 object_list[1]
             ]["fields"]
-            if sub_dict[6].currentText() == "Enable":
+            if combobox.currentText() == "Enabled":
                 sub_dict[1] = "       "
-                sub_dict[4] = True
+                sub_dict[3] = True
                 SettingsTreeMethods.logger.info(
-                    str(sub_dict[3].strip("\n")) + " enabled"
+                    str(sub_dict[2].strip("\n")) + " enabled"
                 )
-            elif sub_dict[6].currentText() == "Disable":
+            elif (
+                self.cliOpt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
+                    object_list[1]
+                ].currentText()
+                == "Disabled"
+            ):
                 sub_dict[1] = "    // "
-                sub_dict[4] = False
+                sub_dict[3] = False
                 SettingsTreeMethods.logger.info(
-                    str(sub_dict[3].strip("\n")) + " disabled"
+                    str(sub_dict[2].strip("\n")) + " disabled"
                 )
-            SettingsTreeMethods.logger.debug(
-                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                    object_list[0], object_list[1]
-                ),
-                json.dumps(
-                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
-                ),
-            )
-            self.update_code_preview("config.h", sub_dict[3], True)
+        SettingsTreeMethods.logger.debug(
+            "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
+                object_list[0], object_list[1]
+            ),
+            json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
+        )
+        self.update_code_preview("config.h", sub_dict[2], True)
 
     def settings_tree_item_activated(self, item):
         SettingsTreeMethods.logger.info(str(item) + " selected")
@@ -191,36 +196,54 @@ class SettingsTreeMethods(object):
         def set_up_child(
             dict_key,
             tree,
+            parent,
             index_of_child,
             var_name,
             var_type,
             var_initial_val,
             combobox=False,
         ):
+            if tree["root"] == self.cliOpt["config"]["tree"]["root"]:
+                access = dict_key
+            else:
+                access = var_name
             column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
-            tree["items"].update(
-                {var_name: QTreeWidgetItem(tree["root"], column_label_list)}
+            tree["items"][access]["QTreeWidgetItem"].update(
+                {index_of_child: QTreeWidgetItem(parent, column_label_list)}
             )
             dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
-            tree["items"][var_name].setData(4, 0, dict_pos)
-            tree["items"][var_name].setFlags(
-                tree["items"][var_name].flags() | Qt.ItemIsEditable
+            tree["items"][access]["QTreeWidgetItem"][index_of_child].setData(
+                4, 0, dict_pos
             )
-            index_of_child += 1
+            tree["items"][access]["QTreeWidgetItem"][index_of_child].setFlags(
+                tree["items"][access]["QTreeWidgetItem"][index_of_child].flags()
+                | Qt.ItemIsEditable
+            )
             if combobox == True:
-                tree["items"]["QComboBox"].update({var_name: QComboBox()})                
-                tree["items"]["QComboBox"][var_name].addItem("Disabled", False)
-                tree["items"]["QComboBox"][var_name].addItem("Enabled", True)
-                tree["items"]["QComboBox"][var_name].setObjectName(dict_pos)
-                tree["items"]["QComboBox"][var_name].setSizeAdjustPolicy(
+                tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
+                tree["items"][access]["QComboBox"][index_of_child].addItem(
+                    "Disabled", False
+                )
+                tree["items"][access]["QComboBox"][index_of_child].addItem(
+                    "Enabled", True
+                )
+                tree["items"][access]["QComboBox"][index_of_child].setObjectName(
+                    dict_pos
+                )
+                tree["items"][access]["QComboBox"][index_of_child].setSizeAdjustPolicy(
                     QComboBox.AdjustToMinimumContentsLengthWithIcon
                 )
-                tree["items"]["QComboBox"][var_name].currentIndexChanged.connect(
+                tree["items"][access]["QComboBox"][
+                    index_of_child
+                ].currentIndexChanged.connect(
                     self.settings_tree_combo_box_index_changed
                 )
                 settings_tree.setItemWidget(
-                    tree["items"][var_name], 3, tree["items"]["QComboBox"][var_name]
+                    tree["items"][access]["QTreeWidgetItem"][index_of_child],
+                    3,
+                    tree["items"][access]["QComboBox"][index_of_child],
                 )
+            index_of_child += 1
             return index_of_child
 
         settings_tree = self.ui.settings_tree
@@ -247,6 +270,7 @@ class SettingsTreeMethods(object):
         index_of_child = set_up_child(
             dict_key,
             tree,
+            tree["root"],
             index_of_child,
             "buffer size",
             "bytes",
@@ -258,6 +282,7 @@ class SettingsTreeMethods(object):
         index_of_child = index_of_child = set_up_child(
             dict_key,
             tree,
+            tree["root"],
             index_of_child,
             "output stream",
             "Stream",
@@ -277,7 +302,14 @@ class SettingsTreeMethods(object):
         var_type = "plain text"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            False,
         )
 
         # process parameters end of line characters option
@@ -285,7 +317,14 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            False,
         )
 
         # process parameters input control char sequence option
@@ -293,7 +332,14 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            False,
         )
 
         # process parameters wildcard char option
@@ -301,7 +347,14 @@ class SettingsTreeMethods(object):
         var_type = "plain text; control char"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, False
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            False,
         )
 
         # process parameters data delimiter sequences option
@@ -344,7 +397,14 @@ class SettingsTreeMethods(object):
         var_type = "enable/disable"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, True
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            True,
         )
 
         # listSettings
@@ -352,111 +412,88 @@ class SettingsTreeMethods(object):
         var_type = "enable/disable"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         index_of_child = set_up_child(
-            dict_key, tree, index_of_child, var_name, var_type, var_initial_val, True
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            True,
         )
 
         # config.h
         tree = self.cliOpt["config"]["tree"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         cfg_path = self.session["opt"]["input_config_file_path"]
-        tree.update(
-            {"root": QTreeWidgetItem(settings_tree, ["Input config: " + cfg_path, ""])}
-        )
+        tree["root"] = QTreeWidgetItem(settings_tree, ["Input config: " + cfg_path, ""])
         tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
         tree["root"].setToolTip(0, "Input config: " + cfg_path)
 
         # make these parents children of root using the keys from 'cfg_dict'
         for key in cfg_dict:
-            tree["parents"].update(
-                {key: QTreeWidgetItem(tree["root"], [key, "", "", ""])}
+            tree["parents"][key]["QTreeWidgetItem"] = QTreeWidgetItem(
+                tree["root"], [key, "", "", ""]
             )
 
         # TODO rework this to use set_up_child to reduce code length
         # populate `settings_tree`
+        regexp = QRegularExpression("(\s*[\/][\/]\s*)")
         for key in cfg_dict:
+            index_of_child = 0
+            parent = tree["parents"][key]["QTreeWidgetItem"]
             for item in cfg_dict[key]:
-                regexp = QRegularExpression("(\s*[\/][\/]\s*)")
-                sub_dict = cfg_dict[key][item]["fields"]
-                match = regexp.match(sub_dict[1])
-                # sort out boolean fields
-                if match.hasMatch() and (
-                    sub_dict[0] >= config_file_boolean_define_fields_line_start
-                ):
-                    sub_dict.update({4: False})
-                    obj_name = key + "," + str(item) + "," + sub_dict[3]
-                    item_list = [
-                        "line : " + str(sub_dict[0]),
-                        sub_dict[3],
-                        "Enable/Disable",
-                        "",
-                    ]
-                    sub_dict.update(
-                        {5: QTreeWidgetItem(tree["parents"][key], item_list)}
-                    )
-                    sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)
-                    sub_dict[5].setData(4, 0, obj_name)
-                    sub_dict[6] = QComboBox()
-                    sub_dict[6].addItem("Disable", "False")
-                    sub_dict[6].addItem("Enable", "True")
-                    sub_dict[6].setObjectName(obj_name)
-                    sub_dict[6].setSizeAdjustPolicy(
-                        QComboBox.AdjustToMinimumContentsLengthWithIcon
-                    )
-                    settings_tree.setItemWidget(sub_dict[5], 3, sub_dict[6])
-                    sub_dict[6].currentIndexChanged.connect(
-                        self.settings_tree_combo_box_index_changed
-                    )
-                elif not match.hasMatch() and (
-                    sub_dict[0] >= config_file_boolean_define_fields_line_start
-                ):
-                    sub_dict.update({4: True})
-                    obj_name = key + "," + str(item) + "," + sub_dict[3]
-                    item_list = [
-                        "line : " + str(sub_dict[0]),
-                        sub_dict[3],
-                        "Enable/Disable",
-                        str(sub_dict[4]),
-                    ]
-                    sub_dict.update(
-                        {5: QTreeWidgetItem(tree["parents"][key], item_list)}
-                    )
-                    sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)
-                    sub_dict[5].setData(4, 0, obj_name)
-                    sub_dict[6] = QComboBox()
-                    sub_dict[6].addItem("Enable", "True")
-                    sub_dict[6].addItem("Disable", "False")
-                    sub_dict[6].setObjectName(obj_name)
-                    sub_dict[6].setSizeAdjustPolicy(
-                        QComboBox.AdjustToMinimumContentsLengthWithIcon
-                    )
-                    settings_tree.setItemWidget(sub_dict[5], 3, sub_dict[6])
-                    sub_dict[6].currentIndexChanged.connect(
-                        self.settings_tree_combo_box_index_changed
-                    )
-                else:
-                    number_field = 0
-                    if sub_dict[4] == "":
-                        number_field = 0
+                if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
+                    sub_dict = cfg_dict[key][item]["fields"]
+                    match = regexp.match(sub_dict[1])
+                    # sort out boolean fields
+                    if match.hasMatch() and (
+                        sub_dict[0] >= config_file_boolean_define_fields_line_start
+                    ):
+                        cfg_dict[key]["QComboBox"].update({item: ""})
+                        index_of_child = set_up_child(
+                            key,
+                            tree,
+                            parent,
+                            index_of_child,
+                            sub_dict[2],
+                            "Enable/Disable",
+                            sub_dict[3],
+                            True,
+                        )
+
+                    elif not match.hasMatch() and (
+                        sub_dict[0] >= config_file_boolean_define_fields_line_start
+                    ):
+                        cfg_dict[key]["QComboBox"].update({item: ""})
+                        index_of_child = set_up_child(
+                            key,
+                            tree,
+                            parent,
+                            index_of_child,
+                            sub_dict[2],
+                            "Enable/Disable",
+                            sub_dict[3],
+                            True,
+                        )
                     else:
-                        number_field = int(sub_dict[4])
-                    if number_field <= 255:
-                        type_field = "uint8_t"
-                    elif number_field > 255 and number_field <= 65535:
-                        type_field = "uint16_t"
-                    elif number_field > 65535:
-                        type_field = "uint32_t"
-                    obj_name = key + "," + str(item) + "," + sub_dict[3]
-                    item_list = [
-                        "line : " + str(sub_dict[0]),
-                        sub_dict[3],
-                        type_field,
-                        str(number_field),
-                    ]
-                    sub_dict.update(
-                        {5: QTreeWidgetItem(tree["parents"][key], item_list)}
-                    )
-                    sub_dict[5].setFlags(sub_dict[5].flags() | Qt.ItemIsEditable)
-                    sub_dict[5].setData(4, 0, obj_name)
+                        number_field = int(sub_dict[3])
+                        if number_field <= 255:
+                            type_field = "uint8_t"
+                        elif number_field > 255 and number_field <= 65535:
+                            type_field = "uint16_t"
+                        elif number_field > 65535:
+                            type_field = "uint32_t"
+                        index_of_child = set_up_child(
+                            key,
+                            tree,
+                            parent,
+                            index_of_child,
+                            sub_dict[2],
+                            type_field,
+                            sub_dict[3],
+                            False,
+                        )
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
         # update cliOpt with new value when editing is complete

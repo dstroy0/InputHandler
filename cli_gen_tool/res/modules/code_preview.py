@@ -31,7 +31,7 @@ from res.modules.logging_setup import Logger
 
 class CodePreviewBrowser(QPlainTextEdit):
     def __init__(self, name):
-        super(CodePreviewBrowser, self).__init__()        
+        super(CodePreviewBrowser, self).__init__()
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setReadOnly(True)
         self.setObjectName(str(name))
@@ -40,7 +40,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         self.setTextInteractionFlags(Qt.TextBrowserInteraction)
         self.setCenterOnScroll(True)
-                
+
     def resizeEvent(self, event):
         self.centerCursor()
 
@@ -51,7 +51,7 @@ class CodePreview(object):
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
-    
+
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():
             code_preview = self.ui.codePreview_1
@@ -75,10 +75,12 @@ class CodePreview(object):
             ):
                 viewportpos = code_preview.viewport().mapFromGlobal(mouse_pos)
                 selected_item = code_preview.itemAt(viewportpos)
-                
+
                 if selected_item and selected_item.childCount() == 0:
-                    CodePreview.selected_text_widget = selected_item.treeWidget().itemWidget(selected_item,0)                    
-                    
+                    CodePreview.selected_text_widget = (
+                        selected_item.treeWidget().itemWidget(selected_item, 0)
+                    )
+
                     drag_box_qrect = self.get_vertical_drag_icon_geometry(
                         code_preview.visualItemRect(selected_item)
                     )
@@ -88,14 +90,14 @@ class CodePreview(object):
                         not drag_box_qrect.contains(viewportpos)
                         and self.user_resizing_code_preview_box == False
                     ):
-                        self.setCursor(Qt.CursorShape.ArrowCursor)                                    
+                        self.setCursor(Qt.CursorShape.ArrowCursor)
                 else:
                     # no item being hovered over
                     self.setCursor(Qt.CursorShape.ArrowCursor)
-        
-        if event_type == event.Wheel and CodePreview.selected_text_widget != None:            
+
+        if event_type == event.Wheel and CodePreview.selected_text_widget != None:
             sb = CodePreview.selected_text_widget.verticalScrollBar()
-            sb.setValue(sb.value()+(-(event.angleDelta().y()/8/15)))                            
+            sb.setValue(sb.value() + (-(event.angleDelta().y() / 8 / 15)))
 
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
             if watched is code_preview.viewport():
@@ -124,7 +126,7 @@ class CodePreview(object):
         ):
             self.user_resizing_code_preview_box = False
             self.resize_code_preview_tree_item(mouse_pos)
-            self.setCursor(Qt.CursorShape.ArrowCursor)        
+            self.setCursor(Qt.CursorShape.ArrowCursor)
 
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(
@@ -172,7 +174,7 @@ class CodePreview(object):
                     tab
                 ] = CodePreviewBrowser(key)
                 text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
-                
+
                 self.code_preview_dict["files"][key]["contents_item"][
                     tab
                 ] = QTreeWidgetItem(parent)
@@ -207,16 +209,22 @@ class CodePreview(object):
         ]["file_lines"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         for key in cfg_dict:
-            for item in cfg_dict[key]:
-                sub_dict = cfg_dict[key][item]["fields"]
-                if sub_dict[4] == True or sub_dict[4] == False:
-                    val = ""
-                else:
-                    val = sub_dict[4]
-                line = str(sub_dict[1]) + str(sub_dict[2]) + str(sub_dict[3]) + str(val)
-                self.code_preview_dict["files"]["config.h"]["file_lines_list"][
-                    int(sub_dict[0])
-                ] = line
+            for item in cfg_dict[key]:                
+                if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
+                    sub_dict = cfg_dict[key][item]["fields"]
+                    if sub_dict[3] == True or sub_dict[3] == False:
+                        val = ""
+                    else:
+                        val = sub_dict[3]
+                    line = (
+                        str(sub_dict[1])
+                        + "#define "
+                        + str(sub_dict[2])
+                        + str(val)
+                    )
+                    self.code_preview_dict["files"]["config.h"]["file_lines_list"][
+                        int(sub_dict[0])
+                    ] = line
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
         )
@@ -233,7 +241,7 @@ class CodePreview(object):
             for key in seq:
                 delim_str = str(seq[key]).strip("'")
                 delim_str_len = len(delim_str)
-                              
+
                 seq_lens.append(delim_str_len)
                 seqs.append(seq[key])
             for i in range(len(seq_lens)):
@@ -251,7 +259,9 @@ class CodePreview(object):
             seqs_string = seqs_string + "}"
             return [num_seq, seq_lens_string, seqs_string]
 
-        file_lines = self.generate_docstring_list_for_filename("setup.h","InputHandler autogenerated setup.h")
+        file_lines = self.generate_docstring_list_for_filename(
+            "setup.h", "InputHandler autogenerated setup.h"
+        )
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
@@ -274,13 +284,19 @@ class CodePreview(object):
         process_eol = (
             str(repr(pprm["end of line characters"])).strip("'").replace("\\\\", "\\")
         )
-        process_ipcc = str(repr(pprm["input control char sequence"])).strip("'").replace("\\\\", "\\")
+        process_ipcc = (
+            str(repr(pprm["input control char sequence"]))
+            .strip("'")
+            .replace("\\\\", "\\")
+        )
         process_wcc = str(repr(pprm["wildcard char"])).strip("'").replace("\\\\", "\\")
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-        default_function_string = setup_h_default_function_string.format(objectname=object_name,defaultfunctionname="unrecognized")
-        
+        default_function_string = setup_h_default_function_string.format(
+            objectname=object_name, defaultfunctionname="unrecognized"
+        )
+
         result = sequence_string_helper(delim_seq)
         num_delim_seq = result[0]
         delim_seq_lens_string = result[1]
