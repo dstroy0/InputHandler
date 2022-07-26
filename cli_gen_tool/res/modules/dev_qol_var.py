@@ -106,6 +106,7 @@ command_line_interface_options_structure = {
             "root": "",
             "parents": {},
             "items": {
+                "QComboBox":{},
                 "library settings": {},
                 "progmem settings": {},
                 "debug methods": {},

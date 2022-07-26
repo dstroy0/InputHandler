@@ -347,7 +347,7 @@ class SettingsTreeMethods(object):
             dict_key, tree, index_of_child, var_name, var_type, var_initial_val, True
         )
 
-        # listCommands
+        # listSettings
         var_name = "listSettings"
         var_type = "enable/disable"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
@@ -371,6 +371,7 @@ class SettingsTreeMethods(object):
                 {key: QTreeWidgetItem(tree["root"], [key, "", "", ""])}
             )
 
+        # TODO rework this to use set_up_child to reduce code length
         # populate `settings_tree`
         for key in cfg_dict:
             for item in cfg_dict[key]:
