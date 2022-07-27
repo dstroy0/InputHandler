@@ -221,8 +221,8 @@ Classes</h2></td></tr>
 <tr class="separator:a30cd1758e5ab22d987e8c37e426989dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc1c7030c049d743806ecc1009ffd9bb"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb">getArgument</a> (size_t argument_number)</td></tr>
 <tr class="separator:adc1c7030c049d743806ecc1009ffd9bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423e8bbd3b2f1afc6a53022aac5e6683"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683">outputIsAvailable</a> ()</td></tr>
-<tr class="separator:a423e8bbd3b2f1afc6a53022aac5e6683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26e715cebcc2dbe9beb18149c68f149"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#af26e715cebcc2dbe9beb18149c68f149">outputIsAvailable</a> ()</td></tr>
+<tr class="separator:af26e715cebcc2dbe9beb18149c68f149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a852e23ba4a8e45d4220782448fd3bb8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#a852e23ba4a8e45d4220782448fd3bb8c">outputIsEnabled</a> ()</td></tr>
 <tr class="separator:a852e23ba4a8e45d4220782448fd3bb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96315069a4c3383b45123001d8a540f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f">outputToStream</a> (Stream &amp;stream)</td></tr>
@@ -1401,33 +1401,25 @@ false if allocation unsuccessful </dd></dl>
 
 </div>
 </div>
-<a id="a423e8bbd3b2f1afc6a53022aac5e6683" name="a423e8bbd3b2f1afc6a53022aac5e6683"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a423e8bbd3b2f1afc6a53022aac5e6683">&#9670;&nbsp;</a></span>outputIsAvailable()</h2>
+<a id="af26e715cebcc2dbe9beb18149c68f149" name="af26e715cebcc2dbe9beb18149c68f149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af26e715cebcc2dbe9beb18149c68f149">&#9670;&nbsp;</a></span>outputIsAvailable()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool UserInput::outputIsAvailable </td>
+          <td class="memname">size_t UserInput::outputIsAvailable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>is class output available </p>
-<dl class="section return"><dt>Returns</dt><dd>true if output is available </dd>
-<dd>
-false if no output is available </dd></dl>
+<p>class output available if the return of this function is greater than zero </p>
+<p >(True) if greater than 0 (False) if 0</p>
+<dl class="section return"><dt>Returns</dt><dd>the number of bytes available for output, or zero if there is no output <br  />
+ </dd></dl>
 
 </div>
 </div>

@@ -31,7 +31,7 @@ var class_user_input =
     [ "listSettings", "dc/d4b/class_user_input.html#a587c2ab21bab0771881cb117e7930b78", null ],
     [ "mIndex", "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030", null ],
     [ "nextArgument", "dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd", null ],
-    [ "outputIsAvailable", "dc/d4b/class_user_input.html#a423e8bbd3b2f1afc6a53022aac5e6683", null ],
+    [ "outputIsAvailable", "dc/d4b/class_user_input.html#af26e715cebcc2dbe9beb18149c68f149", null ],
     [ "outputIsEnabled", "dc/d4b/class_user_input.html#a852e23ba4a8e45d4220782448fd3bb8c", null ],
     [ "outputToStream", "dc/d4b/class_user_input.html#ab96315069a4c3383b45123001d8a540f", null ],
     [ "readCommandFromBuffer", "dc/d4b/class_user_input.html#a7f6ab5712afedca76ee55220276f8828", null ],
