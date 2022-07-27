@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QLabel,
     QVBoxLayout,
-    QWidget, 
+    QWidget,
     QSizePolicy,
 )
 from PySide6.QtCore import Qt
@@ -56,7 +56,7 @@ class HelperMethods(object):
             + str(button_text)
         )
         _buttons = []
-        dlg = QDialog(HelperMethods.parent)        
+        dlg = QDialog(HelperMethods.parent)
 
         def button_box_clicked(button):
             _match = 0
@@ -76,17 +76,19 @@ class HelperMethods(object):
 
         # create popup
         dlg.layout = QVBoxLayout()
-        dlg.label = QLabel(dlg)                
-        dlg.label.setMinimumSize(0,0)
-        dlg.label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        dlg.label = QLabel(dlg)
+        dlg.label.setMinimumSize(0, 0)
+        dlg.label.setSizePolicy(
+            QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
+        )
         dlg.label.setTextFormat(Qt.AutoText)
         dlg.label.setText(message)
         dlg.label.setAlignment(message_text_alignment)
-        
+
         if type(message_text_interaction_flags) == Qt.TextInteractionFlag:
             dlg.label.setTextInteractionFlags(message_text_interaction_flags)
         elif type(message_text_interaction_flags) == Qt.TextInteractionFlags:
-            dlg.label.setTextInteractionFlags(message_text_interaction_flags)                
+            dlg.label.setTextInteractionFlags(message_text_interaction_flags)
         dlg.label.setOpenExternalLinks(True)
         dlg.layout.addWidget(dlg.label)
 
@@ -106,6 +108,7 @@ class HelperMethods(object):
             dlg.setWindowIcon(icon)
         if window_title != None:
             dlg.setWindowTitle(window_title)
+        dlg.activateWindow()
         ret = dlg.exec()
         return ret
 
@@ -113,15 +116,21 @@ class HelperMethods(object):
         docstring_list = []
         year = str(datetime.date.today())[0:4]
         date = datetime.date.today()
-        docstring = file_docs_format_string.format(docs_version=version,docs_filename=filename,docs_brief=brief,docs_year=year,docs_date=date)
-        docstring_list = docstring.split("\n")        
+        docstring = file_docs_format_string.format(
+            docs_version=version,
+            docs_filename=filename,
+            docs_brief=brief,
+            docs_year=year,
+            docs_date=date,
+        )
+        docstring_list = docstring.split("\n")
         return docstring_list
 
     def list_to_code_string(self, list):
         code_string = ""
         for line in list:
             code_string = code_string + line + "\n"
-        return code_string    
+        return code_string
 
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)

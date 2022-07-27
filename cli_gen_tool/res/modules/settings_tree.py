@@ -60,6 +60,7 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
+            self.update_code_preview("setup.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -85,13 +86,13 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     str(sub_dict[2].strip("\n")) + " disabled"
                 )
-        SettingsTreeMethods.logger.debug(
+            SettingsTreeMethods.logger.debug(
             "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                 object_list[0], object_list[1]
             ),
             json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
-        )
-        self.update_code_preview("config.h", sub_dict[2], True)
+            )
+            self.update_code_preview("config.h", sub_dict[2], True)
 
     def settings_tree_item_activated(self, item):
         SettingsTreeMethods.logger.info(str(item) + " selected")
@@ -396,6 +397,17 @@ class SettingsTreeMethods(object):
         var_name = "defaultFunction"
         var_type = "enable/disable"
         var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            var_initial_val,
+            True,
+        )
+        
         # listCommands
         var_name = "listCommands"
         var_type = "enable/disable"

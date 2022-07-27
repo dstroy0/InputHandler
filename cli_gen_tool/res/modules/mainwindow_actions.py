@@ -19,12 +19,9 @@ import sys
 
 from PySide6.QtCore import QByteArray, QFile, QIODevice, Qt, QTextStream
 from PySide6.QtWidgets import (
-    QDialog,
     QDialogButtonBox,
     QFileDialog,
-    QLabel,
     QStyle,
-    QVBoxLayout,
 )
 from res.modules.helper_methods import HelperMethods
 from res.modules.logging_setup import Logger
@@ -253,8 +250,13 @@ class MainWindowActions(object):
             os.system('xdg-open "" https://dstroy0.github.io/InputHandler/')
 
     def gui_log_history(self):
-        if not self.log.isActiveWindow():
+        print("t")
+        if not self.log.isActiveWindow() and not self.log.isVisible():
             self.log.show()
+            self.log.raise_()
+            self.log.activateWindow()
+            return
+        if self.log.isVisible():
             self.log.raise_()
             self.log.activateWindow()
 
