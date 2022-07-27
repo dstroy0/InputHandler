@@ -148,10 +148,10 @@ class SettingsTreeMethods(object):
         else:
             if val == "":
                 tmp = 0
-                item.setText(3, "'"+str(repr(tmp))+"'")
+                item.setText(3, "'" + str(repr(tmp)) + "'")
             else:
                 tmp = int(val)
-                item.setText(3, "'"+str(repr(tmp))+"'")
+                item.setText(3, "'" + str(repr(tmp)) + "'")
         if tmp == sub_dict[3]:
             return
         # update the config dict
@@ -392,6 +392,10 @@ class SettingsTreeMethods(object):
         tree["root"] = QTreeWidgetItem(self.ui.settings_tree, [dict_key, ""])
         tree["root"].setIcon(0, self.ui.commandLinkIcon)
 
+        # defaultFunction
+        var_name = "defaultFunction"
+        var_type = "enable/disable"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
         # listCommands
         var_name = "listCommands"
         var_type = "enable/disable"

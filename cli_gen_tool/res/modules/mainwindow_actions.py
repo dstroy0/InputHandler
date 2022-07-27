@@ -253,10 +253,9 @@ class MainWindowActions(object):
             os.system('xdg-open "" https://dstroy0.github.io/InputHandler/')
 
     def gui_log_history(self):
-        if not self.log.isVisible():
+        if not self.log.isActiveWindow():
             self.log.show()
-            self.log.activateWindow()
-        else:
+            self.log.raise_()
             self.log.activateWindow()
 
     def mainwindow_menu_bar_actions_setup(self):
@@ -275,7 +274,9 @@ class MainWindowActions(object):
         self.ui.actionInputHandler_Documentation.triggered.connect(
             self.gui_documentation
         )
+
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
+
         # end file menu actions setup
 
     def mainwindow_button_actions_setup(self):

@@ -12,13 +12,21 @@
 
 from __future__ import absolute_import
 import logging
-from res.modules.dev_qol_var import log_file_handler, _log_formatter
+from PySide6.QtCore import Qt
+from res.modules.dev_qol_var import (
+    log_file_handler,
+    _log_formatter,
+    file_log_level,
+    session_history_log_level,
+    stream_log_level,
+)
 
 
 class QPlainTextEditLogger(logging.Handler):
     def __init__(self, parent):
         super(QPlainTextEditLogger, self).__init__()
         self.widget = parent.log.dlg.logHistoryPlainTextEdit
+        self.parent = parent
         # settings for the widget are in the `logHistoryDialog.ui` file
 
     def emit(self, record):
@@ -30,27 +38,26 @@ class Logger(object):
         super().__init__()
 
     def setup_file_handler():
-        log_file_handler.setLevel(logging.INFO)
+        log_file_handler.setLevel(file_log_level)
         log_file_handler.setFormatter(_log_formatter)
-            
-    def get_child_logger(parent,name):
+
+    def get_child_logger(parent, name):
         return parent.getChild(name)
-    
+
     def get_file_handler():
         return log_file_handler
 
     def get_stream_handler():
         stream_handler = logging.StreamHandler()
-        stream_handler.setLevel(logging.INFO)
+        stream_handler.setLevel(stream_log_level)
         stream_handler.setFormatter(_log_formatter)
         return stream_handler
 
     def get_logger(self, name):
-        log_handler = QPlainTextEditLogger(self)        
-        logger = logging.getLogger(name)          
-        logger.setLevel(logging.INFO)                
+        log_handler = QPlainTextEditLogger(self)
+        logger = logging.getLogger(name)
+        logger.setLevel(session_history_log_level)
         logger.addHandler(Logger.get_file_handler())
         logger.addHandler(Logger.get_stream_handler())
         logger.addHandler(log_handler)
         return logger
-        

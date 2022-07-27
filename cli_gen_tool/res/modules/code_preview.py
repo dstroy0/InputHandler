@@ -15,8 +15,7 @@ from __future__ import absolute_import
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
-from res.modules.dev_qol_var import (
-    code_preview_text_line_offset,
+from res.modules.dev_qol_var import (    
     filestring_db,
 )
 
@@ -51,7 +50,8 @@ class CodePreview(object):
             code_preview = self.ui.codePreview_1
         elif watched == self.ui.codePreview_2.viewport():
             code_preview = self.ui.codePreview_2
-
+        else:
+            return
         if (
             event_type == event.MouseButtonPress
             or event_type == event.MouseButtonRelease
@@ -193,11 +193,12 @@ class CodePreview(object):
 
     def set_code_string(self, filename, code_string, item_string, place_cursor=False):
         for tab in range(2):
-            text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
+            text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]            
             text_widget.clear()
             text_widget.setPlainText(code_string)
             if place_cursor == True:
-                self.set_text_cursor(text_widget, item_string)
+                self.code_preview_dict["files"][filename]["tree_item"][tab].setExpanded(True)
+                self.set_text_cursor(text_widget, item_string)                
 
     def update_config_h(self, item_string, place_cursor=False):
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
