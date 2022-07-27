@@ -17,13 +17,7 @@ from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 from res.modules.dev_qol_var import (
     code_preview_text_line_offset,
-    setup_h_addcommand_string,
-    setup_h_class_output_string,
-    setup_h_constructor_string,
-    setup_h_filestring,
-    setup_h_options_string_list,
-    setup_h_output_buffer_string,
-    setup_h_default_function_string,
+    filestring_db,
 )
 
 from res.modules.logging_setup import Logger
@@ -269,15 +263,16 @@ class CodePreview(object):
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
         object_name = "inputHandler"
-        output_buffer = setup_h_output_buffer_string.format(
+        output_buffer = filestring_db["setup"]["h"]["filestring components"]["outputbuffer"].format(
             buffersize=buffer_size, bufferchar=buffer_char
         )
-        class_constructor = setup_h_constructor_string.format(
-            objectname=object_name, classoutput=setup_h_class_output_string
+        class_output = filestring_db["setup"]["h"]["filestring components"]["classoutput"].format(input_prm="input_prm",outputbuffer="InputHandler_output_buffer")
+        class_constructor = filestring_db["setup"]["h"]["filestring components"]["constructor"].format(
+            objectname=object_name, classoutput=class_output
         )
         if int(buffer_size) == 0:
             output_buffer = ""
-            class_constructor = setup_h_constructor_string.format(
+            class_constructor = filestring_db["setup"]["h"]["filestring components"]["constructor"].format(
                 objectname=object_name, classoutput=""
             )
         # process parameters
@@ -295,7 +290,7 @@ class CodePreview(object):
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-        default_function_string = setup_h_default_function_string.format(
+        default_function_string = filestring_db["setup"]["h"]["filestring components"]["defaultFunction"]["call"].format(
             objectname=object_name, defaultfunctionname="unrecognized"
         )
 
@@ -315,13 +310,13 @@ class CodePreview(object):
             command_parameters_name = (
                 str(self.cliOpt["commands"][key]["functionName"]) + "_"
             )
-            command_list_string = setup_h_addcommand_string.format(
+            command_list_string = filestring_db["setup"]["h"]["filestring components"]["addCommand"]["call"].format(
                 objectname=object_name, commandparametersname=command_parameters_name
             )
 
         options_string = ""
 
-        setup_h = setup_h_filestring.format(
+        setup_h = filestring_db["setup"]["h"]["filestring"].format(
             objectname=object_name,
             outputbuffer=output_buffer,
             constructor=class_constructor,

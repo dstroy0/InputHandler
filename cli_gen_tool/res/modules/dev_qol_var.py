@@ -215,19 +215,9 @@ config_file_boolean_define_fields_line_start = 71
 ## This offsets code preview line display; Positive values move text lines down, Negative values move text lines up.
 code_preview_text_line_offset = 4
 
-# TODO these should be in a dict, filestring_construction_db or something
-## setup.h
 
-setup_h_default_function_string = "  {objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
-setup_h_class_output_string = "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))"
-setup_h_constructor_string = "UserInput {objectname}{classoutput};"
-setup_h_addcommand_string = "    {objectname}.addCommand({commandparametersname});\n"
-setup_h_options_string_list = [
-    "  {objectname}.listCommands(); // formats output_buffer with the command list\n",
-    "  {objectname}.outputToStream({stream}); // class output\n",
-]
-setup_h_output_buffer_string = "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n"
-setup_h_filestring = """
+# file strings and filestring_db dict
+setup_filestring = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
     #include "InputHandler.h"
@@ -276,13 +266,6 @@ void InputHandler_setup()
 #endif
 // end of file
 """
-# end setup.h
-
-## functions.h
-# prototypes only
-function_prototype = "void {functionname}(UserInput* _{objectname});"
-# TODO finish builtin prototypes dict
-builtin_prototypes_dict = {"help": "", "unrecognized": ""}
 functions_h_filestring = """
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
@@ -293,15 +276,8 @@ functions_h_filestring = """
 #endif
 // end of file
 """
-# end functions.h
 
-## functions.cpp
-# non-proto only
-# TODO finish default function statements
-builtin_function_statements_dict = {
-    "outputToStream": "  _{objectname}->outputToStream({stream});"
-}
-function_string = """void {functionname}(UserInput* _{objectname})
+functions_cpp_functionstring = """void {functionname}(UserInput* _{objectname})
 {{
     {statements}
 }}
@@ -316,36 +292,29 @@ functions_cpp_filestring = """
 #endif
 // end of file
 """
-# end functions.cpp
 
-## parameters.h
-# only CommandParameters and nests
 commandparameters_string = """
 /**
    @brief CommandParameters struct for {functionname}
 */
 const PROGMEM CommandParameters {functionname}_param[1] = 
 {{
-    {functionname},                     // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-    {wildcardflag},             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    {commandstring},                   // command string
-    {lencommandstring},                        // command string characters
-    {parentid},                     // parent id
-    {commandid},                     // this command id
-    {commanddepth},                     // command depth
-    {commandsubcommands},                        // subcommands
+    {functionname}, // function pointer
+    {wildcardflag}, // wildcard flag
+    {commandstring}, // command string
+    {lencommandstring}, // command string num characters
+    {parentid}, // parent id
+    {commandid}, // this command id (tree unique)
+    {commanddepth}, // command depth
+    {commandsubcommands}, // number of subcommands
     {argumenthandling}, // argument handling
-    {minnumargs},                        // minimum expected number of arguments
-    {maxnumargs},                        // maximum expected number of arguments
+    {minnumargs}, // minimum expected number of arguments
+    {maxnumargs}, // maximum expected number of arguments
     /* UITYPE arguments */
-    {argtypearray} // use NO_ARGS if the function expects no arguments    
+    {argtypearray}    
 }};
 {commandconstructor}
 """
-
-nested_commandparameters_child_string = (
-    "    *{functionname}_param{comma} // pointer to {functionname}_param\n"
-)
 
 nested_commandparameters_string = """
 /**
@@ -354,26 +323,24 @@ nested_commandparameters_string = """
 const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchildren} /* child(ren) */] = 
 {{
     {{
-      {functionname},                     // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-      {wildcardflag},             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-      {commandstring},                   // command string
-      {lencommandstring},                        // command string characters
-      {parentid},                     // parent id
-      {commandid},                     // this command id
-      {commanddepth},                     // command depth
-      {commandsubcommands},                        // subcommands
+      {functionname}, // function pointer
+      {wildcardflag}, // wildcard flag
+      {commandstring}, // command string
+      {lencommandstring}, // command string num characters
+      {parentid}, // parent id
+      {commandid}, // this command id (tree unique)
+      {commanddepth}, // command depth
+      {commandsubcommands}, // number of subcommands
       {argumenthandling}, // argument handling
-      {minnumargs},                        // minimum expected number of arguments
-      {maxnumargs},                        // maximum expected number of arguments
+      {minnumargs}, // minimum expected number of arguments
+      {maxnumargs}, // maximum expected number of arguments
       /* UITYPE arguments */
-      {argtypearray} // use NO_ARGS if the function expects no arguments    
+      {argtypearray}   
     }},
     {children}    
 }};
 {commandconstructor}
 """
-
-commandconstructor_string = "CommandConstructor {functionname}_({functionname}_param); //  help has a command string, and function specified"
 
 parameters_h_filestring = """
 #if !defined(__PARAMETERS_H__)
@@ -385,7 +352,61 @@ parameters_h_filestring = """
 #endif
 // end of file
 """
-# end parameters.h
+## contains file construction strings
+filestring_db = {
+    "setup": {
+        "h": {
+            "filestring components": {
+                "outputbuffer": "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n",
+                "defaultFunction": {
+                    "call": "  {objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
+                },
+                "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
+                "constructor": "UserInput {objectname}{classoutput};",
+                "addCommand": {
+                    "call": "  {objectname}.addCommand({commandparametersname});\n"
+                },
+                "listCommands": {
+                    "call": "  {objectname}.listCommands(); // formats {outputbuffer} with the command list\n"
+                },
+                "listSettings": {
+                    "call": "  {objectname}.listSettings(); // formats {outputbuffer} with the process settings (uses a lot of ram; for setting and testing)\n"
+                },
+                "outputToStream": {
+                    "call": "  {objectname}.outputToStream({stream}); // class output\n"
+                },
+            },
+            "filestring": setup_filestring,
+        }
+    },  # end setup
+    "functions": {
+        "h": {
+            "filestring components": {
+                "function prototype": "void {functionname}(UserInput* _{objectname});\n"
+            },
+            "filestring": functions_h_filestring,
+        },  # end functions h
+        "cpp": {
+            "filestring components": {
+                "outputToStream": {
+                    "call": "  _{objectname}->outputToStream({stream});"
+                },
+                "function": functions_cpp_functionstring,
+            },
+            "filestring": functions_cpp_filestring,
+        },  # end functions cpp
+    },  # end functions
+    "parameters": {
+        "h": {
+            "filestring components": {"nested child":"    *{functionname}_param{comma} // pointer to {functionname}_param\n",
+                                      "command constructor":"CommandConstructor {functionname}_({functionname}_param); //  help has a command string, and function specified",
+                                      "parameters":commandparameters_string,
+                                      "nested parameters":nested_commandparameters_string
+            },
+            "filestring": parameters_h_filestring
+        } # end parameters h
+    } # end parameters
+}
 
 # end dev qol var
 # end of file
