@@ -5,7 +5,6 @@ var dev__qol__var_8py =
     [ "_log_format", "d4/da6/dev__qol__var_8py.html#a40eff5c2f9a1a7da44d62a059562a98b", null ],
     [ "_log_formatter", "d4/da6/dev__qol__var_8py.html#a18db4f19ef35f5158cb932938f15bc54", null ],
     [ "_MB", "d4/da6/dev__qol__var_8py.html#ab4bc0712bd890078663cfbcb585aabb2", null ],
-    [ "code_preview_text_line_offset", "d4/da6/dev__qol__var_8py.html#a964286997d7d60696725946a538aa5e8", null ],
     [ "command_arg_types_list", "d4/da6/dev__qol__var_8py.html#ae754ff9f8407a61614c914f3e9516195", null ],
     [ "command_line_interface_options_structure", "d4/da6/dev__qol__var_8py.html#a48cb407e943e0652790a092e608a7b69", null ],
     [ "command_parameters_dict_keys_list", "d4/da6/dev__qol__var_8py.html#ab28e8ba4dca8d6b27b9560336125905f", null ],
@@ -13,6 +12,7 @@ var dev__qol__var_8py =
     [ "config_file_boolean_define_fields_line_start", "d4/da6/dev__qol__var_8py.html#a2d5f6fdd5e5b5030a7e1ef0de98a9989", null ],
     [ "default_session_structure", "d4/da6/dev__qol__var_8py.html#ae847b3d5ade9fba7c4ad26fd3f903934", null ],
     [ "file_docs_format_string", "d4/da6/dev__qol__var_8py.html#a3fa15567bddb48463b6bd9ca86ec54ea", null ],
+    [ "file_log_level", "d4/da6/dev__qol__var_8py.html#af1a440d17e9b1e800d85708705649595", null ],
     [ "filestring_db", "d4/da6/dev__qol__var_8py.html#a878857ab68bca9a1154a7b87ba531494", null ],
     [ "functions_cpp_filestring", "d4/da6/dev__qol__var_8py.html#a06274272db0e8d0d0e005d552a5cd884", null ],
     [ "functions_cpp_functionstring", "d4/da6/dev__qol__var_8py.html#a933db81c3af95f0f9ca2d6f21faeef63", null ],
@@ -25,7 +25,9 @@ var dev__qol__var_8py =
     [ "nested_commandparameters_string", "d4/da6/dev__qol__var_8py.html#a1041ba921bfd1f6877088bdd45298ab5", null ],
     [ "parameters_h_filestring", "d4/da6/dev__qol__var_8py.html#a01646895feb76ef82f59fc582e3d0418", null ],
     [ "path", "d4/da6/dev__qol__var_8py.html#a8dcb2277898748270d411770a0c222ef", null ],
+    [ "session_history_log_level", "d4/da6/dev__qol__var_8py.html#a72cd3d6d02956e1071a119ecf8c9a095", null ],
     [ "setup_filestring", "d4/da6/dev__qol__var_8py.html#a2bcd6a089be7b9cb3441ea4999cd8042", null ],
     [ "splashscreen_duration", "d4/da6/dev__qol__var_8py.html#a90324adad133f6fa81f83fdf20536594", null ],
+    [ "stream_log_level", "d4/da6/dev__qol__var_8py.html#a95adb978faf9008b2c3966f44b5ab57b", null ],
     [ "version", "d4/da6/dev__qol__var_8py.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
 ];
