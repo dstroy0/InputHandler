@@ -105,7 +105,7 @@ default_session_structure = {
 ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
 command_line_interface_options_structure = {
     "type": "cli options",
-    "var": {"num_commands": 0, "tool_version": str(version)},
+    "var": {"tool_version": str(version)},
     "commands": {},
     "config": {
         "file_lines": [],
@@ -259,10 +259,10 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
 
 void InputHandler_setup()
 {{
-    Serial.println(F("{setupstring}"));
+    
     {defaultfunction}
     {commandlist}
-    {objectname}.begin();                       // required.  returns true on success.
+    {objectname}.begin(); // required.  returns true on success.
     {options}
 }}
 #endif
@@ -361,7 +361,7 @@ filestring_db = {
             "filestring components": {
                 "outputbuffer": "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n",
                 "defaultFunction": {
-                    "call": "  {objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
+                    "call": "{objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
                 },
                 "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                 "constructor": "UserInput {objectname}{classoutput};",
@@ -377,6 +377,10 @@ filestring_db = {
                 "outputToStream": {
                     "call": "  {objectname}.outputToStream({stream}); // class output\n"
                 },
+                "setup function entry output":{
+                    "stream": "{stream}.println(F(\"{setupstring}\"));",
+                    "buffer": "{outputbuffer}"
+                }
             },
             "filestring": setup_filestring,
         }

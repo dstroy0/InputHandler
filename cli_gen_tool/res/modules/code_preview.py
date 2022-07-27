@@ -291,9 +291,12 @@ class CodePreview(object):
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-        default_function_string = filestring_db["setup"]["h"]["filestring components"]["defaultFunction"]["call"].format(
+        
+        default_function_string = ""
+        if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
+            default_function_string = filestring_db["setup"]["h"]["filestring components"]["defaultFunction"]["call"].format(            
             objectname=object_name, defaultfunctionname="unrecognized"
-        )
+        )                    
 
         result = sequence_string_helper(delim_seq)
         num_delim_seq = result[0]

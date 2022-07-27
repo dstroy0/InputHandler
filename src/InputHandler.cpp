@@ -474,9 +474,9 @@ char* UserInput::getArgument(size_t argument_number)
 #endif // end ENABLE_getArgument
 
 #if defined(ENABLE_outputIsAvailable)
-inline bool UserInput::outputIsAvailable()
-{
-    return _output_flag_;
+size_t UserInput::outputIsAvailable()
+{    
+    return _output_buffer_len_ - _output_buffer_bytes_left_;
 } // end outputIsAvailable
 #endif // end ENABLE_outputIsAvailable
 

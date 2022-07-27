@@ -485,12 +485,14 @@ public:
 
     #if defined(ENABLE_outputIsAvailable)
     /**
-     * @brief is class output available
+     * @brief class output available if the return of this function is greater than zero
+     * 
+     * (True) if greater than 0 
+     * (False) if 0
      *
-     * @return true if output is available
-     * @return false if no output is available
+     * @return the number of bytes available for output, or zero if there is no output     
      */
-    bool outputIsAvailable();
+    size_t outputIsAvailable();
     #endif
 
     #if defined(ENABLE_outputIsEnabled)
