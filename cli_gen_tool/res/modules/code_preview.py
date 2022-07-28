@@ -15,7 +15,7 @@ from __future__ import absolute_import
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
-from res.modules.dev_qol_var import (    
+from res.modules.dev_qol_var import (
     filestring_db,
 )
 
@@ -182,23 +182,25 @@ class CodePreview(object):
                 tree.setItemWidget(text_widget_container, 0, text_widget)
 
     # end build_code_preview_tree()
-    
-    def set_text_cursor(self, text_widget, item_string):        
-        cursor = QTextCursor(text_widget.document().find(item_string))                           
+
+    def set_text_cursor(self, text_widget, item_string):
+        cursor = QTextCursor(text_widget.document().find(item_string))
         cursor.movePosition(cursor.EndOfLine)
-        text_widget.setTextCursor(cursor)                    
-        cursor.movePosition(cursor.StartOfLine,QTextCursor.KeepAnchor,1)                            
-        text_widget.setTextCursor(cursor)    
-        text_widget.centerCursor()  
+        text_widget.setTextCursor(cursor)
+        cursor.movePosition(cursor.StartOfLine, QTextCursor.KeepAnchor, 1)
+        text_widget.setTextCursor(cursor)
+        text_widget.centerCursor()
 
     def set_code_string(self, filename, code_string, item_string, place_cursor=False):
         for tab in range(2):
-            text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]            
+            text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
             text_widget.setPlainText(code_string)
             if place_cursor == True:
-                self.code_preview_dict["files"][filename]["tree_item"][tab].setExpanded(True)
-                self.set_text_cursor(text_widget, item_string)                
+                self.code_preview_dict["files"][filename]["tree_item"][tab].setExpanded(
+                    True
+                )
+                self.set_text_cursor(text_widget, item_string)
 
     def update_config_h(self, item_string, place_cursor=False):
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
@@ -206,19 +208,14 @@ class CodePreview(object):
         ]["file_lines"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         for key in cfg_dict:
-            for item in cfg_dict[key]:                
+            for item in cfg_dict[key]:
                 if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
                     sub_dict = cfg_dict[key][item]["fields"]
                     if sub_dict[3] == True or sub_dict[3] == False:
                         val = ""
                     else:
                         val = sub_dict[3]
-                    line = (
-                        str(sub_dict[1])
-                        + "#define "
-                        + str(sub_dict[2])
-                        + str(val)
-                    )
+                    line = str(sub_dict[1]) + "#define " + str(sub_dict[2]) + str(val)
                     self.code_preview_dict["files"]["config.h"]["file_lines_list"][
                         int(sub_dict[0])
                     ] = line
@@ -264,18 +261,20 @@ class CodePreview(object):
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
         object_name = "inputHandler"
-        output_buffer = filestring_db["setup"]["h"]["filestring components"]["outputbuffer"].format(
-            buffersize=buffer_size, bufferchar=buffer_char
-        )
-        class_output = filestring_db["setup"]["h"]["filestring components"]["classoutput"].format(input_prm="input_prm",outputbuffer="InputHandler_output_buffer")
-        class_constructor = filestring_db["setup"]["h"]["filestring components"]["constructor"].format(
-            objectname=object_name, classoutput=class_output
-        )
+        output_buffer = filestring_db["setup"]["h"]["filestring components"][
+            "outputbuffer"
+        ].format(buffersize=buffer_size, bufferchar=buffer_char)
+        class_output = filestring_db["setup"]["h"]["filestring components"][
+            "classoutput"
+        ].format(input_prm="input_prm", outputbuffer="InputHandler_output_buffer")
+        class_constructor = filestring_db["setup"]["h"]["filestring components"][
+            "constructor"
+        ].format(objectname=object_name, classoutput=class_output)
         if int(buffer_size) == 0:
             output_buffer = ""
-            class_constructor = filestring_db["setup"]["h"]["filestring components"]["constructor"].format(
-                objectname=object_name, classoutput=""
-            )
+            class_constructor = filestring_db["setup"]["h"]["filestring components"][
+                "constructor"
+            ].format(objectname=object_name, classoutput="")
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
         process_name = pprm["process name"]
@@ -291,12 +290,24 @@ class CodePreview(object):
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
         setup_string = "Setting up InputHandler..."
-        
+
+        setup_function_entry = ""
+        stream_string = self.cliOpt["process output"]["var"]["output stream"]
+        if stream_string != "" and stream_string != None and int(buffer_size) != 0:
+            setup_function_entry = filestring_db["setup"]["h"]["filestring components"][
+                "setup function output"
+            ]["stream"].format(
+                stream=self.cliOpt["process output"]["var"]["output stream"],
+                setupstring=setup_string,
+            )
+
         default_function_string = ""
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
-            default_function_string = filestring_db["setup"]["h"]["filestring components"]["defaultFunction"]["call"].format(            
-            objectname=object_name, defaultfunctionname="unrecognized"
-        )                    
+            default_function_string = filestring_db["setup"]["h"][
+                "filestring components"
+            ]["defaultFunction"]["call"].format(
+                objectname=object_name, defaultfunctionname="unrecognized"
+            )
 
         result = sequence_string_helper(delim_seq)
         num_delim_seq = result[0]
@@ -314,7 +325,9 @@ class CodePreview(object):
             command_parameters_name = (
                 str(self.cliOpt["commands"][key]["functionName"]) + "_"
             )
-            command_list_string = filestring_db["setup"]["h"]["filestring components"]["addCommand"]["call"].format(
+            command_list_string = filestring_db["setup"]["h"]["filestring components"][
+                "addCommand"
+            ]["call"].format(
                 objectname=object_name, commandparametersname=command_parameters_name
             )
 
@@ -335,7 +348,7 @@ class CodePreview(object):
             numstartstoppairs=num_ststp_pairs,
             startstopseqlens=ststp_seq_lens_string,
             startstopseqs=ststp_seqs_string,
-            setupstring=setup_string,
+            setupfunctionentry=setup_function_entry,
             commandlist=command_list_string,
             options=options_string,
         )

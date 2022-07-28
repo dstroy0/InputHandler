@@ -259,7 +259,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
 
 void InputHandler_setup()
 {{
-    
+    {setupfunctionentry}
     {defaultfunction}
     {commandlist}
     {objectname}.begin(); // required.  returns true on success.
@@ -361,10 +361,10 @@ filestring_db = {
             "filestring components": {
                 "outputbuffer": "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n",
                 "defaultFunction": {
-                    "call": "{objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid"
+                    "call": "{objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid\n"
                 },
                 "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
-                "constructor": "UserInput {objectname}{classoutput};",
+                "constructor": "UserInput {objectname}{classoutput};\n",
                 "addCommand": {
                     "call": "  {objectname}.addCommand({commandparametersname});\n"
                 },
@@ -377,9 +377,9 @@ filestring_db = {
                 "outputToStream": {
                     "call": "  {objectname}.outputToStream({stream}); // class output\n"
                 },
-                "setup function entry output":{
-                    "stream": "{stream}.println(F(\"{setupstring}\"));",
-                    "buffer": "{outputbuffer}"
+                "setup function output":{
+                    "stream": "{stream}.println(F(\"{setupstring}\"));\n",
+                    "buffer": "if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen({setupstring})) {{\n  snprintf_P({outputbuffer} + outputIsAvailable(), {setupstring});\n}}"
                 }
             },
             "filestring": setup_filestring,
