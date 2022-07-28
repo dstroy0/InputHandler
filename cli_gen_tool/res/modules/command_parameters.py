@@ -53,6 +53,7 @@ class CommandParametersMethods(object):
 
     def csv_button(self):
         CommandParametersMethods.logger.info(self.sender().objectName())
+        rem_list = ["rem","rem1","rem2","rem3","rem4","rem5","rem6","rem7"]
         test_string = self.sender().objectName()
         if test_string == "add8bituint":
             self.append_to_arg_csv("UINT8_T,")
@@ -70,9 +71,7 @@ class CommandParametersMethods(object):
             self.append_to_arg_csv("STARTSTOP,")
         elif test_string == "addnotype":
             self.append_to_arg_csv("NOTYPE,")
-        elif test_string == (
-            "rem" or "rem1" or "rem2" or "rem3" or "rem4" or "rem5" or "rem6" or "rem7"
-        ):
+        elif test_string in rem_list:            
             self.rem_from_arg_csv()
 
     def append_to_arg_csv(self, string):
@@ -88,7 +87,7 @@ class CommandParametersMethods(object):
         text.clear()
         arg_text = ""
         arg_list = list(arg_dict.values())
-        for index in range(len(arg_list) - 1):
+        for index in range(len(arg_list)):
             arg_text = arg_text + arg_list[index] + ","
         text.insertPlainText(arg_text)
 
@@ -171,8 +170,8 @@ class CommandParametersMethods(object):
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
             settings_to_validate["commandArguments"] = tmp
-        CommandParametersMethods.logger.info(settings_to_validate)
-        CommandParametersMethods.logger.info(error_list)
+        CommandParametersMethods.logger.debug(settings_to_validate)
+        CommandParametersMethods.logger.debug(error_list)
         if err == True:
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}

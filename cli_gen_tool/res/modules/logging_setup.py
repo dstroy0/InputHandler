@@ -12,7 +12,6 @@
 
 from __future__ import absolute_import
 import logging
-from PySide6.QtCore import Qt
 from res.modules.dev_qol_var import (
     log_file_handler,
     _log_formatter,

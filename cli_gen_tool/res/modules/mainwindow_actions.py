@@ -37,10 +37,12 @@ class MainWindowActions(object):
     # do before close
     def do_before_app_close(self, event=None):
         MainWindowActions.logger.debug(event)
-        b = QDialogButtonBox.StandardButton
-        buttons = [b.Save, b.Close, b.Cancel]
-        button_text = ["", "Close without saving", ""]
-        result = self.create_qdialog(
+        result = 0
+        if self.prompt_to_save == True:
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Save, b.Close, b.Cancel]
+            button_text = ["", "Close without saving", ""]
+            result = self.create_qdialog(
             "Save your work?",
             Qt.AlignCenter,
             0,
@@ -49,26 +51,34 @@ class MainWindowActions(object):
             button_text,
             HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxQuestion),
         )
-        if result == 2:
-            MainWindowActions.logger.info("saving")
+        else: # no work to save
+            result = 4
+        
+        # log the exit type    
+        if result == 0:
+            if event != None and type(event) != bool:
+                event.ignore()
+            MainWindowActions.logger.info("Exit cancelled")
+        elif result == 2:            
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
             self.log.close()
-            MainWindowActions.logger.info("Exiting CLI generation tool")
+            MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
             if event != None and type(event) != bool:
                 event.accept()
             sys.exit(self.app.quit())
-        elif result == 3:
-            MainWindowActions.logger.warning("not saving")
+        elif result == 3:            
             self.log.close()
-            MainWindowActions.logger.info("Exiting CLI generation tool")
+            MainWindowActions.logger.info("Not saved. Exiting CLI generation tool.")
             if event != None and type(event) != bool:
                 event.accept()
             sys.exit(self.app.quit())
-        elif result == 0:
+        elif result == 4:
+            self.log.close()            
+            MainWindowActions.logger.info("Nothing to Save. Exiting CLI generation tool.")
             if event != None and type(event) != bool:
-                event.ignore()
-            MainWindowActions.logger.info("exit cancelled")
+                event.accept()
+            sys.exit(self.app.quit())
 
     def load_cli_gen_tool_json(self, path):
         session = {}

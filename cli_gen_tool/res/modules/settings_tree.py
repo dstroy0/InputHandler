@@ -46,6 +46,7 @@ class SettingsTreeMethods(object):
         item.setText(2, type_field)
 
     def settings_tree_combo_box_index_changed(self, index):
+        self.prompt_to_save = True
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
@@ -87,10 +88,12 @@ class SettingsTreeMethods(object):
                     str(sub_dict[2].strip("\n")) + " disabled"
                 )
             SettingsTreeMethods.logger.debug(
-            "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                object_list[0], object_list[1]
-            ),
-            json.dumps(sub_dict, indent=2, sort_keys=False, default=lambda o: "object"),
+                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
+                    object_list[0], object_list[1]
+                ),
+                json.dumps(
+                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
+                ),
             )
             self.update_code_preview("config.h", sub_dict[2], True)
 
@@ -105,6 +108,7 @@ class SettingsTreeMethods(object):
 
     # this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
+        self.prompt_to_save = True
         if col != 3:
             return
         val = str(item.data(3, 0))
@@ -407,7 +411,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             True,
         )
-        
+
         # listCommands
         var_name = "listCommands"
         var_type = "enable/disable"

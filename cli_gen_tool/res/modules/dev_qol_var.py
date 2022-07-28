@@ -258,12 +258,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
 {constructor}
 
 void InputHandler_setup()
-{{
-    {setupfunctionentry}
-    {defaultfunction}
-    {commandlist}
-    {objectname}.begin(); // required.  returns true on success.
-    {options}
+{{{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}
 }}
 #endif
 // end of file
@@ -359,27 +354,30 @@ filestring_db = {
     "setup": {
         "h": {
             "filestring components": {
-                "outputbuffer": "\nchar InputHandler_output_buffer[{buffersize}] = {bufferchar}; // output buffer size\n",
+                "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                 "defaultFunction": {
-                    "call": "{objectname}.defaultFunction({defaultfunctionname}); // set default function, called when user input has no match or is not valid\n"
+                    "call": "\n  {objectname}.defaultFunction({defaultfunctionname}); // default function is called when user input has no match or is not valid"
                 },
                 "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                 "constructor": "UserInput {objectname}{classoutput};\n",
                 "addCommand": {
-                    "call": "  {objectname}.addCommand({commandparametersname});\n"
+                    "call": "\n  {objectname}.addCommand({commandparametersname});"
                 },
                 "listCommands": {
-                    "call": "  {objectname}.listCommands(); // formats {outputbuffer} with the command list\n"
+                    "call": "\n  {objectname}.listCommands(); // formats {outputbuffer} with the command list"
                 },
                 "listSettings": {
-                    "call": "  {objectname}.listSettings(); // formats {outputbuffer} with the process settings (uses a lot of ram; for setting and testing)\n"
+                    "call": "\n  {objectname}.listSettings(); // formats {outputbuffer} with the process settings (uses a lot of ram; for setting and testing)"
                 },
                 "outputToStream": {
-                    "call": "  {objectname}.outputToStream({stream}); // class output\n"
+                    "call": "\n  {objectname}.outputToStream({stream}); // class output"
+                },
+                "begin": {
+                    "call": "\n  {objectname}.begin(); // Required. Returns true on success."
                 },
                 "setup function output":{
-                    "stream": "{stream}.println(F(\"{setupstring}\"));\n",
-                    "buffer": "if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen({setupstring})) {{\n  snprintf_P({outputbuffer} + outputIsAvailable(), {setupstring});\n}}"
+                    "stream": "\n  {stream}.println(F(\"{setupstring}\"));",
+                    "buffer": "\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen(\"{setupstring}\")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), \"{setupstring}\");\n  }}"
                 }
             },
             "filestring": setup_filestring,

@@ -45,16 +45,7 @@ class HelperMethods(object):
         button_text=None,
         icon=None,
     ):
-        HelperMethods.logger.info(
-            "message: "
-            + message
-            + ", windowtitle: "
-            + window_title
-            + ", buttons: "
-            + str(buttons)
-            + ", button text: "
-            + str(button_text)
-        )
+        HelperMethods.logger.info("create qdialog: " + window_title)
         _buttons = []
         dlg = QDialog(HelperMethods.parent)
 
@@ -76,8 +67,8 @@ class HelperMethods(object):
 
         # create popup
         dlg.layout = QVBoxLayout()
-        dlg.label = QLabel(dlg)
-        dlg.label.setMinimumSize(0, 0)
+        dlg.label = QLabel()
+        dlg.label.setMinimumSize(0, 15)
         dlg.label.setSizePolicy(
             QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
         )
@@ -108,8 +99,8 @@ class HelperMethods(object):
             dlg.setWindowIcon(icon)
         if window_title != None:
             dlg.setWindowTitle(window_title)
-        dlg.activateWindow()
-        ret = dlg.exec()
+        dlg.activateWindow() # brings focus to the popup
+        ret = dlg.exec() # return the dialog exit code
         return ret
 
     def generate_docstring_list_for_filename(self, filename, brief):

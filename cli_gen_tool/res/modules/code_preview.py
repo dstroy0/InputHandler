@@ -258,15 +258,23 @@ class CodePreview(object):
         )
         self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
         # process output
+        output_buffer_name = "InputHandler_output_buffer"
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
         object_name = "inputHandler"
         output_buffer = filestring_db["setup"]["h"]["filestring components"][
             "outputbuffer"
-        ].format(buffersize=buffer_size, bufferchar=buffer_char)
+        ].format(
+            outputbuffername=output_buffer_name,
+            buffersize=buffer_size,
+            bufferchar=buffer_char,
+        )
         class_output = filestring_db["setup"]["h"]["filestring components"][
             "classoutput"
         ].format(input_prm="input_prm", outputbuffer="InputHandler_output_buffer")
+
+        setup_function_entry_string = "Setting up InputHandler..."
+
         class_constructor = filestring_db["setup"]["h"]["filestring components"][
             "constructor"
         ].format(objectname=object_name, classoutput=class_output)
@@ -275,6 +283,7 @@ class CodePreview(object):
             class_constructor = filestring_db["setup"]["h"]["filestring components"][
                 "constructor"
             ].format(objectname=object_name, classoutput="")
+
         # process parameters
         pprm = self.cliOpt["process parameters"]["var"]
         process_name = pprm["process name"]
@@ -289,7 +298,6 @@ class CodePreview(object):
         process_wcc = str(repr(pprm["wildcard char"])).strip("'").replace("\\\\", "\\")
         delim_seq = pprm["data delimiter sequences"]
         ststp_seq = pprm["start stop data delimiter sequences"]
-        setup_string = "Setting up InputHandler..."
 
         setup_function_entry = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
@@ -298,7 +306,14 @@ class CodePreview(object):
                 "setup function output"
             ]["stream"].format(
                 stream=self.cliOpt["process output"]["var"]["output stream"],
-                setupstring=setup_string,
+                setupstring=setup_function_entry_string,
+            )
+        elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
+            setup_function_entry = filestring_db["setup"]["h"]["filestring components"][
+                "setup function output"
+            ]["buffer"].format(
+                outputbuffer=output_buffer_name,
+                setupstring=setup_function_entry_string,
             )
 
         default_function_string = ""
@@ -331,6 +346,10 @@ class CodePreview(object):
                 objectname=object_name, commandparametersname=command_parameters_name
             )
 
+        begin_string = filestring_db["setup"]["h"]["filestring components"]["begin"][
+            "call"
+        ].format(objectname=object_name)
+
         options_string = ""
 
         setup_h = filestring_db["setup"]["h"]["filestring"].format(
@@ -350,6 +369,7 @@ class CodePreview(object):
             startstopseqs=ststp_seqs_string,
             setupfunctionentry=setup_function_entry,
             commandlist=command_list_string,
+            begin=begin_string,
             options=options_string,
         )
 

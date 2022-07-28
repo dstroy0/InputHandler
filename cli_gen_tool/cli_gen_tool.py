@@ -62,7 +62,7 @@ class MainWindow(
         super().__init__(parent)
 
         self.app = app  # used in external methods
-
+        self.prompt_to_save = False
         self.settings = QSettings("InputHandler", "cli_gen_tool.py")
 
         # log pathing
