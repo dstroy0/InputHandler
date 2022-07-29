@@ -20,6 +20,11 @@ from res.modules.dev_qol_var import (
     filestring_db,
 )
 
+from res.modules.cli.config import cliConfig
+from res.modules.cli.setup import cliSetup
+from res.modules.cli.functions import cliFunctions
+
+
 from res.modules.logging_setup import Logger
 
 
@@ -42,11 +47,33 @@ class CodePreviewBrowser(QPlainTextEdit):
 
 
 # code preview methods
-class CodePreview(object):
+class CodePreview(cliConfig, cliSetup, cliFunctions, object):
     def __init__(self) -> None:
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
+        cliConfig.__init__(self)
+        cliSetup.__init__(self)
+        cliFunctions.__init__(self)
+
+    # refreshes the text in the code preview trees (also the text used to generate files)
+    def update_code_preview(self, file, item_string, place_cursor):
+        CodePreview.logger.info("update {filename} preview".format(filename=file))
+        # update widgets
+        if file == "config.h":
+            self.config_h(item_string, place_cursor)
+        if file == "setup.h":
+            self.setup_h(item_string, place_cursor)
+        if file == "setup.cpp":
+            self.setup_cpp(item_string, place_cursor)
+        if file == "functions.h":
+            self.functions_h(item_string, place_cursor)
+
+    def display_initial_code_preview(self):
+        self.config_h(None, False)
+        self.setup_h(None, False)
+        self.setup_cpp(None, False)
+        self.functions_h(None, False)
 
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():
@@ -204,263 +231,5 @@ class CodePreview(object):
                     True
                 )
                 self.set_text_cursor(text_widget, item_string)
-
-    def update_config_h(self, item_string, place_cursor=False):
-        self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
-            "config"
-        ]["file_lines"]
-        cfg_dict = self.cliOpt["config"]["tree"]["items"]
-        for key in cfg_dict:
-            for item in cfg_dict[key]:
-                if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
-                    sub_dict = cfg_dict[key][item]["fields"]
-                    if sub_dict[3] == True or sub_dict[3] == False:
-                        val = ""
-                    else:
-                        val = sub_dict[3]
-                    line = str(sub_dict[1]) + "#define " + str(sub_dict[2]) + str(val)
-                    self.code_preview_dict["files"]["config.h"]["file_lines_list"][
-                        int(sub_dict[0])
-                    ] = line
-        code_string = self.list_to_code_string(
-            self.code_preview_dict["files"]["config.h"]["file_lines_list"]
-        )
-        self.set_code_string("config.h", code_string, item_string, place_cursor)
-        # end update_config_h
-
-    def update_setup(self, item_string, place_cursor=False):
-        def sequence_string_helper(seq):
-            num_seq = len(seq)
-            seq_lens_string = "{"
-            seqs_string = "{"
-            seq_lens = []
-            seqs = []
-            for key in seq:
-                delim_str = str(seq[key]).strip("'")
-                delim_str_len = len(delim_str)
-
-                seq_lens.append(delim_str_len)
-                seqs.append(seq[key])
-            for i in range(len(seq_lens)):
-                seq_lens_string = seq_lens_string + str(seq_lens[i])
-                seqs_string = (
-                    seqs_string
-                    + '"'
-                    + str(repr(seqs[i])).strip("'").replace("\\\\", "\\")
-                    + '"'
-                )
-                if i != len(seq_lens) - 1:
-                    seq_lens_string = seq_lens_string + ", "
-                    seqs_string = seqs_string + ", "
-            seq_lens_string = seq_lens_string + "}"
-            seqs_string = seqs_string + "}"
-            return [num_seq, seq_lens_string, seqs_string]
-
-        # process output
-        output_buffer_name = "InputHandler_output_buffer"
-        buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
-        buffer_char = "{'\\0'}"
-        object_name = "inputHandler"
-        output_buffer = filestring_db["setup"]["h"]["filestring components"][
-            "outputbuffer"
-        ].format(
-            outputbuffername=output_buffer_name,
-            buffersize=buffer_size,
-            bufferchar=buffer_char,
-        )
-        class_output = filestring_db["setup"]["h"]["filestring components"][
-            "classoutput"
-        ].format(input_prm="input_prm", outputbuffer="InputHandler_output_buffer")
-
-        setup_function_entry_string = "Setting up InputHandler..."
-
-        class_constructor = filestring_db["setup"]["h"]["filestring components"][
-            "constructor"
-        ].format(objectname=object_name, classoutput=class_output)
-        if int(buffer_size) == 0:
-            output_buffer = ""
-            class_constructor = filestring_db["setup"]["h"]["filestring components"][
-                "constructor"
-            ].format(objectname=object_name, classoutput="")
-
-        # process parameters
-        pprm = self.cliOpt["process parameters"]["var"]
-        process_name = pprm["process name"]
-        process_eol = (
-            str(repr(pprm["end of line characters"])).strip("'").replace("\\\\", "\\")
-        )
-        process_ipcc = (
-            str(repr(pprm["input control char sequence"]))
-            .strip("'")
-            .replace("\\\\", "\\")
-        )
-        process_wcc = str(repr(pprm["wildcard char"])).strip("'").replace("\\\\", "\\")
-        delim_seq = pprm["data delimiter sequences"]
-        ststp_seq = pprm["start stop data delimiter sequences"]
-
-        setup_function_entry = ""
-        stream_string = self.cliOpt["process output"]["var"]["output stream"]
-        if stream_string != "" and stream_string != None and int(buffer_size) != 0:
-            setup_function_entry = filestring_db["setup"]["cpp"][
-                "filestring components"
-            ]["setup function output"]["stream"].format(
-                stream=self.cliOpt["process output"]["var"]["output stream"],
-                setupstring=setup_function_entry_string,
-            )
-        elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
-            setup_function_entry = filestring_db["setup"]["cpp"][
-                "filestring components"
-            ]["setup function output"]["buffer"].format(
-                outputbuffer=output_buffer_name,
-                setupstring=setup_function_entry_string,
-            )        
-
-        default_function_string = ""
-        if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
-            default_function_string = filestring_db["setup"]["cpp"][
-                "filestring components"
-            ]["defaultFunction"]["call"].format(
-                objectname=object_name, defaultfunctionname="unrecognized"
-            )
-
-        result = sequence_string_helper(delim_seq)
-        num_delim_seq = result[0]
-        delim_seq_lens_string = result[1]
-        delim_seqs_string = result[2]
-
-        result = sequence_string_helper(ststp_seq)
-        num_ststp_pairs = int(result[0] / 2)
-        ststp_seq_lens_string = result[1]
-        ststp_seqs_string = result[2]
-
-        command_list_string = ""
-        for key in self.cliOpt["commands"]:
-            # iterate through list
-            command_parameters_name = (
-                str(self.cliOpt["commands"][key]["functionName"]) + "_"
-            )
-            command_list_string = filestring_db["setup"]["h"]["filestring components"][
-                "addCommand"
-            ]["call"].format(
-                objectname=object_name, commandparametersname=command_parameters_name
-            )
-
-        begin_string = filestring_db["setup"]["cpp"]["filestring components"]["begin"][
-            "call"
-        ].format(objectname=object_name)
-
-        options_string = ""
-        
-        setup_function = filestring_db["setup"]["cpp"]["filestring components"][
-            "setup function"
-        ].format(
-            setupfunctionentry=setup_function_entry,
-            defaultfunction=default_function_string,
-            commandlist=command_list_string,
-            begin=begin_string,
-            options=options_string,
-        )
-
-        loop_prototype = ""
-        loop_function = ""
-        if self.cliOpt["builtin methods"]["var"]["outputToStream"] == True and stream_string != "" and stream_string != None:
-            loop_prototype = filestring_db["setup"]["h"]["filestring components"][
-                "prototypes"
-            ]["loop"]
-            loop_statements = filestring_db["setup"]["cpp"]["filestring components"][
-                "outputToStream"
-            ]["call"].format(objectname=object_name, stream=stream_string)
-            loop_function = filestring_db["setup"]["cpp"]["filestring components"][
-                "loop function"
-            ].format(loopstatements=loop_statements)
-
-        setup_prototype = filestring_db["setup"]["h"]["filestring components"][
-            "prototypes"
-        ]["setup"]
-
-        setup_h = filestring_db["setup"]["h"]["filestring"].format(
-            objectname=object_name,
-            outputbuffer=output_buffer,
-            constructor=class_constructor,
-            processname=process_name,
-            processeol=process_eol,
-            processinputcontrolchar=process_ipcc,
-            processwildcardchar=process_wcc,
-            numdelimseq=num_delim_seq,
-            delimseqlens=delim_seq_lens_string,
-            delimseqs=delim_seqs_string,
-            numstartstoppairs=num_ststp_pairs,
-            startstopseqlens=ststp_seq_lens_string,
-            startstopseqs=ststp_seqs_string,
-            setupprototype=setup_prototype,
-            loopprototype=loop_prototype,
-        )
-
-        setup_cpp = filestring_db["setup"]["cpp"]["filestring"].format(
-            setupfunction=setup_function, loopfunction=loop_function
-        )
-
-        self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
-        docstring = self.generate_docstring_list_for_filename(
-            "setup.h", "InputHandler autogenerated setup.h"
-        )
-        code_string = self.list_to_code_string(docstring)
-        code_string = code_string + setup_h
-        self.code_preview_dict["files"]["setup.h"][
-            "file_lines_list"
-        ] = code_string.split("\n")
-        self.set_code_string("setup.h", code_string, item_string, place_cursor)
-
-        self.code_preview_dict["files"]["setup.cpp"]["file_lines_list"] = []
-        docstring = self.generate_docstring_list_for_filename(
-            "setup.cpp", "InputHandler autogenerated setup.cpp"
-        )
-        code_string = self.list_to_code_string(docstring)
-        code_string = code_string + setup_cpp
-        self.code_preview_dict["files"]["setup.cpp"][
-            "file_lines_list"
-        ] = code_string.split("\n")
-        self.set_code_string(
-            "setup.cpp", code_string, "InputHandler_setup", place_cursor
-        )
-
-    def update_functions(self, item_string, place_cursor=False):        
-        object_name = "inputHandler"
-        self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = []
-        docstring = self.generate_docstring_list_for_filename(
-            "functions.h", "InputHandler autogenerated functions.h"
-        )
-        code_string = self.list_to_code_string(docstring)
-        functions_h_fs = filestring_db["functions"]["h"]["filestring"]
-        functions_h_prototype_string = filestring_db["functions"]["h"]["filestring components"]["function prototype"]
-        functions_h_prototype_list = []
-        
-        if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
-                functions_h_prototype_list.append(functions_h_prototype_string.format(functionname="unrecognized", objectname=object_name))
-        statements = ""
-        for item in functions_h_prototype_list:
-            statements += item        
-        f_h_fs = functions_h_fs.format(functionprototypes=statements)
-        code_string = code_string + f_h_fs
-        self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = code_string.split("\n")
-        self.set_code_string(
-            "functions.h", code_string, item_string, place_cursor
-        )
-        
-    # refreshes the text in the code preview trees
-    def update_code_preview(self, file, item_string, place_cursor):
-        CodePreview.logger.info("update {filename} preview".format(filename=file))
-        # update widgets
-        if file == "config.h":
-            self.update_config_h(item_string, place_cursor)
-        if file == "setup.h":
-            self.update_setup(item_string, place_cursor)
-        if file == "functions.h":
-            self.update_functions(item_string, place_cursor)
-
-    def display_initial_code_preview(self):
-        self.update_config_h(None, False)
-        self.update_setup(None, False)
-        self.update_functions(None, False)
 
     # end update_code_preview_tree()
