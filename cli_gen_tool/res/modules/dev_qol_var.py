@@ -417,7 +417,7 @@ filestring_db = {
     "functions": {
         "h": {
             "filestring components": {
-                "function prototype": "void {functionname}(UserInput* _{objectname});\n"
+                "function prototype": "\nvoid {functionname}(UserInput* _{objectname});"
             },
             "filestring": functions_h_filestring,
         },  # end functions h

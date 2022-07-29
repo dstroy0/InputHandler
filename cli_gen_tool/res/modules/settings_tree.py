@@ -62,6 +62,7 @@ class SettingsTreeMethods(object):
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
             self.update_code_preview("setup.h", object_list[2], True)
+            self.update_code_preview("functions.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -129,6 +130,7 @@ class SettingsTreeMethods(object):
             self.cliOpt["process output"]["var"][object_list[2]] = val
             SettingsTreeMethods.logger.info(object_list[2] + " " + str(val))
             self.update_code_preview("setup.h", object_list[2], True)
+            self.update_code_preview("functions.h", object_list[2], True)
             return
 
         # process parameters (setup.h)
@@ -139,6 +141,7 @@ class SettingsTreeMethods(object):
             )
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
             self.update_code_preview("setup.h", item.text(1), True)
+            self.update_code_preview("functions.h", item.text(1), True)
             return
 
         # config.h
@@ -249,7 +252,7 @@ class SettingsTreeMethods(object):
                     self.settings_tree_combo_box_index_changed
                 )
                 settings_tree.setItemWidget(
-                    tree["items"][access]["QTreeWidgetItem"][index_of_child],
+                    _twi,
                     3,
                     _cmb,
                 )
