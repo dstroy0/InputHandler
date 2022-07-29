@@ -4,6 +4,6 @@ var searchData=
   ['update_5fcode_5fpreview_1',['update_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a0a67c3d5676d59b9a176497f566e7c18',1,'modules::code_preview::CodePreview']]],
   ['update_5fconfig_5fh_2',['update_config_h',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a61b15d89bc0cc0142bcfdbe3835e00f0',1,'modules::code_preview::CodePreview']]],
   ['update_5fsettings_5ftree_5ftype_5ffield_5ftext_3',['update_settings_tree_type_field_text',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#a5598a731d7dbfd08c24755639557777e',1,'modules::settings_tree::SettingsTreeMethods']]],
-  ['update_5fsetup_5fh_4',['update_setup_h',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a85e8e6d30764861a7a1374ff5b7804a2',1,'modules::code_preview::CodePreview']]],
+  ['update_5fsetup_4',['update_setup',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a9aa09c70ce31891ea65a94cde4e9c903',1,'modules::code_preview::CodePreview']]],
   ['userinput_5',['UserInput',['../dc/d4b/class_user_input.html#aa7cf91e3c4f640149ba0c1669a8d9343',1,'UserInput']]]
 ];

@@ -26,7 +26,10 @@ var dev__qol__var_8py =
     [ "parameters_h_filestring", "d4/da6/dev__qol__var_8py.html#a01646895feb76ef82f59fc582e3d0418", null ],
     [ "path", "d4/da6/dev__qol__var_8py.html#a8dcb2277898748270d411770a0c222ef", null ],
     [ "session_history_log_level", "d4/da6/dev__qol__var_8py.html#a72cd3d6d02956e1071a119ecf8c9a095", null ],
-    [ "setup_filestring", "d4/da6/dev__qol__var_8py.html#a2bcd6a089be7b9cb3441ea4999cd8042", null ],
+    [ "setup_cpp_filestring", "d4/da6/dev__qol__var_8py.html#aa28d726475f8ae80e967a7224aa219ee", null ],
+    [ "setup_cpp_loop_function", "d4/da6/dev__qol__var_8py.html#aef0aeab1cfdf9ab802fc3d031fab9631", null ],
+    [ "setup_cpp_setup_function", "d4/da6/dev__qol__var_8py.html#afe60f2a1a6f4c4f3bca1b040cf8e56d2", null ],
+    [ "setup_h_filestring", "d4/da6/dev__qol__var_8py.html#a8f3611328485556faab02fec3f988b35", null ],
     [ "splashscreen_duration", "d4/da6/dev__qol__var_8py.html#a90324adad133f6fa81f83fdf20536594", null ],
     [ "stream_log_level", "d4/da6/dev__qol__var_8py.html#a95adb978faf9008b2c3966f44b5ab57b", null ],
     [ "version", "d4/da6/dev__qol__var_8py.html#ad5acab6e7ca3ca06a0e79ed77f1b5302", null ]
