@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['code_5fpreview_0',['code_preview',['../d6/d98/namespacemodules_1_1code__preview.html',1,'modules']]],
-  ['command_5fparameters_1',['command_parameters',['../dd/dad/namespacemodules_1_1command__parameters.html',1,'modules']]],
-  ['dev_5fqol_5fvar_2',['dev_qol_var',['../d6/da0/namespacemodules_1_1dev__qol__var.html',1,'modules']]],
-  ['helper_5fmethods_3',['helper_methods',['../d4/d58/namespacemodules_1_1helper__methods.html',1,'modules']]],
-  ['logging_5fsetup_4',['logging_setup',['../db/d63/namespacemodules_1_1logging__setup.html',1,'modules']]],
-  ['mainwindow_5factions_5',['mainwindow_actions',['../d2/de5/namespacemodules_1_1mainwindow__actions.html',1,'modules']]],
-  ['mainwindow_5fbuttons_6',['mainwindow_buttons',['../d9/da9/namespacemodules_1_1mainwindow__buttons.html',1,'modules']]],
-  ['modules_7',['modules',['../dc/dcf/namespacemodules.html',1,'']]],
-  ['parse_5fconfig_8',['parse_config',['../d9/d41/namespacemodules_1_1parse__config.html',1,'modules']]],
-  ['settings_5ftree_9',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
-  ['settings_5ftree_5ftable_5fmethods_10',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]]
+  ['cli_0',['cli',['../d3/d25/namespacemodules_1_1cli.html',1,'modules']]],
+  ['code_5fpreview_1',['code_preview',['../d6/d98/namespacemodules_1_1code__preview.html',1,'modules']]],
+  ['command_5fparameters_2',['command_parameters',['../dd/dad/namespacemodules_1_1command__parameters.html',1,'modules']]],
+  ['config_3',['config',['../da/d86/namespacemodules_1_1cli_1_1config.html',1,'modules::cli']]],
+  ['dev_5fqol_5fvar_4',['dev_qol_var',['../d6/da0/namespacemodules_1_1dev__qol__var.html',1,'modules']]],
+  ['functions_5',['functions',['../db/d41/namespacemodules_1_1cli_1_1functions.html',1,'modules::cli']]],
+  ['helper_5fmethods_6',['helper_methods',['../d4/d58/namespacemodules_1_1helper__methods.html',1,'modules']]],
+  ['logging_5fsetup_7',['logging_setup',['../db/d63/namespacemodules_1_1logging__setup.html',1,'modules']]],
+  ['mainwindow_5factions_8',['mainwindow_actions',['../d2/de5/namespacemodules_1_1mainwindow__actions.html',1,'modules']]],
+  ['mainwindow_5fbuttons_9',['mainwindow_buttons',['../d9/da9/namespacemodules_1_1mainwindow__buttons.html',1,'modules']]],
+  ['modules_10',['modules',['../dc/dcf/namespacemodules.html',1,'']]],
+  ['parameters_11',['parameters',['../d1/dcd/namespacemodules_1_1cli_1_1parameters.html',1,'modules::cli']]],
+  ['parse_5fconfig_12',['parse_config',['../d9/d41/namespacemodules_1_1parse__config.html',1,'modules']]],
+  ['settings_5ftree_13',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
+  ['settings_5ftree_5ftable_5fmethods_14',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]],
+  ['setup_15',['setup',['../d9/dec/namespacemodules_1_1cli_1_1setup.html',1,'modules::cli']]]
 ];

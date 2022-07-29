@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['write_5fcli_5fgen_5ftool_5fjson_0',['write_cli_gen_tool_json',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a955d14780c49442ea6bb62e079e2a797',1,'modules::mainwindow_actions::MainWindowActions']]]
+  ['validate_5fcommand_5fparameters_0',['validate_command_parameters',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7258a9edaaf036933c8148af7ecd93c0',1,'modules::command_parameters::CommandParametersMethods']]],
+  ['validatenullsepinput_1',['validateNullSepInput',['../dc/d4b/class_user_input.html#a0aca041755aea2c5021e68f546bff259',1,'UserInput']]],
+  ['vsnprintf_2',['vsnprintf',['../dd/ddc/vsnprintf_8h.html#abf97ffe3965625d5aff552f38ceb8153',1,'vsnprintf.h']]]
 ];

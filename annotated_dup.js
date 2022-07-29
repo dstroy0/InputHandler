@@ -4,6 +4,20 @@ var annotated_dup =
       [ "MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", "d3/d6c/classcli__gen__tool_1_1_main_window" ]
     ] ],
     [ "modules", "dc/dcf/namespacemodules.html", [
+      [ "cli", "d3/d25/namespacemodules_1_1cli.html", [
+        [ "config", "da/d86/namespacemodules_1_1cli_1_1config.html", [
+          [ "cliConfig", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config" ]
+        ] ],
+        [ "functions", "db/d41/namespacemodules_1_1cli_1_1functions.html", [
+          [ "cliFunctions", "dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html", "dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions" ]
+        ] ],
+        [ "parameters", "d1/dcd/namespacemodules_1_1cli_1_1parameters.html", [
+          [ "cliParameters", "d5/dc1/classmodules_1_1cli_1_1parameters_1_1cli_parameters.html", "d5/dc1/classmodules_1_1cli_1_1parameters_1_1cli_parameters" ]
+        ] ],
+        [ "setup", "d9/dec/namespacemodules_1_1cli_1_1setup.html", [
+          [ "cliSetup", "dc/d95/classmodules_1_1cli_1_1setup_1_1cli_setup.html", "dc/d95/classmodules_1_1cli_1_1setup_1_1cli_setup" ]
+        ] ]
+      ] ],
       [ "code_preview", "d6/d98/namespacemodules_1_1code__preview.html", [
         [ "CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", "dd/d03/classmodules_1_1code__preview_1_1_code_preview" ],
         [ "CodePreviewBrowser", "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html", "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser" ]

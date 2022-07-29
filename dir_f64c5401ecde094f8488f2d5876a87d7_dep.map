@@ -1,17 +1,17 @@
 <map id="examples/all_platforms/advanced" name="examples/all_platforms/advanced">
 <area shape="rect" id="node2" href="dir_672e2db806fcde9bd6503001f54572d9.html" title="config_howto" alt="" coords="713,63,812,111"/>
 <area shape="rect" id="node8" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="385,159,457,207"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000007_000025.html" title="1" alt="" coords="472,180,480,195"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000008_000026.html" title="1" alt="" coords="472,180,480,195"/>
 <area shape="rect" id="node3" href="dir_8b34520cf4277e0be875d52c8243f9ff.html" title="debugging" alt="" coords="607,63,689,111"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000008_000025.html" title="1" alt="" coords="473,173,481,188"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000009_000026.html" title="1" alt="" coords="473,173,481,188"/>
 <area shape="rect" id="node4" href="dir_e9e44833007419a1c486f0238b30ac06.html" title="GetCommandFromStream" alt="" coords="409,63,583,111"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000011_000025.html" title="1" alt="" coords="454,142,462,157"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000012_000026.html" title="1" alt="" coords="454,142,462,157"/>
 <area shape="rect" id="node5" href="dir_2417a6421416a4a5ac02e9b167a7bacc.html" title="MultiFile" alt="" coords="312,63,384,111"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000017_000025.html" title="1" alt="" coords="395,132,403,146"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000018_000026.html" title="1" alt="" coords="395,132,403,146"/>
 <area shape="rect" id="node6" href="dir_709d6945534044f28e2d0e0a94050460.html" title="NestedCommands" alt="" coords="157,63,288,111"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000018_000025.html" title="1" alt="" coords="367,146,375,161"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000019_000026.html" title="1" alt="" coords="367,146,375,161"/>
 <area shape="rect" id="node7" href="dir_7ee976d93af4f6c560d023a9aae4584e.html" title="NMEAparser" alt="" coords="37,63,133,111"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000019_000025.html" title="4" alt="" coords="363,163,371,178"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000020_000026.html" title="4" alt="" coords="363,163,371,178"/>
 <area shape="rect" id="clust2" href="dir_f64c5401ecde094f8488f2d5876a87d7.html" alt="" coords="27,52,927,121"/>
 <area shape="rect" id="clust1" href="dir_7e7debf23c06755bbadb27664e1a95c8.html" title="all_platforms" alt="" coords="16,16,937,132"/>
 </map>

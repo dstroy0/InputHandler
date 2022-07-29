@@ -1,5 +1,6 @@
 var dir_efc820d26e22b74aca78d073be3afb9c =
 [
+    [ "cli", "dir_a71cea154fc12bb02ffd15b65bb1a74d.html", "dir_a71cea154fc12bb02ffd15b65bb1a74d" ],
     [ "__init__.py", "d6/d0d/modules_2____init_____8py.html", null ],
     [ "code_preview.py", "d0/d33/code__preview_8py.html", "d0/d33/code__preview_8py" ],
     [ "command_parameters.py", "d3/d85/command__parameters_8py.html", "d3/d85/command__parameters_8py" ],

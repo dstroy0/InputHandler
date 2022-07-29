@@ -1,15 +1,22 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,359,63,386"/>
-<area shape="rect" id="node2" href="$dd/d03/classmodules_1_1code__preview_1_1_code_preview.html" title=" " alt="" coords="124,5,311,47"/>
-<area shape="rect" id="node3" href="$dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html" title=" " alt="" coords="114,71,321,112"/>
-<area shape="rect" id="node4" href="$d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html" title=" " alt="" coords="114,136,321,177"/>
-<area shape="rect" id="node5" href="$d3/dd3/classmodules_1_1logging__setup_1_1_logger.html" title=" " alt="" coords="119,202,316,229"/>
-<area shape="rect" id="node6" href="$d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html" title=" " alt="" coords="121,253,313,295"/>
-<area shape="rect" id="node7" href="$d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html" title=" " alt="" coords="120,319,315,360"/>
-<area shape="rect" id="node8" href="$da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html" title=" " alt="" coords="125,384,309,425"/>
-<area shape="rect" id="node9" href="$d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html" title=" " alt="" coords="117,449,317,491"/>
-<area shape="rect" id="node10" href="$de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html" title=" " alt="" coords="122,514,313,570"/>
-<area shape="rect" id="node11" href="$df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html" title=" " alt="" coords="115,593,320,635"/>
-<area shape="rect" id="node12" href="$d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html" title=" " alt="" coords="141,659,293,700"/>
-<area shape="rect" id="node13" href="$d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html" title=" " alt="" coords="111,725,324,751"/>
+<area shape="rect" id="node1" title=" " alt="" coords="23,509,80,536"/>
+<area shape="rect" id="node2" href="$d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html" title=" " alt="" coords="164,115,340,141"/>
+<area shape="rect" id="node3" href="$dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html" title=" " alt="" coords="173,166,331,207"/>
+<area shape="rect" id="node4" href="$d5/dc1/classmodules_1_1cli_1_1parameters_1_1cli_parameters.html" title=" " alt="" coords="167,231,337,273"/>
+<area shape="rect" id="node5" href="$dc/d95/classmodules_1_1cli_1_1setup_1_1cli_setup.html" title=" " alt="" coords="166,297,338,324"/>
+<area shape="rect" id="node6" href="$dd/d03/classmodules_1_1code__preview_1_1_code_preview.html" title=" " alt="" coords="159,49,345,90"/>
+<area shape="rect" id="node7" href="$dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html" title=" " alt="" coords="149,349,355,390"/>
+<area shape="rect" id="node8" href="$d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html" title=" " alt="" coords="149,414,355,455"/>
+<area shape="rect" id="node9" href="$d3/dd3/classmodules_1_1logging__setup_1_1_logger.html" title=" " alt="" coords="153,480,351,507"/>
+<area shape="rect" id="node10" href="$d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html" title=" " alt="" coords="156,531,348,573"/>
+<area shape="rect" id="node11" href="$d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html" title=" " alt="" coords="155,597,349,638"/>
+<area shape="rect" id="node12" href="$da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html" title=" " alt="" coords="160,662,344,703"/>
+<area shape="rect" id="node13" href="$d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html" title=" " alt="" coords="152,727,352,769"/>
+<area shape="rect" id="node14" href="$de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html" title=" " alt="" coords="157,792,347,848"/>
+<area shape="rect" id="node15" href="$df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html" title=" " alt="" coords="149,871,355,913"/>
+<area shape="rect" id="node16" href="$d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html" title=" " alt="" coords="176,937,328,978"/>
+<area shape="rect" id="node17" href="$d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html" title=" " alt="" coords="145,1003,359,1029"/>
+<area shape="rect" id="node18" title=" " alt="" coords="16,5,87,32"/>
+<area shape="rect" id="node19" title=" " alt="" coords="5,56,97,83"/>
+<area shape="rect" id="node20" title=" " alt="" coords="17,107,86,133"/>
 </map>

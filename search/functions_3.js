@@ -18,6 +18,7 @@ var searchData=
   ['code_5fpreview_5fevents_15',['code_preview_events',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a6aa5e2b7f18a475645c00692c8ae5386',1,'modules::code_preview::CodePreview']]],
   ['command_5fstring_5ftext_5fchanged_16',['command_string_text_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a948ec3be1ff04e7f188be69011e7ecd5',1,'modules::command_parameters::CommandParametersMethods']]],
   ['commandconstructor_17',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]],
-  ['create_5fqdialog_18',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
-  ['csv_5fbutton_19',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
+  ['config_5fh_18',['config_h',['../d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html#a55c0b14e6fc0babdcafaba6721c56dd7',1,'modules::cli::config::cliConfig']]],
+  ['create_5fqdialog_19',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
+  ['csv_5fbutton_20',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
 ];
