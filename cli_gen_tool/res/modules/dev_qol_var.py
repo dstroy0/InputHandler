@@ -136,13 +136,14 @@ command_line_interface_options_structure = {
         },
     },
     "builtin methods": {
-        "var": {"defaultFunction": False, "listCommands": False, "listSettings": False},
+        "var": {"outputToStream": False, "defaultFunction": False, "listCommands": False, "listSettings": False},
         "tree": {
             "root": "",
             "items": {
                 "defaultFunction": {"QTreeWidgetItem": {}, "QComboBox": {}},
                 "listCommands": {"QTreeWidgetItem": {}, "QComboBox": {}},
                 "listSettings": {"QTreeWidgetItem": {}, "QComboBox": {}},
+                "outputToStream": {"QTreeWidgetItem": {}, "QComboBox": {}},
             },
         },
     },
@@ -153,7 +154,7 @@ command_line_interface_options_structure = {
             "input control char sequence": "##",
             "wildcard char": "*",
             "data delimiter sequences": {0: " ", 1: ","},
-            "start stop data delimiter sequences": {0: '"', 1: '"'},
+            "start stop data delimiter sequences": {0: '\\"', 1: '\\"'},
         },
         "tree": {
             "root": "",
@@ -212,6 +213,7 @@ generated_filename_sub_dict = {
 generated_filename_dict = {
     "config.h": copy.deepcopy(generated_filename_sub_dict),
     "setup.h": copy.deepcopy(generated_filename_sub_dict),
+    "setup.cpp": copy.deepcopy(generated_filename_sub_dict),
     "parameters.h": copy.deepcopy(generated_filename_sub_dict),
     "functions.h": copy.deepcopy(generated_filename_sub_dict),
     "functions.cpp": copy.deepcopy(generated_filename_sub_dict),
@@ -219,7 +221,7 @@ generated_filename_dict = {
 
 
 # file strings and filestring_db dict
-setup_filestring = """
+setup_h_filestring = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
     #include "InputHandler.h"
@@ -255,14 +257,32 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
     &pststpseq}};
 
 // constructor
-{constructor}
+{constructor}{setupprototype}{loopprototype}
+// end of file
+"""
 
+setup_cpp_setup_function = """
 void InputHandler_setup()
 {{{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}
 }}
+"""
+
+setup_cpp_loop_function = """
+void InputHandler_loop()
+{{{loopstatements}
+}}
+"""
+
+setup_cpp_filestring = """
+#include setup.h
+
+{setupfunction}{loopfunction}
+
 #endif
+
 // end of file
 """
+
 functions_h_filestring = """
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
@@ -354,14 +374,25 @@ filestring_db = {
     "setup": {
         "h": {
             "filestring components": {
-                "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
-                "defaultFunction": {
-                    "call": "\n  {objectname}.defaultFunction({defaultfunctionname}); // default function is called when user input has no match or is not valid"
-                },
+                "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",                
                 "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                 "constructor": "UserInput {objectname}{classoutput};\n",
+                "prototypes": {
+                    "setup": "\nvoid InputHandler_setup();",
+                    "loop": "\nvoid InputHandler_loop();"
+                }                
+            },
+            "filestring": setup_h_filestring,
+        }, # end setup h
+        "cpp": {
+            "filestring components": {
+                "setup function": setup_cpp_setup_function,
+                "loop function": setup_cpp_loop_function,
                 "addCommand": {
                     "call": "\n  {objectname}.addCommand({commandparametersname});"
+                },
+                "defaultFunction": {
+                    "call": "\n  {objectname}.defaultFunction({defaultfunctionname}); // default function is called when user input has no match or is not valid"
                 },
                 "listCommands": {
                     "call": "\n  {objectname}.listCommands(); // formats {outputbuffer} with the command list"
@@ -380,8 +411,8 @@ filestring_db = {
                     "buffer": "\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen(\"{setupstring}\")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), \"{setupstring}\");\n  }}"
                 }
             },
-            "filestring": setup_filestring,
-        }
+            "filestring": setup_cpp_filestring,
+        }, # end setup cpp
     },  # end setup
     "functions": {
         "h": {

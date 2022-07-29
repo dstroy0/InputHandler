@@ -71,7 +71,7 @@ class SettingsTreeTableMethods(object):
         table_widget.insertRow(new_row)
         input_cells[last_row].setText("")
         table_widget.setItem(last_row, 0, input_cells[last_row])
-        SettingsTreeTableMethods.logger.info(str(add_row_button_item))
+        SettingsTreeTableMethods.logger.debug(str(add_row_button_item))
         table_widget.setItem(new_row, 0, add_row_button_item)
         table_widget.setCellWidget(new_row, 0, add_row_button)
         self.set_table_vertical_labels(tree, dict_key2, new_row)
@@ -136,7 +136,8 @@ class SettingsTreeTableMethods(object):
             item = item.tableWidget()
         else:
             current_item = item.currentItem()
-        SettingsTreeTableMethods.logger.info(str(item) + str(current_item))
+        object_list = str(item.objectName()).split(",")        
+        SettingsTreeTableMethods.logger.info("edit item in " + object_list[2])
         item.editItem(current_item)
 
     def table_widget_item_changed(self, item):
@@ -145,14 +146,14 @@ class SettingsTreeTableMethods(object):
         if row == table_widget.rowCount() - 1:
             # the user added a row to the table
             return
-        data = str(item.data(0))
-        if "'" in data:
-            return  # already repr
+        data = str(repr(item.data(0))).strip("'").replace("\\\\", "\\")        
         object_list = table_widget.objectName().split(",")
         if data != "" and data != None:
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
-            item.setText(str(repr(data)).replace("\\\\", "\\"))
+            table_widget.blockSignals(True)
+            item.setText("'"+data+"'")
+            table_widget.blockSignals(False)
             self.update_code_preview("setup.h", object_list[2], True)
 
     def build_tree_table_widget(

@@ -205,8 +205,10 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            var_tooltip,
             var_initial_val,
             combobox=False,
+            combobox_item_tooltips=[],
         ):
             if tree["root"] == self.cliOpt["config"]["tree"]["root"]:
                 access = dict_key
@@ -216,37 +218,40 @@ class SettingsTreeMethods(object):
             tree["items"][access]["QTreeWidgetItem"].update(
                 {index_of_child: QTreeWidgetItem(parent, column_label_list)}
             )
+            _twi = tree["items"][access]["QTreeWidgetItem"][index_of_child]
             dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
-            tree["items"][access]["QTreeWidgetItem"][index_of_child].setData(
-                4, 0, dict_pos
-            )
-            tree["items"][access]["QTreeWidgetItem"][index_of_child].setFlags(
-                tree["items"][access]["QTreeWidgetItem"][index_of_child].flags()
-                | Qt.ItemIsEditable
-            )
+            _twi.setData(4, 0, dict_pos)
+            _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
+            if var_tooltip != "" and var_tooltip != None:
+                _twi.setToolTip(3, var_tooltip)
             if combobox == True:
                 tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
-                tree["items"][access]["QComboBox"][index_of_child].addItem(
-                    "Disabled", False
-                )
-                tree["items"][access]["QComboBox"][index_of_child].addItem(
-                    "Enabled", True
-                )
-                tree["items"][access]["QComboBox"][index_of_child].setObjectName(
-                    dict_pos
-                )
-                tree["items"][access]["QComboBox"][index_of_child].setSizeAdjustPolicy(
+                _cmb = tree["items"][access]["QComboBox"][index_of_child]
+                _cmb.addItem("Disabled", False)
+                _cmb.addItem("Enabled", True)
+                if (
+                    combobox_item_tooltips
+                    and combobox_item_tooltips[0] != None
+                    and combobox_item_tooltips[0] != ""
+                ):
+                    _cmb.setItemData(0, combobox_item_tooltips[0], Qt.ToolTipRole)
+                if (
+                    combobox_item_tooltips
+                    and combobox_item_tooltips[1] != None
+                    and combobox_item_tooltips[1] != ""
+                ):
+                    _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
+                _cmb.setObjectName(dict_pos)
+                _cmb.setSizeAdjustPolicy(
                     QComboBox.AdjustToMinimumContentsLengthWithIcon
                 )
-                tree["items"][access]["QComboBox"][
-                    index_of_child
-                ].currentIndexChanged.connect(
+                _cmb.currentIndexChanged.connect(
                     self.settings_tree_combo_box_index_changed
                 )
                 settings_tree.setItemWidget(
                     tree["items"][access]["QTreeWidgetItem"][index_of_child],
                     3,
-                    tree["items"][access]["QComboBox"][index_of_child],
+                    _cmb,
                 )
             index_of_child += 1
             return index_of_child
@@ -279,6 +284,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             "buffer size",
             "bytes",
+            "Must be greater than zero for class output.",
             var_initial_val,
             False,
         )
@@ -291,6 +297,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             "output stream",
             "Stream",
+            "Set an output Stream that is legal for your platform.",
             var_initial_val,
             False,
         )
@@ -313,6 +320,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "The process name prepends all terminal output.",
             var_initial_val,
             False,
         )
@@ -328,6 +336,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "Set to the eol char of your data.",
             var_initial_val,
             False,
         )
@@ -343,6 +352,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "Enter this sequence before an unescaped control char (r,n,e,t,b,etc.)",
             var_initial_val,
             False,
         )
@@ -358,6 +368,7 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "Any single char; * by default.",
             var_initial_val,
             False,
         )
@@ -397,6 +408,26 @@ class SettingsTreeMethods(object):
         tree["root"] = QTreeWidgetItem(self.ui.settings_tree, [dict_key, ""])
         tree["root"].setIcon(0, self.ui.commandLinkIcon)
 
+        # outputToStream
+        var_name = "outputToStream"
+        var_type = "enable/disable"
+        var_initial_val = self.cliOpt[dict_key]["var"][var_name]
+        index_of_child = set_up_child(
+            dict_key,
+            tree,
+            tree["root"],
+            index_of_child,
+            var_name,
+            var_type,
+            "",
+            var_initial_val,
+            True,
+            [
+                "",
+                "This will have no effect if you have not designated an output Stream and set a buffer size in 'process output'.",
+            ],
+        )
+
         # defaultFunction
         var_name = "defaultFunction"
         var_type = "enable/disable"
@@ -408,8 +439,10 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "",
             var_initial_val,
             True,
+            ["No default function.", "Default function enabled."],
         )
 
         # listCommands
@@ -423,8 +456,10 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "",
             var_initial_val,
             True,
+            ["No listCommands command", "listCommands available to user."],
         )
 
         # listSettings
@@ -438,8 +473,10 @@ class SettingsTreeMethods(object):
             index_of_child,
             var_name,
             var_type,
+            "",
             var_initial_val,
             True,
+            ["No listSettings command", "listSettings available to user."],
         )
 
         # config.h
@@ -478,6 +515,7 @@ class SettingsTreeMethods(object):
                             index_of_child,
                             sub_dict[2],
                             "Enable/Disable",
+                            "",
                             sub_dict[3],
                             True,
                         )
@@ -493,6 +531,7 @@ class SettingsTreeMethods(object):
                             index_of_child,
                             sub_dict[2],
                             "Enable/Disable",
+                            "",
                             sub_dict[3],
                             True,
                         )
@@ -511,6 +550,7 @@ class SettingsTreeMethods(object):
                             index_of_child,
                             sub_dict[2],
                             type_field,
+                            "This field's type is automatically set by the library.",
                             sub_dict[3],
                             False,
                         )
