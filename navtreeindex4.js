@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a315d4fc5c8b643fad8059d950831b440":[5,0,1,0,1,3,0,12],
+"df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a36c917f8a7a7142669385533300ada1a":[5,0,1,0,1,3,0,4],
 "df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a374ec74334279864975aac2c4527c3d4":[5,0,1,0,1,3,0,5],
 "df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a37dc520806193edda7db40a2faa3457e":[5,0,1,0,1,3,0,13],
 "df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a4fc01d736fe50cf5b977f755b675f11d":[5,0,1,0,1,3,0,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "globals_t.html":[5,1,0,17],
 "globals_type.html":[5,1,3],
 "globals_u.html":[5,1,0,18],
-"globals_v.html":[5,1,0,19],
-"globals_vars.html":[5,1,2],
-"globals_w.html":[5,1,0,20]
+"globals_v.html":[5,1,0,19]
 };
