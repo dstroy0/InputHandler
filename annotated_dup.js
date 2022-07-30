@@ -25,6 +25,9 @@ var annotated_dup =
       [ "command_parameters", "dd/dad/namespacemodules_1_1command__parameters.html", [
         [ "CommandParametersMethods", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods" ]
       ] ],
+      [ "command_tree", "d2/d2d/namespacemodules_1_1command__tree.html", [
+        [ "CommandTreeMethods", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods" ]
+      ] ],
       [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", [
         [ "HelperMethods", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods" ]
       ] ],

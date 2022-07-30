@@ -3,6 +3,7 @@ var namespacemodules =
     [ "cli", "d3/d25/namespacemodules_1_1cli.html", "d3/d25/namespacemodules_1_1cli" ],
     [ "code_preview", "d6/d98/namespacemodules_1_1code__preview.html", "d6/d98/namespacemodules_1_1code__preview" ],
     [ "command_parameters", "dd/dad/namespacemodules_1_1command__parameters.html", "dd/dad/namespacemodules_1_1command__parameters" ],
+    [ "command_tree", "d2/d2d/namespacemodules_1_1command__tree.html", "d2/d2d/namespacemodules_1_1command__tree" ],
     [ "dev_qol_var", "d6/da0/namespacemodules_1_1dev__qol__var.html", [
       [ "_KB", "d6/da0/namespacemodules_1_1dev__qol__var.html#a93810a3d943e72404996aad6b9c64113", null ],
       [ "_log_filename", "d6/da0/namespacemodules_1_1dev__qol__var.html#a566ce5cc22463035fcdc5468fc9bbfad", null ],

@@ -8,7 +8,7 @@ var classmodules_1_1code__preview_1_1_code_preview =
     [ "resize_code_preview_tree_item", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a978659bc52b12d4c536cbaf74c14525d", null ],
     [ "set_code_string", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#adba28b924be631c83aaa0032e3fa5a42", null ],
     [ "set_text_cursor", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#ab13c16b1b5b7437481587d248ddd5466", null ],
-    [ "update_code_preview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a0a67c3d5676d59b9a176497f566e7c18", null ],
+    [ "update_code", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a825802d95f7e2a21fe54797b00907a05", null ],
     [ "drag_resize_qsize", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0", null ],
     [ "init_height", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a05b2ecaf4de064ef66af8f96b7432e94", null ],
     [ "init_mouse_pos", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a3575f24999125f6c8cc7d0147a0d7bd9", null ],

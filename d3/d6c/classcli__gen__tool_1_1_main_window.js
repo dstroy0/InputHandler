@@ -9,6 +9,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "code_preview_dict", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ac74d0251be0547935dbdc4ce6983aa8a", null ],
     [ "commandParametersKeys", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a9c15a5cc957ed97049c100ca1f583f38", null ],
     [ "default_lib_config_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a855bdf49150f54379b244894483d09f4", null ],
+    [ "default_settings_tree_values", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0eb4f17df6347a3b4a6f0f1227eee1dc", null ],
     [ "defaultGuiOpt", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a3e49a8961ad9bfa9753fc62923cf6073", null ],
     [ "init_height", "d3/d6c/classcli__gen__tool_1_1_main_window.html#aa9c8db6a2fa9bf95141b4f4db5790fbf", null ],
     [ "init_mouse_pos", "d3/d6c/classcli__gen__tool_1_1_main_window.html#acc10bff4a00379f2167a1d03c0bce7e7", null ],
