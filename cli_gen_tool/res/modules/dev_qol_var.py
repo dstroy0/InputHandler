@@ -295,17 +295,17 @@ functions_h_filestring = """
 """
 
 functions_cpp_functionstring = """void {functionname}(UserInput* _{objectname})
-{{
-    {statements}
+{{{statements}
 }}
+
 """
+
 functions_cpp_filestring = """
 #if !defined(__FUNCTIONS_CPP__)
     #define __FUNCTIONS_CPP__
     #include "functions.h"
     
 {functions}
-
 #endif
 // end of file
 """
@@ -424,7 +424,13 @@ filestring_db = {
         "cpp": {
             "filestring components": {
                 "outputToStream": {
-                    "call": "  _{objectname}->outputToStream({stream});"
+                    "call": "\n  _{objectname}->outputToStream({stream});"
+                },
+                "listCommands": {
+                    "call": "\n  _{objectname}->listCommands();"
+                },
+                "listSettings": {
+                    "call": "\n  _{objectname}->listSettings({objectname});"
                 },
                 "function": functions_cpp_functionstring,
             },

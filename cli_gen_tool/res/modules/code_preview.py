@@ -16,9 +16,6 @@ from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 
-from res.modules.dev_qol_var import (
-    filestring_db,
-)
 
 from res.modules.cli.config import cliConfig
 from res.modules.cli.setup import cliSetup
@@ -68,12 +65,15 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
             self.setup_cpp(item_string, place_cursor)
         if file == "functions.h":
             self.functions_h(item_string, place_cursor)
+        if file == "functions.cpp":
+            self.functions_cpp(item_string, place_cursor)
 
     def display_initial_code_preview(self):
         self.config_h(None, False)
         self.setup_h(None, False)
         self.setup_cpp(None, False)
         self.functions_h(None, False)
+        self.functions_cpp(None, False)
 
     def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
         if watched == self.ui.codePreview_1.viewport():

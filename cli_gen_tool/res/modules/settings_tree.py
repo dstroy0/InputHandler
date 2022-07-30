@@ -61,8 +61,18 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
+
             self.update_code_preview("setup.h", object_list[2], True)
-            self.update_code_preview("functions.h", object_list[2], True)
+            if object_list[2] == "outputToStream":
+                self.update_code_preview("setup.cpp", object_list[2], True)
+
+            if (
+                object_list[2] == "defaultFunction"
+                or object_list[2] == "listCommands"
+                or object_list[2] == "listSettings"
+            ):
+                self.update_code_preview("functions.h", object_list[2], True)
+                self.update_code_preview("functions.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -118,19 +128,23 @@ class SettingsTreeMethods(object):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
 
-        # undefined
+        # dict position is 3 items
         if len(object_list) < 2:
             return
 
         object_list[1] = int(str(object_list[1]))
 
-        # process output (setup.h)
+        # process output
         if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"][object_list[2]] = val
             SettingsTreeMethods.logger.info(object_list[2] + " " + str(val))
             self.update_code_preview("setup.h", object_list[2], True)
-            self.update_code_preview("functions.h", object_list[2], True)
+            if object_list[2] == "outputToStream":
+                self.update_code_preview("setup.cpp", object_list[2], True)
+            if object_list[2] == "defaultFunction":
+                self.update_code_preview("functions.h", object_list[2], True)
+                self.update_code_preview("functions.cpp", object_list[2], True)
             return
 
         # process parameters (setup.h)
@@ -140,8 +154,7 @@ class SettingsTreeMethods(object):
                 "edited " + object_list[2] + ", new value " + "'" + str(val) + "'"
             )
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
-            self.update_code_preview("setup.h", item.text(1), True)
-            self.update_code_preview("functions.h", item.text(1), True)
+            self.update_code_preview("setup.h", item.text(1), True)            
             return
 
         # config.h
