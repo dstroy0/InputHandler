@@ -38,21 +38,21 @@ class cliFunctions(object):
                     functionname="unrecognized", objectname=object_name
                 )
             )
-        
+
         if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname="listCommands", objectname=object_name
                 )
             )
-        
-        if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:        
+
+        if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname="listSettings", objectname=object_name
                 )
             )
-            
+
         statements = ""
         for item in functions_h_prototype_list:
             statements += item
@@ -76,7 +76,7 @@ class cliFunctions(object):
             "function"
         ]
         func_list = []
-        
+
         # builtin methods
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
             stream_string = self.cliOpt["process output"]["var"]["output stream"]
@@ -90,7 +90,7 @@ class cliFunctions(object):
                     statements=statement,
                 )
             )
-        
+
         if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
             statement = filestring_db["functions"]["cpp"]["filestring components"][
                 "listCommands"
@@ -102,7 +102,7 @@ class cliFunctions(object):
                     statements=statement,
                 )
             )
-        
+
         if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
             statement = filestring_db["functions"]["cpp"]["filestring components"][
                 "listSettings"
@@ -114,18 +114,16 @@ class cliFunctions(object):
                     statements=statement,
                 )
             )
-                
-        
+
         # user commands
         # TODO struct of user commands dict
-        
-        
+
         funcs_string = ""
         for item in func_list:
             funcs_string += item
-            
+
         code_string = code_string + cpp_fs.format(functions=funcs_string)
-        
+
         self.code_preview_dict["files"]["functions.cpp"][
             "file_lines_list"
         ] = code_string.split("\n")

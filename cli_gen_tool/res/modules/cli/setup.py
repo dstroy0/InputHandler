@@ -66,6 +66,8 @@ class cliSetup(object):
         class_constructor = filestring_db["setup"]["h"]["filestring components"][
             "constructor"
         ].format(objectname=object_name, classoutput=class_output)
+        if buffer_size == "":
+            buffer_size = 0
         if int(buffer_size) == 0:
             output_buffer = ""
             class_constructor = filestring_db["setup"]["h"]["filestring components"][

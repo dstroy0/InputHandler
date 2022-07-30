@@ -54,8 +54,8 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
         cliFunctions.__init__(self)
 
     # refreshes the text in the code preview trees (also the text used to generate files)
-    def update_code_preview(self, file, item_string, place_cursor):
-        CodePreview.logger.info("update {filename} preview".format(filename=file))
+    def update_code(self, file, item_string, place_cursor):
+        CodePreview.logger.info("update {filename}".format(filename=file))
         # update widgets
         if file == "config.h":
             self.config_h(item_string, place_cursor)
@@ -231,5 +231,3 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
                     True
                 )
                 self.set_text_cursor(text_widget, item_string)
-
-    # end update_code_preview_tree()

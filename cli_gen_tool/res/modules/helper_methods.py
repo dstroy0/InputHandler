@@ -99,8 +99,8 @@ class HelperMethods(object):
             dlg.setWindowIcon(icon)
         if window_title != None:
             dlg.setWindowTitle(window_title)
-        dlg.activateWindow() # brings focus to the popup
-        ret = dlg.exec() # return the dialog exit code
+        dlg.activateWindow()  # brings focus to the popup
+        ret = dlg.exec()  # return the dialog exit code
         return ret
 
     def generate_docstring_list_for_filename(self, filename, brief):

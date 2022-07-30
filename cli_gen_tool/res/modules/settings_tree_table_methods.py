@@ -136,7 +136,7 @@ class SettingsTreeTableMethods(object):
             item = item.tableWidget()
         else:
             current_item = item.currentItem()
-        object_list = str(item.objectName()).split(",")        
+        object_list = str(item.objectName()).split(",")
         SettingsTreeTableMethods.logger.info("edit item in " + object_list[2])
         item.editItem(current_item)
 
@@ -146,15 +146,15 @@ class SettingsTreeTableMethods(object):
         if row == table_widget.rowCount() - 1:
             # the user added a row to the table
             return
-        data = str(repr(item.data(0))).strip("'").replace("\\\\", "\\")        
+        data = str(repr(item.data(0))).strip("'").replace("\\\\", "\\")
         object_list = table_widget.objectName().split(",")
         if data != "" and data != None:
             delim_dict = self.cliOpt[object_list[0]]["var"][object_list[2]]
             delim_dict.update({row: data})
             table_widget.blockSignals(True)
-            item.setText("'"+data+"'")
+            item.setText("'" + data + "'")
             table_widget.blockSignals(False)
-            self.update_code_preview("setup.h", object_list[2], True)
+            self.update_code("setup.h", object_list[2], True)
 
     def build_tree_table_widget(
         self,

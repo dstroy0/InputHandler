@@ -15,7 +15,6 @@ from __future__ import absolute_import
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
 from PySide6.QtWidgets import QDialogButtonBox, QStyle
-from res.modules.helper_methods import HelperMethods
 from res.modules.dev_qol_var import command_arg_types_list
 from res.modules.logging_setup import Logger
 
@@ -53,7 +52,7 @@ class CommandParametersMethods(object):
 
     def csv_button(self):
         CommandParametersMethods.logger.info(self.sender().objectName())
-        rem_list = ["rem","rem1","rem2","rem3","rem4","rem5","rem6","rem7"]
+        rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
         test_string = self.sender().objectName()
         if test_string == "add8bituint":
             self.append_to_arg_csv("UINT8_T,")
@@ -71,7 +70,7 @@ class CommandParametersMethods(object):
             self.append_to_arg_csv("STARTSTOP,")
         elif test_string == "addnotype":
             self.append_to_arg_csv("NOTYPE,")
-        elif test_string in rem_list:            
+        elif test_string in rem_list:
             self.rem_from_arg_csv()
 
     def append_to_arg_csv(self, string):
@@ -182,7 +181,7 @@ class CommandParametersMethods(object):
             error_text += item
             if item != error_list[len(error_list) - 1]:
                 error_text += "\n"
-        self.create_qdialog(            
+        self.create_qdialog(
             error_text,
             Qt.AlignLeft,
             0,

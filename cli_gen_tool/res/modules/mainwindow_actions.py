@@ -43,23 +43,25 @@ class MainWindowActions(object):
             buttons = [b.Save, b.Close, b.Cancel]
             button_text = ["", "Close without saving", ""]
             result = self.create_qdialog(
-            "Save your work?",
-            Qt.AlignCenter,
-            0,
-            "Save changes",
-            buttons,
-            button_text,
-            HelperMethods.get_icon(self, QStyle.StandardPixmap.SP_MessageBoxQuestion),
-        )
-        else: # no work to save
+                "Save your work?",
+                Qt.AlignCenter,
+                0,
+                "Save changes",
+                buttons,
+                button_text,
+                HelperMethods.get_icon(
+                    self, QStyle.StandardPixmap.SP_MessageBoxQuestion
+                ),
+            )
+        else:  # no work to save
             result = 4
-        
-        # log the exit type    
+
+        # log the exit type
         if result == 0:
             if event != None and type(event) != bool:
                 event.ignore()
             MainWindowActions.logger.info("Exit cancelled")
-        elif result == 2:            
+        elif result == 2:
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
             self.log.close()
@@ -67,15 +69,17 @@ class MainWindowActions(object):
             if event != None and type(event) != bool:
                 event.accept()
             sys.exit(self.app.quit())
-        elif result == 3:            
+        elif result == 3:
             self.log.close()
             MainWindowActions.logger.info("Not saved. Exiting CLI generation tool.")
             if event != None and type(event) != bool:
                 event.accept()
             sys.exit(self.app.quit())
         elif result == 4:
-            self.log.close()            
-            MainWindowActions.logger.info("Nothing to Save. Exiting CLI generation tool.")
+            self.log.close()
+            MainWindowActions.logger.info(
+                "Nothing to Save. Exiting CLI generation tool."
+            )
             if event != None and type(event) != bool:
                 event.accept()
             sys.exit(self.app.quit())

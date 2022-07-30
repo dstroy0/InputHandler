@@ -105,7 +105,7 @@ default_session_structure = {
 ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
 command_line_interface_options_structure = {
     "type": "cli options",
-    "var": {"tool_version": str(version)},
+    "var": {"num_commands": 0, "tool_version": str(version)},
     "commands": {},
     "config": {
         "file_lines": [],
@@ -136,7 +136,12 @@ command_line_interface_options_structure = {
         },
     },
     "builtin methods": {
-        "var": {"outputToStream": False, "defaultFunction": False, "listCommands": False, "listSettings": False},
+        "var": {
+            "outputToStream": False,
+            "defaultFunction": False,
+            "listCommands": False,
+            "listSettings": False,
+        },
         "tree": {
             "root": "",
             "items": {
@@ -374,16 +379,16 @@ filestring_db = {
     "setup": {
         "h": {
             "filestring components": {
-                "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",                
+                "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                 "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                 "constructor": "UserInput {objectname}{classoutput};\n",
                 "prototypes": {
                     "setup": "\nvoid InputHandler_setup();",
-                    "loop": "\nvoid InputHandler_loop();"
-                }                
+                    "loop": "\nvoid InputHandler_loop();",
+                },
             },
             "filestring": setup_h_filestring,
-        }, # end setup h
+        },  # end setup h
         "cpp": {
             "filestring components": {
                 "setup function": setup_cpp_setup_function,
@@ -406,13 +411,13 @@ filestring_db = {
                 "begin": {
                     "call": "\n  {objectname}.begin(); // Required. Returns true on success."
                 },
-                "setup function output":{
-                    "stream": "\n  {stream}.println(F(\"{setupstring}\"));",
-                    "buffer": "\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen(\"{setupstring}\")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), \"{setupstring}\");\n  }}"
-                }
+                "setup function output": {
+                    "stream": '\n  {stream}.println(F("{setupstring}"));',
+                    "buffer": '\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{setupstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{setupstring}");\n  }}',
+                },
             },
             "filestring": setup_cpp_filestring,
-        }, # end setup cpp
+        },  # end setup cpp
     },  # end setup
     "functions": {
         "h": {
@@ -426,9 +431,7 @@ filestring_db = {
                 "outputToStream": {
                     "call": "\n  _{objectname}->outputToStream({stream});"
                 },
-                "listCommands": {
-                    "call": "\n  _{objectname}->listCommands();"
-                },
+                "listCommands": {"call": "\n  _{objectname}->listCommands();"},
                 "listSettings": {
                     "call": "\n  _{objectname}->listSettings({objectname});"
                 },

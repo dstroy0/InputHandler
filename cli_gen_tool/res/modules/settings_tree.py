@@ -13,7 +13,6 @@
 from __future__ import absolute_import
 
 import json
-from operator import index
 
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
@@ -62,17 +61,17 @@ class SettingsTreeMethods(object):
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
 
-            self.update_code_preview("setup.h", object_list[2], True)
+            self.update_code("setup.h", object_list[2], True)
             if object_list[2] == "outputToStream":
-                self.update_code_preview("setup.cpp", object_list[2], True)
+                self.update_code("setup.cpp", object_list[2], True)
 
             if (
                 object_list[2] == "defaultFunction"
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
             ):
-                self.update_code_preview("functions.h", object_list[2], True)
-                self.update_code_preview("functions.cpp", object_list[2], True)
+                self.update_code("functions.h", object_list[2], True)
+                self.update_code("functions.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -106,14 +105,22 @@ class SettingsTreeMethods(object):
                     sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
                 ),
             )
-            self.update_code_preview("config.h", sub_dict[2], True)
+            self.update_code("config.h", sub_dict[2], True)
 
     def settings_tree_item_activated(self, item):
-        SettingsTreeMethods.logger.info(str(item) + " selected")
+        # expand/collapse QTreeWidgetItem that has children, if it has them
+        if item.childCount() > 0:
+            if item.isExpanded():
+                item.setExpanded(False)
+            else:
+                item.setExpanded(True)
+            return
+        object_list = str(item.data(4, 0)).split(",")
+        SettingsTreeMethods.logger.info(object_list[2] + " selected")
         self.edit_settings_tree_item(item)
 
     def check_if_settings_tree_col_editable(self, item, column):
-        # allow the third column to be editable
+        # allow the third column to be editable with mouse clicks
         if column == 3:
             self.edit_settings_tree_item(item)
 
@@ -139,12 +146,12 @@ class SettingsTreeMethods(object):
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"][object_list[2]] = val
             SettingsTreeMethods.logger.info(object_list[2] + " " + str(val))
-            self.update_code_preview("setup.h", object_list[2], True)
+            self.update_code("setup.h", object_list[2], True)
             if object_list[2] == "outputToStream":
-                self.update_code_preview("setup.cpp", object_list[2], True)
+                self.update_code("setup.cpp", object_list[2], True)
             if object_list[2] == "defaultFunction":
-                self.update_code_preview("functions.h", object_list[2], True)
-                self.update_code_preview("functions.cpp", object_list[2], True)
+                self.update_code("functions.h", object_list[2], True)
+                self.update_code("functions.cpp", object_list[2], True)
             return
 
         # process parameters (setup.h)
@@ -154,7 +161,7 @@ class SettingsTreeMethods(object):
                 "edited " + object_list[2] + ", new value " + "'" + str(val) + "'"
             )
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
-            self.update_code_preview("setup.h", item.text(1), True)            
+            self.update_code("setup.h", item.text(1), True)
             return
 
         # config.h
@@ -178,7 +185,7 @@ class SettingsTreeMethods(object):
         # update the config dict
         sub_dict[3] = tmp
         self.update_settings_tree_type_field_text(item)
-        self.update_code_preview("config.h", sub_dict[2], True)
+        self.update_code("config.h", sub_dict[2], True)
         SettingsTreeMethods.logger.info(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
@@ -304,6 +311,8 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
+
         # process output stream
         var_initial_val = self.cliOpt["process output"]["var"]["output stream"]
         index_of_child = index_of_child = set_up_child(
@@ -317,6 +326,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # process parameters
         index_of_child = 0
@@ -340,6 +350,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # process parameters end of line characters option
         var_name = "end of line characters"
@@ -356,6 +367,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # process parameters input control char sequence option
         var_name = "input control char sequence"
@@ -372,6 +384,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # process parameters wildcard char option
         var_name = "wildcard char"
@@ -388,6 +401,7 @@ class SettingsTreeMethods(object):
             var_initial_val,
             False,
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # process parameters data delimiter sequences option
         columns = 1
@@ -460,6 +474,7 @@ class SettingsTreeMethods(object):
             True,
             ["No default function.", "Default function enabled."],
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # listCommands
         var_name = "listCommands"
@@ -477,6 +492,7 @@ class SettingsTreeMethods(object):
             True,
             ["No listCommands command", "listCommands available to user."],
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # listSettings
         var_name = "listSettings"
@@ -494,6 +510,7 @@ class SettingsTreeMethods(object):
             True,
             ["No listSettings command", "listSettings available to user."],
         )
+        self.default_settings_tree_values.update({var_name: var_initial_val})
 
         # config.h
         tree = self.cliOpt["config"]["tree"]
@@ -535,6 +552,9 @@ class SettingsTreeMethods(object):
                             sub_dict[3],
                             True,
                         )
+                        self.default_settings_tree_values.update(
+                            {sub_dict[2]: sub_dict[3]}
+                        )
 
                     elif not match.hasMatch() and (
                         sub_dict[0] >= config_file_boolean_define_fields_line_start
@@ -551,6 +571,10 @@ class SettingsTreeMethods(object):
                             sub_dict[3],
                             True,
                         )
+                        self.default_settings_tree_values.update(
+                            {sub_dict[2]: sub_dict[3]}
+                        )
+
                     else:
                         number_field = int(sub_dict[3])
                         if number_field <= 255:
@@ -569,6 +593,9 @@ class SettingsTreeMethods(object):
                             "This field's type is automatically set by the library.",
                             sub_dict[3],
                             False,
+                        )
+                        self.default_settings_tree_values.update(
+                            {sub_dict[2]: sub_dict[3]}
                         )
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)

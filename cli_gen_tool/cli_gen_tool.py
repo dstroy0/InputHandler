@@ -125,6 +125,7 @@ class MainWindow(
         self.ui.commandParameters.setMaximumSize(0, 0)
 
         # MainWindow var
+        self.default_settings_tree_values = {}
 
         # code preview interaction
         self.user_resizing_code_preview_box = False

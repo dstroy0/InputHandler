@@ -13,7 +13,6 @@
 from __future__ import absolute_import
 import copy
 import json
-from xmlrpc.client import boolean
 from PySide6.QtCore import QRegularExpression
 from res.modules.logging_setup import Logger
 from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
@@ -23,7 +22,7 @@ class ParseInputHandlerConfig(object):
     def __init__(self) -> None:
         super(ParseInputHandlerConfig, self).__init__()
         ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)
-        
+
     def parse_config_header_file(self, path):
         config_path = ""
         if path == "":
@@ -64,7 +63,7 @@ class ParseInputHandlerConfig(object):
             "debug methods": 0,
         }
         # 0:line number 1:comment/uncomment 2:macro name 3:value/bool
-        fields = {"fields":{0:"",1:"",2:"",3:""}}
+        fields = {"fields": {0: "", 1: "", 2: "", 3: ""}}
         line_num = 0
         for line in self.cliOpt["config"]["file_lines"]:
             for key in regexp_dict:
@@ -72,25 +71,39 @@ class ParseInputHandlerConfig(object):
                 regexp = QRegularExpression(regexp_dict[key])
                 while line_pos != -1:
                     match = regexp.match(line, line_pos)
-                    if match.hasMatch():                
+                    if match.hasMatch():
                         entry = {index[key]: copy.deepcopy(fields)}
                         entry[index[key]]["fields"][0] = line_num
-                        idx = 1                     
-                        for i in range(1, regexp.captureCount()+1):
-                            if "#define" not in str(match.captured(i)):                                                                                          
-                                entry[index[key]]["fields"][idx] = str(match.captured(i)).strip("\n")
+                        idx = 1
+                        for i in range(1, regexp.captureCount() + 1):
+                            if "#define" not in str(match.captured(i)):
+                                entry[index[key]]["fields"][idx] = str(
+                                    match.captured(i)
+                                ).strip("\n")
                                 idx += 1
-                                if line_num >= config_file_boolean_define_fields_line_start:
+                                if (
+                                    line_num
+                                    >= config_file_boolean_define_fields_line_start
+                                ):
                                     if "//" in str(match.captured(1)):
-                                        entry[index[key]]["fields"][3]=False
+                                        entry[index[key]]["fields"][3] = False
                                     elif "//" not in str(match.captured(1)):
-                                        entry[index[key]]["fields"][3]=True   
+                                        entry[index[key]]["fields"][3] = True
                                 if idx == 4:
-                                    break                                                                               
-                        line_pos += match.capturedLength()                                                                   
+                                    break
+                        line_pos += match.capturedLength()
                         self.cliOpt["config"]["tree"]["items"][key].update(entry)
+                        self.default_settings_tree_values.update(
+                            {
+                                entry[index[key]]["fields"][2]: entry[index[key]][
+                                    "fields"
+                                ][3]
+                            }
+                        )
                         index[key] += 1
                     else:
                         break
             line_num += 1
-        ParseInputHandlerConfig.logger.debug(str(json.dumps(self.cliOpt['config']['tree']['items'], indent=2)))
+        ParseInputHandlerConfig.logger.debug(
+            str(json.dumps(self.cliOpt["config"]["tree"]["items"], indent=2))
+        )
