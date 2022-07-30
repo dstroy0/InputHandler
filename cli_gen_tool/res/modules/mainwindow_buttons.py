@@ -25,14 +25,33 @@ class MainWindowButtons(object):
     def clicked_edit_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 edit")
         if self.ui.settings_tree.currentItem() != None:
+            object_list = self.ui.settings_tree.currentItem().data(4, 0).split(",")            
+            if object_list[2] == "data delimiter sequences" or object_list[2] == "start stop data delimiter sequences":
+                table_widget = self.ui.settings_tree.itemWidget(self.ui.settings_tree.currentItem(),0)
+                items = table_widget.selectedItems()
+                item = items[0]
+                table_widget.editItem(item)
+                return            
             self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(), 3)
 
     # TODO
     def clicked_clear_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 clear")
         if self.ui.settings_tree.currentItem() != None:
-            object_list = self.ui.settings_tree.currentItem().data(4, 0).split(",")
-            print(object_list)
+            object_list = self.ui.settings_tree.currentItem().data(4, 0).split(",")            
+            if object_list[2] == "data delimiter sequences" or object_list[2] == "start stop data delimiter sequences":
+                table_widget = self.ui.settings_tree.itemWidget(self.ui.settings_tree.currentItem(),0)
+                items = table_widget.selectedItems()
+                item = items[0]
+                row = table_widget.row(item)
+                if row < table_widget.rowCount():
+                    clear_item = table_widget.item(row,0)                    
+                    clear_item.setText("")
+                    self.update_code("setup.h", object_list[2], True)
+                self.cliOpt["process parameters"]["var"][object_list[2]] = {}
+                for i in range(table_widget.rowCount()-1):                
+                    self.cliOpt["process parameters"]["var"][object_list[2]].update({i:table_widget.item(i,0).text().strip("'")})                    
+                return
             self.ui.settings_tree.currentItem().setData(3, 0, "")
 
     # TODO combobox default and table default
