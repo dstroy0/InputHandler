@@ -74,6 +74,7 @@ var searchData=
   ['config_5ffile_5fboolean_5fdefine_5ffields_5fline_5fstart_71',['config_file_boolean_define_fields_line_start',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a2d5f6fdd5e5b5030a7e1ef0de98a9989',1,'modules::dev_qol_var']]],
   ['config_5fh_72',['config_h',['../d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html#a55c0b14e6fc0babdcafaba6721c56dd7',1,'modules::cli::config::cliConfig']]],
   ['config_5fhowto_2eino_73',['config_howto.ino',['../d1/d98/config__howto_8ino.html',1,'']]],
-  ['create_5fqdialog_74',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
-  ['csv_5fbutton_75',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
+  ['create_5ffile_5ferror_5fqdialog_74',['create_file_error_qdialog',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a316865e105a173881f1111f1ac575cee',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['create_5fqdialog_75',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
+  ['csv_5fbutton_76',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
 ];

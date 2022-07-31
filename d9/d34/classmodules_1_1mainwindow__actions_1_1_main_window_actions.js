@@ -1,6 +1,7 @@
 var classmodules_1_1mainwindow__actions_1_1_main_window_actions =
 [
     [ "__init__", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a6e64930ba66eddaa7fc0fd06dad814db", null ],
+    [ "create_file_error_qdialog", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a316865e105a173881f1111f1ac575cee", null ],
     [ "do_before_app_close", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a915f9f83211ad379aa6caeda6dd0f358", null ],
     [ "generate_cli_files", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d", null ],
     [ "gui_about", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90", null ],
@@ -11,11 +12,12 @@ var classmodules_1_1mainwindow__actions_1_1_main_window_actions =
     [ "mainwindow_button_actions_setup", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a7269c067ae9ae2251a23538ead0c783f", null ],
     [ "mainwindow_menu_bar_actions_setup", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab88486a7f2c7dd42a7d97d4f0d947c6c", null ],
     [ "open_file", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a0ca4d08ee2de405d954a82357f319a6e", null ],
+    [ "read_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ae43878931a10f878ee29e4e95a6f05b7", null ],
     [ "save_file", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a641f824cb27136f2cde811065038c4fc", null ],
     [ "save_file_as", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a1decb0f25db2a5ffb2b351741f7cd3c2", null ],
-    [ "write_cli_gen_tool_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a955d14780c49442ea6bb62e079e2a797", null ],
+    [ "write_cli_gen_tool_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a73113284bb71bf1db10d3b98d75de484", null ],
+    [ "write_json", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a91b433841a577c79da975bd5e629a52d", null ],
     [ "cliOpt", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab4de419896739d5af4bb50f0cf5d93d7", null ],
-    [ "json_except", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a9bc5e4ab37dd87566b73d946ea058d60", null ],
     [ "prompt_to_save", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ac9222515e732a73f2ae2dda17e68a668", null ],
     [ "saveFileName", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a9196e4714d28ee6c81b61efad054ab8c", null ]
 ];
