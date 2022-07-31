@@ -16,8 +16,6 @@ import json
 import os
 import platform
 import sys
-from venv import create
-from xmlrpc.client import Boolean
 
 from PySide6.QtCore import QByteArray, QFile, QIODevice, Qt, QTextStream
 from PySide6.QtWidgets import (
@@ -101,7 +99,7 @@ class MainWindowActions(object):
         )
 
     def write_json(
-        self, dict: dict, qfile: QFile, create_error_dialog: Boolean = False
+        self, dict: dict, qfile: QFile, create_error_dialog: bool = False
     ):
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
@@ -123,7 +121,7 @@ class MainWindowActions(object):
         qfile.close()
         return size
 
-    def read_json(self, qfile: QFile, create_error_dialog: Boolean = False):
+    def read_json(self, qfile: QFile, create_error_dialog: bool = False):
         if not qfile.exists():
             MainWindowActions.logger.info("qfile.exists() == false")
             if create_error_dialog:
