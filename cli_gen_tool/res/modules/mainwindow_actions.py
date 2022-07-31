@@ -158,7 +158,7 @@ class MainWindowActions(object):
     def save_file_as(self):
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg = QFileDialog(self)
-        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json")
+        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json",options=QFileDialog.DontUseNativeDialog)
         if fileName[0] == "":
             MainWindowActions.logger.info("Save file dialog cancelled.")
             return QFileDialog.Rejected  # dialog cancelled
@@ -204,15 +204,14 @@ class MainWindowActions(object):
         dlg.setFileMode(QFileDialog.ExistingFile)
         dlg.setNameFilter("Settings json (*.json)")
         dlg.setViewMode(QFileDialog.Detail)
-        fileName = ""
-        if dlg.exec():
-            fileName = dlg.selectedFiles()
-        else:
+        fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)        
+        if fileName[0] == "":
             MainWindowActions.logger.info("open CLI settings file dialog cancelled")
             return  # dialog cancelled
-        file = QFile(fileName[0])
-        read_json_result = self.read_json(file, True)
-        self.cliOpt = read_json_result[1]
+        else:            
+            file = QFile(fileName[0])
+            read_json_result = self.read_json(file, True)
+            self.cliOpt = read_json_result[1]
 
     # TODO
     def gui_settings(self):
