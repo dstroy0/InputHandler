@@ -16,6 +16,8 @@ import json
 import os
 import platform
 import sys
+from venv import create
+from xmlrpc.client import Boolean
 
 from PySide6.QtCore import QByteArray, QFile, QIODevice, Qt, QTextStream
 from PySide6.QtWidgets import (
@@ -55,20 +57,22 @@ class MainWindowActions(object):
             )
         else:  # no work to save
             result = 4
-
         # log the exit type
         if result == 0:
             if event != None and type(event) != bool:
                 event.ignore()
             MainWindowActions.logger.info("Exit cancelled")
         elif result == 2:
-            self.settings.setValue("geometry", self.saveGeometry())
-            self.settings.setValue("windowState", self.saveState())
-            self.log.close()
-            MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
-            if event != None and type(event) != bool:
-                event.accept()
-            sys.exit(self.app.quit())
+            if self.save_file() >= 0:
+                self.log.close()
+                MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
+                if self.write_cli_gen_tool_json() > 0:
+                    MainWindowActions.logger.info("session json saved")
+                if event != None and type(event) != bool:
+                    event.accept()
+                sys.exit(self.app.quit())
+            else:
+                MainWindowActions.logger.info("Exit cancelled")
         elif result == 3:
             self.log.close()
             MainWindowActions.logger.info("Not saved. Exiting CLI generation tool.")
@@ -84,65 +88,121 @@ class MainWindowActions(object):
                 event.accept()
             sys.exit(self.app.quit())
 
+    def create_file_error_qdialog(self, error_type: str, qfile: QFile):
+        MainWindowActions.logger.warning(error_type + " file error.")
+        self.create_qdialog(
+            error_type + " error.",
+            Qt.AlignCenter,
+            0,
+            error_type + " " + qfile.fileName() + " error",
+            None,
+            None,
+            self.ui.messageBoxCriticalIcon,
+        )
+
+    def write_json(
+        self, dict: dict, qfile: QFile, create_error_dialog: Boolean = False
+    ):
+        if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
+            MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
+            if create_error_dialog:
+                self.create_file_error_qdialog("Save", qfile)
+            return -1  # file error
+        out = QByteArray(
+            json.dumps(dict, indent=2, sort_keys=False)
+        )  # dump pretty json
+        size = qfile.write(out)
+        if size != -1:
+            MainWindowActions.logger.info(
+                "wrote " + str(size) + " bytes to " + str(qfile.fileName())
+            )
+        else:
+            MainWindowActions.logger.info("Write " + qfile.fileName() + " error.")
+            if create_error_dialog:
+                self.create_file_error_qdialog("Write", qfile)
+        qfile.close()
+        return size
+
+    def read_json(self, qfile: QFile, create_error_dialog: Boolean = False):
+        if not qfile.exists():
+            MainWindowActions.logger.info("qfile.exists() == false")
+            if create_error_dialog:
+                self.create_file_error_qdialog("File not exists", qfile)
+            return [-2, {}]  # file doesn't exist
+        if not qfile.open(QIODevice.ReadOnly | QIODevice.Text):
+            qfile.close()
+            MainWindowActions.logger.warning("File access error.")
+            if create_error_dialog:
+                self.create_file_error_qdialog("Access", qfile)
+            return [-3, {}]  # access error
+        data_in = QTextStream(qfile).readAll()
+        qfile.close()
+        try:
+            json = json.loads(data_in)
+            MainWindowActions.logger.info(
+                "loaded json: "
+                + json["type"]
+                + "\n"
+                + str(json.dumps(json, indent=2, sort_keys=False))
+            )
+            return [len(data_in), json]
+        except Exception as e:
+            MainWindowActions.logger.warning(str(e))
+            return [-4, {}]
+
+    def save_file(self):
+        MainWindowActions.logger.info("save CLI settings file")
+        if self.saveFileName == "":
+            ret = self.save_file_as()
+            return ret
+        file = QFile(self.saveFileName)
+        ret = self.write_json(file)
+        return ret
+
+    def save_file_as(self):
+        # inherit from parent QMainWindow (block main window interaction while dialog box is open)
+        dlg = QFileDialog(self)
+        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json")
+        if fileName[0] == "":
+            MainWindowActions.logger.info("Save file dialog cancelled.")
+            return QFileDialog.Rejected  # dialog cancelled
+        fqname = fileName[0] + ".json"
+        self.saveFileName = fqname
+        MainWindowActions.logger.info("save CLI settings file as: " + str(fqname))
+        file = QFile(fqname)
+        ret = self.write_json(file)
+        return ret
+
     def load_cli_gen_tool_json(self, path):
-        session = {}
         file = QFile(path)
-        if not file.exists():
+        read_json_result = self.read_json(file, False)
+        error = read_json_result[0]
+        _json = read_json_result[1]
+        if error == -2:  # file not exists
             MainWindowActions.logger.info(
                 "cli_gen_tool.json doesn't exist, using default options"
             )
-            session = self.defaultGuiOpt
-            session["opt"]["input_config_file_path"] = self.default_lib_config_path
-            return session
-        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+            _json = self.defaultGuiOpt
+            _json["opt"]["input_config_file_path"] = self.default_lib_config_path
+            return _json
+        if error == -3:
             file.close()
             MainWindowActions.logger.warning(
                 "open cli_gen_tool.json error; using default options"
             )
-            session = self.defaultGuiOpt
-            session["opt"]["input_config_file_path"] = self.default_lib_config_path
-            return session
-        data_in = QTextStream(file).readAll()
-        file.close()
-        try:
-            # TODO validate session json
-            session = json.loads(data_in)
-            MainWindowActions.logger.info(
-                "\ncli_gen_tool.json:\n"
-                + str(json.dumps(session, indent=4, sort_keys=True))
-            )
-            return session
-        except (ValueError, RuntimeError, TypeError, NameError) as e:
-            MainWindowActions.logger.warning("json corrupt, removing")
-            if self.json_except == 1:
-                MainWindowActions.logger.warning("unable to read json, app exit")
-                self.app.quit()
-            self.json_except = 1
-            os.remove(path)  # delete corrupt json
-            self.write_cli_gen_tool_json(
-                path, self.defaultGuiOpt
-            )  # recreate cli_gen_tool.json
-            MainWindowActions.logger.warning(e)
-            session = self.defaultGuiOpt
-            session["opt"]["input_config_file_path"] = self.default_lib_config_path
-            return session
+            _json = self.defaultGuiOpt
+            _json["opt"]["input_config_file_path"] = self.default_lib_config_path
+            return _json
+        return _json
 
-    def write_cli_gen_tool_json(self, path, db):
-        file = QFile(path)
-        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            MainWindowActions.logger.warning(
-                "Unable to write new cli_gen_tool.json, please check permissions."
-            )
-            return -1
-        out = QByteArray(json.dumps(db, indent=4, sort_keys=True))  # dump pretty json
-        err = file.write(out)
-        MainWindowActions.logger.info("write successful")
-        file.close()
+    def write_cli_gen_tool_json(self):
+        file = QFile(self.cli_gen_tool_json_path)
+        err = self.write_json(self.session, file, False)
         return err
 
     # MainWindow actions
     def open_file(self):
-        MainWindowActions.logger.info("open CLI settings file")
+        MainWindowActions.logger.info("open CLI settings file dialog")
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg = QFileDialog(self)
         dlg.setFileMode(QFileDialog.ExistingFile)
@@ -152,86 +212,20 @@ class MainWindowActions(object):
         if dlg.exec():
             fileName = dlg.selectedFiles()
         else:
+            MainWindowActions.logger.info("open CLI settings file dialog cancelled")
             return  # dialog cancelled
         file = QFile(fileName[0])
-        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            MainWindowActions.logger.warning("File read error")
-            self.create_popup_dialog_box(
-                "File read error.", "Error", self.ui.messageBoxCriticalIcon
-            )
-            return  # file read error
-        data_in = QTextStream(file).readAll()
-        file.close()
-        data_in_dict = {}
-        err = False
-        try:
-            data_in_dict = json.loads(data_in)
-        except:
-            MainWindowActions.logger.warning("json encoding error")
-            err = True
-        try:
-            if data_in_dict["type"] != "cli options":
-                MainWindowActions.logger.warning("json type error")
-        except:
-            MainWindowActions.logger.warning("json key error")
-            err = True
-        if err == True:
-            return  # error flag set
-        else:
-            self.cliOpt = json.loads(data_in)
-            MainWindowActions.logger.info("CLI options json loaded.")
-
-    def save_file(self):
-        MainWindowActions.logger.info("save CLI settings file")
-        if self.saveFileName == "":
-            self.save_file_as()
-            return
-        file = QFile(self.saveFileName)
-        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            MainWindowActions.logger.warning("Save file error.")
-            self.create_qdialog(
-                "Save file error.",
-                Qt.AlignCenter,
-                0,
-                "Error",
-                None,
-                None,
-                self.ui.messageBoxCriticalIcon,
-            )
-            return  # error
-
-        out = QByteArray(
-            json.dumps(self.cliOpt, indent=4, sort_keys=True)
-        )  # dump pretty json
-        file.write(out)
-        file.close()
-
-    def save_file_as(self):
-        # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        dlg = QFileDialog(self)
-        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json")
-        if fileName[0] == "":
-            return  # dialog cancelled
-        fqname = fileName[0] + ".json"
-        self.saveFileName = fqname
-        MainWindowActions.logger.info("save CLI settings file as: " + str(fqname))
-        file = QFile(fqname)
-        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            return  # TODO error
-        out = QByteArray(
-            json.dumps(self.cliOpt, indent=4, sort_keys=True)
-        )  # dump pretty json
-        file.write(out)
-        file.close()
+        read_json_result = self.read_json(file, True)
+        self.cliOpt = read_json_result[1]
 
     # TODO
     def gui_settings(self):
-        MainWindowActions.logger.info("save CLI settings file as")("preferences")
+        MainWindowActions.logger.info("preferences")
 
     # TODO
     # generate CLI files
     def generate_cli_files(self):
-        MainWindowActions.logger.info("save CLI settings file as")("generate cli files")
+        MainWindowActions.logger.info("generate cli files")
 
     def gui_about(self):
         MainWindowActions.logger.info("open about dialog")
@@ -239,7 +233,6 @@ class MainWindowActions(object):
         Library authors:<br>
         Douglas Quigg (dstroy0 dquigg123@gmail.com)<br>
         Brendan Doherty (2bndy5 2bndy5@gmail.com)<br>"""
-
         self.create_qdialog(
             about_string,
             Qt.AlignCenter,
@@ -264,7 +257,6 @@ class MainWindowActions(object):
             os.system('xdg-open "" https://dstroy0.github.io/InputHandler/')
 
     def gui_log_history(self):
-        print("t")
         if not self.log.isActiveWindow() and not self.log.isVisible():
             self.log.show()
             self.log.raise_()
@@ -282,7 +274,6 @@ class MainWindowActions(object):
         self.ui.actionSave_As.triggered.connect(self.save_file_as)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
         self.ui.actionExit.triggered.connect(self.app.quit)
-
         # generate menu
         self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
         # about menu
@@ -290,9 +281,7 @@ class MainWindowActions(object):
         self.ui.actionInputHandler_Documentation.triggered.connect(
             self.gui_documentation
         )
-
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
-
         # end file menu actions setup
 
     def mainwindow_button_actions_setup(self):

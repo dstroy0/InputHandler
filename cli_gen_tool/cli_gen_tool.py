@@ -60,35 +60,35 @@ class MainWindow(
     ## The constructor.
     def __init__(self, app, parent=None):
         super().__init__(parent)
-
+        # settings object; platform independent
+        # https://doc.qt.io/qt-6/qsettings.html
+        self.settings = QSettings("InputHandler", "cli_gen_tool.py")
         self.app = app  # used in external methods
         self.prompt_to_save = False
-        self.settings = QSettings("InputHandler", "cli_gen_tool.py")
 
-        # log pathing
+        # logfile pathing
         if not os.path.isdir(log_path):
             os.mkdir(log_path)
+        
         # log history
-
         self.log = QDialog()
         self.log.setWindowFlags(Qt.Window)
         self.log.setWindowIcon(
             self.get_icon(QStyle.StandardPixmap.SP_FileDialogContentsView)
         )
         self.log.dlg = Ui_logHistoryDialog()
-
         # MainWindow still interactable with log history open
         self.log.dlg.setupUi(self.log)
-
         self.log.close()
 
-        # set up logger
+        # set up logging api
         Logger.setup_file_handler()
-
         self.logger = Logger.get_logger(self, __name__)
-
+        
         self.logger.info("Loading CLI generation tool.")
-        self.logger.debug("Importing external classes.")
+        
+        # import external classes
+        self.logger.debug("Importing external classes.")        
         HelperMethods.__init__(self)
         MainWindowActions.__init__(self)
         MainWindowButtons.__init__(self)
@@ -98,8 +98,8 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CodePreview.__init__(self)
 
-        self.logger.debug("Set app pathing.")
         # pathing
+        self.logger.debug("Set app pathing.")        
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
         self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
@@ -107,14 +107,16 @@ class MainWindow(
         self.cli_gen_tool_json_path = (
             self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
         )
+        
+        # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
         # MainWindow icon
         window_icon_path = self.lib_root_path + "/docs/img/Logolarge.png"
         self.setWindowIcon(QIcon(window_icon_path))
-        # init param popup dialog
+        
+        # load command parameters input dialog ui
         self.ui.commandParameters = QDialog(self)
         # blue circle question icon
         self.ui.commandParameters.setWindowIcon(
@@ -212,11 +214,15 @@ class MainWindow(
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
         cmd_dlg.argumentsPane.setEnabled(False)
+        
+        # viewports are "QAbstractScrollArea"s; we filter events in them to react to user interaction in specific ways
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
 
         # end MainWindow objects
+        # read QSettings
+        self.readSettings(self.settings)
         self.logger.info("CLI generation tool ready.")
         # end __init__
 
@@ -227,14 +233,20 @@ class MainWindow(
         mouse_button = False
         # global mouse pos
         mouse_pos = self.qcursor.pos()
-
         # drag to resize, change cursor to vertical drag and back to arrow
         self.code_preview_events(watched, event, event_type, mouse_button, mouse_pos)
-
         return super().eventFilter(watched, event)
 
     def closeEvent(self, event):
+        MainWindow.logger.info("save window settings")
+        self.settings.setValue("geometry", self.saveGeometry())
+        self.settings.setValue("windowState", self.saveState())
         self.do_before_app_close(event)
+
+    def readSettings(self, settings: QSettings):
+        MainWindow.logger.info("restore window settings")
+        self.restoreGeometry(settings.value("geometry"))
+        self.restoreState(settings.value("windowState"))
 
 
 # loop

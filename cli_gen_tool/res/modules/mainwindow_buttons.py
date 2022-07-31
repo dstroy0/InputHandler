@@ -31,6 +31,7 @@ class MainWindowButtons(object):
                 items = table_widget.selectedItems()
                 item = items[0]
                 table_widget.editItem(item)
+                self.update_code("setup.h", object_list[2], True)
                 return            
             self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(), 3)
 
@@ -54,7 +55,7 @@ class MainWindowButtons(object):
                 return
             self.ui.settings_tree.currentItem().setData(3, 0, "")
 
-    # TODO combobox default and table default
+    # TODO combobox default
     def clicked_default_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 default")
         tree_item = self.ui.settings_tree.currentItem()
@@ -63,7 +64,8 @@ class MainWindowButtons(object):
                 self.default_settings_tree_values[str(tree_item.data(1, 0))]
             )
             tree_item.setData(3, 0, default_val)
-
+            
+            
     # tab 2
     # TODO
 
