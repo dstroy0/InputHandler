@@ -283,3 +283,6 @@ class CommandParametersMethods(object):
             cmd_dlg.argumentsPane.setEnabled(True)
         else:
             cmd_dlg.argumentsPane.setEnabled(False)
+
+
+# end of file

@@ -98,9 +98,7 @@ class MainWindowActions(object):
             self.ui.messageBoxCriticalIcon,
         )
 
-    def write_json(
-        self, dict: dict, qfile: QFile, create_error_dialog: bool = False
-    ):
+    def write_json(self, dict: dict, qfile: QFile, create_error_dialog: bool = False):
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
@@ -299,3 +297,6 @@ class MainWindowActions(object):
         # end buttons setup
 
     # end MainWindow actions
+
+
+# end of file

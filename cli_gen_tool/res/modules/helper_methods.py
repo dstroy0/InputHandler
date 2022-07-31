@@ -125,3 +125,6 @@ class HelperMethods(object):
 
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)
+
+
+# end of file

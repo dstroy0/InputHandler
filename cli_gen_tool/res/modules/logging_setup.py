@@ -60,3 +60,6 @@ class Logger(object):
         logger.addHandler(Logger.get_stream_handler())
         logger.addHandler(log_handler)
         return logger
+
+
+# end of file

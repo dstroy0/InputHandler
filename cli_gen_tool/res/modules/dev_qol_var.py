@@ -106,7 +106,7 @@ default_session_structure = {
 command_line_interface_options_structure = {
     "type": "cli options",
     "var": {"num_commands": 0, "tool_version": str(version)},
-    # each command tree will have a subdict in "command parameters index"    
+    # each command tree will have a subdict in "command parameters index"
     "command parameters index": {},
     "commands": {},
     "config": {
@@ -454,6 +454,7 @@ filestring_db = {
         }  # end parameters h
     },  # end parameters
 }
+
 
 # end dev qol var
 # end of file

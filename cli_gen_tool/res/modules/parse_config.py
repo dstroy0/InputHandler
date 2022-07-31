@@ -17,6 +17,7 @@ from PySide6.QtCore import QRegularExpression
 from res.modules.logging_setup import Logger
 from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
 
+
 # parse inputhandler config
 class ParseInputHandlerConfig(object):
     def __init__(self) -> None:
@@ -107,3 +108,6 @@ class ParseInputHandlerConfig(object):
         ParseInputHandlerConfig.logger.debug(
             str(json.dumps(self.cliOpt["config"]["tree"]["items"], indent=2))
         )
+
+
+# end of file

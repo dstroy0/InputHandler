@@ -16,11 +16,9 @@ from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 
-
 from res.modules.cli.config import cliConfig
 from res.modules.cli.setup import cliSetup
 from res.modules.cli.functions import cliFunctions
-
 
 from res.modules.logging_setup import Logger
 
@@ -231,3 +229,6 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
                     True
                 )
                 self.set_text_cursor(text_widget, item_string)
+
+
+# end of file

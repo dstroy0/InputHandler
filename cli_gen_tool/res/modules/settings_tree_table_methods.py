@@ -258,5 +258,7 @@ class SettingsTreeTableMethods(object):
 
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
+    # end settings_tree table functions
 
-# end settings_tree table functions
+
+# end of file

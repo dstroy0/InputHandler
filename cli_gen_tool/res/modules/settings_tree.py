@@ -609,3 +609,6 @@ class SettingsTreeMethods(object):
         settings_tree.itemActivated.connect(self.settings_tree_item_activated)
 
     # end build_lib_settings_tree()
+
+
+# end of file
