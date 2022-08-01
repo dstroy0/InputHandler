@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"dc/d4b/class_user_input.html#a2f20b08994699f3e45e1bf0af3c7cb0c":[4,0,10,10],
-"dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd":[4,0,10,30],
 "dc/d4b/class_user_input.html#a33128d3eecaa49f7282106e5cb6f141e":[4,0,10,46],
 "dc/d4b/class_user_input.html#a3353bbf00f5c4a4f83668caa224d1030":[4,0,10,29],
 "dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718":[4,0,10,26],
@@ -249,5 +247,7 @@ var NAVTREEINDEX3 =
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a1c9e3a9e2ca6fb792a814f8c296644c6":[4,0,1,10,0,8],
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a31c322960a40f1a1e20d1fbc56735c26":[3,0,2,11,0,4],
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a31c322960a40f1a1e20d1fbc56735c26":[4,0,1,10,0,4],
-"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a66bca52bf45c2dd1b9a54942a91af3e3":[4,0,1,10,0,7]
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a66bca52bf45c2dd1b9a54942a91af3e3":[4,0,1,10,0,7],
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a66bca52bf45c2dd1b9a54942a91af3e3":[3,0,2,11,0,7],
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a8fbacb3e65b878cd6b499c6a97aef3cc":[4,0,1,10,0,6]
 };
