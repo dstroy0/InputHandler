@@ -147,26 +147,26 @@ class MainWindowActions(object):
             return [-4, {}]
 
     def save_file(self):
-        MainWindowActions.logger.info("save CLI settings file")
-        if self.saveFileName == "":
+        MainWindowActions.logger.info("save CLI settings file")        
+        if self.session["opt"]["save_filename"] == "" or self.session["opt"]["save_filename"] == None:
             ret = self.save_file_as()
             return ret
-        file = QFile(self.saveFileName)
-        ret = self.write_json(file)
+        file = QFile(self.session["opt"]["save_filename"])
+        ret = self.write_json(self.cliOpt,file,True)
         return ret
 
     def save_file_as(self):
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        dlg = QFileDialog(self)
+        dlg = QFileDialog(self)        
         fileName = dlg.getSaveFileName(self, "Save file name", "", ".json",options=QFileDialog.DontUseNativeDialog)
         if fileName[0] == "":
             MainWindowActions.logger.info("Save file dialog cancelled.")
             return QFileDialog.Rejected  # dialog cancelled
         fqname = fileName[0] + ".json"
-        self.saveFileName = fqname
+        self.session["opt"]["save_filename"] = fqname
         MainWindowActions.logger.info("save CLI settings file as: " + str(fqname))
         file = QFile(fqname)
-        ret = self.write_json(file)
+        ret = self.write_json(self.cliOpt,file,True)
         return ret
 
     def load_cli_gen_tool_json(self, path):
@@ -203,7 +203,7 @@ class MainWindowActions(object):
         dlg = QFileDialog(self)
         dlg.setFileMode(QFileDialog.ExistingFile)
         dlg.setNameFilter("Settings json (*.json)")
-        dlg.setViewMode(QFileDialog.Detail)
+        dlg.setViewMode(QFileDialog.Detail)        
         fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)        
         if fileName[0] == "":
             MainWindowActions.logger.info("open CLI settings file dialog cancelled")
