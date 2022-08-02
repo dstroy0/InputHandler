@@ -1,7 +1,7 @@
 var searchData=
 [
   ['param_5farray_5flen_0',['param_array_len',['../df/d68/class_command_constructor.html#a0b30428fa3c0bbc6d37f8eb6bbe75877',1,'CommandConstructor']]],
-  ['parameters_5fh_5ffilestring_1',['parameters_h_filestring',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a01646895feb76ef82f59fc582e3d0418',1,'modules::dev_qol_var']]],
+  ['parameters_5fh_5ffilestring_1',['parameters_h_filestring',['../d7/d76/namespacemodules_1_1cli_1_1filestrings.html#a321f7c21fb1f4af49c95dcbdc9abd676',1,'modules::cli::filestrings']]],
   ['parameterspane_2',['parametersPane',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a08bd4de13a362df3882b316e15184af9',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['parent_3',['parent',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#aabec5d77b7b2f2221d2b475528f9b52e',1,'modules.helper_methods.HelperMethods.parent()'],['../d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html#ade507f769c7ea3c8042719d034275f98',1,'modules.logging_setup.QPlainTextEditLogger.parent()']]],
   ['parent_5fcommand_5fid_4',['parent_command_id',['../db/d11/struct_command_parameters.html#a8ed369bdd50a4aad4633152203054c45',1,'CommandParameters']]],

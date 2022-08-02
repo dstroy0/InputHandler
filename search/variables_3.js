@@ -26,7 +26,7 @@ var searchData=
   ['commandmaxargs_23',['commandMaxArgs',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#abe887811f569e6c812df70317e58d067',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['commandmaxargslabel_24',['commandMaxArgsLabel',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a97f5a93aa9ec1fc81cc083ee7418f9af',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['commandminargs_25',['commandMinArgs',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#aecf013330dd3d43f3b8241f7fa2797b3',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
-  ['commandparameters_5fstring_26',['commandparameters_string',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a5a69f734fffbe44c4ddef01b70829e9d',1,'modules::dev_qol_var']]],
+  ['commandparameters_5fstring_26',['commandparameters_string',['../d7/d76/namespacemodules_1_1cli_1_1filestrings.html#aba3c635be6ff5f3e9c6fc870709b92fd',1,'modules::cli::filestrings']]],
   ['commandparameterskeys_27',['commandParametersKeys',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a9c15a5cc957ed97049c100ca1f583f38',1,'cli_gen_tool::MainWindow']]],
   ['commandparentid_28',['commandParentId',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a6fe002a48674aed9bd8c63be6b3d994a',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['commandstring_29',['commandString',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#adb87dab3ac9e47e608cb0d720efacae5',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],

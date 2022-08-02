@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a31c322960a40f1a1e20d1fbc56735c26":[4,0,1,10,0,4],
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a66bca52bf45c2dd1b9a54942a91af3e3":[4,0,1,10,0,7],
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a66bca52bf45c2dd1b9a54942a91af3e3":[3,0,2,11,0,7],
+"de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a8fbacb3e65b878cd6b499c6a97aef3cc":[4,0,1,10,0,6],
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a8fbacb3e65b878cd6b499c6a97aef3cc":[3,0,2,11,0,6],
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#ad9d35d9f5b1ffbb87be1d022722b6224":[3,0,2,11,0,0],
 "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#ad9d35d9f5b1ffbb87be1d022722b6224":[4,0,1,10,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "globals_enum.html":[5,1,4],
 "globals_eval.html":[5,1,5],
 "globals_f.html":[5,1,0,6],
-"globals_func.html":[5,1,1],
-"globals_g.html":[5,1,0,7],
-"globals_h.html":[5,1,0,8],
-"globals_i.html":[5,1,0,9],
-"globals_l.html":[5,1,0,10]
+"globals_func.html":[5,1,1]
 };

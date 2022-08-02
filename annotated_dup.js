@@ -8,6 +8,9 @@ var annotated_dup =
         [ "config", "da/d86/namespacemodules_1_1cli_1_1config.html", [
           [ "cliConfig", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config" ]
         ] ],
+        [ "filestrings", "d7/d76/namespacemodules_1_1cli_1_1filestrings.html", [
+          [ "CLIfilestrings", "dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html", "dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings" ]
+        ] ],
         [ "functions", "db/d41/namespacemodules_1_1cli_1_1functions.html", [
           [ "cliFunctions", "dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html", "dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions" ]
         ] ],

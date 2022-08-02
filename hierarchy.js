@@ -14,6 +14,7 @@ var hierarchy =
     [ "NMEAparse", "df/d2a/class_n_m_e_aparse.html", null ],
     [ "object", null, [
       [ "modules.cli.config.cliConfig", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html", null ],
+      [ "modules.cli.filestrings.CLIfilestrings", "dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html", null ],
       [ "modules.cli.functions.cliFunctions", "dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html", null ],
       [ "modules.cli.parameters.cliParameters", "d5/dc1/classmodules_1_1cli_1_1parameters_1_1cli_parameters.html", null ],
       [ "modules.cli.setup.cliSetup", "dc/d95/classmodules_1_1cli_1_1setup_1_1cli_setup.html", null ],
