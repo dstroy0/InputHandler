@@ -12,6 +12,8 @@
 
 from __future__ import absolute_import
 
+from res.modules.dev_qol_var import version
+from res.modules.cli.filestrings import file_docs_format_string
 import datetime
 from PySide6.QtWidgets import (
     QDialog,
@@ -22,7 +24,6 @@ from PySide6.QtWidgets import (
     QSizePolicy,
 )
 from PySide6.QtCore import Qt
-from res.modules.dev_qol_var import version, file_docs_format_string
 from res.modules.logging_setup import Logger
 
 
@@ -103,6 +104,15 @@ class HelperMethods(object):
         ret = dlg.exec()  # return the dialog exit code
         return ret
 
+    def list_to_code_string(self, list):
+        code_string = ""
+        for line in list:
+            code_string = code_string + line + "\n"
+        return code_string
+
+    def get_icon(self, pixmapapi):
+        return QWidget().style().standardIcon(pixmapapi)
+
     def generate_docstring_list_for_filename(self, filename, brief):
         docstring_list = []
         year = str(datetime.date.today())[0:4]
@@ -116,15 +126,6 @@ class HelperMethods(object):
         )
         docstring_list = docstring.split("\n")
         return docstring_list
-
-    def list_to_code_string(self, list):
-        code_string = ""
-        for line in list:
-            code_string = code_string + line + "\n"
-        return code_string
-
-    def get_icon(self, pixmapapi):
-        return QWidget().style().standardIcon(pixmapapi)
 
 
 # end of file

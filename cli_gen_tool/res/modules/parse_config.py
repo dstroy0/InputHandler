@@ -22,7 +22,7 @@ from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
 class ParseInputHandlerConfig(object):
     def __init__(self) -> None:
         super(ParseInputHandlerConfig, self).__init__()
-        ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)
+        ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)        
 
     def parse_config_header_file(self, path):
         config_path = ""
