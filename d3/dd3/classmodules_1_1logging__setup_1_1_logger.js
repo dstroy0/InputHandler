@@ -5,5 +5,5 @@ var classmodules_1_1logging__setup_1_1_logger =
     [ "get_file_handler", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#abe8b246d3e9cc7570df9b9d6d639a39e", null ],
     [ "get_logger", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a8e98d5f8bd6d190b68f3d27cb084c1fd", null ],
     [ "get_stream_handler", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#aab2ed7772004b64448111bf50ba65852", null ],
-    [ "setup_file_handler", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#ad07842800246521a3041e5ee5f84e734", null ]
+    [ "setup_file_handler", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a6cb02463eca71dc01059b9a18c9f07e7", null ]
 ];

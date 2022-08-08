@@ -1,7 +1,7 @@
 var searchData=
 [
   ['factoryreset_5fenable_0',['FACTORYRESET_ENABLE',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#af2129e4fb10289982606b136a1d9f1a8',1,'BLE_UART.ino']]],
-  ['file_5flog_5flevel_1',['file_log_level',['../d6/da0/namespacemodules_1_1dev__qol__var.html#af1a440d17e9b1e800d85708705649595',1,'modules::dev_qol_var']]],
+  ['file_5flog_5flevel_1',['file_log_level',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a54ab8f8619e446660e8a9673b49144ac',1,'modules::logging_setup::Logger']]],
   ['filestrings_2epy_2',['filestrings.py',['../db/d69/filestrings_8py.html',1,'']]],
   ['float_3',['FLOAT',['../de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6',1,'InputHandler.h']]],
   ['float_5fsep_4',['float_sep',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html#ad6c99f4d08611390ed375a699e992a25',1,'UserInput::validateNullSepInputParam']]],

@@ -8,7 +8,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "cli_gen_tool_json_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a126218cfff27282b03b8df83fbea2802", null ],
     [ "cliOpt", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a4ed024c3d4f0f24934f4a58273a4ea70", null ],
     [ "code_preview_dict", "d3/d6c/classcli__gen__tool_1_1_main_window.html#ac74d0251be0547935dbdc4ce6983aa8a", null ],
-    [ "commandParametersKeys", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a9c15a5cc957ed97049c100ca1f583f38", null ],
+    [ "config_file_boolean_define_fields_line_start", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a43cf5da3c5ebb2f9a513741eaaafb8d2", null ],
     [ "default_lib_config_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a855bdf49150f54379b244894483d09f4", null ],
     [ "default_settings_tree_values", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0eb4f17df6347a3b4a6f0f1227eee1dc", null ],
     [ "defaultGuiOpt", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a3e49a8961ad9bfa9753fc62923cf6073", null ],
