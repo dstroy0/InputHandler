@@ -44,6 +44,9 @@ var hierarchy =
     [ "cliFunctions", null, [
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],
+    [ "cliParameters", null, [
+      [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
+    ] ],
     [ "cliSetup", null, [
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],

@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"dc/d4b/class_user_input.html#afc3b76d32654daa78a424b3440dbedab":[4,0,10,45],
+"dc/d4b/class_user_input.html#aff5215d9d714b7709a8edb16fcb88149":[4,0,10,16],
 "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html":[4,0,1,1,1],
 "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html":[3,0,2,1,1],
 "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html#a2f924618b5a49a0b9a87a0a0cbed7e7e":[3,0,2,1,1,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "df/dec/_input_handler_8h.html":[5,0,2,3],
 "df/dec/_input_handler_8h_source.html":[5,0,2,3],
 "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html":[3,0,3,0,0],
-"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html":[4,0,2,0,0],
-"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05":[4,0,2,0,0,11],
-"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05":[3,0,3,0,0,11]
+"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html":[4,0,2,0,0]
 };
