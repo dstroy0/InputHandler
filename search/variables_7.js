@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['generated_5ffilename_5fdict_0',['generated_filename_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a',1,'modules::dev_qol_var']]],
-  ['generated_5ffilename_5fsub_5fdict_1',['generated_filename_sub_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#abc87cbf607ad22f3bb9ac52ebb97426b',1,'modules::dev_qol_var']]],
+  ['generated_5ffilename_5fdict_0',['generated_filename_dict',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a135016060e55605c8dda6f0156d6bf7e',1,'modules.data_models.dataModels.generated_filename_dict()'],['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#afe0bdde7b603f3b86d18c80ab9656694',1,'modules.data_models.dataModels.generated_filename_dict()']]],
+  ['generated_5ffilename_5fsub_5fdict_1',['generated_filename_sub_dict',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#abbed7a8f011f2dd35c7f408b64f9d37b',1,'modules::data_models::dataModels']]],
   ['gga_2',['GGA',['../da/dff/_n_m_e_asentenceparam_8h.html#a642729dbf77b6e30a778fc5ee8c22f2c',1,'NMEAsentenceparam.h']]],
   ['gll_3',['GLL',['../da/dff/_n_m_e_asentenceparam_8h.html#ad2d6169a800b0a252bf2c401b7f8dabc',1,'NMEAsentenceparam.h']]],
   ['gpbwc_4',['gpbwc',['../dd/d65/_n_m_e_aparser_8ino.html#acad89f5dd048dba77e2f05c4ff30558f',1,'NMEAparser.ino']]],

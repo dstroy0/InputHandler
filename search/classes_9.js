@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qplaintexteditlogger_0',['QPlainTextEditLogger',['../d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html',1,'modules::logging_setup']]]
+  ['parseinputhandlerconfig_0',['ParseInputHandlerConfig',['../da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html',1,'modules::parse_config']]]
 ];

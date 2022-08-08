@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['logger_0',['Logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html',1,'modules::logging_setup']]]
+  ['inputprocessdelimitersequences_0',['InputProcessDelimiterSequences',['../dc/da2/struct_input_process_delimiter_sequences.html',1,'']]],
+  ['inputprocessparameters_1',['InputProcessParameters',['../db/dda/struct_input_process_parameters.html',1,'']]],
+  ['inputprocessstartstopsequences_2',['InputProcessStartStopSequences',['../d4/dc0/struct_input_process_start_stop_sequences.html',1,'']]]
 ];

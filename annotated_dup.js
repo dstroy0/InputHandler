@@ -31,6 +31,9 @@ var annotated_dup =
       [ "command_tree", "d2/d2d/namespacemodules_1_1command__tree.html", [
         [ "CommandTreeMethods", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods" ]
       ] ],
+      [ "data_models", "df/d57/namespacemodules_1_1data__models.html", [
+        [ "dataModels", "d7/d8c/classmodules_1_1data__models_1_1data_models.html", "d7/d8c/classmodules_1_1data__models_1_1data_models" ]
+      ] ],
       [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", [
         [ "HelperMethods", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods" ]
       ] ],
