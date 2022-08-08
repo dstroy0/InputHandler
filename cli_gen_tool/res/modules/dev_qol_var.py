@@ -20,9 +20,6 @@ from PySide6.QtCore import QDir
 # dev qol var
 # these are here for ease of access, clarity, or both
 
-
-## lib version
-version = 0.1  # save serialization
 ## Library pathing
 path = QDir()
 path.cdUp()
@@ -69,111 +66,7 @@ command_parameters_dict_keys_list = [
     "commandArguments",
 ]
 
-## This is used to create the session json.
-default_session_structure = {
-    "type": "session",
-    "tool_version": str(version),
-    "opt": {
-        "save_filename": None,
-        "log_filename": None,
-        "recent_files": {},
-        "input_config_file_path": "",
-        "output_dir": "",
-        "window_size": "",
-    },
-}
 
-## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
-command_line_interface_options_structure = {
-    "type": "cli options",
-    "var": {"num_commands": 0, "tool_version": str(version)},
-    # each command tree will have a subdict in "command parameters index"
-    "command parameters index": {},
-    "commands": {},
-    "config": {
-        "file_lines": [],
-        "tree": {
-            "root": "",
-            "parents": {
-                "library settings": {"QTreeWidgetItem": {}},
-                "progmem settings": {"QTreeWidgetItem": {}},
-                "debug methods": {"QTreeWidgetItem": {}},
-                "optional methods": {"QTreeWidgetItem": {}},
-            },
-            "items": {
-                "library settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                "progmem settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                "debug methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                "optional methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
-            },
-        },
-    },
-    "process output": {
-        "var": {"buffer size": 0, "output stream": None},
-        "tree": {
-            "root": "",
-            "items": {
-                "buffer size": {"QTreeWidgetItem": {}},
-                "output stream": {"QTreeWidgetItem": {}},
-            },
-        },
-    },
-    "builtin methods": {
-        "var": {
-            "outputToStream": False,
-            "defaultFunction": False,
-            "listCommands": False,
-            "listSettings": False,
-        },
-        "tree": {
-            "root": "",
-            "items": {
-                "defaultFunction": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                "listCommands": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                "listSettings": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                "outputToStream": {"QTreeWidgetItem": {}, "QComboBox": {}},
-            },
-        },
-    },
-    "process parameters": {
-        "var": {
-            "process name": "",
-            "end of line characters": "\r\n",
-            "input control char sequence": "##",
-            "wildcard char": "*",
-            "data delimiter sequences": {0: " ", 1: ","},
-            "start stop data delimiter sequences": {0: '\\"', 1: '\\"'},
-        },
-        "tree": {
-            "root": "",
-            "parents": {},
-            "items": {
-                "process name": {"QTreeWidgetItem": {}},
-                "end of line characters": {"QTreeWidgetItem": {}},
-                "input control char sequence": {"QTreeWidgetItem": {}},
-                "wildcard char": {"QTreeWidgetItem": {}},
-                "data delimiter sequences": {
-                    "QTreeWidgetItem": "",
-                    "QTableWidget": "",
-                    "QTableWidgetItems": {
-                        "input cells": {},
-                        "add row": {"item": "", "button": ""},
-                        "remove row buttons": {"items": {}, "buttons": {}},
-                    },
-                },
-                "start stop data delimiter sequences": {
-                    "QTreeWidgetItem": "",
-                    "QTableWidget": "",
-                    "QTableWidgetItems": {
-                        "input cells": {},
-                        "add row": {"item": "", "button": ""},
-                        "remove row buttons": {"items": {}, "buttons": {}},
-                    },
-                },
-            },
-        },
-    },
-}
 
 ## Acceptable command argument types.
 command_arg_types_list = [
@@ -187,25 +80,7 @@ command_arg_types_list = [
     "NOTYPE",
 ]
 
-## This dict is ordered to preserve insert order for code preview display.
-generated_filename_dict = OrderedDict()
-## This 'sub' dict is contained by each key in `generated_filename_dict`
-generated_filename_sub_dict = {
-    "filename": "",
-    "file_lines_list": [],
-    "tree_item": {},
-    "contents_item": {},
-    "text_widget": {0: "", 1: ""},
-}
-## This dict contains all generated files and associated widgets.
-generated_filename_dict = {
-    "config.h": copy.deepcopy(generated_filename_sub_dict),
-    "setup.h": copy.deepcopy(generated_filename_sub_dict),
-    "setup.cpp": copy.deepcopy(generated_filename_sub_dict),
-    "parameters.h": copy.deepcopy(generated_filename_sub_dict),
-    "functions.h": copy.deepcopy(generated_filename_sub_dict),
-    "functions.cpp": copy.deepcopy(generated_filename_sub_dict),
-}
+
 
 # end dev qol var
 # end of file

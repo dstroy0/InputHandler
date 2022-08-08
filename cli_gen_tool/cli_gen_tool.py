@@ -7,6 +7,9 @@
 # @copyright Copyright (c) 2022
 from __future__ import absolute_import
 
+## tool version
+version = 0.1  # save serialization
+
 # imports
 import os
 import sys
@@ -36,6 +39,8 @@ from res.modules.settings_tree import SettingsTreeMethods
 from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
 from res.modules.cli.filestrings import CLIfilestrings
 
+from res.modules.data_models import dataModels
+
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -60,6 +65,7 @@ class MainWindow(
     ## The constructor.
     def __init__(self, app, parent=None):
         super().__init__(parent)
+        self.version = version
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool.py")
@@ -140,14 +146,14 @@ class MainWindow(
         self.commandParametersKeys = command_parameters_dict_keys_list
 
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = default_session_structure
+        self.defaultGuiOpt = dataModels.default_session_model
 
         # cli opt db
-        self.cliOpt = command_line_interface_options_structure
+        self.cliOpt = dataModels.cliopt_model
         # session db
         self.session = self.defaultGuiOpt
         # code preview db
-        self.code_preview_dict = {"files": generated_filename_dict}
+        self.code_preview_dict = dataModels.generated_filename_dict
 
         self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options

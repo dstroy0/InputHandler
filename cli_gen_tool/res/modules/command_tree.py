@@ -13,7 +13,7 @@
 from __future__ import absolute_import
 
 from res.modules.logging_setup import Logger
-from res.modules.dev_qol_var import filestring_db
+
 
 # command_tree methods
 class CommandTreeMethods(object):

@@ -10,12 +10,8 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
-
-
 
 class cliSetup(object):
-    
     def __init__(self) -> None:
         super(cliSetup, self).__init__()
 
@@ -166,16 +162,16 @@ class cliSetup(object):
         setup_function_entry = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
-            setup_function_entry = self.fsdb["setup"]["cpp"][
-                "filestring components"
-            ]["setup function output"]["stream"].format(
+            setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
+                "setup function output"
+            ]["stream"].format(
                 stream=self.cliOpt["process output"]["var"]["output stream"],
                 setupstring=setup_function_entry_string,
             )
         elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
-            setup_function_entry = self.fsdb["setup"]["cpp"][
-                "filestring components"
-            ]["setup function output"]["buffer"].format(
+            setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
+                "setup function output"
+            ]["buffer"].format(
                 outputbuffer=output_buffer_name,
                 setupstring=setup_function_entry_string,
             )

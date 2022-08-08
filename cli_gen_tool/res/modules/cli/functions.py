@@ -10,7 +10,6 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
 
 class cliFunctions(object):
     def __init__(self) -> None:
@@ -69,9 +68,7 @@ class cliFunctions(object):
         )
         code_string = self.list_to_code_string(docstring)
         cpp_fs = self.fsdb["functions"]["cpp"]["filestring"]
-        func_string = self.fsdb["functions"]["cpp"]["filestring components"][
-            "function"
-        ]
+        func_string = self.fsdb["functions"]["cpp"]["filestring components"]["function"]
         func_list = []
 
         # builtin methods
