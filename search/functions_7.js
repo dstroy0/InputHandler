@@ -1,7 +1,7 @@
 var searchData=
 [
   ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4d6b96981e00a4940e5ada9d85253063',1,'modules::helper_methods::HelperMethods']]],
+  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#ab11d464cba57d11d080a06a069d36280',1,'modules::cli::filestrings::CLIfilestrings']]],
   ['get_5fchild_5flogger_2',['get_child_logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#af50fa8ff5ac8e83ce1aa394c74722c13',1,'modules::logging_setup::Logger']]],
   ['get_5ffile_5fhandler_3',['get_file_handler',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#abe8b246d3e9cc7570df9b9d6d639a39e',1,'modules::logging_setup::Logger']]],
   ['get_5ficon_4',['get_icon',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4b68d25ca1cb29de2b4cd5202bb96f24',1,'modules::helper_methods::HelperMethods']]],

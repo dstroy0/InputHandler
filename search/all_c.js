@@ -6,7 +6,7 @@ var searchData=
   ['nest_5fone_5f_3',['nest_one_',['../da/d0f/_nested_commands_8ino.html#afc356762969dbb43ded0aabceeb7e3a1',1,'NestedCommands.ino']]],
   ['nest_5ftwo_4',['nest_two',['../da/d0f/_nested_commands_8ino.html#af89cb0fa8587215c744b438b1979cc45',1,'NestedCommands.ino']]],
   ['nest_5ftwo_5f_5',['nest_two_',['../da/d0f/_nested_commands_8ino.html#a219b084017d8dcc77c1d6c60bbdf6641',1,'NestedCommands.ino']]],
-  ['nested_5fcommandparameters_5fstring_6',['nested_commandparameters_string',['../d7/d76/namespacemodules_1_1cli_1_1filestrings.html#a1ecad5664816a3a14cfcaef1a2deb1e0',1,'modules::cli::filestrings']]],
+  ['nested_5fcommandparameters_5fstring_6',['nested_commandparameters_string',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#aa2a63c304210a40beb2a1c3dcb021fe6',1,'modules::cli::filestrings::CLIfilestrings']]],
   ['nested_5fexample_5f_7',['nested_example_',['../da/d0f/_nested_commands_8ino.html#a3511f6ff90a0094175a8486bbf72dd8b',1,'NestedCommands.ino']]],
   ['nested_5fprms_8',['nested_prms',['../da/d0f/_nested_commands_8ino.html#a8bf84d075e334033846506bf78f12781',1,'NestedCommands.ino']]],
   ['nestedcommands_2eino_9',['NestedCommands.ino',['../da/d0f/_nested_commands_8ino.html',1,'']]],

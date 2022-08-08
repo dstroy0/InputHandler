@@ -3,7 +3,7 @@ var searchData=
   ['neg_5fsign_0',['neg_sign',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html#a0b267c691799a6f8919c5fc892360d55',1,'UserInput::validateNullSepInputParam']]],
   ['nest_5fone_5f_1',['nest_one_',['../da/d0f/_nested_commands_8ino.html#afc356762969dbb43ded0aabceeb7e3a1',1,'NestedCommands.ino']]],
   ['nest_5ftwo_5f_2',['nest_two_',['../da/d0f/_nested_commands_8ino.html#a219b084017d8dcc77c1d6c60bbdf6641',1,'NestedCommands.ino']]],
-  ['nested_5fcommandparameters_5fstring_3',['nested_commandparameters_string',['../d7/d76/namespacemodules_1_1cli_1_1filestrings.html#a1ecad5664816a3a14cfcaef1a2deb1e0',1,'modules::cli::filestrings']]],
+  ['nested_5fcommandparameters_5fstring_3',['nested_commandparameters_string',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#aa2a63c304210a40beb2a1c3dcb021fe6',1,'modules::cli::filestrings::CLIfilestrings']]],
   ['nested_5fexample_5f_4',['nested_example_',['../da/d0f/_nested_commands_8ino.html#a3511f6ff90a0094175a8486bbf72dd8b',1,'NestedCommands.ino']]],
   ['nested_5fprms_5',['nested_prms',['../da/d0f/_nested_commands_8ino.html#a8bf84d075e334033846506bf78f12781',1,'NestedCommands.ino']]],
   ['newbutton_5f2_6',['newButton_2',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a3671650887f88e4bb1c1a58ee5fb5773',1,'uic::mainWindow::Ui_MainWindow']]],

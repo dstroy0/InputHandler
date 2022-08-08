@@ -1,7 +1,7 @@
 var searchData=
 [
   ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4d6b96981e00a4940e5ada9d85253063',1,'modules::helper_methods::HelperMethods']]],
+  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#ab11d464cba57d11d080a06a069d36280',1,'modules::cli::filestrings::CLIfilestrings']]],
   ['generated_5ffilename_5fdict_2',['generated_filename_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#a7183009553deae5da5a782cadb2a2f7a',1,'modules::dev_qol_var']]],
   ['generated_5ffilename_5fsub_5fdict_3',['generated_filename_sub_dict',['../d6/da0/namespacemodules_1_1dev__qol__var.html#abc87cbf607ad22f3bb9ac52ebb97426b',1,'modules::dev_qol_var']]],
   ['get_5fchild_5flogger_4',['get_child_logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#af50fa8ff5ac8e83ce1aa394c74722c13',1,'modules::logging_setup::Logger']]],

@@ -37,6 +37,9 @@ var hierarchy =
     [ "cliConfig", null, [
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],
+    [ "CLIfilestrings", null, [
+      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+    ] ],
     [ "cliFunctions", null, [
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],
