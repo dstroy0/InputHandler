@@ -76,8 +76,7 @@ class cliParameters(object):
                 commandconstructor=command_constructor_string.format(functionname="listSettings")
             )
 
-        code_string = code_string + parameters_h_fs.format(parameters=parameters_code_string)
-        print(code_string)
+        code_string = code_string + parameters_h_fs.format(parameters=parameters_code_string)        
         self.code_preview_dict["files"]["parameters.h"]["file_lines_list"] = code_string.split("\n")
         self.set_code_string("parameters.h", code_string, item_string, place_cursor)
         
