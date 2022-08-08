@@ -72,6 +72,7 @@ class SettingsTreeMethods(object):
             ):
                 self.update_code("functions.h", object_list[2], True)
                 self.update_code("functions.cpp", object_list[2], True)
+                self.update_code("parameters.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][

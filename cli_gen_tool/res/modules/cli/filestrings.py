@@ -251,7 +251,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
             "h": {
                 "filestring components": {
                     "nested child": "    *{functionname}_param{comma} // pointer to {functionname}_param\n",
-                    "command constructor": "CommandConstructor {functionname}_({functionname}_param); //  help has a command string, and function specified",
+                    "command constructor": "CommandConstructor {functionname}_({functionname}_param); // {functionname} command constructor",
                     "parameters": commandparameters_string,
                     "nested parameters": nested_commandparameters_string,
                 },

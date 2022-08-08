@@ -19,6 +19,7 @@ from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWid
 from res.modules.cli.config import cliConfig
 from res.modules.cli.setup import cliSetup
 from res.modules.cli.functions import cliFunctions
+from res.modules.cli.parameters import cliParameters
 
 from res.modules.logging_setup import Logger
 
@@ -42,7 +43,7 @@ class CodePreviewBrowser(QPlainTextEdit):
 
 
 # code preview methods
-class CodePreview(cliConfig, cliSetup, cliFunctions, object):
+class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def __init__(self) -> None:
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
@@ -50,6 +51,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
         cliConfig.__init__(self)
         cliSetup.__init__(self)
         cliFunctions.__init__(self)
+        cliParameters.__init__(self)
 
     # refreshes the text in the code preview trees (also the text used to generate files)
     def update_code(self, file, item_string, place_cursor):
@@ -61,6 +63,8 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
             self.setup_h(item_string, place_cursor)
         if file == "setup.cpp":
             self.setup_cpp(item_string, place_cursor)
+        if file == "parameters.h":
+            self.parameters_h(item_string, place_cursor)
         if file == "functions.h":
             self.functions_h(item_string, place_cursor)
         if file == "functions.cpp":
@@ -70,6 +74,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, object):
         self.config_h(None, False)
         self.setup_h(None, False)
         self.setup_cpp(None, False)
+        self.parameters_h(None, False)
         self.functions_h(None, False)
         self.functions_cpp(None, False)
 
