@@ -12,9 +12,6 @@
 
 from __future__ import absolute_import
 
-from res.modules.dev_qol_var import version
-from res.modules.cli.filestrings import file_docs_format_string
-import datetime
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -103,29 +100,10 @@ class HelperMethods(object):
         dlg.activateWindow()  # brings focus to the popup
         ret = dlg.exec()  # return the dialog exit code
         return ret
-
-    def list_to_code_string(self, list):
-        code_string = ""
-        for line in list:
-            code_string = code_string + line + "\n"
-        return code_string
+    
 
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)
 
-    def generate_docstring_list_for_filename(self, filename, brief):
-        docstring_list = []
-        year = str(datetime.date.today())[0:4]
-        date = datetime.date.today()
-        docstring = file_docs_format_string.format(
-            docs_version=version,
-            docs_filename=filename,
-            docs_brief=brief,
-            docs_year=year,
-            docs_date=date,
-        )
-        docstring_list = docstring.split("\n")
-        return docstring_list
-
-
+    
 # end of file

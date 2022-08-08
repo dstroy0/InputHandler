@@ -12,8 +12,6 @@
 
 from __future__ import absolute_import
 
-from res.modules.cli.filestrings import CLIfilestrings
-
 
 
 class cliSetup(object):
@@ -54,25 +52,25 @@ class cliSetup(object):
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
         object_name = "inputHandler"
-        output_buffer = CLIfilestrings.db["setup"]["h"]["filestring components"][
+        output_buffer = self.fsdb["setup"]["h"]["filestring components"][
             "outputbuffer"
         ].format(
             outputbuffername=output_buffer_name,
             buffersize=buffer_size,
             bufferchar=buffer_char,
         )
-        class_output = CLIfilestrings.db["setup"]["h"]["filestring components"][
+        class_output = self.fsdb["setup"]["h"]["filestring components"][
             "classoutput"
         ].format(input_prm="input_prm", outputbuffer="InputHandler_output_buffer")
 
-        class_constructor = CLIfilestrings.db["setup"]["h"]["filestring components"][
+        class_constructor = self.fsdb["setup"]["h"]["filestring components"][
             "constructor"
         ].format(objectname=object_name, classoutput=class_output)
         if buffer_size == "":
             buffer_size = 0
         if int(buffer_size) == 0:
             output_buffer = ""
-            class_constructor = CLIfilestrings.db["setup"]["h"]["filestring components"][
+            class_constructor = self.fsdb["setup"]["h"]["filestring components"][
                 "constructor"
             ].format(objectname=object_name, classoutput="")
 
@@ -108,15 +106,15 @@ class cliSetup(object):
             and stream_string != ""
             and stream_string != None
         ):
-            loop_prototype = CLIfilestrings.db["setup"]["h"]["filestring components"][
+            loop_prototype = self.fsdb["setup"]["h"]["filestring components"][
                 "prototypes"
             ]["loop"]
 
-        setup_prototype = CLIfilestrings.db["setup"]["h"]["filestring components"][
+        setup_prototype = self.fsdb["setup"]["h"]["filestring components"][
             "prototypes"
         ]["setup"]
 
-        setup_h = CLIfilestrings.db["setup"]["h"]["filestring"].format(
+        setup_h = self.fsdb["setup"]["h"]["filestring"].format(
             objectname=object_name,
             outputbuffer=output_buffer,
             constructor=class_constructor,
@@ -158,7 +156,7 @@ class cliSetup(object):
             command_parameters_name = (
                 str(self.cliOpt["commands"][key]["functionName"]) + "_"
             )
-            command_list_string = CLIfilestrings.db["setup"]["h"]["filestring components"][
+            command_list_string = self.fsdb["setup"]["h"]["filestring components"][
                 "addCommand"
             ]["call"].format(
                 objectname=object_name, commandparametersname=command_parameters_name
@@ -168,14 +166,14 @@ class cliSetup(object):
         setup_function_entry = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
-            setup_function_entry = CLIfilestrings.db["setup"]["cpp"][
+            setup_function_entry = self.fsdb["setup"]["cpp"][
                 "filestring components"
             ]["setup function output"]["stream"].format(
                 stream=self.cliOpt["process output"]["var"]["output stream"],
                 setupstring=setup_function_entry_string,
             )
         elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
-            setup_function_entry = CLIfilestrings.db["setup"]["cpp"][
+            setup_function_entry = self.fsdb["setup"]["cpp"][
                 "filestring components"
             ]["setup function output"]["buffer"].format(
                 outputbuffer=output_buffer_name,
@@ -184,19 +182,19 @@ class cliSetup(object):
 
         default_function_string = ""
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
-            default_function_string = CLIfilestrings.db["setup"]["cpp"][
+            default_function_string = self.fsdb["setup"]["cpp"][
                 "filestring components"
             ]["defaultFunction"]["call"].format(
                 objectname=object_name, defaultfunctionname="unrecognized"
             )
 
-        begin_string = CLIfilestrings.db["setup"]["cpp"]["filestring components"]["begin"][
+        begin_string = self.fsdb["setup"]["cpp"]["filestring components"]["begin"][
             "call"
         ].format(objectname=object_name)
 
         options_string = ""
 
-        setup_function = CLIfilestrings.db["setup"]["cpp"]["filestring components"][
+        setup_function = self.fsdb["setup"]["cpp"]["filestring components"][
             "setup function"
         ].format(
             setupfunctionentry=setup_function_entry,
@@ -212,14 +210,14 @@ class cliSetup(object):
             and stream_string != ""
             and stream_string != None
         ):
-            loop_statements = CLIfilestrings.db["setup"]["cpp"]["filestring components"][
+            loop_statements = self.fsdb["setup"]["cpp"]["filestring components"][
                 "outputToStream"
             ]["call"].format(objectname=object_name, stream=stream_string)
-            loop_function = CLIfilestrings.db["setup"]["cpp"]["filestring components"][
+            loop_function = self.fsdb["setup"]["cpp"]["filestring components"][
                 "loop function"
             ].format(loopstatements=loop_statements)
 
-        setup_cpp = CLIfilestrings.db["setup"]["cpp"]["filestring"].format(
+        setup_cpp = self.fsdb["setup"]["cpp"]["filestring"].format(
             setupfunction=setup_function, loopfunction=loop_function
         )
 

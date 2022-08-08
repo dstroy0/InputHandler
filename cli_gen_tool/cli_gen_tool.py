@@ -34,6 +34,7 @@ from res.modules.mainwindow_buttons import MainWindowButtons
 from res.modules.parse_config import ParseInputHandlerConfig
 from res.modules.settings_tree import SettingsTreeMethods
 from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
+from res.modules.cli.filestrings import CLIfilestrings
 
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -54,6 +55,7 @@ class MainWindow(
     CommandParametersMethods,
     MainWindowButtons,
     ParseInputHandlerConfig,
+    CLIfilestrings
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
@@ -87,6 +89,7 @@ class MainWindow(
 
         # import external classes
         self.logger.debug("Importing external classes.")
+        CLIfilestrings.__init__(self)
         HelperMethods.__init__(self)
         MainWindowActions.__init__(self)
         MainWindowButtons.__init__(self)

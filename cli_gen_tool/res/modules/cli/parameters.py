@@ -11,7 +11,6 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from res.modules.cli.filestrings import CLIfilestrings
 
 
 class cliParameters(object):
