@@ -15,12 +15,40 @@ from __future__ import absolute_import
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
 from PySide6.QtWidgets import QDialogButtonBox, QStyle
-from res.modules.dev_qol_var import command_arg_types_list
+
 from res.modules.logging_setup import Logger
 
 
 # command parameters methods
 class CommandParametersMethods(object):
+    ## Command parameters dicts are constructed using keys from this list.
+    command_parameters_dict_keys_list = [
+        "functionName",
+        "commandString",
+        "commandLength",
+        "parentId",
+        "commandId",
+        "commandHasWildcards",
+        "commandDepth",
+        "commandSubcommands",
+        "commandArgumentHandling",
+        "commandMinArgs",
+        "commandMaxArgs",
+        "commandArguments",
+    ]
+
+    ## Acceptable command argument types.
+    command_arg_types_list = [
+        "UINT8_T",
+        "UINT16_T",
+        "UINT32_T",
+        "INT16_T",
+        "FLOAT",
+        "CHAR",
+        "STARTSTOP",
+        "NOTYPE",
+    ]
+
     def __init__(self) -> None:
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
@@ -41,7 +69,9 @@ class CommandParametersMethods(object):
             match = regexp.match(csv, csv_pos)
             if match.hasMatch():
                 csv_pos += match.capturedLength()
-                if (match.captured().upper().strip(",")) in command_arg_types_list:
+                if (
+                    match.captured().upper().strip(",")
+                ) in CommandParametersMethods.command_arg_types_list:
                     arg_num_list.append(i)
                     i = i + 1
                     args_list.append(match.captured().upper().strip(","))
@@ -93,7 +123,9 @@ class CommandParametersMethods(object):
     def validate_command_parameters(self):
         error_list = []
         cmd_dlg = self.ui.commandParameters.dlg
-        settings_to_validate = dict.fromkeys(self.commandParametersKeys, None)
+        settings_to_validate = dict.fromkeys(
+            CommandParametersMethods.command_parameters_dict_keys_list, None
+        )
         settings_to_validate["functionName"] = cmd_dlg.functionName.text()
         settings_to_validate["commandString"] = cmd_dlg.commandString.text()
         settings_to_validate["commandLength"] = len(

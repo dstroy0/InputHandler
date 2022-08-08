@@ -10,8 +10,19 @@ from __future__ import absolute_import
 ## tool version
 version = 0.1  # save serialization
 
+## The line in /InputHandler/src/config/config.h that boolean define fields start.
+config_file_boolean_define_fields_line_start = 71
+
+## How long should the splash be displayed (in ms)
+splashscreen_duration = 750
+
+## Library pathing
+from PySide6.QtCore import QDir
+path = QDir()
+path.cdUp()
+lib_root_path = path.currentPath()
+
 # imports
-import os
 import sys
 import json
 import qdarktheme
@@ -29,7 +40,6 @@ from res.uic.mainWindow import Ui_MainWindow  # main window with tabs
 # external class methods
 from res.modules.code_preview import CodePreview
 from res.modules.command_parameters import CommandParametersMethods
-from res.modules.dev_qol_var import *
 from res.modules.helper_methods import HelperMethods
 from res.modules.logging_setup import Logger
 from res.modules.mainwindow_actions import MainWindowActions
@@ -38,7 +48,6 @@ from res.modules.parse_config import ParseInputHandlerConfig
 from res.modules.settings_tree import SettingsTreeMethods
 from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
 from res.modules.cli.filestrings import CLIfilestrings
-
 from res.modules.data_models import dataModels
 
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
@@ -48,7 +57,7 @@ from res.modules.data_models import dataModels
 
 ## This is the main display window
 #
-# MainWindow is the parent of all process subwindows 
+# MainWindow is the parent of all process subwindows
 # (MainWindow is noninteractable when any of its child popups are active)
 class MainWindow(
     QMainWindow,
@@ -60,21 +69,27 @@ class MainWindow(
     CommandParametersMethods,
     MainWindowButtons,
     ParseInputHandlerConfig,
-    CLIfilestrings
+    CLIfilestrings,
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
         super().__init__(parent)
         self.version = version
+        self.config_file_boolean_define_fields_line_start = config_file_boolean_define_fields_line_start
+        # pathing
+        
+        self.lib_root_path = lib_root_path
+        # /InputHandler/src/config/config.h
+        self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
+        # /InputHandler/cli_gen_tool/cli_gen_tool.json
+        self.cli_gen_tool_json_path = (
+            self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
+        )
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool.py")
         self.app = app  # used in external methods
-        self.prompt_to_save = False
-
-        # logfile pathing
-        if not os.path.isdir(log_path):
-            os.mkdir(log_path)
+        self.prompt_to_save = False        
 
         # log history
         self.log = QDialog()
@@ -88,9 +103,9 @@ class MainWindow(
         self.log.close()
 
         # set up logging api
-        Logger.setup_file_handler()
+        Logger.setup_file_handler(self.lib_root_path)
         self.logger = Logger.get_logger(self, __name__)
-
+        self.logger.debug("Set app pathing.")
         self.logger.info("Loading CLI generation tool.")
 
         # import external classes
@@ -104,16 +119,6 @@ class MainWindow(
         SettingsTreeTableMethods.__init__(self)
         CommandParametersMethods.__init__(self)
         CodePreview.__init__(self)
-
-        # pathing
-        self.logger.debug("Set app pathing.")
-        self.lib_root_path = lib_root_path
-        # /InputHandler/src/config/config.h
-        self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
-        # /InputHandler/cli_gen_tool/cli_gen_tool.json
-        self.cli_gen_tool_json_path = (
-            self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
-        )
 
         # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
@@ -143,7 +148,7 @@ class MainWindow(
         self.qcursor = QCursor()
 
         # command parameters dict keys list
-        self.commandParametersKeys = command_parameters_dict_keys_list
+        # self.commandParametersKeys = command_parameters_dict_keys_list
 
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt
         self.defaultGuiOpt = dataModels.default_session_model
@@ -256,8 +261,8 @@ class MainWindow(
         self.restoreState(settings.value("windowState"))
 
 
-# loop
-if __name__ == "__main__":
+## main function
+def main():
     # GUI container
     app = QApplication(sys.argv)
     # GUI styling
@@ -283,11 +288,16 @@ if __name__ == "__main__":
     splash.timer.setSingleShot(True)
     splash.timer.start(
         splashscreen_duration
-    )  # Show app splash for `splashscreen_duration` /res/modules/dev_qol_var.py
+    )  # Show app splash for `splashscreen_duration` 
     splash.timer.timeout.connect(splash.close)  # close splash
     splash.timer.timeout.connect(window.show)  # show window to user
 
     # exit on user command
     sys.exit(app.exec())
+
+
+# you can run this script
+if __name__ == "__main__":
+    main()
 
 # end of file

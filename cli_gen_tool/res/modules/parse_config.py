@@ -15,7 +15,6 @@ import copy
 import json
 from PySide6.QtCore import QRegularExpression
 from res.modules.logging_setup import Logger
-from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
 
 
 # parse inputhandler config
@@ -84,7 +83,7 @@ class ParseInputHandlerConfig(object):
                                 idx += 1
                                 if (
                                     line_num
-                                    >= config_file_boolean_define_fields_line_start
+                                    >= self.config_file_boolean_define_fields_line_start
                                 ):
                                     if "//" in str(match.captured(1)):
                                         entry[index[key]]["fields"][3] = False

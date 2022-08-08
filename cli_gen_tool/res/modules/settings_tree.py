@@ -16,7 +16,7 @@ import json
 
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
-from res.modules.dev_qol_var import config_file_boolean_define_fields_line_start
+
 from res.modules.logging_setup import Logger
 
 
@@ -538,7 +538,7 @@ class SettingsTreeMethods(object):
                     match = regexp.match(sub_dict[1])
                     # sort out boolean fields
                     if match.hasMatch() and (
-                        sub_dict[0] >= config_file_boolean_define_fields_line_start
+                        sub_dict[0] >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
@@ -557,7 +557,7 @@ class SettingsTreeMethods(object):
                         )
 
                     elif not match.hasMatch() and (
-                        sub_dict[0] >= config_file_boolean_define_fields_line_start
+                        sub_dict[0] >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
