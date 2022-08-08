@@ -101,7 +101,6 @@ class HelperMethods(object):
         ret = dlg.exec()  # return the dialog exit code
         return ret
     
-
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)
 

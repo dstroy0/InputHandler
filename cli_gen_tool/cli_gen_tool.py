@@ -76,8 +76,7 @@ class MainWindow(
         super().__init__(parent)
         self.version = version
         self.config_file_boolean_define_fields_line_start = config_file_boolean_define_fields_line_start
-        # pathing
-        
+        # pathing        
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
         self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"

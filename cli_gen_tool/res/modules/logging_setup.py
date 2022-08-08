@@ -69,7 +69,7 @@ class Logger(object):
         stream_handler.setLevel(Logger.stream_log_level)
         stream_handler.setFormatter(Logger._log_formatter)
         return stream_handler
-
+    
     def get_logger(self, name):
         log_handler = QPlainTextEditLogger(self)
         logger = logging.getLogger(name)
