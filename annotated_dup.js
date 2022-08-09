@@ -29,6 +29,7 @@ var annotated_dup =
         [ "CommandParametersMethods", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods" ]
       ] ],
       [ "command_tree", "d2/d2d/namespacemodules_1_1command__tree.html", [
+        [ "CommandParametersTableViewModel", "dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html", "dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model" ],
         [ "CommandTreeMethods", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods" ]
       ] ],
       [ "data_models", "df/d57/namespacemodules_1_1data__models.html", [

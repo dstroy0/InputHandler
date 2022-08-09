@@ -56,6 +56,9 @@ var hierarchy =
     [ "CommandParametersMethods", null, [
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
     ] ],
+    [ "CommandTreeMethods", null, [
+      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+    ] ],
     [ "HelperMethods", null, [
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
     ] ],
@@ -67,6 +70,9 @@ var hierarchy =
     ] ],
     [ "ParseInputHandlerConfig", null, [
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+    ] ],
+    [ "QAbstractTableModel", null, [
+      [ "modules.command_tree.CommandParametersTableViewModel", "dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html", null ]
     ] ],
     [ "QMainWindow", null, [
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
