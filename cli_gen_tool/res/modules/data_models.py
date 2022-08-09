@@ -31,13 +31,79 @@ class dataModels(object):
         },
     }
 
+    ## Command parameters dicts are constructed using keys from this list.
+    command_parameters_dict_keys_list = [
+        "functionName",
+        "commandString",
+        "commandLength",
+        "parentId",
+        "commandId",
+        "commandHasWildcards",
+        "commandDepth",
+        "commandSubcommands",
+        "commandArgumentHandling",
+        "commandMinArgs",
+        "commandMaxArgs",
+        "commandArguments",
+    ]
+
+    ## Acceptable command argument types.
+    command_arg_types_list = [
+        "UINT8_T",
+        "UINT16_T",
+        "UINT32_T",
+        "INT16_T",
+        "FLOAT",
+        "CHAR",
+        "STARTSTOP",
+        "NOTYPE",
+    ]
+
+    LCcmdParam = [
+        "listCommands",
+        "no_wildcards",
+        "listCommands",
+        "12",
+        "0",
+        "0",
+        "0",
+        "0",
+        "UI_ARG_HANDLING::no_args",
+        "0",
+        "0",
+        "{UITYPE::NO_ARGS}",
+    ]
+    listCommands = {"listCommands": dict(zip(command_parameters_dict_keys_list, LCcmdParam))}
+
+    LScmdParam = [
+        "listSettings",
+        "no_wildcards",
+        "listSettings",
+        "12",
+        "0",
+        "0",
+        "0",
+        "0",
+        "UI_ARG_HANDLING::no_args",
+        "0",
+        "0",
+        "{UITYPE::NO_ARGS}",
+    ]
+    listSettings = {"listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))}
+
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
         "var": {"num_commands": 0, "tool_version": str(version)},
         # each command tree will have a subdict in "command parameters index"
         "command parameters index": {},
-        "commands": {},
+        "commands": {
+            "parameters": {},
+            "QTreeWidgetItem": {},
+            "QTableView": {
+                "models": {},
+            },
+        },
         "config": {
             "file_lines": [],
             "tree": {

@@ -147,10 +147,10 @@ class cliSetup(object):
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
 
         command_list_string = ""
-        for key in self.cliOpt["commands"]:
+        for key in self.cliOpt["commands"]["parameters"]:
             # iterate through list
             command_parameters_name = (
-                str(self.cliOpt["commands"][key]["functionName"]) + "_"
+                str(self.cliOpt["commands"]["parameters"][key]["functionName"]) + "_"
             )
             command_list_string = self.fsdb["setup"]["h"]["filestring components"][
                 "addCommand"

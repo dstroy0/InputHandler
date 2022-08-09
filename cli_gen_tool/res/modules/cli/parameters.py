@@ -59,6 +59,7 @@ class cliParameters(object):
                 argtypearray="{UITYPE::NO_ARGS}",
                 commandconstructor=command_constructor_string.format(functionname="listCommands")
             )
+            
         if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
             parameters_code_string += parameters_string.format(
                 functionname="listSettings",

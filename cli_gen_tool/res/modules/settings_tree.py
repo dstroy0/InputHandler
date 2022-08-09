@@ -16,6 +16,7 @@ import json
 
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
+from res.modules.data_models import dataModels
 
 from res.modules.logging_setup import Logger
 
@@ -73,6 +74,37 @@ class SettingsTreeMethods(object):
                 self.update_code("functions.h", object_list[2], True)
                 self.update_code("functions.cpp", object_list[2], True)
                 self.update_code("parameters.h", object_list[2], True)
+                if object_list[2] == "listCommands" or object_list[2] == "listSettings":
+                    combobox = self.cliOpt["builtin methods"]["tree"]["items"][
+                        object_list[2]
+                    ]["QComboBox"][object_list[1]]
+                    if (
+                        combobox.currentText() == "Enabled"
+                        and object_list[2] == "listCommands"
+                    ):
+                        self.cliOpt["commands"]["parameters"].update(dataModels.listCommands)
+                        self.add_qtreewidgetitem(self.ui.command_tree, "listCommands")
+                    elif (
+                        combobox.currentText() == "Disabled"
+                        and object_list[2] == "listCommands"
+                    ):
+                        if "listCommands" in self.cliOpt["commands"]["parameters"]:
+                            del self.cliOpt["commands"]["parameters"]["listCommands"]
+                        self.rem_qtreewidgetitem(object_list)
+
+                    if (
+                        combobox.currentText() == "Enabled"
+                        and object_list[2] == "listSettings"
+                    ):
+                        self.cliOpt["commands"]["parameters"].update(dataModels.listSettings)
+                        self.add_qtreewidgetitem(self.ui.command_tree, "listSettings")
+                    elif (
+                        combobox.currentText() == "Disabled"
+                        and object_list[2] == "listSettings"
+                    ):
+                        if "listSettings" in self.cliOpt["commands"]["parameters"]:
+                            del self.cliOpt["commands"]["parameters"]["listSettings"]
+                        self.rem_qtreewidgetitem(object_list)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -316,7 +348,7 @@ class SettingsTreeMethods(object):
 
         # process output stream
         var_initial_val = self.cliOpt["process output"]["var"]["output stream"]
-        index_of_child = index_of_child = set_up_child(
+        index_of_child = set_up_child(
             dict_key,
             tree,
             tree["root"],

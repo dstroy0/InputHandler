@@ -38,6 +38,9 @@ from res.uic.logHistoryDialog import Ui_logHistoryDialog
 from res.uic.mainWindow import Ui_MainWindow  # main window with tabs
 
 # external class methods
+from res.modules.cli.filestrings import CLIfilestrings
+from res.modules.data_models import dataModels
+from res.modules.command_tree import CommandTreeMethods
 from res.modules.code_preview import CodePreview
 from res.modules.command_parameters import CommandParametersMethods
 from res.modules.helper_methods import HelperMethods
@@ -47,8 +50,7 @@ from res.modules.mainwindow_buttons import MainWindowButtons
 from res.modules.parse_config import ParseInputHandlerConfig
 from res.modules.settings_tree import SettingsTreeMethods
 from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
-from res.modules.cli.filestrings import CLIfilestrings
-from res.modules.data_models import dataModels
+
 
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -70,6 +72,7 @@ class MainWindow(
     MainWindowButtons,
     ParseInputHandlerConfig,
     CLIfilestrings,
+    CommandTreeMethods
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
@@ -117,6 +120,7 @@ class MainWindow(
         SettingsTreeMethods.__init__(self)
         SettingsTreeTableMethods.__init__(self)
         CommandParametersMethods.__init__(self)
+        CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
 
         # load mainwindow ui
@@ -204,6 +208,8 @@ class MainWindow(
         # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
 
         # tab 2
+        # command_tree widget setup
+        self.build_command_tree()
         # command parameters dialog box setup
         cmd_dlg = self.ui.commandParameters.dlg
         # This dict contains regexp strings and int limits for user input

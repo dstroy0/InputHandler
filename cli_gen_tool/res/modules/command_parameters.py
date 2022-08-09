@@ -17,37 +17,16 @@ from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
 from PySide6.QtWidgets import QDialogButtonBox, QStyle
 
 from res.modules.logging_setup import Logger
+from res.modules.data_models import dataModels
 
 
 # command parameters methods
 class CommandParametersMethods(object):
     ## Command parameters dicts are constructed using keys from this list.
-    command_parameters_dict_keys_list = [
-        "functionName",
-        "commandString",
-        "commandLength",
-        "parentId",
-        "commandId",
-        "commandHasWildcards",
-        "commandDepth",
-        "commandSubcommands",
-        "commandArgumentHandling",
-        "commandMinArgs",
-        "commandMaxArgs",
-        "commandArguments",
-    ]
+    command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
 
     ## Acceptable command argument types.
-    command_arg_types_list = [
-        "UINT8_T",
-        "UINT16_T",
-        "UINT32_T",
-        "INT16_T",
-        "FLOAT",
-        "CHAR",
-        "STARTSTOP",
-        "NOTYPE",
-    ]
+    command_arg_types_list = dataModels.command_arg_types_list
 
     def __init__(self) -> None:
         super(CommandParametersMethods, self).__init__()
