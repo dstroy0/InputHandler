@@ -60,12 +60,12 @@ class dataModels(object):
     ]
 
     LCcmdParam = [
-        "listCommands",
-        "no_wildcards",
+        "listCommands",        
         "listCommands",
         "12",
         "0",
         "0",
+        "no_wildcards",
         "0",
         "0",
         "UI_ARG_HANDLING::no_args",
@@ -73,15 +73,16 @@ class dataModels(object):
         "0",
         "{UITYPE::NO_ARGS}",
     ]
-    listCommands = {"listCommands": dict(zip(command_parameters_dict_keys_list, LCcmdParam))}
+    listCommands = OrderedDict()
+    listCommands = {"listCommands": dict(zip(command_parameters_dict_keys_list, LCcmdParam))}    
 
     LScmdParam = [
-        "listSettings",
-        "no_wildcards",
+        "listSettings",        
         "listSettings",
         "12",
         "0",
         "0",
+        "no_wildcards",
         "0",
         "0",
         "UI_ARG_HANDLING::no_args",
@@ -89,6 +90,7 @@ class dataModels(object):
         "0",
         "{UITYPE::NO_ARGS}",
     ]
+    listSettings = OrderedDict()
     listSettings = {"listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))}
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.

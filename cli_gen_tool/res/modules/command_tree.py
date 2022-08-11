@@ -23,16 +23,18 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         self.parameters = parameters
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
-        print(parameters)
-        self.gen_table(parameters)
+        print(self.keys)    
+        print(self.values)
+        self.gen_table()
     
-    def gen_table(self, parameters):        
+    def gen_table(self):        
+        plen = len(self.parameters)        
+        row_count = plen / 4
+        if plen % 4 > 0:
+            row_count += 1
         self.column_count = 4
-        self.row_count = 4
-        if len(parameters["commandArguments"]) > 1:
-            # has arguments
-            self.row_count = self.row_count + (len(parameters["commandArguments"]) % 4)        
-
+        self.row_count = row_count
+        
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
 
