@@ -100,9 +100,9 @@ class HelperMethods(object):
         dlg.activateWindow()  # brings focus to the popup
         ret = dlg.exec()  # return the dialog exit code
         return ret
-    
+
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)
 
-    
+
 # end of file

@@ -21,7 +21,7 @@ from res.modules.logging_setup import Logger
 class ParseInputHandlerConfig(object):
     def __init__(self) -> None:
         super(ParseInputHandlerConfig, self).__init__()
-        ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)        
+        ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)
 
     def parse_config_header_file(self, path):
         config_path = ""

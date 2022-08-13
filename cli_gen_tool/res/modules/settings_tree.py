@@ -82,7 +82,9 @@ class SettingsTreeMethods(object):
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listCommands"
                     ):
-                        self.cliOpt["commands"]["parameters"].update(dataModels.listCommands)
+                        self.cliOpt["commands"]["parameters"].update(
+                            dataModels.listCommands
+                        )
                         self.add_qtreewidgetitem(self.ui.command_tree, "listCommands")
                     elif (
                         combobox.currentText() == "Disabled"
@@ -96,7 +98,9 @@ class SettingsTreeMethods(object):
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listSettings"
                     ):
-                        self.cliOpt["commands"]["parameters"].update(dataModels.listSettings)
+                        self.cliOpt["commands"]["parameters"].update(
+                            dataModels.listSettings
+                        )
                         self.add_qtreewidgetitem(self.ui.command_tree, "listSettings")
                     elif (
                         combobox.currentText() == "Disabled"

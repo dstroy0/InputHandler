@@ -57,9 +57,11 @@ class cliParameters(object):
                 minnumargs="0",
                 maxnumargs="0",
                 argtypearray="{UITYPE::NO_ARGS}",
-                commandconstructor=command_constructor_string.format(functionname="listCommands")
+                commandconstructor=command_constructor_string.format(
+                    functionname="listCommands"
+                ),
             )
-            
+
         if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
             parameters_code_string += parameters_string.format(
                 functionname="listSettings",
@@ -74,11 +76,18 @@ class cliParameters(object):
                 minnumargs="0",
                 maxnumargs="0",
                 argtypearray="{UITYPE::NO_ARGS}",
-                commandconstructor=command_constructor_string.format(functionname="listSettings")
+                commandconstructor=command_constructor_string.format(
+                    functionname="listSettings"
+                ),
             )
 
-        code_string = code_string + parameters_h_fs.format(parameters=parameters_code_string)        
-        self.code_preview_dict["files"]["parameters.h"]["file_lines_list"] = code_string.split("\n")
+        code_string = code_string + parameters_h_fs.format(
+            parameters=parameters_code_string
+        )
+        self.code_preview_dict["files"]["parameters.h"][
+            "file_lines_list"
+        ] = code_string.split("\n")
         self.set_code_string("parameters.h", code_string, item_string, place_cursor)
-        
+
+
 # end of file

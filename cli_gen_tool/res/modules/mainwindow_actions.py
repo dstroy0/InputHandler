@@ -147,18 +147,23 @@ class MainWindowActions(object):
             return [-4, {}]
 
     def save_file(self):
-        MainWindowActions.logger.info("save CLI settings file")        
-        if self.session["opt"]["save_filename"] == "" or self.session["opt"]["save_filename"] == None:
+        MainWindowActions.logger.info("save CLI settings file")
+        if (
+            self.session["opt"]["save_filename"] == ""
+            or self.session["opt"]["save_filename"] == None
+        ):
             ret = self.save_file_as()
             return ret
         file = QFile(self.session["opt"]["save_filename"])
-        ret = self.write_json(self.cliOpt,file,True)
+        ret = self.write_json(self.cliOpt, file, True)
         return ret
 
     def save_file_as(self):
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        dlg = QFileDialog(self)        
-        fileName = dlg.getSaveFileName(self, "Save file name", "", ".json",options=QFileDialog.DontUseNativeDialog)
+        dlg = QFileDialog(self)
+        fileName = dlg.getSaveFileName(
+            self, "Save file name", "", ".json", options=QFileDialog.DontUseNativeDialog
+        )
         if fileName[0] == "":
             MainWindowActions.logger.info("Save file dialog cancelled.")
             return QFileDialog.Rejected  # dialog cancelled
@@ -166,7 +171,7 @@ class MainWindowActions(object):
         self.session["opt"]["save_filename"] = fqname
         MainWindowActions.logger.info("save CLI settings file as: " + str(fqname))
         file = QFile(fqname)
-        ret = self.write_json(self.cliOpt,file,True)
+        ret = self.write_json(self.cliOpt, file, True)
         return ret
 
     def load_cli_gen_tool_json(self, path):
@@ -203,12 +208,12 @@ class MainWindowActions(object):
         dlg = QFileDialog(self)
         dlg.setFileMode(QFileDialog.ExistingFile)
         dlg.setNameFilter("Settings json (*.json)")
-        dlg.setViewMode(QFileDialog.Detail)        
-        fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)        
+        dlg.setViewMode(QFileDialog.Detail)
+        fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)
         if fileName[0] == "":
             MainWindowActions.logger.info("open CLI settings file dialog cancelled")
             return  # dialog cancelled
-        else:            
+        else:
             file = QFile(fileName[0])
             read_json_result = self.read_json(file, True)
             self.cliOpt = read_json_result[1]
