@@ -49,14 +49,14 @@ class Logger(object):
 
     def setup_file_handler(lib_root_path):
         # logfile pathing
-        if not os.path.isdir(Logger._log_path):
-            os.mkdir(Logger._log_path)
+        if not os.path.isdir(lib_root_path + Logger._log_path):
+            os.mkdir(lib_root_path + Logger._log_path)
         # log filehandler
         Logger.log_file_handler = RotatingFileHandler(
-            Logger._log_path + Logger._log_filename, "a", 10 * Logger._MB, backupCount=5
+            lib_root_path + Logger._log_path + Logger._log_filename, "a", 10 * Logger._MB, backupCount=5
         )
         Logger.log_file_handler.setLevel(Logger.file_log_level)
-        Logger.log_file_handler.setFormatter(Logger._log_formatter)
+        Logger.log_file_handler.setFormatter(Logger._log_formatter)        
 
     def get_child_logger(parent, name):
         return parent.getChild(name)

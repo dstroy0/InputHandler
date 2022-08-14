@@ -5,28 +5,17 @@
 # @version 0.1
 # @date 2022-06-10
 # @copyright Copyright (c) 2022
+# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 3 as published by the Free Software Foundation.
 from __future__ import absolute_import
-
-## tool version
-version = 0.1  # save serialization
-
-## The line in /InputHandler/src/config/config.h that boolean define fields start.
-config_file_boolean_define_fields_line_start = 71
-
-## How long should the splash be displayed (in ms)
-splashscreen_duration = 750
-
-## Library pathing
-from PySide6.QtCore import QDir
-path = QDir()
-path.cdUp()
-lib_root_path = path.currentPath()
 
 # imports
 import sys
 import json
 import qdarktheme
-from PySide6.QtCore import QEvent, QObject, QPoint, QSettings, Qt, QTimer
+from PySide6.QtCore import QEvent, QObject, QPoint, QSettings, Qt, QTimer, QDir
 from PySide6.QtGui import QCursor, QIcon, QPixmap
 from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QSplashScreen, QStyle
 
@@ -51,11 +40,19 @@ from res.modules.parse_config import ParseInputHandlerConfig
 from res.modules.settings_tree import SettingsTreeMethods
 from res.modules.settings_tree_table_methods import SettingsTreeTableMethods
 
+## tool version
+version = 1.0  # save serialization
 
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# version 3 as published by the Free Software Foundation.
+## The line in /InputHandler/src/config/config.h that boolean define fields start.
+config_file_boolean_define_fields_line_start = 71
+
+## How long should the splash be displayed (in ms)
+splashscreen_duration = 750
+
+## Library pathing
+path = QDir()
+path.cdUp()
+lib_root_path = path.currentPath()
 
 ## This is the main display window
 #
@@ -72,14 +69,18 @@ class MainWindow(
     MainWindowButtons,
     ParseInputHandlerConfig,
     CLIfilestrings,
-    CommandTreeMethods
+    CommandTreeMethods,
 ):
     ## The constructor.
     def __init__(self, app, parent=None):
         super().__init__(parent)
+        # tool version
         self.version = version
-        self.config_file_boolean_define_fields_line_start = config_file_boolean_define_fields_line_start
-        # pathing        
+        # input config file boolean define fields (ie // DISABLE_listSettings)
+        self.config_file_boolean_define_fields_line_start = (
+            config_file_boolean_define_fields_line_start
+        )
+        # pathing
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
         self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
@@ -91,7 +92,8 @@ class MainWindow(
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool.py")
         self.app = app  # used in external methods
-        self.prompt_to_save = False        
+        # ask user if they want to save their work on exit
+        self.prompt_to_save = False
 
         # log history
         self.log = QDialog()
@@ -102,12 +104,13 @@ class MainWindow(
         self.log.dlg = Ui_logHistoryDialog()
         # MainWindow still interactable with log history open
         self.log.dlg.setupUi(self.log)
+        # ensure log history popup is closed by default
         self.log.close()
 
         # set up logging api
         Logger.setup_file_handler(self.lib_root_path)
         self.logger = Logger.get_logger(self, __name__)
-        self.logger.debug("Set app pathing.")
+        self.logger.debug("App pathing set.")
         self.logger.info("Loading CLI generation tool.")
 
         # import external classes
@@ -150,25 +153,21 @@ class MainWindow(
         self.init_height = 0
         self.qcursor = QCursor()
 
-        # command parameters dict keys list
-        # self.commandParametersKeys = command_parameters_dict_keys_list
-
-        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = dataModels.default_session_model
-
         # cli opt db
         self.cliOpt = dataModels.cliopt_model
-        # session db
-        self.session = self.defaultGuiOpt
         # code preview db
         self.code_preview_dict = dataModels.generated_filename_dict
 
+        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
+        self.defaultGuiOpt = dataModels.default_session_model
+        # session db
+        self.session = {}
         self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
-        # print pretty session json
-        # session json contains only serializable items, safe to print
-        self.logger.info(
+        # pretty session json
+        # session json contains only json serializable items, safe to print
+        self.logger.debug(
             "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
         )
 
@@ -293,7 +292,7 @@ def main():
     splash.timer.setSingleShot(True)
     splash.timer.start(
         splashscreen_duration
-    )  # Show app splash for `splashscreen_duration` 
+    )  # Show app splash for `splashscreen_duration`
     splash.timer.timeout.connect(splash.close)  # close splash
     splash.timer.timeout.connect(window.show)  # show window to user
 

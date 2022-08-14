@@ -110,8 +110,8 @@ class CommandTreeMethods(object):
         self.cliOpt["commands"]["QTableView"][dict_index] = QTableView()
         table_view = self.cliOpt["commands"]["QTableView"][dict_index]
         table_view.setModel(self.cliOpt["commands"]["QTableView"]["models"][dict_index])
-        table_view.resizeColumnsToContents()
         table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
+        table_view.resizeColumnsToContents()
         command_tree.setItemWidget(tree_item, 0, table_view)
 
     def build_command_tree(self):

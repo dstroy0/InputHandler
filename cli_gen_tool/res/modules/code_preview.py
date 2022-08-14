@@ -55,7 +55,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
 
     # refreshes the text in the code preview trees (also the text used to generate files)
     def update_code(self, file, item_string, place_cursor):
-        CodePreview.logger.info("update {filename}".format(filename=file))
+        CodePreview.logger.debug("update {filename}".format(filename=file))
         # update widgets
         if file == "config.h":
             self.config_h(item_string, place_cursor)
