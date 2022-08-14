@@ -46,6 +46,8 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return str(self.h_labels[section])
+            if orientation == Qt.Vertical:
+                return str(section)
 
 
 # command_tree methods
@@ -58,32 +60,50 @@ class CommandTreeMethods(object):
         if dict_index == None:
             dict_index = str(self.cliOpt["var"]["num_commands"])
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
-        self.cliOpt["commands"]["QTreeWidgetItem"][dict_index] = QTreeWidgetItem(
-            parent, [command_parameters["commandString"], ""]
+        self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
+            dict_index
+        ] = QTreeWidgetItem(parent, [command_parameters["commandString"], ""])
+        self.cliOpt["commands"]["QTreeWidgetItem"]["table"][
+            dict_index
+        ] = QTreeWidgetItem(
+            self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
         )
-        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"][dict_index]
+        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
 
+    ## takes the command out of the tree and scrub it from the data model
     def rem_qtreewidgetitem(self, dict_pos):
+        # take the table widget out of the qtreewidgetitem ("table")
         self.ui.command_tree.removeItemWidget(
-            self.cliOpt["commands"]["QTreeWidgetItem"][dict_pos[2]], 0
+            self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_pos[2]], 0
         )
+        # this is the tree "container", it displays the commandString and expands to view the command parameters table
+        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_pos[2]]
+        # returns the int index of the top level item
+        idx = self.ui.command_tree.indexOfTopLevelItem(tree_item)
+        # get the qtreewidgetitem that is at the top
+        item = self.ui.command_tree.takeTopLevelItem(idx)
+        # delete it from the tree
+        del item
+        # scrub the data model
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]["models"]:
             del self.cliOpt["commands"]["QTableView"]["models"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]:
             del self.cliOpt["commands"]["QTableView"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["parameters"]:
             del self.cliOpt["commands"]["parameters"][dict_pos[2]]
-        if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]:
-            del self.cliOpt["commands"]["QTreeWidgetItem"][dict_pos[2]]
+        if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
+            del self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_pos[2]]
+        if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
+            del self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_pos[2]]
 
     def build_command_parameters_table_view(
         self, dict_index, tree_item, command_parameters
     ):
         command_tree = self.ui.command_tree
-        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"][dict_index]
+        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
         self.cliOpt["commands"]["QTableView"]["models"][
             dict_index
         ] = CommandParametersTableViewModel(command_parameters)
@@ -91,6 +111,7 @@ class CommandTreeMethods(object):
         table_view = self.cliOpt["commands"]["QTableView"][dict_index]
         table_view.setModel(self.cliOpt["commands"]["QTableView"]["models"][dict_index])
         table_view.resizeColumnsToContents()
+        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         command_tree.setItemWidget(tree_item, 0, table_view)
 
     def build_command_tree(self):
