@@ -71,10 +71,7 @@ class SettingsTreeMethods(object):
                 object_list[2] == "defaultFunction"
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
-            ):
-                self.update_code("functions.h", object_list[2], True)
-                self.update_code("functions.cpp", object_list[2], True)
-                self.update_code("parameters.h", object_list[2], True)
+            ):                
                 if object_list[2] == "listCommands" or object_list[2] == "listSettings":
                     combobox = self.cliOpt["builtin methods"]["tree"]["items"][
                         object_list[2]
@@ -140,6 +137,9 @@ class SettingsTreeMethods(object):
                         and object_list[2] == "listSettings"
                     ):
                         self.rem_command(object_list)
+                self.update_code("functions.h", object_list[2], True)
+                self.update_code("functions.cpp", object_list[2], True)
+                self.update_code("parameters.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][

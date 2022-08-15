@@ -12,9 +12,11 @@
 
 
 class cliFunctions(object):
+    ## the constructor
     def __init__(self) -> None:
         super(cliFunctions, self).__init__()
-
+    
+    ## update the text for functions.h
     def functions_h(self, item_string, place_cursor=False):
         object_name = "inputHandler"
         self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = []
@@ -59,6 +61,7 @@ class cliFunctions(object):
         ] = code_string.split("\n")
         self.set_code_string("functions.h", code_string, item_string, place_cursor)
 
+    ## update the text for functions.cpp
     def functions_cpp(self, item_string, place_cursor=False):
         object_name = "inputHandler"
 
@@ -113,6 +116,7 @@ class cliFunctions(object):
         # user commands
         # TODO struct of user commands dict
 
+        # concatenate individual function strings into one string
         funcs_string = ""
         for item in func_list:
             funcs_string += item

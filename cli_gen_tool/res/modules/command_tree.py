@@ -58,8 +58,8 @@ class CommandTreeMethods(object):
 
     # search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
     def rem_command(self, object_list):
-        for item in self.cliOpt["commands"]["parameters"]:
-            match = False
+        match = False
+        for item in self.cliOpt["commands"]["parameters"]:            
             for index in self.cliOpt["command parameters index"]:
                 if (
                     self.cliOpt["command parameters index"][index]["parameters key"]
