@@ -118,10 +118,10 @@ class SettingsTreeMethods(object):
                 object_list[1]
             ]["fields"]
             if combobox.currentText() == "Enabled":
-                sub_dict[1] = "       "
-                sub_dict[3] = True
+                sub_dict["1"] = "       "
+                sub_dict["3"] = True
                 SettingsTreeMethods.logger.info(
-                    str(sub_dict[2].strip("\n")) + " enabled"
+                    str(sub_dict["2"].strip("\n")) + " enabled"
                 )
             elif (
                 self.cliOpt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
@@ -129,8 +129,8 @@ class SettingsTreeMethods(object):
                 ].currentText()
                 == "Disabled"
             ):
-                sub_dict[1] = "    // "
-                sub_dict[3] = False
+                sub_dict["1"] = "    // "
+                sub_dict["3"] = False
                 SettingsTreeMethods.logger.info(
                     str(sub_dict[2].strip("\n")) + " disabled"
                 )
@@ -142,7 +142,7 @@ class SettingsTreeMethods(object):
                     sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
                 ),
             )
-            self.update_code("config.h", sub_dict[2], True)
+            self.update_code("config.h", sub_dict["2"], True)
 
     def settings_tree_item_activated(self, item):
         # expand/collapse QTreeWidgetItem that has children, if it has them
@@ -217,12 +217,12 @@ class SettingsTreeMethods(object):
             else:
                 tmp = int(val)
                 item.setText(3, "'" + str(repr(tmp)) + "'")
-        if tmp == sub_dict[3]:
+        if tmp == sub_dict["3"]:
             return
         # update the config dict
-        sub_dict[3] = tmp
+        sub_dict["3"] = tmp
         self.update_settings_tree_type_field_text(item)
-        self.update_code("config.h", sub_dict[2], True)
+        self.update_code("config.h", sub_dict["2"], True)
         SettingsTreeMethods.logger.info(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
@@ -572,10 +572,10 @@ class SettingsTreeMethods(object):
             for item in cfg_dict[key]:
                 if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
                     sub_dict = cfg_dict[key][item]["fields"]
-                    match = regexp.match(sub_dict[1])
+                    match = regexp.match(sub_dict["1"])
                     # sort out boolean fields
                     if match.hasMatch() and (
-                        sub_dict[0] >= self.config_file_boolean_define_fields_line_start
+                        sub_dict["0"] >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
@@ -583,18 +583,18 @@ class SettingsTreeMethods(object):
                             tree,
                             parent,
                             index_of_child,
-                            sub_dict[2],
+                            sub_dict["2"],
                             "Enable/Disable",
                             "",
-                            sub_dict[3],
+                            sub_dict["3"],
                             True,
                         )
                         self.default_settings_tree_values.update(
-                            {sub_dict[2]: sub_dict[3]}
+                            {sub_dict["2"]: sub_dict["3"]}
                         )
 
                     elif not match.hasMatch() and (
-                        sub_dict[0] >= self.config_file_boolean_define_fields_line_start
+                        sub_dict["0"] >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
@@ -602,18 +602,18 @@ class SettingsTreeMethods(object):
                             tree,
                             parent,
                             index_of_child,
-                            sub_dict[2],
+                            sub_dict["2"],
                             "Enable/Disable",
                             "",
-                            sub_dict[3],
+                            sub_dict["3"],
                             True,
                         )
                         self.default_settings_tree_values.update(
-                            {sub_dict[2]: sub_dict[3]}
+                            {sub_dict["2"]: sub_dict["3"]}
                         )
 
                     else:
-                        number_field = int(sub_dict[3])
+                        number_field = int(sub_dict["3"])
                         if number_field <= 255:
                             type_field = "uint8_t"
                         elif number_field > 255 and number_field <= 65535:
@@ -625,14 +625,14 @@ class SettingsTreeMethods(object):
                             tree,
                             parent,
                             index_of_child,
-                            sub_dict[2],
+                            sub_dict["2"],
                             type_field,
                             "This field's type is automatically set by the library.",
-                            sub_dict[3],
+                            sub_dict["3"],
                             False,
                         )
                         self.default_settings_tree_values.update(
-                            {sub_dict[2]: sub_dict[3]}
+                            {sub_dict["2"]: sub_dict["3"]}
                         )
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)

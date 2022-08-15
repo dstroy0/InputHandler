@@ -24,13 +24,13 @@ class cliConfig(object):
             for item in cfg_dict[key]:
                 if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
                     sub_dict = cfg_dict[key][item]["fields"]
-                    if sub_dict[3] == True or sub_dict[3] == False:
+                    if sub_dict["3"] == True or sub_dict["3"] == False:
                         val = ""
                     else:
-                        val = sub_dict[3]
-                    line = str(sub_dict[1]) + "#define " + str(sub_dict[2]) + str(val)
+                        val = sub_dict["3"]
+                    line = str(sub_dict["1"]) + "#define " + str(sub_dict["2"]) + str(val)
                     self.code_preview_dict["files"]["config.h"]["file_lines_list"][
-                        int(sub_dict[0])
+                        int(sub_dict["0"])
                     ] = line
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]

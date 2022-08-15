@@ -63,7 +63,7 @@ class ParseInputHandlerConfig(object):
             "debug methods": 0,
         }
         # 0:line number 1:comment/uncomment 2:macro name 3:value/bool
-        fields = {"fields": {0: "", 1: "", 2: "", 3: ""}}
+        fields = {"fields": {"0": "", "1": "", "2": "", "3": ""}}
         line_num = 0
         for line in self.cliOpt["config"]["file_lines"]:
             for key in regexp_dict:
@@ -73,11 +73,11 @@ class ParseInputHandlerConfig(object):
                     match = regexp.match(line, line_pos)
                     if match.hasMatch():
                         entry = {index[key]: copy.deepcopy(fields)}
-                        entry[index[key]]["fields"][0] = line_num
+                        entry[index[key]]["fields"]["0"] = line_num
                         idx = 1
                         for i in range(1, regexp.captureCount() + 1):
                             if "#define" not in str(match.captured(i)):
-                                entry[index[key]]["fields"][idx] = str(
+                                entry[index[key]]["fields"][str(idx)] = str(
                                     match.captured(i)
                                 ).strip("\n")
                                 idx += 1
@@ -86,18 +86,18 @@ class ParseInputHandlerConfig(object):
                                     >= self.config_file_boolean_define_fields_line_start
                                 ):
                                     if "//" in str(match.captured(1)):
-                                        entry[index[key]]["fields"][3] = False
+                                        entry[index[key]]["fields"]["3"] = False
                                     elif "//" not in str(match.captured(1)):
-                                        entry[index[key]]["fields"][3] = True
+                                        entry[index[key]]["fields"]["3"] = True
                                 if idx == 4:
                                     break
                         line_pos += match.capturedLength()
                         self.cliOpt["config"]["tree"]["items"][key].update(entry)
                         self.default_settings_tree_values.update(
                             {
-                                entry[index[key]]["fields"][2]: entry[index[key]][
+                                entry[index[key]]["fields"]["2"]: entry[index[key]][
                                     "fields"
-                                ][3]
+                                ]["3"]
                             }
                         )
                         index[key] += 1

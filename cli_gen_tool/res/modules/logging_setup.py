@@ -29,7 +29,7 @@ class QPlainTextEditLogger(logging.Handler):
 class Logger(object):
     file_log_level = logging.INFO  # file log level
     stream_log_level = logging.INFO  # terminal log level
-    session_history_log_level = logging.INFO  # session history widget log level (F1)
+    session_history_log_level = logging.INFO  # session history widget log level (bound to F1)
 
     # log filesize
     # kb = 2^10 == 1024 bytes

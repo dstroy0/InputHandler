@@ -120,6 +120,8 @@ class CommandTreeMethods(object):
         command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         command_tree.setColumnCount(2)
         command_tree.setColumnHidden(1, 1)  # dict positional data
+        for item in self.cliOpt["command parameters index"]:
+            print(item)
 
 
 # end of file

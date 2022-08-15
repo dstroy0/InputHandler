@@ -103,9 +103,9 @@ class MainWindowActions(object):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
                 self.create_file_error_qdialog("Save", qfile)
-            return -1  # file error
+            return -1  # file error        
         out = QByteArray(
-            json.dumps(dict, indent=2, sort_keys=False)
+            json.dumps(dict, indent=2, sort_keys=False, default=lambda o: "non-serializable object")
         )  # dump pretty json
         size = qfile.write(out)
         if size != -1:
@@ -120,6 +120,7 @@ class MainWindowActions(object):
         return size
 
     def read_json(self, qfile: QFile, create_error_dialog: bool = False):
+        db = {}
         if not qfile.exists():
             MainWindowActions.logger.info("qfile.exists() == false")
             if create_error_dialog:
@@ -134,20 +135,17 @@ class MainWindowActions(object):
         data_in = QTextStream(qfile).readAll()
         qfile.close()
         try:
-            json = json.loads(data_in)
-            MainWindowActions.logger.info(
-                "loaded json: "
-                + json["type"]
-                + "\n"
-                + str(json.dumps(json, indent=2, sort_keys=False))
-            )
-            return [len(data_in), json]
+            db = json.loads(data_in)
+            MainWindowActions.logger.info("loaded json: " + db["type"])
+            return [len(data_in), db]
         except Exception as e:
             MainWindowActions.logger.warning(str(e))
             return [-4, {}]
 
     def save_file(self):
         MainWindowActions.logger.info("save CLI settings file")
+        MainWindowActions.logger.debug("set tool version var in cliOpt")
+        self.cliOpt["var"]["tool_version"] = self.version
         if (
             self.session["opt"]["save_filename"] == ""
             or self.session["opt"]["save_filename"] == None
@@ -217,6 +215,13 @@ class MainWindowActions(object):
             file = QFile(fileName[0])
             read_json_result = self.read_json(file, True)
             self.cliOpt = read_json_result[1]
+            # empty trees
+            self.ui.settings_tree.clear()
+            self.ui.command_tree.clear()
+            # rebuild from file
+            self.build_lib_settings_tree()
+            self.build_command_tree()
+            self.display_initial_code_preview()
 
     # TODO
     def gui_settings(self):
