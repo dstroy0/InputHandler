@@ -28,7 +28,9 @@ class cliConfig(object):
                         val = ""
                     else:
                         val = sub_dict["3"]
-                    line = str(sub_dict["1"]) + "#define " + str(sub_dict["2"]) + str(val)
+                    line = (
+                        str(sub_dict["1"]) + "#define " + str(sub_dict["2"]) + str(val)
+                    )
                     self.code_preview_dict["files"]["config.h"]["file_lines_list"][
                         int(sub_dict["0"])
                     ] = line

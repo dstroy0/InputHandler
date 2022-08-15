@@ -33,7 +33,6 @@ class MainWindowActions(object):
         super(MainWindowActions, self).__init__()
         MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)
 
-    # TODO save session on close, prompt user to save work if there is any
     # do before close
     def do_before_app_close(self, event=None):
         MainWindowActions.logger.debug(event)
@@ -103,9 +102,14 @@ class MainWindowActions(object):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
                 self.create_file_error_qdialog("Save", qfile)
-            return -1  # file error        
+            return -1  # file error
         out = QByteArray(
-            json.dumps(dict, indent=2, sort_keys=False, default=lambda o: "non-serializable object")
+            json.dumps(
+                dict,
+                indent=2,
+                sort_keys=False,
+                default=lambda o: "non-serializable object",
+            )
         )  # dump pretty json
         size = qfile.write(out)
         if size != -1:

@@ -26,7 +26,7 @@ class dataModels(object):
             "log_filename": None,
             "recent_files": [],
             "input_config_file_path": "",
-            "output_dir": ""            
+            "output_dir": "",
         },
     }
 
@@ -97,8 +97,12 @@ class dataModels(object):
     }
 
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
-    parameters_index_struct = {"parameters key": "", "is root command": True, "root command": None}
-    
+    parameters_index_struct = {
+        "parameters key": "",
+        "is root command": True,
+        "root command": None,
+    }
+
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",

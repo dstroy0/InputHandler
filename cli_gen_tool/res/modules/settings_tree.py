@@ -594,7 +594,6 @@ class SettingsTreeMethods(object):
                 tree["root"], [key, "", "", ""]
             )
 
-        # TODO rework this to use set_up_child to reduce code length
         # populate `settings_tree`
         regexp = QRegularExpression("(\s*[\/][\/]\s*)")
         for key in cfg_dict:
