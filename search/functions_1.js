@@ -1,7 +1,7 @@
 var searchData=
 [
   ['add_5fdata_5fdelimiter_5frow_0',['add_data_delimiter_row',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#aea5ed8ca2988c4f96f6cf259f1562976',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
-  ['add_5fqtreewidgetitem_1',['add_qtreewidgetitem',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#a46afe2b1c6f5a74b20ca3bca33414db9',1,'modules::command_tree::CommandTreeMethods']]],
+  ['add_5fqtreewidgetitem_1',['add_qtreewidgetitem',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#a7266a6a32738f7ad1f7b57231d7f189a',1,'modules::command_tree::CommandTreeMethods']]],
   ['add_5fsettings_5ftree_5ftable_5frow_2',['add_settings_tree_table_row',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#afad3585025183d48b9f0b1c34a7431d2',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
   ['add_5fstart_5fstop_5fdata_5fdelimiter_5frow_3',['add_start_stop_data_delimiter_row',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a0a5035151b83bc008df7ccc1f3b9227b',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
   ['addcommand_4',['addCommand',['../dc/d4b/class_user_input.html#aa6067a65dc10a5c4546ce789a3edd4d1',1,'UserInput']]],
