@@ -254,6 +254,7 @@ class MainWindowActions(object):
             self.ui.messageBoxQuestionIcon,
         )
 
+    ## opens an internet browser to the library's documentation
     def gui_documentation(self):
         MainWindowActions.logger.info("open GUI documentation")
         os_type = platform.uname().system.lower()  # lowercase os type
@@ -267,6 +268,7 @@ class MainWindowActions(object):
         elif os_type == "linux":
             os.system('xdg-open "" https://dstroy0.github.io/InputHandler/')
 
+    ## opens the log history subwindow
     def gui_log_history(self):
         if not self.log.isActiveWindow() and not self.log.isVisible():
             self.log.show()
@@ -277,6 +279,7 @@ class MainWindowActions(object):
             self.log.raise_()
             self.log.activateWindow()
 
+    ## MainWindow file menu actions
     def mainwindow_menu_bar_actions_setup(self):
         # file menu actions setup
         # file menu
@@ -294,7 +297,8 @@ class MainWindowActions(object):
         )
         self.ui.actionOpen_Log_History.triggered.connect(self.gui_log_history)
         # end file menu actions setup
-
+    
+    ## MainWindow button actions
     def mainwindow_button_actions_setup(self):
         # buttons setup
         # tab 1

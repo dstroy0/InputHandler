@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+# pyside imports
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -21,18 +22,23 @@ from PySide6.QtWidgets import (
     QSizePolicy,
 )
 from PySide6.QtCore import Qt
+
+# logging api
 from res.modules.logging_setup import Logger
 
 
 # helper method class
 class HelperMethods(object):
+    ## instance
     parent = ""
 
+    ## the constructor
     def __init__(self):
         super(HelperMethods, self).__init__()
         HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)
         HelperMethods.parent = self
 
+    ## spawn a dialog box
     def create_qdialog(
         self,
         message,
@@ -101,6 +107,7 @@ class HelperMethods(object):
         ret = dlg.exec()  # return the dialog exit code
         return ret
 
+    ## get builtin icon
     def get_icon(self, pixmapapi):
         return QWidget().style().standardIcon(pixmapapi)
 

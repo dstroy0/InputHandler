@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+# pyside imports
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QHeaderView,
@@ -20,16 +21,19 @@ from PySide6.QtWidgets import (
     QTableWidgetItem,
     QTreeWidgetItem,
 )
+
+# logging api
 from res.modules.logging_setup import Logger
 
 
 # this is a helper class
 class SettingsTreeTableMethods(object):
+    ## the constructor
     def __init__(self):
         super(SettingsTreeTableMethods, self).__init__()
         SettingsTreeTableMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
-    # settings_tree table functions
+    ## self.ui.settings_tree table functions
     def set_table_vertical_labels(self, tree, section, rows):
         vertical_label_list = []
         for i in range(1, rows + 1):
@@ -39,6 +43,7 @@ class SettingsTreeTableMethods(object):
             vertical_label_list
         )
 
+    ## adds a row to the current table, moves the add row button down one row
     def add_settings_tree_table_row(
         self, dict_key, dict_key2, add_row_function, remove_row_button=False
     ):
@@ -102,6 +107,7 @@ class SettingsTreeTableMethods(object):
                 last_row, 1, remove_row_buttons["buttons"][last_row]
             )
 
+    ## remove a row from the currently selected table in self.ui.settings_tree
     def rem_settings_tree_table_row(self):
         object_list = self.sender().objectName().split(",")
         SettingsTreeTableMethods.logger.info(str(object_list))
@@ -109,6 +115,7 @@ class SettingsTreeTableMethods(object):
         table_widget = tree["items"][object_list[2]]["QTableWidget"]
         table_widget.removeRow(int(object_list[3]))
 
+    ## adds a row to "data delimiters"
     def add_data_delimiter_row(self):
         SettingsTreeTableMethods.logger.info("add data delimiter row")
         dict_key = "process parameters"
@@ -119,6 +126,7 @@ class SettingsTreeTableMethods(object):
             dict_key, dict_key2, add_row_function, remove_row_button
         )
 
+    ## adds a row to "start stop data delimiters"
     def add_start_stop_data_delimiter_row(self):
         SettingsTreeTableMethods.logger.info("add start stop data delimiter row")
         dict_key = "process parameters"
@@ -129,6 +137,7 @@ class SettingsTreeTableMethods(object):
             dict_key, dict_key2, add_row_function, remove_row_button
         )
 
+    ## edit currently selected table item
     def edit_table_widget_item(self, item):
         # this can get triggered from the QTreeWidget, or a QTreeWidgetItem and we need to know what it is
         if str(item).find("QTableWidgetItem") != -1:
@@ -140,6 +149,7 @@ class SettingsTreeTableMethods(object):
         SettingsTreeTableMethods.logger.info("edit item in " + object_list[2])
         item.editItem(current_item)
 
+    ## called on field changes
     def table_widget_item_changed(self, item):
         table_widget = item.tableWidget()
         row = table_widget.row(item)
@@ -156,6 +166,7 @@ class SettingsTreeTableMethods(object):
             table_widget.blockSignals(False)
             self.update_code("setup.h", object_list[2], True)
 
+    ## builds a table onto a tree widget item
     def build_tree_table_widget(
         self,
         index,

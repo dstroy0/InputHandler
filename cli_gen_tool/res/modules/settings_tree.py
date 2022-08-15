@@ -12,22 +12,29 @@
 
 from __future__ import absolute_import
 
+# imports
 import copy
 import json
 
+# pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
+
+# external data models
 from res.modules.data_models import dataModels
 
+# logging api
 from res.modules.logging_setup import Logger
 
 
 # settings_tree methods
 class SettingsTreeMethods(object):
+    ## the constructor
     def __init__(self):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
+    ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
@@ -46,6 +53,7 @@ class SettingsTreeMethods(object):
             item.setToolTip(2, "The compiler will warn you about this type change")
         item.setText(2, type_field)
 
+    ## called on combobox change
     def settings_tree_combo_box_index_changed(self, index):
         self.prompt_to_save = True
         object_string = self.sender().objectName()
@@ -175,6 +183,7 @@ class SettingsTreeMethods(object):
             )
             self.update_code("config.h", sub_dict["2"], True)
 
+    ## called when a user "activates" a tree item (by pressing enter)
     def settings_tree_item_activated(self, item):
         # expand/collapse QTreeWidgetItem that has children, if it has them
         if item.childCount() > 0:
@@ -187,12 +196,13 @@ class SettingsTreeMethods(object):
         SettingsTreeMethods.logger.info(object_list[2] + " selected")
         self.edit_settings_tree_item(item)
 
+    ## if the user double clicks on something, see if it is editable
     def check_if_settings_tree_col_editable(self, item, column):
         # allow the third column to be editable with mouse clicks
         if column == 3:
             self.edit_settings_tree_item(item)
 
-    # this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
+    ## this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
         self.prompt_to_save = True
         if col != 3:
@@ -268,6 +278,7 @@ class SettingsTreeMethods(object):
             )
         )
 
+    ## this is called after determining if an item is editable
     def edit_settings_tree_item(self, item):
         widget_present = self.ui.settings_tree.itemWidget(item, 0)
         if widget_present != None:
@@ -286,6 +297,7 @@ class SettingsTreeMethods(object):
         )
         self.ui.settings_tree.editItem(item, 3)
 
+    ## this builds the entire MainWindow.ui.settings_tree
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         ## helper method to add children to container items

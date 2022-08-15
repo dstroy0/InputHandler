@@ -11,18 +11,24 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+
+# imports
 import copy
 import json
+# pyside imports
 from PySide6.QtCore import QRegularExpression
+# logging api
 from res.modules.logging_setup import Logger
 
 
 # parse inputhandler config
 class ParseInputHandlerConfig(object):
+    ## the constructor
     def __init__(self) -> None:
         super(ParseInputHandlerConfig, self).__init__()
         ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)
 
+    ## parses input config files for use
     def parse_config_header_file(self, path):
         config_path = ""
         if path == "":

@@ -16,6 +16,7 @@ from collections import OrderedDict
 
 
 class dataModels(object):
+    ## library version
     version = ""
     ## This is used to create the session json.
     default_session_model = {
@@ -58,6 +59,7 @@ class dataModels(object):
         "NOTYPE",
     ]
 
+    ## listCommands parameters list
     LCcmdParam = [
         "listCommands",
         "listCommands",
@@ -77,6 +79,7 @@ class dataModels(object):
         "listCommands": dict(zip(command_parameters_dict_keys_list, LCcmdParam))
     }
 
+    ## listSettings parameters list
     LScmdParam = [
         "listSettings",
         "listSettings",
@@ -223,6 +226,10 @@ class dataModels(object):
         }
     }
 
+    ## the constructor
     def __init__(self, version) -> None:
         super(dataModels, self).__init__()
         dataModels.version = version
+
+
+# end of file

@@ -10,11 +10,13 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
-import os, logging
+# imports
+import os
+import logging
 from logging.handlers import RotatingFileHandler
 
 
+## this class displays the session log history
 class QPlainTextEditLogger(logging.Handler):
     def __init__(self, parent):
         super(QPlainTextEditLogger, self).__init__()
@@ -25,7 +27,7 @@ class QPlainTextEditLogger(logging.Handler):
     def emit(self, record):
         self.widget.appendPlainText(Logger._log_formatter.format(record))
 
-
+## logging api
 class Logger(object):
     file_log_level = logging.INFO  # file log level
     stream_log_level = logging.INFO  # terminal log level
@@ -46,9 +48,11 @@ class Logger(object):
     # log filehandler
     log_file_handler = ""
 
+    ## the constructor
     def __init__(self):
         super(Logger, self).__init__()
 
+    ## This is called to set up the log file handler in MainWindow.__init__()
     def setup_file_handler(lib_root_path):
         # logfile pathing
         if not os.path.isdir(lib_root_path + Logger._log_path):
@@ -63,18 +67,22 @@ class Logger(object):
         Logger.log_file_handler.setLevel(Logger.file_log_level)
         Logger.log_file_handler.setFormatter(Logger._log_formatter)
 
+    ## external modules are children of MainWindow's logging instance
     def get_child_logger(parent, name):
         return parent.getChild(name)
 
+    ## returns the log_file_handler
     def get_file_handler():
         return Logger.log_file_handler
 
+    ## returns the stream_handler
     def get_stream_handler():
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(Logger.stream_log_level)
         stream_handler.setFormatter(Logger._log_formatter)
         return stream_handler
 
+    ## returns the root logger
     def get_logger(self, name):
         log_handler = QPlainTextEditLogger(self)
         logger = logging.getLogger(name)

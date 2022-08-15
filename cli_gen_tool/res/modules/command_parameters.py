@@ -12,11 +12,14 @@
 
 from __future__ import absolute_import
 
+# pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
 from PySide6.QtWidgets import QDialogButtonBox, QStyle
 
+# logging api
 from res.modules.logging_setup import Logger
+# data models
 from res.modules.data_models import dataModels
 
 
@@ -28,14 +31,17 @@ class CommandParametersMethods(object):
     ## Acceptable command argument types.
     command_arg_types_list = dataModels.command_arg_types_list
 
+    ## the constructor
     def __init__(self) -> None:
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
+    ## spawns a regexp validator
     def regex_validator(self, input):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
-
+    
+    ## generates a dict from csv arguments in the command parameters dialog
     def dict_from_csv_args(self):
         args_dict = {}
         args_list = []
@@ -59,6 +65,7 @@ class CommandParametersMethods(object):
         args_dict = dict(zip(arg_num_list, args_list[:-1]))
         return args_dict
 
+    ## all buttons related to adding/removing arguments from the command parameters dialog
     def csv_button(self):
         CommandParametersMethods.logger.info(self.sender().objectName())
         rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
@@ -82,6 +89,7 @@ class CommandParametersMethods(object):
         elif test_string in rem_list:
             self.rem_from_arg_csv()
 
+    ## appends an argument
     def append_to_arg_csv(self, string):
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
         cursor = QTextCursor()
@@ -89,6 +97,7 @@ class CommandParametersMethods(object):
         text.insertPlainText(string)
         text.moveCursor(cursor.End)
 
+    ## removes the last argument added (pop)
     def rem_from_arg_csv(self):
         arg_dict = self.dict_from_csv_args()
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
@@ -99,6 +108,7 @@ class CommandParametersMethods(object):
             arg_text = arg_text + arg_list[index] + ","
         text.insertPlainText(arg_text)
 
+    ## simple user input validation
     def validate_command_parameters(self):
         error_list = []
         cmd_dlg = self.ui.commandParameters.dlg
@@ -186,6 +196,7 @@ class CommandParametersMethods(object):
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}
 
+    ## create error dialog where `error_list` contains error text
     def err_settings_to_validate(self, error_list):
         error_text = ""
         for item in error_list:
@@ -202,6 +213,7 @@ class CommandParametersMethods(object):
             self.get_icon(QStyle.StandardPixmap.SP_MessageBoxCritical),
         )
 
+    ## sets the regexp and range validators for CommandParameters input
     def set_command_parameter_validators(self):
         cmd_dlg = self.ui.commandParameters.dlg
         # allowed function name char
@@ -225,6 +237,7 @@ class CommandParametersMethods(object):
         cmd_dlg.commandMinArgs.setMaximum(cmd_dlg.validatorDict["commandMinArgs"])
         cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
 
+    ## triggers related to the command parameters dialog
     def set_command_parameters_triggers(self):
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.add8bituint.clicked.connect(self.csv_button)
@@ -255,6 +268,7 @@ class CommandParametersMethods(object):
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
+    ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self):
         CommandParametersMethods.logger.info("ok")
         validate_result = self.validate_command_parameters()
@@ -274,19 +288,23 @@ class CommandParametersMethods(object):
         CommandParametersMethods.logger.info(self.cliOpt["var"])
         self.ui.commandParameters.close()
 
+    ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self):
         CommandParametersMethods.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.argumentsPlainTextCSV.clear()
 
+    ## command parameters dialog buttonbox cancel changes
     def clicked_command_parameters_buttonbox_cancel(self):
         CommandParametersMethods.logger.info("cancel")
         self.ui.commandParameters.close()
 
+    ## refreshes `commandLength`
     def command_string_text_changed(self):
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.commandLengthLabel.setText(str(len(cmd_dlg.commandString.text())))
 
+    ## command parameters dialog argument handling combobox index changed
     def argument_handling_changed(self):
         CommandParametersMethods.logger.info("argument handling changed")
         cmd_dlg = self.ui.commandParameters.dlg

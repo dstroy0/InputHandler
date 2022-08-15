@@ -12,18 +12,21 @@
 
 from __future__ import absolute_import
 
+# pyside imports
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 
+# external methods and resources
 from res.modules.cli.config import cliConfig
 from res.modules.cli.setup import cliSetup
 from res.modules.cli.functions import cliFunctions
 from res.modules.cli.parameters import cliParameters
 
+# logging api
 from res.modules.logging_setup import Logger
 
-
+## each text browser in Code Preview is an instance of this class
 class CodePreviewBrowser(QPlainTextEdit):
     # spawns a QPlainTextEdit with these settings
     # the main difference between this and a normal QPlainTextEdit is that this centers the text cursor on widget resize
@@ -154,7 +157,8 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
             self.user_resizing_code_preview_box = False
             self.resize_code_preview_tree_item(mouse_pos)
             self.setCursor(Qt.CursorShape.ArrowCursor)
-
+    
+    # puts an invisible interaction hitbox around where someone would expect to be able to drag (vertical)
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(
             20,
@@ -163,6 +167,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
             25,
         )
 
+    # resizes code preview text browsers
     def resize_code_preview_tree_item(self, mouse_pos):
         y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
         self.drag_resize_qsize.setHeight(y_axis)
@@ -216,6 +221,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
 
     # end build_code_preview_tree()
 
+    # highlights `item_string` in `text_widget`; centers the cursor on the highlighted text
     def set_text_cursor(self, text_widget, item_string):
         cursor = QTextCursor(text_widget.document().find(item_string))
         cursor.movePosition(cursor.EndOfLine)
@@ -224,6 +230,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
         text_widget.setTextCursor(cursor)
         text_widget.centerCursor()
 
+    # sets the text inside of code preview text browsers
     def set_code_string(self, filename, code_string, item_string, place_cursor=False):
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
