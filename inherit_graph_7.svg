@@ -20,7 +20,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html" target="_top" xlink:title="this class displays the session log history">
 <polygon fill="none" stroke="black" points="119,-0.5 119,-30.5 266,-30.5 266,-0.5 119,-0.5"/>
 <text text-anchor="start" x="127" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">modules.logging_setup.QPlain</text>
 <text text-anchor="middle" x="192.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">TextEditLogger</text>

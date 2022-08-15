@@ -178,7 +178,7 @@
 <!-- Node15 -->
 <g id="node12" class="node">
 <title>Node15</title>
-<g id="a_node12"><a xlink:href="d3/dd3/classmodules_1_1logging__setup_1_1_logger.html" target="_top" xlink:title=" ">
+<g id="a_node12"><a xlink:href="d3/dd3/classmodules_1_1logging__setup_1_1_logger.html" target="_top" xlink:title="logging api">
 <polygon fill="none" stroke="black" points="122.5,-392.5 122.5,-411.5 270.5,-411.5 270.5,-392.5 122.5,-392.5"/>
 <text text-anchor="middle" x="196.5" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">modules.logging_setup.Logger</text>
 </a>
