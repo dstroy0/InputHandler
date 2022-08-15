@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+import copy
 import json
 
 from PySide6.QtCore import QRegularExpression, Qt
@@ -87,13 +88,20 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["command parameters index"].update(
                             {
-                                self.cliOpt["var"]["num_commands"]: {
-                                    "root": True,
-                                    "parameters key": "listCommands",
-                                    "list of children": [],
-                                }
+                                self.cliOpt["var"]["num_commands"]: copy.deepcopy(
+                                    dataModels.parameters_index_struct
+                                )
                             }
-                        )                        
+                        )
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["is root command"] = True
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["root command"] = None
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["parameters key"] = object_list[2]
                         self.add_qtreewidgetitem(self.ui.command_tree, "listCommands")
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (
@@ -111,13 +119,20 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["command parameters index"].update(
                             {
-                                self.cliOpt["var"]["num_commands"]: {
-                                    "root": True,
-                                    "parameters key": "listSettings",
-                                    "list of children": [],
-                                }
+                                self.cliOpt["var"]["num_commands"]: copy.deepcopy(
+                                    dataModels.parameters_index_struct
+                                )
                             }
                         )
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["is root command"] = True
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["root command"] = None
+                        self.cliOpt["command parameters index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["parameters key"] = object_list[2]
                         self.add_qtreewidgetitem(self.ui.command_tree, "listSettings")
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (

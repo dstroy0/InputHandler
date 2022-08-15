@@ -24,10 +24,9 @@ class dataModels(object):
         "opt": {
             "save_filename": None,
             "log_filename": None,
-            "recent_files": {},
+            "recent_files": [],
             "input_config_file_path": "",
-            "output_dir": "",
-            "window_size": "",
+            "output_dir": ""            
         },
     }
 
@@ -97,6 +96,9 @@ class dataModels(object):
         "listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))
     }
 
+    ## This dict can is used inside of the "command parameters index" key of cliopt_model
+    parameters_index_struct = {"parameters key": "", "is root command": True, "root command": None}
+    
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",

@@ -152,7 +152,7 @@ class cliSetup(object):
             command_parameters_name = (
                 str(self.cliOpt["commands"]["parameters"][key]["functionName"]) + "_"
             )
-            command_list_string = self.fsdb["setup"]["cpp"]["filestring components"][
+            command_list_string += self.fsdb["setup"]["cpp"]["filestring components"][
                 "addCommand"
             ]["call"].format(
                 objectname=object_name, commandparametersname=command_parameters_name

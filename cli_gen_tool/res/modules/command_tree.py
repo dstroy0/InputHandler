@@ -139,8 +139,11 @@ class CommandTreeMethods(object):
         command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         command_tree.setColumnCount(2)
         command_tree.setColumnHidden(1, 1)  # dict positional data
-        for item in self.cliOpt["command parameters index"]:
-            print(item)
+        #TODO child commands        
+        for item in self.cliOpt["command parameters index"]:            
+            if self.cliOpt["command parameters index"][item]["is root command"] == True:
+                self.add_qtreewidgetitem(self.ui.command_tree,self.cliOpt["command parameters index"][item]["parameters key"])
+                
 
 
 # end of file
