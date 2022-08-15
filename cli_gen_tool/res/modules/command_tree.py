@@ -56,6 +56,7 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
+    # search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
     def rem_command(self, object_list):
         for item in self.cliOpt["commands"]["parameters"]:
             match = False
