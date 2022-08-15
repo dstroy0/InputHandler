@@ -56,9 +56,27 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
-    def add_qtreewidgetitem(self, parent, dict_index=None) -> None:
+    def rem_command(self, object_list):
+        for item in self.cliOpt["commands"]["parameters"]:
+            match = False
+            for index in self.cliOpt["command parameters index"]:
+                if (
+                    self.cliOpt["command parameters index"][index]["parameters key"]
+                    == item
+                ):
+                    match = True
+                    break
+        if match == True:
+            if int(self.cliOpt["var"]["num_commands"]) > 0:
+                self.cliOpt["var"]["num_commands"] -= 1
+            del item
+            del self.cliOpt["commands"]["parameters"][object_list[2]]
+            self.rem_qtreewidgetitem(object_list)
+
+    def add_qtreewidgetitem(self, parent, dict_index) -> None:
         if dict_index == None:
-            dict_index = str(self.cliOpt["var"]["num_commands"])
+            CommandTreeMethods.logger.info("no index, unable to add item to tree")
+            return
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
             dict_index

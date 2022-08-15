@@ -85,14 +85,22 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["parameters"].update(
                             dataModels.listCommands
                         )
+                        self.cliOpt["command parameters index"].update(
+                            {
+                                self.cliOpt["var"]["num_commands"]: {
+                                    "root": True,
+                                    "parameters key": "listCommands",
+                                    "list of children": [],
+                                }
+                            }
+                        )                        
                         self.add_qtreewidgetitem(self.ui.command_tree, "listCommands")
+                        self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
                         and object_list[2] == "listCommands"
                     ):
-                        if "listCommands" in self.cliOpt["commands"]["parameters"]:
-                            del self.cliOpt["commands"]["parameters"]["listCommands"]
-                        self.rem_qtreewidgetitem(object_list)
+                        self.rem_command(object_list)
 
                     if (
                         combobox.currentText() == "Enabled"
@@ -101,14 +109,22 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["parameters"].update(
                             dataModels.listSettings
                         )
+                        self.cliOpt["command parameters index"].update(
+                            {
+                                self.cliOpt["var"]["num_commands"]: {
+                                    "root": True,
+                                    "parameters key": "listSettings",
+                                    "list of children": [],
+                                }
+                            }
+                        )
                         self.add_qtreewidgetitem(self.ui.command_tree, "listSettings")
+                        self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
                         and object_list[2] == "listSettings"
                     ):
-                        if "listSettings" in self.cliOpt["commands"]["parameters"]:
-                            del self.cliOpt["commands"]["parameters"]["listSettings"]
-                        self.rem_qtreewidgetitem(object_list)
+                        self.rem_command(object_list)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
@@ -575,7 +591,8 @@ class SettingsTreeMethods(object):
                     match = regexp.match(sub_dict["1"])
                     # sort out boolean fields
                     if match.hasMatch() and (
-                        sub_dict["0"] >= self.config_file_boolean_define_fields_line_start
+                        sub_dict["0"]
+                        >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
@@ -594,7 +611,8 @@ class SettingsTreeMethods(object):
                         )
 
                     elif not match.hasMatch() and (
-                        sub_dict["0"] >= self.config_file_boolean_define_fields_line_start
+                        sub_dict["0"]
+                        >= self.config_file_boolean_define_fields_line_start
                     ):
                         cfg_dict[key]["QComboBox"].update({item: ""})
                         index_of_child = set_up_child(
