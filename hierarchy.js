@@ -27,6 +27,7 @@ var hierarchy =
       [ "modules.mainwindow_actions.MainWindowActions", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html", null ],
       [ "modules.mainwindow_buttons.MainWindowButtons", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html", null ],
       [ "modules.parse_config.ParseInputHandlerConfig", "da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html", null ],
+      [ "modules.preferences.PreferencesMethods", "dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html", null ],
       [ "modules.settings_tree.SettingsTreeMethods", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html", null ],
       [ "modules.settings_tree_table_methods.SettingsTreeTableMethods", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html", null ],
       [ "uic.commandParametersDialog.Ui_commandParametersDialog", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html", null ],
@@ -69,6 +70,9 @@ var hierarchy =
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "ParseInputHandlerConfig", null, [
+      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+    ] ],
+    [ "PreferencesMethods", null, [
       [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "QAbstractTableModel", null, [

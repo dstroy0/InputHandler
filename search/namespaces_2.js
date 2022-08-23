@@ -15,7 +15,8 @@ var searchData=
   ['modules_12',['modules',['../dc/dcf/namespacemodules.html',1,'']]],
   ['parameters_13',['parameters',['../d1/dcd/namespacemodules_1_1cli_1_1parameters.html',1,'modules::cli']]],
   ['parse_5fconfig_14',['parse_config',['../d9/d41/namespacemodules_1_1parse__config.html',1,'modules']]],
-  ['settings_5ftree_15',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
-  ['settings_5ftree_5ftable_5fmethods_16',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]],
-  ['setup_17',['setup',['../d9/dec/namespacemodules_1_1cli_1_1setup.html',1,'modules::cli']]]
+  ['preferences_15',['preferences',['../d9/d61/namespacemodules_1_1preferences.html',1,'modules']]],
+  ['settings_5ftree_16',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
+  ['settings_5ftree_5ftable_5fmethods_17',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]],
+  ['setup_18',['setup',['../d9/dec/namespacemodules_1_1cli_1_1setup.html',1,'modules::cli']]]
 ];

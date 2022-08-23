@@ -17,6 +17,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "lib_root_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a83bac3696f9b257de4997a0ecac10686", null ],
     [ "log", "d3/d6c/classcli__gen__tool_1_1_main_window.html#af113bc9ca62828fad4f4cb3474330598", null ],
     [ "logger", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a1a4bcdd93839d134d016814a30fcf267", null ],
+    [ "preferences", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a19857da3f67c2b4186e7f97009806b3c", null ],
     [ "prompt_to_save", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a40f82289fa3eca9effbb7cb0f38dabe3", null ],
     [ "qcursor", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7c6a7816202411342ed6954dbb92aad8", null ],
     [ "session", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0353fc779da7e2c358f9c61271f5365e", null ],

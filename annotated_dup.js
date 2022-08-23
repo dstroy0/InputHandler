@@ -51,6 +51,9 @@ var annotated_dup =
       [ "parse_config", "d9/d41/namespacemodules_1_1parse__config.html", [
         [ "ParseInputHandlerConfig", "da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html", "da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config" ]
       ] ],
+      [ "preferences", "d9/d61/namespacemodules_1_1preferences.html", [
+        [ "PreferencesMethods", "dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html", "dd/dae/classmodules_1_1preferences_1_1_preferences_methods" ]
+      ] ],
       [ "settings_tree", "d1/de2/namespacemodules_1_1settings__tree.html", [
         [ "SettingsTreeMethods", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html", "d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods" ]
       ] ],

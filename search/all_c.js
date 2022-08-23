@@ -41,7 +41,8 @@ var searchData=
   ['multifile_2eino_38',['MultiFile.ino',['../d6/d12/_multi_file_8ino.html',1,'']]],
   ['parameters_39',['parameters',['../d1/dcd/namespacemodules_1_1cli_1_1parameters.html',1,'modules::cli']]],
   ['parse_5fconfig_40',['parse_config',['../d9/d41/namespacemodules_1_1parse__config.html',1,'modules']]],
-  ['settings_5ftree_41',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
-  ['settings_5ftree_5ftable_5fmethods_42',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]],
-  ['setup_43',['setup',['../d9/dec/namespacemodules_1_1cli_1_1setup.html',1,'modules::cli']]]
+  ['preferences_41',['preferences',['../d9/d61/namespacemodules_1_1preferences.html',1,'modules']]],
+  ['settings_5ftree_42',['settings_tree',['../d1/de2/namespacemodules_1_1settings__tree.html',1,'modules']]],
+  ['settings_5ftree_5ftable_5fmethods_43',['settings_tree_table_methods',['../d1/da1/namespacemodules_1_1settings__tree__table__methods.html',1,'modules']]],
+  ['setup_44',['setup',['../d9/dec/namespacemodules_1_1cli_1_1setup.html',1,'modules::cli']]]
 ];

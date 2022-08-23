@@ -11,6 +11,7 @@ var dir_efc820d26e22b74aca78d073be3afb9c =
     [ "mainwindow_actions.py", "d1/dad/mainwindow__actions_8py.html", "d1/dad/mainwindow__actions_8py" ],
     [ "mainwindow_buttons.py", "d5/d02/mainwindow__buttons_8py.html", "d5/d02/mainwindow__buttons_8py" ],
     [ "parse_config.py", "dc/d95/parse__config_8py.html", "dc/d95/parse__config_8py" ],
+    [ "preferences.py", "d6/de2/preferences_8py.html", "d6/de2/preferences_8py" ],
     [ "settings_tree.py", "d1/df6/settings__tree_8py.html", "d1/df6/settings__tree_8py" ],
     [ "settings_tree_table_methods.py", "d6/d98/settings__tree__table__methods_8py.html", "d6/d98/settings__tree__table__methods_8py" ]
 ];
