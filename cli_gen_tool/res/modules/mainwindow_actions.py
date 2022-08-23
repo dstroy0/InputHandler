@@ -232,6 +232,7 @@ class MainWindowActions(object):
     # TODO
     def gui_settings(self):
         MainWindowActions.logger.info("preferences")
+        self.preferences.exec()
 
     # TODO
     # generate CLI files

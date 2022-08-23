@@ -18,6 +18,7 @@ from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 from res.modules.logging_setup import Logger
 
 
+## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
 class CommandParametersTableViewModel(QAbstractTableModel):
     def __init__(self, parameters=None) -> None:
         super(CommandParametersTableViewModel, self).__init__()
@@ -50,13 +51,14 @@ class CommandParametersTableViewModel(QAbstractTableModel):
                 return str(section)
 
 
-# command_tree methods
+## self.ui.command_tree methods
 class CommandTreeMethods(object):
+    ## CommandTreeMethods constructor
     def __init__(self) -> None:
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
-    # search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
+    ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
     def rem_command(self, object_list):
         match = False
         for item in self.cliOpt["commands"]["parameters"]:            
@@ -74,6 +76,7 @@ class CommandTreeMethods(object):
             del self.cliOpt["commands"]["parameters"][object_list[2]]
             self.rem_qtreewidgetitem(object_list)
 
+    ## adds a single command to the tree
     def add_qtreewidgetitem(self, parent, dict_index) -> None:
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
@@ -93,6 +96,7 @@ class CommandTreeMethods(object):
         )
 
     ## takes the command out of the tree and scrub it from the data model
+    # TODO remove orphaned children if a parent item is removed
     def rem_qtreewidgetitem(self, dict_pos):
         # take the table widget out of the qtreewidgetitem ("table")
         self.ui.command_tree.removeItemWidget(
@@ -118,6 +122,7 @@ class CommandTreeMethods(object):
         if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
             del self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_pos[2]]
 
+    ## builds a table view for a command using a custom model and populates it with the command's parameters
     def build_command_parameters_table_view(
         self, dict_index, tree_item, command_parameters
     ):
@@ -133,6 +138,7 @@ class CommandTreeMethods(object):
         table_view.resizeColumnsToContents()
         command_tree.setItemWidget(tree_item, 0, table_view)
 
+    ## adds items to self.ui.command_tree for display
     def build_command_tree(self):
         command_tree = self.ui.command_tree
         command_tree.setHeaderLabels(["Command Tree", ""])
