@@ -79,7 +79,7 @@ class SettingsTreeMethods(object):
                 object_list[2] == "defaultFunction"
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
-            ):                
+            ):
                 if object_list[2] == "listCommands" or object_list[2] == "listSettings":
                     combobox = self.cliOpt["builtin methods"]["tree"]["items"][
                         object_list[2]

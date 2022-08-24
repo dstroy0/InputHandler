@@ -15,7 +15,7 @@ class cliFunctions(object):
     ## the constructor
     def __init__(self) -> None:
         super(cliFunctions, self).__init__()
-    
+
     ## update the text for functions.h
     def functions_h(self, item_string, place_cursor=False):
         object_name = "inputHandler"

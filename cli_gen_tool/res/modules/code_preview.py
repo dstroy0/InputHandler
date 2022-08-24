@@ -157,7 +157,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
             self.user_resizing_code_preview_box = False
             self.resize_code_preview_tree_item(mouse_pos)
             self.setCursor(Qt.CursorShape.ArrowCursor)
-    
+
     # puts an invisible interaction hitbox around where someone would expect to be able to drag (vertical)
     def get_vertical_drag_icon_geometry(self, widget_qrect):
         return QRect(

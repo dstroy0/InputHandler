@@ -70,11 +70,15 @@ class cliParameters(object):
 
         parameters_code_string = ""
 
-        if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:            
-            parameters_code_string += self.ret_unnested_param(self.cliOpt["commands"]["parameters"]["listCommands"])
+        if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
+            parameters_code_string += self.ret_unnested_param(
+                self.cliOpt["commands"]["parameters"]["listCommands"]
+            )
 
         if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
-            parameters_code_string += self.ret_unnested_param(self.cliOpt["commands"]["parameters"]["listSettings"])
+            parameters_code_string += self.ret_unnested_param(
+                self.cliOpt["commands"]["parameters"]["listSettings"]
+            )
 
         code_string = code_string + parameters_h_fs.format(
             parameters=parameters_code_string

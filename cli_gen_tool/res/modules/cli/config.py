@@ -21,7 +21,7 @@ class cliConfig(object):
             "config"
         ]["file_lines"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
-        # the contents at each key represents a config.h file line 
+        # the contents at each key represents a config.h file line
         for key in cfg_dict:
             for item in cfg_dict[key]:
                 if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):

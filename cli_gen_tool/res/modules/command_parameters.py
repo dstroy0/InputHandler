@@ -19,6 +19,7 @@ from PySide6.QtWidgets import QDialogButtonBox, QStyle
 
 # logging api
 from res.modules.logging_setup import Logger
+
 # data models
 from res.modules.data_models import dataModels
 
@@ -40,7 +41,7 @@ class CommandParametersMethods(object):
     def regex_validator(self, input):
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
-    
+
     ## generates a dict from csv arguments in the command parameters dialog
     def dict_from_csv_args(self):
         args_dict = {}

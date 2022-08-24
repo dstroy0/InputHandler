@@ -172,6 +172,8 @@ class MainWindow(
         # session db
         self.session = {}
         self.logger.debug("Attempt session json load.")
+        
+        
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # pretty session json
@@ -180,6 +182,7 @@ class MainWindow(
             "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
         )
 
+        
         # parse config file
         self.logger.debug("Attempt parse config.h")
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
@@ -203,7 +206,10 @@ class MainWindow(
         self.mainwindow_menu_bar_actions_setup()
         self.mainwindow_button_actions_setup()
         # end MainWindow actions
-
+        
+        # setup preferences dialog
+        self.preferences_dialog_setup()        
+        
         # tab 1
         # settings_tree widget setup
         self.build_lib_settings_tree()

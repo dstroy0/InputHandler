@@ -27,6 +27,7 @@ class QPlainTextEditLogger(logging.Handler):
     def emit(self, record):
         self.widget.appendPlainText(Logger._log_formatter.format(record))
 
+
 ## logging api
 class Logger(object):
     file_log_level = logging.INFO  # file log level
