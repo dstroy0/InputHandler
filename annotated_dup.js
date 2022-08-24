@@ -70,6 +70,9 @@ var annotated_dup =
       ] ],
       [ "mainWindow", "d1/d19/namespaceuic_1_1main_window.html", [
         [ "Ui_MainWindow", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window" ]
+      ] ],
+      [ "preferencesDialog", "d6/d94/namespaceuic_1_1preferences_dialog.html", [
+        [ "Ui_Preferences", "d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html", "d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences" ]
       ] ]
     ] ],
     [ "CommandConstructor", "df/d68/class_command_constructor.html", "df/d68/class_command_constructor" ],

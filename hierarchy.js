@@ -32,7 +32,8 @@ var hierarchy =
       [ "modules.settings_tree_table_methods.SettingsTreeTableMethods", "de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html", null ],
       [ "uic.commandParametersDialog.Ui_commandParametersDialog", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html", null ],
       [ "uic.logHistoryDialog.Ui_logHistoryDialog", "d3/d1e/classuic_1_1log_history_dialog_1_1_ui__log_history_dialog.html", null ],
-      [ "uic.mainWindow.Ui_MainWindow", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html", null ]
+      [ "uic.mainWindow.Ui_MainWindow", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html", null ],
+      [ "uic.preferencesDialog.Ui_Preferences", "d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html", null ]
     ] ],
     [ "UserInput", "dc/d4b/class_user_input.html", null ],
     [ "UserInput::validateNullSepInputParam", "dc/d98/struct_user_input_1_1validate_null_sep_input_param.html", null ],

@@ -76,7 +76,8 @@ var searchData=
   ['config_5ffile_5fboolean_5fdefine_5ffields_5fline_5fstart_73',['config_file_boolean_define_fields_line_start',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a43cf5da3c5ebb2f9a513741eaaafb8d2',1,'cli_gen_tool.MainWindow.config_file_boolean_define_fields_line_start()'],['../dd/d04/namespacecli__gen__tool.html#ac62feff508636f666e5e1d522f0bf609',1,'cli_gen_tool.config_file_boolean_define_fields_line_start()']]],
   ['config_5fh_74',['config_h',['../d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html#a55c0b14e6fc0babdcafaba6721c56dd7',1,'modules::cli::config::cliConfig']]],
   ['config_5fhowto_2eino_75',['config_howto.ino',['../d1/d98/config__howto_8ino.html',1,'']]],
-  ['create_5ffile_5ferror_5fqdialog_76',['create_file_error_qdialog',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a316865e105a173881f1111f1ac575cee',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['create_5fqdialog_77',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
-  ['csv_5fbutton_78',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
+  ['config_5fpath_5finput_76',['config_path_input',['../d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html#a8acbfcb5e295943c1177fb148c56f4c5',1,'uic::preferencesDialog::Ui_Preferences']]],
+  ['create_5ffile_5ferror_5fqdialog_77',['create_file_error_qdialog',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a316865e105a173881f1111f1ac575cee',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['create_5fqdialog_78',['create_qdialog',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a5d78ac9b750ca0cc8d9983d033a9feb3',1,'modules::helper_methods::HelperMethods']]],
+  ['csv_5fbutton_79',['csv_button',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562',1,'modules::command_parameters::CommandParametersMethods']]]
 ];
