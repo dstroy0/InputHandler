@@ -34,15 +34,16 @@ class PreferencesMethods(object):
     def get_config_file(self):
         dlg = QFileDialog(self)
         fileName = dlg.getOpenFileName(
-            self, "InputHandler config file name", "config", ".h", options=QFileDialog.DontUseNativeDialog
+            self, "InputHandler config file name", "", "config.h", options=QFileDialog.DontUseNativeDialog
         )
         if fileName[0] == "":
             PreferencesMethods.logger.info("browse for config cancelled.")
             return
-        fqname = fileName[0] + fileName[1]
-        file = QFile(fqname)
+        fqname = fileName[0]
+        file = QFile(fqname)        
         self.session["opt"]["input_config_file_path"] = fqname
         self.preferences.dlg.config_path_input.setText(str(fqname))
+        # TODO reload tool with new input config
 
     def preferences_dialog_setup(self):
         PreferencesMethods.logger.debug("preferences dialog setup")
