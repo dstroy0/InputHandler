@@ -23,7 +23,7 @@ class PreferencesMethods(object):
 
     def save_preferences(self):
         config_path = self.preferences.dlg.config_path_input.text()
-        PreferencesMethods.logger.info("preferences saved")
+        PreferencesMethods.logger.info("preferences set")
     
     def reset_preferences(self):
         config_path = self.session["opt"]["input_config_file_path"]
@@ -47,11 +47,11 @@ class PreferencesMethods(object):
 
     def preferences_dialog_setup(self):
         PreferencesMethods.logger.debug("preferences dialog setup")
-        # set initial text
+        # set initial field text
         config_path = self.session["opt"]["input_config_file_path"]
         self.preferences.dlg.config_path_input.setText(str(config_path))
         
-        # action setup
+        # actions setup
         self.preferences.dlg.browse_for_config.clicked.connect(self.get_config_file)
         self.preferences.dlg.buttonBox.accepted.connect(self.save_preferences)
         self.preferences.dlg.buttonBox.rejected.connect(self.reset_preferences)
