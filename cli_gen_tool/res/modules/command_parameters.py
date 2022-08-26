@@ -135,9 +135,7 @@ class CommandParametersMethods(object):
         settings_to_validate["commandMaxArgs"] = cmd_dlg.commandMaxArgs.text()
         # err is the error sentinel
         err = False
-        if settings_to_validate["functionName"] == "":
-            error_list.append("'Function name' cannot be empty")
-            err = True
+        
         if settings_to_validate["commandString"] == "":
             error_list.append("'Command string' cannot be empty")
             err = True
@@ -176,20 +174,29 @@ class CommandParametersMethods(object):
         elif arg_handling_idx == 1:
             # single argument
             tmp = self.dict_from_csv_args()
-            if tmp[0] == "":
+            print(tmp)
+            if tmp == {} or tmp["0"] == "":
+                tmp["0"] = ""
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
-            settings_to_validate["commandArguments"] = {0: tmp[0]}
+            if settings_to_validate["functionName"] == "":
+                error_list.append("'Return function name' cannot be empty with current 'Argument Handling' selection")
+            
+            settings_to_validate["commandArguments"] = {0: tmp["0"]}
         elif arg_handling_idx == 2:
             # argument array
             tmp = self.dict_from_csv_args()
-            if tmp[0] == "":
+            if tmp == {} or tmp["0"] == "":
+                tmp["0"] = ""
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
+            if settings_to_validate["functionName"] == "":
+                error_list.append("'Return function name' cannot be empty with current 'Argument Handling' selection")
+                
             settings_to_validate["commandArguments"] = tmp
         CommandParametersMethods.logger.debug(settings_to_validate)
         CommandParametersMethods.logger.debug(error_list)
