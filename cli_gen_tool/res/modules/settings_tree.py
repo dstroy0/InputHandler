@@ -341,25 +341,25 @@ class SettingsTreeMethods(object):
             },
             "builtin methods": {
                 "outputToStream": {
-                    "type": "enable/disable",
+                    "type": "Enable/Disable",
                     "tooltip": [
                         "",
                         "This will have no effect if you have not designated an output Stream and set a buffer size in 'process output'.",
                     ],
                 },
                 "defaultFunction": {
-                    "type": "enable/disable",
+                    "type": "Enable/Disable",
                     "tooltip": ["No default function.", "Default function enabled."],
                 },
                 "listCommands": {
-                    "type": "enable/disable",
+                    "type": "Enable/Disable",
                     "tooltip": [
                         "No listCommands command",
                         "listCommands available to user.",
                     ],
                 },
                 "listSettings": {
-                    "type": "enable/disable",
+                    "type": "Enable/Disable",
                     "tooltip": [
                         "No listSettings command",
                         "listSettings available to user.",
@@ -439,10 +439,10 @@ class SettingsTreeMethods(object):
         settings_tree.setColumnHidden(4, 1)
 
         # use the text in _tree for self.ui.settings_tree field labels, build the tree
+        tree = self.cliOpt[dict_key]["tree"]
         for parent in _tree:
             index_of_child = 0
-            dict_key = parent
-            tree = self.cliOpt[dict_key]["tree"]
+            dict_key = parent            
             tree["root"] = QTreeWidgetItem(settings_tree, [dict_key, ""])
             tree["root"].setIcon(0, self.ui.commandLinkIcon)
             for child in _tree[parent]:
@@ -471,7 +471,7 @@ class SettingsTreeMethods(object):
                     has_combobox = False
                     tooltip = _tree[dict_key][child]["tooltip"]
                     combobox_tooltip = _tree[dict_key][child]["tooltip"]
-                    if _tree[dict_key][child]["type"] == "enable/disable":
+                    if _tree[dict_key][child]["type"] == "Enable/Disable":
                         has_combobox = True
                         tooltip = ""
                     index_of_child = set_up_child(
