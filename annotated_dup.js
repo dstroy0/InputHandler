@@ -5,6 +5,9 @@ var annotated_dup =
     ] ],
     [ "modules", "dc/dcf/namespacemodules.html", [
       [ "cli", "d3/d25/namespacemodules_1_1cli.html", [
+        [ "clireadme", "d7/d54/namespacemodules_1_1cli_1_1clireadme.html", [
+          [ "cliReadme", "d0/dd7/classmodules_1_1cli_1_1clireadme_1_1cli_readme.html", "d0/dd7/classmodules_1_1cli_1_1clireadme_1_1cli_readme" ]
+        ] ],
         [ "config", "da/d86/namespacemodules_1_1cli_1_1config.html", [
           [ "cliConfig", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html", "d5/d68/classmodules_1_1cli_1_1config_1_1cli_config" ]
         ] ],
