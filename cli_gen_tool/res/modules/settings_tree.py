@@ -22,6 +22,7 @@ from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
 
 # external data models
 from res.modules.data_models import dataModels
+from res.modules.display_models import displayModels
 
 # logging api
 from res.modules.logging_setup import Logger
@@ -33,6 +34,7 @@ class SettingsTreeMethods(object):
     def __init__(self):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        SettingsTreeMethods._tree = displayModels._tree
 
     ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):
@@ -297,136 +299,64 @@ class SettingsTreeMethods(object):
         )
         self.ui.settings_tree.editItem(item, 3)
 
+    ## helper method to add children to container items
+    def set_up_child(
+        self,
+        dict_key,
+        tree,
+        parent,
+        index_of_child,
+        var_name,
+        var_type,
+        var_tooltip,
+        var_initial_val,
+        combobox=False,
+        combobox_item_tooltips=[],
+    ):
+        if tree["root"] == self.cliOpt["config"]["tree"]["root"]:
+            access = dict_key
+        else:
+            access = var_name
+        column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
+        tree["items"][access]["QTreeWidgetItem"].update(
+            {index_of_child: QTreeWidgetItem(parent, column_label_list)}
+        )
+        _twi = tree["items"][access]["QTreeWidgetItem"][index_of_child]
+        dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
+        _twi.setData(4, 0, dict_pos)
+        _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
+        if var_tooltip != "" and var_tooltip != None:
+            _twi.setToolTip(3, var_tooltip)
+        if combobox == True:
+            tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
+            _cmb = tree["items"][access]["QComboBox"][index_of_child]
+            _cmb.addItem("Disabled", False)
+            _cmb.addItem("Enabled", True)
+            if (
+                combobox_item_tooltips
+                and combobox_item_tooltips[0] != None
+                and combobox_item_tooltips[0] != ""
+            ):
+                _cmb.setItemData(0, combobox_item_tooltips[0], Qt.ToolTipRole)
+            if (
+                combobox_item_tooltips
+                and combobox_item_tooltips[1] != None
+                and combobox_item_tooltips[1] != ""
+            ):
+                _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
+            _cmb.setObjectName(dict_pos)
+            _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+            _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
+            self.ui.settings_tree.setItemWidget(
+                _twi,
+                3,
+                _cmb,
+            )
+        index_of_child += 1
+        return index_of_child
+
     ## this builds the entire MainWindow.ui.settings_tree
     def build_lib_settings_tree(self):
-        settings_tree = self.ui.settings_tree
-
-        ## Display Labels mirror tree structure. Containters are parents; key is parent/child label, value is type
-        _tree = {
-            "process output": {
-                "buffer size": {
-                    "type": "bytes",
-                    "tooltip": "Must be greater than zero for class output.",
-                },
-                "output stream": {
-                    "type": "Stream",
-                    "tooltip": "Set an output Stream that is legal for your platform.",
-                },
-            },
-            "process parameters": {
-                "process name": {
-                    "type": "text",
-                    "tooltip": "The process name prepends all terminal output.",
-                },
-                "end of line characters": {
-                    "type": "text/control char",
-                    "tooltip": "Set to the eol char sequence of your data.",
-                },
-                "input control char sequence": {
-                    "type": "text",
-                    "tooltip": "Enter this sequence before an unescaped control char (r,n,e,t,b,etc.)",
-                },
-                "wildcard char": {
-                    "type": "char",
-                    "tooltip": "Any single char; * by default.",
-                },
-                "data delimiter sequences": {
-                    "type": "char sequence",
-                    "tooltip": "The char or sequence of chars that separate input data.",
-                },
-                "start stop data delimiter sequences": {
-                    "type": "char sequence",
-                    "tooltip": "Regex-like start/stop input sequences, for inputting long strings of data.",
-                },
-            },
-            "builtin methods": {
-                "outputToStream": {
-                    "type": "Enable/Disable",
-                    "tooltip": [
-                        "",
-                        "This will have no effect if you have not designated an output Stream and set a buffer size in 'process output'.",
-                    ],
-                },
-                "defaultFunction": {
-                    "type": "Enable/Disable",
-                    "tooltip": ["No default function.", "Default function enabled."],
-                },
-                "listCommands": {
-                    "type": "Enable/Disable",
-                    "tooltip": [
-                        "No listCommands command",
-                        "listCommands available to user.",
-                    ],
-                },
-                "listSettings": {
-                    "type": "Enable/Disable",
-                    "tooltip": [
-                        "No listSettings command",
-                        "listSettings available to user.",
-                    ],
-                },
-            },
-        }
-
-        ## helper method to add children to container items
-        def set_up_child(
-            dict_key,
-            tree,
-            parent,
-            index_of_child,
-            var_name,
-            var_type,
-            var_tooltip,
-            var_initial_val,
-            combobox=False,
-            combobox_item_tooltips=[],
-        ):
-            if tree["root"] == self.cliOpt["config"]["tree"]["root"]:
-                access = dict_key
-            else:
-                access = var_name
-            column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
-            tree["items"][access]["QTreeWidgetItem"].update(
-                {index_of_child: QTreeWidgetItem(parent, column_label_list)}
-            )
-            _twi = tree["items"][access]["QTreeWidgetItem"][index_of_child]
-            dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
-            _twi.setData(4, 0, dict_pos)
-            _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
-            if var_tooltip != "" and var_tooltip != None:
-                _twi.setToolTip(3, var_tooltip)
-            if combobox == True:
-                tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
-                _cmb = tree["items"][access]["QComboBox"][index_of_child]
-                _cmb.addItem("Disabled", False)
-                _cmb.addItem("Enabled", True)
-                if (
-                    combobox_item_tooltips
-                    and combobox_item_tooltips[0] != None
-                    and combobox_item_tooltips[0] != ""
-                ):
-                    _cmb.setItemData(0, combobox_item_tooltips[0], Qt.ToolTipRole)
-                if (
-                    combobox_item_tooltips
-                    and combobox_item_tooltips[1] != None
-                    and combobox_item_tooltips[1] != ""
-                ):
-                    _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
-                _cmb.setObjectName(dict_pos)
-                _cmb.setSizeAdjustPolicy(
-                    QComboBox.AdjustToMinimumContentsLengthWithIcon
-                )
-                _cmb.currentIndexChanged.connect(
-                    self.settings_tree_combo_box_index_changed
-                )
-                settings_tree.setItemWidget(
-                    _twi,
-                    3,
-                    _cmb,
-                )
-            index_of_child += 1
-            return index_of_child
-
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
         settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
@@ -439,141 +369,112 @@ class SettingsTreeMethods(object):
         settings_tree.setColumnHidden(4, 1)
 
         # use the text in _tree for self.ui.settings_tree field labels, build the tree
-        tree = self.cliOpt[dict_key]["tree"]
-        for parent in _tree:
+        for parent in SettingsTreeMethods._tree:
             index_of_child = 0
-            dict_key = parent            
-            tree["root"] = QTreeWidgetItem(settings_tree, [dict_key, ""])
-            tree["root"].setIcon(0, self.ui.commandLinkIcon)
-            for child in _tree[parent]:
-                var_initial_val = self.cliOpt[dict_key]["var"][child]
-                if (
-                    child == "data delimiter sequences"
-                    or child == "start stop data delimiter sequences"
-                ):
-                    columns = 1
-                    remove_row_button = True
-                    if child == "data delimiter sequences":
-                        add_row_function = self.add_data_delimiter_row
-                    if child == "start stop data delimiter sequences":
-                        add_row_function = self.add_start_stop_data_delimiter_row
-                    self.build_tree_table_widget(
-                        index_of_child,
-                        tree,
-                        dict_key,
-                        child,
-                        columns,
-                        add_row_function,
-                        remove_row_button,
+            dict_key = parent
+
+            tree = self.cliOpt[dict_key]["tree"]
+            is_config = True if dict_key == "config" else False
+            # add parents to self.ui.settings_tree
+            if not is_config:
+                tree["root"] = QTreeWidgetItem(settings_tree, [dict_key, ""])
+                tree["root"].setIcon(0, self.ui.commandLinkIcon)
+            elif is_config:
+                cfg_dict = self.cliOpt["config"]["tree"]["items"]
+                cfg_path = self.session["opt"]["input_config_file_path"]
+                tree["root"] = QTreeWidgetItem(
+                    settings_tree, ["Input config: " + cfg_path, ""]
+                )
+                tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
+                tree["root"].setToolTip(0, "Input config: " + cfg_path)
+                # make these parents children of root using the keys from 'cfg_dict'
+
+            if is_config:
+                for subsection in SettingsTreeMethods._tree["config"]:
+                    tree["parents"][subsection]["QTreeWidgetItem"] = QTreeWidgetItem(
+                        tree["root"], [subsection, "", "", ""]
                     )
-                    index_of_child += 1
-                else:
-                    has_combobox = False
-                    tooltip = _tree[dict_key][child]["tooltip"]
-                    combobox_tooltip = _tree[dict_key][child]["tooltip"]
-                    if _tree[dict_key][child]["type"] == "Enable/Disable":
-                        has_combobox = True
-                        tooltip = ""
-                    index_of_child = set_up_child(
-                        dict_key,
-                        tree,
-                        tree["root"],
-                        index_of_child,
-                        child,
-                        _tree[dict_key][child]["type"],
-                        tooltip,
-                        var_initial_val,
-                        has_combobox,
-                        combobox_tooltip,
-                    )
-                self.default_settings_tree_values.update({child: var_initial_val})
-
-        # config.h
-        tree = self.cliOpt["config"]["tree"]
-        cfg_dict = self.cliOpt["config"]["tree"]["items"]
-        cfg_path = self.session["opt"]["input_config_file_path"]
-        tree["root"] = QTreeWidgetItem(settings_tree, ["Input config: " + cfg_path, ""])
-        tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
-        tree["root"].setToolTip(0, "Input config: " + cfg_path)
-
-        # make these parents children of root using the keys from 'cfg_dict'
-        for key in cfg_dict:
-            tree["parents"][key]["QTreeWidgetItem"] = QTreeWidgetItem(
-                tree["root"], [key, "", "", ""]
-            )
-
-        # populate `settings_tree`
-        regexp = QRegularExpression("(\s*[\/][\/]\s*)")
-        for key in cfg_dict:
-            index_of_child = 0
-            parent = tree["parents"][key]["QTreeWidgetItem"]
-            for item in cfg_dict[key]:
-                if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
-                    sub_dict = cfg_dict[key][item]["fields"]
-                    match = regexp.match(sub_dict["1"])
-                    # sort out boolean fields
-                    if match.hasMatch() and (
-                        sub_dict["0"]
-                        >= self.config_file_boolean_define_fields_line_start
-                    ):
-                        cfg_dict[key]["QComboBox"].update({item: ""})
-                        index_of_child = set_up_child(
-                            key,
+                    for item in SettingsTreeMethods._tree["config"][subsection]:
+                        var_initial_val = self.cliOpt["config"]["var"][subsection][item]
+                        has_combobox = False
+                        tooltip = SettingsTreeMethods._tree[dict_key][subsection][item][
+                            "tooltip"
+                        ]
+                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][
+                            subsection
+                        ][item]["tooltip"]
+                        if (
+                            SettingsTreeMethods._tree[dict_key][subsection][item][
+                                "type"
+                            ]
+                            == "Enable/Disable"
+                        ):
+                            has_combobox = True
+                            tooltip = ""
+                        index_of_child = self.set_up_child(
+                            subsection,
                             tree,
-                            parent,
+                            tree["parents"][subsection]["QTreeWidgetItem"],
                             index_of_child,
-                            sub_dict["2"],
-                            "Enable/Disable",
-                            "",
-                            sub_dict["3"],
-                            True,
-                        )
-                        self.default_settings_tree_values.update(
-                            {sub_dict["2"]: sub_dict["3"]}
+                            item,
+                            SettingsTreeMethods._tree[dict_key][subsection][item][
+                                "type"
+                            ],
+                            tooltip,
+                            var_initial_val,
+                            has_combobox,
+                            combobox_tooltip,
                         )
 
-                    elif not match.hasMatch() and (
-                        sub_dict["0"]
-                        >= self.config_file_boolean_define_fields_line_start
+            elif not is_config:
+                for child in SettingsTreeMethods._tree[parent]:
+                    var_initial_val = self.cliOpt[dict_key]["var"][child]
+                    if (
+                        child == "data delimiter sequences"
+                        or child == "start stop data delimiter sequences"
                     ):
-                        cfg_dict[key]["QComboBox"].update({item: ""})
-                        index_of_child = set_up_child(
-                            key,
-                            tree,
-                            parent,
+                        columns = 1
+                        remove_row_button = True
+                        if child == "data delimiter sequences":
+                            add_row_function = self.add_data_delimiter_row
+                        if child == "start stop data delimiter sequences":
+                            add_row_function = self.add_start_stop_data_delimiter_row
+                        self.build_tree_table_widget(
                             index_of_child,
-                            sub_dict["2"],
-                            "Enable/Disable",
-                            "",
-                            sub_dict["3"],
-                            True,
+                            tree,
+                            dict_key,
+                            child,
+                            columns,
+                            add_row_function,
+                            remove_row_button,
                         )
-                        self.default_settings_tree_values.update(
-                            {sub_dict["2"]: sub_dict["3"]}
-                        )
-
+                        index_of_child += 1
                     else:
-                        number_field = int(sub_dict["3"])
-                        if number_field <= 255:
-                            type_field = "uint8_t"
-                        elif number_field > 255 and number_field <= 65535:
-                            type_field = "uint16_t"
-                        elif number_field > 65535:
-                            type_field = "uint32_t"
-                        index_of_child = set_up_child(
-                            key,
+                        has_combobox = False
+                        tooltip = SettingsTreeMethods._tree[dict_key][child]["tooltip"]
+                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][child][
+                            "tooltip"
+                        ]
+                        if (
+                            SettingsTreeMethods._tree[dict_key][child]["type"]
+                            == "Enable/Disable"
+                        ):
+                            has_combobox = True
+                            tooltip = ""
+                        index_of_child = self.set_up_child(
+                            dict_key,
                             tree,
-                            parent,
+                            tree["root"],
                             index_of_child,
-                            sub_dict["2"],
-                            type_field,
-                            "This field's type is automatically set by the library.",
-                            sub_dict["3"],
-                            False,
+                            child,
+                            SettingsTreeMethods._tree[dict_key][child]["type"],
+                            tooltip,
+                            var_initial_val,
+                            has_combobox,
+                            combobox_tooltip,
                         )
-                        self.default_settings_tree_values.update(
-                            {sub_dict["2"]: sub_dict["3"]}
-                        )
+
+                self.default_settings_tree_values.update({child: var_initial_val})
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
         # update cliOpt with new value when editing is complete

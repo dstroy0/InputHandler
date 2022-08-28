@@ -101,6 +101,13 @@ class ParseInputHandlerConfig(object):
                                     break
                         line_pos += match.capturedLength()
                         self.cliOpt["config"]["tree"]["items"][key].update(entry)
+                        self.cliOpt["config"]["var"][key].update(
+                            {
+                                str(entry[index[key]]["fields"]["2"]).strip(): str(
+                                    entry[index[key]]["fields"]["3"]
+                                )
+                            }
+                        )
                         self.default_settings_tree_values.update(
                             {
                                 entry[index[key]]["fields"]["2"]: entry[index[key]][
