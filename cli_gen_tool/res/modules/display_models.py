@@ -10,9 +10,6 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
-import copy
-
 
 class displayModels(object):
     ## Display Labels mirror tree structure. Containters are parents; key is parent/child label, value is type

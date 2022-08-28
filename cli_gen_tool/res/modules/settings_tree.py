@@ -17,7 +17,7 @@ import copy
 import json
 
 # pyside imports
-from PySide6.QtCore import QRegularExpression, Qt
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
 
 # external data models
