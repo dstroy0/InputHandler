@@ -18,6 +18,7 @@ from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
 
 # external methods and resources
+from res.modules.cli.clireadme import cliReadme
 from res.modules.cli.config import cliConfig
 from res.modules.cli.setup import cliSetup
 from res.modules.cli.functions import cliFunctions
@@ -46,11 +47,12 @@ class CodePreviewBrowser(QPlainTextEdit):
 
 
 # code preview methods
-class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
+class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def __init__(self) -> None:
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
+        cliReadme.__init__(self)
         cliConfig.__init__(self)
         cliSetup.__init__(self)
         cliFunctions.__init__(self)
@@ -60,6 +62,8 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def update_code(self, file, item_string, place_cursor):
         CodePreview.logger.debug("update {filename}".format(filename=file))
         # update widgets
+        if file == "README.md":
+            self.readme_md(item_string, place_cursor)
         if file == "config.h":
             self.config_h(item_string, place_cursor)
         if file == "setup.h":
@@ -74,6 +78,7 @@ class CodePreview(cliConfig, cliSetup, cliFunctions, cliParameters, object):
             self.functions_cpp(item_string, place_cursor)
 
     def display_initial_code_preview(self):
+        self.readme_md(None, False)
         self.config_h(None, False)
         self.setup_h(None, False)
         self.setup_cpp(None, False)

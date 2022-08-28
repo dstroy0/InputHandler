@@ -259,6 +259,7 @@ class dataModels(object):
     ## This dict contains all generated files and associated widgets.
     generated_filename_dict = {
         "files": {
+            "README.md": copy.deepcopy(generated_filename_sub_dict),
             "config.h": copy.deepcopy(generated_filename_sub_dict),
             "setup.h": copy.deepcopy(generated_filename_sub_dict),
             "setup.cpp": copy.deepcopy(generated_filename_sub_dict),

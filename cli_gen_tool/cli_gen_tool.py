@@ -59,7 +59,7 @@ lib_root_path = path.currentPath()
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows
-# (MainWindow is noninteractable when any of its child popups are active)
+# (MainWindow is noninteractable when any of its child popups are active except log history)
 class MainWindow(
     QMainWindow,
     SettingsTreeTableMethods,
