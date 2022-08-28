@@ -1,4 +1,4 @@
 <map id="modules.command_tree.CommandParametersTableViewModel" name="modules.command_tree.CommandParametersTableViewModel">
-<area shape="rect" id="node1" title="specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements" alt="" coords="5,80,228,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="43,5,191,32"/>
+<area shape="rect" id="node1" title="specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements" alt="" coords="5,79,228,119"/>
+<area shape="rect" id="node2" title=" " alt="" coords="43,5,191,31"/>
 </map>

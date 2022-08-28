@@ -1,12 +1,12 @@
 <map id="examples/all_platforms/basic/BLE_UART/BLE_UART.ino" name="examples/all_platforms/basic/BLE_UART/BLE_UART.ino">
-<area shape="rect" id="node1" title=" " alt="" coords="200,5,422,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="290,259,366,285"/>
-<area shape="rect" id="node3" title=" " alt="" coords="29,102,84,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="108,102,218,129"/>
-<area shape="rect" id="node5" title=" " alt="" coords="242,95,380,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="404,95,543,136"/>
-<area shape="rect" id="node7" href="$d2/df9/_bluefruit_config_8h.html" title=" " alt="" coords="568,102,684,129"/>
-<area shape="rect" id="node8" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="708,102,815,129"/>
-<area shape="rect" id="node9" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="540,184,645,211"/>
-<area shape="rect" id="node10" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="559,259,626,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="200,5,422,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="290,255,366,280"/>
+<area shape="rect" id="node3" title=" " alt="" coords="29,101,84,126"/>
+<area shape="rect" id="node4" title=" " alt="" coords="108,101,218,126"/>
+<area shape="rect" id="node5" title=" " alt="" coords="242,93,380,133"/>
+<area shape="rect" id="node6" title=" " alt="" coords="404,93,543,133"/>
+<area shape="rect" id="node7" href="$d2/df9/_bluefruit_config_8h.html" title=" " alt="" coords="568,101,684,126"/>
+<area shape="rect" id="node8" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="708,101,815,126"/>
+<area shape="rect" id="node9" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="540,181,645,207"/>
+<area shape="rect" id="node10" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="559,255,626,280"/>
 </map>

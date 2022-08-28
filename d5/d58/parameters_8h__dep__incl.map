@@ -1,6 +1,6 @@
 <map id="examples/all_platforms/advanced/MultiFile/CLI/parameters.h" name="examples/all_platforms/advanced/MultiFile/CLI/parameters.h">
-<area shape="rect" id="node1" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="5,5,165,61"/>
-<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="5,109,165,165"/>
-<area shape="rect" id="node3" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="5,213,165,269"/>
-<area shape="rect" id="node4" href="$d6/d12/_multi_file_8ino.html" title="An example that demonstrates multiple file setup." alt="" coords="189,221,397,262"/>
+<area shape="rect" id="node1" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="5,5,165,60"/>
+<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="5,108,165,163"/>
+<area shape="rect" id="node3" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="5,211,165,265"/>
+<area shape="rect" id="node4" href="$d6/d12/_multi_file_8ino.html" title="An example that demonstrates multiple file setup." alt="" coords="189,218,397,258"/>
 </map>

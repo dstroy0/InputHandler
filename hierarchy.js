@@ -22,6 +22,7 @@ var hierarchy =
       [ "modules.command_parameters.CommandParametersMethods", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html", null ],
       [ "modules.command_tree.CommandTreeMethods", "de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html", null ],
       [ "modules.data_models.dataModels", "d7/d8c/classmodules_1_1data__models_1_1data_models.html", null ],
+      [ "modules.display_models.displayModels", "db/dfa/classmodules_1_1display__models_1_1display_models.html", null ],
       [ "modules.helper_methods.HelperMethods", "d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html", null ],
       [ "modules.logging_setup.Logger", "d3/dd3/classmodules_1_1logging__setup_1_1_logger.html", null ],
       [ "modules.mainwindow_actions.MainWindowActions", "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html", null ],

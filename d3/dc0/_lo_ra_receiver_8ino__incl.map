@@ -1,9 +1,9 @@
 <map id="examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino" name="examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino">
-<area shape="rect" id="node1" title=" " alt="" coords="26,5,205,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,109,60,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="84,109,147,136"/>
-<area shape="rect" id="node4" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="171,109,278,136"/>
-<area shape="rect" id="node5" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="172,184,277,211"/>
-<area shape="rect" id="node6" title=" " alt="" coords="139,259,215,285"/>
-<area shape="rect" id="node7" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="239,259,306,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="26,5,205,60"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,108,60,133"/>
+<area shape="rect" id="node3" title=" " alt="" coords="84,108,147,133"/>
+<area shape="rect" id="node4" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="171,108,278,133"/>
+<area shape="rect" id="node5" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="172,181,277,207"/>
+<area shape="rect" id="node6" title=" " alt="" coords="139,255,215,280"/>
+<area shape="rect" id="node7" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="239,255,306,280"/>
 </map>

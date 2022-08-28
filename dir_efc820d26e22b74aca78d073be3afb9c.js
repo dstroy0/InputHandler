@@ -6,6 +6,7 @@ var dir_efc820d26e22b74aca78d073be3afb9c =
     [ "command_parameters.py", "d3/d85/command__parameters_8py.html", "d3/d85/command__parameters_8py" ],
     [ "command_tree.py", "d3/d3f/command__tree_8py.html", "d3/d3f/command__tree_8py" ],
     [ "data_models.py", "d8/d91/data__models_8py.html", "d8/d91/data__models_8py" ],
+    [ "display_models.py", "d3/d98/display__models_8py.html", "d3/d98/display__models_8py" ],
     [ "helper_methods.py", "d9/d1e/helper__methods_8py.html", "d9/d1e/helper__methods_8py" ],
     [ "logging_setup.py", "d1/d78/logging__setup_8py.html", "d1/d78/logging__setup_8py" ],
     [ "mainwindow_actions.py", "d1/dad/mainwindow__actions_8py.html", "d1/dad/mainwindow__actions_8py" ],

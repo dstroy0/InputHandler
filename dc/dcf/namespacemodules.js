@@ -5,6 +5,7 @@ var namespacemodules =
     [ "command_parameters", "dd/dad/namespacemodules_1_1command__parameters.html", "dd/dad/namespacemodules_1_1command__parameters" ],
     [ "command_tree", "d2/d2d/namespacemodules_1_1command__tree.html", "d2/d2d/namespacemodules_1_1command__tree" ],
     [ "data_models", "df/d57/namespacemodules_1_1data__models.html", "df/d57/namespacemodules_1_1data__models" ],
+    [ "display_models", "de/d8e/namespacemodules_1_1display__models.html", "de/d8e/namespacemodules_1_1display__models" ],
     [ "helper_methods", "d4/d58/namespacemodules_1_1helper__methods.html", "d4/d58/namespacemodules_1_1helper__methods" ],
     [ "logging_setup", "db/d63/namespacemodules_1_1logging__setup.html", "db/d63/namespacemodules_1_1logging__setup" ],
     [ "mainwindow_actions", "d2/de5/namespacemodules_1_1mainwindow__actions.html", "d2/de5/namespacemodules_1_1mainwindow__actions" ],
