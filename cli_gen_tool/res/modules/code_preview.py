@@ -15,7 +15,7 @@ from __future__ import absolute_import
 # pyside imports
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
-from PySide6.QtWidgets import QHeaderView, QTextEdit, QSizePolicy, QTreeWidgetItem, QTextBrowser
+from PySide6.QtWidgets import QHeaderView, QSizePolicy, QTreeWidgetItem, QTextBrowser
 
 # external methods and resources
 from res.modules.cli.clireadme import cliReadme
@@ -29,8 +29,7 @@ from res.modules.logging_setup import Logger
 
 ## each text browser in Code Preview is an instance of this class
 class CodePreviewBrowser(QTextBrowser):
-    # spawns a QPlainTextEdit with these settings
-    # the main difference between this and a normal QPlainTextEdit is that this centers the text cursor on widget resize
+    # spawns a QTextBrowser with these settings
     def __init__(self, name):
         super(CodePreviewBrowser, self).__init__()
         self.setLineWrapMode(QTextBrowser.NoWrap)
@@ -41,6 +40,7 @@ class CodePreviewBrowser(QTextBrowser):
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         self.setTextInteractionFlags(Qt.TextBrowserInteraction)        
         self.ensureCursorVisible() 
+        # let the user navigate to the hyperlinks provided in the readme
         if name == "README.md":
             self.setOpenExternalLinks(True)
 
