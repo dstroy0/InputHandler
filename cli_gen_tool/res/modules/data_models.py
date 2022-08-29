@@ -114,7 +114,7 @@ class dataModels(object):
         "command parameters index": {},
         "commands": {
             "parameters": {},
-            "QTreeWidgetItem": {"container": {}, "table": {}},
+            "QTreeWidgetItem": {"root": "", "container": {}, "table": {}},
             "QTableView": {
                 "models": {},
             },

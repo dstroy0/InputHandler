@@ -109,7 +109,7 @@ class SettingsTreeMethods(object):
                         self.cliOpt["command parameters index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters key"] = object_list[2]
-                        self.add_qtreewidgetitem(self.ui.command_tree, "listCommands")
+                        self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listCommands")
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
@@ -140,7 +140,7 @@ class SettingsTreeMethods(object):
                         self.cliOpt["command parameters index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters key"] = object_list[2]
-                        self.add_qtreewidgetitem(self.ui.command_tree, "listSettings")
+                        self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listSettings")
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
@@ -154,7 +154,7 @@ class SettingsTreeMethods(object):
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 "QComboBox"
-            ][object_list[1]]
+            ][object_list[1]]            
             sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 object_list[1]
             ]["fields"]
@@ -173,7 +173,7 @@ class SettingsTreeMethods(object):
                 sub_dict["1"] = "    // "
                 sub_dict["3"] = False
                 SettingsTreeMethods.logger.info(
-                    str(sub_dict[2].strip("\n")) + " disabled"
+                    str(sub_dict["2"].strip("\n")) + " disabled"
                 )
             SettingsTreeMethods.logger.debug(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
@@ -391,6 +391,7 @@ class SettingsTreeMethods(object):
 
             if is_config:
                 for subsection in SettingsTreeMethods._tree["config"]:
+                    index_of_child = 0
                     tree["parents"][subsection]["QTreeWidgetItem"] = QTreeWidgetItem(
                         tree["root"], [subsection, "", "", ""]
                     )
