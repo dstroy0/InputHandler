@@ -12,7 +12,7 @@
 
 
 class displayModels(object):
-    ## Display Labels mirror tree structure. Containters are parents; key is parent/child label, value is type
+    ## Display Labels mirror tree structure. Containers are parents; keys are parent/child labels
     _tree = {
         "process output": {
             "buffer size": {

@@ -55,17 +55,17 @@ This tool (cli_gen_tool.py) is meant to assist in constructing/sharing interface
 Documentation for the LIBRARY is available at: [https://dstroy0.github.io/InputHandler/](https://dstroy0.github.io/InputHandler/)
 Documentation for the TOOL is available at: [#TODO](#TODO)
 
-## disclaimer
-The library's authors are not responsible for any damages which arise from the use of this tool (cli_gen_tool.py) or library (InputHandler).
-The software (InputHandler library and cli_gen_tool.py and associated dependencies) convey NO warranty of any kind, implied or otherwise.
-Use this library and tool at your own risk!  Do not use in any critical applications!
-The user is ultimately responsible for configuring, implementing, and debugging their own interface.
-
 ## help
-At-will assistance is available here: [github discussions](https://github.com/dstroy0/InputHandler/discussions)
+At-will debugging assistance is available here: [github discussions](https://github.com/dstroy0/InputHandler/discussions)
 
 ## bug reporting
 Please report bugs using the bug report form: [#TODO](#TODO)
+
+## disclaimer
+Use this library and tool at your own risk!
+The library's authors are not responsible for any damages which arise from the use of this tool (cli_gen_tool.py) or library (InputHandler).
+The software (InputHandler library and cli_gen_tool.py and associated dependencies) convey NO warranty of any kind, implied or otherwise.
+The user is ultimately responsible for configuring and implementing their own interface.
 
 {initial_instructions}
 
