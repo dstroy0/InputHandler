@@ -15,7 +15,7 @@ from __future__ import absolute_import
 # pyside imports
 from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QMouseEvent, QTextCursor
-from PySide6.QtWidgets import QHeaderView, QPlainTextEdit, QSizePolicy, QTreeWidgetItem
+from PySide6.QtWidgets import QHeaderView, QTextEdit, QSizePolicy, QTreeWidgetItem, QTextBrowser
 
 # external methods and resources
 from res.modules.cli.clireadme import cliReadme
@@ -28,23 +28,25 @@ from res.modules.cli.parameters import cliParameters
 from res.modules.logging_setup import Logger
 
 ## each text browser in Code Preview is an instance of this class
-class CodePreviewBrowser(QPlainTextEdit):
+class CodePreviewBrowser(QTextBrowser):
     # spawns a QPlainTextEdit with these settings
     # the main difference between this and a normal QPlainTextEdit is that this centers the text cursor on widget resize
     def __init__(self, name):
         super(CodePreviewBrowser, self).__init__()
-        self.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.setLineWrapMode(QTextBrowser.NoWrap)
         self.setReadOnly(True)
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.setTextInteractionFlags(Qt.TextBrowserInteraction)
-        self.setCenterOnScroll(True)
+        self.setTextInteractionFlags(Qt.TextBrowserInteraction)        
+        self.ensureCursorVisible() 
+        if name == "README.md":
+            self.setOpenExternalLinks(True)
 
     def resizeEvent(self, event):
-        self.centerCursor()
-
+        self.ensureCursorVisible()
+        
 
 # code preview methods
 class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
@@ -132,7 +134,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
 
         if event_type == event.Wheel and CodePreview.selected_text_widget != None:
             sb = CodePreview.selected_text_widget.verticalScrollBar()
-            sb.setValue(sb.value() + (-(event.angleDelta().y() / 8 / 15)))
+            sb.setValue(sb.value() + (-(event.angleDelta().y() / 8 )))
 
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
             if watched is code_preview.viewport():
@@ -240,7 +242,10 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
-            text_widget.setPlainText(code_string)
+            if filename != "README.md":
+                text_widget.setPlainText(code_string)
+            else:
+                text_widget.setMarkdown(code_string)
             if place_cursor == True:
                 self.code_preview_dict["files"][filename]["tree_item"][tab].setExpanded(
                     True
