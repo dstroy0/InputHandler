@@ -235,7 +235,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         text_widget.setTextCursor(cursor)
         cursor.movePosition(cursor.StartOfLine, QTextCursor.KeepAnchor, 1)
         text_widget.setTextCursor(cursor)
-        text_widget.centerCursor()
+        text_widget.ensureCursorVisible()
 
     # sets the text inside of code preview text browsers
     def set_code_string(self, filename, code_string, item_string, place_cursor=False):
