@@ -59,10 +59,16 @@ class CommandTreeMethods(object):
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
     def command_menu_button_enable_toggle(self):
-        if self.cliOpt["commands"]["QTreeWidgetItem"]["root"].childCount() == 0:
-            self.ui.cmd_settings_menu_button.setEnabled(False)
+        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        _items = self.ui.command_tree.selectedItems()
+        if _items:
+            item_selected = _items[0]
         else:
-            # TODO only reenable if root has commands
+            item_selected = False
+        
+        if _root.childCount() == 0 or item_selected == _root: 
+            self.ui.cmd_settings_menu_button.setEnabled(False)
+        elif item_selected != False and item_selected != _root:            
             self.ui.cmd_settings_menu_button.setEnabled(True)
             
     ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
@@ -174,5 +180,5 @@ class CommandTreeMethods(object):
                         parent,
                         child,
                     )        
-
+        self.command_menu_button_enable_toggle()
 # end of file

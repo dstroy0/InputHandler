@@ -314,6 +314,7 @@ class MainWindowActions(object):
         self.ui.cmd_settings_menu_button.clicked.connect(
             self.clicked_command_settings_menu_button_tab_two
         )
+        self.ui.command_tree.itemSelectionChanged.connect(self.command_menu_button_enable_toggle)
         # end buttons setup
 
     # end MainWindow actions
