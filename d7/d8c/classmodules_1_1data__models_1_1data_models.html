@@ -166,6 +166,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a7cd94e97482723345e50c4ccd65f46d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7099ffac3d5c3fb0a786e4373ab076eb"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a7099ffac3d5c3fb0a786e4373ab076eb">listSettings</a></td></tr>
 <tr class="separator:a7099ffac3d5c3fb0a786e4373ab076eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a34531912db72805b180bcc69f73e52"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a6a34531912db72805b180bcc69f73e52">child_index_struct</a></td></tr>
+<tr class="separator:a6a34531912db72805b180bcc69f73e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c4692a64297614cfa841d6394c6e00d"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a6c4692a64297614cfa841d6394c6e00d">parameters_index_struct</a></td></tr>
 <tr class="separator:a6c4692a64297614cfa841d6394c6e00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5705d90cc466d8438b66fc65f26d3c93"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a5705d90cc466d8438b66fc65f26d3c93">cliopt_model</a></td></tr>
@@ -209,6 +211,34 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6a34531912db72805b180bcc69f73e52" name="a6a34531912db72805b180bcc69f73e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a34531912db72805b180bcc69f73e52">&#9670;&#160;</a></span>child_index_struct</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">dictionary modules.data_models.dataModels.child_index_struct</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=  {</div>
+<div class="line">        <span class="stringliteral">&quot;depth&quot;</span>: <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;child parameters index&quot;</span>: <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p>child information dict </p>
+
+</div>
+</div>
 <a id="a5705d90cc466d8438b66fc65f26d3c93" name="a5705d90cc466d8438b66fc65f26d3c93"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5705d90cc466d8438b66fc65f26d3c93">&#9670;&#160;</a></span>cliopt_model</h2>
 
@@ -620,8 +650,8 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  {</div>
-<div class="line">        <span class="stringliteral">&quot;parameters key&quot;</span>: <span class="stringliteral">&quot;&quot;</span>,                </div>
-<div class="line">        <span class="stringliteral">&quot;indices of children&quot;</span>:[],</div>
+<div class="line">        <span class="stringliteral">&quot;parameters index&quot;</span>: <span class="stringliteral">&quot;&quot;</span>,                </div>
+<div class="line">        <span class="stringliteral">&quot;indices of children&quot;</span>:{},</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 <p>This dict can is used inside of the "command parameters index" key of cliopt_model. </p>
