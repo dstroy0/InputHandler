@@ -311,8 +311,8 @@ class MainWindowActions(object):
         self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
         self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
-        self.ui.openCloseSettingsMenuButton.clicked.connect(
-            self.clicked_open_command_settings_menu_tab_two
+        self.ui.cmd_settings_menu_button.clicked.connect(
+            self.clicked_command_settings_menu_button_tab_two
         )
         # end buttons setup
 

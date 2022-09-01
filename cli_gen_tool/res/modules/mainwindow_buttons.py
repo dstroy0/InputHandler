@@ -95,9 +95,10 @@ class MainWindowButtons(object):
     def clicked_delete_tab_two(self):
         print("clicked tab 2 delete")
 
-    def clicked_open_command_settings_menu_tab_two(self):
-        MainWindowButtons.logger.info("clicked open command settings menu")
-        self.ui.commandParameters.exec()
+    def clicked_command_settings_menu_button_tab_two(self):
+        if self.ui.cmd_settings_menu_button.isEnabled():
+            MainWindowButtons.logger.info("clicked open command settings menu")
+            self.ui.commandParameters.exec()
 
 
 # end of file

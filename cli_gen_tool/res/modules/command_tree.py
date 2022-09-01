@@ -58,15 +58,19 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
+    def command_menu_button_enable_toggle(self):
+        if self.cliOpt["commands"]["QTreeWidgetItem"]["root"].childCount() == 0:
+            self.ui.cmd_settings_menu_button.setEnabled(False)
+        else:
+            # TODO only reenable if root has commands
+            self.ui.cmd_settings_menu_button.setEnabled(True)
+            
     ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
     def rem_command(self, object_list):
-        match = False
+        match = False        
         for item in self.cliOpt["commands"]["parameters"]:
             for index in self.cliOpt["commands"]["index"]:
-                if (
-                    self.cliOpt["commands"]["index"][index]["parameters key"]
-                    == item
-                ):
+                if self.cliOpt["commands"]["index"][index]["parameters index"] == item:
                     match = True
                     break
         if match == True:
@@ -75,6 +79,7 @@ class CommandTreeMethods(object):
             del item
             del self.cliOpt["commands"]["parameters"][object_list[2]]
             self.rem_qtreewidgetitem(object_list)
+            self.command_menu_button_enable_toggle()
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(self, parent, dict_index) -> None:
@@ -94,6 +99,9 @@ class CommandTreeMethods(object):
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
+        self.command_menu_button_enable_toggle()
+        # return child
+        return self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
 
     ## takes the command out of the tree and scrub it from the data model
     # TODO remove orphaned children if a parent item is removed
@@ -102,20 +110,17 @@ class CommandTreeMethods(object):
         self.ui.command_tree.removeItemWidget(
             self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_pos[2]], 0
         )
-        # this is the tree "container", it displays the commandString and expands to view the command parameters table
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_pos[2]]
-        # returns the int index of the top level item
-        idx = self.ui.command_tree.indexOfTopLevelItem(tree_item)
-        # get the qtreewidgetitem that is at the top
-        item = self.ui.command_tree.takeTopLevelItem(idx)
-        # delete it from the tree
-        del item
+        tree_item.removeChild(
+            self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_pos[2]]
+        )
+        self.cliOpt["commands"]["QTreeWidgetItem"]["root"].removeChild(tree_item)
+
         # scrub the data model
-        
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]["models"]:
             del self.cliOpt["commands"]["QTableView"]["models"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]:
-            del self.cliOpt["commands"]["QTableView"][dict_pos[2]]        
+            del self.cliOpt["commands"]["QTableView"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["parameters"]:
             del self.cliOpt["commands"]["parameters"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
@@ -146,14 +151,28 @@ class CommandTreeMethods(object):
         command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         command_tree.setColumnCount(2)
         command_tree.setColumnHidden(1, 1)  # dict positional data
-        self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(self.ui.command_tree, ["Root", ""])
-        # TODO load child commands
+        self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(
+            self.ui.command_tree, ["Root", ""]
+        )
+
         for item in self.cliOpt["commands"]["index"]:
-            if self.cliOpt["commands"]["index"][item]["is root command"] == True:
+            children = len(item["indices of children"])
+            if children == 0:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["parameters key"],
+                    self.cliOpt["commands"]["index"][item]["parameters index"],
                 )
-
+            else:
+                # command root
+                parent = self.add_qtreewidgetitem(
+                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
+                    self.cliOpt["commands"]["index"][item]["parameters index"],
+                )
+                # command children
+                for child in item["indices of children"]:
+                    parent = self.add_qtreewidgetitem(
+                        parent,
+                        child,
+                    )        
 
 # end of file

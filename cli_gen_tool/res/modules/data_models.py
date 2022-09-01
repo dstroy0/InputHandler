@@ -99,10 +99,16 @@ class dataModels(object):
         "listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))
     }
 
+    ## child information dict
+    child_index_struct = {
+        "depth": "",
+        "child parameters index": "",
+    }
+    
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
-        "parameters key": "",                
-        "indices of children":[],
+        "parameters index": "",                
+        "indices of children":{},
     }
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
