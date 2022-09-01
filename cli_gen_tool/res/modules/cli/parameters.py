@@ -93,23 +93,10 @@ class cliParameters(object):
 
         parameters_h_fs = self.fsdb["parameters"]["h"]["filestring"]
 
-        nested_child_string = self.fsdb["parameters"]["h"]["filestring components"][
-            "nested child"
-        ]
-        command_constructor_string = self.fsdb["parameters"]["h"][
-            "filestring components"
-        ]["command constructor"]
-        parameters_string = self.fsdb["parameters"]["h"]["filestring components"][
-            "parameters"
-        ]
-        nested_parameters_string = self.fsdb["parameters"]["h"][
-            "filestring components"
-        ]["nested parameters"]
-
         parameters_code_string = ""
 
         for index in self.cliOpt["commands"]["index"]:
-            key = self.cliOpt["commands"]["index"][index]["parameters key"]            
+            key = self.cliOpt["commands"]["index"][index]["parameters key"]
             # unnested parameters
             if (
                 self.cliOpt["commands"]["index"][index]["is root command"] == True
