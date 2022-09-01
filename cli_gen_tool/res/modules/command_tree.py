@@ -62,9 +62,9 @@ class CommandTreeMethods(object):
     def rem_command(self, object_list):
         match = False
         for item in self.cliOpt["commands"]["parameters"]:
-            for index in self.cliOpt["command parameters index"]:
+            for index in self.cliOpt["commands"]["index"]:
                 if (
-                    self.cliOpt["command parameters index"][index]["parameters key"]
+                    self.cliOpt["commands"]["index"][index]["parameters key"]
                     == item
                 ):
                     match = True
@@ -111,10 +111,11 @@ class CommandTreeMethods(object):
         # delete it from the tree
         del item
         # scrub the data model
+        
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]["models"]:
             del self.cliOpt["commands"]["QTableView"]["models"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["QTableView"]:
-            del self.cliOpt["commands"]["QTableView"][dict_pos[2]]
+            del self.cliOpt["commands"]["QTableView"][dict_pos[2]]        
         if dict_pos[2] in self.cliOpt["commands"]["parameters"]:
             del self.cliOpt["commands"]["parameters"][dict_pos[2]]
         if dict_pos[2] in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
@@ -147,11 +148,11 @@ class CommandTreeMethods(object):
         command_tree.setColumnHidden(1, 1)  # dict positional data
         self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(self.ui.command_tree, ["Root", ""])
         # TODO load child commands
-        for item in self.cliOpt["command parameters index"]:
-            if self.cliOpt["command parameters index"][item]["is root command"] == True:
+        for item in self.cliOpt["commands"]["index"]:
+            if self.cliOpt["commands"]["index"][item]["is root command"] == True:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["command parameters index"][item]["parameters key"],
+                    self.cliOpt["commands"]["index"][item]["parameters key"],
                 )
 
 

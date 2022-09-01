@@ -18,7 +18,45 @@ class cliParameters(object):
     def __init__(self) -> None:
         super(cliParameters, self).__init__()
 
-    def ret_unnested_param(self, parameters):
+    def ret_nested_child(self, parameters, comma=True):
+        _comma = ","
+        if comma == False:
+            _comma = ""
+        ret = self.fsdb["parameters"]["h"]["filestring components"][
+            "nested_child"
+        ].format(
+            functionname=parameters["functionName"],
+            comma=_comma,
+        )
+        return ret
+
+    def ret_unnested_param(self, parameters, has_constructor=True):
+        parameters_string = self.fsdb["parameters"]["h"]["filestring components"][
+            "parameters"
+        ]
+        command_constructor_string = "\n"
+        if has_constructor == True:
+            command_constructor_string = self.fsdb["parameters"]["h"][
+                "filestring components"
+            ]["command constructor"].format(functionname=parameters["functionName"])
+        ret = parameters_string.format(
+            functionname=parameters["functionName"],
+            wildcardflag=parameters["commandHasWildcards"],
+            commandstring=parameters["commandString"],
+            lencommandstring=parameters["commandLength"],
+            parentid=parameters["parentId"],
+            commandid=parameters["commandId"],
+            commanddepth=parameters["commandDepth"],
+            commandsubcommands=parameters["commandSubcommands"],
+            argumenthandling=parameters["commandArgumentHandling"],
+            minnumargs=parameters["commandMinArgs"],
+            maxnumargs=parameters["commandMaxArgs"],
+            argtypearray=parameters["commandArguments"],
+            commandconstructor=command_constructor_string,
+        )
+        return ret
+
+    def ret_nested_param(self, num_children, nested_children_string, parameters):
         parameters_string = self.fsdb["parameters"]["h"]["filestring components"][
             "parameters"
         ]
@@ -38,9 +76,9 @@ class cliParameters(object):
             minnumargs=parameters["commandMinArgs"],
             maxnumargs=parameters["commandMaxArgs"],
             argtypearray=parameters["commandArguments"],
-            commandconstructor=command_constructor_string.format(
-                functionname=parameters["functionName"]
-            ),
+            commandconstructor=command_constructor_string,
+            children=nested_children_string,
+            numberofchildren=num_children,
         )
         return ret
 
@@ -70,15 +108,45 @@ class cliParameters(object):
 
         parameters_code_string = ""
 
-        if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
-            parameters_code_string += self.ret_unnested_param(
-                self.cliOpt["commands"]["parameters"]["listCommands"]
-            )
-
-        if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
-            parameters_code_string += self.ret_unnested_param(
-                self.cliOpt["commands"]["parameters"]["listSettings"]
-            )
+        for index in self.cliOpt["commands"]["index"]:
+            key = self.cliOpt["commands"]["index"][index]["parameters key"]            
+            # unnested parameters
+            if (
+                self.cliOpt["commands"]["index"][index]["is root command"] == True
+                and bool(self.cliOpt["commands"]["index"][index]["indices of children"])
+                == False
+            ):
+                parameters_code_string += self.ret_unnested_param(
+                    self.cliOpt["commands"]["parameters"][key], True
+                )
+            else:
+                # nested parameters
+                for item in self.cliOpt["commands"]["index"][index][
+                    "indices of children"
+                ]:
+                    parameters_code_string += self.ret_unnested_param(
+                        self.cliOpt["commands"]["parameters"][item], False
+                    )
+                num_children = len(
+                    self.cliOpt["commands"]["index"][index]["indices of children"]
+                )
+                nested_children_string = ""
+                for i in range(num_children):
+                    if i < num_children:
+                        nested_children_string += self.ret_nested_child(
+                            self.self.cliOpt["commands"]["parameters"][item], True
+                        )
+                    else:
+                        nested_children_string += self.ret_nested_child(
+                            self.self.cliOpt["commands"]["parameters"][item], False
+                        )
+                parameters_code_string += self.ret_nested_param(
+                    num_children,
+                    nested_children_string,
+                    self.cliOpt["commands"]["parameters"][
+                        self.cliOpt["commands"]["index"][index]["parameters key"]
+                    ],
+                )
 
         code_string = code_string + parameters_h_fs.format(
             parameters=parameters_code_string

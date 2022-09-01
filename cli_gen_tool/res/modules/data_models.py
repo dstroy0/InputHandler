@@ -101,18 +101,16 @@ class dataModels(object):
 
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
-        "parameters key": "",
-        "is root command": True,
-        "root command": None,
+        "parameters key": "",                
+        "indices of children":[],
     }
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
-        "var": {"num_commands": 0, "tool_version": str(version)},
-        # each command tree will have a subdict in "command parameters index"
-        "command parameters index": {},
+        "var": {"num_commands": 0, "tool_version": str(version)},        
         "commands": {
+            "index": {},
             "parameters": {},
             "QTreeWidgetItem": {"root": "", "container": {}, "table": {}},
             "QTableView": {

@@ -93,20 +93,20 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["parameters"].update(
                             dataModels.listCommands
                         )
-                        self.cliOpt["command parameters index"].update(
+                        self.cliOpt["commands"]["index"].update(
                             {
                                 self.cliOpt["var"]["num_commands"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["is root command"] = True
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["root command"] = None
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters key"] = object_list[2]
                         self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listCommands")
@@ -124,20 +124,20 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["parameters"].update(
                             dataModels.listSettings
                         )
-                        self.cliOpt["command parameters index"].update(
+                        self.cliOpt["commands"]["index"].update(
                             {
                                 self.cliOpt["var"]["num_commands"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["is root command"] = True
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["root command"] = None
-                        self.cliOpt["command parameters index"][
+                        self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters key"] = object_list[2]
                         self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listSettings")
