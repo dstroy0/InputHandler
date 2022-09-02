@@ -87,7 +87,7 @@ class MainWindowButtons(object):
 
     # TODO
 
-    def clicked_new_tab_two(self):
+    def clicked_new_cmd_button(self):
         print("clicked tab 2 new")
 
     # TODO

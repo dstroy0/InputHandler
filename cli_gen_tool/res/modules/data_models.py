@@ -100,14 +100,16 @@ class dataModels(object):
     }
 
     ## child information dict
-    child_index_struct = {
-        "depth": "",
-        "child parameters index": "",
+    child_index_struct = {        
+        "child command parameters index": "",        
+        "depends on": {},
     }
     
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
-        "parameters index": "",                
+        # key of this struct in cliopt_model["commands"]["index"]
+        "index key": "",
+        "root command parameters index": "",                
         "indices of children":{},
     }
 

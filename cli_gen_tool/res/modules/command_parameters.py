@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-
+import json
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
@@ -278,23 +278,30 @@ class CommandParametersMethods(object):
 
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self):
-        CommandParametersMethods.logger.info("ok")
+        CommandParametersMethods.logger.info("clicked ok on command parameters menu")
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
+            CommandParametersMethods.logger.info("one or more errors were detected in the input command parameters")
             return
         validated_result = {}
         validated_result = validate_result[1]
         # get array index
         cmd_idx = self.cliOpt["var"]["num_commands"]
         # make dict from defined keys
-        self.cliOpt["commands"][cmd_idx] = validated_result
-        CommandParametersMethods.logger.info(self.cliOpt["commands"][cmd_idx])
+        self.cliOpt["commands"]["parameters"][cmd_idx] = validated_result
+        CommandParametersMethods.logger.info(json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2))
 
         # command parameters were accepted, so increment the array index
         self.cliOpt["var"]["num_commands"] += 1
-        CommandParametersMethods.logger.info(self.cliOpt["var"])
+        CommandParametersMethods.logger.info(json.dumps(self.cliOpt["var"], indent=2))
         self.ui.commandParameters.close()
+        
+        self.update_code("README.md", validate_result["functionName"], True)
+        self.update_code("functions.h", validate_result["functionName"], True)
+        self.update_code("functions.cpp", validate_result["functionName"], True)
+        self.update_code("setup.cpp", validate_result["functionName"], True)
+        self.update_code("parameters.h", validate_result["functionName"], True)
 
     ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self):

@@ -160,11 +160,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.cmd_settings_menu_button, 0, 0, 1, 1)
 
-        self.newButton_2 = QPushButton(self.command_tab)
-        self.newButton_2.setObjectName(u"newButton_2")
-        self.newButton_2.setMinimumSize(QSize(265, 0))
+        self.new_cmd_button = QPushButton(self.command_tab)
+        self.new_cmd_button.setObjectName(u"new_cmd_button")
+        self.new_cmd_button.setMinimumSize(QSize(265, 0))
 
-        self.gridLayout_2.addWidget(self.newButton_2, 3, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.new_cmd_button, 3, 0, 1, 1)
 
         self.editButton_2 = QPushButton(self.command_tab)
         self.editButton_2.setObjectName(u"editButton_2")
@@ -237,8 +237,8 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
         QWidget.setTabOrder(self.cmd_settings_menu_button, self.command_tree)
         QWidget.setTabOrder(self.command_tree, self.codePreview_2)
-        QWidget.setTabOrder(self.codePreview_2, self.newButton_2)
-        QWidget.setTabOrder(self.newButton_2, self.editButton_2)
+        QWidget.setTabOrder(self.codePreview_2, self.new_cmd_button)
+        QWidget.setTabOrder(self.new_cmd_button, self.editButton_2)
         QWidget.setTabOrder(self.editButton_2, self.deleteButton_2)
         QWidget.setTabOrder(self.deleteButton_2, self.tabWidget)
         QWidget.setTabOrder(self.tabWidget, self.settings_tree)
@@ -314,7 +314,7 @@ class Ui_MainWindow(object):
         self.cmd_settings_menu_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
 #endif // QT_CONFIG(tooltip)
         self.cmd_settings_menu_button.setText(QCoreApplication.translate("MainWindow", u"Command settings menu", None))
-        self.newButton_2.setText(QCoreApplication.translate("MainWindow", u"New", None))
+        self.new_cmd_button.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.editButton_2.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
         self.deleteButton_2.setText(QCoreApplication.translate("MainWindow", u"Delete", None))

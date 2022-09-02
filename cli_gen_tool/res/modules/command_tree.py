@@ -58,25 +58,49 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
-    def command_menu_button_enable_toggle(self):
+    def command_menu_button_toggles(self):
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
         _items = self.ui.command_tree.selectedItems()
         if _items:
             item_selected = _items[0]
+            object_list = item_selected.data(1,0).split(",")                        
         else:
             item_selected = False
-        
+
+        # command settings menu button enable/disable
         if _root.childCount() == 0 or item_selected == _root: 
             self.ui.cmd_settings_menu_button.setEnabled(False)
         elif item_selected != False and item_selected != _root:            
             self.ui.cmd_settings_menu_button.setEnabled(True)
+        
+        # tab 2 new button                         
+        _builtin_commands = ["listSettings, listCommands"]
+        if item_selected == _root:
+            self.ui.new_cmd_button.setText("New (root command)")
+            self.ui.new_cmd_button.setEnabled(True)            
+        elif item_selected != False:            
+            match = False
+            for item in _builtin_commands:
+                if object_list[2] == item:                    
+                    match = True
+                    break
+            if match == True:
+                self.ui.new_cmd_button.setText("New (child command)")
+                self.ui.new_cmd_button.setEnabled(True)                                                                            
+            else:
+                self.ui.new_cmd_button.setText("New")
+                self.ui.new_cmd_button.setEnabled(False)                                                                            
+        else:
+            self.ui.new_cmd_button.setText("New")
+            self.ui.new_cmd_button.setEnabled(False)
             
     ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
+    # TODO remove orphaned children
     def rem_command(self, object_list):
         match = False        
         for item in self.cliOpt["commands"]["parameters"]:
             for index in self.cliOpt["commands"]["index"]:
-                if self.cliOpt["commands"]["index"][index]["parameters index"] == item:
+                if self.cliOpt["commands"]["index"][index]["root command parameters index"] == item:
                     match = True
                     break
         if match == True:
@@ -85,14 +109,15 @@ class CommandTreeMethods(object):
             del item
             del self.cliOpt["commands"]["parameters"][object_list[2]]
             self.rem_qtreewidgetitem(object_list)
-            self.command_menu_button_enable_toggle()
+            self.command_menu_button_toggles()
 
     ## adds a single command to the tree
-    def add_qtreewidgetitem(self, parent, dict_index) -> None:
+    def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
-            return
+            return        
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
+        dict_pos = dict_index + "," + dict_index + "," + command_parameters["commandString"]
         self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
             dict_index
         ] = QTreeWidgetItem(parent, [command_parameters["commandString"], ""])
@@ -105,7 +130,9 @@ class CommandTreeMethods(object):
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
-        self.command_menu_button_enable_toggle()
+        self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index].setData(1,0,dict_pos)
+        self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index].setData(1,0,dict_pos)
+        self.command_menu_button_toggles()
         # return child
         return self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
 
@@ -166,13 +193,13 @@ class CommandTreeMethods(object):
             if children == 0:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["parameters index"],
+                    self.cliOpt["commands"]["index"][item]["root command parameters index"],
                 )
             else:
                 # command root
                 parent = self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["parameters index"],
+                    self.cliOpt["commands"]["index"][item]["root command parameters index"],
                 )
                 # command children
                 for child in item["indices of children"]:
@@ -180,5 +207,5 @@ class CommandTreeMethods(object):
                         parent,
                         child,
                     )        
-        self.command_menu_button_enable_toggle()
+        self.command_menu_button_toggles()
 # end of file

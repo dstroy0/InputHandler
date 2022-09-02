@@ -258,7 +258,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QPushButton" name="newButton_2">
+         <widget class="QPushButton" name="new_cmd_button">
           <property name="minimumSize">
            <size>
             <width>265</width>
@@ -502,7 +502,7 @@
   <tabstop>cmd_settings_menu_button</tabstop>
   <tabstop>command_tree</tabstop>
   <tabstop>codePreview_2</tabstop>
-  <tabstop>newButton_2</tabstop>
+  <tabstop>new_cmd_button</tabstop>
   <tabstop>editButton_2</tabstop>
   <tabstop>deleteButton_2</tabstop>
   <tabstop>tabWidget</tabstop>

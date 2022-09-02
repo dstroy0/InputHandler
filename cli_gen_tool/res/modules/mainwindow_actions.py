@@ -308,13 +308,13 @@ class MainWindowActions(object):
         self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
         # tab 2
         # always visible
-        self.ui.newButton_2.clicked.connect(self.clicked_new_tab_two)
+        self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
         self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
         self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
         self.ui.cmd_settings_menu_button.clicked.connect(
             self.clicked_command_settings_menu_button_tab_two
         )
-        self.ui.command_tree.itemSelectionChanged.connect(self.command_menu_button_enable_toggle)
+        self.ui.command_tree.itemSelectionChanged.connect(self.command_menu_button_toggles)
         # end buttons setup
 
     # end MainWindow actions
