@@ -30,7 +30,7 @@ var classuic_1_1main_window_1_1_ui___main_window =
     [ "menuGenerate", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a43c0216127f3f857282099894b6d79f5", null ],
     [ "menuHelp", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#acad2273fad7a663448d8ee960bd983ad", null ],
     [ "menuLog", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a952f2215e48859aa4b6d305a65a09d59", null ],
-    [ "newButton_2", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a3671650887f88e4bb1c1a58ee5fb5773", null ],
+    [ "new_cmd_button", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#af4c41987d31039714d020285c8c46d02", null ],
     [ "settings_tree", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a094637a0ad028353f1df8bb726478d29", null ],
     [ "tab_1_code_preview_label", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a30d638e1ab1a8eaa096ae582891a0820", null ],
     [ "tab_1_settings_table_label", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#afb72684c1630410cce1bc335fcc6e83b", null ],

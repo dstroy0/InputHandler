@@ -7,5 +7,5 @@ var classmodules_1_1mainwindow__buttons_1_1_main_window_buttons =
     [ "clicked_delete_tab_two", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a9a49a6659d4ec75fd2b128def91d1a0a", null ],
     [ "clicked_edit_tab_one", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#aadb3c4b6e9f6fa82447cfe278c26c2b9", null ],
     [ "clicked_edit_tab_two", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a810f0ba59ab3eb915e0ee35cae89ad73", null ],
-    [ "clicked_new_tab_two", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#ac245b69d52925852d354d06941c4139b", null ]
+    [ "clicked_new_cmd_button", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#ae3ad952c969b2149b82ac37471a4c744", null ]
 ];

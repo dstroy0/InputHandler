@@ -6,7 +6,7 @@ var searchData=
   ['nested_5fcommandparameters_5fstring_3',['nested_commandparameters_string',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#aa2a63c304210a40beb2a1c3dcb021fe6',1,'modules::cli::filestrings::CLIfilestrings']]],
   ['nested_5fexample_5f_4',['nested_example_',['../da/d0f/_nested_commands_8ino.html#a3511f6ff90a0094175a8486bbf72dd8b',1,'NestedCommands.ino']]],
   ['nested_5fprms_5',['nested_prms',['../da/d0f/_nested_commands_8ino.html#a8bf84d075e334033846506bf78f12781',1,'NestedCommands.ino']]],
-  ['newbutton_5f2_6',['newButton_2',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a3671650887f88e4bb1c1a58ee5fb5773',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['new_5fcmd_5fbutton_6',['new_cmd_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#af4c41987d31039714d020285c8c46d02',1,'uic::mainWindow::Ui_MainWindow']]],
   ['next_5fcommand_7',['next_command',['../df/d68/class_command_constructor.html#acf385c16d839794f2bbe7ad7d1db4de3',1,'CommandConstructor']]],
   ['nmea_8',['NMEA',['../dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e',1,'NMEAparser.ino']]],
   ['nmea_5fsentence_9',['NMEA_sentence',['../dd/d65/_n_m_e_aparser_8ino.html#aeafab347975344ab7daf92051b1b64e2',1,'NMEAparser.ino']]],

@@ -10,7 +10,7 @@ var searchData=
   ['nested_5fexample_5f_7',['nested_example_',['../da/d0f/_nested_commands_8ino.html#a3511f6ff90a0094175a8486bbf72dd8b',1,'NestedCommands.ino']]],
   ['nested_5fprms_8',['nested_prms',['../da/d0f/_nested_commands_8ino.html#a8bf84d075e334033846506bf78f12781',1,'NestedCommands.ino']]],
   ['nestedcommands_2eino_9',['NestedCommands.ino',['../da/d0f/_nested_commands_8ino.html',1,'']]],
-  ['newbutton_5f2_10',['newButton_2',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a3671650887f88e4bb1c1a58ee5fb5773',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['new_5fcmd_5fbutton_10',['new_cmd_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#af4c41987d31039714d020285c8c46d02',1,'uic::mainWindow::Ui_MainWindow']]],
   ['next_5fcommand_11',['next_command',['../df/d68/class_command_constructor.html#acf385c16d839794f2bbe7ad7d1db4de3',1,'CommandConstructor']]],
   ['nextargument_12',['nextArgument',['../dc/d4b/class_user_input.html#a30cd1758e5ab22d987e8c37e426989dd',1,'UserInput']]],
   ['nmea_13',['NMEA',['../dd/d65/_n_m_e_aparser_8ino.html#a3e5284c636008446accd678d517a6f1e',1,'NMEAparser.ino']]],
