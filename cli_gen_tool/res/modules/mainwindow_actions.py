@@ -303,18 +303,23 @@ class MainWindowActions(object):
     def mainwindow_button_actions_setup(self):
         # buttons setup
         # tab 1
-        self.ui.editButton_1.clicked.connect(self.clicked_edit_tab_one)
-        self.ui.clearButton_1.clicked.connect(self.clicked_clear_tab_one)
-        self.ui.defaultButton_1.clicked.connect(self.clicked_default_tab_one)
+        self.ui.edit_setting_button.clicked.connect(self.clicked_edit_tab_one)
+        self.ui.clear_setting_button.clicked.connect(self.clicked_clear_tab_one)
+        self.ui.default_setting_button.clicked.connect(self.clicked_default_tab_one)
+        self.ui.settings_tree.itemSelectionChanged.connect(
+            self.settings_tree_button_toggles
+        )
         # tab 2
         # always visible
         self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
-        self.ui.editButton_2.clicked.connect(self.clicked_edit_tab_two)
-        self.ui.deleteButton_2.clicked.connect(self.clicked_delete_tab_two)
+        self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
+        self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
         self.ui.cmd_settings_menu_button.clicked.connect(
             self.clicked_command_settings_menu_button_tab_two
         )
-        self.ui.command_tree.itemSelectionChanged.connect(self.command_menu_button_toggles)
+        self.ui.command_tree.itemSelectionChanged.connect(
+            self.command_menu_button_toggles
+        )
         # end buttons setup
 
     # end MainWindow actions

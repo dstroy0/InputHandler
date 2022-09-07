@@ -135,7 +135,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QPushButton" name="editButton_1">
+         <widget class="QPushButton" name="edit_setting_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -148,7 +148,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QPushButton" name="clearButton_1">
+         <widget class="QPushButton" name="clear_setting_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -161,7 +161,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QPushButton" name="defaultButton_1">
+         <widget class="QPushButton" name="default_setting_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -271,7 +271,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QPushButton" name="editButton_2">
+         <widget class="QPushButton" name="edit_cmd_button">
           <property name="minimumSize">
            <size>
             <width>265</width>
@@ -306,7 +306,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QPushButton" name="deleteButton_2">
+         <widget class="QPushButton" name="delete_cmd_button">
           <property name="text">
            <string>Delete</string>
           </property>
@@ -503,14 +503,14 @@
   <tabstop>command_tree</tabstop>
   <tabstop>codePreview_2</tabstop>
   <tabstop>new_cmd_button</tabstop>
-  <tabstop>editButton_2</tabstop>
-  <tabstop>deleteButton_2</tabstop>
+  <tabstop>edit_cmd_button</tabstop>
+  <tabstop>delete_cmd_button</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>settings_tree</tabstop>
   <tabstop>codePreview_1</tabstop>
-  <tabstop>editButton_1</tabstop>
-  <tabstop>clearButton_1</tabstop>
-  <tabstop>defaultButton_1</tabstop>
+  <tabstop>edit_setting_button</tabstop>
+  <tabstop>clear_setting_button</tabstop>
+  <tabstop>default_setting_button</tabstop>
  </tabstops>
  <resources/>
  <connections/>

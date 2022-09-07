@@ -59,48 +59,96 @@ class CommandTreeMethods(object):
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
     def command_menu_button_toggles(self):
+        # method internal var
+        # inputhandler builtin commands
+        _builtin_commands = ["listSettings", "listCommands"]
+        # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        # selected items list (only one selection possible)
         _items = self.ui.command_tree.selectedItems()
-        if _items:
-            item_selected = _items[0]
-            object_list = item_selected.data(1,0).split(",")                        
-        else:
-            item_selected = False
+        # did the selection match a builtin
+        _item_matched_builtin = False
+        # populated when selection is non-root and not NULL
+        _object_list = []
+        # if an item is selected, this will be a memory location, else it is false
+        _item_selected = False
+        # if the selected item is root, this is True
+        _item_selected_is_root = False
 
-        # command settings menu button enable/disable
-        if _root.childCount() == 0 or item_selected == _root: 
-            self.ui.cmd_settings_menu_button.setEnabled(False)
-        elif item_selected != False and item_selected != _root:            
-            self.ui.cmd_settings_menu_button.setEnabled(True)
-        
-        # tab 2 new button                         
-        _builtin_commands = ["listSettings, listCommands"]
-        if item_selected == _root:
-            self.ui.new_cmd_button.setText("New (root command)")
-            self.ui.new_cmd_button.setEnabled(True)            
-        elif item_selected != False:            
-            match = False
-            for item in _builtin_commands:
-                if object_list[2] == item:                    
-                    match = True
-                    break
-            if match == True:
-                self.ui.new_cmd_button.setText("New (child command)")
-                self.ui.new_cmd_button.setEnabled(True)                                                                            
-            else:
-                self.ui.new_cmd_button.setText("New")
-                self.ui.new_cmd_button.setEnabled(False)                                                                            
+        # if the list is NOT empty (truthy)
+        if _items:
+            # something on the command tree is selected
+            _item_selected = _items[0]
+            if _item_selected == _root:
+                _item_selected_is_root = True
+
+            # new/edit/delete/command settings menu button enable/disable toggling
+            if _item_selected_is_root:
+                # new button
+                self.ui.new_cmd_button.setText("New (root command)")
+                self.ui.new_cmd_button.setEnabled(True)
+                # edit button
+                self.ui.edit_cmd_button.setEnabled(False)
+                # delete button
+                self.ui.delete_cmd_button.setEnabled(False)
+                # command settings menu button
+                self.ui.cmd_settings_menu_button.setEnabled(False)
+                return  # root tree item is selected, give user option to create new root command
+
+            if _item_selected:  # something is selected
+                _object_list = _item_selected.data(1, 0).split(",")
+                for (
+                    item
+                ) in (
+                    _builtin_commands
+                ):  # determine if the something selected is an InputHandler builtin
+                    if _object_list[2] == item:
+                        _item_matched_builtin = True
+                        break
+                if _item_matched_builtin:  # item selected is an InputHandler builtin
+                    # new button
+                    self.ui.new_cmd_button.setText("New")
+                    self.ui.new_cmd_button.setEnabled(False)
+                    # edit button
+                    self.ui.edit_cmd_button.setEnabled(False)
+                    # delete button
+                    self.ui.delete_cmd_button.setEnabled(True)
+                else:  # item selected is NOT an InputHandler builtin
+                    # give user option to add children to this command
+                    # new button
+                    self.ui.new_cmd_button.setText("New (child command)")
+                    self.ui.new_cmd_button.setEnabled(True)
+                    # edit button
+                    self.ui.edit_cmd_button.setEnabled(True)
+                    # delete button
+                    self.ui.delete_cmd_button.setEnabled(True)
+                    # command settings menu button
+                    self.ui.cmd_settings_menu_button.setEnabled(True)
         else:
+            # nothing is selected, disable all buttons
+            _item_selected = False
+            # new button
             self.ui.new_cmd_button.setText("New")
             self.ui.new_cmd_button.setEnabled(False)
-            
+            # edit button
+            self.ui.edit_cmd_button.setEnabled(False)
+            # delete button
+            self.ui.delete_cmd_button.setEnabled(False)
+            # command settings menu button
+            self.ui.cmd_settings_menu_button.setEnabled(False)
+
     ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
     # TODO remove orphaned children
     def rem_command(self, object_list):
-        match = False        
+        match = False
         for item in self.cliOpt["commands"]["parameters"]:
             for index in self.cliOpt["commands"]["index"]:
-                if self.cliOpt["commands"]["index"][index]["root command parameters index"] == item:
+                if (
+                    self.cliOpt["commands"]["index"][index][
+                        "root command parameters index"
+                    ]
+                    == item
+                ):
                     match = True
                     break
         if match == True:
@@ -115,9 +163,11 @@ class CommandTreeMethods(object):
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
-            return        
+            return
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
-        dict_pos = dict_index + "," + dict_index + "," + command_parameters["commandString"]
+        dict_pos = (
+            dict_index + "," + dict_index + "," + command_parameters["commandString"]
+        )
         self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
             dict_index
         ] = QTreeWidgetItem(parent, [command_parameters["commandString"], ""])
@@ -130,8 +180,12 @@ class CommandTreeMethods(object):
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
-        self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index].setData(1,0,dict_pos)
-        self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index].setData(1,0,dict_pos)
+        self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index].setData(
+            1, 0, dict_pos
+        )
+        self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index].setData(
+            1, 0, dict_pos
+        )
         self.command_menu_button_toggles()
         # return child
         return self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
@@ -193,19 +247,25 @@ class CommandTreeMethods(object):
             if children == 0:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["root command parameters index"],
+                    self.cliOpt["commands"]["index"][item][
+                        "root command parameters index"
+                    ],
                 )
             else:
                 # command root
                 parent = self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["root command parameters index"],
+                    self.cliOpt["commands"]["index"][item][
+                        "root command parameters index"
+                    ],
                 )
                 # command children
                 for child in item["indices of children"]:
                     parent = self.add_qtreewidgetitem(
                         parent,
                         child,
-                    )        
+                    )
         self.command_menu_button_toggles()
+
+
 # end of file

@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+from PySide6.QtWidgets import QTableWidget
 from res.modules.logging_setup import Logger
 
 
@@ -20,6 +21,36 @@ class MainWindowButtons(object):
     def __init__(self):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
+
+    def settings_tree_button_toggles(self):
+        # setting selected
+        if (
+            self.ui.settings_tree.selectedItems()
+            and self.ui.settings_tree.indexOfTopLevelItem(
+                self.ui.settings_tree.selectedItems()[0]
+            )
+            == -1
+            and self.ui.settings_tree.selectedItems()[0].childCount() == 0
+        ):
+            # table widgets get special treatment, there is no default
+            if isinstance(
+                self.ui.settings_tree.itemWidget(
+                    self.ui.settings_tree.selectedItems()[0], 0
+                ),
+                QTableWidget,
+            ):
+                self.ui.edit_setting_button.setEnabled(True)
+                self.ui.clear_setting_button.setEnabled(True)
+                self.ui.default_setting_button.setEnabled(False)
+            else:
+                self.ui.edit_setting_button.setEnabled(True)
+                self.ui.clear_setting_button.setEnabled(True)
+                self.ui.default_setting_button.setEnabled(True)
+        # nothing selected
+        else:
+            self.ui.edit_setting_button.setEnabled(False)
+            self.ui.clear_setting_button.setEnabled(False)
+            self.ui.default_setting_button.setEnabled(False)
 
     # MainWindow buttons
     # tab 1
@@ -95,7 +126,7 @@ class MainWindowButtons(object):
     def clicked_delete_tab_two(self):
         print("clicked tab 2 delete")
 
-    def clicked_command_settings_menu_button_tab_two(self):        
+    def clicked_command_settings_menu_button_tab_two(self):
         MainWindowButtons.logger.info("clicked open command settings menu")
         self.ui.commandParameters.exec()
 
