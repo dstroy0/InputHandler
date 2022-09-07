@@ -7,7 +7,7 @@ var searchData=
   ['check_5fif_5fsettings_5ftree_5fcol_5feditable_4',['check_if_settings_tree_col_editable',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#a01f5b2b6c66e276729bf0f0c72d4fd46',1,'modules::settings_tree::SettingsTreeMethods']]],
   ['child_5findex_5fstruct_5',['child_index_struct',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a6a34531912db72805b180bcc69f73e52',1,'modules::data_models::dataModels']]],
   ['class_20constants_6',['class constants',['../de/d8a/group___user_input.html',1,'']]],
-  ['clearbutton_5f1_7',['clearButton_1',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a2beccada5f2fdf307bc76d9701e4519b',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['clear_5fsetting_5fbutton_7',['clear_setting_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#ae177c1e7e5304bc22fb9443d1805b6bf',1,'uic::mainWindow::Ui_MainWindow']]],
   ['clearoutputbuffer_8',['clearOutputBuffer',['../dc/d4b/class_user_input.html#ad1f90ad129c7b2b41c4a45797ebdb611',1,'UserInput']]],
   ['cli_5fgen_5ftool_9',['cli_gen_tool',['../dd/d04/namespacecli__gen__tool.html',1,'']]],
   ['cli_5fgen_5ftool_2epy_10',['cli_gen_tool.py',['../d8/db6/cli__gen__tool_8py.html',1,'']]],

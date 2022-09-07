@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['edit_5fsettings_5ftree_5fitem_0',['edit_settings_tree_item',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#aa497a9d98417bad5d656549f48b80e2c',1,'modules::settings_tree::SettingsTreeMethods']]],
-  ['edit_5ftable_5fwidget_5fitem_1',['edit_table_widget_item',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a0a9795c27e0af078344ea55437b351e2',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
-  ['editbutton_5f1_2',['editButton_1',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#ae8b881a23dcb117eb3a253a4ba9667c2',1,'uic::mainWindow::Ui_MainWindow']]],
-  ['editbutton_5f2_3',['editButton_2',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a710f271c9d22b989a9f2cc3eacfacb44',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['edit_5fcmd_5fbutton_0',['edit_cmd_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a62f3ddfcfea01a5cad1e3b9a3eab74c5',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['edit_5fsetting_5fbutton_1',['edit_setting_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a8ea57e404974d79f9405917d6d86b39d',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['edit_5fsettings_5ftree_5fitem_2',['edit_settings_tree_item',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#aa497a9d98417bad5d656549f48b80e2c',1,'modules::settings_tree::SettingsTreeMethods']]],
+  ['edit_5ftable_5fwidget_5fitem_3',['edit_table_widget_item',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a0a9795c27e0af078344ea55437b351e2',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
   ['emit_4',['emit',['../d8/d74/classmodules_1_1logging__setup_1_1_q_plain_text_edit_logger.html#a99b8ca4a1eec1a08b48fa1d34c88c1af',1,'modules::logging_setup::QPlainTextEditLogger']]],
   ['empty_5ffield_5fph_5',['empty_field_ph',['../da/d60/_n_m_e_aparser_8h.html#add233fd6dc97b260bf9a699b1add4abd',1,'NMEAparser.h']]],
   ['enable_5fclearoutputbuffer_6',['ENABLE_clearOutputBuffer',['../da/dc7/noedit_8h.html#a873a6df63ff76da2907084a19927ad95',1,'noedit.h']]],

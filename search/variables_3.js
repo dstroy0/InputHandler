@@ -3,7 +3,7 @@ var searchData=
   ['calc_0',['calc',['../df/d68/class_command_constructor.html#ab867091f050054165d8c4c7d4f763fe4',1,'CommandConstructor']]],
   ['centralwidget_1',['centralwidget',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#abaca4505885348eefbe5f6b7ac17644d',1,'uic::mainWindow::Ui_MainWindow']]],
   ['child_5findex_5fstruct_2',['child_index_struct',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a6a34531912db72805b180bcc69f73e52',1,'modules::data_models::dataModels']]],
-  ['clearbutton_5f1_3',['clearButton_1',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a2beccada5f2fdf307bc76d9701e4519b',1,'uic::mainWindow::Ui_MainWindow']]],
+  ['clear_5fsetting_5fbutton_3',['clear_setting_button',['../d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#ae177c1e7e5304bc22fb9443d1805b6bf',1,'uic::mainWindow::Ui_MainWindow']]],
   ['cli_5fgen_5ftool_5fjson_5fpath_4',['cli_gen_tool_json_path',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a126218cfff27282b03b8df83fbea2802',1,'cli_gen_tool::MainWindow']]],
   ['cliopt_5',['cliOpt',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a4ed024c3d4f0f24934f4a58273a4ea70',1,'cli_gen_tool.MainWindow.cliOpt()'],['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab4de419896739d5af4bb50f0cf5d93d7',1,'modules.mainwindow_actions.MainWindowActions.cliOpt()']]],
   ['cliopt_5fmodel_6',['cliopt_model',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html#a5705d90cc466d8438b66fc65f26d3c93',1,'modules::data_models::dataModels']]],
