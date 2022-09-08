@@ -12,7 +12,8 @@
 
 from __future__ import absolute_import
 
-from PySide6.QtWidgets import QTableWidget
+from PySide6.QtWidgets import QTableWidget, QComboBox
+from PySide6.QtCore import Qt
 from res.modules.logging_setup import Logger
 
 
@@ -23,25 +24,34 @@ class MainWindowButtons(object):
         MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
 
     def settings_tree_button_toggles(self):
+        _item_selected = self.ui.settings_tree.selectedItems()
         # setting selected
         if (
-            self.ui.settings_tree.selectedItems()
-            and self.ui.settings_tree.indexOfTopLevelItem(
-                self.ui.settings_tree.selectedItems()[0]
-            )
-            == -1
-            and self.ui.settings_tree.selectedItems()[0].childCount() == 0
+            _item_selected
+            and self.ui.settings_tree.indexOfTopLevelItem(_item_selected[0]) == -1
+            and _item_selected[0].childCount() == 0
         ):
+            table_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 0)
+            combobox_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 3)
+            object_list = _item_selected[0].data(4, 0).split(",")
             # table widgets get special treatment, there is no default
             if isinstance(
-                self.ui.settings_tree.itemWidget(
-                    self.ui.settings_tree.selectedItems()[0], 0
-                ),
+                table_widget,
                 QTableWidget,
+            ):                                
+                item = table_widget.currentItem()
+                if item:                                        
+                    self.ui.edit_setting_button.setEnabled(True)
+                    self.ui.clear_setting_button.setEnabled(True)
+                    self.ui.default_setting_button.setEnabled(False)
+            # comboboxes can be edited and set to their default
+            elif isinstance(
+                combobox_widget,
+                QComboBox,
             ):
                 self.ui.edit_setting_button.setEnabled(True)
-                self.ui.clear_setting_button.setEnabled(True)
-                self.ui.default_setting_button.setEnabled(False)
+                self.ui.clear_setting_button.setEnabled(False)
+                self.ui.default_setting_button.setEnabled(True)
             else:
                 self.ui.edit_setting_button.setEnabled(True)
                 self.ui.clear_setting_button.setEnabled(True)

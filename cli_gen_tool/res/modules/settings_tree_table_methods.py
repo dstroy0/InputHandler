@@ -84,6 +84,7 @@ class SettingsTreeTableMethods(object):
         if remove_row_button == True:
             remove_row_buttons["items"].update({last_row: ""})
             remove_row_buttons["items"][last_row] = QTableWidgetItem()
+            remove_row_buttons["items"][last_row].setFlags(remove_row_buttons["items"][last_row].flags() | Qt.NoItemFlags)
             remove_row_buttons["buttons"].update({last_row: ""})
             remove_row_buttons["buttons"][last_row] = QPushButton()
             remove_row_buttons["items"][last_row].setText("")
@@ -147,10 +148,12 @@ class SettingsTreeTableMethods(object):
             current_item = item.currentItem()
         object_list = str(item.objectName()).split(",")
         SettingsTreeTableMethods.logger.info("edit item in " + object_list[2])
+        self.settings_tree_button_toggles()
         item.editItem(current_item)
 
     ## called on field changes
     def table_widget_item_changed(self, item):
+        self.settings_tree_button_toggles()
         table_widget = item.tableWidget()
         row = table_widget.row(item)
         if row == table_widget.rowCount() - 1:
@@ -229,6 +232,7 @@ class SettingsTreeTableMethods(object):
                 ]
                 remove_row_buttons["items"].update({row: ""})
                 remove_row_buttons["items"][row] = QTableWidgetItem()
+                remove_row_buttons["items"][row].setFlags(remove_row_buttons["items"][row].flags() | Qt.NoItemFlags)
                 remove_row_buttons["buttons"].update({row: ""})
                 remove_row_buttons["buttons"][row] = QPushButton()
                 remove_row_buttons["buttons"][row].setIcon(self.ui.trashIcon)
@@ -264,9 +268,9 @@ class SettingsTreeTableMethods(object):
         table_widget.setVerticalHeaderLabels(vertical_label_list)
 
         table_widget_items["add row"]["button"].clicked.connect(add_row_function)
+        table_widget.itemClicked.connect(self.edit_table_widget_item)
         table_widget.itemPressed.connect(self.edit_table_widget_item)
-        table_widget.itemChanged.connect(self.table_widget_item_changed)
-
+        table_widget.itemChanged.connect(self.table_widget_item_changed)        
         self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)
 
     # end settings_tree table functions
