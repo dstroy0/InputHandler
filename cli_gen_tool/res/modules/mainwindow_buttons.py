@@ -38,9 +38,9 @@ class MainWindowButtons(object):
             if isinstance(
                 table_widget,
                 QTableWidget,
-            ):                                
+            ):
                 item = table_widget.currentItem()
-                if item:                                        
+                if item:
                     self.ui.edit_setting_button.setEnabled(True)
                     self.ui.clear_setting_button.setEnabled(True)
                     self.ui.default_setting_button.setEnabled(False)
@@ -109,16 +109,26 @@ class MainWindowButtons(object):
                     )
                 return
             self.ui.settings_tree.currentItem().setData(3, 0, "")
-
-    # TODO combobox default
-    def clicked_default_tab_one(self):
-        MainWindowButtons.logger.info("clicked tab 1 default")
+    
+    def clicked_default_tab_one(self):        
         tree_item = self.ui.settings_tree.currentItem()
         if tree_item != None:
-            default_val = str(
-                self.default_settings_tree_values[str(tree_item.data(1, 0))]
-            )
-            tree_item.setData(3, 0, default_val)
+            widget = self.ui.settings_tree.itemWidget(tree_item, 3)
+            object_list = tree_item.data(4,0).split(",")            
+            bool_default = self.cliOpt["config"]["var"][object_list[0]][object_list[2]]            
+            if isinstance(widget, QComboBox):                
+                if bool_default == True:
+                    default_index = "Enabled"                    
+                else:
+                    default_index = "Disabled"                                    
+                widget.setCurrentIndex(widget.findText(default_index))                
+                MainWindowButtons.logger.info(str(object_list[0] + " " + object_list[2] + " set to default: " + default_index))
+            else:
+                default_val = str(
+                    self.default_settings_tree_values[str(tree_item.data(1, 0))]
+                )
+                tree_item.setData(3, 0, default_val)
+                MainWindowButtons.logger.info(str(object_list[0] + " " + object_list[2] + " set to default: " + default_val))
 
     # tab 2
     # TODO
