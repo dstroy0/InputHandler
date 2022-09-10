@@ -25,8 +25,6 @@
 var NAVTREE =
 [
   [ "InputHandler", "index.html", [
-    [ "InputHandler", "index.html#autotoc_md2", null ],
-    [ "Supported Platforms", "index.html#autotoc_md3", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -69,7 +67,7 @@ var NAVTREEINDEX =
 "d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a73113284bb71bf1db10d3b98d75de484",
 "dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf",
 "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70",
-"functions_t.html"
+"functions_s.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
