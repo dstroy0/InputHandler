@@ -27,9 +27,8 @@ class PreferencesMethods(object):
     
     def reset_preferences(self):
         config_path = self.session["opt"]["input_config_file_path"]
-        self.preferences.dlg.config_path_input.setText(str(config_path))
-        print(config_path)
-        PreferencesMethods.logger.info("preferences dialog cancelled")
+        self.preferences.dlg.config_path_input.setText(str(config_path))        
+        PreferencesMethods.logger.info("preferences dialog cancelled, config path reset to: " + str(config_path))
     
     def get_config_file(self):
         dlg = QFileDialog(self)

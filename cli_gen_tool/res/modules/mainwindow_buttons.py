@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+import json
 from PySide6.QtWidgets import QTableWidget, QComboBox
 from PySide6.QtCore import Qt
 from res.modules.logging_setup import Logger
@@ -114,16 +115,16 @@ class MainWindowButtons(object):
         tree_item = self.ui.settings_tree.currentItem()
         if tree_item != None:
             widget = self.ui.settings_tree.itemWidget(tree_item, 3)
-            object_list = tree_item.data(4,0).split(",")            
-            bool_default = self.cliOpt["config"]["var"][object_list[0]][object_list[2]]            
+            object_list = tree_item.data(4,0).split(",")                               
             if isinstance(widget, QComboBox):                
+                bool_default = self.cliOpt["config"]["var"][object_list[0]][object_list[2]]     
                 if bool_default == True:
                     default_index = "Enabled"                    
                 else:
                     default_index = "Disabled"                                    
                 widget.setCurrentIndex(widget.findText(default_index))                
                 MainWindowButtons.logger.info(str(object_list[0] + " " + object_list[2] + " set to default: " + default_index))
-            else:
+            else:                    
                 default_val = str(
                     self.default_settings_tree_values[str(tree_item.data(1, 0))]
                 )

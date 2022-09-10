@@ -173,8 +173,7 @@ class CommandParametersMethods(object):
             settings_to_validate["commandArguments"] = {0: "NO_ARGS"}
         elif arg_handling_idx == 1:
             # single argument
-            tmp = self.dict_from_csv_args()
-            print(tmp)
+            tmp = self.dict_from_csv_args()            
             if tmp == {} or tmp["0"] == "":
                 tmp["0"] = ""
                 err = True

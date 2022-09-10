@@ -470,7 +470,7 @@ class SettingsTreeMethods(object):
                             combobox_tooltip,
                         )
 
-                self.default_settings_tree_values.update({child: var_initial_val})
+                    self.default_settings_tree_values.update({str(child).strip(): var_initial_val})
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
         # update cliOpt with new value when editing is complete
