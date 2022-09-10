@@ -62,10 +62,88 @@ class MainWindowButtons(object):
             self.ui.edit_setting_button.setEnabled(False)
             self.ui.clear_setting_button.setEnabled(False)
             self.ui.default_setting_button.setEnabled(False)
+    
+    def command_menu_button_toggles(self):
+        # method internal var
+        # inputhandler builtin commands
+        _builtin_commands = ["listSettings", "listCommands"]
+        # command_tree root item
+        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        # selected items list (only one selection possible)
+        _items = self.ui.command_tree.selectedItems()
+        # did the selection match a builtin
+        _item_matched_builtin = False
+        # populated when selection is non-root and not NULL
+        _object_list = []
+        # if an item is selected, this will be a memory location, else it is false
+        _item_selected = False
+        # if the selected item is root, this is True
+        _item_selected_is_root = False
+
+        # if the list is NOT empty (truthy)
+        if _items:
+            # something on the command tree is selected
+            _item_selected = _items[0]
+            if _item_selected == _root:
+                _item_selected_is_root = True
+
+            # new/edit/delete/command settings menu button enable/disable toggling
+            if _item_selected_is_root:
+                # new button
+                self.ui.new_cmd_button.setText("New (root command)")
+                self.ui.new_cmd_button.setEnabled(True)
+                # edit button
+                self.ui.edit_cmd_button.setEnabled(False)
+                # delete button
+                self.ui.delete_cmd_button.setEnabled(False)
+                # command settings menu button
+                self.ui.cmd_settings_menu_button.setEnabled(False)
+                return  # root tree item is selected, give user option to create new root command
+
+            if _item_selected:  # something is selected
+                _object_list = _item_selected.data(1, 0).split(",")
+                for (
+                    item
+                ) in (
+                    _builtin_commands
+                ):  # determine if the something selected is an InputHandler builtin
+                    if _object_list[2] == item:
+                        _item_matched_builtin = True
+                        break
+                if _item_matched_builtin:  # item selected is an InputHandler builtin
+                    # new button
+                    self.ui.new_cmd_button.setText("New")
+                    self.ui.new_cmd_button.setEnabled(False)
+                    # edit button
+                    self.ui.edit_cmd_button.setEnabled(False)
+                    # delete button
+                    self.ui.delete_cmd_button.setEnabled(True)
+                else:  # item selected is NOT an InputHandler builtin
+                    # give user option to add children to this command
+                    # new button
+                    self.ui.new_cmd_button.setText("New (child command)")
+                    self.ui.new_cmd_button.setEnabled(True)
+                    # edit button
+                    self.ui.edit_cmd_button.setEnabled(True)
+                    # delete button
+                    self.ui.delete_cmd_button.setEnabled(True)
+                    # command settings menu button
+                    self.ui.cmd_settings_menu_button.setEnabled(True)
+        else:
+            # nothing is selected, disable all buttons
+            _item_selected = False
+            # new button
+            self.ui.new_cmd_button.setText("New")
+            self.ui.new_cmd_button.setEnabled(False)
+            # edit button
+            self.ui.edit_cmd_button.setEnabled(False)
+            # delete button
+            self.ui.delete_cmd_button.setEnabled(False)
+            # command settings menu button
+            self.ui.cmd_settings_menu_button.setEnabled(False)
 
     # MainWindow buttons
-    # tab 1
-    # TODO
+    # tab 1    
     def clicked_edit_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 edit")
         if self.ui.settings_tree.currentItem() != None:
@@ -83,8 +161,7 @@ class MainWindowButtons(object):
                 self.update_code("setup.h", object_list[2], True)
                 return
             self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(), 3)
-
-    # TODO
+    
     def clicked_clear_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 clear")
         if self.ui.settings_tree.currentItem() != None:
