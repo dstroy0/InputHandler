@@ -12,9 +12,7 @@
 
 from __future__ import absolute_import
 
-import json
 from PySide6.QtWidgets import QTableWidget, QComboBox
-from PySide6.QtCore import Qt
 from res.modules.logging_setup import Logger
 
 
@@ -62,7 +60,7 @@ class MainWindowButtons(object):
             self.ui.edit_setting_button.setEnabled(False)
             self.ui.clear_setting_button.setEnabled(False)
             self.ui.default_setting_button.setEnabled(False)
-    
+
     def command_menu_button_toggles(self):
         # method internal var
         # inputhandler builtin commands
@@ -143,7 +141,7 @@ class MainWindowButtons(object):
             self.ui.cmd_settings_menu_button.setEnabled(False)
 
     # MainWindow buttons
-    # tab 1    
+    # tab 1
     def clicked_edit_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 edit")
         if self.ui.settings_tree.currentItem() != None:
@@ -161,7 +159,7 @@ class MainWindowButtons(object):
                 self.update_code("setup.h", object_list[2], True)
                 return
             self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(), 3)
-    
+
     def clicked_clear_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 clear")
         if self.ui.settings_tree.currentItem() != None:
@@ -187,26 +185,42 @@ class MainWindowButtons(object):
                     )
                 return
             self.ui.settings_tree.currentItem().setData(3, 0, "")
-    
-    def clicked_default_tab_one(self):        
+
+    def clicked_default_tab_one(self):
         tree_item = self.ui.settings_tree.currentItem()
         if tree_item != None:
             widget = self.ui.settings_tree.itemWidget(tree_item, 3)
-            object_list = tree_item.data(4,0).split(",")                               
-            if isinstance(widget, QComboBox):                
-                bool_default = self.cliOpt["config"]["var"][object_list[0]][object_list[2]]     
+            object_list = tree_item.data(4, 0).split(",")
+            if isinstance(widget, QComboBox):
+                bool_default = self.default_settings_tree_values[object_list[2]]
                 if bool_default == True:
-                    default_index = "Enabled"                    
+                    default_index = "Enabled"
                 else:
-                    default_index = "Disabled"                                    
-                widget.setCurrentIndex(widget.findText(default_index))                
-                MainWindowButtons.logger.info(str(object_list[0] + " " + object_list[2] + " set to default: " + default_index))
-            else:                    
+                    default_index = "Disabled"
+                widget.setCurrentIndex(widget.findText(default_index))
+                MainWindowButtons.logger.info(
+                    str(
+                        object_list[0]
+                        + " "
+                        + object_list[2]
+                        + " set to default: "
+                        + default_index
+                    )
+                )
+            else:
                 default_val = str(
                     self.default_settings_tree_values[str(tree_item.data(1, 0))]
                 )
                 tree_item.setData(3, 0, default_val)
-                MainWindowButtons.logger.info(str(object_list[0] + " " + object_list[2] + " set to default: " + default_val))
+                MainWindowButtons.logger.info(
+                    str(
+                        object_list[0]
+                        + " "
+                        + object_list[2]
+                        + " set to default: "
+                        + default_val
+                    )
+                )
 
     # tab 2
     # TODO

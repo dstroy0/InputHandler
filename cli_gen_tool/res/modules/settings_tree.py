@@ -109,7 +109,10 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters index"] = object_list[2]
-                        self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listCommands")
+                        self.add_qtreewidgetitem(
+                            self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
+                            "listCommands",
+                        )
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
@@ -131,11 +134,14 @@ class SettingsTreeMethods(object):
                                 )
                             }
                         )
-                        
+
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
                         ]["parameters index"] = object_list[2]
-                        self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"], "listSettings")
+                        self.add_qtreewidgetitem(
+                            self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
+                            "listSettings",
+                        )
                         self.cliOpt["var"]["num_commands"] += 1
                     elif (
                         combobox.currentText() == "Disabled"
@@ -149,7 +155,7 @@ class SettingsTreeMethods(object):
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 "QComboBox"
-            ][object_list[1]]            
+            ][object_list[1]]
             sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 object_list[1]
             ]["fields"]
@@ -261,7 +267,7 @@ class SettingsTreeMethods(object):
         sub_dict["3"] = tmp
         self.update_settings_tree_type_field_text(item)
         self.update_code("config.h", sub_dict["2"], True)
-        SettingsTreeMethods.logger.info(
+        SettingsTreeMethods.logger.debug(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                     object_list[0], object_list[1]
@@ -470,7 +476,9 @@ class SettingsTreeMethods(object):
                             combobox_tooltip,
                         )
 
-                    self.default_settings_tree_values.update({str(child).strip(): var_initial_val})
+                    self.default_settings_tree_values.update(
+                        {str(child).strip(): var_initial_val}
+                    )
 
         settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
         # update cliOpt with new value when editing is complete
@@ -482,6 +490,7 @@ class SettingsTreeMethods(object):
         # check if user hit enter on an item
         settings_tree.itemActivated.connect(self.settings_tree_item_activated)
         self.settings_tree_button_toggles()
+
     # end build_lib_settings_tree()
 
 
