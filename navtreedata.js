@@ -65,9 +65,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d14/struct_user_input_1_1__rcfbprm.html#a85eedc81231e745aba9a6080b6bdb285",
-"d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d",
-"dc/d4b/class_user_input.html#a4d8f531412f4036c644f77fbb16bde03",
+"d3/d14/struct_user_input_1_1__rcfbprm.html#a787667c74f705d817eb08ce6df6cad52",
+"d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a73113284bb71bf1db10d3b98d75de484",
+"dc/d4b/class_user_input.html#a478ce06b85c141f351173d65ba8828bf",
 "de/d8a/group___user_input.html#ga70e7c464dbd2c5c26fa63684d9dfdd70",
 "functions_t.html"
 ];

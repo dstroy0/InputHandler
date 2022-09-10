@@ -8,5 +8,6 @@ var classmodules_1_1mainwindow__buttons_1_1_main_window_buttons =
     [ "clicked_edit_tab_one", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#aadb3c4b6e9f6fa82447cfe278c26c2b9", null ],
     [ "clicked_edit_tab_two", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a810f0ba59ab3eb915e0ee35cae89ad73", null ],
     [ "clicked_new_cmd_button", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#ae3ad952c969b2149b82ac37471a4c744", null ],
+    [ "command_menu_button_toggles", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a184ebcd0a5528919c24bf0d2b454501b", null ],
     [ "settings_tree_button_toggles", "d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a42e1f4c25a1823942092b90c30b98d90", null ]
 ];

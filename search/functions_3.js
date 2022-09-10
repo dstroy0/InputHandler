@@ -17,7 +17,7 @@ var searchData=
   ['closeevent_14',['closeEvent',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1',1,'cli_gen_tool::MainWindow']]],
   ['code_5fpreview_5fevents_15',['code_preview_events',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a6aa5e2b7f18a475645c00692c8ae5386',1,'modules::code_preview::CodePreview']]],
   ['columncount_16',['columnCount',['../dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html#aeec0883696eb2726f45dfcdfa265b38b',1,'modules::command_tree::CommandParametersTableViewModel']]],
-  ['command_5fmenu_5fbutton_5ftoggles_17',['command_menu_button_toggles',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#a5e298034b665e58687a0b4e9605053c0',1,'modules::command_tree::CommandTreeMethods']]],
+  ['command_5fmenu_5fbutton_5ftoggles_17',['command_menu_button_toggles',['../d1/db3/classmodules_1_1mainwindow__buttons_1_1_main_window_buttons.html#a184ebcd0a5528919c24bf0d2b454501b',1,'modules::mainwindow_buttons::MainWindowButtons']]],
   ['command_5fstring_5ftext_5fchanged_18',['command_string_text_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a948ec3be1ff04e7f188be69011e7ecd5',1,'modules::command_parameters::CommandParametersMethods']]],
   ['commandconstructor_19',['CommandConstructor',['../df/d68/class_command_constructor.html#a4283cf78871f8d4d21e6ad8969af1ca2',1,'CommandConstructor']]],
   ['config_5fh_20',['config_h',['../d5/d68/classmodules_1_1cli_1_1config_1_1cli_config.html#a55c0b14e6fc0babdcafaba6721c56dd7',1,'modules::cli::config::cliConfig']]],
