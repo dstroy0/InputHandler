@@ -43,7 +43,7 @@ class SettingsTreeMethods(object):
         sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
             int(object_list[1])
         ]["fields"]
-        number_field = int(sub_dict[3])
+        number_field = int(sub_dict["3"])
         if number_field <= 255:
             type_field = "uint8_t"
             item.setToolTip(2, "")
