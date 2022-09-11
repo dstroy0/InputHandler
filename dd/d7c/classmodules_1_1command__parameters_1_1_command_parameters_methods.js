@@ -7,7 +7,7 @@ var classmodules_1_1command__parameters_1_1_command_parameters_methods =
     [ "clicked_command_parameters_buttonbox_ok", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ae58f155f063d3efa0f29a2f370fadaf7", null ],
     [ "clicked_command_parameters_buttonbox_reset", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ab8d4097fb29d2de4745de0b2749dc3f1", null ],
     [ "command_string_text_changed", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a948ec3be1ff04e7f188be69011e7ecd5", null ],
-    [ "commandparameters_input_fields_toggle_enabled", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a4d847aed7e6780ae6ab81e7b0d891b78", null ],
+    [ "commandparameters_set_fields", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7088b7183caef4816ff5145bacbd6f44", null ],
     [ "csv_button", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ac23e5f183681a9b8e6f9b9113ccfb562", null ],
     [ "dict_from_csv_args", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a9ecd6e94b64ae72bc7db3773021042a0", null ],
     [ "err_settings_to_validate", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7e452b8c52710f5cf079e4f64828351c", null ],
