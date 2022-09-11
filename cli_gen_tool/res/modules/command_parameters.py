@@ -17,7 +17,14 @@ import json
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
-from PySide6.QtWidgets import QDialogButtonBox, QStyle
+from PySide6.QtWidgets import (
+    QDialogButtonBox,
+    QStyle,
+    QLineEdit,
+    QComboBox,
+    QPlainTextEdit,
+    QSpinBox,
+)
 
 # logging api
 from res.modules.logging_setup import Logger
@@ -338,27 +345,59 @@ class CommandParametersMethods(object):
         else:
             cmd_dlg.argumentsPane.setEnabled(False)
 
-    def commandparameters_input_fields_toggle_enabled(self, _fields: list = []) -> None:
-        # enable all input fields if fields list is empty
+    def commandparameters_set_fields(self, _fields: dict) -> None:
         if not bool(_fields):
-            for field in self.command_parameters_user_input_objects:
-                self.command_parameters_user_input_objects[field].setEnabled(True)
-            CommandParametersMethods.logger.debug(
-                "enable all normal CommandParameters input fields"
-            )
+            for key in self.command_parameters_user_input_objects:
+                if isinstance(
+                    self.command_parameters_user_input_objects[key], QLineEdit
+                ):
+                    self.command_parameters_user_input_objects[key].setText("")
+                if isinstance(
+                    self.command_parameters_user_input_objects[key], QSpinBox
+                ):
+                    self.command_parameters_user_input_objects[key].setValue(0)
+                if isinstance(
+                    self.command_parameters_user_input_objects[key], QComboBox
+                ):
+                    self.command_parameters_user_input_objects[key].setCurrentIndex(
+                        "No arguments"
+                    )
+                self.command_parameters_user_input_objects[key].setEnabled(True)
         else:
-            for field_to_disable in _fields:
-                if field_to_disable in self.command_parameters_user_input_objects:
-                    CommandParametersMethods.logger.debug(
-                        "disable " + str(field_to_disable) + " field"
+            for key in _fields:
+                if key in self.command_parameters_user_input_objects:
+                    if isinstance(
+                        self.command_parameters_user_input_objects[key], QLineEdit
+                    ):
+                        self.command_parameters_user_input_objects[key].setText(
+                            str(_fields[key]["value"])
+                        )
+                    if isinstance(
+                        self.command_parameters_user_input_objects[key], QSpinBox
+                    ):
+                        self.command_parameters_user_input_objects[key].setValue(
+                            int(_fields[key]["value"])
+                        )
+                    if isinstance(
+                        self.command_parameters_user_input_objects[key], QComboBox
+                    ):
+                        self.command_parameters_user_input_objects[key].setCurrentIndex(
+                            self.command_parameters_user_input_objects[key].findText(
+                                _fields[key]["value"]
+                            )
+                        )
+                    self.command_parameters_user_input_objects[key].setEnabled(
+                        _fields[key]["enabled"]
                     )
-                    self.command_parameters_user_input_objects[
-                        field_to_disable
-                    ].setEnabled(False)
+                    CommandParametersMethods.logger.debug(
+                        str(key)
+                        + " field"
+                        + str(_fields[key]["value"])
+                        + " "
+                        + str(_fields[key]["enabled"])
+                    )
                 else:
-                    CommandParametersMethods.logger.debug(
-                        "unknown field: " + str(field_to_disable)
-                    )
+                    CommandParametersMethods.logger.debug("unknown field: " + str(key))
 
 
 # end of file

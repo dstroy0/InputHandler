@@ -110,10 +110,10 @@ class Ui_commandParametersDialog(object):
 
         self.gridLayout_3.addWidget(self.label_12, 5, 0, 1, 1)
 
-        self.commandSubcommands = QSpinBox(self.parametersPane)
-        self.commandSubcommands.setObjectName(u"commandSubcommands")
+        self.commandDepth = QSpinBox(self.parametersPane)
+        self.commandDepth.setObjectName(u"commandDepth")
 
-        self.gridLayout_3.addWidget(self.commandSubcommands, 5, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.commandDepth, 5, 1, 1, 1)
 
         self.commandSubcommands_label = QLabel(self.parametersPane)
         self.commandSubcommands_label.setObjectName(u"commandSubcommands_label")
@@ -123,10 +123,10 @@ class Ui_commandParametersDialog(object):
 
         self.gridLayout_3.addWidget(self.commandSubcommands_label, 6, 0, 1, 1)
 
-        self.commandDepth = QSpinBox(self.parametersPane)
-        self.commandDepth.setObjectName(u"commandDepth")
+        self.commandSubcommands = QSpinBox(self.parametersPane)
+        self.commandSubcommands.setObjectName(u"commandSubcommands")
 
-        self.gridLayout_3.addWidget(self.commandDepth, 6, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.commandSubcommands, 6, 1, 1, 1)
 
         self.label_16 = QLabel(self.parametersPane)
         self.label_16.setObjectName(u"label_16")

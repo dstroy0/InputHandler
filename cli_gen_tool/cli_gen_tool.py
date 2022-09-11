@@ -139,8 +139,7 @@ class MainWindow(
         self.logger.debug("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-                        
-                
+
         # MainWindow icon
         window_icon_path = self.lib_root_path + "/docs/img/Logolarge.png"
         self.setWindowIcon(QIcon(window_icon_path))
@@ -158,33 +157,50 @@ class MainWindow(
         # CommandParameters user input objects
         self.command_parameters_user_input_objects = {
             # line edit
-            "functionName":self.ui.commandParameters.dlg.functionName,
+            "functionName": self.ui.commandParameters.dlg.functionName,
             # line edit
-            "commandString":self.ui.commandParameters.dlg.commandString,
+            "commandString": self.ui.commandParameters.dlg.commandString,
             # read only label
-            "commandLengthLabel":self.ui.commandParameters.dlg.commandLengthLabel,
+            "commandLength": self.ui.commandParameters.dlg.commandLengthLabel,
             # line edit
-            "parentId":self.ui.commandParameters.dlg.commandParentId,
+            "parentId": self.ui.commandParameters.dlg.commandParentId,
             # line edit
-            "commandId":self.ui.commandParameters.dlg.commandId,
+            "commandId": self.ui.commandParameters.dlg.commandId,
             # check box
-            "commandHasWildcards":self.ui.commandParameters.dlg.commandHasWildcards,
+            "commandHasWildcards": self.ui.commandParameters.dlg.commandHasWildcards,
             # spinbox
-            "commandDepth":self.ui.commandParameters.dlg.commandDepth,
+            "commandDepth": self.ui.commandParameters.dlg.commandDepth,
             # spinbox
-            "commandSubcommands":self.ui.commandParameters.dlg.commandSubcommands,
+            "commandSubcommands": self.ui.commandParameters.dlg.commandSubcommands,
             # combobox
-            "commandArgumentHandling":self.ui.commandParameters.dlg.commandArgumentHandling,
+            "commandArgumentHandling": self.ui.commandParameters.dlg.commandArgumentHandling,
             # spinbox
-            "commandMinArgs":self.ui.commandParameters.dlg.commandMinArgs,
+            "commandMinArgs": self.ui.commandParameters.dlg.commandMinArgs,
             # spinbox
-            "commandMaxArgs":self.ui.commandParameters.dlg.commandMaxArgs,
+            "commandMaxArgs": self.ui.commandParameters.dlg.commandMaxArgs,
             # plain text edit
-            "commandArguments":self.ui.commandParameters.dlg.argumentsPlainTextCSV,
+            "commandArguments": self.ui.commandParameters.dlg.argumentsPlainTextCSV,
         }
 
-
         # MainWindow var
+        self.command_parameters_input_field_settings = (
+            dataModels.command_parameters_input_field_settings_dict
+        )
+        # CommandParameters default field values
+        inp_setup = self.command_parameters_input_field_settings
+        inp_setup["functionName"]["value"] = ""
+        inp_setup["commandString"]["value"] = ""
+        inp_setup["commandLength"]["value"] = "0"
+        inp_setup["parentId"]["value"] = 0
+        inp_setup["commandId"]["value"] = 0
+        inp_setup["commandHasWildcards"]["value"] = False
+        inp_setup["commandDepth"]["value"] = 0
+        inp_setup["commandSubcommands"]["value"] = 0
+        inp_setup["commandArgumentHandling"]["value"] = "No arguments"
+        inp_setup["commandMinArgs"]["value"] = 0
+        inp_setup["commandMaxArgs"]["value"] = 0
+        inp_setup["commandArguments"]["value"] = ""
+
         self.default_settings_tree_values = {}
 
         # code preview interaction

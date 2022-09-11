@@ -47,6 +47,15 @@ class dataModels(object):
         "commandArguments",
     ]
 
+    ## CommandParameters field settings
+    command_parameters_input_field_settings_dict = {
+        key: {
+            "value": "",
+            "enabled": True,
+        }
+        for (key) in command_parameters_dict_keys_list
+    }
+
     ## Acceptable command argument types.
     command_arg_types_list = [
         "UINT8_T",

@@ -12,7 +12,10 @@
 
 from __future__ import absolute_import
 
+import copy
+
 from PySide6.QtWidgets import QTableWidget, QComboBox
+
 from res.modules.logging_setup import Logger
 
 
@@ -232,7 +235,14 @@ class MainWindowButtons(object):
         if "(root command)" in self.ui.new_cmd_button.text():
             MainWindowButtons.logger.info("user clicked new command button with root context")                        
             self.ui.commandParameters.setWindowTitle("Root Command Parameters")
-            self.commandparameters_input_fields_toggle_enabled(["parentId"])
+            fields = copy.deepcopy(self.command_parameters_input_field_settings)
+            fields["parentId"]["value"] = 0
+            fields["parentId"]["enabled"] = False
+            fields["commandId"]["value"] = 0
+            fields["commandId"]["enabled"] = False
+            fields["commandDepth"]["value"] = 0
+            fields["commandDepth"]["enabled"] = False
+            self.commandparameters_set_fields(fields)
             self.ui.commandParameters.exec()            
         elif "(child command)" in self.ui.new_cmd_button.text():
             MainWindowButtons.logger.info("user clicked new command button with child context")            
