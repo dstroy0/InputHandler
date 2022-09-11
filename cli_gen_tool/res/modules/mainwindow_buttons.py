@@ -224,17 +224,22 @@ class MainWindowButtons(object):
 
     # tab 2
     # TODO
-
     def clicked_edit_tab_two(self):
         print("clicked tab 2 edit")
 
     # TODO
-
-    def clicked_new_cmd_button(self):
-        print("clicked tab 2 new")
+    def clicked_new_cmd_button(self):        
+        if "(root command)" in self.ui.new_cmd_button.text():
+            MainWindowButtons.logger.info("user clicked new command button with root context")                        
+            self.ui.commandParameters.setWindowTitle("Root Command Parameters")
+            self.commandparameters_input_fields_toggle_enabled(["parentId"])
+            self.ui.commandParameters.exec()            
+        elif "(child command)" in self.ui.new_cmd_button.text():
+            MainWindowButtons.logger.info("user clicked new command button with child context")            
+            self.ui.commandParameters.setWindowTitle("Child Command Parameters")
+            self.ui.commandParameters.exec()
 
     # TODO
-
     def clicked_delete_tab_two(self):
         print("clicked tab 2 delete")
 

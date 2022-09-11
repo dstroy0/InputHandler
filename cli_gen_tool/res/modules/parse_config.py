@@ -110,9 +110,9 @@ class ParseInputHandlerConfig(object):
                         )
                         self.default_settings_tree_values.update(
                             {
-                                str(entry[index[key]]["fields"]["2"]).strip(): entry[index[key]][
-                                    "fields"
-                                ]["3"]
+                                str(entry[index[key]]["fields"]["2"]).strip(): entry[
+                                    index[key]
+                                ]["fields"]["3"]
                             }
                         )
                         index[key] += 1

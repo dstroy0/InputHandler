@@ -100,23 +100,23 @@ class dataModels(object):
     }
 
     ## child information dict
-    child_index_struct = {        
-        "child command parameters index": "",        
+    child_index_struct = {
+        "child command parameters index": "",
         "depends on": {},
     }
-    
+
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
         # key of this struct in cliopt_model["commands"]["index"]
         "index key": "",
-        "root command parameters index": "",                
-        "indices of children":{},
+        "root command parameters index": "",
+        "indices of children": {},
     }
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
-        "var": {"num_commands": 0, "tool_version": str(version)},        
+        "var": {"num_commands": 0, "tool_version": str(version)},
         "commands": {
             "index": {},
             "parameters": {},

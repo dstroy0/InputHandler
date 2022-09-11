@@ -139,6 +139,8 @@ class MainWindow(
         self.logger.debug("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+                        
+                
         # MainWindow icon
         window_icon_path = self.lib_root_path + "/docs/img/Logolarge.png"
         self.setWindowIcon(QIcon(window_icon_path))
@@ -152,6 +154,35 @@ class MainWindow(
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
+
+        # CommandParameters user input objects
+        self.command_parameters_user_input_objects = {
+            # line edit
+            "functionName":self.ui.commandParameters.dlg.functionName,
+            # line edit
+            "commandString":self.ui.commandParameters.dlg.commandString,
+            # read only label
+            "commandLengthLabel":self.ui.commandParameters.dlg.commandLengthLabel,
+            # line edit
+            "parentId":self.ui.commandParameters.dlg.commandParentId,
+            # line edit
+            "commandId":self.ui.commandParameters.dlg.commandId,
+            # check box
+            "commandHasWildcards":self.ui.commandParameters.dlg.commandHasWildcards,
+            # spinbox
+            "commandDepth":self.ui.commandParameters.dlg.commandDepth,
+            # spinbox
+            "commandSubcommands":self.ui.commandParameters.dlg.commandSubcommands,
+            # combobox
+            "commandArgumentHandling":self.ui.commandParameters.dlg.commandArgumentHandling,
+            # spinbox
+            "commandMinArgs":self.ui.commandParameters.dlg.commandMinArgs,
+            # spinbox
+            "commandMaxArgs":self.ui.commandParameters.dlg.commandMaxArgs,
+            # plain text edit
+            "commandArguments":self.ui.commandParameters.dlg.argumentsPlainTextCSV,
+        }
+
 
         # MainWindow var
         self.default_settings_tree_values = {}

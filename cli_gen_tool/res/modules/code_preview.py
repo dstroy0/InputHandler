@@ -38,15 +38,15 @@ class CodePreviewBrowser(QTextBrowser):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.setTextInteractionFlags(Qt.TextBrowserInteraction)        
-        self.ensureCursorVisible() 
+        self.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.ensureCursorVisible()
         # let the user navigate to the hyperlinks provided in the readme
         if name == "README.md":
             self.setOpenExternalLinks(True)
 
     def resizeEvent(self, event):
         self.ensureCursorVisible()
-        
+
 
 # code preview methods
 class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
@@ -134,7 +134,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
 
         if event_type == event.Wheel and CodePreview.selected_text_widget != None:
             sb = CodePreview.selected_text_widget.verticalScrollBar()
-            sb.setValue(sb.value() + (-(event.angleDelta().y() / 8 )))
+            sb.setValue(sb.value() + (-(event.angleDelta().y() / 8)))
 
         if event_type == event.MouseButtonPress and mouse_button == Qt.LeftButton:
             if watched is code_preview.viewport():

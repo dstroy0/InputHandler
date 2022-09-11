@@ -11,7 +11,9 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+
 import json
+
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
@@ -26,6 +28,7 @@ from res.modules.data_models import dataModels
 
 # command parameters methods
 class CommandParametersMethods(object):
+
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
 
@@ -135,7 +138,7 @@ class CommandParametersMethods(object):
         settings_to_validate["commandMaxArgs"] = cmd_dlg.commandMaxArgs.text()
         # err is the error sentinel
         err = False
-        
+
         if settings_to_validate["commandString"] == "":
             error_list.append("'Command string' cannot be empty")
             err = True
@@ -173,7 +176,7 @@ class CommandParametersMethods(object):
             settings_to_validate["commandArguments"] = {0: "NO_ARGS"}
         elif arg_handling_idx == 1:
             # single argument
-            tmp = self.dict_from_csv_args()            
+            tmp = self.dict_from_csv_args()
             if tmp == {} or tmp["0"] == "":
                 tmp["0"] = ""
                 err = True
@@ -181,8 +184,10 @@ class CommandParametersMethods(object):
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
             if settings_to_validate["functionName"] == "":
-                error_list.append("'Return function name' cannot be empty with current 'Argument Handling' selection")
-            
+                error_list.append(
+                    "'Return function name' cannot be empty with current 'Argument Handling' selection"
+                )
+
             settings_to_validate["commandArguments"] = {0: tmp["0"]}
         elif arg_handling_idx == 2:
             # argument array
@@ -194,8 +199,10 @@ class CommandParametersMethods(object):
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
             if settings_to_validate["functionName"] == "":
-                error_list.append("'Return function name' cannot be empty with current 'Argument Handling' selection")
-                
+                error_list.append(
+                    "'Return function name' cannot be empty with current 'Argument Handling' selection"
+                )
+
             settings_to_validate["commandArguments"] = tmp
         CommandParametersMethods.logger.debug(settings_to_validate)
         CommandParametersMethods.logger.debug(error_list)
@@ -281,7 +288,9 @@ class CommandParametersMethods(object):
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
-            CommandParametersMethods.logger.info("one or more errors were detected in the input command parameters")
+            CommandParametersMethods.logger.info(
+                "one or more errors were detected in the input command parameters"
+            )
             return
         validated_result = {}
         validated_result = validate_result[1]
@@ -289,13 +298,15 @@ class CommandParametersMethods(object):
         cmd_idx = self.cliOpt["var"]["num_commands"]
         # make dict from defined keys
         self.cliOpt["commands"]["parameters"][cmd_idx] = validated_result
-        CommandParametersMethods.logger.info(json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2))
+        CommandParametersMethods.logger.info(
+            json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
+        )
 
         # command parameters were accepted, so increment the array index
         self.cliOpt["var"]["num_commands"] += 1
         CommandParametersMethods.logger.info(json.dumps(self.cliOpt["var"], indent=2))
         self.ui.commandParameters.close()
-        
+
         self.update_code("README.md", validate_result["functionName"], True)
         self.update_code("functions.h", validate_result["functionName"], True)
         self.update_code("functions.cpp", validate_result["functionName"], True)
@@ -326,6 +337,28 @@ class CommandParametersMethods(object):
             cmd_dlg.argumentsPane.setEnabled(True)
         else:
             cmd_dlg.argumentsPane.setEnabled(False)
+
+    def commandparameters_input_fields_toggle_enabled(self, _fields: list = []) -> None:
+        # enable all input fields if fields list is empty
+        if not bool(_fields):
+            for field in self.command_parameters_user_input_objects:
+                self.command_parameters_user_input_objects[field].setEnabled(True)
+            CommandParametersMethods.logger.debug(
+                "enable all normal CommandParameters input fields"
+            )
+        else:
+            for field_to_disable in _fields:
+                if field_to_disable in self.command_parameters_user_input_objects:
+                    CommandParametersMethods.logger.debug(
+                        "disable " + str(field_to_disable) + " field"
+                    )
+                    self.command_parameters_user_input_objects[
+                        field_to_disable
+                    ].setEnabled(False)
+                else:
+                    CommandParametersMethods.logger.debug(
+                        "unknown field: " + str(field_to_disable)
+                    )
 
 
 # end of file

@@ -24,22 +24,28 @@ class PreferencesMethods(object):
     def save_preferences(self):
         config_path = self.preferences.dlg.config_path_input.text()
         PreferencesMethods.logger.info("preferences set")
-    
+
     def reset_preferences(self):
         config_path = self.session["opt"]["input_config_file_path"]
-        self.preferences.dlg.config_path_input.setText(str(config_path))        
-        PreferencesMethods.logger.info("preferences dialog cancelled, config path reset to: " + str(config_path))
-    
+        self.preferences.dlg.config_path_input.setText(str(config_path))
+        PreferencesMethods.logger.info(
+            "preferences dialog cancelled, config path reset to: " + str(config_path)
+        )
+
     def get_config_file(self):
         dlg = QFileDialog(self)
         fileName = dlg.getOpenFileName(
-            self, "InputHandler config file name", "", "config.h", options=QFileDialog.DontUseNativeDialog
+            self,
+            "InputHandler config file name",
+            "",
+            "config.h",
+            options=QFileDialog.DontUseNativeDialog,
         )
         if fileName[0] == "":
             PreferencesMethods.logger.info("browse for config cancelled.")
             return
         fqname = fileName[0]
-        file = QFile(fqname)        
+        file = QFile(fqname)
         self.session["opt"]["input_config_file_path"] = fqname
         self.preferences.dlg.config_path_input.setText(str(fqname))
         # TODO reload tool with new input config
@@ -49,7 +55,7 @@ class PreferencesMethods(object):
         # set initial field text
         config_path = self.session["opt"]["input_config_file_path"]
         self.preferences.dlg.config_path_input.setText(str(config_path))
-        
+
         # actions setup
         self.preferences.dlg.browse_for_config.clicked.connect(self.get_config_file)
         self.preferences.dlg.buttonBox.accepted.connect(self.save_preferences)

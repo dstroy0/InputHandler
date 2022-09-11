@@ -13,11 +13,13 @@
 from __future__ import absolute_import
 from res.modules.cli.filestrings import CLIfilestrings
 import datetime
+
+
 class cliReadme(object):
     ## the constructor
     def __init__(self) -> None:
         super(cliReadme, self).__init__()
-        
+
     def readme_md(self, item_string, place_cursor=False):
         object_name = "inputHandler"
         self.code_preview_dict["files"]["README.md"]["file_lines_list"] = []
@@ -33,8 +35,9 @@ class cliReadme(object):
             setup_instructions=CLIfilestrings.rdme_setup_inst,
             setup_code="",
             loop_instructions=CLIfilestrings.rdme_loop_inst,
-            loop_code=""
+            loop_code="",
         )
-        self.code_preview_dict["files"]["README.md"]["file_lines_list"] = docstring.split("\n")
+        self.code_preview_dict["files"]["README.md"][
+            "file_lines_list"
+        ] = docstring.split("\n")
         self.set_code_string("README.md", docstring, item_string, place_cursor)
-        
