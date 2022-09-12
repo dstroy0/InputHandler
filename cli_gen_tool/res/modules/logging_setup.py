@@ -30,8 +30,15 @@ class QPlainTextEditLogger(logging.Handler):
 
 ## logging api
 class Logger(object):
+    level_lookup = {
+        10: "DEBUG",
+        20: "INFO",
+        30: "WARNING",
+        40: "ERROR",
+        50: "CRITICAL",
+    }
     file_log_level = logging.INFO  # file log level
-    stream_log_level = logging.INFO  # terminal log level
+    stream_log_level = file_log_level  # terminal log level
     session_history_log_level = (
         logging.INFO
     )  # session history widget log level (bound to F1)
@@ -48,6 +55,12 @@ class Logger(object):
 
     # log filehandler
     log_file_handler = ""
+
+    # stream handler
+    stream_handler = ""
+
+    # session handler
+    session_handler = ""
 
     ## the constructor
     def __init__(self):
@@ -81,11 +94,13 @@ class Logger(object):
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(Logger.stream_log_level)
         stream_handler.setFormatter(Logger._log_formatter)
+        Logger.stream_handler = stream_handler
         return stream_handler
 
     ## returns the root logger
     def get_logger(self, name):
         log_handler = QPlainTextEditLogger(self)
+        Logger.session_handler = log_handler
         logger = logging.getLogger(name)
         logger.setLevel(Logger.session_history_log_level)
         logger.addHandler(Logger.get_file_handler())

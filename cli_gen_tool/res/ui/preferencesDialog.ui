@@ -85,27 +85,27 @@
      </property>
      <item>
       <property name="text">
-       <string>DEBUG</string>
+       <string comment="10">DEBUG</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>INFO</string>
+       <string comment="20">INFO</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>WARNING</string>
+       <string comment="30">WARNING</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>ERROR</string>
+       <string comment="40">ERROR</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>CRITICAL</string>
+       <string comment="50">CRITICAL</string>
       </property>
      </item>
     </widget>
@@ -136,27 +136,27 @@
      </property>
      <item>
       <property name="text">
-       <string>DEBUG</string>
+       <string comment="10">DEBUG</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>INFO</string>
+       <string comment="20">INFO</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>WARNING</string>
+       <string comment="30">WARNING</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>ERROR</string>
+       <string comment="40">ERROR</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>CRITICAL</string>
+       <string comment="50">CRITICAL</string>
       </property>
      </item>
     </widget>
