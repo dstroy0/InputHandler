@@ -4,6 +4,7 @@ var classcli__gen__tool_1_1_main_window =
     [ "closeEvent", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a8238987ab8947edda4381a294c5af7f1", null ],
     [ "eventFilter", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a110b3fd393af84189c93b91f7330417a", null ],
     [ "readSettings", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7f9786ddd9562fd36d8a25c307b52191", null ],
+    [ "set_main_window_title", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a2b28fa61edfa79790d02eb29f21e11eb", null ],
     [ "app", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a60fca167801fb229c8be81b90f1f91e8", null ],
     [ "cli_gen_tool_json_path", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a126218cfff27282b03b8df83fbea2802", null ],
     [ "cliOpt", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a4ed024c3d4f0f24934f4a58273a4ea70", null ],
