@@ -48,13 +48,15 @@ class PreferencesMethods(object):
         file = QFile(fqname)
         self.session["opt"]["input_config_file_path"] = fqname
         self.preferences.dlg.config_path_input.setText(str(fqname))
-        # TODO reload tool with new input config
+        self.preferences.dlg.config_path_input.setToolTip(str(fqname))
+        self.app.restart()
 
     def preferences_dialog_setup(self):
         PreferencesMethods.logger.debug("preferences dialog setup")
         # set initial field text
         config_path = self.session["opt"]["input_config_file_path"]
         self.preferences.dlg.config_path_input.setText(str(config_path))
+        self.preferences.dlg.config_path_input.setToolTip(str(config_path))
 
         # actions setup
         self.preferences.dlg.browse_for_config.clicked.connect(self.get_config_file)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>449</width>
-    <height>106</height>
+    <width>545</width>
+    <height>158</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
      <property name="maximumSize">
       <size>
        <width>120</width>
-       <height>16777215</height>
+       <height>25</height>
       </size>
      </property>
      <property name="text">
@@ -59,7 +59,109 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="3">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Window log level</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="windowLogLevelComboBox">
+     <property name="currentText">
+      <string>DEBUG</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>DEBUG</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INFO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>WARNING</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ERROR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>CRITICAL</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>File log level</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="fileLogLevelComboBox">
+     <property name="currentText">
+      <string>DEBUG</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>DEBUG</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INFO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>WARNING</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ERROR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>CRITICAL</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="minimumSize">
       <size>
