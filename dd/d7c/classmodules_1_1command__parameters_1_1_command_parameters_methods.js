@@ -15,5 +15,7 @@ var classmodules_1_1command__parameters_1_1_command_parameters_methods =
     [ "rem_from_arg_csv", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ae7e26cf44aa5e452333e78d081fd89d4", null ],
     [ "set_command_parameter_validators", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a93050994c1e4425638615736fff21f61", null ],
     [ "set_command_parameters_triggers", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a07a4545993d4d07f8354fdfe7b918bfb", null ],
-    [ "validate_command_parameters", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7258a9edaaf036933c8148af7ecd93c0", null ]
+    [ "validate_command_parameters", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7258a9edaaf036933c8148af7ecd93c0", null ],
+    [ "prompt_to_save", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a4e79c1815f1d46a7fc67b5e34760493b", null ],
+    [ "windowtitle_set", "dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ab4b6df49c2c65ad596f3a56581e64f98", null ]
 ];

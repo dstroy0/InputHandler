@@ -27,5 +27,6 @@ var classcli__gen__tool_1_1_main_window =
     [ "settings", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a2e237d3e824ca8bc6fc764e71d92c407", null ],
     [ "ui", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44b11f6c7d8b61b9554eadc464d9ac70", null ],
     [ "user_resizing_code_preview_box", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a81e4ad57ccc4623fed0feb1a8a37f24f", null ],
-    [ "version", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a6709dfe9fcab25239f2f873d9fc4adcb", null ]
+    [ "version", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a6709dfe9fcab25239f2f873d9fc4adcb", null ],
+    [ "windowtitle_set", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a3d61daa09c760ad280c5c50efb9c58f3", null ]
 ];
