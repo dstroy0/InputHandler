@@ -55,7 +55,7 @@ class PreferencesMethods(object):
         index_val = self.preferences.dlg.windowLogLevelComboBox.currentData()
         Logger.session_history_log_level = index_val
         self.set_log_levels()
-        PreferencesMethods.logger.warning(
+        self.logger.warning(
             "Session history log level set to : " + Logger.level_lookup[index_val]
         )
 
@@ -64,7 +64,7 @@ class PreferencesMethods(object):
         Logger.file_log_level = index_val
         Logger.stream_log_level = index_val
         self.set_log_levels()
-        PreferencesMethods.logger.warning(
+        self.logger.warning(
             "File and terminal log level set to : " + Logger.level_lookup[index_val]
         )
 
