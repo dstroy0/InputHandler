@@ -315,8 +315,8 @@ class MainWindow(
         self.logger.info("CLI generation tool ready.")
         # end __init__
 
-    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        # event_type to avoid repetitive calls to .type() method; events are granular.
+    # visual indication to user of the current working file
+    def set_main_window_title(self):
         if self.windowtitle_set == False:
             windowtitle = "InputHandler CLI generation tool "
             if self.prompt_to_save == True:
@@ -325,13 +325,19 @@ class MainWindow(
                 windowtitle = windowtitle + " - "
             if self.session["opt"]["save_filename"]:
                 regexp = QRegularExpression("[^\/]*$")
-                match = regexp.match(str(self.session["opt"]["save_filename"]))                
+                match = regexp.match(str(self.session["opt"]["save_filename"]))
                 if match.hasMatch():
                     windowtitle = windowtitle + str(match.captured(0))
             else:
                 windowtitle = windowtitle + "untitled"
             self.setWindowTitle(windowtitle)
             self.windowtitle_set = True
+
+    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
+        # event_type to avoid repetitive calls to .type() method; events are granular.
+
+        # sets main window title
+        self.set_main_window_title()
 
         event_type = event.type()
         # mouse button click sentinel
