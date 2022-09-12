@@ -93,7 +93,7 @@ class cliParameters(object):
         parameters_code_string = ""
 
         for index in self.cliOpt["commands"]["index"]:
-            key = self.cliOpt["commands"]["index"][index]["parameters index"]
+            key = self.cliOpt["commands"]["index"][index]["index key"]
             # unnested parameters
             if (
                 key in self.cliOpt["commands"]["parameters"]
@@ -113,7 +113,7 @@ class cliParameters(object):
                     "indices of children"
                 ]:
                     parameters_code_string += self.ret_unnested_param(
-                        self.cliOpt["commands"]["parameters"][item["parameters index"]],
+                        self.cliOpt["commands"]["parameters"][item["index key"]],
                         False,
                     )
                 num_children = len(
@@ -124,14 +124,14 @@ class cliParameters(object):
                     if i < num_children:
                         nested_children_string += self.ret_nested_child(
                             self.self.cliOpt["commands"]["parameters"][
-                                item["parameters index"]
+                                item["index key"]
                             ],
                             True,
                         )
                     else:
                         nested_children_string += self.ret_nested_child(
                             self.self.cliOpt["commands"]["parameters"][
-                                item["parameters index"]
+                                item["index key"]
                             ],
                             False,
                         )
@@ -139,7 +139,7 @@ class cliParameters(object):
                     num_children,
                     nested_children_string,
                     self.cliOpt["commands"]["parameters"][
-                        self.cliOpt["commands"]["index"][index]["parameters index"]
+                        self.cliOpt["commands"]["index"][index]["index key"]
                     ],
                 )
 

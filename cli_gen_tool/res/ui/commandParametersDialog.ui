@@ -1031,7 +1031,7 @@
        </widget>
       </item>
       <item row="10" column="3">
-       <widget class="QLineEdit" name="functionName">
+       <widget class="QLineEdit" name="returnFunctionName">
         <property name="minimumSize">
          <size>
           <width>0</width>

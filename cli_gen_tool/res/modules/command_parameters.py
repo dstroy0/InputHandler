@@ -13,6 +13,7 @@
 from __future__ import absolute_import
 
 import json
+import copy
 
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
@@ -126,7 +127,7 @@ class CommandParametersMethods(object):
         settings_to_validate = dict.fromkeys(
             CommandParametersMethods.command_parameters_dict_keys_list, None
         )
-        settings_to_validate["functionName"] = cmd_dlg.functionName.text()
+        settings_to_validate["functionName"] = cmd_dlg.commandString.text()
         settings_to_validate["commandString"] = cmd_dlg.commandString.text()
         settings_to_validate["commandLength"] = len(
             settings_to_validate["commandString"]
@@ -190,7 +191,7 @@ class CommandParametersMethods(object):
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
-            if settings_to_validate["functionName"] == "":
+            if settings_to_validate["returnFunctionName"] == "":
                 error_list.append(
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
@@ -205,7 +206,7 @@ class CommandParametersMethods(object):
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
                 )
-            if settings_to_validate["functionName"] == "":
+            if settings_to_validate["returnFunctionName"] == "":
                 error_list.append(
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
@@ -238,8 +239,8 @@ class CommandParametersMethods(object):
     def set_command_parameter_validators(self):
         cmd_dlg = self.ui.commandParameters.dlg
         # allowed function name char
-        cmd_dlg.functionName.setValidator(
-            self.regex_validator(cmd_dlg.validatorDict["functionName"])
+        cmd_dlg.returnFunctionName.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["returnFunctionName"])
         )
         # allowed command string char
         cmd_dlg.commandString.setValidator(
@@ -302,23 +303,30 @@ class CommandParametersMethods(object):
         validated_result = {}
         validated_result = validate_result[1]
         # get array index
-        cmd_idx = self.cliOpt["var"]["num_commands"]
+        cmd_idx = str(self.cliOpt["var"]["num_commands"])
         # make dict from defined keys
-        self.cliOpt["commands"]["parameters"][cmd_idx] = validated_result
-        CommandParametersMethods.logger.info(
+        self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
+        p_idx = copy.deepcopy(dataModels.parameters_index_struct)
+        
+        p_idx["index key"] = cmd_idx
+        self.cliOpt["commands"]["index"].update({p_idx["index key"]:p_idx})
+        #p_idx["root command parameters index"] 
+        
+        CommandParametersMethods.logger.debug(
             json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
         )
-
+        self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"],p_idx["index key"])
+        
         # command parameters were accepted, so increment the array index
-        self.cliOpt["var"]["num_commands"] += 1
-        CommandParametersMethods.logger.info(json.dumps(self.cliOpt["var"], indent=2))
-        self.ui.commandParameters.close()
-
-        self.update_code("README.md", validate_result["functionName"], True)
-        self.update_code("functions.h", validate_result["functionName"], True)
-        self.update_code("functions.cpp", validate_result["functionName"], True)
-        self.update_code("setup.cpp", validate_result["functionName"], True)
-        self.update_code("parameters.h", validate_result["functionName"], True)
+        self.cliOpt["var"]["num_commands"] = str(int(self.cliOpt["var"]["num_commands"]) + 1)        
+        
+        self.ui.commandParameters.close()        
+        
+        self.update_code("parameters.h", validated_result["functionName"], True)                        
+        self.update_code("functions.h", validated_result["functionName"], True)
+        self.update_code("functions.cpp", validated_result["functionName"], True)
+        self.update_code("setup.cpp", validated_result["functionName"], True)        
+        self.update_code("README.md", validated_result["functionName"], True)
 
     ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self):
@@ -380,9 +388,7 @@ class CommandParametersMethods(object):
                         )
                     elif isinstance(
                         self.command_parameters_user_input_objects[key], QComboBox
-                    ):
-                        print(key)
-                        print(_fields[key]["value"])
+                    ):                       
                         self.command_parameters_user_input_objects[key].setCurrentIndex(
                             self.command_parameters_user_input_objects[key].findText(
                                 _fields[key]["value"]

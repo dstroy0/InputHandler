@@ -157,7 +157,7 @@ class MainWindow(
         # CommandParameters user input objects
         self.command_parameters_user_input_objects = {
             # line edit
-            "functionName": self.ui.commandParameters.dlg.functionName,
+            "returnFunctionName": self.ui.commandParameters.dlg.returnFunctionName,
             # line edit
             "commandString": self.ui.commandParameters.dlg.commandString,
             # read only label
@@ -277,7 +277,7 @@ class MainWindow(
         # This dict contains regexp strings and int limits for user input
         # the values are placeholder values and will change on user interaction
         cmd_dlg.validatorDict = {
-            "functionName": "^([a-zA-Z_])+$",
+            "returnFunctionName": "^([a-zA-Z_])+$",
             "commandString": "^([a-zA-Z_*])+$",
             "commandParentId": "^([0-9])+$",
             "commandId": "^([0-9])+$",

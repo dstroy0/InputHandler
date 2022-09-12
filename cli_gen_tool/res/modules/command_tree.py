@@ -84,7 +84,7 @@ class CommandTreeMethods(object):
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
-            return
+            return        
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
             dict_index + "," + dict_index + "," + command_parameters["commandString"]

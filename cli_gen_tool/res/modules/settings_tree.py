@@ -102,12 +102,6 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
-                        ]["is root command"] = True
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
-                        ]["root command"] = None
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
                         ]["parameters index"] = object_list[2]
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],

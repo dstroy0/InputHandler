@@ -427,12 +427,12 @@ class Ui_commandParametersDialog(object):
 
         self.gridLayout_2.addWidget(self.label_10, 10, 0, 1, 3)
 
-        self.functionName = QLineEdit(self.argumentsPane)
-        self.functionName.setObjectName(u"functionName")
-        self.functionName.setMinimumSize(QSize(0, 25))
-        self.functionName.setMaximumSize(QSize(250, 16777215))
+        self.returnFunctionName = QLineEdit(self.argumentsPane)
+        self.returnFunctionName.setObjectName(u"returnFunctionName")
+        self.returnFunctionName.setMinimumSize(QSize(0, 25))
+        self.returnFunctionName.setMaximumSize(QSize(250, 16777215))
 
-        self.gridLayout_2.addWidget(self.functionName, 10, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.returnFunctionName, 10, 3, 1, 1)
 
 
         self.gridLayout.addWidget(self.argumentsPane, 0, 1, 1, 1)

@@ -15,7 +15,6 @@ from __future__ import absolute_import
 import copy
 
 from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox
-from PySide6.QtCore import Qt
 from res.modules.logging_setup import Logger
 
 
@@ -226,10 +225,10 @@ class MainWindowButtons(object):
                 )
 
     # tab 2
-    # TODO
     def clicked_edit_tab_two(self):
-        print("clicked tab 2 edit")
-
+        MainWindowButtons.logger.info("edit command")
+        self.clicked_command_settings_menu_button_tab_two()
+    
     def clicked_new_cmd_button(self):
         if "(root command)" in self.ui.new_cmd_button.text():
             MainWindowButtons.logger.info(
@@ -257,7 +256,7 @@ class MainWindowButtons(object):
         print("clicked tab 2 delete")
 
     def clicked_command_settings_menu_button_tab_two(self):
-        MainWindowButtons.logger.info("clicked open command settings menu")
+        MainWindowButtons.logger.info("opened command settings menu")
         # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
         # selected items list (only one selection possible)

@@ -34,6 +34,7 @@ class dataModels(object):
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = [
         "functionName",
+        "returnFunctionName",
         "commandString",
         "commandLength",
         "parentId",
