@@ -25,7 +25,6 @@ var classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog =
     [ "commandString", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#adb87dab3ac9e47e608cb0d720efacae5", null ],
     [ "commandSubcommands", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#ab644b3610683e6e51c960988465573db", null ],
     [ "commandSubcommands_label", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a130325638dc75569133a26dbca546bc9", null ],
-    [ "functionName", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a87123b632054c79bba1fdf49b602ddee", null ],
     [ "gridLayout", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a21df1bfd600ce73cb858a70b5aa6693e", null ],
     [ "gridLayout_2", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a0b128fbbc2b66c357b907d8686aecbce", null ],
     [ "gridLayout_3", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a831cc10795a5daa6ff0b43f18d27fb5a", null ],
@@ -53,5 +52,6 @@ var classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog =
     [ "rem4", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a65764b90b75faa9ebd1472ec6e0758bc", null ],
     [ "rem5", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a6b03ada2f8e0ff89ee6588735e147323", null ],
     [ "rem6", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#aa176e6743df21210c78e2255cab824c4", null ],
-    [ "rem7", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a0ddabf1cf7052453b52c3d4c0b6178e1", null ]
+    [ "rem7", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a0ddabf1cf7052453b52c3d4c0b6178e1", null ],
+    [ "returnFunctionName", "df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a02c6303b17c448aa18c259e13b9f99d6", null ]
 ];
