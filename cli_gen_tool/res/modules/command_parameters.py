@@ -322,6 +322,10 @@ class CommandParametersMethods(object):
         
         self.ui.commandParameters.close()        
         
+        self.prompt_to_save = True
+        self.windowtitle_set = False
+        
+        
         self.update_code("parameters.h", validated_result["functionName"], True)                        
         self.update_code("functions.h", validated_result["functionName"], True)
         self.update_code("functions.cpp", validated_result["functionName"], True)
@@ -399,7 +403,7 @@ class CommandParametersMethods(object):
                     ):
                         self.command_parameters_user_input_objects[key].clear()
                         self.command_parameters_user_input_objects[key].setPlainText(
-                            _fields[key]["value"]
+                            str(_fields[key]["value"])
                         )
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]

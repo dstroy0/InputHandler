@@ -297,7 +297,7 @@ class MainWindowButtons(object):
 
             # if item is selected edit it
             if not _item_selected_is_root:
-                _sub = _cmdprm[_object_list[2]]
+                _sub = _cmdprm[_object_list[0]]
                 _arg_handling = "No arguments"
                 _return_function = ""
                 if _sub["commandArgumentHandling"] == "UI_ARG_HANDLING::one_type":

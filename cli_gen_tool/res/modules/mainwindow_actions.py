@@ -159,6 +159,7 @@ class MainWindowActions(object):
         file = QFile(self.session["opt"]["save_filename"])
         ret = self.write_json(self.cliOpt, file, True)
         self.prompt_to_save = False
+        self.windowtitle_set = False
         return ret
 
     def save_file_as(self):
@@ -228,6 +229,7 @@ class MainWindowActions(object):
             self.build_command_tree()
             self.display_initial_code_preview()
             self.prompt_to_save = False
+            self.windowtitle_set = False
 
     # TODO
     def gui_settings(self):

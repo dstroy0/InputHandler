@@ -58,6 +58,7 @@ class SettingsTreeMethods(object):
     ## called on combobox change
     def settings_tree_combo_box_index_changed(self, index):
         self.prompt_to_save = True
+        self.windowtitle_set = False
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
@@ -202,6 +203,7 @@ class SettingsTreeMethods(object):
     ## this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
         self.prompt_to_save = True
+        self.windowtitle_set = False
         if col != 3:
             return
         val = str(item.data(3, 0))

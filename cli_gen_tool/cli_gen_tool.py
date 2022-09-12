@@ -15,7 +15,16 @@ from __future__ import absolute_import
 import sys
 import json
 import qdarktheme
-from PySide6.QtCore import QEvent, QObject, QPoint, QSettings, Qt, QTimer, QDir
+from PySide6.QtCore import (
+    QEvent,
+    QObject,
+    QPoint,
+    QSettings,
+    Qt,
+    QTimer,
+    QDir,
+    QRegularExpression,
+)
 from PySide6.QtGui import QCursor, QIcon, QPixmap
 from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QSplashScreen, QStyle
 
@@ -188,7 +197,7 @@ class MainWindow(
         )
         # CommandParameters default field values
         inp_setup = self.command_parameters_input_field_settings
-        inp_setup["functionName"]["value"] = ""
+        inp_setup["returnFunctionName"]["value"] = ""
         inp_setup["commandString"]["value"] = ""
         inp_setup["commandLength"]["value"] = "0"
         inp_setup["parentId"]["value"] = 0
@@ -199,13 +208,13 @@ class MainWindow(
         inp_setup["commandArgumentHandling"]["value"] = "No arguments"
         inp_setup["commandMinArgs"]["value"] = 0
         inp_setup["commandMaxArgs"]["value"] = 0
-        inp_setup["commandArguments"]["value"] = ""
+        inp_setup["commandArguments"]["value"] = "UITYPE::NO_ARGS"
 
         self.default_settings_tree_values = {}
 
         # InputHandler builtin user interactable commands
         self.ih_builtins = ["listSettings", "listCommands"]
-        
+
         # code preview interaction
         self.user_resizing_code_preview_box = False
         self.init_mouse_pos = QPoint()
@@ -248,6 +257,7 @@ class MainWindow(
         self.ui.messageBoxQuestionIcon = self.get_icon(
             QStyle.StandardPixmap.SP_MessageBoxQuestion
         )
+        self.windowtitle_set = False
         # end MainWindow var
 
         # MainWindow actions
@@ -307,6 +317,22 @@ class MainWindow(
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         # event_type to avoid repetitive calls to .type() method; events are granular.
+        if self.windowtitle_set == False:
+            windowtitle = "InputHandler CLI generation tool "
+            if self.prompt_to_save == True:
+                windowtitle = windowtitle + " - *"
+            else:
+                windowtitle = windowtitle + " - "
+            if self.session["opt"]["save_filename"]:
+                regexp = QRegularExpression("[^\/]*$")
+                match = regexp.match(str(self.session["opt"]["save_filename"]))                
+                if match.hasMatch():
+                    windowtitle = windowtitle + str(match.captured(0))
+            else:
+                windowtitle = windowtitle + "untitled"
+            self.setWindowTitle(windowtitle)
+            self.windowtitle_set = True
+
         event_type = event.type()
         # mouse button click sentinel
         mouse_button = False
