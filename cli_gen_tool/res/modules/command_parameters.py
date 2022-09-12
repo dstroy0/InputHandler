@@ -372,19 +372,28 @@ class CommandParametersMethods(object):
                         self.command_parameters_user_input_objects[key].setText(
                             str(_fields[key]["value"])
                         )
-                    if isinstance(
+                    elif isinstance(
                         self.command_parameters_user_input_objects[key], QSpinBox
                     ):
                         self.command_parameters_user_input_objects[key].setValue(
                             int(_fields[key]["value"])
                         )
-                    if isinstance(
+                    elif isinstance(
                         self.command_parameters_user_input_objects[key], QComboBox
                     ):
+                        print(key)
+                        print(_fields[key]["value"])
                         self.command_parameters_user_input_objects[key].setCurrentIndex(
                             self.command_parameters_user_input_objects[key].findText(
                                 _fields[key]["value"]
                             )
+                        )                    
+                    elif isinstance(
+                        self.command_parameters_user_input_objects[key], QPlainTextEdit
+                    ):
+                        self.command_parameters_user_input_objects[key].clear()
+                        self.command_parameters_user_input_objects[key].setPlainText(
+                            _fields[key]["value"]
                         )
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]

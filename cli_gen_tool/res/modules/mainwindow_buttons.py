@@ -14,8 +14,8 @@ from __future__ import absolute_import
 
 import copy
 
-from PySide6.QtWidgets import QTableWidget, QComboBox
-
+from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox
+from PySide6.QtCore import Qt
 from res.modules.logging_setup import Logger
 
 
@@ -67,7 +67,7 @@ class MainWindowButtons(object):
     def command_menu_button_toggles(self):
         # method internal var
         # inputhandler builtin commands
-        _builtin_commands = ["listSettings", "listCommands"]
+        _builtin_commands = self.ih_builtins
         # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
         # selected items list (only one selection possible)
@@ -98,7 +98,7 @@ class MainWindowButtons(object):
                 # delete button
                 self.ui.delete_cmd_button.setEnabled(False)
                 # command settings menu button
-                self.ui.cmd_settings_menu_button.setEnabled(False)
+                self.ui.cmd_settings_menu_button.setEnabled(True)
                 return  # root tree item is selected, give user option to create new root command
 
             if _item_selected:  # something is selected
@@ -230,10 +230,11 @@ class MainWindowButtons(object):
     def clicked_edit_tab_two(self):
         print("clicked tab 2 edit")
 
-    # TODO
-    def clicked_new_cmd_button(self):        
+    def clicked_new_cmd_button(self):
         if "(root command)" in self.ui.new_cmd_button.text():
-            MainWindowButtons.logger.info("user clicked new command button with root context")                        
+            MainWindowButtons.logger.info(
+                "user clicked new command button with root context"
+            )
             self.ui.commandParameters.setWindowTitle("Root Command Parameters")
             fields = copy.deepcopy(self.command_parameters_input_field_settings)
             fields["parentId"]["value"] = 0
@@ -243,9 +244,11 @@ class MainWindowButtons(object):
             fields["commandDepth"]["value"] = 0
             fields["commandDepth"]["enabled"] = False
             self.commandparameters_set_fields(fields)
-            self.ui.commandParameters.exec()            
+            self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():
-            MainWindowButtons.logger.info("user clicked new command button with child context")            
+            MainWindowButtons.logger.info(
+                "user clicked new command button with child context"
+            )
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
             self.ui.commandParameters.exec()
 
@@ -255,7 +258,88 @@ class MainWindowButtons(object):
 
     def clicked_command_settings_menu_button_tab_two(self):
         MainWindowButtons.logger.info("clicked open command settings menu")
-        self.ui.commandParameters.exec()
+        # command_tree root item
+        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        # selected items list (only one selection possible)
+        _items = self.ui.command_tree.selectedItems()
+        # populated when selection is non-root and not NULL
+        _object_list = []
+        # if an item is selected, this will be a memory location, else it is false
+        _item_selected = False
+        # if the selected item is root, this is True
+        _item_selected_is_root = False
+        _builtin_commands = self.ih_builtins
+        _item_matched_builtin = False
+        _cmdprm = self.cliOpt["commands"]["parameters"]
+
+        # if the list is NOT empty (truthy)
+        if bool(_items):
+            # something on the command tree is selected
+            _item_selected = _items[0]
+            if _item_selected == _root:
+                _item_selected_is_root = True
+            else:
+                _table_widget = self.ui.command_tree.itemWidget(
+                    self.ui.command_tree.currentItem(), 0
+                )
+                _object_list = _item_selected.data(1, 0).split(",")
+                for (
+                    item
+                ) in (
+                    _builtin_commands
+                ):  # determine if the something selected is an InputHandler builtin
+                    if _object_list[2] == item:
+                        _item_matched_builtin = True
+                        # disable the reset button if the item selected is a builtin
+                        self.ui.commandParameters.dlg.buttonBox.button(
+                            QDialogButtonBox.Reset
+                        ).setEnabled(False)
+                        break
+
+            # if item is selected edit it
+            if not _item_selected_is_root:
+                _sub = _cmdprm[_object_list[2]]
+                _arg_handling = "No arguments"
+                _return_function = ""
+                if _sub["commandArgumentHandling"] == "UI_ARG_HANDLING::one_type":
+                    _arg_handling = "Single argument type"
+                    _return_function = _sub["functionName"]
+                elif _sub["commandArgumentHandling"] == "UI_ARG_HANDLING::type_arr":
+                    _arg_handling = "Argument type array"
+                    _return_function = _sub["functionName"]
+                fields = copy.deepcopy(self.command_parameters_input_field_settings)
+                fields["functionName"]["value"] = _return_function
+                fields["functionName"]["enabled"] = not _item_matched_builtin
+                fields["commandString"]["value"] = _sub["commandString"]
+                fields["commandString"]["enabled"] = not _item_matched_builtin
+                fields["commandLength"]["value"] = _sub["commandLength"]
+                fields["commandLength"]["enabled"] = not _item_matched_builtin
+                fields["parentId"]["value"] = _sub["parentId"]
+                fields["parentId"]["enabled"] = not _item_matched_builtin
+                fields["commandId"]["value"] = _sub["commandId"]
+                fields["commandId"]["enabled"] = not _item_matched_builtin
+                fields["commandHasWildcards"]["value"] = _sub["commandHasWildcards"]
+                fields["commandHasWildcards"]["enabled"] = not _item_matched_builtin
+                fields["commandDepth"]["value"] = _sub["commandDepth"]
+                fields["commandDepth"]["enabled"] = not _item_matched_builtin
+                fields["commandSubcommands"]["value"] = _sub["commandSubcommands"]
+                fields["commandSubcommands"]["enabled"] = not _item_matched_builtin
+                fields["commandArgumentHandling"]["value"] = _arg_handling
+                fields["commandArgumentHandling"]["enabled"] = not _item_matched_builtin
+                fields["commandMinArgs"]["value"] = _sub["commandMinArgs"]
+                fields["commandMinArgs"]["enabled"] = not _item_matched_builtin
+                fields["commandMaxArgs"]["value"] = _sub["commandMaxArgs"]
+                fields["commandMaxArgs"]["enabled"] = not _item_matched_builtin
+                fields["commandArguments"]["value"] = _sub["commandArguments"]
+                fields["commandArguments"]["enabled"] = not _item_matched_builtin
+                self.commandparameters_set_fields(fields)
+                self.ui.commandParameters.setWindowTitle(
+                    str(fields["commandString"]["value"]) + " Command Parameters"
+                )
+                self.ui.commandParameters.exec()
+            else:
+                # if item not selected
+                self.clicked_new_cmd_button()
 
 
 # end of file

@@ -203,6 +203,9 @@ class MainWindow(
 
         self.default_settings_tree_values = {}
 
+        # InputHandler builtin user interactable commands
+        self.ih_builtins = ["listSettings", "listCommands"]
+        
         # code preview interaction
         self.user_resizing_code_preview_box = False
         self.init_mouse_pos = QPoint()
