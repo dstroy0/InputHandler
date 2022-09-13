@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QGridLayout, QHeaderView,
     QLabel, QMainWindow, QMenu, QMenuBar,
     QPushButton, QSizePolicy, QTabWidget, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QTreeWidgetItem, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -62,8 +62,8 @@ class Ui_MainWindow(object):
         self.centralwidget.setMinimumSize(QSize(1420, 850))
         self.centralwidget.setMouseTracking(False)
         self.centralwidget.setLayoutDirection(Qt.LeftToRight)
-        self.verticalLayout = QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.gridLayout_3 = QGridLayout(self.centralwidget)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
         sizePolicy1.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
@@ -79,42 +79,37 @@ class Ui_MainWindow(object):
         self.ih_settings_tab.setMouseTracking(False)
         self.gridLayout = QGridLayout(self.ih_settings_tab)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.clear_setting_button = QPushButton(self.ih_settings_tab)
+        self.clear_setting_button.setObjectName(u"clear_setting_button")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.clear_setting_button.sizePolicy().hasHeightForWidth())
+        self.clear_setting_button.setSizePolicy(sizePolicy2)
+
+        self.gridLayout.addWidget(self.clear_setting_button, 2, 1, 1, 1)
+
+        self.codePreview_1 = QTreeWidget(self.ih_settings_tab)
+        __qtreewidgetitem = QTreeWidgetItem()
+        __qtreewidgetitem.setText(0, u"1");
+        self.codePreview_1.setHeaderItem(__qtreewidgetitem)
+        self.codePreview_1.setObjectName(u"codePreview_1")
+        sizePolicy1.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
+        self.codePreview_1.setSizePolicy(sizePolicy1)
+        self.codePreview_1.setMinimumSize(QSize(0, 200))
+        self.codePreview_1.setMouseTracking(False)
+        self.codePreview_1.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.codePreview_1.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.codePreview_1.setDragEnabled(False)
+
+        self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)
+
         self.tab_1_code_preview_label = QLabel(self.ih_settings_tab)
         self.tab_1_code_preview_label.setObjectName(u"tab_1_code_preview_label")
         self.tab_1_code_preview_label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.tab_1_code_preview_label, 0, 3, 1, 1)
-
-        self.settings_tree = QTreeWidget(self.ih_settings_tab)
-        __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
-        self.settings_tree.setHeaderItem(__qtreewidgetitem)
-        self.settings_tree.setObjectName(u"settings_tree")
-        sizePolicy1.setHeightForWidth(self.settings_tree.sizePolicy().hasHeightForWidth())
-        self.settings_tree.setSizePolicy(sizePolicy1)
-        self.settings_tree.setMinimumSize(QSize(800, 200))
-        self.settings_tree.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.settings_tree.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.settings_tree.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-
-        self.gridLayout.addWidget(self.settings_tree, 1, 0, 1, 3)
-
-        self.edit_setting_button = QPushButton(self.ih_settings_tab)
-        self.edit_setting_button.setObjectName(u"edit_setting_button")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.edit_setting_button.sizePolicy().hasHeightForWidth())
-        self.edit_setting_button.setSizePolicy(sizePolicy2)
-
-        self.gridLayout.addWidget(self.edit_setting_button, 2, 0, 1, 1)
-
-        self.clear_setting_button = QPushButton(self.ih_settings_tab)
-        self.clear_setting_button.setObjectName(u"clear_setting_button")
-        sizePolicy2.setHeightForWidth(self.clear_setting_button.sizePolicy().hasHeightForWidth())
-        self.clear_setting_button.setSizePolicy(sizePolicy2)
-
-        self.gridLayout.addWidget(self.clear_setting_button, 2, 1, 1, 1)
 
         self.default_setting_button = QPushButton(self.ih_settings_tab)
         self.default_setting_button.setObjectName(u"default_setting_button")
@@ -130,20 +125,27 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.tab_1_settings_table_label, 0, 0, 1, 3)
 
-        self.codePreview_1 = QTreeWidget(self.ih_settings_tab)
+        self.settings_tree = QTreeWidget(self.ih_settings_tab)
         __qtreewidgetitem1 = QTreeWidgetItem()
         __qtreewidgetitem1.setText(0, u"1");
-        self.codePreview_1.setHeaderItem(__qtreewidgetitem1)
-        self.codePreview_1.setObjectName(u"codePreview_1")
-        sizePolicy.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
-        self.codePreview_1.setSizePolicy(sizePolicy)
-        self.codePreview_1.setMinimumSize(QSize(600, 200))
-        self.codePreview_1.setMouseTracking(False)
-        self.codePreview_1.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.codePreview_1.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.settings_tree.setHeaderItem(__qtreewidgetitem1)
+        self.settings_tree.setObjectName(u"settings_tree")
+        sizePolicy1.setHeightForWidth(self.settings_tree.sizePolicy().hasHeightForWidth())
+        self.settings_tree.setSizePolicy(sizePolicy1)
+        self.settings_tree.setMinimumSize(QSize(800, 200))
+        self.settings_tree.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.settings_tree.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.settings_tree.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.settings_tree.setDragEnabled(False)
 
-        self.gridLayout.addWidget(self.codePreview_1, 1, 3, 2, 1)
+        self.gridLayout.addWidget(self.settings_tree, 1, 0, 1, 3)
+
+        self.edit_setting_button = QPushButton(self.ih_settings_tab)
+        self.edit_setting_button.setObjectName(u"edit_setting_button")
+        sizePolicy2.setHeightForWidth(self.edit_setting_button.sizePolicy().hasHeightForWidth())
+        self.edit_setting_button.setSizePolicy(sizePolicy2)
+
+        self.gridLayout.addWidget(self.edit_setting_button, 2, 0, 1, 1)
 
         self.tabWidget.addTab(self.ih_settings_tab, "")
         self.command_tab = QWidget()
@@ -196,8 +198,11 @@ class Ui_MainWindow(object):
         __qtreewidgetitem2.setText(0, u"1");
         self.command_tree.setHeaderItem(__qtreewidgetitem2)
         self.command_tree.setObjectName(u"command_tree")
-        sizePolicy1.setHeightForWidth(self.command_tree.sizePolicy().hasHeightForWidth())
-        self.command_tree.setSizePolicy(sizePolicy1)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.command_tree.sizePolicy().hasHeightForWidth())
+        self.command_tree.setSizePolicy(sizePolicy3)
         self.command_tree.setMinimumSize(QSize(800, 200))
         self.command_tree.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.command_tree.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
@@ -210,9 +215,9 @@ class Ui_MainWindow(object):
         __qtreewidgetitem3.setText(0, u"1");
         self.codePreview_2.setHeaderItem(__qtreewidgetitem3)
         self.codePreview_2.setObjectName(u"codePreview_2")
-        sizePolicy1.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
-        self.codePreview_2.setSizePolicy(sizePolicy1)
-        self.codePreview_2.setMinimumSize(QSize(600, 200))
+        sizePolicy3.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
+        self.codePreview_2.setSizePolicy(sizePolicy3)
+        self.codePreview_2.setMinimumSize(QSize(0, 200))
         self.codePreview_2.setMouseTracking(False)
         self.codePreview_2.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
@@ -220,7 +225,7 @@ class Ui_MainWindow(object):
 
         self.tabWidget.addTab(self.command_tab, "")
 
-        self.verticalLayout.addWidget(self.tabWidget)
+        self.gridLayout_3.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -304,11 +309,11 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.actionOpen_Log_History.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
 #endif // QT_CONFIG(shortcut)
-        self.tab_1_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
-        self.edit_setting_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.clear_setting_button.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
+        self.tab_1_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.default_setting_button.setText(QCoreApplication.translate("MainWindow", u"Default", None))
         self.tab_1_settings_table_label.setText(QCoreApplication.translate("MainWindow", u"Settings               ", None))
+        self.edit_setting_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"  InputHandler Settings  ", None))
 #if QT_CONFIG(tooltip)
         self.cmd_settings_menu_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
