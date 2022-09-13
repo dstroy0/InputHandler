@@ -54,12 +54,35 @@ class Ui_Preferences(object):
 
         self.gridLayout.addWidget(self.browse_for_config, 0, 2, 1, 1)
 
+        self.label_6 = QLabel(Preferences)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+        self.label_6.setMinimumSize(QSize(120, 0))
+        self.label_6.setMaximumSize(QSize(120, 25))
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
+
+        self.output_path_input = QLineEdit(Preferences)
+        self.output_path_input.setObjectName(u"output_path_input")
+        sizePolicy1.setHeightForWidth(self.output_path_input.sizePolicy().hasHeightForWidth())
+        self.output_path_input.setSizePolicy(sizePolicy1)
+        self.output_path_input.setMinimumSize(QSize(0, 0))
+
+        self.gridLayout.addWidget(self.output_path_input, 1, 1, 1, 1)
+
+        self.browse_for_output_dir = QPushButton(Preferences)
+        self.browse_for_output_dir.setObjectName(u"browse_for_output_dir")
+
+        self.gridLayout.addWidget(self.browse_for_output_dir, 1, 2, 1, 1)
+
         self.label_2 = QLabel(Preferences)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setMaximumSize(QSize(16777215, 25))
         self.label_2.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 2, 0, 1, 1)
 
         self.sessionHistoryLogLevelComboBox = QComboBox(Preferences)
         self.sessionHistoryLogLevelComboBox.addItem("")
@@ -69,14 +92,14 @@ class Ui_Preferences(object):
         self.sessionHistoryLogLevelComboBox.addItem("")
         self.sessionHistoryLogLevelComboBox.setObjectName(u"sessionHistoryLogLevelComboBox")
 
-        self.gridLayout.addWidget(self.sessionHistoryLogLevelComboBox, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.sessionHistoryLogLevelComboBox, 2, 1, 1, 1)
 
         self.label_3 = QLabel(Preferences)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setMaximumSize(QSize(16777215, 25))
         self.label_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout.addWidget(self.label_3, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_3, 3, 0, 1, 1)
 
         self.fileLogLevelComboBox = QComboBox(Preferences)
         self.fileLogLevelComboBox.addItem("")
@@ -86,14 +109,14 @@ class Ui_Preferences(object):
         self.fileLogLevelComboBox.addItem("")
         self.fileLogLevelComboBox.setObjectName(u"fileLogLevelComboBox")
 
-        self.gridLayout.addWidget(self.fileLogLevelComboBox, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.fileLogLevelComboBox, 3, 1, 1, 1)
 
         self.label_4 = QLabel(Preferences)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setMaximumSize(QSize(16777215, 25))
         self.label_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_4, 4, 0, 1, 1)
 
         self.streamLogLevelComboBox = QComboBox(Preferences)
         self.streamLogLevelComboBox.addItem("")
@@ -103,14 +126,14 @@ class Ui_Preferences(object):
         self.streamLogLevelComboBox.addItem("")
         self.streamLogLevelComboBox.setObjectName(u"streamLogLevelComboBox")
 
-        self.gridLayout.addWidget(self.streamLogLevelComboBox, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.streamLogLevelComboBox, 4, 1, 1, 1)
 
         self.label_5 = QLabel(Preferences)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setMaximumSize(QSize(16777215, 25))
         self.label_5.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout.addWidget(self.label_5, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_5, 5, 0, 1, 1)
 
         self.globalLogLevelComboBox = QComboBox(Preferences)
         self.globalLogLevelComboBox.addItem("")
@@ -120,7 +143,7 @@ class Ui_Preferences(object):
         self.globalLogLevelComboBox.addItem("")
         self.globalLogLevelComboBox.setObjectName(u"globalLogLevelComboBox")
 
-        self.gridLayout.addWidget(self.globalLogLevelComboBox, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.globalLogLevelComboBox, 5, 1, 1, 1)
 
         self.buttonBox = QDialogButtonBox(Preferences)
         self.buttonBox.setObjectName(u"buttonBox")
@@ -129,7 +152,7 @@ class Ui_Preferences(object):
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
 
-        self.gridLayout.addWidget(self.buttonBox, 5, 0, 1, 3)
+        self.gridLayout.addWidget(self.buttonBox, 6, 0, 1, 3)
 
 
         self.retranslateUi(Preferences)
@@ -148,7 +171,11 @@ class Ui_Preferences(object):
     def retranslateUi(self, Preferences):
         Preferences.setWindowTitle(QCoreApplication.translate("Preferences", u"Preferences", None))
         self.label.setText(QCoreApplication.translate("Preferences", u"Input Config File Path", None))
+        self.config_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
         self.browse_for_config.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
+        self.label_6.setText(QCoreApplication.translate("Preferences", u"Output Directory", None))
+        self.output_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
+        self.browse_for_output_dir.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
         self.label_2.setText(QCoreApplication.translate("Preferences", u"Session history log level", None))
         self.sessionHistoryLogLevelComboBox.setItemText(0, QCoreApplication.translate("Preferences", u"DEBUG", u"10"))
         self.sessionHistoryLogLevelComboBox.setItemText(1, QCoreApplication.translate("Preferences", u"INFO", u"20"))

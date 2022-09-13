@@ -28,6 +28,12 @@ class dataModels(object):
             "recent_files": [],
             "input_config_file_path": "",
             "output_dir": "",
+            "log_levels": {
+                "session": "",
+                "file": "",
+                "stream": "",
+                "root": "",
+            },
         },
     }
 
