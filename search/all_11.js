@@ -30,7 +30,7 @@ var searchData=
   ['rem_5ffrom_5farg_5fcsv_27',['rem_from_arg_csv',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ae7e26cf44aa5e452333e78d081fd89d4',1,'modules::command_parameters::CommandParametersMethods']]],
   ['rem_5fqtreewidgetitem_28',['rem_qtreewidgetitem',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#a8783f55734bf4d0db6b6ff012752856d',1,'modules::command_tree::CommandTreeMethods']]],
   ['rem_5fsettings_5ftree_5ftable_5frow_29',['rem_settings_tree_table_row',['../de/d9f/classmodules_1_1settings__tree__table__methods_1_1_settings_tree_table_methods.html#a8fbacb3e65b878cd6b499c6a97aef3cc',1,'modules::settings_tree_table_methods::SettingsTreeTableMethods']]],
-  ['remote_5f_30',['remote_',['../dc/d05/_lo_ra_receiver_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;LoRaReceiver.ino'],['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;BLE_UART.ino'],['../d8/da2/_r_f24_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;RF24.ino']]],
+  ['remote_5f_30',['remote_',['../d8/da2/_r_f24_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;RF24.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;LoRaReceiver.ino'],['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a4ccd4b5efb057e89fef228a13b32e26e',1,'remote_():&#160;BLE_UART.ino']]],
   ['remote_5fdevice_31',['remote_device',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;BLE_UART.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;LoRaReceiver.ino'],['../d8/da2/_r_f24_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;RF24.ino']]],
   ['reset_5fpreferences_32',['reset_preferences',['../dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html#a00f5fdfc58504567ddef174caa4cddb1',1,'modules::preferences::PreferencesMethods']]],
   ['resize_5fcode_5fpreview_5ftree_5fitem_33',['resize_code_preview_tree_item',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a978659bc52b12d4c536cbaf74c14525d',1,'modules::code_preview::CodePreview']]],
@@ -46,6 +46,8 @@ var searchData=
   ['rmc_43',['RMC',['../da/dff/_n_m_e_asentenceparam_8h.html#ad8a2a575b4b4e85c4d798bf69350551d',1,'NMEAsentenceparam.h']]],
   ['role_44',['role',['../d8/da2/_r_f24_8ino.html#ab5f21c46a16c4dded8a29ef78a7c5944',1,'RF24.ino']]],
   ['root_45',['root',['../de/d8a/group___user_input.html#gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de',1,'InputHandler.h']]],
-  ['row_5fcount_46',['row_count',['../dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html#a16baec02d9bf4a7ab07d59dfb8b6a230',1,'modules::command_tree::CommandParametersTableViewModel']]],
-  ['rowcount_47',['rowCount',['../dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html#a9e6b730a896a95cef583e9ca864533e2',1,'modules::command_tree::CommandParametersTableViewModel']]]
+  ['root_5flog_5fhandler_46',['root_log_handler',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#ae620a94cdc4cb726659a1f0122986d59',1,'modules::logging_setup::Logger']]],
+  ['root_5flog_5flevel_47',['root_log_level',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#ac8fa1c3f1cb6808611a5dbb707676ca0',1,'modules::logging_setup::Logger']]],
+  ['row_5fcount_48',['row_count',['../dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html#a16baec02d9bf4a7ab07d59dfb8b6a230',1,'modules::command_tree::CommandParametersTableViewModel']]],
+  ['rowcount_49',['rowCount',['../dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html#a9e6b730a896a95cef583e9ca864533e2',1,'modules::command_tree::CommandParametersTableViewModel']]]
 ];
