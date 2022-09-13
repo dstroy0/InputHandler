@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>158</height>
+    <height>212</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -68,7 +68,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Window log level</string>
+      <string>Session history log level</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -76,7 +76,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QComboBox" name="windowLogLevelComboBox">
+    <widget class="QComboBox" name="sessionHistoryLogLevelComboBox">
      <property name="currentText">
       <string>DEBUG</string>
      </property>
@@ -161,7 +161,109 @@
      </item>
     </widget>
    </item>
-   <item row="3" column="0" colspan="3">
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Stream log level</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="streamLogLevelComboBox">
+     <property name="currentText">
+      <string>DEBUG</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <item>
+      <property name="text">
+       <string comment="10">DEBUG</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="20">INFO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="30">WARNING</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="40">ERROR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="50">CRITICAL</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Global log level</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="globalLogLevelComboBox">
+     <property name="currentText">
+      <string>DEBUG</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <item>
+      <property name="text">
+       <string comment="10">DEBUG</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="20">INFO</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="30">WARNING</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="40">ERROR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="50">CRITICAL</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="minimumSize">
       <size>

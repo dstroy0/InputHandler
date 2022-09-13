@@ -37,11 +37,12 @@ class Logger(object):
         40: "ERROR",
         50: "CRITICAL",
     }
-    file_log_level = logging.INFO  # file log level
-    stream_log_level = file_log_level  # terminal log level
+    file_log_level = logging.DEBUG  # file log level
+    stream_log_level = logging.INFO  # terminal log level
     session_history_log_level = (
         logging.INFO
     )  # session history widget log level (bound to F1)
+    root_log_level = logging.INFO
 
     # log filesize
     # kb = 2^10 == 1024 bytes
@@ -54,13 +55,16 @@ class Logger(object):
     _log_formatter = logging.Formatter(_log_format)
 
     # log filehandler
-    log_file_handler = ""
+    file_log_handler = ""
 
     # stream handler
-    stream_handler = ""
+    stream_log_handler = ""
 
     # session handler
-    session_handler = ""
+    session_log_handler = ""
+
+    # root
+    root_log_handler = ""
 
     ## the constructor
     def __init__(self):
@@ -72,14 +76,14 @@ class Logger(object):
         if not os.path.isdir(lib_root_path + Logger._log_path):
             os.mkdir(lib_root_path + Logger._log_path)
         # log filehandler
-        Logger.log_file_handler = RotatingFileHandler(
+        Logger.file_log_handler = RotatingFileHandler(
             lib_root_path + Logger._log_path + Logger._log_filename,
             "a",
             10 * Logger._MB,
             backupCount=5,
         )
-        Logger.log_file_handler.setLevel(Logger.file_log_level)
-        Logger.log_file_handler.setFormatter(Logger._log_formatter)
+        Logger.file_log_handler.setLevel(Logger.file_log_level)
+        Logger.file_log_handler.setFormatter(Logger._log_formatter)
 
     ## external modules are children of MainWindow's logging instance
     def get_child_logger(parent, name):
@@ -87,25 +91,26 @@ class Logger(object):
 
     ## returns the log_file_handler
     def get_file_handler():
-        return Logger.log_file_handler
+        return Logger.file_log_handler
 
     ## returns the stream_handler
     def get_stream_handler():
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(Logger.stream_log_level)
         stream_handler.setFormatter(Logger._log_formatter)
-        Logger.stream_handler = stream_handler
+        Logger.stream_log_handler = stream_handler
         return stream_handler
 
     ## returns the root logger
     def get_logger(self, name):
         log_handler = QPlainTextEditLogger(self)
-        Logger.session_handler = log_handler
+        Logger.session_log_handler = log_handler
         logger = logging.getLogger(name)
         logger.setLevel(Logger.session_history_log_level)
         logger.addHandler(Logger.get_file_handler())
         logger.addHandler(Logger.get_stream_handler())
         logger.addHandler(log_handler)
+        Logger.root_log_handler = logger
         return logger
 
 
