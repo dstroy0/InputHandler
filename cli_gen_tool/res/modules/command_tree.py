@@ -25,8 +25,8 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         self.h_labels = ["Setting", "Value"]
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
-        print(self.keys)
-        print(self.values)        
+        # set table length to input parameters, this will grow the table if we ever add any new configuration items
+        # to the commandparameters data model
         self.row_count = len(dataModels.command_parameters_dict_keys_list)
 
     def columnCount(self, parent=QModelIndex()) -> int:
@@ -37,7 +37,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
-            if index.column() == 0:                
+            if index.column() == 0:
                 return self.keys[index.row()]
             if index.column() == 1:
                 return self.values[index.row()]
@@ -47,6 +47,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             if orientation == Qt.Horizontal:
                 return str(self.h_labels[section])
             if orientation == Qt.Vertical:
+                # label rows starting at 1
                 return str(section + 1)
 
 
@@ -83,7 +84,7 @@ class CommandTreeMethods(object):
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
-            return        
+            return
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
             dict_index + "," + dict_index + "," + command_parameters["commandString"]
