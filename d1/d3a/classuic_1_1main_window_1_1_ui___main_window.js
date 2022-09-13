@@ -24,6 +24,7 @@ var classuic_1_1main_window_1_1_ui___main_window =
     [ "edit_setting_button", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a8ea57e404974d79f9405917d6d86b39d", null ],
     [ "gridLayout", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a58bda4f0632108a3e8d55ac6330950db", null ],
     [ "gridLayout_2", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a3bb7ce2e282872f94a645b31ac202c87", null ],
+    [ "gridLayout_3", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a37964930c0c3ef16c20b27697616beb2", null ],
     [ "ih_settings_tab", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a417e062244eeb96baef1edddc9500e68", null ],
     [ "menubar", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#acbdae9d7c0e9b1c6cc625a73b93d01ea", null ],
     [ "menuFile", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a7b25f8bab62b52516fdf3e01c4bd2050", null ],
@@ -36,6 +37,5 @@ var classuic_1_1main_window_1_1_ui___main_window =
     [ "tab_1_settings_table_label", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#afb72684c1630410cce1bc335fcc6e83b", null ],
     [ "tab_2_code_preview_label", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a1c3f1620285dd9d8076b9b5812a8af43", null ],
     [ "tab_2_command_tree_label", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a2233cc916bc130c12f81c6be6980e092", null ],
-    [ "tabWidget", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#acafbff1592fc5c14f437ac1e880075dc", null ],
-    [ "verticalLayout", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#a06869ea01577d13d72254e087a4a9ad5", null ]
+    [ "tabWidget", "d1/d3a/classuic_1_1main_window_1_1_ui___main_window.html#acafbff1592fc5c14f437ac1e880075dc", null ]
 ];
