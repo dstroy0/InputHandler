@@ -78,6 +78,7 @@ class dataModels(object):
     ## listCommands parameters list
     LCcmdParam = [
         "listCommands",
+        "",
         "listCommands",
         "12",
         "0",
@@ -98,6 +99,7 @@ class dataModels(object):
     ## listSettings parameters list
     LScmdParam = [
         "listSettings",
+        "",
         "listSettings",
         "12",
         "0",

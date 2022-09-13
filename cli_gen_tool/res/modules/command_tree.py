@@ -16,7 +16,7 @@ from PySide6.QtWidgets import QTableView, QTreeWidgetItem, QHeaderView
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 from res.modules.logging_setup import Logger
-
+from res.modules.data_models import dataModels
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
 class CommandParametersTableViewModel(QAbstractTableModel):
@@ -25,10 +25,9 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         self.h_labels = ["Setting", "Value"]
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
-        self.gen_table()
-
-    def gen_table(self):
-        self.row_count = 12
+        print(self.keys)
+        print(self.values)        
+        self.row_count = len(dataModels.command_parameters_dict_keys_list)
 
     def columnCount(self, parent=QModelIndex()) -> int:
         return 2
@@ -38,17 +37,17 @@ class CommandParametersTableViewModel(QAbstractTableModel):
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
-            if index.column() == 0:
-                return self.keys[index.row() - 1]
+            if index.column() == 0:                
+                return self.keys[index.row()]
             if index.column() == 1:
-                return self.values[index.row() - 1]
+                return self.values[index.row()]
 
     def headerData(self, section, orientation, role):
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return str(self.h_labels[section])
             if orientation == Qt.Vertical:
-                return str(section)
+                return str(section + 1)
 
 
 ## self.ui.command_tree methods
