@@ -152,19 +152,12 @@ class CommandTreeMethods(object):
         table_view.resizeColumnsToContents()
         command_tree.setItemWidget(tree_item, 0, table_view)
 
-    ## adds items to self.ui.command_tree for display
-    def build_command_tree(self):
-        command_tree = self.ui.command_tree
-        command_tree.setHeaderLabels(["Command Tree", ""])
-        command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        command_tree.setColumnCount(2)
-        command_tree.setColumnHidden(1, 1)  # dict positional data
-        self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(
-            self.ui.command_tree, ["Root", ""]
-        )
-
-        for item in self.cliOpt["commands"]["index"]:
-            children = len(item["indices of children"])
+    def _build_command_tree(self):        
+        for item in self.cliOpt["commands"]["index"]:            
+            if bool(self.cliOpt["commands"]["index"][item]["indices of children"]):
+                children = len(self.cliOpt["commands"]["index"][item]["indices of children"])
+            else:
+                children = 0
             if children == 0:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
@@ -186,6 +179,28 @@ class CommandTreeMethods(object):
                         parent,
                         child,
                     )
+    
+    def rebuild_command_tree(self):
+        command_tree = self.ui.command_tree
+        command_tree.clear()
+        self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(
+            command_tree, ["Root", ""]
+        )
+        self._build_command_tree()
+        self.command_menu_button_toggles()
+        
+    ## adds items to self.ui.command_tree for display
+    def build_command_tree(self):
+        command_tree = self.ui.command_tree
+        command_tree.setHeaderLabels(["Command Tree", ""])
+        command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        command_tree.setColumnCount(2)
+        command_tree.setColumnHidden(1, 1)  # dict positional data
+        self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(
+            self.ui.command_tree, ["Root", ""]
+        )
+
+        self._build_command_tree()
         self.command_menu_button_toggles()
 
 

@@ -19,7 +19,7 @@ from res.modules.logging_setup import Logger
 
 
 # mainwindow button methods class
-class MainWindowButtons(object):
+class MainWindowButtons(object):        
     def __init__(self):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
@@ -227,10 +227,11 @@ class MainWindowButtons(object):
     # tab 2
     def clicked_edit_tab_two(self):
         MainWindowButtons.logger.info("edit command")
-        self.clicked_command_settings_menu_button_tab_two()
+        self.clicked_command_settings_menu_button_tab_two(True)
     
     def clicked_new_cmd_button(self):
         if "(root command)" in self.ui.new_cmd_button.text():
+            self.selected_command_is_root = True
             MainWindowButtons.logger.info(
                 "user clicked new command button with root context"
             )
@@ -245,6 +246,7 @@ class MainWindowButtons(object):
             self.commandparameters_set_fields(fields)
             self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():
+            self.selected_command_is_root = False
             MainWindowButtons.logger.info(
                 "user clicked new command button with child context"
             )
@@ -255,7 +257,7 @@ class MainWindowButtons(object):
     def clicked_delete_tab_two(self):
         print("clicked tab 2 delete")
 
-    def clicked_command_settings_menu_button_tab_two(self):
+    def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")
         # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
@@ -276,7 +278,7 @@ class MainWindowButtons(object):
             # something on the command tree is selected
             _item_selected = _items[0]
             if _item_selected == _root:
-                _item_selected_is_root = True
+                _item_selected_is_root = True                
             else:
                 _table_widget = self.ui.command_tree.itemWidget(
                     self.ui.command_tree.currentItem(), 0
@@ -297,6 +299,10 @@ class MainWindowButtons(object):
 
             # if item is selected edit it
             if not _item_selected_is_root:
+                if _root.indexOfChild(_item_selected) != -1:                    
+                    self.selected_command_is_root = True
+                else:
+                    self.selected_command_is_root = False                
                 _sub = _cmdprm[_object_list[0]]
                 _arg_handling = "No arguments"
                 _return_function = ""
@@ -335,6 +341,7 @@ class MainWindowButtons(object):
                 self.ui.commandParameters.setWindowTitle(
                     str(fields["commandString"]["value"]) + " Command Parameters"
                 )
+                self.selected_command = _item_selected
                 self.ui.commandParameters.exec()
             else:
                 # if item not selected

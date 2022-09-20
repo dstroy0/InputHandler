@@ -192,6 +192,8 @@ class MainWindow(
         }
 
         # MainWindow var
+        self.selected_command = None # currently selected editable command or None
+        self.selected_command_is_root = False # root commands one level below the root tree item
         self.command_parameters_input_field_settings = (
             dataModels.command_parameters_input_field_settings_dict
         )
