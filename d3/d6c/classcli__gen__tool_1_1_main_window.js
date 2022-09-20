@@ -24,6 +24,8 @@ var classcli__gen__tool_1_1_main_window =
     [ "preferences", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a19857da3f67c2b4186e7f97009806b3c", null ],
     [ "prompt_to_save", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a40f82289fa3eca9effbb7cb0f38dabe3", null ],
     [ "qcursor", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a7c6a7816202411342ed6954dbb92aad8", null ],
+    [ "selected_command", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a51a6083b6a90d1a278a11f57a371aef3", null ],
+    [ "selected_command_is_root", "d3/d6c/classcli__gen__tool_1_1_main_window.html#aad1d2e331d169a24b45cec6f035a834a", null ],
     [ "session", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a0353fc779da7e2c358f9c61271f5365e", null ],
     [ "settings", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a2e237d3e824ca8bc6fc764e71d92c407", null ],
     [ "ui", "d3/d6c/classcli__gen__tool_1_1_main_window.html#a44b11f6c7d8b61b9554eadc464d9ac70", null ],
