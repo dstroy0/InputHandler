@@ -253,9 +253,8 @@ class MainWindowButtons(object):
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
             self.ui.commandParameters.exec()
 
-    def clicked_delete_tab_two(self) -> None:
-        print("clicked tab 2 delete")
-        MainWindowButtons.logger.info("opened command settings menu")
+    def clicked_delete_tab_two(self) -> None:        
+        MainWindowButtons.logger.info("clicked tab two delete")
         # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
         # selected items list (only one selection possible)
@@ -295,9 +294,8 @@ class MainWindowButtons(object):
                     ]["QComboBox"]
                     # there's only one item in the builtin but the key isn't known here.
                     for item in _cmb:
-                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
-                self.rem_qtreewidgetitem(_object_list)
-                self._build_command_tree()
+                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))                
+                self.rem_command(_object_list)                
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")

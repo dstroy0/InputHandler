@@ -103,16 +103,21 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
-                        ]["parameters index"] = object_list[2]
+                        ]["index key"] = object_list[2]
+                        self.cliOpt["commands"]["index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["root command parameters index"] = "listCommands"
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listCommands",
                         )
-                        self.cliOpt["var"]["num_commands"] += 1
+                        self.cliOpt["var"]["num_commands"] = str(
+                            int(self.cliOpt["var"]["num_commands"]) + 1
+                        )
                     elif (
                         combobox.currentText() == "Disabled"
                         and object_list[2] == "listCommands"
-                    ):
+                    ):                        
                         self.rem_command(object_list)
 
                     if (
@@ -132,7 +137,10 @@ class SettingsTreeMethods(object):
 
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["num_commands"]
-                        ]["parameters index"] = object_list[2]
+                        ]["index key"] = object_list[2]
+                        self.cliOpt["commands"]["index"][
+                            self.cliOpt["var"]["num_commands"]
+                        ]["root command parameters index"] = "listSettings"                        
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listSettings",
@@ -145,9 +153,9 @@ class SettingsTreeMethods(object):
                         and object_list[2] == "listSettings"
                     ):
                         self.rem_command(object_list)
-                self.update_code("functions.h", object_list[2], True)
-                self.update_code("functions.cpp", object_list[2], True)
-                self.update_code("parameters.h", object_list[2], True)
+            self.update_code("functions.h", object_list[2], True)
+            self.update_code("functions.cpp", object_list[2], True)
+            self.update_code("parameters.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
