@@ -137,7 +137,7 @@ class SettingsTreeMethods(object):
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listSettings",
                         )
-                        self.cliOpt["var"]["num_commands"] += 1
+                        self.cliOpt["var"]["num_commands"] = str(int(self.cliOpt["var"]["num_commands"]) + 1)
                     elif (
                         combobox.currentText() == "Disabled"
                         and object_list[2] == "listSettings"

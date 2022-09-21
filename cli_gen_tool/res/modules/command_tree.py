@@ -74,7 +74,9 @@ class CommandTreeMethods(object):
                     break
         if match == True:
             if int(self.cliOpt["var"]["num_commands"]) > 0:
-                self.cliOpt["var"]["num_commands"] -= 1
+                self.cliOpt["var"]["num_commands"] = str(
+                    int(self.cliOpt["var"]["num_commands"]) - 1
+                )
             del item
             del self.cliOpt["commands"]["parameters"][object_list[2]]
             self.rem_qtreewidgetitem(object_list)
@@ -82,8 +84,11 @@ class CommandTreeMethods(object):
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
-        if dict_index == None:
-            CommandTreeMethods.logger.info("no index, unable to add item to tree")
+        if dict_index == None or dict_index == "":
+            if dict_index == None:
+                CommandTreeMethods.logger.info("no index, unable to add item to tree")
+            if dict_index == "":
+                CommandTreeMethods.logger.info("user deleted a command from the tree")
             return
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
@@ -152,10 +157,13 @@ class CommandTreeMethods(object):
         table_view.resizeColumnsToContents()
         command_tree.setItemWidget(tree_item, 0, table_view)
 
-    def _build_command_tree(self):        
-        for item in self.cliOpt["commands"]["index"]:            
+    ## private method used by public methods rebuild_command_tree and build_command_tree
+    def _build_command_tree(self):
+        for item in self.cliOpt["commands"]["index"]:
             if bool(self.cliOpt["commands"]["index"][item]["indices of children"]):
-                children = len(self.cliOpt["commands"]["index"][item]["indices of children"])
+                children = len(
+                    self.cliOpt["commands"]["index"][item]["indices of children"]
+                )
             else:
                 children = 0
             if children == 0:
@@ -179,16 +187,19 @@ class CommandTreeMethods(object):
                         parent,
                         child,
                     )
-    
+        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        _root.setExpanded(True)
+    ## rebuilds the command tree from scratch
     def rebuild_command_tree(self):
         command_tree = self.ui.command_tree
+        # empty entire tree of items
         command_tree.clear()
         self.cliOpt["commands"]["QTreeWidgetItem"]["root"] = QTreeWidgetItem(
             command_tree, ["Root", ""]
         )
         self._build_command_tree()
         self.command_menu_button_toggles()
-        
+
     ## adds items to self.ui.command_tree for display
     def build_command_tree(self):
         command_tree = self.ui.command_tree

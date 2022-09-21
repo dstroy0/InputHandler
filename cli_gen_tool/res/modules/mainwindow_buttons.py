@@ -254,8 +254,50 @@ class MainWindowButtons(object):
             self.ui.commandParameters.exec()
 
     # TODO
-    def clicked_delete_tab_two(self):
+    def clicked_delete_tab_two(self) -> None:
         print("clicked tab 2 delete")
+        MainWindowButtons.logger.info("opened command settings menu")
+        # command_tree root item
+        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        # selected items list (only one selection possible)
+        _items = self.ui.command_tree.selectedItems()
+        # populated when selection is non-root and not NULL
+        _object_list = []
+        # if an item is selected, this will be a memory location, else it is false
+        _item_selected = False
+        # if the selected item is root, this is True
+        #_item_selected_is_root = False
+        _builtin_commands = self.ih_builtins
+        _item_matched_builtin = False
+        _cmdprm = self.cliOpt["commands"]["parameters"]
+
+        # if the list is NOT empty (truthy)
+        if bool(_items):
+            # something on the command tree is selected
+            _item_selected = _items[0]
+            if _item_selected == _root:
+                #_item_selected_is_root = True                
+                MainWindowButtons.logger.warning("cannot delete tree root")
+                return
+            else:
+                _object_list = _item_selected.data(1, 0).split(",")
+                for (
+                    item
+                ) in (
+                    _builtin_commands
+                ):  # determine if the something selected is an InputHandler builtin
+                    if _object_list[2] == item:
+                        _item_matched_builtin = True                        
+                        break
+                if _item_matched_builtin:                    
+                    self.cliOpt["builtin methods"]["var"][_object_list[2]] = False
+                    _cmb = self.cliOpt["builtin methods"]["tree"]["items"][_object_list[2]]["QComboBox"]                    
+                    # there's only one item in the builtin but the key isn't known here.
+                    for item in _cmb:
+                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
+                self.rem_qtreewidgetitem(_object_list)
+                self._build_command_tree()
+                
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")
