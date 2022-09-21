@@ -303,11 +303,13 @@ class CommandParametersMethods(object):
         validated_result = {}
         validated_result = validate_result[1]
         if self.selected_command != None:
-            _object_list = self.selected_command.data(1, 0).split(",")            
+            _object_list = self.selected_command.data(1, 0).split(",")
             prm_idx_struct = self.cliOpt["commands"]["index"][_object_list[0]]
             prm_idx = prm_idx_struct["index key"]
-            self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(validated_result) 
-            self.rebuild_command_tree()           
+            self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
+                validated_result
+            )
+            self.rebuild_command_tree()
         else:
             # get array index
             cmd_idx = str(self.cliOpt["var"]["num_commands"])
@@ -317,26 +319,29 @@ class CommandParametersMethods(object):
             if self.selected_command_is_root:
                 p_idx["root command parameters index"] = cmd_idx
             p_idx["index key"] = cmd_idx
-            self.cliOpt["commands"]["index"].update({p_idx["index key"]:p_idx})                        
-        
+            self.cliOpt["commands"]["index"].update({p_idx["index key"]: p_idx})
+
             CommandParametersMethods.logger.debug(
                 json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
             )
-            self.add_qtreewidgetitem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"],p_idx["index key"])
+            self.add_qtreewidgetitem(
+                self.cliOpt["commands"]["QTreeWidgetItem"]["root"], p_idx["index key"]
+            )
 
             # command parameters were accepted, so increment the array index
-            self.cliOpt["var"]["num_commands"] = str(int(self.cliOpt["var"]["num_commands"]) + 1)        
-        
-        self.ui.commandParameters.close()        
-        
+            self.cliOpt["var"]["num_commands"] = str(
+                int(self.cliOpt["var"]["num_commands"]) + 1
+            )
+
+        self.ui.commandParameters.close()
+
         self.prompt_to_save = True
         self.windowtitle_set = False
-        
-        
-        self.update_code("parameters.h", validated_result["functionName"], True)                        
+
+        self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
         self.update_code("functions.cpp", validated_result["functionName"], True)
-        self.update_code("setup.cpp", validated_result["functionName"], True)        
+        self.update_code("setup.cpp", validated_result["functionName"], True)
         self.update_code("README.md", validated_result["functionName"], True)
 
     ## command parameters dialog buttonbox reset value
@@ -399,12 +404,12 @@ class CommandParametersMethods(object):
                         )
                     elif isinstance(
                         self.command_parameters_user_input_objects[key], QComboBox
-                    ):                       
+                    ):
                         self.command_parameters_user_input_objects[key].setCurrentIndex(
                             self.command_parameters_user_input_objects[key].findText(
                                 _fields[key]["value"]
                             )
-                        )                    
+                        )
                     elif isinstance(
                         self.command_parameters_user_input_objects[key], QPlainTextEdit
                     ):

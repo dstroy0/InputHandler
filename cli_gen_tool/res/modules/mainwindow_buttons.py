@@ -19,7 +19,7 @@ from res.modules.logging_setup import Logger
 
 
 # mainwindow button methods class
-class MainWindowButtons(object):        
+class MainWindowButtons(object):
     def __init__(self):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
@@ -228,7 +228,7 @@ class MainWindowButtons(object):
     def clicked_edit_tab_two(self):
         MainWindowButtons.logger.info("edit command")
         self.clicked_command_settings_menu_button_tab_two(True)
-    
+
     def clicked_new_cmd_button(self):
         if "(root command)" in self.ui.new_cmd_button.text():
             self.selected_command_is_root = True
@@ -253,7 +253,6 @@ class MainWindowButtons(object):
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
             self.ui.commandParameters.exec()
 
-    # TODO
     def clicked_delete_tab_two(self) -> None:
         print("clicked tab 2 delete")
         MainWindowButtons.logger.info("opened command settings menu")
@@ -266,7 +265,7 @@ class MainWindowButtons(object):
         # if an item is selected, this will be a memory location, else it is false
         _item_selected = False
         # if the selected item is root, this is True
-        #_item_selected_is_root = False
+        # _item_selected_is_root = False
         _builtin_commands = self.ih_builtins
         _item_matched_builtin = False
         _cmdprm = self.cliOpt["commands"]["parameters"]
@@ -276,7 +275,7 @@ class MainWindowButtons(object):
             # something on the command tree is selected
             _item_selected = _items[0]
             if _item_selected == _root:
-                #_item_selected_is_root = True                
+                # _item_selected_is_root = True
                 MainWindowButtons.logger.warning("cannot delete tree root")
                 return
             else:
@@ -287,17 +286,18 @@ class MainWindowButtons(object):
                     _builtin_commands
                 ):  # determine if the something selected is an InputHandler builtin
                     if _object_list[2] == item:
-                        _item_matched_builtin = True                        
+                        _item_matched_builtin = True
                         break
-                if _item_matched_builtin:                    
+                if _item_matched_builtin:
                     self.cliOpt["builtin methods"]["var"][_object_list[2]] = False
-                    _cmb = self.cliOpt["builtin methods"]["tree"]["items"][_object_list[2]]["QComboBox"]                    
+                    _cmb = self.cliOpt["builtin methods"]["tree"]["items"][
+                        _object_list[2]
+                    ]["QComboBox"]
                     # there's only one item in the builtin but the key isn't known here.
                     for item in _cmb:
                         _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
                 self.rem_qtreewidgetitem(_object_list)
                 self._build_command_tree()
-                
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")
@@ -320,7 +320,7 @@ class MainWindowButtons(object):
             # something on the command tree is selected
             _item_selected = _items[0]
             if _item_selected == _root:
-                _item_selected_is_root = True                
+                _item_selected_is_root = True
             else:
                 _table_widget = self.ui.command_tree.itemWidget(
                     self.ui.command_tree.currentItem(), 0
@@ -341,10 +341,10 @@ class MainWindowButtons(object):
 
             # if item is selected edit it
             if not _item_selected_is_root:
-                if _root.indexOfChild(_item_selected) != -1:                    
+                if _root.indexOfChild(_item_selected) != -1:
                     self.selected_command_is_root = True
                 else:
-                    self.selected_command_is_root = False                
+                    self.selected_command_is_root = False
                 _sub = _cmdprm[_object_list[0]]
                 _arg_handling = "No arguments"
                 _return_function = ""

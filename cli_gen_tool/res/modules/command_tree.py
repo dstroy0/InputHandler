@@ -189,6 +189,7 @@ class CommandTreeMethods(object):
                     )
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
         _root.setExpanded(True)
+
     ## rebuilds the command tree from scratch
     def rebuild_command_tree(self):
         command_tree = self.ui.command_tree

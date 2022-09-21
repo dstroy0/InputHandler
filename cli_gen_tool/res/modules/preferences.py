@@ -121,7 +121,7 @@ class PreferencesMethods(object):
         cmb = self.preferences.dlg.globalLogLevelComboBox
         log_level = Logger.root_log_level
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
-        
+
         # actions setup
         self.preferences.dlg.browse_for_config.clicked.connect(self.get_config_file)
         self.preferences.dlg.buttonBox.accepted.connect(self.save_preferences)

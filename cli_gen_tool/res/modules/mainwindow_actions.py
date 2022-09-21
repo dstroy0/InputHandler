@@ -160,7 +160,7 @@ class MainWindowActions(object):
         ret = self.write_json(self.cliOpt, file, True)
         self.prompt_to_save = False
         self.windowtitle_set = False
-        self.set_main_window_title()        
+        self.set_main_window_title()
         return ret
 
     def save_file_as(self):
@@ -176,7 +176,7 @@ class MainWindowActions(object):
         self.session["opt"]["save_filename"] = fqname
         MainWindowActions.logger.info("save CLI settings file as: " + str(fqname))
         file = QFile(fqname)
-        ret = self.write_json(self.cliOpt, file, True)        
+        ret = self.write_json(self.cliOpt, file, True)
         return ret
 
     def load_cli_gen_tool_json(self, path):
