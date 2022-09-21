@@ -77,8 +77,7 @@ class CommandTreeMethods(object):
             if int(self.cliOpt["var"]["num_commands"]) > 0:
                 self.cliOpt["var"]["num_commands"] = str(
                     int(self.cliOpt["var"]["num_commands"]) - 1
-                )            
-            #del item
+                )                        
             self.rem_qtreewidgetitem(object_list)
             self.command_menu_button_toggles()
 
@@ -122,8 +121,7 @@ class CommandTreeMethods(object):
         # return child
         return self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
 
-    ## takes the command out of the tree and scrub it from the data model
-    # TODO remove orphaned children if a parent item is removed
+    ## takes the command out of the tree and scrub it from the data model    
     def rem_qtreewidgetitem(self, dict_pos):
         _builtin_commands = self.ih_builtins
         for (
@@ -144,9 +142,16 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos], 0
         )
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]        
-        tree_item.removeChild(self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos])
+        #tree_item.removeChild(self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos])
+        # remove children
+        # TODO scrub children from data model
+        children = []
+        for child in range(tree_item.childCount()):        
+            children.append(tree_item.child(child))
+        for child in children:
+            tree_item.removeChild(child)        
         self.cliOpt["commands"]["QTreeWidgetItem"]["root"].removeChild(tree_item)
-
+        
         # scrub the data model
         if pos in self.cliOpt["commands"]["QTableView"]["models"]:
             del self.cliOpt["commands"]["QTableView"]["models"][pos]
