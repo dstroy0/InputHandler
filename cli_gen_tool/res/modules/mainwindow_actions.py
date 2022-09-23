@@ -149,7 +149,7 @@ class MainWindowActions(object):
     def save_file(self):
         MainWindowActions.logger.info("save CLI settings file")
         MainWindowActions.logger.debug("set tool version var in cliOpt")
-        self.cliOpt["var"]["tool_version"] = self.version
+        self.cliOpt["var"]["tool version"] = self.version
         if (
             self.session["opt"]["save_filename"] == ""
             or self.session["opt"]["save_filename"] == None

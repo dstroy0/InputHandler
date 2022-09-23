@@ -59,7 +59,7 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
-    ## search the db for the command and remove it if exists, decrement `num_commands` (total num unique cmd param)
+    ## search the db for the command and remove it if exists, decrement `number of commands` (total num unique cmd param)
     # TODO remove orphaned children
     def rem_command(self, object_list):
         match = False
@@ -67,16 +67,16 @@ class CommandTreeMethods(object):
             for index in self.cliOpt["commands"]["index"]:
                 if (
                     self.cliOpt["commands"]["index"][index][
-                        "root command parameters index"
+                        "root index key"
                     ]
                     == item
                 ):
                     match = True
                     break
         if match == True:
-            if int(self.cliOpt["var"]["num_commands"]) > 0:
-                self.cliOpt["var"]["num_commands"] = str(
-                    int(self.cliOpt["var"]["num_commands"]) - 1
+            if int(self.cliOpt["var"]["number of commands"]) > 0:
+                self.cliOpt["var"]["number of commands"] = str(
+                    int(self.cliOpt["var"]["number of commands"]) - 1
                 )                        
             self.rem_qtreewidgetitem(object_list)
             self.command_menu_button_toggles()
@@ -164,7 +164,7 @@ class CommandTreeMethods(object):
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
             del self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos]
         for item in self.cliOpt["commands"]["index"]:
-            if self.cliOpt["commands"]["index"][item]["index key"] == pos:
+            if self.cliOpt["commands"]["index"][item]["parameters key"] == pos:
                 CommandTreeMethods.logger.info(
                     str(
                         "removing command index struct "
@@ -196,9 +196,9 @@ class CommandTreeMethods(object):
     ## private method used by public methods rebuild_command_tree and build_command_tree
     def _build_command_tree(self):
         for item in self.cliOpt["commands"]["index"]:
-            if bool(self.cliOpt["commands"]["index"][item]["indices of children"]):
+            if bool(self.cliOpt["commands"]["index"][item]["child index key list"]):
                 children = len(
-                    self.cliOpt["commands"]["index"][item]["indices of children"]
+                    self.cliOpt["commands"]["index"][item]["child index key list"]
                 )
             else:
                 children = 0
@@ -206,7 +206,7 @@ class CommandTreeMethods(object):
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                     self.cliOpt["commands"]["index"][item][
-                        "root command parameters index"
+                        "root index key"
                     ],
                 )
             else:
@@ -214,11 +214,11 @@ class CommandTreeMethods(object):
                 parent = self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                     self.cliOpt["commands"]["index"][item][
-                        "root command parameters index"
+                        "root index key"
                     ],
                 )
                 # command children
-                for child in item["indices of children"]:
+                for child in item["child index key list"]:
                     self.add_qtreewidgetitem(
                         parent,
                         child,

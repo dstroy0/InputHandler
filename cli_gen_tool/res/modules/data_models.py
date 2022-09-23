@@ -21,7 +21,7 @@ class dataModels(object):
     ## This is used to create the session json.
     default_session_model = {
         "type": "session",
-        "tool_version": str(version),
+        "tool version": str(version),
         "opt": {
             "save_filename": None,
             "log_filename": None,
@@ -117,24 +117,24 @@ class dataModels(object):
         "listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))
     }
 
-    ## child information dict
-    child_index_struct = {
-        "child command parameters index": "",
-        "depends on": {},
-    }
-
     ## This dict can is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
-        # key of this struct in cliopt_model["commands"]["index"]
-        "index key": "",
-        "root command parameters index": "",
-        "indices of children": {},
+        # key to this command's parameters
+        "parameters key": "",
+        # key to this commands root index
+        "root index key": "",
+        # key(s) to child indices
+        "child index key list": [],
     }
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
-        "var": {"num_commands": 0, "tool_version": str(version)},
+        "var": {
+            "primary id key": 0,
+            "number of commands": 0,
+            "tool version": str(version),
+        },
         "commands": {
             "index": {},
             "parameters": {},
@@ -144,7 +144,7 @@ class dataModels(object):
             },
         },
         "config": {
-            "file_lines": [],
+            "file lines": [],
             "var": {
                 "library settings": {
                     "UI_MAX_COMMANDS_IN_TREE": 0,

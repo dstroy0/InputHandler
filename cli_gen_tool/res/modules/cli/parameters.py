@@ -98,11 +98,11 @@ class cliParameters(object):
         parameters_code_string = ""
         cliParameters.logger.debug("generating parameters")
         for index in self.cliOpt["commands"]["index"]:
-            key = self.cliOpt["commands"]["index"][index]["index key"]           
+            key = self.cliOpt["commands"]["index"][index]["parameters key"]           
             # unnested parameters
             if (
                 key in self.cliOpt["commands"]["parameters"]
-                and bool(self.cliOpt["commands"]["index"][index]["indices of children"])
+                and bool(self.cliOpt["commands"]["index"][index]["child index key list"])
                 == False
             ):
                 parameters_code_string += self.ret_unnested_param(
@@ -111,33 +111,33 @@ class cliParameters(object):
                 cliParameters.logger.debug("unnested param generated")
             elif (
                 key in self.cliOpt["commands"]["parameters"]
-                and bool(self.cliOpt["commands"]["index"][index]["indices of children"])
+                and bool(self.cliOpt["commands"]["index"][index]["child index key list"])
                 == True
             ):                
                 # nested parameters
                 for item in self.cliOpt["commands"]["index"][index][
-                    "indices of children"
+                    "child index key list"
                 ]:
                     parameters_code_string += self.ret_unnested_param(
-                        self.cliOpt["commands"]["parameters"][item["index key"]],
+                        self.cliOpt["commands"]["parameters"][item["parameters key"]],
                         False,
                     )
                 num_children = len(
-                    self.cliOpt["commands"]["index"][index]["indices of children"]
+                    self.cliOpt["commands"]["index"][index]["child index key list"]
                 )
                 nested_children_string = ""
                 for i in range(num_children):
                     if i < num_children:
                         nested_children_string += self.ret_nested_child(
                             self.self.cliOpt["commands"]["parameters"][
-                                item["index key"]
+                                item["parameters key"]
                             ],
                             True,
                         )
                     else:
                         nested_children_string += self.ret_nested_child(
                             self.self.cliOpt["commands"]["parameters"][
-                                item["index key"]
+                                item["parameters key"]
                             ],
                             False,
                         )
@@ -147,7 +147,7 @@ class cliParameters(object):
                     num_children,
                     nested_children_string,
                     self.cliOpt["commands"]["parameters"][
-                        self.cliOpt["commands"]["index"][index]["index key"]
+                        self.cliOpt["commands"]["index"][index]["parameters key"]
                     ],
                 )
 

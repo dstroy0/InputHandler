@@ -19,7 +19,7 @@ class cliConfig(object):
     def config_h(self, item_string, place_cursor=False):
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
             "config"
-        ]["file_lines"]
+        ]["file lines"]
         cfg_dict = self.cliOpt["config"]["tree"]["items"]
         # the contents at each key represents a config.h file line
         for key in cfg_dict:

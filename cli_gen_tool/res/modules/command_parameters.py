@@ -302,35 +302,38 @@ class CommandParametersMethods(object):
             return
         validated_result = {}
         validated_result = validate_result[1]
-        if self.selected_command != None:
+        if self.selected_command != None: # existing command
             _object_list = self.selected_command.data(1, 0).split(",")
             prm_idx_struct = self.cliOpt["commands"]["index"][_object_list[0]]
-            prm_idx = prm_idx_struct["index key"]
+            prm_idx = prm_idx_struct["parameters key"]
             self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
                 validated_result
             )
             self.rebuild_command_tree()
-        else:
+        else: # new command being added
             # get array index
-            cmd_idx = str(self.cliOpt["var"]["num_commands"])
+            cmd_idx = str(self.cliOpt["var"]["primary id key"])
             # make dict from defined keys
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
             p_idx = copy.deepcopy(dataModels.parameters_index_struct)
             if self.selected_command_is_root:
-                p_idx["root command parameters index"] = cmd_idx
-            p_idx["index key"] = cmd_idx
-            self.cliOpt["commands"]["index"].update({p_idx["index key"]: p_idx})
+                p_idx["root index key"] = cmd_idx
+            p_idx["parameters key"] = cmd_idx
+            self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
 
             CommandParametersMethods.logger.debug(
                 json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
             )
             self.add_qtreewidgetitem(
-                self.cliOpt["commands"]["QTreeWidgetItem"]["root"], p_idx["index key"]
+                self.cliOpt["commands"]["QTreeWidgetItem"]["root"], p_idx["parameters key"]
             )
 
             # command parameters were accepted, so increment the array index
-            self.cliOpt["var"]["num_commands"] = str(
-                int(self.cliOpt["var"]["num_commands"]) + 1
+            self.cliOpt["var"]["primary id key"] = str(
+                int(self.cliOpt["var"]["primary id key"]) + 1
+            )
+            self.cliOpt["var"]["number of commands"] = str(
+                int(self.cliOpt["var"]["number of commands"]) + 1
             )
 
         self.ui.commandParameters.close()

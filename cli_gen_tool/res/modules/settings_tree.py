@@ -96,23 +96,26 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"].update(
                             {
-                                self.cliOpt["var"]["num_commands"]: copy.deepcopy(
+                                self.cliOpt["var"]["primary id key"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
                         self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
-                        ]["index key"] = object_list[2]
+                            self.cliOpt["var"]["primary id key"]
+                        ]["parameters key"] = object_list[2]
                         self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
-                        ]["root command parameters index"] = "listCommands"
+                            self.cliOpt["var"]["primary id key"]
+                        ]["root index key"] = "listCommands"
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listCommands",
                         )
-                        self.cliOpt["var"]["num_commands"] = str(
-                            int(self.cliOpt["var"]["num_commands"]) + 1
+                        self.cliOpt["var"]["primary id key"] = str(
+                            int(self.cliOpt["var"]["primary id key"]) + 1
+                        )
+                        self.cliOpt["var"]["number of commands"] = str(
+                            int(self.cliOpt["var"]["number of commands"]) + 1
                         )
                     elif (
                         combobox.currentText() == "Disabled"
@@ -129,24 +132,27 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"].update(
                             {
-                                self.cliOpt["var"]["num_commands"]: copy.deepcopy(
+                                self.cliOpt["var"]["primary id key"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
 
                         self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
-                        ]["index key"] = object_list[2]
+                            self.cliOpt["var"]["primary id key"]
+                        ]["parameters key"] = object_list[2]
                         self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["num_commands"]
-                        ]["root command parameters index"] = "listSettings"                        
+                            self.cliOpt["var"]["primary id key"]
+                        ]["root index key"] = "listSettings"                        
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listSettings",
                         )
-                        self.cliOpt["var"]["num_commands"] = str(
-                            int(self.cliOpt["var"]["num_commands"]) + 1
+                        self.cliOpt["var"]["primary id key"] = str(
+                            int(self.cliOpt["var"]["primary id key"]) + 1
+                        )
+                        self.cliOpt["var"]["number of commands"] = str(
+                            int(self.cliOpt["var"]["number of commands"]) + 1
                         )
                     elif (
                         combobox.currentText() == "Disabled"
