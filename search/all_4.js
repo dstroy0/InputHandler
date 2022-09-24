@@ -18,12 +18,11 @@ var searchData=
   ['delimiter_5flens_15',['delimiter_lens',['../dc/da2/struct_input_process_delimiter_sequences.html#ad4472bb6f406e04734b561e8c708928d',1,'InputProcessDelimiterSequences']]],
   ['delimiter_5fsequences_16',['delimiter_sequences',['../dc/da2/struct_input_process_delimiter_sequences.html#a0b48e3457377cb18702fca3cabc2dc92',1,'InputProcessDelimiterSequences']]],
   ['depth_17',['depth',['../db/d11/struct_command_parameters.html#a4efe018e9847be42c96abc933c8497ef',1,'CommandParameters']]],
-  ['dict_5ffrom_5fcsv_5fargs_18',['dict_from_csv_args',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a9ecd6e94b64ae72bc7db3773021042a0',1,'modules::command_parameters::CommandParametersMethods']]],
-  ['display_5finitial_5fcode_5fpreview_19',['display_initial_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a11051a7f0b6b26fa8b01609836dbb44e',1,'modules::code_preview::CodePreview']]],
-  ['display_5fmodels_2epy_20',['display_models.py',['../d3/d98/display__models_8py.html',1,'']]],
-  ['displaymodels_21',['displayModels',['../db/dfa/classmodules_1_1display__models_1_1display_models.html',1,'modules::display_models']]],
-  ['do_5fbefore_5fapp_5fclose_22',['do_before_app_close',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a915f9f83211ad379aa6caeda6dd0f358',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['docfs_23',['docfs',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#a7af93fdb4569b16922065e2714480d2d',1,'modules::cli::filestrings::CLIfilestrings']]],
-  ['dpt_24',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]],
-  ['drag_5fresize_5fqsize_25',['drag_resize_qsize',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0',1,'modules::code_preview::CodePreview']]]
+  ['display_5finitial_5fcode_5fpreview_18',['display_initial_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a11051a7f0b6b26fa8b01609836dbb44e',1,'modules::code_preview::CodePreview']]],
+  ['display_5fmodels_2epy_19',['display_models.py',['../d3/d98/display__models_8py.html',1,'']]],
+  ['displaymodels_20',['displayModels',['../db/dfa/classmodules_1_1display__models_1_1display_models.html',1,'modules::display_models']]],
+  ['do_5fbefore_5fapp_5fclose_21',['do_before_app_close',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a915f9f83211ad379aa6caeda6dd0f358',1,'modules::mainwindow_actions::MainWindowActions']]],
+  ['docfs_22',['docfs',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#a7af93fdb4569b16922065e2714480d2d',1,'modules::cli::filestrings::CLIfilestrings']]],
+  ['dpt_23',['DPT',['../da/dff/_n_m_e_asentenceparam_8h.html#af459aad899af73560e47b413d674f5d4',1,'NMEAsentenceparam.h']]],
+  ['drag_5fresize_5fqsize_24',['drag_resize_qsize',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#aea266e20869b2cf2cbff128eedf4e4b0',1,'modules::code_preview::CodePreview']]]
 ];
