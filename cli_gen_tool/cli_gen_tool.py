@@ -199,20 +199,7 @@ class MainWindow(
         self.command_parameters_input_field_settings = (
             dataModels.command_parameters_input_field_settings_dict
         )
-        # CommandParameters default field values
-        inp_setup = self.command_parameters_input_field_settings
-        inp_setup["returnFunctionName"]["value"] = ""
-        inp_setup["commandString"]["value"] = ""
-        inp_setup["commandLength"]["value"] = "0"
-        inp_setup["parentId"]["value"] = 0
-        inp_setup["commandId"]["value"] = 0
-        inp_setup["commandHasWildcards"]["value"] = False
-        inp_setup["commandDepth"]["value"] = 0
-        inp_setup["commandSubcommands"]["value"] = 0
-        inp_setup["commandArgumentHandling"]["value"] = "No arguments"
-        inp_setup["commandMinArgs"]["value"] = 0
-        inp_setup["commandMaxArgs"]["value"] = 0
-        inp_setup["commandArguments"]["value"] = "{UITYPE::NO_ARGS}"
+        self.set_commandparameters_field_defaults()
 
         # 
         self.default_settings_tree_values = {}
@@ -322,7 +309,9 @@ class MainWindow(
 
     # visual indication to user of the current working file
     def set_main_window_title(self):
-        if self.windowtitle_set == False:
+        if self.windowtitle_set:
+            return
+        else:
             windowtitle = "InputHandler CLI generation tool "
             if self.prompt_to_save == True:
                 windowtitle = windowtitle + " - *"

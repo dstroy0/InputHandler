@@ -291,3 +291,18 @@ class displayModels(object):
             },
         },
     }
+    _command_table_tooltip_list = [
+        "functionName is the name of the function internal to the cli, it is a combination of your command string and this function's unique id.",
+        "returnFunctionName is blank unless your command has arguments; it is the name of the function that you copy into your code to do things with the arguments you collect for that function.",
+        "commandString is the string of characters that triggers the execution of designated command when received and processed.",
+        "commandLength is the total number of characters in the command.",
+        "parentId is this command's parent ID.",
+        "commandId is this command's ID.",
+        "commandHasWildcards is a boolean indicator of whether or not this command has wildcard characters in it.",
+        "commandDepth is this command's depth in the command tree.",
+        "commandSubcommands is the number of subcommands this command will have, regardless of their depth in the command tree.",
+        "commandArgumentHandling is the main indicator of how this command will handle incoming arguments.",
+        "commandMinArgs is the MINIMUM number of arguments you can send this command to trigger it.",
+        "commandMaxArgs is the MAXIMUM number of arguments you can send this command before it will stop triggering.",
+        "commandArguments is the array of argument types this command expects.",
+    ]
