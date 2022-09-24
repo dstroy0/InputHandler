@@ -54,10 +54,8 @@ class CommandParametersMethods(object):
         return QRegularExpressionValidator(exp)
 
     ## generates a dict from csv arguments in the command parameters dialog
-    def dict_from_csv_args(self):
-        args_dict = {}
-        args_list = []
-        arg_num_list = []
+    def list_from_csv_args(self):        
+        args_list = []        
         csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
         regexp = QRegularExpression('("(?:[^"]|")*"|[^,"\n\r]*)(,|\r?\n|\r)')
         csv_pos = 0
@@ -69,13 +67,11 @@ class CommandParametersMethods(object):
                 if (
                     match.captured().upper().strip(",")
                 ) in CommandParametersMethods.command_arg_types_list:
-                    arg_num_list.append(i)
-                    i = i + 1
-                    args_list.append(match.captured().upper().strip(","))
+                    args_list.append(i)
+                    i = i + 1                    
             else:
-                break
-        args_dict = dict(zip(arg_num_list, args_list[:-1]))
-        return args_dict
+                break        
+        return args_list
 
     ## all buttons related to adding/removing arguments from the command parameters dialog
     def csv_button(self):
@@ -122,28 +118,25 @@ class CommandParametersMethods(object):
 
     ## simple user input validation
     def validate_command_parameters(self):
-        error_list = []
-        cmd_dlg = self.ui.commandParameters.dlg
+        error_list = []        
         settings_to_validate = dict.fromkeys(
             CommandParametersMethods.command_parameters_dict_keys_list, None
         )
-        settings_to_validate["functionName"] = cmd_dlg.commandString.text()
-        settings_to_validate["commandString"] = cmd_dlg.commandString.text()
-        settings_to_validate["commandLength"] = len(
-            settings_to_validate["commandString"]
-        )
-        settings_to_validate["parentId"] = cmd_dlg.commandParentId.text()
-        settings_to_validate["commandId"] = cmd_dlg.commandId.text()
+        settings_to_validate["returnFunctionName"] = self.command_parameters_user_input_objects["returnFunctionName"].text()
+        settings_to_validate["commandString"] = self.command_parameters_user_input_objects["commandString"].text()
+        settings_to_validate["commandLength"] = str(len(settings_to_validate["commandString"]))
+        settings_to_validate["parentId"] = self.command_parameters_user_input_objects["parentId"].text()
+        settings_to_validate["commandId"] = self.command_parameters_user_input_objects["commandId"].text()
         settings_to_validate[
             "commandHasWildcards"
-        ] = cmd_dlg.commandHasWildcards.isChecked()
-        settings_to_validate["commandDepth"] = cmd_dlg.commandDepth.text()
-        settings_to_validate["commandSubcommands"] = cmd_dlg.commandSubcommands.text()
+        ] = self.command_parameters_user_input_objects["commandHasWildcards"].isChecked()
+        settings_to_validate["commandDepth"] = self.command_parameters_user_input_objects["commandDepth"].text()
+        settings_to_validate["commandSubcommands"] = self.command_parameters_user_input_objects["commandSubcommands"].text()
         settings_to_validate[
             "commandArgumentHandling"
-        ] = cmd_dlg.commandArgumentHandling.currentIndex()
-        settings_to_validate["commandMinArgs"] = cmd_dlg.commandMinArgs.text()
-        settings_to_validate["commandMaxArgs"] = cmd_dlg.commandMaxArgs.text()
+        ] = self.command_parameters_user_input_objects["commandArgumentHandling"].currentIndex()
+        settings_to_validate["commandMinArgs"] = self.command_parameters_user_input_objects["commandMinArgs"].text()
+        settings_to_validate["commandMaxArgs"] = self.command_parameters_user_input_objects["commandMaxArgs"].text()
         # err is the error sentinel
         err = False
 
@@ -179,14 +172,12 @@ class CommandParametersMethods(object):
                 "'Subcommands'; Command cannot have more than 255 subcommands"
             )
             err = True
-        arg_handling_idx = int(settings_to_validate["commandArgumentHandling"])
-        if arg_handling_idx == 0:
-            settings_to_validate["commandArguments"] = {0: "NO_ARGS"}
-        elif arg_handling_idx == 1:
-            # single argument
-            tmp = self.dict_from_csv_args()
-            if tmp == {} or tmp["0"] == "":
-                tmp["0"] = ""
+        arg_handling_idx = settings_to_validate["commandArgumentHandling"]
+        tmp = self.list_from_csv_args()
+        if arg_handling_idx == 1:
+            # single argument            
+            if not bool(tmp) or tmp[0] == "":
+                tmp[0] = ""
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
@@ -196,7 +187,7 @@ class CommandParametersMethods(object):
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
 
-            settings_to_validate["commandArguments"] = {0: tmp["0"]}
+            settings_to_validate["commandArguments"] = "{UITYPE::" + str(tmp[0]) + "}"
         elif arg_handling_idx == 2:
             # argument array
             tmp = self.dict_from_csv_args()
@@ -302,6 +293,7 @@ class CommandParametersMethods(object):
             return
         validated_result = {}
         validated_result = validate_result[1]
+        print(validated_result)
         if self.selected_command != None: # existing command
             _object_list = self.selected_command.data(1, 0).split(",")
             prm_idx_struct = self.cliOpt["commands"]["index"][_object_list[0]]
@@ -369,8 +361,11 @@ class CommandParametersMethods(object):
         cmd_dlg = self.ui.commandParameters.dlg
         if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
             cmd_dlg.argumentsPane.setEnabled(True)
+            self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
+            self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText("Enter your argument types in order, separated by a comma.")
         else:
             cmd_dlg.argumentsPane.setEnabled(False)
+            self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlainText("{UITYPE::NO_ARGS}")
 
     def commandparameters_set_fields(self, _fields: dict) -> None:
         if not bool(_fields):

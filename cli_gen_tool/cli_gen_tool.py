@@ -162,6 +162,8 @@ class MainWindow(
         self.ui.commandParameters.dlg = Ui_commandParametersDialog()
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
+        self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
+        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText("Enter your argument types in order, separated by a comma.")
 
         # CommandParameters user input objects
         self.command_parameters_user_input_objects = {
@@ -210,8 +212,9 @@ class MainWindow(
         inp_setup["commandArgumentHandling"]["value"] = "No arguments"
         inp_setup["commandMinArgs"]["value"] = 0
         inp_setup["commandMaxArgs"]["value"] = 0
-        inp_setup["commandArguments"]["value"] = "UITYPE::NO_ARGS"
+        inp_setup["commandArguments"]["value"] = "{UITYPE::NO_ARGS}"
 
+        # 
         self.default_settings_tree_values = {}
 
         # InputHandler builtin user interactable commands

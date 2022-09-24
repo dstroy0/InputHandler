@@ -34,7 +34,7 @@ class SettingsTreeMethods(object):
     def __init__(self):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
-        SettingsTreeMethods._tree = displayModels._tree
+        SettingsTreeMethods._tree = displayModels._settings_tree_display
 
     ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):
@@ -62,17 +62,25 @@ class SettingsTreeMethods(object):
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
+        _tt = displayModels._settings_tree_display[object_list[0]][object_list[2]]["tooltip"]
         if object_list[0] == "builtin methods":
+            _twi = self.cliOpt["builtin methods"]["tree"]["items"][object_list[2]][
+                "QTreeWidgetItem"
+            ][object_list[1]]
             if index == 1:
                 self.cliOpt[object_list[0]]["var"][object_list[2]] = True
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " enabled"
                 )
+                for col in range(self.ui.settings_tree.columnCount()):
+                    _twi.setToolTip(col, _tt[1])
             else:
                 self.cliOpt[object_list[0]]["var"][object_list[2]] = False
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
+                for col in range(self.ui.settings_tree.columnCount()):
+                    _twi.setToolTip(col, _tt[0])
 
             self.update_code("setup.h", object_list[2], True)
             if object_list[2] == "outputToStream":
@@ -120,7 +128,7 @@ class SettingsTreeMethods(object):
                     elif (
                         combobox.currentText() == "Disabled"
                         and object_list[2] == "listCommands"
-                    ):                        
+                    ):
                         self.rem_command(object_list)
 
                     if (
@@ -143,7 +151,7 @@ class SettingsTreeMethods(object):
                         ]["parameters key"] = object_list[2]
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["root index key"] = "listSettings"                        
+                        ]["root index key"] = "listSettings"
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listSettings",
@@ -164,6 +172,9 @@ class SettingsTreeMethods(object):
             self.update_code("parameters.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
+            _twi = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+                "QTreeWidgetItem"
+            ][object_list[1]]
             combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
                 "QComboBox"
             ][object_list[1]]
@@ -176,6 +187,8 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     str(sub_dict["2"].strip("\n")) + " enabled"
                 )
+                for col in range(self.ui.settings_tree.columnCount()):
+                    _twi.setToolTip(col, _tt[1])
             elif (
                 self.cliOpt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
                     object_list[1]
@@ -187,6 +200,8 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     str(sub_dict["2"].strip("\n")) + " disabled"
                 )
+                for col in range(self.ui.settings_tree.columnCount()):
+                    _twi.setToolTip(col, _tt[0])
             SettingsTreeMethods.logger.debug(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
                     object_list[0], object_list[1]
@@ -231,7 +246,8 @@ class SettingsTreeMethods(object):
         # dict position is 3 items
         if len(object_list) < 2:
             return
-
+        if object_list[0] == "builtin methods":
+            return
         object_list[1] = int(str(object_list[1]))
 
         # process output
@@ -339,8 +355,11 @@ class SettingsTreeMethods(object):
         _twi.setData(4, 0, dict_pos)
         _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
         if var_tooltip != "" and var_tooltip != None:
-            _twi.setToolTip(3, var_tooltip)
+            for col in range(self.ui.settings_tree.columnCount()):
+                _twi.setToolTip(col, var_tooltip)
         if combobox == True:
+            for col in range(self.ui.settings_tree.columnCount()):
+                _twi.setToolTip(col, combobox_item_tooltips[0])
             tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
             _cmb = tree["items"][access]["QComboBox"][index_of_child]
             _cmb.addItem("Disabled", False)

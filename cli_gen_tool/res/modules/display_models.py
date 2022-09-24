@@ -12,8 +12,8 @@
 
 
 class displayModels(object):
-    ## Display Labels mirror tree structure. Containers are parents; keys are parent/child labels
-    _tree = {
+    ## Display Labels mirror data tree structure. Containers are parents; keys are parent/child labels
+    _settings_tree_display = {
         "process output": {
             "buffer size": {
                 "type": "bytes",
@@ -54,13 +54,16 @@ class displayModels(object):
             "outputToStream": {
                 "type": "Enable/Disable",
                 "tooltip": [
-                    "",
+                    "Enabling this will direct class output to the Stream designated in 'process output'.",
                     "This will have no effect if you have not designated an output Stream and set a buffer size in 'process output'.",
                 ],
             },
             "defaultFunction": {
                 "type": "Enable/Disable",
-                "tooltip": ["No default function.", "Default function enabled."],
+                "tooltip": [
+                    "No default function (called on unknown command or input error).",
+                    "Default function enabled (called on unknown command or input error).",
+                ],
             },
             "listCommands": {
                 "type": "Enable/Disable",
@@ -153,53 +156,56 @@ class displayModels(object):
                 "DEBUG_GETCOMMANDFROMSTREAM": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::getCommandFromStream()",
                         "Output debugging information from InputHandler::getCommandFromStream()",
                     ],
                 },
                 "DEBUG_READCOMMANDFROMBUFFER": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::readCommandFromBuffer",
                         "Output debugging information from InputHandler::readCommandFromBuffer",
                     ],
                 },
                 "DEBUG_GET_TOKEN": {
                     "type": "Enable/Disable",
-                    "tooltip": "Output debugging information from InputHandler::getToken()",
+                    "tooltip": [
+                        "No debugging output from InputHandler::getToken()",
+                        "Output debugging information from InputHandler::getToken()",
+                    ],
                 },
                 "DEBUG_SUBCOMMAND_SEARCH": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::subCommandSearch()",
                         "Output debugging information from InputHandler::subCommandSearch()",
                     ],
                 },
                 "DEBUG_ADDCOMMAND": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::addCommand()",
                         "Output debugging information from InputHandler::addCommand()",
                     ],
                 },
                 "DEBUG_LAUNCH_LOGIC": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::launchLogic()",
                         "Output debugging information from InputHandler::launchLogic()",
                     ],
                 },
                 "DEBUG_LAUNCH_FUNCTION": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::launchFunction()",
                         "Output debugging information from InputHandler::launchFunction()",
                     ],
                 },
                 "DEBUG_INCLUDE_FREERAM": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "",
+                        "No debugging output from InputHandler::freeRam()",
                         "Output debugging information from InputHandler::freeRam()",
                     ],
                 },
@@ -209,77 +215,77 @@ class displayModels(object):
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::listSettings() enabled",
-                        "InputHandler::listSettings() disabled",
+                        "InputHandler::listSettings() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::listSettings()!)",
                     ],
                 },
                 "DISABLE_listCommands": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::listCommands() enabled",
-                        "InputHandler::listCommands() disabled",
+                        "InputHandler::listCommands() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::listCommands()!)",
                     ],
                 },
                 "DISABLE_getCommandFromStream": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::getCommandFromStream() enabled",
-                        "InputHandler::getCommandFromStream() disabled",
+                        "InputHandler::getCommandFromStream() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::getCommandFromStream()!)",
                     ],
                 },
                 "DISABLE_nextArgument": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::nextArgument() enabled",
-                        "InputHandler::nextArgument() disabled",
+                        "InputHandler::nextArgument() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::nextArgument()!)",
                     ],
                 },
                 "DISABLE_getArgument": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::getArgument() enabled",
-                        "InputHandler::getArgument() disabled",
+                        "InputHandler::getArgument() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::getArgument()!)",
                     ],
                 },
                 "DISABLE_outputIsAvailable": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::outputIsAvailable() enabled",
-                        "InputHandler::outputIsAvailable() disabled",
+                        "InputHandler::outputIsAvailable() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputIsAvailable()!)",
                     ],
                 },
                 "DISABLE_outputIsEnabled": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::outputIsEnabled() enabled",
-                        "InputHandler::outputIsEnabled() disabled",
+                        "InputHandler::outputIsEnabled() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputIsEnabled()!)",
                     ],
                 },
                 "DISABLE_outputToStream": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::outputToStream() enabled",
-                        "InputHandler::outputToStream() disabled",
+                        "InputHandler::outputToStream() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputToStream()!)",
                     ],
                 },
                 "DISABLE_clearOutputBuffer": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "InputHandler::clearOutputBuffer() enabled",
-                        "InputHandler::clearOutputBuffer() disabled",
+                        "InputHandler::clearOutputBuffer() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_clearOutputBuffer()!)",
                     ],
                 },
                 "DISABLE_readCommandFromBufferErrorOutput": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "Error information output on detect.",
-                        "No error output.",
+                        "No error output or indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_readCommandFromBufferErrorOutput()!)",
                     ],
                 },
                 "DISABLE_ui_out": {
                     "type": "Enable/Disable",
                     "tooltip": [
-                        "Library capable of output",
-                        "Library not capable of output",
+                        "Library capable of output and error indication.",
+                        "Library not capable of output or error indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_ui_out()!)",
                     ],
                 },
             },
