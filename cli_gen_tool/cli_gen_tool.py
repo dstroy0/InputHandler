@@ -199,6 +199,7 @@ class MainWindow(
         self.command_parameters_input_field_settings = (
             dataModels.command_parameters_input_field_settings_dict
         )
+        # set input field defaults
         self.set_commandparameters_field_defaults()
 
         # 
