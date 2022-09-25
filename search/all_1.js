@@ -37,5 +37,6 @@ var searchData=
   ['argument_5fflag_34',['argument_flag',['../db/d11/struct_command_parameters.html#a3d16488822087b8af4734e5026a8471c',1,'CommandParameters']]],
   ['argument_5fhandling_5fchanged_35',['argument_handling_changed',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a2cf46a56306cae65e496af04e3f4996a',1,'modules::command_parameters::CommandParametersMethods']]],
   ['argumentspane_36',['argumentsPane',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a4a540572ba61d96e00df5b02b7e02911',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
-  ['argumentsplaintextcsv_37',['argumentsPlainTextCSV',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]]
+  ['argumentsplaintextcsv_37',['argumentsPlainTextCSV',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a022afca2ca9ac5ed2d7349a0a88e8e05',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
+  ['author_38',['author',['../d5/d89/namespaceconf.html#a637c239d256432248aa8d9f3ab0b8c52',1,'conf']]]
 ];

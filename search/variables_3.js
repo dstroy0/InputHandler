@@ -35,5 +35,6 @@ var searchData=
   ['commandsubcommands_32',['commandSubcommands',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#ab644b3610683e6e51c960988465573db',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['commandsubcommands_5flabel_33',['commandSubcommands_label',['../df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#a130325638dc75569133a26dbca546bc9',1,'uic::commandParametersDialog::Ui_commandParametersDialog']]],
   ['config_5ffile_5fboolean_5fdefine_5ffields_5fline_5fstart_34',['config_file_boolean_define_fields_line_start',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a43cf5da3c5ebb2f9a513741eaaafb8d2',1,'cli_gen_tool.MainWindow.config_file_boolean_define_fields_line_start()'],['../dd/d04/namespacecli__gen__tool.html#ac62feff508636f666e5e1d522f0bf609',1,'cli_gen_tool.config_file_boolean_define_fields_line_start()']]],
-  ['config_5fpath_5finput_35',['config_path_input',['../d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html#a8acbfcb5e295943c1177fb148c56f4c5',1,'uic::preferencesDialog::Ui_Preferences']]]
+  ['config_5fpath_5finput_35',['config_path_input',['../d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html#a8acbfcb5e295943c1177fb148c56f4c5',1,'uic::preferencesDialog::Ui_Preferences']]],
+  ['copyright_36',['copyright',['../d5/d89/namespaceconf.html#a33fa97cf51dcb25970fbf53f10159589',1,'conf']]]
 ];

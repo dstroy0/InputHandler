@@ -11,5 +11,7 @@ var searchData=
   ['help_5fparam_8',['help_param',['../d1/d96/_wildcard_commands_8ino.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;WildcardCommands.ino'],['../d6/d3b/parameters_8h.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;parameters.h'],['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;ReadCommandFromBufferMQTT.ino'],['../d1/d98/config__howto_8ino.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;config_howto.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#a37dc520806193edda7db40a2faa3457e',1,'help_param():&#160;ReadCommandFromBufferWebSerial.ino']]],
   ['helper_5fmethods_2epy_9',['helper_methods.py',['../d9/d1e/helper__methods_8py.html',1,'']]],
   ['helpermethods_10',['HelperMethods',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html',1,'modules::helper_methods']]],
-  ['hsc_11',['HSC',['../da/dff/_n_m_e_asentenceparam_8h.html#abe18c91bff02c35c3c246a64ef12f055',1,'NMEAsentenceparam.h']]]
+  ['hsc_11',['HSC',['../da/dff/_n_m_e_asentenceparam_8h.html#abe18c91bff02c35c3c246a64ef12f055',1,'NMEAsentenceparam.h']]],
+  ['html_5fstatic_5fpath_12',['html_static_path',['../d5/d89/namespaceconf.html#af4fb5d8851ccaade135c2668dd3ced41',1,'conf']]],
+  ['html_5ftheme_13',['html_theme',['../d5/d89/namespaceconf.html#a6c3bfcc1a44546c1c75ce20f55bd0fd6',1,'conf']]]
 ];

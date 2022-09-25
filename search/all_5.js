@@ -19,5 +19,7 @@ var searchData=
   ['enable_5fui_5fout_16',['ENABLE_ui_out',['../da/dc7/noedit_8h.html#a3993c53011a6c54c908722ee96194d24',1,'noedit.h']]],
   ['err_5fsettings_5fto_5fvalidate_17',['err_settings_to_validate',['../dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#a7e452b8c52710f5cf079e4f64828351c',1,'modules::command_parameters::CommandParametersMethods']]],
   ['error_18',['error',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ae8c47cdda23ce86a833936ce90ef1dc5',1,'BLE_UART.ino']]],
-  ['eventfilter_19',['eventFilter',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a110b3fd393af84189c93b91f7330417a',1,'cli_gen_tool::MainWindow']]]
+  ['eventfilter_19',['eventFilter',['../d3/d6c/classcli__gen__tool_1_1_main_window.html#a110b3fd393af84189c93b91f7330417a',1,'cli_gen_tool::MainWindow']]],
+  ['exclude_5fpatterns_20',['exclude_patterns',['../d5/d89/namespaceconf.html#a7ad48fb6f3e9b129c02346ea0d3527c1',1,'conf']]],
+  ['extensions_21',['extensions',['../d5/d89/namespaceconf.html#ae475e080536acb271a0a0efe56c3ba42',1,'conf']]]
 ];
