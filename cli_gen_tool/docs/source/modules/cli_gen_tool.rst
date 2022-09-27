@@ -1,7 +1,7 @@
-Module: MainWindow
+cli_gen_tool.py
 ===========================
 
-.. autoclass:: cli_gen_tool.MainWindow
+.. automodule:: cli_gen_tool
    :members:
 
 cli_gen_tool.py

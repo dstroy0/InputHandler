@@ -10,6 +10,8 @@ Welcome to cli_gen_tool's documentation!
    :maxdepth: 2
    :caption: Command Line Interface Generation tool reference (cli_gen_tool.py)
    :hidden:
+   
+   modules/cli_gen_tool.rst
 
 .. toctree::
     :maxdepth: 4

@@ -1,8 +1,0 @@
-CLI Generation Tool
-=====================
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-
-    modules/cli_gen_tool
