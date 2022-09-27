@@ -160,7 +160,29 @@
 </ul>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="code_preview.html">Module: code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_preview.html">code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_parameters.html">command_parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_tree.html">command_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_models.html">data_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display_models.html">display_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper_methods.html">helper_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_setup.html">logging_setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainwindow_actions.html">mainwindow_actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainwindow_buttons.html">mainwindow_buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preferences.html">preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings_tree_table_methods.html">settings_tree_table_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings_tree.html">settings_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/clireadme.html">clireadme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/filestrings.html">filestrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/functions.html">functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/parameters.html">parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/setup.html">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/logHistoryDialog.html">logHistoryDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/mainWindow.html">mainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/preferencesDialog.html">preferencesDialog</a></li>
 </ul>
 </li>
 </ul>
@@ -201,7 +223,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cli_gen_tool.MainWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cli_gen_tool.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cli_gen_tool.MainWindow" title="Permalink to this definition">#</a></dt>
-<dd><dl class="py method">
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsTreeTableMethods</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">HelperMethods</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindowActions</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CodePreview</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsTreeMethods</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CommandParametersMethods</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindowButtons</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ParseInputHandlerConfig</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CLIfilestrings</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CommandTreeMethods</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PreferencesMethods</span></code></p>
+<dl class="py method">
 <dt class="sig sig-object py" id="cli_gen_tool.MainWindow.closeEvent">
 <span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtGui.QCloseEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cli_gen_tool.MainWindow.closeEvent" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -211,7 +234,27 @@
 <span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">watched</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtCore.QObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtCore.QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cli_gen_tool.MainWindow.eventFilter" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="cli_gen_tool.MainWindow.readSettings">
+<span class="sig-name descname"><span class="pre">readSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cli_gen_tool.MainWindow.readSettings" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cli_gen_tool.MainWindow.set_main_window_title">
+<span class="sig-name descname"><span class="pre">set_main_window_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_gen_tool.MainWindow.set_main_window_title" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cli_gen_tool.MainWindow.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;MainWindow&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QMainWindow&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#cli_gen_tool.MainWindow.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cli_gen_tool.main">
+<span class="sig-prename descclassname"><span class="pre">cli_gen_tool.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_gen_tool.main" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <section id="id1">
 <h2>cli_gen_tool.py<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
@@ -681,8 +724,12 @@
 <li><a class="reference internal" href="#cli_gen_tool.MainWindow"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a><ul>
 <li><a class="reference internal" href="#cli_gen_tool.MainWindow.closeEvent"><code class="docutils literal notranslate"><span class="pre">MainWindow.closeEvent()</span></code></a></li>
 <li><a class="reference internal" href="#cli_gen_tool.MainWindow.eventFilter"><code class="docutils literal notranslate"><span class="pre">MainWindow.eventFilter()</span></code></a></li>
+<li><a class="reference internal" href="#cli_gen_tool.MainWindow.readSettings"><code class="docutils literal notranslate"><span class="pre">MainWindow.readSettings()</span></code></a></li>
+<li><a class="reference internal" href="#cli_gen_tool.MainWindow.set_main_window_title"><code class="docutils literal notranslate"><span class="pre">MainWindow.set_main_window_title()</span></code></a></li>
+<li><a class="reference internal" href="#cli_gen_tool.MainWindow.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">MainWindow.staticMetaObject</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#cli_gen_tool.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li><a class="reference internal" href="#id1">cli_gen_tool.py</a></li>
 </ul>
 </li>

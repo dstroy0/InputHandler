@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Modules" href="../modules.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="command_parameters" href="command_parameters.html" /><link rel="prev" title="Modules" href="../modules.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>Module: code_preview - cli_gen_tool documentation</title>
+        <title>code_preview - cli_gen_tool documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -160,7 +160,29 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Module: code_preview</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_parameters.html">command_parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_tree.html">command_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_models.html">data_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display_models.html">display_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper_methods.html">helper_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_setup.html">logging_setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainwindow_actions.html">mainwindow_actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainwindow_buttons.html">mainwindow_buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preferences.html">preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings_tree_table_methods.html">settings_tree_table_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings_tree.html">settings_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/clireadme.html">clireadme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/filestrings.html">filestrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/functions.html">functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/parameters.html">parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/setup.html">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/logHistoryDialog.html">logHistoryDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/mainWindow.html">mainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/preferencesDialog.html">preferencesDialog</a></li>
 </ul>
 </li>
 </ul>
@@ -197,13 +219,65 @@
         </div>
         <article role="main">
           <section id="module-code_preview">
-<span id="module-code-preview"></span><h1>Module: code_preview<a class="headerlink" href="#module-code_preview" title="Permalink to this heading">#</a></h1>
+<span id="code-preview"></span><h1>code_preview<a class="headerlink" href="#module-code_preview" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="code_preview.CodePreview">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreview</span></span><a class="headerlink" href="#code_preview.CodePreview" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cliReadme</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliConfig</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliSetup</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliFunctions</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliParameters</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.build_code_preview_tree">
+<span class="sig-name descname"><span class="pre">build_code_preview_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.build_code_preview_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.code_preview_events">
+<span class="sig-name descname"><span class="pre">code_preview_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">watched</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.code_preview_events" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.display_initial_code_preview">
+<span class="sig-name descname"><span class="pre">display_initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.display_initial_code_preview" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.get_vertical_drag_icon_geometry">
+<span class="sig-name descname"><span class="pre">get_vertical_drag_icon_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget_qrect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.get_vertical_drag_icon_geometry" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.resize_code_preview_tree_item">
+<span class="sig-name descname"><span class="pre">resize_code_preview_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.resize_code_preview_tree_item" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.set_code_string">
+<span class="sig-name descname"><span class="pre">set_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.set_code_string" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.set_text_cursor">
+<span class="sig-name descname"><span class="pre">set_text_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.set_text_cursor" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.update_code">
+<span class="sig-name descname"><span class="pre">update_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreview.update_code" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="code_preview.CodePreviewBrowser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreviewBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#code_preview.CodePreviewBrowser" title="Permalink to this definition">#</a></dt>
-<dd><dl class="py method">
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextBrowser</span></code></p>
+<dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.resizeEvent">
 <span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtGui.QResizeEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#code_preview.CodePreviewBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextBrowser&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.CodePreviewBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -479,7 +553,15 @@
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="command_parameters.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">command_parameters</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="../modules.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -523,9 +605,21 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Module: code_preview</a><ul>
+<li><a class="reference internal" href="#">code_preview</a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreview"><code class="docutils literal notranslate"><span class="pre">CodePreview</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreview.build_code_preview_tree"><code class="docutils literal notranslate"><span class="pre">CodePreview.build_code_preview_tree()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.code_preview_events"><code class="docutils literal notranslate"><span class="pre">CodePreview.code_preview_events()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.display_initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodePreview.display_initial_code_preview()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.get_vertical_drag_icon_geometry"><code class="docutils literal notranslate"><span class="pre">CodePreview.get_vertical_drag_icon_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.resize_code_preview_tree_item"><code class="docutils literal notranslate"><span class="pre">CodePreview.resize_code_preview_tree_item()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.set_code_string"><code class="docutils literal notranslate"><span class="pre">CodePreview.set_code_string()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.set_text_cursor"><code class="docutils literal notranslate"><span class="pre">CodePreview.set_text_cursor()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.update_code"><code class="docutils literal notranslate"><span class="pre">CodePreview.update_code()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#code_preview.CodePreviewBrowser"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser</span></code></a><ul>
 <li><a class="reference internal" href="#code_preview.CodePreviewBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.resizeEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.staticMetaObject</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#code-preview-py">code_preview.py</a></li>
