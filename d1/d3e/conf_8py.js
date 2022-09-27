@@ -12,5 +12,6 @@ var conf_8py =
     [ "res_path", "d1/d3e/conf_8py.html#a50a7a1066ef9ec98ab73ed45b8933722", null ],
     [ "templates_path", "d1/d3e/conf_8py.html#ae850ae634911b713e036b43894fdd525", null ],
     [ "tool_path", "d1/d3e/conf_8py.html#a1e0d7ce8d2cd757ec6969ba0337f4a87", null ],
-    [ "tool_root_path", "d1/d3e/conf_8py.html#a0a0f53253d35376a5259cf3d9c0ecbf7", null ]
+    [ "tool_root_path", "d1/d3e/conf_8py.html#a0a0f53253d35376a5259cf3d9c0ecbf7", null ],
+    [ "uic_path", "d1/d3e/conf_8py.html#af86388426ef5a0254556f3431416486e", null ]
 ];
