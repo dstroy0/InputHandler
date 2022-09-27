@@ -1,6 +1,8 @@
 Module: CodePreviewMethods
 ===========================
 
+.. autoclass:: CodePreviewMethods
+   :members:
 
 code_preview.py
 ----------------
