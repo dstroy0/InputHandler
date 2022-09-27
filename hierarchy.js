@@ -43,7 +43,7 @@ var hierarchy =
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],
     [ "CLIfilestrings", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "cliFunctions", null, [
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
@@ -58,42 +58,42 @@ var hierarchy =
       [ "modules.code_preview.CodePreview", "dd/d03/classmodules_1_1code__preview_1_1_code_preview.html", null ]
     ] ],
     [ "CodePreview", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "CommandParametersMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "CommandTreeMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "HelperMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "MainWindowActions", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "MainWindowButtons", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "ParseInputHandlerConfig", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "PreferencesMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "QAbstractTableModel", null, [
       [ "modules.command_tree.CommandParametersTableViewModel", "dd/dc1/classmodules_1_1command__tree_1_1_command_parameters_table_view_model.html", null ]
     ] ],
     [ "QMainWindow", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "QTextBrowser", null, [
       [ "modules.code_preview.CodePreviewBrowser", "dc/d78/classmodules_1_1code__preview_1_1_code_preview_browser.html", null ]
     ] ],
     [ "SettingsTreeMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ],
     [ "SettingsTreeTableMethods", null, [
-      [ "cli_gen_tool.MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", null ]
+      [ "cli_gen_tool.cli_gen_tool.MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", null ]
     ] ]
 ];

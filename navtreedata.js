@@ -63,11 +63,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d2/df9/_bluefruit_config_8h.html#ae2990cba40c835671aa2ec69d0b5e4d5",
-"d8/da2/_r_f24_8ino.html#a57faf497200e78be00b0487148cf8788",
-"db/dc6/advanced_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ab38d8ada24e71cc390858ef569d1c5ef",
-"dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html#a5af876f31042aaca6302b67851edd5fe",
-"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#abe887811f569e6c812df70317e58d067"
+"d2/df9/_bluefruit_config_8h.html#a3b9e671cc7cff949da4898533174aa4f",
+"d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#aca737c1f2c9ec2517c483f8bc27fe53a",
+"dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html#a4975ce711cd30b815468a102655da01d",
+"dd/d7c/classmodules_1_1command__parameters_1_1_command_parameters_methods.html#ae58f155f063d3efa0f29a2f370fadaf7",
+"df/def/classuic_1_1command_parameters_dialog_1_1_ui__command_parameters_dialog.html#aa01c574a0093d9037fd6fa912981690f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

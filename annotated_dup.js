@@ -1,7 +1,9 @@
 var annotated_dup =
 [
     [ "cli_gen_tool", "dd/d04/namespacecli__gen__tool.html", [
-      [ "MainWindow", "d3/d6c/classcli__gen__tool_1_1_main_window.html", "d3/d6c/classcli__gen__tool_1_1_main_window" ]
+      [ "cli_gen_tool", "d9/d55/namespacecli__gen__tool_1_1cli__gen__tool.html", [
+        [ "MainWindow", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window.html", "dc/d41/classcli__gen__tool_1_1cli__gen__tool_1_1_main_window" ]
+      ] ]
     ] ],
     [ "modules", "dc/dcf/namespacemodules.html", [
       [ "cli", "d3/d25/namespacemodules_1_1cli.html", [
