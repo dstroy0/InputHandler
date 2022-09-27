@@ -1,0 +1,537 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Modules" href="../modules.html" />
+
+    <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
+        <title>Module: CodePreviewMethods - cli_gen_tool documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">cli_gen_tool  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">cli_gen_tool  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (cli_gen_tool.py)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CLI_gen_tool.html">CLI Generation Tool</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Module: CodePreviewMethods</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-codepreviewmethods">
+<h1>Module: CodePreviewMethods<a class="headerlink" href="#module-codepreviewmethods" title="Permalink to this heading">#</a></h1>
+<section id="code-preview-py">
+<h2>code_preview.py<a class="headerlink" href="#code-preview-py" title="Permalink to this heading">#</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">res/modules/code_preview.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+<span class="c1"># @file code_preview.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-07-08</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="c1"># pyside imports</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRect</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QMouseEvent</span><span class="p">,</span> <span class="n">QTextCursor</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QTextBrowser</span>
+
+<span class="c1"># external methods and resources</span>
+<span class="kn">from</span> <span class="nn">res.modules.cli.clireadme</span> <span class="kn">import</span> <span class="n">cliReadme</span>
+<span class="kn">from</span> <span class="nn">res.modules.cli.config</span> <span class="kn">import</span> <span class="n">cliConfig</span>
+<span class="kn">from</span> <span class="nn">res.modules.cli.setup</span> <span class="kn">import</span> <span class="n">cliSetup</span>
+<span class="kn">from</span> <span class="nn">res.modules.cli.functions</span> <span class="kn">import</span> <span class="n">cliFunctions</span>
+<span class="kn">from</span> <span class="nn">res.modules.cli.parameters</span> <span class="kn">import</span> <span class="n">cliParameters</span>
+
+<span class="c1"># logging api</span>
+<span class="kn">from</span> <span class="nn">res.modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
+
+<span class="c1">## each text browser in Code Preview is an instance of this class</span>
+<span class="k">class</span> <span class="nc">CodePreviewBrowser</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="p">):</span>
+    <span class="c1"># spawns a QTextBrowser with these settings</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CodePreviewBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setVerticalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextBrowserInteraction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
+        <span class="c1"># let the user navigate to the hyperlinks provided in the readme</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setOpenExternalLinks</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
+
+
+<span class="c1"># code preview methods</span>
+<span class="k">class</span> <span class="nc">CodePreview</span><span class="p">(</span><span class="n">cliReadme</span><span class="p">,</span> <span class="n">cliConfig</span><span class="p">,</span> <span class="n">cliSetup</span><span class="p">,</span> <span class="n">cliFunctions</span><span class="p">,</span> <span class="n">cliParameters</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CodePreview</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">CodePreview</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">CodePreview</span><span class="o">.</span><span class="n">selected_text_widget</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">cliReadme</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cliConfig</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cliSetup</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cliFunctions</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cliParameters</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># refreshes the text in the code preview trees (also the text used to generate files)</span>
+    <span class="k">def</span> <span class="nf">update_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">):</span>
+        <span class="n">CodePreview</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;update </span><span class="si">{filename}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">file</span><span class="p">))</span>
+        <span class="c1"># update widgets</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">readme_md</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;config.h&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;setup.h&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setup_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;setup.cpp&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setup_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;parameters.h&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;functions.h&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functions_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;functions.cpp&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">display_initial_code_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readme_md</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_cpp</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">code_preview_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">watched</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">mouse_button</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">watched</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
+            <span class="n">code_preview</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span>
+        <span class="k">elif</span> <span class="n">watched</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
+            <span class="n">code_preview</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseButtonPress</span>
+            <span class="ow">or</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseButtonRelease</span>
+        <span class="p">):</span>
+            <span class="n">mouse_button</span> <span class="o">=</span> <span class="n">QMouseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="o">.</span><span class="n">button</span><span class="p">()</span>
+            <span class="n">mouse_pos</span> <span class="o">=</span> <span class="n">QMouseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
+            <span class="n">mouse_pos</span> <span class="o">=</span> <span class="n">QMouseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">watched</span> <span class="o">==</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">HoverEnter</span>
+                <span class="ow">or</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">HoverMove</span>
+                <span class="ow">or</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">HoverLeave</span>
+            <span class="p">):</span>
+                <span class="n">viewportpos</span> <span class="o">=</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">mapFromGlobal</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+                <span class="n">selected_item</span> <span class="o">=</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">viewportpos</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">selected_item</span> <span class="ow">and</span> <span class="n">selected_item</span><span class="o">.</span><span class="n">childCount</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">CodePreview</span><span class="o">.</span><span class="n">selected_text_widget</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">selected_item</span><span class="o">.</span><span class="n">treeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">selected_item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                    <span class="n">drag_box_qrect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertical_drag_icon_geometry</span><span class="p">(</span>
+                        <span class="n">code_preview</span><span class="o">.</span><span class="n">visualItemRect</span><span class="p">(</span><span class="n">selected_item</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">drag_box_qrect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">viewportpos</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">SizeVerCursor</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="p">(</span>
+                        <span class="ow">not</span> <span class="n">drag_box_qrect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">viewportpos</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">==</span> <span class="kc">False</span>
+                    <span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># no item being hovered over</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">Wheel</span> <span class="ow">and</span> <span class="n">CodePreview</span><span class="o">.</span><span class="n">selected_text_widget</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sb</span> <span class="o">=</span> <span class="n">CodePreview</span><span class="o">.</span><span class="n">selected_text_widget</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span>
+            <span class="n">sb</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">angleDelta</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseButtonPress</span> <span class="ow">and</span> <span class="n">mouse_button</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">watched</span> <span class="ow">is</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
+                <span class="n">selected_item</span> <span class="o">=</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">qrect</span> <span class="o">=</span> <span class="n">code_preview</span><span class="o">.</span><span class="n">visualItemRect</span><span class="p">(</span><span class="n">selected_item</span><span class="p">)</span>
+                <span class="n">qrect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qrect</span>
+
+                <span class="n">drag_box_qrect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertical_drag_icon_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qrect</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">init_mouse_pos</span> <span class="o">=</span> <span class="n">mouse_pos</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">init_height</span> <span class="o">=</span> <span class="n">qrect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">drag_box_qrect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">SizeVerCursor</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span> <span class="o">=</span> <span class="n">QSize</span><span class="p">(</span><span class="n">qrect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">qrect</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span> <span class="o">=</span> <span class="n">selected_item</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseMove</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resize_code_preview_tree_item</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">event_type</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">MouseButtonRelease</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resize_code_preview_tree_item</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
+
+    <span class="c1"># puts an invisible interaction hitbox around where someone would expect to be able to drag (vertical)</span>
+    <span class="k">def</span> <span class="nf">get_vertical_drag_icon_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget_qrect</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QRect</span><span class="p">(</span>
+            <span class="mi">20</span><span class="p">,</span>
+            <span class="n">widget_qrect</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">+</span> <span class="n">widget_qrect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="n">widget_qrect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="mi">25</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># resizes code preview text browsers</span>
+    <span class="k">def</span> <span class="nf">resize_code_preview_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">):</span>
+        <span class="n">y_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_height</span> <span class="o">+</span> <span class="p">(</span><span class="n">mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">setSizeHint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="p">)</span>
+        <span class="n">widget_size</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">treeWidget</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">widget_size</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qrect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">40</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y_axis</span> <span class="o">&gt;=</span> <span class="mi">192</span><span class="p">:</span>
+            <span class="n">widget_size</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">treeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">widget_size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">treeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">widget_size</span><span class="p">)</span>
+
+    <span class="c1"># build code preview trees</span>
+    <span class="k">def</span> <span class="nf">build_code_preview_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">tab</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tab</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Contents&quot;</span><span class="p">])</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;tree_item&quot;</span><span class="p">][</span>
+                    <span class="n">tab</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;tree_item&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileIcon</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span>
+                    <span class="n">tab</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">CodePreviewBrowser</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="n">text_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;contents_item&quot;</span><span class="p">][</span>
+                    <span class="n">tab</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                <span class="n">text_widget_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span>
+                    <span class="s2">&quot;contents_item&quot;</span>
+                <span class="p">][</span><span class="n">tab</span><span class="p">]</span>
+                <span class="n">text_widget_container</span><span class="o">.</span><span class="n">setFirstColumnSpanned</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">text_widget_container</span><span class="o">.</span><span class="n">drag_box_qrect</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">visualItemRect</span><span class="p">(</span>
+                    <span class="n">text_widget_container</span>
+                <span class="p">)</span>
+                <span class="n">tree</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">text_widget_container</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">)</span>
+
+    <span class="c1"># end build_code_preview_tree()</span>
+
+    <span class="c1"># highlights `item_string` in `text_widget`; centers the cursor on the highlighted text</span>
+    <span class="k">def</span> <span class="nf">set_text_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">,</span> <span class="n">item_string</span><span class="p">):</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">QTextCursor</span><span class="p">(</span><span class="n">text_widget</span><span class="o">.</span><span class="n">document</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item_string</span><span class="p">))</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">movePosition</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">EndOfLine</span><span class="p">)</span>
+        <span class="n">text_widget</span><span class="o">.</span><span class="n">setTextCursor</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">movePosition</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">StartOfLine</span><span class="p">,</span> <span class="n">QTextCursor</span><span class="o">.</span><span class="n">KeepAnchor</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">text_widget</span><span class="o">.</span><span class="n">setTextCursor</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">text_widget</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
+
+    <span class="c1"># sets the text inside of code preview text browsers</span>
+    <span class="k">def</span> <span class="nf">set_code_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">tab</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">text_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
+            <span class="n">text_widget</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
+                <span class="n">text_widget</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">code_string</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">text_widget</span><span class="o">.</span><span class="n">setMarkdown</span><span class="p">(</span><span class="n">code_string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">place_cursor</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;tree_item&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span>
+                    <span class="kc">True</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_text_cursor</span><span class="p">(</span><span class="n">text_widget</span><span class="p">,</span> <span class="n">item_string</span><span class="p">)</span>
+
+
+<span class="c1"># end of file</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="../modules.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Modules</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Douglas Quigg (dstroy0@gmail.com)
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Module: CodePreviewMethods</a><ul>
+<li><a class="reference internal" href="#code-preview-py">code_preview.py</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    </body>
+</html>
