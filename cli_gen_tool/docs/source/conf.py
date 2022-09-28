@@ -9,12 +9,14 @@ res_path = tool_root_path + "/res"
 modules_path = res_path + "/modules"
 cli_modules_path = modules_path + "/cli"
 uic_path = res_path + "/uic"
+_html_static_path = tool_root_path + "/docs/source/_static"
 sys.path.insert(0, tool_root_path)
 sys.path.append(tool_path)
 sys.path.append(res_path)
 sys.path.append(modules_path)
 sys.path.append(cli_modules_path)
 sys.path.append(uic_path)
+sys.path.append(_html_static_path)
 
 print("tool root path: \n" + tool_root_path)
 
