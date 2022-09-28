@@ -17,7 +17,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -VV
-          pip install -r ./cli_gen_tool/requirements.txt
+          apt-get update
+          apt-get install libgl1
+          pip install -r ./cli_gen_tool/requirements.txt                    
       
       - name: Build Sphinx
         run: |
