@@ -26,11 +26,11 @@ jobs:
         run: |
           python -VV
           python -m pip install furo
-          
+
       - name: Build Sphinx
         uses: ammaraskar/sphinx-action@master
         with:          
-          docs-folder: "./cli_gen_tool/docs/source"
+          docs-folder: "cli_gen_tool/docs/source"
           build-command: "sphinx-build -b html . docs_build/sphinx"
       
       - name: Deploy 🚀        
