@@ -1,0 +1,31 @@
+name: Docs CI 
+
+on: [push, release]
+
+jobs:
+  build-and-deploy-docs:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+      - name: Build Doxygen
+        uses: mattnotmitt/doxygen-action@edge
+        with:
+          working-directory: '/github/workspace/'
+          doxyfile-path: 'docs/Doxyfile'
+      - name: Build Sphinx
+        uses: ammaraskar/sphinx-action@master
+        with:
+          docs-folder: "cli_gen_tool/docs/"
+          build-command: "sphinx-build -b html cli_gen_tool/docs/source docs_build/sphinx"
+      
+      - name: Deploy 🚀        
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # build dir needs to contain redirect to either index.html
+          publish_dir: docs_build
+          #destination_dir: docs
