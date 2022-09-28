@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Update
+          run: sudo apt-get update
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
@@ -16,9 +18,7 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: |
-          python -VV
-          apt-get update
-          apt-get install libgl1
+          python -VV          
           pip install -r ./cli_gen_tool/requirements.txt                    
       
       - name: Build Sphinx 
