@@ -1,5 +1,6 @@
 import os
 import sys
+import furo
 
 # pathing
 os.chdir("../..")
@@ -38,7 +39,7 @@ author = "Douglas Quigg (dstroy0@gmail.com)"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "furo"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
