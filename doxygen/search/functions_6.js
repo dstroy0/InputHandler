@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['functions_5fcpp_0',['functions_cpp',['../dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html#a453462cb31900db453ab26e3be2fc6c1',1,'modules::cli::functions::cliFunctions']]],
-  ['functions_5fh_1',['functions_h',['../dd/d75/classmodules_1_1cli_1_1functions_1_1cli_functions.html#a6d6084e8c947325b2a48d9b272aac0d9',1,'modules::cli::functions::cliFunctions']]]
+  ['getargument_0',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
+  ['getcommandfromstream_1',['getCommandFromStream',['../dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d',1,'UserInput']]],
+  ['gettokens_2',['getTokens',['../dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718',1,'UserInput']]],
+  ['getuserinput_3',['getUserInput',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a3f308f9158c987649962e11efb7a0cec',1,'BLE_UART.ino']]]
 ];

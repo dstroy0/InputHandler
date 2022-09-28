@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['nestedcommands_2eino_0',['NestedCommands.ino',['../da/d0f/_nested_commands_8ino.html',1,'']]],
-  ['nmeaparser_2eh_1',['NMEAparser.h',['../da/d60/_n_m_e_aparser_8h.html',1,'']]],
-  ['nmeaparser_2eino_2',['NMEAparser.ino',['../dd/d65/_n_m_e_aparser_8ino.html',1,'']]],
-  ['nmeasentencefunc_2eh_3',['NMEAsentencefunc.h',['../d2/d20/_n_m_e_asentencefunc_8h.html',1,'']]],
-  ['nmeasentenceparam_2eh_4',['NMEAsentenceparam.h',['../da/dff/_n_m_e_asentenceparam_8h.html',1,'']]],
-  ['noedit_2eh_5',['noedit.h',['../da/dc7/noedit_8h.html',1,'']]]
+  ['readcommandfrombuffermqtt_2eino_0',['ReadCommandFromBufferMQTT.ino',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html',1,'']]],
+  ['readcommandfrombufferwebserial_2eino_1',['ReadCommandFromBufferWebSerial.ino',['../d3/dce/_read_command_from_buffer_web_serial_8ino.html',1,'']]],
+  ['readme_2emd_2',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
+  ['rf24_2eino_3',['RF24.ino',['../d8/da2/_r_f24_8ino.html',1,'']]]
 ];

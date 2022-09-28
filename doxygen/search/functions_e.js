@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['parameters_5fh_0',['parameters_h',['../d5/dc1/classmodules_1_1cli_1_1parameters_1_1cli_parameters.html#abade7576cb12eacfdfeb9c70a3942b09',1,'modules::cli::parameters::cliParameters']]],
-  ['parse_5fconfig_5fheader_5ffile_1',['parse_config_header_file',['../da/df2/classmodules_1_1parse__config_1_1_parse_input_handler_config.html#ae84eb97328ab72bfbe506fa73c609f39',1,'modules::parse_config::ParseInputHandlerConfig']]],
-  ['parsesentence_2',['parseSentence',['../df/d2a/class_n_m_e_aparse.html#a62f766f5171a6651a211442ca2529e76',1,'NMEAparse::parseSentence(uint8_t *buffer, size_t len)'],['../df/d2a/class_n_m_e_aparse.html#af0551afb659ca88b6c98fd111672507e',1,'NMEAparse::parseSentence(Stream &amp;stream)']]],
-  ['preferences_5fdialog_5fsetup_3',['preferences_dialog_setup',['../dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html#a5af876f31042aaca6302b67851edd5fe',1,'modules::preferences::PreferencesMethods']]]
+  ['radio_0',['radio',['../d8/da2/_r_f24_8ino.html#a3e1e1e21ce0d1652d096b84391a522eb',1,'RF24.ino']]],
+  ['readcommandfrombuffer_1',['readCommandFromBuffer',['../dc/d4b/class_user_input.html#a7f6ab5712afedca76ee55220276f8828',1,'UserInput']]],
+  ['reconnect_5fmqtt_2',['reconnect_mqtt',['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#a36c917f8a7a7142669385533300ada1a',1,'ReadCommandFromBufferMQTT.ino']]],
+  ['recvmsg_3',['recvMsg',['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#ab83c7cf48ac3f1d98eb23af3778b2c1e',1,'ReadCommandFromBufferWebSerial.ino']]],
+  ['remote_5fdevice_4',['remote_device',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;BLE_UART.ino'],['../dc/d05/_lo_ra_receiver_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;LoRaReceiver.ino'],['../d8/da2/_r_f24_8ino.html#ab725fee33f81e0645cd462343598ec4d',1,'remote_device(UserInput *inputProcess):&#160;RF24.ino']]]
 ];

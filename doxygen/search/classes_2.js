@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['datamodels_0',['dataModels',['../d7/d8c/classmodules_1_1data__models_1_1data_models.html',1,'modules::data_models']]],
-  ['displaymodels_1',['displayModels',['../db/dfa/classmodules_1_1display__models_1_1display_models.html',1,'modules::display_models']]]
+  ['gettokensparam_0',['getTokensParam',['../d7/d74/struct_user_input_1_1get_tokens_param.html',1,'UserInput']]]
 ];

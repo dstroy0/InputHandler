@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger_0',['Logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html',1,'modules::logging_setup']]]
+  ['validatenullsepinputparam_0',['validateNullSepInputParam',['../dc/d98/struct_user_input_1_1validate_null_sep_input_param.html',1,'UserInput']]]
 ];

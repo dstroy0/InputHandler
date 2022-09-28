@@ -1,20 +1,6 @@
 var searchData=
 [
-  ['generate_5fcli_5ffiles_0',['generate_cli_files',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a8acd80d45d30e206a60ff012572b168d',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['generate_5fdocstring_5flist_5ffor_5ffilename_1',['generate_docstring_list_for_filename',['../dc/d45/classmodules_1_1cli_1_1filestrings_1_1_c_l_ifilestrings.html#ab11d464cba57d11d080a06a069d36280',1,'modules::cli::filestrings::CLIfilestrings']]],
-  ['get_5fchild_5flogger_2',['get_child_logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#af50fa8ff5ac8e83ce1aa394c74722c13',1,'modules::logging_setup::Logger']]],
-  ['get_5fconfig_5ffile_3',['get_config_file',['../dd/dae/classmodules_1_1preferences_1_1_preferences_methods.html#a1ce9df19962cbcc6c386a6e8a8873c89',1,'modules::preferences::PreferencesMethods']]],
-  ['get_5ffile_5fhandler_4',['get_file_handler',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#abe8b246d3e9cc7570df9b9d6d639a39e',1,'modules::logging_setup::Logger']]],
-  ['get_5ficon_5',['get_icon',['../d1/d1a/classmodules_1_1helper__methods_1_1_helper_methods.html#a4b68d25ca1cb29de2b4cd5202bb96f24',1,'modules::helper_methods::HelperMethods']]],
-  ['get_5flogger_6',['get_logger',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#a8e98d5f8bd6d190b68f3d27cb084c1fd',1,'modules::logging_setup::Logger']]],
-  ['get_5fstream_5fhandler_7',['get_stream_handler',['../d3/dd3/classmodules_1_1logging__setup_1_1_logger.html#aab2ed7772004b64448111bf50ba65852',1,'modules::logging_setup::Logger']]],
-  ['get_5fvertical_5fdrag_5ficon_5fgeometry_8',['get_vertical_drag_icon_geometry',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a9aa72c82560a3dfdd9e534d00c110ee5',1,'modules::code_preview::CodePreview']]],
-  ['getargument_9',['getArgument',['../dc/d4b/class_user_input.html#adc1c7030c049d743806ecc1009ffd9bb',1,'UserInput']]],
-  ['getcommandfromstream_10',['getCommandFromStream',['../dc/d4b/class_user_input.html#a002a68af52c45c1abf40d4ff66385e7d',1,'UserInput']]],
-  ['gettokens_11',['getTokens',['../dc/d4b/class_user_input.html#a347489af9e2ed29a01b26ba211388718',1,'UserInput']]],
-  ['getuserinput_12',['getUserInput',['../db/d8e/_b_l_e___u_a_r_t_8ino.html#a3f308f9158c987649962e11efb7a0cec',1,'BLE_UART.ino']]],
-  ['gui_5fabout_13',['gui_about',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#ab53b7c75f5b730a462fc1eaf078e9f90',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5fdocumentation_14',['gui_documentation',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a4fd6726c0392cc7790821f4cba56337a',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5flog_5fhistory_15',['gui_log_history',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a399b94d8a30ec0e73470fe8efbaadc00',1,'modules::mainwindow_actions::MainWindowActions']]],
-  ['gui_5fsettings_16',['gui_settings',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a960f437b2e6d8816ebba3b64265881ab',1,'modules::mainwindow_actions::MainWindowActions']]]
+  ['hello_0',['hello',['../d7/d82/basic_2_get_command_from_stream_2_get_command_from_stream_8ino.html#ada85df6483e8ab9967f07c78c3a86e6c',1,'GetCommandFromStream.ino']]],
+  ['help_1',['help',['../d1/d98/config__howto_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;config_howto.ino'],['../d8/d5c/functions_8h.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;functions.h'],['../df/d23/_read_command_from_buffer_m_q_t_t_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;ReadCommandFromBufferMQTT.ino'],['../d1/d96/_wildcard_commands_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;WildcardCommands.ino'],['../d3/dce/_read_command_from_buffer_web_serial_8ino.html#afc08a3592e986eec757ce96900b0fadf',1,'help(UserInput *inputProcess):&#160;ReadCommandFromBufferWebSerial.ino']]],
+  ['help_5f_2',['help_',['../d6/d3b/parameters_8h.html#ab397598925f5b2756a9e58e8eb72fcac',1,'parameters.h']]]
 ];
