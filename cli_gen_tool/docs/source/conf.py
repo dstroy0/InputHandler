@@ -42,7 +42,7 @@ author = "Douglas Quigg (dstroy0@gmail.com)"
 
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode"]
 
-templates_path = ["_templates"]
+templates_path = ["templates"]
 exclude_patterns = []
 
 
