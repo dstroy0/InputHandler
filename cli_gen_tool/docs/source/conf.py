@@ -16,10 +16,13 @@ sys.path.append(modules_path)
 sys.path.append(cli_modules_path)
 sys.path.append(uic_path)
 
-print("tool root path : \n" + tool_root_path)
+print("tool root path: \n" + tool_root_path)
+
+print("If you don't see the module path here, it will not import and Sphinx will yell at you.")
 print("sys.path: ")
 for item in sys.path:
     print(item)
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:

@@ -231,9 +231,10 @@
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
 
 <span class="c1"># pyside imports</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRect</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRect</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QPoint</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QMouseEvent</span><span class="p">,</span> <span class="n">QTextCursor</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QTextBrowser</span>
 
@@ -250,7 +251,13 @@
 <span class="c1">## each text browser in Code Preview is an instance of this class</span>
 <div class="viewcode-block" id="CodePreviewBrowser"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser">[docs]</a><span class="k">class</span> <span class="nc">CodePreviewBrowser</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="p">):</span>
     <span class="c1"># spawns a QTextBrowser with these settings</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor method, each widget must have a unique name</span>
+<span class="sd">           Only widgets named README.md will allow external links</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): human readable object ID (a filename)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CodePreviewBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -264,13 +271,19 @@
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setOpenExternalLinks</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CodePreviewBrowser.resizeEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.resizeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreviewBrowser.resizeEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.resizeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Keeps the text cursor visible while resizing `this` text widget</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QEvent): always a resize</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span></div></div>
 
 
 <span class="c1"># code preview methods</span>
 <div class="viewcode-block" id="CodePreview"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview">[docs]</a><span class="k">class</span> <span class="nc">CodePreview</span><span class="p">(</span><span class="n">cliReadme</span><span class="p">,</span> <span class="n">cliConfig</span><span class="p">,</span> <span class="n">cliSetup</span><span class="p">,</span> <span class="n">cliFunctions</span><span class="p">,</span> <span class="n">cliParameters</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CodePreview</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">CodePreview</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
         <span class="n">CodePreview</span><span class="o">.</span><span class="n">selected_text_widget</span> <span class="o">=</span> <span class="kc">None</span>
@@ -281,7 +294,16 @@
         <span class="n">cliParameters</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="c1"># refreshes the text in the code preview trees (also the text used to generate files)</span>
-<div class="viewcode-block" id="CodePreview.update_code"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.update_code">[docs]</a>    <span class="k">def</span> <span class="nf">update_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.update_code"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.update_code">[docs]</a>    <span class="k">def</span> <span class="nf">update_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;updates code in text_widget.objectName(`file`);</span>
+<span class="sd">           highlights `item_string` if exists;</span>
+<span class="sd">           places the cursor on `item_string` if `place_cursor` True.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file (str): filename.extension</span>
+<span class="sd">            item_string (str): item within `file` that changed, if any.</span>
+<span class="sd">            place_cursor (bool): place the text cursor on `item_string` if True and `item_string` exists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CodePreview</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;update </span><span class="si">{filename}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">file</span><span class="p">))</span>
         <span class="c1"># update widgets</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
@@ -299,7 +321,8 @@
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;functions.cpp&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CodePreview.display_initial_code_preview"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.display_initial_code_preview">[docs]</a>    <span class="k">def</span> <span class="nf">display_initial_code_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.display_initial_code_preview"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.display_initial_code_preview">[docs]</a>    <span class="k">def</span> <span class="nf">display_initial_code_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generates initial text for all CodePreviewBrowser&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readme_md</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -308,7 +331,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">functions_h</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CodePreview.code_preview_events"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.code_preview_events">[docs]</a>    <span class="k">def</span> <span class="nf">code_preview_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">watched</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">mouse_button</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.code_preview_events"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.code_preview_events">[docs]</a>    <span class="k">def</span> <span class="nf">code_preview_events</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">watched</span><span class="p">:</span> <span class="n">QObject</span><span class="p">,</span>
+        <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">,</span>
+        <span class="n">event_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span>
+        <span class="n">mouse_button</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">mouse_pos</span><span class="p">:</span> <span class="n">QPoint</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Triggers on user interaction with any portion of code preview pane</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            watched (QObject): the viewport that triggered the event</span>
+<span class="sd">            event (QEvent): the event itself</span>
+<span class="sd">            event_type (Type): the type of event</span>
+<span class="sd">            mouse_button (bool): True if a mouse button was pressed</span>
+<span class="sd">            mouse_pos (QPoint): Untranslated mouse cursor position</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">watched</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
             <span class="n">code_preview</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span>
         <span class="k">elif</span> <span class="n">watched</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span><span class="o">.</span><span class="n">viewport</span><span class="p">():</span>
@@ -386,7 +425,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span></div>
 
     <span class="c1"># puts an invisible interaction hitbox around where someone would expect to be able to drag (vertical)</span>
-<div class="viewcode-block" id="CodePreview.get_vertical_drag_icon_geometry"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.get_vertical_drag_icon_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">get_vertical_drag_icon_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget_qrect</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.get_vertical_drag_icon_geometry"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.get_vertical_drag_icon_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">get_vertical_drag_icon_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget_qrect</span><span class="p">:</span> <span class="n">QRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QRect</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the area where a user can vertically drag a CodePreviewBrowser to adjust its display area.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            widget_qrect (QRect): The display area of the CodePreviewBrowser</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">QRect</span><span class="p">(</span>
             <span class="mi">20</span><span class="p">,</span>
             <span class="n">widget_qrect</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">+</span> <span class="n">widget_qrect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="mi">4</span><span class="p">,</span>
@@ -395,7 +439,7 @@
         <span class="p">)</span></div>
 
     <span class="c1"># resizes code preview text browsers</span>
-<div class="viewcode-block" id="CodePreview.resize_code_preview_tree_item"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.resize_code_preview_tree_item">[docs]</a>    <span class="k">def</span> <span class="nf">resize_code_preview_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.resize_code_preview_tree_item"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.resize_code_preview_tree_item">[docs]</a>    <span class="k">def</span> <span class="nf">resize_code_preview_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">y_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_height</span> <span class="o">+</span> <span class="p">(</span><span class="n">mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">setSizeHint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="p">)</span>
@@ -413,7 +457,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">treeWidget</span><span class="p">()</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">widget_size</span><span class="p">)</span></div>
 
     <span class="c1"># build code preview trees</span>
-<div class="viewcode-block" id="CodePreview.build_code_preview_tree"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.build_code_preview_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_code_preview_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.build_code_preview_tree"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.build_code_preview_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_code_preview_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">tab</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">tab</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span>
@@ -449,7 +493,16 @@
     <span class="c1"># end build_code_preview_tree()</span>
 
     <span class="c1"># highlights `item_string` in `text_widget`; centers the cursor on the highlighted text</span>
-<div class="viewcode-block" id="CodePreview.set_text_cursor"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_text_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">set_text_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">,</span> <span class="n">item_string</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.set_text_cursor"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_text_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">set_text_cursor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">:</span> <span class="n">CodePreviewBrowser</span><span class="p">,</span> <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;sets the text cursor in text_widget by searching for item_string character string;</span>
+<span class="sd">           centers the highlighted text in the text_widget&#39;s viewport</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text_widget (CodePreviewBrowser): the target text widget</span>
+<span class="sd">            item_string (str): the string to highlight if exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">QTextCursor</span><span class="p">(</span><span class="n">text_widget</span><span class="o">.</span><span class="n">document</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item_string</span><span class="p">))</span>
         <span class="n">cursor</span><span class="o">.</span><span class="n">movePosition</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">EndOfLine</span><span class="p">)</span>
         <span class="n">text_widget</span><span class="o">.</span><span class="n">setTextCursor</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
@@ -458,7 +511,21 @@
         <span class="n">text_widget</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span></div>
 
     <span class="c1"># sets the text inside of code preview text browsers</span>
-<div class="viewcode-block" id="CodePreview.set_code_string"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_code_string">[docs]</a>    <span class="k">def</span> <span class="nf">set_code_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="CodePreview.set_code_string"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_code_string">[docs]</a>    <span class="k">def</span> <span class="nf">set_code_string</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">code_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">place_cursor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;sets the text string inside of a CodePreviewBrowser</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename (str): the name of the file to change</span>
+<span class="sd">            code_string (str): the contents of the file</span>
+<span class="sd">            item_string (str): the item within the file that changed</span>
+<span class="sd">            place_cursor (bool, optional): Whether or not to highlight text, if found and center the cursor. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">tab</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
             <span class="n">text_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
             <span class="n">text_widget</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>

@@ -11,9 +11,10 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+from typing import Type
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt
+from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QPoint
 from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QSizePolicy, QTreeWidgetItem, QTextBrowser
 
@@ -30,7 +31,13 @@ from res.modules.logging_setup import Logger
 ## each text browser in Code Preview is an instance of this class
 class CodePreviewBrowser(QTextBrowser):
     # spawns a QTextBrowser with these settings
-    def __init__(self, name):
+    def __init__(self, name: str):
+        """Constructor method, each widget must have a unique name
+           Only widgets named README.md will allow external links
+
+        Args:
+            name (str): human readable object ID (a filename)
+        """
         super(CodePreviewBrowser, self).__init__()
         self.setLineWrapMode(QTextBrowser.NoWrap)
         self.setReadOnly(True)
@@ -44,13 +51,19 @@ class CodePreviewBrowser(QTextBrowser):
         if name == "README.md":
             self.setOpenExternalLinks(True)
 
-    def resizeEvent(self, event):
+    def resizeEvent(self, event: QEvent) -> None:
+        """Keeps the text cursor visible while resizing `this` text widget
+
+        Args:
+            event (QEvent): always a resize
+        """
         self.ensureCursorVisible()
 
 
 # code preview methods
 class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def __init__(self) -> None:
+        """Constructor method"""
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
@@ -61,7 +74,16 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         cliParameters.__init__(self)
 
     # refreshes the text in the code preview trees (also the text used to generate files)
-    def update_code(self, file, item_string, place_cursor):
+    def update_code(self, file: str, item_string: str, place_cursor: bool) -> None:
+        """updates code in text_widget.objectName(`file`);
+           highlights `item_string` if exists;
+           places the cursor on `item_string` if `place_cursor` True.
+
+        Args:
+            file (str): filename.extension
+            item_string (str): item within `file` that changed, if any.
+            place_cursor (bool): place the text cursor on `item_string` if True and `item_string` exists.
+        """
         CodePreview.logger.debug("update {filename}".format(filename=file))
         # update widgets
         if file == "README.md":
@@ -79,7 +101,8 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         if file == "functions.cpp":
             self.functions_cpp(item_string, place_cursor)
 
-    def display_initial_code_preview(self):
+    def display_initial_code_preview(self) -> None:
+        """Generates initial text for all CodePreviewBrowser"""
         self.readme_md(None, False)
         self.config_h(None, False)
         self.setup_h(None, False)
@@ -88,7 +111,23 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         self.functions_h(None, False)
         self.functions_cpp(None, False)
 
-    def code_preview_events(self, watched, event, event_type, mouse_button, mouse_pos):
+    def code_preview_events(
+        self,
+        watched: QObject,
+        event: QEvent,
+        event_type: Type,
+        mouse_button: bool,
+        mouse_pos: QPoint,
+    ) -> None:
+        """Triggers on user interaction with any portion of code preview pane
+
+        Args:
+            watched (QObject): the viewport that triggered the event
+            event (QEvent): the event itself
+            event_type (Type): the type of event
+            mouse_button (bool): True if a mouse button was pressed
+            mouse_pos (QPoint): Untranslated mouse cursor position
+        """
         if watched == self.ui.codePreview_1.viewport():
             code_preview = self.ui.codePreview_1
         elif watched == self.ui.codePreview_2.viewport():
@@ -166,7 +205,12 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
             self.setCursor(Qt.CursorShape.ArrowCursor)
 
     # puts an invisible interaction hitbox around where someone would expect to be able to drag (vertical)
-    def get_vertical_drag_icon_geometry(self, widget_qrect):
+    def get_vertical_drag_icon_geometry(self, widget_qrect: QRect) -> QRect:
+        """Returns the area where a user can vertically drag a CodePreviewBrowser to adjust its display area.
+
+        Args:
+            widget_qrect (QRect): The display area of the CodePreviewBrowser
+        """
         return QRect(
             20,
             widget_qrect.y() + widget_qrect.height() - 4,
@@ -175,7 +219,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         )
 
     # resizes code preview text browsers
-    def resize_code_preview_tree_item(self, mouse_pos):
+    def resize_code_preview_tree_item(self, mouse_pos) -> None:
         y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
         self.drag_resize_qsize.setHeight(y_axis)
         self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)
@@ -193,7 +237,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
             self.selected_drag_to_resize_item.treeWidget().resize(widget_size)
 
     # build code preview trees
-    def build_code_preview_tree(self):
+    def build_code_preview_tree(self) -> None:
         for tab in range(0, 2):
             if tab == 0:
                 tree = self.ui.codePreview_1
@@ -229,7 +273,16 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
     # end build_code_preview_tree()
 
     # highlights `item_string` in `text_widget`; centers the cursor on the highlighted text
-    def set_text_cursor(self, text_widget, item_string):
+    def set_text_cursor(
+        self, text_widget: CodePreviewBrowser, item_string: str
+    ) -> None:
+        """sets the text cursor in text_widget by searching for item_string character string;
+           centers the highlighted text in the text_widget's viewport
+
+        Args:
+            text_widget (CodePreviewBrowser): the target text widget
+            item_string (str): the string to highlight if exists
+        """
         cursor = QTextCursor(text_widget.document().find(item_string))
         cursor.movePosition(cursor.EndOfLine)
         text_widget.setTextCursor(cursor)
@@ -238,7 +291,21 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         text_widget.ensureCursorVisible()
 
     # sets the text inside of code preview text browsers
-    def set_code_string(self, filename, code_string, item_string, place_cursor=False):
+    def set_code_string(
+        self,
+        filename: str,
+        code_string: str,
+        item_string: str,
+        place_cursor: bool = False,
+    ) -> None:
+        """sets the text string inside of a CodePreviewBrowser
+
+        Args:
+            filename (str): the name of the file to change
+            code_string (str): the contents of the file
+            item_string (str): the item within the file that changed
+            place_cursor (bool, optional): Whether or not to highlight text, if found and center the cursor. Defaults to False.
+        """
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
