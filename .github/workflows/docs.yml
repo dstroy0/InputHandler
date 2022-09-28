@@ -11,7 +11,7 @@ jobs:
       - name: Update and install linux dependencies
         run: |
           sudo apt-get update
-          sudo apt-get libegl1:i386
+          sudo apt-get install libegl1:i386
           
       - uses: actions/checkout@v3
         with: 
