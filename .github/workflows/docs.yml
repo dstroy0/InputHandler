@@ -17,19 +17,17 @@ jobs:
       - name: Install dependencies
         run: |
           python -VV
-          python -m pip install furo
+          pip install -r ./cli_gen_tool/requirements.txt
+      
+      - name: Build Sphinx
+        run: |
+          sphinx-build -b html ./cli_gen_tool/docs/source ./docs_build/sphinx
 
       - name: Build Doxygen
         uses: mattnotmitt/doxygen-action@edge
         with:
           working-directory: '/github/workspace/'
-          doxyfile-path: 'docs/Doxyfile'                  
-
-      - name: Build Sphinx
-        uses: ammaraskar/sphinx-action@master
-        with:          
-          docs-folder: "cli_gen_tool/docs/source"
-          build-command: "sphinx-build -b html . docs_build/sphinx"
+          doxyfile-path: 'docs/Doxyfile'                        
       
       - name: Deploy 🚀        
         uses: peaceiris/actions-gh-pages@v3
