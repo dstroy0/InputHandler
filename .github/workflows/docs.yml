@@ -16,6 +16,14 @@ jobs:
         with:
           working-directory: '/github/workspace/'
           doxyfile-path: 'docs/Doxyfile'
+      - name: Setup python
+        uses: actions/setup-python@v4
+          with:
+            python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -VV
+          python -m pip install furo
       - name: Build Sphinx
         uses: ammaraskar/sphinx-action@master
         with:          
