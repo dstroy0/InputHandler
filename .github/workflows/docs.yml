@@ -11,17 +11,20 @@ jobs:
       - name: Update and install linux dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install libgl1
+          
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
+
       - uses: actions/setup-python@v4
         with:
           python-version: 3.9
+
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./cli_gen_tool/requirements.txt                    
+          pip install -r ./cli_gen_tool/requirements.txt
+          pip freeze                    
       
       - name: Build Sphinx 
         run: |
