@@ -11,21 +11,19 @@ jobs:
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -VV
+          python -m pip install furo
 
       - name: Build Doxygen
         uses: mattnotmitt/doxygen-action@edge
         with:
           working-directory: '/github/workspace/'
-          doxyfile-path: 'docs/Doxyfile'
-      - name: Setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install dependencies
-        run: |
-          python -VV
-          python -m pip install furo
+          doxyfile-path: 'docs/Doxyfile'                  
 
       - name: Build Sphinx
         uses: ammaraskar/sphinx-action@master
