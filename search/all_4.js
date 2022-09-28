@@ -18,7 +18,7 @@ var searchData=
   ['delimiter_5flens_15',['delimiter_lens',['../dc/da2/struct_input_process_delimiter_sequences.html#ad4472bb6f406e04734b561e8c708928d',1,'InputProcessDelimiterSequences']]],
   ['delimiter_5fsequences_16',['delimiter_sequences',['../dc/da2/struct_input_process_delimiter_sequences.html#a0b48e3457377cb18702fca3cabc2dc92',1,'InputProcessDelimiterSequences']]],
   ['depth_17',['depth',['../db/d11/struct_command_parameters.html#a4efe018e9847be42c96abc933c8497ef',1,'CommandParameters']]],
-  ['display_5finitial_5fcode_5fpreview_18',['display_initial_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a11051a7f0b6b26fa8b01609836dbb44e',1,'modules::code_preview::CodePreview']]],
+  ['display_5finitial_5fcode_5fpreview_18',['display_initial_code_preview',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#ad3f8197a51e900fca08e6e4f78e8b0e9',1,'modules::code_preview::CodePreview']]],
   ['display_5fmodels_2epy_19',['display_models.py',['../d3/d98/display__models_8py.html',1,'']]],
   ['displaymodels_20',['displayModels',['../db/dfa/classmodules_1_1display__models_1_1display_models.html',1,'modules::display_models']]],
   ['do_5fbefore_5fapp_5fclose_21',['do_before_app_close',['../d9/d34/classmodules_1_1mainwindow__actions_1_1_main_window_actions.html#a915f9f83211ad379aa6caeda6dd0f358',1,'modules::mainwindow_actions::MainWindowActions']]],

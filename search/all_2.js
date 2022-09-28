@@ -20,7 +20,7 @@ var searchData=
   ['browse_5ffor_5foutput_5fdir_17',['browse_for_output_dir',['../d9/d82/classuic_1_1preferences_dialog_1_1_ui___preferences.html#a8249014ef0167e8d46666e7b8803f92e',1,'uic::preferencesDialog::Ui_Preferences']]],
   ['buffsz_18',['buffsz',['../da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178',1,'noedit.h']]],
   ['bufsize_19',['BUFSIZE',['../d2/df9/_bluefruit_config_8h.html#aeca034f67218340ecb2261a22c2f3dcd',1,'BluefruitConfig.h']]],
-  ['build_5fcode_5fpreview_5ftree_20',['build_code_preview_tree',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#a2f9af5976e2527c4144ec08c16095a14',1,'modules::code_preview::CodePreview']]],
+  ['build_5fcode_5fpreview_5ftree_20',['build_code_preview_tree',['../dd/d03/classmodules_1_1code__preview_1_1_code_preview.html#ad882045aba15f2fa75629bb4745c189f',1,'modules::code_preview::CodePreview']]],
   ['build_5fcommand_5fparameters_5ftable_5fview_21',['build_command_parameters_table_view',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#a02e0de38f367574d1849817b27d8a535',1,'modules::command_tree::CommandTreeMethods']]],
   ['build_5fcommand_5ftree_22',['build_command_tree',['../de/d14/classmodules_1_1command__tree_1_1_command_tree_methods.html#adbcc111a01e6486b37023ea9567ac8f7',1,'modules::command_tree::CommandTreeMethods']]],
   ['build_5flib_5fsettings_5ftree_23',['build_lib_settings_tree',['../d2/db5/classmodules_1_1settings__tree_1_1_settings_tree_methods.html#ae722d5662b98a7f9b657cc347e002c8f',1,'modules::settings_tree::SettingsTreeMethods']]],
