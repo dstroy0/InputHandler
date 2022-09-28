@@ -28,7 +28,7 @@ jobs:
       
       - name: Build Sphinx 
         run: |
-          sphinx-build -b html ./cli_gen_tool/docs/source ./docs_build/sphinx
+          sphinx-build -b html ./cli_gen_tool/docs/source ./docs_build/cli_gen_tool
 
       - name: Build Doxygen
         uses: mattnotmitt/doxygen-action@edge
