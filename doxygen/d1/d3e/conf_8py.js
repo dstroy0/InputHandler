@@ -1,5 +1,6 @@
 var conf_8py =
 [
+    [ "_html_static_path", "d1/d3e/conf_8py.html#a974545e7e1ae3fa38fdc5f5f2c9e11c2", null ],
     [ "author", "d1/d3e/conf_8py.html#a637c239d256432248aa8d9f3ab0b8c52", null ],
     [ "cli_modules_path", "d1/d3e/conf_8py.html#a23c805213dbaabb78237f19b60a96242", null ],
     [ "copyright", "d1/d3e/conf_8py.html#a33fa97cf51dcb25970fbf53f10159589", null ],

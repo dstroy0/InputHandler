@@ -2,6 +2,7 @@ var namespaces_dup =
 [
     [ "cli_gen_tool", "dd/d04/namespacecli__gen__tool.html", "dd/d04/namespacecli__gen__tool" ],
     [ "conf", "d5/d89/namespaceconf.html", [
+      [ "_html_static_path", "d5/d89/namespaceconf.html#a974545e7e1ae3fa38fdc5f5f2c9e11c2", null ],
       [ "author", "d5/d89/namespaceconf.html#a637c239d256432248aa8d9f3ab0b8c52", null ],
       [ "cli_modules_path", "d5/d89/namespaceconf.html#a23c805213dbaabb78237f19b60a96242", null ],
       [ "copyright", "d5/d89/namespaceconf.html#a33fa97cf51dcb25970fbf53f10159589", null ],
