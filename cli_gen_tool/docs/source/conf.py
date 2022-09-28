@@ -4,11 +4,11 @@ import sys
 # pathing
 os.chdir("../..")
 tool_root_path = os.path.abspath(os.curdir)
-tool_path = tool_root_path + "\\cli_gen_tool.py"
-res_path = tool_root_path + "\\res"
-modules_path = res_path + "\\modules"
-cli_modules_path = modules_path + "\\cli"
-uic_path = res_path + "\\uic"
+tool_path = tool_root_path + "/cli_gen_tool.py"
+res_path = tool_root_path + "/res"
+modules_path = res_path + "/modules"
+cli_modules_path = modules_path + "/cli"
+uic_path = res_path + "/uic"
 sys.path.insert(0, tool_root_path)
 sys.path.append(tool_path)
 sys.path.append(res_path)
@@ -48,4 +48,4 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "furo"
-html_static_path = ["./cli_gen_tool/docs/source/_static"]
+html_static_path = ["docs/source/_static"]
