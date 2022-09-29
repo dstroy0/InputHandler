@@ -6,9 +6,7 @@
    :hidden:
    
    README.rst
-
-   src/InputHandler.rst
-
+   
 .. toctree::
     :maxdepth: 4
     :hidden:
