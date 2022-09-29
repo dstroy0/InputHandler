@@ -13,6 +13,8 @@ Welcome to cli_gen_tool's documentation!
    
    modules/cli_gen_tool.rst
 
+   InputHandler docs <https://dstroy0.github.io/InputHandler/lib/index.html>
+
 .. toctree::
     :maxdepth: 4
     :hidden:
