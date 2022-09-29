@@ -54,4 +54,4 @@ InputHandler.h
 ----------------
 
 .. literalinclude:: ../../../src/InputHandler.h
-    :caption: InputHandler.h
+    :caption: src/InputHandler.h
