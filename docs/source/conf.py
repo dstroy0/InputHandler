@@ -38,7 +38,7 @@ breathe_default_project = "InputHandler"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.imgmath","spinx.ext.todo","sphinx.ext.autodoc", "sphinx.ext.viewcode", "breathe"]
+extensions = ["sphinx.ext.imgmath","sphinx.ext.todo","sphinx.ext.autodoc", "sphinx.ext.viewcode", "breathe"]
 
 templates_path = ["templates"]
 exclude_patterns = []
