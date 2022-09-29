@@ -198,6 +198,270 @@
         <article role="main">
           <section id="inputhandler-h">
 <h1>InputHandler.h<a class="headerlink" href="#inputhandler-h" title="Permalink to this heading">#</a></h1>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv49UI_CMD_ID">
+<span id="_CPPv39UI_CMD_ID"></span><span id="_CPPv29UI_CMD_ID"></span><span class="target" id="de/d8a/group___user_input_1ga166e5457949a4e09a4391b2bacbb1db0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_CMD_ID</span></span></span><a class="headerlink" href="#_CPPv49UI_CMD_ID" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>command identifier enum this is used to explicitly state something is related to a root command in the context of UserInput::CommandParameters </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N9UI_CMD_ID4rootE">
+<span id="_CPPv3N9UI_CMD_ID4rootE"></span><span id="_CPPv2N9UI_CMD_ID4rootE"></span><span class="target" id="de/d8a/group___user_input_1gga166e5457949a4e09a4391b2bacbb1db0ae87665181d83c0613d7d3fdceaa293de"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">root</span></span></span><a class="headerlink" href="#_CPPv4N9UI_CMD_ID4rootE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>this is the root command id, it’s the number 0 ALWAYS </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv410UI_WC_FLAG">
+<span id="_CPPv310UI_WC_FLAG"></span><span id="_CPPv210UI_WC_FLAG"></span><span class="target" id="de/d8a/group___user_input_1gae655f6a50054ff5649f7ab9509d64f14"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_WC_FLAG</span></span></span><a class="headerlink" href="#_CPPv410UI_WC_FLAG" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>command wildcard flag enum these flags are used inside of UserInput::CommandParameters </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10UI_WC_FLAG12no_wildcardsE">
+<span id="_CPPv3N10UI_WC_FLAG12no_wildcardsE"></span><span id="_CPPv2N10UI_WC_FLAG12no_wildcardsE"></span><span class="target" id="de/d8a/group___user_input_1ggae655f6a50054ff5649f7ab9509d64f14a0681c51d081bef2c026443ddb77c8127"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_wildcards</span></span></span><a class="headerlink" href="#_CPPv4N10UI_WC_FLAG12no_wildcardsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>this command has no wildcard char (false (0)) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10UI_WC_FLAG13has_wildcardsE">
+<span id="_CPPv3N10UI_WC_FLAG13has_wildcardsE"></span><span id="_CPPv2N10UI_WC_FLAG13has_wildcardsE"></span><span class="target" id="de/d8a/group___user_input_1ggae655f6a50054ff5649f7ab9509d64f14aecae04b6672265aa9a4e0ec44826d67e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_wildcards</span></span></span><a class="headerlink" href="#_CPPv4N10UI_WC_FLAG13has_wildcardsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>this command contains one or more wildcard char (true (1)) </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv410UI_COMPARE">
+<span id="_CPPv310UI_COMPARE"></span><span id="_CPPv210UI_COMPARE"></span><span class="target" id="de/d8a/group___user_input_1ga6d345262e77318723edf20f58dc745b6"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_COMPARE</span></span></span><a class="headerlink" href="#_CPPv410UI_COMPARE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>UserInput::_compareCommandToString() return values these flags are only used to provide clarity to UserInput::_compareCommandToString(), they make it easy to understand what is happening inside of that method. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10UI_COMPARE8no_matchE">
+<span id="_CPPv3N10UI_COMPARE8no_matchE"></span><span id="_CPPv2N10UI_COMPARE8no_matchE"></span><span class="target" id="de/d8a/group___user_input_1gga6d345262e77318723edf20f58dc745b6aeee61f4d0c0fc1ad344a6a588f235aaf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_match</span></span></span><a class="headerlink" href="#_CPPv4N10UI_COMPARE8no_matchE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>no match </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10UI_COMPARE17match_all_wcc_cmdE">
+<span id="_CPPv3N10UI_COMPARE17match_all_wcc_cmdE"></span><span id="_CPPv2N10UI_COMPARE17match_all_wcc_cmdE"></span><span class="target" id="de/d8a/group___user_input_1gga6d345262e77318723edf20f58dc745b6ab79e93058f227b5f637272d3d6b40cdb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">match_all_wcc_cmd</span></span></span><a class="headerlink" href="#_CPPv4N10UI_COMPARE17match_all_wcc_cmdE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>match all wcc command </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10UI_COMPARE5matchE">
+<span id="_CPPv3N10UI_COMPARE5matchE"></span><span id="_CPPv2N10UI_COMPARE5matchE"></span><span class="target" id="de/d8a/group___user_input_1gga6d345262e77318723edf20f58dc745b6aff192c21885a659cb1069ef9498a3069"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">match</span></span></span><a class="headerlink" href="#_CPPv4N10UI_COMPARE5matchE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>match command </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv415UI_ARG_HANDLING">
+<span id="_CPPv315UI_ARG_HANDLING"></span><span id="_CPPv215UI_ARG_HANDLING"></span><span class="target" id="de/d8a/group___user_input_1gaaf7aee82204b26b1dc80fcefa29ea8b9"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_ARG_HANDLING</span></span></span><a class="headerlink" href="#_CPPv415UI_ARG_HANDLING" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>strongly typed argument handling flags this is used in UserInput::CommandParameters as a visual reminder of how the process will handle your arguments </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15UI_ARG_HANDLING7no_argsE">
+<span id="_CPPv3N15UI_ARG_HANDLING7no_argsE"></span><span id="_CPPv2N15UI_ARG_HANDLING7no_argsE"></span><span class="target" id="de/d8a/group___user_input_1ggaaf7aee82204b26b1dc80fcefa29ea8b9a517c5dac9a168ab48e4727ca5ada9741"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_args</span></span></span><a class="headerlink" href="#_CPPv4N15UI_ARG_HANDLING7no_argsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>no arguments expected </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15UI_ARG_HANDLING8one_typeE">
+<span id="_CPPv3N15UI_ARG_HANDLING8one_typeE"></span><span id="_CPPv2N15UI_ARG_HANDLING8one_typeE"></span><span class="target" id="de/d8a/group___user_input_1ggaaf7aee82204b26b1dc80fcefa29ea8b9afd1b59a959f982928e0b4e79bb42dd67"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">one_type</span></span></span><a class="headerlink" href="#_CPPv4N15UI_ARG_HANDLING8one_typeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>every argument is of the same type </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15UI_ARG_HANDLING8type_arrE">
+<span id="_CPPv3N15UI_ARG_HANDLING8type_arrE"></span><span id="_CPPv2N15UI_ARG_HANDLING8type_arrE"></span><span class="target" id="de/d8a/group___user_input_1ggaaf7aee82204b26b1dc80fcefa29ea8b9aad69e504bf949689b02f44ff8246d98f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_arr</span></span></span><a class="headerlink" href="#_CPPv4N15UI_ARG_HANDLING8type_arrE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>there is an array of input types </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv46UITYPE">
+<span id="_CPPv36UITYPE"></span><span id="_CPPv26UITYPE"></span><span class="target" id="de/d8a/group___user_input_1ga70e7c464dbd2c5c26fa63684d9dfdd70"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UITYPE</span></span></span><a class="headerlink" href="#_CPPv46UITYPE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> type specifier these are the different types of user input the process can accept NOTYPE and START_STOP can be any 0-255 value This is strongly typed to help avoid name conflicts, and as an indicator that these types are not built-in. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE7UINT8_TE">
+<span id="_CPPv3N6UITYPE7UINT8_TE"></span><span id="_CPPv2N6UITYPE7UINT8_TE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70a25185a78b19f8b194e2955929e32baca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT8_T</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE7UINT8_TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE8UINT16_TE">
+<span id="_CPPv3N6UITYPE8UINT16_TE"></span><span id="_CPPv2N6UITYPE8UINT16_TE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70abd93e66a884d0291f3db5bb0eeb03ffe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT16_T</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE8UINT16_TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>16-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE8UINT32_TE">
+<span id="_CPPv3N6UITYPE8UINT32_TE"></span><span id="_CPPv2N6UITYPE8UINT32_TE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70abc0d406b455d82bfc780c67be1976fed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT32_T</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE8UINT32_TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>32-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE7INT16_TE">
+<span id="_CPPv3N6UITYPE7INT16_TE"></span><span id="_CPPv2N6UITYPE7INT16_TE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70a5e66c6e44fda6975bc1d1f10f4ea0436"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INT16_T</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE7INT16_TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>16-bit signed integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE5FLOATE">
+<span id="_CPPv3N6UITYPE5FLOATE"></span><span id="_CPPv2N6UITYPE5FLOATE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70ae738c26bf4ce1037fa81b039a915cbf6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FLOAT</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE5FLOATE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>32-bit float </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE4CHARE">
+<span id="_CPPv3N6UITYPE4CHARE"></span><span id="_CPPv2N6UITYPE4CHARE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70a027acd3aa6b1dd7f26119d3cf0f9a063"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHAR</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE4CHARE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-bit char </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE10START_STOPE">
+<span id="_CPPv3N6UITYPE10START_STOPE"></span><span id="_CPPv2N6UITYPE10START_STOPE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70af749dae7024a2aceb2b15cb807300aef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">START_STOP</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE10START_STOPE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>array of 8-bit char </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE6NOTYPEE">
+<span id="_CPPv3N6UITYPE6NOTYPEE"></span><span id="_CPPv2N6UITYPE6NOTYPEE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NOTYPE</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE6NOTYPEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>no type validation </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE7NO_ARGSE">
+<span id="_CPPv3N6UITYPE7NO_ARGSE"></span><span id="_CPPv2N6UITYPE7NO_ARGSE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NO_ARGS</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE7NO_ARGSE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>no arguments expected </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6UITYPE5_LASTE">
+<span id="_CPPv3N6UITYPE5_LASTE"></span><span id="_CPPv2N6UITYPE5_LASTE"></span><span class="target" id="de/d8a/group___user_input_1gga70e7c464dbd2c5c26fa63684d9dfdd70aaa55687588914f1c2a506982d7f57948"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_LAST</span></span></span><a class="headerlink" href="#_CPPv4N6UITYPE5_LASTE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>reserved </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga08f01b3963da682b202040cdf718ea11"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">char</span> <span class="pre">UserInput_type_strings_pgm</span> <span class="pre">[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]</span> <span class="pre">=</span> <span class="pre">{&quot;UINT8_T&quot;,&quot;UINT16_T&quot;,&quot;UINT32_T&quot;,&quot;INT16_T&quot;,&quot;FLOAT&quot;,&quot;CHAR&quot;,&quot;STARTSTOP&quot;,&quot;NOTYPE&quot;,&quot;NO_ARGS&quot;,&quot;error&quot;}</span></span></dt>
+<dd><p>type string literals input type string literal PROGMEM array, each of the types in UITYPE has a corresponding string literal for display purposes </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv430InputProcessDelimiterSequences">
+<span id="_CPPv330InputProcessDelimiterSequences"></span><span id="_CPPv230InputProcessDelimiterSequences"></span><span id="InputProcessDelimiterSequences"></span><span class="target" id="dc/da2/struct_input_process_delimiter_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessDelimiterSequences</span></span></span><a class="headerlink" href="#_CPPv430InputProcessDelimiterSequences" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#dc/da2/struct_input_process_delimiter_sequences"><span class="std std-ref">InputProcessDelimiterSequences</span></a> struct holds user defined input data delimiters This struct holds information about the delimiter sequences the process will be using. A delimiter sequence is a predefined number or set of numbers that is used to separate input arguments, subcommands or data. The input process needs to know three things about the delimiter sequences you want to use. The number of delimiter sequences there are (up to UI_MAX_DELIM_SEQ), the 8-bit byte (char) length of each delimiter sequence, and finally each delimiter sequence which can be up to UI_DELIM_SEQ_PGM_LEN in length. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv430InputProcessStartStopSequences">
+<span id="_CPPv330InputProcessStartStopSequences"></span><span id="_CPPv230InputProcessStartStopSequences"></span><span id="InputProcessStartStopSequences"></span><span class="target" id="d4/dc0/struct_input_process_start_stop_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessStartStopSequences</span></span></span><a class="headerlink" href="#_CPPv430InputProcessStartStopSequences" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#d4/dc0/struct_input_process_start_stop_sequences"><span class="std std-ref">InputProcessStartStopSequences</span></a> struct holds regex-like start-stop match sequence pairs This struct holds information about the start-stop sequence pairs the process will be using. A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to be identical to one another. The “start” sequence demarcs the beginning of a chunk of data, the “stop” sequence demarcs the end of the chunk of data. The input process needs to know three things about the start-stop sequences you want to use. The number of start-stop sequences there are (up to UI_MAX_START_STOP_SEQ), the 8-bit byte (char) length of each start-stop sequence, and finally each start-stop sequence which can be up to UI_START_STOP_SEQ_PGM_LEN in length. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv48IH_pname">
+<span id="_CPPv38IH_pname"></span><span id="_CPPv28IH_pname"></span><span id="IH_pname"></span><span class="target" id="de/d8a/group___user_input_1ga561fa7484e19f7dfebcf361ecd585f2f"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_pname</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_PROCESS_NAME_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv48IH_pname" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46IH_eol">
+<span id="_CPPv36IH_eol"></span><span id="_CPPv26IH_eol"></span><span id="IH_eol"></span><span class="target" id="de/d8a/group___user_input_1gafbde6b816485ab1d1e6e22b3b0cb9f02"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_eol</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_EOL_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_eol" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv411IH_input_cc">
+<span id="_CPPv311IH_input_cc"></span><span id="_CPPv211IH_input_cc"></span><span id="IH_input_cc"></span><span class="target" id="de/d8a/group___user_input_1ga85f676c44db484981373328e3dbf0698"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_input_cc</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv411IH_input_cc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46IH_wcc">
+<span id="_CPPv36IH_wcc"></span><span id="_CPPv26IH_wcc"></span><span id="IH_wcc"></span><span class="target" id="de/d8a/group___user_input_1gae5ba9d1632e0bccd924cf01102d0af3d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_wcc</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_wcc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_wcc is a two char array that represents the wildcard char and a null terminator This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv422InputProcessParameters">
+<span id="_CPPv322InputProcessParameters"></span><span id="_CPPv222InputProcessParameters"></span><span id="InputProcessParameters"></span><span class="target" id="db/dda/struct_input_process_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessParameters</span></span></span><a class="headerlink" href="#_CPPv422InputProcessParameters" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gae02e75f336946c2667c75c61b302baeb"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_pname</span> <span class="pre">_pname</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;&quot;</span></span></dt>
+<dd><p>default process name == “” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga648dd8cd47317e8f8764a383f85b4d52"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_eol</span> <span class="pre">_peol</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;\r\n&quot;</span></span></dt>
+<dd><p>default process eol characters “\r\n” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gae949edb22aa21bc0604c634a238ebb6d"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_input_cc</span> <span class="pre">_pinputcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;##&quot;</span></span></dt>
+<dd><p>default process input control character sequence “##” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga4aaf7ae99900377fc18b6ac5631c21de"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_wcc</span> <span class="pre">_pwcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;*&quot;</span></span></dt>
+<dd><p>default process wildcard char ‘*’ </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga2a598377b17768e0e9bb3be40f439c3a"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessDelimiterSequences</span> <span class="pre">_pdelimseq</span>&#160; <span class="pre">=</span> <span class="pre">{2,{1,</span> <span class="pre">1},{&quot;</span> <span class="pre">&quot;,</span> <span class="pre">&quot;,&quot;}}</span></span></dt>
+<dd><p>default delimiter sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga43c58059001edf0ce5f70fb14817c504"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessStartStopSequences</span> <span class="pre">_pststpseq</span>&#160; <span class="pre">=</span> <span class="pre">{1,{1,</span> <span class="pre">1},{&quot;\&quot;&quot;,</span> <span class="pre">&quot;\&quot;&quot;}}</span></span></dt>
+<dd><p>default start stop sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga1b8250d1ff59794560036a419e0423b8"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessParameters</span> <span class="pre">_DEFAULT_UI_INPUT_PRM_</span>&#160; <span class="pre">=</span> <span class="pre">{&amp;_pname,&amp;_peol,&amp;_pinputcc,&amp;_pwcc,&amp;_pdelimseq,&amp;_pststpseq</span>&#160;&#160; <span class="pre">}</span></span></dt>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv418CommandRuntimeCalc">
+<span id="_CPPv318CommandRuntimeCalc"></span><span id="_CPPv218CommandRuntimeCalc"></span><span id="CommandRuntimeCalc"></span><span class="target" id="dc/d3d/struct_command_runtime_calc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandRuntimeCalc</span></span></span><a class="headerlink" href="#_CPPv418CommandRuntimeCalc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a> struct contains arrays and indices determined at runtime these structs are associated with wildcard commands; every <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> that has a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> which contains wildcards will have a <a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv417CommandParameters">
+<span id="_CPPv317CommandParameters"></span><span id="_CPPv217CommandParameters"></span><span id="CommandParameters"></span><span class="target" id="db/d11/struct_command_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandParameters</span></span></span><a class="headerlink" href="#_CPPv417CommandParameters" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> struct, this is the container that holds your command parameters. </p>
+<p>Every command and subcommand has an associated <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> object, this is the information that the input process needs to know about your command </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv418CommandConstructor">
+<span id="_CPPv318CommandConstructor"></span><span id="_CPPv218CommandConstructor"></span><span id="CommandConstructor"></span><span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><a class="headerlink" href="#_CPPv418CommandConstructor" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>user command constructor class </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv49UserInput">
+<span id="_CPPv39UserInput"></span><span id="_CPPv29UserInput"></span><span id="UserInput"></span><span class="target" id="dc/d4b/class_user_input"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><a class="headerlink" href="#_CPPv49UserInput" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User input handler methods. </p>
+</dd></dl>
+
 <section id="id1">
 <h2>InputHandler.h<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 </section>
