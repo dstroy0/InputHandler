@@ -5,13 +5,8 @@
    :caption: Command Line Interface Generation tool reference (InputHandler.h)
    :hidden:      
 
-   README.rst
-
-.. toctree::
-    :maxdepth: 4
-    :hidden:
-
-    `cli_gen_tool <https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html>`
+   README.rst    
+   cli_gen_tool docs <https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html>
 
 .. toctree::
     :maxdepth: 4
