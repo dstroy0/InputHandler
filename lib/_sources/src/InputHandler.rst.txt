@@ -1,5 +1,5 @@
-InputHandler.h
-===========================
+InputHandler
+=============
 
 .. doxygenenum:: UI_CMD_ID      
 
