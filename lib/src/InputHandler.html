@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Source" href="../src.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>InputHandler - InputHandler documentation</title>
+        <title>InputHandler.h - InputHandler documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -163,7 +163,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../src.html">Source</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">InputHandler</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">InputHandler.h</a></li>
 </ul>
 </li>
 </ul>
@@ -199,8 +199,8 @@
           </label>
         </div>
         <article role="main">
-          <section id="inputhandler">
-<h1>InputHandler<a class="headerlink" href="#inputhandler" title="Permalink to this heading">#</a></h1>
+          <section id="inputhandler-h">
+<h1>InputHandler.h<a class="headerlink" href="#inputhandler-h" title="Permalink to this heading">#</a></h1>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv49UI_CMD_ID">
 <span id="_CPPv39UI_CMD_ID"></span><span id="_CPPv29UI_CMD_ID"></span><span class="target" id="de/d8a/group___user_input_1ga166e5457949a4e09a4391b2bacbb1db0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_CMD_ID</span></span></span><a class="headerlink" href="#_CPPv49UI_CMD_ID" title="Permalink to this definition">#</a><br /></dt>
@@ -350,6 +350,12 @@
 
 </dd></dl>
 
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gaa98ed9aec4145a6e6b973913fa670231"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">PROGMEM</span> <span class="pre">UserInput_type_strings_pgm</span> <span class="pre">[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]</span> <span class="pre">=</span> <span class="pre">{&quot;UINT8_T&quot;,&quot;UINT16_T&quot;,&quot;UINT32_T&quot;,&quot;INT16_T&quot;,&quot;FLOAT&quot;,&quot;CHAR&quot;,&quot;STARTSTOP&quot;,&quot;NOTYPE&quot;,&quot;NO_ARGS&quot;,&quot;error&quot;}</span></span></dt>
+<dd><p>type string literals input type string literal PROGMEM array, each of the types in UITYPE has a corresponding string literal for display purposes </p>
+</dd></dl>
+
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv430InputProcessDelimiterSequences">
 <span id="_CPPv330InputProcessDelimiterSequences"></span><span id="_CPPv230InputProcessDelimiterSequences"></span><span id="InputProcessDelimiterSequences"></span><span class="target" id="dc/da2/struct_input_process_delimiter_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessDelimiterSequences</span></span></span><a class="headerlink" href="#_CPPv430InputProcessDelimiterSequences" title="Permalink to this definition">#</a><br /></dt>
@@ -392,6 +398,48 @@
 <dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
 </dd></dl>
 
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gad2c768e5a41b05fce4f7bfbda63aa008"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_pname</span> <span class="pre">PROGMEM</span> <span class="pre">_pname</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;&quot;</span></span></dt>
+<dd><p>default process name == “” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga25d5f9b74b669a788df4be9610f33218"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_eol</span> <span class="pre">PROGMEM</span> <span class="pre">_peol</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;\r\n&quot;</span></span></dt>
+<dd><p>default process eol characters “\r\n” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gafae34ecf922d7cb6ef79a859b67b7300"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_input_cc</span> <span class="pre">PROGMEM</span> <span class="pre">_pinputcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;##&quot;</span></span></dt>
+<dd><p>default process input control character sequence “##” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga7d3e88fb4b8cf020bb3c83c7d41bd1d1"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_wcc</span> <span class="pre">PROGMEM</span> <span class="pre">_pwcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;*&quot;</span></span></dt>
+<dd><p>default process wildcard char ‘*’ </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga69566bbdaeeaef398793280bd2d372c6"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">InputProcessDelimiterSequences</span> <span class="pre">PROGMEM</span> <span class="pre">_pdelimseq</span>&#160; <span class="pre">=</span> <span class="pre">{2,{1,</span> <span class="pre">1},{&quot;</span> <span class="pre">&quot;,</span> <span class="pre">&quot;,&quot;}}</span></span></dt>
+<dd><p>default delimiter sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gaf259103d1d578322d9b0994bf5ff619f"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">InputProcessStartStopSequences</span> <span class="pre">PROGMEM</span> <span class="pre">_pststpseq</span>&#160; <span class="pre">=</span> <span class="pre">{1,{1,</span> <span class="pre">1},{&quot;\&quot;&quot;,</span> <span class="pre">&quot;\&quot;&quot;}}</span></span></dt>
+<dd><p>default start stop sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1ga86b1f21a1c671bfdec7c3d45d3fa2819"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">InputProcessParameters</span> <span class="pre">PROGMEM</span> <span class="pre">_DEFAULT_UI_INPUT_PRM_</span>&#160; <span class="pre">=</span> <span class="pre">{&amp;_pname,&amp;_peol,&amp;_pinputcc,&amp;_pwcc,&amp;_pdelimseq,&amp;_pststpseq</span>&#160;&#160; <span class="pre">}</span></span></dt>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
+</dd></dl>
+
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv418CommandRuntimeCalc">
 <span id="_CPPv318CommandRuntimeCalc"></span><span id="_CPPv218CommandRuntimeCalc"></span><span id="CommandRuntimeCalc"></span><span class="target" id="dc/d3d/struct_command_runtime_calc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandRuntimeCalc</span></span></span><a class="headerlink" href="#_CPPv418CommandRuntimeCalc" title="Permalink to this definition">#</a><br /></dt>
@@ -417,8 +465,8 @@
 <dd><p>User input handler methods. </p>
 </dd></dl>
 
-<section id="inputhandler-h">
-<h2>InputHandler.h<a class="headerlink" href="#inputhandler-h" title="Permalink to this heading">#</a></h2>
+<section id="source">
+<h2>Source<a class="headerlink" href="#source" title="Permalink to this heading">#</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">src/InputHandler.h</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/**</span>
@@ -525,7 +573,7 @@
 <span class="linenos">102</span><span class="cm"> * input type string literal PROGMEM array, each of the types in UITYPE has</span>
 <span class="linenos">103</span><span class="cm"> * a corresponding string literal for display purposes</span>
 <span class="linenos">104</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">105</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">UserInput_type_strings_pgm</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="n">UI_INPUT_TYPE_STRINGS_PGM_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">105</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">UserInput_type_strings_pgm</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="n">UI_INPUT_TYPE_STRINGS_PGM_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">106</span><span class="w">    </span><span class="s">&quot;UINT8_T&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// 8-bit unsigned integer</span>
 <span class="linenos">107</span><span class="w">    </span><span class="s">&quot;UINT16_T&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 16-bit unsigned integer</span>
 <span class="linenos">108</span><span class="w">    </span><span class="s">&quot;UINT32_T&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 32-bit unsigned integer</span>
@@ -611,16 +659,16 @@
 <span class="linenos">188</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessStartStopSequences</span><span class="o">*</span><span class="w"> </span><span class="n">pststpseq</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; reference to InputProcessStartStopSequences struct</span>
 <span class="linenos">189</span><span class="p">};</span><span class="w"></span>
 <span class="linenos">190</span>
-<span class="linenos">191</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_pname</span><span class="w"> </span><span class="n">_pname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; default process name == &quot;&quot;</span>
-<span class="linenos">192</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_eol</span><span class="w"> </span><span class="n">_peol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; default process eol characters &quot;\\r\\n&quot;</span>
-<span class="linenos">193</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_input_cc</span><span class="w"> </span><span class="n">_pinputcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; default process input control character sequence &quot;##&quot;</span>
-<span class="linenos">194</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_wcc</span><span class="w"> </span><span class="n">_pwcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; default process wildcard char &#39;*&#39;</span>
+<span class="linenos">191</span><span class="k">const</span><span class="w"> </span><span class="n">IH_pname</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_pname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; default process name == &quot;&quot;</span>
+<span class="linenos">192</span><span class="k">const</span><span class="w"> </span><span class="n">IH_eol</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_peol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; default process eol characters &quot;\\r\\n&quot;</span>
+<span class="linenos">193</span><span class="k">const</span><span class="w"> </span><span class="n">IH_input_cc</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_pinputcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; default process input control character sequence &quot;##&quot;</span>
+<span class="linenos">194</span><span class="k">const</span><span class="w"> </span><span class="n">IH_wcc</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_pwcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; default process wildcard char &#39;*&#39;</span>
 <span class="linenos">195</span>
 <span class="linenos">196</span><span class="cm">/**</span>
 <span class="linenos">197</span><span class="cm"> * @brief default delimiter sequences</span>
 <span class="linenos">198</span><span class="cm"> *</span>
 <span class="linenos">199</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">200</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessDelimiterSequences</span><span class="w"> </span><span class="n">_pdelimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">200</span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessDelimiterSequences</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_pdelimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">201</span><span class="w">    </span><span class="mi">2</span><span class="p">,</span><span class="w">         </span><span class="c1">///&lt; default number of delimiter sequences</span>
 <span class="linenos">202</span><span class="w">    </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">    </span><span class="c1">///&lt; default delimiter sequence lens</span>
 <span class="linenos">203</span><span class="w">    </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">///&lt; default delimiter sequences</span>
@@ -630,7 +678,7 @@
 <span class="linenos">207</span><span class="cm"> * @brief default start stop sequences</span>
 <span class="linenos">208</span><span class="cm"> *</span>
 <span class="linenos">209</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">210</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessStartStopSequences</span><span class="w"> </span><span class="n">_pststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">210</span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessStartStopSequences</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_pststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">211</span><span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">           </span><span class="c1">///&lt; default num start stop sequence pairs</span>
 <span class="linenos">212</span><span class="w">    </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">      </span><span class="c1">///&lt; default start stop sequence lens</span>
 <span class="linenos">213</span><span class="w">    </span><span class="p">{</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">///&lt; default start stop sequence pair sequences</span>
@@ -640,7 +688,7 @@
 <span class="linenos">217</span><span class="cm"> * @brief UserInput default InputProcessParameters</span>
 <span class="linenos">218</span><span class="cm"> *</span>
 <span class="linenos">219</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">220</span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">_DEFAULT_UI_INPUT_PRM_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">220</span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">_DEFAULT_UI_INPUT_PRM_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">221</span><span class="w">    </span><span class="o">&amp;</span><span class="n">_pname</span><span class="p">,</span><span class="w">     </span><span class="c1">///&lt; default process name</span>
 <span class="linenos">222</span><span class="w">    </span><span class="o">&amp;</span><span class="n">_peol</span><span class="p">,</span><span class="w">      </span><span class="c1">///&lt; default process eol term</span>
 <span class="linenos">223</span><span class="w">    </span><span class="o">&amp;</span><span class="n">_pinputcc</span><span class="p">,</span><span class="w">  </span><span class="c1">///&lt; default process input control char sequence</span>
@@ -1275,8 +1323,8 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">InputHandler</a><ul>
-<li><a class="reference internal" href="#inputhandler-h">InputHandler.h</a></li>
+<li><a class="reference internal" href="#">InputHandler.h</a><ul>
+<li><a class="reference internal" href="#source">Source</a></li>
 </ul>
 </li>
 </ul>
