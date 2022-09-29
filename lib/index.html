@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -193,26 +193,396 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="welcome-to-inputhandler-s-documentation">
-<h1>Welcome to InputHandler’s documentation!<a class="headerlink" href="#welcome-to-inputhandler-s-documentation" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+          <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
+<section id="readme">
+<h1>README<a class="headerlink" href="#readme" title="Permalink to this heading">#</a></h1>
+<!-- markdownlint-disable MD041 --><img alt="docs/img/_Logolarge.png:target:docs/img/_Logolarge.png:alt:Alttext:raw-html-md:`&lt;br/&gt;`" src="docs/img/_Logolarge.png:target:docs/img/_Logolarge.png:alt:Alttext:raw-html-md:`&lt;br/&gt;`" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img alt="Arduino CLI CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img alt="PlatformIO arduino CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img alt="PlatformIO esp CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml"><img alt="Docs CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" /></a>
+<section id="design-goals">
+<h2>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h2>
+<p>Implementation flexibility. <span class="raw-html-md"><br /></span>
+Low memory use, feature rich. <span class="raw-html-md"><br /></span>
+InputHandler is easy to start using. <span class="raw-html-md"><br /></span>
+It satisfies some more advanced interfacing requirements. <span class="raw-html-md"><br /></span>
+It can parse uint8_t, unsigned char, any value 0-255 char strings. <span class="raw-html-md"><br /></span>
+It can be used to interface your project with other equipment, programs, and sensors.</p>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<section id="news">
+<h2>News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h2>
+<p>See the releases’ descriptions on
+<a class="reference external" href="https://github.com/dstroy0/InputHandler/releases">the library’s release page</a> for a list of
+changes.</p>
+</section>
+</section>
+<section id="inputhandler">
+<h1>InputHandler<a class="headerlink" href="#inputhandler" title="Permalink to this heading">#</a></h1>
+<p>This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a>, like a <a class="reference external" href="https://www.arduino.cc/en/reference/serial">Serial</a> object. <span class="raw-html-md"><br /></span>
+User-defined commands have a <a class="reference external" href="https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm">general tree structure</a>, each command has its own <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct which is stored in non-volatile program memory (<a class="reference external" href="https://www.arduino.cc/reference/en/language/variables/utilities/progmem/">PROGMEM</a>).</p>
+<p>Individual commands that do not contain a wildcard character (each call to <a class="reference external" href="https://dstroy0.github.io/InputHandler/df/d68/class_command_constructor.html">CommandConstructor</a>) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.</p>
+<p>To make matching more performant, <a class="reference external" href="https://www.cplusplus.com/reference/cstring/memcmp/">memcmp</a> ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses <code class="docutils literal notranslate"><span class="pre">((1</span> <span class="pre">+</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">1*n_wcc_containing_prm)</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">+</span> <span class="pre">n_memcmp_ranges*2)</span></code> bytes.  <code class="docutils literal notranslate"><span class="pre">****</span></code>, <code class="docutils literal notranslate"><span class="pre">8***</span></code>, <code class="docutils literal notranslate"><span class="pre">*8**</span></code>, <code class="docutils literal notranslate"><span class="pre">**8*</span></code>, <code class="docutils literal notranslate"><span class="pre">***8</span></code> would compute one memcmp range <code class="docutils literal notranslate"><span class="pre">8**8</span></code> computes as two, <code class="docutils literal notranslate"><span class="pre">8888</span></code> doesn’t have any wcc, so it would undergo “length of input” memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated <a class="reference external" href="https://dstroy0.github.io/InputHandler/dc/d3d/struct_command_runtime_calc.html">CommandRuntimeCalc</a> struct.</p>
+<p>Check out the <a class="reference external" href="https://github.com/dstroy0/InputHandler/tree/main/examples">examples</a> for different use cases.</p>
+<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">This library is easy to start using</a>, command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">UI_MAX_ARGS</a> number of arguments.  At runtime, UserInput scans your input <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of <a class="reference external" href="https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">UserInput::begin()</a>)</p>
+<p>A valid (default-settings) command string would look something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>your_command arg_1 arg_2 arg... &quot;arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t&quot;
+your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
+</pre></div>
+</div>
+<p>The first library object that needs to be initialized is the constructor for the <a class="reference external" href="https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html">UserInput</a> class:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">  UserInput constructor</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">650</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_pname</span><span class="w"> </span><span class="n">pname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;_test_&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; default process name</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_eol</span><span class="w"> </span><span class="n">peol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; default process eol characters</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_input_cc</span><span class="w"> </span><span class="n">pinputcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; default input control character sequence</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_wcc</span><span class="w"> </span><span class="n">pwcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; default process wildcard character</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessDelimiterSequences</span><span class="w"> </span><span class="n">pipdelimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">///&lt; number of delimiter sequences</span>
+<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w">  </span><span class="c1">///&lt; delimiter sequence lens</span>
+<span class="w">  </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">///&lt; delimiter sequences</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessStartStopSequences</span><span class="w"> </span><span class="n">pststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">           </span><span class="c1">///&lt; num start stop sequence pairs</span>
+<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">      </span><span class="c1">///&lt; start stop sequence lens</span>
+<span class="w">  </span><span class="p">{</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">///&lt; start stop sequence pairs</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">input_prm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">pname</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">peol</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">pinputcc</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">pwcc</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">pipdelimseq</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">pststpseq</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">UserInput</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">),</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// or use default input parameters and define your output buffer</span>
+<span class="n">UserInput</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Or, default-init with no output:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">  UserInput constructor</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="n">UserInput</span><span class="w"> </span><span class="n">inputHandler</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The classes’ input methods are:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>OR if you don’t want to use a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct objects:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">CommandParameters</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">);</span><span class="w">      </span><span class="c1">///&lt; void function pointer with UserInput class pointer parameter, void your_function(UserInput *inputProcess)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_wildcards</span><span class="p">;</span><span class="w">                </span><span class="c1">///&lt; if true this command has one or more wildcard char</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">command</span><span class="p">[</span><span class="n">UI_MAX_CMD_LEN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1U</span><span class="p">];</span><span class="w"> </span><span class="c1">///&lt; command string + &#39;\0&#39;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">command_length</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; command length in characters</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">parent_command_id</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; parent command&#39;s unique id root-65535</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">command_id</span><span class="p">;</span><span class="w">               </span><span class="c1">///&lt; this command&#39;s unique id root-65535</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">depth</span><span class="p">;</span><span class="w">                     </span><span class="c1">///&lt; command tree depth root-255</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sub_commands</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="w"> </span><span class="n">argument_flag</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; argument handling flag</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">num_args</span><span class="p">;</span><span class="w">                  </span><span class="c1">///&lt; minimum number of arguments this command expects 0 - UI_MAX_ARGS</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_num_args</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="w"> </span><span class="n">arg_type_arr</span><span class="p">[</span><span class="n">UI_MAX_ARGS</span><span class="p">];</span><span class="w">  </span><span class="c1">///&lt; argument UITYPE array</span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr):</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm">   @brief CommandParameters struct for help_</span>
+
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">help_param</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">help</span><span class="p">,</span><span class="w">                  </span><span class="c1">// this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)</span>
+<span class="w">  </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">  </span><span class="s">&quot;help&quot;</span><span class="p">,</span><span class="w">                   </span><span class="c1">// command string</span>
+<span class="w">  </span><span class="mi">4</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// this command id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// command depth</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">  </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">  </span><span class="cm">/*</span>
+<span class="cm">    UITYPE arguments</span>
+<span class="cm">  */</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">CommandConstructor</span><span class="w"> </span><span class="nf">help_</span><span class="p">(</span><span class="n">help_param</span><span class="p">);</span><span class="w"> </span><span class="c1">//  help_ has a command string, and function specified</span>
+
+<span class="cm">/**</span>
+<span class="cm">   @brief CommandParameters struct for settings_</span>
+
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">settings_param</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">settings</span><span class="p">,</span><span class="w">              </span><span class="c1">// function ptr</span>
+<span class="w">  </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">  </span><span class="s">&quot;inputSettings&quot;</span><span class="p">,</span><span class="w">          </span><span class="c1">// command string</span>
+<span class="w">  </span><span class="mi">13</span><span class="p">,</span><span class="w">                       </span><span class="c1">// command string characters</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// this command id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// command depth</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">  </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">  </span><span class="cm">/*</span>
+<span class="cm">    UITYPE arguments</span>
+<span class="cm">  */</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">CommandConstructor</span><span class="w"> </span><span class="nf">settings_</span><span class="p">(</span><span class="n">settings_param</span><span class="p">);</span><span class="w"> </span><span class="c1">// settings_ has a command string, and function specified</span>
+
+<span class="cm">/**</span>
+<span class="cm">   @brief CommandParameters struct for test_</span>
+
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">type_test_param</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">test_input_types</span><span class="p">,</span><span class="w">       </span><span class="c1">// function ptr</span>
+<span class="w">  </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">              </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">  </span><span class="s">&quot;test&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// command string</span>
+<span class="w">  </span><span class="mi">4</span><span class="p">,</span><span class="w">                         </span><span class="c1">// string length</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                      </span><span class="c1">// parent id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                      </span><span class="c1">// this command id</span>
+<span class="w">  </span><span class="n">root</span><span class="p">,</span><span class="w">                      </span><span class="c1">// command depth</span>
+<span class="w">  </span><span class="mi">0</span><span class="p">,</span><span class="w">                         </span><span class="c1">// subcommands</span>
+<span class="w">  </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">type_arr</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">  </span><span class="mi">8</span><span class="p">,</span><span class="w">                         </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">  </span><span class="mi">8</span><span class="p">,</span><span class="w">                         </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">  </span><span class="cm">/*</span>
+<span class="cm">    UITYPE arguments</span>
+<span class="cm">  */</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">UINT8_T</span><span class="p">,</span><span class="w">    </span><span class="c1">// 8-bit  uint</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">UINT16_T</span><span class="p">,</span><span class="w">   </span><span class="c1">// 16-bit uint</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">UINT32_T</span><span class="p">,</span><span class="w">   </span><span class="c1">// 32-bit uint</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">INT16_T</span><span class="p">,</span><span class="w">    </span><span class="c1">// 16-bit int</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">FLOAT</span><span class="p">,</span><span class="w">      </span><span class="c1">// 32-bit float</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">CHAR</span><span class="p">,</span><span class="w">       </span><span class="c1">// char</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">START_STOP</span><span class="p">,</span><span class="w"> </span><span class="c1">// regex-like start stop char sequences</span>
+<span class="w">    </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NOTYPE</span><span class="w">      </span><span class="c1">// special type, no type validation performed</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">CommandConstructor</span><span class="w"> </span><span class="nf">test_</span><span class="p">(</span><span class="n">type_test_param</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// nest parameters like this</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">nested_prms</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// root command</span>
+<span class="w">    </span><span class="n">unrecognized</span><span class="p">,</span><span class="w">             </span><span class="c1">// root command not allowed to be NULL</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;launch&quot;</span><span class="p">,</span><span class="w">                 </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">6</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">2</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// subcommand depth one</span>
+<span class="w">    </span><span class="n">nest_one</span><span class="p">,</span><span class="w">                 </span><span class="c1">// unique function</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;one&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">3</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// subcommand depth one</span>
+<span class="w">    </span><span class="n">nest_two</span><span class="p">,</span><span class="w">                 </span><span class="c1">// unique function</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;two&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">3</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="mi">2</span><span class="p">,</span><span class="w">                        </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">CommandConstructor</span><span class="w"> </span><span class="nf">nested_example_</span><span class="p">(</span><span class="n">nested_prms</span><span class="p">,</span><span class="w"> </span><span class="n">nprms</span><span class="p">(</span><span class="n">nested_prms</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// or this</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">nest_one_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"> </span><span class="c1">// subcommand depth one</span>
+<span class="w">    </span><span class="n">nest_one</span><span class="p">,</span><span class="w">                 </span><span class="c1">// unique function</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;one&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">3</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">nest_two_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"> </span><span class="c1">// subcommand depth one</span>
+<span class="w">    </span><span class="n">nest_two</span><span class="p">,</span><span class="w">                 </span><span class="c1">// unique function</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;two&quot;</span><span class="p">,</span><span class="w">                    </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">3</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="mi">2</span><span class="p">,</span><span class="w">                        </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="mi">1</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">nested_prms</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// root command</span>
+<span class="w">    </span><span class="n">unrecognized</span><span class="p">,</span><span class="w">             </span><span class="c1">// root command not allowed to be NULL</span>
+<span class="w">    </span><span class="n">no_wildcards</span><span class="p">,</span><span class="w">             </span><span class="c1">// no_wildcards or has_wildcards, default WildCard Character (wcc) is &#39;*&#39;</span>
+<span class="w">    </span><span class="s">&quot;launch&quot;</span><span class="p">,</span><span class="w">                 </span><span class="c1">// command string</span>
+<span class="w">    </span><span class="mi">6</span><span class="p">,</span><span class="w">                        </span><span class="c1">// command string characters</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// parent id</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// this command id</span>
+<span class="w">    </span><span class="n">root</span><span class="p">,</span><span class="w">                     </span><span class="c1">// command depth</span>
+<span class="w">    </span><span class="mi">2</span><span class="p">,</span><span class="w">                        </span><span class="c1">// subcommands</span>
+<span class="w">    </span><span class="n">UI_ARG_HANDLING</span><span class="o">::</span><span class="n">no_args</span><span class="p">,</span><span class="w"> </span><span class="c1">// argument handling</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// minimum expected number of arguments</span>
+<span class="w">    </span><span class="mi">0</span><span class="p">,</span><span class="w">                        </span><span class="c1">// maximum expected number of arguments</span>
+<span class="w">    </span><span class="cm">/* UITYPE arguments */</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="p">}</span><span class="w"> </span><span class="c1">// use NO_ARGS if the function expects no arguments</span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">nest_one_</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">nest_two_</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="n">CommandConstructor</span><span class="w"> </span><span class="nf">nested_example_</span><span class="p">(</span><span class="n">nested_prms</span><span class="p">,</span><span class="w"> </span><span class="n">nprms</span><span class="p">(</span><span class="n">nested_prms</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc">NOTYPE</a> is a special argument type that doesn’t perform any type-validation. <span class="raw-html-md"><br /></span>
+<a class="reference external" href="https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716">NO_ARGS</a> is a special argument type that explicitly states you wish to pass no arguments. <span class="raw-html-md"><br /></span>
+<a class="reference external" href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586">nprms(x)</a>, <a class="reference external" href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178">buffsz(x)</a>, and <a class="reference external" href="https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a">nelems(x)</a> are macros which return the number of elements in an array.</p>
+<p>Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.</p>
+<p>This method will output to any stream (hardware or software Serial):</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>or, you can check to see if output is available with:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">outputIsAvailable</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>and then when you are done with the output buffer, it needs to be reinitialized with:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">clearOutputBuffer</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The input process will continue to function even if you do not define an output buffer.</p>
+<p>Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
+</section>
+<section id="supported-platforms">
+<h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h1>
+<p>Not supported: <span class="raw-html-md"><br /></span>
+ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
+ATMegaNG – flash</p>
+<p>If your board is not listed as not supported open an issue if you’d like it added to build coverage.</p>
+<p>NOTE: <a class="reference external" href="https://en.cppreference.com/w/c/io/vfprintf">vsnprintf</a> and
+<a class="reference external" href="https://www.delftstack.com/howto/arduino/arduino-dtostrf/">dtostrf</a> implemented on the following platforms: <span class="raw-html-md"><br /></span>
+(see: <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h">src/config/noedit.h</a> for your platform’s implementation) <span class="raw-html-md"><br /></span>
+SAMD, <span class="raw-html-md"><br /></span>
+MBED, <span class="raw-html-md"><br /></span>
+arduino DUE</p>
+<p>Build coverage:</p>
+<p>nano rp2040 connect <span class="raw-html-md"><br /></span>
+teensy 3.1 <span class="raw-html-md"><br /></span>
+teensy 3.5 <span class="raw-html-md"><br /></span>
+teensy 3.6 <span class="raw-html-md"><br /></span>
+teensy 4.0 <span class="raw-html-md"><br /></span>
+teensy 4.1 <span class="raw-html-md"><br /></span>
+Espressif esp32dev generic ESP32 <span class="raw-html-md"><br /></span>
+Espressif Adafruit esp8266 huzzah <span class="raw-html-md"><br /></span>
+yun <span class="raw-html-md"><br /></span>
+uno <span class="raw-html-md"><br /></span>
+diecimila <span class="raw-html-md"><br /></span>
+nano <span class="raw-html-md"><br /></span>
+mega <span class="raw-html-md"><br /></span>
+megaADK <span class="raw-html-md"><br /></span>
+leonardo <span class="raw-html-md"><br /></span>
+micro <span class="raw-html-md"><br /></span>
+esplora <span class="raw-html-md"><br /></span>
+mini <span class="raw-html-md"><br /></span>
+ethernet <span class="raw-html-md"><br /></span>
+fio <span class="raw-html-md"><br /></span>
+bt
+LilyPadUSB <span class="raw-html-md"><br /></span>
+pro
+robotControl <span class="raw-html-md"><br /></span>
+robotMotor <span class="raw-html-md"><br /></span>
+circuitplay32u4cat <span class="raw-html-md"><br /></span>
+yunmini <span class="raw-html-md"><br /></span>
+chiwawa <span class="raw-html-md"><br /></span>
+one <span class="raw-html-md"><br /></span>
+unowifi <span class="raw-html-md"><br /></span>
+nano33ble <span class="raw-html-md"><br /></span>
+mkr1000 <span class="raw-html-md"><br /></span>
+mkrzero <span class="raw-html-md"><br /></span>
+mkrwifi1010 <span class="raw-html-md"><br /></span>
+nano_33_iot <span class="raw-html-md"><br /></span>
+mkrfox1200 <span class="raw-html-md"><br /></span>
+mkrwan1300 <span class="raw-html-md"><br /></span>
+mkrwan1310 <span class="raw-html-md"><br /></span>
+mkrgsm1400 <span class="raw-html-md"><br /></span>
+mkrnb1500 <span class="raw-html-md"><br /></span>
+mkrvidor4000 <span class="raw-html-md"><br /></span>
+adafruit_circuitplayground_m0 <span class="raw-html-md"><br /></span>
+mzero_pro_bl <span class="raw-html-md"><br /></span>
+mzero_bl <span class="raw-html-md"><br /></span>
+tian <span class="raw-html-md"><br /></span>
+uno2018 <span class="raw-html-md"><br /></span>
+due</p>
 </section>
 
         </article>
@@ -250,27 +620,8 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Welcome to InputHandler’s documentation!</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

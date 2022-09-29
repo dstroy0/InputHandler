@@ -1,8 +1,5 @@
 .. lib documentation masterfile created by dstroy0
 
-Welcome to InputHandler's documentation!
-========================================
-
 .. toctree::
    :maxdepth: 2
    :caption: Command Line Interface Generation tool reference (InputHandler.h)
@@ -18,10 +15,6 @@ Welcome to InputHandler's documentation!
 
     src.rst
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+README
+========
+.. mdinclude:: ../../README.md    
