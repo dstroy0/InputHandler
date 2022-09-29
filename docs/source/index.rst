@@ -6,20 +6,19 @@
    :hidden:      
 
    README.rst
+
+.. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html
+.. toctree::
+    :maxdepth: 4
+    :hidden:
+
+    cli_gen_tool: `docs`_.
    
 .. toctree::
     :maxdepth: 4
     :hidden:
 
-    src.rst
-    
-.. toctree::
-    :maxdepth: 4
-    :hidden:
-
-cli_gen_tool `docs`_.
-.. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html
-
+    src.rst   
 
 README
 ========
