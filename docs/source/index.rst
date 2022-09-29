@@ -8,6 +8,8 @@ Welcome to InputHandler's documentation!
    :caption: Command Line Interface Generation tool reference (InputHandler.h)
    :hidden:
    
+   README.rst
+
    src/InputHandler.rst
 
 .. toctree::
