@@ -27,15 +27,19 @@ jobs:
           pip install -r ./cli_gen_tool/requirements.txt
           pip freeze                    
       
-      - name: Build Sphinx 
+      - name: Build cli_gen_tool's Sphinx docs
         run: |
           sphinx-build -b html ./cli_gen_tool/docs/source ./docs_build/cli_gen_tool
 
-      - name: Build Doxygen
+      - name: Build lib Doxygen xml
         uses: mattnotmitt/doxygen-action@edge
         with:
           working-directory: '/github/workspace/'
           doxyfile-path: 'docs/Doxyfile'                        
+      
+      - name: Build InputHandler's Sphinx docs
+        run: |
+          sphinx-build -b html ./docs/source ./docs_build/lib
       
       - name: Deploy 🚀        
         uses: peaceiris/actions-gh-pages@v3
