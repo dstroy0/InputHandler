@@ -102,7 +102,7 @@ enum class UITYPE
  * input type string literal PROGMEM array, each of the types in UITYPE has
  * a corresponding string literal for display purposes
  */
-const PROGMEM char UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
+const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "UINT8_T",   // 8-bit unsigned integer
     "UINT16_T",  // 16-bit unsigned integer
     "UINT32_T",  // 32-bit unsigned integer
@@ -188,16 +188,16 @@ struct InputProcessParameters
     const InputProcessStartStopSequences* pststpseq; ///< reference to InputProcessStartStopSequences struct
 };
 
-const PROGMEM IH_pname _pname = "";         ///< default process name == ""
-const PROGMEM IH_eol _peol = "\r\n";        ///< default process eol characters "\\r\\n"
-const PROGMEM IH_input_cc _pinputcc = "##"; ///< default process input control character sequence "##"
-const PROGMEM IH_wcc _pwcc = "*";           ///< default process wildcard char '*'
+const IH_pname PROGMEM _pname = "";         ///< default process name == ""
+const IH_eol PROGMEM _peol = "\r\n";        ///< default process eol characters "\\r\\n"
+const IH_input_cc PROGMEM _pinputcc = "##"; ///< default process input control character sequence "##"
+const IH_wcc PROGMEM _pwcc = "*";           ///< default process wildcard char '*'
 
 /**
  * @brief default delimiter sequences
  *
  */
-const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
+const InputProcessDelimiterSequences PROGMEM _pdelimseq = {
     2,         ///< default number of delimiter sequences
     {1, 1},    ///< default delimiter sequence lens
     {" ", ","} ///< default delimiter sequences
@@ -207,7 +207,7 @@ const PROGMEM InputProcessDelimiterSequences _pdelimseq = {
  * @brief default start stop sequences
  *
  */
-const PROGMEM InputProcessStartStopSequences _pststpseq = {
+const InputProcessStartStopSequences PROGMEM _pststpseq = {
     1,           ///< default num start stop sequence pairs
     {1, 1},      ///< default start stop sequence lens
     {"\"", "\""} ///< default start stop sequence pair sequences
@@ -217,7 +217,7 @@ const PROGMEM InputProcessStartStopSequences _pststpseq = {
  * @brief UserInput default InputProcessParameters
  *
  */
-const PROGMEM InputProcessParameters _DEFAULT_UI_INPUT_PRM_ = {
+const InputProcessParameters PROGMEM _DEFAULT_UI_INPUT_PRM_ = {
     &_pname,     ///< default process name
     &_peol,      ///< default process eol term
     &_pinputcc,  ///< default process input control char sequence
