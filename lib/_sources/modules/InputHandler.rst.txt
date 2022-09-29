@@ -2,7 +2,6 @@ InputHandler.h
 ===========================
 
 .. doxygenenum:: UI_CMD_ID
-   :members:
    :undoc-members:
    :show-inheritance:
 
