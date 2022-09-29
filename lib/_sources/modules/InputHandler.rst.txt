@@ -1,8 +1,7 @@
 InputHandler.h
 ===========================
 
-.. doxygenenum:: UI_CMD_ID
-   :undoc-members:
+.. doxygenenum:: UI_CMD_ID   
    :show-inheritance:
 
 .. doxygenenum:: UI_WC_FLAG
