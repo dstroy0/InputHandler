@@ -8,13 +8,13 @@ Welcome to InputHandler's documentation!
    :caption: Command Line Interface Generation tool reference (InputHandler.h)
    :hidden:
    
-   modules/InputHandler.rst
+   src/InputHandler.rst
 
 .. toctree::
     :maxdepth: 4
     :hidden:
 
-    modules
+    src.rst
 
 
 Indices and tables

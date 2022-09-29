@@ -1,7 +1,7 @@
-Modules
+Source
 =========
 
 .. toctree::
     :maxdepth: 2
     
-    modules/InputHandler.rst
+    src/InputHandler.rst
