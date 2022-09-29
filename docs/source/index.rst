@@ -12,7 +12,7 @@
     :hidden:
 
     cli_gen_tool: `docs`_.
-.. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html
+    .. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html
 
 .. toctree::
     :maxdepth: 4
