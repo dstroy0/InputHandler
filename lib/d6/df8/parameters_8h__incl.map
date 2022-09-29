@@ -1,9 +1,0 @@
-<map id="examples/all_platforms/advanced/MultiFile/CLI/parameters.h" name="examples/all_platforms/advanced/MultiFile/CLI/parameters.h">
-<area shape="rect" id="node1" title="Parameters and CommandConstructor objects for MultiFile.ino." alt="" coords="131,5,291,60"/>
-<area shape="rect" id="node2" href="$d0/dd9/cli__setup_8h.html" title="setup example for MultiFile.ino" alt="" coords="169,108,253,133"/>
-<area shape="rect" id="node3" href="$df/dec/_input_handler_8h.html" title="InputHandler library header file." alt="" coords="38,181,145,207"/>
-<area shape="rect" id="node7" href="$d8/d5c/functions_8h.html" title="Functions for MultiFile.ino." alt="" coords="169,181,254,207"/>
-<area shape="rect" id="node4" href="$da/dc7/noedit_8h.html" title="InputHandler library C includes, do not edit." alt="" coords="39,255,144,280"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,328,81,353"/>
-<area shape="rect" id="node6" href="$db/d16/config_8h.html" title="InputHandler library user configurable items." alt="" coords="106,328,173,353"/>
-</map>
