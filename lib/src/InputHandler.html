@@ -160,9 +160,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../README.html#inputhandler">InputHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#supported-platforms">Supported Platforms</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference external" href=".. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">.. _docs: https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html</a></li>
-</ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../src.html">Source</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">InputHandler.h</a></li>
@@ -352,12 +349,6 @@
 
 </dd></dl>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga08f01b3963da682b202040cdf718ea11"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">char</span> <span class="pre">UserInput_type_strings_pgm</span> <span class="pre">[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]</span> <span class="pre">=</span> <span class="pre">{&quot;UINT8_T&quot;,&quot;UINT16_T&quot;,&quot;UINT32_T&quot;,&quot;INT16_T&quot;,&quot;FLOAT&quot;,&quot;CHAR&quot;,&quot;STARTSTOP&quot;,&quot;NOTYPE&quot;,&quot;NO_ARGS&quot;,&quot;error&quot;}</span></span></dt>
-<dd><p>type string literals input type string literal PROGMEM array, each of the types in UITYPE has a corresponding string literal for display purposes </p>
-</dd></dl>
-
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv430InputProcessDelimiterSequences">
 <span id="_CPPv330InputProcessDelimiterSequences"></span><span id="_CPPv230InputProcessDelimiterSequences"></span><span id="InputProcessDelimiterSequences"></span><span class="target" id="dc/da2/struct_input_process_delimiter_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessDelimiterSequences</span></span></span><a class="headerlink" href="#_CPPv430InputProcessDelimiterSequences" title="Permalink to this definition">#</a><br /></dt>
@@ -398,48 +389,6 @@
 <dt class="sig sig-object cpp" id="_CPPv422InputProcessParameters">
 <span id="_CPPv322InputProcessParameters"></span><span id="_CPPv222InputProcessParameters"></span><span id="InputProcessParameters"></span><span class="target" id="db/dda/struct_input_process_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessParameters</span></span></span><a class="headerlink" href="#_CPPv422InputProcessParameters" title="Permalink to this definition">#</a><br /></dt>
 <dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1gae02e75f336946c2667c75c61b302baeb"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_pname</span> <span class="pre">_pname</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;&quot;</span></span></dt>
-<dd><p>default process name == “” </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga648dd8cd47317e8f8764a383f85b4d52"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_eol</span> <span class="pre">_peol</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;\r\n&quot;</span></span></dt>
-<dd><p>default process eol characters “\r\n” </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1gae949edb22aa21bc0604c634a238ebb6d"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_input_cc</span> <span class="pre">_pinputcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;##&quot;</span></span></dt>
-<dd><p>default process input control character sequence “##” </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga4aaf7ae99900377fc18b6ac5631c21de"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">IH_wcc</span> <span class="pre">_pwcc</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;*&quot;</span></span></dt>
-<dd><p>default process wildcard char ‘*’ </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga2a598377b17768e0e9bb3be40f439c3a"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessDelimiterSequences</span> <span class="pre">_pdelimseq</span>&#160; <span class="pre">=</span> <span class="pre">{2,{1,</span> <span class="pre">1},{&quot;</span> <span class="pre">&quot;,</span> <span class="pre">&quot;,&quot;}}</span></span></dt>
-<dd><p>default delimiter sequences </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga43c58059001edf0ce5f70fb14817c504"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessStartStopSequences</span> <span class="pre">_pststpseq</span>&#160; <span class="pre">=</span> <span class="pre">{1,{1,</span> <span class="pre">1},{&quot;\&quot;&quot;,</span> <span class="pre">&quot;\&quot;&quot;}}</span></span></dt>
-<dd><p>default start stop sequences </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1ga1b8250d1ff59794560036a419e0423b8"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">PROGMEM</span> <span class="pre">InputProcessParameters</span> <span class="pre">_DEFAULT_UI_INPUT_PRM_</span>&#160; <span class="pre">=</span> <span class="pre">{&amp;_pname,&amp;_peol,&amp;_pinputcc,&amp;_pwcc,&amp;_pdelimseq,&amp;_pststpseq</span>&#160;&#160; <span class="pre">}</span></span></dt>
-<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp struct">
