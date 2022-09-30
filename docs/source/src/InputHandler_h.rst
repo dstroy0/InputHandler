@@ -57,18 +57,14 @@ InputHandler.h
    :members: 
    :protected-members:
    :private-members:
-   :undoc-members:
-   :membergroups:    
-   :outline:   
+   :undoc-members:       
    :allow-dot-graphs:
 
 .. doxygenclass:: UserInput
    :members: 
    :protected-members:
    :private-members:
-   :undoc-members:
-   :membergroups:    
-   :outline:   
+   :undoc-members:      
    :allow-dot-graphs:
 
 Source
