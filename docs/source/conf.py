@@ -41,7 +41,7 @@ breathe_default_project = "InputHandler"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.graphviz"
+    "sphinx.ext.graphviz",
     "sphinx_mdinclude",
     "sphinx.ext.imgmath",
     "sphinx.ext.todo",
