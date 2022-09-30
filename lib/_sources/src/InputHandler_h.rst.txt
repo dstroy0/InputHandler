@@ -54,8 +54,22 @@ InputHandler.h
 .. doxygenstruct:: CommandParameters
 
 .. doxygenclass:: CommandConstructor
+   :members: 
+   :protected-members:
+   :private-members:
+   :undoc-members:
+   :membergroups:    
+   :outline:   
+   :allow-dot-graphs:
 
 .. doxygenclass:: UserInput
+   :members: 
+   :protected-members:
+   :private-members:
+   :undoc-members:
+   :membergroups:    
+   :outline:   
+   :allow-dot-graphs:
 
 Source
 -------

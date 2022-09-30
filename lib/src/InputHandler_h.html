@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Source" href="../src.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="InputHandler.cpp" href="InputHandler_cpp.html" /><link rel="prev" title="Source" href="../src.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
         <title>InputHandler.h - InputHandler documentation</title>
@@ -164,6 +164,7 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../src.html">Source</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">InputHandler.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InputHandler_cpp.html">InputHandler.cpp</a></li>
 </ul>
 </li>
 </ul>
@@ -286,7 +287,7 @@
 <dl class="cpp enum-class">
 <dt class="sig sig-object cpp" id="_CPPv46UITYPE">
 <span id="_CPPv36UITYPE"></span><span id="_CPPv26UITYPE"></span><span class="target" id="de/d8a/group___user_input_1ga70e7c464dbd2c5c26fa63684d9dfdd70"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UITYPE</span></span></span><a class="headerlink" href="#_CPPv46UITYPE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> type specifier these are the different types of user input the process can accept NOTYPE and START_STOP can be any 0-255 value This is strongly typed to help avoid name conflicts, and as an indicator that these types are not built-in. </p>
+<dd><p>UserInput type specifier these are the different types of user input the process can accept NOTYPE and START_STOP can be any 0-255 value This is strongly typed to help avoid name conflicts, and as an indicator that these types are not built-in. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N6UITYPE7UINT8_TE">
@@ -389,13 +390,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv422InputProcessParameters">
 <span id="_CPPv322InputProcessParameters"></span><span id="_CPPv222InputProcessParameters"></span><span id="InputProcessParameters"></span><span class="target" id="db/dda/struct_input_process_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessParameters</span></span></span><a class="headerlink" href="#_CPPv422InputProcessParameters" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
+<dd><p>UserInput input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
 </dd></dl>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv418CommandRuntimeCalc">
 <span id="_CPPv318CommandRuntimeCalc"></span><span id="_CPPv218CommandRuntimeCalc"></span><span id="CommandRuntimeCalc"></span><span class="target" id="dc/d3d/struct_command_runtime_calc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandRuntimeCalc</span></span></span><a class="headerlink" href="#_CPPv418CommandRuntimeCalc" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a> struct contains arrays and indices determined at runtime these structs are associated with wildcard commands; every <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> that has a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> which contains wildcards will have a <a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
+<dd><p><a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a> struct contains arrays and indices determined at runtime these structs are associated with wildcard commands; every CommandConstructor that has a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> which contains wildcards will have a <a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp struct">
@@ -403,18 +404,6 @@
 <span id="_CPPv317CommandParameters"></span><span id="_CPPv217CommandParameters"></span><span id="CommandParameters"></span><span class="target" id="db/d11/struct_command_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandParameters</span></span></span><a class="headerlink" href="#_CPPv417CommandParameters" title="Permalink to this definition">#</a><br /></dt>
 <dd><p><a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> struct, this is the container that holds your command parameters. </p>
 <p>Every command and subcommand has an associated <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> object, this is the information that the input process needs to know about your command </p>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv418CommandConstructor">
-<span id="_CPPv318CommandConstructor"></span><span id="_CPPv218CommandConstructor"></span><span id="CommandConstructor"></span><span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><a class="headerlink" href="#_CPPv418CommandConstructor" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>user command constructor class </p>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv49UserInput">
-<span id="_CPPv39UserInput"></span><span id="_CPPv29UserInput"></span><span id="UserInput"></span><span class="target" id="dc/d4b/class_user_input"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><a class="headerlink" href="#_CPPv49UserInput" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>User input handler methods. </p>
 </dd></dl>
 
 <section id="source">
@@ -1231,7 +1220,15 @@
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="InputHandler_cpp.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">InputHandler.cpp</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="../src.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
