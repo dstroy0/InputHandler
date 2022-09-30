@@ -11,7 +11,8 @@ InputHandler.h
   
 .. doxygenenum:: UITYPE
 
-.. doxygenvariable:: UserInput_type_strings_pgm    
+..
+    .. doxygenvariable:: UserInput_type_strings_pgm    
 
 .. doxygenstruct:: InputProcessDelimiterSequences
 
@@ -27,19 +28,26 @@ InputHandler.h
 
 .. doxygenstruct:: InputProcessParameters
 
-.. doxygenvariable:: _pname
+..
+    .. doxygenvariable:: _pname
 
-.. doxygenvariable:: _peol
+..
+    .. doxygenvariable:: _peol
 
-.. doxygenvariable:: _pinputcc
+..
+    .. doxygenvariable:: _pinputcc
 
-.. doxygenvariable:: _pwcc
+..
+    .. doxygenvariable:: _pwcc
 
-.. doxygenvariable:: _pdelimseq
+..
+    .. doxygenvariable:: _pdelimseq
 
-.. doxygenvariable:: _pststpseq
+..
+    .. doxygenvariable:: _pststpseq
 
-.. doxygenvariable:: _DEFAULT_UI_INPUT_PRM_
+..
+    .. doxygenvariable:: _DEFAULT_UI_INPUT_PRM_
 
 .. doxygenstruct:: CommandRuntimeCalc
 
