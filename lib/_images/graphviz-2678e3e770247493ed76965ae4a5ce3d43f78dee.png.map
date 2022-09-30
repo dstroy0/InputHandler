@@ -1,0 +1,11 @@
+<map id="%3" name="%3">
+<area shape="rect" id="node1" title="CommandConstructor" alt="" coords="157,101,389,149"/>
+<area shape="poly" id="edge3" title="usage" alt="" coords="390,107,408,114,415,125,412,134,404,139,401,135,408,130,410,126,405,118,388,112"/>
+<area shape="rect" id="node2" title="CommandParameters" alt="" coords="5,197,233,245"/>
+<area shape="poly" id="edge1" title="usage" alt="" coords="237,152,170,192,167,188,234,147"/>
+<area shape="rect" id="node3" title="CommandRuntimeCalc" alt="" coords="258,197,498,245"/>
+<area shape="poly" id="edge2" title="usage" alt="" coords="300,148,344,186,340,190,297,152"/>
+<area shape="rect" id="node4" title="UserInput::_rcfbprm" alt="" coords="87,5,304,53"/>
+<area shape="poly" id="edge4" title="usage" alt="" coords="217,52,247,89,243,93,212,55"/>
+<area shape="poly" id="edge5" title="usage" alt="" coords="178,55,161,77,147,102,133,144,126,184,121,183,128,143,142,100,157,74,173,52"/>
+</map>
