@@ -2,7 +2,6 @@
 
 import os
 import sys
-import graphviz
 
 # pathing
 os.chdir("../..")
