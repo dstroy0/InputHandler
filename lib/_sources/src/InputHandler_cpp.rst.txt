@@ -2,6 +2,7 @@ InputHandler cpp file
 =======================
 
 .. doxygenfunction:: UserInput::defaultFunction
+   :outline:
 
 Source
 -------
