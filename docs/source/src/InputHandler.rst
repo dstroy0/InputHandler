@@ -11,7 +11,7 @@ InputHandler.h
   
 .. doxygenenum:: UITYPE
 
-.. doxygenvariable:: UserInput_type_strings_pgm
+.. doxygenvariable:: UserInput_type_strings_pgm    
 
 .. doxygenstruct:: InputProcessDelimiterSequences
 

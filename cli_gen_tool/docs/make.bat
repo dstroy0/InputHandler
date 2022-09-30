@@ -5,10 +5,10 @@ pushd %~dp0
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=sphinx-build
+	set SPHINXBUILD=sphinx-build -b html ../../cli_gen_tool/docs/source ../../docs_build/cli_gen_tool
 )
 set SOURCEDIR=source
-set BUILDDIR=docs_build/sphinx
+set BUILDDIR=../../docs_build/cli_gen_tool
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (

@@ -1,3 +1,5 @@
+# library docs Sphinx conf.py
+
 import os
 import sys
 
@@ -5,11 +7,11 @@ import sys
 os.chdir("../..")
 lib_root_path = os.path.abspath(os.curdir)
 
+_templates_path = lib_root_path + "/docs/source/templates"
 _html_static_path = lib_root_path + "/docs/source/static"
 sys.path.insert(0, lib_root_path)
-# sys.path.append(tool_path)
-
 sys.path.append(_html_static_path)
+sys.path.append(_templates_path)
 
 print("lib root path: \n" + lib_root_path)
 

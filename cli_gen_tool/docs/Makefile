@@ -4,9 +4,9 @@
 # You can set these variables from the command line, and also
 # from the environment for the first two.
 SPHINXOPTS    ?=
-SPHINXBUILD   ?= sphinx-build
+SPHINXBUILD   ?= sphinx-build -b html ../../cli_gen_tool/docs/source ../../docs_build/cli_gen_tool
 SOURCEDIR     = source
-BUILDDIR      = docs_build/sphinx
+BUILDDIR      = ../../docs_build/cli_gen_tool
 
 # Put it first so that "make" without argument is like "make help".
 help:
