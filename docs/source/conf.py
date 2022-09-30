@@ -50,6 +50,8 @@ extensions = [
     "sphinx.ext.autosectionlabel",
 ]
 
+suppress_warnings = ['autosectionlabel.*']
+
 templates_path = ["templates"]
 exclude_patterns = []
 
