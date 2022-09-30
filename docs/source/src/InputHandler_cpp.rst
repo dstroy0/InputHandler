@@ -1,8 +1,7 @@
 InputHandler cpp file
 =======================
 
-..
-    .. doxygenfunction:: UserInput::defaultFunction
+.. doxygenfunction:: UserInput::defaultFunction
 
 Source
 -------
