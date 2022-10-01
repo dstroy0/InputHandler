@@ -233,8 +233,8 @@ const InputProcessParameters PROGMEM _DEFAULT_UI_INPUT_PRM_ = {
  */
 struct CommandRuntimeCalc
 {
-    IH::memcmp_idx_t num_prm_with_wc;                    ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
-    IH::memcmp_idx_t* idx_of_prm_with_wc;                ///< indices of CommandParameters struct that contain wcc
+    IH::memcmp_idx_t num_prm_with_wc;                               ///< the number of CommandParameters structs in this command that contain char(IH_wcc[0]); the WildCard Character
+    IH::memcmp_idx_t* idx_of_prm_with_wc;                           ///< indices of CommandParameters struct that contain wcc
     IH::ui_max_per_cmd_memcmp_ranges_t* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command string, array members always an even number
     IH::ui_max_per_cmd_memcmp_ranges_t** memcmp_ranges_arr;         ///< 2d array[row][col], each [row] is for one Parameters command string which contains wcc
 };
@@ -322,12 +322,12 @@ public:
      *
      * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the ctor to use _DEFAULT_UI_INPUT_PRM_ unless you define your own
      * @param output_buffer class output char buffer, implementation specific.  NULL by default.
-     * @param output_buffer_len size of output_buffer buffsz(output_buffer)     
+     * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
     UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
         : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
           _output_buffer_(output_buffer),
-          _output_buffer_len_(output_buffer_len),          
+          _output_buffer_len_(output_buffer_len),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_bytes_left_(output_buffer_len),
           _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),
@@ -486,11 +486,11 @@ public:
     #if defined(ENABLE_outputIsAvailable)
     /**
      * @brief class output available if the return of this function is greater than zero
-     * 
-     * (True) if greater than 0 
+     *
+     * (True) if greater than 0
      * (False) if 0
      *
-     * @return the number of bytes available for output, or zero if there is no output     
+     * @return the number of bytes available for output, or zero if there is no output
      */
     size_t outputIsAvailable();
     #endif
