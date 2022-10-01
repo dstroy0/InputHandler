@@ -22,7 +22,38 @@
     #include "config/noedit.h"
 
 /*!
- * @defgroup UserInput class constants
+ * @defgroup InputHandler typedefs
+ * @{
+ */
+
+/*!
+ * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
+ *
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ */
+typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
+
+/*!
+ * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ */
+typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
+
+/*!
+ * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ */
+typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
+
+/*!
+ * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
+ * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ */
+typedef char IH_wcc[2];
+/*! @} */ // end defgroup InputHandler typedefs
+
+/*!
+ * @defgroup InputHandler enums
  * @{
  */
 
@@ -101,27 +132,12 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
+/*! @} */ // end defgroup InputHandler enums
 
 /*!
- * @brief type string literals
- *
- * input type string literal PROGMEM array, each of the types in UITYPE has
- * a corresponding string literal for display purposes
- * 
- * @var UserInput_type_strings_pgm
+ * @defgroup InputHandler structs
+ * @{
  */
-const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",   /*< 8-bit unsigned integer */
-    "UINT16_T",  /*< 16-bit unsigned integer */
-    "UINT32_T",  /*< 32-bit unsigned integer */
-    "INT16_T",   /*< 16-bit signed integer */
-    "FLOAT",     /*< 32-bit floating point number */
-    "CHAR",      /*< single char */
-    "STARTSTOP", /*< c-string enclosed with start/stop delimiters */
-    "NOTYPE",    /*< user defined NOTYPE */
-    "NO_ARGS",   /*< no arguments expected */
-    "error"      /*< error */
-};
 
 /*!
  * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
@@ -159,30 +175,7 @@ struct InputProcessStartStopSequences
     char start_stop_sequence_pairs[UI_MAX_NUM_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; /*< start/stop sequences.  Match start, match end, copy what is between */
 };
 
-/*!
- * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
- *
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
- */
-typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
-/*!
- * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
- */
-typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
-
-/*!
- * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
- */
-typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
-
-/*!
- * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
- */
-typedef char IH_wcc[2];
 
 /*!
  * @brief UserInput input process parameters, constructor parameters
@@ -198,6 +191,43 @@ struct InputProcessParameters
     const InputProcessDelimiterSequences* pdelimseq; /*< reference to InputProcessDelimiterSequences struct */
     const InputProcessStartStopSequences* pststpseq; /*< reference to InputProcessStartStopSequences struct */
 };
+/*! @} */ // end defgroup InputHandler structs
+
+/*!
+ * @defgroup InputHandler constants
+ * @{
+ */
+/*!
+ * @brief library constants located in PROGMEM
+ *
+ * 
+ * This namespace's purpose is to avoid name collision
+ * and to consolidate the library's PROGMEM v
+ * 
+ * @name ihconst 
+ */
+namespace ihconst {
+/*!
+ * @brief type string literals
+ *
+ * input type string literal PROGMEM array, each of the types in UITYPE has
+ * a corresponding string literal for display purposes
+ * 
+ * @var type_strings
+ */
+const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
+    "UINT8_T",   /*< 8-bit unsigned integer */
+    "UINT16_T",  /*< 16-bit unsigned integer */
+    "UINT32_T",  /*< 32-bit unsigned integer */
+    "INT16_T",   /*< 16-bit signed integer */
+    "FLOAT",     /*< 32-bit floating point number */
+    "CHAR",      /*< single char */
+    "STARTSTOP", /*< c-string enclosed with start/stop delimiters */
+    "NOTYPE",    /*< user defined NOTYPE */
+    "NO_ARGS",   /*< no arguments expected */
+    "error"      /*< error */
+};
+}
 
 /*!
  * @brief default process name
@@ -243,6 +273,8 @@ const InputProcessParameters PROGMEM _DEFAULT_UI_INPUT_PRM_ = {
     &_pdelimseq, /*< default process default delimiter sequences */
     &_pststpseq  /*< default process default start/stop sequences */
 };
+
+/*! @} */
 
 /*!
  * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime

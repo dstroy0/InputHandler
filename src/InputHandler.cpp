@@ -1,25 +1,25 @@
 /**
-   @file InputHandler.cpp
-   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief InputHandler library cpp file
-   @version 1.1
-   @date 2022-05-28
-
-   @copyright Copyright (c) 2022
-*/
+ *  @file InputHandler.cpp
+ *  @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+ *  @brief InputHandler library cpp file
+ *  @version 1.1
+ *  @date 2022-05-28
+ *
+ *  @copyright Copyright (c) 2022
+ */
 /*
- Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
-
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- version 3 as published by the Free Software Foundation.
+ *   Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public License
+ *   version 3 as published by the Free Software Foundation.
  */
 
 #include "InputHandler.h"
 
 /*
-    public methods
-*/
+ *   public methods
+ */
 
 void UserInput::defaultFunction(void (*function)(UserInput*)) { _default_function_ = function; } // end defaultFunction
 
@@ -649,7 +649,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                     {
                         uint8_t _type = (uint8_t)UserInput::_getArgType(rprm.prm, i);
                         char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
-                        memcpy_P(&_type_char_array, &UserInput_type_strings_pgm[_type], sizeof(_type_char_array));
+                        memcpy_P(&_type_char_array, &ihconst::type_strings[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                         {
                             UserInput::_ui_out(PSTR(" 'INPUT NOT RECEIVED'*(%s REQUIRED)\n"), _type_char_array);
