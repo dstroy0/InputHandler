@@ -46,24 +46,24 @@
     #define UI_MAX_INPUT_LEN 255
 
 // maximum number of memcmp ranges per command
-    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)
+    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 /*< UserInput::addCommand array sizing macro (soft limit, typeof container is max) */
 
 /*
     fine-tune the program space needed for your implementation
 */
 // PROGMEM width constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< UserInput_type_strings_pgm width in bytes, don't change this unless you also edit the members of UserInput_type_strings_pgm src/InputHandler.h:105 
+    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 /*< UserInput_type_strings_pgm width in bytes, don't change this unless you also edit the members of UserInput_type_strings_pgm src/InputHandler.h:105  */
 
     // if you edit these, some examples might break and your compiler might yell at you about some variables in the UserInput constants section of InputHandler.h
-    #define UI_EOL_SEQ_PGM_LEN 5 ///< IH_eol width in bytes
+    #define UI_EOL_SEQ_PGM_LEN 5 /*< IH_eol width in bytes */
 
-    #define UI_DELIM_SEQ_PGM_LEN 5 ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes
+    #define UI_DELIM_SEQ_PGM_LEN 5 /*< InputProcessDelimiterSequences::delimiter_sequences[a][b] b width in bytes */
 
-    #define UI_START_STOP_SEQ_PGM_LEN 5 ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b width in bytes
+    #define UI_START_STOP_SEQ_PGM_LEN 5 /*< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b width in bytes */
 
-    #define UI_PROCESS_NAME_PGM_LEN 12 ///< IH_pname width in bytes
+    #define UI_PROCESS_NAME_PGM_LEN 12 /*< IH_pname width in bytes */
 
-    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc width in bytes
+    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 /*< IH_input_cc width in bytes */
 
 /*
     library output

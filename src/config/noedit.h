@@ -27,55 +27,55 @@
     */
 
     // function-like macros
-    #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
-    #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
-    #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
-    #define S(s) #s                               ///< gnu direct # stringify macro
-    #define STR(s) S(s)                           ///< gnu indirect # stringify macro    
+    #define nprms(x) (sizeof(x) / sizeof((x)[0])) /*< gets the number of elements in an array */
+    #define buffsz(x) nprms(x)                    /*< gets the number of elements in an array */
+    #define nelems(x) nprms(x)                    /*< gets the number of elements in an array */
+    #define S(s) #s                               /*< gnu direct # stringify macro */
+    #define STR(s) S(s)                           /*< gnu indirect # stringify macro     */
     // file location directive    
-    #define LOC __FILE__ : __LINE__ ///< direct non-stringified file and line macro
-    #define LOCATION STR(LOC)       ///< indirect stringified file and line macro
+    #define LOC __FILE__ : __LINE__ /*< direct non-stringified file and line macro */
+    #define LOCATION STR(LOC)       /*< indirect stringified file and line macro */
     // end file location directive
     // end function-like macros
 
     // portability directives
-    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
+    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) /*< SAMD portability */
         #include <avr/dtostrf.h>       // implement dtostrf
         #include "utility/vsnprintf.h" // implement vsnprintf
         #define vsnprintf_P vsnprintf  // this platform does not use vsnprintf_P
         #undef pgm_read_dword          // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        /*< PROGMEM fix macro */
         #define pgm_read_dword(addr) ({     \
             typeof(addr) _addr = (addr);    \
             *(const unsigned long*)(_addr); \
         })
     #endif
 
-    #if defined(__MBED_CONFIG_DATA__) ///< MBED portability
+    #if defined(__MBED_CONFIG_DATA__) /*< MBED portability */
         #include <avr/dtostrf.h>       // implement dtostrf
         #include "utility/vsnprintf.h" // implement vsnprintf
         #define vsnprintf_P vsnprintf  // this platform does not use vsnprintf_P
         #undef pgm_read_dword          // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        /*< PROGMEM fix macro */
         #define pgm_read_dword(addr) ({     \
             typeof(addr) _addr = (addr);    \
             *(const unsigned long*)(_addr); \
         })
     #endif
 
-    #if defined(ARDUINO_SAM_DUE) ///< DUE portability
+    #if defined(ARDUINO_SAM_DUE) /*< DUE portability */
         #include <avr/dtostrf.h>       // implement dtostrf
         #include "utility/vsnprintf.h" // implement vsnprintf
         #define vsnprintf_P vsnprintf  // this platform does not use vsnprintf_P
         #undef pgm_read_dword          // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        /*< PROGMEM fix macro */
         #define pgm_read_dword(addr) ({     \
             typeof(addr) _addr = (addr);    \
             *(const unsigned long*)(_addr); \
         })
     #endif
 
-    #if defined(TEENSYDUINO) ///< teensy portability
+    #if defined(TEENSYDUINO) /*< teensy portability */
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
         #define QLINE(x, y) \
@@ -88,14 +88,14 @@
     // end portability directives
 
     // sizing macros
-    #define UI_ESCAPED_CHAR_STRLEN 3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
+    #define UI_ESCAPED_CHAR_STRLEN 3 /*< sram buffer size in bytes for a single escaped char, used by UserInput methods */
 
     /*
         "auto" Type macros
     */
 
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
-    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) ///< UI_ALL_WCC_CMD is Type MAX
+    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /*< UI_ALL_WCC_CMD is Type MAX */
 
 /**
  * @namespace IH
