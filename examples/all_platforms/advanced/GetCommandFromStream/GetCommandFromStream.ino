@@ -111,8 +111,8 @@ void test_input_types(UserInput* inputProcess)
 }
 
 /**
- * test enforces type-valid input
- */
+   test enforces type-valid input
+*/
 const PROGMEM CommandParameters type_test_param[1] = {
   test_input_types,       // function ptr
   no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
@@ -157,7 +157,7 @@ void setup()
   inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
 
-  // comment this out if you're testing DISABLE_listSettings 
+  // comment this out if you're testing DISABLE_listSettings
   inputHandler.listSettings(&inputHandler);
   inputHandler.outputToStream(Serial); // class output
 
