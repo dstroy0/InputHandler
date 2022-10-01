@@ -52,6 +52,7 @@ enum UI_WC_FLAG
 
 /*!
  * @brief UserInput::_compareCommandToString() return values
+ *
  * these flags are only used to provide clarity to UserInput::_compareCommandToString(),
  * they make it easy to understand what is happening inside of that method
  * @enum UI_COMPARE
@@ -103,8 +104,11 @@ enum class UITYPE
 
 /*!
  * @brief type string literals
+ *
  * input type string literal PROGMEM array, each of the types in UITYPE has
  * a corresponding string literal for display purposes
+ * 
+ * @var const char UserInput_type_strings_pgm
  */
 const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "UINT8_T",   /*< 8-bit unsigned integer */
@@ -121,6 +125,7 @@ const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]
 
 /*!
  * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
+ *
  * This struct holds information about the delimiter sequences the process will be using.
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
  * input arguments, subcommands or data.  The input process needs to know three things
@@ -137,6 +142,7 @@ struct InputProcessDelimiterSequences
 
 /*!
  * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
+ *
  * This struct holds information about the start-stop sequence pairs the process will be using.
  * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
  * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
@@ -155,6 +161,7 @@ struct InputProcessStartStopSequences
 
 /*!
  * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
+ *
  * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
