@@ -1,6 +1,18 @@
 InputHandler.h file
 =====================
 
+typedefs
+---------
+.. doxygentypedef:: IH_pname
+
+.. doxygentypedef:: IH_eol
+
+.. doxygentypedef:: IH_input_cc
+
+.. doxygentypedef:: IH_wcc
+
+ENUMS
+------
 .. doxygenenum:: UI_CMD_ID      
 
 .. doxygenenum:: UI_WC_FLAG
@@ -11,27 +23,9 @@ InputHandler.h file
   
 .. doxygenenum:: UITYPE
 
+PROGMEM variables
+------------------
 .. doxygenvariable:: UserInput_type_strings_pgm    
-
-.. doxygenstruct:: InputProcessDelimiterSequences
-   :members:
-   :undoc-members:
-
-.. doxygenstruct:: InputProcessStartStopSequences
-   :members:
-   :undoc-members:
-
-.. doxygentypedef:: IH_pname
-
-.. doxygentypedef:: IH_eol
-
-.. doxygentypedef:: IH_input_cc
-
-.. doxygentypedef:: IH_wcc
-
-.. doxygenstruct:: InputProcessParameters
-   :members:
-   :undoc-members:
 
 .. doxygenvariable:: _pname
 
@@ -53,6 +47,21 @@ InputHandler.h file
 ..
     .. doxygenvariable:: _DEFAULT_UI_INPUT_PRM_
 
+
+Structs
+--------
+.. doxygenstruct:: InputProcessDelimiterSequences
+   :members:
+   :undoc-members:
+
+.. doxygenstruct:: InputProcessStartStopSequences
+   :members:
+   :undoc-members:
+
+.. doxygenstruct:: InputProcessParameters
+   :members:
+   :undoc-members:
+
 .. doxygenstruct:: CommandRuntimeCalc
    :members:
    :undoc-members:
@@ -61,6 +70,8 @@ InputHandler.h file
    :members:
    :undoc-members:
 
+Classes
+--------
 .. doxygenclass:: CommandConstructor
    :members: 
    :protected-members:
@@ -75,9 +86,8 @@ InputHandler.h file
    :undoc-members:      
    :allow-dot-graphs:
 
-Source
--------
-
+Source file
+------------
 .. literalinclude:: ../../../src/InputHandler.h
     :language: cpp
     :linenos:

@@ -203,6 +203,35 @@
         <article role="main">
           <section id="inputhandler-h-file">
 <h1>InputHandler.h file<a class="headerlink" href="#inputhandler-h-file" title="Permalink to this heading">#</a></h1>
+<section id="typedefs">
+<h2>typedefs<a class="headerlink" href="#typedefs" title="Permalink to this heading">#</a></h2>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv48IH_pname">
+<span id="_CPPv38IH_pname"></span><span id="_CPPv28IH_pname"></span><span id="IH_pname"></span><span class="target" id="de/d8a/group___user_input_1ga561fa7484e19f7dfebcf361ecd585f2f"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_pname</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_PROCESS_NAME_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv48IH_pname" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46IH_eol">
+<span id="_CPPv36IH_eol"></span><span id="_CPPv26IH_eol"></span><span id="IH_eol"></span><span class="target" id="de/d8a/group___user_input_1gafbde6b816485ab1d1e6e22b3b0cb9f02"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_eol</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_EOL_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_eol" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv411IH_input_cc">
+<span id="_CPPv311IH_input_cc"></span><span id="_CPPv211IH_input_cc"></span><span id="IH_input_cc"></span><span class="target" id="de/d8a/group___user_input_1ga85f676c44db484981373328e3dbf0698"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_input_cc</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv411IH_input_cc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46IH_wcc">
+<span id="_CPPv36IH_wcc"></span><span id="_CPPv26IH_wcc"></span><span id="IH_wcc"></span><span class="target" id="de/d8a/group___user_input_1gae5ba9d1632e0bccd924cf01102d0af3d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_wcc</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_wcc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_wcc is a two char array that represents the wildcard char and a null terminator This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
+</dd></dl>
+
+</section>
+<section id="enums">
+<h2>ENUMS<a class="headerlink" href="#enums" title="Permalink to this heading">#</a></h2>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv49UI_CMD_ID">
 <span id="_CPPv39UI_CMD_ID"></span><span id="_CPPv29UI_CMD_ID"></span><span class="target" id="de/d8a/group___user_input_1ga166e5457949a4e09a4391b2bacbb1db0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_CMD_ID</span></span></span><a class="headerlink" href="#_CPPv49UI_CMD_ID" title="Permalink to this definition">#</a><br /></dt>
@@ -337,12 +366,23 @@
 
 </dd></dl>
 
+</section>
+<section id="progmem-variables">
+<h2>PROGMEM variables<a class="headerlink" href="#progmem-variables" title="Permalink to this heading">#</a></h2>
 <dl class="cpp var">
 <dt class="sig sig-object cpp">
 <span class="target" id="de/d8a/group___user_input_1gaa98ed9aec4145a6e6b973913fa670231"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">PROGMEM</span> <span class="pre">UserInput_type_strings_pgm</span> <span class="pre">[10][UI_INPUT_TYPE_STRINGS_PGM_LEN]</span> <span class="pre">=</span> <span class="pre">{&quot;UINT8_T&quot;,&quot;UINT16_T&quot;,&quot;UINT32_T&quot;,&quot;INT16_T&quot;,&quot;FLOAT&quot;,&quot;CHAR&quot;,&quot;STARTSTOP&quot;,&quot;NOTYPE&quot;,&quot;NO_ARGS&quot;,&quot;error&quot;}</span></span></dt>
 <dd><p>type string literals input type string literal PROGMEM array, each of the types in UITYPE has a corresponding string literal for display purposes </p>
 </dd></dl>
 
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="de/d8a/group___user_input_1gad2c768e5a41b05fce4f7bfbda63aa008"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_pname</span> <span class="pre">PROGMEM</span> <span class="pre">_pname</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;&quot;</span></span></dt>
+<dd></dd></dl>
+
+</section>
+<section id="structs">
+<h2>Structs<a class="headerlink" href="#structs" title="Permalink to this heading">#</a></h2>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv430InputProcessDelimiterSequences">
 <span id="_CPPv330InputProcessDelimiterSequences"></span><span id="_CPPv230InputProcessDelimiterSequences"></span><span id="InputProcessDelimiterSequences"></span><span class="target" id="dc/da2/struct_input_process_delimiter_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessDelimiterSequences</span></span></span><a class="headerlink" href="#_CPPv430InputProcessDelimiterSequences" title="Permalink to this definition">#</a><br /></dt>
@@ -391,30 +431,6 @@
 </div>
 </dd></dl>
 
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv48IH_pname">
-<span id="_CPPv38IH_pname"></span><span id="_CPPv28IH_pname"></span><span id="IH_pname"></span><span class="target" id="de/d8a/group___user_input_1ga561fa7484e19f7dfebcf361ecd585f2f"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_pname</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_PROCESS_NAME_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv48IH_pname" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
-</dd></dl>
-
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv46IH_eol">
-<span id="_CPPv36IH_eol"></span><span id="_CPPv26IH_eol"></span><span id="IH_eol"></span><span class="target" id="de/d8a/group___user_input_1gafbde6b816485ab1d1e6e22b3b0cb9f02"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_eol</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_EOL_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_eol" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
-</dd></dl>
-
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv411IH_input_cc">
-<span id="_CPPv311IH_input_cc"></span><span id="_CPPv211IH_input_cc"></span><span id="IH_input_cc"></span><span class="target" id="de/d8a/group___user_input_1ga85f676c44db484981373328e3dbf0698"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_input_cc</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv411IH_input_cc" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
-</dd></dl>
-
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv46IH_wcc">
-<span id="_CPPv36IH_wcc"></span><span id="_CPPv26IH_wcc"></span><span id="IH_wcc"></span><span class="target" id="de/d8a/group___user_input_1gae5ba9d1632e0bccd924cf01102d0af3d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH_wcc</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv46IH_wcc" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>IH_wcc is a two char array that represents the wildcard char and a null terminator This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h. </p>
-</dd></dl>
-
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv422InputProcessParameters">
 <span id="_CPPv322InputProcessParameters"></span><span id="_CPPv222InputProcessParameters"></span><span id="InputProcessParameters"></span><span class="target" id="db/dda/struct_input_process_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessParameters</span></span></span><a class="headerlink" href="#_CPPv422InputProcessParameters" title="Permalink to this definition">#</a><br /></dt>
@@ -453,11 +469,6 @@
 
 </div>
 </dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="de/d8a/group___user_input_1gad2c768e5a41b05fce4f7bfbda63aa008"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">IH_pname</span> <span class="pre">PROGMEM</span> <span class="pre">_pname</span>&#160;&#160; <span class="pre">=</span> <span class="pre">&quot;&quot;</span></span></dt>
-<dd></dd></dl>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv418CommandRuntimeCalc">
@@ -558,6 +569,9 @@
 </div>
 </dd></dl>
 
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv418CommandConstructor">
 <span id="_CPPv318CommandConstructor"></span><span id="_CPPv218CommandConstructor"></span><span id="CommandConstructor"></span><span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><a class="headerlink" href="#_CPPv418CommandConstructor" title="Permalink to this definition">#</a><br /></dt>
@@ -846,7 +860,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput10addCommandER18CommandConstructor">
-<span id="_CPPv3N9UserInput10addCommandER18CommandConstructor"></span><span id="_CPPv2N9UserInput10addCommandER18CommandConstructor"></span><span id="UserInput::addCommand__CommandConstructorR"></span><span class="target" id="dc/d4b/class_user_input_1aa6067a65dc10a5c4546ce789a3edd4d1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addCommand</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv418CommandConstructor" title="CommandConstructor"><span class="n"><span class="pre">CommandConstructor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">command</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput10addCommandER18CommandConstructor" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9UserInput10addCommandER18CommandConstructor"></span><span id="_CPPv2N9UserInput10addCommandER18CommandConstructor"></span><span id="UserInput::addCommand__CommandConstructorR"></span><span class="target" id="dc/d4b/class_user_input_1aa6067a65dc10a5c4546ce789a3edd4d1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addCommand</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv418CommandConstructor" title="CommandConstructor"><span class="n"><span class="pre">CommandConstructor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">command</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>adds user commands to the input process </p>
 <p>This function inspects <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> for errors and reports the errors to the user if they have enabled output. If an error is detected in the root command or any of its subcommands, the entire command tree is rejected, and sizing for dynamically allocated variables does not take place.</p>
 <dl class="field-list simple">
@@ -858,7 +872,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput5beginEv">
-<span id="_CPPv3N9UserInput5beginEv"></span><span id="_CPPv2N9UserInput5beginEv"></span><span id="UserInput::begin"></span><span class="target" id="dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput5beginEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9UserInput5beginEv"></span><span id="_CPPv2N9UserInput5beginEv"></span><span id="UserInput::begin"></span><span class="target" id="dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Allocates memory for <em>data_pointers</em> and <em>input_type_match_flags</em>, sets <em>begin</em> </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1500,8 +1514,9 @@
 
 </dd></dl>
 
-<section id="source">
-<h2>Source<a class="headerlink" href="#source" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="source-file">
+<h2>Source file<a class="headerlink" href="#source-file" title="Permalink to this heading">#</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">src/InputHandler.h</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/*!</span>
@@ -2364,7 +2379,12 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">InputHandler.h file</a><ul>
-<li><a class="reference internal" href="#source">Source</a></li>
+<li><a class="reference internal" href="#typedefs">typedefs</a></li>
+<li><a class="reference internal" href="#enums">ENUMS</a></li>
+<li><a class="reference internal" href="#progmem-variables">PROGMEM variables</a></li>
+<li><a class="reference internal" href="#structs">Structs</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#source-file">Source file</a></li>
 </ul>
 </li>
 </ul>

@@ -1,8 +1,13 @@
 InputHandler.cpp file
 =======================
 
-.. doxygenfunction:: defaultFunction
-   :outline:
+.. doxygenfunction:: defaultFunction   
+
+.. doxygenfunction:: addCommand
+
+.. doxygenfunction:: begin
+
+.. doxygenfunction::    
 
 Source
 -------
