@@ -289,11 +289,7 @@ public:
      * @param tree_depth depth of command tree
      */
     CommandConstructor(const CommandParameters* parameters, const IH::ui_max_commands_in_tree_t parameter_array_elements = 1, const IH::ui_max_tree_depth_per_command_t tree_depth = 0)
-        : prm(parameters),
-          param_array_len(parameter_array_elements),
-          tree_depth(tree_depth + 1U),
-          calc(NULL),
-          next_command(NULL)
+        : prm(parameters), param_array_len(parameter_array_elements), tree_depth(tree_depth + 1U), calc(NULL), next_command(NULL)
     {
     }
     const CommandParameters* prm;                        ///< pointer to PROGMEM CommandParameters array
@@ -585,10 +581,7 @@ protected:
      * @param col column you want to access
      * @return size_t the transformed index
      */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const
-    {
-        return row + m_width * col;
-    }
+    size_t mIndex(size_t m_width, size_t row, size_t col) const { return row + m_width * col; }
 
 private:
     /*

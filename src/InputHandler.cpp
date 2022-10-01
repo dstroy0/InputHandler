@@ -21,10 +21,7 @@
     public methods
 */
 
-void UserInput::defaultFunction(void (*function)(UserInput*))
-{
-    _default_function_ = function;
-} // end defaultFunction
+void UserInput::defaultFunction(void (*function)(UserInput*)) { _default_function_ = function; } // end defaultFunction
 
 void UserInput::addCommand(CommandConstructor& command)
 {
@@ -196,28 +193,20 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "\nEscaped for display:\n"
                             "pinputcc = \"%s\"\n"
                             "peol = \"%s\"\n"),
-                       (uint32_t)UI_MAX_ARGS_PER_COMMAND,
-                       (uint32_t)UI_MAX_CMD_LEN,
-                       (uint32_t)UI_MAX_INPUT_LEN,
-                       (uint32_t)_output_buffer_len_,
-                       (char*)pname,
-                       (uint32_t)_p_num_ptrs_,
-                       (uint32_t)_max_depth_,
-                       (uint32_t)_max_args_,
-                       _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)),
-                       _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
+        (uint32_t)UI_MAX_ARGS_PER_COMMAND, (uint32_t)UI_MAX_CMD_LEN, (uint32_t)UI_MAX_INPUT_LEN, (uint32_t)_output_buffer_len_, (char*)pname, (uint32_t)_p_num_ptrs_, (uint32_t)_max_depth_,
+        (uint32_t)_max_args_, _addEscapedControlCharToBuffer(buf, idx, (char*)ccseq, strlen((char*)ccseq)), _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
     UserInput::_ui_out(PSTR("pdelimseqs = delim<\"\">\n"));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
-        UserInput::_ui_out(PSTR("<\"%s\">%c"),
-                           UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
-                           (((delimseqs.num_seq > 1) && (i % 5U != 0)) ? '|' : ((i % 5U == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a newline every 5 sequences
+        UserInput::_ui_out(PSTR("<\"%s\">%c"), UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i], strlen(delimseqs.delimiter_sequences[i])),
+            (((delimseqs.num_seq > 1) && (i % 5U != 0)) ? '|' : ((i % 5U == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a newline every 5 sequences
     }
     UserInput::_ui_out(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
-        UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"), UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
-                           UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
+        UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"),
+            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i], strlen(ststpseqs.start_stop_sequence_pairs[i])),
+            UserInput::_addEscapedControlCharToBuffer(buf, idx, ststpseqs.start_stop_sequence_pairs[i + 1], strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
     free(buf); // cleanup
 } // end listSettings
@@ -376,7 +365,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 #if defined(ENABLE_readCommandFromBufferErrorOutput)
         UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
 #endif                                                      // end ENABLE_readCommandFromBufferErrorOutput
-        (*_default_function_)(this);                        // run the default function
+        (*_default_function_)(this); // run the default function
     }
 
     // cleanup
@@ -474,18 +463,12 @@ char* UserInput::getArgument(size_t argument_number)
 #endif // end ENABLE_getArgument
 
 #if defined(ENABLE_outputIsAvailable)
-size_t UserInput::outputIsAvailable()
-{
-    return _output_buffer_len_ - _output_buffer_bytes_left_;
-} // end outputIsAvailable
-#endif // end ENABLE_outputIsAvailable
+size_t UserInput::outputIsAvailable() { return _output_buffer_len_ - _output_buffer_bytes_left_; } // end outputIsAvailable
+#endif                                                                                             // end ENABLE_outputIsAvailable
 
 #if defined(ENABLE_outputIsEnabled)
-inline bool UserInput::outputIsEnabled()
-{
-    return _output_enabled_;
-} // end outputIsEnabled
-#endif // end ENABLE_outputIsEnabled
+inline bool UserInput::outputIsEnabled() { return _output_enabled_; } // end outputIsEnabled
+#endif                                                                // end ENABLE_outputIsEnabled
 
 #if defined(ENABLE_outputToStream)
 void UserInput::outputToStream(Stream& stream)
@@ -583,7 +566,7 @@ inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
         for (size_t j = 0; j < strlen_data; ++j)
         { // if we encounter anything that isn't one of these four things, something isn't right
             int test_bool[4] = {isprint(vprm.token_pointers[vprm.token_pointer_index][j]), ispunct(vprm.token_pointers[vprm.token_pointer_index][j]),
-                                iscntrl(vprm.token_pointers[vprm.token_pointer_index][j]), isdigit(vprm.token_pointers[vprm.token_pointer_index][j])};
+                iscntrl(vprm.token_pointers[vprm.token_pointer_index][j]), isdigit(vprm.token_pointers[vprm.token_pointer_index][j])};
             if (test_bool[0] == 0 && test_bool[1] == 0 && test_bool[2] == 0 && test_bool[3] == 0) // no match
             {
                 return false;
@@ -649,7 +632,8 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
         {
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]), sizeof(rprm.prm)); // only load if a command matched
             // constrain err_n_args to UI_MAX_ARGS + 1
-            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS_PER_COMMAND + 1)) ? (UI_MAX_ARGS_PER_COMMAND + 1) : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
+            size_t err_n_args = ((_data_pointers_index_max_ - _failed_on_subcommand_ - 1U) > (UI_MAX_ARGS_PER_COMMAND + 1)) ? (UI_MAX_ARGS_PER_COMMAND + 1)
+                                                                                                                            : (_data_pointers_index_max_ - _failed_on_subcommand_ - 1U);
             err_n_args = (err_n_args == 0 && rprm.prm.num_args > 0) ? 1 : err_n_args;
             if (err_n_args > 0)
             {
@@ -1073,12 +1057,7 @@ void UserInput::_getArgs(_rcfbprm& rprm)
     _rec_num_arg_strings_ = 0; // number of tokens read from data
     for (size_t i = 0; i < (rprm.tokens_received - 1U); ++i)
     {
-        validateNullSepInputParam vprm = {
-            UserInput::_getArgType(rprm.prm, i),
-            _data_pointers_,
-            _data_pointers_index_ + i,
-            _neg_,
-            _dot_};
+        validateNullSepInputParam vprm = {UserInput::_getArgType(rprm.prm, i), _data_pointers_, _data_pointers_index_ + i, _neg_, _dot_};
         _input_type_match_flags_[i] = UserInput::validateNullSepInput(vprm); // validate the token
         _rec_num_arg_strings_++;
         if (_input_type_match_flags_[i] == false) // if the token was not valid input
@@ -1295,7 +1274,8 @@ inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Com
     return false;
 } // end _splitZDC
 
-void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
+void UserInput::_calcCmdMemcmpRanges(
+    CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
 {
     // this function is only used inside of UserInput::addCommand() and is not iterated over in loop()
     if (prm.has_wildcards == true) // if this command has wildcards
@@ -1380,9 +1360,7 @@ inline UI_COMPARE UserInput::_compareCommandToString(CommandConstructor* cmd, si
             {
                 long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
                 result = abs(result); // remove the sign
-                size_t size = ((size_t)result == 0)
-                    ? 1
-                    : (size_t)result;
+                size_t size = ((size_t)result == 0) ? 1 : (size_t)result;
                 char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
                 if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]), size) != 0) // doesn't match
                 {
