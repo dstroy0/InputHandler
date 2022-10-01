@@ -7,7 +7,7 @@ InputHandler.cpp file
 
 .. doxygenfunction:: begin
 
-.. doxygenfunction::    
+.. doxygenfunction:: listSettings   
 
 Source
 -------

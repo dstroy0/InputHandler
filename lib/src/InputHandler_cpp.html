@@ -240,6 +240,19 @@
 </dl>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9UserInput12listSettingsEP9UserInput">
+<span id="_CPPv3N9UserInput12listSettingsEP9UserInput"></span><span id="_CPPv2N9UserInput12listSettingsEP9UserInput"></span><span id="UserInput::listSettings__UserInputP"></span><span class="target" id="dc/d4b/class_user_input_1a587c2ab21bab0771881cb117e7930b78"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="InputHandler_h.html#_CPPv49UserInput" title="UserInput"><span class="n"><span class="pre">UserInput</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">listSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="InputHandler_h.html#_CPPv49UserInput" title="UserInput"><span class="n"><span class="pre">UserInput</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">inputProcess</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12listSettingsEP9UserInput" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Lists <a class="reference internal" href="InputHandler_h.html#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer. </p>
+<p>Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="reference internal" href="InputHandler_h.html#dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a></p>
+<p>REQUIRES a 650 byte output_buffer. If an insufficient buffer size is declared, <a class="reference internal" href="InputHandler_h.html#dc/d4b/class_user_input_1aa0c0335fed0fc12f54d4bbe0ebc3e41f"><span class="std std-ref">UserInput::_ui_out()</span></a> will warn the user to increase the buffer to the required size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputProcess</strong> – pointer to class instance </p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="source">
 <h2>Source<a class="headerlink" href="#source" title="Permalink to this heading">#</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
