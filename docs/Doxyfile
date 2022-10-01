@@ -1261,7 +1261,7 @@ CLANG_OPTIONS          =
 # Note: The availability of this option depends on whether or not doxygen was
 # generated with the -Duse_libclang=ON option for CMake.
 
-CLANG_DATABASE_PATH    =
+CLANG_DATABASE_PATH    = 
 
 #---------------------------------------------------------------------------
 # Configuration options related to the alphabetical class index
