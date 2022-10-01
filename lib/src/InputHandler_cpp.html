@@ -258,27 +258,27 @@
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">src/InputHandler.cpp</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">   1</span><span class="cm">/**</span>
-<span class="linenos">   2</span><span class="cm">   @file InputHandler.cpp</span>
-<span class="linenos">   3</span><span class="cm">   @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="linenos">   4</span><span class="cm">   @brief InputHandler library cpp file</span>
-<span class="linenos">   5</span><span class="cm">   @version 1.1</span>
-<span class="linenos">   6</span><span class="cm">   @date 2022-05-28</span>
-<span class="linenos">   7</span>
-<span class="linenos">   8</span><span class="cm">   @copyright Copyright (c) 2022</span>
-<span class="linenos">   9</span><span class="cm">*/</span><span class="w"></span>
+<span class="linenos">   2</span><span class="cm"> *  @file InputHandler.cpp</span>
+<span class="linenos">   3</span><span class="cm"> *  @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="linenos">   4</span><span class="cm"> *  @brief InputHandler library cpp file</span>
+<span class="linenos">   5</span><span class="cm"> *  @version 1.1</span>
+<span class="linenos">   6</span><span class="cm"> *  @date 2022-05-28</span>
+<span class="linenos">   7</span><span class="cm"> *</span>
+<span class="linenos">   8</span><span class="cm"> *  @copyright Copyright (c) 2022</span>
+<span class="linenos">   9</span><span class="cm"> */</span><span class="w"></span>
 <span class="linenos">  10</span><span class="cm">/*</span>
-<span class="linenos">  11</span><span class="cm"> Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
-<span class="linenos">  12</span>
-<span class="linenos">  13</span><span class="cm"> This program is free software; you can redistribute it and/or</span>
-<span class="linenos">  14</span><span class="cm"> modify it under the terms of the GNU General Public License</span>
-<span class="linenos">  15</span><span class="cm"> version 3 as published by the Free Software Foundation.</span>
+<span class="linenos">  11</span><span class="cm"> *   Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="linenos">  12</span><span class="cm"> *</span>
+<span class="linenos">  13</span><span class="cm"> *   This program is free software; you can redistribute it and/or</span>
+<span class="linenos">  14</span><span class="cm"> *   modify it under the terms of the GNU General Public License</span>
+<span class="linenos">  15</span><span class="cm"> *   version 3 as published by the Free Software Foundation.</span>
 <span class="linenos">  16</span><span class="cm"> */</span><span class="w"></span>
 <span class="linenos">  17</span>
 <span class="linenos">  18</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;InputHandler.h&quot;</span><span class="cp"></span>
 <span class="linenos">  19</span>
 <span class="linenos">  20</span><span class="cm">/*</span>
-<span class="linenos">  21</span><span class="cm">    public methods</span>
-<span class="linenos">  22</span><span class="cm">*/</span><span class="w"></span>
+<span class="linenos">  21</span><span class="cm"> *   public methods</span>
+<span class="linenos">  22</span><span class="cm"> */</span><span class="w"></span>
 <span class="linenos">  23</span>
 <span class="linenos">  24</span><span class="kt">void</span><span class="w"> </span><span class="nf">UserInput::defaultFunction</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_default_function_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">function</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// end defaultFunction</span>
 <span class="linenos">  25</span>
@@ -908,7 +908,7 @@
 <span class="linenos"> 649</span><span class="w">                    </span><span class="p">{</span><span class="w"></span>
 <span class="linenos"> 650</span><span class="w">                        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)</span><span class="n">UserInput</span><span class="o">::</span><span class="n">_getArgType</span><span class="p">(</span><span class="n">rprm</span><span class="p">.</span><span class="n">prm</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
 <span class="linenos"> 651</span><span class="w">                        </span><span class="kt">char</span><span class="w"> </span><span class="n">_type_char_array</span><span class="p">[</span><span class="n">UI_INPUT_TYPE_STRINGS_PGM_LEN</span><span class="p">];</span><span class="w"></span>
-<span class="linenos"> 652</span><span class="w">                        </span><span class="n">memcpy_P</span><span class="p">(</span><span class="o">&amp;</span><span class="n">_type_char_array</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UserInput_type_strings_pgm</span><span class="p">[</span><span class="n">_type</span><span class="p">],</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">_type_char_array</span><span class="p">));</span><span class="w"></span>
+<span class="linenos"> 652</span><span class="w">                        </span><span class="n">memcpy_P</span><span class="p">(</span><span class="o">&amp;</span><span class="n">_type_char_array</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ihconst</span><span class="o">::</span><span class="n">type_strings</span><span class="p">[</span><span class="n">_type</span><span class="p">],</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">_type_char_array</span><span class="p">));</span><span class="w"></span>
 <span class="linenos"> 653</span><span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">UITYPE</span><span class="p">)</span><span class="n">_type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UITYPE</span><span class="o">::</span><span class="n">NO_ARGS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">_data_pointers_</span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_failed_on_subcommand_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
 <span class="linenos"> 654</span><span class="w">                        </span><span class="p">{</span><span class="w"></span>
 <span class="linenos"> 655</span><span class="w">                            </span><span class="n">UserInput</span><span class="o">::</span><span class="n">_ui_out</span><span class="p">(</span><span class="n">PSTR</span><span class="p">(</span><span class="s">&quot; &#39;INPUT NOT RECEIVED&#39;*(%s REQUIRED)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">_type_char_array</span><span class="p">);</span><span class="w"></span>
