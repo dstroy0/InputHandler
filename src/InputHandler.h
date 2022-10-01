@@ -108,7 +108,7 @@ enum class UITYPE
  * input type string literal PROGMEM array, each of the types in UITYPE has
  * a corresponding string literal for display purposes
  * 
- * @var const char UserInput_type_strings_pgm
+ * @var UserInput_type_strings_pgm
  */
 const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "UINT8_T",   /*< 8-bit unsigned integer */
@@ -199,6 +199,13 @@ struct InputProcessParameters
     const InputProcessStartStopSequences* pststpseq; /*< reference to InputProcessStartStopSequences struct */
 };
 
+/*!
+ * @brief default process name
+ *
+ * The default process name is blank
+ * 
+ * @var _pname = ""
+ */
 const IH_pname PROGMEM _pname = "";         /*< default process name == "" */
 const IH_eol PROGMEM _peol = "\r\n";        /*< default process eol characters "\\r\\n" */
 const IH_input_cc PROGMEM _pinputcc = "##"; /*< default process input control character sequence "##" */
