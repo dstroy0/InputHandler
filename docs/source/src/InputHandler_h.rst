@@ -1,5 +1,5 @@
-InputHandler header file
-=============================
+InputHandler.h file
+=====================
 
 .. doxygenenum:: UI_CMD_ID      
 
@@ -11,8 +11,7 @@ InputHandler header file
   
 .. doxygenenum:: UITYPE
 
-..
-    .. doxygenvariable:: UserInput_type_strings_pgm    
+.. doxygenvariable:: UserInput_type_strings_pgm    
 
 .. doxygenstruct:: InputProcessDelimiterSequences
 
@@ -28,8 +27,7 @@ InputHandler header file
 
 .. doxygenstruct:: InputProcessParameters
 
-..
-    .. doxygenvariable:: _pname
+.. doxygenvariable:: _pname
 
 ..
     .. doxygenvariable:: _peol
