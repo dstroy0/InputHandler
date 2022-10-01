@@ -13,7 +13,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install libegl1
           sudo apt-get install graphviz
-          sudo apt-get install graphviz-dev          
+          sudo apt-get install graphviz-dev       
+          sudo apt-get install clang   
           
       - uses: actions/checkout@v3
         with: 
