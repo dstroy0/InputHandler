@@ -14,8 +14,12 @@ InputHandler.h file
 .. doxygenvariable:: UserInput_type_strings_pgm    
 
 .. doxygenstruct:: InputProcessDelimiterSequences
+   :members:
+   :undoc-members:
 
 .. doxygenstruct:: InputProcessStartStopSequences
+   :members:
+   :undoc-members:
 
 .. doxygentypedef:: IH_pname
 
@@ -26,6 +30,8 @@ InputHandler.h file
 .. doxygentypedef:: IH_wcc
 
 .. doxygenstruct:: InputProcessParameters
+   :members:
+   :undoc-members:
 
 .. doxygenvariable:: _pname
 
@@ -48,8 +54,12 @@ InputHandler.h file
     .. doxygenvariable:: _DEFAULT_UI_INPUT_PRM_
 
 .. doxygenstruct:: CommandRuntimeCalc
+   :members:
+   :undoc-members:
 
 .. doxygenstruct:: CommandParameters
+   :members:
+   :undoc-members:
 
 .. doxygenclass:: CommandConstructor
    :members: 
