@@ -1,4 +1,4 @@
-InputHandler cpp file
+InputHandler.cpp file
 =======================
 
 .. doxygenfunction:: UserInput::defaultFunction
