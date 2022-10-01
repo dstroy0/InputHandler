@@ -103,16 +103,16 @@ enum class UITYPE
  * a corresponding string literal for display purposes
  */
 const char PROGMEM UserInput_type_strings_pgm[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",   // 8-bit unsigned integer
-    "UINT16_T",  // 16-bit unsigned integer
-    "UINT32_T",  // 32-bit unsigned integer
-    "INT16_T",   // 16-bit signed integer
-    "FLOAT",     // 32-bit floating point number
-    "CHAR",      // single char
-    "STARTSTOP", // c-string enclosed with start/stop delimiters
-    "NOTYPE",    // user defined NOTYPE
-    "NO_ARGS",   // no arguments expected
-    "error"      // error
+    "UINT8_T",   ///< 8-bit unsigned integer
+    "UINT16_T",  ///< 16-bit unsigned integer
+    "UINT32_T",  ///< 32-bit unsigned integer
+    "INT16_T",   ///< 16-bit signed integer
+    "FLOAT",     ///< 32-bit floating point number
+    "CHAR",      ///< single char
+    "STARTSTOP", ///< c-string enclosed with start/stop delimiters
+    "NOTYPE",    ///< user defined NOTYPE
+    "NO_ARGS",   ///< no arguments expected
+    "error"      ///< error
 };
 
 /**
