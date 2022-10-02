@@ -193,8 +193,9 @@ void UserInput::listSettings(UserInput* inputProcess)
                             "\nEscaped for display:\n"
                             "input_control_char_sequence = \"%s\"\n"
                             "peol = \"%s\"\n"),
-        (uint32_t)UI_MAX_ARGS_PER_COMMAND, (uint32_t)UI_MAX_CMD_LEN, (uint32_t)UI_MAX_INPUT_LEN, (uint32_t)_output_buffer_len_, (char*)process_name, (uint32_t)_p_num_ptrs_, (uint32_t)_max_depth_,
-        (uint32_t)_max_args_, _addEscapedControlCharToBuffer(buf, idx, (char*)input_control_char_sequence, strlen((char*)input_control_char_sequence)), _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
+        (uint32_t)UI_MAX_ARGS_PER_COMMAND, (uint32_t)UI_MAX_CMD_LEN, (uint32_t)UI_MAX_INPUT_LEN, (uint32_t)_output_buffer_len_, (char*)process_name, (uint32_t)_p_num_ptrs_,
+        (uint32_t)_max_depth_, (uint32_t)_max_args_, _addEscapedControlCharToBuffer(buf, idx, (char*)input_control_char_sequence, strlen((char*)input_control_char_sequence)),
+        _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
     UserInput::_ui_out(PSTR("pdelimseqs = delim<\"\">\n"));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
@@ -1143,7 +1144,7 @@ inline void UserInput::_getTokensStartStop(getTokensParam& gtprm, const InputPro
                 if (memcmp(ptr, start_stop_sequences.start_stop_sequence_pairs[i], start_stop_sequences.start_stop_sequence_lens[i]) == 0) // match
                 {
                     gtprm.data_pos += start_stop_sequences.start_stop_sequence_lens[i] + 1U;
-                    ptr = (char*)&gtprm.data[gtprm.data_pos];                                                                       // point to beginning of c-string
+                    ptr = (char*)&gtprm.data[gtprm.data_pos];                                                                                   // point to beginning of c-string
                     char* end_ptr = (char*)memchr(ptr, start_stop_sequences.start_stop_sequence_pairs[i + 1][0], (gtprm.len - gtprm.data_pos)); // search for next c-string delimiter
                     while (end_ptr != NULL || gtprm.data_pos < gtprm.len)
                     {
@@ -1173,9 +1174,9 @@ inline void UserInput::_getTokensStartStop(getTokensParam& gtprm, const InputPro
             else // match
             {
                 gtprm.data_pos++;
-                char* ptr = (char*)&gtprm.data[gtprm.data_pos];                                                                 // point to beginning of c-string
+                char* ptr = (char*)&gtprm.data[gtprm.data_pos];                                                                             // point to beginning of c-string
                 char* end_ptr = (char*)memchr(ptr, start_stop_sequences.start_stop_sequence_pairs[i + 1][0], (gtprm.len - gtprm.data_pos)); // search for next c-string delimiter
-                if (end_ptr != NULL)                                                                                            // memcpy
+                if (end_ptr != NULL)                                                                                                        // memcpy
                 {
                     size_t size = ((end_ptr - (char*)gtprm.data) - (ptr - (char*)gtprm.data));
                     if ((size + 1U) < (gtprm.len - gtprm.data_pos))
@@ -1280,9 +1281,9 @@ void UserInput::_calcCmdMemcmpRanges(
     // this function is only used inside of UserInput::addCommand() and is not iterated over in loop()
     if (prm.has_wildcards == true) // if this command has wildcards
     {
-        IH_wcc wcc;                                    // char array to hold WildCard Character (wcc)
-        size_t cmd_str_pos = 0;                        // prm.command char array index
-        bool start_memcmp_range = true;                // sentinel
+        IH_wcc wcc;                                             // char array to hold WildCard Character (wcc)
+        size_t cmd_str_pos = 0;                                 // prm.command char array index
+        bool start_memcmp_range = true;                         // sentinel
         memcpy_P(&wcc, _input_prm_.wildcard_char, sizeof(wcc)); // copy WildCard Character (wcc) to ram
         for (size_t i = 0; i < prm.command_length; ++i)
         {
