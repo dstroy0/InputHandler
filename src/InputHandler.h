@@ -22,38 +22,38 @@
     #include "config/noedit.h"
 
 /*!
- * @defgroup InputHandler_typedefs
+ * @defgroup typedefs
  * @{
  */
 
 /*!
  * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
  *
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /*!
  * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /*!
  * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /*!
  * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
- * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
+ * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_wcc[2];
-/*! @} */ // end defgroup InputHandler_typedefs
+/*! @} */ // end defgroup typedefs
 
 /*!
- * @defgroup InputHandler_ENUMS
+ * @defgroup ENUMS
  * @{
  */
 
@@ -132,10 +132,10 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
-/*! @} */ // end defgroup InputHandler_ENUMS
+/*! @} */ // end defgroup ENUMS
 
 /*!
- * @defgroup InputHandler_structs
+ * @defgroup structs
  * @{
  */
 
@@ -230,10 +230,10 @@ struct CommandParameters
     IH::ui_max_args_t max_num_args;               /*< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args */
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; /*< argument UITYPE array */
 };
-/*! @} */ // end defgroup InputHandler_structs
+/*! @} */ // end defgroup structs
 
 /*!
- * @defgroup InputHandler_constants
+ * @defgroup constants
  * @{
  */
 
@@ -322,10 +322,10 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::start_stop_sequences         /*< default process default start/stop sequences */
 };
 } // end namespace ihconst
-/*! @} */ // end defgroup InputHandler_constants
+/*! @} */ // end defgroup constants
 
 /*!
- * @defgroup InputHandler_classes
+ * @defgroup classes
  * @{
  */
 
@@ -847,7 +847,7 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
-/*! @} */ // end defgroup InputHandler_classes
+/*! @} */ // end defgroup classes
 #endif    // header guard include
 
 // end of file
