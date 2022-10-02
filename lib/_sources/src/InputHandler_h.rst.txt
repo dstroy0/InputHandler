@@ -3,28 +3,28 @@ InputHandler.h file
 
 typedefs
 ---------
-.. doxygengroup:: InputHandler typedefs
+.. doxygengroup:: typedefs
    :private-members:
    :undoc-members:
    :inner:
 
 ENUMS
 ------
-.. doxygengroup:: InputHandler ENUMS
+.. doxygengroup:: ENUMS
    :private-members:
    :undoc-members:
    :inner:
 
 Structs
 --------
-.. doxygengroup:: InputHandler structs
+.. doxygengroup:: structs
    :private-members:
    :undoc-members:
    :inner:
 
 PROGMEM variables
 ------------------
-.. doxygengroup:: InputHandler constants
+.. doxygengroup:: constants
    :private-members:
    :undoc-members:
    :inner:
