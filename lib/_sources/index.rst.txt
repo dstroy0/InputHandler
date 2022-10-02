@@ -12,6 +12,12 @@
     :maxdepth: 4
     :hidden:
 
+    docs.rst   
+
+.. toctree::
+    :maxdepth: 4
+    :hidden:
+
     src.rst   
 
 README

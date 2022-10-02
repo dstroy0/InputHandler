@@ -1,16 +1,5 @@
-InputHandler.cpp file
-=======================
-
-.. doxygenfunction:: defaultFunction   
-
-.. doxygenfunction:: addCommand
-
-.. doxygenfunction:: begin
-
-.. doxygenfunction:: listSettings   
-
-Source
--------
+InputHandler.cpp
+================
 
 .. literalinclude:: ../../../src/InputHandler.cpp
     :language: cpp
