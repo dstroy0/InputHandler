@@ -24,7 +24,7 @@ Structs
 
 PROGMEM variables
 ------------------
-.. .. doxygengroup:: constants
+.. doxygengroup:: constants
    :private-members:
    :undoc-members:
    :inner:
