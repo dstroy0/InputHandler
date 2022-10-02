@@ -3,84 +3,41 @@ InputHandler.h file
 
 typedefs
 ---------
-.. doxygentypedef:: IH_pname
-
-.. doxygentypedef:: IH_eol
-
-.. doxygentypedef:: IH_input_cc
-
-.. doxygentypedef:: IH_wcc
+.. doxygengroup:: InputHandler typedefs
+   :private-members:
+   :undoc-members:
+   :inner:
 
 ENUMS
 ------
-.. doxygenenum:: UI_CMD_ID      
-
-.. doxygenenum:: UI_WC_FLAG
-
-.. doxygenenum:: UI_COMPARE
-
-.. doxygenenum:: UI_ARG_HANDLING
-  
-.. doxygenenum:: UITYPE
-
-PROGMEM variables
-------------------
-.. doxygenvariable:: UserInput_type_strings_pgm    
-
-.. doxygenvariable:: _pname
-
-..
-    .. doxygenvariable:: _peol
-
-..
-    .. doxygenvariable:: _pinputcc
-
-..
-    .. doxygenvariable:: _pwcc
-
-..
-    .. doxygenvariable:: _pdelimseq
-
-..
-    .. doxygenvariable:: _pststpseq
-
-..
-    .. doxygenvariable:: _DEFAULT_UI_INPUT_PRM_
-
+.. doxygengroup:: InputHandler ENUMS
+   :private-members:
+   :undoc-members:
+   :inner:
 
 Structs
 --------
-.. doxygenstruct:: InputProcessDelimiterSequences
-   :members:
+.. doxygengroup:: InputHandler structs
+   :private-members:
    :undoc-members:
+   :inner:
 
-.. doxygenstruct:: InputProcessStartStopSequences
-   :members:
+PROGMEM variables
+------------------
+.. doxygengroup:: InputHandler constants
+   :private-members:
    :undoc-members:
-
-.. doxygenstruct:: InputProcessParameters
-   :members:
-   :undoc-members:
-
-.. doxygenstruct:: CommandRuntimeCalc
-   :members:
-   :undoc-members:
-
-.. doxygenstruct:: CommandParameters
-   :members:
-   :undoc-members:
+   :inner:
 
 Classes
 --------
-.. doxygenclass:: CommandConstructor
-   :members: 
+.. doxygenclass:: CommandConstructor   
    :protected-members:
    :private-members:
    :undoc-members:       
    :allow-dot-graphs:
 
-.. doxygenclass:: UserInput
-   :members: 
+.. doxygenclass:: UserInput   
    :protected-members:
    :private-members:
    :undoc-members:      
