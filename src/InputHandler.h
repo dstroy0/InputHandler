@@ -175,8 +175,6 @@ struct InputProcessStartStopSequences
     char start_stop_sequence_pairs[UI_MAX_NUM_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; /*< start/stop sequences.  Match start, match end, copy what is between */
 };
 
-
-
 /*!
  * @brief UserInput input process parameters, constructor parameters
  * This struct is an array of pointers to other structs/arrays contained in PROGMEM
@@ -197,22 +195,25 @@ struct InputProcessParameters
  * @defgroup InputHandler constants
  * @{
  */
+
 /*!
  * @brief library constants located in PROGMEM
  *
- * 
+ *
  * This namespace's purpose is to avoid name collision
  * and to consolidate the library's PROGMEM v
- * 
- * @name ihconst 
+ *
+ * @name ihconst
  */
-namespace ihconst {
+namespace ihconst
+{
+
 /*!
  * @brief type string literals
  *
  * input type string literal PROGMEM array, each of the types in UITYPE has
  * a corresponding string literal for display purposes
- * 
+ *
  * @var type_strings
  */
 const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
@@ -227,13 +228,13 @@ const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "NO_ARGS",   /*< no arguments expected */
     "error"      /*< error */
 };
-}
+} // end namespace ihconst
 
 /*!
  * @brief default process name
  *
  * The default process name is blank
- * 
+ *
  * @var _pname = ""
  */
 const IH_pname PROGMEM _pname = "";         /*< default process name == "" */
@@ -639,9 +640,9 @@ private:
     */
 
     // (potentially) user entered constructor variables
+    const InputProcessParameters* _input_prm_ptr_; /*< user input constructor parameters pointer */
     char* _output_buffer_;                         /*< pointer to the output char buffer */
     size_t _output_buffer_len_;                    /*< _output_buffer_ size in bytes */
-    const InputProcessParameters* _input_prm_ptr_; /*< user input constructor parameters pointer */
     // end user entered constructor variables
 
     bool _output_enabled_;             /*< true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput's constructor) */

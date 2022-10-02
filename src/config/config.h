@@ -15,8 +15,8 @@
  version 3 as published by the Free Software Foundation.
  */
 
-#if !defined(__USER_INPUT_HANDLER_CONFIG_H__)
-    #define __USER_INPUT_HANDLER_CONFIG_H__
+#if !defined(__INPUTHANDLER_CONFIG_H__)
+    #define __INPUTHANDLER_CONFIG_H__
 
 /*
     User Configurable items
@@ -52,7 +52,7 @@
     fine-tune the program space needed for your implementation
 */
 // PROGMEM width constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 /*< UserInput_type_strings_pgm width in bytes, don't change this unless you also edit the members of UserInput_type_strings_pgm src/InputHandler.h:105  */
+    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 /*< ihconst::type_strings width in bytes, don't change this unless you also edit the members of ihconst::type_strings src/InputHandler.h:105  */
 
     // if you edit these, some examples might break and your compiler might yell at you about some variables in the UserInput constants section of InputHandler.h
     #define UI_EOL_SEQ_PGM_LEN 5 /*< IH_eol width in bytes */
