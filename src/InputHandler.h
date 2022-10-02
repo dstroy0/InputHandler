@@ -53,7 +53,7 @@ typedef char IH_wcc[2];
 /*! @} */ // end defgroup InputHandler typedefs
 
 /*!
- * @defgroup InputHandler enums
+ * @defgroup InputHandler ENUMS
  * @{
  */
 
@@ -132,7 +132,7 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
-/*! @} */ // end defgroup InputHandler enums
+/*! @} */ // end defgroup InputHandler ENUMS
 
 /*!
  * @defgroup InputHandler structs
@@ -182,100 +182,13 @@ struct InputProcessStartStopSequences
  */
 struct InputProcessParameters
 {
-    const IH_pname* pname;                           /*< this process' name, can be NULL; MAX len == UI_PROCESS_NAME_PGM_LEN */
-    const IH_eol* peol;                              /*< end of line term; MAX len == UI_EOL_SEQ_PGM_LEN */
-    const IH_input_cc* pinputcc;                     /*< two char len sequence to input a control char */
-    const IH_wcc* pwcc;                              /*< single char wildcard char */
-    const InputProcessDelimiterSequences* pdelimseq; /*< reference to InputProcessDelimiterSequences struct */
-    const InputProcessStartStopSequences* pststpseq; /*< reference to InputProcessStartStopSequences struct */
+    const IH_pname* process_name;                               /*< this process' name, can be NULL; MAX len == UI_PROCESS_NAME_PGM_LEN */
+    const IH_eol* eol_char;                                     /*< end of line term; MAX len == UI_EOL_SEQ_PGM_LEN */
+    const IH_input_cc* input_control_char_sequence;             /*< two char len sequence to input a control char */
+    const IH_wcc* wildcard_char;                                /*< single char wildcard char */
+    const InputProcessDelimiterSequences* delimiter_sequences;  /*< reference to InputProcessDelimiterSequences struct */
+    const InputProcessStartStopSequences* start_stop_sequences; /*< reference to InputProcessStartStopSequences struct */
 };
-/*! @} */ // end defgroup InputHandler structs
-
-/*!
- * @defgroup InputHandler constants
- * @{
- */
-
-/*!
- * @brief library constants located in PROGMEM
- *
- *
- * This namespace's purpose is to avoid name collision
- * and to consolidate the library's PROGMEM v
- *
- * @name ihconst
- */
-namespace ihconst
-{
-
-/*!
- * @brief type string literals
- *
- * input type string literal PROGMEM array, each of the types in UITYPE has
- * a corresponding string literal for display purposes
- *
- * @var type_strings
- */
-const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",   /*< 8-bit unsigned integer */
-    "UINT16_T",  /*< 16-bit unsigned integer */
-    "UINT32_T",  /*< 32-bit unsigned integer */
-    "INT16_T",   /*< 16-bit signed integer */
-    "FLOAT",     /*< 32-bit floating point number */
-    "CHAR",      /*< single char */
-    "STARTSTOP", /*< c-string enclosed with start/stop delimiters */
-    "NOTYPE",    /*< user defined NOTYPE */
-    "NO_ARGS",   /*< no arguments expected */
-    "error"      /*< error */
-};
-} // end namespace ihconst
-
-/*!
- * @brief default process name
- *
- * The default process name is blank
- *
- * @var _pname = ""
- */
-const IH_pname PROGMEM _pname = "";         /*< default process name == "" */
-const IH_eol PROGMEM _peol = "\r\n";        /*< default process eol characters "\\r\\n" */
-const IH_input_cc PROGMEM _pinputcc = "##"; /*< default process input control character sequence "##" */
-const IH_wcc PROGMEM _pwcc = "*";           /*< default process wildcard char '*' */
-
-/*!
- * @brief default delimiter sequences
- *
- */
-const InputProcessDelimiterSequences PROGMEM _pdelimseq = {
-    2,         /*< default number of delimiter sequences */
-    {1, 1},    /*< default delimiter sequence lens */
-    {" ", ","} /*< default delimiter sequences */
-};
-
-/*!
- * @brief default start stop sequences
- *
- */
-const InputProcessStartStopSequences PROGMEM _pststpseq = {
-    1,           /*< default num start stop sequence pairs */
-    {1, 1},      /*< default start stop sequence lens */
-    {"\"", "\""} /*< default start stop sequence pair sequences */
-};
-
-/*!
- * @brief UserInput default InputProcessParameters
- *
- */
-const InputProcessParameters PROGMEM _DEFAULT_UI_INPUT_PRM_ = {
-    &_pname,     /*< default process name */
-    &_peol,      /*< default process eol term */
-    &_pinputcc,  /*< default process input control char sequence */
-    &_pwcc,      /*< default process wildcard char */
-    &_pdelimseq, /*< default process default delimiter sequences */
-    &_pststpseq  /*< default process default start/stop sequences */
-};
-
-/*! @} */
 
 /*!
  * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime
@@ -317,7 +230,104 @@ struct CommandParameters
     IH::ui_max_args_t max_num_args;               /*< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args */
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; /*< argument UITYPE array */
 };
-/*! @} */
+/*! @} */ // end defgroup InputHandler structs
+
+/*!
+ * @defgroup InputHandler constants
+ * @{
+ */
+
+/*!
+ * @brief library constants located in PROGMEM
+ *
+ *
+ * This namespace's purpose is to avoid name collision
+ * and to consolidate the library's PROGMEM v
+ *
+ * @name ihconst
+ */
+namespace ihconst
+{
+
+/*!
+ * @brief type string literals
+ *
+ * input type string literal PROGMEM array, each of the types in UITYPE has
+ * a corresponding string literal for display purposes
+ *
+ * @var type_strings
+ */
+const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
+    "UINT8_T",   /*< 8-bit unsigned integer */
+    "UINT16_T",  /*< 16-bit unsigned integer */
+    "UINT32_T",  /*< 32-bit unsigned integer */
+    "INT16_T",   /*< 16-bit signed integer */
+    "FLOAT",     /*< 32-bit floating point number */
+    "CHAR",      /*< single char */
+    "STARTSTOP", /*< c-string enclosed with start/stop delimiters */
+    "NOTYPE",    /*< user defined NOTYPE */
+    "NO_ARGS",   /*< no arguments expected */
+    "error"      /*< error */
+};
+
+/*!
+ * @brief default process name
+ *
+ * The default process name is blank
+ *
+ * @var process_name = ""
+ */
+const IH_pname PROGMEM process_name = ""; /*< default process name == "" */
+/*!
+ * @brief default end of line characters
+ *
+ * The default end of line characters are "\r\n"
+ *
+ * @var eol_char = "\r\n"
+ */
+const IH_eol PROGMEM eol_char = "\r\n";                       /*< default process eol characters "\\r\\n" */
+const IH_input_cc PROGMEM input_control_char_sequence = "##"; /*< default process input control character sequence "##" */
+const IH_wcc PROGMEM wildcard_char = "*";                     /*< default process wildcard char '*' */
+
+/*!
+ * @brief default delimiter sequences
+ *
+ */
+const InputProcessDelimiterSequences PROGMEM delimiter_sequences = {
+    2,         /*< default number of delimiter sequences */
+    {1, 1},    /*< default delimiter sequence lens */
+    {" ", ","} /*< default delimiter sequences */
+};
+
+/*!
+ * @brief default start stop sequences
+ *
+ */
+const InputProcessStartStopSequences PROGMEM start_stop_sequences = {
+    1,           /*< default num start stop sequence pairs */
+    {1, 1},      /*< default start stop sequence lens */
+    {"\"", "\""} /*< default start stop sequence pair sequences */
+};
+
+/*!
+ * @brief UserInput default InputProcessParameters
+ *
+ */
+const InputProcessParameters PROGMEM default_parameters = {
+    &ihconst::process_name,                /*< default process name */
+    &ihconst::eol_char,                    /*< default process eol term */
+    &ihconst::input_control_char_sequence, /*< default process input control char sequence */
+    &ihconst::wildcard_char,               /*< default process wildcard char */
+    &ihconst::delimiter_sequences,         /*< default process default delimiter sequences */
+    &ihconst::start_stop_sequences         /*< default process default start/stop sequences */
+};
+} // end namespace ihconst
+/*! @} */ // end defgroup InputHandler constants
+
+/*!
+ * @defgroup InputHandler classes
+ * @{
+ */
 
 /*!
  * @brief user command constructor class
@@ -367,17 +377,17 @@ public:
      * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
      * NULL.
      *
-     * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the ctor to use _DEFAULT_UI_INPUT_PRM_ unless you define your own
+     * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the ctor to use default_input_parameters unless you define your own
      * @param output_buffer class output char buffer, implementation specific.  NULL by default.
      * @param output_buffer_len size of output_buffer buffsz(output_buffer)
      */
     UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
-        : _input_prm_ptr_((input_prm == NULL) ? &_DEFAULT_UI_INPUT_PRM_ : input_prm),
+        : _input_prm_ptr_((input_prm == NULL) ? &ihconst::default_parameters : input_prm),
           _output_buffer_(output_buffer),
           _output_buffer_len_(output_buffer_len),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_bytes_left_(output_buffer_len),
-          _term_len_(strlen_P(((input_prm == NULL) ? (char*)_DEFAULT_UI_INPUT_PRM_.peol : (char*)input_prm->peol))),
+          _term_len_(strlen_P(((input_prm == NULL) ? (char*)ihconst::default_parameters.eol_char : (char*)input_prm->eol_char))),
           _term_index_(0),
           _default_function_(NULL),
           _commands_head_(NULL),
@@ -837,7 +847,7 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
-
-#endif // header guard include
+/*! @} */ // end defgroup InputHandler classes
+#endif    // header guard include
 
 // end of file
