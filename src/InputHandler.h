@@ -22,7 +22,7 @@
     #include "config/noedit.h"
 
 /*!
- * @defgroup InputHandler typedefs
+ * @defgroup InputHandler_typedefs
  * @{
  */
 
@@ -50,10 +50,10 @@ typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
  * This is a char array, you can change the macro in src/config/InputHandler_PROGMEM_settings.h
  */
 typedef char IH_wcc[2];
-/*! @} */ // end defgroup InputHandler typedefs
+/*! @} */ // end defgroup InputHandler_typedefs
 
 /*!
- * @defgroup InputHandler ENUMS
+ * @defgroup InputHandler_ENUMS
  * @{
  */
 
@@ -132,10 +132,10 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
-/*! @} */ // end defgroup InputHandler ENUMS
+/*! @} */ // end defgroup InputHandler_ENUMS
 
 /*!
- * @defgroup InputHandler structs
+ * @defgroup InputHandler_structs
  * @{
  */
 
@@ -230,10 +230,10 @@ struct CommandParameters
     IH::ui_max_args_t max_num_args;               /*< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args */
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; /*< argument UITYPE array */
 };
-/*! @} */ // end defgroup InputHandler structs
+/*! @} */ // end defgroup InputHandler_structs
 
 /*!
- * @defgroup InputHandler constants
+ * @defgroup InputHandler_constants
  * @{
  */
 
@@ -322,10 +322,10 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::start_stop_sequences         /*< default process default start/stop sequences */
 };
 } // end namespace ihconst
-/*! @} */ // end defgroup InputHandler constants
+/*! @} */ // end defgroup InputHandler_constants
 
 /*!
- * @defgroup InputHandler classes
+ * @defgroup InputHandler_classes
  * @{
  */
 
@@ -847,7 +847,7 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
-/*! @} */ // end defgroup InputHandler classes
+/*! @} */ // end defgroup InputHandler_classes
 #endif    // header guard include
 
 // end of file
