@@ -256,7 +256,6 @@ struct CommandParameters
  * This namespace's purpose is to avoid name collision
  * and to consolidate the library's PROGMEM v
  *
- * @name ihconst
  */
 namespace ihconst
 {
