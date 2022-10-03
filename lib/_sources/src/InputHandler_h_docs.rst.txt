@@ -20,16 +20,25 @@ Structs
 --------
 .. doxygenstruct:: InputProcessDelimiterSequences
    :members:
+   :undoc-members:
+
 .. doxygenstruct:: InputProcessStartStopSequences
    :members:
+   :undoc-members:
+
 .. doxygenstruct:: InputProcessParameters
    :members:
+   :undoc-members:
+
 .. doxygenstruct:: CommandRuntimeCalc
    :members:
+   :undoc-members:
 
 namespace
 ------------------
 .. doxygennamespace:: ihconst
+   :members:
+   :undoc-members:
 
 Classes
 --------
