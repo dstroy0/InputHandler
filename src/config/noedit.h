@@ -25,10 +25,7 @@
         DO NOT EDIT the sections below unless you know what will happen, incorrect entry
         can introduce undefined behavior.
     */
-    // sphinx freaks out at the PROGMEM macro, so don't feed it PROGMEM
-    #if defined(IH_DOXY_XML_BUILD)        
-        #define PROGMEM __ATTR_PROGMEM__
-    #endif
+    
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) /*< gets the number of elements in an array */
     #define buffsz(x) nprms(x)                    /*< gets the number of elements in an array */
