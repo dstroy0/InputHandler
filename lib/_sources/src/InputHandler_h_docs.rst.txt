@@ -25,10 +25,7 @@ Structs
 PROGMEM variables
 ------------------
 .. doxygengroup:: constants
-   :private-members:
-   :undoc-members:
-   :inner:
-
+  
 Classes
 --------
 .. doxygenclass:: CommandConstructor   

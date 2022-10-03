@@ -332,7 +332,7 @@
 <dl class="cpp enum-class">
 <dt class="sig sig-object cpp" id="_CPPv46UITYPE">
 <span id="_CPPv36UITYPE"></span><span id="_CPPv26UITYPE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ga70e7c464dbd2c5c26fa63684d9dfdd70"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UITYPE</span></span></span><a class="headerlink" href="#_CPPv46UITYPE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UserInput type specifier. </p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> type specifier. </p>
 <p>these are the different types of user input the process can accept NOTYPE and START_STOP can be any 0-255 value This is strongly typed to help avoid name conflicts, and as an indicator that these types are not built-in. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
@@ -419,7 +419,7 @@
 <span id="_CPPv322InputProcessParameters"></span><span id="_CPPv222InputProcessParameters"></span><span id="InputProcessParameters"></span><span class="target" id="db/dda/struct_input_process_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputProcessParameters</span></span></span><a class="headerlink" href="#_CPPv422InputProcessParameters" title="Permalink to this definition">#</a><br /></dt>
 <dd><div class="docutils container">
 <em>#include &lt;InputHandler.h&gt;</em></div>
-<p>UserInput input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
+<p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> input process parameters, constructor parameters This struct is an array of pointers to other structs/arrays contained in PROGMEM It’s required by the input process, all together they define the input process behavior. </p>
 </dd></dl>
 
 <dl class="cpp struct">
@@ -427,7 +427,7 @@
 <span id="_CPPv318CommandRuntimeCalc"></span><span id="_CPPv218CommandRuntimeCalc"></span><span id="CommandRuntimeCalc"></span><span class="target" id="dc/d3d/struct_command_runtime_calc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandRuntimeCalc</span></span></span><a class="headerlink" href="#_CPPv418CommandRuntimeCalc" title="Permalink to this definition">#</a><br /></dt>
 <dd><div class="docutils container">
 <em>#include &lt;InputHandler.h&gt;</em></div>
-<p><a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a> struct contains arrays and indices determined at runtime these structs are associated with wildcard commands; every CommandConstructor that has a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> which contains wildcards will have a <a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
+<p><a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a> struct contains arrays and indices determined at runtime these structs are associated with wildcard commands; every <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> that has a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> which contains wildcards will have a <a class="reference internal" href="#dc/d3d/struct_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp struct">
@@ -452,10 +452,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418CommandConstructorPK17CommandParametersKN2IH25ui_max_commands_in_tree_tEKN2IH31ui_max_tree_depth_per_command_tE">
 <span id="_CPPv318CommandConstructorPK17CommandParametersKN2IH25ui_max_commands_in_tree_tEKN2IH31ui_max_tree_depth_per_command_tE"></span><span id="_CPPv218CommandConstructorPK17CommandParametersKN2IH25ui_max_commands_in_tree_tEKN2IH31ui_max_tree_depth_per_command_tE"></span><span id="CommandConstructor__CommandParametersCP.IH::ui_max_commands_in_tree_tC.IH::ui_max_tree_depth_per_command_tC"></span><span class="target" id="d0/dc5/group__constants_1ga4283cf78871f8d4d21e6ad8969af1ca2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417CommandParameters" title="CommandParameters"><span class="n"><span class="pre">CommandParameters</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parameters</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IH</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ui_max_commands_in_tree_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">parameter_array_elements</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IH</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ui_max_tree_depth_per_command_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tree_depth</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418CommandConstructorPK17CommandParametersKN2IH25ui_max_commands_in_tree_tEKN2IH31ui_max_tree_depth_per_command_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>CommandConstructor Constructor. </p>
+<dd><p><a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> Constructor. </p>
 <p>Linked-list primer: <a class="reference external" href="https://www.programiz.com/dsa/linked-list">https://www.programiz.com/dsa/linked-list</a></p>
-<p>These constructors are chained together as a linked-list; this CommandConstructor object contains a reference <a class="reference internal" href="#d0/dc5/group__constants_1gacf385c16d839794f2bbe7ad7d1db4de3"><span class="std std-ref">CommandConstructor::next_command</span></a> to the next node in the linked-list. The list is linked together in <a class="reference internal" href="#d0/dc5/group__constants_1gaa6067a65dc10a5c4546ce789a3edd4d1"><span class="std std-ref">UserInput::addCommand()</span></a>.</p>
-<p>Before using, construct a UserInput object and a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> object. </p>
+<p>These constructors are chained together as a linked-list; this <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> object contains a reference <a class="reference internal" href="#d0/dc5/group__constants_1gacf385c16d839794f2bbe7ad7d1db4de3"><span class="std std-ref">CommandConstructor::next_command</span></a> to the next node in the linked-list. The list is linked together in <a class="reference internal" href="#d0/dc5/group__constants_1gaa6067a65dc10a5c4546ce789a3edd4d1"><span class="std std-ref">UserInput::addCommand()</span></a>.</p>
+<p>Before using, construct a <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> object and a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> object. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -470,8 +470,8 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv49UserInputPK22InputProcessParametersPc6size_t">
 <span id="_CPPv39UserInputPK22InputProcessParametersPc6size_t"></span><span id="_CPPv29UserInputPK22InputProcessParametersPc6size_t"></span><span id="UserInput__InputProcessParametersCP.cP.s"></span><span class="target" id="d0/dc5/group__constants_1gaa7cf91e3c4f640149ba0c1669a8d9343"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422InputProcessParameters" title="InputProcessParameters"><span class="n"><span class="pre">InputProcessParameters</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">input_prm</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output_buffer</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">output_buffer_len</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49UserInputPK22InputProcessParametersPc6size_t" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UserInput constructor, no output by default. </p>
-<p>UserInput has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <code class="docutils literal notranslate"><span class="pre">_output_enabled_</span></code> to false if output_buffer is NULL.</p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> constructor, no output by default. </p>
+<p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <code class="docutils literal notranslate"><span class="pre">_output_enabled_</span></code> to false if output_buffer is NULL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -501,7 +501,7 @@
 <p>This function inspects <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> for errors and reports the errors to the user if they have enabled output. If an error is detected in the root command or any of its subcommands, the entire command tree is rejected, and sizing for dynamically allocated variables does not take place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>command</strong> – reference to CommandConstructor object </p>
+<dd class="field-odd"><p><strong>command</strong> – reference to <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> object </p>
 </dd>
 </dl>
 </dd></dl>
@@ -523,7 +523,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv412listSettingsP9UserInput">
 <span id="_CPPv312listSettingsP9UserInput"></span><span id="_CPPv212listSettingsP9UserInput"></span><span id="listSettings__UserInputP"></span><span class="target" id="d0/dc5/group__constants_1ga587c2ab21bab0771881cb117e7930b78"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49UserInputPK22InputProcessParametersPc6size_t" title="UserInput"><span class="n"><span class="pre">UserInput</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">inputProcess</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412listSettingsP9UserInput" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Lists UserInput class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer. </p>
+<dd><p>Lists <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer. </p>
 <p>Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="reference internal" href="#d0/dc5/group__constants_1ga1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a></p>
 <p>REQUIRES a 650 byte output_buffer. If an insufficient buffer size is declared, <a class="reference internal" href="#d0/dc5/group__constants_1gaa0c0335fed0fc12f54d4bbe0ebc3e41f"><span class="std std-ref">UserInput::_ui_out()</span></a> will warn the user to increase the buffer to the required size.</p>
 <dl class="field-list simple">
@@ -542,7 +542,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv421readCommandFromBufferP7uint8_t6size_tK6size_tPPK17CommandParameters">
 <span id="_CPPv321readCommandFromBufferP7uint8_t6size_tK6size_tPPK17CommandParameters"></span><span id="_CPPv221readCommandFromBufferP7uint8_t6size_tK6size_tPPK17CommandParameters"></span><span id="readCommandFromBuffer__uint8_tP.s.sC.CommandParametersCPP"></span><span class="target" id="d0/dc5/group__constants_1ga7f6ab5712afedca76ee55220276f8828"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readCommandFromBuffer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417CommandParameters" title="CommandParameters"><span class="n"><span class="pre">CommandParameters</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421readCommandFromBufferP7uint8_t6size_tK6size_tPPK17CommandParameters" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>read command(s) from a uint8_t (unsigned char) buffer silent return if UserInput::<em>begin</em> == false </p>
+<dd><p>read command(s) from a uint8_t (unsigned char) buffer silent return if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> == false </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -560,7 +560,7 @@
 <span id="_CPPv320getCommandFromStreamR6Stream6size_tK6size_tPPK17CommandParameters"></span><span id="_CPPv220getCommandFromStreamR6Stream6size_tK6size_tPPK17CommandParameters"></span><span id="getCommandFromStream__StreamR.s.sC.CommandParametersCPP"></span><span class="target" id="d0/dc5/group__constants_1ga002a68af52c45c1abf40d4ff66385e7d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCommandFromStream</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Stream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">stream</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rx_buffer_size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">32</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417CommandParameters" title="CommandParameters"><span class="n"><span class="pre">CommandParameters</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420getCommandFromStreamR6Stream6size_tK6size_tPPK17CommandParameters" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer. </p>
 <p><a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">https://www.arduino.cc/reference/en/language/functions/communication/stream/</a></p>
-<p>silent return if UserInput::<em>begin</em> == false </p>
+<p>silent return if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> == false </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -576,7 +576,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv412nextArgumentv">
 <span id="_CPPv312nextArgumentv"></span><span id="_CPPv212nextArgumentv"></span><span id="nextArgument"></span><span class="target" id="d0/dc5/group__constants_1ga30cd1758e5ab22d987e8c37e426989dd"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nextArgument</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412nextArgumentv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>returns a pointer to the next token in UserInput::<em>token_buffer</em> or NULL if there are no more tokens </p>
+<dd><p>returns a pointer to the next token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em> or NULL if there are no more tokens </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>char* </p>
@@ -587,7 +587,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv411getArgument6size_t">
 <span id="_CPPv311getArgument6size_t"></span><span id="_CPPv211getArgument6size_t"></span><span id="getArgument__s"></span><span class="target" id="d0/dc5/group__constants_1gadc1c7030c049d743806ecc1009ffd9bb"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getArgument</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argument_number</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411getArgument6size_t" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>returns a pointer to argument_number token in UserInput::<em>token_buffer</em> or NULL if there is no argument_number token </p>
+<dd><p>returns a pointer to argument_number token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em> or NULL if there is no argument_number token </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>char* </p>
@@ -699,7 +699,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv47_ui_outPKcz">
 <span id="_CPPv37_ui_outPKcz"></span><span id="_CPPv27_ui_outPKcz"></span><span id="_ui_out__cCP.z"></span><span class="target" id="d0/dc5/group__constants_1gaa0c0335fed0fc12f54d4bbe0ebc3e41f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_ui_out</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">fmt</span></span>, <span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47_ui_outPKcz" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UserInput vsnprintf <a class="reference external" href="https://www.cplusplus.com/reference/cstdio/vsprintf/">https://www.cplusplus.com/reference/cstdio/vsprintf/</a>. </p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> vsnprintf <a class="reference external" href="https://www.cplusplus.com/reference/cstdio/vsprintf/">https://www.cplusplus.com/reference/cstdio/vsprintf/</a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -784,7 +784,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cmd</strong> – CommandConstructor reference </p></li>
+<li><p><strong>cmd</strong> – <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> reference </p></li>
 <li><p><strong>prm</strong> – reference to <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> struct in addCommand </p></li>
 </ul>
 </dd>
@@ -914,7 +914,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> – reference to a CommandConstructor class </p></li>
+<li><p><strong>command</strong> – reference to a <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> class </p></li>
 <li><p><strong>prm</strong> – reference to a <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> struct </p></li>
 <li><p><strong>prm_idx</strong> – prm index </p></li>
 <li><p><strong>memcmp_ranges_idx</strong> – index of memcmp_ranges </p></li>
@@ -931,7 +931,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cmd</strong> – pointer to CommandConstructor </p></li>
+<li><p><strong>cmd</strong> – pointer to <a class="reference internal" href="#df/d68/class_command_constructor"><span class="std std-ref">CommandConstructor</span></a> </p></li>
 <li><p><strong>prm_idx</strong> – index of <a class="reference internal" href="#db/d11/struct_command_parameters"><span class="std std-ref">CommandParameters</span></a> to compare </p></li>
 <li><p><strong>str</strong> – c-string </p></li>
 </ul>
@@ -1127,7 +1127,7 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv418default_parameters">
 <span id="_CPPv318default_parameters"></span><span id="_CPPv218default_parameters"></span><span id="default_parameters__InputProcessParametersC"></span><span class="target" id="d0/dc5/group__constants_1ga69dc4bb63f7734eff07146c80c2a390f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422InputProcessParameters" title="InputProcessParameters"><span class="n"><span class="pre">InputProcessParameters</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_parameters</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst12process_nameE" title="ihconst::process_name"><span class="n"><span class="pre">process_name</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst8eol_charE" title="ihconst::eol_char"><span class="n"><span class="pre">eol_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst27input_control_char_sequenceE" title="ihconst::input_control_char_sequence"><span class="n"><span class="pre">input_control_char_sequence</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst13wildcard_charE" title="ihconst::wildcard_char"><span class="n"><span class="pre">wildcard_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst19delimiter_sequencesE" title="ihconst::delimiter_sequences"><span class="n"><span class="pre">delimiter_sequences</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst20start_stop_sequencesE" title="ihconst::start_stop_sequences"><span class="n"><span class="pre">start_stop_sequences</span></span></a><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv418default_parameters" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UserInput default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -1547,24 +1547,10 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N7ihconst18default_parametersE">
 <span id="_CPPv3N7ihconst18default_parametersE"></span><span id="_CPPv2N7ihconst18default_parametersE"></span><span id="ihconst::default_parameters__InputProcessParametersC"></span><span class="target" id="d0/dc5/group__constants_1ga69dc4bb63f7734eff07146c80c2a390f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422InputProcessParameters" title="InputProcessParameters"><span class="n"><span class="pre">InputProcessParameters</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_parameters</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst12process_nameE" title="ihconst::process_name"><span class="n"><span class="pre">process_name</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst8eol_charE" title="ihconst::eol_char"><span class="n"><span class="pre">eol_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst27input_control_char_sequenceE" title="ihconst::input_control_char_sequence"><span class="n"><span class="pre">input_control_char_sequence</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst13wildcard_charE" title="ihconst::wildcard_char"><span class="n"><span class="pre">wildcard_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst19delimiter_sequencesE" title="ihconst::delimiter_sequences"><span class="n"><span class="pre">delimiter_sequences</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv47ihconst" title="ihconst"><span class="n"><span class="pre">ihconst</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ihconst20start_stop_sequencesE" title="ihconst::start_stop_sequences"><span class="n"><span class="pre">start_stop_sequences</span></span></a><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7ihconst18default_parametersE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UserInput default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> default <a class="reference internal" href="#db/dda/struct_input_process_parameters"><span class="std std-ref">InputProcessParameters</span></a>. </p>
 </dd></dl>
 
 </div>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv418CommandConstructor">
-<span id="_CPPv318CommandConstructor"></span><span id="_CPPv218CommandConstructor"></span><span id="CommandConstructor"></span><span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;InputHandler.h&gt;</em></div>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv49UserInput">
-<span id="_CPPv39UserInput"></span><span id="_CPPv29UserInput"></span><span id="UserInput"></span><span class="target" id="dc/d4b/class_user_input"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;InputHandler.h&gt;</em></div>
 </dd></dl>
 
 </dd></dl>
@@ -1573,8 +1559,8 @@
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
-<dt class="sig sig-object cpp">
-<span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418CommandConstructor">
+<span id="_CPPv318CommandConstructor"></span><span id="_CPPv218CommandConstructor"></span><span id="CommandConstructor"></span><span class="target" id="df/d68/class_command_constructor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandConstructor</span></span></span><br /></dt>
 <dd><p>Collaboration diagram for CommandConstructor:</p>
 <figure class="align-default">
 <div align="center" class="align-center"><div class="graphviz"><img src="../_images/graphviz-4171d70ecc62e966c333038b0d6cbd87f23ae95a.png" alt="digraph {
@@ -1593,8 +1579,8 @@
 </dd></dl>
 
 <dl class="cpp class">
-<dt class="sig sig-object cpp">
-<span class="target" id="dc/d4b/class_user_input"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv49UserInput">
+<span id="_CPPv39UserInput"></span><span id="_CPPv29UserInput"></span><span id="UserInput"></span><span class="target" id="dc/d4b/class_user_input"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><br /></dt>
 <dd><p>Collaboration diagram for UserInput:</p>
 <figure class="align-default">
 <div align="center" class="align-center"><div class="graphviz"><img src="../_images/graphviz-5e8b6c04f5ba0cde11dc81a5eb0a1a4c3b1f260f.png" alt="digraph {
