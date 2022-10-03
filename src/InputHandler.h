@@ -865,6 +865,7 @@ private:
     // end private methods
 };
 /*! @} */ // end defgroup classes
+
 #endif    // header guard include
 
 // end of file
