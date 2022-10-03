@@ -1,4 +1,4 @@
-/*!
+/**
  * @file InputHandler.h
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief InputHandler library header file
@@ -21,7 +21,7 @@
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
 
-/*!
+/**
  * @defgroup typedefs
  * 
  * @brief InputHandler typedefs
@@ -29,33 +29,33 @@
  * @{
  */
 
-/*!
+/**
  * @brief IH_pname is a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
  *
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
-/*!
+/**
  * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
-/*!
+/**
  * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
-/*!
+/**
  * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_wcc[2];
-/*! @} */ // end defgroup typedefs
+/** @} */ // end defgroup typedefs
 
-/*!
+/**
  * @defgroup ENUMS
  *
  * @brief InputHandler ENUMS
@@ -63,7 +63,7 @@ typedef char IH_wcc[2];
  * @{
  */
 
-/*!
+/**
  * @brief command identifier enum
  *
  * this is used to explicitly state something is related to a root command
@@ -75,7 +75,7 @@ enum UI_CMD_ID
     root /*< this is the root command id, it's the number 0 ALWAYS */
 };
 
-/*!
+/**
  * @brief command wildcard flag enum
  *
  * these flags are used inside of UserInput::CommandParameters
@@ -87,7 +87,7 @@ enum UI_WC_FLAG
     has_wildcards = true  /*< this command contains one or more wildcard char (true (1)) */
 };
 
-/*!
+/**
  * @brief UserInput::_compareCommandToString() return values
  *
  * these flags are only used to provide clarity to UserInput::_compareCommandToString(),
@@ -102,7 +102,7 @@ enum UI_COMPARE
     match              /*< match command */
 };
 
-/*!
+/**
  * @brief strongly typed argument handling flags
  *
  * this is used in UserInput::CommandParameters as a visual reminder of
@@ -116,7 +116,7 @@ enum class UI_ARG_HANDLING
     type_arr  /*<  there is an array of input types */
 };
 
-/*!
+/**
  * @brief UserInput type specifier
  *
  * these are the different types of user input the process can accept
@@ -138,9 +138,9 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
-/*! @} */ // end defgroup ENUMS
+/** @} */ // end defgroup ENUMS
 
-/*!
+/**
  * @defgroup structs
  *
  * @brief InputHandler structs
@@ -148,7 +148,7 @@ enum class UITYPE
  * @{
  */
 
-/*!
+/**
  * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
  *
  * This struct holds information about the delimiter sequences the process will be using.
@@ -165,7 +165,7 @@ struct InputProcessDelimiterSequences
     char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ][UI_DELIM_SEQ_PGM_LEN]; /*< string-literal "" delimiter sequence array */
 };
 
-/*!
+/**
  * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
  *
  * This struct holds information about the start-stop sequence pairs the process will be using.
@@ -184,7 +184,7 @@ struct InputProcessStartStopSequences
     char start_stop_sequence_pairs[UI_MAX_NUM_START_STOP_SEQ][UI_START_STOP_SEQ_PGM_LEN]; /*< start/stop sequences.  Match start, match end, copy what is between */
 };
 
-/*!
+/**
  * @brief UserInput input process parameters, constructor parameters
  * This struct is an array of pointers to other structs/arrays contained in PROGMEM
  * It's required by the input process, all together they define the input process behavior
@@ -199,7 +199,7 @@ struct InputProcessParameters
     const InputProcessStartStopSequences* start_stop_sequences; /*< reference to InputProcessStartStopSequences struct */
 };
 
-/*!
+/**
  * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime
  * these structs are associated with wildcard commands; every CommandConstructor
  * that has a CommandParameters which contains wildcards will have a CommandRuntimeCalc
@@ -212,13 +212,13 @@ struct CommandRuntimeCalc
     IH::ui_max_per_cmd_memcmp_ranges_t** memcmp_ranges_arr;         /*< 2d array[row][col], each [row] is for one Parameters command string which contains wcc */
 };
 
-/*!
+/**
  * @brief forward declaration of UserInput class for
  * CommandParameters struct and CommandConstructor class
  */
 class UserInput;
 
-/*!
+/**
  * @brief CommandParameters struct, this is the container that holds your command parameters
  *
  * Every command and subcommand has an associated CommandParameters object, this is the information
@@ -239,9 +239,9 @@ struct CommandParameters
     IH::ui_max_args_t max_num_args;               /*< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args */
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; /*< argument UITYPE array */
 };
-/*! @} */ // end defgroup structs
+/** @} */ // end defgroup structs
 
-/*!
+/**
  * @defgroup constants
  *
  * @brief InputHandler constants
@@ -249,7 +249,7 @@ struct CommandParameters
  * @{
  */
 
-/*!
+/**
  * @brief library constants located in PROGMEM
  *
  *
@@ -261,7 +261,7 @@ struct CommandParameters
 namespace ihconst
 {
 
-/*!
+/**
  * @brief type string literals
  *
  * input type string literal PROGMEM array, each of the types in UITYPE has
@@ -282,7 +282,7 @@ const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "error"      /*< error */
 };
 
-/*!
+/**
  * @brief default process name
  *
  * The default process name is blank
@@ -290,7 +290,7 @@ const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
  * @var process_name = ""
  */
 const IH_pname PROGMEM process_name = ""; /*< default process name == "" */
-/*!
+/**
  * @brief default end of line characters
  *
  * The default end of line characters are "\r\n"
@@ -301,7 +301,7 @@ const IH_eol PROGMEM eol_char = "\r\n";                       /*< default proces
 const IH_input_cc PROGMEM input_control_char_sequence = "##"; /*< default process input control character sequence "##" */
 const IH_wcc PROGMEM wildcard_char = "*";                     /*< default process wildcard char '*' */
 
-/*!
+/**
  * @brief default delimiter sequences
  *
  */
@@ -311,7 +311,7 @@ const InputProcessDelimiterSequences PROGMEM delimiter_sequences = {
     {" ", ","} /*< default delimiter sequences */
 };
 
-/*!
+/**
  * @brief default start stop sequences
  *
  */
@@ -321,7 +321,7 @@ const InputProcessStartStopSequences PROGMEM start_stop_sequences = {
     {"\"", "\""} /*< default start stop sequence pair sequences */
 };
 
-/*!
+/**
  * @brief UserInput default InputProcessParameters
  *
  */
@@ -334,9 +334,9 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::start_stop_sequences         /*< default process default start/stop sequences */
 };
 } // end namespace ihconst
-/*! @} */ // end defgroup constants
+/** @} */ // end defgroup constants
 
-/*!
+/**
  * @defgroup classes
  * 
  * @brief InputHandler classes
@@ -344,7 +344,7 @@ const InputProcessParameters PROGMEM default_parameters = {
  * @{
  */
 
-/*!
+/**
  * @class CommandConstructor
  *
  * @brief sets up command pointers, adds the command to the linked-list
@@ -353,7 +353,7 @@ const InputProcessParameters PROGMEM default_parameters = {
 class CommandConstructor
 {
 public:
-    /*!
+    /**
      * @brief CommandConstructor Constructor
      *
      * Linked-list primer: https://www.programiz.com/dsa/linked-list
@@ -378,7 +378,7 @@ public:
     CommandConstructor* next_command;                    /*< CommandConstructor iterator/pointer */
 };
 
-/*!
+/**
  * @class UserInput
  *
  * @brief handles user input
@@ -387,7 +387,7 @@ public:
 class UserInput
 {
 public:
-    /*!
+    /**
      * @brief UserInput constructor, no output by default
      *
      * UserInput has no output by default due to the default values passed in by the constructor.
@@ -434,7 +434,7 @@ public:
         memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
     }
 
-    /*!
+    /**
      * @brief Sets the _default_function_ pointer
      * When there is no command match, or when input is invalid, this function is called
      * if the pointer is not NULL
@@ -443,7 +443,7 @@ public:
      */
     void defaultFunction(void (*function)(UserInput*));
 
-    /*!
+    /**
      * @brief adds user commands to the input process
      *
      * This function inspects CommandParameters for errors and
@@ -457,7 +457,7 @@ public:
      */
     void addCommand(CommandConstructor& command);
 
-    /*!
+    /**
      * @brief Allocates memory for _data_pointers_ and _input_type_match_flags_, sets _begin_
      *
      * @return true if allocation successful
@@ -466,7 +466,7 @@ public:
     bool begin();
 
     #if defined(ENABLE_listSettings)
-    /*!
+    /**
      * @brief Lists UserInput class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer.
      *
      * Lists all pertinient process information:
@@ -483,14 +483,14 @@ public:
     #endif
 
     #if defined(ENABLE_listCommands)
-    /*!
+    /**
      * @brief Lists commands that will respond to user input if `_begin_` == true
      * else it will inform the user to use begin() in setup()
      */
     void listCommands();
     #endif
 
-    /*!
+    /**
      * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
      *
      */
@@ -514,7 +514,7 @@ public:
         uint8_t* split_input;            /*< pointer to UserInput::_splitZDC() modified data */
     };
 
-    /*!
+    /**
      * @brief read command(s) from a uint8_t (unsigned char) buffer
      * silent return if UserInput::_begin_ == false
      * @param data a buffer with characters
@@ -525,7 +525,7 @@ public:
     void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
     #if defined(ENABLE_getCommandFromStream)
-    /*!
+    /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
      *
      * https://www.arduino.cc/reference/en/language/functions/communication/stream/
@@ -540,7 +540,7 @@ public:
     #endif
 
     #if defined(ENABLE_nextArgument)
-    /*!
+    /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens
      *
      * @return char*
@@ -549,7 +549,7 @@ public:
     #endif
 
     #if defined(ENABLE_getArgument)
-    /*!
+    /**
      * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if there is no argument_number token
      *
      * @return char*
@@ -558,7 +558,7 @@ public:
     #endif
 
     #if defined(ENABLE_outputIsAvailable)
-    /*!
+    /**
      * @brief class output available if the return of this function is greater than zero
      *
      * (True) if greater than 0
@@ -570,7 +570,7 @@ public:
     #endif
 
     #if defined(ENABLE_outputIsEnabled)
-    /*!
+    /**
      * @brief is class output enabled
      *
      * @return true if enabled
@@ -580,7 +580,7 @@ public:
     #endif
 
     #if defined(ENABLE_outputToStream)
-    /*!
+    /**
      * @brief direct class output to stream, clears output buffer automatically
      *
      * @param stream the stream to print to
@@ -588,14 +588,14 @@ public:
     void outputToStream(Stream& stream);
     #endif
 
-    /*!
+    /**
      * @brief clears output buffer
      *
      * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire _output_buffer_
      */
     void clearOutputBuffer(bool overwrite_contents = false);
 
-    /*!
+    /**
      * @brief UserInput::getTokensParam UserInput::getTokens() parameters data structure
      */
     struct getTokensParam
@@ -613,7 +613,7 @@ public:
         char& token_buffer_sep;           /*< token_buffer token delimiter */
     };
 
-    /*!
+    /**
      * @brief puts tokens into the token buffer pointed to in getTokensParam
      *
      * @param gtprm UserInput::getTokensParam struct reference
@@ -623,7 +623,7 @@ public:
      */
     size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
-    /*!
+    /**
      * @brief validateNullSepInputParam struct
      *
      */
@@ -636,7 +636,7 @@ public:
         char& float_sep;            /*< whole and fraction separator */
     };
 
-    /*!
+    /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
      *
      * @param vprm validateNullSepInputParam struct reference
@@ -647,7 +647,7 @@ public:
     bool validateNullSepInput(validateNullSepInputParam& vprm);
 
 protected:
-    /*!
+    /**
      * @brief transform 2d matrix indices to flat array index
      *
      * use this to access a dynamically allocated array like a 2d matrix,
@@ -718,7 +718,7 @@ private:
     //  end constructor initialized variables
 
     // private methods
-    /*!
+    /**
      * @brief UserInput vsnprintf
      * https://www.cplusplus.com/reference/cstdio/vsprintf/
      * @param fmt   the format string
@@ -727,7 +727,7 @@ private:
     void _ui_out(const char* fmt, ...);
 
     #if defined(ENABLE_readCommandFromBufferErrorOutput)
-    /*!
+    /**
      * @brief ReadCommandFromBuffer error output
      *
      * @param rprm reference to UserInput::_rcfbprm
@@ -735,7 +735,7 @@ private:
     void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
     #endif // end ENABLE_readCommandFromBufferErrorOutput
 
-    /*!
+    /**
      * @brief launches either (this) function or the root command function
      *
      * @param rprm reference to UserInput::_rcfbprm
@@ -743,14 +743,14 @@ private:
      */
     void _launchFunction(_rcfbprm& rprm, const IH_pname& pname);
 
-    /*!
+    /**
      * @brief function launch logic, recursive on subcommand match
      *
      * @param rprm reference to UserInput::_rcfbprm
      */
     void _launchLogic(_rcfbprm& rprm);
 
-    /*!
+    /**
      * @brief Escapes control characters so they will print
      *
      * @param input the input char
@@ -760,7 +760,7 @@ private:
      */
     char* _escapeCharactersSoTheyPrint(char input, char* buf);
 
-    /*!
+    /**
      * @brief Triggers on a control character sequence, if the char immediately
      * after the control char is a char known to UserInput::_combineControlCharacters
      * this returns a control char, else it returns the input char
@@ -770,7 +770,7 @@ private:
      */
     char _combineControlCharacters(char input);
 
-    /*!
+    /**
      * @brief determines if input CommandParameters struct is valid before adding to linked-list
      *
      * @param cmd CommandConstructor reference
@@ -780,7 +780,7 @@ private:
      */
     bool _addCommandAbort(CommandConstructor& cmd, CommandParameters& prm);
 
-    /*!
+    /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
      *
      * @param prm command options structure reference
@@ -789,14 +789,14 @@ private:
      */
     UITYPE _getArgType(CommandParameters& prm, size_t index = 0);
 
-    /*!
+    /**
      * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
      * @param rprm reference to UserInput::_rcfbprm
      */
     void _getArgs(_rcfbprm& rprm);
 
-    /*!
+    /**
      * @brief adds escaped control characters to a buffer
      *
      * @param buf output buffer
@@ -807,7 +807,7 @@ private:
      */
     char* _addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len);
 
-    /*!
+    /**
      * @brief find delimiters in input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
@@ -815,7 +815,7 @@ private:
      */
     void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
-    /*!
+    /**
      * @brief get delimited c-strings from input data
      *
      * @param gtprm reference to getTokensParam struct in getTokens
@@ -823,7 +823,7 @@ private:
      */
     void _getTokensStartStop(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
-    /*!
+    /**
      * @brief add uchar to token_buffer
      *
      * @param gtprm reference to getTokensParam struct in getTokens
@@ -831,7 +831,7 @@ private:
      */
     void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
-    /*!
+    /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for further processing
      *
      * @param rprm reference to UserInput::_rcfbprm
@@ -842,7 +842,7 @@ private:
      */
     bool _splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc);
 
-    /*!
+    /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
      *
      * @param command reference to a CommandConstructor class
@@ -853,7 +853,7 @@ private:
      */
     void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges);
 
-    /*!
+    /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
      * @param cmd pointer to CommandConstructor
@@ -864,7 +864,7 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
-/*! @} */ // end defgroup classes
+/** @} */ // end defgroup classes
 
 #endif    // header guard include
 
