@@ -21,6 +21,14 @@
  *   public methods
  */
 
+/**
+ * @brief sets the default function
+ * 
+ * The default function is called on input error or unrecognized input.
+ * The prototype is declared here: UserInput::defaultFunction
+ * 
+ * @param function pointer to a void function that takes a pointer to UserInput
+ */
 void UserInput::defaultFunction(void (*function)(UserInput*)) { _default_function_ = function; } // end defaultFunction
 
 void UserInput::addCommand(CommandConstructor& command)
