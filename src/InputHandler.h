@@ -285,7 +285,7 @@ const IH_pname PROGMEM process_name = ""; /*< default process name == "" */
  *
  * @var eol_char = "\r\n"
  */
-const IH_eol PROGMEM eol_char = "\r\n";                       /*< default process eol characters "\\r\\n" */
+const IH_eol PROGMEM eol_char = "\r\n";                       /*< default process eol characters CRLF */
 const IH_input_cc PROGMEM input_control_char_sequence = "##"; /*< default process input control character sequence "##" */
 const IH_wcc PROGMEM wildcard_char = "*";                     /*< default process wildcard char '*' */
 
@@ -365,11 +365,7 @@ public:
  */
 class UserInput
 {
-public:
-    /*!
-     * @name UserInput class
-     */
-
+public:   
     /*!
      * @brief UserInput constructor, no output by default
      *
