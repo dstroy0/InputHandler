@@ -3,32 +3,34 @@ InputHandler.h docs
 
 typedefs
 ---------
-.. doxygengroup:: typedefs
-   :members:
-   :private-members:
-   :undoc-members:
-   :inner:
+.. doxygentypedef:: IH_pname
+.. doxygentypedef:: IH_eol
+.. doxygentypedef:: IH_input_cc
+.. doxygentypedef:: IH_wcc
 
-PROGMEM variables
-------------------
-.. doxygengroup:: constants
-   :members:
 ENUMS
 ------
-.. doxygengroup:: ENUMS
-   :members:
-   :private-members:
-   :undoc-members:
-   :inner:
+.. doxygenenum:: UI_CMD_ID
+.. doxygenenum:: UI_WC_FLAG
+.. doxygenenum:: UI_COMPARE
+.. doxygenenum:: UI_ARG_HANDLING
+.. doxygenenum:: UITYPE
 
 Structs
 --------
-.. doxygengroup:: structs
+.. doxygenstruct:: InputProcessDelimiterSequences
    :members:
-   :private-members:
-   :undoc-members:
-   :inner:
-  
+.. doxygenstruct:: InputProcessStartStopSequences
+   :members:
+.. doxygenstruct:: InputProcessParameters
+   :members:
+.. doxygenstruct:: CommandRuntimeCalc
+   :members:
+
+namespace
+------------------
+.. doxygennamespace:: ihconst
+
 Classes
 --------
 .. doxygenclass:: CommandConstructor   
