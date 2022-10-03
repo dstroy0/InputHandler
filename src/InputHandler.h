@@ -205,7 +205,7 @@ struct CommandParameters
 {
     void (*function)(UserInput*);                 /*< void function pointer, void your_function(UserInput *inputProcess) */
     bool has_wildcards;                           /*< if true this command has one or more wildcard char */
-    char command[UI_MAX_CMD_LEN + 1U];            /*< command string + '\0' */
+    char command[UI_MAX_CMD_LEN + 1U];            /*< command string + nullchar */
     IH::ui_max_cmd_len_t command_length;          /*< command length in characters */
     IH::cmd_id_grp_t parent_command_id;           /*< parent command's unique id root-MAX */
     IH::cmd_id_grp_t command_id;                  /*< this command's unique id root-MAX */
@@ -261,9 +261,9 @@ const IH_pname PROGMEM process_name = ""; /*< default process name == "" */
 /**
  * @brief default end of line characters
  *
- * The default end of line characters are "\r\n"
+ * The default end of line characters are CRLF
  *
- * @var eol_char = "\r\n"
+ * @var eol_char = CRLF
  */
 const IH_eol PROGMEM eol_char = "\r\n";                       /*< default process eol characters CRLF */
 const IH_input_cc PROGMEM input_control_char_sequence = "##"; /*< default process input control character sequence "##" */
@@ -661,7 +661,7 @@ private:
     IH::ui_max_num_child_commands_t _failed_on_subcommand_;     /*< subcommand error index */
     IH::ui_max_tree_depth_per_command_t _current_search_depth_; /*< current subcommand search depth */
 
-    char _null_; /*< char '\0' */
+    char _null_; /*< char null */
     char _neg_;  /*< char '-' */
     char _dot_;  /*< char '.' */
 
@@ -725,7 +725,7 @@ private:
      * this returns a control char, else it returns the input char
      *
      * @param input the char the control character sequence
-     * @return the control character char value ie '\\r'
+     * @return the control character char value 
      */
     char _combineControlCharacters(char input);
 
