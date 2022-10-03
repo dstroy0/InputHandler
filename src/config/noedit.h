@@ -26,9 +26,8 @@
         can introduce undefined behavior.
     */
     // sphinx freaks out at the PROGMEM macro, so don't feed it PROGMEM
-    #if defined(INPUTHANDLER_DOXYGEN_DOCS_BUILD)
-        #undef PROGMEM
-        #define PROGMEM
+    #if defined(IH_DOXY_XML_BUILD)        
+        #define PROGMEM __ATTR_PROGMEM__
     #endif
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) /*< gets the number of elements in an array */
