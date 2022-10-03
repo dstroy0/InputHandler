@@ -330,7 +330,7 @@ const InputProcessParameters PROGMEM default_parameters = {
  */
 
 /*!
- * @brief user command constructor class
+ * @class CommandConstructor
  */
 class CommandConstructor
 {
@@ -361,11 +361,11 @@ public:
 };
 
 /*!
- * @brief User input handler methods
+ * @class UserInput
  */
 class UserInput
 {
-public:   
+public:
     /*!
      * @brief UserInput constructor, no output by default
      *
