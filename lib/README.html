@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Documentation" href="docs.html" /><link rel="prev" title="README" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Documentation" href="docs.html" /><link rel="prev" title="Design Goals" href="index.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>README - InputHandler documentation</title>
+        <title>Design Goals - InputHandler documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -157,9 +157,8 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (InputHandler.h)</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#inputhandler">InputHandler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Design Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#news">News</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
 <ul>
@@ -202,22 +201,20 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="readme">
-<h1>README<a class="headerlink" href="#readme" title="Permalink to this heading">#</a></h1>
-<!-- markdownlint-disable MD041 --><img alt="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" />
+          <!-- markdownlint-disable MD041 --><img alt="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" />
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img alt="Arduino CLI CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img alt="PlatformIO arduino CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img alt="PlatformIO esp CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml"><img alt="Docs CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" /></a>
 <section id="design-goals">
-<h2>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h2>
+<h1>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h1>
 <p>Implementation flexibility. <span class="raw-html-md"><br /></span>
 Low memory use, feature rich. <span class="raw-html-md"><br /></span>
 InputHandler is easy to start using. <span class="raw-html-md"><br /></span>
@@ -226,14 +223,12 @@ It can parse uint8_t, unsigned char, any value 0-255 char strings. <span class="
 It can be used to interface your project with other equipment, programs, and sensors.</p>
 </section>
 <section id="news">
-<h2>News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h2>
+<h1>News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h1>
 <p>See the releases’ descriptions on
 <a class="reference external" href="https://github.com/dstroy0/InputHandler/releases">the library’s release page</a> for a list of
 changes.</p>
-</section>
-</section>
 <section id="inputhandler">
-<h1>InputHandler<a class="headerlink" href="#inputhandler" title="Permalink to this heading">#</a></h1>
+<h2>InputHandler<a class="headerlink" href="#inputhandler" title="Permalink to this heading">#</a></h2>
 <p>This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a>, like a <a class="reference external" href="https://www.arduino.cc/en/reference/serial">Serial</a> object. <span class="raw-html-md"><br /></span>
 User-defined commands have a <a class="reference external" href="https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm">general tree structure</a>, each command has its own <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct which is stored in non-volatile program memory (<a class="reference external" href="https://www.arduino.cc/reference/en/language/variables/utilities/progmem/">PROGMEM</a>).</p>
 <p>Individual commands that do not contain a wildcard character (each call to <a class="reference external" href="https://dstroy0.github.io/InputHandler/df/d68/class_command_constructor.html">CommandConstructor</a>) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.</p>
@@ -529,7 +524,7 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 <p>Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
 </section>
 <section id="supported-platforms">
-<h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h1>
+<h2>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h2>
 <p>Not supported: <span class="raw-html-md"><br /></span>
 ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
 ATMegaNG – flash</p>
@@ -589,6 +584,7 @@ tian <span class="raw-html-md"><br /></span>
 uno2018 <span class="raw-html-md"><br /></span>
 due</p>
 </section>
+</section>
 
         </article>
       </div>
@@ -635,30 +631,8 @@ due</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">README</a><ul>
-<li><a class="reference internal" href="#design-goals">Design Goals</a></li>
-<li><a class="reference internal" href="#news">News</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#inputhandler">InputHandler</a></li>
-<li><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
