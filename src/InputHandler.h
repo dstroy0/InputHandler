@@ -23,9 +23,9 @@
 
 /**
  * @defgroup typedefs
- * 
+ *
  * @brief InputHandler typedefs
- * 
+ *
  * @{
  */
 
@@ -53,13 +53,13 @@ typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_wcc[2];
-/** @} */ // end defgroup typedefs
+/**@} */ // end defgroup typedefs
 
 /**
  * @defgroup ENUMS
  *
  * @brief InputHandler ENUMS
- * 
+ *
  * @{
  */
 
@@ -138,7 +138,7 @@ enum class UITYPE
     NO_ARGS,    /*<  no arguments expected */
     _LAST       /*<  reserved */
 };
-/** @} */ // end defgroup ENUMS
+/**@} */ // end defgroup ENUMS
 
 /**
  * @defgroup structs
@@ -239,13 +239,13 @@ struct CommandParameters
     IH::ui_max_args_t max_num_args;               /*< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args */
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; /*< argument UITYPE array */
 };
-/** @} */ // end defgroup structs
+/**@} */ // end defgroup structs
 
 /**
  * @defgroup constants
  *
  * @brief InputHandler constants
- * 
+ *
  * @{
  */
 
@@ -334,13 +334,13 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::start_stop_sequences         /*< default process default start/stop sequences */
 };
 } // end namespace ihconst
-/** @} */ // end defgroup constants
+/**@} */ // end defgroup constants
 
 /**
  * @defgroup classes
- * 
+ *
  * @brief InputHandler classes
- * 
+ *
  * @{
  */
 
@@ -348,7 +348,7 @@ const InputProcessParameters PROGMEM default_parameters = {
  * @class CommandConstructor
  *
  * @brief sets up command pointers, adds the command to the linked-list
- * 
+ *
  */
 class CommandConstructor
 {
@@ -382,7 +382,7 @@ public:
  * @class UserInput
  *
  * @brief handles user input
- * 
+ *
  */
 class UserInput
 {
@@ -864,8 +864,11 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
-/** @} */ // end defgroup classes
 
-#endif    // header guard include
+/**@}
+ *
+ */ // end defgroup classes
+
+#endif // header guard include
 
 // end of file
