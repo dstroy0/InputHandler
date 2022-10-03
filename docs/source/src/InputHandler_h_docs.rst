@@ -4,6 +4,7 @@ InputHandler.h docs
 typedefs
 ---------
 .. doxygengroup:: typedefs
+   :members:
    :private-members:
    :undoc-members:
    :inner:
@@ -11,10 +12,11 @@ typedefs
 PROGMEM variables
 ------------------
 .. doxygengroup:: constants
-
+   :members:
 ENUMS
 ------
 .. doxygengroup:: ENUMS
+   :members:
    :private-members:
    :undoc-members:
    :inner:
@@ -22,6 +24,7 @@ ENUMS
 Structs
 --------
 .. doxygengroup:: structs
+   :members:
    :private-members:
    :undoc-members:
    :inner:
@@ -29,12 +32,14 @@ Structs
 Classes
 --------
 .. doxygenclass:: CommandConstructor   
+   :members:
    :protected-members:
    :private-members:
    :undoc-members:       
    :allow-dot-graphs:
 
 .. doxygenclass:: UserInput   
+   :members:
    :protected-members:
    :private-members:
    :undoc-members:      
