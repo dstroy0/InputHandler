@@ -20,6 +20,4 @@
 
     src.rst   
 
-README
-========
 .. mdinclude:: ../../README.md    
