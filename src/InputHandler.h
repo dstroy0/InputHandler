@@ -23,6 +23,9 @@
 
 /*!
  * @defgroup typedefs
+ * 
+ * @brief InputHandler typedefs
+ * 
  * @{
  */
 
@@ -54,6 +57,9 @@ typedef char IH_wcc[2];
 
 /*!
  * @defgroup ENUMS
+ *
+ * @brief InputHandler ENUMS
+ * 
  * @{
  */
 
@@ -136,6 +142,9 @@ enum class UITYPE
 
 /*!
  * @defgroup structs
+ *
+ * @brief InputHandler structs
+ *
  * @{
  */
 
@@ -234,6 +243,9 @@ struct CommandParameters
 
 /*!
  * @defgroup constants
+ *
+ * @brief InputHandler constants
+ * 
  * @{
  */
 
@@ -326,11 +338,17 @@ const InputProcessParameters PROGMEM default_parameters = {
 
 /*!
  * @defgroup classes
+ * 
+ * @brief InputHandler classes
+ * 
  * @{
  */
 
 /*!
  * @class CommandConstructor
+ *
+ * @brief sets up command pointers, adds the command to the linked-list
+ * 
  */
 class CommandConstructor
 {
@@ -362,6 +380,9 @@ public:
 
 /*!
  * @class UserInput
+ *
+ * @brief handles user input
+ * 
  */
 class UserInput
 {

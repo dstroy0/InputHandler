@@ -8,6 +8,10 @@ typedefs
    :undoc-members:
    :inner:
 
+PROGMEM variables
+------------------
+.. doxygengroup:: constants
+
 ENUMS
 ------
 .. doxygengroup:: ENUMS
@@ -21,10 +25,6 @@ Structs
    :private-members:
    :undoc-members:
    :inner:
-
-PROGMEM variables
-------------------
-.. doxygengroup:: constants
   
 Classes
 --------
