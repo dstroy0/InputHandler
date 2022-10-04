@@ -159,10 +159,12 @@
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Design Goals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#news">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="docs.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config.html">config.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/InputHandler_h_docs.html">InputHandler.h docs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/InputHandler_cpp_docs.html">InputHandler.cpp docs</a></li>
 </ul>
@@ -217,8 +219,8 @@
 <h1>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h1>
 <p>Implementation flexibility. <span class="raw-html-md"><br /></span>
 Low memory use, feature rich. <span class="raw-html-md"><br /></span>
-InputHandler is easy to start using. <span class="raw-html-md"><br /></span>
-It satisfies some more advanced interfacing requirements. <span class="raw-html-md"><br /></span>
+Ease of use. <span class="raw-html-md"><br /></span>
+It satisfies some advanced interfacing requirements. <span class="raw-html-md"><br /></span>
 It can parse uint8_t, unsigned char, any value 0-255 char strings. <span class="raw-html-md"><br /></span>
 It can be used to interface your project with other equipment, programs, and sensors.</p>
 </section>
@@ -523,8 +525,9 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 <p>The input process will continue to function even if you do not define an output buffer.</p>
 <p>Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
 </section>
+</section>
 <section id="supported-platforms">
-<h2>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h2>
+<h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h1>
 <p>Not supported: <span class="raw-html-md"><br /></span>
 ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
 ATMegaNG – flash</p>
@@ -583,7 +586,6 @@ mzero_bl <span class="raw-html-md"><br /></span>
 tian <span class="raw-html-md"><br /></span>
 uno2018 <span class="raw-html-md"><br /></span>
 due</p>
-</section>
 </section>
 
         </article>
