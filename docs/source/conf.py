@@ -34,7 +34,8 @@ project = "InputHandler"
 copyright = "2022, Douglas Quigg (dquigg123@gmail.com)"
 author = "Douglas Quigg (dstroy0 dquigg123@gmail.com), Brenden Doherty (2bndy5 2bndy5@gmail.com)"
 
-breathe_projects = {"InputHandler": "../doxyxml/"}
+breathe_projects = {"InputHandler": "../doxyxml/",
+                    "config.h": "../doxyxml/"}
 breathe_default_project = "InputHandler"
 
 # -- General configuration ---------------------------------------------------
