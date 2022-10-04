@@ -18,14 +18,12 @@
 #if !defined(__INPUTHANDLER_NOEDIT_H__)
     #define __INPUTHANDLER_NOEDIT_H__
 
-    #include "config.h" // user config file
-    #include <Arduino.h>
-
     /*
         DO NOT EDIT the sections below unless you know what will happen, incorrect entry
         can introduce undefined behavior.
     */
-    
+    #include <Arduino.h>
+
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) /*< gets the number of elements in an array */
     #define buffsz(x) nprms(x)                    /*< gets the number of elements in an array */
@@ -96,7 +94,31 @@
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
-    // end portability directives
+// end portability directives
+
+    #if defined(DOXYGEN_XML_BUILD)
+        #define DEBUG_GETCOMMANDFROMSTREAM
+        #define DEBUG_READCOMMANDFROMBUFFER
+        #define DEBUG_GET_TOKEN
+        #define DEBUG_SUBCOMMAND_SEARCH
+        #define DEBUG_ADDCOMMAND
+        #define DEBUG_LAUNCH_LOGIC
+        #define DEBUG_LAUNCH_FUNCTION
+        #define DEBUG_INCLUDE_FREERAM
+        #define DISABLE_listSettings
+        #define DISABLE_listCommands
+        #define DISABLE_getCommandFromStream
+        #define DISABLE_nextArgument
+        #define DISABLE_getArgument
+        #define DISABLE_outputIsAvailable
+        #define DISABLE_outputIsEnabled
+        #define DISABLE_outputToStream
+        #define DISABLE_clearOutputBuffer
+        #define DISABLE_readCommandFromBufferErrorOutput
+        #define DISABLE_ui_out
+    #endif
+
+    #include "config.h" // user config file
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN 3 /*< sram buffer size in bytes for a single escaped char, used by UserInput methods */
