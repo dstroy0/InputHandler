@@ -411,7 +411,7 @@ public:
 
     #if defined(ENABLE_listSettings)
     /**
-     * @brief Lists UserInput class settings, useful for implementation debugging. REQUIRES 570 byte output_buffer.
+     * @brief Lists UserInput class settings, useful for implementation debugging.
      *
      * Lists all pertinient process information:
      * class configuration, constructor variables,
