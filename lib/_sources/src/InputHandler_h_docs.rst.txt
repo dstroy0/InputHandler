@@ -1,5 +1,5 @@
-InputHandler.h docs
-=====================
+InputHandler.h
+===============
 
 typedefs
 ---------
@@ -16,7 +16,7 @@ ENUMS
 .. doxygenenum:: UI_ARG_HANDLING
 .. doxygenenum:: UITYPE
 
-Structs
+structs
 --------
 .. doxygenstruct:: InputProcessDelimiterSequences
    :members:
@@ -34,13 +34,13 @@ Structs
    :members:
    :undoc-members:
 
-namespace
-------------------
+namespaces
+-----------
 .. doxygennamespace:: ihconst
    :members:
    :undoc-members:
 
-Classes
+classes
 --------
 .. doxygenclass:: CommandConstructor   
    :members:
