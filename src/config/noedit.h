@@ -25,28 +25,39 @@
     #include <Arduino.h>
 
     // function-like macros
-    #define nprms(x) (sizeof(x) / sizeof((x)[0])) /*< gets the number of elements in an array */
-    #define buffsz(x) nprms(x)                    /*< gets the number of elements in an array */
-    #define nelems(x) nprms(x)                    /*< gets the number of elements in an array */
-    #define S(s) #s                               /*< gnu direct # stringify macro */
-    #define STR(s) S(s)                           /*< gnu indirect # stringify macro     */
+    #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array 
+    #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array 
+    #define nelems(x) nprms(x)                    ///< gets the number of elements in an array 
+    #define S(s) #s                               ///< gnu direct # stringify macro 
+    #define STR(s) S(s)                           ///< gnu indirect # stringify macro     
     // file location directive
     #define LOC                                                                                                                                                                              \
     __FILE__:                                                                                                                                                                                \
-        __LINE__              /*< direct non-stringified file and line macro */
-    #define LOCATION STR(LOC) /*< indirect stringified file and line macro */
+        __LINE__              ///< direct non-stringified file and line macro 
+    #define LOCATION STR(LOC) ///< indirect stringified file and line macro 
     // end file location directive
+    /**
+     * @brief InputHandler MBED platform preprocessor setting; default is #error, on MBED platforms it is #warn
+     * 
+     * This is to remove some spurious #error's being thrown by the MBED C preprocessor.
+     * High probability of deprecation.
+     * 
+     */
     #define IH_MBED_PREPROC_COMPAT #error
     // end function-like macros
 
     // portability directives
-    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) /*< SAMD portability */
+    /**
+     * @brief arduino samd compatibility
+     * 
+     */
+    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability 
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        /*< PROGMEM fix macro */
+        ///< PROGMEM fix macro 
         #define pgm_read_dword(addr)                                                                                                                                                         \
             ({                                                                                                                                                                               \
                 typeof(addr) _addr = (addr);                                                                                                                                                 \
@@ -54,7 +65,11 @@
             })
     #endif
 
-    #if defined(__MBED_CONFIG_DATA__) /*< MBED portability */
+    /**
+     * @brief arduino mbed compatibility
+     * 
+     */
+    #if defined(__MBED_CONFIG_DATA__) ///< MBED portability 
         #undef IH_MBED_PREPROC_COMPAT // so special
         #define IH_MBED_PREPROC_COMPAT #warn
         #include "utility/vsnprintf.h" // implement vsnprintf
@@ -62,7 +77,7 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        /*< PROGMEM fix macro */
+        ///< PROGMEM fix macro 
         #define pgm_read_dword(addr)                                                                                                                                                         \
             ({                                                                                                                                                                               \
                 typeof(addr) _addr = (addr);                                                                                                                                                 \
@@ -70,13 +85,17 @@
             })
     #endif
 
-    #if defined(ARDUINO_SAM_DUE)       /*< DUE portability */
+    /**
+     * @brief arduino sam compatibility
+     * 
+     */
+    #if defined(ARDUINO_SAM_DUE)       ///< DUE portability 
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        /*< PROGMEM fix macro */
+        ///< PROGMEM fix macro 
         #define pgm_read_dword(addr)                                                                                                                                                         \
             ({                                                                                                                                                                               \
                 typeof(addr) _addr = (addr);                                                                                                                                                 \
@@ -84,7 +103,11 @@
             })
     #endif
 
-    #if defined(TEENSYDUINO) /*< teensy portability */
+    /**
+     * @brief teensy platform compatibility
+     * 
+     */
+    #if defined(TEENSYDUINO) ///< teensy portability 
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
         #define QLINE(x, y)                                                                                                                                                                  \
@@ -96,6 +119,10 @@
     #endif
 // end portability directives
 
+    /**
+     * @brief Doxygen docs are being built if DOXYGEN_XML_BUILD is defined
+     * 
+     */
     #if defined(DOXYGEN_XML_BUILD)
         #define UI_ECHO_ONLY 1
         #define DEBUG_GETCOMMANDFROMSTREAM 1
@@ -118,18 +145,18 @@
         #define DISABLE_readCommandFromBufferErrorOutput 1
         #define DISABLE_ui_out 1
     #endif
-
+    
     #include "config.h" // user config file
 
     // sizing macros
-    #define UI_ESCAPED_CHAR_STRLEN 3 /*< sram buffer size in bytes for a single escaped char, used by UserInput methods */
+    #define UI_ESCAPED_CHAR_STRLEN 3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods 
 
     /*
         "auto" Type macros
     */
 
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString specific (magic number!)
-    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /*< UI_ALL_WCC_CMD is Type MAX */
+    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) ///< UI_ALL_WCC_CMD is Type MAX 
 
 /**
  * @namespace IH
