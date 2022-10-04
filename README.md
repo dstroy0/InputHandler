@@ -4,21 +4,21 @@
 
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-## Design Goals
+# Design Goals
 Implementation flexibility.  
 Low memory use, feature rich.  
-InputHandler is easy to start using.  
-It satisfies some more advanced interfacing requirements.  
+Ease of use.  
+It satisfies some advanced interfacing requirements.  
 It can parse uint8_t, unsigned char, any value 0-255 char strings.  
 It can be used to interface your project with other equipment, programs, and sensors.  
 
-## News
+# News
 
 See the releases' descriptions on
 [the library's release page](https://github.com/dstroy0/InputHandler/releases) for a list of
 changes.
 
-# InputHandler
+## InputHandler
 
 This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/), like a [Serial](https://www.arduino.cc/en/reference/serial) object.  
 User-defined commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct which is stored in non-volatile program memory ([PROGMEM](https://www.arduino.cc/reference/en/language/variables/utilities/progmem/)).  
