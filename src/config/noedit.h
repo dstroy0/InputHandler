@@ -97,25 +97,26 @@
 // end portability directives
 
     #if defined(DOXYGEN_XML_BUILD)
-        #define DEBUG_GETCOMMANDFROMSTREAM
-        #define DEBUG_READCOMMANDFROMBUFFER
-        #define DEBUG_GET_TOKEN
-        #define DEBUG_SUBCOMMAND_SEARCH
-        #define DEBUG_ADDCOMMAND
-        #define DEBUG_LAUNCH_LOGIC
-        #define DEBUG_LAUNCH_FUNCTION
-        #define DEBUG_INCLUDE_FREERAM
-        #define DISABLE_listSettings
-        #define DISABLE_listCommands
-        #define DISABLE_getCommandFromStream
-        #define DISABLE_nextArgument
-        #define DISABLE_getArgument
-        #define DISABLE_outputIsAvailable
-        #define DISABLE_outputIsEnabled
-        #define DISABLE_outputToStream
-        #define DISABLE_clearOutputBuffer
-        #define DISABLE_readCommandFromBufferErrorOutput
-        #define DISABLE_ui_out
+        #define UI_ECHO_ONLY 1
+        #define DEBUG_GETCOMMANDFROMSTREAM 1
+        #define DEBUG_READCOMMANDFROMBUFFER 1
+        #define DEBUG_GET_TOKEN 1
+        #define DEBUG_SUBCOMMAND_SEARCH 1
+        #define DEBUG_ADDCOMMAND 1
+        #define DEBUG_LAUNCH_LOGIC 1
+        #define DEBUG_LAUNCH_FUNCTION 1
+        #define DEBUG_INCLUDE_FREERAM 1
+        #define DISABLE_listSettings 1
+        #define DISABLE_listCommands 1
+        #define DISABLE_getCommandFromStream 1
+        #define DISABLE_nextArgument 1
+        #define DISABLE_getArgument 1
+        #define DISABLE_outputIsAvailable 1
+        #define DISABLE_outputIsEnabled 1
+        #define DISABLE_outputToStream 1
+        #define DISABLE_clearOutputBuffer 1
+        #define DISABLE_readCommandFromBufferErrorOutput 1
+        #define DISABLE_ui_out 1
     #endif
 
     #include "config.h" // user config file
