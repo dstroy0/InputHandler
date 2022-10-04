@@ -37,9 +37,7 @@ author = "Douglas Quigg (dstroy0 dquigg123@gmail.com), Brenden Doherty (2bndy5 2
 breathe_projects = {
     "InputHandler": "../doxyxml/"    
 }
-breathe_projects_source = {
-    "auto": ("../../src/config", ["config.h", "noedit.h"]),
-}
+
 breathe_default_project = "InputHandler"
 
 # -- General configuration ---------------------------------------------------

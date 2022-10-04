@@ -1,5 +1,4 @@
 config.h
 =========
-.. autodoxygenfile:: config.h
-   :project: auto
+.. doxygenfile:: config.h   
    :allow-dot-graphs:
