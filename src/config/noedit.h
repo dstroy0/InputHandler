@@ -37,9 +37,9 @@
     #define LOCATION STR(LOC) ///< indirect stringified file and line macro 
     // end file location directive
     /**
-     * @brief InputHandler MBED platform preprocessor setting; default is #error, on MBED platforms it is #warn
+     * @brief InputHandler MBED platform preprocessor setting; default is `#error`, on MBED platforms it is `#warn`
      * 
-     * This is to remove some spurious #error's being thrown by the MBED C preprocessor.
+     * This is to remove some spurious `#error`'s being thrown by the MBED C preprocessor.
      * High probability of deprecation.
      * 
      */

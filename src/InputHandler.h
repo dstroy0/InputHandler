@@ -384,8 +384,9 @@ public:
      * if the pointer is not NULL
      * 
      * <a href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(">UserInput::defaultFunction source</a> 
-     * [UserInput::defaultFunction source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction()
-     * 
+     * [UserInput::defaultFunction sources](
+     * https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(
+     * )
      * 
      * @param function a pointer to a user specified default function
      */
