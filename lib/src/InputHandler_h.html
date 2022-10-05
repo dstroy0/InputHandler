@@ -599,441 +599,440 @@
 <span class="linenos">382</span><span class="cm">     * @brief Sets the _default_function_ pointer</span>
 <span class="linenos">383</span><span class="cm">     * When there is no command match, or when input is invalid, this function is called</span>
 <span class="linenos">384</span><span class="cm">     * if the pointer is not NULL</span>
-<span class="linenos">385</span><span class="cm">     * </span>
-<span class="linenos">386</span><span class="cm">     * &lt;a href=&quot;https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(&quot;&gt;UserInput::defaultFunction source&lt;/a&gt; </span>
-<span class="linenos">387</span><span class="cm">     * [UserInput::defaultFunction sources](</span>
-<span class="linenos">388</span><span class="cm">     * https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(</span>
-<span class="linenos">389</span><span class="cm">     * )</span>
-<span class="linenos">390</span><span class="cm">     * </span>
-<span class="linenos">391</span><span class="cm">     * @param function a pointer to a user specified default function</span>
-<span class="linenos">392</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">393</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">defaultFunction</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">));</span><span class="w"></span>
-<span class="linenos">394</span>
-<span class="linenos">395</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">396</span><span class="cm">     * @brief adds user commands to the input process</span>
-<span class="linenos">397</span><span class="cm">     *</span>
-<span class="linenos">398</span><span class="cm">     * This function inspects CommandParameters for errors and</span>
-<span class="linenos">399</span><span class="cm">     * reports the errors to the user if they have enabled output.</span>
-<span class="linenos">400</span><span class="cm">     * If an error is detected in the root command or any of</span>
-<span class="linenos">401</span><span class="cm">     * its subcommands, the entire command tree is rejected,</span>
-<span class="linenos">402</span><span class="cm">     * and sizing for dynamically allocated variables does not</span>
-<span class="linenos">403</span><span class="cm">     * take place.</span>
-<span class="linenos">404</span><span class="cm">     *</span>
-<span class="linenos">405</span><span class="cm">     * @param command reference to CommandConstructor object</span>
-<span class="linenos">406</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">407</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCommand</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">command</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">408</span>
-<span class="linenos">409</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">410</span><span class="cm">     * @brief Allocates memory for _data_pointers_ and _input_type_match_flags_, sets _begin_</span>
-<span class="linenos">411</span><span class="cm">     *</span>
-<span class="linenos">412</span><span class="cm">     * @return true if allocation successful</span>
-<span class="linenos">413</span><span class="cm">     * @return false if allocation unsuccessful</span>
-<span class="linenos">414</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">415</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">begin</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">416</span>
-<span class="linenos">417</span><span class="w">    </span><span class="cp">#if defined(ENABLE_listSettings)</span>
-<span class="linenos">418</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">419</span><span class="cm">     * @brief Lists UserInput class settings, useful for implementation debugging.</span>
-<span class="linenos">420</span><span class="cm">     *</span>
-<span class="linenos">421</span><span class="cm">     * Lists all pertinient process information:</span>
-<span class="linenos">422</span><span class="cm">     * class configuration, constructor variables,</span>
-<span class="linenos">423</span><span class="cm">     * and the amount of pointers that were dynamically</span>
-<span class="linenos">424</span><span class="cm">     * allocated in UserInput::begin()</span>
-<span class="linenos">425</span><span class="cm">     *</span>
-<span class="linenos">426</span><span class="cm">     * REQUIRES a 650 byte output_buffer.  If an insufficient buffer size is declared,</span>
-<span class="linenos">427</span><span class="cm">     * UserInput::_ui_out() will warn the user to increase the buffer to the required size.</span>
-<span class="linenos">428</span><span class="cm">     *</span>
-<span class="linenos">429</span><span class="cm">     * @param inputProcess pointer to class instance</span>
-<span class="linenos">430</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">431</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">listSettings</span><span class="p">(</span><span class="n">UserInput</span><span class="o">*</span><span class="w"> </span><span class="n">inputProcess</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">432</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">433</span>
-<span class="linenos">434</span><span class="w">    </span><span class="cp">#if defined(ENABLE_listCommands)</span>
-<span class="linenos">435</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">436</span><span class="cm">     * @brief Lists commands that will respond to user input if `_begin_` == true</span>
-<span class="linenos">437</span><span class="cm">     * else it will inform the user to use begin() in setup()</span>
-<span class="linenos">438</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">439</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">listCommands</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">440</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">441</span>
-<span class="linenos">442</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">443</span><span class="cm">     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference</span>
-<span class="linenos">444</span><span class="cm">     *</span>
-<span class="linenos">445</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">446</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_rcfbprm</span><span class="w"></span>
-<span class="linenos">447</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">448</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">launch_attempted</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; function launch attempted if true</span>
-<span class="linenos">449</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">command_matched</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; matched root command if true</span>
-<span class="linenos">450</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">all_arguments_valid</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; argument error sentinel</span>
-<span class="linenos">451</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">subcommand_matched</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; matched a subcommand</span>
-<span class="linenos">452</span><span class="w">        </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">cmd</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; pointer to CommandConstructor</span>
-<span class="linenos">453</span><span class="w">        </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">all_wcc_cmd</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to CommandConstructor</span>
-<span class="linenos">454</span><span class="w">        </span><span class="n">UI_COMPARE</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">               </span><span class="c1">///&lt; result of UserInput::_compareCommandToString()</span>
-<span class="linenos">455</span><span class="w">        </span><span class="n">IH</span><span class="o">::</span><span class="n">cmd_id_grp_t</span><span class="w"> </span><span class="n">command_id</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; type set by macro</span>
-<span class="linenos">456</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">idx</span><span class="p">;</span><span class="w">                      </span><span class="c1">///&lt; CommandParameters index</span>
-<span class="linenos">457</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">all_wcc_idx</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; index of CommandParameters that has an all wcc command</span>
-<span class="linenos">458</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">;</span><span class="w">                </span><span class="c1">///&lt; length of input data</span>
-<span class="linenos">459</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_len</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; length of token buffer</span>
-<span class="linenos">460</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tokens_received</span><span class="p">;</span><span class="w">          </span><span class="c1">///&lt; how many tokens we received</span>
-<span class="linenos">461</span><span class="w">        </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">prm</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; CommandParameters struct</span>
-<span class="linenos">462</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">input_data</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; pointer to input_data</span>
-<span class="linenos">463</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">split_input</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; pointer to UserInput::_splitZDC() modified data</span>
-<span class="linenos">464</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="linenos">465</span>
-<span class="linenos">466</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">467</span><span class="cm">     * @brief read command(s) from a uint8_t (unsigned char) buffer</span>
-<span class="linenos">468</span><span class="cm">     * silent return if UserInput::_begin_ == false</span>
-<span class="linenos">469</span><span class="cm">     * @param data a buffer with characters</span>
-<span class="linenos">470</span><span class="cm">     * @param len the size of the buffer</span>
-<span class="linenos">471</span><span class="cm">     * @param num_zdc size of CommandParameters zero delimiter command pointers array</span>
-<span class="linenos">472</span><span class="cm">     * @param zdc array of CommandParameters zero delimiter command pointers</span>
-<span class="linenos">473</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">474</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">475</span>
-<span class="linenos">476</span><span class="w">    </span><span class="cp">#if defined(ENABLE_getCommandFromStream)</span>
-<span class="linenos">477</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">478</span><span class="cm">     * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer</span>
-<span class="linenos">479</span><span class="cm">     *</span>
-<span class="linenos">480</span><span class="cm">     * https://www.arduino.cc/reference/en/language/functions/communication/stream/</span>
-<span class="linenos">481</span><span class="cm">     *</span>
-<span class="linenos">482</span><span class="cm">     * silent return if UserInput::_begin_ == false</span>
-<span class="linenos">483</span><span class="cm">     * @param stream the stream to reference</span>
-<span class="linenos">484</span><span class="cm">     * @param rx_buffer_size the size of our receive buffer</span>
-<span class="linenos">485</span><span class="cm">     * @param num_zdc size of CommandParameters zero delimiter command pointers array</span>
-<span class="linenos">486</span><span class="cm">     * @param zdc array of CommandParameters zero delimiter command pointers</span>
-<span class="linenos">487</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">488</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">489</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">490</span>
-<span class="linenos">491</span><span class="w">    </span><span class="cp">#if defined(ENABLE_nextArgument)</span>
-<span class="linenos">492</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">493</span><span class="cm">     * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens</span>
-<span class="linenos">494</span><span class="cm">     *</span>
-<span class="linenos">495</span><span class="cm">     * @return char*</span>
-<span class="linenos">496</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">497</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">nextArgument</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">498</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">499</span>
-<span class="linenos">500</span><span class="w">    </span><span class="cp">#if defined(ENABLE_getArgument)</span>
-<span class="linenos">501</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">502</span><span class="cm">     * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if there is no argument_number token</span>
-<span class="linenos">503</span><span class="cm">     *</span>
-<span class="linenos">504</span><span class="cm">     * @return char*</span>
-<span class="linenos">505</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">506</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">getArgument</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">argument_number</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">507</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">508</span>
-<span class="linenos">509</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputIsAvailable)</span>
-<span class="linenos">510</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">511</span><span class="cm">     * @brief class output available if the return of this function is greater than zero</span>
-<span class="linenos">512</span><span class="cm">     *</span>
-<span class="linenos">513</span><span class="cm">     * (True) if greater than 0</span>
-<span class="linenos">514</span><span class="cm">     * (False) if 0</span>
-<span class="linenos">515</span><span class="cm">     *</span>
-<span class="linenos">516</span><span class="cm">     * @return the number of bytes available for output, or zero if there is no output</span>
-<span class="linenos">517</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">518</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">outputIsAvailable</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">519</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">520</span>
-<span class="linenos">521</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputIsEnabled)</span>
-<span class="linenos">522</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">523</span><span class="cm">     * @brief is class output enabled</span>
-<span class="linenos">524</span><span class="cm">     *</span>
-<span class="linenos">525</span><span class="cm">     * @return true if enabled</span>
-<span class="linenos">526</span><span class="cm">     * @return false if not enabled</span>
-<span class="linenos">527</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">528</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">outputIsEnabled</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">529</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">530</span>
-<span class="linenos">531</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputToStream)</span>
-<span class="linenos">532</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">533</span><span class="cm">     * @brief direct class output to stream, clears output buffer automatically</span>
-<span class="linenos">534</span><span class="cm">     *</span>
-<span class="linenos">535</span><span class="cm">     * @param stream the stream to print to</span>
-<span class="linenos">536</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">537</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">538</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">539</span>
-<span class="linenos">540</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">541</span><span class="cm">     * @brief clears output buffer</span>
-<span class="linenos">542</span><span class="cm">     *</span>
-<span class="linenos">543</span><span class="cm">     * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire _output_buffer_</span>
-<span class="linenos">544</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">545</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">clearOutputBuffer</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">overwrite_contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">546</span>
-<span class="linenos">547</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">548</span><span class="cm">     * @brief UserInput::getTokensParam UserInput::getTokens() parameters data structure</span>
-<span class="linenos">549</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">550</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">getTokensParam</span><span class="w"></span>
-<span class="linenos">551</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">552</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; pointer to uint8_t array</span>
-<span class="linenos">553</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w">                       </span><span class="c1">///&lt; length of uint8_t array</span>
-<span class="linenos">554</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_pos</span><span class="p">;</span><span class="w">                  </span><span class="c1">///&lt; index of data</span>
-<span class="linenos">555</span><span class="w">        </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">token_buffer</span><span class="p">;</span><span class="w">               </span><span class="c1">///&lt; pointer to null terminated char array</span>
-<span class="linenos">556</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_len</span><span class="p">;</span><span class="w">          </span><span class="c1">///&lt; size of data + 1 + 1(if there are zero delim commands)</span>
-<span class="linenos">557</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_index</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; index of token_buffer</span>
-<span class="linenos">558</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_token_ptrs</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; token_pointers[MAX]</span>
-<span class="linenos">559</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">token_pointer_index</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; index of token_pointers</span>
-<span class="linenos">560</span><span class="w">        </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">token_pointers</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; array of token_buffer pointers</span>
-<span class="linenos">561</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">point_to_beginning_of_token</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; assign pointer to &amp;token_buffer[token_buffer_index] if true</span>
-<span class="linenos">562</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">token_buffer_sep</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; token_buffer token delimiter</span>
-<span class="linenos">563</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="linenos">564</span>
-<span class="linenos">565</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">566</span><span class="cm">     * @brief puts tokens into the token buffer pointed to in getTokensParam</span>
-<span class="linenos">567</span><span class="cm">     *</span>
-<span class="linenos">568</span><span class="cm">     * @param gtprm UserInput::getTokensParam struct reference</span>
-<span class="linenos">569</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
-<span class="linenos">570</span><span class="cm">     *</span>
-<span class="linenos">571</span><span class="cm">     * @return size_t number of tokens retrieved</span>
-<span class="linenos">572</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">573</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">getTokens</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">574</span>
-<span class="linenos">575</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">576</span><span class="cm">     * @brief validateNullSepInputParam struct</span>
-<span class="linenos">577</span><span class="cm">     *</span>
-<span class="linenos">578</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">579</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">validateNullSepInputParam</span><span class="w"></span>
-<span class="linenos">580</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">581</span><span class="w">        </span><span class="n">UITYPE</span><span class="w"> </span><span class="n">arg_type</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; the UITYPE to test</span>
-<span class="linenos">582</span><span class="w">        </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">token_pointers</span><span class="p">;</span><span class="w">      </span><span class="c1">///&lt; pointers to null separated tokens</span>
-<span class="linenos">583</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_pointer_index</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; index of token_pointers to test</span>
-<span class="linenos">584</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neg_sign</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; single char neg sign, if different than &#39;-&#39; parseInt and the like will not assign your input negative</span>
-<span class="linenos">585</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">float_sep</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; whole and fraction separator</span>
-<span class="linenos">586</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="linenos">587</span>
-<span class="linenos">588</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">589</span><span class="cm">     * @brief Tries to determine if input is valid in NULL TERMINATED char arrays</span>
-<span class="linenos">590</span><span class="cm">     *</span>
-<span class="linenos">591</span><span class="cm">     * @param vprm validateNullSepInputParam struct reference</span>
-<span class="linenos">592</span><span class="cm">     *</span>
-<span class="linenos">593</span><span class="cm">     * @return true argument-type is valid</span>
-<span class="linenos">594</span><span class="cm">     * @return false argument-type is not valid</span>
-<span class="linenos">595</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">596</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">validateNullSepInput</span><span class="p">(</span><span class="n">validateNullSepInputParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vprm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">597</span>
-<span class="linenos">598</span><span class="k">protected</span><span class="o">:</span><span class="w"></span>
-<span class="linenos">599</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">600</span><span class="cm">     * @brief transform 2d matrix indices to flat array index</span>
-<span class="linenos">601</span><span class="cm">     *</span>
-<span class="linenos">602</span><span class="cm">     * use this to access a dynamically allocated array like a 2d matrix,</span>
-<span class="linenos">603</span><span class="cm">     * this is much more performant than looping to allocate a (n&gt;1)d array,</span>
-<span class="linenos">604</span><span class="cm">     * and looping again to free allocated ram.</span>
-<span class="linenos">605</span><span class="cm">     *</span>
-<span class="linenos">606</span><span class="cm">     * @param m_width width of the matrix</span>
-<span class="linenos">607</span><span class="cm">     * @param row row you want to access</span>
-<span class="linenos">608</span><span class="cm">     * @param col column you want to access</span>
-<span class="linenos">609</span><span class="cm">     * @return size_t the transformed index</span>
-<span class="linenos">610</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">611</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">mIndex</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_width</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m_width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">612</span>
-<span class="linenos">613</span><span class="k">private</span><span class="o">:</span><span class="w"></span>
-<span class="linenos">614</span><span class="w">    </span><span class="cm">/*</span>
-<span class="linenos">615</span><span class="cm">        UserInput Constructor variables</span>
-<span class="linenos">616</span><span class="cm">    */</span><span class="w"></span>
-<span class="linenos">617</span>
-<span class="linenos">618</span><span class="w">    </span><span class="c1">// (potentially) user entered constructor variables</span>
-<span class="linenos">619</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">*</span><span class="w"> </span><span class="n">_input_prm_ptr_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; user input constructor parameters pointer</span>
-<span class="linenos">620</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">_output_buffer_</span><span class="p">;</span><span class="w">                         </span><span class="c1">///&lt; pointer to the output char buffer</span>
-<span class="linenos">621</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_output_buffer_len_</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; _output_buffer_ size in bytes</span>
-<span class="linenos">622</span><span class="w">    </span><span class="c1">// end user entered constructor variables</span>
-<span class="linenos">623</span>
-<span class="linenos">624</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_output_enabled_</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput&#39;s constructor)</span>
-<span class="linenos">625</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_output_buffer_bytes_left_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting</span>
-<span class="linenos">626</span>
-<span class="linenos">627</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">_term_len_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; _term_ length in characters, determined in begin()</span>
-<span class="linenos">628</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">_term_index_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; _term_ index, match all characters in term or reject the message</span>
-<span class="linenos">629</span>
-<span class="linenos">630</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">_default_function_</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">);</span><span class="w"> </span><span class="c1">///&lt; pointer to the default function</span>
-<span class="linenos">631</span>
-<span class="linenos">632</span><span class="w">    </span><span class="c1">// linked-list</span>
-<span class="linenos">633</span><span class="w">    </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">_commands_head_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to object list</span>
-<span class="linenos">634</span><span class="w">    </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">_commands_tail_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to object list</span>
-<span class="linenos">635</span><span class="w">    </span><span class="c1">// end linked-list</span>
-<span class="linenos">636</span>
-<span class="linenos">637</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_commands_in_tree_t</span><span class="w"> </span><span class="n">_commands_count_</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; how many commands are there</span>
-<span class="linenos">638</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_tree_depth_per_command_t</span><span class="w"> </span><span class="n">_max_depth_</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; max command depth found</span>
-<span class="linenos">639</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_max_args_</span><span class="p">;</span><span class="w">                              </span><span class="c1">///&lt; max command or subcommand arguments found</span>
-<span class="linenos">640</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">input_type_match_flags_type</span><span class="o">*</span><span class="w"> </span><span class="n">_input_type_match_flags_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; bool array _input_type_match_flags_[_max_args_]</span>
-<span class="linenos">641</span>
-<span class="linenos">642</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_output_flag_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; output is available flag, set by member functions</span>
-<span class="linenos">643</span>
-<span class="linenos">644</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">_token_buffer_</span><span class="p">;</span><span class="w">                        </span><span class="c1">///&lt; pointer to tokenized c-string</span>
-<span class="linenos">645</span><span class="w">    </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">_data_pointers_</span><span class="p">;</span><span class="w">                      </span><span class="c1">///&lt; token_buffer pointers</span>
-<span class="linenos">646</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_data_pointers_index_</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; data_pointer index</span>
-<span class="linenos">647</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_data_pointers_index_max_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; data_pointer index max</span>
-<span class="linenos">648</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_p_num_ptrs_</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; &quot;p&quot;rocess number of pointers, computed in UserInput::begin()</span>
-<span class="linenos">649</span>
-<span class="linenos">650</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_rec_num_arg_strings_</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; number of tokens after first valid token</span>
-<span class="linenos">651</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_num_child_commands_t</span><span class="w"> </span><span class="n">_failed_on_subcommand_</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; subcommand error index</span>
-<span class="linenos">652</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_tree_depth_per_command_t</span><span class="w"> </span><span class="n">_current_search_depth_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; current subcommand search depth</span>
-<span class="linenos">653</span>
-<span class="linenos">654</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_null_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; char null</span>
-<span class="linenos">655</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_neg_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; char &#39;-&#39;</span>
-<span class="linenos">656</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_dot_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; char &#39;.&#39;</span>
-<span class="linenos">657</span>
-<span class="linenos">658</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_stream_buffer_allocated_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; this flag is set true on GetCommandFromStream entry if a buffer is not allocated</span>
-<span class="linenos">659</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_new_stream_data_</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; if there is new data in *stream_data this is true</span>
-<span class="linenos">660</span><span class="w">    </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">_stream_data_</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; pointer to stream input, a string of char</span>
-<span class="linenos">661</span><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">_stream_data_index_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; the index of stream_data</span>
-<span class="linenos">662</span>
-<span class="linenos">663</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_begin_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; begin() error flag</span>
-<span class="linenos">664</span>
-<span class="linenos">665</span><span class="w">    </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">_input_prm_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; user input process parameters pointer struct</span>
-<span class="linenos">666</span>
-<span class="linenos">667</span><span class="w">    </span><span class="c1">//  end constructor initialized variables</span>
-<span class="linenos">668</span>
-<span class="linenos">669</span><span class="w">    </span><span class="c1">// private methods</span>
-<span class="linenos">670</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">671</span><span class="cm">     * @brief UserInput vsnprintf</span>
-<span class="linenos">672</span><span class="cm">     * https://www.cplusplus.com/reference/cstdio/vsprintf/</span>
-<span class="linenos">673</span><span class="cm">     * @param fmt   the format string</span>
-<span class="linenos">674</span><span class="cm">     * @param ...   arguments</span>
-<span class="linenos">675</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">676</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_ui_out</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
-<span class="linenos">677</span>
-<span class="linenos">678</span><span class="w">    </span><span class="cp">#if defined(ENABLE_readCommandFromBufferErrorOutput)</span>
-<span class="linenos">679</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">680</span><span class="cm">     * @brief ReadCommandFromBuffer error output</span>
-<span class="linenos">681</span><span class="cm">     *</span>
-<span class="linenos">682</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
-<span class="linenos">683</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">684</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_readCommandFromBufferErrorOutput</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">685</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end ENABLE_readCommandFromBufferErrorOutput</span>
-<span class="linenos">686</span>
-<span class="linenos">687</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">688</span><span class="cm">     * @brief launches either (this) function or the root command function</span>
-<span class="linenos">689</span><span class="cm">     *</span>
-<span class="linenos">690</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
-<span class="linenos">691</span><span class="cm">     * @param pname IH_pname char array</span>
-<span class="linenos">692</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">693</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_launchFunction</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">IH_pname</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pname</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">694</span>
-<span class="linenos">695</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">696</span><span class="cm">     * @brief function launch logic, recursive on subcommand match</span>
-<span class="linenos">697</span><span class="cm">     *</span>
-<span class="linenos">698</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
-<span class="linenos">699</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">700</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_launchLogic</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">701</span>
-<span class="linenos">702</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">703</span><span class="cm">     * @brief Escapes control characters so they will print</span>
-<span class="linenos">704</span><span class="cm">     *</span>
-<span class="linenos">705</span><span class="cm">     * @param input the input char</span>
-<span class="linenos">706</span><span class="cm">     * @param buf the output buffer</span>
-<span class="linenos">707</span><span class="cm">     *</span>
-<span class="linenos">708</span><span class="cm">     * @return pointer to buf, so you can use this inside of _ui_out()</span>
-<span class="linenos">709</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">710</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">_escapeCharactersSoTheyPrint</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">711</span>
-<span class="linenos">712</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">713</span><span class="cm">     * @brief Triggers on a control character sequence, if the char immediately</span>
-<span class="linenos">714</span><span class="cm">     * after the control char is a char known to UserInput::_combineControlCharacters</span>
-<span class="linenos">715</span><span class="cm">     * this returns a control char, else it returns the input char</span>
-<span class="linenos">716</span><span class="cm">     *</span>
-<span class="linenos">717</span><span class="cm">     * @param input the char the control character sequence</span>
-<span class="linenos">718</span><span class="cm">     * @return the control character char value</span>
-<span class="linenos">719</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">720</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="nf">_combineControlCharacters</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">input</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">721</span>
-<span class="linenos">722</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">723</span><span class="cm">     * @brief determines if input CommandParameters struct is valid before adding to linked-list</span>
-<span class="linenos">724</span><span class="cm">     *</span>
-<span class="linenos">725</span><span class="cm">     * @param cmd CommandConstructor reference</span>
-<span class="linenos">726</span><span class="cm">     * @param prm reference to CommandParameters struct in addCommand</span>
-<span class="linenos">727</span><span class="cm">     * @return true if there are no errors</span>
-<span class="linenos">728</span><span class="cm">     * @return false if there were one or more errors</span>
-<span class="linenos">729</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">730</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">_addCommandAbort</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">731</span>
-<span class="linenos">732</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">733</span><span class="cm">     * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t</span>
-<span class="linenos">734</span><span class="cm">     *</span>
-<span class="linenos">735</span><span class="cm">     * @param prm command options structure reference</span>
-<span class="linenos">736</span><span class="cm">     * @param index argument number</span>
-<span class="linenos">737</span><span class="cm">     * @return UITYPE argument type</span>
-<span class="linenos">738</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">739</span><span class="w">    </span><span class="n">UITYPE</span><span class="w"> </span><span class="nf">_getArgType</span><span class="p">(</span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">740</span>
-<span class="linenos">741</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">742</span><span class="cm">     * @brief validate the arguments as specified in the user defined CommandParameters struct</span>
-<span class="linenos">743</span><span class="cm">     *</span>
-<span class="linenos">744</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
-<span class="linenos">745</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">746</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getArgs</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">747</span>
-<span class="linenos">748</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">749</span><span class="cm">     * @brief adds escaped control characters to a buffer</span>
-<span class="linenos">750</span><span class="cm">     *</span>
-<span class="linenos">751</span><span class="cm">     * @param buf output buffer</span>
-<span class="linenos">752</span><span class="cm">     * @param idx buffer index</span>
-<span class="linenos">753</span><span class="cm">     * @param input string to escape</span>
-<span class="linenos">754</span><span class="cm">     * @param input_len length of string</span>
-<span class="linenos">755</span><span class="cm">     * @return pointer to null terminated escaped control char string</span>
-<span class="linenos">756</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">757</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">_addEscapedControlCharToBuffer</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">758</span>
-<span class="linenos">759</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">760</span><span class="cm">     * @brief find delimiters in input data</span>
-<span class="linenos">761</span><span class="cm">     *</span>
-<span class="linenos">762</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
-<span class="linenos">763</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
-<span class="linenos">764</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">765</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensDelimiters</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">766</span>
-<span class="linenos">767</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">768</span><span class="cm">     * @brief get delimited c-strings from input data</span>
-<span class="linenos">769</span><span class="cm">     *</span>
-<span class="linenos">770</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
-<span class="linenos">771</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
-<span class="linenos">772</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">773</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensStartStop</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">774</span>
-<span class="linenos">775</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">776</span><span class="cm">     * @brief add uchar to token_buffer</span>
-<span class="linenos">777</span><span class="cm">     *</span>
-<span class="linenos">778</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
-<span class="linenos">779</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
-<span class="linenos">780</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">781</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensChar</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">782</span>
-<span class="linenos">783</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">784</span><span class="cm">     * @brief split a zero delimiter command, separate command and string with token delimiter for further processing</span>
-<span class="linenos">785</span><span class="cm">     *</span>
-<span class="linenos">786</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
-<span class="linenos">787</span><span class="cm">     * @param num_zdc zero delim commands</span>
-<span class="linenos">788</span><span class="cm">     * @param zdc num zdc</span>
-<span class="linenos">789</span><span class="cm">     * @return true if split</span>
-<span class="linenos">790</span><span class="cm">     * @return false no match no split</span>
-<span class="linenos">791</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">792</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">_splitZDC</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">793</span>
-<span class="linenos">794</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">795</span><span class="cm">     * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive</span>
-<span class="linenos">796</span><span class="cm">     *</span>
-<span class="linenos">797</span><span class="cm">     * @param command reference to a CommandConstructor class</span>
-<span class="linenos">798</span><span class="cm">     * @param prm reference to a CommandParameters struct</span>
-<span class="linenos">799</span><span class="cm">     * @param prm_idx prm index</span>
-<span class="linenos">800</span><span class="cm">     * @param memcmp_ranges_idx index of memcmp_ranges</span>
-<span class="linenos">801</span><span class="cm">     * @param memcmp_ranges memcmp ranges array</span>
-<span class="linenos">802</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">803</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_calcCmdMemcmpRanges</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">prm_idx</span><span class="p">,</span><span class="w"> </span><span class="n">IH</span><span class="o">::</span><span class="n">memcmp_idx_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">memcmp_ranges_idx</span><span class="p">,</span><span class="w"> </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="o">*</span><span class="w"> </span><span class="n">memcmp_ranges</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">804</span>
-<span class="linenos">805</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">806</span><span class="cm">     * @brief compares (memcmp) str to cmd-&gt;prm[prm_idx].command</span>
-<span class="linenos">807</span><span class="cm">     *</span>
-<span class="linenos">808</span><span class="cm">     * @param cmd pointer to CommandConstructor</span>
-<span class="linenos">809</span><span class="cm">     * @param prm_idx index of CommandParameters to compare</span>
-<span class="linenos">810</span><span class="cm">     * @param str c-string</span>
-<span class="linenos">811</span><span class="cm">     * @return UI_COMPARE match type</span>
-<span class="linenos">812</span><span class="cm">     */</span><span class="w"></span>
-<span class="linenos">813</span><span class="w">    </span><span class="n">UI_COMPARE</span><span class="w"> </span><span class="nf">_compareCommandToString</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">prm_idx</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">str</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">814</span><span class="w">    </span><span class="c1">// end private methods</span>
-<span class="linenos">815</span><span class="p">};</span><span class="w"></span>
-<span class="linenos">816</span>
-<span class="linenos">817</span><span class="cp">#endif </span><span class="c1">// header guard include</span>
-<span class="linenos">818</span>
-<span class="linenos">819</span><span class="c1">// end of file</span>
+<span class="linenos">385</span><span class="cm">     *      </span>
+<span class="linenos">386</span><span class="cm">     * [UserInput::defaultFunction sources](</span>
+<span class="linenos">387</span><span class="cm">       https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(</span>
+<span class="linenos">388</span><span class="cm">       )</span>
+<span class="linenos">389</span><span class="cm">     * </span>
+<span class="linenos">390</span><span class="cm">     * @param function a pointer to a user specified default function</span>
+<span class="linenos">391</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">392</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">defaultFunction</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">393</span>
+<span class="linenos">394</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">395</span><span class="cm">     * @brief adds user commands to the input process</span>
+<span class="linenos">396</span><span class="cm">     *</span>
+<span class="linenos">397</span><span class="cm">     * This function inspects CommandParameters for errors and</span>
+<span class="linenos">398</span><span class="cm">     * reports the errors to the user if they have enabled output.</span>
+<span class="linenos">399</span><span class="cm">     * If an error is detected in the root command or any of</span>
+<span class="linenos">400</span><span class="cm">     * its subcommands, the entire command tree is rejected,</span>
+<span class="linenos">401</span><span class="cm">     * and sizing for dynamically allocated variables does not</span>
+<span class="linenos">402</span><span class="cm">     * take place.</span>
+<span class="linenos">403</span><span class="cm">     *</span>
+<span class="linenos">404</span><span class="cm">     * @param command reference to CommandConstructor object</span>
+<span class="linenos">405</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">406</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCommand</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">command</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">407</span>
+<span class="linenos">408</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">409</span><span class="cm">     * @brief Allocates memory for _data_pointers_ and _input_type_match_flags_, sets _begin_</span>
+<span class="linenos">410</span><span class="cm">     *</span>
+<span class="linenos">411</span><span class="cm">     * @return true if allocation successful</span>
+<span class="linenos">412</span><span class="cm">     * @return false if allocation unsuccessful</span>
+<span class="linenos">413</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">414</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">begin</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">415</span>
+<span class="linenos">416</span><span class="w">    </span><span class="cp">#if defined(ENABLE_listSettings)</span>
+<span class="linenos">417</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">418</span><span class="cm">     * @brief Lists UserInput class settings, useful for implementation debugging.</span>
+<span class="linenos">419</span><span class="cm">     *</span>
+<span class="linenos">420</span><span class="cm">     * Lists all pertinient process information:</span>
+<span class="linenos">421</span><span class="cm">     * class configuration, constructor variables,</span>
+<span class="linenos">422</span><span class="cm">     * and the amount of pointers that were dynamically</span>
+<span class="linenos">423</span><span class="cm">     * allocated in UserInput::begin()</span>
+<span class="linenos">424</span><span class="cm">     *</span>
+<span class="linenos">425</span><span class="cm">     * REQUIRES a 650 byte output_buffer.  If an insufficient buffer size is declared,</span>
+<span class="linenos">426</span><span class="cm">     * UserInput::_ui_out() will warn the user to increase the buffer to the required size.</span>
+<span class="linenos">427</span><span class="cm">     *</span>
+<span class="linenos">428</span><span class="cm">     * @param inputProcess pointer to class instance</span>
+<span class="linenos">429</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">430</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">listSettings</span><span class="p">(</span><span class="n">UserInput</span><span class="o">*</span><span class="w"> </span><span class="n">inputProcess</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">431</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">432</span>
+<span class="linenos">433</span><span class="w">    </span><span class="cp">#if defined(ENABLE_listCommands)</span>
+<span class="linenos">434</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">435</span><span class="cm">     * @brief Lists commands that will respond to user input if `_begin_` == true</span>
+<span class="linenos">436</span><span class="cm">     * else it will inform the user to use begin() in setup()</span>
+<span class="linenos">437</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">438</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">listCommands</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">439</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">440</span>
+<span class="linenos">441</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">442</span><span class="cm">     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference</span>
+<span class="linenos">443</span><span class="cm">     *</span>
+<span class="linenos">444</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">445</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">_rcfbprm</span><span class="w"></span>
+<span class="linenos">446</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">447</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">launch_attempted</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; function launch attempted if true</span>
+<span class="linenos">448</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">command_matched</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; matched root command if true</span>
+<span class="linenos">449</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">all_arguments_valid</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; argument error sentinel</span>
+<span class="linenos">450</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">subcommand_matched</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; matched a subcommand</span>
+<span class="linenos">451</span><span class="w">        </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">cmd</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; pointer to CommandConstructor</span>
+<span class="linenos">452</span><span class="w">        </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">all_wcc_cmd</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to CommandConstructor</span>
+<span class="linenos">453</span><span class="w">        </span><span class="n">UI_COMPARE</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">               </span><span class="c1">///&lt; result of UserInput::_compareCommandToString()</span>
+<span class="linenos">454</span><span class="w">        </span><span class="n">IH</span><span class="o">::</span><span class="n">cmd_id_grp_t</span><span class="w"> </span><span class="n">command_id</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; type set by macro</span>
+<span class="linenos">455</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">idx</span><span class="p">;</span><span class="w">                      </span><span class="c1">///&lt; CommandParameters index</span>
+<span class="linenos">456</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">all_wcc_idx</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; index of CommandParameters that has an all wcc command</span>
+<span class="linenos">457</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">;</span><span class="w">                </span><span class="c1">///&lt; length of input data</span>
+<span class="linenos">458</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_len</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; length of token buffer</span>
+<span class="linenos">459</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tokens_received</span><span class="p">;</span><span class="w">          </span><span class="c1">///&lt; how many tokens we received</span>
+<span class="linenos">460</span><span class="w">        </span><span class="n">CommandParameters</span><span class="w"> </span><span class="n">prm</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; CommandParameters struct</span>
+<span class="linenos">461</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">input_data</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; pointer to input_data</span>
+<span class="linenos">462</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">split_input</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; pointer to UserInput::_splitZDC() modified data</span>
+<span class="linenos">463</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="linenos">464</span>
+<span class="linenos">465</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">466</span><span class="cm">     * @brief read command(s) from a uint8_t (unsigned char) buffer</span>
+<span class="linenos">467</span><span class="cm">     * silent return if UserInput::_begin_ == false</span>
+<span class="linenos">468</span><span class="cm">     * @param data a buffer with characters</span>
+<span class="linenos">469</span><span class="cm">     * @param len the size of the buffer</span>
+<span class="linenos">470</span><span class="cm">     * @param num_zdc size of CommandParameters zero delimiter command pointers array</span>
+<span class="linenos">471</span><span class="cm">     * @param zdc array of CommandParameters zero delimiter command pointers</span>
+<span class="linenos">472</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">473</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">474</span>
+<span class="linenos">475</span><span class="w">    </span><span class="cp">#if defined(ENABLE_getCommandFromStream)</span>
+<span class="linenos">476</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">477</span><span class="cm">     * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer</span>
+<span class="linenos">478</span><span class="cm">     *</span>
+<span class="linenos">479</span><span class="cm">     * https://www.arduino.cc/reference/en/language/functions/communication/stream/</span>
+<span class="linenos">480</span><span class="cm">     *</span>
+<span class="linenos">481</span><span class="cm">     * silent return if UserInput::_begin_ == false</span>
+<span class="linenos">482</span><span class="cm">     * @param stream the stream to reference</span>
+<span class="linenos">483</span><span class="cm">     * @param rx_buffer_size the size of our receive buffer</span>
+<span class="linenos">484</span><span class="cm">     * @param num_zdc size of CommandParameters zero delimiter command pointers array</span>
+<span class="linenos">485</span><span class="cm">     * @param zdc array of CommandParameters zero delimiter command pointers</span>
+<span class="linenos">486</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">487</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">488</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">489</span>
+<span class="linenos">490</span><span class="w">    </span><span class="cp">#if defined(ENABLE_nextArgument)</span>
+<span class="linenos">491</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">492</span><span class="cm">     * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are no more tokens</span>
+<span class="linenos">493</span><span class="cm">     *</span>
+<span class="linenos">494</span><span class="cm">     * @return char*</span>
+<span class="linenos">495</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">496</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">nextArgument</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">497</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">498</span>
+<span class="linenos">499</span><span class="w">    </span><span class="cp">#if defined(ENABLE_getArgument)</span>
+<span class="linenos">500</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">501</span><span class="cm">     * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if there is no argument_number token</span>
+<span class="linenos">502</span><span class="cm">     *</span>
+<span class="linenos">503</span><span class="cm">     * @return char*</span>
+<span class="linenos">504</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">505</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">getArgument</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">argument_number</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">506</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">507</span>
+<span class="linenos">508</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputIsAvailable)</span>
+<span class="linenos">509</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">510</span><span class="cm">     * @brief class output available if the return of this function is greater than zero</span>
+<span class="linenos">511</span><span class="cm">     *</span>
+<span class="linenos">512</span><span class="cm">     * (True) if greater than 0</span>
+<span class="linenos">513</span><span class="cm">     * (False) if 0</span>
+<span class="linenos">514</span><span class="cm">     *</span>
+<span class="linenos">515</span><span class="cm">     * @return the number of bytes available for output, or zero if there is no output</span>
+<span class="linenos">516</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">517</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">outputIsAvailable</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">518</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">519</span>
+<span class="linenos">520</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputIsEnabled)</span>
+<span class="linenos">521</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">522</span><span class="cm">     * @brief is class output enabled</span>
+<span class="linenos">523</span><span class="cm">     *</span>
+<span class="linenos">524</span><span class="cm">     * @return true if enabled</span>
+<span class="linenos">525</span><span class="cm">     * @return false if not enabled</span>
+<span class="linenos">526</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">527</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">outputIsEnabled</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">528</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">529</span>
+<span class="linenos">530</span><span class="w">    </span><span class="cp">#if defined(ENABLE_outputToStream)</span>
+<span class="linenos">531</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">532</span><span class="cm">     * @brief direct class output to stream, clears output buffer automatically</span>
+<span class="linenos">533</span><span class="cm">     *</span>
+<span class="linenos">534</span><span class="cm">     * @param stream the stream to print to</span>
+<span class="linenos">535</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">536</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">537</span><span class="w">    </span><span class="cp">#endif</span>
+<span class="linenos">538</span>
+<span class="linenos">539</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">540</span><span class="cm">     * @brief clears output buffer</span>
+<span class="linenos">541</span><span class="cm">     *</span>
+<span class="linenos">542</span><span class="cm">     * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire _output_buffer_</span>
+<span class="linenos">543</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">544</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">clearOutputBuffer</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">overwrite_contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">545</span>
+<span class="linenos">546</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">547</span><span class="cm">     * @brief UserInput::getTokensParam UserInput::getTokens() parameters data structure</span>
+<span class="linenos">548</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">549</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">getTokensParam</span><span class="w"></span>
+<span class="linenos">550</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">551</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; pointer to uint8_t array</span>
+<span class="linenos">552</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w">                       </span><span class="c1">///&lt; length of uint8_t array</span>
+<span class="linenos">553</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_pos</span><span class="p">;</span><span class="w">                  </span><span class="c1">///&lt; index of data</span>
+<span class="linenos">554</span><span class="w">        </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">token_buffer</span><span class="p">;</span><span class="w">               </span><span class="c1">///&lt; pointer to null terminated char array</span>
+<span class="linenos">555</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_len</span><span class="p">;</span><span class="w">          </span><span class="c1">///&lt; size of data + 1 + 1(if there are zero delim commands)</span>
+<span class="linenos">556</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_buffer_index</span><span class="p">;</span><span class="w">        </span><span class="c1">///&lt; index of token_buffer</span>
+<span class="linenos">557</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_token_ptrs</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; token_pointers[MAX]</span>
+<span class="linenos">558</span><span class="w">        </span><span class="kt">uint8_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">token_pointer_index</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; index of token_pointers</span>
+<span class="linenos">559</span><span class="w">        </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">token_pointers</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; array of token_buffer pointers</span>
+<span class="linenos">560</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">point_to_beginning_of_token</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; assign pointer to &amp;token_buffer[token_buffer_index] if true</span>
+<span class="linenos">561</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">token_buffer_sep</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; token_buffer token delimiter</span>
+<span class="linenos">562</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="linenos">563</span>
+<span class="linenos">564</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">565</span><span class="cm">     * @brief puts tokens into the token buffer pointed to in getTokensParam</span>
+<span class="linenos">566</span><span class="cm">     *</span>
+<span class="linenos">567</span><span class="cm">     * @param gtprm UserInput::getTokensParam struct reference</span>
+<span class="linenos">568</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
+<span class="linenos">569</span><span class="cm">     *</span>
+<span class="linenos">570</span><span class="cm">     * @return size_t number of tokens retrieved</span>
+<span class="linenos">571</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">572</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">getTokens</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">573</span>
+<span class="linenos">574</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">575</span><span class="cm">     * @brief validateNullSepInputParam struct</span>
+<span class="linenos">576</span><span class="cm">     *</span>
+<span class="linenos">577</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">578</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">validateNullSepInputParam</span><span class="w"></span>
+<span class="linenos">579</span><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">580</span><span class="w">        </span><span class="n">UITYPE</span><span class="w"> </span><span class="n">arg_type</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; the UITYPE to test</span>
+<span class="linenos">581</span><span class="w">        </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">token_pointers</span><span class="p">;</span><span class="w">      </span><span class="c1">///&lt; pointers to null separated tokens</span>
+<span class="linenos">582</span><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">token_pointer_index</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; index of token_pointers to test</span>
+<span class="linenos">583</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neg_sign</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; single char neg sign, if different than &#39;-&#39; parseInt and the like will not assign your input negative</span>
+<span class="linenos">584</span><span class="w">        </span><span class="kt">char</span><span class="o">&amp;</span><span class="w"> </span><span class="n">float_sep</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; whole and fraction separator</span>
+<span class="linenos">585</span><span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="linenos">586</span>
+<span class="linenos">587</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">588</span><span class="cm">     * @brief Tries to determine if input is valid in NULL TERMINATED char arrays</span>
+<span class="linenos">589</span><span class="cm">     *</span>
+<span class="linenos">590</span><span class="cm">     * @param vprm validateNullSepInputParam struct reference</span>
+<span class="linenos">591</span><span class="cm">     *</span>
+<span class="linenos">592</span><span class="cm">     * @return true argument-type is valid</span>
+<span class="linenos">593</span><span class="cm">     * @return false argument-type is not valid</span>
+<span class="linenos">594</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">595</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">validateNullSepInput</span><span class="p">(</span><span class="n">validateNullSepInputParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vprm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">596</span>
+<span class="linenos">597</span><span class="k">protected</span><span class="o">:</span><span class="w"></span>
+<span class="linenos">598</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">599</span><span class="cm">     * @brief transform 2d matrix indices to flat array index</span>
+<span class="linenos">600</span><span class="cm">     *</span>
+<span class="linenos">601</span><span class="cm">     * use this to access a dynamically allocated array like a 2d matrix,</span>
+<span class="linenos">602</span><span class="cm">     * this is much more performant than looping to allocate a (n&gt;1)d array,</span>
+<span class="linenos">603</span><span class="cm">     * and looping again to free allocated ram.</span>
+<span class="linenos">604</span><span class="cm">     *</span>
+<span class="linenos">605</span><span class="cm">     * @param m_width width of the matrix</span>
+<span class="linenos">606</span><span class="cm">     * @param row row you want to access</span>
+<span class="linenos">607</span><span class="cm">     * @param col column you want to access</span>
+<span class="linenos">608</span><span class="cm">     * @return size_t the transformed index</span>
+<span class="linenos">609</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">610</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">mIndex</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_width</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m_width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">611</span>
+<span class="linenos">612</span><span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="linenos">613</span><span class="w">    </span><span class="cm">/*</span>
+<span class="linenos">614</span><span class="cm">        UserInput Constructor variables</span>
+<span class="linenos">615</span><span class="cm">    */</span><span class="w"></span>
+<span class="linenos">616</span>
+<span class="linenos">617</span><span class="w">    </span><span class="c1">// (potentially) user entered constructor variables</span>
+<span class="linenos">618</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">*</span><span class="w"> </span><span class="n">_input_prm_ptr_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; user input constructor parameters pointer</span>
+<span class="linenos">619</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">_output_buffer_</span><span class="p">;</span><span class="w">                         </span><span class="c1">///&lt; pointer to the output char buffer</span>
+<span class="linenos">620</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_output_buffer_len_</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; _output_buffer_ size in bytes</span>
+<span class="linenos">621</span><span class="w">    </span><span class="c1">// end user entered constructor variables</span>
+<span class="linenos">622</span>
+<span class="linenos">623</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_output_enabled_</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; true if _output_buffer_ is not NULL (the user has defined and passed an output buffer to UserInput&#39;s constructor)</span>
+<span class="linenos">624</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_output_buffer_bytes_left_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; index of _output_buffer_, messages are appended to the output buffer and this keeps track of where to write to next without overwriting</span>
+<span class="linenos">625</span>
+<span class="linenos">626</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">_term_len_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; _term_ length in characters, determined in begin()</span>
+<span class="linenos">627</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">_term_index_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; _term_ index, match all characters in term or reject the message</span>
+<span class="linenos">628</span>
+<span class="linenos">629</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">_default_function_</span><span class="p">)(</span><span class="n">UserInput</span><span class="o">*</span><span class="p">);</span><span class="w"> </span><span class="c1">///&lt; pointer to the default function</span>
+<span class="linenos">630</span>
+<span class="linenos">631</span><span class="w">    </span><span class="c1">// linked-list</span>
+<span class="linenos">632</span><span class="w">    </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">_commands_head_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to object list</span>
+<span class="linenos">633</span><span class="w">    </span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">_commands_tail_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; pointer to object list</span>
+<span class="linenos">634</span><span class="w">    </span><span class="c1">// end linked-list</span>
+<span class="linenos">635</span>
+<span class="linenos">636</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_commands_in_tree_t</span><span class="w"> </span><span class="n">_commands_count_</span><span class="p">;</span><span class="w">            </span><span class="c1">///&lt; how many commands are there</span>
+<span class="linenos">637</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_tree_depth_per_command_t</span><span class="w"> </span><span class="n">_max_depth_</span><span class="p">;</span><span class="w">           </span><span class="c1">///&lt; max command depth found</span>
+<span class="linenos">638</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_max_args_</span><span class="p">;</span><span class="w">                              </span><span class="c1">///&lt; max command or subcommand arguments found</span>
+<span class="linenos">639</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">input_type_match_flags_type</span><span class="o">*</span><span class="w"> </span><span class="n">_input_type_match_flags_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; bool array _input_type_match_flags_[_max_args_]</span>
+<span class="linenos">640</span>
+<span class="linenos">641</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_output_flag_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; output is available flag, set by member functions</span>
+<span class="linenos">642</span>
+<span class="linenos">643</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">_token_buffer_</span><span class="p">;</span><span class="w">                        </span><span class="c1">///&lt; pointer to tokenized c-string</span>
+<span class="linenos">644</span><span class="w">    </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">_data_pointers_</span><span class="p">;</span><span class="w">                      </span><span class="c1">///&lt; token_buffer pointers</span>
+<span class="linenos">645</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_data_pointers_index_</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; data_pointer index</span>
+<span class="linenos">646</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_data_pointers_index_max_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; data_pointer index max</span>
+<span class="linenos">647</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_p_num_ptrs_</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; &quot;p&quot;rocess number of pointers, computed in UserInput::begin()</span>
+<span class="linenos">648</span>
+<span class="linenos">649</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_args_t</span><span class="w"> </span><span class="n">_rec_num_arg_strings_</span><span class="p">;</span><span class="w">                    </span><span class="c1">///&lt; number of tokens after first valid token</span>
+<span class="linenos">650</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_num_child_commands_t</span><span class="w"> </span><span class="n">_failed_on_subcommand_</span><span class="p">;</span><span class="w">     </span><span class="c1">///&lt; subcommand error index</span>
+<span class="linenos">651</span><span class="w">    </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_tree_depth_per_command_t</span><span class="w"> </span><span class="n">_current_search_depth_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; current subcommand search depth</span>
+<span class="linenos">652</span>
+<span class="linenos">653</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_null_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; char null</span>
+<span class="linenos">654</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_neg_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; char &#39;-&#39;</span>
+<span class="linenos">655</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">_dot_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; char &#39;.&#39;</span>
+<span class="linenos">656</span>
+<span class="linenos">657</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_stream_buffer_allocated_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; this flag is set true on GetCommandFromStream entry if a buffer is not allocated</span>
+<span class="linenos">658</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_new_stream_data_</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; if there is new data in *stream_data this is true</span>
+<span class="linenos">659</span><span class="w">    </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">_stream_data_</span><span class="p">;</span><span class="w">         </span><span class="c1">///&lt; pointer to stream input, a string of char</span>
+<span class="linenos">660</span><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">_stream_data_index_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; the index of stream_data</span>
+<span class="linenos">661</span>
+<span class="linenos">662</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_begin_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; begin() error flag</span>
+<span class="linenos">663</span>
+<span class="linenos">664</span><span class="w">    </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">_input_prm_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; user input process parameters pointer struct</span>
+<span class="linenos">665</span>
+<span class="linenos">666</span><span class="w">    </span><span class="c1">//  end constructor initialized variables</span>
+<span class="linenos">667</span>
+<span class="linenos">668</span><span class="w">    </span><span class="c1">// private methods</span>
+<span class="linenos">669</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">670</span><span class="cm">     * @brief UserInput vsnprintf</span>
+<span class="linenos">671</span><span class="cm">     * https://www.cplusplus.com/reference/cstdio/vsprintf/</span>
+<span class="linenos">672</span><span class="cm">     * @param fmt   the format string</span>
+<span class="linenos">673</span><span class="cm">     * @param ...   arguments</span>
+<span class="linenos">674</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">675</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_ui_out</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
+<span class="linenos">676</span>
+<span class="linenos">677</span><span class="w">    </span><span class="cp">#if defined(ENABLE_readCommandFromBufferErrorOutput)</span>
+<span class="linenos">678</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">679</span><span class="cm">     * @brief ReadCommandFromBuffer error output</span>
+<span class="linenos">680</span><span class="cm">     *</span>
+<span class="linenos">681</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
+<span class="linenos">682</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">683</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_readCommandFromBufferErrorOutput</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">684</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end ENABLE_readCommandFromBufferErrorOutput</span>
+<span class="linenos">685</span>
+<span class="linenos">686</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">687</span><span class="cm">     * @brief launches either (this) function or the root command function</span>
+<span class="linenos">688</span><span class="cm">     *</span>
+<span class="linenos">689</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
+<span class="linenos">690</span><span class="cm">     * @param pname IH_pname char array</span>
+<span class="linenos">691</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">692</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_launchFunction</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">IH_pname</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pname</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">693</span>
+<span class="linenos">694</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">695</span><span class="cm">     * @brief function launch logic, recursive on subcommand match</span>
+<span class="linenos">696</span><span class="cm">     *</span>
+<span class="linenos">697</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
+<span class="linenos">698</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">699</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_launchLogic</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">700</span>
+<span class="linenos">701</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">702</span><span class="cm">     * @brief Escapes control characters so they will print</span>
+<span class="linenos">703</span><span class="cm">     *</span>
+<span class="linenos">704</span><span class="cm">     * @param input the input char</span>
+<span class="linenos">705</span><span class="cm">     * @param buf the output buffer</span>
+<span class="linenos">706</span><span class="cm">     *</span>
+<span class="linenos">707</span><span class="cm">     * @return pointer to buf, so you can use this inside of _ui_out()</span>
+<span class="linenos">708</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">709</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">_escapeCharactersSoTheyPrint</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">710</span>
+<span class="linenos">711</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">712</span><span class="cm">     * @brief Triggers on a control character sequence, if the char immediately</span>
+<span class="linenos">713</span><span class="cm">     * after the control char is a char known to UserInput::_combineControlCharacters</span>
+<span class="linenos">714</span><span class="cm">     * this returns a control char, else it returns the input char</span>
+<span class="linenos">715</span><span class="cm">     *</span>
+<span class="linenos">716</span><span class="cm">     * @param input the char the control character sequence</span>
+<span class="linenos">717</span><span class="cm">     * @return the control character char value</span>
+<span class="linenos">718</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">719</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="nf">_combineControlCharacters</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">input</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">720</span>
+<span class="linenos">721</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">722</span><span class="cm">     * @brief determines if input CommandParameters struct is valid before adding to linked-list</span>
+<span class="linenos">723</span><span class="cm">     *</span>
+<span class="linenos">724</span><span class="cm">     * @param cmd CommandConstructor reference</span>
+<span class="linenos">725</span><span class="cm">     * @param prm reference to CommandParameters struct in addCommand</span>
+<span class="linenos">726</span><span class="cm">     * @return true if there are no errors</span>
+<span class="linenos">727</span><span class="cm">     * @return false if there were one or more errors</span>
+<span class="linenos">728</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">729</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">_addCommandAbort</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">730</span>
+<span class="linenos">731</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">732</span><span class="cm">     * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t</span>
+<span class="linenos">733</span><span class="cm">     *</span>
+<span class="linenos">734</span><span class="cm">     * @param prm command options structure reference</span>
+<span class="linenos">735</span><span class="cm">     * @param index argument number</span>
+<span class="linenos">736</span><span class="cm">     * @return UITYPE argument type</span>
+<span class="linenos">737</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">738</span><span class="w">    </span><span class="n">UITYPE</span><span class="w"> </span><span class="nf">_getArgType</span><span class="p">(</span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">739</span>
+<span class="linenos">740</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">741</span><span class="cm">     * @brief validate the arguments as specified in the user defined CommandParameters struct</span>
+<span class="linenos">742</span><span class="cm">     *</span>
+<span class="linenos">743</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
+<span class="linenos">744</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">745</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getArgs</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">746</span>
+<span class="linenos">747</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">748</span><span class="cm">     * @brief adds escaped control characters to a buffer</span>
+<span class="linenos">749</span><span class="cm">     *</span>
+<span class="linenos">750</span><span class="cm">     * @param buf output buffer</span>
+<span class="linenos">751</span><span class="cm">     * @param idx buffer index</span>
+<span class="linenos">752</span><span class="cm">     * @param input string to escape</span>
+<span class="linenos">753</span><span class="cm">     * @param input_len length of string</span>
+<span class="linenos">754</span><span class="cm">     * @return pointer to null terminated escaped control char string</span>
+<span class="linenos">755</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">756</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">_addEscapedControlCharToBuffer</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">757</span>
+<span class="linenos">758</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">759</span><span class="cm">     * @brief find delimiters in input data</span>
+<span class="linenos">760</span><span class="cm">     *</span>
+<span class="linenos">761</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
+<span class="linenos">762</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
+<span class="linenos">763</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">764</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensDelimiters</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">765</span>
+<span class="linenos">766</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">767</span><span class="cm">     * @brief get delimited c-strings from input data</span>
+<span class="linenos">768</span><span class="cm">     *</span>
+<span class="linenos">769</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
+<span class="linenos">770</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
+<span class="linenos">771</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">772</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensStartStop</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">773</span>
+<span class="linenos">774</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">775</span><span class="cm">     * @brief add uchar to token_buffer</span>
+<span class="linenos">776</span><span class="cm">     *</span>
+<span class="linenos">777</span><span class="cm">     * @param gtprm reference to getTokensParam struct in getTokens</span>
+<span class="linenos">778</span><span class="cm">     * @param input_prm reference to InputProcessParameters struct</span>
+<span class="linenos">779</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">780</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_getTokensChar</span><span class="p">(</span><span class="n">getTokensParam</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gtprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">781</span>
+<span class="linenos">782</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">783</span><span class="cm">     * @brief split a zero delimiter command, separate command and string with token delimiter for further processing</span>
+<span class="linenos">784</span><span class="cm">     *</span>
+<span class="linenos">785</span><span class="cm">     * @param rprm reference to UserInput::_rcfbprm</span>
+<span class="linenos">786</span><span class="cm">     * @param num_zdc zero delim commands</span>
+<span class="linenos">787</span><span class="cm">     * @param zdc num zdc</span>
+<span class="linenos">788</span><span class="cm">     * @return true if split</span>
+<span class="linenos">789</span><span class="cm">     * @return false no match no split</span>
+<span class="linenos">790</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">791</span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">_splitZDC</span><span class="p">(</span><span class="n">_rcfbprm</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rprm</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_zdc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">**</span><span class="w"> </span><span class="n">zdc</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">792</span>
+<span class="linenos">793</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">794</span><span class="cm">     * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive</span>
+<span class="linenos">795</span><span class="cm">     *</span>
+<span class="linenos">796</span><span class="cm">     * @param command reference to a CommandConstructor class</span>
+<span class="linenos">797</span><span class="cm">     * @param prm reference to a CommandParameters struct</span>
+<span class="linenos">798</span><span class="cm">     * @param prm_idx prm index</span>
+<span class="linenos">799</span><span class="cm">     * @param memcmp_ranges_idx index of memcmp_ranges</span>
+<span class="linenos">800</span><span class="cm">     * @param memcmp_ranges memcmp ranges array</span>
+<span class="linenos">801</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">802</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">_calcCmdMemcmpRanges</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">CommandParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prm</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">prm_idx</span><span class="p">,</span><span class="w"> </span><span class="n">IH</span><span class="o">::</span><span class="n">memcmp_idx_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">memcmp_ranges_idx</span><span class="p">,</span><span class="w"> </span><span class="n">IH</span><span class="o">::</span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="o">*</span><span class="w"> </span><span class="n">memcmp_ranges</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">803</span>
+<span class="linenos">804</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">805</span><span class="cm">     * @brief compares (memcmp) str to cmd-&gt;prm[prm_idx].command</span>
+<span class="linenos">806</span><span class="cm">     *</span>
+<span class="linenos">807</span><span class="cm">     * @param cmd pointer to CommandConstructor</span>
+<span class="linenos">808</span><span class="cm">     * @param prm_idx index of CommandParameters to compare</span>
+<span class="linenos">809</span><span class="cm">     * @param str c-string</span>
+<span class="linenos">810</span><span class="cm">     * @return UI_COMPARE match type</span>
+<span class="linenos">811</span><span class="cm">     */</span><span class="w"></span>
+<span class="linenos">812</span><span class="w">    </span><span class="n">UI_COMPARE</span><span class="w"> </span><span class="nf">_compareCommandToString</span><span class="p">(</span><span class="n">CommandConstructor</span><span class="o">*</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">prm_idx</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">str</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">813</span><span class="w">    </span><span class="c1">// end private methods</span>
+<span class="linenos">814</span><span class="p">};</span><span class="w"></span>
+<span class="linenos">815</span>
+<span class="linenos">816</span><span class="cp">#endif </span><span class="c1">// header guard include</span>
+<span class="linenos">817</span>
+<span class="linenos">818</span><span class="c1">// end of file</span>
 </pre></div>
 </div>
 </div>
