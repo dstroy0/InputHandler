@@ -21,9 +21,6 @@
  *   public methods
  */
 
-/**
- * UserInput::defaultFunction
- */
 void UserInput::defaultFunction(void (*function)(UserInput*)) { _default_function_ = function; } // end defaultFunction
 
 void UserInput::addCommand(CommandConstructor& command)
