@@ -45,7 +45,9 @@
      * High probability of deprecation.
      *
      */
-    #define IH_MBED_PREPROC_COMPAT #error
+    #if !defined(DOXYGEN_XML_BUILD)
+        #define IH_MBED_PREPROC_COMPAT #error
+    #endif
     // end function-like macros
 
     // portability directives
