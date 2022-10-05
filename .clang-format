@@ -5,7 +5,7 @@ AlignTrailingComments: true
 AllowShortEnumsOnASingleLine: false
 BreakBeforeBraces: Allman
 BreakConstructorInitializers: BeforeColon
-ColumnLimit: 190
+ColumnLimit: 100
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 Cpp11BracedListStyle: true
 IndentPPDirectives: BeforeHash
