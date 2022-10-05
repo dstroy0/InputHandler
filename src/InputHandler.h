@@ -408,7 +408,7 @@ public:
     }
 
     /**
-     * @brief Sets the _default_function_ pointer
+     * @brief Sets the UserInput::_default_function_ pointer
      * When there is no command match, or when input is invalid, this function is called
      * if the pointer is not NULL
      *
@@ -416,7 +416,9 @@ public:
      * href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void 
      * (*function)(UserInput*))">UserInput::defaultFunction source</a>
      *
-     * @param function a pointer to a user specified default function
+     * [`literal code` and regular text](https://github.com/dstroy0/InputHandler)
+     * 
+     * @param function a pointer to a user specified function to use as the default function.
      */
     void defaultFunction(void (*function)(UserInput*));
 
