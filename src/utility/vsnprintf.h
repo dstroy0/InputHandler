@@ -1,3 +1,21 @@
+/**
+ * @file vsnprintf.h
+ * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+ * @brief InputHandler vsnprintf support
+ * @version 1.0
+ * @date 2022-10-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+/*
+ Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ version 3 as published by the Free Software Foundation.
+ */
+
 #if !defined(__USER_INPUT_VSNPRINTF__)
     #define __USER_INPUT_VSNPRINTF__
 
@@ -17,7 +35,8 @@ typedef __gnuc_va_list va_list;
     #define va_end(v) __builtin_va_end(v)
     #define va_arg(v, l) __builtin_va_arg(v, l)
 
-int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST) _ATTRIBUTE((__format__(__printf__, 3, 0)));
+int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
+    _ATTRIBUTE((__format__(__printf__, 3, 0)));
 
 #endif
 
