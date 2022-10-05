@@ -382,11 +382,10 @@ public:
      * @brief Sets the _default_function_ pointer
      * When there is no command match, or when input is invalid, this function is called
      * if the pointer is not NULL
-     * 
-     * <a href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(">UserInput::defaultFunction source</a> 
+     *      
      * [UserInput::defaultFunction sources](
-     * https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(
-     * )
+       https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(
+       )
      * 
      * @param function a pointer to a user specified default function
      */
