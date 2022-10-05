@@ -269,8 +269,8 @@ const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
 
 const IH_pname PROGMEM process_name = ""; ///< default process name is an empty string
 const IH_eol PROGMEM eol_char = "\r\n";   ///< default process eol characters CRLF
-const IH_input_cc PROGMEM input_control_char_sequence
-    = "##";                               ///< default process input control character sequence "##"
+const IH_input_cc PROGMEM input_control_char_sequence =
+    "##";                                 ///< default process input control character sequence "##"
 const IH_wcc PROGMEM wildcard_char = "*"; ///< default process wildcard char '*'
 
 /**
@@ -413,11 +413,12 @@ public:
      * if the pointer is not NULL
      *
      * <a
-     * href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void 
+     * href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
      * (*function)(UserInput*))">UserInput::defaultFunction source</a>
      *
-     * [`literal code` and regular text](https://github.com/dstroy0/InputHandler)
-     * 
+     * [UserInput::defaultfunction source md](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
+     * (*function)(UserInput*)))
+     *
      * @param function a pointer to a user specified function to use as the default function.
      */
     void defaultFunction(void (*function)(UserInput*));

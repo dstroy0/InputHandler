@@ -9,4 +9,7 @@ ColumnLimit: 100
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 Cpp11BracedListStyle: true
 IndentPPDirectives: BeforeHash
+BreakBeforeBinaryOperators: NonAssignment
+DerivePointerAlignment: false
+PointerAlignment: Left
 ...
