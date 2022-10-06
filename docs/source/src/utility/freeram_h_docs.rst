@@ -1,4 +1,4 @@
-freeram.h
+freeRam.h
 ============
-.. doxygenfile:: freeram.h   
+.. doxygenfile:: freeRam.h   
    :allow-dot-graphs:

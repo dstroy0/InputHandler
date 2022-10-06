@@ -8,3 +8,4 @@ Documentation
     src/config/config_h_docs.rst
     src/InputHandler_h_docs.rst    
     src/utility/vsnprintf_h_docs.rst
+    src/utility/freeram_h_docs.rst
