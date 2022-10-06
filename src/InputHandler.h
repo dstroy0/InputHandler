@@ -412,11 +412,8 @@ public:
      * When there is no command match, or when input is invalid, this function is called
      * if the pointer is not NULL
      *
-     * <a
-     * href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
-     * (*function)(UserInput*))">UserInput::defaultFunction source</a>
-     *
-     * [UserInput::defaultfunction source md](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
+     * [UserInput::defaultfunction
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
      * (*function)(UserInput*)))
      *
      * @param function a pointer to a user specified function to use as the default function.
@@ -433,12 +430,25 @@ public:
      * and sizing for dynamically allocated variables does not
      * take place.
      *
+     * [UserInput::addCommand
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=addCommand(CommandConstructor&
+     * command))
+     *
      * @param command reference to CommandConstructor object
      */
     void addCommand(CommandConstructor& command);
 
     /**
-     * @brief Allocates memory for _data_pointers_ and _input_type_match_flags_, sets _begin_
+     * @brief Allocates memory.
+     *
+     * Allocates memory for:
+     * UserInput::_data_pointers_
+     * UserInput::_input_type_match_flags_
+     *
+     * sets UserInput::_begin_
+     *
+     * [UserInput::begin
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=begin())
      *
      * @return true if allocation successful
      * @return false if allocation unsuccessful
@@ -454,8 +464,12 @@ public:
      * and the amount of pointers that were dynamically
      * allocated in UserInput::begin()
      *
-     * REQUIRES a 650 byte output_buffer.  If an insufficient buffer size is declared,
+     * REQUIRES a 700 byte output_buffer.  If an insufficient buffer size is declared,
      * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
+     *
+     * [UserInput::listSettings
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listSettings(UserInput*
+     * inputProcess))
      *
      * @param inputProcess pointer to class instance
      */
@@ -464,8 +478,14 @@ public:
 
     #if defined(ENABLE_listCommands)
     /**
-     * @brief Lists commands that will respond to user input if `_begin_` == true
-     * else it will inform the user to use begin() in setup()
+     * @brief Lists commands available to the user.
+     *
+     * Lists commands that will respond to user input if UserInput::_begin_ is true. Else it will
+     * inform the user to use UserInput::begin() in `setup()`
+     *
+     * [UserInput::listCommands
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listCommands())
+     *
      */
     void listCommands();
     #endif
@@ -473,6 +493,9 @@ public:
     /**
      * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
      *
+     * Instantiated in UserInput::readCommandFromBuffer() and passed by reference to subfunctions
+     *
+     * @struct _rcfbprm
      */
     struct _rcfbprm
     {
@@ -495,8 +518,14 @@ public:
     };
 
     /**
-     * @brief read command(s) from a uint8_t (unsigned char) buffer
-     * silent return if UserInput::_begin_ == false
+     * @brief Reads predefined command(s) from a uint8_t (unsigned char) buffer.
+     *
+     * This function will silent return if UserInput::_begin_ == false
+     *
+     * [UserInput::readCommandFromBuffer
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(
+     *  uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL))
+     *
      * @param data a buffer with characters
      * @param len the size of the buffer
      * @param num_zdc size of CommandParameters zero delimiter command pointers array
@@ -509,9 +538,15 @@ public:
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
      *
-     * https://www.arduino.cc/reference/en/language/functions/communication/stream/
+     * [Stream object
+     * reference](https://www.arduino.cc/reference/en/language/functions/communication/stream/)
      *
-     * silent return if UserInput::_begin_ == false
+     * This function will silent return if UserInput::_begin_ == false
+     *
+     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream&
+     * stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc =
+     * NULL))
+     *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
      * @param num_zdc size of CommandParameters zero delimiter command pointers array
