@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="InputHandler.cpp" href="../InputHandler_cpp.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>vsnprintf.h - InputHandler documentation</title>
+        <title>freeram.h - InputHandler documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -171,16 +171,6 @@
 </ul>
 </li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../src.html">Source</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../config/noedit_h.html">noedit.h</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../config/config_h.html">config.h</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../InputHandler_h.html">InputHandler.h</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../InputHandler_cpp.html">InputHandler.cpp</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">vsnprintf.h</a></li>
-</ul>
-</li>
-</ul>
 
 </div>
 </div>
@@ -213,55 +203,11 @@
           </label>
         </div>
         <article role="main">
-          <section id="vsnprintf-h">
-<h1>vsnprintf.h<a class="headerlink" href="#vsnprintf-h" title="Permalink to this heading">#</a></h1>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">src/utility/vsnprintf.h</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
-<span class="linenos"> 2</span><span class="cm"> * @file vsnprintf.h</span>
-<span class="linenos"> 3</span><span class="cm"> * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="linenos"> 4</span><span class="cm"> * @brief InputHandler vsnprintf support</span>
-<span class="linenos"> 5</span><span class="cm"> * @version 1.0</span>
-<span class="linenos"> 6</span><span class="cm"> * @date 2022-10-05</span>
-<span class="linenos"> 7</span><span class="cm"> *</span>
-<span class="linenos"> 8</span><span class="cm"> * @copyright Copyright (c) 2022</span>
-<span class="linenos"> 9</span><span class="cm"> *</span>
-<span class="linenos">10</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">11</span><span class="cm">/*</span>
-<span class="linenos">12</span><span class="cm"> Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span><span class="cm"> This program is free software; you can redistribute it and/or</span>
-<span class="linenos">15</span><span class="cm"> modify it under the terms of the GNU General Public License</span>
-<span class="linenos">16</span><span class="cm"> version 3 as published by the Free Software Foundation.</span>
-<span class="linenos">17</span><span class="cm"> */</span><span class="w"></span>
-<span class="linenos">18</span>
-<span class="linenos">19</span><span class="cp">#if !defined(__USER_INPUT_VSNPRINTF__)</span>
-<span class="linenos">20</span><span class="w">    </span><span class="cp">#define __USER_INPUT_VSNPRINTF__</span>
-<span class="linenos">21</span>
-<span class="linenos">22</span><span class="w">    </span><span class="cp">#if !defined(__va_list__)</span>
-<span class="linenos">23</span><span class="k">typedef</span><span class="w"> </span><span class="n">__gnuc_va_list</span><span class="w"> </span><span class="kt">va_list</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">24</span><span class="w">    </span><span class="cp">#endif </span><span class="cm">/* not __va_list__ */</span><span class="cp"></span>
-<span class="linenos">25</span>
-<span class="linenos">26</span><span class="w">    </span><span class="cp">#if !defined(__VALIST)</span>
-<span class="linenos">27</span><span class="w">        </span><span class="cp">#ifdef __GNUC__</span>
-<span class="linenos">28</span><span class="w">            </span><span class="cp">#define __VALIST __gnuc_va_list</span>
-<span class="linenos">29</span><span class="w">        </span><span class="cp">#else</span>
-<span class="linenos">30</span><span class="w">            </span><span class="cp">#define __VALIST char*</span>
-<span class="linenos">31</span><span class="w">        </span><span class="cp">#endif</span>
-<span class="linenos">32</span><span class="w">    </span><span class="cp">#endif</span>
-<span class="linenos">33</span>
-<span class="linenos">34</span><span class="w">    </span><span class="cp">#define va_start(v, l) __builtin_va_start(v, l)</span>
-<span class="linenos">35</span><span class="w">    </span><span class="cp">#define va_end(v) __builtin_va_end(v)</span>
-<span class="linenos">36</span><span class="w">    </span><span class="cp">#define va_arg(v, l) __builtin_va_arg(v, l)</span>
-<span class="linenos">37</span>
-<span class="linenos">38</span><span class="kt">int</span><span class="w"> </span><span class="nf">vsnprintf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="n">__VALIST</span><span class="p">)</span><span class="w"></span>
-<span class="linenos">39</span><span class="w">    </span><span class="n">_ATTRIBUTE</span><span class="p">((</span><span class="n">__format__</span><span class="p">(</span><span class="n">__printf__</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)));</span><span class="w"></span>
-<span class="linenos">40</span>
-<span class="linenos">41</span><span class="cp">#endif</span>
-<span class="linenos">42</span>
-<span class="linenos">43</span><span class="c1">// end of file</span>
-</pre></div>
-</div>
+          <section id="freeram-h">
+<h1>freeram.h<a class="headerlink" href="#freeram-h" title="Permalink to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygenfile: Cannot find file “freeram.h </p>
 </div>
 </section>
 
@@ -271,17 +217,7 @@
         
         <div class="related-pages">
           
-          <a class="prev-page" href="../InputHandler_cpp.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">InputHandler.cpp</div>
-                
-              </div>
-            </a>
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
