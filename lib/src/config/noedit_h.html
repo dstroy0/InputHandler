@@ -384,7 +384,7 @@
 <span class="linenos">175</span>
 <span class="linenos">176</span><span class="w">    </span><span class="c1">// UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString</span>
 <span class="linenos">177</span><span class="w">    </span><span class="c1">// specific (magic number!)</span>
-<span class="linenos">178</span><span class="w">    </span><span class="cp">#define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) </span><span class="c1">///&lt; UI_ALL_WCC_CMD is Type MAX</span>
+<span class="linenos">178</span><span class="w">    </span><span class="cp">#define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) </span><span class="c1">///&lt; UI_ALL_WCC_CMD MAX ((IH::ui_max_per_cmd_memcmp_ranges_t)-1)</span>
 <span class="linenos">179</span>
 <span class="linenos">180</span><span class="cm">/**</span>
 <span class="linenos">181</span><span class="cm"> * @namespace IH</span>
@@ -407,20 +407,20 @@
 <span class="linenos">198</span>
 <span class="linenos">199</span><span class="c1">// config error checking</span>
 <span class="linenos">200</span><span class="w">    </span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">201</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
-<span class="linenos">202</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">201</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">202</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">203</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">204</span><span class="w">    </span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)             \</span>
 <span class="linenos">205</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">206</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
-<span class="linenos">207</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">206</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">207</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">208</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">209</span><span class="w">        </span><span class="cp">#warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint16_t</span>
 <span class="linenos">210</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">211</span><span class="w">    </span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &gt; UINT16_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT32_MAX)            \</span>
 <span class="linenos">212</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">213</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
-<span class="linenos">214</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">213</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">214</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w">              </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">215</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">216</span><span class="w">        </span><span class="cp">#warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint32_t</span>
 <span class="linenos">217</span><span class="w">    </span><span class="cp">#endif</span>
@@ -430,17 +430,17 @@
 <span class="linenos">221</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_COMMANDS_IN_TREE</span>
 <span class="linenos">222</span>
 <span class="linenos">223</span><span class="w">    </span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">224</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">224</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">225</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">226</span><span class="w">    </span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT16_MAX)             \</span>
 <span class="linenos">227</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">228</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">228</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">229</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">230</span><span class="w">        </span><span class="cp">#warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t</span>
 <span class="linenos">231</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">232</span><span class="w">    </span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &gt; UINT16_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT32_MAX)            \</span>
 <span class="linenos">233</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">234</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">234</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">235</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">236</span><span class="w">        </span><span class="cp">#warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t</span>
 <span class="linenos">237</span><span class="w">    </span><span class="cp">#endif</span>
@@ -450,18 +450,18 @@
 <span class="linenos">241</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_ARGS_PER_COMMAND</span>
 <span class="linenos">242</span>
 <span class="linenos">243</span><span class="w">    </span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">244</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">244</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">245</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">246</span><span class="w">    </span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT16_MAX) \</span>
 <span class="linenos">247</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">248</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">248</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">249</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">250</span><span class="w">        </span><span class="cp">#warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t</span>
 <span class="linenos">251</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">252</span><span class="w">    </span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT16_MAX                                                \</span>
 <span class="linenos">253</span><span class="cp">        &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT32_MAX)                                            \</span>
 <span class="linenos">254</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">255</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">255</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">256</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">257</span><span class="w">        </span><span class="cp">#warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t</span>
 <span class="linenos">258</span><span class="w">    </span><span class="cp">#endif</span>
@@ -471,17 +471,17 @@
 <span class="linenos">262</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_TREE_DEPTH_PER_COMMAND</span>
 <span class="linenos">263</span>
 <span class="linenos">264</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">265</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">265</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">266</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">267</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT16_MAX)         \</span>
 <span class="linenos">268</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">269</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">269</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">270</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">271</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t</span>
 <span class="linenos">272</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">273</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT32_MAX)        \</span>
 <span class="linenos">274</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">275</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">275</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">276</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">277</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t</span>
 <span class="linenos">278</span><span class="w">    </span><span class="cp">#endif</span>
@@ -491,15 +491,15 @@
 <span class="linenos">282</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_NUM_CHILD_COMMANDS</span>
 <span class="linenos">283</span>
 <span class="linenos">284</span><span class="w">    </span><span class="cp">#if (UI_MAX_CMD_LEN &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">285</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">285</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">286</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">287</span><span class="w">    </span><span class="cp">#if (UI_MAX_CMD_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT16_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">288</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">288</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">289</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">290</span><span class="w">        </span><span class="cp">#warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint16_t</span>
 <span class="linenos">291</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">292</span><span class="w">    </span><span class="cp">#if (UI_MAX_CMD_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT32_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">293</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">293</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">294</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">295</span><span class="w">        </span><span class="cp">#warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint32_t</span>
 <span class="linenos">296</span><span class="w">    </span><span class="cp">#endif</span>
@@ -509,17 +509,17 @@
 <span class="linenos">300</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_CMD_LEN</span>
 <span class="linenos">301</span>
 <span class="linenos">302</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">303</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">303</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">304</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">305</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT16_MAX)                   \</span>
 <span class="linenos">306</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">307</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">307</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">308</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">309</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t</span>
 <span class="linenos">310</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">311</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT32_MAX)                  \</span>
 <span class="linenos">312</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">313</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">313</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">314</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">315</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t</span>
 <span class="linenos">316</span><span class="w">    </span><span class="cp">#endif</span>
@@ -529,17 +529,17 @@
 <span class="linenos">320</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_NUM_DELIM_SEQ</span>
 <span class="linenos">321</span>
 <span class="linenos">322</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">323</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">323</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">324</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">325</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT16_MAX)         \</span>
 <span class="linenos">326</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">327</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">327</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">328</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">329</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t</span>
 <span class="linenos">330</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">331</span><span class="w">    </span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT32_MAX)        \</span>
 <span class="linenos">332</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">333</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">333</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">334</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">335</span><span class="w">        </span><span class="cp">#warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t</span>
 <span class="linenos">336</span><span class="w">    </span><span class="cp">#endif</span>
@@ -549,17 +549,17 @@
 <span class="linenos">340</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_NUM_START_STOP_SEQ</span>
 <span class="linenos">341</span>
 <span class="linenos">342</span><span class="w">    </span><span class="cp">#if (UI_MAX_INPUT_LEN &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">343</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">343</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">344</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">345</span><span class="w">    </span><span class="cp">#if (UI_MAX_INPUT_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT16_MAX)                           \</span>
 <span class="linenos">346</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">347</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">347</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">348</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">349</span><span class="w">        </span><span class="cp">#warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t</span>
 <span class="linenos">350</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">351</span><span class="w">    </span><span class="cp">#if (UI_MAX_INPUT_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT32_MAX)                          \</span>
 <span class="linenos">352</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">353</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">353</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">354</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">355</span><span class="w">        </span><span class="cp">#warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t</span>
 <span class="linenos">356</span><span class="w">    </span><span class="cp">#endif</span>
@@ -569,20 +569,20 @@
 <span class="linenos">360</span><span class="w">    </span><span class="cp">#endif </span><span class="c1">// end UI_MAX_INPUT_LEN</span>
 <span class="linenos">361</span>
 <span class="linenos">362</span><span class="w">    </span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">363</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-bit or lower config param</span>
-<span class="linenos">364</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                       </span><span class="c1">///&lt; 8-bit or lower config param</span>
+<span class="linenos">363</span><span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">364</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                       </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">365</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">366</span><span class="w">    </span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)   \</span>
 <span class="linenos">367</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">368</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 16-bit or lower config param</span>
-<span class="linenos">369</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                   </span><span class="c1">///&lt; 16-bit or lower config param</span>
+<span class="linenos">368</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">369</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                   </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">370</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">371</span><span class="w">        </span><span class="cp">#warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t</span>
 <span class="linenos">372</span><span class="w">    </span><span class="cp">#endif</span>
 <span class="linenos">373</span><span class="w">    </span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT32_MAX)  \</span>
 <span class="linenos">374</span><span class="cp">        || defined(DOXYGEN_XML_BUILD)</span>
-<span class="linenos">375</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 32-bit or lower config param</span>
-<span class="linenos">376</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                   </span><span class="c1">///&lt; 32-bit or lower config param</span>
+<span class="linenos">375</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
+<span class="linenos">376</span><span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w">                   </span><span class="c1">///&lt; 8-32 bits depending on src/config/config.h settings</span>
 <span class="linenos">377</span><span class="w">        </span><span class="cp">#pragma message(&quot; at &quot; LOCATION)</span>
 <span class="linenos">378</span><span class="w">        </span><span class="cp">#warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t</span>
 <span class="linenos">379</span><span class="w">    </span><span class="cp">#endif</span>
