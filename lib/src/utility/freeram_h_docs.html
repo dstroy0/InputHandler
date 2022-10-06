@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="vsnprintf.h" href="vsnprintf_h_docs.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>freeram.h - InputHandler documentation</title>
+        <title>freeRam.h - InputHandler documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -162,12 +162,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../README.html#supported-platforms">Supported Platforms</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
-<ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../docs.html">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../config/noedit_h_docs.html">noedit.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../config/config_h_docs.html">config.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../InputHandler_h_docs.html">InputHandler.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vsnprintf_h_docs.html">vsnprintf.h</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">freeRam.h</a></li>
 </ul>
 </li>
 </ul>
@@ -204,10 +205,97 @@
         </div>
         <article role="main">
           <section id="freeram-h">
-<h1>freeram.h<a class="headerlink" href="#freeram-h" title="Permalink to this heading">#</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>doxygenfile: Cannot find file “freeram.h </p>
+<h1>freeRam.h<a class="headerlink" href="#freeram-h" title="Permalink to this heading">#</a></h1>
+<p>Include dependency graph for freeRam.h:</p>
+<figure class="align-default">
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-b532e65347f49a0a915cbf30f0f2d71270649ea7.png" alt="digraph {
+    graph [bgcolor=&quot;#00000000&quot;]
+    node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
+    edge [color=&quot;#1414CE&quot;]
+    &quot;1&quot; [label=&quot;src/utility/freeRam.h&quot; tooltip=&quot;src/utility/freeRam.h&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;2&quot; [label=&quot;Arduino.h&quot; tooltip=&quot;Arduino.h&quot;]
+    &quot;1&quot; -&gt; &quot;2&quot; [dir=forward tooltip=&quot;include&quot;]
+}" class="graphviz" /></div>
+</div>
+</figure>
+<p>This graph shows which files directly or indirectly include freeRam.h:</p>
+<figure class="align-default">
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-796ec696e36751ec8cf76b37db302f5169a5f48d.png" alt="digraph {
+    graph [bgcolor=&quot;#00000000&quot;]
+    node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
+    edge [color=&quot;#1414CE&quot;]
+    &quot;4&quot; [label=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;5&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot;]
+    &quot;6&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot;]
+    &quot;7&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot;]
+    &quot;8&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot;]
+    &quot;9&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot;]
+    &quot;10&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot;]
+    &quot;11&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot;]
+    &quot;12&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot;]
+    &quot;13&quot; [label=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot;]
+    &quot;14&quot; [label=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot; tooltip=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot;]
+    &quot;15&quot; [label=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot; tooltip=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot;]
+    &quot;16&quot; [label=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot; tooltip=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot;]
+    &quot;17&quot; [label=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;18&quot; [label=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot; tooltip=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot;]
+    &quot;19&quot; [label=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot; tooltip=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot;]
+    &quot;20&quot; [label=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot; tooltip=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot;]
+    &quot;21&quot; [label=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot; tooltip=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot;]
+    &quot;22&quot; [label=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot; tooltip=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot;]
+    &quot;23&quot; [label=&quot;src/InputHandler.cpp&quot; tooltip=&quot;src/InputHandler.cpp&quot;]
+    &quot;3&quot; [label=&quot;src/InputHandler.h&quot; tooltip=&quot;src/InputHandler.h&quot;]
+    &quot;2&quot; [label=&quot;src/config/noedit.h&quot; tooltip=&quot;src/config/noedit.h&quot;]
+    &quot;1&quot; [label=&quot;src/utility/freeRam.h&quot; tooltip=&quot;src/utility/freeRam.h&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;5&quot; -&gt; &quot;6&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;7&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;8&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;6&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;7&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;10&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;11&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;12&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;4&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;11&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;13&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;14&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;15&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;16&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;17&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;18&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;19&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;20&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;21&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;22&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;23&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;2&quot; -&gt; &quot;3&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;1&quot; -&gt; &quot;2&quot; [dir=back tooltip=&quot;include&quot;]
+}" class="graphviz" /></div>
+</div>
+</figure>
+<p>cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1ae84ff4a2378dde052719e37314ab0e57"><span class="std std-ref">freeRam()</span></a> </p>
+<p><dl class="simple">
+<dt><strong>Author</strong></dt><dd><p>Douglas Quigg (dstroy0 <a class="reference external" href="mailto:dquigg123&#37;&#52;&#48;gmail&#46;com">dquigg123<span>&#64;</span>gmail<span>&#46;</span>com</a>) </p>
+</dd>
+<dt><strong>Version</strong></dt><dd><p>1.0 </p>
+</dd>
+<dt><strong>Date</strong></dt><dd><p>2022-05-18</p>
+</dd>
+<dt><strong>Copyright</strong></dt><dd><p>Copyright (c) 2022 </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.freeRam">
+<span class="target" id="d5/d8e/free_ram_8h_1ae84ff4a2378dde052719e37314ab0e57"></span><span class="sig-name descname"><span class="n"><span class="pre">freeRam</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.freeRam" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
 </div>
 </section>
 
@@ -217,7 +305,17 @@
         
         <div class="related-pages">
           
-          
+          <a class="prev-page" href="vsnprintf_h_docs.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">vsnprintf.h</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
