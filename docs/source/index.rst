@@ -14,10 +14,4 @@
 
     docs.rst   
 
-.. toctree::
-    :maxdepth: 4
-    :hidden:
-
-    src.rst   
-
 .. mdinclude:: ../../README.md    
