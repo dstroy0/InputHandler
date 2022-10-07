@@ -208,18 +208,15 @@
 <h1>noedit.h<a class="headerlink" href="#noedit-h" title="Permalink to this heading">#</a></h1>
 <p>Include dependency graph for noedit.h:</p>
 <figure class="align-default">
-<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-87e6d18d62a4775c78715c86a9ed5c157b84d0a6.png" alt="digraph {
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-32b955e664b988936b5effe379d9c928e0695288.png" alt="digraph {
     graph [bgcolor=&quot;#00000000&quot;]
     node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
     edge [color=&quot;#1414CE&quot;]
     &quot;3&quot; [label=&quot;config.h&quot; tooltip=&quot;config.h&quot;]
     &quot;1&quot; [label=&quot;src/config/noedit.h&quot; tooltip=&quot;src/config/noedit.h&quot; fillcolor=&quot;#BFBFBF&quot;]
-    &quot;4&quot; [label=&quot;utility/freeRam.h&quot; tooltip=&quot;utility/freeRam.h&quot;]
     &quot;2&quot; [label=&quot;Arduino.h&quot; tooltip=&quot;Arduino.h&quot;]
     &quot;1&quot; -&gt; &quot;2&quot; [dir=forward tooltip=&quot;include&quot;]
     &quot;1&quot; -&gt; &quot;3&quot; [dir=forward tooltip=&quot;include&quot;]
-    &quot;1&quot; -&gt; &quot;4&quot; [dir=forward tooltip=&quot;include&quot;]
-    &quot;4&quot; -&gt; &quot;2&quot; [dir=forward tooltip=&quot;include&quot;]
 }" class="graphviz" /></div>
 </div>
 </figure>
@@ -337,201 +334,24 @@
 </dd></dl>
 
 <dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.IH_MBED_PREPROC_COMPAT">
-<span class="target" id="da/dc7/noedit_8h_1a13880552cad601b03a55b77589983543"></span><span class="sig-name descname"><span class="n"><span class="pre">IH_MBED_PREPROC_COMPAT</span></span></span><a class="headerlink" href="#c.IH_MBED_PREPROC_COMPAT" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>InputHandler MBED platform preprocessor setting; default is <code class="docutils literal notranslate"><span class="pre">#error</span></code>, on MBED platforms it is <code class="docutils literal notranslate"><span class="pre">#warn</span></code> </p>
-<p>This is to remove some spurious <code class="docutils literal notranslate"><span class="pre">#error</span></code>’s being thrown by the MBED C preprocessor. High probability of deprecation. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp">
-<span class="target" id="da/dc7/noedit_8h_1a13880552cad601b03a55b77589983543"></span><span class="sig-name descname"><span class="n"><span class="pre">IH_MBED_PREPROC_COMPAT</span></span></span><br /></dt>
-<dd><p>InputHandler MBED platform preprocessor setting; default is <code class="docutils literal notranslate"><span class="pre">#error</span></code>, on MBED platforms it is <code class="docutils literal notranslate"><span class="pre">#warn</span></code> </p>
-<p>This is to remove some spurious <code class="docutils literal notranslate"><span class="pre">#error</span></code>’s being thrown by the MBED C preprocessor. High probability of deprecation. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.UI_ECHO_ONLY">
-<span class="target" id="da/dc7/noedit_8h_1aa953a56155b79da60f524c2d29fafab3"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ECHO_ONLY</span></span></span><a class="headerlink" href="#c.UI_ECHO_ONLY" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>&lt; SAMD portability </p>
-<p>Uncomment this line to change the library’s output to echo only.</p>
-<p>&lt; MBED portability &lt; DUE portability &lt; teensy portability</p>
-<p>Doxygen docs are being built if DOXYGEN_XML_BUILD is defined</p>
-<p>DO NOT try to build the library with DOXYGEN_XML_BUILD defined, it is for building docs only. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_GETCOMMANDFROMSTREAM">
-<span class="target" id="da/dc7/noedit_8h_1a5201790002dd38666663eafd3c2e3c04"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_GETCOMMANDFROMSTREAM</span></span></span><a class="headerlink" href="#c.DEBUG_GETCOMMANDFROMSTREAM" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"><span class="std std-ref">UserInput::getCommandFromStream</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_READCOMMANDFROMBUFFER">
-<span class="target" id="da/dc7/noedit_8h_1a0c3570a4b8b3ccc158ca5e82012b5de4"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_READCOMMANDFROMBUFFER</span></span></span><a class="headerlink" href="#c.DEBUG_READCOMMANDFROMBUFFER" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a7f6ab5712afedca76ee55220276f8828"><span class="std std-ref">UserInput::readCommandFromBuffer</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_GET_TOKEN">
-<span class="target" id="da/dc7/noedit_8h_1a2de3b4fb0d5f57b639707872d1a45a71"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_GET_TOKEN</span></span></span><a class="headerlink" href="#c.DEBUG_GET_TOKEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug UserInput::getToken </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_SUBCOMMAND_SEARCH">
-<span class="target" id="da/dc7/noedit_8h_1a5950b517f72e452e78438fe2a9aaa171"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_SUBCOMMAND_SEARCH</span></span></span><a class="headerlink" href="#c.DEBUG_SUBCOMMAND_SEARCH" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug UserInput::launchLogic subcommand search; subcommand search is recursive, uses no local variables and passes a <a class="reference internal" href="../InputHandler_h_docs.html#d3/d14/struct_user_input_1_1__rcfbprm"><span class="std std-ref">UserInput::_rcfbprm</span></a> object by reference to itself. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_ADDCOMMAND">
-<span class="target" id="da/dc7/noedit_8h_1a18efbe5bdd9549a8220fd7686c7a1f0a"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_ADDCOMMAND</span></span></span><a class="headerlink" href="#c.DEBUG_ADDCOMMAND" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1aa6067a65dc10a5c4546ce789a3edd4d1"><span class="std std-ref">UserInput::addCommand</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_LAUNCH_LOGIC">
-<span class="target" id="da/dc7/noedit_8h_1a9a023aa5750de2a36ff4c3c4a932a868"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_LAUNCH_LOGIC</span></span></span><a class="headerlink" href="#c.DEBUG_LAUNCH_LOGIC" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug UserInput::launchLogic </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_LAUNCH_FUNCTION">
-<span class="target" id="da/dc7/noedit_8h_1abd42dbb998ed6d8014fcfe52ee907506"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_LAUNCH_FUNCTION</span></span></span><a class="headerlink" href="#c.DEBUG_LAUNCH_FUNCTION" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment to debug UserInput::launchFunction </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DEBUG_INCLUDE_FREERAM">
-<span class="target" id="da/dc7/noedit_8h_1ad757fda0b6670fbe80442d684eb7061b"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_INCLUDE_FREERAM</span></span></span><a class="headerlink" href="#c.DEBUG_INCLUDE_FREERAM" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_listSettings">
-<span class="target" id="da/dc7/noedit_8h_1a64a6036fb8ff88a5498b191ee008791f"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_listSettings</span></span></span><a class="headerlink" href="#c.DISABLE_listSettings" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a587c2ab21bab0771881cb117e7930b78"><span class="std std-ref">UserInput::listSettings</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_listCommands">
-<span class="target" id="da/dc7/noedit_8h_1a414425f55a634baa036a6cde371c908a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_listCommands</span></span></span><a class="headerlink" href="#c.DISABLE_listCommands" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1af1dd5daddbcdbb93af132f723007592f"><span class="std std-ref">UserInput::listCommands</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_getCommandFromStream">
-<span class="target" id="da/dc7/noedit_8h_1af1c1db286527e5092919bf376e4497d2"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_getCommandFromStream</span></span></span><a class="headerlink" href="#c.DISABLE_getCommandFromStream" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"><span class="std std-ref">UserInput::getCommandFromStream</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_nextArgument">
-<span class="target" id="da/dc7/noedit_8h_1aca5d418353cb76133dc30fed683b56ef"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_nextArgument</span></span></span><a class="headerlink" href="#c.DISABLE_nextArgument" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"><span class="std std-ref">UserInput::nextArgument</span></a>, either this or <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"><span class="std std-ref">UserInput::getArgument</span></a> are required to retrieve arguments. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_getArgument">
-<span class="target" id="da/dc7/noedit_8h_1a2a061f53459f97ef9db2295fa9c623a7"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_getArgument</span></span></span><a class="headerlink" href="#c.DISABLE_getArgument" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"><span class="std std-ref">UserInput::getArgument</span></a> method, either this or <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"><span class="std std-ref">UserInput::nextArgument</span></a> need to be enabled to retrieve arguments. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_outputIsAvailable">
-<span class="target" id="da/dc7/noedit_8h_1add619772076ab57682853da92a90f425"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputIsAvailable</span></span></span><a class="headerlink" href="#c.DISABLE_outputIsAvailable" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disables the output available flag. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_outputIsEnabled">
-<span class="target" id="da/dc7/noedit_8h_1a655bf7308eb521153b6d433abf42cd3a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputIsEnabled</span></span></span><a class="headerlink" href="#c.DISABLE_outputIsEnabled" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Disable <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a852e23ba4a8e45d4220782448fd3bb8c"><span class="std std-ref">UserInput::outputIsEnabled</span></a> </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_outputToStream">
-<span class="target" id="da/dc7/noedit_8h_1a55078c3045faaf363fac7c838d461087"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputToStream</span></span></span><a class="headerlink" href="#c.DISABLE_outputToStream" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>You can disable this to reduce codesize if you are only using readCommandFromBuffer. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_clearOutputBuffer">
-<span class="target" id="da/dc7/noedit_8h_1ac97e8b7fe31fe06b14764f5e21ed3a3a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_clearOutputBuffer</span></span></span><a class="headerlink" href="#c.DISABLE_clearOutputBuffer" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Only disable this method if you have already disabled output. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_readCommandFromBufferErrorOutput">
-<span class="target" id="da/dc7/noedit_8h_1a9f7fc333b962b445e88fd1bd72b15e1c"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_readCommandFromBufferErrorOutput</span></span></span><a class="headerlink" href="#c.DISABLE_readCommandFromBufferErrorOutput" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment this line to disable the library’s error output. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.DISABLE_ui_out">
-<span class="target" id="da/dc7/noedit_8h_1abef2531528be306b0eb935702fc8e829"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_ui_out</span></span></span><a class="headerlink" href="#c.DISABLE_ui_out" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Uncomment this line to completely remove output functionality at buildtime from the library. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_listSettings">
-<span class="target" id="da/dc7/noedit_8h_1a62c5d5f7c8920285344b127175162eac"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_listSettings</span></span></span><a class="headerlink" href="#c.ENABLE_listSettings" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_listCommands">
-<span class="target" id="da/dc7/noedit_8h_1ac4ed6cf6b76e56e650b29cde1400e7d0"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_listCommands</span></span></span><a class="headerlink" href="#c.ENABLE_listCommands" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_getCommandFromStream">
-<span class="target" id="da/dc7/noedit_8h_1ace90282a5802f42cd5adf0b0cd0d6f20"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_getCommandFromStream</span></span></span><a class="headerlink" href="#c.ENABLE_getCommandFromStream" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_nextArgument">
-<span class="target" id="da/dc7/noedit_8h_1a9aea5a8ed1fb6f2112011be838a87b7b"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_nextArgument</span></span></span><a class="headerlink" href="#c.ENABLE_nextArgument" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_getArgument">
-<span class="target" id="da/dc7/noedit_8h_1abcd72504517df45ba3ccc79d39a82df6"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_getArgument</span></span></span><a class="headerlink" href="#c.ENABLE_getArgument" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_outputIsAvailable">
-<span class="target" id="da/dc7/noedit_8h_1a87b4c0d185b94d9171e7cad754bce84f"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputIsAvailable</span></span></span><a class="headerlink" href="#c.ENABLE_outputIsAvailable" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_outputIsEnabled">
-<span class="target" id="da/dc7/noedit_8h_1a7b959a7fa16ca8f397696bca4aa0b7ee"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputIsEnabled</span></span></span><a class="headerlink" href="#c.ENABLE_outputIsEnabled" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_outputToStream">
-<span class="target" id="da/dc7/noedit_8h_1a2aaf2b870ef542077c6852b24f3bfeb3"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputToStream</span></span></span><a class="headerlink" href="#c.ENABLE_outputToStream" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_clearOutputBuffer">
-<span class="target" id="da/dc7/noedit_8h_1a873a6df63ff76da2907084a19927ad95"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_clearOutputBuffer</span></span></span><a class="headerlink" href="#c.ENABLE_clearOutputBuffer" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_readCommandFromBufferErrorOutput">
-<span class="target" id="da/dc7/noedit_8h_1a27f8ef0b70f29a66ef13f196e699e2fe"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_readCommandFromBufferErrorOutput</span></span></span><a class="headerlink" href="#c.ENABLE_readCommandFromBufferErrorOutput" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.ENABLE_ui_out">
-<span class="target" id="da/dc7/noedit_8h_1a3993c53011a6c54c908722ee96194d24"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_ui_out</span></span></span><a class="headerlink" href="#c.ENABLE_ui_out" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sram buffer size in bytes for a single escaped char, used by <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> methods </p>
+<dd><p>used by <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> methods </p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@brief</span> <span class="n">portability</span> <span class="n">directives</span>
+
+   <span class="n">directives</span> <span class="ow">and</span> <span class="n">definitions</span> <span class="n">which</span> <span class="n">make</span> <span class="n">the</span> <span class="n">library</span> <span class="n">work</span> <span class="n">on</span> <span class="n">different</span> <span class="n">platforms</span>
+
+   <span class="nd">@code</span> <span class="p">{</span><span class="o">.</span><span class="n">c</span><span class="p">}</span>
+  <span class="o">/</span>
+</pre></div>
+</div>
+ // portability directives #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///&lt; SAMD portability #include “utility/vsnprintf.h” // implement vsnprintf #include &lt;avr/dtostrf.h&gt; // implement dtostrf</p>
+<p>#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P #undef pgm_read_dword // use a different macro for pgm_read_dword ///&lt; PROGMEM fix macro #define pgm_read_dword(addr) \ ({ \ typeof(addr) _addr = (addr); \ *(const unsigned long*)(_addr); \ }) #endif</p>
+<p>#if defined(<strong>MBED_CONFIG_DATA</strong>) ///&lt; MBED portability #include “utility/vsnprintf.h” // implement vsnprintf #include &lt;avr/dtostrf.h&gt; // implement dtostrf</p>
+<p>#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P #undef pgm_read_dword // use a different macro for pgm_read_dword ///&lt; PROGMEM fix macro #define pgm_read_dword(addr) \ ({ \ typeof(addr) _addr = (addr); \ *(const unsigned long*)(_addr); \ }) #endif</p>
+<p>#if defined(ARDUINO_SAM_DUE) ///&lt; DUE portability #include “utility/vsnprintf.h” // implement vsnprintf #include &lt;avr/dtostrf.h&gt; // implement dtostrf</p>
+<p>#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P #undef pgm_read_dword // use a different macro for pgm_read_dword ///&lt; PROGMEM fix macro #define pgm_read_dword(addr) \ ({ \ typeof(addr) _addr = (addr); \ *(const unsigned long*)(_addr); \ }) #endif</p>
+<p>#if defined(TEENSYDUINO) ///&lt; teensy portability // pgm/ram section type conflict fix macros (fixes PROGMEM addressing) #define QUO(x) #x #define QLINE(x, y) \ QUO(x) \ QUO(y) #define PFIX QLINE(.progmem.variable, <strong>COUNTER</strong>) #undef PROGMEM #define PROGMEM <strong>attribute</strong>((section(PFIX))) #endif // end portability directives /**  sram buffer size in bytes for a single escaped char, </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -540,41 +360,6 @@
 <dd><p>((<a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a>)-1) </p>
 <p>UI_ALL_WCC_CMD MAX </p>
 </dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_GETCOMMANDFROMSTREAM__">
-<span class="target" id="da/dc7/noedit_8h_1acfe01eb7bf56b8dc4761fde90b603a1c"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_GETCOMMANDFROMSTREAM__</span></span></span><a class="headerlink" href="#c.__DEBUG_GETCOMMANDFROMSTREAM__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_READCOMMANDFROMBUFFER__">
-<span class="target" id="da/dc7/noedit_8h_1a763917d39ef8e24390e80a348e524358"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_READCOMMANDFROMBUFFER__</span></span></span><a class="headerlink" href="#c.__DEBUG_READCOMMANDFROMBUFFER__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_GET_TOKEN__">
-<span class="target" id="da/dc7/noedit_8h_1a2f8fc326a2407cc46154bf451df67098"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_GET_TOKEN__</span></span></span><a class="headerlink" href="#c.__DEBUG_GET_TOKEN__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_SUBCOMMAND_SEARCH__">
-<span class="target" id="da/dc7/noedit_8h_1abc0c2466d9789e0e262286f5d8e92f34"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_SUBCOMMAND_SEARCH__</span></span></span><a class="headerlink" href="#c.__DEBUG_SUBCOMMAND_SEARCH__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_ADDCOMMAND__">
-<span class="target" id="da/dc7/noedit_8h_1ace17b83f305d3403534f65a49c519459"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_ADDCOMMAND__</span></span></span><a class="headerlink" href="#c.__DEBUG_ADDCOMMAND__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_LAUNCH_LOGIC__">
-<span class="target" id="da/dc7/noedit_8h_1ad4d0e828ab77f6af97314b08f92294d4"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_LAUNCH_LOGIC__</span></span></span><a class="headerlink" href="#c.__DEBUG_LAUNCH_LOGIC__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.__DEBUG_LAUNCH_FUNCTION__">
-<span class="target" id="da/dc7/noedit_8h_1aa4764499ae7e478a16c82ca860800518"></span><span class="sig-name descname"><span class="n"><span class="pre">__DEBUG_LAUNCH_FUNCTION__</span></span></span><a class="headerlink" href="#c.__DEBUG_LAUNCH_FUNCTION__" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
 
 </div>
 <dl class="cpp type">
@@ -604,59 +389,56 @@
 </dd></dl>
 
 <dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH13ui_max_args_tE">
+<span id="_CPPv3N2IH13ui_max_args_tE"></span><span id="_CPPv2N2IH13ui_max_args_tE"></span><span id="IH::ui_max_args_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a757b600915092e7e93a59b9cf4b4935e"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_args_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH13ui_max_args_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH31ui_max_tree_depth_per_command_tE">
+<span id="_CPPv3N2IH31ui_max_tree_depth_per_command_tE"></span><span id="_CPPv2N2IH31ui_max_tree_depth_per_command_tE"></span><span id="IH::ui_max_tree_depth_per_command_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a6eda94454b6d9370bb53fd797639c93d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_tree_depth_per_command_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH31ui_max_tree_depth_per_command_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_child_commands_tE">
+<span id="_CPPv3N2IH27ui_max_num_child_commands_tE"></span><span id="_CPPv2N2IH27ui_max_num_child_commands_tE"></span><span id="IH::ui_max_num_child_commands_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a95538aa7d1470da556132993f5f8ef38"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_child_commands_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_child_commands_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH16ui_max_cmd_len_tE">
+<span id="_CPPv3N2IH16ui_max_cmd_len_tE"></span><span id="_CPPv2N2IH16ui_max_cmd_len_tE"></span><span id="IH::ui_max_cmd_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a62598e5d5a41f36481313c40d00dadec"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_cmd_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH16ui_max_cmd_len_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH22ui_max_num_delim_seq_tE">
+<span id="_CPPv3N2IH22ui_max_num_delim_seq_tE"></span><span id="_CPPv2N2IH22ui_max_num_delim_seq_tE"></span><span id="IH::ui_max_num_delim_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1ad7c724c204fe4b452b9663baf020bc1b"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_delim_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH22ui_max_num_delim_seq_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_start_stop_seq_tE">
+<span id="_CPPv3N2IH27ui_max_num_start_stop_seq_tE"></span><span id="_CPPv2N2IH27ui_max_num_start_stop_seq_tE"></span><span id="IH::ui_max_num_start_stop_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a2ba61741ccf6e59845634a780ea63958"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_start_stop_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_start_stop_seq_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH18ui_max_input_len_tE">
+<span id="_CPPv3N2IH18ui_max_input_len_tE"></span><span id="_CPPv2N2IH18ui_max_input_len_tE"></span><span id="IH::ui_max_input_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1ac958b626665727ef171f604b1c5cf106"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_input_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH18ui_max_input_len_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE">
+<span id="_CPPv3N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="_CPPv2N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="IH::ui_max_per_cmd_memcmp_ranges_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_per_cmd_memcmp_ranges_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>8-32 bits depending on src/config/config.h settings </p>
+</dd></dl>
+
+<dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH12memcmp_idx_tE">
 <span id="_CPPv3N2IH12memcmp_idx_tE"></span><span id="_CPPv2N2IH12memcmp_idx_tE"></span><span id="IH::memcmp_idx_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a51b775a660cf4c4f9c0b4b5b5dfde946"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">memcmp_idx_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH12memcmp_idx_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a757b600915092e7e93a59b9cf4b4935e"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_args_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a6eda94454b6d9370bb53fd797639c93d"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_tree_depth_per_command_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a95538aa7d1470da556132993f5f8ef38"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_num_child_commands_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a62598e5d5a41f36481313c40d00dadec"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_cmd_len_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1ad7c724c204fe4b452b9663baf020bc1b"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_num_delim_seq_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a2ba61741ccf6e59845634a780ea63958"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_num_start_stop_seq_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1ac958b626665727ef171f604b1c5cf106"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_input_len_t</span></span></dt>
-<dd><p>8-32 bits depending on src/config/config.h settings </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp">
-<span class="target" id="d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"></span><span class="sig-name descname"><span class="pre">x</span> <span class="pre">warn</span> <span class="pre">x</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">UINT32_MAX</span> <span class="pre">typedef</span> <span class="pre">uint8_t</span> <span class="pre">ui_max_per_cmd_memcmp_ranges_t</span></span></dt>
 <dd><p>8-32 bits depending on src/config/config.h settings </p>
 </dd></dl>
 
