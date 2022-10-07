@@ -50,10 +50,10 @@
         #undef IH_MBED_PREPROC_COMPAT
         #define IH_MBED_PREPROC_COMPAT #warn
     #endif
-    // end function-like macros
+// end function-like macros
 
-    // portability directives
-       
+// portability directives
+
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -116,38 +116,38 @@
      * DO NOT try to build the library with DOXYGEN_XML_BUILD defined, it is for building docs only.
      */
     #if defined(DOXYGEN_XML_BUILD)
-        #define UI_ECHO_ONLY 1
-        #define DEBUG_GETCOMMANDFROMSTREAM 1
-        #define DEBUG_READCOMMANDFROMBUFFER 1
-        #define DEBUG_GET_TOKEN 1
-        #define DEBUG_SUBCOMMAND_SEARCH 1
-        #define DEBUG_ADDCOMMAND 1
-        #define DEBUG_LAUNCH_LOGIC 1
-        #define DEBUG_LAUNCH_FUNCTION 1
-        #define DEBUG_INCLUDE_FREERAM 1
-        #define DISABLE_listSettings 1
-        #define DISABLE_listCommands 1
-        #define DISABLE_getCommandFromStream 1
-        #define DISABLE_nextArgument 1
-        #define DISABLE_getArgument 1
-        #define DISABLE_outputIsAvailable 1
-        #define DISABLE_outputIsEnabled 1
-        #define DISABLE_outputToStream 1
-        #define DISABLE_clearOutputBuffer 1
-        #define DISABLE_readCommandFromBufferErrorOutput 1
-        #define DISABLE_ui_out 1
+        #define UI_ECHO_ONLY /** @cond */ 1                             /** @endcond */
+        #define DEBUG_GETCOMMANDFROMSTREAM /** @cond */ 1               /** @endcond */
+        #define DEBUG_READCOMMANDFROMBUFFER /** @cond */ 1              /** @endcond */
+        #define DEBUG_GET_TOKEN /** @cond */ 1                          /** @endcond */
+        #define DEBUG_SUBCOMMAND_SEARCH /** @cond */ 1                  /** @endcond */
+        #define DEBUG_ADDCOMMAND /** @cond */ 1                         /** @endcond */
+        #define DEBUG_LAUNCH_LOGIC /** @cond */ 1                       /** @endcond */
+        #define DEBUG_LAUNCH_FUNCTION /** @cond */ 1                    /** @endcond */
+        #define DEBUG_INCLUDE_FREERAM /** @cond */ 1                    /** @endcond */
+        #define DISABLE_listSettings /** @cond */ 1                     /** @endcond */
+        #define DISABLE_listCommands /** @cond */ 1                     /** @endcond */
+        #define DISABLE_getCommandFromStream /** @cond */ 1             /** @endcond */
+        #define DISABLE_nextArgument /** @cond */ 1                     /** @endcond */
+        #define DISABLE_getArgument /** @cond */ 1                      /** @endcond */
+        #define DISABLE_outputIsAvailable /** @cond */ 1                /** @endcond */
+        #define DISABLE_outputIsEnabled /** @cond */ 1                  /** @endcond */
+        #define DISABLE_outputToStream /** @cond */ 1                   /** @endcond */
+        #define DISABLE_clearOutputBuffer /** @cond */ 1                /** @endcond */
+        #define DISABLE_readCommandFromBufferErrorOutput /** @cond */ 1 /** @endcond */
+        #define DISABLE_ui_out /** @cond */ 1                           /** @endcond */
 
-        #define ENABLE_listSettings 1
-        #define ENABLE_listCommands 1
-        #define ENABLE_getCommandFromStream 1
-        #define ENABLE_nextArgument 1
-        #define ENABLE_getArgument 1
-        #define ENABLE_outputIsAvailable 1
-        #define ENABLE_outputIsEnabled 1
-        #define ENABLE_outputToStream 1
-        #define ENABLE_clearOutputBuffer 1
-        #define ENABLE_readCommandFromBufferErrorOutput 1
-        #define ENABLE_ui_out 1
+        #define ENABLE_listSettings /** @cond */ 1                     /** @endcond */
+        #define ENABLE_listCommands /** @cond */ 1                     /** @endcond */
+        #define ENABLE_getCommandFromStream /** @cond */ 1             /** @endcond */
+        #define ENABLE_nextArgument /** @cond */ 1                     /** @endcond */
+        #define ENABLE_getArgument /** @cond */ 1                      /** @endcond */
+        #define ENABLE_outputIsAvailable /** @cond */ 1                /** @endcond */
+        #define ENABLE_outputIsEnabled /** @cond */ 1                  /** @endcond */
+        #define ENABLE_outputToStream /** @cond */ 1                   /** @endcond */
+        #define ENABLE_clearOutputBuffer /** @cond */ 1                /** @endcond */
+        #define ENABLE_readCommandFromBufferErrorOutput /** @cond */ 1 /** @endcond */
+        #define ENABLE_ui_out /** @cond */ 1                           /** @endcond */
     #endif
 
     #include "config.h" // user config file
@@ -162,7 +162,9 @@
 
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString
     // specific (magic number!)
-    #define UI_ALL_WCC_CMD ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) ///< UI_ALL_WCC_CMD MAX ((IH::ui_max_per_cmd_memcmp_ranges_t)-1)
+    #define UI_ALL_WCC_CMD                                       /** @cond */                      \
+        ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX
+                                                                 ///< ((IH::ui_max_per_cmd_memcmp_ranges_t)-1)
 
 /**
  * @namespace IH
@@ -228,18 +230,21 @@ IH_MBED_PREPROC_COMPAT UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_ARGS_PER_COMMAND
 
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+    typedef uint8_t
+        ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX) \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint16_t ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t
+    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
     #endif
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX                                                \
         && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)                                            \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint32_t ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t
+    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
     #endif
@@ -249,17 +254,20 @@ IH_MBED_PREPROC_COMPAT UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT
     #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
 
     #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+    typedef uint8_t
+        ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)         \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint16_t ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t
+    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t
     #endif
     #if (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)        \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint32_t ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t
+    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t
     #endif
@@ -307,17 +315,20 @@ IH_MBED_PREPROC_COMPAT UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_DELIM_SEQ
 
     #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+    typedef uint8_t
+        ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)         \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint16_t ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t
+    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t
     #endif
     #if (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)        \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint32_t ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t
+    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t
     #endif
@@ -347,20 +358,23 @@ IH_MBED_PREPROC_COMPAT UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_INPUT_LEN
 
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint8_t memcmp_idx_t;                       ///< 8-32 bits depending on src/config/config.h settings
+    typedef uint8_t
+        ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t memcmp_idx_t;           ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)   \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint16_t ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint16_t memcmp_idx_t;                   ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t
+    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t
     #endif
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)  \
         || defined(DOXYGEN_XML_BUILD)
-typedef uint32_t ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint32_t memcmp_idx_t;                   ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t
+    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t
     #endif
