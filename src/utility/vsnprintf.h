@@ -31,8 +31,31 @@ typedef __gnuc_va_list va_list;
         #endif
     #endif
 
+    /**
+     * @def va_start
+     * @brief initializes va_list variable used with va_arg and va_end
+     * 
+     * [va_start ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm)
+     */
     #define va_start(v, l) __builtin_va_start(v, l)
+    /**
+     * @def va_end
+     * @brief allows a function with arguments that used va_start to return.
+     * 
+     * If va_end is not called after using va_start before returning from
+     * the function, the result is undefined.
+     * 
+     * [va_end ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm)
+     */
     #define va_end(v) __builtin_va_end(v)
+    /**
+     * @def va_arg
+     * @brief retrieves the next argument in the parameter list (va_list)
+     * 
+     * No indication when reaching the tail of arguments passed.
+     * 
+     * [va_arg ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm)
+     */
     #define va_arg(v, l) __builtin_va_arg(v, l)
 
 /**
