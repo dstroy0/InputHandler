@@ -77,7 +77,7 @@ typedef __gnuc_va_list va_list;
      * @returns The number of bytes written to str
      */
     #if defined(DOXYGEN_XML_BUILD)
-    int vsnprintf(char* str, size_t size, const char* format, va_list args)
+    int vsnprintf(char* str, size_t size, const char* format, va_list args);
     #else
     /** @cond */
     int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
