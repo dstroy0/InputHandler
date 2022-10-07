@@ -2367,7 +2367,12 @@ PREDEFINED             = PROGMEM= \
                          DOXYGEN_XML_BUILD=1 \ 
                          IH_MBED_PREPROC_COMPAT=\#error \ 
                          _ATTRIBUTE=__attribute__ \ 
-                         __attribute__(x)=
+                         __attribute__ \ 
+                         __restrict \ 
+                         __va_list__ \ 
+                         __VALIST \ 
+                         __format__ \ 
+                         __printf__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
