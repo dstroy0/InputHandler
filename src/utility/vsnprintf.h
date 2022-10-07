@@ -33,7 +33,7 @@ typedef __gnuc_va_list va_list;
 
     /**
      * @def va_start
-     * @brief initializes va_list variable used with va_arg and va_end
+     * @brief initializes va_list variable used with vsnprintf.h::va_arg and vsnprintf.h::va_end
      * 
      * [va_start ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm)
      */
@@ -58,18 +58,6 @@ typedef __gnuc_va_list va_list;
      */
     #define va_arg(v, l) __builtin_va_arg(v, l)
 
-/**
- * @brief InputHandler vsnprintf
- * C99 vsnprintf
- * 
- *     int vsnprintf( char *restrict buffer, size_t bufsz,
- *         const char *restrict format, va_list vlist);
- * 
- * This variadic function writes to a predefined buffer.
- * 
- * [vsnprintf ref](https://cplusplus.com/reference/cstdio/vsnprintf/)
- * 
- */
 int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
     _ATTRIBUTE((__format__(__printf__, 3, 0)));
 

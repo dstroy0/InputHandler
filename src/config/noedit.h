@@ -45,16 +45,15 @@
      * High probability of deprecation.
      *
      */
-    #if !defined(DOXYGEN_XML_BUILD)
-        #define IH_MBED_PREPROC_COMPAT #error
+    #define IH_MBED_PREPROC_COMPAT #error
+    #if defined(DOXYGEN_XML_BUILD)
+        #undef IH_MBED_PREPROC_COMPAT
+        #define IH_MBED_PREPROC_COMPAT #warn
     #endif
     // end function-like macros
 
     // portability directives
-    /**
-     * @brief arduino samd compatibility
-     *
-     */
+       
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -69,10 +68,6 @@
             })
     #endif
 
-    /**
-     * @brief arduino mbed compatibility
-     *
-     */
     #if defined(__MBED_CONFIG_DATA__) ///< MBED portability
         #undef IH_MBED_PREPROC_COMPAT // so special
         #define IH_MBED_PREPROC_COMPAT #warn
@@ -89,10 +84,6 @@
             })
     #endif
 
-    /**
-     * @brief arduino sam compatibility
-     *
-     */
     #if defined(ARDUINO_SAM_DUE)       ///< DUE portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
@@ -107,10 +98,6 @@
             })
     #endif
 
-    /**
-     * @brief teensy platform compatibility
-     *
-     */
     #if defined(TEENSYDUINO) ///< teensy portability
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
