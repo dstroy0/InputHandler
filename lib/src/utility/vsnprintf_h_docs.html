@@ -223,17 +223,25 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_start">
 <span class="target" id="dd/ddc/vsnprintf_8h_1aa0628ab596c3d7e78f5e08c2d98e24da"></span><span class="sig-name descname"><span class="n"><span class="pre">va_start</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_start" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>initializes va_list variable used with va_arg and va_end </p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm">va_start ref</a> </p>
+</dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_end">
 <span class="target" id="dd/ddc/vsnprintf_8h_1a823b205416e9129825841b74c3bf8484"></span><span class="sig-name descname"><span class="n"><span class="pre">va_end</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_end" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>allows a function with arguments that used va_start to return. </p>
+<p>If va_end is not called after using va_start before returning from the function, the result is undefined.</p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm">va_end ref</a> </p>
+</dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_arg">
 <span class="target" id="dd/ddc/vsnprintf_8h_1a9cfd655f1203c9a345ddd90446f0bcee"></span><span class="sig-name descname"><span class="n"><span class="pre">va_arg</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_arg" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>retrieves the next argument in the parameter list (va_list) </p>
+<p>No indication when reaching the tail of arguments passed.</p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm">va_arg ref</a> </p>
+</dd></dl>
 
 </div>
 </section>
