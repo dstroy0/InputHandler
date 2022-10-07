@@ -2367,10 +2367,10 @@ PREDEFINED             = PROGMEM= \
                          DOXYGEN_XML_BUILD=1 \ 
                          IH_MBED_PREPROC_COMPAT=\#error \ 
                          _ATTRIBUTE(x)=__attribute__(x) \ 
-                         __attribute__(x)=x \ 
+                         __attribute__(x)={x} \ 
                          __restrict=string \ 
                          __va_list__= \ 
-                         __VALIST=char* valist
+                         __VALIST=(char* valist)
                          
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
