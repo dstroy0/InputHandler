@@ -34,26 +34,21 @@
     // file location directive
     #define LOC                                                                                    \
     __FILE__:                                                                                      \
-        __LINE__              ///< direct non-stringified file and line macro
-    #define LOCATION STR(LOC) ///< indirect stringified file and line macro
-    // end file location directive
-    /**
-     * @brief InputHandler MBED platform preprocessor setting; default is `#error`, on MBED
-     * platforms it is `#warn`
-     *
-     * This is to remove some spurious `#error`'s being thrown by the MBED C preprocessor.
-     * High probability of deprecation.
-     *
-     */
-    #define IH_MBED_PREPROC_COMPAT x #error x
-    #if defined(DOXYGEN_XML_BUILD)
-        #undef IH_MBED_PREPROC_COMPAT
-        #define IH_MBED_PREPROC_COMPAT x #warn x
-    #endif
+        __LINE__ ///< direct non-stringified file and line macro
+    #define LOCATION                                                                               \
+        STR(LOC) ///< indirect stringified file and line macro
+                 // end file location directive
+
 // end function-like macros
 
+    /**
+     * @brief portability directives
+     *
+     * directives and definitions which make the library work on different platforms
+     *
+     * @code {.c}
+     */
 // portability directives
-
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -68,9 +63,7 @@
             })
     #endif
 
-    #if defined(__MBED_CONFIG_DATA__) ///< MBED portability
-        #undef IH_MBED_PREPROC_COMPAT
-        #define IH_MBED_PREPROC_COMPAT x #warn x
+    #if defined(__MBED_CONFIG_DATA__)  ///< MBED portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
@@ -109,12 +102,8 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
 // end portability directives
-
-    /**
-     * @brief Doxygen docs are being built if DOXYGEN_XML_BUILD is defined
-     *
-     * DO NOT try to build the library with DOXYGEN_XML_BUILD defined, it is for building docs only.
-     */
+    /** @endcode */
+    /** @cond */
     #if defined(DOXYGEN_XML_BUILD)
         #define UI_ECHO_ONLY /** @cond */ 1                             /** @endcond */
         #define DEBUG_GETCOMMANDFROMSTREAM /** @cond */ 1               /** @endcond */
@@ -149,12 +138,13 @@
         #define ENABLE_readCommandFromBufferErrorOutput /** @cond */ 1 /** @endcond */
         #define ENABLE_ui_out /** @cond */ 1                           /** @endcond */
     #endif
-
+    /** @endcond */
     #include "config.h" // user config file
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN                                                                 \
-        3 ///< sram buffer size in bytes for a single escaped char, used by UserInput methods
+        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char,
+                                       ///< used by UserInput methods
 
     /*
         "auto" Type macros
@@ -206,11 +196,11 @@ typedef uint32_t cmd_id_grp_t;              ///< 8-32 bits depending on src/conf
     #endif
     #if (UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_COMMANDS_IN_TREE cannot be greater than UINT32_MAX
+        #warning UI_MAX_COMMANDS_IN_TREE cannot be greater than UINT32_MAX
     #endif // end UI_MAX_COMMANDS_IN_TREE
 
     #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)             \
         || defined(DOXYGEN_XML_BUILD)
@@ -226,12 +216,12 @@ typedef uint32_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h 
     #endif
     #if UI_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
+        #warning UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_ARGS_PER_COMMAND
 
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t
-        ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t
+    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX) \
         || defined(DOXYGEN_XML_BUILD)
@@ -250,12 +240,12 @@ typedef uint32_t
     #endif
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
 
     #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t
-        ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t
+    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)         \
         || defined(DOXYGEN_XML_BUILD)
@@ -273,11 +263,11 @@ typedef uint32_t
     #endif
     #if (UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
+        #warning UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_CHILD_COMMANDS
 
     #if (UI_MAX_CMD_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX) || defined(DOXYGEN_XML_BUILD)
 typedef uint16_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
@@ -291,11 +281,11 @@ typedef uint32_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config
     #endif
     #if (UI_MAX_CMD_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
+        #warning UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_CMD_LEN
 
     #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)                   \
         || defined(DOXYGEN_XML_BUILD)
@@ -311,12 +301,12 @@ typedef uint32_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/
     #endif
     #if (UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
+        #warning UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_DELIM_SEQ
 
     #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t
-        ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t
+    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)         \
         || defined(DOXYGEN_XML_BUILD)
@@ -334,11 +324,11 @@ typedef uint32_t
     #endif
     #if (UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
+        #warning UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_START_STOP_SEQ
 
     #if (UI_MAX_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)                           \
         || defined(DOXYGEN_XML_BUILD)
@@ -354,13 +344,13 @@ typedef uint32_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/conf
     #endif
     #if (UI_MAX_INPUT_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
+        #warning UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_INPUT_LEN
 
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
-    typedef uint8_t
-        ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint8_t memcmp_idx_t;           ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t
+    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint8_t memcmp_idx_t;       ///< 8-32 bits depending on src/config/config.h settings
     #endif
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)   \
         || defined(DOXYGEN_XML_BUILD)
@@ -380,12 +370,13 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
     #endif
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-IH_MBED_PREPROC_COMPAT UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
 // end config error checking
 
 } // end namespace IH
 
+/** @cond */
 // optional method toggles
 // LIBRARY OUTPUT
     #if !defined(UI_ECHO_ONLY)
@@ -457,6 +448,6 @@ IH_MBED_PREPROC_COMPAT UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT3
   // end OPTIONAL METHODS
 
 // end optional method toggles
-
+/** @endcond */
 #endif // end include guard
 // end of file
