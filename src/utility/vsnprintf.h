@@ -60,6 +60,8 @@ typedef __gnuc_va_list va_list;
 
 /**
  * @brief InputHandler vsnprintf
+ * @fn vsnprintf(vsnprintf( char *restrict buffer, size_t bufsz, 
+ * const char *restrict format, va_list vlist);)
  * 
  * C99 vsnprintf
  * 
