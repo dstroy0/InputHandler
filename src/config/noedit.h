@@ -45,10 +45,10 @@
      * High probability of deprecation.
      *
      */
-    #define IH_MBED_PREPROC_COMPAT #error
+    #define IH_MBED_PREPROC_COMPAT x #error x
     #if defined(DOXYGEN_XML_BUILD)
         #undef IH_MBED_PREPROC_COMPAT
-        #define IH_MBED_PREPROC_COMPAT #warn
+        #define IH_MBED_PREPROC_COMPAT x #warn x
     #endif
 // end function-like macros
 
@@ -69,8 +69,8 @@
     #endif
 
     #if defined(__MBED_CONFIG_DATA__) ///< MBED portability
-        #undef IH_MBED_PREPROC_COMPAT // so special
-        #define IH_MBED_PREPROC_COMPAT #warn
+        #undef IH_MBED_PREPROC_COMPAT
+        #define IH_MBED_PREPROC_COMPAT x #warn x
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
