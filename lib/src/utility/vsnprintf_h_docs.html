@@ -244,6 +244,34 @@
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49vsnprintfPc6size_tPKc7va_list">
+<span id="_CPPv39vsnprintfPc6size_tPKc7va_list"></span><span id="_CPPv29vsnprintfPc6size_tPKc7va_list"></span><span id="vsnprintf__cP.s.cCP.va_list"></span><span class="target" id="dd/ddc/vsnprintf_8h_1a1b067588850d976fb7e9daf04c9fae35"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsnprintf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="n"><span class="pre">va_list</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49vsnprintfPc6size_tPKc7va_list" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>InputHandler vsnprintf. </p>
+<p>InputHandler vsnprintf <a class="reference external" href="https://cplusplus.com/reference/cstdio/vsnprintf/">vsnprintf ref</a></p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">vsnprintf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="n">__VALIST</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">_ATTRIBUTE</span><span class="p">((</span><span class="n">__format__</span><span class="p">(</span><span class="n">__printf__</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)));</span><span class="w"></span>
+</pre></div>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>str</strong> – <strong>[in]</strong> pointer to a buffer where the C-string is stored </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> maximum number of bytes to write into the buffer </p></li>
+<li><p><strong>format</strong> – <strong>[in]</strong> C string that contains a format string which follows the same specifications as <code class="docutils literal notranslate"><span class="pre">format</span></code> in <code class="docutils literal notranslate"><span class="pre">printf</span></code> <a class="reference external" href="https://cplusplus.com/reference/cstdio/printf/">printf ref</a> </p></li>
+<li><p><strong>args</strong> – <strong>[in]</strong> the argument list (va_list) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of bytes written to str </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </section>
 
         </article>
