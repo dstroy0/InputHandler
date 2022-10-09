@@ -79,7 +79,11 @@ class ParseInputHandlerConfig(object):
                 regexp = QRegularExpression(regexp_dict[key])
                 while line_pos != -1:
                     match = regexp.match(line, line_pos)
-                    if match.hasMatch():
+                    if (
+                        match.hasMatch()
+                        and "DOXYGEN_XML_BUILD"
+                        not in self.cliOpt["config"]["file lines"][line - 1]
+                    ):
                         entry = {index[key]: copy.deepcopy(fields)}
                         entry[index[key]]["fields"]["0"] = line_num
                         idx = 1

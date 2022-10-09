@@ -119,8 +119,7 @@
         ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX
                                                                  ///< ((IH::ui_max_per_cmd_memcmp_ranges_t)-1)
 
-/**
- * @namespace IH
+/** 
  * @brief "auto" type namespace
  *
  * "auto" type sizing macros, uses src/config.h as input

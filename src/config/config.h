@@ -67,7 +67,9 @@
      * Uncomment this line to change the library's output to echo only.
      */  
     // #define UI_ECHO_ONLY
-
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
+        #define UI_ECHO_ONLY       // do not edit this
+    #endif                         // do not edit this
 /*
     DEBUGGING
     switch these on/off by commenting/uncommenting the #define
