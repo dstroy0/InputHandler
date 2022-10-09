@@ -2371,7 +2371,7 @@ PREDEFINED             = PROGMEM= \
                          __restrict=string \ 
                          __va_list__= \ 
                          __VALIST=(char* valist) \ 
-                         // #define=#define
+                         \/\/ \#define=\#define
                          
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this

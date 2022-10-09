@@ -45,10 +45,9 @@
      * @brief portability directives
      *
      * directives and definitions which make the library work on different platforms
-     *     
-     */
-// portability directives
-    /** @code {.cpp} */
+     * 
+     * @code {.cpp}     
+     */    
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -101,14 +100,14 @@
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
-// end portability directives
     /** @endcode */
+    // end portability directives
     
     #include "config.h" // user config file
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN                                                                 \
-        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char,                                       
+        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char                                       
 
     /*
         "auto" Type macros
