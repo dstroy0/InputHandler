@@ -336,7 +336,7 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>used by <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> methods </p>
+<dd><p>sram buffer size in bytes for a single escaped char, </p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@brief</span> <span class="n">portability</span> <span class="n">directives</span>
 
    <span class="n">directives</span> <span class="ow">and</span> <span class="n">definitions</span> <span class="n">which</span> <span class="n">make</span> <span class="n">the</span> <span class="n">library</span> <span class="n">work</span> <span class="n">on</span> <span class="n">different</span> <span class="n">platforms</span>
@@ -351,7 +351,7 @@
 <p>#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P #undef pgm_read_dword // use a different macro for pgm_read_dword ///&lt; PROGMEM fix macro #define pgm_read_dword(addr) \ ({ \ typeof(addr) _addr = (addr); \ *(const unsigned long*)(_addr); \ }) #endif</p>
 <p>#if defined(ARDUINO_SAM_DUE) ///&lt; DUE portability #include “utility/vsnprintf.h” // implement vsnprintf #include &lt;avr/dtostrf.h&gt; // implement dtostrf</p>
 <p>#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P #undef pgm_read_dword // use a different macro for pgm_read_dword ///&lt; PROGMEM fix macro #define pgm_read_dword(addr) \ ({ \ typeof(addr) _addr = (addr); \ *(const unsigned long*)(_addr); \ }) #endif</p>
-<p>#if defined(TEENSYDUINO) ///&lt; teensy portability // pgm/ram section type conflict fix macros (fixes PROGMEM addressing) #define QUO(x) #x #define QLINE(x, y) \ QUO(x) \ QUO(y) #define PFIX QLINE(.progmem.variable, <strong>COUNTER</strong>) #undef PROGMEM #define PROGMEM <strong>attribute</strong>((section(PFIX))) #endif // end portability directives /**  sram buffer size in bytes for a single escaped char, </p>
+<p>#if defined(TEENSYDUINO) ///&lt; teensy portability // pgm/ram section type conflict fix macros (fixes PROGMEM addressing) #define QUO(x) #x #define QLINE(x, y) \ QUO(x) \ QUO(y) #define PFIX QLINE(.progmem.variable, <strong>COUNTER</strong>) #undef PROGMEM #define PROGMEM <strong>attribute</strong>((section(PFIX))) #endif // end portability directives /**  </p>
 </dd></dl>
 
 <dl class="cpp macro">
