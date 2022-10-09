@@ -337,60 +337,61 @@
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>portability directives </p>
-<p>directives and definitions which make the library work on different platforms <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
-<span class="w">    </span><span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
+<p>directives and definitions which make the library work on different platforms</p>
+<p><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">/</span><span class="w">    </span>
+<span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
 
-<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
-<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
-<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
-<span class="cp">            ({                                                                                     \</span>
-<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
-<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
-<span class="cp">            })</span>
-<span class="w">    </span><span class="cp">#endif</span>
+<span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">        ({                                                                                     \</span>
+<span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">            *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">        })</span>
+<span class="cp">#endif</span>
 
-<span class="w">    </span><span class="cp">#if defined(__MBED_CONFIG_DATA__)  </span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
+<span class="cp">#if defined(__MBED_CONFIG_DATA__)  </span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
 
-<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
-<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
-<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
-<span class="cp">            ({                                                                                     \</span>
-<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
-<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
-<span class="cp">            })</span>
-<span class="w">    </span><span class="cp">#endif</span>
+<span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">        ({                                                                                     \</span>
+<span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">            *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">        })</span>
+<span class="cp">#endif</span>
 
-<span class="w">    </span><span class="cp">#if defined(ARDUINO_SAM_DUE)       </span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
-<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
+<span class="cp">#if defined(ARDUINO_SAM_DUE)       </span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
 
-<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
-<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
-<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
-<span class="cp">            ({                                                                                     \</span>
-<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
-<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
-<span class="cp">            })</span>
-<span class="w">    </span><span class="cp">#endif</span>
+<span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">        ({                                                                                     \</span>
+<span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">            *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">        })</span>
+<span class="cp">#endif</span>
 
-<span class="w">    </span><span class="cp">#if defined(TEENSYDUINO) </span>
-<span class="w">        </span><span class="c1">// pgm/ram section type conflict fix macros (fixes PROGMEM addressing)</span>
-<span class="w">        </span><span class="cp">#define QUO(x) #x</span>
-<span class="w">        </span><span class="cp">#define QLINE(x, y)                                                                        \</span>
-<span class="cp">            QUO(x)                                                                                 \</span>
-<span class="cp">            QUO(y)</span>
-<span class="w">        </span><span class="cp">#define PFIX QLINE(.progmem.variable, __COUNTER__)</span>
-<span class="w">        </span><span class="cp">#undef PROGMEM</span>
-<span class="w">        </span><span class="cp">#define PROGMEM __attribute__((section(PFIX)))</span>
-<span class="w">    </span><span class="cp">#endif</span>
-<span class="c1">// end portability directives</span>
+<span class="cp">#if defined(TEENSYDUINO) </span>
+<span class="w">    </span><span class="c1">// pgm/ram section type conflict fix macros (fixes PROGMEM addressing)</span>
+<span class="w">    </span><span class="cp">#define QUO(x) #x</span>
+<span class="w">    </span><span class="cp">#define QLINE(x, y)                                                                        \</span>
+<span class="cp">        QUO(x)                                                                                 \</span>
+<span class="cp">        QUO(y)</span>
+<span class="w">    </span><span class="cp">#define PFIX QLINE(.progmem.variable, __COUNTER__)</span>
+<span class="w">    </span><span class="cp">#undef PROGMEM</span>
+<span class="w">    </span><span class="cp">#define PROGMEM __attribute__((section(PFIX)))</span>
+<span class="cp">#endif</span>
 </pre></div>
 </div>
- sram buffer size in bytes for a single escaped char, </p>
+ 
+ sram buffer size in bytes for a single escaped char </p>
 </dd></dl>
 
 <dl class="cpp macro">
