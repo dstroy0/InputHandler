@@ -103,48 +103,12 @@
     #endif
 // end portability directives
     /** @endcode */
-    /** @cond */
-    #if defined(DOXYGEN_XML_BUILD)
-        #define UI_ECHO_ONLY /** @cond */ 1                             /** @endcond */
-        #define DEBUG_GETCOMMANDFROMSTREAM /** @cond */ 1               /** @endcond */
-        #define DEBUG_READCOMMANDFROMBUFFER /** @cond */ 1              /** @endcond */
-        #define DEBUG_GET_TOKEN /** @cond */ 1                          /** @endcond */
-        #define DEBUG_SUBCOMMAND_SEARCH /** @cond */ 1                  /** @endcond */
-        #define DEBUG_ADDCOMMAND /** @cond */ 1                         /** @endcond */
-        #define DEBUG_LAUNCH_LOGIC /** @cond */ 1                       /** @endcond */
-        #define DEBUG_LAUNCH_FUNCTION /** @cond */ 1                    /** @endcond */
-        #define DEBUG_INCLUDE_FREERAM /** @cond */ 1                    /** @endcond */
-        #define DISABLE_listSettings /** @cond */ 1                     /** @endcond */
-        #define DISABLE_listCommands /** @cond */ 1                     /** @endcond */
-        #define DISABLE_getCommandFromStream /** @cond */ 1             /** @endcond */
-        #define DISABLE_nextArgument /** @cond */ 1                     /** @endcond */
-        #define DISABLE_getArgument /** @cond */ 1                      /** @endcond */
-        #define DISABLE_outputIsAvailable /** @cond */ 1                /** @endcond */
-        #define DISABLE_outputIsEnabled /** @cond */ 1                  /** @endcond */
-        #define DISABLE_outputToStream /** @cond */ 1                   /** @endcond */
-        #define DISABLE_clearOutputBuffer /** @cond */ 1                /** @endcond */
-        #define DISABLE_readCommandFromBufferErrorOutput /** @cond */ 1 /** @endcond */
-        #define DISABLE_ui_out /** @cond */ 1                           /** @endcond */
-
-        #define ENABLE_listSettings /** @cond */ 1                     /** @endcond */
-        #define ENABLE_listCommands /** @cond */ 1                     /** @endcond */
-        #define ENABLE_getCommandFromStream /** @cond */ 1             /** @endcond */
-        #define ENABLE_nextArgument /** @cond */ 1                     /** @endcond */
-        #define ENABLE_getArgument /** @cond */ 1                      /** @endcond */
-        #define ENABLE_outputIsAvailable /** @cond */ 1                /** @endcond */
-        #define ENABLE_outputIsEnabled /** @cond */ 1                  /** @endcond */
-        #define ENABLE_outputToStream /** @cond */ 1                   /** @endcond */
-        #define ENABLE_clearOutputBuffer /** @cond */ 1                /** @endcond */
-        #define ENABLE_readCommandFromBufferErrorOutput /** @cond */ 1 /** @endcond */
-        #define ENABLE_ui_out /** @cond */ 1                           /** @endcond */
-    #endif
-    /** @endcond */
+    
     #include "config.h" // user config file
 
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN                                                                 \
-        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char,
-                                       ///< used by UserInput methods
+        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char,                                       
 
     /*
         "auto" Type macros
