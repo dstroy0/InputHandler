@@ -206,6 +206,170 @@
         <article role="main">
           <section id="config-h">
 <h1>config.h<a class="headerlink" href="#config-h" title="Permalink to this heading">#</a></h1>
+<p>This graph shows which files directly or indirectly include config.h:</p>
+<figure class="align-default">
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-8f4e92c1dd352807ecd62d9196e10cf7660170a1.png" alt="digraph {
+    graph [bgcolor=&quot;#00000000&quot;]
+    node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
+    edge [color=&quot;#1414CE&quot;]
+    &quot;4&quot; [label=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;5&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot;]
+    &quot;6&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot;]
+    &quot;7&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot;]
+    &quot;8&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot;]
+    &quot;9&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot;]
+    &quot;10&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot;]
+    &quot;11&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot;]
+    &quot;12&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot;]
+    &quot;13&quot; [label=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot;]
+    &quot;14&quot; [label=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot; tooltip=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot;]
+    &quot;15&quot; [label=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot; tooltip=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot;]
+    &quot;16&quot; [label=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot; tooltip=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot;]
+    &quot;17&quot; [label=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;18&quot; [label=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot; tooltip=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot;]
+    &quot;19&quot; [label=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot; tooltip=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot;]
+    &quot;20&quot; [label=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot; tooltip=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot;]
+    &quot;21&quot; [label=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot; tooltip=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot;]
+    &quot;22&quot; [label=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot; tooltip=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot;]
+    &quot;23&quot; [label=&quot;src/InputHandler.cpp&quot; tooltip=&quot;src/InputHandler.cpp&quot;]
+    &quot;3&quot; [label=&quot;src/InputHandler.h&quot; tooltip=&quot;src/InputHandler.h&quot;]
+    &quot;1&quot; [label=&quot;src/config/config.h&quot; tooltip=&quot;src/config/config.h&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;2&quot; [label=&quot;src/config/noedit.h&quot; tooltip=&quot;src/config/noedit.h&quot;]
+    &quot;5&quot; -&gt; &quot;6&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;7&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;8&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;6&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;7&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;10&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;11&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;12&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;4&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;11&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;13&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;14&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;15&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;16&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;17&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;18&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;19&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;20&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;21&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;22&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;23&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;1&quot; -&gt; &quot;2&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;2&quot; -&gt; &quot;3&quot; [dir=back tooltip=&quot;include&quot;]
+}" class="graphviz" /></div>
+</div>
+</figure>
+<p>InputHandler library user configurable items. </p>
+<p><dl class="simple">
+<dt><strong>Author</strong></dt><dd><p>Douglas Quigg (dstroy0 <a class="reference external" href="mailto:dquigg123&#37;&#52;&#48;gmail&#46;com">dquigg123<span>&#64;</span>gmail<span>&#46;</span>com</a>) </p>
+</dd>
+<dt><strong>Version</strong></dt><dd><p>1.1 </p>
+</dd>
+<dt><strong>Date</strong></dt><dd><p>2022-05-28</p>
+</dd>
+<dt><strong>Copyright</strong></dt><dd><p>Copyright (c) 2022 </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_COMMANDS_IN_TREE">
+<span class="target" id="db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_COMMANDS_IN_TREE</span></span></span><a class="headerlink" href="#c.UI_MAX_COMMANDS_IN_TREE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maxumum number of tree commands including root; default is 32 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_ARGS_PER_COMMAND">
+<span class="target" id="db/d16/config_8h_1a49baf240972f4fcbaf973521da34aaa9"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_ARGS_PER_COMMAND</span></span></span><a class="headerlink" href="#c.UI_MAX_ARGS_PER_COMMAND" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum number of arguments per command; default is 32 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_TREE_DEPTH_PER_COMMAND">
+<span class="target" id="db/d16/config_8h_1a758994f5a006936d1f71bc5c471c4312"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_TREE_DEPTH_PER_COMMAND</span></span></span><a class="headerlink" href="#c.UI_MAX_TREE_DEPTH_PER_COMMAND" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum command tree depth; default is 32 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_NUM_CHILD_COMMANDS">
+<span class="target" id="db/d16/config_8h_1a12823f7dd05646695e5b6b12fd0f5e05"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_NUM_CHILD_COMMANDS</span></span></span><a class="headerlink" href="#c.UI_MAX_NUM_CHILD_COMMANDS" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum number of child commands that any command can branch to; default is 32 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_CMD_LEN">
+<span class="target" id="db/d16/config_8h_1a3838a09964eae8d28f9f58c69df91934"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_CMD_LEN</span></span></span><a class="headerlink" href="#c.UI_MAX_CMD_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum command/subcommand char length; default is 32 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_NUM_DELIM_SEQ">
+<span class="target" id="db/d16/config_8h_1afc899b6154710261674ea0cfdf08e40b"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_NUM_DELIM_SEQ</span></span></span><a class="headerlink" href="#c.UI_MAX_NUM_DELIM_SEQ" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum number of delimiter sequences; default is 5 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_NUM_START_STOP_SEQ">
+<span class="target" id="db/d16/config_8h_1a2c108dee311479de346895eaedc068c1"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_NUM_START_STOP_SEQ</span></span></span><a class="headerlink" href="#c.UI_MAX_NUM_START_STOP_SEQ" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum number of start stop sequences; default is 5 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_INPUT_LEN">
+<span class="target" id="db/d16/config_8h_1a40e8bda9072bdd1d88b4cff453a84d3c"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_INPUT_LEN</span></span></span><a class="headerlink" href="#c.UI_MAX_INPUT_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>maximum user input length (total number of single char); default is 255 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_MAX_PER_CMD_MEMCMP_RANGES">
+<span class="target" id="db/d16/config_8h_1a69a8775b591a7f206a93d39830811f28"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_MAX_PER_CMD_MEMCMP_RANGES</span></span></span><a class="headerlink" href="#c.UI_MAX_PER_CMD_MEMCMP_RANGES" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1aa6067a65dc10a5c4546ce789a3edd4d1"><span class="std std-ref">UserInput::addCommand</span></a> array sizing macro (soft limit, typeof container is max) </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_INPUT_TYPE_STRINGS_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1aa99472679c6ff32ae0725c7577ab37d7"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_INPUT_TYPE_STRINGS_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_INPUT_TYPE_STRINGS_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#de/db3/namespaceihconst_1a144b5f4e2adaf8cbe42ec2e3e8d6c0e6"><span class="std std-ref">ihconst::type_strings</span></a> MAX len of members in <a class="reference internal" href="../InputHandler_h_docs.html#de/db3/namespaceihconst_1a144b5f4e2adaf8cbe42ec2e3e8d6c0e6"><span class="std std-ref">ihconst::type_strings</span></a> src/InputHandler.h:105; default is 10 </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_EOL_SEQ_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1acd1c3d1cf30cf7e2da8924a04d4729cc"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_EOL_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_EOL_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_eol MAX len in char; default is 5. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_DELIM_SEQ_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1afd9add4e3c1737134633acbf5d973943"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_DELIM_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_DELIM_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#dc/da2/struct_input_process_delimiter_sequences_1afc6717db7f5ef5497d7fb7803255f17f"><span class="std std-ref">InputProcessDelimiterSequences::delimiter_sequences</span></a>[a][b] b MAX len in char; default is 5. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_START_STOP_SEQ_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1a715135949254e7a2c450664134ba4901"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_START_STOP_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_START_STOP_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#d4/dc0/struct_input_process_start_stop_sequences_1a2a467941d47578848f7cf25d96fafa9f"><span class="std std-ref">InputProcessStartStopSequences::start_stop_sequence_pairs</span></a>[a][b] b MAX len in char; default is 5. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_PROCESS_NAME_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1a079ebd19acb6c152f33062ecd6404d5a"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_PROCESS_NAME_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_PROCESS_NAME_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_pname MAX len in char; default is 12. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN">
+<span class="target" id="db/d16/config_8h_1a67ca907db29466e83f0dfb3035a54039"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>IH_input_cc MAX len in char; default is 3. </p>
+</dd></dl>
+
+</div>
 </section>
 
         </article>
