@@ -290,6 +290,75 @@
 </dl>
 </p>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-portability-directives">portability directives</p>
+<p>directives and definitions which make the library work on different platforms </p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
+<span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sram buffer size in bytes for a single escaped char </p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
+<span class="w">    </span><span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span><span class="c1">// SAMD portability</span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
+
+<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">        </span><span class="c1">// PROGMEM fix macro</span>
+<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">            ({                                                                                     \</span>
+<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">            })</span>
+
+<span class="w">    </span><span class="cp">#elif defined(__MBED_CONFIG_DATA__) </span><span class="c1">// MBED portability</span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">  // implement vsnprintf</span><span class="cp"></span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">        // implement dtostrf</span><span class="cp"></span>
+
+<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">        </span><span class="c1">// PROGMEM fix macro</span>
+<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">            ({                                                                                     \</span>
+<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">            })</span>
+
+<span class="w">    </span><span class="cp">#elif defined(ARDUINO_SAM_DUE)     </span><span class="c1">// DUE portability</span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
+<span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
+
+<span class="w">        </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
+<span class="w">        </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">        </span><span class="c1">// PROGMEM fix macro</span>
+<span class="w">        </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
+<span class="cp">            ({                                                                                     \</span>
+<span class="cp">                typeof(addr) _addr = (addr);                                                       \</span>
+<span class="cp">                *(const unsigned long*)(_addr);                                                    \</span>
+<span class="cp">            })</span>
+
+<span class="w">    </span><span class="cp">#elif defined(TEENSYDUINO) </span><span class="c1">// teensy portability</span>
+<span class="w">        </span><span class="c1">// pgm/ram section type conflict fix macros (fixes PROGMEM addressing)</span>
+<span class="w">        </span><span class="cp">#define QUO(x) #x</span>
+<span class="w">        </span><span class="cp">#define QLINE(x, y)                                                                        \</span>
+<span class="cp">            QUO(x)                                                                                 \</span>
+<span class="cp">            QUO(y)</span>
+<span class="w">        </span><span class="cp">#define PFIX QLINE(.progmem.variable, __COUNTER__)</span>
+<span class="w">        </span><span class="cp">#undef PROGMEM</span>
+<span class="w">        </span><span class="cp">#define PROGMEM __attribute__((section(PFIX)))</span>
+<span class="w">    </span><span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.UI_ALL_WCC_CMD">
+<span class="target" id="da/dc7/noedit_8h_1a3f8c0d478351bde8c9bfa3e5104a5770"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ALL_WCC_CMD</span></span></span><a class="headerlink" href="#c.UI_ALL_WCC_CMD" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>UI_ALL_WCC_CMD MAX is equal to <a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a> - 1. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.nprms">
@@ -333,82 +402,12 @@
 <dd><p>indirect stringified file and line macro </p>
 </dd></dl>
 
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
-<span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sram buffer size in bytes for a single escaped char </p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@brief</span> <span class="n">portability</span> <span class="n">directives</span>
-
-   <span class="n">directives</span> <span class="ow">and</span> <span class="n">definitions</span> <span class="n">which</span> <span class="n">make</span> <span class="n">the</span> <span class="n">library</span> <span class="n">work</span> <span class="n">on</span> <span class="n">different</span> <span class="n">platforms</span>
-
-   <span class="nd">@code</span><span class="p">{</span><span class="o">.</span><span class="n">c</span><span class="p">}</span>
-  <span class="o">/</span>
-<span class="c1">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability</span>
-    <span class="c1">#include &quot;utility/vsnprintf.h&quot;           // implement vsnprintf</span>
-    <span class="c1">#include &lt;avr/dtostrf.h&gt;                 // implement dtostrf</span>
-
-    <span class="c1">#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P</span>
-    <span class="c1">#undef pgm_read_dword         // use a different macro for pgm_read_dword</span>
-    <span class="o">//</span> <span class="n">PROGMEM</span> <span class="n">fix</span> <span class="n">macro</span>
-    <span class="c1">#define pgm_read_dword(addr)                                                               \</span>
-        <span class="p">({</span>                                                                                     \
-            <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
-            <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
-        <span class="p">})</span>
-
-<span class="c1">#elif defined(__MBED_CONFIG_DATA__) // MBED portability</span>
-    <span class="c1">#include &quot;utility/vsnprintf.h&quot;  // implement vsnprintf</span>
-    <span class="c1">#include &lt;avr/dtostrf.h&gt;        // implement dtostrf</span>
-
-    <span class="c1">#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P</span>
-    <span class="c1">#undef pgm_read_dword         // use a different macro for pgm_read_dword</span>
-    <span class="o">//</span> <span class="n">PROGMEM</span> <span class="n">fix</span> <span class="n">macro</span>
-    <span class="c1">#define pgm_read_dword(addr)                                                               \</span>
-        <span class="p">({</span>                                                                                     \
-            <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
-            <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
-        <span class="p">})</span>
-
-<span class="c1">#elif defined(ARDUINO_SAM_DUE)     // DUE portability</span>
-    <span class="c1">#include &quot;utility/vsnprintf.h&quot; // implement vsnprintf</span>
-    <span class="c1">#include &lt;avr/dtostrf.h&gt;       // implement dtostrf</span>
-
-    <span class="c1">#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P</span>
-    <span class="c1">#undef pgm_read_dword         // use a different macro for pgm_read_dword</span>
-    <span class="o">//</span> <span class="n">PROGMEM</span> <span class="n">fix</span> <span class="n">macro</span>
-    <span class="c1">#define pgm_read_dword(addr)                                                               \</span>
-        <span class="p">({</span>                                                                                     \
-            <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
-            <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
-        <span class="p">})</span>
-
-<span class="c1">#elif defined(TEENSYDUINO) // teensy portability</span>
-    <span class="o">//</span> <span class="n">pgm</span><span class="o">/</span><span class="n">ram</span> <span class="n">section</span> <span class="nb">type</span> <span class="n">conflict</span> <span class="n">fix</span> <span class="n">macros</span> <span class="p">(</span><span class="n">fixes</span> <span class="n">PROGMEM</span> <span class="n">addressing</span><span class="p">)</span>
-    <span class="c1">#define QUO(x) #x</span>
-    <span class="c1">#define QLINE(x, y)                                                                        \</span>
-        <span class="n">QUO</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                                                                                 \
-        <span class="n">QUO</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="c1">#define PFIX QLINE(.progmem.variable, __COUNTER__)</span>
-    <span class="c1">#undef PROGMEM</span>
-    <span class="c1">#define PROGMEM __attribute__((section(PFIX)))</span>
-<span class="c1">#endif</span>
-</pre></div>
-</div>
- /**  </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.UI_ALL_WCC_CMD">
-<span class="target" id="da/dc7/noedit_8h_1a3f8c0d478351bde8c9bfa3e5104a5770"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ALL_WCC_CMD</span></span></span><a class="headerlink" href="#c.UI_ALL_WCC_CMD" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UI_ALL_WCC_CMD MAX is equal to <a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a> - 1. </p>
-</dd></dl>
-
 </div>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv42IH">
 <span id="_CPPv32IH"></span><span id="_CPPv22IH"></span><span id="IH"></span><span class="target" id="d2/d0c/namespace_i_h"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH</span></span></span><a class="headerlink" href="#_CPPv42IH" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>“auto” type namespace </p>
-<p>“auto” type sizing macros, uses src/config.h as input</p>
+<p>The source of macros in this namespace is src/config.h. <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h">config src</a> <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h">namespace src</a></p>
 <p>The idea behind this namespace is to let users set config.h items to whatever they want, sizing variables for the least amount of space, automatically. The preprocessor evaluates the if macros in a way that will leave typedefs that size type aliases to the minimum byte-width required automatically. It also warns users about the change. The only hand-holding that happens is for type sizing, it’s up to you to make sure you have the resources for your settings. A very convenient feature for users. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
