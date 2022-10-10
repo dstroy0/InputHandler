@@ -22,30 +22,30 @@
     #include "config/noedit.h"
 
 /**
- * @brief a char array typedef the size of UI_PROCESS_NAME_PGM_LEN
+ * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h
+ * This is a char array, you can change the macro in src/config/config.h `#UI_PROCESS_NAME_PGM_LEN`
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
- * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN plus a null terminator.
+ * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h
+ * This is a char array, you can change the macro in src/config/config.h `#UI_EOL_SEQ_PGM_LEN`
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
- * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN plus a null terminator.
+ * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h
+ * This is a char array, you can change the macro in src/config/config.h `#UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN`
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
- * @brief IH_wcc is a two char array that represents the wildcard char ending with a null terminator.
+ * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h
+ * This is a char array, you can change the macro in src/config/config.h `#UI_WCC_SEQ_PGM_LEN`
  */
 typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
 
