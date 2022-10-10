@@ -47,10 +47,14 @@
      * @brief portability directives
      * 
      * Go to your platform's implementation to see what needs to be changed
-     * to make the library work on your platform.
+     * to make the library work on your platform.  
+     * 
+     * [portability directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h:~:text=IH_PORTABILITY_DIRECTIVES)  
      * 
      */
-    ///< @code{.cpp}
+    # define IH_PORTABILITY_DIRECTIVES 
+    /** @cond */
+    // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -101,7 +105,7 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
 // end portability directives
-///< @endcode
+/** @endcond */
 
     #include "config.h" // user config file
 

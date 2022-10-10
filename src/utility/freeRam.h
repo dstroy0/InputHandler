@@ -35,8 +35,10 @@ extern char* __brkval;             ///< pointer to current memory position
  * extern char* __brkval;
  * int freeRam() { return (char*)&_heap_end - __brkval; }
  * @endcode
- * Please see your platform's specific implementation.  
+ * Please see your platform's specific implementation.
+ *   
  * [freeRam src](https://github.com/dstroy0/InputHandler/blob/main/src/utility/freeRam.h)
+ * 
  * @returns The amount of free memory on the heap, in bytes;
  * returns zero if not implemented on your platform.
  */
