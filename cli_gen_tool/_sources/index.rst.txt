@@ -12,7 +12,7 @@ Welcome to cli_gen_tool's documentation!
    :hidden:
    
    modules/cli_gen_tool.rst
-
+   InputHandler github <https://github.com/dstroy0/InputHandler>
    InputHandler docs <https://dstroy0.github.io/InputHandler/lib/index.html>
 
 .. toctree::
