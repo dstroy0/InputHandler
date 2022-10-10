@@ -44,11 +44,10 @@ jobs:
         run: |
           sphinx-build -b html ./docs/source ./docs_build/lib
       
-      - name: Deploy 🚀        
+      - name: Deploy to gh-pages 🚀        
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # build dir needs to contain redirect to either index.html
           publish_dir: docs_build
-          exclude_assets: 'requirements.txt'
-          #destination_dir: docs
+          exclude_assets: 'requirements.txt'          
