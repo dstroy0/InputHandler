@@ -114,18 +114,18 @@
 
     /** @cond */
     #if defined(DOXYGEN_XML_BUILD)
-        #undef UI_VERBOSE                              // do not edit this
-        #undef ENABLE_listSettings                     // do not edit this
-        #undef ENABLE_listCommands                     // do not edit this
-        #undef ENABLE_getCommandFromStream             // do not edit this
-        #undef ENABLE_nextArgument                     // do not edit this
-        #undef ENABLE_getArgument                      // do not edit this
-        #undef ENABLE_outputIsAvailable                // do not edit this
-        #undef ENABLE_outputIsEnabled                  // do not edit this
-        #undef ENABLE_outputToStream                   // do not edit this
-        #undef ENABLE_clearOutputBuffer                // do not edit this
-        #undef ENABLE_readCommandFromBufferErrorOutput // do not edit this
-        #undef ENABLE_ui_out                           // do not edit this
+        #define UI_VERBOSE                              // do not edit this
+        #define ENABLE_listSettings                     // do not edit this
+        #define ENABLE_listCommands                     // do not edit this
+        #define ENABLE_getCommandFromStream             // do not edit this
+        #define ENABLE_nextArgument                     // do not edit this
+        #define ENABLE_getArgument                      // do not edit this
+        #define ENABLE_outputIsAvailable                // do not edit this
+        #define ENABLE_outputIsEnabled                  // do not edit this
+        #define ENABLE_outputToStream                   // do not edit this
+        #define ENABLE_clearOutputBuffer                // do not edit this
+        #define ENABLE_readCommandFromBufferErrorOutput // do not edit this
+        #define ENABLE_ui_out                           // do not edit this
     #endif
     /** @endcond */
 
