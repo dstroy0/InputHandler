@@ -291,7 +291,7 @@
 
     /** @cond */
     #if defined(DOXYGEN_XML_BUILD)
-        #UNDEF UI_ECHO_ONLY                             // do not edit this
+        #undef UI_ECHO_ONLY                             // do not edit this
         #undef DISABLE_listSettings                     // do not edit this
         #undef DISABLE_listCommands                     // do not edit this
         #undef DISABLE_getCommandFromStream             // do not edit this
