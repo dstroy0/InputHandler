@@ -1,13 +1,16 @@
 /**
-   @file noedit.h
-   @authors Douglas Quigg (dstroy0 dquigg123@gmail.com) and Brendan Doherty (2bndy5
-   2bndy5@gmail.com)
-   @brief InputHandler library C includes, do not edit
-   @version 1.1
-   @date 2022-05-28
-
-   @copyright Copyright (c) 2022
-*/
+ * @file noedit.h
+ * @authors Douglas Quigg (dstroy0 dquigg123@gmail.com) and Brendan Doherty (2bndy5
+ * 2bndy5@gmail.com)
+ * @brief InputHandler library C includes, do not edit.
+ * This file sets up your platform to use InputHandler and
+ * sizes certain library variables based on what is found in
+ * [src/config.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h).  
+ * @version 1.1
+ * @date 2022-10-10
+ *
+ * @copyright Copyright (c) 2022
+ */
 /*
  Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 
