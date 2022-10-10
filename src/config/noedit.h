@@ -49,7 +49,7 @@
      * Go to your platform's implementation to see what needs to be changed
      * to make the library work on your platform.  
      * 
-     * [portability directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h:~:text=IH_PORTABILITY_DIRECTIVES)  
+     * [portability directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)  
      * 
      */
     # define IH_PORTABILITY_DIRECTIVES 
