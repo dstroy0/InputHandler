@@ -479,7 +479,7 @@ public:
      * @brief Lists commands available to the user.
      *
      * Lists commands that will respond to user input if UserInput::_begin_ is true. Else it will
-     * inform the user to use UserInput::begin() in `setup()`
+     * inform the user to use `UserInput::begin()` in `setup()`.
      *
      * [UserInput::listCommands
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listCommands())
@@ -489,11 +489,10 @@ public:
     #endif
 
     /**
-     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference
+     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference.
      *
-     * Instantiated in UserInput::readCommandFromBuffer() and passed by reference to subfunctions
+     * Instantiated in UserInput::readCommandFromBuffer() and passed by reference to subfunctions.
      *
-     * @struct _rcfbprm
      */
     struct _rcfbprm
     {
