@@ -339,7 +339,7 @@
 <dd><p>portability directives </p>
 <p>directives and definitions which make the library work on different platforms</p>
 <p><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">/</span><span class="w">    </span>
-<span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span>
+<span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span><span class="c1">// SAMD portability</span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
 
@@ -352,7 +352,7 @@
 <span class="cp">        })</span>
 <span class="cp">#endif</span>
 
-<span class="cp">#if defined(__MBED_CONFIG_DATA__)  </span>
+<span class="cp">#if defined(__MBED_CONFIG_DATA__)  </span><span class="c1">// MBED portability</span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
 
@@ -365,7 +365,7 @@
 <span class="cp">        })</span>
 <span class="cp">#endif</span>
 
-<span class="cp">#if defined(ARDUINO_SAM_DUE)       </span>
+<span class="cp">#if defined(ARDUINO_SAM_DUE)       </span><span class="c1">// DUE portability</span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1"> // implement vsnprintf</span><span class="cp"></span>
 <span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">       // implement dtostrf</span><span class="cp"></span>
 
@@ -378,7 +378,7 @@
 <span class="cp">        })</span>
 <span class="cp">#endif</span>
 
-<span class="cp">#if defined(TEENSYDUINO) </span>
+<span class="cp">#if defined(TEENSYDUINO) </span><span class="c1">// teensy portability</span>
 <span class="w">    </span><span class="c1">// pgm/ram section type conflict fix macros (fixes PROGMEM addressing)</span>
 <span class="w">    </span><span class="cp">#define QUO(x) #x</span>
 <span class="w">    </span><span class="cp">#define QLINE(x, y)                                                                        \</span>
@@ -397,8 +397,7 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ALL_WCC_CMD">
 <span class="target" id="da/dc7/noedit_8h_1a3f8c0d478351bde8c9bfa3e5104a5770"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ALL_WCC_CMD</span></span></span><a class="headerlink" href="#c.UI_ALL_WCC_CMD" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>((<a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a>)-1) </p>
-<p>UI_ALL_WCC_CMD MAX </p>
+<dd><p>UI_ALL_WCC_CMD MAX is equal to <a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a> - 1. </p>
 </dd></dl>
 
 </div>
