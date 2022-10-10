@@ -758,28 +758,6 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput12listSettingsEP9UserInput">
-<span id="_CPPv3N9UserInput12listSettingsEP9UserInput"></span><span id="_CPPv2N9UserInput12listSettingsEP9UserInput"></span><span id="UserInput::listSettings__UserInputP"></span><span class="target" id="dc/d4b/class_user_input_1a587c2ab21bab0771881cb117e7930b78"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49UserInput" title="UserInput"><span class="n"><span class="pre">UserInput</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">inputProcess</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12listSettingsEP9UserInput" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Lists <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> class settings, useful for implementation debugging. </p>
-<p>Lists all pertinient process information: class configuration, constructor variables, and the amount of pointers that were dynamically allocated in <a class="reference internal" href="#dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a></p>
-<p>REQUIRES a 700 byte output_buffer. If an insufficient buffer size is declared, <a class="reference internal" href="#dc/d4b/class_user_input_1aa0c0335fed0fc12f54d4bbe0ebc3e41f"><span class="std std-ref">UserInput::_ui_out()</span></a> will warn the user to increase the buffer to the required size.</p>
-<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listSettings(UserInput* inputProcess)">UserInput::listSettings source</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>inputProcess</strong> – pointer to class instance </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput12listCommandsEv">
-<span id="_CPPv3N9UserInput12listCommandsEv"></span><span id="_CPPv2N9UserInput12listCommandsEv"></span><span id="UserInput::listCommands"></span><span class="target" id="dc/d4b/class_user_input_1af1dd5daddbcdbb93af132f723007592f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listCommands</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12listCommandsEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Lists commands available to the user. </p>
-<p>Lists commands that will respond to user input if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> is true. Else it will inform the user to use <a class="reference internal" href="#dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a> in <code class="docutils literal notranslate"><span class="pre">setup()</span></code></p>
-<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listCommands()">UserInput::listCommands source</a> </p>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK17CommandParameters">
 <span id="_CPPv3N9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK17CommandParameters"></span><span id="_CPPv2N9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK17CommandParameters"></span><span id="UserInput::readCommandFromBuffer__uint8_tP.s.sC.CommandParametersCPP"></span><span class="target" id="dc/d4b/class_user_input_1a7f6ab5712afedca76ee55220276f8828"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readCommandFromBuffer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CommandParameters</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK17CommandParameters" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Reads predefined command(s) from a uint8_t (unsigned char) buffer. </p>
@@ -798,86 +776,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK17CommandParameters">
-<span id="_CPPv3N9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK17CommandParameters"></span><span id="_CPPv2N9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK17CommandParameters"></span><span id="UserInput::getCommandFromStream__StreamR.s.sC.CommandParametersCPP"></span><span class="target" id="dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCommandFromStream</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Stream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">stream</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rx_buffer_size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">32</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CommandParameters</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">zdc</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK17CommandParameters" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer. </p>
-<p><a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream object reference</a></p>
-<p>This function will silent return if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> == false</p>
-<p>[<a class="reference internal" href="#dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"><span class="std std-ref">UserInput::getCommandFromStream</span></a>](<a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream">https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream</a>(Stream&amp; stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc = NULL))</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>stream</strong> – the stream to reference </p></li>
-<li><p><strong>rx_buffer_size</strong> – the size of our receive buffer </p></li>
-<li><p><strong>num_zdc</strong> – size of CommandParameters zero delimiter command pointers array </p></li>
-<li><p><strong>zdc</strong> – array of CommandParameters zero delimiter command pointers </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput12nextArgumentEv">
-<span id="_CPPv3N9UserInput12nextArgumentEv"></span><span id="_CPPv2N9UserInput12nextArgumentEv"></span><span id="UserInput::nextArgument"></span><span class="target" id="dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nextArgument</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12nextArgumentEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>returns a pointer to the next token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em> or NULL if there are no more tokens </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>char* </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput11getArgumentE6size_t">
-<span id="_CPPv3N9UserInput11getArgumentE6size_t"></span><span id="_CPPv2N9UserInput11getArgumentE6size_t"></span><span id="UserInput::getArgument__s"></span><span class="target" id="dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getArgument</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argument_number</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput11getArgumentE6size_t" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>returns a pointer to argument_number token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em> or NULL if there is no argument_number token </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>char* </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput17outputIsAvailableEv">
-<span id="_CPPv3N9UserInput17outputIsAvailableEv"></span><span id="_CPPv2N9UserInput17outputIsAvailableEv"></span><span id="UserInput::outputIsAvailable"></span><span class="target" id="dc/d4b/class_user_input_1af26e715cebcc2dbe9beb18149c68f149"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outputIsAvailable</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput17outputIsAvailableEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>class output available if the return of this function is greater than zero </p>
-<p>(True) if greater than 0 (False) if 0</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the number of bytes available for output, or zero if there is no output </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput15outputIsEnabledEv">
-<span id="_CPPv3N9UserInput15outputIsEnabledEv"></span><span id="_CPPv2N9UserInput15outputIsEnabledEv"></span><span id="UserInput::outputIsEnabled"></span><span class="target" id="dc/d4b/class_user_input_1a852e23ba4a8e45d4220782448fd3bb8c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outputIsEnabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput15outputIsEnabledEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>is class output enabled </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>true if enabled </p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>false if not enabled </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput14outputToStreamER6Stream">
-<span id="_CPPv3N9UserInput14outputToStreamER6Stream"></span><span id="_CPPv2N9UserInput14outputToStreamER6Stream"></span><span id="UserInput::outputToStream__StreamR"></span><span class="target" id="dc/d4b/class_user_input_1ab96315069a4c3383b45123001d8a540f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outputToStream</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Stream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">stream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput14outputToStreamER6Stream" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>direct class output to stream, clears output buffer automatically </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>stream</strong> – the stream to print to </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput17clearOutputBufferEb">
-<span id="_CPPv3N9UserInput17clearOutputBufferEb"></span><span id="_CPPv2N9UserInput17clearOutputBufferEb"></span><span id="UserInput::clearOutputBuffer__b"></span><span class="target" id="dc/d4b/class_user_input_1ad1f90ad129c7b2b41c4a45797ebdb611"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearOutputBuffer</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">overwrite_contents</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput17clearOutputBufferEb" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9UserInput17clearOutputBufferEb"></span><span id="_CPPv2N9UserInput17clearOutputBufferEb"></span><span id="UserInput::clearOutputBuffer__b"></span><span class="target" id="dc/d4b/class_user_input_1ad1f90ad129c7b2b41c4a45797ebdb611"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearOutputBuffer</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">overwrite_contents</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput17clearOutputBufferEb" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>clears output buffer </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -955,17 +855,6 @@
 <li><p><strong>fmt</strong> – the format string </p></li>
 <li><p><strong>...</strong> – arguments </p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm">
-<span id="_CPPv3N9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm"></span><span id="_CPPv2N9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm"></span><span id="UserInput::_readCommandFromBufferErrorOutput___rcfbprmR"></span><span class="target" id="dc/d4b/class_user_input_1abee67b17028905734105606801c9a31f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_readCommandFromBufferErrorOutput</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N9UserInput8_rcfbprmE" title="UserInput::_rcfbprm"><span class="n"><span class="pre">_rcfbprm</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rprm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>ReadCommandFromBuffer error output. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rprm</strong> – reference to <a class="reference internal" href="#d3/d14/struct_user_input_1_1__rcfbprm"><span class="std std-ref">UserInput::_rcfbprm</span></a> </p>
 </dd>
 </dl>
 </dd></dl>
