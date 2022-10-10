@@ -348,13 +348,13 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_DELIM_SEQ_PGM_LEN">
 <span class="target" id="db/d16/config_8h_1afd9add4e3c1737134633acbf5d973943"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_DELIM_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_DELIM_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#dc/da2/struct_input_process_delimiter_sequences_1afc6717db7f5ef5497d7fb7803255f17f"><span class="std std-ref">InputProcessDelimiterSequences::delimiter_sequences</span></a>[a][b] b MAX len in char; default is 5. </p>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#dc/da2/struct_input_process_delimiter_sequences_1afc6717db7f5ef5497d7fb7803255f17f"><span class="std std-ref">InputProcessDelimiterSequences::delimiter_sequences</span></a>[a][b] b MAX len in char; default is 5 </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_START_STOP_SEQ_PGM_LEN">
 <span class="target" id="db/d16/config_8h_1a715135949254e7a2c450664134ba4901"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_START_STOP_SEQ_PGM_LEN</span></span></span><a class="headerlink" href="#c.UI_START_STOP_SEQ_PGM_LEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#d4/dc0/struct_input_process_start_stop_sequences_1a2a467941d47578848f7cf25d96fafa9f"><span class="std std-ref">InputProcessStartStopSequences::start_stop_sequence_pairs</span></a>[a][b] b MAX len in char; default is 5. </p>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#d4/dc0/struct_input_process_start_stop_sequences_1a2a467941d47578848f7cf25d96fafa9f"><span class="std std-ref">InputProcessStartStopSequences::start_stop_sequence_pairs</span></a>[a][b] b MAX len in char; default is 5 </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -374,6 +374,175 @@
 <span class="target" id="db/d16/config_8h_1aa953a56155b79da60f524c2d29fafab3"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ECHO_ONLY</span></span></span><a class="headerlink" href="#c.UI_ECHO_ONLY" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Uncomment this line to change the library’s output to echo only. </p>
 </dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_GETCOMMANDFROMSTREAM">
+<span class="target" id="db/d16/config_8h_1a5201790002dd38666663eafd3c2e3c04"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_GETCOMMANDFROMSTREAM</span></span></span><a class="headerlink" href="#c.DEBUG_GETCOMMANDFROMSTREAM" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"><span class="std std-ref">UserInput::getCommandFromStream</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_READCOMMANDFROMBUFFER">
+<span class="target" id="db/d16/config_8h_1a0c3570a4b8b3ccc158ca5e82012b5de4"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_READCOMMANDFROMBUFFER</span></span></span><a class="headerlink" href="#c.DEBUG_READCOMMANDFROMBUFFER" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a7f6ab5712afedca76ee55220276f8828"><span class="std std-ref">UserInput::readCommandFromBuffer</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_GET_TOKEN">
+<span class="target" id="db/d16/config_8h_1a2de3b4fb0d5f57b639707872d1a45a71"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_GET_TOKEN</span></span></span><a class="headerlink" href="#c.DEBUG_GET_TOKEN" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug UserInput::getToken </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_SUBCOMMAND_SEARCH">
+<span class="target" id="db/d16/config_8h_1a5950b517f72e452e78438fe2a9aaa171"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_SUBCOMMAND_SEARCH</span></span></span><a class="headerlink" href="#c.DEBUG_SUBCOMMAND_SEARCH" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug UserInput::launchLogic subcommand search; subcommand search is recursive, uses no local variables and passes a <a class="reference internal" href="../InputHandler_h_docs.html#d3/d14/struct_user_input_1_1__rcfbprm"><span class="std std-ref">UserInput::_rcfbprm</span></a> object by reference to itself. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_ADDCOMMAND">
+<span class="target" id="db/d16/config_8h_1a18efbe5bdd9549a8220fd7686c7a1f0a"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_ADDCOMMAND</span></span></span><a class="headerlink" href="#c.DEBUG_ADDCOMMAND" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1aa6067a65dc10a5c4546ce789a3edd4d1"><span class="std std-ref">UserInput::addCommand</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_LAUNCH_LOGIC">
+<span class="target" id="db/d16/config_8h_1a9a023aa5750de2a36ff4c3c4a932a868"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_LAUNCH_LOGIC</span></span></span><a class="headerlink" href="#c.DEBUG_LAUNCH_LOGIC" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug UserInput::launchLogic </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_LAUNCH_FUNCTION">
+<span class="target" id="db/d16/config_8h_1abd42dbb998ed6d8014fcfe52ee907506"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_LAUNCH_FUNCTION</span></span></span><a class="headerlink" href="#c.DEBUG_LAUNCH_FUNCTION" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug UserInput::launchFunction </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DEBUG_INCLUDE_FREERAM">
+<span class="target" id="db/d16/config_8h_1ad757fda0b6670fbe80442d684eb7061b"></span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG_INCLUDE_FREERAM</span></span></span><a class="headerlink" href="#c.DEBUG_INCLUDE_FREERAM" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment to debug src/utility/freeRam.h; only applicable if you are using freeRam. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_listSettings">
+<span class="target" id="db/d16/config_8h_1a64a6036fb8ff88a5498b191ee008791f"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_listSettings</span></span></span><a class="headerlink" href="#c.DISABLE_listSettings" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a587c2ab21bab0771881cb117e7930b78"><span class="std std-ref">UserInput::listSettings</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_listSettings">
+<span class="target" id="db/d16/config_8h_1a62c5d5f7c8920285344b127175162eac"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_listSettings</span></span></span><a class="headerlink" href="#c.ENABLE_listSettings" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_listCommands">
+<span class="target" id="db/d16/config_8h_1a414425f55a634baa036a6cde371c908a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_listCommands</span></span></span><a class="headerlink" href="#c.DISABLE_listCommands" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1af1dd5daddbcdbb93af132f723007592f"><span class="std std-ref">UserInput::listCommands</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_listCommands">
+<span class="target" id="db/d16/config_8h_1ac4ed6cf6b76e56e650b29cde1400e7d0"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_listCommands</span></span></span><a class="headerlink" href="#c.ENABLE_listCommands" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_getCommandFromStream">
+<span class="target" id="db/d16/config_8h_1af1c1db286527e5092919bf376e4497d2"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_getCommandFromStream</span></span></span><a class="headerlink" href="#c.DISABLE_getCommandFromStream" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a002a68af52c45c1abf40d4ff66385e7d"><span class="std std-ref">UserInput::getCommandFromStream</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_getCommandFromStream">
+<span class="target" id="db/d16/config_8h_1ace90282a5802f42cd5adf0b0cd0d6f20"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_getCommandFromStream</span></span></span><a class="headerlink" href="#c.ENABLE_getCommandFromStream" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_nextArgument">
+<span class="target" id="db/d16/config_8h_1aca5d418353cb76133dc30fed683b56ef"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_nextArgument</span></span></span><a class="headerlink" href="#c.DISABLE_nextArgument" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"><span class="std std-ref">UserInput::nextArgument</span></a>, either this or <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"><span class="std std-ref">UserInput::getArgument</span></a> are required to retrieve arguments. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_nextArgument">
+<span class="target" id="db/d16/config_8h_1a9aea5a8ed1fb6f2112011be838a87b7b"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_nextArgument</span></span></span><a class="headerlink" href="#c.ENABLE_nextArgument" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_getArgument">
+<span class="target" id="db/d16/config_8h_1a2a061f53459f97ef9db2295fa9c623a7"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_getArgument</span></span></span><a class="headerlink" href="#c.DISABLE_getArgument" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"><span class="std std-ref">UserInput::getArgument</span></a> method, either this or <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"><span class="std std-ref">UserInput::nextArgument</span></a> need to be enabled to retrieve arguments. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_getArgument">
+<span class="target" id="db/d16/config_8h_1abcd72504517df45ba3ccc79d39a82df6"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_getArgument</span></span></span><a class="headerlink" href="#c.ENABLE_getArgument" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_outputIsAvailable">
+<span class="target" id="db/d16/config_8h_1add619772076ab57682853da92a90f425"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputIsAvailable</span></span></span><a class="headerlink" href="#c.DISABLE_outputIsAvailable" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disables the output available flag. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_outputIsAvailable">
+<span class="target" id="db/d16/config_8h_1a87b4c0d185b94d9171e7cad754bce84f"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputIsAvailable</span></span></span><a class="headerlink" href="#c.ENABLE_outputIsAvailable" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_outputIsEnabled">
+<span class="target" id="db/d16/config_8h_1a655bf7308eb521153b6d433abf42cd3a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputIsEnabled</span></span></span><a class="headerlink" href="#c.DISABLE_outputIsEnabled" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Disable <a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input_1a852e23ba4a8e45d4220782448fd3bb8c"><span class="std std-ref">UserInput::outputIsEnabled</span></a> </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_outputIsEnabled">
+<span class="target" id="db/d16/config_8h_1a7b959a7fa16ca8f397696bca4aa0b7ee"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputIsEnabled</span></span></span><a class="headerlink" href="#c.ENABLE_outputIsEnabled" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_outputToStream">
+<span class="target" id="db/d16/config_8h_1a55078c3045faaf363fac7c838d461087"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_outputToStream</span></span></span><a class="headerlink" href="#c.DISABLE_outputToStream" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>You can disable this to reduce codesize if you are only using readCommandFromBuffer. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_outputToStream">
+<span class="target" id="db/d16/config_8h_1a2aaf2b870ef542077c6852b24f3bfeb3"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_outputToStream</span></span></span><a class="headerlink" href="#c.ENABLE_outputToStream" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_clearOutputBuffer">
+<span class="target" id="db/d16/config_8h_1ac97e8b7fe31fe06b14764f5e21ed3a3a"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_clearOutputBuffer</span></span></span><a class="headerlink" href="#c.DISABLE_clearOutputBuffer" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Only disable this method if you have already disabled output. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_clearOutputBuffer">
+<span class="target" id="db/d16/config_8h_1a873a6df63ff76da2907084a19927ad95"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_clearOutputBuffer</span></span></span><a class="headerlink" href="#c.ENABLE_clearOutputBuffer" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_readCommandFromBufferErrorOutput">
+<span class="target" id="db/d16/config_8h_1a9f7fc333b962b445e88fd1bd72b15e1c"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_readCommandFromBufferErrorOutput</span></span></span><a class="headerlink" href="#c.DISABLE_readCommandFromBufferErrorOutput" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment this line to disable the library’s error output. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_readCommandFromBufferErrorOutput">
+<span class="target" id="db/d16/config_8h_1a27f8ef0b70f29a66ef13f196e699e2fe"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_readCommandFromBufferErrorOutput</span></span></span><a class="headerlink" href="#c.ENABLE_readCommandFromBufferErrorOutput" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.DISABLE_ui_out">
+<span class="target" id="db/d16/config_8h_1abef2531528be306b0eb935702fc8e829"></span><span class="sig-name descname"><span class="n"><span class="pre">DISABLE_ui_out</span></span></span><a class="headerlink" href="#c.DISABLE_ui_out" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Uncomment this line to completely remove output functionality at buildtime from the library. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.ENABLE_ui_out">
+<span class="target" id="db/d16/config_8h_1a3993c53011a6c54c908722ee96194d24"></span><span class="sig-name descname"><span class="n"><span class="pre">ENABLE_ui_out</span></span></span><a class="headerlink" href="#c.ENABLE_ui_out" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 </section>
