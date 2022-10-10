@@ -20,27 +20,28 @@
 
     #include <Arduino.h>
 
-    /**
-     * @brief cross platform freeRam().
-     *
-     * InputHandler's cross platform freeRam().
-     * This is a generic representation of how this function works.
-     * Please see your platform's specific implementation.
-     *
-     * @returns The amount of free memory on the heap, in bytes;
-     * returns zero if not implemented on your platform.
-     */
     #if defined(DOXYGEN_XML_BUILD) // docs building
-extern unsigned long _heap_start;
-extern unsigned long _heap_end;
-extern char* __brkval;
+extern unsigned long _heap_start;  ///< pointer to heap start
+extern unsigned long _heap_end;    ///< pointer to heap end
+extern char* __brkval;             ///< pointer to current memory position
+/**
+ * @brief cross platform freeRam().
+ *
+ * InputHandler's cross platform freeRam().
+ * This is a generic representation of how this function works.
+ * @code{.c}
+ * extern unsigned long _heap_start;
+ * extern unsigned long _heap_end;
+ * extern char* __brkval;
+ * int freeRam() { return (char*)&_heap_end - __brkval; }
+ * @endcode
+ * Please see your platform's specific implementation.
+ * @returns The amount of free memory on the heap, in bytes;
+ * returns zero if not implemented on your platform.
+ */
 int freeRam() { return (char*)&_heap_end - __brkval; }
     #endif
-    /** 
-     * @brief InputHandler's freeRam() implementation.
-     * freeRam() for InputHandler's supported platforms.
-     * @code{.cpp} 
-     */
+    /** @cond */
     // avr
     // https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8
     #if defined(ARDUINO_ARCH_AVR)
@@ -92,7 +93,7 @@ int freeRam()
         #warning freeRam() is not supported on your platform, it will return 0.
         #define freeRam() 0
     #endif
-/** @endcode */
+/** @endcond */
 #endif
 
 // end of file
