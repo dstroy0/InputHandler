@@ -30,7 +30,7 @@
      * @returns The amount of free memory on the heap, in bytes;
      * returns zero if not implemented on your platform.
      */
-    #if defined(DOXYGEN_XML_BUILD)
+    #if defined(DOXYGEN_XML_BUILD) // docs building
 extern unsigned long _heap_start;
 extern unsigned long _heap_end;
 extern char* __brkval;

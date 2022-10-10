@@ -44,7 +44,7 @@
 /*
     fine-tune the program space needed for your implementation
 */
-// PROGMEM width constants
+// PROGMEM len constants
     #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< ihconst::type_strings MAX len of members in ihconst::type_strings src/InputHandler.h:105; default is 10
 
     // if you edit these, some examples might break and your compiler might yell at you about some
@@ -58,6 +58,9 @@
     #define UI_PROCESS_NAME_PGM_LEN 12 ///< IH_pname MAX len in char; default is 12
 
     #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc MAX len in char; default is 3
+
+    #define UI_WCC_SEQ_PGM_LEN 2 ///< IH_wcc MAX len in char; default is 2
+
 // clang-format on
 /*
     library output

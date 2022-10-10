@@ -32,20 +32,19 @@
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
     #define S(s) #s                               ///< gnu direct # stringify macro
     #define STR(s) S(s)                           ///< gnu indirect # stringify macro
-    // file location directive    
+    // file location directive
     #define LOC __FILE__:__LINE__  ///< direct non-stringified file and line macro
-    #define LOCATION STR(LOC)      ///< indirect stringified file and line macro        
+    #define LOCATION STR(LOC)      ///< indirect stringified file and line macro
     // end file location directive
     // end function-like macros
     // clang-format on
 
     /**
-     * @brief portability directives
+     * @name portability directives
      *
      * directives and definitions which make the library work on different platforms
-     *
-     * @code{.c}
      */
+    /** @code{.c} */
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -100,6 +99,7 @@
 
     #include "config.h" // user config file
 
+    /** @cond */
     #if defined(DOXYGEN_XML_BUILD)
         #undef UI_VERBOSE                              // do not edit this
         #undef ENABLE_listSettings                     // do not edit this
@@ -113,26 +113,26 @@
         #undef ENABLE_clearOutputBuffer                // do not edit this
         #undef ENABLE_readCommandFromBufferErrorOutput // do not edit this
         #undef ENABLE_ui_out                           // do not edit this
-
     #endif
+    /** @endcond */
 
+    // clang-format off
     // sizing macros
-    #define UI_ESCAPED_CHAR_STRLEN                                                                 \
-        /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
+    #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
 
-    /*
-        "auto" Type macros
-    */
-
+    // "auto" Type macro    
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString
     // specific (magic number!)
-    #define UI_ALL_WCC_CMD /** @cond */ ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */
-///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
+    #define UI_ALL_WCC_CMD /** @cond */ ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
+// clang-format on
 
 /**
  * @brief "auto" type namespace
  *
- * "auto" type sizing macros, uses src/config.h as input
+ * The source of macros in this namespace is src/config.h.
+ * [config src](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h)
+ * [namespace src](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h)
+ *
  *
  * The idea behind this namespace is to let users set config.h items to
  * whatever they want, sizing variables for the least amount of space, automatically.
@@ -141,6 +141,8 @@
  * about the change.  The only hand-holding that happens is for type sizing, it's up
  * to you to make sure you have the resources for your settings.
  * A very convenient feature for users.
+ *
+ *
  */
 namespace IH
 {

@@ -29,31 +29,32 @@
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
- * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN
+ * @brief IH_eol is a char array typedef the size of UI_EOL_SEQ_PGM_LEN plus a null terminator.
  *
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
- * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN
+ * @brief IH_input_cc is a char array typedef the size of UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN plus a null terminator.
  *
  * This is a char array, you can change the macro in src/config/config.h
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
- * @brief IH_wcc is a two char array that represents the wildcard char and a null terminator
+ * @brief IH_wcc is a two char array that represents the wildcard char ending with a null terminator.
  *
  * This is a char array, you can change the macro in src/config/config.h
  */
-typedef char IH_wcc[2];
+typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
 
 /**
- * @brief command identifier enum
+ * @brief Command identifier enum.
  *
  * this is used to explicitly state something is related to a root command
- * in the context of UserInput::CommandParameters
+ * in the context of UserInput::CommandParameters.
+ * 
  * @enum UI_CMD_ID
  */
 enum UI_CMD_ID
@@ -64,7 +65,8 @@ enum UI_CMD_ID
 /**
  * @brief command wildcard flag enum
  *
- * these flags are used inside of UserInput::CommandParameters
+ * These flags are used inside of UserInput::CommandParameters.
+ * 
  * @enum UI_WC_FLAG
  */
 enum UI_WC_FLAG
@@ -74,12 +76,12 @@ enum UI_WC_FLAG
 };
 
 /**
- * @brief UserInput::_compareCommandToString() return values
+ * @brief UserInput::_compareCommandToString() return values.
  *
- * these flags are only used to provide clarity to UserInput::_compareCommandToString(),
- * they make it easy to understand what is happening inside of that method
+ * These flags are only used to provide clarity to UserInput::_compareCommandToString(),
+ * they make it easy to understand what is happening inside of that method.
+ * 
  * @enum UI_COMPARE
- *
  */
 enum UI_COMPARE
 {
@@ -89,10 +91,10 @@ enum UI_COMPARE
 };
 
 /**
- * @brief strongly typed argument handling flags
+ * @brief Strongly typed argument handling flags.
  *
- * this is used in UserInput::CommandParameters as a visual reminder of
- * how the process will handle your arguments
+ * This is used in UserInput::CommandParameters as a visual reminder of
+ * how the process will handle your arguments.
  * @enum UI_ARG_HANDLING
  */
 enum class UI_ARG_HANDLING
@@ -103,10 +105,10 @@ enum class UI_ARG_HANDLING
 };
 
 /**
- * @brief UserInput type specifier
+ * @brief Input type specifier.
  *
- * these are the different types of user input the process can accept
- * NOTYPE and START_STOP can be any 0-255 value
+ * These are the different types of user input the process can accept.
+ * NOTYPE and START_STOP can be any 0-255 value.
  * This is strongly typed to help avoid name conflicts, and as an indicator that
  * these types are not built-in.
  * @enum UITYPE
@@ -126,7 +128,7 @@ enum class UITYPE
 };
 
 /**
- * @brief InputProcessDelimiterSequences struct holds user defined input data delimiters
+ * @brief holds user defined input data delimiters.
  *
  * This struct holds information about the delimiter sequences the process will be using.
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
@@ -144,7 +146,7 @@ struct InputProcessDelimiterSequences
 };
 
 /**
- * @brief InputProcessStartStopSequences struct holds regex-like start-stop match sequence pairs
+ * @brief holds regex-like start-stop match sequence pairs.
  *
  * This struct holds information about the start-stop sequence pairs the process will be using.
  * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
@@ -167,9 +169,9 @@ struct InputProcessStartStopSequences
 };
 
 /**
- * @brief UserInput input process parameters, constructor parameters
- * This struct is an array of pointers to other structs/arrays contained in PROGMEM
- * It's required by the input process, all together they define the input process behavior
+ * @brief input process parameters and constructor parameters.
+ * This struct is an array of pointers to other structs/arrays contained in PROGMEM.
+ * It's required by the input process, all together they define the input process behavior.
  */
 struct InputProcessParameters
 {
