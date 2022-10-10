@@ -21,15 +21,14 @@
 /*
     User Configurable items
 */
-    #define UI_MAX_COMMANDS_IN_TREE                                                                \
-        32 ///< maxumum number of tree commands including root; default is 32
+    // clang-format off
+    #define UI_MAX_COMMANDS_IN_TREE 32 ///< maxumum number of tree commands including root; default is 32
 
     #define UI_MAX_ARGS_PER_COMMAND 32 ///< maximum number of arguments per command; default is 32
 
     #define UI_MAX_TREE_DEPTH_PER_COMMAND 32 ///<  maximum command tree depth; default is 32
 
-    #define UI_MAX_NUM_CHILD_COMMANDS                                                              \
-        32 ///< maximum number of child commands that any command can branch to; default is 32
+    #define UI_MAX_NUM_CHILD_COMMANDS 32 ///< maximum number of child commands that any command can branch to; default is 32
 
     #define UI_MAX_CMD_LEN 32 ///<  maximum command/subcommand char length; default is 32
 
@@ -37,37 +36,29 @@
 
     #define UI_MAX_NUM_START_STOP_SEQ 5 ///< maximum number of start stop sequences; default is 5
 
-    #define UI_MAX_INPUT_LEN                                                                       \
-        255 ///<  maximum user input length (total number of single char); default is 255
+    #define UI_MAX_INPUT_LEN 255 ///<  maximum user input length (total number of single char); default is 255
 
 // maximum number of memcmp ranges per command
-    #define UI_MAX_PER_CMD_MEMCMP_RANGES                                                           \
-        5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)
+    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)
 
 /*
     fine-tune the program space needed for your implementation
 */
 // PROGMEM width constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN                                                          \
-        10 ///< ihconst::type_strings MAX len of members in ihconst::type_strings
-           ///< src/InputHandler.h:105; default is 10
+    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10 ///< ihconst::type_strings MAX len of members in ihconst::type_strings src/InputHandler.h:105; default is 10
 
     // if you edit these, some examples might break and your compiler might yell at you about some
     // variables in the UserInput constants section of InputHandler.h
     #define UI_EOL_SEQ_PGM_LEN 5 ///< IH_eol MAX len in char; default is 5
 
-    #define UI_DELIM_SEQ_PGM_LEN                                                                   \
-        5 ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b MAX len in char; default
-          ///< is 5
+    #define UI_DELIM_SEQ_PGM_LEN 5 ///< InputProcessDelimiterSequences::delimiter_sequences[a][b] b MAX len in char; default is 5
 
-    #define UI_START_STOP_SEQ_PGM_LEN                                                              \
-        5 ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b MAX len in char;
-          ///< default is 5
+    #define UI_START_STOP_SEQ_PGM_LEN 5 ///< InputProcessStartStopSequences::start_stop_sequence_pairs[a][b] b MAX len in char; default is 5
 
     #define UI_PROCESS_NAME_PGM_LEN 12 ///< IH_pname MAX len in char; default is 12
 
     #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3 ///< IH_input_cc MAX len in char; default is 3
-
+// clang-format on
 /*
     library output
     switch this on/off by commenting/uncommenting the #define
@@ -178,10 +169,10 @@
      * Disables UserInput::listSettings
      */
     // #define DISABLE_listSettings
-    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
-        #define DISABLE_listSettings // do not edit this
-        #define ENABLE_listSettings  // do not edit this
-    #endif                           // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)       // do not edit this
+        #define DISABLE_listSettings     // do not edit this
+    /** @cond */ #define ENABLE_listSettings /** @endcond */
+    #endif                               // do not edit this
 
     /**
      * @def DISABLE_listCommands
@@ -189,10 +180,10 @@
      * Disables UserInput::listCommands
      */
     // #define DISABLE_listCommands
-    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_listCommands // do not edit this
-        #define ENABLE_listCommands  // do not edit this
-    #endif                           // do not edit this
+    /** @cond */ #define ENABLE_listCommands /** @endcond */
+    #endif                                   // do not edit this
 
     /**
      * @def DISABLE_getCommandFromStream
@@ -200,10 +191,10 @@
      * Disables UserInput::getCommandFromStream
      */
     // #define DISABLE_getCommandFromStream
-    #if defined(DOXYGEN_XML_BUILD)           // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_getCommandFromStream // do not edit this
-        #define ENABLE_getCommandFromStream  // do not edit this
-    #endif                                   // do not edit this
+    /** @cond */ #define ENABLE_getCommandFromStream /** @endcond */
+    #endif                                           // do not edit this
 
     /**
      * @def DISABLE_nextArgument
@@ -212,10 +203,10 @@
      * retrieve arguments.
      */
     // #define DISABLE_nextArgument
-    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_nextArgument // do not edit this
-        #define ENABLE_nextArgument  // do not edit this
-    #endif                           // do not edit this
+    /** @cond */ #define ENABLE_nextArgument /** @endcond */
+    #endif                                   // do not edit this
 
     /**
      * @def DISABLE_getArgument
@@ -224,10 +215,10 @@
      * enabled to retrieve arguments.
      */
     // #define DISABLE_getArgument
-    #if defined(DOXYGEN_XML_BUILD)  // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_getArgument // do not edit this
-        #define ENABLE_getArgument  // do not edit this
-    #endif                          // do not edit this
+    /** @cond */ #define ENABLE_getArgument /** @endcond */
+    #endif                                  // do not edit this
 
     /**
      * @def DISABLE_outputIsAvailable
@@ -235,10 +226,10 @@
      * Disables the output available flag.
      */
     // #define DISABLE_outputIsAvailable
-    #if defined(DOXYGEN_XML_BUILD)        // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_outputIsAvailable // do not edit this
-        #define ENABLE_outputIsAvailable  // do not edit this
-    #endif                                // do not edit this
+    /** @cond */ #define ENABLE_outputIsAvailable /** @endcond */
+    #endif                                        // do not edit this
 
     /**
      * @def DISABLE_outputIsEnabled
@@ -246,10 +237,10 @@
      * Disable UserInput::outputIsEnabled
      */
     // #define DISABLE_outputIsEnabled
-    #if defined(DOXYGEN_XML_BUILD)      // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_outputIsEnabled // do not edit this
-        #define ENABLE_outputIsEnabled  // do not edit this
-    #endif                              // do not edit this
+    /** @cond */ #define ENABLE_outputIsEnabled /** @endcond */
+    #endif                                      // do not edit this
 
     /**
      * @def DISABLE_outputToStream
@@ -257,10 +248,10 @@
      * You can disable this to reduce codesize if you are only using readCommandFromBuffer.
      */
     // #define DISABLE_outputToStream
-    #if defined(DOXYGEN_XML_BUILD)     // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_outputToStream // do not edit this
-        #define ENABLE_outputToStream  // do not edit this
-    #endif                             // do not edit this
+    /** @cond */ #define ENABLE_outputToStream /** @endcond */
+    #endif                                     // do not edit this
 
     /**
      * @def DISABLE_clearOutputBuffer
@@ -268,10 +259,10 @@
      * Only disable this method if you have already disabled output.
      */
     // #define DISABLE_clearOutputBuffer
-    #if defined(DOXYGEN_XML_BUILD)        // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_clearOutputBuffer // do not edit this
-        #define ENABLE_clearOutputBuffer  // do not edit this
-    #endif                                // do not edit this
+    /** @cond */ #define ENABLE_clearOutputBuffer /** @endcond */
+    #endif                                        // do not edit this
 
     // private methods
     /**
@@ -280,10 +271,10 @@
      * Uncomment this line to disable the library's error output.
      */
     // #define DISABLE_readCommandFromBufferErrorOutput
-    #if defined(DOXYGEN_XML_BUILD)                       // do not edit this
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_readCommandFromBufferErrorOutput // do not edit this
-        #define ENABLE_readCommandFromBufferErrorOutput  // do not edit this
-    #endif                                               // do not edit this
+    /** @cond */ #define ENABLE_readCommandFromBufferErrorOutput /** @endcond */
+    #endif                                                       // do not edit this
 
     /**
      * @def DISABLE_ui_out
@@ -292,9 +283,9 @@
      */
     // #define DISABLE_ui_out
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_ui_out     // do not edit this
-        #define ENABLE_ui_out      // do not edit this
-    #endif                         // do not edit this
+        #define DISABLE_ui_out // do not edit this
+    /** @cond */ #define ENABLE_ui_out /** @endcond */
+    #endif                             // do not edit this
 
 #endif // end include guard
-// end of file
+    // end of file
