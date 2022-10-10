@@ -288,23 +288,21 @@
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_ui_out     // do not edit this
     #endif                         // do not edit this
-
-    /** @cond */
+    
     #if defined(DOXYGEN_XML_BUILD)
-        #undef UI_ECHO_ONLY                             // do not edit this
-        #undef DISABLE_listSettings                     // do not edit this
-        #undef DISABLE_listCommands                     // do not edit this
-        #undef DISABLE_getCommandFromStream             // do not edit this
-        #undef DISABLE_nextArgument                     // do not edit this
-        #undef DISABLE_getArgument                      // do not edit this
-        #undef DISABLE_outputIsAvailable                // do not edit this
-        #undef DISABLE_outputIsEnabled                  // do not edit this
-        #undef DISABLE_outputToStream                   // do not edit this
-        #undef DISABLE_clearOutputBuffer                // do not edit this
-        #undef DISABLE_readCommandFromBufferErrorOutput // do not edit this
-        #undef DISABLE_ui_out                           // do not edit this
+        #undef UI_ECHO_ONLY
+        #undef DISABLE_listSettings
+        #undef DISABLE_listCommands
+        #undef DISABLE_getCommandFromStream
+        #undef DISABLE_nextArgument
+        #undef DISABLE_getArgument
+        #undef DISABLE_outputIsAvailable
+        #undef DISABLE_outputIsEnabled
+        #undef DISABLE_outputToStream
+        #undef DISABLE_clearOutputBuffe
+        #undef DISABLE_readCommandFromBufferErrorOutput
+        #undef DISABLE_ui_out
     #endif
-/** @endcond */
 
 #endif // end include guard
 // end of file
