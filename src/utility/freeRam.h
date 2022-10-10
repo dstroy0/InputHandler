@@ -20,7 +20,7 @@
 
     #include <Arduino.h>
 
-    #if defined(DOXYGEN_XML_BUILD) // docs building
+    #if defined(DOXYGEN_XML_BUILD) // this section is for doxygen
 extern unsigned long _heap_start;  ///< pointer to heap start
 extern unsigned long _heap_end;    ///< pointer to heap end
 extern char* __brkval;             ///< pointer to current memory position
@@ -35,12 +35,14 @@ extern char* __brkval;             ///< pointer to current memory position
  * extern char* __brkval;
  * int freeRam() { return (char*)&_heap_end - __brkval; }
  * @endcode
- * Please see your platform's specific implementation.
+ * Please see your platform's specific implementation.  
+ * [freeRam src](https://github.com/dstroy0/InputHandler/blob/main/src/utility/freeRam.h)
  * @returns The amount of free memory on the heap, in bytes;
  * returns zero if not implemented on your platform.
  */
 int freeRam() { return (char*)&_heap_end - __brkval; }
-    #endif
+    #endif // end doxygen section
+
     /** @cond */
     // avr
     // https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8

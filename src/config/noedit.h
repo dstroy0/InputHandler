@@ -39,7 +39,7 @@
     // end function-like macros
     // clang-format on
     
-    /** @code{.cpp} */
+    /** @verbatim */
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -89,8 +89,8 @@
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
-/** @endcode */
 // end portability directives
+/** @endverbatim */
 
     #include "config.h" // user config file
 
