@@ -337,7 +337,7 @@
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>sram buffer size in bytes for a single escaped char </p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@name</span> <span class="n">portability</span> <span class="n">directives</span>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@brief</span> <span class="n">portability</span> <span class="n">directives</span>
 
    <span class="n">directives</span> <span class="ow">and</span> <span class="n">definitions</span> <span class="n">which</span> <span class="n">make</span> <span class="n">the</span> <span class="n">library</span> <span class="n">work</span> <span class="n">on</span> <span class="n">different</span> <span class="n">platforms</span>
 
@@ -355,9 +355,21 @@
             <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
             <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
         <span class="p">})</span>
-<span class="c1">#endif</span>
 
-<span class="c1">#if defined(__MBED_CONFIG_DATA__)  // MBED portability</span>
+<span class="c1">#elif defined(__MBED_CONFIG_DATA__) // MBED portability</span>
+    <span class="c1">#include &quot;utility/vsnprintf.h&quot;  // implement vsnprintf</span>
+    <span class="c1">#include &lt;avr/dtostrf.h&gt;        // implement dtostrf</span>
+
+    <span class="c1">#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P</span>
+    <span class="c1">#undef pgm_read_dword         // use a different macro for pgm_read_dword</span>
+    <span class="o">//</span> <span class="n">PROGMEM</span> <span class="n">fix</span> <span class="n">macro</span>
+    <span class="c1">#define pgm_read_dword(addr)                                                               \</span>
+        <span class="p">({</span>                                                                                     \
+            <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
+            <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
+        <span class="p">})</span>
+
+<span class="c1">#elif defined(ARDUINO_SAM_DUE)     // DUE portability</span>
     <span class="c1">#include &quot;utility/vsnprintf.h&quot; // implement vsnprintf</span>
     <span class="c1">#include &lt;avr/dtostrf.h&gt;       // implement dtostrf</span>
 
@@ -369,23 +381,8 @@
             <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
             <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
         <span class="p">})</span>
-<span class="c1">#endif</span>
 
-<span class="c1">#if defined(ARDUINO_SAM_DUE)       // DUE portability</span>
-    <span class="c1">#include &quot;utility/vsnprintf.h&quot; // implement vsnprintf</span>
-    <span class="c1">#include &lt;avr/dtostrf.h&gt;       // implement dtostrf</span>
-
-    <span class="c1">#define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P</span>
-    <span class="c1">#undef pgm_read_dword         // use a different macro for pgm_read_dword</span>
-    <span class="o">//</span> <span class="n">PROGMEM</span> <span class="n">fix</span> <span class="n">macro</span>
-    <span class="c1">#define pgm_read_dword(addr)                                                               \</span>
-        <span class="p">({</span>                                                                                     \
-            <span class="n">typeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="n">_addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">);</span>                                                       \
-            <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span><span class="p">)(</span><span class="n">_addr</span><span class="p">);</span>                                                    \
-        <span class="p">})</span>
-<span class="c1">#endif</span>
-
-<span class="c1">#if defined(TEENSYDUINO) // teensy portability</span>
+<span class="c1">#elif defined(TEENSYDUINO) // teensy portability</span>
     <span class="o">//</span> <span class="n">pgm</span><span class="o">/</span><span class="n">ram</span> <span class="n">section</span> <span class="nb">type</span> <span class="n">conflict</span> <span class="n">fix</span> <span class="n">macros</span> <span class="p">(</span><span class="n">fixes</span> <span class="n">PROGMEM</span> <span class="n">addressing</span><span class="p">)</span>
     <span class="c1">#define QUO(x) #x</span>
     <span class="c1">#define QLINE(x, y)                                                                        \</span>
