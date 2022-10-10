@@ -288,21 +288,6 @@
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_ui_out     // do not edit this
     #endif                         // do not edit this
-    
-    #if defined(DOXYGEN_XML_BUILD)
-        #undef UI_ECHO_ONLY
-        #undef DISABLE_listSettings
-        #undef DISABLE_listCommands
-        #undef DISABLE_getCommandFromStream
-        #undef DISABLE_nextArgument
-        #undef DISABLE_getArgument
-        #undef DISABLE_outputIsAvailable
-        #undef DISABLE_outputIsEnabled
-        #undef DISABLE_outputToStream
-        #undef DISABLE_clearOutputBuffe
-        #undef DISABLE_readCommandFromBufferErrorOutput
-        #undef DISABLE_ui_out
-    #endif
 
 #endif // end include guard
 // end of file

@@ -343,7 +343,7 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
 /** @cond */
 // optional method toggles
 // LIBRARY OUTPUT
-    #if !defined(UI_ECHO_ONLY)
+    #if !defined(UI_ECHO_ONLY) || defined(DOXYGEN_XML_BUILD) 
         #define UI_VERBOSE
     #endif
   // end LIBRARY OUTPUT
@@ -376,37 +376,37 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
   // end DEBUGGING
 
     // OPTIONAL METHODS
-    #if !defined(DISABLE_listSettings) // public methods
+    #if !defined(DISABLE_listSettings) || defined(DOXYGEN_XML_BUILD) // public methods
         #define ENABLE_listSettings
     #endif
-    #if !defined(DISABLE_listCommands)
+    #if !defined(DISABLE_listCommands) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_listCommands
     #endif
-    #if !defined(DISABLE_getCommandFromStream)
+    #if !defined(DISABLE_getCommandFromStream) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_getCommandFromStream
     #endif
-    #if !defined(DISABLE_nextArgument)
+    #if !defined(DISABLE_nextArgument) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_nextArgument
     #endif
-    #if !defined(DISABLE_getArgument)
+    #if !defined(DISABLE_getArgument) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_getArgument
     #endif
-    #if !defined(DISABLE_outputIsAvailable)
+    #if !defined(DISABLE_outputIsAvailable) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_outputIsAvailable
     #endif
-    #if !defined(DISABLE_outputIsEnabled)
+    #if !defined(DISABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_outputIsEnabled
     #endif
-    #if !defined(DISABLE_outputToStream)
+    #if !defined(DISABLE_outputToStream) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_outputToStream
     #endif
-    #if !defined(DISABLE_clearOutputBuffer)
+    #if !defined(DISABLE_clearOutputBuffer) || defined(DOXYGEN_XML_BUILD) 
         #define ENABLE_clearOutputBuffer
     #endif // end public methods
-    #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
+    #if !defined(DISABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)  // private methods
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
+    #if !defined(DISABLE_ui_out) || defined(DOXYGEN_XML_BUILD)  // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
     #endif // end private methods
   // end OPTIONAL METHODS
