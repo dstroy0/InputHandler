@@ -48,7 +48,7 @@
      * 
      * @code {.cpp}     
      */    
-    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) ///< SAMD portability
+    #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
 
@@ -62,7 +62,7 @@
             })
     #endif
 
-    #if defined(__MBED_CONFIG_DATA__)  ///< MBED portability
+    #if defined(__MBED_CONFIG_DATA__)  // MBED portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
@@ -76,7 +76,7 @@
             })
     #endif
 
-    #if defined(ARDUINO_SAM_DUE)       ///< DUE portability
+    #if defined(ARDUINO_SAM_DUE)       // DUE portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
@@ -90,7 +90,7 @@
             })
     #endif
 
-    #if defined(TEENSYDUINO) ///< teensy portability
+    #if defined(TEENSYDUINO) // teensy portability
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
         #define QLINE(x, y)                                                                        \
@@ -116,8 +116,8 @@
     // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString
     // specific (magic number!)
     #define UI_ALL_WCC_CMD                                       /** @cond */                      \
-        ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX
-                                                                 ///< ((IH::ui_max_per_cmd_memcmp_ranges_t)-1)
+        ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ 
+        ///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
 
 /** 
  * @brief "auto" type namespace
