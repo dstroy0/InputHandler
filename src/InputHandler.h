@@ -453,7 +453,7 @@ public:
      */
     bool begin();
 
-    #if defined(ENABLE_listSettings)
+    #if defined(ENABLE_listSettings) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Lists UserInput class settings, useful for implementation debugging.
      *
@@ -474,7 +474,7 @@ public:
     void listSettings(UserInput* inputProcess);
     #endif
 
-    #if defined(ENABLE_listCommands)
+    #if defined(ENABLE_listCommands) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Lists commands available to the user.
      *
@@ -531,7 +531,7 @@ public:
     void readCommandFromBuffer(
         uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
 
-    #if defined(ENABLE_getCommandFromStream)
+    #if defined(ENABLE_getCommandFromStream) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
      *
@@ -553,7 +553,7 @@ public:
         const CommandParameters** zdc = NULL);
     #endif
 
-    #if defined(ENABLE_nextArgument)
+    #if defined(ENABLE_nextArgument) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are
      * no more tokens
@@ -563,7 +563,7 @@ public:
     char* nextArgument();
     #endif
 
-    #if defined(ENABLE_getArgument)
+    #if defined(ENABLE_getArgument) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if
      * there is no argument_number token
@@ -573,7 +573,7 @@ public:
     char* getArgument(size_t argument_number);
     #endif
 
-    #if defined(ENABLE_outputIsAvailable)
+    #if defined(ENABLE_outputIsAvailable) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief class output available if the return of this function is greater than zero
      *
@@ -585,7 +585,7 @@ public:
     size_t outputIsAvailable();
     #endif
 
-    #if defined(ENABLE_outputIsEnabled)
+    #if defined(ENABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief is class output enabled
      *
@@ -595,7 +595,7 @@ public:
     bool outputIsEnabled();
     #endif
 
-    #if defined(ENABLE_outputToStream)
+    #if defined(ENABLE_outputToStream) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief direct class output to stream, clears output buffer automatically
      *
@@ -751,7 +751,7 @@ private:
      */
     void _ui_out(const char* fmt, ...);
 
-    #if defined(ENABLE_readCommandFromBufferErrorOutput)
+    #if defined(ENABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief ReadCommandFromBuffer error output
      *

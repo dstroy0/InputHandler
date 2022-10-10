@@ -5,7 +5,7 @@
  * @brief InputHandler library C includes, do not edit.
  * This file sets up your platform to use InputHandler and
  * sizes certain library variables based on what is found in
- * [src/config.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h).  
+ * [src/config.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h).
  * @version 1.1
  * @date 2022-10-10
  *
@@ -45,17 +45,18 @@
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
     // clang-format on
-    
+
     /**
      * @brief portability directives
-     * 
+     *
      * Go to your platform's implementation to see what needs to be changed
-     * to make the library work on your platform.  
-     * 
-     * [portability directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)  
-     * 
+     * to make the library work on your platform.
+     *
+     * [portability
+     * directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)
+     *
      */
-    # define IH_PORTABILITY_DIRECTIVES 
+    #define IH_PORTABILITY_DIRECTIVES
     /** @cond */
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
@@ -110,18 +111,19 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h" // user config file    
+    #include "config.h" // user config file
 
-    // clang-format off
-    
+// clang-format off
+
 // clang-format on
 
 /**
  * @brief "auto" type namespace
  *
- * The source of macros in this namespace is src/config.h.  
- * [config src](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h)  
- * [namespace src](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH)  
+ * The source of macros in this namespace is src/config.h.
+ * [config src](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h)
+ * [namespace
+ * src](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH)
  *
  *
  * The idea behind this namespace is to let users set config.h items to
@@ -140,19 +142,19 @@ namespace IH
 typedef bool input_type_match_flags_type; ///< UserInput private member type (future bit array)
 
 // config error checking
-    #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
 typedef uint8_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint8_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)             \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
+
 typedef uint16_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint16_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)            \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
+
 typedef uint32_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint32_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
@@ -163,17 +165,17 @@ typedef uint32_t cmd_id_grp_t;              ///< 8-32 bits depending on src/conf
         #warning UI_MAX_COMMANDS_IN_TREE cannot be greater than UINT32_MAX
     #endif // end UI_MAX_COMMANDS_IN_TREE
 
-    #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
 typedef uint8_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)             \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
+
 typedef uint16_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)            \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
+
 typedef uint32_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
@@ -183,20 +185,19 @@ typedef uint32_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h 
         #warning UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_ARGS_PER_COMMAND
 
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
 typedef uint8_t
     ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX) \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
+
 typedef uint16_t
     ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX                                                \
-        && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)                                            \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+
 typedef uint32_t
     ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
@@ -207,19 +208,19 @@ typedef uint32_t
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
 
-    #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX)
 typedef uint8_t
     ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)         \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
+
 typedef uint16_t
     ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)        \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
+
 typedef uint32_t
     ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
@@ -230,15 +231,15 @@ typedef uint32_t
         #warning UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_CHILD_COMMANDS
 
-    #if (UI_MAX_CMD_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_CMD_LEN <= UINT8_MAX)
 typedef uint8_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX)
 typedef uint16_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX)
 typedef uint32_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint32_t
@@ -248,17 +249,17 @@ typedef uint32_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config
         #warning UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_CMD_LEN
 
-    #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX)
 typedef uint8_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)                   \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
+
 typedef uint16_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)                  \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
+
 typedef uint32_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t
@@ -268,19 +269,19 @@ typedef uint32_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/
         #warning UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_DELIM_SEQ
 
-    #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
 typedef uint8_t
     ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)         \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
+
 typedef uint16_t
     ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)        \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
+
 typedef uint32_t
     ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
@@ -291,17 +292,17 @@ typedef uint32_t
         #warning UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_START_STOP_SEQ
 
-    #if (UI_MAX_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_INPUT_LEN <= UINT8_MAX)
 typedef uint8_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)                           \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
+
 typedef uint16_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)                          \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
+
 typedef uint32_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t
@@ -311,21 +312,21 @@ typedef uint32_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/conf
         #warning UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_INPUT_LEN
 
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
 typedef uint8_t
     ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint8_t memcmp_idx_t;       ///< 8-32 bits depending on src/config/config.h settings
     #endif
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)   \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+
 typedef uint16_t
     ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint16_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
         #pragma message(" at " LOCATION)
         #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)  \
-        || defined(DOXYGEN_XML_BUILD)
+    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
+
 typedef uint32_t
     ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
 typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
@@ -343,7 +344,7 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
 /** @cond */
 // optional method toggles
 // LIBRARY OUTPUT
-    #if !defined(UI_ECHO_ONLY) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(UI_ECHO_ONLY)
         #define UI_VERBOSE
     #endif
   // end LIBRARY OUTPUT
@@ -376,41 +377,40 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
   // end DEBUGGING
 
     // OPTIONAL METHODS
-    #if !defined(DISABLE_listSettings) || defined(DOXYGEN_XML_BUILD) // public methods
+    #if !defined(DISABLE_listSettings) // public methods
         #define ENABLE_listSettings
     #endif
-    #if !defined(DISABLE_listCommands) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_listCommands)
         #define ENABLE_listCommands
     #endif
-    #if !defined(DISABLE_getCommandFromStream) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_getCommandFromStream)
         #define ENABLE_getCommandFromStream
     #endif
-    #if !defined(DISABLE_nextArgument) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_nextArgument)
         #define ENABLE_nextArgument
     #endif
-    #if !defined(DISABLE_getArgument) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_getArgument)
         #define ENABLE_getArgument
     #endif
-    #if !defined(DISABLE_outputIsAvailable) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_outputIsAvailable)
         #define ENABLE_outputIsAvailable
     #endif
-    #if !defined(DISABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_outputIsEnabled)
         #define ENABLE_outputIsEnabled
     #endif
-    #if !defined(DISABLE_outputToStream) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_outputToStream)
         #define ENABLE_outputToStream
     #endif
-    #if !defined(DISABLE_clearOutputBuffer) || defined(DOXYGEN_XML_BUILD) 
+    #if !defined(DISABLE_clearOutputBuffer)
         #define ENABLE_clearOutputBuffer
     #endif // end public methods
-    #if !defined(DISABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)  // private methods
+    #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-    #if !defined(DISABLE_ui_out) || defined(DOXYGEN_XML_BUILD)  // disables all output, even if you have an output buffer defined
+    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
     #endif // end private methods
-  // end OPTIONAL METHODS
-
+  // end OPTIONAL METHODS 
 // end optional method toggles
 /** @endcond */
 #endif // end include guard
