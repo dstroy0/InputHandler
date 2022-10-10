@@ -19,6 +19,28 @@
     #define __CROSS_PLATFORM_FREERAM_H__
 
     #include <Arduino.h>
+
+    /**
+     * @brief cross platform freeRam().
+     *
+     * InputHandler's cross platform freeRam().
+     * This is a generic representation of how this function works.
+     * Please see your platform's specific implementation.
+     *
+     * @returns The amount of free memory on the heap, in bytes;
+     * returns zero if not implemented on your platform.
+     */
+    #if defined(DOXYGEN_XML_BUILD)
+extern unsigned long _heap_start;
+extern unsigned long _heap_end;
+extern char* __brkval;
+int freeRam() { return (char*)&_heap_end - __brkval; }
+    #endif
+    /** 
+     * @brief InputHandler's freeRam() implementation.
+     * freeRam() for InputHandler's supported platforms.
+     * @code{.cpp} 
+     */
     // avr
     // https://forum.arduino.cc/t/how-much-static-ram-is-used/84286/8
     #if defined(ARDUINO_ARCH_AVR)
@@ -28,7 +50,6 @@ int freeRam()
     int v;
     return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
-
     // esp "freeRam" built-in ESP.getFreeHeap()
     #elif defined(ESP32) || defined(ESP8266)
         #define freeRam() ESP.getFreeHeap()
@@ -67,11 +88,11 @@ int freeRam()
 }
 
     // add support
-    #else
+    #elif !defined(DOXYGEN_XML_BUILD)
         #warning freeRam() is not supported on your platform, it will return 0.
         #define freeRam() 0
     #endif
-
+/** @endcode */
 #endif
 
 // end of file

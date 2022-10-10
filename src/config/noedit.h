@@ -25,24 +25,22 @@
     */
     #include <Arduino.h>
 
+    // clang-format off
     // function-like macros
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
     #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
     #define S(s) #s                               ///< gnu direct # stringify macro
     #define STR(s) S(s)                           ///< gnu indirect # stringify macro
-    // file location directive
-    #define LOC                                                                                    \
-    __FILE__:                                                                                      \
-        __LINE__ ///< direct non-stringified file and line macro
-    #define LOCATION                                                                               \
-        STR(LOC) ///< indirect stringified file and line macro
-                 // end file location directive
-
-// end function-like macros
+    // file location directive    
+    #define LOC __FILE__:__LINE__  ///< direct non-stringified file and line macro
+    #define LOCATION STR(LOC)      ///< indirect stringified file and line macro        
+    // end file location directive
+    // end function-like macros
+    // clang-format on
 
     /**
-     * @name portability directives
+     * @brief portability directives
      *
      * directives and definitions which make the library work on different platforms
      *
@@ -60,9 +58,21 @@
                 typeof(addr) _addr = (addr);                                                       \
                 *(const unsigned long*)(_addr);                                                    \
             })
-    #endif
 
-    #if defined(__MBED_CONFIG_DATA__)  // MBED portability
+    #elif defined(__MBED_CONFIG_DATA__) // MBED portability
+        #include "utility/vsnprintf.h"  // implement vsnprintf
+        #include <avr/dtostrf.h>        // implement dtostrf
+
+        #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
+        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        // PROGMEM fix macro
+        #define pgm_read_dword(addr)                                                               \
+            ({                                                                                     \
+                typeof(addr) _addr = (addr);                                                       \
+                *(const unsigned long*)(_addr);                                                    \
+            })
+
+    #elif defined(ARDUINO_SAM_DUE)     // DUE portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h>       // implement dtostrf
 
@@ -74,23 +84,8 @@
                 typeof(addr) _addr = (addr);                                                       \
                 *(const unsigned long*)(_addr);                                                    \
             })
-    #endif
 
-    #if defined(ARDUINO_SAM_DUE)       // DUE portability
-        #include "utility/vsnprintf.h" // implement vsnprintf
-        #include <avr/dtostrf.h>       // implement dtostrf
-
-        #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
-        #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                               \
-            ({                                                                                     \
-                typeof(addr) _addr = (addr);                                                       \
-                *(const unsigned long*)(_addr);                                                    \
-            })
-    #endif
-
-    #if defined(TEENSYDUINO) // teensy portability
+    #elif defined(TEENSYDUINO) // teensy portability
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
         #define QLINE(x, y)                                                                        \
@@ -106,18 +101,19 @@
     #include "config.h" // user config file
 
     #if defined(DOXYGEN_XML_BUILD)
-        #undef UI_ECHO_ONLY                             // do not edit this
-        #undef DISABLE_listSettings                     // do not edit this
-        #undef DISABLE_listCommands                     // do not edit this
-        #undef DISABLE_getCommandFromStream             // do not edit this
-        #undef DISABLE_nextArgument                     // do not edit this
-        #undef DISABLE_getArgument                      // do not edit this
-        #undef DISABLE_outputIsAvailable                // do not edit this
-        #undef DISABLE_outputIsEnabled                  // do not edit this
-        #undef DISABLE_outputToStream                   // do not edit this
-        #undef DISABLE_clearOutputBuffer                // do not edit this
-        #undef DISABLE_readCommandFromBufferErrorOutput // do not edit this
-        #undef DISABLE_ui_out                           // do not edit this
+        #undef UI_VERBOSE                              // do not edit this
+        #undef ENABLE_listSettings                     // do not edit this
+        #undef ENABLE_listCommands                     // do not edit this
+        #undef ENABLE_getCommandFromStream             // do not edit this
+        #undef ENABLE_nextArgument                     // do not edit this
+        #undef ENABLE_getArgument                      // do not edit this
+        #undef ENABLE_outputIsAvailable                // do not edit this
+        #undef ENABLE_outputIsEnabled                  // do not edit this
+        #undef ENABLE_outputToStream                   // do not edit this
+        #undef ENABLE_clearOutputBuffer                // do not edit this
+        #undef ENABLE_readCommandFromBufferErrorOutput // do not edit this
+        #undef ENABLE_ui_out                           // do not edit this
+
     #endif
 
     // sizing macros

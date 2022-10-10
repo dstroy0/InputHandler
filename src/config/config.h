@@ -177,6 +177,7 @@
      * @def DISABLE_listCommands
      *
      * Disables UserInput::listCommands
+     * Default is commented out.
      */
     // #define DISABLE_listCommands
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -187,6 +188,7 @@
      * @def DISABLE_getCommandFromStream
      *
      * Disables UserInput::getCommandFromStream
+     * Default is commented out.
      */
     // #define DISABLE_getCommandFromStream
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -198,6 +200,7 @@
      *
      * Disables UserInput::nextArgument, either this or UserInput::getArgument are required to
      * retrieve arguments.
+     * Default is commented out.
      */
     // #define DISABLE_nextArgument
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -209,6 +212,7 @@
      *
      * Disables UserInput::getArgument method, either this or UserInput::nextArgument need to be
      * enabled to retrieve arguments.
+     * Default is commented out.
      */
     // #define DISABLE_getArgument
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -219,6 +223,7 @@
      * @def DISABLE_outputIsAvailable
      *
      * Disables the output available flag.
+     * Default is commented out.
      */
     // #define DISABLE_outputIsAvailable
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -229,6 +234,7 @@
      * @def DISABLE_outputIsEnabled
      *
      * Disable UserInput::outputIsEnabled
+     * Default is commented out.
      */
     // #define DISABLE_outputIsEnabled
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -238,7 +244,8 @@
     /**
      * @def DISABLE_outputToStream
      *
-     * You can disable this to reduce codesize if you are only using readCommandFromBuffer.
+     * You can disable this to reduce codesize if you are only using UserInput::readCommandFromBuffer.
+     * Default is commented out.
      */
     // #define DISABLE_outputToStream
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -249,6 +256,7 @@
      * @def DISABLE_clearOutputBuffer
      *
      * Only disable this method if you have already disabled output.
+     * Default is commented out.
      */
     // #define DISABLE_clearOutputBuffer
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -260,6 +268,7 @@
      * @def DISABLE_readCommandFromBufferErrorOutput
      *
      * Uncomment this line to disable the library's error output.
+     * Default is commented out.
      */
     // #define DISABLE_readCommandFromBufferErrorOutput
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
@@ -270,6 +279,7 @@
      * @def DISABLE_ui_out
      *
      * Uncomment this line to completely remove output functionality at buildtime from the library.
+     * Default is commented out.
      */
     // #define DISABLE_ui_out
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
