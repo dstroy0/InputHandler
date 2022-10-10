@@ -40,11 +40,11 @@
     // clang-format on
 
     /**
-     * @name portability directives
+     * @brief portability directives
      *
      * directives and definitions which make the library work on different platforms
      */
-    /** @code{.c} */
+    /** @code{.cpp} */
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
