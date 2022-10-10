@@ -110,24 +110,7 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h" // user config file
-
-    /** @cond */
-    #if defined(DOXYGEN_XML_BUILD)
-        #define UI_VERBOSE 1                              // do not edit this
-        #define ENABLE_listSettings 1                     // do not edit this
-        #define ENABLE_listCommands 1                     // do not edit this
-        #define ENABLE_getCommandFromStream 1             // do not edit this
-        #define ENABLE_nextArgument 1                     // do not edit this
-        #define ENABLE_getArgument 1                      // do not edit this
-        #define ENABLE_outputIsAvailable 1                // do not edit this
-        #define ENABLE_outputIsEnabled 1                  // do not edit this
-        #define ENABLE_outputToStream 1                   // do not edit this
-        #define ENABLE_clearOutputBuffer 1                // do not edit this
-        #define ENABLE_readCommandFromBufferErrorOutput 1 // do not edit this
-        #define ENABLE_ui_out 1                           // do not edit this
-    #endif
-    /** @endcond */
+    #include "config.h" // user config file    
 
     // clang-format off
     

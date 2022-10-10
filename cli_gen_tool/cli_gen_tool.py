@@ -55,7 +55,7 @@ from res.modules.preferences import PreferencesMethods
 version = 1.0  # save serialization
 
 ## The line in /InputHandler/src/config/config.h that boolean define fields start.
-config_file_boolean_define_fields_line_start = 63
+config_file_boolean_define_fields_line_start = 72
 
 ## How long should the splash be displayed (in ms)
 splashscreen_duration = 750

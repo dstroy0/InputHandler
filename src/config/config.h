@@ -172,9 +172,9 @@
      * Disables UserInput::listSettings
      */
     // #define DISABLE_listSettings
-    #if defined(DOXYGEN_XML_BUILD)       // do not edit this
-        #define DISABLE_listSettings     // do not edit this    
-    #endif                               // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
+        #define DISABLE_listSettings // do not edit this
+    #endif                           // do not edit this
 
     /**
      * @def DISABLE_listCommands
@@ -183,9 +183,9 @@
      * Default is commented out.
      */
     // #define DISABLE_listCommands
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_listCommands // do not edit this    
-    #endif                                   // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
+        #define DISABLE_listCommands // do not edit this
+    #endif                           // do not edit this
 
     /**
      * @def DISABLE_getCommandFromStream
@@ -194,9 +194,9 @@
      * Default is commented out.
      */
     // #define DISABLE_getCommandFromStream
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_getCommandFromStream // do not edit this    
-    #endif                                           // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)           // do not edit this
+        #define DISABLE_getCommandFromStream // do not edit this
+    #endif                                   // do not edit this
 
     /**
      * @def DISABLE_nextArgument
@@ -206,9 +206,9 @@
      * Default is commented out.
      */
     // #define DISABLE_nextArgument
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)   // do not edit this
         #define DISABLE_nextArgument // do not edit this
-    #endif                                   // do not edit this
+    #endif                           // do not edit this
 
     /**
      * @def DISABLE_getArgument
@@ -218,9 +218,9 @@
      * Default is commented out.
      */
     // #define DISABLE_getArgument
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_getArgument // do not edit this    
-    #endif                                  // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)  // do not edit this
+        #define DISABLE_getArgument // do not edit this
+    #endif                          // do not edit this
 
     /**
      * @def DISABLE_outputIsAvailable
@@ -229,9 +229,9 @@
      * Default is commented out.
      */
     // #define DISABLE_outputIsAvailable
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputIsAvailable // do not edit this    
-    #endif                                        // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)        // do not edit this
+        #define DISABLE_outputIsAvailable // do not edit this
+    #endif                                // do not edit this
 
     /**
      * @def DISABLE_outputIsEnabled
@@ -240,20 +240,20 @@
      * Default is commented out.
      */
     // #define DISABLE_outputIsEnabled
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputIsEnabled // do not edit this    
-    #endif                                      // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)      // do not edit this
+        #define DISABLE_outputIsEnabled // do not edit this
+    #endif                              // do not edit this
 
     /**
      * @def DISABLE_outputToStream
      *
-     * You can disable this to reduce codesize if you are only using UserInput::readCommandFromBuffer.
-     * Default is commented out.
+     * You can disable this to reduce codesize if you are only using
+     * UserInput::readCommandFromBuffer. Default is commented out.
      */
     // #define DISABLE_outputToStream
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputToStream // do not edit this    
-    #endif                                     // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)     // do not edit this
+        #define DISABLE_outputToStream // do not edit this
+    #endif                             // do not edit this
 
     /**
      * @def DISABLE_clearOutputBuffer
@@ -262,9 +262,9 @@
      * Default is commented out.
      */
     // #define DISABLE_clearOutputBuffer
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_clearOutputBuffer // do not edit this    
-    #endif                                        // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)        // do not edit this
+        #define DISABLE_clearOutputBuffer // do not edit this
+    #endif                                // do not edit this
 
     // private methods
     /**
@@ -274,9 +274,9 @@
      * Default is commented out.
      */
     // #define DISABLE_readCommandFromBufferErrorOutput
-    #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_readCommandFromBufferErrorOutput // do not edit this    
-    #endif                                                       // do not edit this
+    #if defined(DOXYGEN_XML_BUILD)                       // do not edit this
+        #define DISABLE_readCommandFromBufferErrorOutput // do not edit this
+    #endif                                               // do not edit this
 
     /**
      * @def DISABLE_ui_out
@@ -286,8 +286,25 @@
      */
     // #define DISABLE_ui_out
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_ui_out // do not edit this    
-    #endif                             // do not edit this
+        #define DISABLE_ui_out     // do not edit this
+    #endif                         // do not edit this
+
+    /** @cond */
+    #if defined(DOXYGEN_XML_BUILD)
+        #UNDEF UI_ECHO_ONLY                             // do not edit this
+        #undef DISABLE_listSettings                     // do not edit this
+        #undef DISABLE_listCommands                     // do not edit this
+        #undef DISABLE_getCommandFromStream             // do not edit this
+        #undef DISABLE_nextArgument                     // do not edit this
+        #undef DISABLE_getArgument                      // do not edit this
+        #undef DISABLE_outputIsAvailable                // do not edit this
+        #undef DISABLE_outputIsEnabled                  // do not edit this
+        #undef DISABLE_outputToStream                   // do not edit this
+        #undef DISABLE_clearOutputBuffer                // do not edit this
+        #undef DISABLE_readCommandFromBufferErrorOutput // do not edit this
+        #undef DISABLE_ui_out                           // do not edit this
+    #endif
+/** @endcond */
 
 #endif // end include guard
-    // end of file
+// end of file
