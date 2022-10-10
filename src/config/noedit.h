@@ -54,7 +54,7 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        // PROGMEM fix macro
         #define pgm_read_dword(addr)                                                               \
             ({                                                                                     \
                 typeof(addr) _addr = (addr);                                                       \
@@ -68,7 +68,7 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        // PROGMEM fix macro
         #define pgm_read_dword(addr)                                                               \
             ({                                                                                     \
                 typeof(addr) _addr = (addr);                                                       \
@@ -82,7 +82,7 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
-        ///< PROGMEM fix macro
+        // PROGMEM fix macro
         #define pgm_read_dword(addr)                                                               \
             ({                                                                                     \
                 typeof(addr) _addr = (addr);                                                       \
