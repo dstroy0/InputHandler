@@ -38,12 +38,7 @@
     // end file location directive
     // end function-like macros
     // clang-format on
-
-    /**
-     * @brief portability directives
-     *
-     * directives and definitions which make the library work on different platforms
-     */
+    
     /** @code{.cpp} */
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
@@ -129,9 +124,9 @@
 /**
  * @brief "auto" type namespace
  *
- * The source of macros in this namespace is src/config.h.
- * [config src](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h)
- * [namespace src](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH)
+ * The source of macros in this namespace is src/config.h.  
+ * [config src](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h)  
+ * [namespace src](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH)  
  *
  *
  * The idea behind this namespace is to let users set config.h items to
