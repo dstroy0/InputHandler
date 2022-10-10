@@ -82,7 +82,7 @@ class ParseInputHandlerConfig(object):
                     if (
                         match.hasMatch()
                         and "DOXYGEN_XML_BUILD"
-                        not in self.cliOpt["config"]["file lines"][line - 1]
+                        not in self.cliOpt["config"]["file lines"][line_num - 1]
                     ):
                         entry = {index[key]: copy.deepcopy(fields)}
                         entry[index[key]]["fields"]["0"] = line_num

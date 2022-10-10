@@ -62,7 +62,15 @@ class SettingsTreeMethods(object):
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
-        _tt = displayModels._settings_tree_display[object_list[0]][object_list[2]]["tooltip"]
+        
+        if object_list[0] in displayModels._settings_tree_display["config"]:
+            _tt = displayModels._settings_tree_display["config"][object_list[0]][
+                object_list[2]
+            ]["tooltip"]
+        else:
+            _tt = displayModels._settings_tree_display[object_list[0]][object_list[2]][
+                "tooltip"
+            ]
         if object_list[0] == "builtin methods":
             _twi = self.cliOpt["builtin methods"]["tree"]["items"][object_list[2]][
                 "QTreeWidgetItem"
