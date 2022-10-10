@@ -205,10 +205,6 @@ struct CommandRuntimeCalc
                            ///< which contains wcc
 };
 
-/**
- * @brief forward declaration of UserInput class for
- * CommandParameters struct and CommandConstructor class
- */
 class UserInput;
 
 /**

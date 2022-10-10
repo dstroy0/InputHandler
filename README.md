@@ -4,21 +4,7 @@
 
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-# Design Goals
-Implementation flexibility.  
-Low memory use, feature rich.  
-Ease of use.  
-It satisfies some advanced interfacing requirements.  
-It can parse uint8_t, unsigned char, any value 0-255 char strings.  
-It can be used to interface your project with other equipment, programs, and sensors.  
-
-# News
-
-See the releases' descriptions on
-[the library's release page](https://github.com/dstroy0/InputHandler/releases) for a list of
-changes.
-
-## InputHandler
+# InputHandler README  
 
 This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/), like a [Serial](https://www.arduino.cc/en/reference/serial) object.  
 User-defined commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct which is stored in non-volatile program memory ([PROGMEM](https://www.arduino.cc/reference/en/language/variables/utilities/progmem/)).  
@@ -29,37 +15,56 @@ To make matching more performant, [memcmp](https://www.cplusplus.com/reference/c
 
 Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.    
 
-[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino), command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
+Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [UI_MAX_ARGS](https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369))  
+
+[This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino)
+
+Default InputHandler UserInput constructor initialization with no output:  
+
+```cpp
+/*
+  InputHandler UserInput constructor
+*/
+UserInput inputHandler;
+```
+
+Default InputHandler UserInput constructor initialization with output buffer:
+```cpp
+/*
+  InputHandler UserInput constructor
+*/
+char output_buffer[650] = {'\0'}; //  output buffer
+UserInput inputHandler(output_buffer, buffsz(output_buffer));
+```
 
 A valid (default-settings) command string would look something like:  
-
 ```text
 your_command arg_1 arg_2 arg... "arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t"
 your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
-```
+```  
 
-The first library object that needs to be initialized is the constructor for the [UserInput](https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html) class:  
+You can also customize many aspects of input characteristics:  
 ```cpp
 /*
-  UserInput constructor
+  InputHandler UserInput constructor
 */
 char output_buffer[650] = {'\0'}; //  output buffer
 
-const PROGMEM IH_pname pname = "_test_";   ///< default process name
-const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
-const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
-const PROGMEM IH_wcc pwcc = "*";           ///< default process wildcard character
+const PROGMEM IH_pname pname = "_test_";   // process name
+const PROGMEM IH_eol peol = "\r\n";        // end of line characters
+const PROGMEM IH_input_cc pinputcc = "##"; // input control character sequence
+const PROGMEM IH_wcc pwcc = "*";           // process wildcard character
 
 const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
-  1,    ///< number of delimiter sequences
-  {1},  ///< delimiter sequence lens
-  {" "} ///< delimiter sequences
+  1,    // number of delimiter sequences
+  {1},  // delimiter sequence lens
+  {" "} // delimiter sequences
 };
 
 const PROGMEM InputProcessStartStopSequences pststpseq = {
-  1,           ///< num start stop sequence pairs
-  {1, 1},      ///< start stop sequence lens
-  {"\"", "\""} ///< start stop sequence pairs
+  1,           // num start stop sequence pairs
+  {1, 1},      // start stop sequence lens
+  {"\"", "\""} // start stop sequence pairs
 };
 
 const PROGMEM InputProcessParameters input_prm[1] = {
@@ -71,19 +76,6 @@ const PROGMEM InputProcessParameters input_prm[1] = {
   &pststpseq
 };
 UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
-
-// or use default input parameters and define your output buffer
-UserInput inputHandler(output_buffer, buffsz(output_buffer));
-
-```
-
-Or, default-init with no output:  
-
-```cpp
-/*
-  UserInput constructor
-*/
-UserInput inputHandler;
 ```
 
 The classes' input methods are:  
@@ -92,231 +84,19 @@ The classes' input methods are:
 void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
 ```
 
-OR if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
+Or, if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
 
 ```cpp
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct objects:  
-```cpp  
-struct CommandParameters
-{
-    void (*function)(UserInput*);      ///< void function pointer with UserInput class pointer parameter, void your_function(UserInput *inputProcess)
-    bool has_wildcards;                ///< if true this command has one or more wildcard char
-    char command[UI_MAX_CMD_LEN + 1U]; ///< command string + '\0'
-    uint16_t command_length;           ///< command length in characters
-    uint16_t parent_command_id;        ///< parent command's unique id root-65535
-    uint16_t command_id;               ///< this command's unique id root-65535
-    uint8_t depth;                     ///< command tree depth root-255
-    uint8_t sub_commands;              ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
-    UI_ARG_HANDLING argument_flag;     ///< argument handling flag
-    uint8_t num_args;                  ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    uint8_t max_num_args;              ///< maximum number of arguments this command expects 0 - UI_MAX_ARGS, cannot be less than num_args
-    UITYPE arg_type_arr[UI_MAX_ARGS];  ///< argument UITYPE array
-};
-```  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct objects.
 
-Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr):  
+Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr). 
 
-```cpp
-/**
-   @brief CommandParameters struct for help_
-
-*/
-const PROGMEM CommandParameters help_param[1] = {
-  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "help",                   // command string
-  4,                        // command string characters
-  root,                     // parent id
-  root,                     // this command id
-  root,                     // command depth
-  0,                        // subcommands
-  UI_ARG_HANDLING::no_args, // argument handling
-  0,                        // minimum expected number of arguments
-  0,                        // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor help_(help_param); //  help_ has a command string, and function specified
-
-/**
-   @brief CommandParameters struct for settings_
-
-*/
-const PROGMEM CommandParameters settings_param[1] = {
-  settings,              // function ptr
-  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "inputSettings",          // command string
-  13,                       // command string characters
-  root,                     // parent id
-  root,                     // this command id
-  root,                     // command depth
-  0,                        // subcommands
-  UI_ARG_HANDLING::no_args, // argument handling
-  0,                        // minimum expected number of arguments
-  0,                        // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-  }
-};
-CommandConstructor settings_(settings_param); // settings_ has a command string, and function specified
-
-/**
-   @brief CommandParameters struct for test_
-
-*/
-const PROGMEM CommandParameters type_test_param[1] = {
-  test_input_types,       // function ptr
-  no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "test",                    // command string
-  4,                         // string length
-  root,                      // parent id
-  root,                      // this command id
-  root,                      // command depth
-  0,                         // subcommands
-  UI_ARG_HANDLING::type_arr, // argument handling
-  8,                         // minimum expected number of arguments
-  8,                         // maximum expected number of arguments
-  /*
-    UITYPE arguments
-  */
-  {
-    UITYPE::UINT8_T,    // 8-bit  uint
-    UITYPE::UINT16_T,   // 16-bit uint
-    UITYPE::UINT32_T,   // 32-bit uint
-    UITYPE::INT16_T,    // 16-bit int
-    UITYPE::FLOAT,      // 32-bit float
-    UITYPE::CHAR,       // char
-    UITYPE::START_STOP, // regex-like start stop char sequences
-    UITYPE::NOTYPE      // special type, no type validation performed
-  }
-};
-CommandConstructor test_(type_test_param);
-
-// nest parameters like this
-
-const PROGMEM CommandParameters nested_prms[3] =
-{
-  { // root command
-    unrecognized,             // root command not allowed to be NULL
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "launch",                 // command string
-    6,                        // command string characters
-    root,                     // parent id
-    root,                     // this command id
-    root,                     // command depth
-    2,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
-  },
-  { // subcommand depth one
-    nest_one,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "one",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    1,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
-  },
-  { // subcommand depth one
-    nest_two,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "two",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    2,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
-  }
-};
-CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
-
-// or this
-
-const PROGMEM CommandParameters nest_one_[1] =
-{ // subcommand depth one
-    nest_one,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "one",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    1,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
-};
-
-const PROGMEM CommandParameters nest_two_[1] =
-{ // subcommand depth one
-    nest_two,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "two",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    2,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
-};
-
-const PROGMEM CommandParameters nested_prms[3] =
-{
-  { // root command
-    unrecognized,             // root command not allowed to be NULL
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "launch",                 // command string
-    6,                        // command string characters
-    root,                     // parent id
-    root,                     // this command id
-    root,                     // command depth
-    2,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
-  },
-  *nest_one_,
-  *nest_two_
-};
-CommandConstructor nested_example_(nested_prms, nprms(nested_prms), 1);
-
-```  
-
-[NOTYPE](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70a0323d2829f046f18b7dbcc0f58f941bc) is a special argument type that doesn't perform any type-validation.  
-[NO_ARGS](https://dstroy0.github.io/InputHandler/de/d8a/group___user_input.html#gga70e7c464dbd2c5c26fa63684d9dfdd70acd158bf723602ecc6429b5771682a716) is a special argument type that explicitly states you wish to pass no arguments.  
-[nprms(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a478361b897ab0ecfafbf38dc51ca3586), [buffsz(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#abd56e27b6e10765f411acdc3ef1b2178), and [nelems(x)](https://dstroy0.github.io/InputHandler/da/dc7/noedit_8h.html#a2cecc0de5f5f7dbca96aff3cedf1a83a) are macros which return the number of elements in an array.  
+[NOTYPE](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE6NOTYPEE) is a special argument type that doesn't perform any type-validation (input any char!).  
+[NO_ARGS](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE7NO_ARGSE) is a special argument type that explicitly states you wish to pass no arguments.  
+[nprms(x)](https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nprms), [buffsz(x)](https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.buffsz), and [nelems(x)](https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nelems) are macros which return the number of elements in an array.  
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
@@ -341,6 +121,20 @@ void clearOutputBuffer();
 The input process will continue to function even if you do not define an output buffer.  
 
 Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.  
+
+# Design Goals
+Implementation flexibility.  
+Low memory use, feature rich.  
+Ease of use.  
+It satisfies some advanced interfacing requirements.  
+It can parse uint8_t, unsigned char, any value 0-255 char strings.  
+It can be used to interface your project with other equipment, programs, and sensors.  
+
+# News
+
+See the releases' descriptions on
+[the library's release page](https://github.com/dstroy0/InputHandler/releases) for a list of
+changes.
 
 # Supported Platforms
 
