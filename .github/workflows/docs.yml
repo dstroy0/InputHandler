@@ -27,7 +27,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./cli_gen_tool/requirements.txt
+          pip install -r ./docs_build/requirements.txt
           pip freeze                    
       
       - name: Build cli_gen_tool's Sphinx docs
@@ -50,4 +50,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # build dir needs to contain redirect to either index.html
           publish_dir: docs_build
+          exclude_assets: 'requirements.txt'
           #destination_dir: docs

@@ -1,3 +1,3 @@
 <!-- markdownlint-disable MD041 -->
 
-Put things in here you want to be in gh-pages branch root dir.
+This directories contents are pushed to the gh-pages branch root.
