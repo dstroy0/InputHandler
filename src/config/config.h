@@ -170,8 +170,7 @@
      */
     // #define DISABLE_listSettings
     #if defined(DOXYGEN_XML_BUILD)       // do not edit this
-        #define DISABLE_listSettings     // do not edit this
-    /** @cond */ #define ENABLE_listSettings /** @endcond */
+        #define DISABLE_listSettings     // do not edit this    
     #endif                               // do not edit this
 
     /**
@@ -181,8 +180,7 @@
      */
     // #define DISABLE_listCommands
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_listCommands // do not edit this
-    /** @cond */ #define ENABLE_listCommands /** @endcond */
+        #define DISABLE_listCommands // do not edit this    
     #endif                                   // do not edit this
 
     /**
@@ -192,8 +190,7 @@
      */
     // #define DISABLE_getCommandFromStream
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_getCommandFromStream // do not edit this
-    /** @cond */ #define ENABLE_getCommandFromStream /** @endcond */
+        #define DISABLE_getCommandFromStream // do not edit this    
     #endif                                           // do not edit this
 
     /**
@@ -205,7 +202,6 @@
     // #define DISABLE_nextArgument
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define DISABLE_nextArgument // do not edit this
-    /** @cond */ #define ENABLE_nextArgument /** @endcond */
     #endif                                   // do not edit this
 
     /**
@@ -216,8 +212,7 @@
      */
     // #define DISABLE_getArgument
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_getArgument // do not edit this
-    /** @cond */ #define ENABLE_getArgument /** @endcond */
+        #define DISABLE_getArgument // do not edit this    
     #endif                                  // do not edit this
 
     /**
@@ -227,8 +222,7 @@
      */
     // #define DISABLE_outputIsAvailable
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputIsAvailable // do not edit this
-    /** @cond */ #define ENABLE_outputIsAvailable /** @endcond */
+        #define DISABLE_outputIsAvailable // do not edit this    
     #endif                                        // do not edit this
 
     /**
@@ -238,8 +232,7 @@
      */
     // #define DISABLE_outputIsEnabled
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputIsEnabled // do not edit this
-    /** @cond */ #define ENABLE_outputIsEnabled /** @endcond */
+        #define DISABLE_outputIsEnabled // do not edit this    
     #endif                                      // do not edit this
 
     /**
@@ -249,8 +242,7 @@
      */
     // #define DISABLE_outputToStream
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_outputToStream // do not edit this
-    /** @cond */ #define ENABLE_outputToStream /** @endcond */
+        #define DISABLE_outputToStream // do not edit this    
     #endif                                     // do not edit this
 
     /**
@@ -260,8 +252,7 @@
      */
     // #define DISABLE_clearOutputBuffer
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_clearOutputBuffer // do not edit this
-    /** @cond */ #define ENABLE_clearOutputBuffer /** @endcond */
+        #define DISABLE_clearOutputBuffer // do not edit this    
     #endif                                        // do not edit this
 
     // private methods
@@ -272,8 +263,7 @@
      */
     // #define DISABLE_readCommandFromBufferErrorOutput
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_readCommandFromBufferErrorOutput // do not edit this
-    /** @cond */ #define ENABLE_readCommandFromBufferErrorOutput /** @endcond */
+        #define DISABLE_readCommandFromBufferErrorOutput // do not edit this    
     #endif                                                       // do not edit this
 
     /**
@@ -283,8 +273,7 @@
      */
     // #define DISABLE_ui_out
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define DISABLE_ui_out // do not edit this
-    /** @cond */ #define ENABLE_ui_out /** @endcond */
+        #define DISABLE_ui_out // do not edit this    
     #endif                             // do not edit this
 
 #endif // end include guard
