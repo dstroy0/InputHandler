@@ -336,8 +336,8 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>portability directives </p>
-<p>directives and definitions which make the library work on different platforms <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
+<dd><p>sram buffer size in bytes for a single escaped char </p>
+<p><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
 <span class="w">    </span><span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span><span class="c1">// SAMD portability</span>
 <span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
 <span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
@@ -389,7 +389,7 @@
 <span class="w">    </span><span class="cp">#endif</span>
 </pre></div>
 </div>
- sram buffer size in bytes for a single escaped char </p>
+ </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -403,7 +403,7 @@
 <dt class="sig sig-object cpp" id="_CPPv42IH">
 <span id="_CPPv32IH"></span><span id="_CPPv22IH"></span><span id="IH"></span><span class="target" id="d2/d0c/namespace_i_h"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH</span></span></span><a class="headerlink" href="#_CPPv42IH" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>“auto” type namespace </p>
-<p>The source of macros in this namespace is src/config.h. <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h">config src</a> <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH">namespace src</a></p>
+<p>The source of macros in this namespace is src/config.h. <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h">config src</a> <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH">namespace src</a> </p>
 <p>The idea behind this namespace is to let users set config.h items to whatever they want, sizing variables for the least amount of space, automatically. The preprocessor evaluates the if macros in a way that will leave typedefs that size type aliases to the minimum byte-width required automatically. It also warns users about the change. The only hand-holding that happens is for type sizing, it’s up to you to make sure you have the resources for your settings. A very convenient feature for users. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>

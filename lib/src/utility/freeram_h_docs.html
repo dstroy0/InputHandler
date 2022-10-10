@@ -235,7 +235,20 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv47freeRamv">
 <span id="_CPPv37freeRamv"></span><span id="_CPPv27freeRamv"></span><span id="freeRam"></span><span class="target" id="d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">freeRam</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47freeRamv" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. </p>
+<p>InputHandler’s cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. This is a generic representation of how this function works. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_start</span><span class="p">;</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_end</span><span class="p">;</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">freeRam</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">_heap_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+ Please see your platform’s specific implementation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The amount of free memory on the heap, in bytes; returns zero if not implemented on your platform. </p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -243,24 +256,20 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv411_heap_start">
 <span id="_CPPv311_heap_start"></span><span id="_CPPv211_heap_start"></span><span id="_heap_start__unsigned-l"></span><span class="target" id="d5/d8e/free_ram_8h_1a9d1a03e6178b7c399cce31fc07aaaef8"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_heap_start</span></span></span><a class="headerlink" href="#_CPPv411_heap_start" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. </p>
-<p>InputHandler’s cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. This is a generic representation of how this function works. Please see your platform’s specific implementation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The amount of free memory on the heap, in bytes; returns zero if not implemented on your platform. </p>
-</dd>
-</dl>
+<dd><p>pointer to heap start </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv49_heap_end">
 <span id="_CPPv39_heap_end"></span><span id="_CPPv29_heap_end"></span><span id="_heap_end__unsigned-l"></span><span class="target" id="d5/d8e/free_ram_8h_1a1e096ab52b7c061afd475f4fedc6c1e9"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_heap_end</span></span></span><a class="headerlink" href="#_CPPv49_heap_end" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>pointer to heap end </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv48__brkval">
 <span id="_CPPv38__brkval"></span><span id="_CPPv28__brkval"></span><span id="__brkval__cP"></span><span class="target" id="d5/d8e/free_ram_8h_1ad193a2cc121e0d4614a1c21eb463fb56"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">__brkval</span></span></span><a class="headerlink" href="#_CPPv48__brkval" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>pointer to current memory position </p>
+</dd></dl>
 
 </div>
 </section>
