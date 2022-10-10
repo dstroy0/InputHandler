@@ -35,11 +35,22 @@
     // file location directive
     #define LOC __FILE__:__LINE__  ///< direct non-stringified file and line macro
     #define LOCATION STR(LOC)      ///< indirect stringified file and line macro
-    // end file location directive
+    // end file location directive    
+    // "auto" Type macro        
+    #define UI_ALL_WCC_CMD /** @cond */ ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
     // end function-like macros
+    // sizing macros
+    #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
     // clang-format on
     
-    /** @verbatim */
+    /**
+     * @brief portability directives
+     * 
+     * Go to your platform's implementation to see what needs to be changed
+     * to make the library work on your platform.
+     * 
+     */
+    ///< @code{.cpp}
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
@@ -90,7 +101,7 @@
         #define PROGMEM __attribute__((section(PFIX)))
     #endif
 // end portability directives
-/** @endverbatim */
+///< @endcode
 
     #include "config.h" // user config file
 
@@ -112,13 +123,7 @@
     /** @endcond */
 
     // clang-format off
-    // sizing macros
-    #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
-
-    // "auto" Type macro    
-    // UI_ALL_WCC_CMD UserInput::_calcCmdMemcmpRanges and UserInput::_compareCommandToString
-    // specific (magic number!)
-    #define UI_ALL_WCC_CMD /** @cond */ ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
+    
 // clang-format on
 
 /**
