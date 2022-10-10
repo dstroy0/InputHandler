@@ -299,6 +299,7 @@
 
 <span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
 <span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="c1">// PROGMEM fix macro</span>
 <span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
 <span class="cp">        ({                                                                                     \</span>
 <span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
@@ -312,6 +313,7 @@
 
 <span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
 <span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="c1">// PROGMEM fix macro</span>
 <span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
 <span class="cp">        ({                                                                                     \</span>
 <span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
@@ -325,6 +327,7 @@
 
 <span class="w">    </span><span class="cp">#define vsnprintf_P vsnprintf </span><span class="c1">// this platform does not use vsnprintf_P</span>
 <span class="w">    </span><span class="cp">#undef pgm_read_dword         </span><span class="c1">// use a different macro for pgm_read_dword</span>
+<span class="w">    </span><span class="c1">// PROGMEM fix macro</span>
 <span class="w">    </span><span class="cp">#define pgm_read_dword(addr)                                                               \</span>
 <span class="cp">        ({                                                                                     \</span>
 <span class="cp">            typeof(addr) _addr = (addr);                                                       \</span>
