@@ -290,13 +290,54 @@
 </dl>
 </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-portability-directives">portability directives</p>
-<p>directives and definitions which make the library work on different platforms </p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.nprms">
+<span class="target" id="da/dc7/noedit_8h_1a478361b897ab0ecfafbf38dc51ca3586"></span><span class="sig-name descname"><span class="n"><span class="pre">nprms</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.nprms" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>gets the number of elements in an array </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.buffsz">
+<span class="target" id="da/dc7/noedit_8h_1abd56e27b6e10765f411acdc3ef1b2178"></span><span class="sig-name descname"><span class="n"><span class="pre">buffsz</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.buffsz" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>gets the number of elements in an array </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.nelems">
+<span class="target" id="da/dc7/noedit_8h_1a2cecc0de5f5f7dbca96aff3cedf1a83a"></span><span class="sig-name descname"><span class="n"><span class="pre">nelems</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.nelems" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>gets the number of elements in an array </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.S">
+<span class="target" id="da/dc7/noedit_8h_1a8fa17c8cf4c36df48f4108c36da8573e"></span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.S" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>gnu direct # stringify macro </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.STR">
+<span class="target" id="da/dc7/noedit_8h_1a6388870e639eee9c0a69446876f1f8cc"></span><span class="sig-name descname"><span class="n"><span class="pre">STR</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.STR" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>gnu indirect # stringify macro </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.LOC">
+<span class="target" id="da/dc7/noedit_8h_1a0fee446a4a4ef6536664bc1ff47ff694"></span><span class="sig-name descname"><span class="n"><span class="pre">LOC</span></span></span><a class="headerlink" href="#c.LOC" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>direct non-stringified file and line macro </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.LOCATION">
+<span class="target" id="da/dc7/noedit_8h_1ac27b81440ce6781d5bfcab7a9bbdef99"></span><span class="sig-name descname"><span class="n"><span class="pre">LOCATION</span></span></span><a class="headerlink" href="#c.LOCATION" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>indirect stringified file and line macro </p>
+</dd></dl>
+
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ESCAPED_CHAR_STRLEN">
 <span class="target" id="da/dc7/noedit_8h_1a027fe3f70969f8a4f883d648ee61b0d5"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></span></span><a class="headerlink" href="#c.UI_ESCAPED_CHAR_STRLEN" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sram buffer size in bytes for a single escaped char </p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
+<dd><p>portability directives </p>
+<p>directives and definitions which make the library work on different platforms <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*/</span><span class="w"></span>
 <span class="w">    </span><span class="cp">#if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) </span><span class="c1">// SAMD portability</span>
 <span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utility/vsnprintf.h&quot;</span><span class="c1">           // implement vsnprintf</span><span class="cp"></span>
 <span class="w">        </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/dtostrf.h&gt;</span><span class="c1">                 // implement dtostrf</span><span class="cp"></span>
@@ -348,58 +389,13 @@
 <span class="w">    </span><span class="cp">#endif</span>
 </pre></div>
 </div>
- </p>
+ sram buffer size in bytes for a single escaped char </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ALL_WCC_CMD">
 <span class="target" id="da/dc7/noedit_8h_1a3f8c0d478351bde8c9bfa3e5104a5770"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ALL_WCC_CMD</span></span></span><a class="headerlink" href="#c.UI_ALL_WCC_CMD" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>UI_ALL_WCC_CMD MAX is equal to <a class="reference internal" href="#d2/d0c/namespace_i_h_1a1bd12ff11305ee35ddf19e77184656f1"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a> - 1. </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.nprms">
-<span class="target" id="da/dc7/noedit_8h_1a478361b897ab0ecfafbf38dc51ca3586"></span><span class="sig-name descname"><span class="n"><span class="pre">nprms</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.nprms" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>gets the number of elements in an array </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.buffsz">
-<span class="target" id="da/dc7/noedit_8h_1abd56e27b6e10765f411acdc3ef1b2178"></span><span class="sig-name descname"><span class="n"><span class="pre">buffsz</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.buffsz" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>gets the number of elements in an array </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.nelems">
-<span class="target" id="da/dc7/noedit_8h_1a2cecc0de5f5f7dbca96aff3cedf1a83a"></span><span class="sig-name descname"><span class="n"><span class="pre">nelems</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.nelems" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>gets the number of elements in an array </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.S">
-<span class="target" id="da/dc7/noedit_8h_1a8fa17c8cf4c36df48f4108c36da8573e"></span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.S" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>gnu direct # stringify macro </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.STR">
-<span class="target" id="da/dc7/noedit_8h_1a6388870e639eee9c0a69446876f1f8cc"></span><span class="sig-name descname"><span class="n"><span class="pre">STR</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.STR" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>gnu indirect # stringify macro </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.LOC">
-<span class="target" id="da/dc7/noedit_8h_1a0fee446a4a4ef6536664bc1ff47ff694"></span><span class="sig-name descname"><span class="n"><span class="pre">LOC</span></span></span><a class="headerlink" href="#c.LOC" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>direct non-stringified file and line macro </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.LOCATION">
-<span class="target" id="da/dc7/noedit_8h_1ac27b81440ce6781d5bfcab7a9bbdef99"></span><span class="sig-name descname"><span class="n"><span class="pre">LOCATION</span></span></span><a class="headerlink" href="#c.LOCATION" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>indirect stringified file and line macro </p>
 </dd></dl>
 
 </div>
