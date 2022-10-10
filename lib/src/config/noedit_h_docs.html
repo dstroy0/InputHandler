@@ -345,16 +345,19 @@
 <dd><p>sram buffer size in bytes for a single escaped char </p>
 </dd></dl>
 
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.IH_PORTABILITY_DIRECTIVES">
+<span class="target" id="da/dc7/noedit_8h_1ac54c0d369b9a6194afd092ee907a43ff"></span><span class="sig-name descname"><span class="n"><span class="pre">IH_PORTABILITY_DIRECTIVES</span></span></span><a class="headerlink" href="#c.IH_PORTABILITY_DIRECTIVES" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>portability directives </p>
+<p>Go to your platform’s implementation to see what needs to be changed to make the library work on your platform. </p>
+<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h:~:text=IH_PORTABILITY_DIRECTIVES">portability directives</a> </p>
+</dd></dl>
+
 </div>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv42IH">
 <span id="_CPPv32IH"></span><span id="_CPPv22IH"></span><span id="IH"></span><span class="target" id="d2/d0c/namespace_i_h"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IH</span></span></span><a class="headerlink" href="#_CPPv42IH" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>portability directives </p>
-<p>Go to your platform’s implementation to see what needs to be changed to make the library work on your platform. &lt; <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="w"></span>
-</pre></div>
-</div>
-</p>
-<p>“auto” type namespace</p>
+<dd><p>“auto” type namespace </p>
 <p>The source of macros in this namespace is src/config.h. <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h">config src</a> <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH">namespace src</a> </p>
 <p>The idea behind this namespace is to let users set config.h items to whatever they want, sizing variables for the least amount of space, automatically. The preprocessor evaluates the if macros in a way that will leave typedefs that size type aliases to the minimum byte-width required automatically. It also warns users about the change. The only hand-holding that happens is for type sizing, it’s up to you to make sure you have the resources for your settings. A very convenient feature for users. </p>
 <div class="breathe-sectiondef docutils container">
