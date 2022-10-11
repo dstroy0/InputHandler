@@ -4,7 +4,7 @@ import os
 import sys
 
 # pathing
-
+os.chdir("../..")
 lib_root_path = os.path.abspath(os.curdir)
 tool_root_path = os.path.abspath(os.curdir) + "/tools/cli_gen_tool_src"
 tool_path = tool_root_path + "/cli_gen_tool.py"
