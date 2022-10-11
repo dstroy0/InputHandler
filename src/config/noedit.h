@@ -146,7 +146,7 @@ typedef bool input_type_match_flags_type; ///< UserInput private member type (fu
 /**
  * @brief sized off of `#UI_MAX_COMMANDS_IN_TREE`.
  *
- * `#UI_MAX_COMMANDS_IN_TREE` is user set, the _MAX variables in the
+ * config.h.UI_MAX_COMMANDS_IN_TREE is user set, the _MAX variables in the
  * following code snippet are set elsewhere.
  *
  * @code{.c}
