@@ -141,106 +141,189 @@ namespace IH
 // UserInput private member type (future bit array)
 typedef bool input_type_match_flags_type; ///< UserInput private member type (future bit array)
 
-// config error checking
-    #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
-typedef uint8_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint8_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
+// UserInput variable sizing
+    #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_COMMANDS_IN_TREE`.
+ *
+ * `#UI_MAX_COMMANDS_IN_TREE` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
+ * typedef uint8_t ui_max_commands_in_tree_t;
+ * #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
+ * typedef uint16_t ui_max_commands_in_tree_t;
+ * #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
+ * typedef uint32_t ui_max_commands_in_tree_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_commands_in_tree_t;
 
-typedef uint16_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint16_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
+/**
+ * @brief sized off of `#UI_MAX_COMMANDS_IN_TREE`.
+ *
+ * `#UI_MAX_COMMANDS_IN_TREE` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
+ * typedef uint8_t cmd_id_grp_t;
+ * #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
+ * typedef uint16_t cmd_id_grp_t;
+ * #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
+ * typedef uint32_t cmd_id_grp_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t cmd_id_grp_t;
+    #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
+typedef uint16_t ui_max_commands_in_tree_t;
+typedef uint16_t cmd_id_grp_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
-
-typedef uint32_t ui_max_commands_in_tree_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint32_t cmd_id_grp_t;              ///< 8-32 bits depending on src/config/config.h settings
+    #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
+typedef uint32_t ui_max_commands_in_tree_t;
+typedef uint32_t cmd_id_grp_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX)-1))
+    #elif (UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE cannot be greater than UINT32_MAX
+        #warning UI_MAX_COMMANDS_IN_TREE greater than UINT32_MAX; behavior undefined, compilation should fail.
     #endif // end UI_MAX_COMMANDS_IN_TREE
 
-    #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
-typedef uint8_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
-
-typedef uint16_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_ARGS_PER_COMMAND`.
+ *
+ * `#UI_MAX_ARGS_PER_COMMAND` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
+ * typedef uint8_t ui_max_args_t;
+ * #elif (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
+ * typedef uint16_t ui_max_args_t;
+ * #elif (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
+ * typedef uint32_t ui_max_args_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_args_t;
+    #elif (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
+typedef uint16_t ui_max_args_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
-
-typedef uint32_t ui_max_args_t; ///< 8-32 bits depending on src/config/config.h settings
+    #elif (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
+typedef uint32_t ui_max_args_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
-    #endif
-    #if UI_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
+    #elif UI_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_ARGS_PER_COMMAND cannot be greater than UINT32_MAX
+        #warning UI_MAX_ARGS_PER_COMMAND greater than UINT32_MAX; behavior undefined, compilation should fail.
     #endif // end UI_MAX_ARGS_PER_COMMAND
 
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
-typedef uint8_t
-    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
-
-typedef uint16_t
-    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_TREE_DEPTH_PER_COMMAND`.
+ *
+ * `#UI_MAX_TREE_DEPTH_PER_COMMAND` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
+ * typedef uint8_t ui_max_tree_depth_per_command_t;
+ * #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
+ * typedef uint16_t ui_max_tree_depth_per_command_t;
+ * #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+ * typedef uint32_t ui_max_tree_depth_per_command_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_tree_depth_per_command_t;    
+    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
+typedef uint16_t ui_max_tree_depth_per_command_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
-
-typedef uint32_t
-    ui_max_tree_depth_per_command_t; ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+typedef uint32_t ui_max_tree_depth_per_command_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
 
-    #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX)
-typedef uint8_t
-    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
-
-typedef uint16_t
-    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_NUM_CHILD_COMMANDS`.
+ *
+ * `#UI_MAX_NUM_CHILD_COMMANDS` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX)
+ * typedef uint8_t ui_max_num_child_commands_t;
+ * #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
+ * typedef uint16_t ui_max_num_child_commands_t;
+ * #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
+ * typedef uint32_t ui_max_num_child_commands_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_num_child_commands_t;    
+    #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
+typedef uint16_t ui_max_num_child_commands_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
-
-typedef uint32_t
-    ui_max_num_child_commands_t; ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
+typedef uint32_t ui_max_num_child_commands_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1))
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_CHILD_COMMANDS
 
-    #if (UI_MAX_CMD_LEN <= UINT8_MAX)
-typedef uint8_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_CMD_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_CMD_LEN`.
+ *
+ * `#UI_MAX_CMD_LEN` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_CMD_LEN <= UINT8_MAX)
+ * typedef uint8_t ui_max_cmd_len_t;
+ * #elif (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX)
+ * typedef uint16_t ui_max_cmd_len_t;
+ * #elif (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX)
+ * typedef uint32_t ui_max_cmd_len_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_cmd_len_t;
     #endif
     #if (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX)
-typedef uint16_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint16_t ui_max_cmd_len_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint16_t
     #endif
     #if (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX)
-typedef uint32_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config.h settings
+typedef uint32_t ui_max_cmd_len_t;
         #pragma message(" at " LOCATION)
         #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint32_t
     #endif
@@ -249,96 +332,160 @@ typedef uint32_t ui_max_cmd_len_t; ///< 8-32 bits depending on src/config/config
         #warning UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_CMD_LEN
 
-    #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX)
-typedef uint8_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
-
-typedef uint16_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_NUM_DELIM_SEQ`.
+ *
+ * `#UI_MAX_NUM_DELIM_SEQ` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX)
+ * typedef uint8_t ui_max_num_delim_seq_t;
+ * #elif (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
+ * typedef uint16_t ui_max_num_delim_seq_t;
+ * #elif (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
+ * typedef uint32_t ui_max_num_delim_seq_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_num_delim_seq_t;    
+    #elif (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
+typedef uint16_t ui_max_num_delim_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
-
-typedef uint32_t ui_max_num_delim_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
+typedef uint32_t ui_max_num_delim_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1))
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_DELIM_SEQ
 
-    #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
-typedef uint8_t
-    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
-
-typedef uint16_t
-    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_NUM_START_STOP_SEQ`.
+ *
+ * `#UI_MAX_NUM_START_STOP_SEQ` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
+ * typedef uint8_t ui_max_num_start_stop_seq_t;
+ * #elif (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
+ * typedef uint16_t ui_max_num_start_stop_seq_t;
+ * #elif (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
+ * typedef uint32_t ui_max_num_start_stop_seq_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_num_start_stop_seq_t;    
+    #elif (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
+typedef uint16_t ui_max_num_start_stop_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
-
-typedef uint32_t
-    ui_max_num_start_stop_seq_t; ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
+typedef uint32_t ui_max_num_start_stop_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
     #endif // end UI_MAX_NUM_START_STOP_SEQ
 
-    #if (UI_MAX_INPUT_LEN <= UINT8_MAX)
-typedef uint8_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
-
-typedef uint16_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
+    #if (UI_MAX_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_INPUT_LEN`.
+ *
+ * `#UI_MAX_INPUT_LEN` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_INPUT_LEN <= UINT8_MAX)
+ * typedef uint8_t ui_max_input_len_t;
+ * #elif (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
+ * typedef uint16_t ui_max_input_len_t;
+ * #elif (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
+ * typedef uint32_t ui_max_input_len_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_input_len_t;    
+    #elif (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
+typedef uint16_t ui_max_input_len_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
-
-typedef uint32_t ui_max_input_len_t; ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
+typedef uint32_t ui_max_input_len_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_INPUT_LEN > ((UINT32_MAX)-1))
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_INPUT_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
     #endif // end UI_MAX_INPUT_LEN
 
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
-typedef uint8_t
-    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint8_t memcmp_idx_t;       ///< 8-32 bits depending on src/config/config.h settings
-    #endif
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+    #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+/**
+ * @brief sized off of `#UI_MAX_PER_CMD_MEMCMP_RANGES`.
+ *
+ * `#UI_MAX_PER_CMD_MEMCMP_RANGES` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
+ * typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
+ * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+ * typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
+ * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
+ * typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
 
-typedef uint16_t
-    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint16_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
+/**
+ * @brief sized off of `#UI_MAX_PER_CMD_MEMCMP_RANGES`.
+ *
+ * `#UI_MAX_PER_CMD_MEMCMP_RANGES` is user set, the _MAX variables in the
+ * following code snippet are set elsewhere.
+ *
+ * @code{.c}
+ * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
+ * typedef uint8_t memcmp_idx_t;
+ * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+ * typedef uint16_t memcmp_idx_t;
+ * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
+ * typedef uint32_t memcmp_idx_t;
+ * #else
+ * // no typedef; compile failure
+ * #endif
+ * @endcode
+ */
+typedef uint8_t memcmp_idx_t;    
+    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
+typedef uint16_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t
-    #endif
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
-
-typedef uint32_t
-    ui_max_per_cmd_memcmp_ranges_t; ///< 8-32 bits depending on src/config/config.h settings
-typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/config.h settings
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t    
+    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
+typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
+typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t
-    #endif
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1))
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t    
+    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
     #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
-// end config error checking
-
+// end typedef sizing
 } // end namespace IH
 
 /** @cond */
@@ -410,7 +557,7 @@ typedef uint32_t memcmp_idx_t;      ///< 8-32 bits depending on src/config/confi
     #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
     #endif // end private methods
-  // end OPTIONAL METHODS 
+  // end OPTIONAL METHODS
 // end optional method toggles
 /** @endcond */
 #endif // end include guard
