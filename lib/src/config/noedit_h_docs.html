@@ -350,7 +350,7 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.IH_PORTABILITY_DIRECTIVES">
 <span class="target" id="da/dc7/noedit_8h_1ac54c0d369b9a6194afd092ee907a43ff"></span><span class="sig-name descname"><span class="n"><span class="pre">IH_PORTABILITY_DIRECTIVES</span></span></span><a class="headerlink" href="#c.IH_PORTABILITY_DIRECTIVES" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>portability directives </p>
+<dd><p>Preprocessor directives and includes. </p>
 <p>Go to your platform’s implementation to see what needs to be changed to make the library work on your platform.</p>
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES">portability directives</a> </p>
 </dd></dl>
@@ -373,8 +373,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH25ui_max_commands_in_tree_tE">
 <span id="_CPPv3N2IH25ui_max_commands_in_tree_tE"></span><span id="_CPPv2N2IH25ui_max_commands_in_tree_tE"></span><span id="IH::ui_max_commands_in_tree_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a13927b0a7d7ac8e7a5fc5ca7e933caa8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_commands_in_tree_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH25ui_max_commands_in_tree_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code>. </p>
-<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
@@ -392,8 +392,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH12cmd_id_grp_tE">
 <span id="_CPPv3N2IH12cmd_id_grp_tE"></span><span id="_CPPv2N2IH12cmd_id_grp_tE"></span><span id="IH::cmd_id_grp_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a06185f1282f382c2a549c7e0b8fdbac9"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_id_grp_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH12cmd_id_grp_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
@@ -411,9 +411,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH13ui_max_args_tE">
 <span id="_CPPv3N2IH13ui_max_args_tE"></span><span id="_CPPv2N2IH13ui_max_args_tE"></span><span id="IH::ui_max_args_t"></span><span class="target" id="d2/d0c/namespace_i_h_1aa088edbc093134f02460997ab86f31a1"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_args_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH13ui_max_args_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_ARGS_PER_COMMAND</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_ARGS_PER_COMMAND</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX)</span>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a49baf240972f4fcbaf973521da34aaa9"><span class="std std-ref">UI_MAX_ARGS_PER_COMMAND</span></a> is set by the user. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_ARGS_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT16_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
@@ -430,8 +429,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH31ui_max_tree_depth_per_command_tE">
 <span id="_CPPv3N2IH31ui_max_tree_depth_per_command_tE"></span><span id="_CPPv2N2IH31ui_max_tree_depth_per_command_tE"></span><span id="IH::ui_max_tree_depth_per_command_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a18d7808f68b12887af9b419786f811d5"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_tree_depth_per_command_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH31ui_max_tree_depth_per_command_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_TREE_DEPTH_PER_COMMAND</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_TREE_DEPTH_PER_COMMAND</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a758994f5a006936d1f71bc5c471c4312"><span class="std std-ref">UI_MAX_TREE_DEPTH_PER_COMMAND</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT16_MAX)</span>
@@ -449,8 +448,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_child_commands_tE">
 <span id="_CPPv3N2IH27ui_max_num_child_commands_tE"></span><span id="_CPPv2N2IH27ui_max_num_child_commands_tE"></span><span id="IH::ui_max_num_child_commands_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a7b7bb269f0854e4fbdd1a7a9c6fa7ada"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_child_commands_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_child_commands_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_CHILD_COMMANDS</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_CHILD_COMMANDS</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a12823f7dd05646695e5b6b12fd0f5e05"><span class="std std-ref">UI_MAX_NUM_CHILD_COMMANDS</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT16_MAX)</span>
@@ -468,8 +467,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH16ui_max_cmd_len_tE">
 <span id="_CPPv3N2IH16ui_max_cmd_len_tE"></span><span id="_CPPv2N2IH16ui_max_cmd_len_tE"></span><span id="IH::ui_max_cmd_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a3cff6da2f99bacb22c13a09938ccf402"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_cmd_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH16ui_max_cmd_len_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_CMD_LEN</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_CMD_LEN</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a3838a09964eae8d28f9f58c69df91934"><span class="std std-ref">UI_MAX_CMD_LEN</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_CMD_LEN &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_CMD_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT16_MAX)</span>
@@ -487,8 +486,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH22ui_max_num_delim_seq_tE">
 <span id="_CPPv3N2IH22ui_max_num_delim_seq_tE"></span><span id="_CPPv2N2IH22ui_max_num_delim_seq_tE"></span><span id="IH::ui_max_num_delim_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a3a558e38f5372d80c1424066374eb182"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_delim_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH22ui_max_num_delim_seq_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_DELIM_SEQ</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_DELIM_SEQ</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1afc899b6154710261674ea0cfdf08e40b"><span class="std std-ref">UI_MAX_NUM_DELIM_SEQ</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_NUM_DELIM_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT16_MAX)</span>
@@ -506,8 +505,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_start_stop_seq_tE">
 <span id="_CPPv3N2IH27ui_max_num_start_stop_seq_tE"></span><span id="_CPPv2N2IH27ui_max_num_start_stop_seq_tE"></span><span id="IH::ui_max_num_start_stop_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a6951853def51d2e9b71ec46033ddd416"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_start_stop_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_start_stop_seq_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_START_STOP_SEQ</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_START_STOP_SEQ</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a2c108dee311479de346895eaedc068c1"><span class="std std-ref">UI_MAX_NUM_START_STOP_SEQ</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_NUM_START_STOP_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT16_MAX)</span>
@@ -525,8 +524,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH18ui_max_input_len_tE">
 <span id="_CPPv3N2IH18ui_max_input_len_tE"></span><span id="_CPPv2N2IH18ui_max_input_len_tE"></span><span id="IH::ui_max_input_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a0a9cd7a365e3f7d4f6d1b24d31461c88"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_input_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH18ui_max_input_len_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_INPUT_LEN</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_INPUT_LEN</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a40e8bda9072bdd1d88b4cff453a84d3c"><span class="std std-ref">UI_MAX_INPUT_LEN</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_INPUT_LEN &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_INPUT_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT16_MAX)</span>
@@ -544,8 +543,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE">
 <span id="_CPPv3N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="_CPPv2N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="IH::ui_max_per_cmd_memcmp_ranges_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a2ab63a3c1ec28c3fc59e7edeb041e942"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_per_cmd_memcmp_ranges_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a69a8775b591a7f206a93d39830811f28"><span class="std std-ref">UI_MAX_PER_CMD_MEMCMP_RANGES</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
@@ -563,8 +562,8 @@
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N2IH12memcmp_idx_tE">
 <span id="_CPPv3N2IH12memcmp_idx_tE"></span><span id="_CPPv2N2IH12memcmp_idx_tE"></span><span id="IH::memcmp_idx_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a1c131b6ff690fd050e11377780bef3f8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">memcmp_idx_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH12memcmp_idx_tE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code>. </p>
-<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a69a8775b591a7f206a93d39830811f28"><span class="std std-ref">UI_MAX_PER_CMD_MEMCMP_RANGES</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
