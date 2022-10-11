@@ -4,11 +4,11 @@ import os
 import sys
 
 # pathing
-os.chdir("../..")
+
 lib_root_path = os.path.abspath(os.curdir)
 
-_templates_path = lib_root_path + "/docs/source/templates"
-_html_static_path = lib_root_path + "/docs/source/static"
+_templates_path = lib_root_path + "/docs/lib/source/templates"
+_html_static_path = lib_root_path + "/docs/lib/source/static"
 sys.path.insert(0, lib_root_path)
 sys.path.append(_html_static_path)
 sys.path.append(_templates_path)
@@ -35,7 +35,7 @@ copyright = "2022, Douglas Quigg (dquigg123@gmail.com)"
 author = "Douglas Quigg (dstroy0 dquigg123@gmail.com), Brenden Doherty (2bndy5 2bndy5@gmail.com)"
 
 breathe_projects = {
-    "InputHandler": "../doxyxml/"    
+    "InputHandler": "doxyxml/"    
 }
 
 breathe_default_project = "InputHandler"

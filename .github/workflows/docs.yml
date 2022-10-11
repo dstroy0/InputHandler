@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Update and install linux dependencies
+      - name: Update linux and install docs build dependencies
         run: |
           sudo apt-get update
           sudo apt-get install libegl1
@@ -27,27 +27,27 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./docs_build/requirements.txt
+          pip install -r ./docs/build/requirements.txt
           pip freeze                    
       
       - name: Build cli_gen_tool's Sphinx docs
         run: |
-          sphinx-build -b html ./cli_gen_tool/docs/source ./docs_build/cli_gen_tool
+          sphinx-build -b html ./docs/cli_gen_tool/source ./docs/build/cli_gen_tool
 
-      - name: Build lib Doxygen xml
+      - name: DOXYGEN_XML_BUILD (InputHandler's doxygen xml output)
         uses: mattnotmitt/doxygen-action@edge
         with:
           working-directory: '/github/workspace/'
-          doxyfile-path: 'docs/Doxyfile'                        
+          doxyfile-path: 'docs/lib/Doxyfile'                        
       
       - name: Build InputHandler's Sphinx docs
         run: |
-          sphinx-build -b html ./docs/source ./docs_build/lib
+          sphinx-build -b html ./docs/lib/source ./docs/build/lib
       
       - name: Deploy to gh-pages 🚀        
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # build dir needs to contain redirect to either index.html
-          publish_dir: docs_build
+          publish_dir: ./docs/build
           exclude_assets: 'requirements.txt'          
