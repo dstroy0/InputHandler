@@ -375,7 +375,7 @@
 <span id="_CPPv3N2IH25ui_max_commands_in_tree_tE"></span><span id="_CPPv2N2IH25ui_max_commands_in_tree_tE"></span><span id="IH::ui_max_commands_in_tree_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a13927b0a7d7ac8e7a5fc5ca7e933caa8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_commands_in_tree_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH25ui_max_commands_in_tree_tE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is set by the user.</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
+<p><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
 <span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
