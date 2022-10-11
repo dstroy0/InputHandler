@@ -147,8 +147,10 @@ typedef bool input_type_match_flags_type; ///< UserInput private member type (fu
  * @brief User influenced typedef.
  *
  * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user.
+ * 
+ * #c.UI_MAX_COMMANDS_IN_TREE
  *
- * @code{.cpp}
+ * @code{.c}
  * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
  * typedef uint8_t ui_max_commands_in_tree_t;
  * #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
