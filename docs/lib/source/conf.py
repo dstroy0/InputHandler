@@ -4,7 +4,7 @@ import os
 import sys
 
 # pathing
-os.chdir("../..")
+os.chdir("../../..")
 lib_root_path = os.path.abspath(os.curdir)
 
 _templates_path = lib_root_path + "/docs/lib/source/templates"
