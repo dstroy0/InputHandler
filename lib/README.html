@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Documentation" href="docs.html" /><link rel="prev" title="InputHandler README" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Documentation" href="docs.html" /><link rel="prev" title="&lt;no title&gt;" href="index.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>InputHandler README - InputHandler documentation</title>
+        <title>&lt;no title&gt; - InputHandler documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -156,11 +156,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (InputHandler.h)</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">InputHandler README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#design-goals">Design Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#news">News</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
+<ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
@@ -206,181 +202,7 @@
           </label>
         </div>
         <article role="main">
-          <!-- markdownlint-disable MD041 --><img alt="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:target:https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true:alt:Alttext:raw-html-md:`&lt;br/&gt;`" />
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml"><img alt="Arduino CLI CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_cli.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml"><img alt="PlatformIO arduino CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino_pio.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml"><img alt="PlatformIO esp CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp_pio.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml"><img alt="Docs CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" /></a>
-<section id="inputhandler-readme">
-<h1>InputHandler README<a class="headerlink" href="#inputhandler-readme" title="Permalink to this heading">#</a></h1>
-<p>This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a>, like a <a class="reference external" href="https://www.arduino.cc/en/reference/serial">Serial</a> object. <span class="raw-html-md"><br /></span>
-User-defined commands have a <a class="reference external" href="https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm">general tree structure</a>, each command has its own <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct which is stored in non-volatile program memory (<a class="reference external" href="https://www.arduino.cc/reference/en/language/variables/utilities/progmem/">PROGMEM</a>).</p>
-<p>Individual commands that do not contain a wildcard character (each call to <a class="reference external" href="https://dstroy0.github.io/InputHandler/df/d68/class_command_constructor.html">CommandConstructor</a>) use 8 bytes of RAM (avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.</p>
-<p>To make matching more performant, <a class="reference external" href="https://www.cplusplus.com/reference/cstring/memcmp/">memcmp</a> ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses <code class="docutils literal notranslate"><span class="pre">((1</span> <span class="pre">+</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">1*n_wcc_containing_prm)</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">+</span> <span class="pre">n_memcmp_ranges*2)</span></code> bytes.  <code class="docutils literal notranslate"><span class="pre">****</span></code>, <code class="docutils literal notranslate"><span class="pre">8***</span></code>, <code class="docutils literal notranslate"><span class="pre">*8**</span></code>, <code class="docutils literal notranslate"><span class="pre">**8*</span></code>, <code class="docutils literal notranslate"><span class="pre">***8</span></code> would compute one memcmp range <code class="docutils literal notranslate"><span class="pre">8**8</span></code> computes as two, <code class="docutils literal notranslate"><span class="pre">8888</span></code> doesn’t have any wcc, so it would undergo “length of input” memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated <a class="reference external" href="https://dstroy0.github.io/InputHandler/dc/d3d/struct_command_runtime_calc.html">CommandRuntimeCalc</a> struct.</p>
-<p>Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d16/config_8h.html#a72f41b83365fd2261e5ddfacd27bb8a5">UI_MAX_ARGS</a> number of arguments.  At runtime, UserInput scans your input <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of <a class="reference external" href="https://dstroy0.github.io/InputHandler/dc/d4b/class_user_input.html#a1f1dfef01fd160e4ba9686a4c59e0369">UserInput::begin()</a>)</p>
-<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">This library is easy to start using</a></p>
-<p>Check out the <a class="reference external" href="https://github.com/dstroy0/InputHandler/tree/main/examples">examples</a> for different use cases.</p>
-<p>Default InputHandler UserInput constructor initialization with no output:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler UserInput constructor</span>
-<span class="cm">*/</span><span class="w"></span>
-<span class="n">UserInput</span><span class="w"> </span><span class="n">inputHandler</span><span class="p">;</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Default InputHandler UserInput constructor initialization with output buffer:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler UserInput constructor</span>
-<span class="cm">*/</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">650</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-<span class="n">UserInput</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"></span>
-</pre></div>
-</div>
-<p>A valid (default-settings) command string would look something like:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>your_command arg_1 arg_2 arg... &quot;arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t&quot;
-your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
-</pre></div>
-</div>
-<p>You can also customize many aspects of input characteristics:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler UserInput constructor</span>
-<span class="cm">*/</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">650</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_pname</span><span class="w"> </span><span class="n">pname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;_test_&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// process name</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_eol</span><span class="w"> </span><span class="n">peol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// end of line characters</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_input_cc</span><span class="w"> </span><span class="n">pinputcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// input control character sequence</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">IH_wcc</span><span class="w"> </span><span class="n">pwcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">// process wildcard character</span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessDelimiterSequences</span><span class="w"> </span><span class="n">pipdelimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// number of delimiter sequences</span>
-<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w">  </span><span class="c1">// delimiter sequence lens</span>
-<span class="w">  </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// delimiter sequences</span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessStartStopSequences</span><span class="w"> </span><span class="n">pststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">           </span><span class="c1">// num start stop sequence pairs</span>
-<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">      </span><span class="c1">// start stop sequence lens</span>
-<span class="w">  </span><span class="p">{</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// start stop sequence pairs</span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputProcessParameters</span><span class="w"> </span><span class="n">input_prm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pname</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">peol</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pinputcc</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pwcc</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pipdelimseq</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pststpseq</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="n">UserInput</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">),</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span><span class="w"></span>
-</pre></div>
-</div>
-<p>The classes’ input methods are:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Or, if you don’t want to use a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span><span class="w"></span>
-</pre></div>
-</div>
-<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a class="reference external" href="https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html">CommandParameters</a> struct objects.</p>
-<p>Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr).</p>
-<p><a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE6NOTYPEE">NOTYPE</a> is a special argument type that doesn’t perform any type-validation (input any char!). <span class="raw-html-md"><br /></span>
-<a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE7NO_ARGSE">NO_ARGS</a> is a special argument type that explicitly states you wish to pass no arguments. <span class="raw-html-md"><br /></span>
-<a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nprms">nprms(x)</a>, <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.buffsz">buffsz(x)</a>, and <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nelems">nelems(x)</a> are macros which return the number of elements in an array.</p>
-<p>Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.</p>
-<p>This method will output to any stream (hardware or software Serial):</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
-</pre></div>
-</div>
-<p>or, you can check to see if output is available with:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">outputIsAvailable</span><span class="p">();</span><span class="w"></span>
-</pre></div>
-</div>
-<p>and then when you are done with the output buffer, it needs to be reinitialized with:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">clearOutputBuffer</span><span class="p">();</span><span class="w"></span>
-</pre></div>
-</div>
-<p>The input process will continue to function even if you do not define an output buffer.</p>
-<p>Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
-</section>
-<section id="design-goals">
-<h1>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h1>
-<p>Implementation flexibility. <span class="raw-html-md"><br /></span>
-Low memory use, feature rich. <span class="raw-html-md"><br /></span>
-Ease of use. <span class="raw-html-md"><br /></span>
-It satisfies some advanced interfacing requirements. <span class="raw-html-md"><br /></span>
-It can parse uint8_t, unsigned char, any value 0-255 char strings. <span class="raw-html-md"><br /></span>
-It can be used to interface your project with other equipment, programs, and sensors.</p>
-</section>
-<section id="news">
-<h1>News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h1>
-<p>See the releases’ descriptions on
-<a class="reference external" href="https://github.com/dstroy0/InputHandler/releases">the library’s release page</a> for a list of
-changes.</p>
-</section>
-<section id="supported-platforms">
-<h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h1>
-<p>Not supported: <span class="raw-html-md"><br /></span>
-ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
-ATMegaNG – flash</p>
-<p>If your board is not listed as not supported open an issue if you’d like it added to build coverage.</p>
-<p>NOTE: <a class="reference external" href="https://en.cppreference.com/w/c/io/vfprintf">vsnprintf</a> and
-<a class="reference external" href="https://www.delftstack.com/howto/arduino/arduino-dtostrf/">dtostrf</a> implemented on the following platforms: <span class="raw-html-md"><br /></span>
-(see: <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h">src/config/noedit.h</a> for your platform’s implementation) <span class="raw-html-md"><br /></span>
-SAMD, <span class="raw-html-md"><br /></span>
-MBED, <span class="raw-html-md"><br /></span>
-arduino DUE</p>
-<p>Build coverage:</p>
-<p>nano rp2040 connect <span class="raw-html-md"><br /></span>
-teensy 3.1 <span class="raw-html-md"><br /></span>
-teensy 3.5 <span class="raw-html-md"><br /></span>
-teensy 3.6 <span class="raw-html-md"><br /></span>
-teensy 4.0 <span class="raw-html-md"><br /></span>
-teensy 4.1 <span class="raw-html-md"><br /></span>
-Espressif esp32dev generic ESP32 <span class="raw-html-md"><br /></span>
-Espressif Adafruit esp8266 huzzah <span class="raw-html-md"><br /></span>
-yun <span class="raw-html-md"><br /></span>
-uno <span class="raw-html-md"><br /></span>
-diecimila <span class="raw-html-md"><br /></span>
-nano <span class="raw-html-md"><br /></span>
-mega <span class="raw-html-md"><br /></span>
-megaADK <span class="raw-html-md"><br /></span>
-leonardo <span class="raw-html-md"><br /></span>
-micro <span class="raw-html-md"><br /></span>
-esplora <span class="raw-html-md"><br /></span>
-mini <span class="raw-html-md"><br /></span>
-ethernet <span class="raw-html-md"><br /></span>
-fio <span class="raw-html-md"><br /></span>
-bt
-LilyPadUSB <span class="raw-html-md"><br /></span>
-pro
-robotControl <span class="raw-html-md"><br /></span>
-robotMotor <span class="raw-html-md"><br /></span>
-circuitplay32u4cat <span class="raw-html-md"><br /></span>
-yunmini <span class="raw-html-md"><br /></span>
-chiwawa <span class="raw-html-md"><br /></span>
-one <span class="raw-html-md"><br /></span>
-unowifi <span class="raw-html-md"><br /></span>
-nano33ble <span class="raw-html-md"><br /></span>
-mkr1000 <span class="raw-html-md"><br /></span>
-mkrzero <span class="raw-html-md"><br /></span>
-mkrwifi1010 <span class="raw-html-md"><br /></span>
-nano_33_iot <span class="raw-html-md"><br /></span>
-mkrfox1200 <span class="raw-html-md"><br /></span>
-mkrwan1300 <span class="raw-html-md"><br /></span>
-mkrwan1310 <span class="raw-html-md"><br /></span>
-mkrgsm1400 <span class="raw-html-md"><br /></span>
-mkrnb1500 <span class="raw-html-md"><br /></span>
-mkrvidor4000 <span class="raw-html-md"><br /></span>
-adafruit_circuitplayground_m0 <span class="raw-html-md"><br /></span>
-mzero_pro_bl <span class="raw-html-md"><br /></span>
-mzero_bl <span class="raw-html-md"><br /></span>
-tian <span class="raw-html-md"><br /></span>
-uno2018 <span class="raw-html-md"><br /></span>
-due</p>
-</section>
-
+          
         </article>
       </div>
       <footer>
