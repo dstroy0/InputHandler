@@ -47,7 +47,7 @@
     // clang-format on
 
     /**
-     * @brief portability directives
+     * @brief Preprocessor directives and includes.
      *
      * Go to your platform's implementation to see what needs to be changed
      * to make the library work on your platform.
@@ -144,10 +144,9 @@ typedef bool input_type_match_flags_type; ///< UserInput private member type (fu
 // UserInput variable sizing
     #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_COMMANDS_IN_TREE`.
+ * @brief User influenced typedef.
  *
- * @link UI_MAX_COMMANDS_IN_TREE @endlink is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
@@ -164,10 +163,9 @@ typedef bool input_type_match_flags_type; ///< UserInput private member type (fu
 typedef uint8_t ui_max_commands_in_tree_t;
 
 /**
- * @brief sized off of `#UI_MAX_COMMANDS_IN_TREE`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_COMMANDS_IN_TREE` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user. 
  *
  * @code{.c}
  * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
@@ -199,11 +197,9 @@ typedef uint32_t cmd_id_grp_t;
 
     #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_ARGS_PER_COMMAND`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_ARGS_PER_COMMAND` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
- *
+ * @link UI_MAX_ARGS_PER_COMMAND @endlink is set by the user.
  * @code{.c}
  * #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
  * typedef uint8_t ui_max_args_t;
@@ -232,11 +228,10 @@ typedef uint32_t ui_max_args_t;
 
     #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_TREE_DEPTH_PER_COMMAND`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_TREE_DEPTH_PER_COMMAND` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
- *
+ * @link UI_MAX_TREE_DEPTH_PER_COMMAND @endlink is set by the user.
+ * 
  * @code{.c}
  * #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
  * typedef uint8_t ui_max_tree_depth_per_command_t;
@@ -265,10 +260,9 @@ typedef uint32_t ui_max_tree_depth_per_command_t;
 
     #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_NUM_CHILD_COMMANDS`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_NUM_CHILD_COMMANDS` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_NUM_CHILD_COMMANDS @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX)
@@ -298,10 +292,9 @@ typedef uint32_t ui_max_num_child_commands_t;
 
     #if (UI_MAX_CMD_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_CMD_LEN`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_CMD_LEN` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_CMD_LEN @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_CMD_LEN <= UINT8_MAX)
@@ -334,10 +327,9 @@ typedef uint32_t ui_max_cmd_len_t;
 
     #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_NUM_DELIM_SEQ`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_NUM_DELIM_SEQ` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_NUM_DELIM_SEQ @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX)
@@ -367,10 +359,9 @@ typedef uint32_t ui_max_num_delim_seq_t;
 
     #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_NUM_START_STOP_SEQ`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_NUM_START_STOP_SEQ` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_NUM_START_STOP_SEQ @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
@@ -400,10 +391,9 @@ typedef uint32_t ui_max_num_start_stop_seq_t;
 
     #if (UI_MAX_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_INPUT_LEN`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_INPUT_LEN` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_INPUT_LEN @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_INPUT_LEN <= UINT8_MAX)
@@ -433,10 +423,9 @@ typedef uint32_t ui_max_input_len_t;
 
     #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
- * @brief sized off of `#UI_MAX_PER_CMD_MEMCMP_RANGES`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_PER_CMD_MEMCMP_RANGES` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_PER_CMD_MEMCMP_RANGES @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
@@ -453,10 +442,9 @@ typedef uint32_t ui_max_input_len_t;
 typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
 
 /**
- * @brief sized off of `#UI_MAX_PER_CMD_MEMCMP_RANGES`.
+ * @brief User influenced typedef.
  *
- * `#UI_MAX_PER_CMD_MEMCMP_RANGES` is user set, the _MAX variables in the
- * following code snippet are set elsewhere.
+ * @link UI_MAX_PER_CMD_MEMCMP_RANGES @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
