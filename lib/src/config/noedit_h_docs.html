@@ -338,7 +338,7 @@
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.UI_ALL_WCC_CMD">
 <span class="target" id="da/dc7/noedit_8h_1a3f8c0d478351bde8c9bfa3e5104a5770"></span><span class="sig-name descname"><span class="n"><span class="pre">UI_ALL_WCC_CMD</span></span></span><a class="headerlink" href="#c.UI_ALL_WCC_CMD" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1. </p>
+<dd><p>UI_ALL_WCC_CMD MAX is equal to <a class="reference internal" href="#d2/d0c/namespace_i_h_1a2ab63a3c1ec28c3fc59e7edeb041e942"><span class="std std-ref">IH::ui_max_per_cmd_memcmp_ranges_t</span></a> - 1. </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -368,6 +368,215 @@
 <dt class="sig sig-object cpp" id="_CPPv4N2IH27input_type_match_flags_typeE">
 <span id="_CPPv3N2IH27input_type_match_flags_typeE"></span><span id="_CPPv2N2IH27input_type_match_flags_typeE"></span><span id="IH::input_type_match_flags_type"></span><span class="target" id="d2/d0c/namespace_i_h_1a824d410663553d9f3fdf30fdf920002e"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">input_type_match_flags_type</span></span></span><a class="headerlink" href="#_CPPv4N2IH27input_type_match_flags_typeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p><a class="reference internal" href="../InputHandler_h_docs.html#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> private member type (future bit array) </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH25ui_max_commands_in_tree_tE">
+<span id="_CPPv3N2IH25ui_max_commands_in_tree_tE"></span><span id="_CPPv2N2IH25ui_max_commands_in_tree_tE"></span><span id="IH::ui_max_commands_in_tree_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a13927b0a7d7ac8e7a5fc5ca7e933caa8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_commands_in_tree_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH25ui_max_commands_in_tree_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT16_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH12cmd_id_grp_tE">
+<span id="_CPPv3N2IH12cmd_id_grp_tE"></span><span id="_CPPv2N2IH12cmd_id_grp_tE"></span><span id="IH::cmd_id_grp_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a06185f1282f382c2a549c7e0b8fdbac9"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_id_grp_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH12cmd_id_grp_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_COMMANDS_IN_TREE</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT16_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH13ui_max_args_tE">
+<span id="_CPPv3N2IH13ui_max_args_tE"></span><span id="_CPPv2N2IH13ui_max_args_tE"></span><span id="IH::ui_max_args_t"></span><span class="target" id="d2/d0c/namespace_i_h_1aa088edbc093134f02460997ab86f31a1"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_args_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH13ui_max_args_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_ARGS_PER_COMMAND</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_ARGS_PER_COMMAND</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_ARGS_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_ARGS_PER_COMMAND &gt; UINT16_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH31ui_max_tree_depth_per_command_tE">
+<span id="_CPPv3N2IH31ui_max_tree_depth_per_command_tE"></span><span id="_CPPv2N2IH31ui_max_tree_depth_per_command_tE"></span><span id="IH::ui_max_tree_depth_per_command_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a18d7808f68b12887af9b419786f811d5"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_tree_depth_per_command_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH31ui_max_tree_depth_per_command_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_TREE_DEPTH_PER_COMMAND</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_TREE_DEPTH_PER_COMMAND</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT16_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_child_commands_tE">
+<span id="_CPPv3N2IH27ui_max_num_child_commands_tE"></span><span id="_CPPv2N2IH27ui_max_num_child_commands_tE"></span><span id="IH::ui_max_num_child_commands_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a7b7bb269f0854e4fbdd1a7a9c6fa7ada"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_child_commands_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_child_commands_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_CHILD_COMMANDS</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_CHILD_COMMANDS</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH16ui_max_cmd_len_tE">
+<span id="_CPPv3N2IH16ui_max_cmd_len_tE"></span><span id="_CPPv2N2IH16ui_max_cmd_len_tE"></span><span id="IH::ui_max_cmd_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a3cff6da2f99bacb22c13a09938ccf402"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_cmd_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH16ui_max_cmd_len_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_CMD_LEN</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_CMD_LEN</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_CMD_LEN &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_CMD_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_CMD_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH22ui_max_num_delim_seq_tE">
+<span id="_CPPv3N2IH22ui_max_num_delim_seq_tE"></span><span id="_CPPv2N2IH22ui_max_num_delim_seq_tE"></span><span id="IH::ui_max_num_delim_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a3a558e38f5372d80c1424066374eb182"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_delim_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH22ui_max_num_delim_seq_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_DELIM_SEQ</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_DELIM_SEQ</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_DELIM_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_DELIM_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH27ui_max_num_start_stop_seq_tE">
+<span id="_CPPv3N2IH27ui_max_num_start_stop_seq_tE"></span><span id="_CPPv2N2IH27ui_max_num_start_stop_seq_tE"></span><span id="IH::ui_max_num_start_stop_seq_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a6951853def51d2e9b71ec46033ddd416"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_num_start_stop_seq_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH27ui_max_num_start_stop_seq_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_START_STOP_SEQ</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_NUM_START_STOP_SEQ</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_START_STOP_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_NUM_START_STOP_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH18ui_max_input_len_tE">
+<span id="_CPPv3N2IH18ui_max_input_len_tE"></span><span id="_CPPv2N2IH18ui_max_input_len_tE"></span><span id="IH::ui_max_input_len_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a0a9cd7a365e3f7d4f6d1b24d31461c88"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_input_len_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH18ui_max_input_len_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_INPUT_LEN</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_INPUT_LEN</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_INPUT_LEN &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_INPUT_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_INPUT_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE">
+<span id="_CPPv3N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="_CPPv2N2IH30ui_max_per_cmd_memcmp_ranges_tE"></span><span id="IH::ui_max_per_cmd_memcmp_ranges_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a2ab63a3c1ec28c3fc59e7edeb041e942"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_per_cmd_memcmp_ranges_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH30ui_max_per_cmd_memcmp_ranges_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2IH12memcmp_idx_tE">
+<span id="_CPPv3N2IH12memcmp_idx_tE"></span><span id="_CPPv2N2IH12memcmp_idx_tE"></span><span id="IH::memcmp_idx_t"></span><span class="target" id="d2/d0c/namespace_i_h_1a1c131b6ff690fd050e11377780bef3f8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">memcmp_idx_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH12memcmp_idx_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>sized off of <code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code>. </p>
+<p><code class="docutils literal notranslate"><span class="pre">#UI_MAX_PER_CMD_MEMCMP_RANGES</span></code> is user set, the _MAX variables in the following code snippet are set elsewhere.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
 </dd></dl>
 
 </div>
