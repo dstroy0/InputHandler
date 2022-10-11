@@ -9,5 +9,5 @@ mainWindow
 mainWindow.py
 ----------------
 
-.. literalinclude:: ../../../../res/uic/mainWindow.py
-    :caption: res/uic/mainWindow.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/uic/mainWindow.py
+    :caption: tools/cli_gen_tool_src/res/uic/mainWindow.py

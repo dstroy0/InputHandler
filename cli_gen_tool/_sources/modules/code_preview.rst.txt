@@ -9,5 +9,5 @@ code_preview
 code_preview.py
 ----------------
 
-.. literalinclude:: ../../../res/modules/code_preview.py
-    :caption: res/modules/code_preview.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/code_preview.py
+    :caption: tools/cli_gen_tool_src/res/modules/code_preview.py

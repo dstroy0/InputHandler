@@ -9,5 +9,5 @@ parameters
 parameters.py
 ----------------
 
-.. literalinclude:: ../../../../res/modules/cli/parameters.py
-    :caption: res/modules/cli/parameters.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/modules/cli/parameters.py
+    :caption: tools/cli_gen_tool_src/res/modules/cli/parameters.py

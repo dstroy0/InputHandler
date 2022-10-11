@@ -9,5 +9,5 @@ settings_tree_table_methods
 settings_tree_table_methods.py
 --------------------------------
 
-.. literalinclude:: ../../../res/modules/settings_tree_table_methods.py
-    :caption: res/modules/settings_tree_table_methods.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/settings_tree_table_methods.py
+    :caption: tools/cli_gen_tool_src/res/modules/settings_tree_table_methods.py

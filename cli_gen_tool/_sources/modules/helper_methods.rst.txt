@@ -9,5 +9,5 @@ helper_methods
 helper_methods.py
 ------------------
 
-.. literalinclude:: ../../../res/modules/helper_methods.py
-    :caption: res/modules/helper_methods.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/helper_methods.py
+    :caption: tools/cli_gen_tool_src/res/modules/helper_methods.py

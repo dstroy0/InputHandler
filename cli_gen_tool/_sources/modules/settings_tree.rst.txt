@@ -9,5 +9,5 @@ settings_tree
 settings_tree.py
 -----------------
 
-.. literalinclude:: ../../../res/modules/settings_tree.py
-    :caption: res/modules/settings_tree.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/settings_tree.py
+    :caption: tools/cli_gen_tool_src/res/modules/settings_tree.py

@@ -224,6 +224,57 @@
 <h1>config<a class="headerlink" href="#config" title="Permalink to this heading">#</a></h1>
 <section id="config-py">
 <h2>config.py<a class="headerlink" href="#config-py" title="Permalink to this heading">#</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool_src/res/modules/cli/config.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+<span class="c1"># @file config.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief CodePreview/file generation external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-07-29</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+
+<span class="k">class</span> <span class="nc">cliConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">cliConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="c1"># refresh the contents of config.h</span>
+    <span class="k">def</span> <span class="nf">config_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span>
+            <span class="s2">&quot;config&quot;</span>
+        <span class="p">][</span><span class="s2">&quot;file lines&quot;</span><span class="p">]</span>
+        <span class="n">cfg_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;config&quot;</span><span class="p">][</span><span class="s2">&quot;tree&quot;</span><span class="p">][</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+        <span class="c1"># the contents at each key represents a config.h file line</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cfg_dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cfg_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="s2">&quot;QComboBox&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;QTreeWidgetItem&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                    <span class="n">sub_dict</span> <span class="o">=</span> <span class="n">cfg_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;3&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;3&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;3&quot;</span><span class="p">]</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;#define &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;2&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">][</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">])</span>
+                    <span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="n">code_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_to_code_string</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span><span class="s2">&quot;config.h&quot;</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+        <span class="c1"># end update_config_h</span>
+
+
+<span class="c1"># end of file</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

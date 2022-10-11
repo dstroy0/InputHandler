@@ -9,5 +9,5 @@ logging_setup
 logging_setup.py
 -----------------
 
-.. literalinclude:: ../../../res/modules/logging_setup.py
-    :caption: res/modules/logging_setup.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/logging_setup.py
+    :caption: tools/cli_gen_tool/res/modules/logging_setup.py

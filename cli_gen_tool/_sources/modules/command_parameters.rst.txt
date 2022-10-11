@@ -9,5 +9,5 @@ command_parameters
 command_parameters.py
 ------------------------
 
-.. literalinclude:: ../../../res/modules/command_parameters.py
-    :caption: res/modules/command_parameters.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/command_parameters.py
+    :caption: tools/cli_gen_tool_src/res/modules/command_parameters.py

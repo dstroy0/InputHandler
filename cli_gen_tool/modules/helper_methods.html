@@ -224,6 +224,126 @@
 <h1>helper_methods<a class="headerlink" href="#helper-methods" title="Permalink to this heading">#</a></h1>
 <section id="helper-methods-py">
 <h2>helper_methods.py<a class="headerlink" href="#helper-methods-py" title="Permalink to this heading">#</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool_src/res/modules/helper_methods.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+<span class="c1"># @file helper_methods.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-07-08</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="c1"># pyside imports</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QDialog</span><span class="p">,</span>
+    <span class="n">QDialogButtonBox</span><span class="p">,</span>
+    <span class="n">QLabel</span><span class="p">,</span>
+    <span class="n">QVBoxLayout</span><span class="p">,</span>
+    <span class="n">QWidget</span><span class="p">,</span>
+    <span class="n">QSizePolicy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+
+<span class="c1"># logging api</span>
+<span class="kn">from</span> <span class="nn">res.modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
+
+
+<span class="c1"># helper method class</span>
+<span class="k">class</span> <span class="nc">HelperMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1">## instance</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1">## the constructor</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+    <span class="c1">## spawn a dialog box</span>
+    <span class="k">def</span> <span class="nf">create_qdialog</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">,</span>
+        <span class="n">message_text_alignment</span><span class="p">,</span>
+        <span class="n">message_text_interaction_flags</span><span class="p">,</span>
+        <span class="n">window_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">buttons</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">button_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;create qdialog: &quot;</span> <span class="o">+</span> <span class="n">window_title</span><span class="p">)</span>
+        <span class="n">_buttons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">button_box_clicked</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+            <span class="n">_match</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_buttons</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="n">_buttons</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">_match</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">break</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
+            <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="n">_match</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">:</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="n">_match</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">:</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="n">_match</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">Save</span><span class="p">:</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="n">done</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="n">_match</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">:</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="n">done</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># create popup</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">()</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span>
+            <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span>
+        <span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setTextFormat</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AutoText</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">message_text_alignment</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">message_text_interaction_flags</span><span class="p">)</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextInteractionFlag</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">message_text_interaction_flags</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">message_text_interaction_flags</span><span class="p">)</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextInteractionFlags</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">message_text_interaction_flags</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setOpenExternalLinks</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">buttons</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="p">(</span><span class="n">dlg</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">buttons</span><span class="p">:</span>
+                <span class="n">_button</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">button_text</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="n">_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">button_text</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">_buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_button</span><span class="p">)</span>
+                <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">button_box_clicked</span><span class="p">)</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">icon</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">window_title</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">window_title</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>  <span class="c1"># brings focus to the popup</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>  <span class="c1"># return the dialog exit code</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="c1">## get builtin icon</span>
+    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pixmapapi</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QWidget</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">pixmapapi</span><span class="p">)</span>
+
+
+<span class="c1"># end of file</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

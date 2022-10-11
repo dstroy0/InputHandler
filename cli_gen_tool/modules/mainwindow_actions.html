@@ -224,6 +224,342 @@
 <h1>mainwindow_actions<a class="headerlink" href="#mainwindow-actions" title="Permalink to this heading">#</a></h1>
 <section id="mainwindow-actions-py">
 <h2>mainwindow_actions.py<a class="headerlink" href="#mainwindow-actions-py" title="Permalink to this heading">#</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool_src/res/modules/mainwindow_actions.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+<span class="c1"># @file mainwindow_actions.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-07-08</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QByteArray</span><span class="p">,</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">QIODevice</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QTextStream</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QDialogButtonBox</span><span class="p">,</span>
+    <span class="n">QFileDialog</span><span class="p">,</span>
+    <span class="n">QStyle</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">res.modules.helper_methods</span> <span class="kn">import</span> <span class="n">HelperMethods</span>
+<span class="kn">from</span> <span class="nn">res.modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
+
+
+<span class="c1"># mainwindow actions class</span>
+<span class="k">class</span> <span class="nc">MainWindowActions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWindowActions</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="c1"># do before close</span>
+    <span class="k">def</span> <span class="nf">do_before_app_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
+            <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Save</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">]</span>
+            <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Close without saving&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+                <span class="s2">&quot;Save your work?&quot;</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;Save changes&quot;</span><span class="p">,</span>
+                <span class="n">buttons</span><span class="p">,</span>
+                <span class="n">button_text</span><span class="p">,</span>
+                <span class="n">HelperMethods</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxQuestion</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># no work to save</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="c1"># log the exit type</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exit cancelled&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_file</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saved. Exiting CLI generation tool.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;session json saved&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">event</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+                    <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exit cancelled&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not saved. Exiting CLI generation tool.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Nothing to Save. Exiting CLI generation tool.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">create_file_error_qdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; file error.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">,</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error&quot;</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxCriticalIcon</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">create_error_dialog</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">.</span><span class="n">WriteOnly</span> <span class="o">|</span> <span class="n">QIODevice</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Save&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># file error</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">QByteArray</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="nb">dict</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="s2">&quot;non-serializable object&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>  <span class="c1"># dump pretty json</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">qfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;wrote &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; bytes to &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Write &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Write&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+        <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">create_error_dialog</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;qfile.exists() == false&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;File not exists&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">{}]</span>  <span class="c1"># file doesn&#39;t exist</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">.</span><span class="n">ReadOnly</span> <span class="o">|</span> <span class="n">QIODevice</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File access error.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Access&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="p">{}]</span>  <span class="c1"># access error</span>
+        <span class="n">data_in</span> <span class="o">=</span> <span class="n">QTextStream</span><span class="p">(</span><span class="n">qfile</span><span class="p">)</span><span class="o">.</span><span class="n">readAll</span><span class="p">()</span>
+        <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data_in</span><span class="p">)</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;loaded json: &quot;</span> <span class="o">+</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">data_in</span><span class="p">),</span> <span class="n">db</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="p">{}]</span>
+
+    <span class="k">def</span> <span class="nf">save_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save CLI settings file&quot;</span><span class="p">)</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;set tool version var in cliOpt&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;tool version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_file_as</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">ret</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">save_file_as</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># inherit from parent QMainWindow (block main window interaction while dialog box is open)</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Save file name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save file dialog cancelled.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Rejected</span>  <span class="c1"># dialog cancelled</span>
+        <span class="n">fqname</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fqname</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save CLI settings file as: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fqname</span><span class="p">))</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">fqname</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">load_cli_gen_tool_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">read_json_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">_json</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>  <span class="c1"># file not exists</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;cli_gen_tool.json doesn&#39;t exist, using default options&quot;</span>
+            <span class="p">)</span>
+            <span class="n">_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultGuiOpt</span>
+            <span class="n">_json</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lib_config_path</span>
+            <span class="k">return</span> <span class="n">_json</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;open cli_gen_tool.json error; using default options&quot;</span>
+            <span class="p">)</span>
+            <span class="n">_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultGuiOpt</span>
+            <span class="n">_json</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lib_config_path</span>
+            <span class="k">return</span> <span class="n">_json</span>
+        <span class="k">return</span> <span class="n">_json</span>
+
+    <span class="k">def</span> <span class="nf">write_cli_gen_tool_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_gen_tool_json_path</span><span class="p">)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">err</span>
+
+    <span class="c1"># MainWindow actions</span>
+    <span class="k">def</span> <span class="nf">open_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;open CLI settings file dialog&quot;</span><span class="p">)</span>
+        <span class="c1"># inherit from parent QMainWindow (block main window interaction while dialog box is open)</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">setFileMode</span><span class="p">(</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">ExistingFile</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">setNameFilter</span><span class="p">(</span><span class="s2">&quot;Settings json (*.json)&quot;</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">setViewMode</span><span class="p">(</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">Detail</span><span class="p">)</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;open CLI settings file dialog cancelled&quot;</span><span class="p">)</span>
+            <span class="k">return</span>  <span class="c1"># dialog cancelled</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">read_json_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># empty trees</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="c1"># rebuild from file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_lib_settings_tree</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_command_tree</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display_initial_code_preview</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># TODO</span>
+    <span class="k">def</span> <span class="nf">gui_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;opened preferences dialog&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+    <span class="c1"># TODO</span>
+    <span class="c1"># generate CLI files</span>
+    <span class="k">def</span> <span class="nf">generate_cli_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;generate cli files&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">gui_about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;open about dialog&quot;</span><span class="p">)</span>
+        <span class="n">about_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/dstroy0/InputHandler</span><span class="se">\&quot;</span><span class="s2">&gt;Link to library github&lt;/a&gt;&lt;br&gt;&lt;br&gt;</span>
+<span class="s2">        Library authors:&lt;br&gt;</span>
+<span class="s2">        Douglas Quigg (dstroy0 dquigg123@gmail.com)&lt;br&gt;</span>
+<span class="s2">        Brendan Doherty (2bndy5 2bndy5@gmail.com)&lt;br&gt;&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+            <span class="n">about_string</span><span class="p">,</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">TextBrowserInteraction</span><span class="p">,</span>
+            <span class="s2">&quot;About&quot;</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxQuestionIcon</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">## opens an internet browser to the library&#39;s documentation</span>
+    <span class="k">def</span> <span class="nf">gui_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;open GUI documentation&quot;</span><span class="p">)</span>
+        <span class="n">os_type</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># lowercase os type</span>
+        <span class="c1"># windows</span>
+        <span class="k">if</span> <span class="n">os_type</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;start &quot;&quot; https://dstroy0.github.io/InputHandler/&#39;</span><span class="p">)</span>
+        <span class="c1"># macos</span>
+        <span class="k">elif</span> <span class="n">os_type</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;open &quot;&quot; https://dstroy0.github.io/InputHandler/&#39;</span><span class="p">)</span>
+        <span class="c1"># linux</span>
+        <span class="k">elif</span> <span class="n">os_type</span> <span class="o">==</span> <span class="s2">&quot;linux&quot;</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;xdg-open &quot;&quot; https://dstroy0.github.io/InputHandler/&#39;</span><span class="p">)</span>
+
+    <span class="c1">## opens the log history subwindow</span>
+    <span class="k">def</span> <span class="nf">gui_log_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">isActiveWindow</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>
+
+    <span class="c1">## MainWindow file menu actions</span>
+    <span class="k">def</span> <span class="nf">mainwindow_menu_bar_actions_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># file menu actions setup</span>
+        <span class="c1"># file menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionOpen</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionSave</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionSave_As</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_file_as</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionPreferences</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gui_settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionExit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+        <span class="c1"># generate menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionGenerate_CLI_Files</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_cli_files</span><span class="p">)</span>
+        <span class="c1"># about menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionAbout</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gui_about</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionInputHandler_Documentation</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gui_documentation</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionOpen_Log_History</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gui_log_history</span><span class="p">)</span>
+        <span class="c1"># end file menu actions setup</span>
+
+    <span class="c1">## MainWindow button actions</span>
+    <span class="k">def</span> <span class="nf">mainwindow_button_actions_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># buttons setup</span>
+        <span class="c1"># tab 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_clear_tab_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_default_tab_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">itemSelectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span>
+        <span class="p">)</span>
+        <span class="c1"># tab 2</span>
+        <span class="c1"># always visible</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_new_cmd_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_delete_tab_two</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmd_settings_menu_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clicked_command_settings_menu_button_tab_two</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">itemSelectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span>
+        <span class="p">)</span>
+        <span class="c1"># end buttons setup</span>
+
+    <span class="c1"># end MainWindow actions</span>
+
+
+<span class="c1"># end of file</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

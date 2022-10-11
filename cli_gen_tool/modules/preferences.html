@@ -224,6 +224,151 @@
 <h1>preferences<a class="headerlink" href="#preferences" title="Permalink to this heading">#</a></h1>
 <section id="preferences-py">
 <h2>preferences.py<a class="headerlink" href="#preferences-py" title="Permalink to this heading">#</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool/res/modules/preferences.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
+<span class="c1"># @file preferences.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-08-23</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">res.modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QFile</span>
+
+
+<span class="k">class</span> <span class="nc">PreferencesMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PreferencesMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;preferences set&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reset_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;preferences dialog cancelled, config path reset to: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;InputHandler config file name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;config.h&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;browse for config cancelled.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">fqname</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">fqname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fqname</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fqname</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fqname</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">set_session_history_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Session history log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_file_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">set_stream_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Stream log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_global_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Global log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span><span class="p">)</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span><span class="p">)</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">session_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">preferences_dialog_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;preferences dialog setup&quot;</span><span class="p">)</span>
+        <span class="c1"># set initial field text</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">setItemData</span><span class="p">(</span>
+                <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">setItemData</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">setItemData</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">setItemData</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># initial index</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span>
+        <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span>
+        <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span>
+        <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span>
+        <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
+
+        <span class="c1"># actions setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">browse_for_config</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_preferences</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">rejected</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_preferences</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_session_history_log_level</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_file_log_level</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_stream_log_level</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_global_log_level</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 

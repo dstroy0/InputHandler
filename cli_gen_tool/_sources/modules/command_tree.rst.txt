@@ -9,5 +9,5 @@ command_tree
 command_tree.py
 ----------------
 
-.. literalinclude:: ../../../res/modules/command_tree.py
-    :caption: res/modules/command_tree.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/command_tree.py
+    :caption: tools/cli_gen_tool_src/res/modules/command_tree.py

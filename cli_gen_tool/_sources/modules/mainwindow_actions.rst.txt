@@ -9,5 +9,5 @@ mainwindow_actions
 mainwindow_actions.py
 -----------------------
 
-.. literalinclude:: ../../../res/modules/mainwindow_actions.py
-    :caption: res/modules/mainwindow_actions.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/mainwindow_actions.py
+    :caption: tools/cli_gen_tool_src/res/modules/mainwindow_actions.py

@@ -9,5 +9,5 @@ data_models
 data_models.py
 ----------------
 
-.. literalinclude:: ../../../res/modules/data_models.py
-    :caption: res/modules/data_models.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/data_models.py
+    :caption: tools/cli_gen_tool_src/res/modules/data_models.py
