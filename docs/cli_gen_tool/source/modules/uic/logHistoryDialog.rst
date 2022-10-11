@@ -9,5 +9,5 @@ logHistoryDialog
 logHistoryDialog.py
 -----------------------
 
-.. literalinclude:: ../../../../res/uic/logHistoryDialog.py
-    :caption: res/uic/logHistoryDialog.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/uic/logHistoryDialog.py
+    :caption: tools/cli_gen_tool_src/res/uic/logHistoryDialog.py

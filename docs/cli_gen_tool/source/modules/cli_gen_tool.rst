@@ -9,5 +9,5 @@ cli_gen_tool.py
 cli_gen_tool.py
 ----------------
 
-.. literalinclude:: ../../../cli_gen_tool.py
-    :caption: cli_gen_tool.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/cli_gen_tool.py
+    :caption: tools/cli_gen_tool_src/cli_gen_tool.py

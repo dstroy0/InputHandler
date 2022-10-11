@@ -63,6 +63,7 @@ splashscreen_duration = 750
 ## Library pathing
 path = QDir()
 path.cdUp()
+path.cdUp()
 lib_root_path = path.currentPath()
 
 ## This is the main display window
@@ -98,7 +99,7 @@ class MainWindow(
         self.default_lib_config_path = self.lib_root_path + "/src/config/config.h"
         # /InputHandler/cli_gen_tool/cli_gen_tool.json
         self.cli_gen_tool_json_path = (
-            self.lib_root_path + "/cli_gen_tool/cli_gen_tool.json"
+            self.lib_root_path + "/tools/cli_gen_tool_src/cli_gen_tool.json"
         )
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html

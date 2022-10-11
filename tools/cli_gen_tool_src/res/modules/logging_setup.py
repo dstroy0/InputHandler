@@ -49,7 +49,7 @@ class Logger(object):
     _KB = 2**10
     # mb = 2^2^10 == 1048576 bytes
     _MB = 2**2**10
-    _log_path = "/logs/"
+    _log_path = "/tools/logs/"
     _log_filename = "cli_gen_tool.log"
     _log_format = "%(asctime)s - [%(levelname)s] -  %(name)s - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s"
     _log_formatter = logging.Formatter(_log_format)

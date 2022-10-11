@@ -9,5 +9,5 @@ parse_config
 parse_config.py
 ----------------
 
-.. literalinclude:: ../../../res/modules/parse_config.py
-    :caption: res/modules/parse_config.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/parse_config.py
+    :caption: tools/cli_gen_tool_src/res/modules/parse_config.py

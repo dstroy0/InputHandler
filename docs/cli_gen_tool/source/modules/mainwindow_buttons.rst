@@ -10,4 +10,4 @@ mainwindow_buttons.py
 -----------------------
 
 .. literalinclude:: ../../../res/modules/mainwindow_buttons.py
-    :caption: res/modules/mainwindow_buttons.py
+    :caption: tools/cli_gen_tool_src/res/modules/mainwindow_buttons.py

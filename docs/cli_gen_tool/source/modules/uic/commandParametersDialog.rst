@@ -9,5 +9,5 @@ commandParametersDialog
 commandParametersDialog.py
 ---------------------------
 
-.. literalinclude:: ../../../../res/uic/commandParametersDialog.py
-    :caption: res/uic/commandParametersDialog.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/uic/commandParametersDialog.py
+    :caption: tools/cli_gen_tool_src/res/uic/commandParametersDialog.py

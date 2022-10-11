@@ -9,5 +9,5 @@ preferences
 preferences.py
 ----------------
 
-.. literalinclude:: ../../../res/modules/preferences.py
-    :caption: res/modules/preferences.py
+.. literalinclude:: ../../../../tools/cli_gen_tool_src/res/modules/preferences.py
+    :caption: tools/cli_gen_tool/res/modules/preferences.py

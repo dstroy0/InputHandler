@@ -9,5 +9,5 @@ functions
 functions.py
 ----------------
 
-.. literalinclude:: ../../../../res/modules/cli/functions.py
-    :caption: res/modules/cli/functions.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/modules/cli/functions.py
+    :caption: tools/cli_gen_tool_src/res/modules/cli/functions.py

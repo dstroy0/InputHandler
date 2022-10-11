@@ -9,5 +9,5 @@ clireadme
 clireadme.py
 ----------------
 
-.. literalinclude:: ../../../../res/modules/cli/clireadme.py
-    :caption: res/modules/cli/clireadme.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/modules/cli/clireadme.py
+    :caption: tools/cli_gen_tool_src/res/modules/cli/clireadme.py

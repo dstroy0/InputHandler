@@ -9,5 +9,5 @@ filestrings
 filestrings.py
 ----------------
 
-.. literalinclude:: ../../../../res/modules/cli/filestrings.py
-    :caption: res/modules/cli/filestrings.py
+.. literalinclude:: ../../../../../tools/cli_gen_tool_src/res/modules/cli/filestrings.py
+    :caption: tools/cli_gen_tool_src/res/modules/cli/filestrings.py
