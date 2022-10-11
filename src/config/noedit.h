@@ -46,6 +46,7 @@
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
     // clang-format on
 
+    #if defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Preprocessor directives and includes.
      *
@@ -57,6 +58,8 @@
      *
      */
     #define IH_PORTABILITY_DIRECTIVES
+    #endif
+    
     /** @cond */
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
@@ -147,8 +150,6 @@ typedef bool input_type_match_flags_type; ///< UserInput private member type (fu
  * @brief User influenced typedef.
  *
  * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user.
- * 
- * #c.UI_MAX_COMMANDS_IN_TREE
  *
  * @code{.c}
  * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
