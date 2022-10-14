@@ -80,9 +80,9 @@ enum UI_WC_FLAG
 };
 
 /**
- * @brief UserInput::_compareCommandToString() return values.
+ * @brief UserInput::\_compareCommandToString() return values.
  *
- * These flags are only used to provide clarity to UserInput::_compareCommandToString(),
+ * These flags are only used to provide clarity to UserInput::\_compareCommandToString(),
  * they make it easy to understand what is happening inside of that method.
  *
  * @enum UI_COMPARE
@@ -378,7 +378,7 @@ public:
      * @brief UserInput constructor, no output by default
      *
      * UserInput has no output by default due to the default values passed in by the constructor.
-     * The constructor disables output by setting UserInput::_output_enabled_ to false if
+     * The constructor disables output by setting UserInput::\_output_enabled_ to false if
      * `output_buffer` is NULL.
      *
      * @param input_prm InputProcessParameters PROGMEM pointer. NULL by default, which makess the
@@ -426,9 +426,9 @@ public:
     }
 
     /**
-     * @brief Sets UserInput::_default_function_.
+     * @brief Sets UserInput::\_default_function_.
      * When there is no command match, or when input is invalid, this function is called
-     * if UserInput::_default_function_ is not NULL.
+     * if UserInput::\_default_function_ is not NULL.
      *
      * [UserInput::defaultfunction
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
@@ -461,10 +461,10 @@ public:
      * @brief Allocates memory to run the input process.
      *
      * Allocates memory for:
-     * UserInput::_data_pointers_
-     * UserInput::_input_type_match_flags_
+     * UserInput::\_data_pointers_
+     * UserInput::\_input_type_match_flags_
      *
-     * sets UserInput::_begin_ to true if successful.
+     * sets UserInput::\_begin_ to true if successful.
      *
      * [UserInput::begin
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=begin())
@@ -483,7 +483,7 @@ public:
      * allocated in UserInput::begin().
      *
      * REQUIRES a 700 byte output_buffer.  If an insufficient buffer size is declared,
-     * UserInput::_ui_out() will first empty the output buffer and then warn the user
+     * UserInput::\_ui_out() will first empty the output buffer and then warn the user
      * to increase the buffer to the required size.
      *
      * [UserInput::listSettings
@@ -499,7 +499,7 @@ public:
     /**
      * @brief Lists commands available to the user.
      *
-     * Lists commands that will respond to user input if UserInput::_begin_ is true. Else it will
+     * Lists commands that will respond to user input if UserInput::\_begin_ is true. Else it will
      * inform the user to use UserInput::begin() in `setup()`.
      *
      * [UserInput::listCommands
@@ -523,7 +523,7 @@ public:
         bool subcommand_matched;         ///< matched a subcommand
         CommandConstructor* cmd;         ///< pointer to CommandConstructor
         CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
-        UI_COMPARE result;               ///< result of UserInput::_compareCommandToString()
+        UI_COMPARE result;               ///< result of UserInput::\_compareCommandToString()
         IH::cmd_id_grp_t command_id;     ///< type set by macro
         size_t idx;                      ///< CommandParameters index
         size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
@@ -532,13 +532,13 @@ public:
         size_t tokens_received;          ///< how many tokens we received
         CommandParameters prm;           ///< CommandParameters struct
         uint8_t* input_data;             ///< pointer to input_data
-        uint8_t* split_input;            ///< pointer to UserInput::_splitZDC() modified data
+        uint8_t* split_input;            ///< pointer to UserInput::\_splitZDC() modified data
     };
 
     /**
      * @brief Reads predefined command(s) from a buffer.
      *
-     * @warning This function will silent return if UserInput::_begin_ is false!
+     * @warning This function will silent return if UserInput::\_begin_ is false!
      *
      * [UserInput::readCommandFromBuffer
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(
@@ -559,7 +559,7 @@ public:
      * [Stream object
      * reference](https://www.arduino.cc/reference/en/language/functions/communication/stream/)
      *
-     * @warning This function will silent return if UserInput::_begin_ is false!
+     * @warning This function will silent return if UserInput::\_begin_ is false!
      *
      * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24
      * stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc))
@@ -575,7 +575,7 @@ public:
 
     #if defined(ENABLE_nextArgument) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief Returns a pointer to the next token in UserInput::_token_buffer_.
+     * @brief Returns a pointer to the next token in UserInput::\_token_buffer_.
      *
      * Returns NULL if no more tokens were parsed.
      *
@@ -586,7 +586,7 @@ public:
 
     #if defined(ENABLE_getArgument) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief Returns a pointer to argument_number token in UserInput::_token_buffer_
+     * @brief Returns a pointer to argument_number token in UserInput::\_token_buffer_
      *
      * Returns NULL if argument_number's token doesn't exist.
      *
@@ -725,12 +725,12 @@ private:
     // (potentially) user entered constructor variables
     const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
     char* _output_buffer_;                         ///< pointer to the output char buffer
-    size_t _output_buffer_len_;                    ///< UserInput::_output_buffer_ size in bytes
+    size_t _output_buffer_len_;                    ///< UserInput::\_output_buffer_ size in bytes
     // end user entered constructor variables
 
-    bool _output_enabled_; ///< true if UserInput::_output_buffer_ is not NULL (the user has defined
+    bool _output_enabled_; ///< true if UserInput::\_output_buffer_ is not NULL (the user has defined
                            ///< and passed an output buffer to UserInput's constructor)
-    size_t _output_buffer_bytes_left_; ///< index of UserInput::_output_buffer_, messages are
+    size_t _output_buffer_bytes_left_; ///< index of UserInput::\_output_buffer_, messages are
                                        ///< appended to the output buffer and this keeps track of
                                        ///< where to write to next without overwriting
 
@@ -751,7 +751,7 @@ private:
     IH::ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
                                   ///< input CommandParameters.
     IH::input_type_match_flags_type*
-        _input_type_match_flags_; ///< Bool array the size of UserInput::_max_args_.
+        _input_type_match_flags_; ///< Bool array the size of UserInput::\_max_args_.
 
     bool _output_flag_; ///< Output is available flag, set by member functions.
 
@@ -795,7 +795,7 @@ private:
     /**
      * @brief ReadCommandFromBuffer error output
      *
-     * @param rprm reference to UserInput::_rcfbprm
+     * @param rprm reference to UserInput::\_rcfbprm
      */
     void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
     #endif // end ENABLE_readCommandFromBufferErrorOutput
@@ -803,7 +803,7 @@ private:
     /**
      * @brief launches either (this) function or the root command function
      *
-     * @param rprm reference to UserInput::_rcfbprm
+     * @param rprm reference to UserInput::\_rcfbprm
      * @param pname IH_pname char array
      */
     void _launchFunction(_rcfbprm& rprm, const IH_pname& pname);
@@ -811,7 +811,7 @@ private:
     /**
      * @brief function launch logic, recursive on subcommand match
      *
-     * @param rprm reference to UserInput::_rcfbprm
+     * @param rprm reference to UserInput::\_rcfbprm
      */
     void _launchLogic(_rcfbprm& rprm);
 
@@ -827,7 +827,7 @@ private:
 
     /**
      * @brief Triggers on a control character sequence, if the char immediately
-     * after the control char is a char known to UserInput::_combineControlCharacters
+     * after the control char is a char known to UserInput::\_combineControlCharacters
      * this returns a control char, else it returns the input char
      *
      * @param input the char the control character sequence
@@ -857,7 +857,7 @@ private:
     /**
      * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
-     * @param rprm reference to UserInput::_rcfbprm
+     * @param rprm reference to UserInput::\_rcfbprm
      */
     void _getArgs(_rcfbprm& rprm);
 
@@ -901,7 +901,7 @@ private:
      * @brief split a zero delimiter command, separate command and string with token delimiter for
      * further processing
      *
-     * @param rprm reference to UserInput::_rcfbprm
+     * @param rprm reference to UserInput::\_rcfbprm
      * @param num_zdc zero delim commands
      * @param zdc num zdc
      * @return true if split
