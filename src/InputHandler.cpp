@@ -120,7 +120,7 @@ bool UserInput::begin()
     if (_input_type_match_flags_ == NULL && _max_args_ != 0)
     {
 #if defined(UI_VERBOSE) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _input_type_match_flags_\n"));
+        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for UserInput::_input_type_match_flags_\n"));
 #endif
         _begin_ = false;
         return _begin_;
@@ -129,7 +129,7 @@ bool UserInput::begin()
     if (_data_pointers_ == NULL)
     {
 #if defined(UI_VERBOSE) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for _data_pointers_\n"));
+        UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for UserInput::_data_pointers_\n"));
 #endif
         _begin_ = false;
         free(_input_type_match_flags_);

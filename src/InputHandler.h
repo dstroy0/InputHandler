@@ -24,37 +24,41 @@
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h `#UI_PROCESS_NAME_PGM_LEN`
+ * This is a char array, you can change the macro in src/config/config.h @link
+ * UI_PROCESS_NAME_PGM_LEN @endlink
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h `#UI_EOL_SEQ_PGM_LEN`
+ * This is a char array, you can change the macro in src/config/config.h @link UI_EOL_SEQ_PGM_LEN
+ * @endlink
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h `#UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN`
+ * This is a char array, you can change the macro in src/config/config.h @link
+ * UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h `#UI_WCC_SEQ_PGM_LEN`
+ * This is a char array, you can change the macro in src/config/config.h @link UI_WCC_SEQ_PGM_LEN
+ * @endlink
  */
 typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
 
 /**
  * @brief Command identifier enum.
  *
- * this is used to explicitly state something is related to a root command
- * in the context of UserInput::CommandParameters.
- * 
+ * This is used to explicitly state something is related to a root command
+ * in the context of CommandParameters.
+ *
  * @enum UI_CMD_ID
  */
 enum UI_CMD_ID
@@ -65,8 +69,8 @@ enum UI_CMD_ID
 /**
  * @brief command wildcard flag enum
  *
- * These flags are used inside of UserInput::CommandParameters.
- * 
+ * These flags are used inside of CommandParameters.
+ *
  * @enum UI_WC_FLAG
  */
 enum UI_WC_FLAG
@@ -80,7 +84,7 @@ enum UI_WC_FLAG
  *
  * These flags are only used to provide clarity to UserInput::_compareCommandToString(),
  * they make it easy to understand what is happening inside of that method.
- * 
+ *
  * @enum UI_COMPARE
  */
 enum UI_COMPARE
@@ -93,7 +97,7 @@ enum UI_COMPARE
 /**
  * @brief Strongly typed argument handling flags.
  *
- * This is used in UserInput::CommandParameters as a visual reminder of
+ * This is used in CommandParameters as a visual reminder of
  * how the process will handle your arguments.
  * @enum UI_ARG_HANDLING
  */
@@ -128,14 +132,14 @@ enum class UITYPE
 };
 
 /**
- * @brief holds user defined input data delimiters.
+ * @brief Holds user defined input data delimiters.
  *
- * This struct holds information about the delimiter sequences the process will be using.
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
  * input arguments, subcommands or data.  The input process needs to know three things
  * about the delimiter sequences you want to use.  The number of delimiter sequences there are
- * (up to UI_MAX_DELIM_SEQ), the 8-bit byte (char) length of each delimiter sequence, and
- * finally each delimiter sequence which can be up to UI_DELIM_SEQ_PGM_LEN in length.
+ * (up to @link UI_MAX_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter sequence,
+ * and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN @endlink in
+ * length.
  */
 struct InputProcessDelimiterSequences
 {
@@ -146,16 +150,15 @@ struct InputProcessDelimiterSequences
 };
 
 /**
- * @brief holds regex-like start-stop match sequence pairs.
+ * @brief Holds regex-like start-stop match sequence pairs.
  *
- * This struct holds information about the start-stop sequence pairs the process will be using.
  * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
  * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
  * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know
  * three things about the start-stop sequences you want to use.  The number of start-stop
- * sequences there are (up to UI_MAX_START_STOP_SEQ), the 8-bit byte (char) length of each
- * start-stop sequence, and finally each start-stop sequence which can be up to
- * UI_START_STOP_SEQ_PGM_LEN in length.
+ * sequences there are (up to @link UI_MAX_START_STOP_SEQ @endlink), the 8-bit byte (char) length of
+ * each start-stop sequence, and finally each start-stop sequence which can be up to
+ * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
  */
 struct InputProcessStartStopSequences
 {
@@ -169,15 +172,17 @@ struct InputProcessStartStopSequences
 };
 
 /**
- * @brief input process parameters and constructor parameters.
+ * @brief Input process parameters and constructor parameters.
+ *
  * This struct is an array of pointers to other structs/arrays contained in PROGMEM.
- * It's required by the input process, all together they define the input process behavior.
+ * It's required by the input process constructor, all together they define the
+ * input process behavior.
  */
 struct InputProcessParameters
 {
-    const IH_pname*
-        process_name;       ///< this process' name, can be NULL; MAX len == UI_PROCESS_NAME_PGM_LEN
-    const IH_eol* eol_char; ///< end of line term; MAX len == UI_EOL_SEQ_PGM_LEN
+    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len == @link
+                                  ///< UI_PROCESS_NAME_PGM_LEN @endlink
+    const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
     const IH_input_cc*
         input_control_char_sequence; ///< two char len sequence to input a control char
     const IH_wcc* wildcard_char;     ///< single char wildcard char
@@ -188,9 +193,10 @@ struct InputProcessParameters
 };
 
 /**
- * @brief CommandRuntimeCalc struct contains arrays and indices determined at runtime
- * these structs are associated with wildcard commands; every CommandConstructor
- * that has a CommandParameters which contains wildcards will have a CommandRuntimeCalc
+ * @brief Contains arrays and indices determined at runtime.
+ *
+ * These structs are associated with wildcard commands; CommandParameters which
+ * contains wildcards will have a CommandRuntimeCalc.
  */
 struct CommandRuntimeCalc
 {
@@ -208,10 +214,10 @@ struct CommandRuntimeCalc
 class UserInput;
 
 /**
- * @brief CommandParameters struct, this is the container that holds your command parameters
+ * @brief Pertinent command information
  *
  * Every command and subcommand has an associated CommandParameters object, this is the information
- * that the input process needs to know about your command
+ * that the input process needs to know about your command.
  */
 struct CommandParameters
 {
@@ -248,7 +254,7 @@ namespace ihconst
 /**
  * @brief type string literals
  *
- * input type string literal PROGMEM array, each of the types in UITYPE has
+ * input type string literal PROGMEM array, each of the types in @link UITYPE @endlink has
  * a corresponding string literal for display purposes
  *
  */
@@ -308,20 +314,28 @@ const InputProcessParameters PROGMEM default_parameters = {
 /**
  * @class CommandConstructor
  *
- * @brief sets up command pointers, adds the command to the linked-list
+ * @brief Pointers to information about the command and the linked-list.
+ *
+ * The purpose of this class is to set up the command for use with
+ * UserInput::addCommand().  It contains a pointer to the next command
+ * in the singly-linked-list, a pointer to CommandParameters in PROGMEM,
+ * the length of the parameters array, the depth of the command tree
+ * you desire to add to the list, and a pointer to CommandRunTimeCalc
+ * if this command contains wildcard commands.
  *
  */
 class CommandConstructor
 {
 public:
     /**
-     * @brief CommandConstructor Constructor
+     * @brief Constructor method.
      *
      * Linked-list primer: https://www.programiz.com/dsa/linked-list
      *
-     * These constructors are chained together as a linked-list; this CommandConstructor
-     * object contains a reference CommandConstructor::next_command to the next node
-     * in the linked-list.  The list is linked together in UserInput::addCommand().
+     * These  are chained together as a linked-list; this
+     * object contains a reference to the next node
+     * in the linked-list.  The list is linked together each call to
+     * UserInput::addCommand().
      *
      * Before using, construct a UserInput object and a CommandParameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
@@ -349,7 +363,12 @@ public:
 /**
  * @class UserInput
  *
- * @brief handles user input
+ * @brief Parses user input, formats an output buffer if defined.
+ *
+ * This class contains methods that deal with parsing user input by
+ * looking for "interesting" predefined combinations of 0-255 char
+ * values, and formatting an output buffer with useful human readable
+ * information.
  *
  */
 class UserInput
@@ -359,13 +378,14 @@ public:
      * @brief UserInput constructor, no output by default
      *
      * UserInput has no output by default due to the default values passed in by the constructor.
-     * The constructor disables output by setting `_output_enabled_` to false if output_buffer is
-     * NULL.
+     * The constructor disables output by setting UserInput::_output_enabled_ to false if
+     * `output_buffer` is NULL.
      *
-     * @param input_prm InputProcessParameters struct pointer.  NULL by default, which causes the
-     * ctor to use default_input_parameters unless you define your own
+     * @param input_prm InputProcessParameters PROGMEM pointer. NULL by default, which makess the
+     * ctor use ihconst::default_parameters.
      * @param output_buffer class output char buffer, implementation specific.  NULL by default.
-     * @param output_buffer_len size of output_buffer buffsz(output_buffer)
+     * @param output_buffer_len size of output_buffer, use @link buffsz() @endlink to prevent
+     * accidental buffer sizing errors.
      */
     UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL,
         size_t output_buffer_len = 0)
@@ -406,27 +426,28 @@ public:
     }
 
     /**
-     * @brief Sets the UserInput::_default_function_ pointer
+     * @brief Sets UserInput::_default_function_.
      * When there is no command match, or when input is invalid, this function is called
-     * if the pointer is not NULL
+     * if UserInput::_default_function_ is not NULL.
      *
      * [UserInput::defaultfunction
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void
      * (*function)(UserInput*)))
      *
-     * @param function a pointer to a user specified function to use as the default function.
+     * @param function a pointer to a user specified function to use as the default function with
+     * the format of `void (*function)(UserInput*)`.
      */
     void defaultFunction(void (*function)(UserInput*));
 
     /**
-     * @brief adds user commands to the input process
+     * @brief Adds user commands to the input process.
      *
-     * This function inspects CommandParameters for errors and
-     * reports the errors to the user if they have enabled output.
-     * If an error is detected in the root command or any of
-     * its subcommands, the entire command tree is rejected,
-     * and sizing for dynamically allocated variables does not
-     * take place.
+     * This function inspects the input parameters for errors and
+     * reports the errors to the user if the user has enabled output
+     * by defining an output buffer when instantiating UserInput.
+     * If an error is detected, the entire command tree is rejected.
+     *
+     * No further action is taken.
      *
      * [UserInput::addCommand
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=addCommand(CommandConstructor&
@@ -437,13 +458,13 @@ public:
     void addCommand(CommandConstructor& command);
 
     /**
-     * @brief Allocates memory.
+     * @brief Allocates memory to run the input process.
      *
      * Allocates memory for:
      * UserInput::_data_pointers_
      * UserInput::_input_type_match_flags_
      *
-     * sets UserInput::_begin_
+     * sets UserInput::_begin_ to true if successful.
      *
      * [UserInput::begin
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=begin())
@@ -457,19 +478,19 @@ public:
     /**
      * @brief Lists UserInput class settings, useful for implementation debugging.
      *
-     * Lists all pertinient process information:
-     * class configuration, constructor variables,
+     * Lists class configuration, constructor variables,
      * and the amount of pointers that were dynamically
-     * allocated in UserInput::begin()
+     * allocated in UserInput::begin().
      *
      * REQUIRES a 700 byte output_buffer.  If an insufficient buffer size is declared,
-     * UserInput::_ui_out() will warn the user to increase the buffer to the required size.
+     * UserInput::_ui_out() will first empty the output buffer and then warn the user
+     * to increase the buffer to the required size.
      *
      * [UserInput::listSettings
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listSettings(UserInput*
      * inputProcess))
      *
-     * @param inputProcess pointer to class instance
+     * @param inputProcess pointer to the class instance
      */
     void listSettings(UserInput* inputProcess);
     #endif
@@ -479,7 +500,7 @@ public:
      * @brief Lists commands available to the user.
      *
      * Lists commands that will respond to user input if UserInput::_begin_ is true. Else it will
-     * inform the user to use `UserInput::begin()` in `setup()`.
+     * inform the user to use UserInput::begin() in `setup()`.
      *
      * [UserInput::listCommands
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listCommands())
@@ -515,9 +536,9 @@ public:
     };
 
     /**
-     * @brief Reads predefined command(s) from a uint8_t (unsigned char) buffer.
+     * @brief Reads predefined command(s) from a buffer.
      *
-     * This function will silent return if UserInput::_begin_ == false
+     * @warning This function will silent return if UserInput::_begin_ is false!
      *
      * [UserInput::readCommandFromBuffer
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(
@@ -533,12 +554,12 @@ public:
 
     #if defined(ENABLE_getCommandFromStream) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer
+     * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer.
      *
      * [Stream object
      * reference](https://www.arduino.cc/reference/en/language/functions/communication/stream/)
      *
-     * This function will silent return if UserInput::_begin_ == false
+     * @warning This function will silent return if UserInput::_begin_ is false!
      *
      * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream&
      * stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc =
@@ -555,39 +576,42 @@ public:
 
     #if defined(ENABLE_nextArgument) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief returns a pointer to the next token in UserInput::_token_buffer_ or NULL if there are
-     * no more tokens
+     * @brief Returns a pointer to the next token in UserInput::_token_buffer_.
      *
-     * @return char*
+     * Returns NULL if no more tokens were parsed.
+     *
+     * @return valid pointer if there is another token else NULL.
      */
     char* nextArgument();
     #endif
 
     #if defined(ENABLE_getArgument) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief returns a pointer to argument_number token in UserInput::_token_buffer_ or NULL if
-     * there is no argument_number token
+     * @brief Returns a pointer to argument_number token in UserInput::_token_buffer_
      *
-     * @return char*
+     * Returns NULL if argument_number's token doesn't exist.
+     *
+     * @param argument_number The argument number to retrieve.
+     * @return valid pointer if argument_number exists else NULL.
      */
     char* getArgument(size_t argument_number);
     #endif
 
     #if defined(ENABLE_outputIsAvailable) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief class output available if the return of this function is greater than zero
+     * @brief Output is available from UserInput if True.
      *
      * (True) if greater than 0
      * (False) if 0
      *
-     * @return the number of bytes available for output, or zero if there is no output
+     * @return The number of bytes available for output, or zero if there is no output available.
      */
     size_t outputIsAvailable();
     #endif
 
     #if defined(ENABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief is class output enabled
+     * @brief UserInput output flag.
      *
      * @return true if enabled
      * @return false if not enabled
@@ -597,15 +621,20 @@ public:
 
     #if defined(ENABLE_outputToStream) || defined(DOXYGEN_XML_BUILD)
     /**
-     * @brief direct class output to stream, clears output buffer automatically
+     * @brief Direct UserInput output to a Stream.
      *
-     * @param stream the stream to print to
+     * This also clears the output buffer automatically after writing to the
+     * Stream is complete.
+     *
+     * @param stream The Stream to write to.
      */
     void outputToStream(Stream& stream);
     #endif
 
     /**
-     * @brief clears output buffer
+     * @brief Clears the output buffer if defined.
+     *
+     * Soft clear by default, writes null to the first char in the output buffer.
      *
      * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire
      * _output_buffer_
@@ -613,7 +642,7 @@ public:
     void clearOutputBuffer(bool overwrite_contents = false);
 
     /**
-     * @brief UserInput::getTokensParam UserInput::getTokens() parameters data structure
+     * @brief UserInput::getTokens() input data structure.
      */
     struct getTokensParam
     {
@@ -632,7 +661,12 @@ public:
     };
 
     /**
-     * @brief puts tokens into the token buffer pointed to in getTokensParam
+     * @brief Puts tokens into the token buffer pointed to by the input UserInput::getTokensParam.
+     * 
+     * To use this function outside of UserInput you must declare a UserInput::getTokensParam.
+     *      
+     * This can be used with different InputProcessParameters than the ones provided to the
+     * UserInput Constructor method.  
      *
      * @param gtprm UserInput::getTokensParam struct reference
      * @param input_prm reference to InputProcessParameters struct
@@ -642,7 +676,7 @@ public:
     size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
 
     /**
-     * @brief validateNullSepInputParam struct
+     * @brief null separated input
      *
      */
     struct validateNullSepInputParam
@@ -656,7 +690,7 @@ public:
     };
 
     /**
-     * @brief Tries to determine if input is valid in NULL TERMINATED char arrays
+     * @brief Tries to determine if input is valid in NULL TERMINATED char arrays.
      *
      * @param vprm validateNullSepInputParam struct reference
      *
@@ -665,14 +699,18 @@ public:
      */
     bool validateNullSepInput(validateNullSepInputParam& vprm);
 
-protected:
     /**
-     * @brief transform 2d matrix indices to flat array index
+     * @brief Transform 2d matrix indices to flat array index.
      *
-     * use this to access a dynamically allocated array like a 2d matrix,
+     * Use this to access a dynamically allocated array like a 2d matrix,
      * this is much more performant than looping to allocate a (n>1)d array,
      * and looping again to free allocated ram.
-     *
+     * 
+     * @code {.cpp}
+     * // usage
+     * UserInput::mIndex(32,0,0);
+     * @endcode
+     *      
      * @param m_width width of the matrix
      * @param row row you want to access
      * @param col column you want to access
@@ -688,39 +726,39 @@ private:
     // (potentially) user entered constructor variables
     const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
     char* _output_buffer_;                         ///< pointer to the output char buffer
-    size_t _output_buffer_len_;                    ///< _output_buffer_ size in bytes
+    size_t _output_buffer_len_;                    ///< UserInput::_output_buffer_ size in bytes
     // end user entered constructor variables
 
-    bool _output_enabled_; ///< true if _output_buffer_ is not NULL (the user has defined and passed
+    bool _output_enabled_; ///< true if UserInput::_output_buffer_ is not NULL (the user has defined and passed
                            ///< an output buffer to UserInput's constructor)
-    size_t _output_buffer_bytes_left_; ///< index of _output_buffer_, messages are appended to the
+    size_t _output_buffer_bytes_left_; ///< index of UserInput::_output_buffer_, messages are appended to the
                                        ///< output buffer and this keeps track of where to write to
                                        ///< next without overwriting
 
-    uint8_t _term_len_;   ///< _term_ length in characters, determined in begin()
-    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject the message
+    uint8_t _term_len_;   ///< _term_ length in characters, determined in UserInput::UserInput().
+    uint8_t _term_index_; ///< _term_ index, match all characters in term or reject input.
 
-    void (*_default_function_)(UserInput*); ///< pointer to the default function
+    void (*_default_function_)(UserInput*); ///< pointer to the default function.
 
     // linked-list
-    CommandConstructor* _commands_head_; ///< pointer to object list
-    CommandConstructor* _commands_tail_; ///< pointer to object list
+    CommandConstructor* _commands_head_; ///< pointer to CommandConstructor singly-linked-list head.
+    CommandConstructor* _commands_tail_; ///< pointer to CommandConstructor singly-linked-list tail.
     // end linked-list
 
-    IH::ui_max_commands_in_tree_t _commands_count_;  ///< how many commands are there
-    IH::ui_max_tree_depth_per_command_t _max_depth_; ///< max command depth found
-    IH::ui_max_args_t _max_args_;                    ///< max command or subcommand arguments found
+    IH::ui_max_commands_in_tree_t _commands_count_;  ///< How many commands were accepted from input CommandParameters.
+    IH::ui_max_tree_depth_per_command_t _max_depth_; ///< Max command depth found in the accepted input CommandParameters.
+    IH::ui_max_args_t _max_args_;                    ///< Max command or subcommand arguments found in the accepted input CommandParameters. 
     IH::input_type_match_flags_type*
-        _input_type_match_flags_; ///< bool array _input_type_match_flags_[_max_args_]
+        _input_type_match_flags_; ///< Bool array the size of UserInput::_max_args_.
 
-    bool _output_flag_; ///< output is available flag, set by member functions
+    bool _output_flag_; ///< Output is available flag, set by member functions.
 
     char* _token_buffer_;                        ///< pointer to tokenized c-string
     char** _data_pointers_;                      ///< token_buffer pointers
     IH::ui_max_args_t _data_pointers_index_;     ///< data_pointer index
     IH::ui_max_args_t _data_pointers_index_max_; ///< data_pointer index max
     IH::ui_max_args_t
-        _p_num_ptrs_; ///< "p"rocess number of pointers, computed in UserInput::begin()
+        _p_num_ptrs_; ///< UserInput process number of pointers, computed in UserInput::begin().
 
     IH::ui_max_args_t _rec_num_arg_strings_; ///< number of tokens after first valid token
     IH::ui_max_num_child_commands_t _failed_on_subcommand_;     ///< subcommand error index
