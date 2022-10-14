@@ -350,7 +350,8 @@ const InputProcessParameters PROGMEM default_parameters = {
  *
  * The purpose of this class is to set up the command for use with
  * UserInput::addCommand().  It contains a pointer to the next command
- * in the singly-linked-list, a pointer to CommandParameters in PROGMEM,
+ * in the singly-linked-list which is NULL before the command is accepted
+ * into the process, a pointer to CommandParameters in PROGMEM,
  * the length of the parameters array, the depth of the command tree
  * you desire to add to the list, and a pointer to CommandRunTimeCalc
  * if this command contains wildcard commands.
