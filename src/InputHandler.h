@@ -142,7 +142,7 @@ enum class UITYPE
 ///@}
 
 /**
- * @defgroup structs
+ * @defgroup structs structs
  */
 ///@{
 /**
@@ -255,7 +255,7 @@ struct CommandParameters
 ///@}
 
 /**
- * @defgroup namespace
+ * @defgroup namespace namespace
  */
 ///@{
 /**
@@ -332,7 +332,7 @@ const InputProcessParameters PROGMEM default_parameters = {
 ///@}
 
 /**
- * @defgroup classes
+ * @defgroup classes classes
  */
 ///@{
 /**
