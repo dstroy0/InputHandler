@@ -137,9 +137,9 @@ enum class UITYPE
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
  * input arguments, subcommands or data.  The input process needs to know three things
  * about the delimiter sequences you want to use.  The number of delimiter sequences there are
- * (up to @link UI_MAX_NUM_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter sequence,
- * and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN @endlink in
- * length.
+ * (up to @link UI_MAX_NUM_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter
+ * sequence, and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN
+ * @endlink in length.
  */
 struct InputProcessDelimiterSequences
 {
@@ -156,8 +156,8 @@ struct InputProcessDelimiterSequences
  * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
  * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know
  * three things about the start-stop sequences you want to use.  The number of start-stop
- * sequences there are (up to @link UI_MAX_NUM_START_STOP_SEQ @endlink), the 8-bit byte (char) length of
- * each start-stop sequence, and finally each start-stop sequence which can be up to
+ * sequences there are (up to @link UI_MAX_NUM_START_STOP_SEQ @endlink), the 8-bit byte (char)
+ * length of each start-stop sequence, and finally each start-stop sequence which can be up to
  * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
  */
 struct InputProcessStartStopSequences
@@ -540,7 +540,7 @@ public:
      *
      * @warning This function will silent return if UserInput::\_begin_ is false!
      *
-     * [UserInput::readCommandFromBuffer
+     * [UserInput::readCommandFromBuffer()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(
      *  uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL))
      *
@@ -561,7 +561,8 @@ public:
      *
      * @warning This function will silent return if UserInput::\_begin_ is false!
      *
-     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24
+     * [UserInput::getCommandFromStream()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24
      * stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc))
      *
      * @param stream the stream to reference
@@ -579,6 +580,9 @@ public:
      *
      * Returns NULL if no more tokens were parsed.
      *
+     * [UserInput::nextArgument()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=nextArgument())
+     *
      * @return valid pointer if there is another token else NULL.
      */
     char* nextArgument();
@@ -589,6 +593,10 @@ public:
      * @brief Returns a pointer to argument_number token in UserInput::\_token_buffer_
      *
      * Returns NULL if argument_number's token doesn't exist.
+     *
+     * [UserInput::getArgument()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getArgument(size_t
+     * argument_number))
      *
      * @param argument_number The argument number to retrieve.
      * @return valid pointer if argument_number exists else NULL.
@@ -603,6 +611,9 @@ public:
      * (True) if greater than 0
      * (False) if 0
      *
+     * [UserInput::outputIsAvailable()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=outputIsAvailable())
+     *
      * @return The number of bytes available for output, or zero if there is no output available.
      */
     size_t outputIsAvailable();
@@ -611,6 +622,9 @@ public:
     #if defined(ENABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief UserInput output flag.
+     *
+     * [UserInput::outputIsAvailable()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=outputIsEnabled())
      *
      * @return true if enabled
      * @return false if not enabled
@@ -625,6 +639,10 @@ public:
      * This also clears the output buffer automatically after writing to the
      * Stream is complete.
      *
+     * [UserInput::outputToStream()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=outputToStream(Stream%24
+     * stream))
+     *
      * @param stream The Stream to write to.
      */
     void outputToStream(Stream& stream);
@@ -634,6 +652,10 @@ public:
      * @brief Clears the output buffer if defined.
      *
      * Soft clear by default, writes null to the first char in the output buffer.
+     *
+     * [UserInput::outputIsAvailable()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=clearOutputBuffer(bool
+     * overwrite_contents))
      *
      * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire
      * _output_buffer_
@@ -667,6 +689,10 @@ public:
      * This can be used with different InputProcessParameters than the ones provided to the
      * UserInput Constructor method.
      *
+     * [UserInput::getTokens()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getTokens(getTokensParam%24
+     * gtprm, const InputProcessParameters%24 input_prm))
+     *
      * @param gtprm UserInput::getTokensParam struct reference
      * @param input_prm reference to InputProcessParameters struct
      *
@@ -691,6 +717,10 @@ public:
     /**
      * @brief Tries to determine if input is valid in NULL TERMINATED char arrays.
      *
+     * [UserInput::getTokens()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=validateNullSepInput(validateNullSepInputParam%24
+     * vprm))
+     *
      * @param vprm validateNullSepInputParam struct reference
      *
      * @return true argument-type is valid
@@ -705,9 +735,14 @@ public:
      * this is much more performant than looping to allocate a (n>1)d array,
      * and looping again to free allocated ram.
      *
-     * @code {.cpp}
+     * @code{.cpp}
      * // usage
-     * UserInput::mIndex(32,0,0);
+     * #include <InputHandler.h>
+     * size_t data = UserInput::mIndex(32,0,0);
+     * @endcode
+     * @code{.c}
+     * // source
+     * size_t mIndex(size_t m_width, size_t row, size_t col) const { return row + m_width * col; }
      * @endcode
      *
      * @param m_width width of the matrix
@@ -728,8 +763,8 @@ private:
     size_t _output_buffer_len_;                    ///< UserInput::\_output_buffer_ size in bytes
     // end user entered constructor variables
 
-    bool _output_enabled_; ///< true if UserInput::\_output_buffer_ is not NULL (the user has defined
-                           ///< and passed an output buffer to UserInput's constructor)
+    bool _output_enabled_; ///< true if UserInput::\_output_buffer_ is not NULL (the user has
+                           ///< defined and passed an output buffer to UserInput's constructor)
     size_t _output_buffer_bytes_left_; ///< index of UserInput::\_output_buffer_, messages are
                                        ///< appended to the output buffer and this keeps track of
                                        ///< where to write to next without overwriting
@@ -786,6 +821,11 @@ private:
     /**
      * @brief UserInput vsnprintf
      * https://www.cplusplus.com/reference/cstdio/vsprintf/
+     *
+     * [UserInput::_ui_out()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_ui_out(const
+     * char* fmt, ...))
+     *
      * @param fmt   the format string
      * @param ...   arguments
      */
@@ -795,6 +835,10 @@ private:
     /**
      * @brief ReadCommandFromBuffer error output
      *
+     * [UserInput::_readCommandFromBufferErrorOutput()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_readCommandFromBufferErrorOutput(_rcfbprm%24
+     *  rprm))
+     *
      * @param rprm reference to UserInput::\_rcfbprm
      */
     void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
@@ -802,6 +846,10 @@ private:
 
     /**
      * @brief launches either (this) function or the root command function
+     *
+     * [UserInput::_launchFunction()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_launchFunction(_rcfbprm%24
+     * rprm, const IH_pname%24 pname))
      *
      * @param rprm reference to UserInput::\_rcfbprm
      * @param pname IH_pname char array
@@ -811,12 +859,20 @@ private:
     /**
      * @brief function launch logic, recursive on subcommand match
      *
+     * [UserInput::_launchLogic()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_launchLogic(_rcfbprm%24
+     * rprm))
+     *
      * @param rprm reference to UserInput::\_rcfbprm
      */
     void _launchLogic(_rcfbprm& rprm);
 
     /**
      * @brief Escapes control characters so they will print
+     *
+     * [UserInput::_escapeCharactersSoTheyPrint()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_escapeCharactersSoTheyPrint(char
+     * input, char* buf))
      *
      * @param input the input char
      * @param buf the output buffer
@@ -826,9 +882,15 @@ private:
     char* _escapeCharactersSoTheyPrint(char input, char* buf);
 
     /**
-     * @brief Triggers on a control character sequence, if the char immediately
-     * after the control char is a char known to UserInput::\_combineControlCharacters
-     * this returns a control char, else it returns the input char
+     * @brief Triggers on the input a control character sequence.
+     *
+     * If the char immediately after the control char is a char known
+     * to UserInput::\_combineControlCharacters this returns a control char,
+     * else it returns the input char.
+     *
+     * [UserInput::_combineControlCharacters()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_combineControlCharacters(char
+     * input))
      *
      * @param input the char the control character sequence
      * @return the control character char value
@@ -837,6 +899,10 @@ private:
 
     /**
      * @brief determines if input CommandParameters struct is valid before adding to linked-list
+     *
+     * [UserInput::_addCommandAbort()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_addCommandAbort(CommandConstructor%24
+     * cmd, CommandParameters%24 prm))
      *
      * @param cmd CommandConstructor reference
      * @param prm reference to CommandParameters struct in addCommand
@@ -848,6 +914,10 @@ private:
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
      *
+     * [UserInput::_getArgType()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getArgType(CommandParameters%24
+     * prm, size_t index))
+     *
      * @param prm command options structure reference
      * @param index argument number
      * @return UITYPE argument type
@@ -857,12 +927,20 @@ private:
     /**
      * @brief validate the arguments as specified in the user defined CommandParameters struct
      *
+     * [UserInput::_getArgs()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getArgs(_rcfbprm%24
+     * rprm))
+     *
      * @param rprm reference to UserInput::\_rcfbprm
      */
     void _getArgs(_rcfbprm& rprm);
 
     /**
      * @brief adds escaped control characters to a buffer
+     *
+     * [UserInput:_addEscapedControlCharToBuffer()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_addEscapedControlCharToBuffer(char*
+     * buf, size_t%24 idx, const char* input, size_t input_len))
      *
      * @param buf output buffer
      * @param idx buffer index
@@ -876,6 +954,10 @@ private:
     /**
      * @brief find delimiters in input data
      *
+     * [UserInput:_getTokensDelimiters()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensDelimiters(getTokensParam%24
+     * gtprm, const InputProcessParameters%24 input_prm))
+     *
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
      */
@@ -883,6 +965,10 @@ private:
 
     /**
      * @brief get delimited c-strings from input data
+     *
+     * [UserInput:_getTokensStartStop()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensStartStop(getTokensParam%24
+     * gtprm, const InputProcessParameters%24 input_prm))
      *
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
@@ -892,6 +978,10 @@ private:
     /**
      * @brief add uchar to token_buffer
      *
+     * [UserInput:_getTokensChar()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensChar(getTokensParam%24
+     * gtprm, const InputProcessParameters%24 input_prm))
+     *
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputProcessParameters struct
      */
@@ -900,6 +990,10 @@ private:
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for
      * further processing
+     *
+     * [UserInput:_splitZDC()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_splitZDC(_rcfbprm%24
+     * rprm, const size_t num_zdc, const CommandParameters** zdc))
      *
      * @param rprm reference to UserInput::\_rcfbprm
      * @param num_zdc zero delim commands
@@ -912,6 +1006,11 @@ private:
     /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
      *
+     * [UserInput:_calcCmdMemcmpRanges
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_calcCmdMemcmpRanges(CommandConstructor%24
+     * command, CommandParametersr%24 prm, size_t prm_idx, IH::memcmp_idx_tr%24 memcmp_ranges_idx,
+     * IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
+     *
      * @param command reference to a CommandConstructor class
      * @param prm reference to a CommandParameters struct
      * @param prm_idx prm index
@@ -923,6 +1022,10 @@ private:
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
+     *
+     * [UserInput:_compareCommandToString
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_compareCommandToString(CommandConstructor*
+     * cmd, size_t prm_idx, char* str))
      *
      * @param cmd pointer to CommandConstructor
      * @param prm_idx index of CommandParameters to compare

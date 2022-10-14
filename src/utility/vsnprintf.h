@@ -63,7 +63,7 @@ typedef __gnuc_va_list va_list;
      *          
      * InputHandler vsnprintf [vsnprintf ref](https://cplusplus.com/reference/cstdio/vsnprintf/)
      *
-     * @code {.c}
+     * @code{.c}
      * int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
      *     _ATTRIBUTE((__format__(__printf__, 3, 0)));
      * @endcode
