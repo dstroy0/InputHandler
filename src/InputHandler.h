@@ -1007,9 +1007,7 @@ private:
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
      *
      * [UserInput::_calcCmdMemcmpRanges
-     * source]((https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_calcCmdMemcmpRanges(CommandConstructor%24
-     * command, CommandParameters%24 prm, size_t prm_idx, IH%3A%3Amemcmp_idx_t%24 memcmp_ranges_idx,
-     * IH%3A%3Aui_max_per_cmd_memcmp_ranges_t* memcmp_ranges))
+     * source]((https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=void%20UserInput::_calcCmdMemcmpRanges()
      *
      * @param command reference to a CommandConstructor class
      * @param prm reference to a CommandParameters struct
