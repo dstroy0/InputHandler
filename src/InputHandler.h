@@ -22,7 +22,7 @@
     #include "config/noedit.h"
 
 /**
- * @name typedefs
+ * @defgroup typedefs typedefs
  */
 ///@{
 /**
@@ -59,7 +59,7 @@ typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
 ///@}
 
 /**
- * @name ENUMS
+ * @defgroup ENUMS ENUMS
  */
 ///@{
 /**
@@ -142,7 +142,7 @@ enum class UITYPE
 ///@}
 
 /**
- * @name structs
+ * @defgroup structs
  */
 ///@{
 /**
@@ -255,7 +255,7 @@ struct CommandParameters
 ///@}
 
 /**
- * @name namespace
+ * @defgroup namespace
  */
 ///@{
 /**
@@ -332,7 +332,7 @@ const InputProcessParameters PROGMEM default_parameters = {
 ///@}
 
 /**
- * @name classes
+ * @defgroup classes
  */
 ///@{
 /**
