@@ -137,7 +137,7 @@ enum class UITYPE
  * A delimiter sequence is a predefined number or set of numbers that is used to separate
  * input arguments, subcommands or data.  The input process needs to know three things
  * about the delimiter sequences you want to use.  The number of delimiter sequences there are
- * (up to @link UI_MAX_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter sequence,
+ * (up to @link UI_MAX_NUM_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter sequence,
  * and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN @endlink in
  * length.
  */
@@ -156,7 +156,7 @@ struct InputProcessDelimiterSequences
  * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
  * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know
  * three things about the start-stop sequences you want to use.  The number of start-stop
- * sequences there are (up to @link UI_MAX_START_STOP_SEQ @endlink), the 8-bit byte (char) length of
+ * sequences there are (up to @link UI_MAX_NUM_START_STOP_SEQ @endlink), the 8-bit byte (char) length of
  * each start-stop sequence, and finally each start-stop sequence which can be up to
  * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
  */
