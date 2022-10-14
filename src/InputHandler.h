@@ -26,34 +26,42 @@
  */
 ///@{
 /**
- * @brief char array typedef.
+ * @brief This is an alias for a char array.
  *
- * This is a char array, you can change the macro in src/config/config.h @link
- * UI_PROCESS_NAME_PGM_LEN @endlink
+ * IH_pname[@link UI_PROCESS_NAME_PGM_LEN @endlink]
+ *
+ * To increase or decrease the pgm len of this array edit
+ * @link UI_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.
  */
 typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h @link UI_EOL_SEQ_PGM_LEN
- * @endlink
+ * IH_eol[@link UI_EOL_SEQ_PGM_LEN @endlink]
+ *
+ * To increase or decrease the pgm len of this array edit
+ * @link UI_EOL_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
 typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h @link
- * UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink
+ * IH_input_cc[@link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
+ *
+ * To increase or decrease the pgm len of this array edit
+ * @link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
 typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * This is a char array, you can change the macro in src/config/config.h @link UI_WCC_SEQ_PGM_LEN
- * @endlink
+ * IH_wcc[@link UI_WCC_SEQ_PGM_LEN @endlink]
+ *
+ * To increase or decrease the pgm len of this array edit
+ * @link UI_WCC_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
 typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
 ///@}
@@ -76,7 +84,7 @@ enum UI_CMD_ID
 };
 
 /**
- * @brief command wildcard flag enum
+ * @brief Command wildcard flag enum.
  *
  * These flags are used inside of CommandParameters.
  *
@@ -259,11 +267,11 @@ struct CommandParameters
  */
 ///@{
 /**
- * @brief library constants located in PROGMEM
+ * @brief library constants located in PROGMEM.
  *
  *
  * This namespace's purpose is to avoid name collision
- * and to consolidate the library's PROGMEM variables
+ * and to consolidate the library's PROGMEM variables.
  *
  * @namespace ihconst
  */
@@ -271,10 +279,10 @@ namespace ihconst
 {
 
 /**
- * @brief type string literals
+ * @brief Type string literals.
  *
- * input type string literal PROGMEM array, each of the types in @link UITYPE @endlink has
- * a corresponding string literal for display purposes
+ * Input type string literal PROGMEM array, each of the types in @link UITYPE @endlink has
+ * a corresponding string literal for display purposes.
  *
  */
 const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
@@ -297,7 +305,7 @@ const IH_input_cc PROGMEM input_control_char_sequence =
 const IH_wcc PROGMEM wildcard_char = "*"; ///< default process wildcard char '*'
 
 /**
- * @brief default delimiter sequences
+ * @brief Default delimiter sequences.
  *
  */
 const InputProcessDelimiterSequences PROGMEM delimiter_sequences = {
@@ -307,7 +315,7 @@ const InputProcessDelimiterSequences PROGMEM delimiter_sequences = {
 };
 
 /**
- * @brief default start stop sequences
+ * @brief Default start stop sequences.
  *
  */
 const InputProcessStartStopSequences PROGMEM start_stop_sequences = {
@@ -317,7 +325,7 @@ const InputProcessStartStopSequences PROGMEM start_stop_sequences = {
 };
 
 /**
- * @brief UserInput default InputProcessParameters
+ * @brief UserInput default InputProcessParameters.
  *
  */
 const InputProcessParameters PROGMEM default_parameters = {
