@@ -1,8 +1,0 @@
-<map id="%3" name="%3">
-<area shape="rect" id="node1" title="CommandConstructor" alt="" coords="133,5,365,53"/>
-<area shape="poly" id="edge3" title="usage" alt="" coords="366,11,384,18,391,29,388,38,380,43,377,39,384,34,386,30,381,22,364,16"/>
-<area shape="rect" id="node2" title="CommandParameters" alt="" coords="5,101,233,149"/>
-<area shape="poly" id="edge1" title="usage" alt="" coords="218,56,164,95,161,91,215,52"/>
-<area shape="rect" id="node3" title="CommandRuntimeCalc" alt="" coords="258,101,498,149"/>
-<area shape="poly" id="edge2" title="usage" alt="" coords="282,52,337,91,334,95,279,56"/>
-</map>

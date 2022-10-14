@@ -1,7 +1,0 @@
-<map id="%3" name="%3">
-<area shape="rect" id="node1" title="InputProcessDelimiterSequences" alt="" coords="5,101,344,149"/>
-<area shape="rect" id="node2" title="InputProcessParameters" alt="" coords="229,5,486,53"/>
-<area shape="poly" id="edge1" title="usage" alt="" coords="314,56,233,97,230,93,311,51"/>
-<area shape="rect" id="node3" title="InputProcessStartStopSequences" alt="" coords="369,101,711,149"/>
-<area shape="poly" id="edge2" title="usage" alt="" coords="403,51,484,93,482,97,401,56"/>
-</map>
