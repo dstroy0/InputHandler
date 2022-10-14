@@ -233,57 +233,6 @@
 
 </dd></dl>
 
-<section id="clireadme-py">
-<h2>clireadme.py<a class="headerlink" href="#clireadme-py" title="Permalink to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool_src/res/modules/cli/clireadme.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
-<span class="c1"># @file clireadme.py</span>
-<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="c1"># @brief CodePreview/file generation external methods</span>
-<span class="c1"># @version 1.0</span>
-<span class="c1"># @date 2022-08-28</span>
-<span class="c1"># @copyright Copyright (c) 2022</span>
-<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
-<span class="c1"># This program is free software; you can redistribute it and/or</span>
-<span class="c1"># modify it under the terms of the GNU General Public License</span>
-<span class="c1"># version 3 as published by the Free Software Foundation.</span>
-
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
-<span class="kn">from</span> <span class="nn">res.modules.cli.filestrings</span> <span class="kn">import</span> <span class="n">CLIfilestrings</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-
-
-<span class="k">class</span> <span class="nc">cliReadme</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1">## the constructor</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">cliReadme</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">readme_md</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">object_name</span> <span class="o">=</span> <span class="s2">&quot;inputHandler&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-        <span class="n">docstring</span> <span class="o">=</span> <span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">readmemd</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">docs_version</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-            <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
-            <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-            <span class="n">initial_instructions</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">rdme_initial_inst</span><span class="p">,</span>
-            <span class="n">function_instructions</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">rdme_function_inst</span><span class="p">,</span>
-            <span class="n">functions_with_return</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="n">setup_instructions</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">rdme_setup_inst</span><span class="p">,</span>
-            <span class="n">setup_code</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="n">loop_instructions</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">rdme_loop_inst</span><span class="p">,</span>
-            <span class="n">loop_code</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;file_lines_list&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 
         </article>
@@ -348,7 +297,6 @@
 <li><a class="reference internal" href="#clireadme.cliReadme.readme_md"><code class="docutils literal notranslate"><span class="pre">cliReadme.readme_md()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#clireadme-py">clireadme.py</a></li>
 </ul>
 </li>
 </ul>

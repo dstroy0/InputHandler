@@ -312,131 +312,6 @@ raises a NotImplementedError.</p>
 
 </dd></dl>
 
-<section id="logging-setup-py">
-<h2>logging_setup.py<a class="headerlink" href="#logging-setup-py" title="Permalink to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool/res/modules/logging_setup.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##</span>
-<span class="c1"># @file logging_setup.py</span>
-<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="c1"># @brief MainWindow external methods</span>
-<span class="c1"># @version 1.0</span>
-<span class="c1"># @date 2022-07-19</span>
-<span class="c1"># @copyright Copyright (c) 2022</span>
-<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
-<span class="c1"># This program is free software; you can redistribute it and/or</span>
-<span class="c1"># modify it under the terms of the GNU General Public License</span>
-<span class="c1"># version 3 as published by the Free Software Foundation.</span>
-
-<span class="c1"># imports</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">logging.handlers</span> <span class="kn">import</span> <span class="n">RotatingFileHandler</span>
-
-
-<span class="c1">## this class displays the session log history</span>
-<span class="k">class</span> <span class="nc">QPlainTextEditLogger</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">QPlainTextEditLogger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
-        <span class="c1"># settings for the widget are in the `logHistoryDialog.ui` file</span>
-
-    <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">appendPlainText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
-
-
-<span class="c1">## logging api</span>
-<span class="k">class</span> <span class="nc">Logger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">level_lookup</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="mi">10</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-        <span class="mi">20</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-        <span class="mi">30</span><span class="p">:</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">,</span>
-        <span class="mi">40</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
-        <span class="mi">50</span><span class="p">:</span> <span class="s2">&quot;CRITICAL&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="n">file_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>  <span class="c1"># file log level</span>
-    <span class="n">stream_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>  <span class="c1"># terminal log level</span>
-    <span class="n">session_history_log_level</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
-    <span class="p">)</span>  <span class="c1"># session history widget log level (bound to F1)</span>
-    <span class="n">root_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
-
-    <span class="c1"># log filesize</span>
-    <span class="c1"># kb = 2^10 == 1024 bytes</span>
-    <span class="n">_KB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
-    <span class="c1"># mb = 2^2^10 == 1048576 bytes</span>
-    <span class="n">_MB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
-    <span class="n">_log_path</span> <span class="o">=</span> <span class="s2">&quot;/tools/logs/&quot;</span>
-    <span class="n">_log_filename</span> <span class="o">=</span> <span class="s2">&quot;cli_gen_tool.log&quot;</span>
-    <span class="n">_log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - [</span><span class="si">%(levelname)s</span><span class="s2">] -  </span><span class="si">%(name)s</span><span class="s2"> - (</span><span class="si">%(filename)s</span><span class="s2">).</span><span class="si">%(funcName)s</span><span class="s2">(line:</span><span class="si">%(lineno)d</span><span class="s2">) - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
-    <span class="n">_log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">_log_format</span><span class="p">)</span>
-
-    <span class="c1"># log filehandler</span>
-    <span class="n">file_log_handler</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="c1"># stream handler</span>
-    <span class="n">stream_log_handler</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="c1"># session handler</span>
-    <span class="n">session_log_handler</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="c1"># root</span>
-    <span class="n">root_log_handler</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="c1">## the constructor</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Logger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-    <span class="c1">## This is called to set up the log file handler in MainWindow.__init__()</span>
-    <span class="k">def</span> <span class="nf">setup_file_handler</span><span class="p">(</span><span class="n">lib_root_path</span><span class="p">):</span>
-        <span class="c1"># logfile pathing</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
-        <span class="c1"># log filehandler</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span> <span class="o">=</span> <span class="n">RotatingFileHandler</span><span class="p">(</span>
-            <span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span><span class="p">,</span>
-            <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-            <span class="mi">10</span> <span class="o">*</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_MB</span><span class="p">,</span>
-            <span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span>
-
-    <span class="c1">## external modules are children of MainWindow&#39;s logging instance</span>
-    <span class="k">def</span> <span class="nf">get_child_logger</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">parent</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="c1">## returns the log_file_handler</span>
-    <span class="k">def</span> <span class="nf">get_file_handler</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span>
-
-    <span class="c1">## returns the stream_handler</span>
-    <span class="k">def</span> <span class="nf">get_stream_handler</span><span class="p">():</span>
-        <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-        <span class="n">stream_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span><span class="p">)</span>
-        <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="n">stream_handler</span>
-        <span class="k">return</span> <span class="n">stream_handler</span>
-
-    <span class="c1">## returns the root logger</span>
-    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="n">log_handler</span> <span class="o">=</span> <span class="n">QPlainTextEditLogger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">session_log_handler</span> <span class="o">=</span> <span class="n">log_handler</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_stream_handler</span><span class="p">())</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">log_handler</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="k">return</span> <span class="n">logger</span>
-
-
-<span class="c1"># end of file</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 
         </article>
@@ -518,7 +393,6 @@ raises a NotImplementedError.</p>
 <li><a class="reference internal" href="#logging_setup.QPlainTextEditLogger.emit"><code class="docutils literal notranslate"><span class="pre">QPlainTextEditLogger.emit()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#logging-setup-py">logging_setup.py</a></li>
 </ul>
 </li>
 </ul>

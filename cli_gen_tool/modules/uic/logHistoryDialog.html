@@ -238,71 +238,6 @@
 
 </dd></dl>
 
-<section id="loghistorydialog-py">
-<h2>logHistoryDialog.py<a class="headerlink" href="#loghistorydialog-py" title="Permalink to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">tools/cli_gen_tool_src/res/uic/logHistoryDialog.py</span><a class="headerlink" href="#id1" title="Permalink to this code">#</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-
-<span class="c1">################################################################################</span>
-<span class="c1">## Form generated from reading UI file &#39;logHistoryDialog.ui&#39;</span>
-<span class="c1">##</span>
-<span class="c1">## Created by: Qt User Interface Compiler version 6.3.0</span>
-<span class="c1">##</span>
-<span class="c1">## WARNING! All changes made in this file will be lost when recompiling UI file!</span>
-<span class="c1">################################################################################</span>
-
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QDate</span><span class="p">,</span> <span class="n">QDateTime</span><span class="p">,</span> <span class="n">QLocale</span><span class="p">,</span>
-    <span class="n">QMetaObject</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">QRect</span><span class="p">,</span>
-    <span class="n">QSize</span><span class="p">,</span> <span class="n">QTime</span><span class="p">,</span> <span class="n">QUrl</span><span class="p">,</span> <span class="n">Qt</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QBrush</span><span class="p">,</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QConicalGradient</span><span class="p">,</span> <span class="n">QCursor</span><span class="p">,</span>
-    <span class="n">QFont</span><span class="p">,</span> <span class="n">QFontDatabase</span><span class="p">,</span> <span class="n">QGradient</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span>
-    <span class="n">QImage</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">,</span> <span class="n">QLinearGradient</span><span class="p">,</span> <span class="n">QPainter</span><span class="p">,</span>
-    <span class="n">QPalette</span><span class="p">,</span> <span class="n">QPixmap</span><span class="p">,</span> <span class="n">QRadialGradient</span><span class="p">,</span> <span class="n">QTransform</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QAbstractScrollArea</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QGridLayout</span><span class="p">,</span>
-    <span class="n">QPlainTextEdit</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">Ui_logHistoryDialog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logHistoryDialog</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">objectName</span><span class="p">():</span>
-            <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;logHistoryDialog&quot;</span><span class="p">)</span>
-        <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">820</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-        <span class="n">sizePolicy</span> <span class="o">=</span> <span class="n">QSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
-        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHorizontalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setVerticalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHeightForWidth</span><span class="p">(</span><span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">sizePolicy</span><span class="p">()</span><span class="o">.</span><span class="n">hasHeightForWidth</span><span class="p">())</span>
-        <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">sizePolicy</span><span class="p">)</span>
-        <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="mi">820</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gridLayout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">(</span><span class="n">logHistoryDialog</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gridLayout</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;gridLayout&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span> <span class="o">=</span> <span class="n">QPlainTextEdit</span><span class="p">(</span><span class="n">logHistoryDialog</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;logHistoryPlainTextEdit&quot;</span><span class="p">)</span>
-        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHeightForWidth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">sizePolicy</span><span class="p">()</span><span class="o">.</span><span class="n">hasHeightForWidth</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">sizePolicy</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setVerticalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setSizeAdjustPolicy</span><span class="p">(</span><span class="n">QAbstractScrollArea</span><span class="o">.</span><span class="n">AdjustToContents</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QPlainTextEdit</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span><span class="o">|</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByMouse</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">gridLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">retranslateUi</span><span class="p">(</span><span class="n">logHistoryDialog</span><span class="p">)</span>
-
-        <span class="n">QMetaObject</span><span class="o">.</span><span class="n">connectSlotsByName</span><span class="p">(</span><span class="n">logHistoryDialog</span><span class="p">)</span>
-    <span class="c1"># setupUi</span>
-
-    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logHistoryDialog</span><span class="p">):</span>
-        <span class="n">logHistoryDialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;logHistoryDialog&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;Session Log History&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-    <span class="c1"># retranslateUi</span>
-
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 
         </article>
@@ -368,7 +303,6 @@
 <li><a class="reference internal" href="#logHistoryDialog.Ui_logHistoryDialog.setupUi"><code class="docutils literal notranslate"><span class="pre">Ui_logHistoryDialog.setupUi()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#loghistorydialog-py">logHistoryDialog.py</a></li>
 </ul>
 </li>
 </ul>
