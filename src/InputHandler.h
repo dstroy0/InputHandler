@@ -938,7 +938,7 @@ private:
     /**
      * @brief adds escaped control characters to a buffer
      *
-     * [UserInput:_addEscapedControlCharToBuffer()
+     * [UserInput::_addEscapedControlCharToBuffer()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_addEscapedControlCharToBuffer(char*
      * buf, size_t%24 idx, const char* input, size_t input_len))
      *
@@ -954,7 +954,7 @@ private:
     /**
      * @brief find delimiters in input data
      *
-     * [UserInput:_getTokensDelimiters()
+     * [UserInput::_getTokensDelimiters()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensDelimiters(getTokensParam%24
      * gtprm, const InputProcessParameters%24 input_prm))
      *
@@ -966,7 +966,7 @@ private:
     /**
      * @brief get delimited c-strings from input data
      *
-     * [UserInput:_getTokensStartStop()
+     * [UserInput::_getTokensStartStop()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensStartStop(getTokensParam%24
      * gtprm, const InputProcessParameters%24 input_prm))
      *
@@ -978,7 +978,7 @@ private:
     /**
      * @brief add uchar to token_buffer
      *
-     * [UserInput:_getTokensChar()
+     * [UserInput::_getTokensChar()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensChar(getTokensParam%24
      * gtprm, const InputProcessParameters%24 input_prm))
      *
@@ -991,7 +991,7 @@ private:
      * @brief split a zero delimiter command, separate command and string with token delimiter for
      * further processing
      *
-     * [UserInput:_splitZDC()
+     * [UserInput::_splitZDC()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_splitZDC(_rcfbprm%24
      * rprm, const size_t num_zdc, const CommandParameters** zdc))
      *
@@ -1006,7 +1006,10 @@ private:
     /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
      *
-     * [UserInput:_calcCmdMemcmpRanges source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_calcCmdMemcmpRanges(CommandConstructor%24 command)
+     * [UserInput::_calcCmdMemcmpRanges
+     * source](_calcCmdMemcmpRanges(CommandConstructor%24 command, CommandParameters%24 prm, size_t
+     * prm_idx, IH%3A%3Amemcmp_idx_t%24 memcmp_ranges_idx, IH%3A%3Aui_max_per_cmd_memcmp_ranges_t*
+     * memcmp_ranges))
      *
      * @param command reference to a CommandConstructor class
      * @param prm reference to a CommandParameters struct
@@ -1020,7 +1023,7 @@ private:
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
-     * [UserInput:_compareCommandToString
+     * [UserInput::_compareCommandToString
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_compareCommandToString(CommandConstructor*
      * cmd, size_t prm_idx, char* str))
      *
