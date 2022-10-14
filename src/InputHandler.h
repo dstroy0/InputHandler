@@ -561,7 +561,8 @@ public:
      *
      * @warning This function will silent return if UserInput::_begin_ is false!
      *
-     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream&%20stream,%20size_t%20rx_buffer_size%20=%2032,%20const%20size_t%20num_zdc%20=%200,%20const%20CommandParameters**%20zdc%20=%20NULL))
+     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24
+     * stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc))
      *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
@@ -660,11 +661,11 @@ public:
 
     /**
      * @brief Puts tokens into the token buffer pointed to by the input UserInput::getTokensParam.
-     * 
+     *
      * To use this function outside of UserInput you must declare a UserInput::getTokensParam.
-     *      
+     *
      * This can be used with different InputProcessParameters than the ones provided to the
-     * UserInput Constructor method.  
+     * UserInput Constructor method.
      *
      * @param gtprm UserInput::getTokensParam struct reference
      * @param input_prm reference to InputProcessParameters struct
@@ -703,12 +704,12 @@ public:
      * Use this to access a dynamically allocated array like a 2d matrix,
      * this is much more performant than looping to allocate a (n>1)d array,
      * and looping again to free allocated ram.
-     * 
+     *
      * @code {.cpp}
      * // usage
      * UserInput::mIndex(32,0,0);
      * @endcode
-     *      
+     *
      * @param m_width width of the matrix
      * @param row row you want to access
      * @param col column you want to access
@@ -727,11 +728,11 @@ private:
     size_t _output_buffer_len_;                    ///< UserInput::_output_buffer_ size in bytes
     // end user entered constructor variables
 
-    bool _output_enabled_; ///< true if UserInput::_output_buffer_ is not NULL (the user has defined and passed
-                           ///< an output buffer to UserInput's constructor)
-    size_t _output_buffer_bytes_left_; ///< index of UserInput::_output_buffer_, messages are appended to the
-                                       ///< output buffer and this keeps track of where to write to
-                                       ///< next without overwriting
+    bool _output_enabled_; ///< true if UserInput::_output_buffer_ is not NULL (the user has defined
+                           ///< and passed an output buffer to UserInput's constructor)
+    size_t _output_buffer_bytes_left_; ///< index of UserInput::_output_buffer_, messages are
+                                       ///< appended to the output buffer and this keeps track of
+                                       ///< where to write to next without overwriting
 
     uint8_t _term_len_;   ///< _term_ length in characters, determined in UserInput::UserInput().
     uint8_t _term_index_; ///< _term_ index, match all characters in term or reject input.
@@ -743,9 +744,12 @@ private:
     CommandConstructor* _commands_tail_; ///< pointer to CommandConstructor singly-linked-list tail.
     // end linked-list
 
-    IH::ui_max_commands_in_tree_t _commands_count_;  ///< How many commands were accepted from input CommandParameters.
-    IH::ui_max_tree_depth_per_command_t _max_depth_; ///< Max command depth found in the accepted input CommandParameters.
-    IH::ui_max_args_t _max_args_;                    ///< Max command or subcommand arguments found in the accepted input CommandParameters. 
+    IH::ui_max_commands_in_tree_t
+        _commands_count_; ///< How many commands were accepted from input CommandParameters.
+    IH::ui_max_tree_depth_per_command_t
+        _max_depth_; ///< Max command depth found in the accepted input CommandParameters.
+    IH::ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
+                                  ///< input CommandParameters.
     IH::input_type_match_flags_type*
         _input_type_match_flags_; ///< Bool array the size of UserInput::_max_args_.
 
