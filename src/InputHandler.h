@@ -561,9 +561,7 @@ public:
      *
      * @warning This function will silent return if UserInput::_begin_ is false!
      *
-     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream&
-     * stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0, const CommandParameters** zdc =
-     * NULL))
+     * [UserInput::getCommandFromStream](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream&%20stream,%20size_t%20rx_buffer_size%20=%2032,%20const%20size_t%20num_zdc%20=%200,%20const%20CommandParameters**%20zdc%20=%20NULL))
      *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
