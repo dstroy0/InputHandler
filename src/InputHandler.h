@@ -658,7 +658,7 @@ public:
      * overwrite_contents))
      *
      * @param overwrite_contents boolean switch, clearOutputBuffer(true) writes null to entire
-     * _output_buffer_
+     * UserInput::\_output_buffer_
      */
     void clearOutputBuffer(bool overwrite_contents = false);
 
@@ -1008,8 +1008,8 @@ private:
      *
      * [UserInput:_calcCmdMemcmpRanges
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_calcCmdMemcmpRanges(CommandConstructor%24
-     * command, CommandParametersr%24 prm, size_t prm_idx, IH::memcmp_idx_tr%24 memcmp_ranges_idx,
-     * IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
+     * command, CommandParametersr%24 prm, size_t prm_idx, IH%3A%3Amemcmp_idx_tr%24
+     * memcmp_ranges_idx, IH%3A%3Aui_max_per_cmd_memcmp_ranges_t* memcmp_ranges)
      *
      * @param command reference to a CommandConstructor class
      * @param prm reference to a CommandParameters struct
