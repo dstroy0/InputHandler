@@ -835,7 +835,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput9UserInputEPK22InputProcessParametersPc6size_t">
 <span id="_CPPv3N9UserInput9UserInputEPK22InputProcessParametersPc6size_t"></span><span id="_CPPv2N9UserInput9UserInputEPK22InputProcessParametersPc6size_t"></span><span id="UserInput::UserInput__InputProcessParametersCP.cP.s"></span><span class="target" id="dc/d4b/class_user_input_1aa7cf91e3c4f640149ba0c1669a8d9343"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInput</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422InputProcessParameters" title="InputProcessParameters"><span class="n"><span class="pre">InputProcessParameters</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">input_prm</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output_buffer</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">output_buffer_len</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput9UserInputEPK22InputProcessParametersPc6size_t" title="Permalink to this definition">#</a><br /></dt>
 <dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> constructor, no output by default. </p>
-<p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>output_enabled</em> to false if <code class="docutils literal notranslate"><span class="pre">output_buffer</span></code> is NULL.</p>
+<p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a> has no output by default due to the default values passed in by the constructor. The constructor disables output by setting <a class="reference internal" href="#dc/d4b/class_user_input_1a79bb9a66bab55a4c62fd328108927f12"><span class="std std-ref">UserInput::_output_enabled_</span></a> to false if <code class="docutils literal notranslate"><span class="pre">output_buffer</span></code> is NULL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -850,7 +850,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput15defaultFunctionEPFvP9UserInputE">
 <span id="_CPPv3N9UserInput15defaultFunctionEPFvP9UserInputE"></span><span id="_CPPv2N9UserInput15defaultFunctionEPFvP9UserInputE"></span><span class="target" id="dc/d4b/class_user_input_1a65286d0a8daf3789af61363828e870c9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">defaultFunction</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">function</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv49UserInput" title="UserInput"><span class="n"><span class="pre">UserInput</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput15defaultFunctionEPFvP9UserInputE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Sets <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>default_function</em>. When there is no command match, or when input is invalid, this function is called if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>default_function</em> is not NULL. </p>
+<dd><p>Sets <a class="reference internal" href="#dc/d4b/class_user_input_1a4d8f531412f4036c644f77fbb16bde03"><span class="std std-ref">UserInput::_default_function_</span></a>. When there is no command match, or when input is invalid, this function is called if <a class="reference internal" href="#dc/d4b/class_user_input_1a4d8f531412f4036c644f77fbb16bde03"><span class="std std-ref">UserInput::_default_function_</span></a> is not NULL. </p>
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=defaultFunction(void (*function)(UserInput*))">UserInput::defaultfunction source</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -877,8 +877,8 @@
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput5beginEv">
 <span id="_CPPv3N9UserInput5beginEv"></span><span id="_CPPv2N9UserInput5beginEv"></span><span id="UserInput::begin"></span><span class="target" id="dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput5beginEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Allocates memory to run the input process. </p>
-<p>Allocates memory for: <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>data_pointers</em> <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>input_type_match_flags</em></p>
-<p>sets <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> to true if successful.</p>
+<p>Allocates memory for: <a class="reference internal" href="#dc/d4b/class_user_input_1a682b3308f9ee638d4bbb7ad11d06ad66"><span class="std std-ref">UserInput::_data_pointers_</span></a> <a class="reference internal" href="#dc/d4b/class_user_input_1a405dd044435923636565c9c6758dc92a"><span class="std std-ref">UserInput::_input_type_match_flags_</span></a></p>
+<p>sets <a class="reference internal" href="#dc/d4b/class_user_input_1a7a0668fda012a9ef712c10e7ddc8381f"><span class="std std-ref">UserInput::_begin_</span></a> to true if successful.</p>
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=begin()">UserInput::begin source</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -908,7 +908,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput12listCommandsEv">
 <span id="_CPPv3N9UserInput12listCommandsEv"></span><span id="_CPPv2N9UserInput12listCommandsEv"></span><span id="UserInput::listCommands"></span><span class="target" id="dc/d4b/class_user_input_1af1dd5daddbcdbb93af132f723007592f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listCommands</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12listCommandsEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Lists commands available to the user. </p>
-<p>Lists commands that will respond to user input if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> is true. Else it will inform the user to use <a class="reference internal" href="#dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a> in <code class="docutils literal notranslate"><span class="pre">setup()</span></code>.</p>
+<p>Lists commands that will respond to user input if <a class="reference internal" href="#dc/d4b/class_user_input_1a7a0668fda012a9ef712c10e7ddc8381f"><span class="std std-ref">UserInput::_begin_</span></a> is true. Else it will inform the user to use <a class="reference internal" href="#dc/d4b/class_user_input_1a1f1dfef01fd160e4ba9686a4c59e0369"><span class="std std-ref">UserInput::begin()</span></a> in <code class="docutils literal notranslate"><span class="pre">setup()</span></code>.</p>
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listCommands()">UserInput::listCommands source</a> </p>
 </dd></dl>
 
@@ -919,7 +919,7 @@
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(  uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL)">UserInput::readCommandFromBuffer source</a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This function will silent return if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> is false!</p>
+<p>This function will silent return if <a class="reference internal" href="#dc/d4b/class_user_input_1a7a0668fda012a9ef712c10e7ddc8381f"><span class="std std-ref">UserInput::_begin_</span></a> is false!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -941,7 +941,7 @@
 <p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24 stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)">UserInput::getCommandFromStream</a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This function will silent return if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>begin</em> is false!</p>
+<p>This function will silent return if <a class="reference internal" href="#dc/d4b/class_user_input_1a7a0668fda012a9ef712c10e7ddc8381f"><span class="std std-ref">UserInput::_begin_</span></a> is false!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -958,7 +958,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput12nextArgumentEv">
 <span id="_CPPv3N9UserInput12nextArgumentEv"></span><span id="_CPPv2N9UserInput12nextArgumentEv"></span><span id="UserInput::nextArgument"></span><span class="target" id="dc/d4b/class_user_input_1a30cd1758e5ab22d987e8c37e426989dd"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nextArgument</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput12nextArgumentEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Returns a pointer to the next token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em>. </p>
+<dd><p>Returns a pointer to the next token in <a class="reference internal" href="#dc/d4b/class_user_input_1a8c9e3a80ee1b82866b4cd949d4023913"><span class="std std-ref">UserInput::_token_buffer_</span></a>. </p>
 <p>Returns NULL if no more tokens were parsed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -970,7 +970,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput11getArgumentE6size_t">
 <span id="_CPPv3N9UserInput11getArgumentE6size_t"></span><span id="_CPPv2N9UserInput11getArgumentE6size_t"></span><span id="UserInput::getArgument__s"></span><span class="target" id="dc/d4b/class_user_input_1adc1c7030c049d743806ecc1009ffd9bb"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getArgument</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argument_number</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UserInput11getArgumentE6size_t" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Returns a pointer to argument_number token in <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>token_buffer</em> </p>
+<dd><p>Returns a pointer to argument_number token in <a class="reference internal" href="#dc/d4b/class_user_input_1a8c9e3a80ee1b82866b4cd949d4023913"><span class="std std-ref">UserInput::_token_buffer_</span></a>. </p>
 <p>Returns NULL if argument_number’s token doesn’t exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1359,19 +1359,19 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput19_output_buffer_len_E">
 <span id="_CPPv3N9UserInput19_output_buffer_len_E"></span><span id="_CPPv2N9UserInput19_output_buffer_len_E"></span><span id="UserInput::_output_buffer_len___s"></span><span class="target" id="dc/d4b/class_user_input_1aa8e369723f3546650cc59c0609f63645"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_output_buffer_len_</span></span></span><a class="headerlink" href="#_CPPv4N9UserInput19_output_buffer_len_E" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>output_buffer</em> size in bytes. </p>
+<dd><p><a class="reference internal" href="#dc/d4b/class_user_input_1a421d477af4581b35c2147a293d767038"><span class="std std-ref">UserInput::_output_buffer_</span></a> size in bytes. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput16_output_enabled_E">
 <span id="_CPPv3N9UserInput16_output_enabled_E"></span><span id="_CPPv2N9UserInput16_output_enabled_E"></span><span id="UserInput::_output_enabled___b"></span><span class="target" id="dc/d4b/class_user_input_1a79bb9a66bab55a4c62fd328108927f12"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_output_enabled_</span></span></span><a class="headerlink" href="#_CPPv4N9UserInput16_output_enabled_E" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>true if <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>output_buffer</em> is not NULL (the user has defined and passed an output buffer to <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>’s constructor) </p>
+<dd><p>true if <a class="reference internal" href="#dc/d4b/class_user_input_1a421d477af4581b35c2147a293d767038"><span class="std std-ref">UserInput::_output_buffer_</span></a> is not NULL (the user has defined and passed an output buffer to <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>’s constructor) </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput26_output_buffer_bytes_left_E">
 <span id="_CPPv3N9UserInput26_output_buffer_bytes_left_E"></span><span id="_CPPv2N9UserInput26_output_buffer_bytes_left_E"></span><span id="UserInput::_output_buffer_bytes_left___s"></span><span class="target" id="dc/d4b/class_user_input_1aa33f498f09a1ca363cd7961281a27441"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_output_buffer_bytes_left_</span></span></span><a class="headerlink" href="#_CPPv4N9UserInput26_output_buffer_bytes_left_E" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>index of <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>output_buffer</em>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
+<dd><p>index of <a class="reference internal" href="#dc/d4b/class_user_input_1a421d477af4581b35c2147a293d767038"><span class="std std-ref">UserInput::_output_buffer_</span></a>, messages are appended to the output buffer and this keeps track of where to write to next without overwriting </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -1425,7 +1425,7 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9UserInput24_input_type_match_flags_E">
 <span id="_CPPv3N9UserInput24_input_type_match_flags_E"></span><span id="_CPPv2N9UserInput24_input_type_match_flags_E"></span><span id="UserInput::_input_type_match_flags___IH::input_type_match_flags_typeP"></span><span class="target" id="dc/d4b/class_user_input_1a405dd044435923636565c9c6758dc92a"></span><a class="reference internal" href="config/noedit_h_docs.html#_CPPv42IH" title="IH"><span class="n"><span class="pre">IH</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="config/noedit_h_docs.html#_CPPv4N2IH27input_type_match_flags_typeE" title="IH::input_type_match_flags_type"><span class="n"><span class="pre">input_type_match_flags_type</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">_input_type_match_flags_</span></span></span><a class="headerlink" href="#_CPPv4N9UserInput24_input_type_match_flags_E" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Bool array the size of <a class="reference internal" href="#dc/d4b/class_user_input"><span class="std std-ref">UserInput</span></a>::<em>max_args</em>. </p>
+<dd><p>Bool array the size of <a class="reference internal" href="#dc/d4b/class_user_input_1a4997021fc8dbe83bd3aae754cabbb96f"><span class="std std-ref">UserInput::_max_args_</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp var">
