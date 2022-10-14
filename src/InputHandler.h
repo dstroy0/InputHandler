@@ -22,6 +22,10 @@
     #include "config/noedit.h"
 
 /**
+ * @name typedefs
+ */
+///@{
+/**
  * @brief char array typedef.
  *
  * This is a char array, you can change the macro in src/config/config.h @link
@@ -52,7 +56,12 @@ typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
  * @endlink
  */
 typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
+///@}
 
+/**
+ * @name ENUMS
+ */
+///@{
 /**
  * @brief Command identifier enum.
  *
@@ -130,7 +139,12 @@ enum class UITYPE
     NO_ARGS,    ///<  no arguments expected
     _LAST       ///<  reserved
 };
+///@}
 
+/**
+ * @name structs
+ */
+///@{
 /**
  * @brief Holds user defined input data delimiters.
  *
@@ -238,7 +252,12 @@ struct CommandParameters
                                     ///< UI_MAX_ARGS, cannot be less than num_args
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; ///< argument UITYPE array
 };
+///@}
 
+/**
+ * @name namespace
+ */
+///@{
 /**
  * @brief library constants located in PROGMEM
  *
@@ -310,7 +329,12 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::start_stop_sequences         ///< process default start/stop sequences
 };
 } // end namespace ihconst
+///@}
 
+/**
+ * @name classes
+ */
+///@{
 /**
  * @class CommandConstructor
  *
@@ -1033,6 +1057,7 @@ private:
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
     // end private methods
 };
+///@}
 
 #endif // header guard include
 
