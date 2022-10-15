@@ -1,0 +1,32 @@
+name: cli_gen_tool build latest binaries CI 
+
+on: [push]
+
+jobs:
+  build-and-deploy-docs:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update linux and install docs build dependencies
+        run: |
+          sudo apt-get update 
+          
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -VV          
+          pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip freeze                    
+      
+      - name: Build binary
+        run: |          
+          cd tools/cli_gen_tool_src/
+          sudo pyinstaller cli_gen_tool.py --distpath InputHandler/tools/bin/latest/    

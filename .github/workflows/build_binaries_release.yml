@@ -1,6 +1,6 @@
-name: cli_gen_tool binaries CI 
+name: cli_gen_tool build release binaries CI 
 
-on: [push, release]
+on: [release]
 
 jobs:
   build-and-deploy-docs:
@@ -26,12 +26,7 @@ jobs:
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
           pip freeze                    
       
-      - on: push
-        run: |          
-          cd tools/cli_gen_tool_src/
-          sudo pyinstaller cli_gen_tool.py --distpath InputHandler/tools/bin/latest/
-      
-      - on: release
+      - name: Build binary
         run: |          
           cd tools/cli_gen_tool_src/
           sudo pyinstaller cli_gen_tool.py --distpath InputHandler/tools/bin/release/
