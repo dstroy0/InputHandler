@@ -1,10 +1,16 @@
 name: Docs CI 
 
-on: [push, release]
-  paths:
-    - src
-    - docs
-    - tools/cli_gen_tool_src
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - src
+      - docs
+      - tools/cli_gen_tool_src
+  release:
+    branches:
+      - main
 
 jobs:
   build-and-deploy-docs:

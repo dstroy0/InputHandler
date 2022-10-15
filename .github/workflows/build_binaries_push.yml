@@ -1,6 +1,16 @@
 name: cli_gen_tool build latest binaries CI 
 
-on: [push]
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - tools/cli_gen_tool_src
+  workflow-dispatch:
+    branches:
+      - main
+    paths:
+      - tools/cli_gen_tool_src
 
 jobs:
   build-latest-binary:

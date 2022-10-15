@@ -1,6 +1,9 @@
 name: cli_gen_tool build release binaries CI 
 
-on: [release]
+on: 
+  release:
+    branches:
+      - main
 
 jobs:
   build-release-binary:
