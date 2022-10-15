@@ -3,14 +3,15 @@ name: cli_gen_tool build release binaries CI
 on: [release]
 
 jobs:
-  build-and-deploy-docs:
+  build-release-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
 
     steps:
       - name: Update linux and install docs build dependencies
         run: |
-          sudo apt-get update 
+          sudo apt-get update
+          sudo apt-get install libegl1 
           
       - uses: actions/checkout@v3
         with: 
