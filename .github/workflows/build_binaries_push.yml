@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - tools/cli_gen_tool_src
-  workflow-dispatch:
+  workflow_dispatch:
     branches:
       - main
     paths:
