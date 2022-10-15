@@ -26,7 +26,9 @@ sys.path.append(_templates_path)
 
 print("tool root path: \n" + tool_root_path)
 
-print("If you don't see the module path here, it will not import and Sphinx will yell at you.")
+print(
+    "If you don't see the module path here, it will not import and Sphinx will yell at you."
+)
 print("sys.path: ")
 for item in sys.path:
     print(item)
@@ -46,7 +48,11 @@ author = "Douglas Quigg (dstroy0@gmail.com)"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx_mdinclude",
+]
 
 templates_path = ["templates"]
 exclude_patterns = []
