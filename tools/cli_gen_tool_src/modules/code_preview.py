@@ -45,7 +45,7 @@ class CodePreviewBrowser(QTextBrowser):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.setTextInteractionFlags(Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse)
         self.ensureCursorVisible()
         # let the user navigate to the hyperlinks provided in the readme
         if name == "README.md":
