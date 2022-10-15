@@ -11,6 +11,7 @@ Welcome to cli_gen_tool's documentation!
    :caption: Command Line Interface Generation tool reference (cli_gen_tool.py)
    :hidden:
    
+   README.rst
    modules/cli_gen_tool.rst
    InputHandler github <https://github.com/dstroy0/InputHandler>
    InputHandler docs <https://dstroy0.github.io/InputHandler/lib/index.html>
@@ -21,13 +22,4 @@ Welcome to cli_gen_tool's documentation!
 
     modules
 
-README
-=======
 .. mdinclude:: ../../../tools/cli_gen_tool_src/README.md
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
