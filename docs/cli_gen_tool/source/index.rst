@@ -21,6 +21,7 @@ Welcome to cli_gen_tool's documentation!
 
     modules
 
+.. mdinclude:: ../../../tools/cli_gen_tool_src/README.md 
 
 Indices and tables
 ==================

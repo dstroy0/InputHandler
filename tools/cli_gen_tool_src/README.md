@@ -1,4 +1,7 @@
 <!-- markdownlint-disable MD041 -->
 
-cli_gen_tool.py is a convenience tool used to build and share command line interfaces.
-It began as a learning exercise in python for the author.
+## Bug reporting
+Please report any bugs you find in InputHandler/tools/ using the [InputHandler tools bug report](https://github.com/dstroy0/InputHandler/blob/main/tools/bug_report.md) at [InputHandler/tools/ bug report forum](https://github.com/dstroy0/InputHandler/discussions/59)  
+
+## Readme
+cli_gen_tool is meant to assist in constructing and sharing interfaces quickly.
