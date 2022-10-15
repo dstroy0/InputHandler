@@ -167,13 +167,13 @@ struct InputProcessDelimiterSequences
 {
     size_t num_seq; ///< the number of token delimiters in delimiter_sequences
     IH::ui_max_num_delim_seq_t
-        delimiter_lens[UI_MAX_NUM_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens[@link
-                                              ///< UI_MAX_NUM_DELIM_SEQ @endlink]
+        delimiter_lens[UI_MAX_NUM_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens
+                                              ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]
     char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ]
                             [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
-                                                    ///< delimiter_sequences[@link
-                                                    ///< UI_MAX_NUM_DELIM_SEQ @endlink][@link
-                                                    ///< UI_DELIM_SEQ_PGM_LEN @endlink]
+                                                    ///< delimiter_sequences
+                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]                                                    
+                                                    ///< [@link UI_DELIM_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -191,15 +191,15 @@ struct InputProcessStartStopSequences
 {
     size_t num_seq; ///< num start/stop sequences
     IH::ui_max_num_start_stop_seq_t start_stop_sequence_lens
-        [UI_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens[@link
-                                     ///< UI_MAX_NUM_START_STOP_SEQ @endlink]
+        [UI_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens
+                                     ///< [@link UI_MAX_NUM_START_STOP_SEQ @endlink]
     char start_stop_sequence_pairs
         [UI_MAX_NUM_START_STOP_SEQ]
         [UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
                                      ///< start, match end, copy what is
-                                     ///< between markers start_stop_sequence_pairs[@link
-                                     ///< UI_MAX_NUM_START_STOP_SEQ @endlink][@link
-                                     ///< UI_START_STOP_SEQ_PGM_LEN @endlink]
+                                     ///< between markers start_stop_sequence_pairs
+                                     ///< [@link UI_MAX_NUM_START_STOP_SEQ @endlink]
+                                     ///< [@link UI_START_STOP_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -211,8 +211,8 @@ struct InputProcessStartStopSequences
  */
 struct InputProcessParameters
 {
-    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len == @link
-                                  ///< UI_PROCESS_NAME_PGM_LEN @endlink
+    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len == 
+                                  ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
     const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
     const IH_input_cc*
         input_control_char_sequence; ///< two char len sequence to input a control char
