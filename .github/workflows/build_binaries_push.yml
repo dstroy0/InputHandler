@@ -22,13 +22,12 @@ jobs:
         run: |
           sudo apt-get update 
           sudo apt-get install libegl1
-          sudo apt-get install libxkbcommon-x11-0
-          sudo apt-get install libxcb-icccm4-dev
-          sudo apt-get install libxcb-image0-dev
-          sudo apt-get install libxcb-keysyms1-dev
-          sudo apt-get install libxcb-randr0-dev
-          sudo apt-get install libxcb-render-util0-dev
-          sudo apt-get install libxcb-shape0-dev          
+          sudo apt-get install libxkbcommon-x11-dev
+          sudo apt-get install '^libxcb.*-dev'
+          sudo apt-get install libx11-xcb-dev
+          sudo apt-get install libglu1-mesa-dev
+          sudo apt-get install libxrender-dev
+          sudo apt-get install libxkbcommon-dev
           
       - uses: actions/checkout@v3
         with: 
