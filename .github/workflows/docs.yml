@@ -1,6 +1,10 @@
 name: Docs CI 
 
 on: [push, release]
+  paths:
+    - src
+    - docs
+    - tools/cli_gen_tool_src
 
 jobs:
   build-and-deploy-docs:
