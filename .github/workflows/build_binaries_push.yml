@@ -30,7 +30,7 @@ jobs:
           sudo apt-get install libxrender-dev
           sudo apt-get install libxkbcommon-dev      
           sudo apt-get install libicu-dev 
-          sudo apt-get install pyqt6-webengine-dev      
+          sudo apt-get install PyQt6-WebEngine      
                     
       - uses: actions/checkout@v3
         with: 
