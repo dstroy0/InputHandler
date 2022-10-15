@@ -16,19 +16,15 @@ If applicable, add screenshots/video to help explain your problem.
 Remember to mark the area in the application thats impacted.
 
 ## Desktop
- - OS: [e.g. Windows]
- - Browser [e.g. chrome, safari, firefox, edge]
- - Resolution [e.g. 2560 X 1289]
+ - OS: [e.g. Windows] 
  - Version [e.g. 11]
+
+## IDE
+ - IDE: [e.g. Arduino Ide, VSCode]
+ - IDE version: 
 
 ## Additional context
 Add any other context about the problem here.
 
-## Log file
-Please attach the log file (if any) located in /InputHandler/tools/logs/
-
-## Session json
-Please attach the session json (if any) located in /InputHandler/tools/session/
-
-## CLI options json
-Please attach the cli options json (if any) you were using when discovering the bug.
+## Source code
+Please archive and attach your InputHandler/ library and source code.
