@@ -23,12 +23,12 @@ jobs:
           sudo apt-get update 
           sudo apt-get install libegl1
           sudo apt-get install libxkbcommon-x11-0
-          sudo apt-get install libxcb-icccm
-          sudo apt-get install libxcb-image-0
-          sudo apt-get install libxcb-keysyms-1
-          sudo apt-get install libxcb-randr-0
-          sudo apt-get install libxcb-render-util-0
-          sudo apt-get install libxcb-shape-0
+          sudo apt-get install libxcb-icccm4-dev
+          sudo apt-get install libxcb-image0-dev
+          sudo apt-get install libxcb-keysyms1-dev
+          sudo apt-get install libxcb-randr0-dev
+          sudo apt-get install libxcb-render-util0-dev
+          sudo apt-get install libxcb-shape0-dev
           sudo apt-get install libQt6Pdf-6
           
       - uses: actions/checkout@v3
