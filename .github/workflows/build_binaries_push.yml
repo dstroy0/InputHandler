@@ -20,22 +20,19 @@ jobs:
     steps:
       - name: Update linux and install build dependencies
         run: |
-          apt-get update 
-          apt-get install libegl1
-          apt-get install libxkbcommon0
-          apt-get install libxkbcommon-x11-dev
-          apt-get install '^libxcb.*-dev'
-          apt-get install libx11-xcb-dev
-          apt-get install libglu1-mesa-dev
-          apt-get install libxrender-dev
-          apt-get install libxkbcommon-dev      
-          apt-get install libicu-dev
-          apt-get install libicu70
-          apt-get install qt6-webengine-dev
-
-          
-
-          
+          sudo apt-get update 
+          sudo apt-get install libegl1
+          sudo apt-get install libxkbcommon0
+          sudo apt-get install libxkbcommon-x11-dev
+          sudo apt-get install '^libxcb.*-dev'
+          sudo apt-get install libx11-xcb-dev
+          sudo apt-get install libglu1-mesa-dev
+          sudo apt-get install libxrender-dev
+          sudo apt-get install libxkbcommon-dev      
+          sudo apt-get install libicu-dev
+          sudo apt-get install libicu70
+          sudo apt-get install qt6-webengine-dev
+                    
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
