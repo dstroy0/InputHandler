@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -214,14 +214,110 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="command-parameters">
-<h1>command_parameters<a class="headerlink" href="#command-parameters" title="Permalink to this heading">#</a></h1>
+          <section id="module-command_parameters">
+<span id="command-parameters"></span><h1>command_parameters<a class="headerlink" href="#module-command_parameters" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_parameters.</span></span><span class="sig-name descname"><span class="pre">CommandParametersMethods</span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.append_to_arg_csv">
+<span class="sig-name descname"><span class="pre">append_to_arg_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.append_to_arg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.append_to_arg_csv" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.argument_handling_changed">
+<span class="sig-name descname"><span class="pre">argument_handling_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.argument_handling_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.argument_handling_changed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel">
+<span class="sig-name descname"><span class="pre">clicked_command_parameters_buttonbox_cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.clicked_command_parameters_buttonbox_cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok">
+<span class="sig-name descname"><span class="pre">clicked_command_parameters_buttonbox_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.clicked_command_parameters_buttonbox_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_reset">
+<span class="sig-name descname"><span class="pre">clicked_command_parameters_buttonbox_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.clicked_command_parameters_buttonbox_reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_reset" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.command_arg_types_list">
+<span class="sig-name descname"><span class="pre">command_arg_types_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['UINT8_T',</span> <span class="pre">'UINT16_T',</span> <span class="pre">'UINT32_T',</span> <span class="pre">'INT16_T',</span> <span class="pre">'FLOAT',</span> <span class="pre">'CHAR',</span> <span class="pre">'STARTSTOP',</span> <span class="pre">'NOTYPE']</span></em><a class="headerlink" href="#command_parameters.CommandParametersMethods.command_arg_types_list" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.command_parameters_dict_keys_list">
+<span class="sig-name descname"><span class="pre">command_parameters_dict_keys_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['functionName',</span> <span class="pre">'returnFunctionName',</span> <span class="pre">'commandString',</span> <span class="pre">'commandLength',</span> <span class="pre">'parentId',</span> <span class="pre">'commandId',</span> <span class="pre">'commandHasWildcards',</span> <span class="pre">'commandDepth',</span> <span class="pre">'commandSubcommands',</span> <span class="pre">'commandArgumentHandling',</span> <span class="pre">'commandMinArgs',</span> <span class="pre">'commandMaxArgs',</span> <span class="pre">'commandArguments']</span></em><a class="headerlink" href="#command_parameters.CommandParametersMethods.command_parameters_dict_keys_list" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.command_string_text_changed">
+<span class="sig-name descname"><span class="pre">command_string_text_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.command_string_text_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.command_string_text_changed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.commandparameters_set_fields">
+<span class="sig-name descname"><span class="pre">commandparameters_set_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.commandparameters_set_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.commandparameters_set_fields" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.csv_button">
+<span class="sig-name descname"><span class="pre">csv_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.csv_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.csv_button" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.err_settings_to_validate">
+<span class="sig-name descname"><span class="pre">err_settings_to_validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.err_settings_to_validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.err_settings_to_validate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.list_from_csv_args">
+<span class="sig-name descname"><span class="pre">list_from_csv_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.list_from_csv_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.list_from_csv_args" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.regex_validator">
+<span class="sig-name descname"><span class="pre">regex_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.regex_validator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.regex_validator" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.rem_from_arg_csv">
+<span class="sig-name descname"><span class="pre">rem_from_arg_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.rem_from_arg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.rem_from_arg_csv" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.set_command_parameter_validators">
+<span class="sig-name descname"><span class="pre">set_command_parameter_validators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.set_command_parameter_validators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.set_command_parameter_validators" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.set_command_parameters_triggers">
+<span class="sig-name descname"><span class="pre">set_command_parameters_triggers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.set_command_parameters_triggers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.set_command_parameters_triggers" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.set_commandparameters_field_defaults">
+<span class="sig-name descname"><span class="pre">set_commandparameters_field_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.set_commandparameters_field_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.validate_command_parameters">
+<span class="sig-name descname"><span class="pre">validate_command_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.validate_command_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.validate_command_parameters" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -269,8 +365,47 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">command_parameters</a><ul>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods</span></code></a><ul>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.append_to_arg_csv"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.append_to_arg_csv()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.argument_handling_changed"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.argument_handling_changed()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.clicked_command_parameters_buttonbox_cancel()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.clicked_command_parameters_buttonbox_ok()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_reset"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.clicked_command_parameters_buttonbox_reset()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.command_arg_types_list"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.command_arg_types_list</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.command_parameters_dict_keys_list"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.command_parameters_dict_keys_list</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.command_string_text_changed"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.command_string_text_changed()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.commandparameters_set_fields"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.commandparameters_set_fields()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.csv_button"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.csv_button()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.err_settings_to_validate"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.err_settings_to_validate()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.list_from_csv_args"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.list_from_csv_args()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.regex_validator"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.regex_validator()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.rem_from_arg_csv"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.rem_from_arg_csv()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_command_parameter_validators"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_command_parameter_validators()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_command_parameters_triggers"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_command_parameters_triggers()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_commandparameters_field_defaults()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.validate_command_parameters"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.validate_command_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

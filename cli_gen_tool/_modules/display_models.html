@@ -1,0 +1,573 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
+        <title>display_models - cli_gen_tool documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">cli_gen_tool  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">cli_gen_tool  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (cli_gen_tool.py)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/cli_gen_tool.html">cli_gen_tool.py</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/index.html">InputHandler docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/code_preview.html">code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/command_parameters.html">command_parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/command_tree.html">command_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/data_models.html">data_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/display_models.html">display_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/helper_methods.html">helper_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/logging_setup.html">logging_setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mainwindow_actions.html">mainwindow_actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mainwindow_buttons.html">mainwindow_buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/preferences.html">preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/settings_tree_table_methods.html">settings_tree_table_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/settings_tree.html">settings_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/clireadme.html">clireadme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/filestrings.html">filestrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/functions.html">functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/parameters.html">parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cli/setup.html">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/uic/commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/uic/logHistoryDialog.html">logHistoryDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/uic/mainWindow.html">mainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/uic/preferencesDialog.html">preferencesDialog</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for display_models</h1><div class="highlight"><pre>
+<span></span><span class="c1">##</span>
+<span class="c1"># @file display_models.py</span>
+<span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
+<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @version 1.0</span>
+<span class="c1"># @date 2022-08-28</span>
+<span class="c1"># @copyright Copyright (c) 2022</span>
+<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># version 3 as published by the Free Software Foundation.</span>
+
+
+<div class="viewcode-block" id="displayModels"><a class="viewcode-back" href="../modules/display_models.html#display_models.displayModels">[docs]</a><span class="k">class</span> <span class="nc">displayModels</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1">## Display Labels mirror data tree structure. Containers are parents; keys are parent/child labels</span>
+    <span class="n">_settings_tree_display</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;process output&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;buffer size&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Must be greater than zero for class output.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;output stream&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Stream&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Set an output Stream that is legal for your platform.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;process parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;process name&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;The process name prepends all terminal output.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;end of line characters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text/control char&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Set to the eol char sequence of your data.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;input control char sequence&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Enter this sequence before an unescaped control char (r,n,e,t,b,etc.)&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;wildcard char&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;char&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Any single char; * by default.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;data delimiter sequences&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;char sequence&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;The char or sequence of chars that separate input data.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;start stop data delimiter sequences&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;char sequence&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Regex-like start/stop input sequences, for inputting long strings of data.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;builtin methods&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;outputToStream&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;Enabling this will direct class output to the Stream designated in &#39;process output&#39;.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;This will have no effect if you have not designated an output Stream and set a buffer size in &#39;process output&#39;.&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;defaultFunction&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;No default function (called on unknown command or input error).&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Default function enabled (called on unknown command or input error).&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;No listCommands command&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;listCommands available to user.&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;No listSettings command&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;listSettings available to user.&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;library settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;UI_MAX_COMMANDS_IN_TREE&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_ARGS_PER_COMMAND&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_TREE_DEPTH_PER_COMMAND&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_NUM_CHILD_COMMANDS&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_CMD_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_NUM_DELIM_SEQ&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_NUM_START_STOP_SEQ&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_INPUT_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_MAX_PER_CMD_MEMCMP_RANGES&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;This macro&#39;s associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_ECHO_ONLY&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;This functionality is optional. It alters the library output significantly.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Library output altered.&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;progmem settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;UI_INPUT_TYPE_STRINGS_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_EOL_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_DELIM_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_START_STOP_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_PROCESS_NAME_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;constant bytes&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of PROGMEM bytes this object uses.&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;debug methods&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;DEBUG_GETCOMMANDFROMSTREAM&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::getCommandFromStream()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::getCommandFromStream()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_READCOMMANDFROMBUFFER&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::readCommandFromBuffer&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::readCommandFromBuffer&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_GET_TOKEN&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::getToken()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::getToken()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_SUBCOMMAND_SEARCH&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::subCommandSearch()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::subCommandSearch()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_ADDCOMMAND&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::addCommand()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::addCommand()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_LAUNCH_LOGIC&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::launchLogic()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::launchLogic()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_LAUNCH_FUNCTION&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::launchFunction()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::launchFunction()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DEBUG_INCLUDE_FREERAM&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;No debugging output from InputHandler::freeRam()&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Output debugging information from InputHandler::freeRam()&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;optional methods&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;DISABLE_listSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::listSettings() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::listSettings() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::listSettings()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_listCommands&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::listCommands() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::listCommands() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::listCommands()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_getCommandFromStream&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::getCommandFromStream() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::getCommandFromStream() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::getCommandFromStream()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_nextArgument&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::nextArgument() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::nextArgument() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::nextArgument()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_getArgument&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::getArgument() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::getArgument() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::getArgument()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_outputIsAvailable&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::outputIsAvailable() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::outputIsAvailable() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputIsAvailable()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_outputIsEnabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::outputIsEnabled() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::outputIsEnabled() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputIsEnabled()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_outputToStream&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::outputToStream() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::outputToStream() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::outputToStream()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_clearOutputBuffer&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler::clearOutputBuffer() enabled&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler::clearOutputBuffer() disabled, (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_clearOutputBuffer()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_readCommandFromBufferErrorOutput&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;Error information output on detect.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;No error output or indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_readCommandFromBufferErrorOutput()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;DISABLE_ui_out&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Enable/Disable&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;Library capable of output and error indication.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Library not capable of output or error indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_ui_out()!)&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+    <span class="n">_command_table_tooltip_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;functionName is the name of the function internal to the cli, it is a combination of your command string and this function&#39;s unique id.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;returnFunctionName is blank unless your command has arguments; it is the name of the function that you copy into your code to do things with the arguments you collect for that function.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandString is the string of characters that triggers the execution of designated command when received and processed.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandLength is the total number of characters in the command.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parentId is this command&#39;s parent ID.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandId is this command&#39;s ID.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandHasWildcards is a boolean indicator of whether or not this command has wildcard characters in it.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandDepth is this command&#39;s depth in the command tree.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandSubcommands is the number of subcommands this command will have, regardless of their depth in the command tree.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandArgumentHandling is the main indicator of how this command will handle incoming arguments.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandMinArgs is the MINIMUM number of arguments you can send this command to trigger it.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandMaxArgs is the MAXIMUM number of arguments you can send this command before it will stop triggering.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;commandArguments is the array of argument types this command expects.&quot;</span><span class="p">,</span>
+    <span class="p">]</span></div>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Douglas Quigg (dstroy0@gmail.com)
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    </body>
+</html>

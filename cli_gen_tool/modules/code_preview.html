@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -214,14 +214,120 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="code-preview">
-<h1>code_preview<a class="headerlink" href="#code-preview" title="Permalink to this heading">#</a></h1>
+          <section id="module-code_preview">
+<span id="code-preview"></span><h1>code_preview<a class="headerlink" href="#module-code_preview" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="code_preview.CodePreview">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreview</span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cliReadme</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliConfig</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliSetup</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliFunctions</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliParameters</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.build_code_preview_tree">
+<span class="sig-name descname"><span class="pre">build_code_preview_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.build_code_preview_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.build_code_preview_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.code_preview_events">
+<span class="sig-name descname"><span class="pre">code_preview_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">watched</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_button</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QPoint</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.code_preview_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.code_preview_events" title="Permalink to this definition">#</a></dt>
+<dd><p>Triggers on user interaction with any portion of code preview pane</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>watched (QObject): the viewport that triggered the event
+event (QEvent): the event itself
+event_type (Type): the type of event
+mouse_button (bool): True if a mouse button was pressed
+mouse_pos (QPoint): Untranslated mouse cursor position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.display_initial_code_preview">
+<span class="sig-name descname"><span class="pre">display_initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.display_initial_code_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.display_initial_code_preview" title="Permalink to this definition">#</a></dt>
+<dd><p>Generates initial text for all CodePreviewBrowser</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.get_vertical_drag_icon_geometry">
+<span class="sig-name descname"><span class="pre">get_vertical_drag_icon_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget_qrect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QRect</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QRect</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.get_vertical_drag_icon_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.get_vertical_drag_icon_geometry" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the area where a user can vertically drag a CodePreviewBrowser to adjust its display area.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>widget_qrect (QRect): The display area of the CodePreviewBrowser</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.resize_code_preview_tree_item">
+<span class="sig-name descname"><span class="pre">resize_code_preview_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.resize_code_preview_tree_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.resize_code_preview_tree_item" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.set_code_string">
+<span class="sig-name descname"><span class="pre">set_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.set_code_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.set_code_string" title="Permalink to this definition">#</a></dt>
+<dd><p>sets the text string inside of a CodePreviewBrowser</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): the name of the file to change
+code_string (str): the contents of the file
+item_string (str): the item within the file that changed
+place_cursor (bool, optional): Whether or not to highlight text, if found and center the cursor. Defaults to False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.set_text_cursor">
+<span class="sig-name descname"><span class="pre">set_text_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_widget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#code_preview.CodePreviewBrowser" title="code_preview.CodePreviewBrowser"><span class="pre">CodePreviewBrowser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.set_text_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.set_text_cursor" title="Permalink to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>sets the text cursor in text_widget by searching for item_string character string;</dt><dd><p>centers the highlighted text in the text_widget’s viewport</p>
+</dd>
+<dt>Args:</dt><dd><p>text_widget (CodePreviewBrowser): the target text widget
+item_string (str): the string to highlight if exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreview.update_code">
+<span class="sig-name descname"><span class="pre">update_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.update_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.update_code" title="Permalink to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>updates code in text_widget.objectName(<cite>file</cite>);</dt><dd><p>highlights <cite>item_string</cite> if exists;
+places the cursor on <cite>item_string</cite> if <cite>place_cursor</cite> True.</p>
+</dd>
+<dt>Args:</dt><dd><p>file (str): filename.extension
+item_string (str): item within <cite>file</cite> that changed, if any.
+place_cursor (bool): place the text cursor on <cite>item_string</cite> if True and <cite>item_string</cite> exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreviewBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextBrowser</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>Keeps the text cursor visible while resizing <cite>this</cite> text widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QEvent): always a resize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextBrowser&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.CodePreviewBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -269,8 +375,42 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">code_preview</a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreview"><code class="docutils literal notranslate"><span class="pre">CodePreview</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreview.build_code_preview_tree"><code class="docutils literal notranslate"><span class="pre">CodePreview.build_code_preview_tree()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.code_preview_events"><code class="docutils literal notranslate"><span class="pre">CodePreview.code_preview_events()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.display_initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodePreview.display_initial_code_preview()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.get_vertical_drag_icon_geometry"><code class="docutils literal notranslate"><span class="pre">CodePreview.get_vertical_drag_icon_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.resize_code_preview_tree_item"><code class="docutils literal notranslate"><span class="pre">CodePreview.resize_code_preview_tree_item()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.set_code_string"><code class="docutils literal notranslate"><span class="pre">CodePreview.set_code_string()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.set_text_cursor"><code class="docutils literal notranslate"><span class="pre">CodePreview.set_text_cursor()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreview.update_code"><code class="docutils literal notranslate"><span class="pre">CodePreview.update_code()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.resizeEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.staticMetaObject</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

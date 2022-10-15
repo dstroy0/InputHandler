@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -214,14 +214,60 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="settings-tree">
-<h1>settings_tree<a class="headerlink" href="#settings-tree" title="Permalink to this heading">#</a></h1>
+          <section id="module-settings_tree">
+<span id="settings-tree"></span><h1>settings_tree<a class="headerlink" href="#module-settings_tree" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">settings_tree.</span></span><span class="sig-name descname"><span class="pre">SettingsTreeMethods</span></span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.build_lib_settings_tree">
+<span class="sig-name descname"><span class="pre">build_lib_settings_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.build_lib_settings_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.build_lib_settings_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.check_if_settings_tree_col_editable">
+<span class="sig-name descname"><span class="pre">check_if_settings_tree_col_editable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.check_if_settings_tree_col_editable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.check_if_settings_tree_col_editable" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.edit_settings_tree_item">
+<span class="sig-name descname"><span class="pre">edit_settings_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.edit_settings_tree_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.edit_settings_tree_item" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.set_up_child">
+<span class="sig-name descname"><span class="pre">set_up_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_of_child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_tooltip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_initial_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combobox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combobox_item_tooltips</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.set_up_child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.set_up_child" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.settings_tree_combo_box_index_changed">
+<span class="sig-name descname"><span class="pre">settings_tree_combo_box_index_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.settings_tree_combo_box_index_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.settings_tree_combo_box_index_changed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.settings_tree_edit_complete">
+<span class="sig-name descname"><span class="pre">settings_tree_edit_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.settings_tree_edit_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.settings_tree_edit_complete" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.settings_tree_item_activated">
+<span class="sig-name descname"><span class="pre">settings_tree_item_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.settings_tree_item_activated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.settings_tree_item_activated" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree.SettingsTreeMethods.update_settings_tree_type_field_text">
+<span class="sig-name descname"><span class="pre">update_settings_tree_type_field_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree.html#SettingsTreeMethods.update_settings_tree_type_field_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree.SettingsTreeMethods.update_settings_tree_type_field_text" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -269,8 +315,37 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">settings_tree</a><ul>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods</span></code></a><ul>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.build_lib_settings_tree"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.build_lib_settings_tree()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.check_if_settings_tree_col_editable"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.check_if_settings_tree_col_editable()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.edit_settings_tree_item"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.edit_settings_tree_item()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.set_up_child"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.set_up_child()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.settings_tree_combo_box_index_changed"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.settings_tree_combo_box_index_changed()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.settings_tree_edit_complete"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.settings_tree_edit_complete()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.settings_tree_item_activated"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.settings_tree_item_activated()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree.SettingsTreeMethods.update_settings_tree_type_field_text"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods.update_settings_tree_type_field_text()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
