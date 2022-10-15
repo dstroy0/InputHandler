@@ -166,9 +166,14 @@ enum class UITYPE
 struct InputProcessDelimiterSequences
 {
     size_t num_seq; ///< the number of token delimiters in delimiter_sequences
-    IH::ui_max_num_delim_seq_t delimiter_lens[UI_MAX_NUM_DELIM_SEQ]; ///< delimiter sequence lens
+    IH::ui_max_num_delim_seq_t
+        delimiter_lens[UI_MAX_NUM_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens[@link
+                                              ///< UI_MAX_NUM_DELIM_SEQ @endlink]
     char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ]
                             [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
+                                                    ///< delimiter_sequences[@link
+                                                    ///< UI_MAX_NUM_DELIM_SEQ @endlink][@link
+                                                    ///< UI_DELIM_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -185,12 +190,16 @@ struct InputProcessDelimiterSequences
 struct InputProcessStartStopSequences
 {
     size_t num_seq; ///< num start/stop sequences
-    IH::ui_max_num_start_stop_seq_t
-        start_stop_sequence_lens[UI_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens
-    char start_stop_sequence_pairs[UI_MAX_NUM_START_STOP_SEQ]
-                                  [UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
-                                                               ///< start, match end, copy what is
-                                                               ///< between
+    IH::ui_max_num_start_stop_seq_t start_stop_sequence_lens
+        [UI_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens[@link
+                                     ///< UI_MAX_NUM_START_STOP_SEQ @endlink]
+    char start_stop_sequence_pairs
+        [UI_MAX_NUM_START_STOP_SEQ]
+        [UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
+                                     ///< start, match end, copy what is
+                                     ///< between markers start_stop_sequence_pairs[@link
+                                     ///< UI_MAX_NUM_START_STOP_SEQ @endlink][@link
+                                     ///< UI_START_STOP_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -233,6 +242,7 @@ struct CommandRuntimeCalc
                            ///< which contains wcc
 };
 
+// forward declaration for CommandParameters
 class UserInput;
 
 /**
@@ -268,7 +278,6 @@ struct CommandParameters
 ///@{
 /**
  * @brief library constants located in PROGMEM.
- *
  *
  * This namespace's purpose is to avoid name collision
  * and to consolidate the library's PROGMEM variables.
@@ -455,6 +464,7 @@ public:
           _stream_data_index_(0),
           _begin_(false)
     {
+        // load input parameters from PROGMEM
         memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
     }
 

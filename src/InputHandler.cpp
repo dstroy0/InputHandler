@@ -245,18 +245,18 @@ void UserInput::listCommands()
 void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
 {
     // error checking
-    if (!_begin_) // error
+    if (!_begin_) // begin not set; allocation or implementation error
     {
         return;
     }
-    if (len > UI_MAX_INPUT_LEN)
+    if (len > UI_MAX_INPUT_LEN) // increase UI_MAX_INPUT_LEN error
     {
 #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), (char*)pgm_read_dword(_input_prm_.process_name));
 #endif
         return;
     }
-    _rcfbprm rprm;
+    _rcfbprm rprm; // this is passed by reference to child functions
     // initial settings
     rprm.launch_attempted = false;               // made it to launchFunction if true
     rprm.command_matched = false;                // error sentinel, true if error
@@ -285,7 +285,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
 #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"), (char*)pgm_read_dword(_input_prm_.process_name));
 #endif
-        if (rprm.split_input != NULL)
+        if (rprm.split_input != NULL) // error
         {
             free(rprm.split_input);
             rprm.split_input = NULL;
