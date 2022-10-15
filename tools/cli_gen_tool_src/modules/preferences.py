@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 from PySide6.QtWidgets import QFileDialog
 from PySide6.QtCore import QFile
 

@@ -16,10 +16,10 @@ import json
 from PySide6.QtWidgets import QTableView, QTreeWidgetItem, QHeaderView
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
-from res.modules.display_models import displayModels
-from res.modules.logging_setup import Logger
-from res.modules.data_models import dataModels
-from res.modules.display_models import displayModels
+from modules.display_models import displayModels
+from modules.logging_setup import Logger
+from modules.data_models import dataModels
+from modules.display_models import displayModels
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
 class CommandParametersTableViewModel(QAbstractTableModel):

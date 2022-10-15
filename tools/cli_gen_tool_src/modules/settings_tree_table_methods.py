@@ -23,7 +23,7 @@ from PySide6.QtWidgets import (
 )
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 
 # this is a helper class

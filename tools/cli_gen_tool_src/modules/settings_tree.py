@@ -21,11 +21,11 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
 
 # external data models
-from res.modules.data_models import dataModels
-from res.modules.display_models import displayModels
+from modules.data_models import dataModels
+from modules.display_models import displayModels
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 
 # settings_tree methods

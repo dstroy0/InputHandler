@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 
 # helper method class

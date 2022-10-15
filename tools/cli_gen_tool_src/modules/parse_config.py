@@ -20,7 +20,7 @@ import json
 from PySide6.QtCore import QRegularExpression
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 
 # parse inputhandler config

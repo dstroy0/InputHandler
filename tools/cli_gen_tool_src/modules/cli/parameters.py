@@ -12,7 +12,7 @@
 
 from __future__ import absolute_import
 
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 class cliParameters(object):
     ## the constructor

@@ -28,10 +28,10 @@ from PySide6.QtWidgets import (
 )
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 # data models
-from res.modules.data_models import dataModels
+from modules.data_models import dataModels
 
 
 # command parameters methods

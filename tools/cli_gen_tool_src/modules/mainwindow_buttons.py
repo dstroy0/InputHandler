@@ -15,7 +15,7 @@ from __future__ import absolute_import
 import copy
 
 from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 
 # mainwindow button methods class

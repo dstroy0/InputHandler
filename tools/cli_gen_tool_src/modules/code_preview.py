@@ -19,14 +19,14 @@ from PySide6.QtGui import QMouseEvent, QTextCursor
 from PySide6.QtWidgets import QHeaderView, QSizePolicy, QTreeWidgetItem, QTextBrowser
 
 # external methods and resources
-from res.modules.cli.clireadme import cliReadme
-from res.modules.cli.config import cliConfig
-from res.modules.cli.setup import cliSetup
-from res.modules.cli.functions import cliFunctions
-from res.modules.cli.parameters import cliParameters
+from modules.cli.clireadme import cliReadme
+from modules.cli.config import cliConfig
+from modules.cli.setup import cliSetup
+from modules.cli.functions import cliFunctions
+from modules.cli.parameters import cliParameters
 
 # logging api
-from res.modules.logging_setup import Logger
+from modules.logging_setup import Logger
 
 ## each text browser in Code Preview is an instance of this class
 class CodePreviewBrowser(QTextBrowser):

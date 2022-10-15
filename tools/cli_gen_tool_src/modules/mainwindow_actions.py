@@ -23,8 +23,8 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QStyle,
 )
-from res.modules.helper_methods import HelperMethods
-from res.modules.logging_setup import Logger
+from modules.helper_methods import HelperMethods
+from modules.logging_setup import Logger
 
 
 # mainwindow actions class
