@@ -21,7 +21,7 @@ jobs:
       - name: Update linux and install build dependencies
         run: |
           apt-get update 
-          apt-get install libegl1-dev
+          apt-get install libegl1
           apt-get install libxkbcommon0
           apt-get install libxkbcommon-x11-dev
           apt-get install '^libxcb.*-dev'
