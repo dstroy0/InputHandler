@@ -9,16 +9,15 @@ lib_root_path = os.path.abspath(os.curdir)
 tool_docs_path = lib_root_path + "/docs/cli_gen_tool/source"
 tool_root_path = os.path.abspath(os.curdir) + "/tools/cli_gen_tool_src"
 tool_path = tool_root_path + "/cli_gen_tool.py"
-res_path = tool_root_path + "/res"
-modules_path = res_path + "/modules"
+
+modules_path = tool_root_path + "/modules"
 cli_modules_path = modules_path + "/cli"
-uic_path = res_path + "/uic"
+uic_path = modules_path + "/uic"
 _html_static_path = lib_root_path + "/docs/cli_gen_tool/source/static"
 _templates_path = lib_root_path + "/docs/cli_gen_tool/source/templates"
 sys.path.insert(0, tool_docs_path)
 sys.path.append(tool_root_path)
 sys.path.append(tool_path)
-sys.path.append(res_path)
 sys.path.append(modules_path)
 sys.path.append(cli_modules_path)
 sys.path.append(uic_path)
