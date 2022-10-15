@@ -89,7 +89,7 @@ Or, if you don't want to use a [Stream](https://www.arduino.cc/reference/en/lang
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/db/d11/struct_command_parameters.html) struct objects.
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) struct objects.
 
 Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr). 
 
