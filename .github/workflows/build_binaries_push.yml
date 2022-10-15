@@ -21,7 +21,8 @@ jobs:
       - name: Update linux and install build dependencies
         run: |
           sudo apt-get update 
-          sudo apt-get install libegl1
+          sudo apt-get install libegl1-dev
+          sudo apt-get install libxkbcommon0
           sudo apt-get install libxkbcommon-x11-dev
           sudo apt-get install '^libxcb.*-dev'
           sudo apt-get install libx11-xcb-dev
@@ -29,6 +30,8 @@ jobs:
           sudo apt-get install libxrender-dev
           sudo apt-get install libxkbcommon-dev      
           sudo apt-get install libicu-dev
+          sudo apt-get install libicu70
+
           
 
           
