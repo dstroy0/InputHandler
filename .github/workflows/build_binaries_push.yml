@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Update linux and install build dependencies
         run: |
-          sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu jammy main"
+          sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
           sudo apt-get -q update           
           sudo apt-get install libegl1
           sudo apt-get install libxkbcommon0
