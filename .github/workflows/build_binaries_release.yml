@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Update linux and install docs build dependencies
+      - name: Update linux and install build dependencies
         run: |
           sudo apt-get update
           sudo apt-get install libegl1 
