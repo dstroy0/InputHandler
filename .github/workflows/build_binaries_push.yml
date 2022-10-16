@@ -29,8 +29,7 @@ jobs:
           sudo apt-get install libx11-xcb-dev
           sudo apt-get install libglu1-mesa-dev
           sudo apt-get install libxrender-dev
-          sudo apt-get install libxkbcommon-dev      
-          sudo apt-get install libicu-dev 
+          sudo apt-get install libxkbcommon-dev                
           sudo apt-get install libicu70          
           sudo apt-get install qt6-webengine-dev
                 
