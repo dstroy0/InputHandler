@@ -32,8 +32,7 @@ jobs:
           sudo apt-get install libxkbcommon-dev                
           sudo apt-get install libicu70          
           sudo apt-get install qt6-webengine-dev
-                
-                    
+                                    
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
@@ -49,9 +48,8 @@ jobs:
           pip freeze                    
       
       - name: Build binary
-        run: |          
-          cd tools/cli_gen_tool_src/
-          pyinstaller cli_gen_tool.py --distpath InputHandler/tools/bin/latest/    
+        run: |                    
+          pyinstaller -y ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/    
         
       - name: Commit files
         id: commit

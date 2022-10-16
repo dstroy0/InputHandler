@@ -16,3 +16,6 @@ cli_gen_tool/res/uic/*
 **/cli_gen_tool.json
 **/test.json
 **/__pycache__
+**/build
+**/cli_gen_tool.spec
+
