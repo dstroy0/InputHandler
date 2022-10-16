@@ -49,14 +49,14 @@ jobs:
       
       - name: Build binary
         run: |                    
-          pyinstaller tools/cli_gen_tool_src/cli_gen_tool.py --distpath InputHandler/tools/bin/latest/    
+          pyinstaller ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/    
         
       - name: Commit files
         id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git add --all ':!**/build'
+          git add --all ':!**/build/*'
           if [-z "$(git status --porcelain)"]; then
             echo "::set-output name=push::false"
           else
