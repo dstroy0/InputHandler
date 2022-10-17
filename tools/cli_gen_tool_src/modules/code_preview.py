@@ -14,15 +14,25 @@ from __future__ import absolute_import
 from typing import Type
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QPoint, QUrl
-from PySide6.QtGui import QMouseEvent, QTextCursor, QDesktopServices, QCursor
+from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QPoint, QUrl, Slot
+from PySide6.QtGui import (
+    QMouseEvent,
+    QTextCursor,
+    QDesktopServices,
+    QCursor,
+    QPaintEvent,
+    QPainter,
+    QColor,
+    QTextFormat,
+)
 from PySide6.QtWidgets import (
     QHeaderView,
     QSizePolicy,
     QTreeWidgetItem,
-    QTextBrowser,
+    QApplication,
+    QWidget,
     QTextEdit,
-    QApplication
+    QPlainTextEdit,
 )
 
 # external methods and resources
@@ -35,8 +45,21 @@ from modules.cli.parameters import cliParameters
 # logging api
 from modules.logging_setup import Logger
 
-## each text browser in Code Preview is an instance of this class
-class CodePreviewBrowser(QTextEdit):
+
+class LineNumberArea(QWidget):
+    def __init__(self, editor) -> None:
+        QWidget.__init__(self, editor)
+        self._code_editor = editor
+
+    def sizeHint(self) -> QSize:
+        return QSize(self._code_editor.line_number_area_width(), 0)
+
+    def paintEvent(self, event: QPaintEvent) -> None:
+        return self._code_editor.lineNumberAreaPaintEvent(event)
+
+
+## each code preview browser in Code Preview is an instance of this class
+class CodePreviewBrowser(QPlainTextEdit):
     # spawns a QTextBrowser with these settings
     def __init__(self, name: str, app: QApplication):
         """Constructor method, each widget must have a unique name
@@ -47,25 +70,22 @@ class CodePreviewBrowser(QTextEdit):
         """
         super(CodePreviewBrowser, self).__init__()
         self.app = app
-        self.setLineWrapMode(QTextBrowser.NoWrap)
+        self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setReadOnly(True)
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.ensureCursorVisible()
-        # let the user navigate to the hyperlinks provided in the readme
-        if name == "README.md":
-            self.setTextInteractionFlags(
-                Qt.TextSelectableByKeyboard
-                | Qt.TextSelectableByMouse
-                | Qt.LinksAccessibleByKeyboard
-                | Qt.LinksAccessibleByMouse
-            )                        
-        else:
-            self.setTextInteractionFlags(
-                Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse
-            )
+        self.centerCursor()
+        self.line_number_area = LineNumberArea(self)
+        self.blockCountChanged[int].connect(self.update_line_number_area_width)
+        self.updateRequest[QRect, int].connect(self.update_line_number_area)
+        self.cursorPositionChanged.connect(self.highlight_current_line)
+        self.update_line_number_area_width(0)
+        self.highlight_current_line()
+        self.setTextInteractionFlags(
+            Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse
+        )
 
     def resizeEvent(self, event: QEvent) -> None:
         """Keeps the text cursor visible while resizing `this` text widget
@@ -73,8 +93,13 @@ class CodePreviewBrowser(QTextEdit):
         Args:
             event (QEvent): always a resize
         """
-        self.ensureCursorVisible()
-    
+        super().resizeEvent(event)
+        cr = self.contentsRect()
+        width = self.line_number_area_width()
+        rect = QRect(cr.left(), cr.top(), width, cr.height())
+        self.line_number_area.setGeometry(rect)
+        self.centerCursor()
+
     def mousePressEvent(self, e):
         """changes cursor over external link
 
@@ -85,7 +110,7 @@ class CodePreviewBrowser(QTextEdit):
         if self.anchor:
             self.app.setOverrideCursor(Qt.PointingHandCursor)
 
-    def mouseReleaseEvent(self, e):
+    def mouseReleaseEvent(self, e) -> None:
         """changes cursor back to arrow after releasing mouse button
 
         Args:
@@ -96,12 +121,156 @@ class CodePreviewBrowser(QTextEdit):
             self.app.setOverrideCursor(Qt.ArrowCursor)
             self.anchor = None
 
+    def line_number_area_width(self) -> int:
+        digits = 1
+        max_num = max(1, self.blockCount())
+        while max_num >= 10:
+            max_num *= 0.1
+            digits += 1
+
+        space = 3 + self.fontMetrics().horizontalAdvance("9") * digits
+        return space
+
+    def lineNumberAreaPaintEvent(self, event: QPaintEvent):
+        with QPainter(self.line_number_area) as painter:
+            painter.fillRect(event.rect(), Qt.lightGray)
+            block = self.firstVisibleBlock()
+            block_number = block.blockNumber()
+            _contentOffset = self.contentOffset()            
+            top = self.blockBoundingGeometry(block).translated(_contentOffset).top()
+            bottom = top + self.blockBoundingRect(block).height()
+
+            while block.isValid() and top <= event.rect().bottom():
+                if block.isVisible() and bottom >= event.rect().top():
+                    number = str(block_number + 1)
+                    painter.setPen(Qt.black)
+                    width = self.line_number_area_width()
+                    height = self.fontMetrics().height()
+                    painter.drawText(0, top, width, height, Qt.AlignLeft, number)
+
+                block = block.next()
+                top = bottom
+                bottom = top + self.blockBoundingRect(block).height()
+                block_number += 1
+
+    @Slot(int)
+    def update_line_number_area_width(self, newBlockCount):
+        self.setViewportMargins(self.line_number_area_width(), 0, 0, 0)
+
+    @Slot(QRect, int)
+    def update_line_number_area(self, rect, dy):
+        if dy:
+            self.line_number_area.scroll(0, dy)
+        else:
+            width = self.line_number_area.width()
+            self.line_number_area.update(0, rect.y(), width, rect.height())
+
+        if rect.contains(self.viewport().rect()):
+            self.update_line_number_area_width(0)
+
+    @Slot()
+    def highlight_current_line(self):
+        extra_selections = []
+
+        if not self.isReadOnly():
+            selection = QTextEdit.ExtraSelection()
+
+            line_color = QColor(Qt.yellow).lighter(160)
+            selection.format.setBackground(line_color)
+
+            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+
+            selection.cursor = self.textCursor()
+            selection.cursor.clearSelection()
+
+            extra_selections.append(selection)
+
+        self.setExtraSelections(extra_selections)
+
+
+## each code preview browser in Code Preview is an instance of this class
+class MarkDownBrowser(QTextEdit):
+    # spawns a QTextBrowser with these settings
+    def __init__(self, name: str, app: QApplication):
+        """Constructor method, each widget must have a unique name
+           Only widgets named README.md will allow external links
+
+        Args:
+            name (str): human readable object ID (a filename)
+        """
+        super(MarkDownBrowser, self).__init__()
+        self.app = app
+        self.setLineWrapMode(QTextEdit.NoWrap)
+        self.setReadOnly(True)
+        self.setObjectName(str(name))
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        self.ensureCursorVisible()
+
+        self.cursorPositionChanged.connect(self.highlight_current_line)
+        self.highlight_current_line()
+        # let the user navigate to the hyperlinks provided in the readme
+        self.setTextInteractionFlags(
+            Qt.TextSelectableByKeyboard
+            | Qt.TextSelectableByMouse
+            | Qt.LinksAccessibleByKeyboard
+            | Qt.LinksAccessibleByMouse
+        )
+
+    def resizeEvent(self, event: QEvent) -> None:
+        """Keeps the text cursor visible while resizing `this` text widget
+
+        Args:
+            event (QEvent): always a resize
+        """
+        self.ensureCursorVisible()
+
+    def mousePressEvent(self, e):
+        """changes cursor over external link
+
+        Args:
+            e (QEvent): Event
+        """
+        self.anchor = self.anchorAt(e.pos())
+        if self.anchor:
+            self.app.setOverrideCursor(Qt.PointingHandCursor)
+
+    def mouseReleaseEvent(self, e) -> None:
+        """changes cursor back to arrow after releasing mouse button
+
+        Args:
+            e (QEvent): Event
+        """
+        if self.anchor:
+            QDesktopServices.openUrl(QUrl(self.anchor))
+            self.app.setOverrideCursor(Qt.ArrowCursor)
+            self.anchor = None
+
+    @Slot()
+    def highlight_current_line(self):
+        extra_selections = []
+
+        if not self.isReadOnly():
+            selection = QTextEdit.ExtraSelection()
+
+            line_color = QColor(Qt.yellow).lighter(160)
+            selection.format.setBackground(line_color)
+
+            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+
+            selection.cursor = self.textCursor()
+            selection.cursor.clearSelection()
+
+            extra_selections.append(selection)
+
+        self.setExtraSelections(extra_selections)
+
 
 # code preview methods
 class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def __init__(self) -> None:
-        """Constructor method
-        """
+        """Constructor method"""
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
@@ -335,8 +504,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
 
     # build code preview trees
     def build_code_preview_tree(self) -> None:
-        """Builds the code preview tree and populates it with CodePreviewBrowsers
-        """
+        """Builds the code preview tree and populates it with CodePreviewBrowsers"""
         for tab in range(0, 2):
             if tab == 0:
                 tree = self.ui.codePreview_1
@@ -352,9 +520,14 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
                 ] = QTreeWidgetItem(tree, [key, ""])
                 parent = self.code_preview_dict["files"][key]["tree_item"][tab]
                 parent.setIcon(0, self.ui.fileIcon)
-                self.code_preview_dict["files"][key]["text_widget"][
-                    tab
-                ] = CodePreviewBrowser(key, self.app)
+                if key != "README.md":
+                    self.code_preview_dict["files"][key]["text_widget"][
+                        tab
+                    ] = CodePreviewBrowser(key, self.app)
+                else:
+                    self.code_preview_dict["files"][key]["text_widget"][
+                        tab
+                    ] = MarkDownBrowser(key, self.app)
                 text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
 
                 self.code_preview_dict["files"][key]["contents_item"][
@@ -372,14 +545,12 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
     # end build_code_preview_tree()
 
     # highlights `item_string` in `text_widget`; centers the cursor on the highlighted text
-    def set_text_cursor(
-        self, text_widget: CodePreviewBrowser, item_string: str
-    ) -> None:
+    def set_text_cursor(self, text_widget, item_string: str) -> None:
         """sets the text cursor in text_widget by searching for item_string character string;
            centers the highlighted text in the text_widget's viewport
 
         Args:
-            text_widget (CodePreviewBrowser): the target text widget
+            text_widget (CodePreviewBrowser or MarkDownBrowser): the target text widget
             item_string (str): the string to highlight if exists
         """
         cursor = QTextCursor(text_widget.document().find(item_string))
