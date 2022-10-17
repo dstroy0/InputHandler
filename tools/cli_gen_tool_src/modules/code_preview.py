@@ -14,9 +14,16 @@ from __future__ import absolute_import
 from typing import Type
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QPoint
-from PySide6.QtGui import QMouseEvent, QTextCursor
-from PySide6.QtWidgets import QHeaderView, QSizePolicy, QTreeWidgetItem, QTextBrowser
+from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QPoint, QUrl
+from PySide6.QtGui import QMouseEvent, QTextCursor, QDesktopServices, QCursor
+from PySide6.QtWidgets import (
+    QHeaderView,
+    QSizePolicy,
+    QTreeWidgetItem,
+    QTextBrowser,
+    QTextEdit,
+    QApplication
+)
 
 # external methods and resources
 from modules.cli.clireadme import cliReadme
@@ -29,9 +36,9 @@ from modules.cli.parameters import cliParameters
 from modules.logging_setup import Logger
 
 ## each text browser in Code Preview is an instance of this class
-class CodePreviewBrowser(QTextBrowser):
+class CodePreviewBrowser(QTextEdit):
     # spawns a QTextBrowser with these settings
-    def __init__(self, name: str):
+    def __init__(self, name: str, app: QApplication):
         """Constructor method, each widget must have a unique name
            Only widgets named README.md will allow external links
 
@@ -39,17 +46,26 @@ class CodePreviewBrowser(QTextBrowser):
             name (str): human readable object ID (a filename)
         """
         super(CodePreviewBrowser, self).__init__()
+        self.app = app
         self.setLineWrapMode(QTextBrowser.NoWrap)
         self.setReadOnly(True)
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.setTextInteractionFlags(Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse)
         self.ensureCursorVisible()
         # let the user navigate to the hyperlinks provided in the readme
         if name == "README.md":
-            self.setOpenExternalLinks(True)
+            self.setTextInteractionFlags(
+                Qt.TextSelectableByKeyboard
+                | Qt.TextSelectableByMouse
+                | Qt.LinksAccessibleByKeyboard
+                | Qt.LinksAccessibleByMouse
+            )                        
+        else:
+            self.setTextInteractionFlags(
+                Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse
+            )
 
     def resizeEvent(self, event: QEvent) -> None:
         """Keeps the text cursor visible while resizing `this` text widget
@@ -58,12 +74,34 @@ class CodePreviewBrowser(QTextBrowser):
             event (QEvent): always a resize
         """
         self.ensureCursorVisible()
+    
+    def mousePressEvent(self, e):
+        """changes cursor over external link
+
+        Args:
+            e (QEvent): Event
+        """
+        self.anchor = self.anchorAt(e.pos())
+        if self.anchor:
+            self.app.setOverrideCursor(Qt.PointingHandCursor)
+
+    def mouseReleaseEvent(self, e):
+        """changes cursor back to arrow after releasing mouse button
+
+        Args:
+            e (QEvent): Event
+        """
+        if self.anchor:
+            QDesktopServices.openUrl(QUrl(self.anchor))
+            self.app.setOverrideCursor(Qt.ArrowCursor)
+            self.anchor = None
 
 
 # code preview methods
 class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, object):
     def __init__(self) -> None:
-        """Constructor method"""
+        """Constructor method
+        """
         super(CodePreview, self).__init__()
         CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
         CodePreview.selected_text_widget = None
@@ -88,18 +126,72 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         # update widgets
         if file == "README.md":
             self.readme_md(item_string, place_cursor)
+            print(
+                "README.md len"
+                + str(
+                    len(self.code_preview_dict["files"]["README.md"]["file_lines_list"])
+                )
+            )
         if file == "config.h":
             self.config_h(item_string, place_cursor)
+            print(
+                "config.h len"
+                + str(
+                    len(self.code_preview_dict["files"]["config.h"]["file_lines_list"])
+                )
+            )
         if file == "setup.h":
             self.setup_h(item_string, place_cursor)
+            print(
+                "setup.h len"
+                + str(
+                    len(self.code_preview_dict["files"]["setup.h"]["file_lines_list"])
+                )
+            )
         if file == "setup.cpp":
             self.setup_cpp(item_string, place_cursor)
+            print(
+                "setup.cpp len"
+                + str(
+                    len(self.code_preview_dict["files"]["setup.cpp"]["file_lines_list"])
+                )
+            )
         if file == "parameters.h":
             self.parameters_h(item_string, place_cursor)
+            print(
+                "parameters.h len"
+                + str(
+                    len(
+                        self.code_preview_dict["files"]["parameters.h"][
+                            "file_lines_list"
+                        ]
+                    )
+                )
+            )
         if file == "functions.h":
             self.functions_h(item_string, place_cursor)
+            print(
+                "functions.h len"
+                + str(
+                    len(
+                        self.code_preview_dict["files"]["functions.h"][
+                            "file_lines_list"
+                        ]
+                    )
+                )
+            )
         if file == "functions.cpp":
             self.functions_cpp(item_string, place_cursor)
+            print(
+                "functions.cpp len"
+                + str(
+                    len(
+                        self.code_preview_dict["files"]["functions.cpp"][
+                            "file_lines_list"
+                        ]
+                    )
+                )
+            )
 
     def display_initial_code_preview(self) -> None:
         """Generates initial text for all CodePreviewBrowser"""
@@ -219,7 +311,12 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         )
 
     # resizes code preview text browsers
-    def resize_code_preview_tree_item(self, mouse_pos) -> None:
+    def resize_code_preview_tree_item(self, mouse_pos: QCursor) -> None:
+        """resizes the text widget and keeps the cursor visible
+
+        Args:
+            mouse_pos (QCursor): The mouse cursor position within the app.
+        """
         y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
         self.drag_resize_qsize.setHeight(y_axis)
         self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)
@@ -238,6 +335,8 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
 
     # build code preview trees
     def build_code_preview_tree(self) -> None:
+        """Builds the code preview tree and populates it with CodePreviewBrowsers
+        """
         for tab in range(0, 2):
             if tab == 0:
                 tree = self.ui.codePreview_1
@@ -255,7 +354,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
                 parent.setIcon(0, self.ui.fileIcon)
                 self.code_preview_dict["files"][key]["text_widget"][
                     tab
-                ] = CodePreviewBrowser(key)
+                ] = CodePreviewBrowser(key, self.app)
                 text_widget = self.code_preview_dict["files"][key]["text_widget"][tab]
 
                 self.code_preview_dict["files"][key]["contents_item"][

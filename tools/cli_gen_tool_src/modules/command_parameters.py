@@ -36,7 +36,6 @@ from modules.data_models import dataModels
 
 # command parameters methods
 class CommandParametersMethods(object):
-
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
 
@@ -45,17 +44,33 @@ class CommandParametersMethods(object):
 
     ## the constructor
     def __init__(self) -> None:
+        """Constructor method
+        """
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
     ## spawns a regexp validator
-    def regex_validator(self, input):
+    def regex_validator(self, input: str):
+        """Turns a pythonic regex string into a regex validator.
+
+        Args:
+            input (str): The input regex search string.
+
+        Returns:
+            QRegularExpressionValidator: An input validator for a QLineEdit.
+        """
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
 
     ## generates a dict from csv arguments in the command parameters dialog
     # TODO add text UITYPE:: and comma to returned list items
-    def list_from_csv_args(self):
+    def list_from_csv_args(self) -> None:
+        """Pulls text from CommandParametersDialog arguments pane, separates 
+        them into arguments.
+
+        Returns:
+            list: A list of arguments.
+        """
         args_list = []
         csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
         regexp = QRegularExpression('("(?:[^"]|")*"|[^,"\n\r]*)(,|\r?\n|\r)')
@@ -75,7 +90,9 @@ class CommandParametersMethods(object):
         return args_list
 
     ## all buttons related to adding/removing arguments from the command parameters dialog
-    def csv_button(self):
+    def csv_button(self) -> None:
+        """Buttons related to adding/removing arguments in CommandParametersDialog.
+        """
         CommandParametersMethods.logger.info(self.sender().objectName())
         rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
         test_string = self.sender().objectName()
@@ -99,7 +116,13 @@ class CommandParametersMethods(object):
             self.rem_from_arg_csv()
 
     ## appends an argument
-    def append_to_arg_csv(self, string):
+    def append_to_arg_csv(self, string: str) -> None:
+        """Appends an argument to the argument CSV in the arguments pane
+        in CommandParametersDialog
+
+        Args:
+            string (str): The string to append to the arguements.
+        """
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
         cursor = QTextCursor()
         text.moveCursor(cursor.End)
@@ -107,7 +130,9 @@ class CommandParametersMethods(object):
         text.moveCursor(cursor.End)
 
     ## removes the last argument added (pop)
-    def rem_from_arg_csv(self):
+    def rem_from_arg_csv(self) -> None:
+        """Removes the argument at the end of the arguments pane CSV.
+        """
         arg_dict = self.dict_from_csv_args()
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
         text.clear()
@@ -118,7 +143,12 @@ class CommandParametersMethods(object):
         text.insertPlainText(arg_text)
 
     ## simple user input validation
-    def validate_command_parameters(self):
+    def validate_command_parameters(self) -> dict:
+        """validates input command parameters
+
+        Returns:
+            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.
+        """
         error_list = []
         settings_to_validate = dict.fromkeys(
             CommandParametersMethods.command_parameters_dict_keys_list, None
@@ -242,7 +272,12 @@ class CommandParametersMethods(object):
         return {0: err, 1: settings_to_validate}
 
     ## create error dialog where `error_list` contains error text
-    def err_settings_to_validate(self, error_list):
+    def err_settings_to_validate(self, error_list: list) -> None:
+        """Creates a popup dialog listing the errors found in the input parameters.
+
+        Args:
+            error_list (list): A human readable list of errors found.
+        """
         error_text = ""
         for item in error_list:
             error_text += item
@@ -259,7 +294,9 @@ class CommandParametersMethods(object):
         )
 
     ## sets the regexp and range validators for CommandParameters input
-    def set_command_parameter_validators(self):
+    def set_command_parameter_validators(self) -> None:
+        """Sets CommandParametersDialog input validators.
+        """
         cmd_dlg = self.ui.commandParameters.dlg
         # allowed function name char
         cmd_dlg.returnFunctionName.setValidator(
@@ -283,7 +320,9 @@ class CommandParametersMethods(object):
         cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
 
     ## triggers related to the command parameters dialog
-    def set_command_parameters_triggers(self):
+    def set_command_parameters_triggers(self) -> None:
+        """Set up interaction triggers for CommandParametersDialog
+        """
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.add8bituint.clicked.connect(self.csv_button)
         cmd_dlg.add16bituint.clicked.connect(self.csv_button)
@@ -314,7 +353,9 @@ class CommandParametersMethods(object):
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
     ## command parameters dialog buttonbox ok
-    def clicked_command_parameters_buttonbox_ok(self):
+    def clicked_command_parameters_buttonbox_ok(self) -> None:
+        """This function is reached when the user clicks `ok` on the CommandParametersDialog
+        """
         CommandParametersMethods.logger.info("clicked ok on command parameters menu")
         validate_result = self.validate_command_parameters()
         # error
@@ -372,23 +413,33 @@ class CommandParametersMethods(object):
         self.update_code("README.md", validated_result["functionName"], True)
 
     ## command parameters dialog buttonbox reset value
-    def clicked_command_parameters_buttonbox_reset(self):
+    def clicked_command_parameters_buttonbox_reset(self) -> None:
+        """This function is reached if the user clicked `reset` on CommandParametersDialog.
+        """
         CommandParametersMethods.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.argumentsPlainTextCSV.clear()
 
     ## command parameters dialog buttonbox cancel changes
-    def clicked_command_parameters_buttonbox_cancel(self):
+    def clicked_command_parameters_buttonbox_cancel(self) -> None:
+        """This function is reached if the user clicked `cancel` on CommandParametersDialog.
+        """
         CommandParametersMethods.logger.info("cancel")
         self.ui.commandParameters.close()
 
     ## refreshes `commandLength`
-    def command_string_text_changed(self):
+    def command_string_text_changed(self) -> None:
+        """Updates `commandLength` when the user enters or removes 
+        characters from `commandString`
+        """
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.commandLengthLabel.setText(str(len(cmd_dlg.commandString.text())))
 
     ## command parameters dialog argument handling combobox index changed
-    def argument_handling_changed(self):
+    def argument_handling_changed(self) -> None:
+        """This function is reached if the user changes the position
+        of the `Argument Handling` combobox on CommandParametersDialog.
+        """
         CommandParametersMethods.logger.info("argument handling changed")
         cmd_dlg = self.ui.commandParameters.dlg
         if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
@@ -404,6 +455,12 @@ class CommandParametersMethods(object):
             )
 
     def commandparameters_set_fields(self, _fields: dict) -> None:
+        """Sets the fields of CommandParametersDialog to the values
+        of the command being edited.
+
+        Args:
+            _fields (dict): This contains all of the values being set in the CommandParametersDialog that is being launched.
+        """
         if not bool(_fields):
             for key in self.command_parameters_user_input_objects:
                 if isinstance(
@@ -464,7 +521,9 @@ class CommandParametersMethods(object):
                 else:
                     CommandParametersMethods.logger.debug("unknown field: " + str(key))
 
-    def set_commandparameters_field_defaults(self):
+    def set_commandparameters_field_defaults(self) -> None:
+        """This function sets the DEFAULT values for CommandParametersDialog.
+        """
         # CommandParameters default field values
         inp_setup = self.command_parameters_input_field_settings
         inp_setup["returnFunctionName"]["value"] = ""

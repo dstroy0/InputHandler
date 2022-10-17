@@ -44,7 +44,7 @@ jobs:
       
       - name: Build binary
         run: |                    
-          pyinstaller -y ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/
+          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/
 
       - name: Commit files
         id: commit
