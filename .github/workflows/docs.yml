@@ -5,23 +5,23 @@ on:
     branches:
       - main
     paths:
-      - src/*
-      - docs/*
-      - tools/cli_gen_tool_src/*
+      - ./src/*
+      - ./docs/*
+      - ./tools/cli_gen_tool_src/*
   workflow_dispatch:
     branches:
       - main
     paths:
-      - src/*
-      - docs/*
-      - tools/cli_gen_tool_src/*    
+      - ./src/*
+      - ./docs/*
+      - ./tools/cli_gen_tool_src/*    
   release:
     branches:
       - release
     paths:
-      - src/*
-      - docs/*
-      - tools/cli_gen_tool_src/*
+      - ./src/*
+      - ./docs/*
+      - ./tools/cli_gen_tool_src/*
 
 jobs:
   build-and-deploy-docs:
