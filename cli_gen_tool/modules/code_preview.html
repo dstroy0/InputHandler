@@ -231,7 +231,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreview.build_code_preview_tree">
 <span class="sig-name descname"><span class="pre">build_code_preview_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.build_code_preview_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.build_code_preview_tree" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Builds the code preview tree and populates it with CodePreviewBrowsers</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreview.code_preview_events">
@@ -265,8 +266,13 @@ mouse_pos (QPoint): Untranslated mouse cursor position</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreview.resize_code_preview_tree_item">
-<span class="sig-name descname"><span class="pre">resize_code_preview_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.resize_code_preview_tree_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.resize_code_preview_tree_item" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">resize_code_preview_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCursor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.resize_code_preview_tree_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.resize_code_preview_tree_item" title="Permalink to this definition">#</a></dt>
+<dd><p>resizes the text widget and keeps the cursor visible</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>mouse_pos (QCursor): The mouse cursor position within the app.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreview.set_code_string">
@@ -283,11 +289,11 @@ place_cursor (bool, optional): Whether or not to highlight text, if found and ce
 
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreview.set_text_cursor">
-<span class="sig-name descname"><span class="pre">set_text_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_widget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#code_preview.CodePreviewBrowser" title="code_preview.CodePreviewBrowser"><span class="pre">CodePreviewBrowser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.set_text_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.set_text_cursor" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_text_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreview.set_text_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreview.set_text_cursor" title="Permalink to this definition">#</a></dt>
 <dd><dl class="simple">
 <dt>sets the text cursor in text_widget by searching for item_string character string;</dt><dd><p>centers the highlighted text in the text_widget’s viewport</p>
 </dd>
-<dt>Args:</dt><dd><p>text_widget (CodePreviewBrowser): the target text widget
+<dt>Args:</dt><dd><p>text_widget (CodePreviewBrowser or MarkDownBrowser): the target text widget
 item_string (str): the string to highlight if exists</p>
 </dd>
 </dl>
@@ -311,8 +317,48 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 
 <dl class="py class">
 <dt class="sig sig-object py" id="code_preview.CodePreviewBrowser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreviewBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextBrowser</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">CodePreviewBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QApplication</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QPlainTextEdit</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.highlight_current_line">
+<span class="sig-name descname"><span class="pre">highlight_current_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.highlight_current_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.highlight_current_line" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.lineNumberAreaPaintEvent">
+<span class="sig-name descname"><span class="pre">lineNumberAreaPaintEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QPaintEvent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.lineNumberAreaPaintEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.lineNumberAreaPaintEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>paints the line number rectangle and the line numbers</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QPaintEvent): Time to draw now!</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.line_number_area_width">
+<span class="sig-name descname"><span class="pre">line_number_area_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.line_number_area_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.line_number_area_width" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.mousePressEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.mouseReleaseEvent">
+<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.mouseReleaseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.mouseReleaseEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor back to arrow after releasing mouse button</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.resizeEvent">
 <span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
@@ -325,7 +371,89 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextBrowser&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.CodePreviewBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QPlainTextEdit&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#68</span> <span class="pre">type=Slot,</span> <span class="pre">signature=update_line_number_area_width(int),</span> <span class="pre">parameters=int</span>&#160;&#160; <span class="pre">#69</span> <span class="pre">type=Slot,</span> <span class="pre">signature=update_line_number_area(QRect,int),</span> <span class="pre">parameters=QRect,</span> <span class="pre">int</span>&#160;&#160; <span class="pre">#70</span> <span class="pre">type=Slot,</span> <span class="pre">signature=highlight_current_line()</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.CodePreviewBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.update_line_number_area">
+<span class="sig-name descname"><span class="pre">update_line_number_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rect</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.update_line_number_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.update_line_number_area" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.CodePreviewBrowser.update_line_number_area_width">
+<span class="sig-name descname"><span class="pre">update_line_number_area_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newBlockCount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#CodePreviewBrowser.update_line_number_area_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.CodePreviewBrowser.update_line_number_area_width" title="Permalink to this definition">#</a></dt>
+<dd><p>resize lineno width</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>newBlockCount (int): The new number of text blocks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_preview.LineNumberArea">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">LineNumberArea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">editor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#LineNumberArea"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.LineNumberArea" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.LineNumberArea.paintEvent">
+<span class="sig-name descname"><span class="pre">paintEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtGui.QPaintEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#LineNumberArea.paintEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.LineNumberArea.paintEvent" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.LineNumberArea.sizeHint">
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PySide6.QtCore.QSize</span></span></span><a class="reference internal" href="../_modules/code_preview.html#LineNumberArea.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.LineNumberArea.sizeHint" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_preview.LineNumberArea.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;LineNumberArea&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.LineNumberArea.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">MarkDownBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QApplication</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextEdit</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.highlight_current_line">
+<span class="sig-name descname"><span class="pre">highlight_current_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.highlight_current_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.highlight_current_line" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.mousePressEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.mouseReleaseEvent">
+<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.mouseReleaseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.mouseReleaseEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor back to arrow after releasing mouse button</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>Keeps the text cursor visible while resizing <cite>this</cite> text widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QEvent): always a resize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;MarkDownBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextEdit&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#80</span> <span class="pre">type=Slot,</span> <span class="pre">signature=highlight_current_line()</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.MarkDownBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -402,8 +530,29 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 </ul>
 </li>
 <li><a class="reference internal" href="#code_preview.CodePreviewBrowser"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.highlight_current_line"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.highlight_current_line()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.lineNumberAreaPaintEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.lineNumberAreaPaintEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.line_number_area_width"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.line_number_area_width()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.mousePressEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.mouseReleaseEvent()</span></code></a></li>
 <li><a class="reference internal" href="#code_preview.CodePreviewBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.resizeEvent()</span></code></a></li>
 <li><a class="reference internal" href="#code_preview.CodePreviewBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.staticMetaObject</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.update_line_number_area"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.update_line_number_area()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.CodePreviewBrowser.update_line_number_area_width"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.update_line_number_area_width()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_preview.LineNumberArea"><code class="docutils literal notranslate"><span class="pre">LineNumberArea</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.LineNumberArea.paintEvent"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.paintEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.LineNumberArea.sizeHint"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.sizeHint()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.LineNumberArea.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.staticMetaObject</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser</span></code></a><ul>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.highlight_current_line"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.highlight_current_line()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mousePressEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mouseReleaseEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.resizeEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.staticMetaObject</span></code></a></li>
 </ul>
 </li>
 </ul>

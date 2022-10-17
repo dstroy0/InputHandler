@@ -260,7 +260,6 @@
 
 <span class="c1"># command parameters methods</span>
 <div class="viewcode-block" id="CommandParametersMethods"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
     <span class="c1">## Command parameters dicts are constructed using keys from this list.</span>
     <span class="n">command_parameters_dict_keys_list</span> <span class="o">=</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span>
 
@@ -269,17 +268,33 @@
 
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Constructor method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
     <span class="c1">## spawns a regexp validator</span>
-<div class="viewcode-block" id="CommandParametersMethods.regex_validator"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.regex_validator">[docs]</a>    <span class="k">def</span> <span class="nf">regex_validator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.regex_validator"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.regex_validator">[docs]</a>    <span class="k">def</span> <span class="nf">regex_validator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Turns a pythonic regex string into a regex validator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input (str): The input regex search string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            QRegularExpressionValidator: An input validator for a QLineEdit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">exp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">QRegularExpressionValidator</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span></div>
 
     <span class="c1">## generates a dict from csv arguments in the command parameters dialog</span>
     <span class="c1"># TODO add text UITYPE:: and comma to returned list items</span>
-<div class="viewcode-block" id="CommandParametersMethods.list_from_csv_args"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.list_from_csv_args">[docs]</a>    <span class="k">def</span> <span class="nf">list_from_csv_args</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.list_from_csv_args"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.list_from_csv_args">[docs]</a>    <span class="k">def</span> <span class="nf">list_from_csv_args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Pulls text from CommandParametersDialog arguments pane, separates </span>
+<span class="sd">        them into arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: A list of arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">csv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
         <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="s1">&#39;(&quot;(?:[^&quot;]|&quot;)*&quot;|[^,&quot;</span><span class="se">\n\r</span><span class="s1">]*)(,|</span><span class="se">\r</span><span class="s1">?</span><span class="se">\n</span><span class="s1">|</span><span class="se">\r</span><span class="s1">)&#39;</span><span class="p">)</span>
@@ -299,7 +314,9 @@
         <span class="k">return</span> <span class="n">args_list</span></div>
 
     <span class="c1">## all buttons related to adding/removing arguments from the command parameters dialog</span>
-<div class="viewcode-block" id="CommandParametersMethods.csv_button"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.csv_button">[docs]</a>    <span class="k">def</span> <span class="nf">csv_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.csv_button"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.csv_button">[docs]</a>    <span class="k">def</span> <span class="nf">csv_button</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Buttons related to adding/removing arguments in CommandParametersDialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
         <span class="n">rem_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rem&quot;</span><span class="p">,</span> <span class="s2">&quot;rem1&quot;</span><span class="p">,</span> <span class="s2">&quot;rem2&quot;</span><span class="p">,</span> <span class="s2">&quot;rem3&quot;</span><span class="p">,</span> <span class="s2">&quot;rem4&quot;</span><span class="p">,</span> <span class="s2">&quot;rem5&quot;</span><span class="p">,</span> <span class="s2">&quot;rem6&quot;</span><span class="p">,</span> <span class="s2">&quot;rem7&quot;</span><span class="p">]</span>
         <span class="n">test_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
@@ -323,7 +340,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rem_from_arg_csv</span><span class="p">()</span></div>
 
     <span class="c1">## appends an argument</span>
-<div class="viewcode-block" id="CommandParametersMethods.append_to_arg_csv"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.append_to_arg_csv">[docs]</a>    <span class="k">def</span> <span class="nf">append_to_arg_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.append_to_arg_csv"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.append_to_arg_csv">[docs]</a>    <span class="k">def</span> <span class="nf">append_to_arg_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Appends an argument to the argument CSV in the arguments pane</span>
+<span class="sd">        in CommandParametersDialog</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): The string to append to the arguements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span>
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">QTextCursor</span><span class="p">()</span>
         <span class="n">text</span><span class="o">.</span><span class="n">moveCursor</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">End</span><span class="p">)</span>
@@ -331,7 +354,9 @@
         <span class="n">text</span><span class="o">.</span><span class="n">moveCursor</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">End</span><span class="p">)</span></div>
 
     <span class="c1">## removes the last argument added (pop)</span>
-<div class="viewcode-block" id="CommandParametersMethods.rem_from_arg_csv"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.rem_from_arg_csv">[docs]</a>    <span class="k">def</span> <span class="nf">rem_from_arg_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.rem_from_arg_csv"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.rem_from_arg_csv">[docs]</a>    <span class="k">def</span> <span class="nf">rem_from_arg_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Removes the argument at the end of the arguments pane CSV.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arg_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_from_csv_args</span><span class="p">()</span>
         <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span>
         <span class="n">text</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -342,7 +367,12 @@
         <span class="n">text</span><span class="o">.</span><span class="n">insertPlainText</span><span class="p">(</span><span class="n">arg_text</span><span class="p">)</span></div>
 
     <span class="c1">## simple user input validation</span>
-<div class="viewcode-block" id="CommandParametersMethods.validate_command_parameters"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.validate_command_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">validate_command_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.validate_command_parameters"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.validate_command_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">validate_command_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;validates input command parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">error_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">settings_to_validate</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span>
             <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">,</span> <span class="kc">None</span>
@@ -466,7 +496,12 @@
         <span class="k">return</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">settings_to_validate</span><span class="p">}</span></div>
 
     <span class="c1">## create error dialog where `error_list` contains error text</span>
-<div class="viewcode-block" id="CommandParametersMethods.err_settings_to_validate"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.err_settings_to_validate">[docs]</a>    <span class="k">def</span> <span class="nf">err_settings_to_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_list</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.err_settings_to_validate"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.err_settings_to_validate">[docs]</a>    <span class="k">def</span> <span class="nf">err_settings_to_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Creates a popup dialog listing the errors found in the input parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error_list (list): A human readable list of errors found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">error_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">error_list</span><span class="p">:</span>
             <span class="n">error_text</span> <span class="o">+=</span> <span class="n">item</span>
@@ -483,7 +518,9 @@
         <span class="p">)</span></div>
 
     <span class="c1">## sets the regexp and range validators for CommandParameters input</span>
-<div class="viewcode-block" id="CommandParametersMethods.set_command_parameter_validators"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_command_parameter_validators">[docs]</a>    <span class="k">def</span> <span class="nf">set_command_parameter_validators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.set_command_parameter_validators"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_command_parameter_validators">[docs]</a>    <span class="k">def</span> <span class="nf">set_command_parameter_validators</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets CommandParametersDialog input validators.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
         <span class="c1"># allowed function name char</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">returnFunctionName</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span>
@@ -507,7 +544,9 @@
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandMaxArgs</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">cmd_dlg</span><span class="o">.</span><span class="n">validatorDict</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">])</span></div>
 
     <span class="c1">## triggers related to the command parameters dialog</span>
-<div class="viewcode-block" id="CommandParametersMethods.set_command_parameters_triggers"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_command_parameters_triggers">[docs]</a>    <span class="k">def</span> <span class="nf">set_command_parameters_triggers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.set_command_parameters_triggers"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_command_parameters_triggers">[docs]</a>    <span class="k">def</span> <span class="nf">set_command_parameters_triggers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set up interaction triggers for CommandParametersDialog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">add8bituint</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csv_button</span><span class="p">)</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">add16bituint</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csv_button</span><span class="p">)</span>
@@ -538,7 +577,9 @@
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandString</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_string_text_changed</span><span class="p">)</span></div>
 
     <span class="c1">## command parameters dialog buttonbox ok</span>
-<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_ok"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_ok"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function is reached when the user clicks `ok` on the CommandParametersDialog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;clicked ok on command parameters menu&quot;</span><span class="p">)</span>
         <span class="n">validate_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_command_parameters</span><span class="p">()</span>
         <span class="c1"># error</span>
@@ -596,23 +637,33 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="n">validated_result</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span></div>
 
     <span class="c1">## command parameters dialog buttonbox reset value</span>
-<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_reset"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_reset">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_reset"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_reset">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function is reached if the user clicked `reset` on CommandParametersDialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;reset&quot;</span><span class="p">)</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
     <span class="c1">## command parameters dialog buttonbox cancel changes</span>
-<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_cancel"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_cancel"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function is reached if the user clicked `cancel` on CommandParametersDialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;cancel&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
     <span class="c1">## refreshes `commandLength`</span>
-<div class="viewcode-block" id="CommandParametersMethods.command_string_text_changed"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.command_string_text_changed">[docs]</a>    <span class="k">def</span> <span class="nf">command_string_text_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.command_string_text_changed"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.command_string_text_changed">[docs]</a>    <span class="k">def</span> <span class="nf">command_string_text_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Updates `commandLength` when the user enters or removes </span>
+<span class="sd">        characters from `commandString`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandLengthLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandString</span><span class="o">.</span><span class="n">text</span><span class="p">())))</span></div>
 
     <span class="c1">## command parameters dialog argument handling combobox index changed</span>
-<div class="viewcode-block" id="CommandParametersMethods.argument_handling_changed"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.argument_handling_changed">[docs]</a>    <span class="k">def</span> <span class="nf">argument_handling_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.argument_handling_changed"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.argument_handling_changed">[docs]</a>    <span class="k">def</span> <span class="nf">argument_handling_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function is reached if the user changes the position</span>
+<span class="sd">        of the `Argument Handling` combobox on CommandParametersDialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;argument handling changed&quot;</span><span class="p">)</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
         <span class="k">if</span> <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandArgumentHandling</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -628,6 +679,12 @@
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommandParametersMethods.commandparameters_set_fields"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.commandparameters_set_fields">[docs]</a>    <span class="k">def</span> <span class="nf">commandparameters_set_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_fields</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the fields of CommandParametersDialog to the values</span>
+<span class="sd">        of the command being edited.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            _fields (dict): This contains all of the values being set in the CommandParametersDialog that is being launched.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_fields</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
@@ -688,7 +745,9 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;unknown field: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="CommandParametersMethods.set_commandparameters_field_defaults"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">set_commandparameters_field_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersMethods.set_commandparameters_field_defaults"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">set_commandparameters_field_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function sets the DEFAULT values for CommandParametersDialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># CommandParameters default field values</span>
         <span class="n">inp_setup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_input_field_settings</span>
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>

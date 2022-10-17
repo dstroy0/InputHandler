@@ -238,9 +238,26 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
 
 <span class="c1"># pyside imports</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRect</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QPoint</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QMouseEvent</span><span class="p">,</span> <span class="n">QTextCursor</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QTextBrowser</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRect</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">QUrl</span><span class="p">,</span> <span class="n">Slot</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QMouseEvent</span><span class="p">,</span>
+    <span class="n">QTextCursor</span><span class="p">,</span>
+    <span class="n">QDesktopServices</span><span class="p">,</span>
+    <span class="n">QCursor</span><span class="p">,</span>
+    <span class="n">QPaintEvent</span><span class="p">,</span>
+    <span class="n">QPainter</span><span class="p">,</span>
+    <span class="n">QColor</span><span class="p">,</span>
+    <span class="n">QTextFormat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QHeaderView</span><span class="p">,</span>
+    <span class="n">QSizePolicy</span><span class="p">,</span>
+    <span class="n">QTreeWidgetItem</span><span class="p">,</span>
+    <span class="n">QApplication</span><span class="p">,</span>
+    <span class="n">QWidget</span><span class="p">,</span>
+    <span class="n">QTextEdit</span><span class="p">,</span>
+    <span class="n">QPlainTextEdit</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># external methods and resources</span>
 <span class="kn">from</span> <span class="nn">modules.cli.clireadme</span> <span class="kn">import</span> <span class="n">cliReadme</span>
@@ -252,10 +269,23 @@
 <span class="c1"># logging api</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 
-<span class="c1">## each text browser in Code Preview is an instance of this class</span>
-<div class="viewcode-block" id="CodePreviewBrowser"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser">[docs]</a><span class="k">class</span> <span class="nc">CodePreviewBrowser</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LineNumberArea"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.LineNumberArea">[docs]</a><span class="k">class</span> <span class="nc">LineNumberArea</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">QWidget</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code_editor</span> <span class="o">=</span> <span class="n">editor</span>
+
+<div class="viewcode-block" id="LineNumberArea.sizeHint"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.LineNumberArea.sizeHint">[docs]</a>    <span class="k">def</span> <span class="nf">sizeHint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QSize</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">QSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_editor</span><span class="o">.</span><span class="n">line_number_area_width</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LineNumberArea.paintEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.LineNumberArea.paintEvent">[docs]</a>    <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QPaintEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_editor</span><span class="o">.</span><span class="n">lineNumberAreaPaintEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div></div>
+
+
+<span class="c1">## each code preview browser in Code Preview is an instance of this class</span>
+<div class="viewcode-block" id="CodePreviewBrowser"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser">[docs]</a><span class="k">class</span> <span class="nc">CodePreviewBrowser</span><span class="p">(</span><span class="n">QPlainTextEdit</span><span class="p">):</span>
     <span class="c1"># spawns a QTextBrowser with these settings</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">QApplication</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor method, each widget must have a unique name</span>
 <span class="sd">           Only widgets named README.md will allow external links</span>
 
@@ -263,17 +293,23 @@
 <span class="sd">            name (str): human readable object ID (a filename)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CodePreviewBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QTextBrowser</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QPlainTextEdit</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setVerticalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByMouse</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
-        <span class="c1"># let the user navigate to the hyperlinks provided in the readme</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setOpenExternalLinks</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">centerCursor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span> <span class="o">=</span> <span class="n">LineNumberArea</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockCountChanged</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateRequest</span><span class="p">[</span><span class="n">QRect</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorPositionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByMouse</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="CodePreviewBrowser.resizeEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.resizeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Keeps the text cursor visible while resizing `this` text widget</span>
@@ -281,7 +317,188 @@
 <span class="sd">        Args:</span>
 <span class="sd">            event (QEvent): always a resize</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span></div></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contentsRect</span><span class="p">()</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area_width</span><span class="p">()</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">QRect</span><span class="p">(</span><span class="n">cr</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">cr</span><span class="o">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">width</span><span class="p">,</span> <span class="n">cr</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">centerCursor</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.mousePressEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;changes cursor over external link</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (QEvent): Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchorAt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.mouseReleaseEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.mouseReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;changes cursor back to arrow after releasing mouse button</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (QEvent): Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
+            <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.line_number_area_width"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.line_number_area_width">[docs]</a>    <span class="k">def</span> <span class="nf">line_number_area_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">digits</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">max_num</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockCount</span><span class="p">())</span>
+        <span class="k">while</span> <span class="n">max_num</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">max_num</span> <span class="o">*=</span> <span class="mf">0.1</span>
+            <span class="n">digits</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">space</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fontMetrics</span><span class="p">()</span><span class="o">.</span><span class="n">horizontalAdvance</span><span class="p">(</span><span class="s2">&quot;9&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">digits</span>
+        <span class="k">return</span> <span class="n">space</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.lineNumberAreaPaintEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.lineNumberAreaPaintEvent">[docs]</a>    <span class="k">def</span> <span class="nf">lineNumberAreaPaintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QPaintEvent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;paints the line number rectangle and the line numbers</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QPaintEvent): Time to draw now!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span><span class="p">)</span> <span class="k">as</span> <span class="n">painter</span><span class="p">:</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">(),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">lightGray</span><span class="p">)</span>
+            <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstVisibleBlock</span><span class="p">()</span>
+            <span class="n">block_number</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">blockNumber</span><span class="p">()</span>
+            <span class="n">_contentOffset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contentOffset</span><span class="p">()</span>            
+            <span class="n">top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockBoundingGeometry</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">.</span><span class="n">translated</span><span class="p">(</span><span class="n">_contentOffset</span><span class="p">)</span><span class="o">.</span><span class="n">top</span><span class="p">()</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="n">top</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockBoundingRect</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+
+            <span class="k">while</span> <span class="n">block</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="n">top</span> <span class="o">&lt;=</span> <span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span><span class="o">.</span><span class="n">bottom</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span> <span class="ow">and</span> <span class="n">bottom</span> <span class="o">&gt;=</span> <span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span><span class="o">.</span><span class="n">top</span><span class="p">():</span>
+                    <span class="n">number</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">block_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area_width</span><span class="p">()</span>
+                    <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fontMetrics</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+                    <span class="n">painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignLeft</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+
+                <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="n">bottom</span>
+                <span class="n">bottom</span> <span class="o">=</span> <span class="n">top</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockBoundingRect</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+                <span class="n">block_number</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.update_line_number_area_width"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.update_line_number_area_width">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_line_number_area_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newBlockCount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;resize lineno width</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            newBlockCount (int): The new number of text blocks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setViewportMargins</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_number_area_width</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.update_line_number_area"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.update_line_number_area">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="n">QRect</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_line_number_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_number_area</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rect</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">width</span><span class="p">,</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">rect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">rect</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CodePreviewBrowser.highlight_current_line"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.highlight_current_line">[docs]</a>    <span class="nd">@Slot</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">highlight_current_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">extra_selections</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isReadOnly</span><span class="p">():</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="o">.</span><span class="n">ExtraSelection</span><span class="p">()</span>
+
+            <span class="n">line_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span><span class="o">.</span><span class="n">lighter</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
+            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">line_color</span><span class="p">)</span>
+
+            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">QTextFormat</span><span class="o">.</span><span class="n">FullWidthSelection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textCursor</span><span class="p">()</span>
+            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+
+            <span class="n">extra_selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setExtraSelections</span><span class="p">(</span><span class="n">extra_selections</span><span class="p">)</span></div></div>
+
+
+<span class="c1">## each code preview browser in Code Preview is an instance of this class</span>
+<div class="viewcode-block" id="MarkDownBrowser"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser">[docs]</a><span class="k">class</span> <span class="nc">MarkDownBrowser</span><span class="p">(</span><span class="n">QTextEdit</span><span class="p">):</span>
+    <span class="c1"># spawns a QTextBrowser with these settings</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">QApplication</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor method, each widget must have a unique name</span>
+<span class="sd">           Only widgets named README.md will allow external links</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): human readable object ID (a filename)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MarkDownBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QTextEdit</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setVerticalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursorPositionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">()</span>
+        <span class="c1"># let the user navigate to the hyperlinks provided in the readme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span>
+            <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByMouse</span>
+            <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LinksAccessibleByKeyboard</span>
+            <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LinksAccessibleByMouse</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="MarkDownBrowser.resizeEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.resizeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Keeps the text cursor visible while resizing `this` text widget</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QEvent): always a resize</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MarkDownBrowser.mousePressEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;changes cursor over external link</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (QEvent): Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchorAt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MarkDownBrowser.mouseReleaseEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.mouseReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;changes cursor back to arrow after releasing mouse button</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (QEvent): Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
+            <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="MarkDownBrowser.highlight_current_line"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.highlight_current_line">[docs]</a>    <span class="nd">@Slot</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">highlight_current_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">extra_selections</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isReadOnly</span><span class="p">():</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="o">.</span><span class="n">ExtraSelection</span><span class="p">()</span>
+
+            <span class="n">line_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span><span class="o">.</span><span class="n">lighter</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
+            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">line_color</span><span class="p">)</span>
+
+            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">QTextFormat</span><span class="o">.</span><span class="n">FullWidthSelection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textCursor</span><span class="p">()</span>
+            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+
+            <span class="n">extra_selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setExtraSelections</span><span class="p">(</span><span class="n">extra_selections</span><span class="p">)</span></div></div>
 
 
 <span class="c1"># code preview methods</span>
@@ -312,18 +529,72 @@
         <span class="c1"># update widgets</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">readme_md</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;README.md len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;config.h&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;config.h len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;setup.h&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setup_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;setup.h len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;setup.cpp&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setup_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;setup.cpp len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.cpp&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;parameters.h&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;parameters.h len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;parameters.h&quot;</span><span class="p">][</span>
+                            <span class="s2">&quot;file_lines_list&quot;</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;functions.h&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">functions_h</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;functions.h len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;functions.h&quot;</span><span class="p">][</span>
+                            <span class="s2">&quot;file_lines_list&quot;</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;functions.cpp&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functions_cpp</span><span class="p">(</span><span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;functions.cpp len&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;functions.cpp&quot;</span><span class="p">][</span>
+                            <span class="s2">&quot;file_lines_list&quot;</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CodePreview.display_initial_code_preview"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.display_initial_code_preview">[docs]</a>    <span class="k">def</span> <span class="nf">display_initial_code_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generates initial text for all CodePreviewBrowser&quot;&quot;&quot;</span>
@@ -443,7 +714,12 @@
         <span class="p">)</span></div>
 
     <span class="c1"># resizes code preview text browsers</span>
-<div class="viewcode-block" id="CodePreview.resize_code_preview_tree_item"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.resize_code_preview_tree_item">[docs]</a>    <span class="k">def</span> <span class="nf">resize_code_preview_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="CodePreview.resize_code_preview_tree_item"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.resize_code_preview_tree_item">[docs]</a>    <span class="k">def</span> <span class="nf">resize_code_preview_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">:</span> <span class="n">QCursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;resizes the text widget and keeps the cursor visible</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mouse_pos (QCursor): The mouse cursor position within the app.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_height</span> <span class="o">+</span> <span class="p">(</span><span class="n">mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_mouse_pos</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_drag_to_resize_item</span><span class="o">.</span><span class="n">setSizeHint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">drag_resize_qsize</span><span class="p">)</span>
@@ -462,6 +738,7 @@
 
     <span class="c1"># build code preview trees</span>
 <div class="viewcode-block" id="CodePreview.build_code_preview_tree"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.build_code_preview_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_code_preview_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds the code preview tree and populates it with CodePreviewBrowsers&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">tab</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">tab</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span>
@@ -477,9 +754,14 @@
                 <span class="p">]</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;tree_item&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
                 <span class="n">parent</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileIcon</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span>
-                    <span class="n">tab</span>
-                <span class="p">]</span> <span class="o">=</span> <span class="n">CodePreviewBrowser</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span>
+                        <span class="n">tab</span>
+                    <span class="p">]</span> <span class="o">=</span> <span class="n">CodePreviewBrowser</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span>
+                        <span class="n">tab</span>
+                    <span class="p">]</span> <span class="o">=</span> <span class="n">MarkDownBrowser</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
                 <span class="n">text_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;text_widget&quot;</span><span class="p">][</span><span class="n">tab</span><span class="p">]</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;contents_item&quot;</span><span class="p">][</span>
@@ -497,14 +779,12 @@
     <span class="c1"># end build_code_preview_tree()</span>
 
     <span class="c1"># highlights `item_string` in `text_widget`; centers the cursor on the highlighted text</span>
-<div class="viewcode-block" id="CodePreview.set_text_cursor"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_text_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">set_text_cursor</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">:</span> <span class="n">CodePreviewBrowser</span><span class="p">,</span> <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="CodePreview.set_text_cursor"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreview.set_text_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">set_text_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_widget</span><span class="p">,</span> <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;sets the text cursor in text_widget by searching for item_string character string;</span>
 <span class="sd">           centers the highlighted text in the text_widget&#39;s viewport</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            text_widget (CodePreviewBrowser): the target text widget</span>
+<span class="sd">            text_widget (CodePreviewBrowser or MarkDownBrowser): the target text widget</span>
 <span class="sd">            item_string (str): the string to highlight if exists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">QTextCursor</span><span class="p">(</span><span class="n">text_widget</span><span class="o">.</span><span class="n">document</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item_string</span><span class="p">))</span>
