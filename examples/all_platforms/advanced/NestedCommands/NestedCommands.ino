@@ -44,36 +44,36 @@ void nest_two(UserInput *inputProcess)
 
 const PROGMEM CommandParameters nest_one_[1] =
 { // subcommand depth one
-    nest_one,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "one",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    1,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+  nest_one,                 // unique function
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+  "one",                    // command string
+  3,                        // command string characters
+  root,                     // parent id
+  1,                        // this command id
+  1,                        // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
+  /* UITYPE arguments */
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 
 const PROGMEM CommandParameters nest_two_[1] =
 { // subcommand depth one
-    nest_two,                 // unique function
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "two",                    // command string
-    3,                        // command string characters
-    root,                     // parent id
-    2,                        // this command id
-    1,                        // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments    
+  nest_two,                 // unique function
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+  "two",                    // command string
+  3,                        // command string characters
+  root,                     // parent id
+  2,                        // this command id
+  1,                        // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
+  /* UITYPE arguments */
+  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 
 const PROGMEM CommandParameters nested_prms[1 /* root */ + 2 /* child(ren) */] =
@@ -91,7 +91,7 @@ const PROGMEM CommandParameters nested_prms[1 /* root */ + 2 /* child(ren) */] =
     0,                        // minimum expected number of arguments
     0,                        // maximum expected number of arguments
     /* UITYPE arguments */
-    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments  
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
   },
   *nest_one_,
   *nest_two_

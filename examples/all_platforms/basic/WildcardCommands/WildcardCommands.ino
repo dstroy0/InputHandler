@@ -217,7 +217,7 @@ void setup()
   // settings does not contain any wildcard char
   inputHandler.addCommand(settings_);         // lists UserInput class settings
   // test is only looking for a 't' in the 4th position because the command string
-  // is "***t" which means its memcmp range will be one char wide starting at the 
+  // is "***t" which means its memcmp range will be one char wide starting at the
   // 4th position
   inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.

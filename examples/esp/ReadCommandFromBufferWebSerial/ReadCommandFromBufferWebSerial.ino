@@ -127,23 +127,24 @@ void test_input_types(UserInput *inputProcess)
 
 */
 const PROGMEM CommandParameters help_param[1] = {
-    help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-    no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "help",                   // command string
-    4,                        // command string characters
-    root,                     // parent id
-    root,                     // this command id
-    root,                     // command depth
-    0,                        // subcommands
-    UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-        UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
-    }};
+  help,                  // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
+  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+  "help",                   // command string
+  4,                        // command string characters
+  root,                     // parent id
+  root,                     // this command id
+  root,                     // command depth
+  0,                        // subcommands
+  UI_ARG_HANDLING::no_args, // argument handling
+  0,                        // minimum expected number of arguments
+  0,                        // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
+  }
+};
 CommandConstructor help_(help_param); //  help_ has a command string, and function specified
 
 /**
@@ -151,30 +152,31 @@ CommandConstructor help_(help_param); //  help_ has a command string, and functi
 
 */
 const PROGMEM CommandParameters type_test_param[1] = {
-    test_input_types,       // function ptr
-    no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "test",                    // command string
-    4,                         // string length
-    root,                      // parent id
-    root,                      // this command id
-    root,                      // command depth
-    0,                         // subcommands
-    UI_ARG_HANDLING::type_arr, // argument handling
-    8,                         // minimum expected number of arguments
-    8,                         // maximum expected number of arguments
-    /*
-      UITYPE arguments
-    */
-    {
-        UITYPE::UINT8_T,    // 8-bit  uint
-        UITYPE::UINT16_T,   // 16-bit uint
-        UITYPE::UINT32_T,   // 32-bit uint
-        UITYPE::INT16_T,    // 16-bit int
-        UITYPE::FLOAT,      // 32-bit float
-        UITYPE::CHAR,       // char
-        UITYPE::START_STOP, // regex-like start stop char sequences
-        UITYPE::NOTYPE      // special type, no type validation performed
-    }};
+  test_input_types,       // function ptr
+  no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+  "test",                    // command string
+  4,                         // string length
+  root,                      // parent id
+  root,                      // this command id
+  root,                      // command depth
+  0,                         // subcommands
+  UI_ARG_HANDLING::type_arr, // argument handling
+  8,                         // minimum expected number of arguments
+  8,                         // maximum expected number of arguments
+  /*
+    UITYPE arguments
+  */
+  {
+    UITYPE::UINT8_T,    // 8-bit  uint
+    UITYPE::UINT16_T,   // 16-bit uint
+    UITYPE::UINT32_T,   // 32-bit uint
+    UITYPE::INT16_T,    // 16-bit int
+    UITYPE::FLOAT,      // 32-bit float
+    UITYPE::CHAR,       // char
+    UITYPE::START_STOP, // regex-like start stop char sequences
+    UITYPE::NOTYPE      // special type, no type validation performed
+  }
+};
 CommandConstructor test_(type_test_param);
 
 void setup_wifi()
@@ -199,7 +201,7 @@ void setup()
   setup_wifi();
 
   inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
-  inputHandler.addCommand(help_);             // lists commands available to the user  
+  inputHandler.addCommand(help_);             // lists commands available to the user
   inputHandler.addCommand(test_);             // input type test
   inputHandler.begin();                          // required.  returns true on success.
   inputHandler.listCommands(); // formats output_buffer with the command list

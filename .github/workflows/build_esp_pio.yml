@@ -7,19 +7,31 @@ on:
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/NestedCommands/**'
+      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
+      - '**/examples/all_platforms/basic/WildcardCommands/**'
   workflow_dispatch:
     branches:
       - main
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/NestedCommands/**'
+      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
+      - '**/examples/all_platforms/basic/WildcardCommands/**'
   release:
     branches:
       - release
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/'
-      
+      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/NestedCommands/**'
+      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
+      - '**/examples/all_platforms/basic/WildcardCommands/**'
+
 jobs:
   build:
 

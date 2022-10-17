@@ -11,14 +11,14 @@
     InputHandler license: https://github.com/dstroy0/InputHandler/blob/main/LICENSE
 */
 /*********************************************************************
- This is an example for our nRF51822 based Bluefruit LE modules
- Pick one up today in the adafruit shop!
- Adafruit invests time and resources providing this open source code,
- please support Adafruit and open-source hardware by purchasing
- products from Adafruit!
- MIT license, check LICENSE for more information
- All text above, and the splash screen below must be included in
- any redistribution
+  This is an example for our nRF51822 based Bluefruit LE modules
+  Pick one up today in the adafruit shop!
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
+  products from Adafruit!
+  MIT license, check LICENSE for more information
+  All text above, and the splash screen below must be included in
+  any redistribution
 *********************************************************************/
 
 #include <Arduino.h>
@@ -69,29 +69,29 @@ const PROGMEM CommandParameters receiver_param[1] = {
 CommandConstructor remote_(receiver_param); // remote command
 
 #if SOFTWARE_SERIAL_AVAILABLE
-  #include <SoftwareSerial.h>
+#include <SoftwareSerial.h>
 #endif
 
 /*=========================================================================
     APPLICATION SETTINGS
-    FACTORYRESET_ENABLE       Perform a factory reset when running this sketch
-   
-                              Enabling this will put your Bluefruit LE module
+      FACTORYRESET_ENABLE       Perform a factory reset when running this sketch
+     
+                                Enabling this will put your Bluefruit LE module
                               in a 'known good' state and clear any config
                               data set in previous sketches or projects, so
-                              running this at least once is a good idea.
-   
-                              When deploying your project, however, you will
+                                running this at least once is a good idea.
+     
+                                When deploying your project, however, you will
                               want to disable factory reset by setting this
                               value to 0.  If you are making changes to your
-                              Bluefruit LE device via AT commands, and those
+                                Bluefruit LE device via AT commands, and those
                               changes aren't persisting across resets, this
                               is the reason why.  Factory reset will erase
                               the non-volatile memory where config data is
                               stored, setting it back to factory default
                               values.
-       
-                              Some sketches that require you to bond to a
+         
+                                Some sketches that require you to bond to a
                               central device (HID mouse, keyboard, etc.)
                               won't work at all with this feature enabled
                               since the factory reset will clear all of the
@@ -102,15 +102,15 @@ CommandConstructor remote_(receiver_param); // remote command
                               "DISABLE" or "MODE" or "BLEUART" or
                               "HWUART"  or "SPI"  or "MANUAL"
     -----------------------------------------------------------------------*/
-    #define FACTORYRESET_ENABLE         1
-    #define MINIMUM_FIRMWARE_VERSION    "0.6.6"
-    #define MODE_LED_BEHAVIOUR          "MODE"
+#define FACTORYRESET_ENABLE         1
+#define MINIMUM_FIRMWARE_VERSION    "0.6.6"
+#define MODE_LED_BEHAVIOUR          "MODE"
 /*=========================================================================*/
 
 // Create the bluefruit object, either software serial...uncomment these lines
 /*
-SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
-Adafruit_BluefruitLE_UART ble(bluefruitSS, BLUEFRUIT_UART_MODE_PIN,
+  SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
+  Adafruit_BluefruitLE_UART ble(bluefruitSS, BLUEFRUIT_UART_MODE_PIN,
                       BLUEFRUIT_UART_CTS_PIN, BLUEFRUIT_UART_RTS_PIN);
 */
 
@@ -160,7 +160,7 @@ void setup(void)
   {
     /* Perform a factory reset to make sure everything is in a known state */
     Serial.println(F("Performing a factory reset: "));
-    if ( ! ble.factoryReset() ){
+    if ( ! ble.factoryReset() ) {
       error(F("Couldn't factory reset"));
     }
   }
@@ -180,7 +180,7 @@ void setup(void)
 
   /* Wait for connection */
   while (! ble.isConnected()) {
-      delay(500);
+    delay(500);
   }
 
   // LED Activity command is only supported from 0.6.6
@@ -206,7 +206,7 @@ void setup(void)
 void loop(void)
 {
   // Check for user input
-  char inputs[BUFSIZE+1];
+  char inputs[BUFSIZE + 1];
 
   if ( getUserInput(inputs, BUFSIZE) )
   {
@@ -248,17 +248,19 @@ bool getUserInput(char buffer[], uint8_t maxSize)
   TimeoutTimer timeout(100);
 
   memset(buffer, 0, maxSize);
-  while( (!Serial.available()) && !timeout.expired() ) { delay(1); }
+  while ( (!Serial.available()) && !timeout.expired() ) {
+    delay(1);
+  }
 
   if ( timeout.expired() ) return false;
 
   delay(2);
-  uint8_t count=0;
+  uint8_t count = 0;
   do
   {
-    count += Serial.readBytes(buffer+count, maxSize);
+    count += Serial.readBytes(buffer + count, maxSize);
     delay(2);
-  } while( (count < maxSize) && (Serial.available()) );
+  } while ( (count < maxSize) && (Serial.available()) );
 
   return true;
 }
