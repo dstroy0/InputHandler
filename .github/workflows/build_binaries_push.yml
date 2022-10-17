@@ -1,4 +1,4 @@
-name: cli_gen_tool build latest binaries CI 
+name: cli_gen_tool build latest binaries .
 
 on: 
   push:

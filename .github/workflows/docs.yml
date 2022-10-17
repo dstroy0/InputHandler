@@ -1,4 +1,4 @@
-name: Docs CI 
+name: Build docs .
 
 on: 
   push:

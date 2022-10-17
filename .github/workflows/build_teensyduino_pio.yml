@@ -1,12 +1,12 @@
-name: Arduino (PlatformIO) build examples CI 
+name: TeensyDuino build examples (PIO) .
 
 on: 
   push:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
@@ -14,8 +14,8 @@ on:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
@@ -35,8 +35,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino, 
-                  examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino]
+        example: ['**/examples/all_platforms/advanced/**/GetCommandFromStream.ino', 
+                  '**/examples/all_platforms/basic/**/GetCommandFromStream.ino',
+                  '**/examples/all_platforms/advanced/**/MultiFile.ino',
+                  '**/examples/all_platforms/advanced/**/NestedCommands.ino',
+                  '**/examples/all_platforms/advanced/**/WildcardCommands.ino']
 
     steps:
     - uses: actions/checkout@v3

@@ -1,4 +1,4 @@
-name: Arduino (CLI) build examples CI 
+name: Arduino build examples (CLI) .
 
 # Controls when the workflow will run
 on: 
@@ -33,6 +33,13 @@ on:
 jobs:
   check_formatting:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        example: ['**/examples/all_platforms/advanced/**/GetCommandFromStream.ino', 
+                  '**/examples/all_platforms/basic/**/GetCommandFromStream.ino',
+                  '**/examples/all_platforms/advanced/**/MultiFile.ino',
+                  '**/examples/all_platforms/advanced/**/NestedCommands.ino',
+                  '**/examples/all_platforms/advanced/**/WildcardCommands.ino']
 
     steps:
       - name: Checkout
@@ -46,9 +53,7 @@ jobs:
             - '*.cpp'
             - '*.hpp'
             - '*.h'
-          target-paths: |
-            - examples/all_platforms/basic/GetCommandFromStream/
-            - examples/all_platforms/advanced/GetCommandFromStream/
+          target-paths: ${{ matrix.example }}
   
   build:
     needs: check_formatting
@@ -107,7 +112,5 @@ jobs:
       - name: Compile examples
         uses: arduino/compile-sketches@main
         with:          
-          sketch-paths: |
-            - examples/all_platforms/basic/GetCommandFromStream/
-            - examples/all_platforms/advanced/GetCommandFromStream/
+          sketch-paths: ${{ matrix.example }}
           fqbn: ${{ matrix.fqbn }}

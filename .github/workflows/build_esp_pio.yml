@@ -1,12 +1,12 @@
-name: PlatformIO esp CI 
+name: ESP build examples (PIO) .
 
 on: 
   push:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
@@ -15,8 +15,8 @@ on:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
@@ -25,8 +25,8 @@ on:
     branches:
       - release
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
@@ -38,8 +38,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino, 
-                  examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino]
+        example32: ['**/examples/all_platforms/advanced/**/GetCommandFromStream.ino', 
+                  '**/examples/all_platforms/basic/**/GetCommandFromStream.ino',
+                  '**/examples/all_platforms/advanced/**/MultiFile.ino',
+                  '**/examples/all_platforms/advanced/**/NestedCommands.ino',
+                  '**/examples/all_platforms/advanced/**/WildcardCommands.ino',
+                  '**/examples/esp/**/ReadCommandFromBufferWebSerial.ino']
+
+        example8266: ['**/examples/all_platforms/advanced/**/GetCommandFromStream.ino', 
+                  '**/examples/all_platforms/basic/**/GetCommandFromStream.ino',
+                  '**/examples/all_platforms/advanced/**/MultiFile.ino',
+                  '**/examples/all_platforms/advanced/**/NestedCommands.ino',
+                  '**/examples/all_platforms/advanced/**/WildcardCommands.ino']
 
     steps:
     - uses: actions/checkout@v3
@@ -62,11 +72,19 @@ jobs:
         pip install --upgrade platformio
         wget https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
         unzip /tmp/InputHandler-main.zip -d /tmp
-    - name: Run PlatformIO
+    
+    - name: Build PlatformIO ESP32
       run: pio ci --lib="." 
                   --lib="/tmp/InputHandler-main/"                  
-                  --board=esp32dev 
+                  --board=esp32dev                   
+
+      env:
+        PLATFORMIO_CI_SRC: ${{ matrix.example32 }}
+    
+    - name: Build PlatformIO ES8266
+      run: pio ci --lib="." 
+                  --lib="/tmp/InputHandler-main/"                                    
                   --board=huzzah 
 
       env:
-        PLATFORMIO_CI_SRC: ${{ matrix.example }}
+        PLATFORMIO_CI_SRC: ${{ matrix.example8266 }}
