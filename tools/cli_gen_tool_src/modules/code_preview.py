@@ -160,6 +160,11 @@ class CodePreviewBrowser(QPlainTextEdit):
 
     @Slot(int)
     def update_line_number_area_width(self, newBlockCount):
+        """resize lineno width
+
+        Args:
+            newBlockCount (int): The new number of text blocks.
+        """
         self.setViewportMargins(self.line_number_area_width(), 0, 0, 0)
 
     @Slot(QRect, int)
