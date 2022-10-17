@@ -135,7 +135,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         """paints the line number rectangle and the line numbers
 
         Args:
-            event (QPaintEvent): Time to draw!
+            event (QPaintEvent): Time to draw now!
         """
         with QPainter(self.line_number_area) as painter:
             painter.fillRect(event.rect(), Qt.lightGray)
