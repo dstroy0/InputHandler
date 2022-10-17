@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - ./tools/cli_gen_tool_src/*
+      - '**/cli_gen_tool_src/**'
   workflow_dispatch:
     branches:
       - main
     paths:
-      - ./tools/cli_gen_tool_src/*
+      - '**/cli_gen_tool_src/**'
 
 jobs:
   build-latest-binary:
