@@ -1,6 +1,24 @@
-name: PlatformIO arduino CI 
+name: Arduino (PlatformIO) build examples CI 
 
-on: [workflow_dispatch]
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - '**/examples/all_platforms/basic/GetCommandFromStream/'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - '**/examples/all_platforms/basic/GetCommandFromStream/'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
+  release:
+    branches:
+      - release
+    paths:
+      - '**/examples/all_platforms/basic/GetCommandFromStream/'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/'
 
 jobs:
   build:
