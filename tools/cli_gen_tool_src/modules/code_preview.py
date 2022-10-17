@@ -132,6 +132,11 @@ class CodePreviewBrowser(QPlainTextEdit):
         return space
 
     def lineNumberAreaPaintEvent(self, event: QPaintEvent):
+        """paints the line number rectangle and the line numbers
+
+        Args:
+            event (QPaintEvent): Time to draw!
+        """
         with QPainter(self.line_number_area) as painter:
             painter.fillRect(event.rect(), Qt.lightGray)
             block = self.firstVisibleBlock()
