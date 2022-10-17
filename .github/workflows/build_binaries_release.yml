@@ -17,16 +17,16 @@ jobs:
         run: |
           sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
           sudo apt-get -q update           
-          sudo apt-get install libegl1
-          sudo apt-get install libxkbcommon0
-          sudo apt-get install libxkbcommon-x11-dev
-          sudo apt-get install '^libxcb.*-dev'
-          sudo apt-get install libx11-xcb-dev
-          sudo apt-get install libglu1-mesa-dev
-          sudo apt-get install libxrender-dev
-          sudo apt-get install libxkbcommon-dev                
-          sudo apt-get install libicu70          
-          sudo apt-get install qt6-webengine-dev
+          sudo apt-get -y install libegl1
+          sudo apt-get -y install libxkbcommon0
+          sudo apt-get -y install libxkbcommon-x11-dev
+          sudo apt-get -y install '^libxcb.*-dev'
+          sudo apt-get -y install libx11-xcb-dev
+          sudo apt-get -y install libglu1-mesa-dev
+          sudo apt-get -y install libxrender-dev
+          sudo apt-get -y install libxkbcommon-dev                
+          sudo apt-get -y install libicu70          
+          sudo apt-get -y install qt6-webengine-dev
           
       - uses: actions/checkout@v3
         with: 
