@@ -1,4 +1,4 @@
-name: cli_gen_tool build latest binaries .
+name: cli_gen_tool build Linux/MacOS latest binary .
 
 on: 
   push:
@@ -49,7 +49,7 @@ jobs:
       
       - name: Build binary
         run: |                    
-          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/    
+          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/    
         
       - name: Commit files
         id: commit

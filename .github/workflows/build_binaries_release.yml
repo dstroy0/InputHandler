@@ -1,4 +1,4 @@
-name: cli_gen_tool build release binaries .
+name: cli_gen_tool build Linux/MacOS release binary .
 
 on: 
   release:
@@ -44,7 +44,7 @@ jobs:
       
       - name: Build binary
         run: |                    
-          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/
+          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/linux_macos/
 
       - name: Commit files
         id: commit
