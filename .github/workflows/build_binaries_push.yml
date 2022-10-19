@@ -68,7 +68,9 @@ jobs:
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          git push build_binary_workflow main                      
+          remote_repo="https://action@github.com:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
+          git push "${remote_repo}" --verbose       
+        shell: bash                     
 
   build-latest-windows-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
@@ -115,4 +117,6 @@ jobs:
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          git push build_binary_workflow main                
+          remote_repo="https://action@github.com:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
+          git push "${remote_repo}" --verbose       
+        shell: bash
