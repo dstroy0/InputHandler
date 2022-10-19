@@ -65,8 +65,7 @@ jobs:
           fi
         shell: bash
 
-      - name: push-changes
-        steps:
+      - name: push-changes        
         if: build-latest-linux-binary.steps.commit.outputs.push == 'true'
           run: |
             git push build_binary_workflow main
@@ -116,8 +115,7 @@ jobs:
           fi
         shell: bash
 
-      - name: push-changes
-        steps:
+      - name: push-changes        
         if: build-latest-windows-binary.steps.commit.outputs.push == 'true'
           run: |
             git push build_binary_workflow main
