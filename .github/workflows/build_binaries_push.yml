@@ -13,7 +13,7 @@ on:
       - '**/cli_gen_tool_src/**'
 
 jobs:
-  build-latest-binary:
+  build-latest-linux-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
 
@@ -50,6 +50,49 @@ jobs:
       - name: Build binary
         run: |                    
           pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/    
+        
+      - name: Commit files
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add --all
+          if [-z "$(git status --porcelain)"]; then
+            echo "::set-output name=push::false"
+          else
+            git commit -m "cli_gen_tool binary latest" -a
+            echo "::set-output name=push::true"
+          fi
+        shell: bash
+
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+  
+  build-latest-windows-binary:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: windows
+
+    steps:                                    
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -VV          
+          pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip freeze                    
+      
+      - name: Build binary
+        run: |                    
+          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/    
         
       - name: Commit files
         id: commit
