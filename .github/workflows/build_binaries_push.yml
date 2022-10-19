@@ -68,7 +68,7 @@ jobs:
       - name: Push changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          remote_repo="https://action@github.com:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
+          remote_repo="https://github-actions:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
           git push "${remote_repo}" --verbose       
         shell: bash                     
 
@@ -93,7 +93,7 @@ jobs:
       
       - name: Add /downlevel/ to PATH
         run: |
-          echo "C:\hostedtoolcache\windows\system32\downlevel\" >> $GITHUB_PATH
+          echo C:\hostedtoolcache\windows\system32\downlevel\ >> $GITHUB_PATH
         shell: bash
 
       - name: Build binary
@@ -117,6 +117,6 @@ jobs:
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          remote_repo="https://action@github.com:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
+          remote_repo="https://github-actions:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
           git push "${remote_repo}" --verbose       
         shell: bash
