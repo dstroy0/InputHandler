@@ -65,7 +65,7 @@ jobs:
           fi
         shell: bash
 
-      - name: push-changes        
+      - name: Push changes        
         if: steps.commit.outputs.push == 'true'
         run: |
           remote_repo="https://action@github.com:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
@@ -93,7 +93,7 @@ jobs:
       
       - name: Add /downlevel/ to PATH
         run: |
-          set PATH=%PATH%;C:\hostedtoolcache\windows\system32\downlevel\
+          setx /m path %path%;C:\hostedtoolcache\windows\system32\downlevel\
         shell: bash
 
       - name: Build binary
