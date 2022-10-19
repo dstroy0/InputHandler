@@ -68,9 +68,7 @@ jobs:
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          git push build_binary_workflow main        
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-      
+          git push build_binary_workflow main                      
 
   build-latest-windows-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
@@ -117,5 +115,4 @@ jobs:
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
         run: |
-          git push build_binary_workflow main        
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+          git push build_binary_workflow main                
