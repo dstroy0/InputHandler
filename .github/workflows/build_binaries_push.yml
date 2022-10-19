@@ -65,12 +65,6 @@ jobs:
           fi
         shell: bash
 
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-  
   build-latest-windows-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: windows
@@ -90,8 +84,13 @@ jobs:
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
           pip freeze                    
       
+      - name: Add /downlevel/ to PATH
+        run: |
+          set PATH=%PATH%;C:\hostedtoolcache\windows\system32\downlevel\
+        shell: bash
+
       - name: Build binary
-        run: |                    
+        run: |                              
           pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/    
         
       - name: Commit files
@@ -108,8 +107,9 @@ jobs:
           fi
         shell: bash
 
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    push-changes:
+      if: build-latest-windows-binary.steps.commit.outputs.push == 'true' && build-latest-linux-binary.steps.commit.ouputs.push == 'true'
+      run: |
+        git push build_binary_workflow main
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
