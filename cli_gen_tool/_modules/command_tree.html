@@ -247,7 +247,17 @@
 
 <span class="c1">## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements</span>
 <div class="viewcode-block" id="CommandParametersTableViewModel"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableViewModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Display model for the parameters table</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        QAbstractTableModel (class): This class specializes QAbstractTableModel</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;constructor method</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parameters (dict, optional): Set placeholder text in CommandParametersDialog input fields. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersTableViewModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Setting&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
@@ -258,12 +268,37 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CommandParametersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;property</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The number of columns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="CommandParametersTableViewModel.rowCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;property</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The number of rows.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span><span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Table data positioning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (QModelIndex): The model index.</span>
+<span class="sd">            role (Qt Role): What role is the data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: data in the cell</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()]</span>
@@ -275,7 +310,17 @@
             <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()]</span></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Displays header labels</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            section (int): Cell position</span>
+<span class="sd">            orientation (int): Text orientation</span>
+<span class="sd">            role (int): role of the data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The section label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">[</span><span class="n">section</span><span class="p">])</span>
