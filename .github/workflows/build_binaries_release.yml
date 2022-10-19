@@ -1,4 +1,4 @@
-name: cli_gen_tool build Linux/MacOS release binary .
+name: cli_gen_tool build Linux/MacOS release binary
 
 on: 
   release:
