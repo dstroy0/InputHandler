@@ -23,7 +23,17 @@ from modules.display_models import displayModels
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
 class CommandParametersTableViewModel(QAbstractTableModel):
-    def __init__(self, parameters=None) -> None:
+    """Display model for the parameters table
+
+    Args:
+        QAbstractTableModel (class): This class specializes QAbstractTableModel
+    """
+    def __init__(self, parameters:dict=None) -> None:
+        """constructor method
+
+        Args:
+            parameters (dict, optional): Set placeholder text in CommandParametersDialog input fields. Defaults to None.
+        """
         super(CommandParametersTableViewModel, self).__init__()
         self.h_labels = ["Setting", "Value"]
         self.keys = list(parameters.keys())
@@ -34,12 +44,37 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         self.row_count = len(dataModels.command_parameters_dict_keys_list)
 
     def columnCount(self, parent=QModelIndex()) -> int:
+        """property
+
+        Args:
+            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
+
+        Returns:
+            int: The number of columns.
+        """
         return 2
 
     def rowCount(self, parent=QModelIndex()) -> int:
+        """property
+
+        Args:
+            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
+
+        Returns:
+            int: The number of rows.
+        """
         return self.row_count
 
-    def data(self, index, role):
+    def data(self, index:QModelIndex, role:int):
+        """Table data positioning.
+
+        Args:
+            index (QModelIndex): The model index.
+            role (Qt Role): What role is the data.
+
+        Returns:
+            str: data in the cell
+        """
         if role == Qt.DisplayRole:
             if index.column() == 0:
                 return self.keys[index.row()]
@@ -51,7 +86,17 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             if index.column() == 1:
                 return self.tooltip[index.row()]
 
-    def headerData(self, section, orientation, role):
+    def headerData(self, section:int, orientation:int, role:int):
+        """Displays header labels
+
+        Args:
+            section (int): Cell position
+            orientation (int): Text orientation
+            role (int): role of the data
+
+        Returns:
+            str: The section label.
+        """
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return str(self.h_labels[section])
