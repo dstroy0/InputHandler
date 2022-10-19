@@ -67,8 +67,8 @@ jobs:
 
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
-          run: |
-            git push build_binary_workflow main
+        run: |
+          git push build_binary_workflow main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       
@@ -117,7 +117,7 @@ jobs:
 
       - name: push-changes        
         if: steps.commit.outputs.push == 'true'
-          run: |
-            git push build_binary_workflow main
+        run: |
+          git push build_binary_workflow main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
