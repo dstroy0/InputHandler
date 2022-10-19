@@ -67,7 +67,7 @@ jobs:
 
   build-latest-windows-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
-    runs-on: windows
+    runs-on: windows-latest
 
     steps:                                    
       - uses: actions/checkout@v3
