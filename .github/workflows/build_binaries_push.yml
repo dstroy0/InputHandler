@@ -93,7 +93,7 @@ jobs:
       
       - name: Add /downlevel/ to PATH
         run: |
-          set /M path="%path%;C:\hostedtoolcache\windows\system32\downlevel\"
+          set PATH="%path%;C:\hostedtoolcache\windows\system32\downlevel\"
         shell: bash
 
       - name: Build binary
