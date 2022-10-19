@@ -93,7 +93,7 @@ jobs:
       
       - name: Add /downlevel/ to PATH
         run: |
-          set PATH %path%;C:\hostedtoolcache\windows\system32\downlevel\
+          echo "C:\hostedtoolcache\windows\system32\downlevel\" >> $GITHUB_PATH
         shell: bash
 
       - name: Build binary
