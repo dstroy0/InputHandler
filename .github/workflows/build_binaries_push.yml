@@ -51,26 +51,22 @@ jobs:
         run: |                    
           pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/    
         
-      - name: Commit files
+      - name: Commit and push files
         id: commit
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
+          git config --global user.email "dstroy0@users.noreply.github.com"
+          git config --global user.name "dstroy0"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }
           git add --all
           if [-z "$(git status --porcelain)"]; then
-            echo "::set-output name=push::false"
+            echo "Unable to push"
           else
             git commit -m "cli_gen_tool binary latest" -a
-            echo "::set-output name=push::true"
+            echo "Pushing"
+            git push
           fi
         shell: bash
-
-      - name: Push changes        
-        if: steps.commit.outputs.push == 'true'
-        run: |
-          remote_repo="github-actions:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
-          git push "${remote_repo}" --verbose       
-        shell: bash                     
+                   
 
   build-latest-windows-binary:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
@@ -93,30 +89,25 @@ jobs:
       
       - name: Add /downlevel/ to PATH
         run: |
-          echo C:\windows\system32\downlevel\ >> $GITHUB_PATH
+          echo C:\\windows\\system32\\downlevel\\ >> $GITHUB_PATH
         shell: bash
 
       - name: Build binary
         run: |                              
           pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/    
         
-      - name: Commit files
+      - name: Commit and push files
         id: commit
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
+          git config --global user.email "dstroy0@users.noreply.github.com"
+          git config --global user.name "dstroy0"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }
           git add --all
           if [-z "$(git status --porcelain)"]; then
-            echo "::set-output name=push::false"
+            echo "Unable to push"
           else
             git commit -m "cli_gen_tool binary latest" -a
-            echo "::set-output name=push::true"
+            echo "Pushing"
+            git push
           fi
-        shell: bash
-
-      - name: push-changes        
-        if: steps.commit.outputs.push == 'true'
-        run: |
-          remote_repo="github-actions:${{secrets.GITHUB_TOKEN}}@https://github.com/dstroy0/InputHandler.git"
-          git push "${remote_repo}" --verbose       
         shell: bash
