@@ -21,6 +21,7 @@ jobs:
       - name: Update linux and install build dependencies
         run: |
           sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
+          sudo add-apt-repository -y "deb http://mirror.math.princeton.edu/pub/ubuntu/ jammy main universe"
           sudo apt-get -q update           
           sudo apt-get -y install libegl1
           sudo apt-get -y install libxkbcommon0
