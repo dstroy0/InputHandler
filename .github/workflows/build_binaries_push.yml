@@ -50,7 +50,7 @@ jobs:
       
       - name: Build binary
         run: |                    
-          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/    
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/
         
       - name: Commit and push files
         id: commit
@@ -99,7 +99,7 @@ jobs:
 
       - name: Build binary
         run: |                              
-          pyinstaller -y --onefile ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/    
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/    
         
       - name: Commit and push files
         id: commit
