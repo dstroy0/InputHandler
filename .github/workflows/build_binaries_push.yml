@@ -92,17 +92,11 @@ jobs:
           pip install wheel
           pip install -r ./tools/cli_gen_tool_src/requirements.txt          
           pip install PyQt6-WebEngine
-          pip freeze                    
-      
-      - name: Add /downlevel/ to PATH
-        run: |
-          echo C:\\Windows\\System32\\downlevel\\ >> $GITHUB_PATH
-          echo C:\\Windows\\SysWOW64\\downlevel\\ >> $GITHUB_PATH
-        shell: bash
+          pip freeze                                
 
       - name: Build and zip binary
         run: |                              
-          pyinstaller -p C:\windows\system32\downlevel\ -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
+          pyinstaller -p ./tools/resources -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
           7z a -tzip './tools/bin/latest/windows/cli_gen_tool.zip' './tools/bin/latest/windows/cli_gen_tool.exe'
           7z t './tools/bin/latest/windows/cli_gen_tool.zip' *. -r          
         
