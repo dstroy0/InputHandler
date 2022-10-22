@@ -8,6 +8,7 @@ on:
       - '**/src/**'
       - '**/docs/**'
       - '**/tools/cli_gen_tool_src/**'
+      - './README.md'
   workflow_dispatch:
     branches:
       - main
@@ -15,6 +16,7 @@ on:
       - '**/src/**'
       - '**/docs/**'
       - '**/tools/cli_gen_tool_src/**'
+      - './README.md'
   release:
     branches:
       - release
