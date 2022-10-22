@@ -8,8 +8,10 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/MultiFile/CLI/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
+
   workflow_dispatch:
     branches:
       - main
@@ -17,6 +19,7 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/MultiFile/CLI/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
   release:
@@ -26,6 +29,7 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/MultiFile/CLI/**'
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
