@@ -8,7 +8,6 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
   workflow_dispatch:
     branches:
@@ -17,7 +16,6 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
   release:
     branches:
@@ -26,7 +24,6 @@ on:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
       - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
 jobs:
@@ -38,8 +35,7 @@ jobs:
         example32: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
                   'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
                   'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  'examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino',
-                  'examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino']
+                  'examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino']
 
         example8266: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
                   'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
