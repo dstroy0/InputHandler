@@ -62,6 +62,8 @@ jobs:
         pip install --upgrade platformio
         wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
         unzip /tmp/InputHandler-main.zip -d /tmp
+        cd tmp
+        ls
     - name: Run PlatformIO
       run: pio ci --lib="/tmp/InputHandler-main/"                         
                   --board=teensy31                   
