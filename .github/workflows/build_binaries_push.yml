@@ -88,13 +88,14 @@ jobs:
         run: |
           python -VV          
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip install wheel
           pip install PyQt6-WebEngine
           pip freeze                    
       
       - name: Add /downlevel/ to PATH
         run: |
-          echo C:\\hostedtoolcache\\Windows\\System32\\downlevel\\ >> $GITHUB_PATH
-          echo C:\\hostedtoolcache\\Windows\\SysWOW64\\downlevel\\ >> $GITHUB_PATH
+          echo C:\\Windows\\System32\\downlevel\\ >> $GITHUB_PATH
+          echo C:\\Windows\\SysWOW64\\downlevel\\ >> $GITHUB_PATH
         shell: bash
 
       - name: Build binary
