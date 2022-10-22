@@ -6,8 +6,7 @@ on:
       - main
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
@@ -16,8 +15,7 @@ on:
       - main
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
@@ -26,8 +24,7 @@ on:
       - release
     paths:
       - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
+      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'      
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/esp/ReadCommandFromBufferWebSerial/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
@@ -38,18 +35,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example32: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  '/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
-                  '/examples/all_platforms/advanced/MultiFile/MultiFile.ino',
-                  '/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  '/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino',
-                  '/examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino']
+        example32: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
+                  'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
+                  'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
+                  'examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino',
+                  'examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino']
 
-        example8266: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  '/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
-                  '/examples/all_platforms/advanced/MultiFile/MultiFile.ino',
-                  '/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  '/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
+        example8266: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
+                  'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
+                  'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
+                  'examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
 
     steps:
     - uses: actions/checkout@v3
@@ -70,20 +65,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install --upgrade platformio
-        wget https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
-        unzip /tmp/InputHandler-main.zip -d /tmp
-    
+        wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
+        unzip /tmp/InputHandler-main.zip -d /tmp        
+        ls
     - name: Build PlatformIO ESP32
-      run: pio ci --lib="." 
-                  --lib="/tmp/InputHandler-main/"                  
+      run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=esp32dev                   
 
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example32 }}
     
     - name: Build PlatformIO ES8266
-      run: pio ci --lib="." 
-                  --lib="/tmp/InputHandler-main/"                                    
+      run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=huzzah 
 
       env:
