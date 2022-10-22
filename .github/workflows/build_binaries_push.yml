@@ -33,6 +33,7 @@ jobs:
           sudo apt-get -y install libxkbcommon-dev                
           sudo apt-get -y install libicu70          
           sudo apt-get -y install qt6-webengine-dev
+          sudo apt-get -y install p7zip-full
                                     
       - uses: actions/checkout@v3
         with: 
@@ -104,8 +105,8 @@ jobs:
       - name: Build and zip binary
         run: |                              
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
-          7z a -t zip a ./tools/bin/latest/windows/cli_gen_tool.zip ./tools.bin/latest/windows/cli_gen_tool.exe
-          7z t ./tools/bin/latest/windows/cli_gen_tool.zip *. -r
+          7za a -t zip a ./tools/bin/latest/windows/cli_gen_tool.zip ./tools.bin/latest/windows/cli_gen_tool.exe
+          7za t ./tools/bin/latest/windows/cli_gen_tool.zip *. -r
           rm ./tools/bin/latest/linux_macos/cli_gen_tool.exe
         
       - name: Commit and push files
