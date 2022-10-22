@@ -52,7 +52,7 @@ jobs:
       - name: Build and zip binary
         run: |                    
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/
-          7z -t zip a ./tools/bin/latest/linux_macos/cli_gen_tool.zip ./tools.bin/latest/linux_macos/cli_gen_tool
+          7z -t zip a './tools/bin/latest/linux_macos/cli_gen_tool.zip' './tools.bin/latest/linux_macos/cli_gen_tool'
           7z t ./tools/bin/latest/linux_macos/cli_gen_tool.zip *. -r
           rm ./tools/bin/latest/linux_macos/cli_gen_tool
         
@@ -91,8 +91,8 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./tools/cli_gen_tool_src/requirements.txt
           pip install wheel
+          pip install -r ./tools/cli_gen_tool_src/requirements.txt          
           pip install PyQt6-WebEngine
           pip freeze                    
       
@@ -105,8 +105,8 @@ jobs:
       - name: Build and zip binary
         run: |                              
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
-          7za -t zip a ./tools/bin/latest/windows/cli_gen_tool.zip ./tools.bin/latest/windows/cli_gen_tool.exe
-          7za t ./tools/bin/latest/windows/cli_gen_tool.zip *. -r
+          7z -t zip a './tools/bin/latest/windows/cli_gen_tool.zip' './tools.bin/latest/windows/cli_gen_tool.exe'
+          7z t ./tools/bin/latest/windows/cli_gen_tool.zip *. -r
           rm ./tools/bin/latest/linux_macos/cli_gen_tool.exe
         
       - name: Commit and push files
