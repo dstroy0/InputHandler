@@ -63,8 +63,7 @@ jobs:
         wget https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
         unzip /tmp/InputHandler-main.zip -d /tmp
     - name: Run PlatformIO
-      run: pio ci --lib="." 
-                  --lib="/tmp/InputHandler-main/" 
+      run: pio ci --lib="."                         
                   --board=teensy31                   
                   --board=teensy35 
                   --board=teensy36 
