@@ -38,18 +38,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example32: ['./examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  './examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
-                  './examples/all_platforms/advanced/MultiFile/MultiFile.ino',
-                  './examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  './examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino',
-                  './examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino']
+        example32: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
+                  '/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
+                  '/examples/all_platforms/advanced/MultiFile/MultiFile.ino',
+                  '/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
+                  '/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino',
+                  '/examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino']
 
-        example8266: ['./examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  './examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
-                  './examples/all_platforms/advanced/MultiFile/MultiFile.ino',
-                  './examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  './examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
+        example8266: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
+                  '/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
+                  '/examples/all_platforms/advanced/MultiFile/MultiFile.ino',
+                  '/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
+                  '/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
 
     steps:
     - uses: actions/checkout@v3
