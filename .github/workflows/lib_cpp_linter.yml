@@ -2,7 +2,12 @@
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: src cpp linter
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - main    
+  workflow_dispatch:
+      - main
     
 jobs:
   cpp-linter:
@@ -16,6 +21,10 @@ jobs:
         with:
           style: file
           tidy-checks: '-*'
+          ignore: |
+            docs
+            examples
+            tools                        
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
