@@ -39,7 +39,7 @@ jobs:
                   'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',
                   'examples/all_platforms/advanced/MultiFile/MultiFile.ino',
                   'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  'examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
+                  'examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino']
 
     steps:
     - uses: actions/checkout@v3
