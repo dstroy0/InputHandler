@@ -48,9 +48,11 @@ jobs:
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
           pip freeze                    
       
-      - name: Build binary
+      - name: Build and zip binary
         run: |                    
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/
+          7z a -t zip a ./tools/bin/latest/linux_macos/cli_gen_tool.zip ./tools.bin/latest/linux_macos/cli_gen_tool.exe
+          7z t ./tools/bin/latest/linux_macos/cli_gen_tool.zip *. -r
         
       - name: Commit and push files
         id: commit
