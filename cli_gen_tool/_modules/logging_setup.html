@@ -235,6 +235,7 @@
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
 <span class="c1"># imports</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">logging.handlers</span> <span class="kn">import</span> <span class="n">RotatingFileHandler</span>
@@ -325,17 +326,20 @@
         <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="n">stream_handler</span>
         <span class="k">return</span> <span class="n">stream_handler</span></div>
 
-    <span class="c1">## returns the root logger</span>
-<div class="viewcode-block" id="Logger.get_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.get_logger">[docs]</a>    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="c1">## initializes the logger; returns the root logger</span>
+<div class="viewcode-block" id="Logger.initialize_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.initialize_logger">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>        
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_stream_handler</span><span class="p">())</span>        
+        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="k">return</span> <span class="n">logger</span></div>
+
+    <span class="c1">## sets up window log history</span>
+<div class="viewcode-block" id="Logger.set_up_window_history_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.set_up_window_history_logger">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_window_history_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">log_handler</span> <span class="o">=</span> <span class="n">QPlainTextEditLogger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">session_log_handler</span> <span class="o">=</span> <span class="n">log_handler</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_stream_handler</span><span class="p">())</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">log_handler</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="k">return</span> <span class="n">logger</span></div></div>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">log_handler</span><span class="p">)</span></div></div>
+        
 
 
 <span class="c1"># end of file</span>
