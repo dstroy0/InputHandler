@@ -13,11 +13,10 @@ on:
       - main    
     
 jobs:
-  concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-      
   cpp-linter:
+    concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true  
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

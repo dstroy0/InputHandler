@@ -29,7 +29,7 @@ on:
 
 jobs:  
   build-examples:
-  concurrency: 
+    concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     runs-on: ubuntu-latest
