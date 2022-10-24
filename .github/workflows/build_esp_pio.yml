@@ -27,7 +27,7 @@ on:
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
 jobs:  
-  build-examples:
+  build-examples-matrix:
     concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
