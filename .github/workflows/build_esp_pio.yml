@@ -30,16 +30,11 @@ jobs:
   build-examples:
     concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        example32: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
-                  'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  'examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino']
-
-        example8266: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
+      matrix:        
+        examples: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
                   'examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
                   'examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
                   'examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino']
@@ -66,16 +61,14 @@ jobs:
         wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
         unzip /tmp/InputHandler-main.zip -d /tmp        
         ls
+    
+    env:
+      PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+    
     - name: Build PlatformIO ESP32
       run: pio ci --lib="/tmp/InputHandler-main/"                  
-                  --board=esp32dev                   
-
-      env:
-        PLATFORMIO_CI_SRC: ${{ matrix.example32 }}
+                  --board=esp32dev                         
     
     - name: Build PlatformIO ES8266
       run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=huzzah 
-
-      env:
-        PLATFORMIO_CI_SRC: ${{ matrix.example8266 }}

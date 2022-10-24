@@ -31,7 +31,7 @@ jobs:
   build-examples:
     concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     strategy:
       matrix:
