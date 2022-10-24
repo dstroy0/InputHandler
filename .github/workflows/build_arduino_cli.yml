@@ -57,9 +57,7 @@ jobs:
           target-paths: ${{ matrix.example }}
   
   build:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
+    
     needs: check_formatting
     runs-on: ubuntu-latest
     
