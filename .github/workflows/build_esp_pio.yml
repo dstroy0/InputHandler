@@ -28,10 +28,12 @@ on:
 
 jobs:  
   build-examples-matrix:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
+    concurrency:
+      group: ci-${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}
       cancel-in-progress: false
+    
     runs-on: ubuntu-latest
+    
     strategy:
       matrix:        
         examples: ['examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
