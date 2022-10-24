@@ -15,9 +15,7 @@ on:
 
 jobs:
   build-latest-linux-binary:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+   
     runs-on: ubuntu-latest
 
     steps:
@@ -78,9 +76,7 @@ jobs:
         shell: bash                   
 
   build-latest-windows-binary:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+    
     runs-on: windows-latest
 
     steps:                                    

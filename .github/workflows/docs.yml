@@ -27,10 +27,7 @@ on:
       - 'README.md'
 
 jobs:
-  build-and-deploy-docs:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+  build-and-deploy-docs:    
     runs-on: ubuntu-latest
 
     steps:

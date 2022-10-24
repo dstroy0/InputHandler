@@ -31,12 +31,10 @@ on:
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
 jobs:  
-  check_formatting:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
+  check_formatting:    
 
     runs-on: ubuntu-latest
+    
     strategy:
       matrix:
         example: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 

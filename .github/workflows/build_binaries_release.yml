@@ -8,10 +8,7 @@ on:
       - '**/cli_gen_tool_src/**'
 
 jobs:
-  build-release-linux-binary:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+  build-release-linux-binary:    
 
     runs-on: ubuntu-latest
 
@@ -72,11 +69,8 @@ jobs:
           fi
         shell: bash                   
 
-  build-release-windows-binary:
-    concurrency: 
-      group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-      
+  build-release-windows-binary:    
+
     runs-on: windows-latest
 
     steps:                                    
