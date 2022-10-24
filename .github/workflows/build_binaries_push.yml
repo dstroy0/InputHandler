@@ -51,7 +51,8 @@ jobs:
           pip freeze                    
       
       - name: Build and zip binary
-        run: |                    
+        run: |
+          echo 'tools\\resources\\' >> $GITHUB_PATH                    
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux_macos/
           7z a -tzip './tools/bin/latest/linux_macos/cli_gen_tool.zip' './tools/bin/latest/linux_macos/cli_gen_tool'
           7z t './tools/bin/latest/linux_macos/cli_gen_tool.zip' *.
