@@ -11,6 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 # imports
+from __future__ import absolute_import
 import os
 import logging
 from logging.handlers import RotatingFileHandler
@@ -101,17 +102,20 @@ class Logger(object):
         Logger.stream_log_handler = stream_handler
         return stream_handler
 
-    ## returns the root logger
-    def get_logger(self, name):
-        log_handler = QPlainTextEditLogger(self)
-        Logger.session_log_handler = log_handler
+    ## initializes the logger; returns the root logger
+    def initialize_logger(self, name):
         logger = logging.getLogger(name)
-        logger.setLevel(Logger.session_history_log_level)
-        logger.addHandler(Logger.get_file_handler())
-        logger.addHandler(Logger.get_stream_handler())
-        logger.addHandler(log_handler)
+        logger.setLevel(Logger.session_history_log_level)        
+        logger.addHandler(Logger.get_stream_handler())        
         Logger.root_log_handler = logger
         return logger
+
+    ## sets up window log history
+    def set_up_window_history_logger(self):
+        log_handler = QPlainTextEditLogger(self)
+        Logger.session_log_handler = log_handler
+        Logger.root_log_handler.addHandler(log_handler)
+        
 
 
 # end of file

@@ -12,6 +12,7 @@
 from __future__ import absolute_import
 
 # imports
+import os
 import sys
 import json
 import qdarktheme
@@ -60,12 +61,6 @@ config_file_boolean_define_fields_line_start = 72
 ## How long should the splash be displayed (in ms)
 splashscreen_duration = 750
 
-## Library pathing
-path = QDir()
-path.cdUp()
-path.cdUp()
-lib_root_path = path.currentPath()
-
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows
@@ -85,14 +80,25 @@ class MainWindow(
     PreferencesMethods,
 ):
     ## The constructor.
-    def __init__(self, app, parent=None):
+    def __init__(
+        self,
+        app: QApplication,
+        lib_root_path: str,
+        file_path: str,
+        parent_logger: Logger,
+        parent=None,
+    ):
         super().__init__(parent)
         # tool version
+        self.logger = parent_logger
+        MainWindow.logger = Logger.get_child_logger(parent_logger, __name__)
+        
         self.version = version
         # input config file boolean define fields (ie // DISABLE_listSettings)
         self.config_file_boolean_define_fields_line_start = (
             config_file_boolean_define_fields_line_start
         )
+
         # pathing
         self.lib_root_path = lib_root_path
         # /InputHandler/src/config/config.h
@@ -119,17 +125,13 @@ class MainWindow(
         self.log.dlg.setupUi(self.log)
         # ensure log history popup is closed by default
         self.log.close()
+        # attach the logging process to the text widget        
+        Logger.set_up_window_history_logger(self)
 
         # preferences dialog
         self.preferences = QDialog(self)
         self.preferences.dlg = Ui_Preferences()
         self.preferences.dlg.setupUi(self.preferences)
-
-        # set up logging api
-        Logger.setup_file_handler(self.lib_root_path)
-        self.logger = Logger.get_logger(self, __name__)
-        self.logger.debug("App pathing set.")
-        self.logger.info("Loading CLI generation tool.")
 
         # import external classes
         self.logger.debug("Importing external classes.")
@@ -164,7 +166,9 @@ class MainWindow(
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
         self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
-        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText("Enter your argument types in order, separated by a comma.")
+        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText(
+            "Enter your argument types in order, separated by a comma."
+        )
 
         # CommandParameters user input objects
         self.command_parameters_user_input_objects = {
@@ -195,15 +199,17 @@ class MainWindow(
         }
 
         # MainWindow var
-        self.selected_command = None # currently selected editable command or None
-        self.selected_command_is_root = False # root commands one level below the root tree item
+        self.selected_command = None  # currently selected editable command or None
+        self.selected_command_is_root = (
+            False  # root commands one level below the root tree item
+        )
         self.command_parameters_input_field_settings = (
             dataModels.command_parameters_input_field_settings_dict
         )
         # set input field defaults
         self.set_commandparameters_field_defaults()
 
-        # 
+        #
         self.default_settings_tree_values = {}
 
         # InputHandler builtin user interactable commands
@@ -355,42 +361,70 @@ class MainWindow(
         self.restoreGeometry(settings.value("geometry"))
         self.restoreState(settings.value("windowState"))
 
+## set up pathing, logging, splash screen
+class Initialize(object):
+    def __init__(self) -> None:
+        super(Initialize, self).__init__()                       
+        self.logger = Logger.initialize_logger(self, __name__)
+        self.logger.debug("App pathing set.")
+        self.logger.info("Loading CLI generation tool.")
+        ## Library pathing
+        path = QDir()
+        file_path = os.path.abspath(__file__)
+        self.logger.info("File path: " + str(file_path))
+        path_dir_list = path.toNativeSeparators(file_path).split(path.separator())
+        self.logger.info("Dir list: " + str(path_dir_list))
+        num_cdup_to_lib_root = 0
+        for dirname in reversed(range(len(path_dir_list))):
+            #print(path_dir_list[dirname])
+            if dirname == "InputHandler":
+                self.logger.info("num dir below: " + str(num_cdup_to_lib_root))
+                break
+            num_cdup_to_lib_root += 1
+        for i in range(num_cdup_to_lib_root):
+            path.cdUp()
+        self.logger.info("Lib root path: " + str(path.currentPath()))
+        lib_root_path = path.currentPath()
+        Logger.setup_file_handler(lib_root_path)
+        self.logger.addHandler(Logger.get_file_handler())
+        # GUI container
+        app = QApplication(sys.argv)
+        # GUI styling
+        app.setStyleSheet(qdarktheme.load_stylesheet())
+        # app splashscreen
+        splash = QSplashScreen()
+        splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
+        splash.showMessage(
+            "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
+            (Qt.AlignHCenter | Qt.AlignBottom),
+            Qt.white,
+        )
+        splash.setWindowFlags(
+            splash.windowFlags() | Qt.WindowStaysOnTopHint
+        )  # or the windowstaysontophint into QSplashScreen window flags
+        splash.show()
+
+        # GUI layout
+        window = MainWindow(
+            app, lib_root_path, file_path, self.logger
+        )  # pass app object to external methods
+
+        # Splashscreen timer
+        splash.timer = QTimer()
+        splash.timer.setSingleShot(True)
+        splash.timer.start(
+            splashscreen_duration
+        )  # Show app splash for `splashscreen_duration`
+        splash.timer.timeout.connect(splash.close)  # close splash
+        splash.timer.timeout.connect(window.show)  # show window to user
+
+        # exit on user command
+        sys.exit(app.exec()) 
 
 ## main function
 def main():
-    # GUI container
-    app = QApplication(sys.argv)
-    # GUI styling
-    app.setStyleSheet(qdarktheme.load_stylesheet())
-    # app splashscreen
-    splash = QSplashScreen()
-    splash.setPixmap(QPixmap(lib_root_path + "/docs/img/_Logolarge.png"))
-    splash.showMessage(
-        "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
-        (Qt.AlignHCenter | Qt.AlignBottom),
-        Qt.white,
-    )
-    splash.setWindowFlags(
-        splash.windowFlags() | Qt.WindowStaysOnTopHint
-    )  # or the windowstaysontophint into QSplashScreen window flags
-    splash.show()
-
-    # GUI layout
-    window = MainWindow(app)  # pass app object to external methods
-
-    # Splashscreen timer
-    splash.timer = QTimer()
-    splash.timer.setSingleShot(True)
-    splash.timer.start(
-        splashscreen_duration
-    )  # Show app splash for `splashscreen_duration`
-    splash.timer.timeout.connect(splash.close)  # close splash
-    splash.timer.timeout.connect(window.show)  # show window to user
-
-    # exit on user command
-    sys.exit(app.exec())
-
-
+    Initialize()
+    
 # you can run this script
 if __name__ == "__main__":
     main()
