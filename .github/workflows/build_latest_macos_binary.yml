@@ -33,11 +33,13 @@ jobs:
           python -VV          
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
           pip install PyQt6-WebEngine
+          pip3 install PyQt6-WebEngine
+          pip3 install Pillow
           pip freeze                    
       
       - name: Build and zip binary
         run: |                         
-          pyinstaller -y -F -w -i ./docs/img/Icon.icns ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/macos/
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/macos/
           7z a -tzip './tools/bin/latest/macos/cli_gen_tool.zip' './tools/bin/latest/macos/cli_gen_tool'
           7z t './tools/bin/latest/macos/cli_gen_tool.zip' *.          
                   
