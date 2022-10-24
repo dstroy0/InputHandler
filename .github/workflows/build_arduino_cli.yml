@@ -34,7 +34,7 @@ jobs:
   check_formatting:
     concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: false
 
     runs-on: ubuntu-latest
     strategy:
@@ -61,7 +61,7 @@ jobs:
   build:
     concurrency: 
       group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: false
     needs: check_formatting
     runs-on: ubuntu-latest
     
