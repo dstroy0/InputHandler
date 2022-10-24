@@ -64,13 +64,9 @@ jobs:
         unzip /tmp/InputHandler-main.zip -d /tmp        
         ls
     
-    env:
-      PLATFORMIO_CI_SRC: ${{ matrix.examples }}
-    
     - name: Build PlatformIO ESP32
       run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=esp32dev                         
-    
-    - name: Build PlatformIO ES8266
-      run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=huzzah 
+      env:
+      PLATFORMIO_CI_SRC: ${{ matrix.examples }}    
