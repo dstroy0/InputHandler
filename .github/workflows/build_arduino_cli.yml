@@ -30,12 +30,12 @@ on:
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
-jobs:
-  concurrency: 
-    group: ci-${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
-
+jobs:  
   check_formatting:
+    concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -59,6 +59,9 @@ jobs:
           target-paths: ${{ matrix.example }}
   
   build:
+    concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     needs: check_formatting
     runs-on: ubuntu-latest
     
