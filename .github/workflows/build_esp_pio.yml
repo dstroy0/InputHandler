@@ -27,11 +27,7 @@ on:
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
 jobs:  
-  build-examples-matrix:
-    concurrency:
-      group: ci-${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}
-      cancel-in-progress: false
-    
+  build-examples-matrix:    
     runs-on: ubuntu-latest
     
     strategy:
