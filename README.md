@@ -5,7 +5,9 @@
 
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-[![build latest cli_gen_tool binaries](https://github.com/dstroy0/InputHandler/actions/workflows/build_binaries_push.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_binaries_push.yml)  
+ [![build latest cli_gen_tool linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_linux_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_linux_binary.yml)  
+ [![build latest cli_gen_tool windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_windows_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_windows_binary.yml)  
+ [![build latest cli_gen_tool macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_macos_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_macos_binary.yml)
 
 # Bug reporting
 Please report any bugs in InputHandler/src/ using [bug_report.md](https://github.com/dstroy0/InputHandler/blob/main/src/bug_report.md) at [InputHandler/src/ bug report forum](https://github.com/dstroy0/InputHandler/discussions/60)
