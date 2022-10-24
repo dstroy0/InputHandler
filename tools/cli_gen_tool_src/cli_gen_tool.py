@@ -369,6 +369,7 @@ class Initialize(object):
         self.logger.debug("App pathing set.")
         self.logger.info("Loading CLI generation tool.")
         ## Library pathing
+        # TODO prompt user for path to /InputHandler/ if binary is not in the lib folder
         path = QDir()
         file_path = os.path.abspath(__file__)
         self.logger.info("File path: " + str(file_path))
