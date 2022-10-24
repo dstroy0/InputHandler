@@ -366,7 +366,7 @@ class Initialize(object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()                       
         self.logger = Logger.initialize_logger(self, __name__)
-        self.logger.debug("App pathing set.")
+        self.logger.debug("App pathing setup.")
         self.logger.info("Loading CLI generation tool.")
         ## Library pathing
         # TODO prompt user for path to /InputHandler/ if binary is not in the lib folder
