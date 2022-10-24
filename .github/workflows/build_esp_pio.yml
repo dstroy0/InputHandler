@@ -68,4 +68,5 @@ jobs:
       run: pio ci --lib="/tmp/InputHandler-main/"                  
                   --board=esp32dev                         
                   --board=huzzah 
-      env: PLATFORMIO_CI_SRC: ${{ matrix.examples }}    
+      env: 
+        PLATFORMIO_CI_SRC: ${{ matrix.examples }}    
