@@ -31,6 +31,10 @@ on:
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
 jobs:
+  concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+      
   check_formatting:
     runs-on: ubuntu-latest
     strategy:

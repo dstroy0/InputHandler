@@ -13,6 +13,10 @@ on:
       - main    
     
 jobs:
+  concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+      
   cpp-linter:
     runs-on: ubuntu-latest
     steps:

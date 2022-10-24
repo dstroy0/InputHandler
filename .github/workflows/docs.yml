@@ -28,7 +28,9 @@ on:
 
 jobs:
   build-and-deploy-docs:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
 
     steps:

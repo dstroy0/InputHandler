@@ -26,9 +26,11 @@ on:
       - '**/examples/all_platforms/advanced/NestedCommands/**'
       - '**/examples/all_platforms/basic/WildcardCommands/**'
 
-jobs:
-  build:
-
+jobs:  
+  build-examples:
+  concurrency: 
+      group: ci-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     strategy:
       matrix:
