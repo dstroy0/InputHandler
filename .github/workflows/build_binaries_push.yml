@@ -98,9 +98,8 @@ jobs:
 
       - name: Build and zip binary
         shell: bash
-        run: |
-          echo '${{ github.workspace }}\\tools\\resources\\' >> $GITHUB_PATH                                   
-          pyinstaller -p ./tools/resources -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
+        run: |                                  
+          pyinstaller --add-binary ./tools/resources/api-ms-win-shcore-scaling-l1-1-1.dll -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/windows/
           7z a -tzip './tools/bin/latest/windows/cli_gen_tool.zip' './tools/bin/latest/windows/cli_gen_tool.exe'
           7z t './tools/bin/latest/windows/cli_gen_tool.zip' *. -r          
           rm './tools/bin/latest/windows/cli_gen_tool.exe'
