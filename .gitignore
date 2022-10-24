@@ -18,4 +18,4 @@ cli_gen_tool/res/uic/*
 **/__pycache__
 **/build
 **/cli_gen_tool.spec
-
+**/cli_gen_tool.app
