@@ -57,7 +57,7 @@ jobs:
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
           else
-            git commit -m "cli_gen_tool linux binary latest" -a
+            git commit -m "cli_gen_tool windows binary latest" -a
             echo "Pushing"
             git push
           fi        
