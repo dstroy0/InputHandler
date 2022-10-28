@@ -417,9 +417,14 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_preview.</span></span><span class="sig-name descname"><span class="pre">MarkDownBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QApplication</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextEdit</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.highlight_current_line">
-<span class="sig-name descname"><span class="pre">highlight_current_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.highlight_current_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.highlight_current_line" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="code_preview.MarkDownBrowser.mouseMoveEvent">
+<span class="sig-name descname"><span class="pre">mouseMoveEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_preview.html#MarkDownBrowser.mouseMoveEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_preview.MarkDownBrowser.mouseMoveEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="code_preview.MarkDownBrowser.mousePressEvent">
@@ -453,7 +458,7 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="code_preview.MarkDownBrowser.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;MarkDownBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextEdit&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#80</span> <span class="pre">type=Slot,</span> <span class="pre">signature=highlight_current_line()</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.MarkDownBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;MarkDownBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextEdit&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_preview.MarkDownBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -548,7 +553,7 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 </ul>
 </li>
 <li><a class="reference internal" href="#code_preview.MarkDownBrowser"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser</span></code></a><ul>
-<li><a class="reference internal" href="#code_preview.MarkDownBrowser.highlight_current_line"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.highlight_current_line()</span></code></a></li>
+<li><a class="reference internal" href="#code_preview.MarkDownBrowser.mouseMoveEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mouseMoveEvent()</span></code></a></li>
 <li><a class="reference internal" href="#code_preview.MarkDownBrowser.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mousePressEvent()</span></code></a></li>
 <li><a class="reference internal" href="#code_preview.MarkDownBrowser.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mouseReleaseEvent()</span></code></a></li>
 <li><a class="reference internal" href="#code_preview.MarkDownBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.resizeEvent()</span></code></a></li>

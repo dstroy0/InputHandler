@@ -305,8 +305,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">blockCountChanged</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateRequest</span><span class="p">[</span><span class="n">QRect</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursorPositionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_line_number_area_width</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span>
             <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByMouse</span>
         <span class="p">)</span>
@@ -405,19 +404,18 @@
 <div class="viewcode-block" id="CodePreviewBrowser.highlight_current_line"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.CodePreviewBrowser.highlight_current_line">[docs]</a>    <span class="nd">@Slot</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">highlight_current_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">extra_selections</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="n">selection</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="o">.</span><span class="n">ExtraSelection</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isReadOnly</span><span class="p">():</span>
-            <span class="n">selection</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="o">.</span><span class="n">ExtraSelection</span><span class="p">()</span>
+        <span class="n">line_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span><span class="o">.</span><span class="n">lighter</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
+        <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">line_color</span><span class="p">)</span>
 
-            <span class="n">line_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span><span class="o">.</span><span class="n">lighter</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
-            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">line_color</span><span class="p">)</span>
+        <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">QTextFormat</span><span class="o">.</span><span class="n">FullWidthSelection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">QTextFormat</span><span class="o">.</span><span class="n">FullWidthSelection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textCursor</span><span class="p">()</span>
+        <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
 
-            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textCursor</span><span class="p">()</span>
-            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
-
-            <span class="n">extra_selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+        <span class="n">extra_selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setExtraSelections</span><span class="p">(</span><span class="n">extra_selections</span><span class="p">)</span></div></div>
 
@@ -440,10 +438,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setVerticalScrollBarPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarAlwaysOn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursorPositionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_current_line</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span>        
         <span class="c1"># let the user navigate to the hyperlinks provided in the readme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span>
             <span class="n">Qt</span><span class="o">.</span><span class="n">TextSelectableByKeyboard</span>
@@ -460,6 +455,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ensureCursorVisible</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="MarkDownBrowser.mouseMoveEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.mouseMoveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;changes cursor over external link</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (QEvent): Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchorAt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">)</span>        </div>
+    
 <div class="viewcode-block" id="MarkDownBrowser.mousePressEvent"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;changes cursor over external link</span>
 
@@ -479,26 +484,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">:</span>
             <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anchor</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setOverrideCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-<div class="viewcode-block" id="MarkDownBrowser.highlight_current_line"><a class="viewcode-back" href="../modules/code_preview.html#code_preview.MarkDownBrowser.highlight_current_line">[docs]</a>    <span class="nd">@Slot</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">highlight_current_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">extra_selections</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isReadOnly</span><span class="p">():</span>
-            <span class="n">selection</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="o">.</span><span class="n">ExtraSelection</span><span class="p">()</span>
-
-            <span class="n">line_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span><span class="o">.</span><span class="n">lighter</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
-            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">line_color</span><span class="p">)</span>
-
-            <span class="n">selection</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="n">QTextFormat</span><span class="o">.</span><span class="n">FullWidthSelection</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-
-            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textCursor</span><span class="p">()</span>
-            <span class="n">selection</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
-
-            <span class="n">extra_selections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">setExtraSelections</span><span class="p">(</span><span class="n">extra_selections</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span></div></div>
 
 
 <span class="c1"># code preview methods</span>
