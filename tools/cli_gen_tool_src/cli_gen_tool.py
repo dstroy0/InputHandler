@@ -273,6 +273,7 @@ class MainWindow(
         self.build_lib_settings_tree()
 
         # code preview trees
+        self.minimum_file_len = dataModels.minimum_file_len_dict
         self.build_code_preview_tree()
         self.display_initial_code_preview()
 
@@ -374,7 +375,7 @@ class Initialize(object):
         file_path = os.path.abspath(__file__)
         self.logger.info("File path: " + str(file_path))
         path_dir_list = path.toNativeSeparators(file_path).split(path.separator())
-        self.logger.info("Dir list: " + str(path_dir_list))
+        #self.logger.info("Dir list: " + str(path_dir_list))
         num_cdup_to_lib_root = 0
         for dirname in reversed(range(len(path_dir_list))):
             #print(path_dir_list[dirname])
@@ -384,8 +385,8 @@ class Initialize(object):
             num_cdup_to_lib_root += 1
         for i in range(num_cdup_to_lib_root):
             path.cdUp()
-        self.logger.info("Lib root path: " + str(path.currentPath()))
-        lib_root_path = path.currentPath()
+        self.logger.info("Lib root path: " + str(path.toNativeSeparators(path.currentPath())))
+        lib_root_path = path.toNativeSeparators(path.currentPath())
         Logger.setup_file_handler(lib_root_path)
         self.logger.addHandler(Logger.get_file_handler())
         # GUI container

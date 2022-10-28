@@ -290,73 +290,19 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         CodePreview.logger.debug("update {filename}".format(filename=file))
         # update widgets
         if file == "README.md":
-            self.readme_md(item_string, place_cursor)
-            print(
-                "README.md len"
-                + str(
-                    len(self.code_preview_dict["files"]["README.md"]["file_lines_list"])
-                )
-            )
+            self.readme_md(item_string, place_cursor)            
         if file == "config.h":
-            self.config_h(item_string, place_cursor)
-            print(
-                "config.h len"
-                + str(
-                    len(self.code_preview_dict["files"]["config.h"]["file_lines_list"])
-                )
-            )
+            self.config_h(item_string, place_cursor)            
         if file == "setup.h":
-            self.setup_h(item_string, place_cursor)
-            print(
-                "setup.h len"
-                + str(
-                    len(self.code_preview_dict["files"]["setup.h"]["file_lines_list"])
-                )
-            )
+            self.setup_h(item_string, place_cursor)            
         if file == "setup.cpp":
-            self.setup_cpp(item_string, place_cursor)
-            print(
-                "setup.cpp len"
-                + str(
-                    len(self.code_preview_dict["files"]["setup.cpp"]["file_lines_list"])
-                )
-            )
+            self.setup_cpp(item_string, place_cursor)            
         if file == "parameters.h":
-            self.parameters_h(item_string, place_cursor)
-            print(
-                "parameters.h len"
-                + str(
-                    len(
-                        self.code_preview_dict["files"]["parameters.h"][
-                            "file_lines_list"
-                        ]
-                    )
-                )
-            )
+            self.parameters_h(item_string, place_cursor)            
         if file == "functions.h":
-            self.functions_h(item_string, place_cursor)
-            print(
-                "functions.h len"
-                + str(
-                    len(
-                        self.code_preview_dict["files"]["functions.h"][
-                            "file_lines_list"
-                        ]
-                    )
-                )
-            )
+            self.functions_h(item_string, place_cursor)            
         if file == "functions.cpp":
-            self.functions_cpp(item_string, place_cursor)
-            print(
-                "functions.cpp len"
-                + str(
-                    len(
-                        self.code_preview_dict["files"]["functions.cpp"][
-                            "file_lines_list"
-                        ]
-                    )
-                )
-            )
+            self.functions_cpp(item_string, place_cursor)            
 
     def display_initial_code_preview(self) -> None:
         """Generates initial text for all CodePreviewBrowser"""
@@ -575,6 +521,13 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
+            if len(self.code_preview_dict["files"][filename]["file_lines_list"]) <= self.minimum_file_len[filename]:                
+                if filename == "setup.cpp":
+                    self.code_preview_dict["files"]["setup.h"]["text_widget"][tab].clear()                    
+                    self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
+                self.code_preview_dict["files"][filename]["file_lines_list"] = []                
+                return
+            
             if filename != "README.md":
                 text_widget.setPlainText(code_string)
             else:

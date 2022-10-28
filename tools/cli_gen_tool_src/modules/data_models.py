@@ -293,6 +293,16 @@ class dataModels(object):
         }
     }
 
+    minimum_file_len_dict = {
+        "README.md": 0,
+        "config.h": 0,
+        "setup.h": 57,
+        "setup.cpp": 31,
+        "parameters.h": 27,
+        "functions.h": 27,
+        "functions.cpp": 23,
+    }
+    
     ## the constructor
     def __init__(self, version) -> None:
         super(dataModels, self).__init__()
