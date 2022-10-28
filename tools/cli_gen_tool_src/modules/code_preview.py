@@ -81,8 +81,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.blockCountChanged[int].connect(self.update_line_number_area_width)
         self.updateRequest[QRect, int].connect(self.update_line_number_area)
         self.cursorPositionChanged.connect(self.highlight_current_line)
-        self.update_line_number_area_width(0)
-        self.highlight_current_line()
+        self.update_line_number_area_width(0)        
         self.setTextInteractionFlags(
             Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse
         )
@@ -181,19 +180,18 @@ class CodePreviewBrowser(QPlainTextEdit):
     @Slot()
     def highlight_current_line(self):
         extra_selections = []
+        
+        selection = QTextEdit.ExtraSelection()
 
-        if not self.isReadOnly():
-            selection = QTextEdit.ExtraSelection()
+        line_color = QColor(Qt.blue).lighter(160)
+        selection.format.setBackground(line_color)
 
-            line_color = QColor(Qt.yellow).lighter(160)
-            selection.format.setBackground(line_color)
+        selection.format.setProperty(QTextFormat.FullWidthSelection, True)
 
-            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+        selection.cursor = self.textCursor()
+        selection.cursor.clearSelection()
 
-            selection.cursor = self.textCursor()
-            selection.cursor.clearSelection()
-
-            extra_selections.append(selection)
+        extra_selections.append(selection)
 
         self.setExtraSelections(extra_selections)
 
@@ -216,10 +214,7 @@ class MarkDownBrowser(QTextEdit):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.ensureCursorVisible()
-
-        self.cursorPositionChanged.connect(self.highlight_current_line)
-        self.highlight_current_line()
+        self.ensureCursorVisible()        
         # let the user navigate to the hyperlinks provided in the readme
         self.setTextInteractionFlags(
             Qt.TextSelectableByKeyboard
@@ -236,6 +231,16 @@ class MarkDownBrowser(QTextEdit):
         """
         self.ensureCursorVisible()
 
+    def mouseMoveEvent(self, e):
+        """changes cursor over external link
+
+        Args:
+            e (QEvent): Event
+        """
+        self.anchor = self.anchorAt(e.pos())
+        if self.anchor:
+            self.app.setOverrideCursor(Qt.PointingHandCursor)        
+    
     def mousePressEvent(self, e):
         """changes cursor over external link
 
@@ -256,25 +261,6 @@ class MarkDownBrowser(QTextEdit):
             QDesktopServices.openUrl(QUrl(self.anchor))
             self.app.setOverrideCursor(Qt.ArrowCursor)
             self.anchor = None
-
-    @Slot()
-    def highlight_current_line(self):
-        extra_selections = []
-
-        if not self.isReadOnly():
-            selection = QTextEdit.ExtraSelection()
-
-            line_color = QColor(Qt.yellow).lighter(160)
-            selection.format.setBackground(line_color)
-
-            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
-
-            selection.cursor = self.textCursor()
-            selection.cursor.clearSelection()
-
-            extra_selections.append(selection)
-
-        self.setExtraSelections(extra_selections)
 
 
 # code preview methods
