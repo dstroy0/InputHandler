@@ -29,24 +29,24 @@ class cliFunctions(object):
             "filestring components"
         ]["function prototype"]
         functions_h_prototype_list = []
-        
+
         # default function
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname="unrecognized", objectname=object_name
                 )
-            )            
+            )
 
         # functions with parameters
         for key in self.cliOpt["commands"]["parameters"]:
-            parameters = self.cliOpt["commands"]["parameters"][key]            
+            parameters = self.cliOpt["commands"]["parameters"][key]
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname=parameters["functionName"], objectname=object_name
                 )
             )
-        
+
         statements = ""
         for item in functions_h_prototype_list:
             statements += item
@@ -88,17 +88,20 @@ class cliFunctions(object):
         # functions with parameters
         for key in self.cliOpt["commands"]["parameters"]:
             parameters = self.cliOpt["commands"]["parameters"][key]
-            if parameters["functionName"] in self.fsdb["functions"]["cpp"]["filestring components"]:
-                statement = self.fsdb["functions"]["cpp"]["filestring components"][
+            if (
                 parameters["functionName"]
-            ]["call"].format(objectname=object_name, stream=stream_string)
-            func_list.append(
-                func_string.format(
-                    functionname=parameters["functionName"],
-                    objectname=object_name,
-                    statements=statement,
+                in self.fsdb["functions"]["cpp"]["filestring components"]
+            ):
+                statement = self.fsdb["functions"]["cpp"]["filestring components"][
+                    parameters["functionName"]
+                ]["call"].format(objectname=object_name, stream=stream_string)
+                func_list.append(
+                    func_string.format(
+                        functionname=parameters["functionName"],
+                        objectname=object_name,
+                        statements=statement,
+                    )
                 )
-            )                    
 
         # concatenate individual function strings into one string
         funcs_string = ""

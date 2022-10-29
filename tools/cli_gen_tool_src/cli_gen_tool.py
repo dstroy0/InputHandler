@@ -199,6 +199,8 @@ class MainWindow(
         }
 
         # MainWindow var
+        self.adding_child_command = False
+        self.child_command_parent = None
         self.selected_command = None  # currently selected editable command or None
         self.selected_command_is_root = (
             False  # root commands one level below the root tree item

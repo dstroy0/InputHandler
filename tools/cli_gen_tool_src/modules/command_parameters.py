@@ -24,7 +24,8 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QPlainTextEdit,
-    QSpinBox,
+    QSpinBox, 
+    QTreeWidgetItem,
 )
 
 # logging api
@@ -351,7 +352,8 @@ class CommandParametersMethods(object):
             self.argument_handling_changed
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
-
+        
+    
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self) -> None:
         """This function is reached when the user clicks `ok` on the CommandParametersDialog
@@ -379,19 +381,30 @@ class CommandParametersMethods(object):
             cmd_idx = str(self.cliOpt["var"]["primary id key"])
             # make dict from defined keys
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
-            p_idx = copy.deepcopy(dataModels.parameters_index_struct)
-            if self.selected_command_is_root:
+            p_idx = copy.deepcopy(dataModels.parameters_index_struct)                       
+            if self.selected_command_is_root and self.child_command_parent == None:
                 p_idx["root index key"] = cmd_idx
-            p_idx["parameters key"] = cmd_idx
-            self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
-
-            CommandParametersMethods.logger.debug(
+                
+                p_idx["parameters key"] = cmd_idx
+                self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
+                CommandParametersMethods.logger.debug(
                 json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
-            )
-            self.add_qtreewidgetitem(
+                )
+                self.add_qtreewidgetitem(
                 self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                 p_idx["parameters key"],
-            )
+                )                            
+            else:                                                              
+                p_idx["parameters key"] = cmd_idx
+                self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
+                CommandParametersMethods.logger.debug(
+                json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
+                )
+                self.add_qtreewidgetitem(
+                self.child_command_parent,
+                p_idx["parameters key"],
+                )
+                self.child_command_parent = None
 
             # command parameters were accepted, so increment the array index
             self.cliOpt["var"]["primary id key"] = str(

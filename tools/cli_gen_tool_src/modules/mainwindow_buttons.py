@@ -247,13 +247,19 @@ class MainWindowButtons(object):
             self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():
             self.selected_command_is_root = False
+            _items = self.ui.command_tree.selectedItems()
+            self.child_command_parent = _items[0]
+            object_list = self.child_command_parent.data(1, 0).split(",")
+            self.child_command_parent = self.cliOpt["commands"]["QTreeWidgetItem"][
+                "container"
+            ][object_list[0]]            
             MainWindowButtons.logger.info(
                 "user clicked new command button with child context"
             )
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
             self.ui.commandParameters.exec()
 
-    def clicked_delete_tab_two(self) -> None:        
+    def clicked_delete_tab_two(self) -> None:
         MainWindowButtons.logger.info("clicked tab two delete")
         # command_tree root item
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
@@ -294,8 +300,8 @@ class MainWindowButtons(object):
                     ]["QComboBox"]
                     # there's only one item in the builtin but the key isn't known here.
                     for item in _cmb:
-                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))                
-                self.rem_command(_object_list)                
+                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
+                self.rem_command(_object_list)
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")
