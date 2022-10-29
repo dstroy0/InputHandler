@@ -29,28 +29,24 @@ class cliFunctions(object):
             "filestring components"
         ]["function prototype"]
         functions_h_prototype_list = []
-
+        
+        # default function
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname="unrecognized", objectname=object_name
                 )
-            )
+            )            
 
-        if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
+        # functions with parameters
+        for key in self.cliOpt["commands"]["parameters"]:
+            parameters = self.cliOpt["commands"]["parameters"][key]            
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
-                    functionname="listCommands", objectname=object_name
+                    functionname=parameters["functionName"], objectname=object_name
                 )
             )
-
-        if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
-            functions_h_prototype_list.append(
-                functions_h_prototype_string.format(
-                    functionname="listSettings", objectname=object_name
-                )
-            )
-
+        
         statements = ""
         for item in functions_h_prototype_list:
             statements += item
@@ -76,7 +72,7 @@ class cliFunctions(object):
         func_string = self.fsdb["functions"]["cpp"]["filestring components"]["function"]
         func_list = []
 
-        # builtin methods
+        # default function
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
             statement = self.fsdb["functions"]["cpp"]["filestring components"][
                 "outputToStream"
@@ -89,32 +85,20 @@ class cliFunctions(object):
                 )
             )
 
-        if self.cliOpt["builtin methods"]["var"]["listCommands"] == True:
-            statement = self.fsdb["functions"]["cpp"]["filestring components"][
-                "listCommands"
+        # functions with parameters
+        for key in self.cliOpt["commands"]["parameters"]:
+            parameters = self.cliOpt["commands"]["parameters"][key]
+            if parameters["functionName"] in self.fsdb["functions"]["cpp"]["filestring components"]:
+                statement = self.fsdb["functions"]["cpp"]["filestring components"][
+                parameters["functionName"]
             ]["call"].format(objectname=object_name, stream=stream_string)
             func_list.append(
                 func_string.format(
-                    functionname="listCommands",
+                    functionname=parameters["functionName"],
                     objectname=object_name,
                     statements=statement,
                 )
-            )
-
-        if self.cliOpt["builtin methods"]["var"]["listSettings"] == True:
-            statement = self.fsdb["functions"]["cpp"]["filestring components"][
-                "listSettings"
-            ]["call"].format(objectname=object_name, stream=stream_string)
-            func_list.append(
-                func_string.format(
-                    functionname="listSettings",
-                    objectname=object_name,
-                    statements=statement,
-                )
-            )
-
-        # user commands
-        # TODO struct of user commands dict
+            )                    
 
         # concatenate individual function strings into one string
         funcs_string = ""

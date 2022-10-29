@@ -131,18 +131,20 @@ class CommandTreeMethods(object):
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
-        if dict_index == None or dict_index == "":
-            if dict_index == None:
-                CommandTreeMethods.logger.info("no index, unable to add item to tree")
-            if dict_index == "":
-                CommandTreeMethods.logger.info("user deleted a command from the tree")
-                self.update_code("functions.h", "", False)
-                self.update_code("functions.cpp", "", False)
-                self.update_code("parameters.h", "", False)
+        # error checking        
+        if dict_index == None:
+            CommandTreeMethods.logger.info("no index, unable to add item to tree")
             return
-        if dict_index not in self.cliOpt["commands"]["parameters"]:
+        elif dict_index == "":
+            CommandTreeMethods.logger.info("user deleted a command from the tree")
+            self.update_code("functions.h", "", False)
+            self.update_code("functions.cpp", "", False)
+            self.update_code("parameters.h", "", False)
+            return
+        elif dict_index not in self.cliOpt["commands"]["parameters"]:
             CommandTreeMethods.logger.info("dict_index not found")
             return
+        
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
             dict_index + "," + dict_index + "," + command_parameters["commandString"]
