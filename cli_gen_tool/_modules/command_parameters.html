@@ -248,7 +248,8 @@
     <span class="n">QLineEdit</span><span class="p">,</span>
     <span class="n">QComboBox</span><span class="p">,</span>
     <span class="n">QPlainTextEdit</span><span class="p">,</span>
-    <span class="n">QSpinBox</span><span class="p">,</span>
+    <span class="n">QSpinBox</span><span class="p">,</span> 
+    <span class="n">QTreeWidgetItem</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># logging api</span>
@@ -575,7 +576,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">argument_handling_changed</span>
         <span class="p">)</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">commandString</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_string_text_changed</span><span class="p">)</span></div>
-
+        
+    
     <span class="c1">## command parameters dialog buttonbox ok</span>
 <div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_ok"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_ok">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This function is reached when the user clicks `ok` on the CommandParametersDialog</span>
@@ -603,19 +605,30 @@
             <span class="n">cmd_idx</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
             <span class="c1"># make dict from defined keys</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">cmd_idx</span><span class="p">:</span> <span class="n">validated_result</span><span class="p">})</span>
-            <span class="n">p_idx</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">parameters_index_struct</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span><span class="p">:</span>
+            <span class="n">p_idx</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">parameters_index_struct</span><span class="p">)</span>                       
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd_idx</span>
-            <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd_idx</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]:</span> <span class="n">p_idx</span><span class="p">})</span>
-
-            <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd_idx</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]:</span> <span class="n">p_idx</span><span class="p">})</span>
+                <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                 <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">],</span>
                 <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
-            <span class="p">)</span>
+                <span class="p">)</span>                            
+            <span class="k">else</span><span class="p">:</span>                                                              
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd_idx</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]:</span> <span class="n">p_idx</span><span class="p">})</span>
+                <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="p">,</span>
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># command parameters were accepted, so increment the array index</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
