@@ -627,6 +627,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="p">,</span>
                     <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
+                <span class="n">_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                <span class="n">_parent_index_struct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="n">_parent_index_struct</span><span class="p">[</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
                 <span class="c1"># reset parent to ensure user selects the parent again if they want to add another child</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="kc">None</span>
 

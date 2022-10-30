@@ -237,6 +237,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 
 <span class="c1"># pyside imports</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QScreen</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QDialog</span><span class="p">,</span>
     <span class="n">QDialogButtonBox</span><span class="p">,</span>
@@ -245,7 +246,7 @@
     <span class="n">QWidget</span><span class="p">,</span>
     <span class="n">QSizePolicy</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QPoint</span>
 
 <span class="c1"># logging api</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
@@ -255,12 +256,13 @@
 <div class="viewcode-block" id="HelperMethods"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods">[docs]</a><span class="k">class</span> <span class="nc">HelperMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1">## instance</span>
     <span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
+    <span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
         <span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span>
 
     <span class="c1">## spawn a dialog box</span>
 <div class="viewcode-block" id="HelperMethods.create_qdialog"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods.create_qdialog">[docs]</a>    <span class="k">def</span> <span class="nf">create_qdialog</span><span class="p">(</span>
@@ -272,10 +274,11 @@
         <span class="n">buttons</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">button_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">screen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;create qdialog: &quot;</span> <span class="o">+</span> <span class="n">window_title</span><span class="p">)</span>
         <span class="n">_buttons</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">button_box_clicked</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
             <span class="n">_match</span> <span class="o">=</span> <span class="mi">0</span>
@@ -321,13 +324,27 @@
                 <span class="n">_buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_button</span><span class="p">)</span>
                 <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">button_box_clicked</span><span class="p">)</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="o">.</span><span class="n">setCenterButtons</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">dlg</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">button_box</span><span class="p">)</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">icon</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">dlg</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">window_title</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">dlg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">window_title</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="n">dlg</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
+
         <span class="n">dlg</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>  <span class="c1"># brings focus to the popup</span>
+
+        <span class="c1"># center dialog on screen</span>
+        <span class="k">if</span> <span class="n">screen</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_qscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_screen</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_qscreen</span> <span class="o">=</span> <span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">qscreen</span>
+
+        <span class="n">_fg</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">frameGeometry</span><span class="p">()</span>
+        <span class="n">center_point</span> <span class="o">=</span> <span class="n">_qscreen</span><span class="o">.</span><span class="n">availableGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+        <span class="n">_fg</span><span class="o">.</span><span class="n">moveCenter</span><span class="p">(</span><span class="n">center_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating QDialog on: &quot;</span> <span class="o">+</span> <span class="n">_qscreen</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>  <span class="c1"># return the dialog exit code</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 

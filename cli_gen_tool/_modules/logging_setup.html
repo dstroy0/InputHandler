@@ -311,7 +311,13 @@
             <span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span></div>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Log file path: &quot;</span>
+            <span class="o">+</span> <span class="n">_abs_native_path</span>
+            <span class="o">+</span> <span class="n">_path</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
+            <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span>
+        <span class="p">)</span></div>
 
     <span class="c1">## external modules are children of MainWindow&#39;s logging instance</span>
 <div class="viewcode-block" id="Logger.get_child_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.get_child_logger">[docs]</a>    <span class="k">def</span> <span class="nf">get_child_logger</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
