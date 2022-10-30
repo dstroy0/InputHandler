@@ -15,6 +15,7 @@ from __future__ import absolute_import
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from PySide6.QtCore import QDir
 
 
 ## this class displays the session log history
@@ -74,11 +75,13 @@ class Logger(object):
     ## This is called to set up the log file handler in MainWindow.__init__()
     def setup_file_handler(lib_root_path):
         # logfile pathing
-        if not os.path.isdir(lib_root_path + Logger._log_path):
-            os.mkdir(lib_root_path + Logger._log_path)
+        _path = QDir(lib_root_path + Logger._log_path)        
+        _abs_native_path = _path.toNativeSeparators(_path.absolutePath())
+        if not os.path.isdir(_abs_native_path):
+            os.mkdir(_abs_native_path)
         # log filehandler
         Logger.file_log_handler = RotatingFileHandler(
-            lib_root_path + Logger._log_path + Logger._log_filename,
+            _abs_native_path + Logger._log_filename,
             "a",
             10 * Logger._MB,
             backupCount=5,

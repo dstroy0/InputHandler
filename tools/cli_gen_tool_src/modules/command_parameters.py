@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QPlainTextEdit,
-    QSpinBox, 
+    QSpinBox,
     QTreeWidgetItem,
 )
 
@@ -45,8 +45,7 @@ class CommandParametersMethods(object):
 
     ## the constructor
     def __init__(self) -> None:
-        """Constructor method
-        """
+        """Constructor method"""
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
 
@@ -66,7 +65,7 @@ class CommandParametersMethods(object):
     ## generates a dict from csv arguments in the command parameters dialog
     # TODO add text UITYPE:: and comma to returned list items
     def list_from_csv_args(self) -> None:
-        """Pulls text from CommandParametersDialog arguments pane, separates 
+        """Pulls text from CommandParametersDialog arguments pane, separates
         them into arguments.
 
         Returns:
@@ -92,8 +91,7 @@ class CommandParametersMethods(object):
 
     ## all buttons related to adding/removing arguments from the command parameters dialog
     def csv_button(self) -> None:
-        """Buttons related to adding/removing arguments in CommandParametersDialog.
-        """
+        """Buttons related to adding/removing arguments in CommandParametersDialog."""
         CommandParametersMethods.logger.info(self.sender().objectName())
         rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
         test_string = self.sender().objectName()
@@ -132,8 +130,7 @@ class CommandParametersMethods(object):
 
     ## removes the last argument added (pop)
     def rem_from_arg_csv(self) -> None:
-        """Removes the argument at the end of the arguments pane CSV.
-        """
+        """Removes the argument at the end of the arguments pane CSV."""
         arg_dict = self.dict_from_csv_args()
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
         text.clear()
@@ -160,7 +157,7 @@ class CommandParametersMethods(object):
         settings_to_validate["functionName"] = str(
             str(self.command_parameters_user_input_objects["commandString"].text())
             + "_"
-            + str(self.cliOpt["var"]["primary id key"])            
+            + str(self.cliOpt["var"]["primary id key"])
         )
         settings_to_validate[
             "commandString"
@@ -296,8 +293,7 @@ class CommandParametersMethods(object):
 
     ## sets the regexp and range validators for CommandParameters input
     def set_command_parameter_validators(self) -> None:
-        """Sets CommandParametersDialog input validators.
-        """
+        """Sets CommandParametersDialog input validators."""
         cmd_dlg = self.ui.commandParameters.dlg
         # allowed function name char
         cmd_dlg.returnFunctionName.setValidator(
@@ -322,8 +318,7 @@ class CommandParametersMethods(object):
 
     ## triggers related to the command parameters dialog
     def set_command_parameters_triggers(self) -> None:
-        """Set up interaction triggers for CommandParametersDialog
-        """
+        """Set up interaction triggers for CommandParametersDialog"""
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.add8bituint.clicked.connect(self.csv_button)
         cmd_dlg.add16bituint.clicked.connect(self.csv_button)
@@ -352,12 +347,10 @@ class CommandParametersMethods(object):
             self.argument_handling_changed
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
-        
-    
+
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self) -> None:
-        """This function is reached when the user clicks `ok` on the CommandParametersDialog
-        """
+        """This function is reached when the user clicks `ok` on the CommandParametersDialog"""
         CommandParametersMethods.logger.info("clicked ok on command parameters menu")
         validate_result = self.validate_command_parameters()
         # error
@@ -381,29 +374,36 @@ class CommandParametersMethods(object):
             cmd_idx = str(self.cliOpt["var"]["primary id key"])
             # make dict from defined keys
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
-            p_idx = copy.deepcopy(dataModels.parameters_index_struct)                       
+            p_idx = copy.deepcopy(dataModels.parameters_index_struct)
+            # root command
             if self.selected_command_is_root and self.child_command_parent == None:
                 p_idx["root index key"] = cmd_idx
-                
+
                 p_idx["parameters key"] = cmd_idx
-                self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
+                self.cliOpt["commands"]["index"].update(
+                    {p_idx["parameters key"]: p_idx}
+                )
                 CommandParametersMethods.logger.debug(
-                json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
+                    json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
                 )
                 self.add_qtreewidgetitem(
-                self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                p_idx["parameters key"],
-                )                            
-            else:                                                              
+                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
+                    p_idx["parameters key"],
+                )
+            # non root command
+            else:
                 p_idx["parameters key"] = cmd_idx
-                self.cliOpt["commands"]["index"].update({p_idx["parameters key"]: p_idx})
+                self.cliOpt["commands"]["index"].update(
+                    {p_idx["parameters key"]: p_idx}
+                )
                 CommandParametersMethods.logger.debug(
-                json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
+                    json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
                 )
                 self.add_qtreewidgetitem(
-                self.child_command_parent,
-                p_idx["parameters key"],
+                    self.child_command_parent,
+                    p_idx["parameters key"],
                 )
+                # reset parent to ensure user selects the parent again if they want to add another child
                 self.child_command_parent = None
 
             # command parameters were accepted, so increment the array index
@@ -427,22 +427,20 @@ class CommandParametersMethods(object):
 
     ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self) -> None:
-        """This function is reached if the user clicked `reset` on CommandParametersDialog.
-        """
+        """This function is reached if the user clicked `reset` on CommandParametersDialog."""
         CommandParametersMethods.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
         cmd_dlg.argumentsPlainTextCSV.clear()
 
     ## command parameters dialog buttonbox cancel changes
     def clicked_command_parameters_buttonbox_cancel(self) -> None:
-        """This function is reached if the user clicked `cancel` on CommandParametersDialog.
-        """
+        """This function is reached if the user clicked `cancel` on CommandParametersDialog."""
         CommandParametersMethods.logger.info("cancel")
         self.ui.commandParameters.close()
 
     ## refreshes `commandLength`
     def command_string_text_changed(self) -> None:
-        """Updates `commandLength` when the user enters or removes 
+        """Updates `commandLength` when the user enters or removes
         characters from `commandString`
         """
         cmd_dlg = self.ui.commandParameters.dlg
@@ -535,8 +533,7 @@ class CommandParametersMethods(object):
                     CommandParametersMethods.logger.debug("unknown field: " + str(key))
 
     def set_commandparameters_field_defaults(self) -> None:
-        """This function sets the DEFAULT values for CommandParametersDialog.
-        """
+        """This function sets the DEFAULT values for CommandParametersDialog."""
         # CommandParameters default field values
         inp_setup = self.command_parameters_input_field_settings
         inp_setup["returnFunctionName"]["value"] = ""
