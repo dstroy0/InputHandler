@@ -239,6 +239,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">logging.handlers</span> <span class="kn">import</span> <span class="n">RotatingFileHandler</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QDir</span>
 
 
 <span class="c1">## this class displays the session log history</span>
@@ -298,11 +299,13 @@
     <span class="c1">## This is called to set up the log file handler in MainWindow.__init__()</span>
 <div class="viewcode-block" id="Logger.setup_file_handler"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.setup_file_handler">[docs]</a>    <span class="k">def</span> <span class="nf">setup_file_handler</span><span class="p">(</span><span class="n">lib_root_path</span><span class="p">):</span>
         <span class="c1"># logfile pathing</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>        
+        <span class="n">_abs_native_path</span> <span class="o">=</span> <span class="n">_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">)</span>
         <span class="c1"># log filehandler</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span> <span class="o">=</span> <span class="n">RotatingFileHandler</span><span class="p">(</span>
-            <span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span><span class="p">,</span>
+            <span class="n">_abs_native_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span><span class="p">,</span>
             <span class="s2">&quot;a&quot;</span><span class="p">,</span>
             <span class="mi">10</span> <span class="o">*</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_MB</span><span class="p">,</span>
             <span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
