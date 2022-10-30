@@ -14,6 +14,7 @@ from __future__ import absolute_import
 
 from modules.logging_setup import Logger
 
+
 class cliParameters(object):
     ## the constructor
     def __init__(self) -> None:
@@ -92,17 +93,19 @@ class cliParameters(object):
 
         code_string = ""
         code_string = self.list_to_code_string(docstring)
-        
+
         parameters_h_fs = self.fsdb["parameters"]["h"]["filestring"]
 
         parameters_code_string = ""
         cliParameters.logger.debug("generating parameters")
         for index in self.cliOpt["commands"]["index"]:
-            key = self.cliOpt["commands"]["index"][index]["parameters key"]           
+            key = self.cliOpt["commands"]["index"][index]["parameters key"]
             # unnested parameters
             if (
                 key in self.cliOpt["commands"]["parameters"]
-                and bool(self.cliOpt["commands"]["index"][index]["child index key list"])
+                and bool(
+                    self.cliOpt["commands"]["index"][index]["child index key list"]
+                )
                 == False
             ):
                 parameters_code_string += self.ret_unnested_param(
@@ -111,9 +114,11 @@ class cliParameters(object):
                 cliParameters.logger.debug("unnested param generated")
             elif (
                 key in self.cliOpt["commands"]["parameters"]
-                and bool(self.cliOpt["commands"]["index"][index]["child index key list"])
+                and bool(
+                    self.cliOpt["commands"]["index"][index]["child index key list"]
+                )
                 == True
-            ):                
+            ):
                 # nested parameters
                 for item in self.cliOpt["commands"]["index"][index][
                     "child index key list"
@@ -142,7 +147,7 @@ class cliParameters(object):
                             False,
                         )
                 cliParameters.logger.debug("nested param generated")
-                
+
                 parameters_code_string += self.ret_nested_param(
                     num_children,
                     nested_children_string,

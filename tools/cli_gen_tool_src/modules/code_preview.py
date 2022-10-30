@@ -81,7 +81,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.blockCountChanged[int].connect(self.update_line_number_area_width)
         self.updateRequest[QRect, int].connect(self.update_line_number_area)
         self.cursorPositionChanged.connect(self.highlight_current_line)
-        self.update_line_number_area_width(0)        
+        self.update_line_number_area_width(0)
         self.setTextInteractionFlags(
             Qt.TextSelectableByKeyboard | Qt.TextSelectableByMouse
         )
@@ -140,7 +140,7 @@ class CodePreviewBrowser(QPlainTextEdit):
             painter.fillRect(event.rect(), Qt.lightGray)
             block = self.firstVisibleBlock()
             block_number = block.blockNumber()
-            _contentOffset = self.contentOffset()            
+            _contentOffset = self.contentOffset()
             top = self.blockBoundingGeometry(block).translated(_contentOffset).top()
             bottom = top + self.blockBoundingRect(block).height()
 
@@ -180,7 +180,7 @@ class CodePreviewBrowser(QPlainTextEdit):
     @Slot()
     def highlight_current_line(self):
         extra_selections = []
-        
+
         selection = QTextEdit.ExtraSelection()
 
         line_color = QColor(Qt.blue).lighter(160)
@@ -214,7 +214,7 @@ class MarkDownBrowser(QTextEdit):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.ensureCursorVisible()        
+        self.ensureCursorVisible()
         # let the user navigate to the hyperlinks provided in the readme
         self.setTextInteractionFlags(
             Qt.TextSelectableByKeyboard
@@ -239,8 +239,8 @@ class MarkDownBrowser(QTextEdit):
         """
         self.anchor = self.anchorAt(e.pos())
         if self.anchor:
-            self.app.setOverrideCursor(Qt.PointingHandCursor)        
-    
+            self.app.setOverrideCursor(Qt.PointingHandCursor)
+
     def mousePressEvent(self, e):
         """changes cursor over external link
 
@@ -290,19 +290,19 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         CodePreview.logger.debug("update {filename}".format(filename=file))
         # update widgets
         if file == "README.md":
-            self.readme_md(item_string, place_cursor)            
+            self.readme_md(item_string, place_cursor)
         if file == "config.h":
-            self.config_h(item_string, place_cursor)            
+            self.config_h(item_string, place_cursor)
         if file == "setup.h":
-            self.setup_h(item_string, place_cursor)            
+            self.setup_h(item_string, place_cursor)
         if file == "setup.cpp":
-            self.setup_cpp(item_string, place_cursor)            
+            self.setup_cpp(item_string, place_cursor)
         if file == "parameters.h":
-            self.parameters_h(item_string, place_cursor)            
+            self.parameters_h(item_string, place_cursor)
         if file == "functions.h":
-            self.functions_h(item_string, place_cursor)            
+            self.functions_h(item_string, place_cursor)
         if file == "functions.cpp":
-            self.functions_cpp(item_string, place_cursor)            
+            self.functions_cpp(item_string, place_cursor)
 
     def display_initial_code_preview(self) -> None:
         """Generates initial text for all CodePreviewBrowser"""
@@ -521,13 +521,18 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
         for tab in range(2):
             text_widget = self.code_preview_dict["files"][filename]["text_widget"][tab]
             text_widget.clear()
-            if len(self.code_preview_dict["files"][filename]["file_lines_list"]) <= self.minimum_file_len[filename]:                
+            if (
+                len(self.code_preview_dict["files"][filename]["file_lines_list"])
+                <= self.minimum_file_len[filename]
+            ):
                 if filename == "setup.cpp":
-                    self.code_preview_dict["files"]["setup.h"]["text_widget"][tab].clear()                    
+                    self.code_preview_dict["files"]["setup.h"]["text_widget"][
+                        tab
+                    ].clear()
                     self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
-                self.code_preview_dict["files"][filename]["file_lines_list"] = []                
+                self.code_preview_dict["files"][filename]["file_lines_list"] = []
                 return
-            
+
             if filename != "README.md":
                 text_widget.setPlainText(code_string)
             else:

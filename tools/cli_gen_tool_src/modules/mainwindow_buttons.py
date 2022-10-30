@@ -252,7 +252,7 @@ class MainWindowButtons(object):
             object_list = self.child_command_parent.data(1, 0).split(",")
             self.child_command_parent = self.cliOpt["commands"]["QTreeWidgetItem"][
                 "container"
-            ][object_list[0]]            
+            ][object_list[0]]
             MainWindowButtons.logger.info(
                 "user clicked new command button with child context"
             )

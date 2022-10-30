@@ -75,13 +75,13 @@ class Logger(object):
     ## This is called to set up the log file handler in MainWindow.__init__()
     def setup_file_handler(lib_root_path):
         # logfile pathing
-        _path = QDir(lib_root_path + Logger._log_path)        
+        _path = QDir(lib_root_path + Logger._log_path)
         _abs_native_path = _path.toNativeSeparators(_path.absolutePath())
         if not os.path.isdir(_abs_native_path):
             os.mkdir(_abs_native_path)
         # log filehandler
         Logger.file_log_handler = RotatingFileHandler(
-            _abs_native_path + Logger._log_filename,
+            _abs_native_path + _path.separator() + Logger._log_filename,
             "a",
             10 * Logger._MB,
             backupCount=5,
@@ -108,8 +108,8 @@ class Logger(object):
     ## initializes the logger; returns the root logger
     def initialize_logger(self, name):
         logger = logging.getLogger(name)
-        logger.setLevel(Logger.session_history_log_level)        
-        logger.addHandler(Logger.get_stream_handler())        
+        logger.setLevel(Logger.session_history_log_level)
+        logger.addHandler(Logger.get_stream_handler())
         Logger.root_log_handler = logger
         return logger
 
@@ -118,7 +118,6 @@ class Logger(object):
         log_handler = QPlainTextEditLogger(self)
         Logger.session_log_handler = log_handler
         Logger.root_log_handler.addHandler(log_handler)
-        
 
 
 # end of file

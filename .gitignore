@@ -19,3 +19,4 @@ cli_gen_tool/res/uic/*
 **/build
 **/cli_gen_tool.spec
 **/cli_gen_tool.app
+**/test*.json

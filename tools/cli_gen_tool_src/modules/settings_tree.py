@@ -62,7 +62,7 @@ class SettingsTreeMethods(object):
         object_string = self.sender().objectName()
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
-        
+
         if object_list[0] in displayModels._settings_tree_display["config"]:
             _tt = displayModels._settings_tree_display["config"][object_list[0]][
                 object_list[2]

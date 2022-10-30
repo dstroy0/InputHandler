@@ -302,7 +302,7 @@ class dataModels(object):
         "functions.h": 27,
         "functions.cpp": 23,
     }
-    
+
     ## the constructor
     def __init__(self, version) -> None:
         super(dataModels, self).__init__()

@@ -17,11 +17,18 @@ import os
 import platform
 import sys
 
-from PySide6.QtCore import QByteArray, QFile, QIODevice, Qt, QTextStream, QRegularExpression
+from PySide6.QtCore import (
+    QByteArray,
+    QFile,
+    QIODevice,
+    Qt,
+    QTextStream,
+    QRegularExpression,
+)
 from PySide6.QtWidgets import (
     QDialogButtonBox,
     QFileDialog,
-    QStyle, 
+    QStyle,
 )
 from modules.helper_methods import HelperMethods
 from modules.logging_setup import Logger
@@ -118,11 +125,13 @@ class MainWindowActions(object):
             )
             if dict["type"] != "session":
                 if self.write_cli_gen_tool_json() > 0:
-                        MainWindowActions.logger.info("session json saved")
+                    MainWindowActions.logger.info("session json saved")
                 regexp = QRegularExpression("[^\/]*$")
                 match = regexp.match(str(self.session["opt"]["save_filename"]))
-                if match.hasMatch():                    
-                    self.setWindowTitle("InputHandler CLI generation tool - " + str(match.captured(0)))
+                if match.hasMatch():
+                    self.setWindowTitle(
+                        "InputHandler CLI generation tool - " + str(match.captured(0))
+                    )
         else:
             MainWindowActions.logger.info("Write " + qfile.fileName() + " error.")
             if create_error_dialog:
@@ -174,7 +183,11 @@ class MainWindowActions(object):
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg = QFileDialog(self)
         fileName = dlg.getSaveFileName(
-            self, "Save file name", "./tools/interfaces/", "*.json", options=QFileDialog.DontUseNativeDialog
+            self,
+            "Save file name",
+            "./tools/interfaces/",
+            "*.json",
+            options=QFileDialog.DontUseNativeDialog,
         )
         if fileName[0] == "":
             MainWindowActions.logger.info("Save file dialog cancelled.")

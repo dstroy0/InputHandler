@@ -28,7 +28,8 @@ class CommandParametersTableViewModel(QAbstractTableModel):
     Args:
         QAbstractTableModel (class): This class specializes QAbstractTableModel
     """
-    def __init__(self, parameters:dict=None) -> None:
+
+    def __init__(self, parameters: dict = None) -> None:
         """constructor method
 
         Args:
@@ -65,7 +66,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         """
         return self.row_count
 
-    def data(self, index:QModelIndex, role:int):
+    def data(self, index: QModelIndex, role: int):
         """Table data positioning.
 
         Args:
@@ -86,7 +87,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             if index.column() == 1:
                 return self.tooltip[index.row()]
 
-    def headerData(self, section:int, orientation:int, role:int):
+    def headerData(self, section: int, orientation: int, role: int):
         """Displays header labels
 
         Args:
@@ -131,7 +132,7 @@ class CommandTreeMethods(object):
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(self, parent, dict_index) -> QTreeWidgetItem:
-        # error checking        
+        # error checking
         if dict_index == None:
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
             return
@@ -144,7 +145,7 @@ class CommandTreeMethods(object):
         elif dict_index not in self.cliOpt["commands"]["parameters"]:
             CommandTreeMethods.logger.info("dict_index not found")
             return
-        
+
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
             dict_index + "," + dict_index + "," + command_parameters["commandString"]
