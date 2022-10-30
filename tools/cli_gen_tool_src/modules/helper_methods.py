@@ -13,6 +13,7 @@
 from __future__ import absolute_import
 
 # pyside imports
+from PySide6.QtGui import QScreen
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -21,7 +22,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QSizePolicy,
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QPoint
 
 # logging api
 from modules.logging_setup import Logger
@@ -31,12 +32,13 @@ from modules.logging_setup import Logger
 class HelperMethods(object):
     ## instance
     parent = ""
-
+    mainwindow_screen = ""
     ## the constructor
     def __init__(self):
         super(HelperMethods, self).__init__()
         HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)
         HelperMethods.parent = self
+        HelperMethods.mainwindow_screen = self.qscreen
 
     ## spawn a dialog box
     def create_qdialog(
@@ -48,10 +50,11 @@ class HelperMethods(object):
         buttons=None,
         button_text=None,
         icon=None,
+        screen=None,
     ):
         HelperMethods.logger.info("create qdialog: " + window_title)
         _buttons = []
-        dlg = QDialog(HelperMethods.parent)
+        dlg = QDialog(self)
 
         def button_box_clicked(button):
             _match = 0
@@ -97,13 +100,27 @@ class HelperMethods(object):
                 _buttons.append(_button)
                 idx += 1
             dlg.button_box.clicked.connect(button_box_clicked)
+            dlg.button_box.setCenterButtons(True)
             dlg.layout.addWidget(dlg.button_box)
         dlg.setLayout(dlg.layout)
         if icon != None:
             dlg.setWindowIcon(icon)
         if window_title != None:
             dlg.setWindowTitle(window_title)
+        dlg.setWindowFlags(dlg.windowFlags() | Qt.WindowStaysOnTopHint)
+
         dlg.activateWindow()  # brings focus to the popup
+
+        # center dialog on screen
+        if screen == None:
+            _qscreen = self.mainwindow_screen
+        else:
+            _qscreen = HelperMethods.parent.qscreen
+
+        _fg = dlg.frameGeometry()
+        center_point = _qscreen.availableGeometry().center()
+        _fg.moveCenter(center_point)
+        self.logger.info("Creating QDialog on: " + _qscreen.name())
         ret = dlg.exec()  # return the dialog exit code
         return ret
 

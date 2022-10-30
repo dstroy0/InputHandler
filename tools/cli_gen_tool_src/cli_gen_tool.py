@@ -11,6 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 from __future__ import absolute_import
 
+
 # imports
 import os
 import sys
@@ -96,12 +97,46 @@ class MainWindow(
         lib_root_path: str,
         file_path: str,
         parent_logger: Logger,
+        timer: QTimer,
         parent=None,
     ):
         super().__init__(parent)
-        # tool version
+        # settings object; platform independent
+        # https://doc.qt.io/qt-6/qsettings.html
+        self.settings = QSettings("InputHandler", "cli_gen_tool")
+
         self.logger = parent_logger
         MainWindow.logger = Logger.get_child_logger(parent_logger, __name__)
+        # read QSettings
+        self.readSettings(self.settings)
+
+        self.qscreen = self.screen()
+        self.timer = timer
+        self.logger.info("load splash")
+        splash = QSplashScreen(self.qscreen)
+        _splash_path = QDir(lib_root_path + "/docs/img/")
+        splash.setPixmap(
+            QPixmap(
+                _splash_path.toNativeSeparators(
+                    _splash_path.absoluteFilePath("_Logolarge.png")
+                )
+            )
+        )
+        splash.showMessage(
+            "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
+            (Qt.AlignHCenter | Qt.AlignBottom),
+            Qt.white,
+        )
+        splash.setWindowFlags(
+            splash.windowFlags() | Qt.WindowStaysOnTopHint
+        )  # or the windowstaysontophint into QSplashScreen window flags
+
+        splash.show()
+        self.timer.timeout.connect(splash.close)  # close splash
+        self.timer.timeout.connect(self.show)
+        while splash.isVisible():
+            app.processEvents()
+            self.hide()
 
         self.version = version
         # input config file boolean define fields (ie // DISABLE_listSettings)
@@ -122,9 +157,7 @@ class MainWindow(
         self.cli_gen_tool_json_path = cli_gen_tool_json_path.toNativeSeparators(
             cli_gen_tool_json_path.absoluteFilePath("cli_gen_tool.json")
         )
-        # settings object; platform independent
-        # https://doc.qt.io/qt-6/qsettings.html
-        self.settings = QSettings("InputHandler", "cli_gen_tool")
+
         self.app = app  # used in external methods
         # ask user if they want to save their work on exit
         self.prompt_to_save = False
@@ -266,16 +299,15 @@ class MainWindow(
         last_interface_path = QDir(self.session["opt"]["save_filename"])
         last_interface = QFile(
             last_interface_path.toNativeSeparators(last_interface_path.absolutePath())
-        )        
+        )
         if last_interface.exists():
             result = self.read_json(last_interface, True)
-            self.cliOpt = result[1]            
+            self.cliOpt = result[1]
         else:
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
             result = self.create_qdialog(
-                self,
                 "Cannot locate last working file: " + last_interface.fileName(),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
@@ -288,7 +320,7 @@ class MainWindow(
                     .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
                 ),
             )
-            if result == QDialog.accepted:
+            if result == QDialog.Accepted:
                 dlg = QFileDialog(self)
                 result = dlg.getOpenFileName(
                     self,
@@ -299,8 +331,10 @@ class MainWindow(
                     "*.json",
                     options=QFileDialog.DontUseNativeDialog,
                 )
-                if result == dlg.rejected:
-                    self.logger.info("User couldn't locate last working file, continuing.")
+                if result == QFileDialog.rejected:
+                    self.logger.info(
+                        "User couldn't locate last working file, continuing."
+                    )
             else:
                 self.logger.info(
                     "Couldn't locate last working file: "
@@ -377,8 +411,7 @@ class MainWindow(
         self.ui.codePreview_2.viewport().installEventFilter(self)
 
         # end MainWindow objects
-        # read QSettings
-        self.readSettings(self.settings)
+        self.show()
         self.logger.info("CLI generation tool ready.")
         # end __init__
 
@@ -427,13 +460,19 @@ class MainWindow(
         MainWindow.logger.info("restore window settings")
         self.restoreGeometry(settings.value("geometry"))
         self.restoreState(settings.value("windowState"))
+        _qscreen = self.screen()
+        MainWindow.logger.info("Display name: " + _qscreen.name())
 
 
 ## set up pathing, logging, splash screen
 class Initialize(object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
+        # GUI container
+        app = QApplication(sys.argv)
+        app.setAttribute(Qt.AA_EnableHighDpiScaling)
         self.logger = Logger.initialize_logger(self, __name__)
+
         self.logger.info("CLI gen tool pathing")
 
         ## Library pathing
@@ -466,45 +505,20 @@ class Initialize(object):
         Logger.setup_file_handler(lib_root_path)
         self.logger.addHandler(Logger.get_file_handler())
 
-        # GUI container
-        app = QApplication(sys.argv)
         # GUI styling
         app.setStyleSheet(qdarktheme.load_stylesheet())
-        # app splashscreen
-        splash = QSplashScreen()
-        _splash_path = QDir(lib_root_path + "/docs/img/")
-        splash.setPixmap(
-            QPixmap(
-                _splash_path.toNativeSeparators(
-                    _splash_path.absoluteFilePath("_Logolarge.png")
-                )
-            )
-        )
-        splash.showMessage(
-            "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
-            (Qt.AlignHCenter | Qt.AlignBottom),
-            Qt.white,
-        )
-        splash.setWindowFlags(
-            splash.windowFlags() | Qt.WindowStaysOnTopHint
-        )  # or the windowstaysontophint into QSplashScreen window flags
-        splash.show()
-
-        # GUI layout
-        self.logger.info("Loading CLI generation tool.")
-        window = MainWindow(
-            app, lib_root_path, file_path, self.logger
-        )  # pass init objects to MainWindow, these are used by MainWindow and external subclass methods
 
         # Splashscreen timer
-        splash.timer = QTimer()
-        splash.timer.setSingleShot(True)
-        splash.timer.start(
+        self.timer = QTimer()
+        self.timer.setSingleShot(True)
+        self.timer.start(
             splashscreen_duration
         )  # Show app splash for `splashscreen_duration`
-        splash.timer.timeout.connect(splash.close)  # close splash
-        splash.timer.timeout.connect(window.show)  # show window to user
 
+        self.logger.info("Loading CLI generation tool.")
+        window = MainWindow(
+            app, lib_root_path, file_path, self.logger, self.timer
+        )  # pass init objects to MainWindow, these are used by MainWindow and external subclass methods
         # exit on user command
         sys.exit(app.exec())
 
@@ -535,6 +549,7 @@ class Initialize(object):
                     .style()
                     .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
                 ),
+                self.qscreen,
             )
             if result == QDialog.accept():
                 self.get_inputhandler_dir_from_user()

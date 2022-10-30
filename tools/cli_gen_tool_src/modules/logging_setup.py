@@ -88,6 +88,12 @@ class Logger(object):
         )
         Logger.file_log_handler.setLevel(Logger.file_log_level)
         Logger.file_log_handler.setFormatter(Logger._log_formatter)
+        Logger.root_log_handler.info(
+            "Log file path: "
+            + _abs_native_path
+            + _path.separator()
+            + Logger._log_filename
+        )
 
     ## external modules are children of MainWindow's logging instance
     def get_child_logger(parent, name):

@@ -403,6 +403,9 @@ class CommandParametersMethods(object):
                     self.child_command_parent,
                     p_idx["parameters key"],
                 )
+                _pos = self.child_command_parent.data(1, 0).split(",")
+                _parent_index_struct = self.cliOpt["commands"]["index"][_pos[0]]
+                _parent_index_struct["child index key list"].append(cmd_idx)
                 # reset parent to ensure user selects the parent again if they want to add another child
                 self.child_command_parent = None
 
