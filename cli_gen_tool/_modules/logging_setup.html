@@ -299,13 +299,13 @@
     <span class="c1">## This is called to set up the log file handler in MainWindow.__init__()</span>
 <div class="viewcode-block" id="Logger.setup_file_handler"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.setup_file_handler">[docs]</a>    <span class="k">def</span> <span class="nf">setup_file_handler</span><span class="p">(</span><span class="n">lib_root_path</span><span class="p">):</span>
         <span class="c1"># logfile pathing</span>
-        <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>        
+        <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
         <span class="n">_abs_native_path</span> <span class="o">=</span> <span class="n">_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">)</span>
         <span class="c1"># log filehandler</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_handler</span> <span class="o">=</span> <span class="n">RotatingFileHandler</span><span class="p">(</span>
-            <span class="n">_abs_native_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span><span class="p">,</span>
+            <span class="n">_abs_native_path</span> <span class="o">+</span> <span class="n">_path</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_filename</span><span class="p">,</span>
             <span class="s2">&quot;a&quot;</span><span class="p">,</span>
             <span class="mi">10</span> <span class="o">*</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_MB</span><span class="p">,</span>
             <span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -332,8 +332,8 @@
     <span class="c1">## initializes the logger; returns the root logger</span>
 <div class="viewcode-block" id="Logger.initialize_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.initialize_logger">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>        
-        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_stream_handler</span><span class="p">())</span>        
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">get_stream_handler</span><span class="p">())</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logger</span>
         <span class="k">return</span> <span class="n">logger</span></div>
 
@@ -342,7 +342,6 @@
         <span class="n">log_handler</span> <span class="o">=</span> <span class="n">QPlainTextEditLogger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">session_log_handler</span> <span class="o">=</span> <span class="n">log_handler</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">log_handler</span><span class="p">)</span></div></div>
-        
 
 
 <span class="c1"># end of file</span>

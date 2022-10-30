@@ -252,7 +252,8 @@
 <span class="sd">    Args:</span>
 <span class="sd">        QAbstractTableModel (class): This class specializes QAbstractTableModel</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;constructor method</span>
 
 <span class="sd">        Args:</span>
@@ -289,7 +290,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span><span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Table data positioning.</span>
 
 <span class="sd">        Args:</span>
@@ -310,7 +311,7 @@
             <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()]</span></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Displays header labels</span>
 
 <span class="sd">        Args:</span>
@@ -355,7 +356,7 @@
 
     <span class="c1">## adds a single command to the tree</span>
 <div class="viewcode-block" id="CommandTreeMethods.add_qtreewidgetitem"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.add_qtreewidgetitem">[docs]</a>    <span class="k">def</span> <span class="nf">add_qtreewidgetitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">dict_index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QTreeWidgetItem</span><span class="p">:</span>
-        <span class="c1"># error checking        </span>
+        <span class="c1"># error checking</span>
         <span class="k">if</span> <span class="n">dict_index</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no index, unable to add item to tree&quot;</span><span class="p">)</span>
             <span class="k">return</span>
@@ -368,7 +369,7 @@
         <span class="k">elif</span> <span class="n">dict_index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;dict_index not found&quot;</span><span class="p">)</span>
             <span class="k">return</span>
-        
+
         <span class="n">command_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span>
         <span class="n">dict_pos</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">dict_index</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">dict_index</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
