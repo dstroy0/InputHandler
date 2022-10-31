@@ -71,7 +71,7 @@ class MainWindowActions(object):
         elif result == 2:
             if self.save_file() >= 0:
                 self.log.close()
-                MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")                
+                MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
                 if event != None and type(event) != bool:
                     event.accept()
                 sys.exit(self.app.quit())

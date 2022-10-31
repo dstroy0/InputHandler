@@ -1,0 +1,147 @@
+# Details
+
+Date : 2022-10-30 20:54:01
+
+Directory c:\\Users\\Douglas\\Documents\\Arduino\\libraries\\InputHandler
+
+Total : 132 files,  12846 codes, 3351 comments, 1641 blanks, all 17838 lines
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [.github/workflows/build_arduino_cli.yml](/.github/workflows/build_arduino_cli.yml) | YAML | 105 | 2 | 12 | 119 |
+| [.github/workflows/build_binaries_release.yml](/.github/workflows/build_binaries_release.yml) | YAML | 100 | 0 | 16 | 116 |
+| [.github/workflows/build_esp_pio.yml](/.github/workflows/build_esp_pio.yml) | YAML | 63 | 0 | 6 | 69 |
+| [.github/workflows/build_latest_linux_binary.yml](/.github/workflows/build_latest_linux_binary.yml) | YAML | 66 | 0 | 10 | 76 |
+| [.github/workflows/build_latest_macos_binary.yml](/.github/workflows/build_latest_macos_binary.yml) | YAML | 53 | 0 | 10 | 63 |
+| [.github/workflows/build_latest_windows_binary.yml](/.github/workflows/build_latest_windows_binary.yml) | YAML | 54 | 0 | 10 | 64 |
+| [.github/workflows/build_teensyduino_pio.yml](/.github/workflows/build_teensyduino_pio.yml) | YAML | 67 | 0 | 5 | 72 |
+| [.github/workflows/docs.yml](/.github/workflows/docs.yml) | YAML | 65 | 1 | 10 | 76 |
+| [.github/workflows/lib_cpp_linter.yml](/.github/workflows/lib_cpp_linter.yml) | YAML | 30 | 4 | 3 | 37 |
+| [CODE_OF_CONDUCT.md](/CODE_OF_CONDUCT.md) | Markdown | 93 | 0 | 36 | 129 |
+| [README.md](/README.md) | Markdown | 166 | 1 | 45 | 212 |
+| [docs/cli_gen_tool/Makefile](/docs/cli_gen_tool/Makefile) | Makefile | 9 | 7 | 5 | 21 |
+| [docs/cli_gen_tool/make.bat](/docs/cli_gen_tool/make.bat) | Batch | 27 | 0 | 9 | 36 |
+| [docs/cli_gen_tool/source/README.rst](/docs/cli_gen_tool/source/README.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/conf.py](/docs/cli_gen_tool/source/conf.py) | Python | 39 | 12 | 15 | 66 |
+| [docs/cli_gen_tool/source/index.rst](/docs/cli_gen_tool/source/index.rst) | reStructuredText | 15 | 4 | 7 | 26 |
+| [docs/cli_gen_tool/source/modules.rst](/docs/cli_gen_tool/source/modules.rst) | reStructuredText | 26 | 1 | 3 | 30 |
+| [docs/cli_gen_tool/source/modules/cli/clireadme.rst](/docs/cli_gen_tool/source/modules/cli/clireadme.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli/config.rst](/docs/cli_gen_tool/source/modules/cli/config.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli/filestrings.rst](/docs/cli_gen_tool/source/modules/cli/filestrings.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli/functions.rst](/docs/cli_gen_tool/source/modules/cli/functions.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli/parameters.rst](/docs/cli_gen_tool/source/modules/cli/parameters.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli/setup.rst](/docs/cli_gen_tool/source/modules/cli/setup.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/cli_gen_tool.rst](/docs/cli_gen_tool/source/modules/cli_gen_tool.rst) | reStructuredText | 5 | 1 | 3 | 9 |
+| [docs/cli_gen_tool/source/modules/code_preview.rst](/docs/cli_gen_tool/source/modules/code_preview.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/command_parameters.rst](/docs/cli_gen_tool/source/modules/command_parameters.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/command_tree.rst](/docs/cli_gen_tool/source/modules/command_tree.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/data_models.rst](/docs/cli_gen_tool/source/modules/data_models.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/display_models.rst](/docs/cli_gen_tool/source/modules/display_models.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/helper_methods.rst](/docs/cli_gen_tool/source/modules/helper_methods.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/logging_setup.rst](/docs/cli_gen_tool/source/modules/logging_setup.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/mainwindow_actions.rst](/docs/cli_gen_tool/source/modules/mainwindow_actions.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/mainwindow_buttons.rst](/docs/cli_gen_tool/source/modules/mainwindow_buttons.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/parse_config.rst](/docs/cli_gen_tool/source/modules/parse_config.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/preferences.rst](/docs/cli_gen_tool/source/modules/preferences.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/settings_tree.rst](/docs/cli_gen_tool/source/modules/settings_tree.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/settings_tree_table_methods.rst](/docs/cli_gen_tool/source/modules/settings_tree_table_methods.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/uic/commandParametersDialog.rst](/docs/cli_gen_tool/source/modules/uic/commandParametersDialog.rst) | reStructuredText | 5 | 1 | 2 | 8 |
+| [docs/cli_gen_tool/source/modules/uic/logHistoryDialog.rst](/docs/cli_gen_tool/source/modules/uic/logHistoryDialog.rst) | reStructuredText | 5 | 1 | 3 | 9 |
+| [docs/cli_gen_tool/source/modules/uic/mainWindow.rst](/docs/cli_gen_tool/source/modules/uic/mainWindow.rst) | reStructuredText | 5 | 1 | 3 | 9 |
+| [docs/cli_gen_tool/source/modules/uic/preferencesDialog.rst](/docs/cli_gen_tool/source/modules/uic/preferencesDialog.rst) | reStructuredText | 5 | 1 | 3 | 9 |
+| [docs/cli_gen_tool/source/static/README.md](/docs/cli_gen_tool/source/static/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [docs/cli_gen_tool/source/templates/README.md](/docs/cli_gen_tool/source/templates/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [docs/img/site.webmanifest](/docs/img/site.webmanifest) | JSON | 19 | 0 | 0 | 19 |
+| [docs/lib/Makefile](/docs/lib/Makefile) | Makefile | 9 | 7 | 5 | 21 |
+| [docs/lib/make.bat](/docs/lib/make.bat) | Batch | 27 | 0 | 9 | 36 |
+| [docs/lib/source/README.rst](/docs/lib/source/README.rst) | reStructuredText | 0 | 1 | 0 | 1 |
+| [docs/lib/source/conf.py](/docs/lib/source/conf.py) | Python | 35 | 12 | 18 | 65 |
+| [docs/lib/source/docs.rst](/docs/lib/source/docs.rst) | reStructuredText | 8 | 1 | 3 | 12 |
+| [docs/lib/source/index.rst](/docs/lib/source/index.rst) | reStructuredText | 9 | 4 | 5 | 18 |
+| [docs/lib/source/src/InputHandler_h_docs.rst](/docs/lib/source/src/InputHandler_h_docs.rst) | reStructuredText | 16 | 4 | 5 | 25 |
+| [docs/lib/source/src/config/config_h_docs.rst](/docs/lib/source/src/config/config_h_docs.rst) | reStructuredText | 3 | 1 | 0 | 4 |
+| [docs/lib/source/src/config/noedit_h_docs.rst](/docs/lib/source/src/config/noedit_h_docs.rst) | reStructuredText | 3 | 1 | 0 | 4 |
+| [docs/lib/source/src/utility/freeram_h_docs.rst](/docs/lib/source/src/utility/freeram_h_docs.rst) | reStructuredText | 3 | 1 | 0 | 4 |
+| [docs/lib/source/src/utility/vsnprintf_h_docs.rst](/docs/lib/source/src/utility/vsnprintf_h_docs.rst) | reStructuredText | 3 | 1 | 0 | 4 |
+| [docs/lib/source/static/README.md](/docs/lib/source/static/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [docs/lib/source/templates/README.md](/docs/lib/source/templates/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino](/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino) | C++ | 122 | 45 | 26 | 193 |
+| [examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h](/examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h) | C++ | 39 | 14 | 9 | 62 |
+| [examples/all_platforms/advanced/MultiFile/CLI/functions.h](/examples/all_platforms/advanced/MultiFile/CLI/functions.h) | C++ | 61 | 22 | 16 | 99 |
+| [examples/all_platforms/advanced/MultiFile/CLI/parameters.h](/examples/all_platforms/advanced/MultiFile/CLI/parameters.h) | C++ | 42 | 19 | 5 | 66 |
+| [examples/all_platforms/advanced/MultiFile/MultiFile.ino](/examples/all_platforms/advanced/MultiFile/MultiFile.ino) | C++ | 13 | 9 | 6 | 28 |
+| [examples/all_platforms/advanced/NMEAparser/NMEAparser.ino](/examples/all_platforms/advanced/NMEAparser/NMEAparser.ino) | C++ | 78 | 59 | 25 | 162 |
+| [examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h](/examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h) | C++ | 88 | 23 | 13 | 124 |
+| [examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h](/examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h) | C++ | 349 | 9 | 25 | 383 |
+| [examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h](/examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h) | C++ | 401 | 132 | 29 | 562 |
+| [examples/all_platforms/advanced/NestedCommands/NestedCommands.ino](/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino) | C++ | 87 | 20 | 14 | 121 |
+| [examples/all_platforms/advanced/config_howto/config_howto.ino](/examples/all_platforms/advanced/config_howto/config_howto.ino) | C++ | 92 | 56 | 19 | 167 |
+| [examples/all_platforms/advanced/debugging/debugging.ino](/examples/all_platforms/advanced/debugging/debugging.ino) | C++ | 35 | 18 | 10 | 63 |
+| [examples/all_platforms/basic/BLE_UART/BLE_UART.ino](/examples/all_platforms/basic/BLE_UART/BLE_UART.ino) | C++ | 123 | 106 | 38 | 267 |
+| [examples/all_platforms/basic/BLE_UART/BluefruitConfig.h](/examples/all_platforms/basic/BLE_UART/BluefruitConfig.h) | C++ | 16 | 31 | 9 | 56 |
+| [examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino](/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino) | C++ | 47 | 22 | 9 | 78 |
+| [examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino](/examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino) | C++ | 56 | 20 | 20 | 96 |
+| [examples/all_platforms/basic/LoRa/LoRaSender/LoRaSender.ino](/examples/all_platforms/basic/LoRa/LoRaSender/LoRaSender.ino) | C++ | 32 | 6 | 8 | 46 |
+| [examples/all_platforms/basic/RF24/RF24.ino](/examples/all_platforms/basic/RF24/RF24.ino) | C++ | 103 | 48 | 29 | 180 |
+| [examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino](/examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino) | C++ | 191 | 61 | 30 | 282 |
+| [examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino](/examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino) | C++ | 145 | 66 | 26 | 237 |
+| [examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino](/examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino) | C++ | 145 | 50 | 28 | 223 |
+| [examples/examples_formatter.conf](/examples/examples_formatter.conf) | Properties | 10 | 13 | 9 | 32 |
+| [library.json](/library.json) | JSON | 13 | 14 | 0 | 27 |
+| [library.properties](/library.properties) | Properties | 9 | 0 | 1 | 10 |
+| [src/InputHandler.cpp](/src/InputHandler.cpp) | C++ | 1,268 | 49 | 68 | 1,385 |
+| [src/InputHandler.h](/src/InputHandler.h) | C++ | 330 | 677 | 77 | 1,084 |
+| [src/bug_report.md](/src/bug_report.md) | Markdown | 22 | 0 | 8 | 30 |
+| [src/config/config.h](/src/config/config.h) | C++ | 79 | 176 | 39 | 294 |
+| [src/config/noedit.h](/src/config/noedit.h) | C++ | 255 | 271 | 30 | 556 |
+| [src/utility/freeRam.h](/src/utility/freeRam.h) | C++ | 49 | 46 | 9 | 104 |
+| [src/utility/vsnprintf.h](/src/utility/vsnprintf.h) | C++ | 22 | 61 | 7 | 90 |
+| [tools/bin/README.md](/tools/bin/README.md) | Markdown | 1 | 1 | 0 | 2 |
+| [tools/bin/latest/README.md](/tools/bin/latest/README.md) | Markdown | 1 | 1 | 0 | 2 |
+| [tools/bin/release/README.md](/tools/bin/release/README.md) | Markdown | 1 | 1 | 0 | 2 |
+| [tools/bug_report.md](/tools/bug_report.md) | Markdown | 25 | 0 | 9 | 34 |
+| [tools/cli_gen_tool_src/README.md](/tools/cli_gen_tool_src/README.md) | Markdown | 6 | 1 | 2 | 9 |
+| [tools/cli_gen_tool_src/cli_gen_tool.py](/tools/cli_gen_tool_src/cli_gen_tool.py) | Python | 422 | 104 | 63 | 589 |
+| [tools/cli_gen_tool_src/modules/README.md](/tools/cli_gen_tool_src/modules/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [tools/cli_gen_tool_src/modules/__init__.py](/tools/cli_gen_tool_src/modules/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [tools/cli_gen_tool_src/modules/cli/README.md](/tools/cli_gen_tool_src/modules/cli/README.md) | Markdown | 1 | 1 | 2 | 4 |
+| [tools/cli_gen_tool_src/modules/cli/__init__.py](/tools/cli_gen_tool_src/modules/cli/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [tools/cli_gen_tool_src/modules/cli/clireadme.py](/tools/cli_gen_tool_src/modules/cli/clireadme.py) | Python | 27 | 12 | 5 | 44 |
+| [tools/cli_gen_tool_src/modules/cli/config.py](/tools/cli_gen_tool_src/modules/cli/config.py) | Python | 26 | 15 | 6 | 47 |
+| [tools/cli_gen_tool_src/modules/cli/filestrings.py](/tools/cli_gen_tool_src/modules/cli/filestrings.py) | Python | 118 | 237 | 10 | 365 |
+| [tools/cli_gen_tool_src/modules/cli/functions.py](/tools/cli_gen_tool_src/modules/cli/functions.py) | Python | 83 | 20 | 17 | 120 |
+| [tools/cli_gen_tool_src/modules/cli/parameters.py](/tools/cli_gen_tool_src/modules/cli/parameters.py) | Python | 138 | 15 | 16 | 169 |
+| [tools/cli_gen_tool_src/modules/cli/setup.py](/tools/cli_gen_tool_src/modules/cli/setup.py) | Python | 193 | 15 | 27 | 235 |
+| [tools/cli_gen_tool_src/modules/code_preview.py](/tools/cli_gen_tool_src/modules/code_preview.py) | Python | 357 | 133 | 58 | 548 |
+| [tools/cli_gen_tool_src/modules/command_parameters.py](/tools/cli_gen_tool_src/modules/command_parameters.py) | Python | 425 | 98 | 34 | 557 |
+| [tools/cli_gen_tool_src/modules/command_tree.py](/tools/cli_gen_tool_src/modules/command_tree.py) | Python | 200 | 81 | 25 | 306 |
+| [tools/cli_gen_tool_src/modules/data_models.py](/tools/cli_gen_tool_src/modules/data_models.py) | Python | 269 | 28 | 16 | 313 |
+| [tools/cli_gen_tool_src/modules/display_models.py](/tools/cli_gen_tool_src/modules/display_models.py) | Python | 294 | 12 | 3 | 309 |
+| [tools/cli_gen_tool_src/modules/helper_methods.py](/tools/cli_gen_tool_src/modules/helper_methods.py) | Python | 97 | 21 | 17 | 135 |
+| [tools/cli_gen_tool_src/modules/logging_setup.py](/tools/cli_gen_tool_src/modules/logging_setup.py) | Python | 77 | 32 | 21 | 130 |
+| [tools/cli_gen_tool_src/modules/mainwindow_actions.py](/tools/cli_gen_tool_src/modules/mainwindow_actions.py) | Python | 283 | 44 | 25 | 352 |
+| [tools/cli_gen_tool_src/modules/mainwindow_buttons.py](/tools/cli_gen_tool_src/modules/mainwindow_buttons.py) | Python | 307 | 68 | 23 | 398 |
+| [tools/cli_gen_tool_src/modules/parse_config.py](/tools/cli_gen_tool_src/modules/parse_config.py) | Python | 102 | 19 | 11 | 132 |
+| [tools/cli_gen_tool_src/modules/preferences.py](/tools/cli_gen_tool_src/modules/preferences.py) | Python | 108 | 14 | 19 | 141 |
+| [tools/cli_gen_tool_src/modules/settings_tree.py](/tools/cli_gen_tool_src/modules/settings_tree.py) | Python | 461 | 41 | 35 | 537 |
+| [tools/cli_gen_tool_src/modules/settings_tree_table_methods.py](/tools/cli_gen_tool_src/modules/settings_tree_table_methods.py) | Python | 219 | 36 | 29 | 284 |
+| [tools/cli_gen_tool_src/modules/uic/README.md](/tools/cli_gen_tool_src/modules/uic/README.md) | Markdown | 2 | 1 | 1 | 4 |
+| [tools/cli_gen_tool_src/modules/uic/__init__.py](/tools/cli_gen_tool_src/modules/uic/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [tools/cli_gen_tool_src/modules/uic/commandParametersDialog.py](/tools/cli_gen_tool_src/modules/uic/commandParametersDialog.py) | Python | 375 | 10 | 107 | 492 |
+| [tools/cli_gen_tool_src/modules/uic/logHistoryDialog.py](/tools/cli_gen_tool_src/modules/uic/logHistoryDialog.py) | Python | 38 | 10 | 10 | 58 |
+| [tools/cli_gen_tool_src/modules/uic/mainWindow.py](/tools/cli_gen_tool_src/modules/uic/mainWindow.py) | Python | 315 | 28 | 47 | 390 |
+| [tools/cli_gen_tool_src/modules/uic/preferencesDialog.py](/tools/cli_gen_tool_src/modules/uic/preferencesDialog.py) | Python | 159 | 10 | 44 | 213 |
+| [tools/cli_gen_tool_src/requirements.txt](/tools/cli_gen_tool_src/requirements.txt) | pip requirements | 9 | 0 | 0 | 9 |
+| [tools/cli_gen_tool_ui_files/README.md](/tools/cli_gen_tool_ui_files/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [tools/cli_gen_tool_ui_files/commandParametersDialog.ui](/tools/cli_gen_tool_ui_files/commandParametersDialog.ui) | XML | 1,056 | 0 | 1 | 1,057 |
+| [tools/cli_gen_tool_ui_files/logHistoryDialog.ui](/tools/cli_gen_tool_ui_files/logHistoryDialog.ui) | XML | 67 | 0 | 1 | 68 |
+| [tools/cli_gen_tool_ui_files/mainWindow.ui](/tools/cli_gen_tool_ui_files/mainWindow.ui) | XML | 636 | 0 | 1 | 637 |
+| [tools/cli_gen_tool_ui_files/preferencesDialog.ui](/tools/cli_gen_tool_ui_files/preferencesDialog.ui) | XML | 379 | 0 | 1 | 380 |
+| [tools/interfaces/README.md](/tools/interfaces/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [tools/logs/README.md](/tools/logs/README.md) | Markdown | 1 | 1 | 1 | 3 |
+| [tools/session/README.md](/tools/session/README.md) | Markdown | 1 | 1 | 1 | 3 |
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
