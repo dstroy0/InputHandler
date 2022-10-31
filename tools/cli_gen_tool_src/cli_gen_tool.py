@@ -132,10 +132,13 @@ class MainWindow(
         self.splash.setWindowFlags(
             self.splash.windowFlags() | Qt.WindowStaysOnTopHint
         )  # or the windowstaysontophint into QSplashScreen window flags
-
         self.splash.show()
-        self.timer.timeout.connect(self.splash.close)  # close splash
-        # self.timer.timeout.connect(self.show)
+        _fg = self.splash.frameGeometry()
+        center_point = self.pos()
+        center_point.setX(center_point.x() - (_fg.x()/2))
+        center_point.setY(center_point.y() - (_fg.y()/2))
+        _fg.moveCenter(center_point)        
+        self.timer.timeout.connect(self.splash.close)  # close splash        
 
         self.version = version
         # input config file boolean define fields (ie // DISABLE_listSettings)
