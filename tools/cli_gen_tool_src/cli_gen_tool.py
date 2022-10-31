@@ -112,31 +112,30 @@ class MainWindow(
 
         self.qscreen = self.screen()
         self.timer = timer
+
         self.logger.info("load splash")
-        splash = QSplashScreen(self.qscreen)
+        self.splash = QSplashScreen(self.qscreen)
+
         _splash_path = QDir(lib_root_path + "/docs/img/")
-        splash.setPixmap(
+        self.splash.setPixmap(
             QPixmap(
                 _splash_path.toNativeSeparators(
                     _splash_path.absoluteFilePath("_Logolarge.png")
                 )
             )
         )
-        splash.showMessage(
+        self.splash.showMessage(
             "Copyright (c) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>",
             (Qt.AlignHCenter | Qt.AlignBottom),
             Qt.white,
         )
-        splash.setWindowFlags(
-            splash.windowFlags() | Qt.WindowStaysOnTopHint
+        self.splash.setWindowFlags(
+            self.splash.windowFlags() | Qt.WindowStaysOnTopHint
         )  # or the windowstaysontophint into QSplashScreen window flags
 
-        splash.show()
-        self.timer.timeout.connect(splash.close)  # close splash
-        self.timer.timeout.connect(self.show)
-        while splash.isVisible():
-            app.processEvents()
-            self.hide()
+        self.splash.show()
+        self.timer.timeout.connect(self.splash.close)  # close splash
+        # self.timer.timeout.connect(self.show)
 
         self.version = version
         # input config file boolean define fields (ie // DISABLE_listSettings)
@@ -199,7 +198,7 @@ class MainWindow(
         self.logger.debug("Loading UI_MainWindow()")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        self.hide()
         # MainWindow icon
         window_icon_path = QDir(self.lib_root_path + "/docs/img/")
         self.setWindowIcon(
@@ -311,7 +310,7 @@ class MainWindow(
                 "Cannot locate last working file: " + last_interface.fileName(),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
-                "Error!",
+                "Error, cannot find interface file!",
                 buttons,
                 button_text,
                 QIcon(
@@ -410,7 +409,7 @@ class MainWindow(
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
 
-        # end MainWindow objects
+        self.splash.close()
         self.show()
         self.logger.info("CLI generation tool ready.")
         # end __init__
@@ -541,7 +540,7 @@ class Initialize(object):
                 "You must select InputHandler's root directory to use this tool.",
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
-                "Error!",
+                "Error, InputHandler's directory not located!",
                 buttons,
                 button_text,
                 QIcon(
