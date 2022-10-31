@@ -113,6 +113,8 @@ class MainWindow(
         self.qscreen = self.screen()
         self.timer = timer
 
+        self.windowtitle_set = False
+
         self.logger.info("load splash")
         self.splash = QSplashScreen(self.qscreen)
 
@@ -135,10 +137,10 @@ class MainWindow(
         self.splash.show()
         _fg = self.splash.frameGeometry()
         center_point = self.pos()
-        center_point.setX(center_point.x() - (_fg.x()/2))
-        center_point.setY(center_point.y() - (_fg.y()/2))
-        _fg.moveCenter(center_point)        
-        self.timer.timeout.connect(self.splash.close)  # close splash        
+        center_point.setX(center_point.x() - (_fg.x() / 2))
+        center_point.setY(center_point.y() - (_fg.y() / 2))
+        _fg.moveCenter(center_point)
+        self.timer.timeout.connect(self.splash.close)  # close splash
 
         self.version = version
         # input config file boolean define fields (ie // DISABLE_listSettings)
@@ -290,6 +292,20 @@ class MainWindow(
         self.session = {}
         self.logger.debug("Attempt session json load.")
 
+        # icons
+        self.ui.fileDialogContentsViewIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_FileDialogContentsView
+        )
+        self.ui.messageBoxCriticalIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_MessageBoxCritical
+        )
+        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
+        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
+        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
+        self.ui.messageBoxQuestionIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_MessageBoxQuestion
+        )
+
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # pretty session json
@@ -299,13 +315,14 @@ class MainWindow(
         )
 
         last_interface_path = QDir(self.session["opt"]["save_filename"])
+        self.logger.debug("Attempt load last interface")
         last_interface = QFile(
             last_interface_path.toNativeSeparators(last_interface_path.absolutePath())
         )
-        if last_interface.exists():
+        if self.session["opt"]["save_filename"] != "" and last_interface.exists():
             result = self.read_json(last_interface, True)
             self.cliOpt = result[1]
-        else:
+        elif self.session["opt"]["save_filename"] != "" and not last_interface.exists():
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
@@ -342,24 +359,13 @@ class MainWindow(
                     "Couldn't locate last working file: "
                     + self.session["opt"]["save_filename"]
                 )
+                self.session["opt"]["save_filename"] = ""
+
+                self.set_main_window_title("InputHandler CLI generation tool ")
         # parse config file
         self.logger.debug("Attempt parse config.h")
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
-        # icons
-        self.ui.fileDialogContentsViewIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_FileDialogContentsView
-        )
-        self.ui.messageBoxCriticalIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxCritical
-        )
-        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
-        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
-        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
-        self.ui.messageBoxQuestionIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxQuestion
-        )
-        self.windowtitle_set = False
         # end MainWindow var
 
         # MainWindow actions
@@ -418,8 +424,12 @@ class MainWindow(
         # end __init__
 
     # visual indication to user of the current working file
-    def set_main_window_title(self):
+    def set_main_window_title(self, title: str = None) -> None:
         if self.windowtitle_set:
+            return
+        elif title != None:
+            self.setWindowTitle(title)
+            self.windowtitle_set = True
             return
         else:
             windowtitle = "InputHandler CLI generation tool "

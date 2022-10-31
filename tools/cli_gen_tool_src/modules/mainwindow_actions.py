@@ -43,6 +43,8 @@ class MainWindowActions(object):
     # do before close
     def do_before_app_close(self, event=None):
         MainWindowActions.logger.debug(event)
+        if self.write_cli_gen_tool_json() > 0:
+            MainWindowActions.logger.info("session json saved")
         result = 0
         if self.prompt_to_save == True:
             b = QDialogButtonBox.StandardButton
@@ -69,9 +71,7 @@ class MainWindowActions(object):
         elif result == 2:
             if self.save_file() >= 0:
                 self.log.close()
-                MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
-                if self.write_cli_gen_tool_json() > 0:
-                    MainWindowActions.logger.info("session json saved")
+                MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")                
                 if event != None and type(event) != bool:
                     event.accept()
                 sys.exit(self.app.quit())
