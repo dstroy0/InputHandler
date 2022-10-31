@@ -337,6 +337,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">timer</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;load splash&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splash</span> <span class="o">=</span> <span class="n">QSplashScreen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">)</span>
 
@@ -359,10 +361,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">_fg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">frameGeometry</span><span class="p">()</span>
         <span class="n">center_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
-        <span class="n">center_point</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">center_point</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">_fg</span><span class="o">.</span><span class="n">x</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">center_point</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">center_point</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">_fg</span><span class="o">.</span><span class="n">y</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">_fg</span><span class="o">.</span><span class="n">moveCenter</span><span class="p">(</span><span class="n">center_point</span><span class="p">)</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>  <span class="c1"># close splash        </span>
+        <span class="n">center_point</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">center_point</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">_fg</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">center_point</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">center_point</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">_fg</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">_fg</span><span class="o">.</span><span class="n">moveCenter</span><span class="p">(</span><span class="n">center_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>  <span class="c1"># close splash</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="c1"># input config file boolean define fields (ie // DISABLE_listSettings)</span>
@@ -514,6 +516,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt session json load.&quot;</span><span class="p">)</span>
 
+        <span class="c1"># icons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileDialogContentsViewIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
+            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_FileDialogContentsView</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxCriticalIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
+            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_FileIcon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandLinkIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_CommandLink</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">trashIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_TrashIcon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxQuestionIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
+            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxQuestion</span>
+        <span class="p">)</span>
+
         <span class="c1"># load cli_gen_tool (session) json if exists, else use default options</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_cli_gen_tool_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_gen_tool_json_path</span><span class="p">)</span>
         <span class="c1"># pretty session json</span>
@@ -523,13 +539,14 @@
         <span class="p">)</span>
 
         <span class="n">last_interface_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt load last interface&quot;</span><span class="p">)</span>
         <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span>
             <span class="n">last_interface_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">last_interface_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">last_interface</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
             <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">]</span>
             <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select last file&quot;</span><span class="p">,</span> <span class="s2">&quot;Continue without locating&quot;</span><span class="p">]</span>
@@ -566,24 +583,13 @@
                     <span class="s2">&quot;Couldn&#39;t locate last working file: &quot;</span>
                     <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span>
                 <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">(</span><span class="s2">&quot;InputHandler CLI generation tool &quot;</span><span class="p">)</span>
         <span class="c1"># parse config file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt parse config.h&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span>
 
-        <span class="c1"># icons</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileDialogContentsViewIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
-            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_FileDialogContentsView</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxCriticalIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
-            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fileIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_FileIcon</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandLinkIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_CommandLink</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">trashIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_TrashIcon</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxQuestionIcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span>
-            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxQuestion</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># end MainWindow var</span>
 
         <span class="c1"># MainWindow actions</span>
@@ -642,8 +648,12 @@
         <span class="c1"># end __init__</span>
 
     <span class="c1"># visual indication to user of the current working file</span>
-<div class="viewcode-block" id="MainWindow.set_main_window_title"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.set_main_window_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_window_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MainWindow.set_main_window_title"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.set_main_window_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_window_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">title</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">windowtitle</span> <span class="o">=</span> <span class="s2">&quot;InputHandler CLI generation tool &quot;</span>
