@@ -140,7 +140,14 @@ class dataModels(object):
             "parameters": {},
             "QTreeWidgetItem": {"root": "", "container": {}, "table": {}},
             "QTableView": {
-                "models": {},
+                "tables": {
+                    "parameters": {},
+                    "arguments": {},
+                },
+                "models": {"parameters": {}, "arguments": {}},
+                "container": {},
+                "layout": {},
+                "splitter": {},
             },
         },
         "config": {

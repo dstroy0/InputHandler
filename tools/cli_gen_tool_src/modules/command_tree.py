@@ -13,13 +13,106 @@
 from __future__ import absolute_import
 
 import json
-from PySide6.QtWidgets import QTableView, QTreeWidgetItem, QHeaderView
+from PySide6.QtWidgets import (
+    QTableView,
+    QTreeWidgetItem,
+    QHeaderView,
+    QWidget,
+    QSplitter,
+    QHBoxLayout,
+)
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 from modules.display_models import displayModels
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
 from modules.display_models import displayModels
+
+
+class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
+    def __init__(self, parameters: dict) -> None:
+        super(CommandParametersArgumentsTableViewModel, self).__init__()
+        self.keys = list(parameters.keys())
+        self.values = list(parameters.values())
+        arg_start = 0
+        for i in range(len(self.keys)):
+            if self.keys[i] == "commandArguments":
+                arg_start = i
+                break
+        self.args_list = []
+        for i in range(arg_start, len(self.values)):
+            self.args_list.append(self.values[i])
+
+        self.h_label = "Arguments"
+        self.arguments = self.args_list
+        self.column_count = 4
+        self.row_count = int(-(-(len(self.arguments)) // (self.column_count)))        
+        self.matrix = []
+        input_idx = 0
+        for i in range(self.row_count):
+            row_list = []
+            for j in range(self.column_count):
+                if input_idx >= len(self.arguments):                    
+                    row_list.append(" ")
+                else:
+                    row_list.append(self.arguments[input_idx])
+                    input_idx += 1
+            self.matrix.append(row_list)
+        print(self.matrix)
+
+    def columnCount(self, parent=QModelIndex()) -> int:
+        """property
+
+        Args:
+            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
+
+        Returns:
+            int: The number of columns.
+        """
+        return self.column_count
+
+    def rowCount(self, parent=QModelIndex()) -> int:
+        """property
+
+        Args:
+            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
+
+        Returns:
+            int: The number of rows.
+        """
+        return self.row_count
+
+    def data(self, index: QModelIndex, role: int):
+        """Table data positioning.
+
+        Args:
+            index (QModelIndex): The model index.
+            role (Qt Role): What role is the data.
+
+        Returns:
+            str: data in the cell
+        """
+
+        if role == Qt.DisplayRole:            
+            return self.matrix[index.row()][index.column()]
+        if role == Qt.ToolTipRole:
+            return "Tooltip ph"
+
+    def headerData(self, section: int, orientation: int, role: int):
+        """Displays header labels
+
+        Args:
+            section (int): Cell position
+            orientation (int): Text orientation
+            role (int): role of the data
+
+        Returns:
+            str: The section label.
+        """
+        if role == Qt.DisplayRole:
+            if orientation == Qt.Horizontal:
+                return self.h_label
+
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
 class CommandParametersTableViewModel(QAbstractTableModel):
@@ -36,13 +129,42 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             parameters (dict, optional): Set placeholder text in CommandParametersDialog input fields. Defaults to None.
         """
         super(CommandParametersTableViewModel, self).__init__()
-        self.h_labels = ["Setting", "Value"]
+        self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
+
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
         self.tooltip = displayModels._command_table_tooltip_list
-        # set table length to input parameters, this will grow the table if we ever add any new configuration items
-        # to the commandparameters data model
-        self.row_count = len(dataModels.command_parameters_dict_keys_list)
+        self.tooltip_idx = 0
+        self.row_count = int(
+            -(
+                -(len(dataModels.command_parameters_dict_keys_list) - 1)
+                // (len(self.h_labels) / 2)
+            )
+        )
+        self.column_count = int(len(self.h_labels))
+        self.input = []
+        arg_start = 0
+        for i in range(len(self.keys)):
+            if self.keys[i] != "commandArguments":
+                self.input.append(self.keys[i])
+                self.input.append(self.values[i])
+            else:
+                arg_start = i
+        self.args_list = []
+        for i in range(arg_start, len(self.values)):
+            self.args_list.append(self.values[i])
+
+        self.matrix = []
+        input_idx = 0
+        for i in range(self.row_count):
+            row_list = []
+            for j in range(self.column_count):
+                if input_idx >= len(self.input) - 1:
+                    row_list.append("")
+                else:
+                    row_list.append(self.input[input_idx])
+                    input_idx += 1
+            self.matrix.append(row_list)
 
     def columnCount(self, parent=QModelIndex()) -> int:
         """property
@@ -53,7 +175,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         Returns:
             int: The number of columns.
         """
-        return 2
+        return self.column_count
 
     def rowCount(self, parent=QModelIndex()) -> int:
         """property
@@ -77,15 +199,16 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             str: data in the cell
         """
         if role == Qt.DisplayRole:
-            if index.column() == 0:
-                return self.keys[index.row()]
-            if index.column() == 1:
-                return self.values[index.row()]
+            if self.matrix[index.row()][index.column()] == "":
+                return ""
+            return str(self.matrix[index.row()][index.column()])
         if role == Qt.ToolTipRole:
-            if index.column() == 0:
-                return self.tooltip[index.row()]
-            if index.column() == 1:
-                return self.tooltip[index.row()]
+            retval = self.tooltip[self.tooltip_idx]
+            if (self.tooltip_idx) >= len(self.tooltip):
+                self.tooltip_idx = 0
+            else:
+                self.tooltip_idx += 1
+            return str(retval)
 
     def headerData(self, section: int, orientation: int, role: int):
         """Displays header labels
@@ -100,10 +223,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         """
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                return str(self.h_labels[section])
-            if orientation == Qt.Vertical:
-                # label rows starting at 1
-                return str(section + 1)
+                return self.h_labels[section]
 
 
 ## self.ui.command_tree methods
@@ -137,14 +257,16 @@ class CommandTreeMethods(object):
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
             return
         elif dict_index == "":
-            CommandTreeMethods.logger.info("user deleted a command from the tree, or script loading")
+            CommandTreeMethods.logger.info(
+                "user deleted a command from the tree, or script loading"
+            )
             self.update_code("functions.h", "", False)
             self.update_code("functions.cpp", "", False)
             self.update_code("parameters.h", "", False)
             return
-        elif dict_index not in self.cliOpt["commands"]["parameters"]:            
-            CommandTreeMethods.logger.info("dict_index not found: "+ str(dict_index))
-            return        
+        elif dict_index not in self.cliOpt["commands"]["parameters"]:
+            CommandTreeMethods.logger.info("dict_index not found: " + str(dict_index))
+            return
         command_parameters = self.cliOpt["commands"]["parameters"][dict_index]
         dict_pos = (
             dict_index + "," + dict_index + "," + command_parameters["commandString"]
@@ -203,10 +325,14 @@ class CommandTreeMethods(object):
         self.cliOpt["commands"]["QTreeWidgetItem"]["root"].removeChild(tree_item)
 
         # scrub the data model
-        if pos in self.cliOpt["commands"]["QTableView"]["models"]:
+        if pos in self.cliOpt["commands"]["QTableView"]["models"]["arguments"]:
+            del self.cliOpt["commands"]["QTableView"]["models"]["arguments"][pos]
+        if pos in self.cliOpt["commands"]["QTableView"]["models"]["parameters"]:
             del self.cliOpt["commands"]["QTableView"]["models"][pos]
-        if pos in self.cliOpt["commands"]["QTableView"]:
-            del self.cliOpt["commands"]["QTableView"][pos]
+        if pos in self.cliOpt["commands"]["QTableView"]["tables"]["parameters"]:
+            del self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][pos]
+        if pos in self.cliOpt["commands"]["QTableView"]["tables"]["arguments"]:
+            del self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][pos]
         if pos in self.cliOpt["commands"]["parameters"]:
             del self.cliOpt["commands"]["parameters"][pos]
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
@@ -235,16 +361,58 @@ class CommandTreeMethods(object):
     ):
         command_tree = self.ui.command_tree
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
-        self.cliOpt["commands"]["QTableView"]["models"][
+        
+        self.cliOpt["commands"]["QTableView"]["container"] = QWidget()
+        self.cliOpt["commands"]["QTableView"]["layout"] = QHBoxLayout()
+        self.cliOpt["commands"]["QTableView"]["splitter"] = QSplitter()        
+
+        container = self.cliOpt["commands"]["QTableView"]["container"]
+        container_layout = self.cliOpt["commands"]["QTableView"]["layout"]
+        container_splitter = self.cliOpt["commands"]["QTableView"]["splitter"]
+
+        self.cliOpt["commands"]["QTableView"]["models"]["parameters"][
             dict_index
         ] = CommandParametersTableViewModel(command_parameters)
-        self.cliOpt["commands"]["QTableView"][dict_index] = QTableView()
-        table_view = self.cliOpt["commands"]["QTableView"][dict_index]
-        table_view.setModel(self.cliOpt["commands"]["QTableView"]["models"][dict_index])
+
+        self.cliOpt["commands"]["QTableView"]["models"]["arguments"][
+            dict_index
+        ] = CommandParametersArgumentsTableViewModel(command_parameters)
+
+        self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][
+            dict_index
+        ] = QTableView()
+        self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][
+            dict_index
+        ] = QTableView()
+
+        table_view = self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][
+            dict_index
+        ]
+        table_view.setModel(
+            self.cliOpt["commands"]["QTableView"]["models"]["parameters"][dict_index]
+        )        
+        table_view.resizeColumnsToContents()        
+
+        table_view = self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][
+            dict_index
+        ]
+        table_view.setModel(
+            self.cliOpt["commands"]["QTableView"]["models"]["arguments"][dict_index]
+        )
+        table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         table_view.resizeColumnsToContents()
 
-        command_tree.setItemWidget(tree_item, 0, table_view)
+        container_splitter.addWidget(
+            self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][dict_index]
+        )
+        container_splitter.addWidget(
+            self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][dict_index]
+        )
+        container_layout.addWidget(container_splitter)
+        container.setLayout(container_layout)
+
+        command_tree.setItemWidget(tree_item, 0, container)
 
     ## private method used by public methods rebuild_command_tree and build_command_tree
     def _build_command_tree(self):
@@ -267,9 +435,13 @@ class CommandTreeMethods(object):
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                     self.cliOpt["commands"]["index"][item]["root index key"],
                 )
-                # command children                                           
-                for index in range(len(self.cliOpt["commands"]["index"][item]["child index key list"])):
-                    child_index = self.cliOpt["commands"]["index"][item]["child index key list"][index]                                        
+                # command children
+                for index in range(
+                    len(self.cliOpt["commands"]["index"][item]["child index key list"])
+                ):
+                    child_index = self.cliOpt["commands"]["index"][item][
+                        "child index key list"
+                    ][index]
                     self.add_qtreewidgetitem(
                         parent,
                         self.cliOpt["commands"]["index"][child_index]["parameters key"],
