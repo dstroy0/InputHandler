@@ -99,10 +99,19 @@ class SettingsTreeMethods(object):
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
             ):
-                if object_list[2] == "listCommands" or object_list[2] == "listSettings":
-                    combobox = self.cliOpt["builtin methods"]["tree"]["items"][
-                        object_list[2]
-                    ]["QComboBox"][object_list[1]]
+                combobox = self.cliOpt["builtin methods"]["tree"]["items"][
+                    object_list[2]
+                ]["QComboBox"][object_list[1]]
+
+                if object_list[2] == "defaultFunction":
+                    if combobox.currentText() == "Enabled":
+                        self.cliOpt["builtin methods"]["var"]["defaultFunction"] = True
+                    elif combobox.currentText() == "Disabled":
+                        self.cliOpt["builtin methods"]["var"]["defaultFunction"] = False
+
+                elif (
+                    object_list[2] == "listCommands" or object_list[2] == "listSettings"
+                ):
                     if (
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listCommands"
@@ -178,6 +187,7 @@ class SettingsTreeMethods(object):
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)
+            self.update_code("setup.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             _twi = self.cliOpt["config"]["tree"]["items"][object_list[0]][

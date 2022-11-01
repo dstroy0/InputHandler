@@ -537,7 +537,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
                 text_widget.setPlainText(code_string)
             else:
                 text_widget.setMarkdown(code_string)
-            if place_cursor == True:
+            if place_cursor == True and code_string != "":
                 self.code_preview_dict["files"][filename]["tree_item"][tab].setExpanded(
                     True
                 )
