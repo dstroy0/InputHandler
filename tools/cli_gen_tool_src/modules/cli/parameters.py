@@ -26,7 +26,7 @@ class cliParameters(object):
         if comma == False:
             _comma = ""
         ret = self.fsdb["parameters"]["h"]["filestring components"][
-            "nested_child"
+            "nested child"
         ].format(
             functionname=parameters["functionName"],
             comma=_comma,
@@ -122,9 +122,9 @@ class cliParameters(object):
                 # nested parameters
                 for item in self.cliOpt["commands"]["index"][index][
                     "child index key list"
-                ]:
+                ]:                    
                     parameters_code_string += self.ret_unnested_param(
-                        self.cliOpt["commands"]["parameters"][item["parameters key"]],
+                        self.cliOpt["commands"]["parameters"][item],
                         False,
                     )
                 num_children = len(
@@ -134,15 +134,15 @@ class cliParameters(object):
                 for i in range(num_children):
                     if i < num_children:
                         nested_children_string += self.ret_nested_child(
-                            self.self.cliOpt["commands"]["parameters"][
-                                item["parameters key"]
+                            self.cliOpt["commands"]["parameters"][
+                                item
                             ],
                             True,
                         )
                     else:
                         nested_children_string += self.ret_nested_child(
                             self.self.cliOpt["commands"]["parameters"][
-                                item["parameters key"]
+                                item
                             ],
                             False,
                         )

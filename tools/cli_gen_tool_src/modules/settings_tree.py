@@ -128,7 +128,7 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = object_list[2]
+                        ]["parameters key"] = str(object_list[2])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
                         ]["root index key"] = "listCommands"
@@ -165,7 +165,7 @@ class SettingsTreeMethods(object):
 
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = object_list[2]
+                        ]["parameters key"] = str(object_list[2])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
                         ]["root index key"] = "listSettings"

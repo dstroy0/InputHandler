@@ -377,9 +377,9 @@ class CommandParametersMethods(object):
             p_idx = copy.deepcopy(dataModels.parameters_index_struct)
             # root command
             if self.selected_command_is_root and self.child_command_parent == None:
-                p_idx["root index key"] = cmd_idx
+                p_idx["root index key"] = str(cmd_idx)
 
-                p_idx["parameters key"] = cmd_idx
+                p_idx["parameters key"] = str(cmd_idx)
                 self.cliOpt["commands"]["index"].update(
                     {p_idx["parameters key"]: p_idx}
                 )
@@ -392,7 +392,7 @@ class CommandParametersMethods(object):
                 )
             # non root command
             else:
-                p_idx["parameters key"] = cmd_idx
+                p_idx["parameters key"] = str(cmd_idx)
                 self.cliOpt["commands"]["index"].update(
                     {p_idx["parameters key"]: p_idx}
                 )
