@@ -250,7 +250,7 @@
         <span class="k">if</span> <span class="n">comma</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">_comma</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;nested_child&quot;</span>
+            <span class="s2">&quot;nested child&quot;</span>
         <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span>
             <span class="n">comma</span><span class="o">=</span><span class="n">_comma</span><span class="p">,</span>
@@ -346,9 +346,9 @@
                 <span class="c1"># nested parameters</span>
                 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span>
                     <span class="s2">&quot;child index key list&quot;</span>
-                <span class="p">]:</span>
+                <span class="p">]:</span>                    
                     <span class="n">parameters_code_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_unnested_param</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]],</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span>
                         <span class="kc">False</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="n">num_children</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
@@ -358,15 +358,15 @@
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_children</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_children</span><span class="p">:</span>
                         <span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                                <span class="n">item</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
+                                <span class="n">item</span>
                             <span class="p">],</span>
                             <span class="kc">True</span><span class="p">,</span>
                         <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                                <span class="n">item</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+                                <span class="n">item</span>
                             <span class="p">],</span>
                             <span class="kc">False</span><span class="p">,</span>
                         <span class="p">)</span>
