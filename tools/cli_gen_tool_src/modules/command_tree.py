@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QSizePolicy,
     QAbstractScrollArea,
+    QAbstractItemView,
 )
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
@@ -259,18 +260,14 @@ class CommandTreeMethods(object):
             CommandTreeMethods.logger.info("no index, unable to add item to tree")
             return
         elif dict_index == "" and self.loading == True:
-            CommandTreeMethods.logger.info(
-                "loaded saved command"
-            )
+            CommandTreeMethods.logger.info("loaded saved command ")
             return
         elif dict_index == "" and self.loading == False:
-            CommandTreeMethods.logger.info(
-                "user deleted a command from the tree"
-            )
+            CommandTreeMethods.logger.info("user deleted a command from the tree")
             self.update_code("functions.h", "", False)
             self.update_code("functions.cpp", "", False)
             self.update_code("parameters.h", "", False)
-            return        
+            return
         elif dict_index not in self.cliOpt["commands"]["parameters"]:
             CommandTreeMethods.logger.info("dict_index not found: " + str(dict_index))
             return
@@ -288,6 +285,7 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
         )
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
+        tree_item.text
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
@@ -322,7 +320,7 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos], 0
         )
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
-        
+
         # TODO scrub children
         children = []
         for child in range(tree_item.childCount()):
@@ -413,7 +411,7 @@ class CommandTreeMethods(object):
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        table_view.horizontalHeader().setFixedWidth(150)
+        
         table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         table_view.resizeColumnsToContents()
 
@@ -433,11 +431,21 @@ class CommandTreeMethods(object):
             len(self.cliOpt["commands"]["index"][item]["child index key list"])
         ):
             parent = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
-            self.cliOpt["commands"]["index"][item]["parameters key"]
-        ]
+                self.cliOpt["commands"]["index"][item]["parameters key"]
+            ]
             child_index = self.cliOpt["commands"]["index"][item][
                 "child index key list"
             ][index]
+            CommandTreeMethods.logger.info(
+                "adding "
+                + self.cliOpt["commands"]["parameters"][
+                    child_index
+                ]["commandString"]
+                + " to self.ui.command_tree, child of: "
+                + self.cliOpt["commands"]["parameters"][
+                    self.cliOpt["commands"]["index"][item]["parameters key"]
+                ]["commandString"]
+            )
             self.add_qtreewidgetitem(
                 parent,
                 self.cliOpt["commands"]["index"][child_index]["parameters key"],
@@ -447,6 +455,13 @@ class CommandTreeMethods(object):
     def _build_command_tree(self):
         parent_index = self.cliOpt["commands"]["index"]
         for item in parent_index:
+            CommandTreeMethods.logger.info(
+                "adding "
+                + self.cliOpt["commands"]["parameters"][
+                    self.cliOpt["commands"]["index"][item]["parameters key"]
+                ]["commandString"]
+                + " to self.ui.command_tree Root"
+            )
             if bool(self.cliOpt["commands"]["index"][item]["child index key list"]):
                 children = len(
                     self.cliOpt["commands"]["index"][item]["child index key list"]
@@ -483,6 +498,8 @@ class CommandTreeMethods(object):
     ## adds items to self.ui.command_tree for display
     def build_command_tree(self):
         command_tree = self.ui.command_tree
+        command_tree.setSelectionMode(QAbstractItemView.SingleSelection)
+        # command_tree.
         command_tree.setHeaderLabels(["Command Tree", ""])
         command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         command_tree.setColumnCount(2)
