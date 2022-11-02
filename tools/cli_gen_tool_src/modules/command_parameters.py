@@ -24,8 +24,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QPlainTextEdit,
-    QSpinBox,
-    QTreeWidgetItem,
+    QSpinBox,    
 )
 
 # logging api

@@ -101,6 +101,7 @@ class MainWindow(
         parent=None,
     ):
         super().__init__(parent)
+        self.loading = True
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
@@ -421,6 +422,7 @@ class MainWindow(
         self.splash.close()
         self.show()
         self.logger.info("CLI generation tool ready.")
+        self.loading = False
         # end __init__
 
     # visual indication to user of the current working file

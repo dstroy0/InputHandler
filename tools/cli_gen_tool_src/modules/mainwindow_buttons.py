@@ -97,7 +97,7 @@ class MainWindowButtons(object):
                 # delete button
                 self.ui.delete_cmd_button.setEnabled(False)
                 # command settings menu button
-                self.ui.cmd_settings_menu_button.setEnabled(True)
+                #self.ui.cmd_settings_menu_button.setEnabled(True)
                 return  # root tree item is selected, give user option to create new root command
 
             if _item_selected:  # something is selected
@@ -128,7 +128,7 @@ class MainWindowButtons(object):
                     # delete button
                     self.ui.delete_cmd_button.setEnabled(True)
                     # command settings menu button
-                    self.ui.cmd_settings_menu_button.setEnabled(True)
+                    #self.ui.cmd_settings_menu_button.setEnabled(True)
         else:
             # nothing is selected, disable all buttons
             _item_selected = False
@@ -257,8 +257,10 @@ class MainWindowButtons(object):
                 "user clicked new command button with child context"
             )
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
+            self.commandparameters_set_fields(self.command_parameters_input_field_settings)
             self.ui.commandParameters.exec()
 
+    # TODO fix delete
     def clicked_delete_tab_two(self) -> None:
         MainWindowButtons.logger.info("clicked tab two delete")
         # command_tree root item
