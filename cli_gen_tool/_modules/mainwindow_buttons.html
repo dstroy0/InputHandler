@@ -321,7 +321,7 @@
                 <span class="c1"># delete button</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                 <span class="c1"># command settings menu button</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmd_settings_menu_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="c1">#self.ui.cmd_settings_menu_button.setEnabled(True)</span>
                 <span class="k">return</span>  <span class="c1"># root tree item is selected, give user option to create new root command</span>
 
             <span class="k">if</span> <span class="n">_item_selected</span><span class="p">:</span>  <span class="c1"># something is selected</span>
@@ -352,7 +352,7 @@
                     <span class="c1"># delete button</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                     <span class="c1"># command settings menu button</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmd_settings_menu_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="c1">#self.ui.cmd_settings_menu_button.setEnabled(True)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># nothing is selected, disable all buttons</span>
             <span class="n">_item_selected</span> <span class="o">=</span> <span class="kc">False</span>
@@ -481,8 +481,10 @@
                 <span class="s2">&quot;user clicked new command button with child context&quot;</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Child Command Parameters&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_input_field_settings</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
 
+    <span class="c1"># TODO fix delete</span>
 <div class="viewcode-block" id="MainWindowButtons.clicked_delete_tab_two"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.clicked_delete_tab_two">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_delete_tab_two</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;clicked tab two delete&quot;</span><span class="p">)</span>
         <span class="c1"># command_tree root item</span>

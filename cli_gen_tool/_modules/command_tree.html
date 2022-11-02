@@ -244,6 +244,8 @@
     <span class="n">QWidget</span><span class="p">,</span>
     <span class="n">QSplitter</span><span class="p">,</span>
     <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QSizePolicy</span><span class="p">,</span>
+    <span class="n">QAbstractScrollArea</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">Qt</span>
 
@@ -269,20 +271,19 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span> <span class="o">=</span> <span class="s2">&quot;Arguments&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">))</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">)))</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">))</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">input_idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_count</span><span class="p">):</span>
             <span class="n">row_list</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>                    
+                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
                     <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="n">input_idx</span><span class="p">])</span>
                     <span class="n">input_idx</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;property</span>
@@ -317,7 +318,7 @@
 <span class="sd">            str: data in the cell</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>            
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Tooltip ph&quot;</span></div>
@@ -335,7 +336,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span></div></div>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span>
+            <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div></div>
 
 
 <span class="c1">## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements</span>
@@ -377,13 +380,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arg_start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">input_idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_count</span><span class="p">):</span>
             <span class="n">row_list</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">input_idx</span><span class="p">])</span>
@@ -480,17 +482,23 @@
         <span class="k">if</span> <span class="n">dict_index</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no index, unable to add item to tree&quot;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="n">dict_index</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">dict_index</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;user deleted a command from the tree, or script loading&quot;</span>
+                <span class="s2">&quot;loaded saved command&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">dict_index</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;user deleted a command from the tree&quot;</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;functions.h&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;functions.cpp&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;parameters.h&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="k">return</span>
+            <span class="k">return</span>        
         <span class="k">elif</span> <span class="n">dict_index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;dict_index not found: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_index</span><span class="p">))</span>
             <span class="k">return</span>
+        <span class="c1"># end error checking</span>
         <span class="n">command_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span>
         <span class="n">dict_pos</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">dict_index</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">dict_index</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
@@ -538,9 +546,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="mi">0</span>
         <span class="p">)</span>
         <span class="n">tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
-        <span class="c1"># tree_item.removeChild(self.cliOpt[&quot;commands&quot;][&quot;QTreeWidgetItem&quot;][&quot;table&quot;][pos])</span>
-        <span class="c1"># remove children</span>
-        <span class="c1"># TODO scrub children from data model</span>
+        
+        <span class="c1"># TODO scrub children</span>
         <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tree_item</span><span class="o">.</span><span class="n">childCount</span><span class="p">()):</span>
             <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree_item</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
@@ -552,7 +559,7 @@
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">]:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">]:</span>
@@ -585,10 +592,10 @@
     <span class="p">):</span>
         <span class="n">command_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span>
         <span class="n">tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;layout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;splitter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;splitter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">()</span>
 
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">]</span>
         <span class="n">container_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;layout&quot;</span><span class="p">]</span>
@@ -614,8 +621,12 @@
         <span class="p">]</span>
         <span class="n">table_view</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span>
-        <span class="p">)</span>        
-        <span class="n">table_view</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>        
+        <span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">setSizeAdjustPolicy</span><span class="p">(</span><span class="n">QAbstractScrollArea</span><span class="o">.</span><span class="n">AdjustToContents</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setDefaultAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
 
         <span class="n">table_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">][</span>
             <span class="n">dict_index</span>
@@ -623,7 +634,10 @@
         <span class="n">table_view</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="n">table_view</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">setSizeAdjustPolicy</span><span class="p">(</span><span class="n">QAbstractScrollArea</span><span class="o">.</span><span class="n">AdjustToContents</span><span class="p">)</span>
+        <span class="n">table_view</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+
+        <span class="n">table_view</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
         <span class="n">table_view</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setDefaultAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
         <span class="n">table_view</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
 
@@ -637,6 +651,21 @@
         <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container_layout</span><span class="p">)</span>
 
         <span class="n">command_tree</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">tree_item</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_command_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">])</span>
+        <span class="p">):</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+            <span class="n">child_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span>
+                <span class="s2">&quot;child index key list&quot;</span>
+            <span class="p">][</span><span class="n">index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
 
     <span class="c1">## private method used by public methods rebuild_command_tree and build_command_tree</span>
     <span class="k">def</span> <span class="nf">_build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -655,21 +684,12 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># command root</span>
-                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">],</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;root index key&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
-                <span class="c1"># command children</span>
-                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">])</span>
-                <span class="p">):</span>
-                    <span class="n">child_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span>
-                        <span class="s2">&quot;child index key list&quot;</span>
-                    <span class="p">][</span><span class="n">index</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
-                        <span class="n">parent</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
-                    <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_command_children</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
         <span class="n">_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
         <span class="n">_root</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
