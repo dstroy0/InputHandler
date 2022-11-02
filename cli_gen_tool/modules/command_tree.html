@@ -225,6 +225,68 @@
           <section id="module-command_tree">
 <span id="command-tree"></span><h1>command_tree<a class="headerlink" href="#module-command_tree" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_tree.</span></span><span class="sig-name descname"><span class="pre">CommandParametersArgumentsTableViewModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersArgumentsTableViewModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel.columnCount">
+<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent=&lt;PySide6.QtCore.QModelIndex(-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">0x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QObject(0x0))&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersArgumentsTableViewModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel.columnCount" title="Permalink to this definition">#</a></dt>
+<dd><p>property</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: The number of columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersArgumentsTableViewModel.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel.data" title="Permalink to this definition">#</a></dt>
+<dd><p>Table data positioning.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>index (QModelIndex): The model index.
+role (Qt Role): What role is the data.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: data in the cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel.headerData">
+<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersArgumentsTableViewModel.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel.headerData" title="Permalink to this definition">#</a></dt>
+<dd><p>Displays header labels</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>section (int): Cell position
+orientation (int): Text orientation
+role (int): role of the data</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: The section label.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel.rowCount">
+<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent=&lt;PySide6.QtCore.QModelIndex(-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">0x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QObject(0x0))&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersArgumentsTableViewModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel.rowCount" title="Permalink to this definition">#</a></dt>
+<dd><p>property</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: The number of rows.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="command_tree.CommandParametersArgumentsTableViewModel.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CommandParametersArgumentsTableViewModel&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QAbstractTableModel&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#command_tree.CommandParametersArgumentsTableViewModel.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="command_tree.CommandParametersTableViewModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_tree.</span></span><span class="sig-name descname"><span class="pre">CommandParametersTableViewModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandParametersTableViewModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandParametersTableViewModel" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
@@ -382,6 +444,14 @@ role (int): role of the data</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">command_tree</a><ul>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel</span></code></a><ul>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel.columnCount"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel.columnCount()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel.data"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel.data()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel.headerData"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel.headerData()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel.rowCount"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel.rowCount()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandParametersArgumentsTableViewModel.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CommandParametersArgumentsTableViewModel.staticMetaObject</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#command_tree.CommandParametersTableViewModel"><code class="docutils literal notranslate"><span class="pre">CommandParametersTableViewModel</span></code></a><ul>
 <li><a class="reference internal" href="#command_tree.CommandParametersTableViewModel.columnCount"><code class="docutils literal notranslate"><span class="pre">CommandParametersTableViewModel.columnCount()</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandParametersTableViewModel.data"><code class="docutils literal notranslate"><span class="pre">CommandParametersTableViewModel.data()</span></code></a></li>
