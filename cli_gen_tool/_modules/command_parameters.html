@@ -591,7 +591,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">prm_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span>
                 <span class="n">validated_result</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_command_tree</span><span class="p">()</span>
+            <span class="c1">#self.rebuild_command_tree()</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># new command being added</span>
             <span class="c1"># get array index</span>
             <span class="n">cmd_idx</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
@@ -601,7 +601,7 @@
             <span class="c1"># root command</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
-
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
                 <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="p">{</span><span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]:</span> <span class="n">p_idx</span><span class="p">}</span>
@@ -616,9 +616,15 @@
             <span class="c1"># non root command</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
+                                                            
+                <span class="n">_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                <span class="n">_parent_index_struct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_parent_index_struct</span><span class="p">[</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="p">{</span><span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]:</span> <span class="n">p_idx</span><span class="p">}</span>
-                <span class="p">)</span>
+                <span class="p">)</span>                
+                <span class="n">_parent_index_struct</span><span class="p">[</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>                
                 <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
                 <span class="p">)</span>
@@ -626,11 +632,6 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="p">,</span>
                     <span class="n">p_idx</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
-                <span class="n">_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-                <span class="n">_parent_index_struct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-                <span class="n">_parent_index_struct</span><span class="p">[</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd_idx</span><span class="p">)</span>
-                <span class="c1"># reset parent to ensure user selects the parent again if they want to add another child</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># command parameters were accepted, so increment the array index</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
