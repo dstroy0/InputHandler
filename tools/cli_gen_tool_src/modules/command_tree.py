@@ -285,7 +285,7 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
         )
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
-        tree_item.text
+
         self.build_command_parameters_table_view(
             dict_index, tree_item, command_parameters
         )
@@ -367,13 +367,21 @@ class CommandTreeMethods(object):
         command_tree = self.ui.command_tree
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index]
 
-        self.cliOpt["commands"]["QTableView"]["container"] = QWidget()
-        self.cliOpt["commands"]["QTableView"]["layout"] = QHBoxLayout()
-        self.cliOpt["commands"]["QTableView"]["splitter"] = QSplitter()
+        self.cliOpt["commands"]["QTableView"]["container"].update(
+            {dict_index: QWidget()}
+        )
+        self.cliOpt["commands"]["QTableView"]["layout"].update(
+            {dict_index: QHBoxLayout()}
+        )
+        self.cliOpt["commands"]["QTableView"]["splitter"].update(
+            {dict_index: QSplitter()}
+        )
 
-        container = self.cliOpt["commands"]["QTableView"]["container"]
-        container_layout = self.cliOpt["commands"]["QTableView"]["layout"]
-        container_splitter = self.cliOpt["commands"]["QTableView"]["splitter"]
+        container = self.cliOpt["commands"]["QTableView"]["container"][dict_index]
+        container_layout = self.cliOpt["commands"]["QTableView"]["layout"][dict_index]
+        container_splitter = self.cliOpt["commands"]["QTableView"]["splitter"][
+            dict_index
+        ]
 
         self.cliOpt["commands"]["QTableView"]["models"]["parameters"][
             dict_index
@@ -411,7 +419,6 @@ class CommandTreeMethods(object):
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        
         table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         table_view.resizeColumnsToContents()
 
@@ -427,58 +434,75 @@ class CommandTreeMethods(object):
         command_tree.setItemWidget(tree_item, 0, container)
 
     def _add_command_children(self, item):
-        for index in range(
-            len(self.cliOpt["commands"]["index"][item]["child index key list"])
-        ):
-            parent = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
-                self.cliOpt["commands"]["index"][item]["parameters key"]
-            ]
+        key_list = self.cliOpt["commands"]["index"][str(item)]["child index key list"]
+        parent = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
+            self.cliOpt["commands"]["index"][item]["parent index key"]
+        ]
+
+        if isinstance(parent, str):
+            CommandTreeMethods.logger.info(
+                "building widgets"
+            )
+            return
+
+        if not bool(key_list):
+            CommandTreeMethods.logger.info(
+                "adding "
+                + self.cliOpt["commands"]["parameters"][item]["commandString"]
+                + " to self.ui.command_tree, child of: "
+                + self.cliOpt["commands"]["parameters"][
+                    self.cliOpt["commands"]["index"][item]["parent index key"]
+                ]["commandString"]
+            )
+            self.add_qtreewidgetitem(
+                parent,
+                self.cliOpt["commands"]["index"][item]["parameters key"],
+            )
+            return  # no more children
+
+        for index in range(len(key_list)):
             child_index = self.cliOpt["commands"]["index"][item][
                 "child index key list"
             ][index]
             CommandTreeMethods.logger.info(
                 "adding "
-                + self.cliOpt["commands"]["parameters"][
-                    child_index
-                ]["commandString"]
+                + self.cliOpt["commands"]["parameters"][child_index]["commandString"]
                 + " to self.ui.command_tree, child of: "
                 + self.cliOpt["commands"]["parameters"][
-                    self.cliOpt["commands"]["index"][item]["parameters key"]
+                    self.cliOpt["commands"]["index"][item]["parent index key"]
                 ]["commandString"]
             )
             self.add_qtreewidgetitem(
                 parent,
                 self.cliOpt["commands"]["index"][child_index]["parameters key"],
             )
+            if bool(
+                self.cliOpt["commands"]["index"][child_index]["child index key list"]
+            ):                
+                self._add_command_children(child_index)
 
     ## private method used by public methods rebuild_command_tree and build_command_tree
     def _build_command_tree(self):
         parent_index = self.cliOpt["commands"]["index"]
         for item in parent_index:
-            CommandTreeMethods.logger.info(
-                "adding "
-                + self.cliOpt["commands"]["parameters"][
-                    self.cliOpt["commands"]["index"][item]["parameters key"]
-                ]["commandString"]
-                + " to self.ui.command_tree Root"
-            )
-            if bool(self.cliOpt["commands"]["index"][item]["child index key list"]):
-                children = len(
-                    self.cliOpt["commands"]["index"][item]["child index key list"]
+            # command root
+            if (
+                self.cliOpt["commands"]["index"][item]["parameters key"]
+                == self.cliOpt["commands"]["index"][item]["root index key"]
+                == self.cliOpt["commands"]["index"][item]["parent index key"]
+            ):
+                CommandTreeMethods.logger.info(
+                    "adding "
+                    + self.cliOpt["commands"]["parameters"][
+                        self.cliOpt["commands"]["index"][item]["parameters key"]
+                    ]["commandString"]
+                    + " to self.ui.command_tree Root"
                 )
-            else:
-                children = 0
-            if children == 0:
                 self.add_qtreewidgetitem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                     self.cliOpt["commands"]["index"][item]["root index key"],
                 )
-            else:
-                # command root
-                self.add_qtreewidgetitem(
-                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    self.cliOpt["commands"]["index"][item]["root index key"],
-                )
+            else:  # child command
                 self._add_command_children(item)
 
         _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]

@@ -132,6 +132,9 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
                         ]["root index key"] = "listCommands"
+                        self.cliOpt["commands"]["index"][
+                            self.cliOpt["var"]["primary id key"]
+                        ]["parent index key"] = "listCommands"
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listCommands",
@@ -169,6 +172,9 @@ class SettingsTreeMethods(object):
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
                         ]["root index key"] = "listSettings"
+                        self.cliOpt["commands"]["index"][
+                            self.cliOpt["var"]["primary id key"]
+                        ]["parent index key"] = "listSettings"
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             "listSettings",

@@ -367,7 +367,7 @@ class CommandParametersMethods(object):
             self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
                 validated_result
             )
-            self.rebuild_command_tree()
+            #self.rebuild_command_tree()
         else:  # new command being added
             # get array index
             cmd_idx = str(self.cliOpt["var"]["primary id key"])
@@ -377,7 +377,7 @@ class CommandParametersMethods(object):
             # root command
             if self.selected_command_is_root and self.child_command_parent == None:
                 p_idx["root index key"] = str(cmd_idx)
-
+                p_idx["parent index key"] = str(cmd_idx)
                 p_idx["parameters key"] = str(cmd_idx)
                 self.cliOpt["commands"]["index"].update(
                     {p_idx["parameters key"]: p_idx}
@@ -392,9 +392,15 @@ class CommandParametersMethods(object):
             # non root command
             else:
                 p_idx["parameters key"] = str(cmd_idx)
+                                                            
+                _pos = self.child_command_parent.data(1, 0).split(",")
+                _parent_index_struct = self.cliOpt["commands"]["index"][_pos[0]]
+                p_idx["parent index key"] = str(_pos[0])
+                p_idx["root index key"] = _parent_index_struct["root index key"]
                 self.cliOpt["commands"]["index"].update(
                     {p_idx["parameters key"]: p_idx}
-                )
+                )                
+                _parent_index_struct["child index key list"].append(cmd_idx)                
                 CommandParametersMethods.logger.debug(
                     json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
                 )
@@ -402,11 +408,6 @@ class CommandParametersMethods(object):
                     self.child_command_parent,
                     p_idx["parameters key"],
                 )
-                _pos = self.child_command_parent.data(1, 0).split(",")
-                _parent_index_struct = self.cliOpt["commands"]["index"][_pos[0]]
-                _parent_index_struct["child index key list"].append(cmd_idx)
-                # reset parent to ensure user selects the parent again if they want to add another child
-                self.child_command_parent = None
 
             # command parameters were accepted, so increment the array index
             self.cliOpt["var"]["primary id key"] = str(

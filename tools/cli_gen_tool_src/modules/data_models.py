@@ -123,6 +123,8 @@ class dataModels(object):
         "parameters key": "",
         # key to this commands root index
         "root index key": "",
+        # key to this commands parent index
+        "parent index key": "",
         # key(s) to child indices
         "child index key list": [],
     }
