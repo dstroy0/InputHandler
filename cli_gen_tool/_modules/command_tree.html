@@ -460,22 +460,12 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandTreeMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="c1">## search the db for the command and remove it if exists, decrement `number of commands` (total num unique cmd param)</span>
-    <span class="c1"># TODO remove orphaned children</span>
-<div class="viewcode-block" id="CommandTreeMethods.rem_command"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rem_command">[docs]</a>    <span class="k">def</span> <span class="nf">rem_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_list</span><span class="p">):</span>
-        <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
-            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
-                    <span class="n">match</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">break</span>
-        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-                    <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
-                <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rem_qtreewidgetitem</span><span class="p">(</span><span class="n">object_list</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div>
+    <span class="c1">## rem_qtreewidgetitem wrapper deprecated</span>
+<div class="viewcode-block" id="CommandTreeMethods.rem_command"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rem_command">[docs]</a>    <span class="k">def</span> <span class="nf">rem_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_list</span><span class="p">):</span>                
+        <span class="bp">self</span><span class="o">.</span><span class="n">rem_qtreewidgetitem</span><span class="p">(</span><span class="n">object_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div>
 
     <span class="c1">## adds a single command to the tree</span>
 <div class="viewcode-block" id="CommandTreeMethods.add_qtreewidgetitem"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.add_qtreewidgetitem">[docs]</a>    <span class="k">def</span> <span class="nf">add_qtreewidgetitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">dict_index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QTreeWidgetItem</span><span class="p">:</span>
@@ -523,37 +513,12 @@
         <span class="c1"># return child</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span></div>
 
-    <span class="c1">## takes the command out of the tree and scrub it from the data model</span>
-<div class="viewcode-block" id="CommandTreeMethods.rem_qtreewidgetitem"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rem_qtreewidgetitem">[docs]</a>    <span class="k">def</span> <span class="nf">rem_qtreewidgetitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">):</span>
-        <span class="n">_builtin_commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span>
-        <span class="k">for</span> <span class="p">(</span>
-            <span class="n">item</span>
-        <span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
-            <span class="n">_builtin_commands</span>
-        <span class="p">):</span>  <span class="c1"># determine if the something selected is an InputHandler builtin</span>
-            <span class="k">if</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
-                <span class="n">pos</span> <span class="o">=</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                <span class="k">break</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">pos</span> <span class="o">=</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># take the table widget out of the qtreewidgetitem (&quot;table&quot;)</span>
-        <span class="k">if</span> <span class="n">pos</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">]:</span>
-            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;qtreewidgetitem not in dict&quot;</span><span class="p">)</span>
-            <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">removeItemWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="mi">0</span>
-        <span class="p">)</span>
-        <span class="n">tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
-
-        <span class="c1"># TODO scrub children</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tree_item</span><span class="o">.</span><span class="n">childCount</span><span class="p">()):</span>
-            <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree_item</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
-            <span class="n">tree_item</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">tree_item</span><span class="p">)</span>
-
+    <span class="c1">## scrubs command from data model</span>
+<div class="viewcode-block" id="CommandTreeMethods.scrub_command_from_datamodel"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.scrub_command_from_datamodel">[docs]</a>    <span class="k">def</span> <span class="nf">scrub_command_from_datamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># scrub the data model</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
+            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;removing &quot;</span> <span class="o">+</span> <span class="n">command</span> <span class="o">+</span> <span class="s2">&quot; from the command tree&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">]:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;arguments&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTableView&quot;</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
@@ -568,21 +533,94 @@
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">]:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">:</span>
-                <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="nb">str</span><span class="p">(</span>
-                        <span class="s2">&quot;removing command index struct &quot;</span>
-                        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-                        <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-                        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
-                            <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span>
+        <span class="p">):</span>
+            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span>
+                    <span class="s2">&quot;removing command index struct &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
                 <span class="p">)</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span></div>
+
+    <span class="c1">## takes the command out of the tree and scrub it from the data model</span>
+<div class="viewcode-block" id="CommandTreeMethods.rem_qtreewidgetitem"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rem_qtreewidgetitem">[docs]</a>    <span class="k">def</span> <span class="nf">rem_qtreewidgetitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">):</span>
+        <span class="n">_builtin_commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span>
+        <span class="k">for</span> <span class="p">(</span>
+            <span class="n">item</span>
+        <span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">_builtin_commands</span>
+        <span class="p">):</span>  <span class="c1"># determine if the something selected is an InputHandler builtin</span>
+            <span class="k">if</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+                <span class="n">parent_tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
+                <span class="n">parent_tree_item</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">tree_item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scrub_command_from_datamodel</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">dict_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># take the table widget out of the qtreewidgetitem (&quot;table&quot;)</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">]:</span>
+            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;qtreewidgetitem not in dict&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">removeItemWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">tree_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">child_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">pos</span><span class="p">][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span>
+        <span class="n">child_positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+        <span class="n">pos_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">child_list</span><span class="p">):</span>
+            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;looking for command children&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="nb">bool</span><span class="p">(</span><span class="n">child_list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">child_list</span><span class="p">:</span>
+                <span class="n">child_treewidgetitem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span>
+                    <span class="s2">&quot;container&quot;</span>
+                <span class="p">][</span><span class="n">item</span><span class="p">]</span>
+                <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child_treewidgetitem</span><span class="p">)</span>
+                <span class="n">child_positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">pos_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">child_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">child_positions</span><span class="p">[</span><span class="n">pos_idx</span><span class="p">]][</span>
+                <span class="s2">&quot;child index key list&quot;</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">child_list</span><span class="p">):</span>
+                <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;no more command children found&quot;</span><span class="p">)</span>
                 <span class="k">break</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_command_tree</span><span class="p">()</span></div>
+        
+        <span class="c1"># prune children</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+            <span class="n">_object_list</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
+            <span class="n">child_index</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">_object_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">parent_index_key</span> <span class="o">=</span> <span class="n">child_index</span><span class="p">[</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">parent_index_key</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+                <span class="n">parent_index</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">parent_index_key</span><span class="p">]</span>
+                <span class="n">parent_child_list</span> <span class="o">=</span> <span class="n">parent_index</span><span class="p">[</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">_object_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">parent_child_list</span><span class="p">:</span>
+                    <span class="n">parent_child_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span>
+                        <span class="n">_object_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="p">)</span>  <span class="c1"># remove this child from the parent&#39;s list of children</span>
+            <span class="n">tree_item</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+        <span class="c1"># remove children from cliOpt starting with the farthest leaf from Root</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">child_positions</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scrub_command_from_datamodel</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="n">parent_treewidgetitem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
+        <span class="n">parent_treewidgetitem</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">tree_item</span><span class="p">)</span>
+        
+        <span class="c1"># the number of commands is equal to the len of the commands index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">])</span>
+            <span class="p">)</span>        </div>
 
     <span class="c1">## builds a table view for a command using a custom model and populates it with the command&#39;s parameters</span>
 <div class="viewcode-block" id="CommandTreeMethods.build_command_parameters_table_view"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.build_command_parameters_table_view">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_parameters_table_view</span><span class="p">(</span>
@@ -657,54 +695,6 @@
 
         <span class="n">command_tree</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">tree_item</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_add_command_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="n">key_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
-        <span class="p">]</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;building widgets&quot;</span>
-            <span class="p">)</span>
-            <span class="k">return</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">key_list</span><span class="p">):</span>
-            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;adding &quot;</span>
-                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-                <span class="o">+</span> <span class="s2">&quot; to self.ui.command_tree, child of: &quot;</span>
-                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
-                <span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
-            <span class="p">)</span>
-            <span class="k">return</span>  <span class="c1"># no more children</span>
-
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key_list</span><span class="p">)):</span>
-            <span class="n">child_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span>
-                <span class="s2">&quot;child index key list&quot;</span>
-            <span class="p">][</span><span class="n">index</span><span class="p">]</span>
-            <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;adding &quot;</span>
-                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-                <span class="o">+</span> <span class="s2">&quot; to self.ui.command_tree, child of: &quot;</span>
-                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
-                <span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span>
-            <span class="p">):</span>                
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_command_children</span><span class="p">(</span><span class="n">child_index</span><span class="p">)</span>
-
     <span class="c1">## private method used by public methods rebuild_command_tree and build_command_tree</span>
     <span class="k">def</span> <span class="nf">_build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">parent_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
@@ -727,8 +717,20 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;root index key&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># child command</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_command_children</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-
+                <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;adding &quot;</span>
+                    <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
+                    <span class="o">+</span> <span class="s2">&quot; to self.ui.command_tree, child of: &quot;</span>
+                    <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
+                    <span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_qtreewidgetitem</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">][</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]</span>
+                    <span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
         <span class="n">_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
         <span class="n">_root</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
