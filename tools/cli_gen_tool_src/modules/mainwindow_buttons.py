@@ -301,8 +301,9 @@ class MainWindowButtons(object):
                         _object_list[2]
                     ]["QComboBox"]
                     # there's only one item in the builtin but the key isn't known here.
-                    for item in _cmb:
-                        _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
+                    for item in _cmb:                        
+                        if not isinstance(_cmb[item],str):
+                            _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
                 self.rem_command(_object_list)
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
