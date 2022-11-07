@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QPlainTextEdit,
-    QSpinBox,    
+    QSpinBox,
 )
 
 # logging api
@@ -44,6 +44,7 @@ class CommandParametersMethods(object):
     Returns:
         None: None
     """
+
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
 
@@ -375,7 +376,7 @@ class CommandParametersMethods(object):
             self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
                 validated_result
             )
-            #self.rebuild_command_tree()
+            # self.rebuild_command_tree()
         else:  # new command being added
             # get array index
             cmd_idx = str(self.cliOpt["var"]["primary id key"])
@@ -400,15 +401,15 @@ class CommandParametersMethods(object):
             # non root command
             else:
                 p_idx["parameters key"] = str(cmd_idx)
-                                                            
+
                 _pos = self.child_command_parent.data(1, 0).split(",")
                 _parent_index_struct = self.cliOpt["commands"]["index"][_pos[0]]
                 p_idx["parent index key"] = str(_pos[0])
                 p_idx["root index key"] = _parent_index_struct["root index key"]
                 self.cliOpt["commands"]["index"].update(
                     {p_idx["parameters key"]: p_idx}
-                )                
-                _parent_index_struct["child index key list"].append(cmd_idx)                
+                )
+                _parent_index_struct["child index key list"].append(cmd_idx)
                 CommandParametersMethods.logger.debug(
                     json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
                 )

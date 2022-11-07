@@ -63,7 +63,7 @@ class MainWindowButtons(object):
                 self.ui.command_tree.expandAll()
                 button.setText("Collapse All")
                 return
-    
+
     def settings_tree_button_toggles(self):
         _item_selected = self.ui.settings_tree.selectedItems()
         if _item_selected and _item_selected[0].isExpanded():
@@ -109,7 +109,7 @@ class MainWindowButtons(object):
         else:
             self.ui.edit_setting_button.setEnabled(False)
             self.ui.clear_setting_button.setEnabled(False)
-            self.ui.default_setting_button.setEnabled(False)            
+            self.ui.default_setting_button.setEnabled(False)
 
     def command_menu_button_toggles(self):
         # method internal var
@@ -127,8 +127,7 @@ class MainWindowButtons(object):
         _item_selected = False
         # if the selected item is root, this is True
         _item_selected_is_root = False
-        
-        
+
         if _items and _items[0].isExpanded():
             self.ui.command_tree_collapse_button.setText("Collapse")
         elif _items and not _items[0].isExpanded():
@@ -140,7 +139,7 @@ class MainWindowButtons(object):
                     self.ui.command_tree_collapse_button.setText("Collapse All")
                 else:
                     self.ui.command_tree_collapse_button.setText("Expand All")
-        
+
         # new/edit/delete/command settings menu button enable/disable toggling
         if _item_selected_is_root:
             # new button
@@ -149,13 +148,13 @@ class MainWindowButtons(object):
             # edit button
             self.ui.edit_cmd_button.setEnabled(False)
             # delete button
-            self.ui.delete_cmd_button.setEnabled(False)                
+            self.ui.delete_cmd_button.setEnabled(False)
             return  # root tree item is selected, give user option to create new root command
-        
+
         # if the list is NOT empty (truthy)
         if _items:
             # something on the command tree is selected
-            _item_selected = _items[0]                                        
+            _item_selected = _items[0]
 
             if _item_selected:  # something is selected
                 _object_list = _item_selected.data(1, 0).split(",")

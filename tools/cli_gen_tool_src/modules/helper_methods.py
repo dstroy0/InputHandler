@@ -119,8 +119,8 @@ class HelperMethods(object):
 
         _fg = dlg.frameGeometry()
         center_point = _qscreen.availableGeometry().center()
-        center_point.setX(center_point.x() - (_fg.x()/2))
-        center_point.setY(center_point.y() - (_fg.y()/2))
+        center_point.setX(center_point.x() - (_fg.x() / 2))
+        center_point.setY(center_point.y() - (_fg.y() / 2))
         _fg.moveCenter(center_point)
         self.logger.info("Creating QDialog on: " + _qscreen.name())
         ret = dlg.exec()  # return the dialog exit code

@@ -466,17 +466,25 @@ class MainWindow(
         if (
             watched == self.ui.codePreview_1.viewport()
             or watched == self.ui.codePreview_2.viewport()
-        ):            
+        ):
             self.code_preview_events(
                 watched, event, event_type, mouse_button, mouse_pos
             )
-        elif(watched == self.ui.settings_tree.viewport() and event_type == QEvent.MouseButtonPress):
+        elif (
+            watched == self.ui.settings_tree.viewport()
+            and event_type == QEvent.MouseButtonPress
+        ):
             if not self.ui.settings_tree.itemAt(mouse_pos):
                 self.ui.settings_tree.clearSelection()
-        elif(watched == self.ui.command_tree.viewport() and event_type == QEvent.MouseButtonPress):
+        elif (
+            watched == self.ui.command_tree.viewport()
+            and event_type == QEvent.MouseButtonPress
+        ):
             if not self.ui.command_tree.itemAt(mouse_pos):
                 self.ui.command_tree.clearSelection()
-                self.ui.command_tree.setCurrentItem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"])                
+                self.ui.command_tree.setCurrentItem(
+                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+                )
                 self.command_menu_button_toggles()
         return super().eventFilter(watched, event)
 
