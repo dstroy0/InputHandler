@@ -113,7 +113,46 @@
             </sizepolicy>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
-            <item row="1" column="0" colspan="3">
+            <item row="4" column="1">
+             <widget class="QPushButton" name="clear_setting_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QPushButton" name="edit_setting_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QPushButton" name="default_setting_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Default</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="3">
              <widget class="QTreeWidget" name="settings_tree">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -146,46 +185,20 @@
               </column>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="edit_setting_button">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="settings_tree_collapse_button">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
               </property>
               <property name="text">
-               <string>Edit</string>
+               <string/>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="clear_setting_button">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Clear</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="default_setting_button">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Default</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="3">
+            <item row="1" column="1">
              <widget class="QLabel" name="tab_1_settings_table_label">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
@@ -312,7 +325,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="0" column="0">
-             <widget class="QPushButton" name="cmd_settings_menu_button">
+             <widget class="QPushButton" name="command_tree_collapse_button">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -321,7 +334,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>170</width>
+                <width>150</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -329,7 +342,7 @@
                <string>open command settings menu</string>
               </property>
               <property name="text">
-               <string>Command settings menu</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -619,7 +632,7 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>cmd_settings_menu_button</tabstop>
+  <tabstop>command_tree_collapse_button</tabstop>
   <tabstop>command_tree</tabstop>
   <tabstop>codePreview_2</tabstop>
   <tabstop>new_cmd_button</tabstop>

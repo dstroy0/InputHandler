@@ -87,6 +87,30 @@ class Ui_MainWindow(object):
         self.widget.setSizePolicy(sizePolicy)
         self.gridLayout_2 = QGridLayout(self.widget)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.clear_setting_button = QPushButton(self.widget)
+        self.clear_setting_button.setObjectName(u"clear_setting_button")
+        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.clear_setting_button.sizePolicy().hasHeightForWidth())
+        self.clear_setting_button.setSizePolicy(sizePolicy1)
+
+        self.gridLayout_2.addWidget(self.clear_setting_button, 4, 1, 1, 1)
+
+        self.edit_setting_button = QPushButton(self.widget)
+        self.edit_setting_button.setObjectName(u"edit_setting_button")
+        sizePolicy1.setHeightForWidth(self.edit_setting_button.sizePolicy().hasHeightForWidth())
+        self.edit_setting_button.setSizePolicy(sizePolicy1)
+
+        self.gridLayout_2.addWidget(self.edit_setting_button, 4, 0, 1, 1)
+
+        self.default_setting_button = QPushButton(self.widget)
+        self.default_setting_button.setObjectName(u"default_setting_button")
+        sizePolicy1.setHeightForWidth(self.default_setting_button.sizePolicy().hasHeightForWidth())
+        self.default_setting_button.setSizePolicy(sizePolicy1)
+
+        self.gridLayout_2.addWidget(self.default_setting_button, 4, 2, 1, 1)
+
         self.settings_tree = QTreeWidget(self.widget)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"1");
@@ -100,31 +124,13 @@ class Ui_MainWindow(object):
         self.settings_tree.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.settings_tree.setDragEnabled(False)
 
-        self.gridLayout_2.addWidget(self.settings_tree, 1, 0, 1, 3)
+        self.gridLayout_2.addWidget(self.settings_tree, 3, 0, 1, 3)
 
-        self.edit_setting_button = QPushButton(self.widget)
-        self.edit_setting_button.setObjectName(u"edit_setting_button")
-        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.edit_setting_button.sizePolicy().hasHeightForWidth())
-        self.edit_setting_button.setSizePolicy(sizePolicy1)
+        self.settings_tree_collapse_button = QPushButton(self.widget)
+        self.settings_tree_collapse_button.setObjectName(u"settings_tree_collapse_button")
+        self.settings_tree_collapse_button.setMaximumSize(QSize(150, 16777215))
 
-        self.gridLayout_2.addWidget(self.edit_setting_button, 2, 0, 1, 1)
-
-        self.clear_setting_button = QPushButton(self.widget)
-        self.clear_setting_button.setObjectName(u"clear_setting_button")
-        sizePolicy1.setHeightForWidth(self.clear_setting_button.sizePolicy().hasHeightForWidth())
-        self.clear_setting_button.setSizePolicy(sizePolicy1)
-
-        self.gridLayout_2.addWidget(self.clear_setting_button, 2, 1, 1, 1)
-
-        self.default_setting_button = QPushButton(self.widget)
-        self.default_setting_button.setObjectName(u"default_setting_button")
-        sizePolicy1.setHeightForWidth(self.default_setting_button.sizePolicy().hasHeightForWidth())
-        self.default_setting_button.setSizePolicy(sizePolicy1)
-
-        self.gridLayout_2.addWidget(self.default_setting_button, 2, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.settings_tree_collapse_button, 1, 0, 1, 1)
 
         self.tab_1_settings_table_label = QLabel(self.widget)
         self.tab_1_settings_table_label.setObjectName(u"tab_1_settings_table_label")
@@ -136,7 +142,7 @@ class Ui_MainWindow(object):
         self.tab_1_settings_table_label.setMinimumSize(QSize(0, 0))
         self.tab_1_settings_table_label.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_2.addWidget(self.tab_1_settings_table_label, 0, 0, 1, 3)
+        self.gridLayout_2.addWidget(self.tab_1_settings_table_label, 1, 1, 1, 1)
 
         self.splitter_2.addWidget(self.widget)
         self.code_preview_container = QWidget(self.splitter_2)
@@ -193,13 +199,13 @@ class Ui_MainWindow(object):
         self.commands_container.setSizePolicy(sizePolicy)
         self.gridLayout_6 = QGridLayout(self.commands_container)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.cmd_settings_menu_button = QPushButton(self.commands_container)
-        self.cmd_settings_menu_button.setObjectName(u"cmd_settings_menu_button")
-        sizePolicy2.setHeightForWidth(self.cmd_settings_menu_button.sizePolicy().hasHeightForWidth())
-        self.cmd_settings_menu_button.setSizePolicy(sizePolicy2)
-        self.cmd_settings_menu_button.setMaximumSize(QSize(170, 16777215))
+        self.command_tree_collapse_button = QPushButton(self.commands_container)
+        self.command_tree_collapse_button.setObjectName(u"command_tree_collapse_button")
+        sizePolicy2.setHeightForWidth(self.command_tree_collapse_button.sizePolicy().hasHeightForWidth())
+        self.command_tree_collapse_button.setSizePolicy(sizePolicy2)
+        self.command_tree_collapse_button.setMaximumSize(QSize(150, 16777215))
 
-        self.gridLayout_6.addWidget(self.cmd_settings_menu_button, 0, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.command_tree_collapse_button, 0, 0, 1, 1)
 
         self.tab_2_command_tree_label = QLabel(self.commands_container)
         self.tab_2_command_tree_label.setObjectName(u"tab_2_command_tree_label")
@@ -297,7 +303,7 @@ class Ui_MainWindow(object):
         self.menuLog = QMenu(self.menubar)
         self.menuLog.setObjectName(u"menuLog")
         MainWindow.setMenuBar(self.menubar)
-        QWidget.setTabOrder(self.cmd_settings_menu_button, self.command_tree)
+        QWidget.setTabOrder(self.command_tree_collapse_button, self.command_tree)
         QWidget.setTabOrder(self.command_tree, self.codePreview_2)
         QWidget.setTabOrder(self.codePreview_2, self.new_cmd_button)
         QWidget.setTabOrder(self.new_cmd_button, self.edit_cmd_button)
@@ -365,16 +371,17 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.actionOpen_Log_History.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
 #endif // QT_CONFIG(shortcut)
-        self.edit_setting_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.clear_setting_button.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
+        self.edit_setting_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.default_setting_button.setText(QCoreApplication.translate("MainWindow", u"Default", None))
+        self.settings_tree_collapse_button.setText("")
         self.tab_1_settings_table_label.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.tab_1_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"  InputHandler Settings  ", None))
 #if QT_CONFIG(tooltip)
-        self.cmd_settings_menu_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
+        self.command_tree_collapse_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
 #endif // QT_CONFIG(tooltip)
-        self.cmd_settings_menu_button.setText(QCoreApplication.translate("MainWindow", u"Command settings menu", None))
+        self.command_tree_collapse_button.setText("")
         self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
         self.new_cmd_button.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.edit_cmd_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))

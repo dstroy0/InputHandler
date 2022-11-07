@@ -93,12 +93,14 @@ class MainWindowActions(object):
             sys.exit(self.app.quit())
 
     def create_file_error_qdialog(self, error_type: str, qfile: QFile):
-        MainWindowActions.logger.warning(error_type + " file error.")
+        MainWindowActions.logger.warning(
+            error_type + " " + qfile.fileName() + " error."
+        )
         self.create_qdialog(
-            error_type + " error.",
+            error_type,
             Qt.AlignCenter,
             0,
-            error_type + " " + qfile.fileName() + " error",
+            error_type + " " + qfile.fileName() + " error.",
             None,
             None,
             self.ui.messageBoxCriticalIcon,
@@ -108,7 +110,7 @@ class MainWindowActions(object):
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
-                self.create_file_error_qdialog("Save", qfile)
+                self.create_file_error_qdialog("Save file", qfile)
             return -1  # file error
         out = QByteArray(
             json.dumps(
@@ -135,7 +137,7 @@ class MainWindowActions(object):
         else:
             MainWindowActions.logger.info("Write " + qfile.fileName() + " error.")
             if create_error_dialog:
-                self.create_file_error_qdialog("Write", qfile)
+                self.create_file_error_qdialog("Write file", qfile)
         qfile.close()
         return size
 
@@ -144,7 +146,7 @@ class MainWindowActions(object):
         if not qfile.exists():
             MainWindowActions.logger.info("qfile.exists() == false")
             if create_error_dialog:
-                self.create_file_error_qdialog("File not exists", qfile)
+                self.create_file_error_qdialog("This file does not exist: ", qfile)
             return [-2, {}]  # file doesn't exist
         if not qfile.open(QIODevice.ReadOnly | QIODevice.Text):
             qfile.close()
@@ -156,8 +158,15 @@ class MainWindowActions(object):
         qfile.close()
         try:
             db = json.loads(data_in)
-            MainWindowActions.logger.info("loaded json: " + db["type"])
-            return [len(data_in), db]
+            if "type" in db:
+                MainWindowActions.logger.info("loaded json: " + db["type"])
+                return [len(data_in), db]
+            else:
+                MainWindowActions.logger.info("invalid json type")
+                MainWindowActions.logger.debug(
+                    "json.loads():\n" + str(json.dumps(db, indent=2))
+                )
+                return [-4, {}]
         except Exception as e:
             MainWindowActions.logger.warning(str(e))
             return [-4, {}]
@@ -171,10 +180,13 @@ class MainWindowActions(object):
             or self.session["opt"]["save_filename"] == None
         ):
             ret = self.save_file_as()
+            if ret >= 0:
+                self.prompt_to_save = False
             return ret
         file = QFile(self.session["opt"]["save_filename"])
         ret = self.write_json(self.cliOpt, file, True)
-        self.prompt_to_save = False
+        if ret >= 0:
+            self.prompt_to_save = False
         self.windowtitle_set = False
         self.set_main_window_title()
         return ret
@@ -241,7 +253,13 @@ class MainWindowActions(object):
         else:
             file = QFile(fileName[0])
             read_json_result = self.read_json(file, True)
-            self.cliOpt = read_json_result[1]
+            if (
+                read_json_result[0] >= 0
+                and read_json_result[1]["type"] == "cli options"
+            ):
+                self.cliOpt = read_json_result[1]
+            else:
+                self.create_file_error_qdialog("Incorrect json type", file)
             # empty trees
             self.ui.settings_tree.clear()
             self.ui.command_tree.clear()
@@ -252,7 +270,6 @@ class MainWindowActions(object):
             self.prompt_to_save = False
             self.windowtitle_set = False
 
-    # TODO
     def gui_settings(self):
         MainWindowActions.logger.info("opened preferences dialog")
         self.preferences.exec()
@@ -329,6 +346,9 @@ class MainWindowActions(object):
         self.ui.edit_setting_button.clicked.connect(self.clicked_edit_tab_one)
         self.ui.clear_setting_button.clicked.connect(self.clicked_clear_tab_one)
         self.ui.default_setting_button.clicked.connect(self.clicked_default_tab_one)
+        self.ui.settings_tree_collapse_button.clicked.connect(
+            self.settings_tree_collapse_button
+        )
         self.ui.settings_tree.itemSelectionChanged.connect(
             self.settings_tree_button_toggles
         )
@@ -337,8 +357,8 @@ class MainWindowActions(object):
         self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
         self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
         self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
-        self.ui.cmd_settings_menu_button.clicked.connect(
-            self.clicked_command_settings_menu_button_tab_two
+        self.ui.command_tree_collapse_button.clicked.connect(
+            self.command_tree_collapse_button
         )
         self.ui.command_tree.itemSelectionChanged.connect(
             self.command_menu_button_toggles

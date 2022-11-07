@@ -14,7 +14,7 @@ from __future__ import absolute_import
 
 import copy
 
-from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox
+from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox, QTreeWidgetItem
 from modules.logging_setup import Logger
 
 
@@ -24,8 +24,57 @@ class MainWindowButtons(object):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
 
+    def settings_tree_collapse_button(self):
+        item_selected = self.ui.settings_tree.selectedItems()
+        button = self.ui.settings_tree_collapse_button
+        if item_selected:
+            if item_selected[0] and item_selected[0].isExpanded():
+                self.ui.settings_tree.collapseItem(item_selected[0])
+                button.setText("Expand")
+            elif item_selected[0] and not item_selected[0].isExpanded():
+                self.ui.settings_tree.expandItem(item_selected[0])
+                button.setText("Collapse")
+        else:
+            if button.text() == "Collapse All":
+                self.ui.settings_tree.collapseAll()
+                button.setText("Expand All")
+                return
+            elif button.text() == "Expand All":
+                self.ui.settings_tree.expandAll()
+                button.setText("Collapse All")
+                return
+
+    def command_tree_collapse_button(self):
+        item_selected = self.ui.command_tree.selectedItems()
+        button = self.ui.command_tree_collapse_button
+        if item_selected:
+            if item_selected[0] and item_selected[0].isExpanded():
+                self.ui.command_tree.collapseItem(item_selected[0])
+                button.setText("Expand")
+            elif item_selected[0] and not item_selected[0].isExpanded():
+                self.ui.command_tree.expandItem(item_selected[0])
+                button.setText("Collapse")
+        else:
+            if button.text() == "Collapse All":
+                self.ui.command_tree.collapseAll()
+                button.setText("Expand All")
+                return
+            elif button.text() == "Expand All":
+                self.ui.command_tree.expandAll()
+                button.setText("Collapse All")
+                return
+    
     def settings_tree_button_toggles(self):
         _item_selected = self.ui.settings_tree.selectedItems()
+        if _item_selected and _item_selected[0].isExpanded():
+            self.ui.settings_tree_collapse_button.setText("Collapse")
+        elif _item_selected and not _item_selected[0].isExpanded():
+            self.ui.settings_tree_collapse_button.setText("Expand")
+        else:
+            if self.ui.settings_tree.isExpanded(self.ui.settings_tree.rootIndex()):
+                self.ui.settings_tree_collapse_button.setText("Collapse All")
+            else:
+                self.ui.settings_tree_collapse_button.setText("Expand All")
         # setting selected
         if (
             _item_selected
@@ -34,7 +83,6 @@ class MainWindowButtons(object):
         ):
             table_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 0)
             combobox_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 3)
-            object_list = _item_selected[0].data(4, 0).split(",")
             # table widgets get special treatment, there is no default
             if isinstance(
                 table_widget,
@@ -61,7 +109,7 @@ class MainWindowButtons(object):
         else:
             self.ui.edit_setting_button.setEnabled(False)
             self.ui.clear_setting_button.setEnabled(False)
-            self.ui.default_setting_button.setEnabled(False)
+            self.ui.default_setting_button.setEnabled(False)            
 
     def command_menu_button_toggles(self):
         # method internal var
@@ -79,7 +127,17 @@ class MainWindowButtons(object):
         _item_selected = False
         # if the selected item is root, this is True
         _item_selected_is_root = False
-
+        
+        if _items and _items[0].isExpanded():
+            self.ui.command_tree_collapse_button.setText("Collapse")
+        elif _items and not _items[0].isExpanded():
+            self.ui.command_tree_collapse_button.setText("Expand")
+        else:
+            if self.ui.command_tree.isExpanded(self.ui.command_tree.rootIndex()):
+                self.ui.command_tree_collapse_button.setText("Collapse All")
+            else:
+                self.ui.command_tree_collapse_button.setText("Expand All")
+        
         # if the list is NOT empty (truthy)
         if _items:
             # something on the command tree is selected
@@ -97,7 +155,7 @@ class MainWindowButtons(object):
                 # delete button
                 self.ui.delete_cmd_button.setEnabled(False)
                 # command settings menu button
-                #self.ui.cmd_settings_menu_button.setEnabled(True)
+                # self.ui.cmd_settings_menu_button.setEnabled(True)
                 return  # root tree item is selected, give user option to create new root command
 
             if _item_selected:  # something is selected
@@ -127,8 +185,7 @@ class MainWindowButtons(object):
                     self.ui.edit_cmd_button.setEnabled(True)
                     # delete button
                     self.ui.delete_cmd_button.setEnabled(True)
-                    # command settings menu button
-                    #self.ui.cmd_settings_menu_button.setEnabled(True)
+
         else:
             # nothing is selected, disable all buttons
             _item_selected = False
@@ -139,8 +196,6 @@ class MainWindowButtons(object):
             self.ui.edit_cmd_button.setEnabled(False)
             # delete button
             self.ui.delete_cmd_button.setEnabled(False)
-            # command settings menu button
-            self.ui.cmd_settings_menu_button.setEnabled(False)
 
     # MainWindow buttons
     # tab 1
@@ -257,7 +312,9 @@ class MainWindowButtons(object):
                 "user clicked new command button with child context"
             )
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
-            self.commandparameters_set_fields(self.command_parameters_input_field_settings)
+            self.commandparameters_set_fields(
+                self.command_parameters_input_field_settings
+            )
             self.ui.commandParameters.exec()
 
     # TODO fix delete
@@ -301,8 +358,8 @@ class MainWindowButtons(object):
                         _object_list[2]
                     ]["QComboBox"]
                     # there's only one item in the builtin but the key isn't known here.
-                    for item in _cmb:                        
-                        if not isinstance(_cmb[item],str):
+                    for item in _cmb:
+                        if not isinstance(_cmb[item], str):
                             _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
                 self.rem_command(_object_list)
 

@@ -414,7 +414,7 @@ class MainWindow(
         # set False by default
         cmd_dlg.argumentsPane.setEnabled(False)
 
-        # viewports are "QAbstractScrollArea"s; we filter events in them to react to user interaction in specific ways
+        # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
@@ -423,7 +423,7 @@ class MainWindow(
         self.show()
         self.logger.info("CLI generation tool ready.")
         self.loading = False
-        # end __init__
+        # end MainWindow.__init__()
 
     # visual indication to user of the current working file
     def set_main_window_title(self, title: str = None) -> None:
