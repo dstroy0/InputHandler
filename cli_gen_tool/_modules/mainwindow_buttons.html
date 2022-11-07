@@ -352,35 +352,34 @@
         <span class="c1"># if the selected item is root, this is True</span>
         <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">False</span>
         
+        
         <span class="k">if</span> <span class="n">_items</span> <span class="ow">and</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">_items</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">rootIndex</span><span class="p">()):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">rootIndex</span><span class="p">():</span>
+                <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">rootIndex</span><span class="p">()):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># new/edit/delete/command settings menu button enable/disable toggling</span>
+        <span class="k">if</span> <span class="n">_item_selected_is_root</span><span class="p">:</span>
+            <span class="c1"># new button</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;New (root command)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># edit button</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="c1"># delete button</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>                
+            <span class="k">return</span>  <span class="c1"># root tree item is selected, give user option to create new root command</span>
         
         <span class="c1"># if the list is NOT empty (truthy)</span>
         <span class="k">if</span> <span class="n">_items</span><span class="p">:</span>
             <span class="c1"># something on the command tree is selected</span>
-            <span class="n">_item_selected</span> <span class="o">=</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">_item_selected</span> <span class="o">==</span> <span class="n">_root</span><span class="p">:</span>
-                <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">True</span>
-
-            <span class="c1"># new/edit/delete/command settings menu button enable/disable toggling</span>
-            <span class="k">if</span> <span class="n">_item_selected_is_root</span><span class="p">:</span>
-                <span class="c1"># new button</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;New (root command)&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-                <span class="c1"># edit button</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-                <span class="c1"># delete button</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-                <span class="c1"># command settings menu button</span>
-                <span class="c1"># self.ui.cmd_settings_menu_button.setEnabled(True)</span>
-                <span class="k">return</span>  <span class="c1"># root tree item is selected, give user option to create new root command</span>
+            <span class="n">_item_selected</span> <span class="o">=</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                        
 
             <span class="k">if</span> <span class="n">_item_selected</span><span class="p">:</span>  <span class="c1"># something is selected</span>
                 <span class="n">_object_list</span> <span class="o">=</span> <span class="n">_item_selected</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>

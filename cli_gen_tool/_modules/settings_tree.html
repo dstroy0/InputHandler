@@ -241,8 +241,9 @@
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="c1"># pyside imports</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QAbstractItemModel</span><span class="p">,</span> <span class="n">QModelIndex</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QAbstractItemView</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QMouseEvent</span>
 
 <span class="c1"># external data models</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
@@ -250,7 +251,6 @@
 
 <span class="c1"># logging api</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
-
 
 <span class="c1"># settings_tree methods</span>
 <div class="viewcode-block" id="SettingsTreeMethods"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods">[docs]</a><span class="k">class</span> <span class="nc">SettingsTreeMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -624,8 +624,8 @@
                 <span class="ow">and</span> <span class="n">combobox_item_tooltips</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
             <span class="p">):</span>
                 <span class="n">_cmb</span><span class="o">.</span><span class="n">setItemData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">combobox_item_tooltips</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">)</span>
-            <span class="n">_cmb</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">dict_pos</span><span class="p">)</span>                                    
-            <span class="k">if</span> <span class="n">var_initial_val</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>                
+            <span class="n">_cmb</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">dict_pos</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">var_initial_val</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="n">_cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">_cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Disabled&quot;</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">var_initial_val</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">_cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">_cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Enabled&quot;</span><span class="p">))</span>
