@@ -346,7 +346,7 @@
                 <span class="c1"># nested parameters</span>
                 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span>
                     <span class="s2">&quot;child index key list&quot;</span>
-                <span class="p">]:</span>                    
+                <span class="p">]:</span>
                     <span class="n">parameters_code_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_unnested_param</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span>
                         <span class="kc">False</span><span class="p">,</span>
@@ -358,16 +358,12 @@
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_children</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_children</span><span class="p">:</span>
                         <span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                                <span class="n">item</span>
-                            <span class="p">],</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span>
                             <span class="kc">True</span><span class="p">,</span>
                         <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
-                                <span class="n">item</span>
-                            <span class="p">],</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span>
                             <span class="kc">False</span><span class="p">,</span>
                         <span class="p">)</span>
                 <span class="n">cliParameters</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;nested param generated&quot;</span><span class="p">)</span>
