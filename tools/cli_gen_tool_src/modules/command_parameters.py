@@ -36,6 +36,14 @@ from modules.data_models import dataModels
 
 # command parameters methods
 class CommandParametersMethods(object):
+    """All things related to CommandParametersDialog operation
+
+    Args:
+        object (class): Base class object
+
+    Returns:
+        None: None
+    """
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
 
