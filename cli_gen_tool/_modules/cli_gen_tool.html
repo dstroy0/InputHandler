@@ -638,7 +638,7 @@
         <span class="c1"># set False by default</span>
         <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">argumentsPane</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="c1"># viewports are &quot;QAbstractScrollArea&quot;s; we filter events in them to react to user interaction in specific ways</span>
+        <span class="c1"># viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -647,7 +647,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI generation tool ready.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="c1"># end __init__</span>
+        <span class="c1"># end MainWindow.__init__()</span>
 
     <span class="c1"># visual indication to user of the current working file</span>
 <div class="viewcode-block" id="MainWindow.set_main_window_title"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.set_main_window_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_window_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

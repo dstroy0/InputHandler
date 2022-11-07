@@ -317,12 +317,14 @@
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="MainWindowActions.create_file_error_qdialog"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.create_file_error_qdialog">[docs]</a>    <span class="k">def</span> <span class="nf">create_file_error_qdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">):</span>
-        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; file error.&quot;</span><span class="p">)</span>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
-            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">,</span>
+            <span class="n">error_type</span><span class="p">,</span>
             <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
-            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error&quot;</span><span class="p">,</span>
+            <span class="n">error_type</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxCriticalIcon</span><span class="p">,</span>
@@ -332,7 +334,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">.</span><span class="n">WriteOnly</span> <span class="o">|</span> <span class="n">QIODevice</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Save&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Save file&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># file error</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">QByteArray</span><span class="p">(</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
@@ -359,7 +361,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Write &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Write&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Write file&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
         <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">size</span></div>
 
@@ -368,7 +370,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;qfile.exists() == false&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;File not exists&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;This file does not exist: &quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">{}]</span>  <span class="c1"># file doesn&#39;t exist</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">.</span><span class="n">ReadOnly</span> <span class="o">|</span> <span class="n">QIODevice</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
             <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -380,8 +382,15 @@
         <span class="n">qfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">db</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data_in</span><span class="p">)</span>
-            <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;loaded json: &quot;</span> <span class="o">+</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
-            <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">data_in</span><span class="p">),</span> <span class="n">db</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">db</span><span class="p">:</span>
+                <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;loaded json: &quot;</span> <span class="o">+</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+                <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">data_in</span><span class="p">),</span> <span class="n">db</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;invalid json type&quot;</span><span class="p">)</span>
+                <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;json.loads():</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="p">{}]</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="p">{}]</span></div>
@@ -395,10 +404,13 @@
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_file_as</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ret</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span> <span class="n">ret</span>
         <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">ret</span></div>
@@ -465,7 +477,13 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">read_json_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">read_json_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+                <span class="ow">and</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;cli options&quot;</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Incorrect json type&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
             <span class="c1"># empty trees</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -476,7 +494,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-    <span class="c1"># TODO</span>
 <div class="viewcode-block" id="MainWindowActions.gui_settings"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.gui_settings">[docs]</a>    <span class="k">def</span> <span class="nf">gui_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;opened preferences dialog&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
@@ -553,6 +570,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_one</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_clear_tab_one</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_default_tab_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">itemSelectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span>
         <span class="p">)</span>
@@ -561,8 +581,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_new_cmd_button</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clicked_delete_tab_two</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmd_settings_menu_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clicked_command_settings_menu_button_tab_two</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_collapse_button</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">itemSelectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span>

@@ -238,7 +238,7 @@
 
 <span class="kn">import</span> <span class="nn">copy</span>
 
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QDialogButtonBox</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 
 
@@ -248,8 +248,57 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">MainWindowButtons</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
+<div class="viewcode-block" id="MainWindowButtons.settings_tree_collapse_button"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.settings_tree_collapse_button">[docs]</a>    <span class="k">def</span> <span class="nf">settings_tree_collapse_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">item_selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span>
+        <span class="k">if</span> <span class="n">item_selected</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">collapseItem</span><span class="p">(</span><span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">expandItem</span><span class="p">(</span><span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Collapse All&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">collapseAll</span><span class="p">()</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">button</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Expand All&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">expandAll</span><span class="p">()</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
+                <span class="k">return</span></div>
+
+<div class="viewcode-block" id="MainWindowButtons.command_tree_collapse_button"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.command_tree_collapse_button">[docs]</a>    <span class="k">def</span> <span class="nf">command_tree_collapse_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">item_selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span>
+        <span class="k">if</span> <span class="n">item_selected</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">collapseItem</span><span class="p">(</span><span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">expandItem</span><span class="p">(</span><span class="n">item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Collapse All&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">collapseAll</span><span class="p">()</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">button</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Expand All&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">expandAll</span><span class="p">()</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
+                <span class="k">return</span></div>
+    
 <div class="viewcode-block" id="MainWindowButtons.settings_tree_button_toggles"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.settings_tree_button_toggles">[docs]</a>    <span class="k">def</span> <span class="nf">settings_tree_button_toggles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">_item_selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">_item_selected</span> <span class="ow">and</span> <span class="n">_item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_item_selected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">rootIndex</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
         <span class="c1"># setting selected</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">_item_selected</span>
@@ -258,7 +307,6 @@
         <span class="p">):</span>
             <span class="n">table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">_item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">combobox_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">_item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
-            <span class="n">object_list</span> <span class="o">=</span> <span class="n">_item_selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
             <span class="c1"># table widgets get special treatment, there is no default</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
                 <span class="n">table_widget</span><span class="p">,</span>
@@ -285,7 +333,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>            </div>
 
 <div class="viewcode-block" id="MainWindowButtons.command_menu_button_toggles"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.command_menu_button_toggles">[docs]</a>    <span class="k">def</span> <span class="nf">command_menu_button_toggles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># method internal var</span>
@@ -303,7 +351,17 @@
         <span class="n">_item_selected</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># if the selected item is root, this is True</span>
         <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">False</span>
-
+        
+        <span class="k">if</span> <span class="n">_items</span> <span class="ow">and</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_items</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">isExpanded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">rootIndex</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Collapse All&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Expand All&quot;</span><span class="p">)</span>
+        
         <span class="c1"># if the list is NOT empty (truthy)</span>
         <span class="k">if</span> <span class="n">_items</span><span class="p">:</span>
             <span class="c1"># something on the command tree is selected</span>
@@ -321,7 +379,7 @@
                 <span class="c1"># delete button</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                 <span class="c1"># command settings menu button</span>
-                <span class="c1">#self.ui.cmd_settings_menu_button.setEnabled(True)</span>
+                <span class="c1"># self.ui.cmd_settings_menu_button.setEnabled(True)</span>
                 <span class="k">return</span>  <span class="c1"># root tree item is selected, give user option to create new root command</span>
 
             <span class="k">if</span> <span class="n">_item_selected</span><span class="p">:</span>  <span class="c1"># something is selected</span>
@@ -351,8 +409,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                     <span class="c1"># delete button</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="c1"># command settings menu button</span>
-                    <span class="c1">#self.ui.cmd_settings_menu_button.setEnabled(True)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># nothing is selected, disable all buttons</span>
             <span class="n">_item_selected</span> <span class="o">=</span> <span class="kc">False</span>
@@ -362,9 +419,7 @@
             <span class="c1"># edit button</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="c1"># delete button</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="c1"># command settings menu button</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmd_settings_menu_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
     <span class="c1"># MainWindow buttons</span>
     <span class="c1"># tab 1</span>
@@ -481,7 +536,9 @@
                 <span class="s2">&quot;user clicked new command button with child context&quot;</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Child Command Parameters&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_input_field_settings</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_input_field_settings</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
 
     <span class="c1"># TODO fix delete</span>
@@ -525,8 +582,8 @@
                         <span class="n">_object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
                     <span class="p">][</span><span class="s2">&quot;QComboBox&quot;</span><span class="p">]</span>
                     <span class="c1"># there&#39;s only one item in the builtin but the key isn&#39;t known here.</span>
-                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_cmb</span><span class="p">:</span>                        
-                        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_cmb</span><span class="p">[</span><span class="n">item</span><span class="p">],</span><span class="nb">str</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_cmb</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_cmb</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
                             <span class="n">_cmb</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">_cmb</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Disabled&quot;</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rem_command</span><span class="p">(</span><span class="n">_object_list</span><span class="p">)</span></div>
 
