@@ -352,40 +352,80 @@ role (int): role of the data</p>
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_tree.</span></span><span class="sig-name descname"><span class="pre">CommandTreeMethods</span></span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>All methods related to command tree manipulation</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>object (class): base class</p>
+</dd>
+<dt>Returns:</dt><dd><p>None: None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.add_qtreewidgetitem">
-<span class="sig-name descname"><span class="pre">add_qtreewidgetitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_index</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QTreeWidgetItem</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.add_qtreewidgetitem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.add_qtreewidgetitem" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">add_qtreewidgetitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidgetItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QTreeWidgetItem</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.add_qtreewidgetitem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.add_qtreewidgetitem" title="Permalink to this definition">#</a></dt>
+<dd><p>Adds QTreeWidgetItem at dict_index as a child to parent QTreeWidgetItem</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>parent (QTreeWidgetItem): The parent QTreeWidgetItem
+dict_index (str): the location of the child in the data model</p>
+</dd>
+<dt>Returns:</dt><dd><p>QTreeWidgetItem: the created QTreeWidgetItem on success, None on fail.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.build_command_parameters_table_view">
-<span class="sig-name descname"><span class="pre">build_command_parameters_table_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.build_command_parameters_table_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.build_command_parameters_table_view" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">build_command_parameters_table_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidgetItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.build_command_parameters_table_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.build_command_parameters_table_view" title="Permalink to this definition">#</a></dt>
+<dd><p>builds a table view for the QTreeWidgetItem at dict_index using command_parameters</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dict_index (str): location in cliOpt
+tree_item (QTreeWidgetItem): the QTreeWidgetItem
+command_parameters (dict): command parameters dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.build_command_tree">
 <span class="sig-name descname"><span class="pre">build_command_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.build_command_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.build_command_tree" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>adds items from cliOpt to self.ui.command_tree</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.rebuild_command_tree">
 <span class="sig-name descname"><span class="pre">rebuild_command_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.rebuild_command_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.rebuild_command_tree" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>clears self.ui.command_tree and rebuilds from scratch</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.rem_command">
-<span class="sig-name descname"><span class="pre">rem_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.rem_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.rem_command" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">rem_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.rem_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.rem_command" title="Permalink to this definition">#</a></dt>
+<dd><p>self.rem_qtreewidgetitem wrapper; deprecated</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>object_list (list): position of command in self.cliOpt</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.rem_qtreewidgetitem">
 <span class="sig-name descname"><span class="pre">rem_qtreewidgetitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.rem_qtreewidgetitem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.rem_qtreewidgetitem" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>removes QTreeWidgetItem and associated structures from cliOpt at dict_pos</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dict_pos (str): cliOpt key</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.scrub_command_from_datamodel">
 <span class="sig-name descname"><span class="pre">scrub_command_from_datamodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidgetItem</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.scrub_command_from_datamodel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.scrub_command_from_datamodel" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Removes everything related to the command from the display and data models</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pos (str): position in self.cliOpt
+tree_item (QTreeWidgetItem): the tree item to be removed</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
