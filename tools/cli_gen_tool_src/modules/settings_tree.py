@@ -17,8 +17,9 @@ import copy
 import json
 
 # pyside imports
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem
+from PySide6.QtCore import Qt, QAbstractItemModel, QModelIndex
+from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem, QAbstractItemView
+from PySide6.QtGui import QMouseEvent
 
 # external data models
 from modules.data_models import dataModels
@@ -26,7 +27,6 @@ from modules.display_models import displayModels
 
 # logging api
 from modules.logging_setup import Logger
-
 
 # settings_tree methods
 class SettingsTreeMethods(object):
@@ -400,8 +400,8 @@ class SettingsTreeMethods(object):
                 and combobox_item_tooltips[1] != ""
             ):
                 _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
-            _cmb.setObjectName(dict_pos)                                    
-            if var_initial_val == False:                
+            _cmb.setObjectName(dict_pos)
+            if var_initial_val == False:
                 _cmb.setCurrentIndex(_cmb.findText("Disabled"))
             elif var_initial_val == True:
                 _cmb.setCurrentIndex(_cmb.findText("Enabled"))

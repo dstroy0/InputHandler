@@ -28,7 +28,7 @@ from PySide6.QtCore import (
     QRegularExpression,
     QFile,
 )
-from PySide6.QtGui import QCursor, QIcon, QPixmap
+from PySide6.QtGui import QCursor, QIcon, QPixmap, QMouseEvent
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -418,6 +418,8 @@ class MainWindow(
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
+        self.ui.settings_tree.viewport().installEventFilter(self)
+        self.ui.command_tree.viewport().installEventFilter(self)
 
         self.splash.close()
         self.show()
@@ -461,7 +463,21 @@ class MainWindow(
         # global mouse pos
         mouse_pos = self.qcursor.pos()
         # drag to resize, change cursor to vertical drag and back to arrow
-        self.code_preview_events(watched, event, event_type, mouse_button, mouse_pos)
+        if (
+            watched == self.ui.codePreview_1.viewport()
+            or watched == self.ui.codePreview_2.viewport()
+        ):            
+            self.code_preview_events(
+                watched, event, event_type, mouse_button, mouse_pos
+            )
+        elif(watched == self.ui.settings_tree.viewport() and event_type == QEvent.MouseButtonPress):
+            if not self.ui.settings_tree.itemAt(mouse_pos):
+                self.ui.settings_tree.clearSelection()
+        elif(watched == self.ui.command_tree.viewport() and event_type == QEvent.MouseButtonPress):
+            if not self.ui.command_tree.itemAt(mouse_pos):
+                self.ui.command_tree.clearSelection()
+                self.ui.command_tree.setCurrentItem(self.cliOpt["commands"]["QTreeWidgetItem"]["root"])                
+                self.command_menu_button_toggles()
         return super().eventFilter(watched, event)
 
     def closeEvent(self, event):

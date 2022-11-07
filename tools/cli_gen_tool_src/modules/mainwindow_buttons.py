@@ -128,35 +128,34 @@ class MainWindowButtons(object):
         # if the selected item is root, this is True
         _item_selected_is_root = False
         
+        
         if _items and _items[0].isExpanded():
             self.ui.command_tree_collapse_button.setText("Collapse")
         elif _items and not _items[0].isExpanded():
             self.ui.command_tree_collapse_button.setText("Expand")
         else:
-            if self.ui.command_tree.isExpanded(self.ui.command_tree.rootIndex()):
-                self.ui.command_tree_collapse_button.setText("Collapse All")
-            else:
-                self.ui.command_tree_collapse_button.setText("Expand All")
+            if self.ui.command_tree.currentIndex() == self.ui.command_tree.rootIndex():
+                _item_selected_is_root = True
+                if self.ui.command_tree.isExpanded(self.ui.command_tree.rootIndex()):
+                    self.ui.command_tree_collapse_button.setText("Collapse All")
+                else:
+                    self.ui.command_tree_collapse_button.setText("Expand All")
+        
+        # new/edit/delete/command settings menu button enable/disable toggling
+        if _item_selected_is_root:
+            # new button
+            self.ui.new_cmd_button.setText("New (root command)")
+            self.ui.new_cmd_button.setEnabled(True)
+            # edit button
+            self.ui.edit_cmd_button.setEnabled(False)
+            # delete button
+            self.ui.delete_cmd_button.setEnabled(False)                
+            return  # root tree item is selected, give user option to create new root command
         
         # if the list is NOT empty (truthy)
         if _items:
             # something on the command tree is selected
-            _item_selected = _items[0]
-            if _item_selected == _root:
-                _item_selected_is_root = True
-
-            # new/edit/delete/command settings menu button enable/disable toggling
-            if _item_selected_is_root:
-                # new button
-                self.ui.new_cmd_button.setText("New (root command)")
-                self.ui.new_cmd_button.setEnabled(True)
-                # edit button
-                self.ui.edit_cmd_button.setEnabled(False)
-                # delete button
-                self.ui.delete_cmd_button.setEnabled(False)
-                # command settings menu button
-                # self.ui.cmd_settings_menu_button.setEnabled(True)
-                return  # root tree item is selected, give user option to create new root command
+            _item_selected = _items[0]                                        
 
             if _item_selected:  # something is selected
                 _object_list = _item_selected.data(1, 0).split(",")
