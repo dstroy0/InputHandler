@@ -400,7 +400,11 @@ class SettingsTreeMethods(object):
                 and combobox_item_tooltips[1] != ""
             ):
                 _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
-            _cmb.setObjectName(dict_pos)
+            _cmb.setObjectName(dict_pos)                                    
+            if var_initial_val == False:                
+                _cmb.setCurrentIndex(_cmb.findText("Disabled"))
+            elif var_initial_val == True:
+                _cmb.setCurrentIndex(_cmb.findText("Enabled"))
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
             self.ui.settings_tree.setItemWidget(
