@@ -15,6 +15,7 @@ from __future__ import absolute_import
 # imports
 import copy
 import json
+from collections import OrderedDict
 
 # pyside imports
 from PySide6.QtCore import Qt, QAbstractItemModel, QModelIndex
@@ -116,8 +117,10 @@ class SettingsTreeMethods(object):
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listCommands"
                     ):
+                        list_commands = OrderedDict()
+                        list_commands = {str(self.cliOpt["var"]["primary id key"]) : dict(zip(dataModels.command_parameters_dict_keys_list, dataModels.LCcmdParam))}
                         self.cliOpt["commands"]["parameters"].update(
-                            dataModels.listCommands
+                            list_commands
                         )
                         self.cliOpt["commands"]["index"].update(
                             {
@@ -128,16 +131,16 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = str(object_list[2])
+                        ]["parameters key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["root index key"] = "listCommands"
+                        ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parent index key"] = "listCommands"
+                        ]["parent index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                            "listCommands",
+                            str(self.cliOpt["var"]["primary id key"]),
                         )
                         self.cliOpt["var"]["primary id key"] = str(
                             int(self.cliOpt["var"]["primary id key"]) + 1
@@ -155,8 +158,10 @@ class SettingsTreeMethods(object):
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listSettings"
                     ):
+                        list_settings = OrderedDict()
+                        list_settings = {str(self.cliOpt["var"]["primary id key"]) : dict(zip(dataModels.command_parameters_dict_keys_list, dataModels.LScmdParam))}
                         self.cliOpt["commands"]["parameters"].update(
-                            dataModels.listSettings
+                            list_settings
                         )
                         self.cliOpt["commands"]["index"].update(
                             {
@@ -168,16 +173,16 @@ class SettingsTreeMethods(object):
 
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = str(object_list[2])
+                        ]["parameters key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["root index key"] = "listSettings"
+                        ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parent index key"] = "listSettings"
+                        ]["parent index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                            "listSettings",
+                            str(self.cliOpt["var"]["primary id key"]),
                         )
                         self.cliOpt["var"]["primary id key"] = str(
                             int(self.cliOpt["var"]["primary id key"]) + 1

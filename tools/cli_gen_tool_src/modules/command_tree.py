@@ -312,6 +312,21 @@ class CommandTreeMethods(object):
             1, 0, dict_pos
         )
         self.command_menu_button_toggles()
+        if self.loading:
+            CommandTreeMethods.logger.info(
+                "added saved command `"
+                + command_parameters["commandString"]
+                + "` to the command tree"
+            )
+        else:
+            CommandTreeMethods.logger.info(
+                "user added command `"
+                + command_parameters["commandString"]
+                + "` to the command tree"
+            )
+        self.update_code("functions.h", command_parameters["commandString"], True)
+        self.update_code("functions.cpp", command_parameters["commandString"], True)
+        self.update_code("parameters.h", command_parameters["commandString"], True)
         # return child
         return self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
 
@@ -329,7 +344,7 @@ class CommandTreeMethods(object):
         if pos in self.cliOpt["commands"]["parameters"]:
             command = self.cliOpt["commands"]["parameters"][pos]["commandString"]
             CommandTreeMethods.logger.info(
-                "removing " + command + " from the command tree"
+                "removing `" + command + "` from the command tree"
             )
 
         if tree_item != None:
@@ -369,6 +384,9 @@ class CommandTreeMethods(object):
                 )
             )
             del self.cliOpt["commands"]["index"][pos]
+            self.update_code("functions.h", "", False)
+            self.update_code("functions.cpp", "", False)
+            self.update_code("parameters.h", "", False)
 
     ## rem_qtreewidgetitem wrapper deprecated
     def rem_command(self, object_list: list):
@@ -383,6 +401,7 @@ class CommandTreeMethods(object):
         self.set_main_window_title()
         self.command_menu_button_toggles()
 
+    # TODO fix rem_qtreewidgetitem
     ## takes the command out of the tree and scrubs it from the data model and removes its QTreeWidgetItem from self.ui.command_tree
     def rem_qtreewidgetitem(self, dict_pos: str) -> None:
         """removes QTreeWidgetItem and associated structures from cliOpt at dict_pos
@@ -390,19 +409,9 @@ class CommandTreeMethods(object):
         Args:
             dict_pos (str): cliOpt key
         """
-        _builtin_commands = self.ih_builtins
-        if (dict_pos[2]) in (
-            _builtin_commands
-        ):  # determine if the something selected is an InputHandler builtin
-            pos = dict_pos[2]
+
+        def pop_from_dict(pos, tree_item):           
             match = False
-            if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
-                tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
-            else:
-                CommandTreeMethods.logger.info(
-                    "couldnt find QTreeWidgetItem for " + str(pos)
-                )
-                tree_item = None
             for _item in self.cliOpt["commands"]["index"]:
                 if (
                     self.cliOpt["commands"]["index"][_item]["parameters key"]
@@ -410,27 +419,32 @@ class CommandTreeMethods(object):
                 ):
                     match = True
                     break
-            result = None
             if match == True:
                 result = self.cliOpt["commands"]["index"].pop(_item, None)
-                if result != None:
-                    # the number of commands is equal to the len of the commands index
-                    self.cliOpt["var"]["number of commands"] = str(
-                        len(self.cliOpt["commands"]["index"])
-                    )
-                    CommandTreeMethods.logger.info(
-                        "removed " + _item + " from commands index"
-                    )
-                else:
-                    CommandTreeMethods.logger.warn(
-                        "couldn't find commands index for "
-                        + dict_pos[2]
-                        + "; behavior is undefined please restart"
-                    )
+            else:
+                result = self.cliOpt["commands"]["index"].pop(pos, None)
+            if result != None:
+                # the number of commands is equal to the len of the commands index
+                self.cliOpt["var"]["number of commands"] = str(
+                    len(self.cliOpt["commands"]["index"])
+                )
+                CommandTreeMethods.logger.info(
+                    "removed key " + _item + " from self.cliOpt[\"commands\"][\"index\"]"
+                )
             self.scrub_command_from_datamodel(pos, tree_item)
-            return
+            # the number of commands is equal to the len of the commands index
+            self.cliOpt["var"]["number of commands"] = str(
+                len(self.cliOpt["commands"]["index"])
+            )
 
         pos = dict_pos[1]
+        if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
+            tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
+        else:
+            CommandTreeMethods.logger.info(
+                "couldnt find QTreeWidgetItem for `" + str(pos) + "`"
+            )
+            tree_item = None        
 
         # take the table widget out of the qtreewidgetitem ("table")
         if pos not in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
@@ -439,15 +453,21 @@ class CommandTreeMethods(object):
         self.ui.command_tree.removeItemWidget(
             self.cliOpt["commands"]["QTreeWidgetItem"]["table"][pos], 0
         )
-        tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
 
         children = []
-        child_list = self.cliOpt["commands"]["index"][pos]["child index key list"]
+        if pos in self.cliOpt["commands"]["index"]:
+            child_list = self.cliOpt["commands"]["index"][pos]["child index key list"]
+        else:
+            pop_from_dict(pos, tree_item)
+            return
         child_positions = [pos]
         pos_idx = 0
         prev_pos_idx = 0
         if bool(child_list):
             CommandTreeMethods.logger.info("looking for command children")
+        else:
+            pop_from_dict(pos, tree_item)
+            return
         index_struct = self.cliOpt["commands"]["index"][pos]
         if index_struct["root index key"] == index_struct["parent index key"]:
             this_parent_index_key = self.cliOpt["commands"]["index"][pos][
@@ -502,18 +522,11 @@ class CommandTreeMethods(object):
 
         # remove children from cliOpt starting with the farthest leaf from Root
         for item in reversed(child_positions):
-            self.scrub_command_from_datamodel(item, tree_item)
-
-        # self.cliOpt["commands"]["index"][pos]["child index key list"] = []
-
-        # the number of commands is equal to the len of the commands index
-        self.cliOpt["var"]["number of commands"] = str(
-            len(self.cliOpt["commands"]["index"])
-        )
+            pop_from_dict(item, tree_item)
 
     ## builds a table view for a command using a custom model and populates it with the command's parameters
     def build_command_parameters_table_view(
-        self, dict_index:str, tree_item:QTreeWidgetItem, command_parameters:dict
+        self, dict_index: str, tree_item: QTreeWidgetItem, command_parameters: dict
     ):
         """builds a table view for the QTreeWidgetItem at dict_index using command_parameters
 
@@ -593,8 +606,7 @@ class CommandTreeMethods(object):
 
     ## private method used by public methods rebuild_command_tree and build_command_tree
     def _build_command_tree(self):
-        """private method called by self.build_command_tree and self.rebuild_command_tree
-        """
+        """private method called by self.build_command_tree and self.rebuild_command_tree"""
         parent_index = self.cliOpt["commands"]["index"]
         for item in parent_index:
             # command root
@@ -634,8 +646,7 @@ class CommandTreeMethods(object):
 
     ## rebuilds the command tree from scratch
     def rebuild_command_tree(self):
-        """clears self.ui.command_tree and rebuilds from scratch
-        """
+        """clears self.ui.command_tree and rebuilds from scratch"""
         command_tree = self.ui.command_tree
         # empty entire tree of items
         command_tree.clear()
@@ -648,8 +659,7 @@ class CommandTreeMethods(object):
 
     ## adds items to self.ui.command_tree for display
     def build_command_tree(self):
-        """adds items from cliOpt to self.ui.command_tree
-        """
+        """adds items from cliOpt to self.ui.command_tree"""
         command_tree = self.ui.command_tree
         command_tree.setSelectionMode(QAbstractItemView.SingleSelection)
         # command_tree.
