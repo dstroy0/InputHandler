@@ -524,14 +524,9 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
             if (
                 len(self.code_preview_dict["files"][filename]["file_lines_list"])
                 <= self.minimum_file_len[filename]
-            ):
-                if filename == "setup.cpp":
-                    self.code_preview_dict["files"]["setup.h"]["text_widget"][
-                        tab
-                    ].clear()
-                    self.code_preview_dict["files"]["setup.h"]["file_lines_list"] = []
-                self.code_preview_dict["files"][filename]["file_lines_list"] = []
-                return
+            ):                
+                self.code_preview_dict["files"][filename]["text_widget"][tab].clear()                
+                self.code_preview_dict["files"][filename]["file_lines_list"] = []                
 
             if filename != "README.md":
                 text_widget.setPlainText(code_string)

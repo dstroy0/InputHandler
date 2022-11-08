@@ -147,12 +147,7 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["var"]["number of commands"] = str(
                             int(self.cliOpt["var"]["number of commands"]) + 1
-                        )
-                    elif (
-                        combobox.currentText() == "Disabled"
-                        and object_list[2] == "listCommands"
-                    ):
-                        self.rem_command(object_list)
+                        )                    
 
                     if (
                         combobox.currentText() == "Enabled"
@@ -190,11 +185,7 @@ class SettingsTreeMethods(object):
                         self.cliOpt["var"]["number of commands"] = str(
                             int(self.cliOpt["var"]["number of commands"]) + 1
                         )
-                    elif (
-                        combobox.currentText() == "Disabled"
-                        and object_list[2] == "listSettings"
-                    ):
-                        self.rem_command(object_list)
+                    
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)

@@ -365,8 +365,9 @@ class CommandTreeMethods(object):
             del self.cliOpt["commands"]["QTableView"]["layout"][pos]
         if pos in self.cliOpt["commands"]["QTableView"]["splitter"]:
             del self.cliOpt["commands"]["QTableView"]["splitter"][pos]
-        if pos in self.cliOpt["commands"]["parameters"]:
-            del self.cliOpt["commands"]["parameters"][pos]
+        if str(pos) in self.cliOpt["commands"]["parameters"]:            
+            del self.cliOpt["commands"]["parameters"][str(pos)]
+            print(self.cliOpt["commands"]["parameters"])
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
             del self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
@@ -384,9 +385,10 @@ class CommandTreeMethods(object):
                 )
             )
             del self.cliOpt["commands"]["index"][pos]
-            self.update_code("functions.h", "", False)
-            self.update_code("functions.cpp", "", False)
-            self.update_code("parameters.h", "", False)
+        self.update_code("functions.h", "", False)
+        self.update_code("functions.cpp", "", False)        
+        self.update_code("setup.cpp", "", False)
+        self.update_code("parameters.h", "", False)
 
     ## rem_qtreewidgetitem wrapper deprecated
     def rem_command(self, object_list: list):
