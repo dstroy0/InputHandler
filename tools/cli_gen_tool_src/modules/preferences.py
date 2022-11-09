@@ -88,21 +88,23 @@ class PreferencesMethods(object):
     def output_preferences(self):
         stream = PreferencesMethods.dlg.default_stream.text()
         size = PreferencesMethods.dlg.default_output_buffer_size.text()
-        
-    def builtin_methods_preferences(self, x:int, state:int) -> None:        
+
+    def builtin_methods_preferences(self, x: int, state: int) -> None:
         methods = ["outputToStream", "defaultFunction", "listCommands", "listSettings"]
-        builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]                
+        builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]
+
         def set_builtins(dict):
             for item in dict:
-                cmb = dict[item]                                       
+                cmb = dict[item]
                 if isinstance(cmb, QComboBox):
-                    if state == Qt.Checked:                           
+                    if state == Qt.Checked:
                         cmb.setCurrentIndex(cmb.findText("Enabled"))
-                        self.session["opt"]["builtin methods"][methods[x]] = True        
+                        self.session["opt"]["builtin methods"][methods[x]] = True
                     else:
-                        cmb.setCurrentIndex(cmb.findText("Disabled"))        
+                        cmb.setCurrentIndex(cmb.findText("Disabled"))
                         self.session["opt"]["builtin methods"][methods[x]] = False
-        set_builtins(builtin_dict[methods[x]]["QComboBox"])                 
+
+        set_builtins(builtin_dict[methods[x]]["QComboBox"])
 
     def preferences_dialog_setup(self):
         PreferencesMethods.logger.debug("preferences dialog setup")
@@ -135,7 +137,33 @@ class PreferencesMethods(object):
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
         cmb = PreferencesMethods.dlg.globalLogLevelComboBox
         log_level = Logger.root_log_level
-        cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))                
+        cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
+
+        # input validation
+        PreferencesMethods.dlg.default_stream.setValidator(
+            self.regex_validator("^([a-zA-Z0-9_*])+$")
+        )
+        PreferencesMethods.dlg.default_output_buffer_size.setValidator(
+            self.regex_validator("^([0-9_*])+$")
+        )
+
+        # load session defaults
+        if self.session["opt"]["builtin methods"]["defaultFunction"] == True:
+            PreferencesMethods.dlg.defaultfunction_checkbox.setCheckState(Qt.Checked)
+        else:
+            PreferencesMethods.dlg.defaultfunction_checkbox.setCheckState(Qt.Unchecked)
+        if self.session["opt"]["builtin methods"]["outputToStream"] == True:
+            PreferencesMethods.dlg.outputtostream_checkbox.setCheckState(Qt.Checked)
+        else:
+            PreferencesMethods.dlg.outputtostream_checkbox.setCheckState(Qt.Unchecked)
+        if self.session["opt"]["builtin methods"]["listCommands"] == True:
+            PreferencesMethods.dlg.listcommands_checkbox.setCheckState(Qt.Checked)
+        else:
+            PreferencesMethods.dlg.listcommands_checkbox.setCheckState(Qt.Unchecked)
+        if self.session["opt"]["builtin methods"]["listSettings"] == True:
+            PreferencesMethods.dlg.listsettings_checkbox.setCheckState(Qt.Checked)
+        else:
+            PreferencesMethods.dlg.listsettings_checkbox.setCheckState(Qt.Unchecked)
 
         # actions setup
         PreferencesMethods.dlg.browse_for_config.clicked.connect(self.get_config_file)
@@ -171,21 +199,6 @@ class PreferencesMethods(object):
         PreferencesMethods.dlg.listsettings_checkbox.stateChanged.connect(
             lambda state, x=3: self.builtin_methods_preferences(x, state)
         )
-        
-        # load session defaults
-        if self.session["opt"]["builtin methods"]["defaultFunction"] == True:
-            PreferencesMethods.dlg.defaultfunction_checkbox.setCheckState(Qt.Checked)
-        else:
-            PreferencesMethods.dlg.defaultfunction_checkbox.setCheckState(Qt.Unchecked)
-        if self.session["opt"]["builtin methods"]["outputToStream"] == True:
-            PreferencesMethods.dlg.outputtostream_checkbox.setCheckState(Qt.Checked)
-        else:
-            PreferencesMethods.dlg.outputtostream_checkbox.setCheckState(Qt.Unchecked)
-        if self.session["opt"]["builtin methods"]["listCommands"] == True:
-            PreferencesMethods.dlg.listcommands_checkbox.setCheckState(Qt.Checked)
-        else:
-            PreferencesMethods.dlg.listcommands_checkbox.setCheckState(Qt.Unchecked)
-        if self.session["opt"]["builtin methods"]["listSettings"] == True:
-            PreferencesMethods.dlg.listsettings_checkbox.setCheckState(Qt.Checked)
-        else:
-            PreferencesMethods.dlg.listsettings_checkbox.setCheckState(Qt.Unchecked)
+
+
+# end of file

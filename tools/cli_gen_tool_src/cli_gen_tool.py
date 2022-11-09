@@ -424,6 +424,14 @@ class MainWindow(
 
         # load preferences
         PreferencesMethods.__init__(self)
+        i = 0
+        for item in self.session["opt"]["builtin methods"]:
+            enable = self.session["opt"]["builtin methods"][item]
+            if enable:
+                self.builtin_methods_preferences(i, Qt.Checked)
+            else:
+                self.builtin_methods_preferences(i, Qt.Unchecked)
+            i += 1
         # close splash and show app
         self.splash.close()
         self.show()
