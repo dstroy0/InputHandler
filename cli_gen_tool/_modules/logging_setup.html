@@ -277,7 +277,8 @@
     <span class="n">_MB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
     <span class="n">_log_path</span> <span class="o">=</span> <span class="s2">&quot;/tools/logs/&quot;</span>
     <span class="n">_log_filename</span> <span class="o">=</span> <span class="s2">&quot;cli_gen_tool.log&quot;</span>
-    <span class="n">_log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - [</span><span class="si">%(levelname)s</span><span class="s2">] -  </span><span class="si">%(name)s</span><span class="s2"> - (</span><span class="si">%(filename)s</span><span class="s2">).</span><span class="si">%(funcName)s</span><span class="s2">(line:</span><span class="si">%(lineno)d</span><span class="s2">) - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="c1"># %(name)s - </span>
+    <span class="n">_log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - [</span><span class="si">%(levelname)s</span><span class="s2">] - (</span><span class="si">%(filename)s</span><span class="s2">).</span><span class="si">%(funcName)s</span><span class="s2">(line:</span><span class="si">%(lineno)d</span><span class="s2">) - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
     <span class="n">_log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">_log_format</span><span class="p">)</span>
 
     <span class="c1"># log filehandler</span>
