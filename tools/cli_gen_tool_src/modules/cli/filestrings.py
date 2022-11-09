@@ -64,8 +64,8 @@ Please report bugs in the LIBRARY using this bug report form: [library bug repor
 
 ## disclaimer
 Use this library and tool at your own risk!  
-The library's authors are not responsible for any damages which arise from the use of this tool (cli_gen_tool.py) or library (InputHandler).  
-The software (InputHandler library and cli_gen_tool.py and associated dependencies) convey NO warranty of any kind, implied or otherwise.  
+The library's authors are not responsible for any damages which arise from the use of this tool (cli_gen_tool.py or its binaries) or library (InputHandler and dependencies).  
+The software (InputHandler library and cli_gen_tool.py and associated dependencies) conveys NO warranty of any kind, implied or otherwise.  
 The user is ultimately responsible for configuring and implementing their own interface.  
 
 ## instructions

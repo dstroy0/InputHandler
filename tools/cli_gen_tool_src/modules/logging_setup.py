@@ -124,6 +124,13 @@ class Logger(object):
         log_handler = QPlainTextEditLogger(self)
         Logger.session_log_handler = log_handler
         Logger.root_log_handler.addHandler(log_handler)
+    
+    ## sets handler log levels        
+    def set_log_levels(self):
+        Logger.root_log_handler.setLevel(Logger.root_log_level)
+        Logger.file_log_handler.setLevel(Logger.file_log_level)
+        Logger.stream_log_handler.setLevel(Logger.stream_log_level)
+        Logger.session_log_handler.setLevel(Logger.session_history_log_level)
 
 
 # end of file

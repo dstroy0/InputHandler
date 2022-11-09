@@ -34,6 +34,16 @@ class dataModels(object):
                 "stream": "",
                 "root": "",
             },
+            "output": {
+                "stream": "Serial",
+                "buffer size": "700",
+            },
+            "builtin methods": {
+                "outputToStream":True,
+                "defaultFunction": True,
+                "listCommands": True,
+                "listSettings": True,
+            }
         },
     }
 

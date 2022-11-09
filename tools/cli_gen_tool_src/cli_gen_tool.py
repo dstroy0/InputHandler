@@ -198,7 +198,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
-        PreferencesMethods.__init__(self)
+        
 
         # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
@@ -314,10 +314,11 @@ class MainWindow(
         self.logger.debug(
             "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
         )
-
-        last_interface_path = QDir(self.session["opt"]["save_filename"])
-        self.logger.debug("Attempt load last interface")
-        last_interface = QFile(
+        last_interface = QFile()
+        if self.session["opt"]["save_filename"] is not None:
+            last_interface_path = QDir(self.session["opt"]["save_filename"])
+            self.logger.debug("Attempt load last interface")
+            last_interface = QFile(
             last_interface_path.toNativeSeparators(last_interface_path.absolutePath())
         )
         if self.session["opt"]["save_filename"] != "" and last_interface.exists():
@@ -328,7 +329,7 @@ class MainWindow(
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
             result = self.create_qdialog(
-                "Cannot locate last working file: " + last_interface.fileName(),
+                "Cannot locate last working file: " + str(last_interface.fileName()),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
                 "Error, cannot find interface file!",
@@ -358,7 +359,7 @@ class MainWindow(
             else:
                 self.logger.info(
                     "Couldn't locate last working file: "
-                    + self.session["opt"]["save_filename"]
+                    + str(self.session["opt"]["save_filename"])
                 )
                 self.session["opt"]["save_filename"] = ""
 
@@ -421,6 +422,9 @@ class MainWindow(
         self.ui.settings_tree.viewport().installEventFilter(self)
         self.ui.command_tree.viewport().installEventFilter(self)
 
+        # load preferences
+        PreferencesMethods.__init__(self)
+        # close splash and show app
         self.splash.close()
         self.show()
         self.logger.info("CLI generation tool ready.")
