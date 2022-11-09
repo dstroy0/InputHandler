@@ -422,7 +422,7 @@
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CodePreview</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
 
         <span class="c1"># load mainwindow ui</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loading UI_MainWindow()&quot;</span><span class="p">)</span>
@@ -538,10 +538,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s2">&quot;cli_gen_tool.json =</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
         <span class="p">)</span>
-
-        <span class="n">last_interface_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt load last interface&quot;</span><span class="p">)</span>
-        <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span>
+        <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">last_interface_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt load last interface&quot;</span><span class="p">)</span>
+            <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span>
             <span class="n">last_interface_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">last_interface_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
@@ -552,7 +553,7 @@
             <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">]</span>
             <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select last file&quot;</span><span class="p">,</span> <span class="s2">&quot;Continue without locating&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
-                <span class="s2">&quot;Cannot locate last working file: &quot;</span> <span class="o">+</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">fileName</span><span class="p">(),</span>
+                <span class="s2">&quot;Cannot locate last working file: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">last_interface</span><span class="o">.</span><span class="n">fileName</span><span class="p">()),</span>
                 <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
                 <span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">,</span>
                 <span class="s2">&quot;Error, cannot find interface file!&quot;</span><span class="p">,</span>
@@ -582,7 +583,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;Couldn&#39;t locate last working file: &quot;</span>
-                    <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">])</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
@@ -645,6 +646,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
+        <span class="c1"># load preferences</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># close splash and show app</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI generation tool ready.&quot;</span><span class="p">)</span>
