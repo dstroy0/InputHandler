@@ -20,18 +20,17 @@ from PySide6.QtCore import QDir
 
 ## this class displays the session log history
 class QPlainTextEditLogger(logging.Handler):
-    def __init__(self, parent):
+    def __init__(self, widget):
         super(QPlainTextEditLogger, self).__init__()
-        self.widget = parent.log.dlg.logHistoryPlainTextEdit
-        self.parent = parent
+        self.widget = widget        
         # settings for the widget are in the `logHistoryDialog.ui` file
-
     def emit(self, record):
         self.widget.appendPlainText(Logger._log_formatter.format(record))
 
 
 ## logging api
 class Logger(object):
+    log_setup_complete = False
     level_lookup = {
         10: "DEBUG",
         20: "INFO",
@@ -55,41 +54,37 @@ class Logger(object):
     _log_filename = "cli_gen_tool.log"
     # %(name)s - 
     _log_format = "%(asctime)s - [%(levelname)s] - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s"
-    _log_formatter = logging.Formatter(_log_format)
-
-    # log filehandler
-    file_log_handler = ""
-
-    # stream handler
-    stream_log_handler = ""
-
-    # session handler
-    session_log_handler = ""
-
-    # root
-    root_log_handler = ""
+    _log_formatter = logging.Formatter(_log_format)    
 
     ## the constructor
-    def __init__(self):
+    def __init__(self, name) -> None:
         super(Logger, self).__init__()
+        if not Logger.log_setup_complete:
+            self.root_log_handler = logging.getLogger(name)
+            self.root_log_handler.setLevel(Logger.session_history_log_level)
+            self.stream_log_handler = logging.StreamHandler()
+            self.stream_log_handler.setLevel(Logger.stream_log_level)
+            self.stream_log_handler.setFormatter(Logger._log_formatter)        
+            self.root_log_handler.addHandler(self.stream_log_handler)  
+            Logger.log_setup_complete = True      
 
     ## This is called to set up the log file handler in MainWindow.__init__()
-    def setup_file_handler(lib_root_path):
+    def setup_file_handler(self):
         # logfile pathing
-        _path = QDir(lib_root_path + Logger._log_path)
+        _path = QDir(self.lib_root_path + Logger._log_path)
         _abs_native_path = _path.toNativeSeparators(_path.absolutePath())
         if not os.path.isdir(_abs_native_path):
             os.mkdir(_abs_native_path)
         # log filehandler
-        Logger.file_log_handler = RotatingFileHandler(
+        self.file_log_handler = RotatingFileHandler(
             _abs_native_path + _path.separator() + Logger._log_filename,
             "a",
             10 * Logger._MB,
             backupCount=5,
         )
-        Logger.file_log_handler.setLevel(Logger.file_log_level)
-        Logger.file_log_handler.setFormatter(Logger._log_formatter)
-        Logger.root_log_handler.info(
+        self.file_log_handler.setLevel(Logger.file_log_level)
+        self.file_log_handler.setFormatter(Logger._log_formatter)
+        self.root_log_handler.info(
             "Log file path: "
             + _abs_native_path
             + _path.separator()
@@ -97,41 +92,24 @@ class Logger(object):
         )
 
     ## external modules are children of MainWindow's logging instance
-    def get_child_logger(parent, name):
-        return parent.getChild(name)
+    def get_child_logger(self, name):
+        return self.root_log_handler.getChild(name)
 
     ## returns the log_file_handler
-    def get_file_handler():
-        return Logger.file_log_handler
-
-    ## returns the stream_handler
-    def get_stream_handler():
-        stream_handler = logging.StreamHandler()
-        stream_handler.setLevel(Logger.stream_log_level)
-        stream_handler.setFormatter(Logger._log_formatter)
-        Logger.stream_log_handler = stream_handler
-        return stream_handler
-
-    ## initializes the logger; returns the root logger
-    def initialize_logger(self, name):
-        logger = logging.getLogger(name)
-        logger.setLevel(Logger.session_history_log_level)
-        logger.addHandler(Logger.get_stream_handler())
-        Logger.root_log_handler = logger
-        return logger
+    def get_file_handler(self):
+        return self.file_log_handler                        
 
     ## sets up window log history
-    def set_up_window_history_logger(self):
-        log_handler = QPlainTextEditLogger(self)
-        Logger.session_log_handler = log_handler
-        Logger.root_log_handler.addHandler(log_handler)
+    def set_up_window_history_logger(self, widget):
+        self.session_log_handler = QPlainTextEditLogger(widget)        
+        self.root_log_handler.addHandler(self.session_log_handler)
     
     ## sets handler log levels        
     def set_log_levels(self):
-        Logger.root_log_handler.setLevel(Logger.root_log_level)
-        Logger.file_log_handler.setLevel(Logger.file_log_level)
-        Logger.stream_log_handler.setLevel(Logger.stream_log_level)
-        Logger.session_log_handler.setLevel(Logger.session_history_log_level)
+        self.root_log_handler.setLevel(Logger.root_log_level)
+        self.file_log_handler.setLevel(Logger.file_log_level)
+        self.stream_log_handler.setLevel(Logger.stream_log_level)
+        self.session_log_handler.setLevel(Logger.session_history_log_level)
 
 
 # end of file

@@ -22,7 +22,7 @@ from modules.logging_setup import Logger
 class MainWindowButtons(object):
     def __init__(self):
         super(MainWindowButtons, self).__init__()
-        MainWindowButtons.logger = Logger.get_child_logger(self.logger, __name__)
+        MainWindowButtons.logger = self.get_child_logger(__name__)
 
     def settings_tree_collapse_button(self):
         item_selected = self.ui.settings_tree.selectedItems()

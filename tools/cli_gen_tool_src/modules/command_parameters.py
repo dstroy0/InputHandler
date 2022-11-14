@@ -55,7 +55,7 @@ class CommandParametersMethods(object):
     def __init__(self) -> None:
         """Constructor method"""
         super(CommandParametersMethods, self).__init__()
-        CommandParametersMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        CommandParametersMethods.logger = self.get_child_logger(__name__)
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):

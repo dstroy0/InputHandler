@@ -19,7 +19,7 @@ class cliParameters(object):
     ## the constructor
     def __init__(self) -> None:
         super(cliParameters, self).__init__()
-        cliParameters.logger = Logger.get_child_logger(self.logger, __name__)
+        cliParameters.logger = self.get_child_logger(__name__)
 
     def ret_nested_child(self, parameters, comma=True):
         _comma = ","

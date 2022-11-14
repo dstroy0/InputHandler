@@ -31,7 +31,7 @@ class SettingsTreeTableMethods(object):
     ## the constructor
     def __init__(self):
         super(SettingsTreeTableMethods, self).__init__()
-        SettingsTreeTableMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        SettingsTreeTableMethods.logger = self.get_child_logger(__name__)
 
     ## self.ui.settings_tree table functions
     def set_table_vertical_labels(self, tree, section, rows):

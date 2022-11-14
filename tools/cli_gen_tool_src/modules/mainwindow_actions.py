@@ -38,7 +38,7 @@ from modules.logging_setup import Logger
 class MainWindowActions(object):
     def __init__(self):
         super(MainWindowActions, self).__init__()
-        MainWindowActions.logger = Logger.get_child_logger(self.logger, __name__)
+        MainWindowActions.logger = self.get_child_logger(__name__)
 
     # do before close
     def do_before_app_close(self, event=None):

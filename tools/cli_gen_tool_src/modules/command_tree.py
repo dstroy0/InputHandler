@@ -257,7 +257,7 @@ class CommandTreeMethods(object):
     def __init__(self) -> None:
         """constructor method"""
         super(CommandTreeMethods, self).__init__()
-        CommandTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        CommandTreeMethods.logger = self.get_child_logger(__name__)
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(
@@ -368,8 +368,7 @@ class CommandTreeMethods(object):
         if pos in self.cliOpt["commands"]["QTableView"]["splitter"]:
             del self.cliOpt["commands"]["QTableView"]["splitter"][pos]
         if str(pos) in self.cliOpt["commands"]["parameters"]:            
-            del self.cliOpt["commands"]["parameters"][str(pos)]
-            print(self.cliOpt["commands"]["parameters"])
+            del self.cliOpt["commands"]["parameters"][str(pos)]            
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
             del self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:

@@ -268,7 +268,7 @@ class CodePreview(cliReadme, cliConfig, cliSetup, cliFunctions, cliParameters, o
     def __init__(self) -> None:
         """Constructor method"""
         super(CodePreview, self).__init__()
-        CodePreview.logger = Logger.get_child_logger(self.logger, __name__)
+        CodePreview.logger = self.get_child_logger(__name__)
         CodePreview.selected_text_widget = None
         cliReadme.__init__(self)
         cliConfig.__init__(self)

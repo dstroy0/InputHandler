@@ -14,7 +14,7 @@ from __future__ import absolute_import
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
 from PySide6.QtWidgets import QFileDialog, QComboBox, QTreeWidgetItem
-from PySide6.QtCore import QFile, Qt, QDir
+from PySide6.QtCore import Qt, QDir
 
 
 class PreferencesMethods(object):
@@ -23,7 +23,7 @@ class PreferencesMethods(object):
 
     def __init__(self) -> None:
         super(PreferencesMethods, self).__init__()
-        PreferencesMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        PreferencesMethods.logger = self.get_child_logger(__name__)
         PreferencesMethods.dlg = self.preferences.dlg
         PreferencesMethods.builtin_methods = [
             key for key in dataModels.default_session_model["opt"]["builtin methods"]
@@ -70,7 +70,7 @@ class PreferencesMethods(object):
     def set_session_history_log_level(self, index):
         index_val = PreferencesMethods.dlg.sessionHistoryLogLevelComboBox.currentData()
         Logger.session_history_log_level = index_val
-        Logger.set_log_levels()
+        Logger.set_log_levels(self)
         self.logger.warning(
             "Session history log level set to : " + Logger.level_lookup[index_val]
         )
@@ -78,13 +78,13 @@ class PreferencesMethods(object):
     def set_file_log_level(self, index):
         index_val = PreferencesMethods.dlg.fileLogLevelComboBox.currentData()
         Logger.file_log_level = index_val
-        Logger.set_log_levels()
+        Logger.set_log_levels(self)
         self.logger.warning("File log level set to : " + Logger.level_lookup[index_val])
 
     def set_stream_log_level(self, index):
         index_val = PreferencesMethods.dlg.streamLogLevelComboBox.currentData()
         Logger.stream_log_level = index_val
-        Logger.set_log_levels()
+        Logger.set_log_levels(self)
         self.logger.warning(
             "Stream log level set to : " + Logger.level_lookup[index_val]
         )
@@ -92,7 +92,7 @@ class PreferencesMethods(object):
     def set_global_log_level(self, index):
         index_val = PreferencesMethods.dlg.globalLogLevelComboBox.currentData()
         Logger.file_log_level = index_val
-        Logger.set_log_levels()
+        Logger.set_log_levels(self)
         self.logger.warning(
             "Global log level set to : " + Logger.level_lookup[index_val]
         )

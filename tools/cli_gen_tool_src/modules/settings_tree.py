@@ -34,7 +34,7 @@ class SettingsTreeMethods(object):
     ## the constructor
     def __init__(self):
         super(SettingsTreeMethods, self).__init__()
-        SettingsTreeMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        SettingsTreeMethods.logger = self.get_child_logger(__name__)
         SettingsTreeMethods._tree = displayModels._settings_tree_display
 
     ## updates the type field to reflect the value

@@ -28,7 +28,7 @@ class ParseInputHandlerConfig(object):
     ## the constructor
     def __init__(self) -> None:
         super(ParseInputHandlerConfig, self).__init__()
-        ParseInputHandlerConfig.logger = Logger.get_child_logger(self.logger, __name__)
+        ParseInputHandlerConfig.logger = self.get_child_logger(__name__)
 
     ## parses input config files for use
     def parse_config_header_file(self, path):

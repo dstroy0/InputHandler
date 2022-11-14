@@ -36,7 +36,7 @@ class HelperMethods(object):
     ## the constructor
     def __init__(self):
         super(HelperMethods, self).__init__()
-        HelperMethods.logger = Logger.get_child_logger(self.logger, __name__)
+        HelperMethods.logger = self.get_child_logger(__name__)
         HelperMethods.parent = self
         HelperMethods.mainwindow_screen = self.qscreen
 
