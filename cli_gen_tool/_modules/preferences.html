@@ -238,7 +238,7 @@
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDir</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDir</span>
 
 
 <div class="viewcode-block" id="PreferencesMethods"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods">[docs]</a><span class="k">class</span> <span class="nc">PreferencesMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -247,7 +247,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PreferencesMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">builtin_methods</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">default_session_model</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">]</span>
@@ -294,7 +294,7 @@
 <div class="viewcode-block" id="PreferencesMethods.set_session_history_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_session_history_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_session_history_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;Session history log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
         <span class="p">)</span></div>
@@ -302,13 +302,13 @@
 <div class="viewcode-block" id="PreferencesMethods.set_file_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_file_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_file_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_stream_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_stream_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_stream_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;Stream log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
         <span class="p">)</span></div>
@@ -316,7 +316,7 @@
 <div class="viewcode-block" id="PreferencesMethods.set_global_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_global_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_global_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
-        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">()</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;Global log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">]</span>
         <span class="p">)</span></div>
