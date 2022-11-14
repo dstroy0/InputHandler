@@ -193,7 +193,7 @@ class SettingsTreeTableMethods(object):
         # set the treewidgetitem column 4 (hidden to user) to positional data
         tree_widget_item.setData(4, 0, dict_pos)
         # make the treewidgetitem editable
-        tree_widget_item.setFlags(tree_widget_item.flags() | Qt.ItemIsEditable)
+        tree_widget_item.setFlags(tree_widget_item.flags() | Qt.ItemIsSelectable)
         # make the treewidgetitem span columns
         tree_widget_item.setFirstColumnSpanned(True)
 

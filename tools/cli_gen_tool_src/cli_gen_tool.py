@@ -28,7 +28,7 @@ from PySide6.QtCore import (
     QRegularExpression,
     QFile, 
 )
-from PySide6.QtGui import QCursor, QIcon, QPixmap, QMouseEvent
+from PySide6.QtGui import QCursor, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -89,7 +89,7 @@ class MainWindow(
     CLIfilestrings,
     CommandTreeMethods,
     PreferencesMethods,
-):
+):    
     ## The constructor.
     def __init__(
         self,
@@ -100,7 +100,7 @@ class MainWindow(
         timer: QTimer,
         parent=None,
     ):
-        super().__init__(parent)
+        super().__init__(parent)   
         self.loading = True       
         
         # settings object; platform independent
@@ -510,6 +510,10 @@ class MainWindow(
         self.ui.tabWidget.setCurrentIndex(index)
         _qscreen = self.screen()
         MainWindow.logger.info("Display name: " + _qscreen.name())
+    
+    @staticmethod
+    def restart():
+        MainWindow.singleton = MainWindow()
 
 
 ## set up pathing, logging, splash screen

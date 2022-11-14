@@ -118,10 +118,15 @@ class SettingsTreeMethods(object):
                         and object_list[2] == "listCommands"
                     ):
                         list_commands = OrderedDict()
-                        list_commands = {str(self.cliOpt["var"]["primary id key"]) : dict(zip(dataModels.command_parameters_dict_keys_list, dataModels.LCcmdParam))}
-                        self.cliOpt["commands"]["parameters"].update(
-                            list_commands
-                        )
+                        list_commands = {
+                            str(self.cliOpt["var"]["primary id key"]): dict(
+                                zip(
+                                    dataModels.command_parameters_dict_keys_list,
+                                    dataModels.LCcmdParam,
+                                )
+                            )
+                        }
+                        self.cliOpt["commands"]["parameters"].update(list_commands)
                         self.cliOpt["commands"]["index"].update(
                             {
                                 self.cliOpt["var"]["primary id key"]: copy.deepcopy(
@@ -137,7 +142,9 @@ class SettingsTreeMethods(object):
                         ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parent index key"] = str(self.cliOpt["var"]["primary id key"])
+                        ]["parent index key"] = str(
+                            self.cliOpt["var"]["primary id key"]
+                        )
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             str(self.cliOpt["var"]["primary id key"]),
@@ -147,17 +154,22 @@ class SettingsTreeMethods(object):
                         )
                         self.cliOpt["var"]["number of commands"] = str(
                             int(self.cliOpt["var"]["number of commands"]) + 1
-                        )                    
+                        )
 
                     if (
                         combobox.currentText() == "Enabled"
                         and object_list[2] == "listSettings"
                     ):
                         list_settings = OrderedDict()
-                        list_settings = {str(self.cliOpt["var"]["primary id key"]) : dict(zip(dataModels.command_parameters_dict_keys_list, dataModels.LScmdParam))}
-                        self.cliOpt["commands"]["parameters"].update(
-                            list_settings
-                        )
+                        list_settings = {
+                            str(self.cliOpt["var"]["primary id key"]): dict(
+                                zip(
+                                    dataModels.command_parameters_dict_keys_list,
+                                    dataModels.LScmdParam,
+                                )
+                            )
+                        }
+                        self.cliOpt["commands"]["parameters"].update(list_settings)
                         self.cliOpt["commands"]["index"].update(
                             {
                                 self.cliOpt["var"]["primary id key"]: copy.deepcopy(
@@ -174,7 +186,9 @@ class SettingsTreeMethods(object):
                         ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
                         self.cliOpt["commands"]["index"][
                             self.cliOpt["var"]["primary id key"]
-                        ]["parent index key"] = str(self.cliOpt["var"]["primary id key"])
+                        ]["parent index key"] = str(
+                            self.cliOpt["var"]["primary id key"]
+                        )
                         self.add_qtreewidgetitem(
                             self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
                             str(self.cliOpt["var"]["primary id key"]),
@@ -185,7 +199,7 @@ class SettingsTreeMethods(object):
                         self.cliOpt["var"]["number of commands"] = str(
                             int(self.cliOpt["var"]["number of commands"]) + 1
                         )
-                    
+
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)
@@ -253,6 +267,17 @@ class SettingsTreeMethods(object):
 
     ## this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
+        def log_edit(item, object_list, val):
+            val_type = item.data(2,0)
+            if self.loading:
+                SettingsTreeMethods.logger.info(
+                "set " + object_list[2] + " to " + "'" + str(val) + "' " + str(val_type)
+            )
+            else:
+                SettingsTreeMethods.logger.info(
+                "User set " + object_list[2] + " to " + "'" + str(val) + "' " + str(val_type)
+            )
+                
         self.prompt_to_save = True
         self.windowtitle_set = False
         if col != 3:
@@ -274,7 +299,7 @@ class SettingsTreeMethods(object):
         if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
             self.cliOpt["process output"]["var"][object_list[2]] = val
-            SettingsTreeMethods.logger.info(object_list[2] + " " + str(val))
+            log_edit(item, object_list, val)
             self.update_code("setup.h", object_list[2], True)
             if object_list[2] == "outputToStream":
                 self.update_code("setup.cpp", object_list[2], True)
@@ -286,9 +311,7 @@ class SettingsTreeMethods(object):
         # process parameters (setup.h)
         if object_list[0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
-            SettingsTreeMethods.logger.info(
-                "edited " + object_list[2] + ", new value " + "'" + str(val) + "'"
-            )
+            log_edit(item, object_list, val)
             self.cliOpt["process parameters"]["var"][item.text(1)] = val
             self.update_code("setup.h", item.text(1), True)
             return
@@ -315,6 +338,7 @@ class SettingsTreeMethods(object):
         sub_dict["3"] = tmp
         self.update_settings_tree_type_field_text(item)
         self.update_code("config.h", sub_dict["2"], True)
+        log_edit(item, object_list, val)
         SettingsTreeMethods.logger.debug(
             str(
                 "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
@@ -339,12 +363,14 @@ class SettingsTreeMethods(object):
         object_string = object_string.strip()
         object_list = object_string.split(",")
         SettingsTreeMethods.logger.info(
-            "editing "
+            "User editing "
             + str(object_list[2])
             + " in "
             + str(object_list[0])
             + ", current value "
             + str(item.data(3, 0))
+            + " "
+            + str(item.data(2, 0))
         )
         self.ui.settings_tree.editItem(item, 3)
 

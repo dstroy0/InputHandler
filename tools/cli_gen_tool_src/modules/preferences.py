@@ -13,8 +13,8 @@
 from __future__ import absolute_import
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import QFileDialog, QComboBox
-from PySide6.QtCore import QFile, Qt
+from PySide6.QtWidgets import QFileDialog, QComboBox, QTreeWidgetItem
+from PySide6.QtCore import QFile, Qt, QDir
 
 
 class PreferencesMethods(object):
@@ -34,18 +34,20 @@ class PreferencesMethods(object):
         PreferencesMethods.logger.info("preferences set")
 
     def reset_preferences(self):
-        config_path = self.session["opt"]["input_config_file_path"]
+        config_path = self.session["opt"]["save_filename"]
         PreferencesMethods.dlg.config_path_input.setText(str(config_path))
-        PreferencesMethods.logger.info(
-            "preferences dialog cancelled, config path reset to: " + str(config_path)
-        )
+        PreferencesMethods.logger.info("preferences dialog cancelled")
 
     def get_config_file(self):
+        old_path = ""
+        new_path = ""
         cfg_path_dlg = QFileDialog(self)
         fileName = cfg_path_dlg.getOpenFileName(
             self,
             "InputHandler config file name",
-            "",
+            QDir(self.session["opt"]["input_config_file_path"]).toNativeSeparators(
+                self.session["opt"]["input_config_file_path"]
+            ),
             "config.h",
             options=QFileDialog.DontUseNativeDialog,
         )
@@ -53,11 +55,17 @@ class PreferencesMethods(object):
             PreferencesMethods.logger.info("browse for config cancelled.")
             return
         fqname = fileName[0]
-        file = QFile(fqname)
+        new_path = QDir(fqname).absolutePath()
+        new_path = QDir(new_path).toNativeSeparators(new_path)
+        old_path = QDir(self.session["opt"]["input_config_file_path"]).absolutePath()
+        old_path = QDir(old_path).toNativeSeparators(old_path)
+        if new_path == old_path:
+            PreferencesMethods.logger.info("Same config file selected.")
+            return
         self.session["opt"]["input_config_file_path"] = fqname
         PreferencesMethods.dlg.config_path_input.setText(str(fqname))
         PreferencesMethods.dlg.config_path_input.setToolTip(str(fqname))
-        self.app.restart()
+        self.restart()
 
     def set_session_history_log_level(self, index):
         index_val = PreferencesMethods.dlg.sessionHistoryLogLevelComboBox.currentData()
@@ -101,29 +109,32 @@ class PreferencesMethods(object):
             )
             return
 
-        active_builtins = [[],]
+        # this searches the tree for active builtins to exclude them from being set
+        active_builtins = [
+            [],
+        ]
         for iterator in range(self.ui.command_tree.topLevelItemCount()):
-            toplevelitem = self.ui.command_tree.topLevelItem(iterator)            
-            object_list = toplevelitem.data(1,0).split(",")
+            toplevelitem = self.ui.command_tree.topLevelItem(iterator)
+            object_list = toplevelitem.data(1, 0).split(",")
             active_builtins.append(object_list)
-        
+
         builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]
         cmb_container = builtin_dict[PreferencesMethods.builtin_methods[x]]["QComboBox"]
 
         _state = "Enabled" if state == Qt.Checked else "Disabled"
 
         # this sets InputHandler builtin methods to the user's preference on startup
-        object_list = []        
+        object_list = []
         for item in cmb_container:
-            cmb = cmb_container[item]            
-            if isinstance(cmb, QComboBox):                                
-                object_list = cmb.objectName().split(",")                                
+            cmb = cmb_container[item]
+            if isinstance(cmb, QComboBox):
+                object_list = cmb.objectName().split(",")
                 active_builtin = False
-                for item in active_builtins:   
-                    if bool(item):            
+                for item in active_builtins:
+                    if bool(item):
                         if object_list[2] == item[2]:
                             active_builtin = True
-                    
+
                 if (
                     state == Qt.Checked
                     and active_builtin == False
@@ -166,7 +177,7 @@ class PreferencesMethods(object):
                         + _state
                         + " "
                         + PreferencesMethods.builtin_methods[x]
-                    )                                    
+                    )
                     if self.loading != True:
                         self.session["opt"]["builtin methods"][
                             PreferencesMethods.builtin_methods[x]
@@ -274,5 +285,45 @@ class PreferencesMethods(object):
                 self.set_builtin_preference(i, Qt.Unchecked)
                 i += 1
 
+        if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
+            self.session["opt"]["output"]["buffer size"]
+        ):
+            PreferencesMethods.logger.info(
+                "Buffer size in loaded file doesn't match user preference, changing to "
+                + str(self.session["opt"]["output"]["buffer size"])
+                + " bytes."
+            )
+            self.cliOpt["process output"]["var"]["buffer size"] = str(
+                self.session["opt"]["output"]["buffer size"]
+            )
+            container = self.cliOpt["process output"]["tree"]["items"]["buffer size"][
+                "QTreeWidgetItem"
+            ]
+            for item in container:
+                if isinstance(container[item], QTreeWidgetItem):
+                    container[item].setData(
+                        3, 0, str(self.cliOpt["process output"]["var"]["buffer size"])
+                    )
+        if (
+            self.cliOpt["process output"]["var"]["output stream"]
+            != self.session["opt"]["output"]["stream"]
+        ):
+            PreferencesMethods.logger.info(
+                "Output Stream in loaded file doesn't match user preference, changing to "
+                + str(self.session["opt"]["output"]["stream"])
+                + "."
+            )
+            self.cliOpt["process output"]["var"]["output stream"] = str(
+                self.session["opt"]["output"]["stream"]
+            )
+            container = self.cliOpt["process output"]["tree"]["items"]["output stream"][
+                "QTreeWidgetItem"
+            ]
+            for item in container:
+                if isinstance(container[item], QTreeWidgetItem):
+                    container[item].setData(
+                        3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
+                    )
+        PreferencesMethods.logger.info("User preferences set.")
 
 # end of file

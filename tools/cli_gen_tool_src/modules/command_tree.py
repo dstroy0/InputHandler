@@ -127,6 +127,8 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                 return self.h_label
             elif orientation == Qt.Vertical:
                 return str(section + 1)
+    
+    
 
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
@@ -145,7 +147,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         """
         super(CommandParametersTableViewModel, self).__init__()
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
-
+        
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
         self.tooltip = displayModels._command_table_tooltip_list
@@ -578,11 +580,13 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTableView"]["models"]["parameters"][dict_index]
         )
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
-        table_view.resizeColumnsToContents()
-
+        table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
+        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)        
+        table_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        table_view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        table_view.resizeColumnsToContents()        
+        
         table_view = self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][
             dict_index
         ]
@@ -590,11 +594,12 @@ class CommandTreeMethods(object):
             self.cliOpt["commands"]["QTableView"]["models"]["arguments"][dict_index]
         )
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
-        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
+        table_view.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.MinimumExpanding)
+        table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)        
+        table_view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         table_view.resizeColumnsToContents()
-
+        
         container_splitter.addWidget(
             self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][dict_index]
         )
