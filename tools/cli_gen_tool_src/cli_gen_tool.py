@@ -79,7 +79,7 @@ class Initialize(Logger, object):
         super(Initialize, self).__init__(__name__)
 
         Logger.__init__(self, __name__)
-                     
+
         self.root_log_handler.info("CLI gen tool pathing")
 
         ## Library pathing
@@ -102,7 +102,9 @@ class Initialize(Logger, object):
                     )
                     break
                 num_cdup_to_lib_root += 1
-            self.root_log_handler.info("moving up " + str(num_cdup_to_lib_root) + " dir")
+            self.root_log_handler.info(
+                "moving up " + str(num_cdup_to_lib_root) + " dir"
+            )
             for i in range(num_cdup_to_lib_root):
                 path.cdUp()
             self.root_log_handler.info(
@@ -114,7 +116,7 @@ class Initialize(Logger, object):
 
         # GUI container
         self.app = QApplication(sys.argv)
-        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)   
+        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)
 
         # GUI styling
         self.app.setStyleSheet(qdarktheme.load_stylesheet())
@@ -197,13 +199,13 @@ class MainWindow(
 ):
     ## The constructor.
     def __init__(
-        self,        
+        self,
         parent,
     ):
         super(MainWindow, self).__init__()
-        
+
         self.loading = True
-        
+
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
@@ -278,7 +280,7 @@ class MainWindow(
         self.log.dlg.setupUi(self.log)
         # ensure log history popup is closed by default
         self.log.close()
-        # attach the logging process to the text widget        
+        # attach the logging process to the text widget
         parent.set_up_window_history_logger(self.log.dlg.logHistoryPlainTextEdit)
 
         # preferences dialog
@@ -298,6 +300,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
+        PreferencesMethods.__init__(self)
 
         # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
@@ -520,20 +523,20 @@ class MainWindow(
         self.ui.settings_tree.viewport().installEventFilter(self)
         self.ui.command_tree.viewport().installEventFilter(self)
 
-        # load preferences
-        PreferencesMethods.__init__(self)
+        # load preferences        
         self.preferences_dialog_setup()
+        
+        self.readSettings(self.settings)
+
+        # bring MainWindow to front, even after a restart
         # close splash and show app
         self.splash.close()
-        self.readSettings(self.settings)        
-        
-        # bring MainWindow to front, even after a restart
         self.setWindowState(Qt.WindowActive)
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         self.show()
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.show()
-        
+
         self.logger.info("CLI generation tool ready.")
         self.loading = False
         # end MainWindow.__init__()
@@ -563,8 +566,6 @@ class MainWindow(
             self.windowtitle_set = True
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
-        # event_type to avoid repetitive calls to .type() method; events are granular.
-
         # sets main window title
         self.set_main_window_title()
 
@@ -619,10 +620,9 @@ class MainWindow(
         MainWindow.logger.info("Display name: " + _qscreen.name())
 
     @staticmethod
-    def restart(self, reason:str) -> None:
+    def restart(self, reason: str) -> None:
         MainWindow.logger.warning("Restarting app; " + reason)
-        self.do_before_app_close(None,True)
-        
+        self.do_before_app_close(None, True)
 
 
 # end MainWindow
