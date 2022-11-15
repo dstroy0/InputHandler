@@ -79,11 +79,7 @@ class Initialize(Logger, object):
         super(Initialize, self).__init__(__name__)
 
         Logger.__init__(self, __name__)
-
-        # GUI container
-        self.app = QApplication(sys.argv)
-        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)        
-        
+                     
         self.root_log_handler.info("CLI gen tool pathing")
 
         ## Library pathing
@@ -115,6 +111,10 @@ class Initialize(Logger, object):
             self.lib_root_path = path.toNativeSeparators(path.absolutePath())
         self.setup_file_handler()
         self.root_log_handler.addHandler(self.get_file_handler())
+
+        # GUI container
+        self.app = QApplication(sys.argv)
+        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)   
 
         # GUI styling
         self.app.setStyleSheet(qdarktheme.load_stylesheet())
@@ -207,7 +207,7 @@ class MainWindow(
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
-        
+        self.parent_instance = parent
         self.get_child_logger = parent.get_child_logger
         MainWindow.logger = self.get_child_logger(__name__)
 
@@ -525,8 +525,15 @@ class MainWindow(
         self.preferences_dialog_setup()
         # close splash and show app
         self.splash.close()
-        self.readSettings(self.settings)
+        self.readSettings(self.settings)        
+        
+        # bring MainWindow to front, even after a restart
+        self.setWindowState(Qt.WindowActive)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         self.show()
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+        self.show()
+        
         self.logger.info("CLI generation tool ready.")
         self.loading = False
         # end MainWindow.__init__()
@@ -592,15 +599,15 @@ class MainWindow(
                 self.command_menu_button_toggles()
         return super().eventFilter(watched, event)
 
-    def closeEvent(self, event):
-        MainWindow.logger.info("save window settings")
+    def closeEvent(self, event: QEvent):
+        MainWindow.logger.info("save app states")
         self.settings.setValue("tab", self.ui.tabWidget.currentIndex())
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("windowState", self.saveState())
         self.do_before_app_close(event)
 
     def readSettings(self, settings: QSettings):
-        MainWindow.logger.info("restore window settings")
+        MainWindow.logger.info("restore app states")
         self.restoreGeometry(settings.value("geometry"))
         self.restoreState(settings.value("windowState"))
         if self.settings.value("tab") == None:
@@ -612,8 +619,10 @@ class MainWindow(
         MainWindow.logger.info("Display name: " + _qscreen.name())
 
     @staticmethod
-    def restart():
-        MainWindow.singleton = MainWindow()
+    def restart(self, reason:str) -> None:
+        MainWindow.logger.warning("Restarting app; " + reason)
+        self.do_before_app_close(None,True)
+        
 
 
 # end MainWindow

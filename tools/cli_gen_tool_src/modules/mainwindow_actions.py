@@ -41,8 +41,8 @@ class MainWindowActions(object):
         MainWindowActions.logger = self.get_child_logger(__name__)
 
     # do before close
-    def do_before_app_close(self, event=None):
-        MainWindowActions.logger.debug(event)
+    def do_before_app_close(self, event=None, restarting=False):
+        MainWindowActions.logger.debug(str(event))
         if self.write_cli_gen_tool_json() > 0:
             MainWindowActions.logger.info("session json saved")
         result = 0
@@ -74,7 +74,10 @@ class MainWindowActions(object):
                 MainWindowActions.logger.info("Saved. Exiting CLI generation tool.")
                 if event != None and type(event) != bool:
                     event.accept()
-                sys.exit(self.app.quit())
+                if not restarting:
+                    sys.exit(self.app.quit())
+                else:
+                    os.execl(sys.executable, sys.executable, *sys.argv)
             else:
                 MainWindowActions.logger.info("Exit cancelled")
         elif result == 3:
@@ -82,7 +85,10 @@ class MainWindowActions(object):
             MainWindowActions.logger.info("Not saved. Exiting CLI generation tool.")
             if event != None and type(event) != bool:
                 event.accept()
-            sys.exit(self.app.quit())
+            if not restarting:
+                sys.exit(self.app.quit())
+            else:
+                os.execl(sys.executable, sys.executable, *sys.argv)
         elif result == 4:
             self.log.close()
             MainWindowActions.logger.info(
@@ -90,7 +96,10 @@ class MainWindowActions(object):
             )
             if event != None and type(event) != bool:
                 event.accept()
-            sys.exit(self.app.quit())
+            if not restarting:
+                sys.exit(self.app.quit())
+            else:
+                os.execl(sys.executable, sys.executable, *sys.argv)
 
     def create_file_error_qdialog(self, error_type: str, qfile: QFile):
         MainWindowActions.logger.warning(

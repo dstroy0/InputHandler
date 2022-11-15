@@ -429,6 +429,7 @@ class SettingsTreeMethods(object):
                 _cmb.setCurrentIndex(_cmb.findText("Enabled"))
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
+            _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
             self.ui.settings_tree.setItemWidget(
                 _twi,
                 3,
