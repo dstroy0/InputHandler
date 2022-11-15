@@ -303,11 +303,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Initialize</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
-
-        <span class="c1"># GUI container</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_EnableHighDpiScaling</span><span class="p">)</span>        
-        
+                     
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI gen tool pathing&quot;</span><span class="p">)</span>
 
         <span class="c1">## Library pathing</span>
@@ -339,6 +335,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_file_handler</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
+
+        <span class="c1"># GUI container</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_EnableHighDpiScaling</span><span class="p">)</span>   
 
         <span class="c1"># GUI styling</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">qdarktheme</span><span class="o">.</span><span class="n">load_stylesheet</span><span class="p">())</span>
@@ -431,7 +431,7 @@
         <span class="c1"># settings object; platform independent</span>
         <span class="c1"># https://doc.qt.io/qt-6/qsettings.html</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s2">&quot;InputHandler&quot;</span><span class="p">,</span> <span class="s2">&quot;cli_gen_tool&quot;</span><span class="p">)</span>
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get_child_logger</span>
         <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -749,8 +749,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
         <span class="c1"># close splash and show app</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>        
+        
+        <span class="c1"># bring MainWindow to front, even after a restart</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowActive</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI generation tool ready.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># end MainWindow.__init__()</span>
@@ -816,15 +823,15 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="n">watched</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MainWindow.closeEvent"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save window settings&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="MainWindow.closeEvent"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">):</span>
+        <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save app states&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;tab&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabWidget</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">saveGeometry</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;windowState&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">saveState</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_before_app_close</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MainWindow.readSettings"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.readSettings">[docs]</a>    <span class="k">def</span> <span class="nf">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="n">QSettings</span><span class="p">):</span>
-        <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;restore window settings&quot;</span><span class="p">)</span>
+        <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;restore app states&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">restoreGeometry</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">restoreState</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;windowState&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;tab&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -836,8 +843,10 @@
         <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Display name: &quot;</span> <span class="o">+</span> <span class="n">_qscreen</span><span class="o">.</span><span class="n">name</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="MainWindow.restart"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.restart">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">restart</span><span class="p">():</span>
-        <span class="n">MainWindow</span><span class="o">.</span><span class="n">singleton</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span></div></div>
+    <span class="k">def</span> <span class="nf">restart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Restarting app; &quot;</span> <span class="o">+</span> <span class="n">reason</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_before_app_close</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span></div></div>
+        
 
 
 <span class="c1"># end MainWindow</span>
