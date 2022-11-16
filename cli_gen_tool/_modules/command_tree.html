@@ -871,8 +871,7 @@
                     <span class="p">],</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
-        <span class="n">_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
-        <span class="n">_root</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        
 
     <span class="c1">## rebuilds the command tree from scratch</span>
 <div class="viewcode-block" id="CommandTreeMethods.rebuild_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rebuild_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -902,8 +901,7 @@
             <span class="s2">&quot;root&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_tree</span><span class="p">()</span>
-        <span class="n">command_tree</span><span class="o">.</span><span class="n">expandAll</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_tree</span><span class="p">()</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div></div>
 
 
