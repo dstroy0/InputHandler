@@ -76,12 +76,12 @@ class Ui_MainWindow(object):
         self.ih_settings_tab.setMouseTracking(False)
         self.gridLayout_3 = QGridLayout(self.ih_settings_tab)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.splitter_2 = QSplitter(self.ih_settings_tab)
-        self.splitter_2.setObjectName(u"splitter_2")
-        sizePolicy.setHeightForWidth(self.splitter_2.sizePolicy().hasHeightForWidth())
-        self.splitter_2.setSizePolicy(sizePolicy)
-        self.splitter_2.setOrientation(Qt.Horizontal)
-        self.widget = QWidget(self.splitter_2)
+        self.settings_tab_splitter = QSplitter(self.ih_settings_tab)
+        self.settings_tab_splitter.setObjectName(u"settings_tab_splitter")
+        sizePolicy.setHeightForWidth(self.settings_tab_splitter.sizePolicy().hasHeightForWidth())
+        self.settings_tab_splitter.setSizePolicy(sizePolicy)
+        self.settings_tab_splitter.setOrientation(Qt.Horizontal)
+        self.widget = QWidget(self.settings_tab_splitter)
         self.widget.setObjectName(u"widget")
         sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
         self.widget.setSizePolicy(sizePolicy)
@@ -144,8 +144,8 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.tab_1_settings_table_label, 1, 1, 1, 1)
 
-        self.splitter_2.addWidget(self.widget)
-        self.code_preview_container = QWidget(self.splitter_2)
+        self.settings_tab_splitter.addWidget(self.widget)
+        self.code_preview_container = QWidget(self.settings_tab_splitter)
         self.code_preview_container.setObjectName(u"code_preview_container")
         sizePolicy.setHeightForWidth(self.code_preview_container.sizePolicy().hasHeightForWidth())
         self.code_preview_container.setSizePolicy(sizePolicy)
@@ -175,9 +175,9 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.codePreview_1, 1, 0, 1, 1)
 
-        self.splitter_2.addWidget(self.code_preview_container)
+        self.settings_tab_splitter.addWidget(self.code_preview_container)
 
-        self.gridLayout_3.addWidget(self.splitter_2, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.settings_tab_splitter, 0, 0, 1, 1)
 
         self.tabWidget.addTab(self.ih_settings_tab, "")
         self.command_tab = QWidget()
@@ -188,12 +188,12 @@ class Ui_MainWindow(object):
         self.command_tab.setLayoutDirection(Qt.LeftToRight)
         self.gridLayout_5 = QGridLayout(self.command_tab)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.splitter = QSplitter(self.command_tab)
-        self.splitter.setObjectName(u"splitter")
-        sizePolicy.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
-        self.splitter.setSizePolicy(sizePolicy)
-        self.splitter.setOrientation(Qt.Horizontal)
-        self.commands_container = QWidget(self.splitter)
+        self.command_tab_splitter = QSplitter(self.command_tab)
+        self.command_tab_splitter.setObjectName(u"command_tab_splitter")
+        sizePolicy.setHeightForWidth(self.command_tab_splitter.sizePolicy().hasHeightForWidth())
+        self.command_tab_splitter.setSizePolicy(sizePolicy)
+        self.command_tab_splitter.setOrientation(Qt.Horizontal)
+        self.commands_container = QWidget(self.command_tab_splitter)
         self.commands_container.setObjectName(u"commands_container")
         sizePolicy.setHeightForWidth(self.commands_container.sizePolicy().hasHeightForWidth())
         self.commands_container.setSizePolicy(sizePolicy)
@@ -254,8 +254,8 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addWidget(self.command_tree, 1, 0, 1, 3)
 
-        self.splitter.addWidget(self.commands_container)
-        self.commands_code_preview_container = QWidget(self.splitter)
+        self.command_tab_splitter.addWidget(self.commands_container)
+        self.commands_code_preview_container = QWidget(self.command_tab_splitter)
         self.commands_code_preview_container.setObjectName(u"commands_code_preview_container")
         sizePolicy.setHeightForWidth(self.commands_code_preview_container.sizePolicy().hasHeightForWidth())
         self.commands_code_preview_container.setSizePolicy(sizePolicy)
@@ -282,9 +282,9 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.codePreview_2, 1, 0, 1, 1)
 
-        self.splitter.addWidget(self.commands_code_preview_container)
+        self.command_tab_splitter.addWidget(self.commands_code_preview_container)
 
-        self.gridLayout_5.addWidget(self.splitter, 0, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.command_tab_splitter, 0, 0, 1, 1)
 
         self.tabWidget.addTab(self.command_tab, "")
 

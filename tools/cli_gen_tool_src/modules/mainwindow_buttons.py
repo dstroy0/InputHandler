@@ -24,57 +24,44 @@ class MainWindowButtons(object):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = self.get_child_logger(__name__)
 
-    def settings_tree_collapse_button(self):
-        item_selected = self.ui.settings_tree.selectedItems()
-        button = self.ui.settings_tree_collapse_button
+    def tree_collapse_button(self, tree, item_selected, button):
         if item_selected:
             if item_selected[0] and item_selected[0].isExpanded():
-                self.ui.settings_tree.collapseItem(item_selected[0])
+                tree.collapseItem(item_selected[0])
                 button.setText("Expand")
             elif item_selected[0] and not item_selected[0].isExpanded():
-                self.ui.settings_tree.expandItem(item_selected[0])
+                tree.expandItem(item_selected[0])
                 button.setText("Collapse")
         else:
             if button.text() == "Collapse All":
-                self.ui.settings_tree.collapseAll()
+                tree.collapseAll()
                 button.setText("Expand All")
-                return
+                return [
+                    True,
+                ]
             elif button.text() == "Expand All":
-                self.ui.settings_tree.expandAll()
+                tree.expandAll()
                 button.setText("Collapse All")
-                return
+                return [
+                    False,
+                ]
+
+    def settings_tree_collapse_button(self):
+        tree = self.ui.settings_tree
+        item_selected = tree.selectedItems()
+        button = self.ui.settings_tree_collapse_button
+        state = self.tree_collapse_button(tree, item_selected, button)
+        self.settings_tree_collapsed = state[0]
 
     def command_tree_collapse_button(self):
-        item_selected = self.ui.command_tree.selectedItems()
+        tree = self.ui.command_tree
+        item_selected = tree.selectedItems()
         button = self.ui.command_tree_collapse_button
-        if item_selected:
-            if item_selected[0] and item_selected[0].isExpanded():
-                self.ui.command_tree.collapseItem(item_selected[0])
-                button.setText("Expand")
-            elif item_selected[0] and not item_selected[0].isExpanded():
-                self.ui.command_tree.expandItem(item_selected[0])
-                button.setText("Collapse")
-        else:
-            if button.text() == "Collapse All":
-                self.ui.command_tree.collapseAll()
-                button.setText("Expand All")
-                return
-            elif button.text() == "Expand All":
-                self.ui.command_tree.expandAll()
-                button.setText("Collapse All")
-                return
+        state = self.tree_collapse_button(tree, item_selected, button)
+        self.command_tree_collapsed = state[0]
 
     def settings_tree_button_toggles(self):
         _item_selected = self.ui.settings_tree.selectedItems()
-        if _item_selected and _item_selected[0].isExpanded():
-            self.ui.settings_tree_collapse_button.setText("Collapse")
-        elif _item_selected and not _item_selected[0].isExpanded():
-            self.ui.settings_tree_collapse_button.setText("Expand")
-        else:
-            if self.ui.settings_tree.isExpanded(self.ui.settings_tree.rootIndex()):
-                self.ui.settings_tree_collapse_button.setText("Collapse All")
-            else:
-                self.ui.settings_tree_collapse_button.setText("Expand All")
         # setting selected
         if (
             _item_selected
@@ -128,17 +115,11 @@ class MainWindowButtons(object):
         # if the selected item is root, this is True
         _item_selected_is_root = False
 
-        if _items and _items[0].isExpanded():
-            self.ui.command_tree_collapse_button.setText("Collapse")
-        elif _items and not _items[0].isExpanded():
-            self.ui.command_tree_collapse_button.setText("Expand")
-        else:
-            if self.ui.command_tree.currentIndex() == self.ui.command_tree.rootIndex():
-                _item_selected_is_root = True
-                if self.ui.command_tree.isExpanded(self.ui.command_tree.rootIndex()):
-                    self.ui.command_tree_collapse_button.setText("Collapse All")
-                else:
-                    self.ui.command_tree_collapse_button.setText("Expand All")
+        if (
+            self.ui.command_tree.currentIndex() == self.ui.command_tree.rootIndex()
+            or not _items
+        ):
+            _item_selected_is_root = True
 
         # new/edit/delete/command settings menu button enable/disable toggling
         if _item_selected_is_root:

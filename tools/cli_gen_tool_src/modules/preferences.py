@@ -122,7 +122,7 @@ class PreferencesMethods(object):
         for _cmb in self.builtin_cmb_dict:
             if str(self.builtin_cmb_dict[_cmb].currentText()) == "Enabled":
                 self.active_builtins.append(_cmb)
-        
+
         _state = "Enabled" if state == Qt.Checked else "Disabled"
 
         # this sets InputHandler builtin methods to the user's preference on startup
@@ -133,24 +133,25 @@ class PreferencesMethods(object):
                 + " is "
                 + _state
             )
-            self.session["opt"]["builtin methods"][self.builtin_methods[x]] = (
-                True if state == Qt.Checked else False
-            )            
+            if state == Qt.Checked:
+                self.session["opt"]["builtin methods"][self.builtin_methods[x]] = True
+            elif state == Qt.Unchecked:
+                self.session["opt"]["builtin methods"][self.builtin_methods[x]] = False
         else:
             PreferencesMethods.logger.info(
                 "Loaded user preference: " + self.builtin_methods[x] + " " + _state
             )
-        
-        if self.builtin_methods[x] in self.active_builtins and state == Qt.Unchecked:                        
+
+        if self.builtin_methods[x] in self.active_builtins and state == Qt.Unchecked:
             if str(cmb.currentText()) != "Disabled":
                 cmb.setCurrentIndex(cmb.findText("Disabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = False
-        
-        if state == Qt.Checked and self.builtin_methods[x] not in self.active_builtins:            
+        elif (
+            self.builtin_methods[x] not in self.active_builtins and state == Qt.Checked
+        ):
             if str(cmb.currentText()) != "Enabled":
-                cmb.setCurrentIndex(cmb.findText("Enabled"))                
+                cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
-                
 
     def preferences_dialog_setup(self):
         PreferencesMethods.logger.debug("preferences dialog setup")
@@ -185,11 +186,11 @@ class PreferencesMethods(object):
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
         # input validation
-        self.dlg.default_stream.setValidator(self.regex_validator("^([a-zA-Z0-9_*])+$"))
+        self.dlg.default_stream.setValidator(self.regex_validator(self.dlg.validatorDict["default stream"]))
         self.dlg.default_output_buffer_size.setValidator(
-            self.regex_validator("^([0-9_*])+$")
+            self.regex_validator(self.dlg.validatorDict["default output buffer size"])
         )
-        
+
         # actions setup
         self.dlg.browse_for_config.clicked.connect(self.get_config_file)
         self.dlg.buttonBox.accepted.connect(self.save_preferences)
@@ -222,7 +223,7 @@ class PreferencesMethods(object):
         self.dlg.listsettings_checkbox.stateChanged.connect(
             lambda state, x=3: self.set_builtin_preference(x, state)
         )
-        
+
         # load session defaults
         _obj_list = [
             self.dlg.outputtostream_checkbox,
@@ -233,12 +234,11 @@ class PreferencesMethods(object):
         i = 0
         for item in self.builtin_methods:
             if self.session["opt"]["builtin methods"][item] == True:
-                _obj_list[i].setCheckState(Qt.Checked)                
+                _obj_list[i].setCheckState(Qt.Checked)
                 i += 1
             else:
-                _obj_list[i].setCheckState(Qt.Unchecked)                
+                _obj_list[i].setCheckState(Qt.Unchecked)
                 i += 1
-
 
         if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
             self.session["opt"]["output"]["buffer size"]

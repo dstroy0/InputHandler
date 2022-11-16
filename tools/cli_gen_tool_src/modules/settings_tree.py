@@ -572,6 +572,7 @@ class SettingsTreeMethods(object):
         # check if user hit enter on an item
         settings_tree.itemActivated.connect(self.settings_tree_item_activated)
         self.settings_tree_button_toggles()
+        settings_tree.setSelectionMode(QAbstractItemView.SingleSelection)
 
     # end build_lib_settings_tree()
 

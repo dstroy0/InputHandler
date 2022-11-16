@@ -106,10 +106,10 @@ class Logger(object):
     
     ## sets handler log levels        
     def set_log_levels(self):
-        self.root_log_handler.setLevel(Logger.root_log_level)
-        self.file_log_handler.setLevel(Logger.file_log_level)
-        self.stream_log_handler.setLevel(Logger.stream_log_level)
-        self.session_log_handler.setLevel(Logger.session_history_log_level)
+        self.parent_instance.root_log_handler.setLevel(Logger.root_log_level)
+        self.parent_instance.file_log_handler.setLevel(Logger.file_log_level)
+        self.parent_instance.stream_log_handler.setLevel(Logger.stream_log_level)
+        self.parent_instance.session_log_handler.setLevel(Logger.session_history_log_level)
 
 
 # end of file

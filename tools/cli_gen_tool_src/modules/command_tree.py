@@ -647,8 +647,7 @@ class CommandTreeMethods(object):
                     ],
                     self.cliOpt["commands"]["index"][item]["parameters key"],
                 )
-        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
-        _root.setExpanded(True)
+        
 
     ## rebuilds the command tree from scratch
     def rebuild_command_tree(self):
@@ -678,8 +677,7 @@ class CommandTreeMethods(object):
             "root"
         ] = self.ui.command_tree.invisibleRootItem()
 
-        self._build_command_tree()
-        command_tree.expandAll()
+        self._build_command_tree()        
         self.command_menu_button_toggles()
 
 
