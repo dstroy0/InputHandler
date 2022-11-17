@@ -14,9 +14,24 @@ from __future__ import absolute_import
 
 from modules.data_models import dataModels
 from json import dumps as json_dumps
-from PySide6.QtCore import QRegularExpression, QEvent, QObject, QSettings, QDir, Qt, QFile
+from PySide6.QtCore import (
+    QRegularExpression,
+    QEvent,
+    QObject,
+    QSettings,
+    QDir,
+    Qt,
+    QFile,
+)
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtWidgets import QSplashScreen, QDialog, QStyle, QWidget, QDialogButtonBox, QFileDialog
+from PySide6.QtWidgets import (
+    QSplashScreen,
+    QDialog,
+    QStyle,
+    QWidget,
+    QDialogButtonBox,
+    QFileDialog,
+)
 
 # MainWindow methods
 
@@ -194,7 +209,7 @@ class MainWindowMethods(object):
         self.parent_instance.set_up_window_history_logger(
             self.log.dlg.logHistoryPlainTextEdit
         )
-        
+
     def set_up_main_window(self, ui):
         # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
@@ -253,7 +268,7 @@ class MainWindowMethods(object):
             # plain text edit
             "commandArguments": self.ui.commandParameters.dlg.argumentsPlainTextCSV,
         }
-        
+
         self.command_parameters_input_field_settings = (
             dataModels.command_parameters_input_field_settings_dict
         )
@@ -280,10 +295,9 @@ class MainWindowMethods(object):
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
         cmd_dlg.argumentsPane.setEnabled(False)
-        
-        
-        
+
     def set_up_session(self):
+        self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         # pretty session json
@@ -342,5 +356,19 @@ class MainWindowMethods(object):
                 )
                 self.session["opt"]["save_filename"] = ""
 
-                self.set_main_window_title("InputHandler CLI generation tool ")    
-    
+                self.set_main_window_title("InputHandler CLI generation tool ")
+
+    def set_up_ui_icons(self):
+        # icons
+        self.ui.fileDialogContentsViewIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_FileDialogContentsView
+        )
+        self.ui.messageBoxCriticalIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_MessageBoxCritical
+        )
+        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
+        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
+        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
+        self.ui.messageBoxQuestionIcon = self.get_icon(
+            QStyle.StandardPixmap.SP_MessageBoxQuestion
+        )

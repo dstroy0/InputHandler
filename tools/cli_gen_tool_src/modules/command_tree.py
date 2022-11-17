@@ -27,7 +27,6 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 from modules.display_models import displayModels
-from modules.logging_setup import Logger
 from modules.data_models import dataModels
 from modules.display_models import displayModels
 
@@ -127,8 +126,6 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                 return self.h_label
             elif orientation == Qt.Vertical:
                 return str(section + 1)
-    
-    
 
 
 ## specialized QAbstractTableModel for displaying InputHandler::CommandParameters elements
@@ -147,7 +144,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         """
         super(CommandParametersTableViewModel, self).__init__()
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
-        
+
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
         self.tooltip = displayModels._command_table_tooltip_list
@@ -367,8 +364,8 @@ class CommandTreeMethods(object):
             del self.cliOpt["commands"]["QTableView"]["layout"][pos]
         if pos in self.cliOpt["commands"]["QTableView"]["splitter"]:
             del self.cliOpt["commands"]["QTableView"]["splitter"][pos]
-        if str(pos) in self.cliOpt["commands"]["parameters"]:            
-            del self.cliOpt["commands"]["parameters"][str(pos)]            
+        if str(pos) in self.cliOpt["commands"]["parameters"]:
+            del self.cliOpt["commands"]["parameters"][str(pos)]
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["container"]:
             del self.cliOpt["commands"]["QTreeWidgetItem"]["container"][pos]
         if pos in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
@@ -387,7 +384,7 @@ class CommandTreeMethods(object):
             )
             del self.cliOpt["commands"]["index"][pos]
         self.update_code("functions.h", "", False)
-        self.update_code("functions.cpp", "", False)        
+        self.update_code("functions.cpp", "", False)
         self.update_code("setup.cpp", "", False)
         self.update_code("parameters.h", "", False)
 
@@ -413,7 +410,7 @@ class CommandTreeMethods(object):
             dict_pos (str): cliOpt key
         """
 
-        def pop_from_dict(pos, tree_item):           
+        def pop_from_dict(pos, tree_item):
             match = False
             for _item in self.cliOpt["commands"]["index"]:
                 if (
@@ -432,7 +429,7 @@ class CommandTreeMethods(object):
                     len(self.cliOpt["commands"]["index"])
                 )
                 CommandTreeMethods.logger.info(
-                    "removed key " + _item + " from self.cliOpt[\"commands\"][\"index\"]"
+                    "removed key " + _item + ' from self.cliOpt["commands"]["index"]'
                 )
             self.scrub_command_from_datamodel(pos, tree_item)
             # the number of commands is equal to the len of the commands index
@@ -447,7 +444,7 @@ class CommandTreeMethods(object):
             CommandTreeMethods.logger.info(
                 "couldnt find QTreeWidgetItem for `" + str(pos) + "`"
             )
-            tree_item = None        
+            tree_item = None
 
         # take the table widget out of the qtreewidgetitem ("table")
         if pos not in self.cliOpt["commands"]["QTreeWidgetItem"]["table"]:
@@ -581,11 +578,11 @@ class CommandTreeMethods(object):
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         table_view.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
-        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)        
+        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         table_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         table_view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        table_view.resizeColumnsToContents()        
-        
+        table_view.resizeColumnsToContents()
+
         table_view = self.cliOpt["commands"]["QTableView"]["tables"]["arguments"][
             dict_index
         ]
@@ -595,10 +592,10 @@ class CommandTreeMethods(object):
         table_view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         table_view.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.MinimumExpanding)
         table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
-        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)        
+        table_view.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
         table_view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         table_view.resizeColumnsToContents()
-        
+
         container_splitter.addWidget(
             self.cliOpt["commands"]["QTableView"]["tables"]["parameters"][dict_index]
         )
@@ -647,7 +644,6 @@ class CommandTreeMethods(object):
                     ],
                     self.cliOpt["commands"]["index"][item]["parameters key"],
                 )
-        
 
     ## rebuilds the command tree from scratch
     def rebuild_command_tree(self):
@@ -677,7 +673,7 @@ class CommandTreeMethods(object):
             "root"
         ] = self.ui.command_tree.invisibleRootItem()
 
-        self._build_command_tree()        
+        self._build_command_tree()
         self.command_menu_button_toggles()
 
 

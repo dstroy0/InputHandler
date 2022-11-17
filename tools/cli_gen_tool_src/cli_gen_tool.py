@@ -15,7 +15,6 @@ from __future__ import absolute_import
 # imports
 import os
 import sys
-import json
 import qdarktheme
 from PySide6.QtCore import (
     QEvent,
@@ -24,16 +23,13 @@ from PySide6.QtCore import (
     QSettings,
     Qt,
     QTimer,
-    QDir,
-    QRegularExpression,
-    QFile,
+    QDir,    
 )
-from PySide6.QtGui import QCursor, QIcon, QPixmap
+from PySide6.QtGui import QCursor, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
-    QMainWindow,
-    QSplashScreen,
+    QMainWindow,    
     QStyle,
     QFileDialog,
     QWidget,
@@ -209,6 +205,39 @@ class MainWindow(
         self.version = version
         self.app = parent.app  # used in external methods
         self.qscreen = self.screen()
+        # input config file boolean define fields (ie // DISABLE_listSettings)
+        self.config_file_boolean_define_fields_line_start = (
+            config_file_boolean_define_fields_line_start
+        )
+        # the settings that the session started with
+        self.default_settings_tree_values = {}
+
+        # InputHandler builtin user interactable commands
+        self.ih_builtins = ["listSettings", "listCommands"]
+
+        # commands interaction
+        self.adding_child_command = False
+        self.child_command_parent = None
+        self.selected_command = None
+        self.selected_command_is_root = False
+
+        # code preview interaction
+        self.user_resizing_code_preview_box = False
+        self.init_mouse_pos = QPoint()
+        self.init_height = 0
+        self.qcursor = QCursor()
+
+        self.minimum_file_len = dataModels.minimum_file_len_dict
+
+        # cli opt db
+        self.cliOpt = dataModels.cliopt_model
+        # code preview db
+        self.code_preview_dict = dataModels.generated_filename_dict
+
+        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
+        self.defaultGuiOpt = dataModels.default_session_model
+        # session db
+        self.session = {}
 
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
@@ -222,11 +251,6 @@ class MainWindow(
         MainWindowMethods.__init__(self)
 
         self.show_splash()
-
-        # input config file boolean define fields (ie // DISABLE_listSettings)
-        self.config_file_boolean_define_fields_line_start = (
-            config_file_boolean_define_fields_line_start
-        )
 
         # pathing
         self.lib_root_path = self.parent_instance.lib_root_path
@@ -265,57 +289,14 @@ class MainWindow(
 
         self.set_up_main_window(Ui_MainWindow())
 
-        
-
-        # MainWindow var
-        self.adding_child_command = False
-        self.child_command_parent = None
-        self.selected_command = None
-        self.selected_command_is_root = False
-
-        # the settings that the session started with
-        self.default_settings_tree_values = {}
-
-        # InputHandler builtin user interactable commands
-        self.ih_builtins = ["listSettings", "listCommands"]
-
-        # code preview interaction
-        self.user_resizing_code_preview_box = False
-        self.init_mouse_pos = QPoint()
-        self.init_height = 0
-        self.qcursor = QCursor()
-
-        # cli opt db
-        self.cliOpt = dataModels.cliopt_model
-        # code preview db
-        self.code_preview_dict = dataModels.generated_filename_dict
-
-        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = dataModels.default_session_model
-        # session db
-        self.session = {}
-        self.logger.debug("Attempt session json load.")
         self.set_up_session()
 
-        # icons
-        self.ui.fileDialogContentsViewIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_FileDialogContentsView
-        )
-        self.ui.messageBoxCriticalIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxCritical
-        )
-        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
-        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
-        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
-        self.ui.messageBoxQuestionIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxQuestion
-        )
+        # uncomment to print self.cliOpt as pretty json
+        # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
 
-        # parse config file
-        self.logger.debug("Attempt parse config.h")
+        self.set_up_ui_icons()
+
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
-
-        # end MainWindow var
 
         # MainWindow actions
         self.mainwindow_menu_bar_actions_setup()
@@ -323,23 +304,17 @@ class MainWindow(
         # end MainWindow actions
 
         # tab 1
-        # settings_tree widget setup
-
         self.build_lib_settings_tree()
-
+        
         # code preview trees
-        self.minimum_file_len = dataModels.minimum_file_len_dict
-        self.build_code_preview_tree()
-        self.display_initial_code_preview()
-
-        # uncomment to print self.cliOpt as pretty json
-        # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
+        self.build_code_preview_tree()        
 
         # tab 2
         # command_tree widget setup
-
         self.build_command_tree()
         self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
+
+        self.display_initial_code_preview()
 
         # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
@@ -347,13 +322,8 @@ class MainWindow(
         self.ui.codePreview_2.viewport().installEventFilter(self)
         self.ui.settings_tree.viewport().installEventFilter(self)
         self.ui.command_tree.viewport().installEventFilter(self)
-
         # preferences dialog input validation
-        pref_dlg = self.preferences.dlg
-        pref_dlg.validatorDict = {
-            "default stream": "^([a-zA-Z0-9_*])+$",
-            "default output buffer size": "^([0-9_*])+$",
-        }
+
         # load preferences
         self.preferences_dialog_setup()
         self.readSettings(self.settings)

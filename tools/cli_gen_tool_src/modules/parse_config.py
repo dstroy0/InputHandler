@@ -19,10 +19,6 @@ import json
 # pyside imports
 from PySide6.QtCore import QRegularExpression
 
-# logging api
-from modules.logging_setup import Logger
-
-
 # parse inputhandler config
 class ParseInputHandlerConfig(object):
     ## the constructor
@@ -32,6 +28,7 @@ class ParseInputHandlerConfig(object):
 
     ## parses input config files for use
     def parse_config_header_file(self, path):
+        ParseInputHandlerConfig.logger.debug("Attempt parse config.h")
         config_path = ""
         if path == "":
             config_path = self.default_lib_config_path

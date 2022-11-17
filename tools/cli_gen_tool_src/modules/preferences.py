@@ -154,6 +154,11 @@ class PreferencesMethods(object):
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
     def preferences_dialog_setup(self):
+        pref_dlg = self.preferences.dlg
+        pref_dlg.validatorDict = {
+            "default stream": "^([a-zA-Z0-9_*])+$",
+            "default output buffer size": "^([0-9_*])+$",
+        }
         PreferencesMethods.logger.debug("preferences dialog setup")
         self.get_comboboxes()
         # set initial field text
@@ -186,7 +191,9 @@ class PreferencesMethods(object):
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
         # input validation
-        self.dlg.default_stream.setValidator(self.regex_validator(self.dlg.validatorDict["default stream"]))
+        self.dlg.default_stream.setValidator(
+            self.regex_validator(self.dlg.validatorDict["default stream"])
+        )
         self.dlg.default_output_buffer_size.setValidator(
             self.regex_validator(self.dlg.validatorDict["default output buffer size"])
         )

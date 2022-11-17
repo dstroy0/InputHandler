@@ -22,8 +22,9 @@ from PySide6.QtCore import QDir
 class QPlainTextEditLogger(logging.Handler):
     def __init__(self, widget):
         super(QPlainTextEditLogger, self).__init__()
-        self.widget = widget        
+        self.widget = widget
         # settings for the widget are in the `logHistoryDialog.ui` file
+
     def emit(self, record):
         self.widget.appendPlainText(Logger._log_formatter.format(record))
 
@@ -52,9 +53,9 @@ class Logger(object):
     _MB = 2**2**10
     _log_path = "/tools/logs/"
     _log_filename = "cli_gen_tool.log"
-    # %(name)s - 
+    # %(name)s -
     _log_format = "%(asctime)s - [%(levelname)s] - (%(filename)s).%(funcName)s(line:%(lineno)d) - %(message)s"
-    _log_formatter = logging.Formatter(_log_format)    
+    _log_formatter = logging.Formatter(_log_format)
 
     ## the constructor
     def __init__(self, name) -> None:
@@ -64,9 +65,9 @@ class Logger(object):
             self.root_log_handler.setLevel(Logger.session_history_log_level)
             self.stream_log_handler = logging.StreamHandler()
             self.stream_log_handler.setLevel(Logger.stream_log_level)
-            self.stream_log_handler.setFormatter(Logger._log_formatter)        
-            self.root_log_handler.addHandler(self.stream_log_handler)  
-            Logger.log_setup_complete = True      
+            self.stream_log_handler.setFormatter(Logger._log_formatter)
+            self.root_log_handler.addHandler(self.stream_log_handler)
+            Logger.log_setup_complete = True
 
     ## This is called to set up the log file handler in MainWindow.__init__()
     def setup_file_handler(self):
@@ -97,19 +98,21 @@ class Logger(object):
 
     ## returns the log_file_handler
     def get_file_handler(self):
-        return self.file_log_handler                        
+        return self.file_log_handler
 
     ## sets up window log history
     def set_up_window_history_logger(self, widget):
-        self.session_log_handler = QPlainTextEditLogger(widget)        
+        self.session_log_handler = QPlainTextEditLogger(widget)
         self.root_log_handler.addHandler(self.session_log_handler)
-    
-    ## sets handler log levels        
+
+    ## sets handler log levels
     def set_log_levels(self):
         self.parent_instance.root_log_handler.setLevel(Logger.root_log_level)
         self.parent_instance.file_log_handler.setLevel(Logger.file_log_level)
         self.parent_instance.stream_log_handler.setLevel(Logger.stream_log_level)
-        self.parent_instance.session_log_handler.setLevel(Logger.session_history_log_level)
+        self.parent_instance.session_log_handler.setLevel(
+            Logger.session_history_log_level
+        )
 
 
 # end of file

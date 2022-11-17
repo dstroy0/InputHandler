@@ -22,10 +22,6 @@ from PySide6.QtWidgets import (
     QTreeWidgetItem,
 )
 
-# logging api
-from modules.logging_setup import Logger
-
-
 # this is a helper class
 class SettingsTreeTableMethods(object):
     ## the constructor

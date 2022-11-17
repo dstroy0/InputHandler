@@ -39,11 +39,11 @@ class dataModels(object):
                 "buffer size": "700",
             },
             "builtin methods": {
-                "outputToStream":True,
+                "outputToStream": True,
                 "defaultFunction": True,
                 "listCommands": True,
                 "listSettings": True,
-            }
+            },
         },
     }
 

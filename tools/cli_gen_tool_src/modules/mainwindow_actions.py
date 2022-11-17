@@ -31,8 +31,6 @@ from PySide6.QtWidgets import (
     QStyle,
 )
 from modules.helper_methods import HelperMethods
-from modules.logging_setup import Logger
-
 
 # mainwindow actions class
 class MainWindowActions(object):

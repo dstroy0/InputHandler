@@ -13,7 +13,6 @@
 from __future__ import absolute_import
 
 # pyside imports
-from PySide6.QtGui import QScreen
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -22,10 +21,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QSizePolicy,
 )
-from PySide6.QtCore import Qt, QPoint
-
-# logging api
-from modules.logging_setup import Logger
+from PySide6.QtCore import Qt
 
 
 # helper method class

@@ -18,16 +18,12 @@ import json
 from collections import OrderedDict
 
 # pyside imports
-from PySide6.QtCore import Qt, QAbstractItemModel, QModelIndex
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem, QAbstractItemView
-from PySide6.QtGui import QMouseEvent
 
 # external data models
 from modules.data_models import dataModels
 from modules.display_models import displayModels
-
-# logging api
-from modules.logging_setup import Logger
 
 # settings_tree methods
 class SettingsTreeMethods(object):
@@ -268,16 +264,28 @@ class SettingsTreeMethods(object):
     ## this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
         def log_edit(item, object_list, val):
-            val_type = item.data(2,0)
+            val_type = item.data(2, 0)
             if self.loading:
                 SettingsTreeMethods.logger.info(
-                "set " + object_list[2] + " to " + "'" + str(val) + "' " + str(val_type)
-            )
+                    "set "
+                    + object_list[2]
+                    + " to "
+                    + "'"
+                    + str(val)
+                    + "' "
+                    + str(val_type)
+                )
             else:
                 SettingsTreeMethods.logger.info(
-                "User set " + object_list[2] + " to " + "'" + str(val) + "' " + str(val_type)
-            )
-                
+                    "User set "
+                    + object_list[2]
+                    + " to "
+                    + "'"
+                    + str(val)
+                    + "' "
+                    + str(val_type)
+                )
+
         self.prompt_to_save = True
         self.windowtitle_set = False
         if col != 3:
@@ -428,7 +436,7 @@ class SettingsTreeMethods(object):
             elif var_initial_val == True:
                 _cmb.setCurrentIndex(_cmb.findText("Enabled"))
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
-            #_cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
+            # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
             _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
             self.ui.settings_tree.setItemWidget(
                 _twi,

@@ -27,9 +27,6 @@ from PySide6.QtWidgets import (
     QSpinBox,
 )
 
-# logging api
-from modules.logging_setup import Logger
-
 # data models
 from modules.data_models import dataModels
 
