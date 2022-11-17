@@ -243,10 +243,6 @@
 <span class="c1"># pyside imports</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRegularExpression</span>
 
-<span class="c1"># logging api</span>
-<span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
-
-
 <span class="c1"># parse inputhandler config</span>
 <div class="viewcode-block" id="ParseInputHandlerConfig"><a class="viewcode-back" href="../modules/parse_config.html#parse_config.ParseInputHandlerConfig">[docs]</a><span class="k">class</span> <span class="nc">ParseInputHandlerConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1">## the constructor</span>
@@ -256,6 +252,7 @@
 
     <span class="c1">## parses input config files for use</span>
 <div class="viewcode-block" id="ParseInputHandlerConfig.parse_config_header_file"><a class="viewcode-back" href="../modules/parse_config.html#parse_config.ParseInputHandlerConfig.parse_config_header_file">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">ParseInputHandlerConfig</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt parse config.h&quot;</span><span class="p">)</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lib_config_path</span>
