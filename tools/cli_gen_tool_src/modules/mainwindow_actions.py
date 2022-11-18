@@ -16,6 +16,7 @@ import json
 import os
 import platform
 import sys
+import copy
 
 from PySide6.QtCore import (
     QByteArray,
@@ -113,26 +114,65 @@ class MainWindowActions(object):
             self.ui.messageBoxCriticalIcon,
         )
 
-    def write_json(self, dict: dict, qfile: QFile, create_error_dialog: bool = False):
+    def write_json(
+        self, dict_to_serialize: dict, qfile: QFile, create_error_dialog: bool = False
+    ):
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowActions.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
                 self.create_file_error_qdialog("Save file", qfile)
             return -1  # file error
-        out = QByteArray(
-            json.dumps(
-                dict,
-                indent=2,
+
+        # replace non serializable with null
+        def default(o):
+            try:
+                iterable = iter(o)
+            except TypeError:
+                pass
+            else:
+                return list(iterable)
+
+        # remove unserializable items to save disk space
+        def dict_iterator(input):
+            output = copy.deepcopy(input)
+
+            def recurse(input, output):
+                for key, value in input.items():
+                    if input[key] == None:
+                        if key.isnumeric():
+                            output.pop(key)
+                        else:
+                            output[key] = ""
+                    if isinstance(value, dict):
+                        recurse(input[key], output[key])
+
+            recurse(input, output)
+            return output
+
+        if dict_to_serialize["type"] == "cli options":
+            # filter json
+            dict_to_serialize["config"]["file lines"] = ""
+            input_json = json.dumps(
+                dict_to_serialize,
                 sort_keys=False,
-                default=lambda o: "non-serializable object",
+                default=default,
             )
-        )  # dump pretty json
+            f_o = json.loads(input_json)
+            filtered_output = copy.deepcopy(dict_iterator(f_o))
+
+            output_json = json.dumps(filtered_output, indent=2, sort_keys=False)
+        else:
+            output_json = json.dumps(dict_to_serialize, indent=2, sort_keys=False)
+
+        # file object
+        out = QByteArray(output_json)
+
         size = qfile.write(out)
         if size != -1:
             MainWindowActions.logger.info(
                 "wrote " + str(size) + " bytes to " + str(qfile.fileName())
             )
-            if dict["type"] != "session":
+            if dict_to_serialize["type"] != "session":
                 if self.write_cli_gen_tool_json() > 0:
                     MainWindowActions.logger.info("session json saved")
                 regexp = QRegularExpression("[^\/]*$")
@@ -168,6 +208,8 @@ class MainWindowActions(object):
             if "type" in db:
                 MainWindowActions.logger.info("loaded json: " + db["type"])
                 return [len(data_in), db]
+            elif len(db) == 0:
+                return [-4, {}]
             else:
                 MainWindowActions.logger.info("invalid json type")
                 MainWindowActions.logger.debug(

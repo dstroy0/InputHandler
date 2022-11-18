@@ -127,7 +127,7 @@ class dataModels(object):
         "listSettings": dict(zip(command_parameters_dict_keys_list, LScmdParam))
     }
 
-    ## This dict can is used inside of the "command parameters index" key of cliopt_model
+    ## This dict is used inside of the "command parameters index" key of cliopt_model
     parameters_index_struct = {
         # key to this command's parameters
         "parameters key": "",
