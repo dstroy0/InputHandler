@@ -240,6 +240,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QByteArray</span><span class="p">,</span>
@@ -337,26 +338,65 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBoxCriticalIcon</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MainWindowActions.write_json"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.write_json">[docs]</a>    <span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">create_error_dialog</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="MainWindowActions.write_json"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.write_json">[docs]</a>    <span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dict_to_serialize</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">qfile</span><span class="p">:</span> <span class="n">QFile</span><span class="p">,</span> <span class="n">create_error_dialog</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">qfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">.</span><span class="n">WriteOnly</span> <span class="o">|</span> <span class="n">QIODevice</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save &quot;</span> <span class="o">+</span> <span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; error.&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">create_error_dialog</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span><span class="p">(</span><span class="s2">&quot;Save file&quot;</span><span class="p">,</span> <span class="n">qfile</span><span class="p">)</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># file error</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">QByteArray</span><span class="p">(</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
-                <span class="nb">dict</span><span class="p">,</span>
-                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+
+        <span class="c1"># replace non serializable with null</span>
+        <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">iterable</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+
+        <span class="c1"># remove unserializable items to save disk space</span>
+        <span class="k">def</span> <span class="nf">dict_iterator</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">input</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">input</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+                            <span class="n">output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">output</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">recurse</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+            <span class="n">recurse</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">output</span>
+
+        <span class="k">if</span> <span class="n">dict_to_serialize</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;cli options&quot;</span><span class="p">:</span>
+            <span class="c1"># filter json</span>
+            <span class="n">dict_to_serialize</span><span class="p">[</span><span class="s2">&quot;config&quot;</span><span class="p">][</span><span class="s2">&quot;file lines&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">input_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="n">dict_to_serialize</span><span class="p">,</span>
                 <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="s2">&quot;non-serializable object&quot;</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="p">)</span>  <span class="c1"># dump pretty json</span>
+            <span class="n">f_o</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">input_json</span><span class="p">)</span>
+            <span class="n">filtered_output</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dict_iterator</span><span class="p">(</span><span class="n">f_o</span><span class="p">))</span>
+
+            <span class="n">output_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">filtered_output</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dict_to_serialize</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># file object</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">QByteArray</span><span class="p">(</span><span class="n">output_json</span><span class="p">)</span>
+
         <span class="n">size</span> <span class="o">=</span> <span class="n">qfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;wrote &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; bytes to &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">qfile</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;session&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dict_to_serialize</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;session&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;session json saved&quot;</span><span class="p">)</span>
                 <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="s2">&quot;[^\/]*$&quot;</span><span class="p">)</span>
@@ -392,6 +432,8 @@
             <span class="k">if</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">db</span><span class="p">:</span>
                 <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;loaded json: &quot;</span> <span class="o">+</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
                 <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">data_in</span><span class="p">),</span> <span class="n">db</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">db</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="p">{}]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;invalid json type&quot;</span><span class="p">)</span>
                 <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
