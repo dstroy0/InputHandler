@@ -19,7 +19,7 @@ from collections import OrderedDict
 
 # pyside imports
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem, QAbstractItemView
+from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem, QAbstractItemView, QSizePolicy
 
 # external data models
 from modules.data_models import dataModels
@@ -450,12 +450,21 @@ class SettingsTreeMethods(object):
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
-        settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
-        settings_tree.header().setMinimumSectionSize(150)
+        #settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
+        settings_tree.setMinimumWidth(400)
+        settings_tree.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        settings_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(2, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        
+        settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
+        settings_tree.header().setSectionResizeMode(1, QHeaderView.Stretch)
+        settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
+        settings_tree.header().setSectionResizeMode(3, QHeaderView.Stretch)
+        
         settings_tree.setColumnCount(5)
+        settings_tree.setSelectionMode(QAbstractItemView.SingleSelection)
         # 5th column holds object location in cliOpt
         settings_tree.setColumnHidden(4, 1)
 

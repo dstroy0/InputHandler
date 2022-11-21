@@ -135,7 +135,6 @@ class MainWindowActions(object):
         # remove unserializable items to save disk space
         def dict_iterator(input):
             output = copy.deepcopy(input)
-
             def recurse(input, output):
                 for key, value in input.items():
                     if input[key] == None:
@@ -145,7 +144,6 @@ class MainWindowActions(object):
                             output[key] = ""
                     if isinstance(value, dict):
                         recurse(input[key], output[key])
-
             recurse(input, output)
             return output
 
