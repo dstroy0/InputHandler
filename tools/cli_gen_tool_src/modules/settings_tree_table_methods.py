@@ -104,7 +104,7 @@ class DelimitersTableViewModel(QAbstractTableModel):
         Returns:
             str: data in the cell
         """
-        if index.column() == 0 and role == Qt.DisplayRole or role == Qt.EditRole:            
+        if index.column() == 0 and index.row() < self.rowCount(index) - 1 and role == Qt.DisplayRole or role == Qt.EditRole:            
             return str("'" + str(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(index.row())]) + "'")
         if role == Qt.ToolTipRole:
             return str("tooltip ph")
