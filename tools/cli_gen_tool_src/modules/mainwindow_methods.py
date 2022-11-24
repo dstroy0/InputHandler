@@ -161,6 +161,7 @@ class MainWindowMethods(object):
             self.settings_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
 
+        self.command_menu_button_toggles()
         self.settings_tree_button_toggles()
 
     def show_splash(self):

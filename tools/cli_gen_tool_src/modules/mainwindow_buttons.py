@@ -14,7 +14,7 @@ from __future__ import absolute_import
 
 import copy
 
-from PySide6.QtWidgets import QTableWidget, QComboBox, QDialogButtonBox
+from PySide6.QtWidgets import QTableView, QComboBox, QDialogButtonBox, QTreeWidgetItem
 
 
 # mainwindow button methods class
@@ -23,24 +23,46 @@ class MainWindowButtons(object):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = self.get_child_logger(__name__)
 
+    def set_collapse_button_text(self, button, root, collapsed):
+        if root == False and collapsed == True:
+            button.setText("Expand")
+            return
+        elif root == False and collapsed == False:
+            button.setText("Collapse")
+            return
+        elif root == True and collapsed == True:
+            button.setText("Expand All")
+        elif root == True and collapsed == False:
+            button.setText("Collapse All")
+
     def tree_collapse_button(self, tree, item_selected, button):
-        if item_selected:
-            if item_selected[0] and item_selected[0].isExpanded():
+        if bool(item_selected):
+            if item_selected[0].isExpanded():
                 tree.collapseItem(item_selected[0])
-                button.setText("Expand")
-            elif item_selected[0] and not item_selected[0].isExpanded():
-                tree.expandItem(item_selected[0])
-                button.setText("Collapse")
-        else:
-            if button.text() == "Collapse All":
-                tree.collapseAll()
-                button.setText("Expand All")
+                self.set_collapse_button_text(button, False, True)
                 return [
                     True,
                 ]
-            elif button.text() == "Expand All":
+            else:
+                tree.expandItem(item_selected[0])
+                self.set_collapse_button_text(button, False, False)
+                return [
+                    False,
+                ]
+        else:
+            if button.text() == "Collapse All" or button.text() == "Collapse":
+                tree.collapseAll()
+                self.set_collapse_button_text(button, True, True)
+                return [
+                    True,
+                ]
+            elif button.text() == "Expand All" or button.text() == "Expand":
                 tree.expandAll()
-                button.setText("Collapse All")
+                self.set_collapse_button_text(button, True, False)
+                return [
+                    False,
+                ]
+            else:
                 return [
                     False,
                 ]
@@ -62,6 +84,27 @@ class MainWindowButtons(object):
     def settings_tree_button_toggles(self):
         _item_selected = self.ui.settings_tree.selectedItems()
         # setting selected
+        _is_root = False
+        _context = False
+        if bool(_item_selected):
+            if (
+                isinstance(_item_selected[0], QTreeWidgetItem)
+                and self.ui.settings_tree.currentIndex()
+                == self.ui.settings_tree.rootIndex()
+            ):
+                _is_root = True
+                _context = _item_selected[0].isExpanded()
+            elif isinstance(_item_selected[0], QTreeWidgetItem):
+                _is_root = False
+                _context = _item_selected[0].isExpanded()
+        else:
+            _is_root = True
+            _context = self.settings_tree_collapsed
+        self.set_collapse_button_text(
+            self.ui.settings_tree_collapse_button,
+            _is_root,
+            _context,
+        )
         if (
             _item_selected
             and self.ui.settings_tree.indexOfTopLevelItem(_item_selected[0]) == -1
@@ -72,13 +115,11 @@ class MainWindowButtons(object):
             # table widgets get special treatment, there is no default
             if isinstance(
                 table_widget,
-                QTableWidget,
+                QTableView,
             ):
-                item = table_widget.currentItem()
-                if item:
-                    self.ui.edit_setting_button.setEnabled(True)
-                    self.ui.clear_setting_button.setEnabled(True)
-                    self.ui.default_setting_button.setEnabled(False)
+                self.ui.edit_setting_button.setEnabled(True)
+                self.ui.clear_setting_button.setEnabled(True)
+                self.ui.default_setting_button.setEnabled(False)
             # comboboxes can be edited and set to their default
             elif isinstance(
                 combobox_widget,
@@ -122,6 +163,11 @@ class MainWindowButtons(object):
 
         # new/edit/delete/command settings menu button enable/disable toggling
         if _item_selected_is_root:
+            self.set_collapse_button_text(
+                self.ui.command_tree_collapse_button,
+                True,
+                self.ui.command_tree.invisibleRootItem().isExpanded(),
+            )
             # new button
             self.ui.new_cmd_button.setText("New (root command)")
             self.ui.new_cmd_button.setEnabled(True)
@@ -133,6 +179,11 @@ class MainWindowButtons(object):
 
         # if the list is NOT empty (truthy)
         if _items:
+            self.set_collapse_button_text(
+                self.ui.command_tree_collapse_button,
+                False,
+                _items[0].isExpanded(),
+            )
             # something on the command tree is selected
             _item_selected = _items[0]
 
@@ -165,6 +216,11 @@ class MainWindowButtons(object):
                     self.ui.delete_cmd_button.setEnabled(True)
 
         else:
+            self.set_collapse_button_text(
+                self.ui.command_tree_collapse_button,
+                True,
+                self.ui.command_tree.invisibleRootItem().isExpanded(),
+            )
             # nothing is selected, disable all buttons
             _item_selected = False
             # new button

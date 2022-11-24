@@ -399,6 +399,9 @@ class MainWindowActions(object):
         self.ui.settings_tree.itemSelectionChanged.connect(
             self.settings_tree_button_toggles
         )
+        self.ui.settings_tree.itemClicked.connect(self.settings_tree_button_toggles)
+        self.ui.settings_tree.itemCollapsed.connect(self.settings_tree_button_toggles)
+        self.ui.settings_tree.itemExpanded.connect(self.settings_tree_button_toggles)
         # tab 2
         # always visible
         self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)

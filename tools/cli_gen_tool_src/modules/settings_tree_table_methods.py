@@ -37,13 +37,15 @@ class DelimitersTableViewModel(QAbstractTableModel):
         QAbstractTableModel (class): This class specializes QAbstractTableModel
     """
 
-    def __init__(self, parent, tree, cliopt, dict_pos, delimiters: dict, remove_row_icon) -> None:
+    def __init__(
+        self, parent, tree, cliopt, dict_pos, delimiters: dict, remove_row_icon
+    ) -> None:
         """constructor method
 
         Args:
             parameters (dict, optional): Set placeholder text in CommandParametersDialog input fields. Defaults to None.
         """
-        super(DelimitersTableViewModel, self).__init__()        
+        super(DelimitersTableViewModel, self).__init__()
         self._parent = parent
         self.tree = tree
         self.cliopt = cliopt
@@ -52,21 +54,24 @@ class DelimitersTableViewModel(QAbstractTableModel):
         self.keys = list(self.delimiters.keys())
         self.values = list(self.delimiters.values())
         self.row_count = int(len(self.delimiters) + 1)
-        self.column_count = 2                            
-        
+        self.column_count = 2        
+        self.editing = False
+
     def flags(self, index) -> Qt.ItemFlags:
-        if index.column == 0 and index.row() < self.rowCount():
+        if index.isValid() and index.column() == 0 and index.row() < (self.rowCount() - 1):
             return Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemIsEnabled
         else:
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
     def setData(self, index, value, role) -> bool:
-        if role == Qt.EditRole:
-            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(index.row())] = value
+        if role == Qt.EditRole:            
+            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+                str(index.row())
+            ] = value            
             return True
         return False
 
-    def columnCount(self, index: QModelIndex) -> int:
+    def columnCount(self, parent: QModelIndex = None) -> int:
         """property
 
         Args:
@@ -74,10 +79,10 @@ class DelimitersTableViewModel(QAbstractTableModel):
 
         Returns:
             int: The number of columns.
-        """     
+        """
         return self.column_count
-       
-    def rowCount(self, parent) -> int:
+
+    def rowCount(self, parent: QModelIndex = None) -> int:
         """property
 
         Args:
@@ -86,13 +91,13 @@ class DelimitersTableViewModel(QAbstractTableModel):
         Returns:
             int: The number of rows.
         """
-        return self.row_count
+        return int(len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) + 1)
 
     def insertRow(self, row: int, parent) -> bool:
         return super().insertRow(row, parent)
 
     def removeRow(self, row: int, parent) -> bool:
-        return super().removeRow(row, parent)
+        return super().removeRow(row, parent)    
 
     def data(self, index: QModelIndex, role: int):
         """Table data positioning.
@@ -103,11 +108,34 @@ class DelimitersTableViewModel(QAbstractTableModel):
 
         Returns:
             str: data in the cell
-        """
-        if index.column() == 0 and index.row() < self.rowCount(index) - 1 and role == Qt.DisplayRole or role == Qt.EditRole:            
-            return str("'" + str(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(index.row())]) + "'")
-        if role == Qt.ToolTipRole:
+        """        
+        if not index.isValid():
+            return None
+        elif (
+            index.column() == 0
+            and (index.row() - 1) < (len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1)
+            and role == Qt.DisplayRole
+            or role == Qt.EditRole
+        ):                            
+            return str(
+                "'"
+                + str(
+                    self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+                        str(index.row())
+                    ]
+                )
+                + "'"
+            )
+        elif role == Qt.ToolTipRole:
             return str("tooltip ph")
+        else:
+            return None
+    
+    def dataChanged(self):
+        if self.editing == True:
+            self.editing = False
+            print("edit complete")
+        return super().dataChanged
 
     def headerData(self, section: int, orientation: int, role: int):
         """Displays header labels
@@ -120,16 +148,26 @@ class DelimitersTableViewModel(QAbstractTableModel):
         Returns:
             str: The section label.
         """
-        if role == Qt.DisplayRole:
-            if orientation == Qt.Horizontal and section == 0:
-                return "Delimiters"
+        if role == Qt.DisplayRole and orientation == Qt.Horizontal and section == 0:
+            return "Delimiters"
+        elif orientation == Qt.Vertical and role == Qt.DisplayRole:
+            if int(section) < int(self.rowCount() - 1):
+                return str(section)
+            else:
+                return None
         else:
             return None
+    
+    def edit_table_view(self, index: QModelIndex):                              
+        if index.isValid() and self.editing == False:            
+            self.editing = True
+            self._parent.setCurrentIndex(index)
+            self._parent.edit(index)
 
 
 class DelimitersTableView(QTableView):
     def __init__(
-        self,
+        self,        
         settings_tree,
         cliopt,
         tree,
@@ -138,9 +176,12 @@ class DelimitersTableView(QTableView):
         remove_row_button,
         remove_row_button_icon,
     ) -> None:
-        super(DelimitersTableView, self).__init__()
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)        
+        super(DelimitersTableView, self).__init__()        
+        self.editing = False        
+
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         dict_pos = container.data(4, 0).split(",")
+        self.setObjectName(str(container.data(4,0)))
 
         delimiters = cliopt[dict_pos[0]]["var"][dict_pos[2]]
 
@@ -148,30 +189,26 @@ class DelimitersTableView(QTableView):
             self, tree, cliopt, dict_pos, delimiters, remove_row_button_icon
         )
         self.setModel(self.table_model)
-        self.clicked.connect(self.edit_table_view)
-        self.pressed.connect(self.edit_table_view)
 
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         settings_tree.setItemWidget(container, 0, self)
-        
-        self.add_row_button = QPushButton("Add Delimiter")        
-        index = self.table_model.index(self.table_model.rowCount(self) - 1, 0)       
+
+        self.add_row_button = QPushButton("Add Delimiter")
+        index = self.table_model.index(self.table_model.rowCount() - 1, 0)
         self.setIndexWidget(index, self.add_row_button)
         self.remove_row_buttons = []
         for i in range(self.table_model.row_count - 1):
-            self.remove_row_buttons.append(QPushButton())            
+            self.remove_row_buttons.append(QPushButton())
             self.remove_row_buttons[i].setIcon(remove_row_button_icon)
-            index = self.table_model.index(i, 1)        
+            index = self.table_model.index(i, 1)
             self.setIndexWidget(index, self.remove_row_buttons[i])
 
-    def dataChanged(self, topLeft, bottomRight, roles) -> None:
-        print("edit complete")
-        return super().dataChanged(topLeft, bottomRight, roles)
-
-    def edit_table_view(self, index: QModelIndex):
-        print("edit table")
-
+        self.clicked.connect(self.table_model.edit_table_view)
+        self.pressed.connect(self.table_model.edit_table_view)      
+    
+    def currentIndex(self) -> QModelIndex:
+        return super().currentIndex()          
 
 # this is a helper class
 class SettingsTreeTableMethods(object):
@@ -290,15 +327,19 @@ class SettingsTreeTableMethods(object):
     ## edit currently selected table item
     def edit_table_widget_item(self, item):
         # this can get triggered from the QTreeWidget, or a QTreeWidgetItem and we need to know what it is
-        if str(item).find("QTableWidgetItem") != -1:
-            current_item = item
-            item = item.tableWidget()
-        else:
-            current_item = item.currentItem()
+        # if str(item).find("QTableWidgetItem") != -1:
+        #     current_item = item
+        #     item = item.tableWidget()
+        # else:
+        current_item = item.currentIndex()
         object_list = str(item.objectName()).split(",")
         SettingsTreeTableMethods.logger.info("edit item in " + object_list[2])
         self.settings_tree_button_toggles()
-        item.editItem(current_item)
+        if isinstance(item, DelimitersTableView):
+            item.setCurrentIndex(current_item)
+            item.edit(current_item)
+        else:
+            item.editItem(current_item)
 
     ## called on field changes
     def table_widget_item_changed(self, item):
@@ -344,7 +385,7 @@ class SettingsTreeTableMethods(object):
         # make the treewidgetitem span columns
         tree_widget_item.setFirstColumnSpanned(True)
 
-        table = DelimitersTableView(
+        table = DelimitersTableView(            
             self.ui.settings_tree,
             self.cliOpt,
             tree,
