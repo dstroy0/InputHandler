@@ -229,13 +229,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">settings_tree_table_methods.</span></span><span class="sig-name descname"><span class="pre">DelimitersTableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cliopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">container</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_row_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_row_button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_row_button_icon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableView" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTableView</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableView.dataChanged">
-<span class="sig-name descname"><span class="pre">dataChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">topLeft:</span> <span class="pre">Union[PySide6.QtCore.QModelIndex,</span> <span class="pre">PySide6.QtCore.QPersistentModelIndex],</span> <span class="pre">bottomRight:</span> <span class="pre">Union[PySide6.QtCore.QModelIndex,</span> <span class="pre">PySide6.QtCore.QPersistentModelIndex],</span> <span class="pre">roles:</span> <span class="pre">Sequence[int]</span> <span class="pre">=</span> <span class="pre">Default(QList&lt;int&gt;)</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableView.dataChanged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableView.dataChanged" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableView.edit_table_view">
-<span class="sig-name descname"><span class="pre">edit_table_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableView.edit_table_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableView.edit_table_view" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableView.currentIndex">
+<span class="sig-name descname"><span class="pre">currentIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PySide6.QtCore.QModelIndex</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableView.currentIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableView.currentIndex" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -251,7 +246,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableViewModel.columnCount">
-<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.columnCount" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">QModelIndex</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.columnCount" title="Permalink to this definition">#</a></dt>
 <dd><p>property</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</p>
@@ -273,6 +268,16 @@ role (Qt Role): What role is the data.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableViewModel.dataChanged">
+<span class="sig-name descname"><span class="pre">dataChanged</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.dataChanged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.dataChanged" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableViewModel.edit_table_view">
+<span class="sig-name descname"><span class="pre">edit_table_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.edit_table_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.edit_table_view" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableViewModel.flags">
@@ -305,7 +310,7 @@ role (int): role of the data</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="settings_tree_table_methods.DelimitersTableViewModel.rowCount">
-<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.rowCount" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">QModelIndex</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/settings_tree_table_methods.html#DelimitersTableViewModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#settings_tree_table_methods.DelimitersTableViewModel.rowCount" title="Permalink to this definition">#</a></dt>
 <dd><p>property</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</p>
@@ -434,14 +439,15 @@ role (int): role of the data</p>
             <ul>
 <li><a class="reference internal" href="#">settings_tree_table_methods</a><ul>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableView"><code class="docutils literal notranslate"><span class="pre">DelimitersTableView</span></code></a><ul>
-<li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableView.dataChanged"><code class="docutils literal notranslate"><span class="pre">DelimitersTableView.dataChanged()</span></code></a></li>
-<li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableView.edit_table_view"><code class="docutils literal notranslate"><span class="pre">DelimitersTableView.edit_table_view()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableView.currentIndex"><code class="docutils literal notranslate"><span class="pre">DelimitersTableView.currentIndex()</span></code></a></li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableView.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">DelimitersTableView.staticMetaObject</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel</span></code></a><ul>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.columnCount"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.columnCount()</span></code></a></li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.data"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.data()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.dataChanged"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.dataChanged()</span></code></a></li>
+<li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.edit_table_view"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.edit_table_view()</span></code></a></li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.flags"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.flags()</span></code></a></li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.headerData"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.headerData()</span></code></a></li>
 <li><a class="reference internal" href="#settings_tree_table_methods.DelimitersTableViewModel.insertRow"><code class="docutils literal notranslate"><span class="pre">DelimitersTableViewModel.insertRow()</span></code></a></li>
