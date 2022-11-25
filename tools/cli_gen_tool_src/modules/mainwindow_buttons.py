@@ -13,8 +13,13 @@
 from __future__ import absolute_import
 
 import copy
-
-from PySide6.QtWidgets import QTableView, QComboBox, QDialogButtonBox, QTreeWidgetItem
+from modules.data_models import dataModels
+from PySide6.QtWidgets import (
+    QTableView,
+    QComboBox,
+    QDialogButtonBox,
+    QTreeWidget,
+)
 
 
 # mainwindow button methods class
@@ -23,213 +28,179 @@ class MainWindowButtons(object):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = self.get_child_logger(__name__)
 
-    def set_collapse_button_text(self, button, root, collapsed):
-        if root == False and collapsed == True:
-            button.setText("Expand")
-            return
-        elif root == False and collapsed == False:
-            button.setText("Collapse")
-            return
-        elif root == True and collapsed == True:
-            button.setText("Expand All")
-        elif root == True and collapsed == False:
-            button.setText("Collapse All")
-
-    def tree_collapse_button(self, tree, item_selected, button):
-        if bool(item_selected):
-            if item_selected[0].isExpanded():
-                tree.collapseItem(item_selected[0])
-                self.set_collapse_button_text(button, False, True)
-                return [
-                    True,
-                ]
-            else:
-                tree.expandItem(item_selected[0])
-                self.set_collapse_button_text(button, False, False)
-                return [
-                    False,
-                ]
+    def get_tree_state(self, tree: QTreeWidget) -> dict:
+        tree_state = copy.deepcopy(dataModels.button_tree_state_dict)
+        tree_state["tree"] = tree
+        tsi = tree.selectedItems()
+        is_root = False
+        if bool(tsi):
+            tree_state["items selected"] = tsi
+            tree_state["item selected"] = tsi[0]
+            tree_state["index of top level item"] = tree.indexOfTopLevelItem(tsi[0])
+            tree_state["current item index"] = tree.indexFromItem(tsi[0])
+            tree_state["root item index"] = tree.rootIndex()
+            tree_state["child count"] = tsi[0].childCount()
+            tree_state["table widget"] = tree.itemWidget(tsi[0], 0)
+            tree_state["combobox widget"] = tree.itemWidget(tsi[0], 3)
+            tree_state["is expanded"] = tsi[0].isExpanded()
+            if (
+                tree_state["current item index"] == tree_state["root item index"]
+                and tree_state["root item index"] != None
+            ):
+                is_root = True
         else:
-            if button.text() == "Collapse All" or button.text() == "Collapse":
-                tree.collapseAll()
-                self.set_collapse_button_text(button, True, True)
-                return [
-                    True,
-                ]
-            elif button.text() == "Expand All" or button.text() == "Expand":
-                tree.expandAll()
-                self.set_collapse_button_text(button, True, False)
-                return [
-                    False,
-                ]
+            is_root = True
+            tree_state["root item index"] = tree.rootIndex()
+            tree_state["current item index"] = tree.currentIndex()
+            tree_state["child count"] = tree.topLevelItemCount()
+            tree_state["is expanded"] = tree.invisibleRootItem().isExpanded()
+        tree_state["root item selected"] = is_root
+
+        return tree_state
+
+    def set_collapse_button_text(self, button_dict: dict):
+        if (
+            button_dict["root item selected"] == False
+            and button_dict["is expanded"] == True
+        ):
+            text = "Expand"
+        elif (
+            button_dict["root item selected"] == False
+            and button_dict["is expanded"] == False
+        ):
+            text = "Collapse"
+        elif (
+            button_dict["root item selected"] == True
+            and button_dict["is expanded"] == True
+        ):
+            text = "Expand All"
+        elif (
+            button_dict["root item selected"] == True
+            and button_dict["is expanded"] == False
+        ):
+            text = "Collapse All"
+        self.tree_expander(text, button_dict)
+        button_dict["buttons"]["collapse"]["QPushButton"].setText(text)
+
+    def tree_expander(self, state: str, button_dict: dict):
+        if state != button_dict["buttons"]["collapse"]["text"]:
+            if state == "Expand":
+                button_dict["item selected"].setExpanded(True)
+            elif state == "Collapse":
+                button_dict["item selected"].setExpanded(False)
+            elif state == "Expand All":
+                button_dict["tree"].expandAll()
+            elif state == "Collapse All":
+                button_dict["tree"].collapseAll()
+            button_dict["buttons"]["collapse"]["text"] = state
+
+    def set_tree_button_context(self, button_dict: dict):
+        for i in button_dict["buttons"]:
+            butt = button_dict["buttons"][i]
+            if i == "collapse":
+                self.set_collapse_button_text(
+                    button_dict
+                )
+                button_dict["buttons"]["collapse"]["QPushButton"].setEnabled(
+                    button_dict["buttons"]["collapse"]["enabled"]
+                )
             else:
-                return [
-                    False,
-                ]
+                if butt["text"] != None:
+                    butt["QPushButton"].setText(butt["text"])
+                    butt["text"] = None
+                butt["QPushButton"].setEnabled(butt["enabled"])
 
     def settings_tree_collapse_button(self):
-        tree = self.ui.settings_tree
-        item_selected = tree.selectedItems()
-        button = self.ui.settings_tree_collapse_button
-        state = self.tree_collapse_button(tree, item_selected, button)
-        self.settings_tree_collapsed = state[0]
+        tree_state = self.get_tree_state(self.ui.settings_tree)
+        tree_buttons = self.settings_tree_buttons
+        tree_buttons.update(tree_state)
+        if tree_buttons["root item selected"]:
+            self.settings_tree_collapsed = tree_buttons["is expanded"]
+        self.set_tree_button_context(tree_buttons)
 
     def command_tree_collapse_button(self):
-        tree = self.ui.command_tree
-        item_selected = tree.selectedItems()
-        button = self.ui.command_tree_collapse_button
-        state = self.tree_collapse_button(tree, item_selected, button)
-        self.command_tree_collapsed = state[0]
+        tree_state = self.get_tree_state(self.ui.command_tree)
+        tree_buttons = self.command_tree_buttons
+        tree_buttons.update(tree_state)
+        if tree_buttons["root item selected"]:
+            self.command_tree_collapsed = tree_buttons["is expanded"]
+        self.set_tree_button_context(tree_buttons)
 
     def settings_tree_button_toggles(self):
-        _item_selected = self.ui.settings_tree.selectedItems()
-        # setting selected
-        _is_root = False
-        _context = False
-        if bool(_item_selected):
-            if (
-                isinstance(_item_selected[0], QTreeWidgetItem)
-                and self.ui.settings_tree.currentIndex()
-                == self.ui.settings_tree.rootIndex()
-            ):
-                _is_root = True
-                _context = _item_selected[0].isExpanded()
-            elif isinstance(_item_selected[0], QTreeWidgetItem):
-                _is_root = False
-                _context = _item_selected[0].isExpanded()
-        else:
-            _is_root = True
-            _context = self.settings_tree_collapsed
-        self.set_collapse_button_text(
-            self.ui.settings_tree_collapse_button,
-            _is_root,
-            _context,
-        )
+        tree_state = self.get_tree_state(self.ui.settings_tree)
+        tree_buttons = self.settings_tree_buttons
+        tree_buttons.update(tree_state)
         if (
-            _item_selected
-            and self.ui.settings_tree.indexOfTopLevelItem(_item_selected[0]) == -1
-            and _item_selected[0].childCount() == 0
+            tree_buttons["item selected"]
+            and tree_buttons["index of top level item"] == -1
+            and tree_buttons["child count"] == 0
         ):
-            table_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 0)
-            combobox_widget = self.ui.settings_tree.itemWidget(_item_selected[0], 3)
             # table widgets get special treatment, there is no default
             if isinstance(
-                table_widget,
+                tree_buttons["table widget"],
                 QTableView,
             ):
-                self.ui.edit_setting_button.setEnabled(True)
-                self.ui.clear_setting_button.setEnabled(True)
-                self.ui.default_setting_button.setEnabled(False)
+                tree_buttons["buttons"]["edit"]["enabled"] = True
+                tree_buttons["buttons"]["clear"]["enabled"] = True
+                tree_buttons["buttons"]["default"]["enabled"] = False
             # comboboxes can be edited and set to their default
             elif isinstance(
-                combobox_widget,
+                tree_buttons["combobox widget"],
                 QComboBox,
             ):
-                self.ui.edit_setting_button.setEnabled(True)
-                self.ui.clear_setting_button.setEnabled(False)
-                self.ui.default_setting_button.setEnabled(True)
+                tree_buttons["buttons"]["edit"]["enabled"] = True
+                tree_buttons["buttons"]["clear"]["enabled"] = False
+                tree_buttons["buttons"]["default"]["enabled"] = True
             else:
-                self.ui.edit_setting_button.setEnabled(True)
-                self.ui.clear_setting_button.setEnabled(True)
-                self.ui.default_setting_button.setEnabled(True)
+                tree_buttons["buttons"]["edit"]["enabled"] = True
+                tree_buttons["buttons"]["clear"]["enabled"] = True
+                tree_buttons["buttons"]["default"]["enabled"] = True
         # nothing selected
         else:
-            self.ui.edit_setting_button.setEnabled(False)
-            self.ui.clear_setting_button.setEnabled(False)
-            self.ui.default_setting_button.setEnabled(False)
+            tree_buttons["buttons"]["edit"]["enabled"] = False
+            tree_buttons["buttons"]["clear"]["enabled"] = False
+            tree_buttons["buttons"]["default"]["enabled"] = False
+        self.set_tree_button_context(tree_buttons)
 
     def command_menu_button_toggles(self):
-        # method internal var
-        # inputhandler builtin commands
-        _builtin_commands = self.ih_builtins
-        # command_tree root item
-        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
-        # selected items list (only one selection possible)
-        _items = self.ui.command_tree.selectedItems()
-        # did the selection match a builtin
-        _item_matched_builtin = False
-        # populated when selection is non-root and not NULL
-        _object_list = []
-        # if an item is selected, this will be a memory location, else it is false
-        _item_selected = False
-        # if the selected item is root, this is True
-        _item_selected_is_root = False
-
-        if (
-            self.ui.command_tree.currentIndex() == self.ui.command_tree.rootIndex()
-            or not _items
-        ):
-            _item_selected_is_root = True
-
+        tree_state = self.get_tree_state(self.ui.command_tree)
+        tree_buttons = self.command_tree_buttons
+        tree_buttons.update(tree_state)
         # new/edit/delete/command settings menu button enable/disable toggling
-        if _item_selected_is_root:
-            self.set_collapse_button_text(
-                self.ui.command_tree_collapse_button,
-                True,
-                self.ui.command_tree.invisibleRootItem().isExpanded(),
-            )
-            # new button
-            self.ui.new_cmd_button.setText("New (root command)")
-            self.ui.new_cmd_button.setEnabled(True)
-            # edit button
-            self.ui.edit_cmd_button.setEnabled(False)
-            # delete button
-            self.ui.delete_cmd_button.setEnabled(False)
-            return  # root tree item is selected, give user option to create new root command
-
+        if bool(tree_buttons["root item selected"]):
+            tree_buttons["buttons"]["new"]["text"] = "New (root command)"
+            tree_buttons["buttons"]["new"]["enabled"] = True
+            tree_buttons["buttons"]["edit"]["enabled"] = False
+            tree_buttons["buttons"]["edit"]["delete"] = False
         # if the list is NOT empty (truthy)
-        if _items:
-            self.set_collapse_button_text(
-                self.ui.command_tree_collapse_button,
-                False,
-                _items[0].isExpanded(),
-            )
+        elif not bool(tree_buttons["root item selected"]) and bool(
+            tree_buttons["item selected"]
+        ):
             # something on the command tree is selected
-            _item_selected = _items[0]
-
-            if _item_selected:  # something is selected
-                _object_list = _item_selected.data(1, 0).split(",")
-                for (
-                    item
-                ) in (
-                    _builtin_commands
-                ):  # determine if the something selected is an InputHandler builtin
-                    if _object_list[2] == item:
-                        _item_matched_builtin = True
-                        break
-                if _item_matched_builtin:  # item selected is an InputHandler builtin
-                    # new button
-                    self.ui.new_cmd_button.setText("New")
-                    self.ui.new_cmd_button.setEnabled(False)
-                    # edit button
-                    self.ui.edit_cmd_button.setEnabled(False)
-                    # delete button
-                    self.ui.delete_cmd_button.setEnabled(True)
-                else:  # item selected is NOT an InputHandler builtin
-                    # give user option to add children to this command
-                    # new button
-                    self.ui.new_cmd_button.setText("New (child command)")
-                    self.ui.new_cmd_button.setEnabled(True)
-                    # edit button
-                    self.ui.edit_cmd_button.setEnabled(True)
-                    # delete button
-                    self.ui.delete_cmd_button.setEnabled(True)
-
+            _object_list = tree_buttons["item selected"].data(1, 0).split(",")
+            _item_matched_builtin = False
+            for item in self.ih_builtins:
+                # determine if the something selected is an InputHandler builtin
+                if _object_list[2] == item:
+                    _item_matched_builtin = True
+                    break
+            if _item_matched_builtin:  # item selected is an InputHandler builtin
+                tree_buttons["buttons"]["new"]["text"] = "New"
+                tree_buttons["buttons"]["new"]["enabled"] = False
+                tree_buttons["buttons"]["edit"]["enabled"] = False
+                tree_buttons["buttons"]["edit"]["delete"] = True
+            else:  # item selected is NOT an InputHandler builtin
+                # give user option to add children to this command
+                tree_buttons["buttons"]["new"]["text"] = "New (child command)"
+                tree_buttons["buttons"]["new"]["enabled"] = True
+                tree_buttons["buttons"]["edit"]["enabled"] = True
+                tree_buttons["buttons"]["edit"]["delete"] = True
         else:
-            self.set_collapse_button_text(
-                self.ui.command_tree_collapse_button,
-                True,
-                self.ui.command_tree.invisibleRootItem().isExpanded(),
-            )
-            # nothing is selected, disable all buttons
-            _item_selected = False
-            # new button
-            self.ui.new_cmd_button.setText("New")
-            self.ui.new_cmd_button.setEnabled(False)
-            # edit button
-            self.ui.edit_cmd_button.setEnabled(False)
-            # delete button
-            self.ui.delete_cmd_button.setEnabled(False)
+            tree_buttons["buttons"]["new"]["text"] = "New"
+            tree_buttons["buttons"]["new"]["enabled"] = False
+            tree_buttons["buttons"]["edit"]["enabled"] = False
+            tree_buttons["buttons"]["edit"]["delete"] = False
+        self.set_tree_button_context(tree_buttons)
 
     # MainWindow buttons
     # tab 1

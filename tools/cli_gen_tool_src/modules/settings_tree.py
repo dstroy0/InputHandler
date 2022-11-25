@@ -32,6 +32,18 @@ class SettingsTreeMethods(object):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = self.get_child_logger(__name__)
         SettingsTreeMethods._tree = displayModels._settings_tree_display
+        tree_buttons = copy.deepcopy(dataModels.button_dict)        
+        tree_buttons["buttons"].update({"edit":copy.deepcopy(dataModels.button_sub_dict),
+                             "clear":copy.deepcopy(dataModels.button_sub_dict),
+                             "default":copy.deepcopy(dataModels.button_sub_dict),
+                             "collapse":copy.deepcopy(dataModels.button_sub_dict)})
+        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
+        tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
+        tree_buttons["buttons"]["default"]["QPushButton"] = self.ui.default_setting_button
+        tree_buttons["buttons"]["collapse"]["QPushButton"] = self.ui.settings_tree_collapse_button 
+        tree_buttons["buttons"]["collapse"]["enabled"] = True  
+        self.settings_tree_buttons = tree_buttons
+        
 
     ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):

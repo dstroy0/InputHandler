@@ -273,6 +273,8 @@ class MainWindow(
         self.preferences.dlg = Ui_Preferences()
         self.preferences.dlg.setupUi(self.preferences)
 
+        self.set_up_main_window(Ui_MainWindow())
+        
         # import external classes
         self.logger.debug("Importing external classes.")
         CLIfilestrings.__init__(self)
@@ -285,9 +287,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
-        PreferencesMethods.__init__(self)
-
-        self.set_up_main_window(Ui_MainWindow())
+        PreferencesMethods.__init__(self)        
 
         self.set_up_session()
 

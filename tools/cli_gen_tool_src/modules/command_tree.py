@@ -12,7 +12,7 @@
 
 from __future__ import absolute_import
 
-import json
+import json, copy
 from PySide6.QtWidgets import (
     QTableView,
     QTreeWidgetItem,
@@ -255,6 +255,30 @@ class CommandTreeMethods(object):
         """constructor method"""
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = self.get_child_logger(__name__)
+
+        self.ui.new_cmd_button.setEnabled(False)
+        # edit button
+        self.ui.edit_cmd_button.setEnabled(False)
+        # delete button
+        self.ui.delete_cmd_button.setEnabled(False)
+
+        tree_buttons = copy.deepcopy(dataModels.button_dict)
+        tree_buttons["buttons"].update(
+            {
+                "new": copy.deepcopy(dataModels.button_sub_dict),
+                "edit": copy.deepcopy(dataModels.button_sub_dict),
+                "delete": copy.deepcopy(dataModels.button_sub_dict),
+                "collapse": copy.deepcopy(dataModels.button_sub_dict),
+            }
+        )
+        tree_buttons["buttons"]["new"]["QPushButton"] = self.ui.new_cmd_button
+        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_cmd_button
+        tree_buttons["buttons"]["delete"]["QPushButton"] = self.ui.delete_cmd_button
+        tree_buttons["buttons"]["collapse"][
+            "QPushButton"
+        ] = self.ui.command_tree_collapse_button
+        tree_buttons["buttons"]["collapse"]["enabled"] = True
+        self.command_tree_buttons = tree_buttons        
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(
