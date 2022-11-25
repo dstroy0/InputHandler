@@ -497,6 +497,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">Ui_Preferences</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_main_window</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">())</span>
+        
         <span class="c1"># import external classes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing external classes.&quot;</span><span class="p">)</span>
         <span class="n">CLIfilestrings</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -509,9 +511,7 @@
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CodePreview</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_main_window</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">())</span>
+        <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>        
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_session</span><span class="p">()</span>
 

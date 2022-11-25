@@ -274,8 +274,18 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="mainwindow_buttons.MainWindowButtons.get_tree_state">
+<span class="sig-name descname"><span class="pre">get_tree_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidget</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.get_tree_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.get_tree_state" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mainwindow_buttons.MainWindowButtons.set_collapse_button_text">
-<span class="sig-name descname"><span class="pre">set_collapse_button_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapsed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.set_collapse_button_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.set_collapse_button_text" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_collapse_button_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.set_collapse_button_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.set_collapse_button_text" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mainwindow_buttons.MainWindowButtons.set_tree_button_context">
+<span class="sig-name descname"><span class="pre">set_tree_button_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.set_tree_button_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.set_tree_button_context" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -289,8 +299,8 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_buttons.MainWindowButtons.tree_collapse_button">
-<span class="sig-name descname"><span class="pre">tree_collapse_button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_selected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.tree_collapse_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.tree_collapse_button" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="mainwindow_buttons.MainWindowButtons.tree_expander">
+<span class="sig-name descname"><span class="pre">tree_expander</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_buttons.html#MainWindowButtons.tree_expander"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_buttons.MainWindowButtons.tree_expander" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -365,10 +375,12 @@
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.clicked_new_cmd_button"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.clicked_new_cmd_button()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.command_menu_button_toggles"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.command_menu_button_toggles()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.command_tree_collapse_button"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.command_tree_collapse_button()</span></code></a></li>
+<li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.get_tree_state"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.get_tree_state()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.set_collapse_button_text"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.set_collapse_button_text()</span></code></a></li>
+<li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.set_tree_button_context"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.set_tree_button_context()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.settings_tree_button_toggles"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.settings_tree_button_toggles()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.settings_tree_collapse_button"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.settings_tree_collapse_button()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.tree_collapse_button"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.tree_collapse_button()</span></code></a></li>
+<li><a class="reference internal" href="#mainwindow_buttons.MainWindowButtons.tree_expander"><code class="docutils literal notranslate"><span class="pre">MainWindowButtons.tree_expander()</span></code></a></li>
 </ul>
 </li>
 </ul>
