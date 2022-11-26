@@ -411,8 +411,11 @@ class MainWindowActions(object):
             self.command_tree_collapse_button
         )
         self.ui.command_tree.itemSelectionChanged.connect(
-            self.command_menu_button_toggles
+            self.command_tree_button_toggles
         )
+        self.ui.command_tree.itemClicked.connect(self.command_tree_button_toggles)
+        self.ui.command_tree.itemCollapsed.connect(self.command_tree_button_toggles)
+        self.ui.command_tree.itemExpanded.connect(self.command_tree_button_toggles)
         # end buttons setup
 
     # end MainWindow actions

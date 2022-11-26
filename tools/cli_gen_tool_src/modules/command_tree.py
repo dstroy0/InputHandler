@@ -334,7 +334,7 @@ class CommandTreeMethods(object):
         self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index].setData(
             1, 0, dict_pos
         )
-        self.command_menu_button_toggles()
+        self.command_tree_button_toggles()
         if self.loading:
             CommandTreeMethods.logger.info(
                 "added saved command `"
@@ -423,7 +423,7 @@ class CommandTreeMethods(object):
         self.prompt_to_save = True
         self.windowtitle_set = False
         self.set_main_window_title()
-        self.command_menu_button_toggles()
+        self.command_tree_button_toggles()
 
     # TODO fix rem_qtreewidgetitem
     ## takes the command out of the tree and scrubs it from the data model and removes its QTreeWidgetItem from self.ui.command_tree
@@ -680,7 +680,7 @@ class CommandTreeMethods(object):
         ] = self.ui.command_tree.invisibleRootItem()
         self._build_command_tree()
         command_tree.setExpanded(True)
-        self.command_menu_button_toggles()
+        self.command_tree_button_toggles()
 
     ## adds items to self.ui.command_tree for display
     def build_command_tree(self):
@@ -698,7 +698,7 @@ class CommandTreeMethods(object):
         ] = self.ui.command_tree.invisibleRootItem()
 
         self._build_command_tree()
-        self.command_menu_button_toggles()
+        self.command_tree_button_toggles()
 
 
 # end of file

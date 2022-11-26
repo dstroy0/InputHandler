@@ -104,7 +104,7 @@ class MainWindowMethods(object):
                 self.ui.command_tree.setCurrentItem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
                 )
-                self.command_menu_button_toggles()
+                self.command_tree_button_toggles()
 
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
@@ -161,7 +161,7 @@ class MainWindowMethods(object):
             self.settings_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
 
-        self.command_menu_button_toggles()
+        self.command_tree_button_toggles()
         self.settings_tree_button_toggles()
 
     def show_splash(self):

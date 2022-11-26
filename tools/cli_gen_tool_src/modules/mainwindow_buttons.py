@@ -58,53 +58,67 @@ class MainWindowButtons(object):
 
         return tree_state
 
-    def set_collapse_button_text(self, button_dict: dict):
-        if (
-            button_dict["root item selected"] == False
-            and button_dict["is expanded"] == True
+    def queue_collapse_button_text(self, button_dict: dict):
+        text = None
+        if bool(button_dict["item selected"]) and not bool(
+            button_dict["tree"].invisibleRootItem() == button_dict["tree"].currentItem()
         ):
-            text = "Expand"
+            if button_dict["is expanded"] == True:
+                text = "Collapse"
+            else:
+                text = "Expand"
         elif (
-            button_dict["root item selected"] == False
-            and button_dict["is expanded"] == False
-        ):
-            text = "Collapse"
-        elif (
-            button_dict["root item selected"] == True
-            and button_dict["is expanded"] == True
+            not bool(button_dict["item selected"])
+            or button_dict["tree"].invisibleRootItem()
+            == button_dict["tree"].currentItem()
+            or button_dict["buttons"]["collapse"]["QPushButton"].text()
+            == "Collapse All"
         ):
             text = "Expand All"
-        elif (
-            button_dict["root item selected"] == True
-            and button_dict["is expanded"] == False
+        elif (button_dict["buttons"]["collapse"]["QPushButton"].text() == "Expand All"
         ):
             text = "Collapse All"
-        self.tree_expander(text, button_dict)
-        button_dict["buttons"]["collapse"]["QPushButton"].setText(text)
 
-    def tree_expander(self, state: str, button_dict: dict):
-        if state != button_dict["buttons"]["collapse"]["text"]:
-            if state == "Expand":
-                button_dict["item selected"].setExpanded(True)
-            elif state == "Collapse":
-                button_dict["item selected"].setExpanded(False)
-            elif state == "Expand All":
-                button_dict["tree"].expandAll()
-            elif state == "Collapse All":
-                button_dict["tree"].collapseAll()
-            button_dict["buttons"]["collapse"]["text"] = state
+        if text != None:
+            button_dict["buttons"]["collapse"]["text"] = text
+        else:
+            MainWindowButtons.logger.warning("collapse button text empty")
 
-    def set_tree_button_context(self, button_dict: dict):
+    def tree_expander(self, button_text: str, button_dict: dict):
+        if not bool(button_dict["root item selected"]) and button_text == "Expand":
+            button_dict["item selected"].setExpanded(True)
+            button_dict["buttons"]["collapse"]["QPushButton"].setText("Collapse")
+        elif not bool(button_dict["root item selected"]) and button_text == "Collapse":
+            button_dict["item selected"].setExpanded(False)
+            button_dict["buttons"]["collapse"]["QPushButton"].setText("Expand")
+        elif bool(button_dict["root item selected"]) and button_text == "Expand All":
+            button_dict["tree"].expandAll()
+            button_dict["buttons"]["collapse"]["QPushButton"].setText("Collapse All")
+        elif bool(button_dict["root item selected"]) and button_text == "Collapse All":
+            button_dict["tree"].collapseAll()
+            button_dict["buttons"]["collapse"]["QPushButton"].setText("Expand All")        
+
+    def set_tree_button_context(self, button_dict: dict):        
         for i in button_dict["buttons"]:
-            butt = button_dict["buttons"][i]
-            if i == "collapse":
-                self.set_collapse_button_text(
-                    button_dict
-                )
-                button_dict["buttons"]["collapse"]["QPushButton"].setEnabled(
-                    button_dict["buttons"]["collapse"]["enabled"]
-                )
+            if i != "collapse":
+                butt = button_dict["buttons"][i]            
+                if butt["text"] != None:
+                    butt["QPushButton"].setText(butt["text"])
+                    butt["text"] = None
+                butt["QPushButton"].setEnabled(butt["enabled"])
             else:
+                butt = button_dict["buttons"][i]            
+                butt["text"] = None
+                if bool(button_dict["item selected"]) and not bool(button_dict["root item selected"]):
+                    if bool(button_dict["is expanded"]):
+                        butt["text"] = "Collapse"
+                    else:
+                        butt["text"] = "Expand"
+                elif bool(button_dict["root item selected"]):
+                    if bool(button_dict["is expanded"]):
+                        butt["text"] = "Collapse All"
+                    else:
+                        butt["text"] = "Expand All"
                 if butt["text"] != None:
                     butt["QPushButton"].setText(butt["text"])
                     butt["text"] = None
@@ -113,10 +127,12 @@ class MainWindowButtons(object):
     def settings_tree_collapse_button(self):
         tree_state = self.get_tree_state(self.ui.settings_tree)
         tree_buttons = self.settings_tree_buttons
-        tree_buttons.update(tree_state)
+        tree_buttons.update(tree_state)        
+        self.tree_expander(
+            tree_buttons["buttons"]["collapse"]["QPushButton"].text(), tree_buttons
+        )
         if tree_buttons["root item selected"]:
-            self.settings_tree_collapsed = tree_buttons["is expanded"]
-        self.set_tree_button_context(tree_buttons)
+            self.settings_tree_collapsed = tree_buttons["tree"].invisibleRootItem().isExpanded()
 
     def command_tree_collapse_button(self):
         tree_state = self.get_tree_state(self.ui.command_tree)
@@ -124,7 +140,9 @@ class MainWindowButtons(object):
         tree_buttons.update(tree_state)
         if tree_buttons["root item selected"]:
             self.command_tree_collapsed = tree_buttons["is expanded"]
-        self.set_tree_button_context(tree_buttons)
+        self.tree_expander(
+            tree_buttons["buttons"]["collapse"]["QPushButton"].text(), tree_buttons
+        )
 
     def settings_tree_button_toggles(self):
         tree_state = self.get_tree_state(self.ui.settings_tree)
@@ -162,7 +180,7 @@ class MainWindowButtons(object):
             tree_buttons["buttons"]["default"]["enabled"] = False
         self.set_tree_button_context(tree_buttons)
 
-    def command_menu_button_toggles(self):
+    def command_tree_button_toggles(self):
         tree_state = self.get_tree_state(self.ui.command_tree)
         tree_buttons = self.command_tree_buttons
         tree_buttons.update(tree_state)
