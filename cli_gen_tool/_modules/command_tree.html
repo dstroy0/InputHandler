@@ -558,7 +558,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;table&quot;</span><span class="p">][</span><span class="n">dict_index</span><span class="p">]</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span>
             <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dict_pos</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading</span><span class="p">:</span>
             <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;added saved command `&quot;</span>
@@ -647,7 +647,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span></div>
 
     <span class="c1"># TODO fix rem_qtreewidgetitem</span>
     <span class="c1">## takes the command out of the tree and scrubs it from the data model and removes its QTreeWidgetItem from self.ui.command_tree</span>
@@ -904,7 +904,7 @@
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_tree</span><span class="p">()</span>
         <span class="n">command_tree</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span></div>
 
     <span class="c1">## adds items to self.ui.command_tree for display</span>
 <div class="viewcode-block" id="CommandTreeMethods.build_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.build_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -922,7 +922,7 @@
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_tree</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_menu_button_toggles</span><span class="p">()</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span></div></div>
 
 
 <span class="c1"># end of file</span>
