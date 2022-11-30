@@ -311,29 +311,13 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="DelimitersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;property</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: The number of columns.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DelimitersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
 
-<div class="viewcode-block" id="DelimitersTableViewModel.rowCount"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;property</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: The number of rows.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DelimitersTableViewModel.rowCount"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>        
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DelimitersTableViewModel.ar"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.ar">[docs]</a>    <span class="k">def</span> <span class="nf">ar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DelimitersTableViewModel.ar"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.ar">[docs]</a>    <span class="k">def</span> <span class="nf">ar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
@@ -343,8 +327,7 @@
         <span class="n">start_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">start_len</span><span class="p">):</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
-        <span class="p">)</span>
-        <span class="c1"># print(self.cliopt[self.dict_pos[0]][&quot;var&quot;][self.dict_pos[2]])</span>
+        <span class="p">)</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">insertRows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">endInsertRows</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert_row_move_buttons</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -447,8 +430,18 @@
                 <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
             <span class="p">)</span>
 
+        <span class="c1"># returns tooltips on a valid index if there are any for the cell</span>
         <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;tooltip ph&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">, any char except the wildcard char is valid&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;remove row </span><span class="si">{</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;add row to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> table&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
