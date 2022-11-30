@@ -32,8 +32,9 @@ from modules.display_models import displayModels
 
 
 class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
-    def __init__(self, parameters: dict) -> None:
+    def __init__(self, parent, parameters: dict) -> None:
         super(CommandParametersArgumentsTableViewModel, self).__init__()
+        self._parent = parent
         self.editing = False
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
@@ -61,6 +62,38 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                     input_idx += 1
             self.matrix.append(row_list)
 
+    def flags(self, index) -> Qt.ItemFlags:
+        if (
+            index.isValid()
+            and self.h_label[index.column()] == "Arguments"
+        ):
+            return (
+                super().flags(index)
+                | Qt.ItemIsSelectable
+                | Qt.ItemIsEditable
+                | Qt.ItemIsEnabled
+            )
+        else:
+            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+    def setData(self, index, value, role) -> bool:
+        if role in (Qt.DisplayRole, Qt.EditRole):
+            if not value:
+                return False
+
+            # clean_value = value.strip("<>")
+            # if not clean_value:
+            #     return False
+            # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+            #     str(index.row())
+            # ] = clean_value
+            # self.dataChanged.emit(index, index)
+            # table = self._parent.objectName().split(",")[2]
+            # self._parent.logger.info(
+            #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
+            # )
+        return True
+    
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
 
@@ -79,11 +112,18 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                 return self.h_label
             elif orientation == Qt.Vertical:
                 return str(section + 1)
+            
+    def edit_table_view(self, index: QModelIndex):
+        if index.isValid() and self.editing == False:
+            self.editing = True
+            self._parent.setCurrentIndex(index)
+            self._parent.edit(index)
 
 
 class CommandParametersTableViewModel(QAbstractTableModel):
-    def __init__(self, parameters: dict = None) -> None:
+    def __init__(self, parent, parameters: dict = None) -> None:
         super(CommandParametersTableViewModel, self).__init__()
+        self._parent = parent
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
         self.editing = False
         self.keys = list(parameters.keys())
@@ -120,7 +160,39 @@ class CommandParametersTableViewModel(QAbstractTableModel):
                     input_idx += 1
             self.matrix.append(row_list)
         # print(self.matrix)
+    
+    def flags(self, index) -> Qt.ItemFlags:
+        if (
+            index.isValid()
+            and self.h_labels[index.column()] == "Value"
+        ):
+            return (
+                super().flags(index)
+                | Qt.ItemIsSelectable
+                | Qt.ItemIsEditable
+                | Qt.ItemIsEnabled
+            )
+        else:
+            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
+    def setData(self, index, value, role) -> bool:
+        if role in (Qt.DisplayRole, Qt.EditRole):
+            if not value:
+                return False
+
+            # clean_value = value.strip("<>")
+            # if not clean_value:
+            #     return False
+            # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+            #     str(index.row())
+            # ] = clean_value
+            # self.dataChanged.emit(index, index)
+            # table = self._parent.objectName().split(",")[2]
+            # self._parent.logger.info(
+            #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
+            # )
+        return True
+    
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
 
@@ -144,6 +216,12 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return self.h_labels[section]
+    
+    def edit_table_view(self, index: QModelIndex):
+        if index.isValid() and self.editing == False:
+            self.editing = True
+            self._parent.setCurrentIndex(index)
+            self._parent.edit(index)
 
 
 class CommandParametersTableView(QTableView):
@@ -155,14 +233,14 @@ class CommandParametersTableView(QTableView):
         # self.setObjectName(str(tree_item.data(1, 0)))
 
         parameters = command_parameters
-        self.table_model = CommandParametersTableViewModel(parameters)
-        self.setModel(self.table_model)
+        self.table_model = CommandParametersTableViewModel(self, parameters)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        # self.clicked.connect(self.table_model.edit_table_view)
+        self.setModel(self.table_model)
+        
+        self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-
-        # self.pressed.connect(self.table_model.edit_table_view)
+        self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
@@ -185,13 +263,15 @@ class CommandParametersArgumentsTableView(QTableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         # dict_pos = tree_item.data(4, 0).split(",")
         # self.setObjectName(str(tree_item.data(1, 0)))
+        
         parameters = command_parameters
-        self.table_model = CommandParametersArgumentsTableViewModel(parameters)
-        self.setModel(self.table_model)
+        self.table_model = CommandParametersArgumentsTableViewModel(self, parameters)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        # self.clicked.connect(self.table_model.edit_table_view)
+        self.setModel(self.table_model)
+        
+        self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-        # self.pressed.connect(self.table_model.edit_table_view)
+        self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
