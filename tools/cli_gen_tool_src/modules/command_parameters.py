@@ -373,7 +373,7 @@ class CommandParametersMethods(object):
             self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
                 validated_result
             )
-            
+
         else:  # new command being added
             # get array index
             cmd_idx = str(self.cliOpt["var"]["primary id key"])

@@ -19,7 +19,13 @@ from collections import OrderedDict
 
 # pyside imports
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QComboBox, QHeaderView, QTreeWidgetItem, QAbstractItemView, QSizePolicy
+from PySide6.QtWidgets import (
+    QComboBox,
+    QHeaderView,
+    QTreeWidgetItem,
+    QAbstractItemView,
+    QSizePolicy,
+)
 
 # external data models
 from modules.data_models import dataModels
@@ -32,18 +38,25 @@ class SettingsTreeMethods(object):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = self.get_child_logger(__name__)
         SettingsTreeMethods._tree = displayModels._settings_tree_display
-        tree_buttons = copy.deepcopy(dataModels.button_dict)        
-        tree_buttons["buttons"].update({"edit":copy.deepcopy(dataModels.button_sub_dict),
-                             "clear":copy.deepcopy(dataModels.button_sub_dict),
-                             "default":copy.deepcopy(dataModels.button_sub_dict),
-                             "collapse":copy.deepcopy(dataModels.button_sub_dict)})
+        tree_buttons = copy.deepcopy(dataModels.button_dict)
+        tree_buttons["buttons"].update(
+            {
+                "edit": copy.deepcopy(dataModels.button_sub_dict),
+                "clear": copy.deepcopy(dataModels.button_sub_dict),
+                "default": copy.deepcopy(dataModels.button_sub_dict),
+                "collapse": copy.deepcopy(dataModels.button_sub_dict),
+            }
+        )
         tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
         tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
-        tree_buttons["buttons"]["default"]["QPushButton"] = self.ui.default_setting_button
-        tree_buttons["buttons"]["collapse"]["QPushButton"] = self.ui.settings_tree_collapse_button 
-        tree_buttons["buttons"]["collapse"]["enabled"] = True  
+        tree_buttons["buttons"]["default"][
+            "QPushButton"
+        ] = self.ui.default_setting_button
+        tree_buttons["buttons"]["collapse"][
+            "QPushButton"
+        ] = self.ui.settings_tree_collapse_button
+        tree_buttons["buttons"]["collapse"]["enabled"] = True
         self.settings_tree_buttons = tree_buttons
-        
 
     ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):
@@ -377,7 +390,8 @@ class SettingsTreeMethods(object):
     def edit_settings_tree_item(self, item):
         widget_present = self.ui.settings_tree.itemWidget(item, 0)
         if widget_present != None:
-            self.edit_table_widget_item(widget_present)
+            # self.edit_table_widget_item(widget_present)
+            widget_present.edit(widget_present.currentIndex())
             return
         object_string = str(item.data(4, 0))
         object_string = object_string.strip()
@@ -462,19 +476,19 @@ class SettingsTreeMethods(object):
     def build_lib_settings_tree(self):
         settings_tree = self.ui.settings_tree
         settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
-        #settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
+        # settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
         settings_tree.setMinimumWidth(400)
         settings_tree.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         settings_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(2, QHeaderView.ResizeToContents)
         settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        
+
         settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
         settings_tree.header().setSectionResizeMode(1, QHeaderView.Stretch)
         settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
         settings_tree.header().setSectionResizeMode(3, QHeaderView.Stretch)
-        
+
         settings_tree.setColumnCount(5)
         settings_tree.setSelectionMode(QAbstractItemView.SingleSelection)
         # 5th column holds object location in cliOpt
@@ -538,7 +552,6 @@ class SettingsTreeMethods(object):
                             has_combobox,
                             combobox_tooltip,
                         )
-
             elif not is_config:
                 for child in SettingsTreeMethods._tree[parent]:
                     var_initial_val = self.cliOpt[dict_key]["var"][child]
@@ -546,20 +559,11 @@ class SettingsTreeMethods(object):
                         child == "data delimiter sequences"
                         or child == "start stop data delimiter sequences"
                     ):
-                        columns = 1
-                        remove_row_button = True
-                        if child == "data delimiter sequences":
-                            add_row_function = self.add_data_delimiter_row
-                        if child == "start stop data delimiter sequences":
-                            add_row_function = self.add_start_stop_data_delimiter_row
                         self.build_tree_table_widget(
                             index_of_child,
                             tree,
                             dict_key,
                             child,
-                            columns,
-                            add_row_function,
-                            remove_row_button,
                         )
                         index_of_child += 1
                     else:

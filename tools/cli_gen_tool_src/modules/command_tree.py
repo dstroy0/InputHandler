@@ -278,7 +278,7 @@ class CommandTreeMethods(object):
             "QPushButton"
         ] = self.ui.command_tree_collapse_button
         tree_buttons["buttons"]["collapse"]["enabled"] = True
-        self.command_tree_buttons = tree_buttons        
+        self.command_tree_buttons = tree_buttons
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(

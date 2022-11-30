@@ -23,13 +23,13 @@ from PySide6.QtCore import (
     QSettings,
     Qt,
     QTimer,
-    QDir,    
+    QDir,
 )
 from PySide6.QtGui import QCursor, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
-    QMainWindow,    
+    QMainWindow,
     QStyle,
     QFileDialog,
     QWidget,
@@ -274,7 +274,7 @@ class MainWindow(
         self.preferences.dlg.setupUi(self.preferences)
 
         self.set_up_main_window(Ui_MainWindow())
-        
+
         # import external classes
         self.logger.debug("Importing external classes.")
         CLIfilestrings.__init__(self)
@@ -287,7 +287,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
-        PreferencesMethods.__init__(self)        
+        PreferencesMethods.__init__(self)
 
         self.set_up_session()
 
@@ -305,9 +305,9 @@ class MainWindow(
 
         # tab 1
         self.build_lib_settings_tree()
-        
+
         # code preview trees
-        self.build_code_preview_tree()        
+        self.build_code_preview_tree()
 
         # tab 2
         # command_tree widget setup

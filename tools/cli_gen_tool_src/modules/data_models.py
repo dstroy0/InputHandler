@@ -321,19 +321,11 @@ class dataModels(object):
         "functions.h": 27,
         "functions.cpp": 23,
     }
-    
-    button_sub_dict = {
-        "QPushButton": None,
-        "text": None,
-        "enabled": False
-    }
-    
-    button_dict = {                                                
-        "buttons": {
-            
-        }
-    }  
-    
+
+    button_sub_dict = {"QPushButton": None, "text": None, "enabled": False}
+
+    button_dict = {"buttons": {}}
+
     button_tree_state_dict = {
         "tree": None,
         "items selected": [],
@@ -345,7 +337,7 @@ class dataModels(object):
         "root item index": None,
         "child count": None,
         "table widget": None,
-        "combobox widget": None,        
+        "combobox widget": None,
     }
 
     ## the constructor

@@ -81,6 +81,7 @@ class MainWindowMethods(object):
         mouse_button = False
         # global mouse pos
         mouse_pos = self.qcursor.pos()
+
         # drag to resize, change cursor to vertical drag and back to arrow
         if (
             watched == self.ui.codePreview_1.viewport()
