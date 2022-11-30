@@ -87,29 +87,13 @@ class DelimitersTableViewModel(QAbstractTableModel):
             )
         return True
 
-    def columnCount(self, parent: QModelIndex = None) -> int:
-        """property
-
-        Args:
-            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
-
-        Returns:
-            int: The number of columns.
-        """
+    def columnCount(self, parent: QModelIndex = None) -> int:        
         return self.column_count
 
-    def rowCount(self, parent: QModelIndex = None) -> int:
-        """property
-
-        Args:
-            parent (QModelIndex, optional): The model index. Defaults to QModelIndex().
-
-        Returns:
-            int: The number of rows.
-        """
+    def rowCount(self, parent: QModelIndex = None) -> int:        
         return int(len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) + 1)
 
-    def ar(self):
+    def ar(self) -> None:
         row = self.rowCount() - 1
         parent = self._parent.currentIndex()
         self.insertRow(row, parent)
@@ -119,8 +103,7 @@ class DelimitersTableViewModel(QAbstractTableModel):
         start_len = len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
         self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]].update(
             {str(start_len): ""}
-        )
-        # print(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
+        )        
         self.insertRows(row, 1, parent)
         self.endInsertRows()
         self.insert_row_move_buttons(row)
@@ -223,8 +206,18 @@ class DelimitersTableViewModel(QAbstractTableModel):
                 + ">"
             )
 
+        # returns tooltips on a valid index if there are any for the cell
         elif role == Qt.ToolTipRole:
-            return str("tooltip ph")
+            if (index.row() - 1) < (len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1):
+                if index.column() == 0:
+                    return str(f"type: {self.dict_pos[2]}, any char except the wildcard char is valid")
+                else:
+                    return str(f"remove row {index.row()+1}")
+            else:
+                if index.column() == 0:
+                    return str(f"add row to {self.dict_pos[2]} table")
+                else:
+                    return None
         else:
             return None
 
