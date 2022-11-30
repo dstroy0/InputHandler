@@ -10,9 +10,15 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+# absolute imports
 from __future__ import absolute_import
+from modules.display_models import displayModels
+from modules.data_models import dataModels
 
-import json, copy
+# imports
+import copy
+import json
+from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 from PySide6.QtWidgets import (
     QTableView,
     QTreeWidgetItem,
@@ -21,16 +27,11 @@ from PySide6.QtWidgets import (
     QSplitter,
     QHBoxLayout,
     QSizePolicy,
-    QAbstractScrollArea,
     QAbstractItemView,
 )
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
-
-from modules.display_models import displayModels
-from modules.data_models import dataModels
-from modules.display_models import displayModels
 
 
+# TODO
 class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
     def __init__(self, parent, parameters: dict) -> None:
         super(CommandParametersArgumentsTableViewModel, self).__init__()
@@ -63,10 +64,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             self.matrix.append(row_list)
 
     def flags(self, index) -> Qt.ItemFlags:
-        if (
-            index.isValid()
-            and self.h_label[index.column()] == "Arguments"
-        ):
+        if index.isValid() and self.h_label[index.column()] == "Arguments":
             return (
                 super().flags(index)
                 | Qt.ItemIsSelectable
@@ -93,7 +91,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
             # )
         return True
-    
+
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
 
@@ -112,7 +110,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                 return self.h_label
             elif orientation == Qt.Vertical:
                 return str(section + 1)
-            
+
     def edit_table_view(self, index: QModelIndex):
         if index.isValid() and self.editing == False:
             self.editing = True
@@ -120,26 +118,34 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             self._parent.edit(index)
 
 
+# TODO
 class CommandParametersTableViewModel(QAbstractTableModel):
     def __init__(self, parent, parameters: dict = None) -> None:
-        super(CommandParametersTableViewModel, self).__init__()
+        super(CommandParametersTableViewModel, self).__init__()        
+        self.parameters = parameters
         self._parent = parent
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
         self.editing = False
         self.keys = list(parameters.keys())
         self.values = list(parameters.values())
-        self.tooltip = displayModels._command_table_tooltip_list
-        self.tooltip_idx = 0
+        self.tooltip_dict = displayModels.command_table_tooltip_dict
+        self.tt_keys = list(self.tooltip_dict.keys())
+        self.tt_values = list(self.tooltip_dict.values())
+        self.tt_input = []
         self.row_count = int(
             -(
                 -(len(dataModels.command_parameters_dict_keys_list) - 1)
                 // (len(self.h_labels) / 2)
             )
         )
+
         self.column_count = int(len(self.h_labels))
+
         self.input = []
         arg_start = 0
         for i in range(len(self.keys)):
+            self.tt_input.append(self.tt_keys[i])
+            self.tt_input.append(self.tt_values[i])
             if self.keys[i] != "commandArguments":
                 self.input.append(self.keys[i])
                 self.input.append(self.values[i])
@@ -148,24 +154,27 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         self.args_list = []
         for i in range(arg_start, len(self.values)):
             self.args_list.append(self.values[i])
+
+        # make display matrices
+        self.tt_matrix = []
         self.matrix = []
         input_idx = 0
         for i in range(self.row_count):
             row_list = []
+            tt_row_list = []
             for j in range(self.column_count):
                 if input_idx > len(self.input) - 1:
+                    tt_row_list.append("")
                     row_list.append("")
                 else:
+                    tt_row_list.append(self.tt_input[input_idx])
                     row_list.append(self.input[input_idx])
                     input_idx += 1
             self.matrix.append(row_list)
-        # print(self.matrix)
-    
+            self.tt_matrix.append(tt_row_list)
+
     def flags(self, index) -> Qt.ItemFlags:
-        if (
-            index.isValid()
-            and self.h_labels[index.column()] == "Value"
-        ):
+        if index.isValid() and self.h_labels[index.column()] == "Value":
             return (
                 super().flags(index)
                 | Qt.ItemIsSelectable
@@ -180,19 +189,25 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             if not value:
                 return False
 
-            # clean_value = value.strip("<>")
-            # if not clean_value:
-            #     return False
-            # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
-            #     str(index.row())
-            # ] = clean_value
-            # self.dataChanged.emit(index, index)
-            # table = self._parent.objectName().split(",")[2]
-            # self._parent.logger.info(
-            #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
-            # )
+            if not index.isValid():
+                return False
+
+            type_index = self.index(index.row(), index.column() - 1)
+            parameter_type = self.data(type_index, Qt.DisplayRole)
+
+            # data model
+            self.parameters[parameter_type] = value
+            # internal table model
+            self.matrix[index.row()][index.column()] = value
+            # emit this signal to update the display
+            self.dataChanged.emit(index, index)
+
+            command = self.parameters["commandString"]
+            self._parent.logger.info(
+                f"User edited command <{command}>; <{parameter_type}> changed to <{value}>"
+            )
         return True
-    
+
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
 
@@ -205,18 +220,13 @@ class CommandParametersTableViewModel(QAbstractTableModel):
         if role == Qt.DisplayRole or role == Qt.EditRole:
             return str(self.matrix[index.row()][index.column()])
         if role == Qt.ToolTipRole:
-            retval = self.tooltip[self.tooltip_idx]
-            if (self.tooltip_idx) >= len(self.tooltip):
-                self.tooltip_idx = 0
-            else:
-                self.tooltip_idx += 1
-            return str(retval)
+            return str(self.tt_matrix[index.row()][index.column()])
 
     def headerData(self, section: int, orientation: int, role: int):
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return self.h_labels[section]
-    
+
     def edit_table_view(self, index: QModelIndex):
         if index.isValid() and self.editing == False:
             self.editing = True
@@ -224,20 +234,22 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             self._parent.edit(index)
 
 
+# TODO
 class CommandParametersTableView(QTableView):
     def __init__(self, logger, cursor, command_parameters, tree_item) -> None:
         super(CommandParametersTableView, self).__init__()
         self.logger = logger
         self.cursor_ = cursor
-        # dict_pos = tree_item.data(1, 0).split(",")
-        # self.setObjectName(str(tree_item.data(1, 0)))
+        self.tree_item = tree_item
+        # dict_pos = self.tree_item.data(1, 0).split(",")
+        self.setObjectName(str(self.tree_item.data(1, 0)))
 
-        parameters = command_parameters
-        self.table_model = CommandParametersTableViewModel(self, parameters)
+        self.parameters = command_parameters
+        self.table_model = CommandParametersTableViewModel(self, self.parameters)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
-        
+
         self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
         self.pressed.connect(self.table_model.edit_table_view)
@@ -258,14 +270,19 @@ class CommandParametersTableView(QTableView):
 class CommandParametersArgumentsTableView(QTableView):
     def __init__(self, logger, cursor, command_parameters, tree_item) -> None:
         super(CommandParametersArgumentsTableView, self).__init__()
+        self.tree_item = tree_item
         self.logger = logger
-        self.cursor_ = cursor
+        self.cursor_ = cursor        
+
+        # dict_pos = self.tree_item.data(1, 0).split(",")
+        self.setObjectName(str(self.tree_item.data(1, 0)))
+
+        self.parameters = command_parameters
+        self.table_model = CommandParametersArgumentsTableViewModel(
+            self, self.parameters
+        )
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        # dict_pos = tree_item.data(4, 0).split(",")
-        # self.setObjectName(str(tree_item.data(1, 0)))
-        
-        parameters = command_parameters
-        self.table_model = CommandParametersArgumentsTableViewModel(self, parameters)
+        self.setMaximumSize(150,16777215)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
         
@@ -287,21 +304,45 @@ class CommandParametersArgumentsTableView(QTableView):
 
 
 class CommandParametersTableWidget(QWidget):
+    """Command parameters table container
+
+    Args:
+        QWidget (object): Base class that is specialized
+    """
+
     def __init__(self, command_parameters, tree_item, logger, cursor) -> None:
+        """constructor method
+
+        Args:
+            command_parameters (dict): command parameters dictionary
+            tree_item (QTreeWidgetItem): parent container
+            logger (logger): method logger
+            cursor (QCursor): mouse cursor
+        """
         super(CommandParametersTableWidget, self).__init__()
+        self.parameters = command_parameters
+        self.tree_item = tree_item
         self.layout = QHBoxLayout()
+        self.splitter = QSplitter()
 
         self.parameters_view = CommandParametersTableView(
-            logger, cursor, command_parameters, tree_item
+            logger, cursor, self.parameters, self.tree_item
         )
-
         self.arguments_view = CommandParametersArgumentsTableView(
-            logger, cursor, command_parameters, tree_item
+            logger, cursor, self.parameters, self.tree_item
         )
-        self.layout.addWidget(self.parameters_view)
-        self.layout.addWidget(self.arguments_view)
 
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+
+        self.splitter.addWidget(self.parameters_view)
+        self.splitter.addWidget(self.arguments_view)
+        self.layout.addWidget(self.splitter)
+        self.splitter.setSizes(
+            [
+                self.parameters_view.sizeHint().width(),
+                self.arguments_view.sizeHint().width(),
+            ]
+        )
         self.setLayout(self.layout)
 
 
@@ -383,12 +424,18 @@ class CommandTreeMethods(object):
         self.cliOpt["commands"]["QTreeWidgetItem"]["container"][
             dict_index
         ] = QTreeWidgetItem(parent, [command_parameters["commandString"], ""])
+
         self.cliOpt["commands"]["QTreeWidgetItem"]["table"][
             dict_index
         ] = QTreeWidgetItem(
             self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
         )
         tree_item = self.cliOpt["commands"]["QTreeWidgetItem"]["container"][dict_index]
+        self.cliOpt["commands"]["QTreeWidgetItem"]["table"][dict_index].setData(
+            1, 0, dict_pos
+        )
+        tree_item.setData(1, 0, dict_pos)
+
         tree_item.setExpanded(True)
 
         self.build_command_parameters_table_view(
