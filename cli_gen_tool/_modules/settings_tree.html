@@ -243,7 +243,13 @@
 
 <span class="c1"># pyside imports</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QAbstractItemView</span><span class="p">,</span> <span class="n">QSizePolicy</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QComboBox</span><span class="p">,</span>
+    <span class="n">QHeaderView</span><span class="p">,</span>
+    <span class="n">QTreeWidgetItem</span><span class="p">,</span>
+    <span class="n">QAbstractItemView</span><span class="p">,</span>
+    <span class="n">QSizePolicy</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># external data models</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
@@ -256,18 +262,25 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">SettingsTreeMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="n">displayModels</span><span class="o">.</span><span class="n">_settings_tree_display</span>
-        <span class="n">tree_buttons</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_dict</span><span class="p">)</span>        
-        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;edit&quot;</span><span class="p">:</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                             <span class="s2">&quot;clear&quot;</span><span class="p">:</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                             <span class="s2">&quot;default&quot;</span><span class="p">:</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                             <span class="s2">&quot;collapse&quot;</span><span class="p">:</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">)})</span>
+        <span class="n">tree_buttons</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_dict</span><span class="p">)</span>
+        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;edit&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;clear&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;collapse&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
         <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;edit&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span>
         <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;clear&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span>
-        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span>
-        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span> 
-        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  
+        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;QPushButton&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span>
+        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;QPushButton&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span>
+        <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span> <span class="o">=</span> <span class="n">tree_buttons</span>
-        
 
     <span class="c1">## updates the type field to reflect the value</span>
 <div class="viewcode-block" id="SettingsTreeMethods.update_settings_tree_type_field_text"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.update_settings_tree_type_field_text">[docs]</a>    <span class="k">def</span> <span class="nf">update_settings_tree_type_field_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
@@ -601,7 +614,8 @@
 <div class="viewcode-block" id="SettingsTreeMethods.edit_settings_tree_item"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.edit_settings_tree_item">[docs]</a>    <span class="k">def</span> <span class="nf">edit_settings_tree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="n">widget_present</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">widget_present</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edit_table_widget_item</span><span class="p">(</span><span class="n">widget_present</span><span class="p">)</span>
+            <span class="c1"># self.edit_table_widget_item(widget_present)</span>
+            <span class="n">widget_present</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">widget_present</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">())</span>
             <span class="k">return</span>
         <span class="n">object_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">object_string</span> <span class="o">=</span> <span class="n">object_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
@@ -686,19 +700,19 @@
 <div class="viewcode-block" id="SettingsTreeMethods.build_lib_settings_tree"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.build_lib_settings_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_lib_settings_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">settings_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">((</span><span class="s2">&quot;Section&quot;</span><span class="p">,</span> <span class="s2">&quot;Macro Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">))</span>
-        <span class="c1">#settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)</span>
+        <span class="c1"># settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
-        
+
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
-        
+
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
         <span class="c1"># 5th column holds object location in cliOpt</span>
@@ -762,7 +776,6 @@
                             <span class="n">has_combobox</span><span class="p">,</span>
                             <span class="n">combobox_tooltip</span><span class="p">,</span>
                         <span class="p">)</span>
-
             <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_config</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">parent</span><span class="p">]:</span>
                     <span class="n">var_initial_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="n">dict_key</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">]</span>
@@ -770,20 +783,11 @@
                         <span class="n">child</span> <span class="o">==</span> <span class="s2">&quot;data delimiter sequences&quot;</span>
                         <span class="ow">or</span> <span class="n">child</span> <span class="o">==</span> <span class="s2">&quot;start stop data delimiter sequences&quot;</span>
                     <span class="p">):</span>
-                        <span class="n">columns</span> <span class="o">=</span> <span class="mi">1</span>
-                        <span class="n">remove_row_button</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="k">if</span> <span class="n">child</span> <span class="o">==</span> <span class="s2">&quot;data delimiter sequences&quot;</span><span class="p">:</span>
-                            <span class="n">add_row_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_data_delimiter_row</span>
-                        <span class="k">if</span> <span class="n">child</span> <span class="o">==</span> <span class="s2">&quot;start stop data delimiter sequences&quot;</span><span class="p">:</span>
-                            <span class="n">add_row_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_start_stop_data_delimiter_row</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">build_tree_table_widget</span><span class="p">(</span>
                             <span class="n">index_of_child</span><span class="p">,</span>
                             <span class="n">tree</span><span class="p">,</span>
                             <span class="n">dict_key</span><span class="p">,</span>
                             <span class="n">child</span><span class="p">,</span>
-                            <span class="n">columns</span><span class="p">,</span>
-                            <span class="n">add_row_function</span><span class="p">,</span>
-                            <span class="n">remove_row_button</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="n">index_of_child</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="k">else</span><span class="p">:</span>

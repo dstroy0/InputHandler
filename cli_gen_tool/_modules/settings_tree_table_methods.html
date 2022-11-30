@@ -236,8 +236,7 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 
-<span class="kn">from</span> <span class="nn">modules.display_models</span> <span class="kn">import</span> <span class="n">displayModels</span>
-<span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <span class="c1"># pyside imports</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span>
@@ -245,30 +244,23 @@
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QHeaderView</span><span class="p">,</span>
     <span class="n">QPushButton</span><span class="p">,</span>
-    <span class="n">QTableWidget</span><span class="p">,</span>
-    <span class="n">QTableWidgetItem</span><span class="p">,</span>
     <span class="n">QTreeWidgetItem</span><span class="p">,</span>
     <span class="n">QAbstractItemView</span><span class="p">,</span>
     <span class="n">QSizePolicy</span><span class="p">,</span>
     <span class="n">QTableView</span><span class="p">,</span>
+    <span class="n">QAbstractScrollArea</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <div class="viewcode-block" id="DelimitersTableViewModel"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel">[docs]</a><span class="k">class</span> <span class="nc">DelimitersTableViewModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Display model for the parameters table</span>
+    <span class="sd">&quot;&quot;&quot;Display model for a delimiters table</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        QAbstractTableModel (class): This class specializes QAbstractTableModel</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">cliopt</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">remove_row_icon</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;constructor method</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">cliopt</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            parameters (dict, optional): Set placeholder text in CommandParametersDialog input fields. Defaults to None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DelimitersTableViewModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span>
@@ -278,22 +270,46 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delimiters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delimiters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delimiters</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="mi">2</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicked_row</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">())</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">remove_row_button_icon</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DelimitersTableViewModel.flags"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlags</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
 
 <div class="viewcode-block" id="DelimitersTableViewModel.setData"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">role</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>            
+        <span class="k">if</span> <span class="n">role</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">clean_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&lt;&gt;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">clean_value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span>
                 <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
-            <span class="p">]</span> <span class="o">=</span> <span class="n">value</span>            
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+            <span class="p">]</span> <span class="o">=</span> <span class="n">clean_value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2"> table, row </span><span class="si">{</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> data changed to &lt;</span><span class="si">{</span><span class="n">clean_value</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="DelimitersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;property</span>
@@ -317,11 +333,90 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="DelimitersTableViewModel.ar"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.ar">[docs]</a>    <span class="k">def</span> <span class="nf">ar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DelimitersTableViewModel.insertRow"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.insertRow">[docs]</a>    <span class="k">def</span> <span class="nf">insertRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beginInsertRows</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+        <span class="n">start_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">start_len</span><span class="p">):</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="c1"># print(self.cliopt[self.dict_pos[0]][&quot;var&quot;][self.dict_pos[2]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insertRows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endInsertRows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_row_move_buttons</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layoutChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DelimitersTableViewModel.removeRow"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.removeRow">[docs]</a>    <span class="k">def</span> <span class="nf">removeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>    </div>
+<div class="viewcode-block" id="DelimitersTableViewModel.insert_row_move_buttons"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.insert_row_move_buttons">[docs]</a>    <span class="k">def</span> <span class="nf">insert_row_move_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_button_icon</span>
+        <span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">row</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rr</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">add_row_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Add Delimiter&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">add_row_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">add_row_button</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DelimitersTableViewModel.rr"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.rr">[docs]</a>    <span class="k">def</span> <span class="nf">rr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DelimitersTableViewModel.removeRow"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.removeRow">[docs]</a>    <span class="k">def</span> <span class="nf">removeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parent</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;remove row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">beginRemoveRows</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
+        <span class="n">new_dict</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">new_dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">new_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]}</span>
+            <span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeRows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">add_row_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endRemoveRows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layoutChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DelimitersTableViewModel.moveRow"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.moveRow">[docs]</a>    <span class="k">def</span> <span class="nf">moveRow</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sourceParent</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span>
+        <span class="n">sourceRow</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">destinationParent</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span>
+        <span class="n">destinationChild</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beginMoveRows</span><span class="p">(</span>
+            <span class="n">QModelIndex</span><span class="p">(),</span> <span class="n">sourceRow</span><span class="p">,</span> <span class="n">sourceRow</span><span class="p">,</span> <span class="n">QModelIndex</span><span class="p">(),</span> <span class="n">destinationChild</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">endMoveRows</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">moveRow</span><span class="p">(</span>
+            <span class="n">sourceParent</span><span class="p">,</span> <span class="n">sourceRow</span><span class="p">,</span> <span class="n">destinationParent</span><span class="p">,</span> <span class="n">destinationChild</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DelimitersTableViewModel.data"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Table data positioning.</span>
@@ -332,58 +427,44 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: data in the cell</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="ow">and</span> <span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="ow">and</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span>
             <span class="ow">or</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span>
-        <span class="p">):</span>                            
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span>
-                <span class="s2">&quot;&#39;&quot;</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="s2">&quot;&lt;&quot;</span>
                 <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span>
                         <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
-                <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
             <span class="p">)</span>
+
         <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;tooltip ph&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
-    
-<div class="viewcode-block" id="DelimitersTableViewModel.dataChanged"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.dataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">dataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edit complete&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dataChanged</span></div>
 
 <div class="viewcode-block" id="DelimitersTableViewModel.headerData"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Displays header labels</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            section (int): Cell position</span>
-<span class="sd">            orientation (int): Text orientation</span>
-<span class="sd">            role (int): role of the data</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: The section label.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span> <span class="ow">and</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span> <span class="ow">and</span> <span class="n">section</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Delimiters&quot;</span>
         <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span> <span class="ow">and</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
-    
-<div class="viewcode-block" id="DelimitersTableViewModel.edit_table_view"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.edit_table_view">[docs]</a>    <span class="k">def</span> <span class="nf">edit_table_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">):</span>                              
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>            
+
+<div class="viewcode-block" id="DelimitersTableViewModel.edit_table_view"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableViewModel.edit_table_view">[docs]</a>    <span class="k">def</span> <span class="nf">edit_table_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div></div>
@@ -391,48 +472,61 @@
 
 <div class="viewcode-block" id="DelimitersTableView"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableView">[docs]</a><span class="k">class</span> <span class="nc">DelimitersTableView</span><span class="p">(</span><span class="n">QTableView</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>        
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">,</span>
+        <span class="n">cursor</span><span class="p">,</span>
         <span class="n">settings_tree</span><span class="p">,</span>
         <span class="n">cliopt</span><span class="p">,</span>
         <span class="n">tree</span><span class="p">,</span>
         <span class="n">container</span><span class="p">,</span>
-        <span class="n">add_row_function</span><span class="p">,</span>
-        <span class="n">remove_row_button</span><span class="p">,</span>
         <span class="n">remove_row_button_icon</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DelimitersTableView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>        
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DelimitersTableView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span> <span class="o">=</span> <span class="n">cursor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_button_icon</span> <span class="o">=</span> <span class="n">remove_row_button_icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="n">dict_pos</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
 
         <span class="n">delimiters</span> <span class="o">=</span> <span class="n">cliopt</span><span class="p">[</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span> <span class="o">=</span> <span class="n">DelimitersTableViewModel</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">cliopt</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">,</span> <span class="n">remove_row_button_icon</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">cliopt</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">,</span> <span class="n">delimiters</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizeAdjustPolicy</span><span class="p">(</span><span class="n">QAbstractScrollArea</span><span class="o">.</span><span class="n">AdjustToContents</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
         <span class="n">settings_tree</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">add_row_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Add Delimiter&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_row_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">ar</span><span class="p">)</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_row_button</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">row_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">remove_row_button_icon</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">)):</span>
             <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setIndexWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_row_buttons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">rr</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>      
-    
-<div class="viewcode-block" id="DelimitersTableView.currentIndex"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableView.currentIndex">[docs]</a>    <span class="k">def</span> <span class="nf">currentIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QModelIndex</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>          </div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DelimitersTableView.update_index"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
+
+<div class="viewcode-block" id="DelimitersTableView.cursor_pos"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableView.cursor_pos">[docs]</a>    <span class="k">def</span> <span class="nf">cursor_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DelimitersTableView.dataChanged"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.DelimitersTableView.dataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">dataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edit complete&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dataChanged</span><span class="p">(</span><span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span></div></div>
+
 
 <span class="c1"># this is a helper class</span>
 <div class="viewcode-block" id="SettingsTreeTableMethods"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods">[docs]</a><span class="k">class</span> <span class="nc">SettingsTreeTableMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -441,148 +535,6 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">SettingsTreeTableMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="c1">## self.ui.settings_tree table functions</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.set_table_vertical_labels"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.set_table_vertical_labels">[docs]</a>    <span class="k">def</span> <span class="nf">set_table_vertical_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
-        <span class="n">vertical_label_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">vertical_label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-        <span class="n">vertical_label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">section</span><span class="p">][</span><span class="s2">&quot;QTableWidget&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setVerticalHeaderLabels</span><span class="p">(</span>
-            <span class="n">vertical_label_list</span>
-        <span class="p">)</span></div>
-
-    <span class="c1">## adds a row to the current table, moves the add row button down one row</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.add_settings_tree_table_row"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.add_settings_tree_table_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_settings_tree_table_row</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dict_key</span><span class="p">,</span> <span class="n">dict_key2</span><span class="p">,</span> <span class="n">add_row_function</span><span class="p">,</span> <span class="n">remove_row_button</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">):</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="n">dict_key</span><span class="p">][</span><span class="s2">&quot;tree&quot;</span><span class="p">]</span>
-        <span class="n">table_widget</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidget&quot;</span><span class="p">]</span>
-        <span class="n">add_row_button</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidgetItems&quot;</span><span class="p">][</span><span class="s2">&quot;add row&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;button&quot;</span>
-        <span class="p">]</span>
-        <span class="n">add_row_button_item</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidgetItems&quot;</span><span class="p">][</span><span class="s2">&quot;add row&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;item&quot;</span>
-        <span class="p">]</span>
-        <span class="n">input_cells</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="s2">&quot;data delimiter sequences&quot;</span><span class="p">][</span><span class="s2">&quot;QTableWidgetItems&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;input cells&quot;</span>
-        <span class="p">]</span>
-        <span class="n">remove_row_buttons</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidgetItems&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;remove row buttons&quot;</span>
-        <span class="p">]</span>
-        <span class="n">add_row_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;add delimiter sequence&quot;</span><span class="p">)</span>
-        <span class="n">add_row_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">add_row_function</span><span class="p">)</span>
-        <span class="c1"># get current row count</span>
-        <span class="n">new_row</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
-        <span class="n">last_row</span> <span class="o">=</span> <span class="n">new_row</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="c1"># remove add row button from last row</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">removeCellWidget</span><span class="p">(</span><span class="n">last_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="c1"># take the table widget item that held the add row button out of the table but dont delete it</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">takeItem</span><span class="p">(</span><span class="n">last_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">input_cells</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">last_row</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
-        <span class="n">input_cells</span><span class="p">[</span><span class="n">last_row</span><span class="p">]</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
-
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">new_row</span><span class="p">)</span>
-        <span class="n">input_cells</span><span class="p">[</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">last_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input_cells</span><span class="p">[</span><span class="n">last_row</span><span class="p">])</span>
-        <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">add_row_button_item</span><span class="p">))</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">new_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add_row_button_item</span><span class="p">)</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">new_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add_row_button</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_table_vertical_labels</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">dict_key2</span><span class="p">,</span> <span class="n">new_row</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">remove_row_button</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">last_row</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span>
-                <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">NoItemFlags</span>
-            <span class="p">)</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">last_row</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">trashIcon</span><span class="p">)</span>
-            <span class="n">obj_name</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s2">&quot;remove row button,&quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_key</span><span class="p">)</span>
-                <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_key2</span><span class="p">)</span>
-                <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">last_row</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">obj_name</span><span class="p">)</span>
-            <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rem_settings_tree_table_row</span>
-            <span class="p">)</span>
-            <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidget&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span>
-                <span class="n">last_row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">dict_key2</span><span class="p">][</span><span class="s2">&quot;QTableWidget&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span>
-                <span class="n">last_row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">remove_row_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="n">last_row</span><span class="p">]</span>
-            <span class="p">)</span></div>
-
-    <span class="c1">## remove a row from the currently selected table in self.ui.settings_tree</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.rem_settings_tree_table_row"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.rem_settings_tree_table_row">[docs]</a>    <span class="k">def</span> <span class="nf">rem_settings_tree_table_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">object_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">object_list</span><span class="p">))</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="n">object_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s2">&quot;tree&quot;</span><span class="p">]</span>
-        <span class="n">table_widget</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="s2">&quot;QTableWidget&quot;</span><span class="p">]</span>
-        <span class="n">table_widget</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">object_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div>
-
-    <span class="c1">## adds a row to &quot;data delimiters&quot;</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.add_data_delimiter_row"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.add_data_delimiter_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_data_delimiter_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;add data delimiter row&quot;</span><span class="p">)</span>
-        <span class="n">dict_key</span> <span class="o">=</span> <span class="s2">&quot;process parameters&quot;</span>
-        <span class="n">dict_key2</span> <span class="o">=</span> <span class="s2">&quot;data delimiter sequences&quot;</span>
-        <span class="n">add_row_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_data_delimiter_row</span>
-        <span class="n">remove_row_button</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_settings_tree_table_row</span><span class="p">(</span>
-            <span class="n">dict_key</span><span class="p">,</span> <span class="n">dict_key2</span><span class="p">,</span> <span class="n">add_row_function</span><span class="p">,</span> <span class="n">remove_row_button</span>
-        <span class="p">)</span></div>
-
-    <span class="c1">## adds a row to &quot;start stop data delimiters&quot;</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.add_start_stop_data_delimiter_row"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.add_start_stop_data_delimiter_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_start_stop_data_delimiter_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;add start stop data delimiter row&quot;</span><span class="p">)</span>
-        <span class="n">dict_key</span> <span class="o">=</span> <span class="s2">&quot;process parameters&quot;</span>
-        <span class="n">dict_key2</span> <span class="o">=</span> <span class="s2">&quot;start stop data delimiter sequences&quot;</span>
-        <span class="n">add_row_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_start_stop_data_delimiter_row</span>
-        <span class="n">remove_row_button</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_settings_tree_table_row</span><span class="p">(</span>
-            <span class="n">dict_key</span><span class="p">,</span> <span class="n">dict_key2</span><span class="p">,</span> <span class="n">add_row_function</span><span class="p">,</span> <span class="n">remove_row_button</span>
-        <span class="p">)</span></div>
-
-    <span class="c1">## edit currently selected table item</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.edit_table_widget_item"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.edit_table_widget_item">[docs]</a>    <span class="k">def</span> <span class="nf">edit_table_widget_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="c1"># this can get triggered from the QTreeWidget, or a QTreeWidgetItem and we need to know what it is</span>
-        <span class="c1"># if str(item).find(&quot;QTableWidgetItem&quot;) != -1:</span>
-        <span class="c1">#     current_item = item</span>
-        <span class="c1">#     item = item.tableWidget()</span>
-        <span class="c1"># else:</span>
-        <span class="n">current_item</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
-        <span class="n">object_list</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;edit item in &quot;</span> <span class="o">+</span> <span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">DelimitersTableView</span><span class="p">):</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">current_item</span><span class="p">)</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">current_item</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">editItem</span><span class="p">(</span><span class="n">current_item</span><span class="p">)</span></div>
-
-    <span class="c1">## called on field changes</span>
-<div class="viewcode-block" id="SettingsTreeTableMethods.table_widget_item_changed"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.table_widget_item_changed">[docs]</a>    <span class="k">def</span> <span class="nf">table_widget_item_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span><span class="p">()</span>
-        <span class="n">table_widget</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">tableWidget</span><span class="p">()</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="c1"># the user added a row to the table</span>
-            <span class="k">return</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">object_list</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">delim_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="n">object_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
-            <span class="n">delim_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">row</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
-            <span class="n">table_widget</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">data</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
-            <span class="n">table_widget</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;setup.h&quot;</span><span class="p">,</span> <span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span></div>
-
     <span class="c1">## builds a table onto a tree widget item</span>
 <div class="viewcode-block" id="SettingsTreeTableMethods.build_tree_table_widget"><a class="viewcode-back" href="../modules/settings_tree_table_methods.html#settings_tree_table_methods.SettingsTreeTableMethods.build_tree_table_widget">[docs]</a>    <span class="k">def</span> <span class="nf">build_tree_table_widget</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -590,9 +542,6 @@
         <span class="n">tree</span><span class="p">,</span>
         <span class="n">dict_key</span><span class="p">,</span>
         <span class="n">dict_key2</span><span class="p">,</span>
-        <span class="n">columns</span><span class="p">,</span>
-        <span class="n">add_row_function</span><span class="p">,</span>
-        <span class="n">remove_row_button</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="n">dict_pos</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_key</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_key2</span><span class="p">)</span>
         <span class="c1"># add parent tree item to root</span>
@@ -609,102 +558,19 @@
         <span class="c1"># make the treewidgetitem span columns</span>
         <span class="n">tree_widget_item</span><span class="o">.</span><span class="n">setFirstColumnSpanned</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">table</span> <span class="o">=</span> <span class="n">DelimitersTableView</span><span class="p">(</span>            
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qcursor</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">SettingsTreeTableMethods</span><span class="o">.</span><span class="n">logger</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">DelimitersTableView</span><span class="p">(</span>
+            <span class="n">logger</span><span class="p">,</span>
+            <span class="n">cursor</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span>
             <span class="n">tree</span><span class="p">,</span>
             <span class="n">tree_widget_item</span><span class="p">,</span>
-            <span class="n">add_row_function</span><span class="p">,</span>
-            <span class="n">remove_row_button</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">trashIcon</span><span class="p">,</span>
         <span class="p">)</span></div></div>
-        <span class="c1"># self.make_settings_tree_delimiter_table(tree, tree_widget_item, add_row_function, remove_row_button)</span>
-
-        <span class="c1"># # make a table widget</span>
-        <span class="c1"># tree[&quot;items&quot;][dict_key2][&quot;QTableWidget&quot;] = QTableWidget()</span>
-        <span class="c1"># table_widget = tree[&quot;items&quot;][dict_key2][&quot;QTableWidget&quot;]</span>
-        <span class="c1"># table_widget.setSizePolicy(</span>
-        <span class="c1">#     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding</span>
-        <span class="c1"># )</span>
-        <span class="c1"># table_widget.setSelectionMode(QAbstractItemView.SingleSelection)</span>
-        <span class="c1"># table_header = table_widget.horizontalHeader()</span>
-        <span class="c1"># table_widget.setObjectName(dict_pos)</span>
-        <span class="c1"># table_widget_items = tree[&quot;items&quot;][dict_key2][&quot;QTableWidgetItems&quot;]</span>
-
-        <span class="c1"># if remove_row_button == True:</span>
-        <span class="c1">#     columns += 1</span>
-        <span class="c1"># table_widget.setColumnCount(columns)</span>
-        <span class="c1"># table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)</span>
-        <span class="c1"># for i in range(0, table_widget.columnCount() - 1):</span>
-        <span class="c1">#     table_header.setSectionResizeMode(i, QHeaderView.Stretch)</span>
-        <span class="c1"># if remove_row_button == True:</span>
-        <span class="c1">#     table_header.setSectionResizeMode(columns - 1, QHeaderView.ResizeToContents)</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     table_header.setSectionResizeMode(columns - 1, QHeaderView.Stretch)</span>
-
-        <span class="c1"># delimiter_dict = self.cliOpt[dict_key][&quot;var&quot;][dict_key2]</span>
-        <span class="c1"># for key in delimiter_dict:</span>
-        <span class="c1">#     row = table_widget.rowCount()</span>
-        <span class="c1">#     table_widget.insertRow(row)</span>
-
-        <span class="c1">#     table_widget_items[&quot;input cells&quot;].update({row: &quot;&quot;})</span>
-        <span class="c1">#     table_widget_items[&quot;input cells&quot;][row] = QTableWidgetItem()</span>
-
-        <span class="c1">#     table_widget_items[&quot;input cells&quot;][row].setText(</span>
-        <span class="c1">#         str(repr(self.cliOpt[dict_key][&quot;var&quot;][dict_key2][key])).replace(</span>
-        <span class="c1">#             &quot;\\\\&quot;, &quot;\\&quot;</span>
-        <span class="c1">#         )</span>
-        <span class="c1">#     )</span>
-        <span class="c1">#     table_widget.setItem(row, 0, table_widget_items[&quot;input cells&quot;][row])</span>
-
-        <span class="c1">#     if remove_row_button == True:</span>
-        <span class="c1">#         remove_row_buttons = tree[&quot;items&quot;][dict_key2][&quot;QTableWidgetItems&quot;][</span>
-        <span class="c1">#             &quot;remove row buttons&quot;</span>
-        <span class="c1">#         ]</span>
-        <span class="c1">#         remove_row_buttons[&quot;items&quot;].update({row: &quot;&quot;})</span>
-        <span class="c1">#         remove_row_buttons[&quot;items&quot;][row] = QTableWidgetItem()</span>
-        <span class="c1">#         remove_row_buttons[&quot;items&quot;][row].setFlags(</span>
-        <span class="c1">#             remove_row_buttons[&quot;items&quot;][row].flags() | Qt.NoItemFlags</span>
-        <span class="c1">#         )</span>
-        <span class="c1">#         remove_row_buttons[&quot;buttons&quot;].update({row: &quot;&quot;})</span>
-        <span class="c1">#         remove_row_buttons[&quot;buttons&quot;][row] = QPushButton()</span>
-        <span class="c1">#         remove_row_buttons[&quot;buttons&quot;][row].setIcon(self.ui.trashIcon)</span>
-        <span class="c1">#         obj_name = (</span>
-        <span class="c1">#             &quot;remove row button,&quot;</span>
-        <span class="c1">#             + str(dict_key)</span>
-        <span class="c1">#             + &quot;,&quot;</span>
-        <span class="c1">#             + str(dict_key2)</span>
-        <span class="c1">#             + &quot;,&quot;</span>
-        <span class="c1">#             + str(row)</span>
-        <span class="c1">#         )</span>
-        <span class="c1">#         remove_row_buttons[&quot;buttons&quot;][row].setObjectName(obj_name)</span>
-        <span class="c1">#         remove_row_buttons[&quot;buttons&quot;][row].clicked.connect(</span>
-        <span class="c1">#             self.rem_settings_tree_table_row</span>
-        <span class="c1">#         )</span>
-        <span class="c1">#         table_widget.setItem(row, 1, remove_row_buttons[&quot;items&quot;][row])</span>
-        <span class="c1">#         table_widget.setCellWidget(row, 1, remove_row_buttons[&quot;buttons&quot;][row])</span>
-
-        <span class="c1"># row = table_widget.rowCount()</span>
-        <span class="c1"># table_widget.insertRow(row)</span>
-
-        <span class="c1"># table_widget_items[&quot;add row&quot;][&quot;item&quot;] = QTableWidgetItem()</span>
-        <span class="c1"># table_widget_items[&quot;add row&quot;][&quot;button&quot;] = QPushButton(&quot;add delimiter sequence&quot;)</span>
-
-        <span class="c1"># table_widget.setItem(row, 0, table_widget_items[&quot;add row&quot;][&quot;item&quot;])</span>
-        <span class="c1"># table_widget.setCellWidget(row, 0, table_widget_items[&quot;add row&quot;][&quot;button&quot;])</span>
-
-        <span class="c1"># table_widget.setHorizontalHeaderLabels([dict_key2, &quot;&quot;])</span>
-        <span class="c1"># vertical_label_list = []</span>
-        <span class="c1"># for i in range(1, row + 1):</span>
-        <span class="c1">#     vertical_label_list.append(str(i))</span>
-        <span class="c1"># vertical_label_list.append(&quot;&quot;)</span>
-        <span class="c1"># table_widget.setVerticalHeaderLabels(vertical_label_list)</span>
-
-        <span class="c1"># table_widget_items[&quot;add row&quot;][&quot;button&quot;].clicked.connect(add_row_function)</span>
-        <span class="c1"># table_widget.itemClicked.connect(self.edit_table_widget_item)</span>
-        <span class="c1"># table_widget.itemPressed.connect(self.edit_table_widget_item)</span>
-        <span class="c1"># table_widget.itemChanged.connect(self.table_widget_item_changed)</span>
-        <span class="c1"># self.ui.settings_tree.setItemWidget(tree_widget_item, 0, table_widget)</span>
 
     <span class="c1"># end settings_tree table functions</span>
 
