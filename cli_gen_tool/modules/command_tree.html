@@ -418,8 +418,7 @@ command_parameters (dict): command parameters dict</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.build_command_tree">
 <span class="sig-name descname"><span class="pre">build_command_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeMethods.build_command_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeMethods.build_command_tree" title="Permalink to this definition">#</a></dt>
-<dd><p>adds items from cliOpt to self.ui.command_tree</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_tree.CommandTreeMethods.rebuild_command_tree">
@@ -457,6 +456,27 @@ tree_item (QTreeWidgetItem): the tree item to be removed</p>
 </dd>
 </dl>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_tree.</span></span><span class="sig-name descname"><span class="pre">CommandTreeWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cliopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidget</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidgetItem</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CommandTreeWidget&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTreeWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#command_tree.CommandTreeWidget.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.which_clicked">
+<span class="sig-name descname"><span class="pre">which_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.which_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.which_clicked" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.which_pressed">
+<span class="sig-name descname"><span class="pre">which_pressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.which_pressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.which_pressed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -568,6 +588,12 @@ tree_item (QTreeWidgetItem): the tree item to be removed</p>
 <li><a class="reference internal" href="#command_tree.CommandTreeMethods.rem_command"><code class="docutils literal notranslate"><span class="pre">CommandTreeMethods.rem_command()</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandTreeMethods.rem_qtreewidgetitem"><code class="docutils literal notranslate"><span class="pre">CommandTreeMethods.rem_qtreewidgetitem()</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandTreeMethods.scrub_command_from_datamodel"><code class="docutils literal notranslate"><span class="pre">CommandTreeMethods.scrub_command_from_datamodel()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget</span></code></a><ul>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.staticMetaObject</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.which_clicked"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.which_clicked()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.which_pressed"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.which_pressed()</span></code></a></li>
 </ul>
 </li>
 </ul>
