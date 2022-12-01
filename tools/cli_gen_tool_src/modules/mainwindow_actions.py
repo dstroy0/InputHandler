@@ -406,18 +406,18 @@ class MainWindowActions(object):
         self.ui.settings_tree.itemExpanded.connect(self.settings_tree_button_toggles)
         # tab 2
         # always visible
-        self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
-        self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
-        self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
-        self.ui.command_tree_collapse_button.clicked.connect(
-            self.command_tree_collapse_button
-        )
-        self.ui.command_tree.itemSelectionChanged.connect(
-            self.command_tree_button_toggles
-        )
-        self.ui.command_tree.itemClicked.connect(self.command_tree_button_toggles)
-        self.ui.command_tree.itemCollapsed.connect(self.command_tree_button_toggles)
-        self.ui.command_tree.itemExpanded.connect(self.command_tree_button_toggles)
+        # self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
+        # self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
+        # self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
+        # self.ui.command_tree_collapse_button.clicked.connect(
+        #     self.command_tree_collapse_button
+        # )
+        # self.ui.command_tree.itemSelectionChanged.connect(
+        #     self.command_tree_button_toggles
+        # )
+        # self.ui.command_tree.itemClicked.connect(self.command_tree_button_toggles)
+        # self.ui.command_tree.itemCollapsed.connect(self.command_tree_button_toggles)
+        # self.ui.command_tree.itemExpanded.connect(self.command_tree_button_toggles)
         # end buttons setup
 
     # end MainWindow actions

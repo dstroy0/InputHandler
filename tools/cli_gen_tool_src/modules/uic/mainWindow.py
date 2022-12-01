@@ -16,10 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QGridLayout, QHeaderView,
-    QLabel, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QSplitter, QTabWidget,
-    QTreeWidget, QTreeWidgetItem, QWidget)
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QFrame, QGridLayout,
+    QHeaderView, QLabel, QMainWindow, QMenu,
+    QMenuBar, QPushButton, QSizePolicy, QSplitter,
+    QTabWidget, QTreeWidget, QTreeWidgetItem, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -203,19 +203,9 @@ class Ui_MainWindow(object):
         self.command_tree_collapse_button.setObjectName(u"command_tree_collapse_button")
         sizePolicy2.setHeightForWidth(self.command_tree_collapse_button.sizePolicy().hasHeightForWidth())
         self.command_tree_collapse_button.setSizePolicy(sizePolicy2)
-        self.command_tree_collapse_button.setMaximumSize(QSize(150, 16777215))
+        self.command_tree_collapse_button.setMaximumSize(QSize(150, 25))
 
         self.gridLayout_6.addWidget(self.command_tree_collapse_button, 0, 0, 1, 1)
-
-        self.tab_2_command_tree_label = QLabel(self.commands_container)
-        self.tab_2_command_tree_label.setObjectName(u"tab_2_command_tree_label")
-        sizePolicy2.setHeightForWidth(self.tab_2_command_tree_label.sizePolicy().hasHeightForWidth())
-        self.tab_2_command_tree_label.setSizePolicy(sizePolicy2)
-        self.tab_2_command_tree_label.setMinimumSize(QSize(0, 25))
-        self.tab_2_command_tree_label.setMaximumSize(QSize(200, 16777215))
-        self.tab_2_command_tree_label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_6.addWidget(self.tab_2_command_tree_label, 0, 1, 1, 1)
 
         self.new_cmd_button = QPushButton(self.commands_container)
         self.new_cmd_button.setObjectName(u"new_cmd_button")
@@ -240,19 +230,23 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addWidget(self.delete_cmd_button, 2, 2, 1, 1)
 
-        self.command_tree = QTreeWidget(self.commands_container)
-        __qtreewidgetitem2 = QTreeWidgetItem()
-        __qtreewidgetitem2.setText(0, u"1");
-        self.command_tree.setHeaderItem(__qtreewidgetitem2)
-        self.command_tree.setObjectName(u"command_tree")
-        sizePolicy.setHeightForWidth(self.command_tree.sizePolicy().hasHeightForWidth())
-        self.command_tree.setSizePolicy(sizePolicy)
-        self.command_tree.setMinimumSize(QSize(0, 0))
-        self.command_tree.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.command_tree.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.command_tree.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.tab_2_command_tree_label = QLabel(self.commands_container)
+        self.tab_2_command_tree_label.setObjectName(u"tab_2_command_tree_label")
+        sizePolicy2.setHeightForWidth(self.tab_2_command_tree_label.sizePolicy().hasHeightForWidth())
+        self.tab_2_command_tree_label.setSizePolicy(sizePolicy2)
+        self.tab_2_command_tree_label.setMinimumSize(QSize(0, 25))
+        self.tab_2_command_tree_label.setMaximumSize(QSize(200, 16777215))
+        self.tab_2_command_tree_label.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_6.addWidget(self.command_tree, 1, 0, 1, 3)
+        self.gridLayout_6.addWidget(self.tab_2_command_tree_label, 0, 1, 1, 1)
+
+        self.command_tree_container = QFrame(self.commands_container)
+        self.command_tree_container.setObjectName(u"command_tree_container")
+        sizePolicy.setHeightForWidth(self.command_tree_container.sizePolicy().hasHeightForWidth())
+        self.command_tree_container.setSizePolicy(sizePolicy)
+        self.command_tree_container.setMinimumSize(QSize(0, 0))
+
+        self.gridLayout_6.addWidget(self.command_tree_container, 1, 0, 1, 3)
 
         self.command_tab_splitter.addWidget(self.commands_container)
         self.commands_code_preview_container = QWidget(self.command_tab_splitter)
@@ -270,9 +264,9 @@ class Ui_MainWindow(object):
         self.gridLayout_7.addWidget(self.tab_2_code_preview_label, 0, 0, 1, 1)
 
         self.codePreview_2 = QTreeWidget(self.commands_code_preview_container)
-        __qtreewidgetitem3 = QTreeWidgetItem()
-        __qtreewidgetitem3.setText(0, u"1");
-        self.codePreview_2.setHeaderItem(__qtreewidgetitem3)
+        __qtreewidgetitem2 = QTreeWidgetItem()
+        __qtreewidgetitem2.setText(0, u"1");
+        self.codePreview_2.setHeaderItem(__qtreewidgetitem2)
         self.codePreview_2.setObjectName(u"codePreview_2")
         sizePolicy.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
         self.codePreview_2.setSizePolicy(sizePolicy)
@@ -303,8 +297,7 @@ class Ui_MainWindow(object):
         self.menuLog = QMenu(self.menubar)
         self.menuLog.setObjectName(u"menuLog")
         MainWindow.setMenuBar(self.menubar)
-        QWidget.setTabOrder(self.command_tree_collapse_button, self.command_tree)
-        QWidget.setTabOrder(self.command_tree, self.codePreview_2)
+        QWidget.setTabOrder(self.command_tree_collapse_button, self.codePreview_2)
         QWidget.setTabOrder(self.codePreview_2, self.new_cmd_button)
         QWidget.setTabOrder(self.new_cmd_button, self.edit_cmd_button)
         QWidget.setTabOrder(self.edit_cmd_button, self.delete_cmd_button)
@@ -330,7 +323,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -382,10 +375,10 @@ class Ui_MainWindow(object):
         self.command_tree_collapse_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
 #endif // QT_CONFIG(tooltip)
         self.command_tree_collapse_button.setText("")
-        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
         self.new_cmd_button.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.edit_cmd_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.delete_cmd_button.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
         self.tab_2_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.command_tab), QCoreApplication.translate("MainWindow", u"  Command Tree  ", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"  File  ", None))

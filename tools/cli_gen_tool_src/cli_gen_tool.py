@@ -321,7 +321,7 @@ class MainWindow(
         self.ui.codePreview_1.viewport().installEventFilter(self)
         self.ui.codePreview_2.viewport().installEventFilter(self)
         self.ui.settings_tree.viewport().installEventFilter(self)
-        self.ui.command_tree.viewport().installEventFilter(self)
+        self.command_tree.viewport().installEventFilter(self)
         # preferences dialog input validation
 
         # load preferences

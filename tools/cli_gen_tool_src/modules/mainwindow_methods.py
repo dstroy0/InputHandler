@@ -97,15 +97,15 @@ class MainWindowMethods(object):
             if not self.ui.settings_tree.itemAt(mouse_pos):
                 self.ui.settings_tree.clearSelection()
         elif (
-            watched == self.ui.command_tree.viewport()
+            watched == self.command_tree.viewport()
             and event_type == QEvent.MouseButtonPress
         ):
-            if not self.ui.command_tree.itemAt(mouse_pos):
-                self.ui.command_tree.clearSelection()
-                self.ui.command_tree.setCurrentItem(
+            if not self.command_tree.itemAt(mouse_pos):
+                self.command_tree.clearSelection()
+                self.command_tree.setCurrentItem(
                     self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
                 )
-                self.command_tree_button_toggles()
+                #self.command_tree_button_toggles()
 
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
@@ -141,12 +141,12 @@ class MainWindowMethods(object):
         MainWindowMethods.logger.info("Display name: " + _qscreen.name())
 
         if not self.settings.value("command_tree_collapsed"):
-            self.ui.command_tree.expandAll()
+            self.command_tree.expandAll()
             self.ui.command_tree_collapse_button.setText("Collapse All")
             self.command_tree_collapsed = False
             MainWindowMethods.logger.info("self.ui.command_tree expanded")
         else:
-            self.ui.command_tree.collapseAll()
+            self.command_tree.collapseAll()
             self.ui.command_tree_collapse_button.setText("Expand All")
             self.command_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.command_tree collapsed")
@@ -162,7 +162,7 @@ class MainWindowMethods(object):
             self.settings_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
 
-        self.command_tree_button_toggles()
+        #self.command_tree_button_toggles()
         self.settings_tree_button_toggles()
 
     def show_splash(self):

@@ -78,7 +78,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="ih_settings_tab">
        <property name="sizePolicy">
@@ -335,7 +335,7 @@
               <property name="maximumSize">
                <size>
                 <width>150</width>
-                <height>16777215</height>
+                <height>25</height>
                </size>
               </property>
               <property name="toolTip">
@@ -343,34 +343,6 @@
               </property>
               <property name="text">
                <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="tab_2_command_tree_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>200</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Commands</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -425,8 +397,36 @@
               </property>
              </widget>
             </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="tab_2_command_tree_label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Commands</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0" colspan="3">
-             <widget class="QTreeWidget" name="command_tree">
+             <widget class="QFrame" name="command_tree_container">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -439,20 +439,6 @@
                 <height>0</height>
                </size>
               </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOn</enum>
-              </property>
-              <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOn</enum>
-              </property>
-              <property name="sizeAdjustPolicy">
-               <enum>QAbstractScrollArea::AdjustToContents</enum>
-              </property>
-              <column>
-               <property name="text">
-                <string notr="true">1</string>
-               </property>
-              </column>
              </widget>
             </item>
            </layout>
@@ -633,7 +619,6 @@
  </widget>
  <tabstops>
   <tabstop>command_tree_collapse_button</tabstop>
-  <tabstop>command_tree</tabstop>
   <tabstop>codePreview_2</tabstop>
   <tabstop>new_cmd_button</tabstop>
   <tabstop>edit_cmd_button</tabstop>
