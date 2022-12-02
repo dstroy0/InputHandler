@@ -146,24 +146,8 @@ class dataModels(object):
             "primary id key": 0,
             "number of commands": 0,
             "tool version": str(version),
-        },
-        "commands": {
-            "index": {},
-            "parameters": {},
-            "QTreeWidgetItem": {"root": "", "container": {}, "table": {}},
-            "QTableView": {
-                "tables": {
-                    "parameters": {},
-                    "arguments": {},
-                },
-                "models": {"parameters": {}, "arguments": {}},
-                "container": {},
-                "layout": {},
-                "splitter": {},
-            },
-        },
-        "config": {
-            "file lines": [],
+        },        
+        "config": {            
             "var": {
                 "library settings": {
                     "UI_MAX_COMMANDS_IN_TREE": 0,
@@ -205,32 +189,10 @@ class dataModels(object):
                     "DISABLE_outputIsEnabled": False,
                     "DISABLE_outputToStream": False,
                 },
-            },
-            "tree": {
-                "root": "",
-                "parents": {
-                    "library settings": {"QTreeWidgetItem": {}},
-                    "progmem settings": {"QTreeWidgetItem": {}},
-                    "debug methods": {"QTreeWidgetItem": {}},
-                    "optional methods": {"QTreeWidgetItem": {}},
-                },
-                "items": {
-                    "library settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                    "progmem settings": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                    "debug methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                    "optional methods": {"QComboBox": {}, "QTreeWidgetItem": {}},
-                },
-            },
+            },           
         },
         "process output": {
-            "var": {"buffer size": 0, "output stream": None},
-            "tree": {
-                "root": "",
-                "items": {
-                    "buffer size": {"QTreeWidgetItem": {}},
-                    "output stream": {"QTreeWidgetItem": {}},
-                },
-            },
+            "var": {"buffer size": 0, "output stream": None},            
         },
         "builtin methods": {
             "var": {
@@ -238,16 +200,7 @@ class dataModels(object):
                 "defaultFunction": False,
                 "listCommands": False,
                 "listSettings": False,
-            },
-            "tree": {
-                "root": "",
-                "items": {
-                    "defaultFunction": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                    "listCommands": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                    "listSettings": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                    "outputToStream": {"QTreeWidgetItem": {}, "QComboBox": {}},
-                },
-            },
+            },            
         },
         "process parameters": {
             "var": {
@@ -257,35 +210,11 @@ class dataModels(object):
                 "wildcard char": "*",
                 "data delimiter sequences": {0: " ", 1: ","},
                 "start stop data delimiter sequences": {0: '\\"', 1: '\\"'},
-            },
-            "tree": {
-                "root": "",
-                "parents": {},
-                "items": {
-                    "process name": {"QTreeWidgetItem": {}},
-                    "end of line characters": {"QTreeWidgetItem": {}},
-                    "input control char sequence": {"QTreeWidgetItem": {}},
-                    "wildcard char": {"QTreeWidgetItem": {}},
-                    "data delimiter sequences": {
-                        "QTreeWidgetItem": "",
-                        "QTableWidget": "",
-                        "QTableWidgetItems": {
-                            "input cells": {},
-                            "add row": {"item": "", "button": ""},
-                            "remove row buttons": {"items": {}, "buttons": {}},
-                        },
-                    },
-                    "start stop data delimiter sequences": {
-                        "QTreeWidgetItem": "",
-                        "QTableWidget": "",
-                        "QTableWidgetItems": {
-                            "input cells": {},
-                            "add row": {"item": "", "button": ""},
-                            "remove row buttons": {"items": {}, "buttons": {}},
-                        },
-                    },
-                },
-            },
+            },            
+        },
+        "commands": {
+            "index": {},
+            "parameters": {},           
         },
     }
 

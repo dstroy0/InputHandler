@@ -28,14 +28,16 @@ class PreferencesMethods(object):
 
         self.builtin_cmb_dict = {}
 
+    # TODO restore functionality
     def get_comboboxes(self):
-        builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]
-        for i in range(len(self.builtin_methods)):
-            cmb_container = builtin_dict[self.builtin_methods[i]]["QComboBox"]
-            for item in cmb_container:
-                cmb = cmb_container[item]
-                if isinstance(cmb, QComboBox):
-                    self.builtin_cmb_dict.update({cmb.objectName().split(",")[2]: cmb})
+        return True
+        # builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]
+        # for i in range(len(self.builtin_methods)):
+        #     cmb_container = builtin_dict[self.builtin_methods[i]]["QComboBox"]
+        #     for item in cmb_container:
+        #         cmb = cmb_container[item]
+        #         if isinstance(cmb, QComboBox):
+        #             self.builtin_cmb_dict.update({cmb.objectName().split(",")[2]: cmb})
 
     def save_preferences(self):
         config_path = self.dlg.config_path_input.text()
@@ -218,18 +220,18 @@ class PreferencesMethods(object):
         self.dlg.default_output_buffer_size.editingFinished.connect(
             self.output_preferences
         )
-        self.dlg.outputtostream_checkbox.stateChanged.connect(
-            lambda state, x=0: self.set_builtin_preference(x, state)
-        )
-        self.dlg.defaultfunction_checkbox.stateChanged.connect(
-            lambda state, x=1: self.set_builtin_preference(x, state)
-        )
-        self.dlg.listcommands_checkbox.stateChanged.connect(
-            lambda state, x=2: self.set_builtin_preference(x, state)
-        )
-        self.dlg.listsettings_checkbox.stateChanged.connect(
-            lambda state, x=3: self.set_builtin_preference(x, state)
-        )
+        # self.dlg.outputtostream_checkbox.stateChanged.connect(
+        #     lambda state, x=0: self.set_builtin_preference(x, state)
+        # )
+        # self.dlg.defaultfunction_checkbox.stateChanged.connect(
+        #     lambda state, x=1: self.set_builtin_preference(x, state)
+        # )
+        # self.dlg.listcommands_checkbox.stateChanged.connect(
+        #     lambda state, x=2: self.set_builtin_preference(x, state)
+        # )
+        # self.dlg.listsettings_checkbox.stateChanged.connect(
+        #     lambda state, x=3: self.set_builtin_preference(x, state)
+        # )
 
         # load session defaults
         _obj_list = [

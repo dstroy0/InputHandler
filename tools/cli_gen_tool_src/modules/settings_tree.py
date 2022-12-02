@@ -18,51 +18,522 @@ import json
 from collections import OrderedDict
 
 # pyside imports
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex
 from PySide6.QtWidgets import (
     QComboBox,
     QHeaderView,
-    QTreeWidgetItem,
     QAbstractItemView,
     QSizePolicy,
+    QTreeWidget,
+    QPushButton,
+    QTreeWidgetItem,
+    QTableView,
+    QAbstractScrollArea, 
+    QHBoxLayout,
 )
 
 # external data models
 from modules.data_models import dataModels
 from modules.display_models import displayModels
 
-# settings_tree methods
-class SettingsTreeMethods(object):
-    ## the constructor
-    def __init__(self):
-        super(SettingsTreeMethods, self).__init__()
-        SettingsTreeMethods.logger = self.get_child_logger(__name__)
-        SettingsTreeMethods._tree = displayModels._settings_tree_display
-        tree_buttons = copy.deepcopy(dataModels.button_dict)
-        tree_buttons["buttons"].update(
-            {
-                "edit": copy.deepcopy(dataModels.button_sub_dict),
-                "clear": copy.deepcopy(dataModels.button_sub_dict),
-                "default": copy.deepcopy(dataModels.button_sub_dict),
-                "collapse": copy.deepcopy(dataModels.button_sub_dict),
-            }
+
+class DelimitersTableViewModel(QAbstractTableModel):
+    """Display model for a delimiters table
+
+    Args:
+        QAbstractTableModel (class): This class specializes QAbstractTableModel
+    """
+
+    def __init__(self, parent, cliopt, dict_pos, delimiters: dict) -> None:
+
+        super(DelimitersTableViewModel, self).__init__()
+        self._parent = parent        
+        self.cliopt = cliopt
+        self.dict_pos = dict_pos
+        self.delimiters = delimiters
+        self.keys = list(self.delimiters.keys())
+        self.values = list(self.delimiters.values())
+        self.row_count = int(len(self.delimiters) + 1)
+        self.column_count = 2
+        self.editing = False
+        self.clicked_row = None
+
+        for i in range(self.row_count - 1):
+            parent.remove_row_buttons.append(QPushButton())
+            parent.remove_row_buttons[i].setIcon(parent.remove_row_button_icon)
+
+    def flags(self, index) -> Qt.ItemFlags:
+        if (
+            index.isValid()
+            and index.column() == 0
+            and index.row() < (self.rowCount() - 1)
+        ):
+            return (
+                super().flags(index)
+                | Qt.ItemIsSelectable
+                | Qt.ItemIsEditable
+                | Qt.ItemIsEnabled
+            )
+        else:
+            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+    def setData(self, index, value, role) -> bool:
+        if role in (Qt.DisplayRole, Qt.EditRole):
+            if not value:
+                return False
+
+            clean_value = value.strip("<>")
+            if not clean_value:
+                return False
+            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+                str(index.row())
+            ] = clean_value
+            self.dataChanged.emit(index, index)
+            table = self._parent.objectName().split(",")[2]
+            self._parent.logger.info(
+                f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
+            )
+        return True
+
+    def columnCount(self, parent: QModelIndex = None) -> int:
+        return self.column_count
+
+    def rowCount(self, parent: QModelIndex = None) -> int:
+        return int(len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) + 1)
+
+    def ar(self) -> None:
+        row = self.rowCount() - 1
+        parent = self._parent.currentIndex()
+        self.insertRow(row, parent)
+
+    def insertRow(self, row: int, parent) -> bool:
+        self.beginInsertRows(parent, row, row)
+        start_len = len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
+        self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]].update(
+            {str(start_len): ""}
         )
-        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
-        tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
-        tree_buttons["buttons"]["default"][
-            "QPushButton"
-        ] = self.ui.default_setting_button
-        tree_buttons["buttons"]["collapse"][
-            "QPushButton"
-        ] = self.ui.settings_tree_collapse_button
-        tree_buttons["buttons"]["collapse"]["enabled"] = True
-        self.settings_tree_buttons = tree_buttons
+        self.insertRows(row, 1, parent)
+        self.endInsertRows()
+        self.insert_row_move_buttons(row)
+        self.dataChanged.emit(parent, parent)
+        self.layoutChanged.emit()
+        return super().insertRow(row, parent)
+
+    def insert_row_move_buttons(self, row: int):
+        self._parent.remove_row_buttons.append(QPushButton())
+        self._parent.remove_row_buttons[row].setIcon(
+            self._parent.remove_row_button_icon
+        )
+        index = self.index(row, 0)
+        self._parent.setIndexWidget(index, None)
+        index = self.index(row, 1)
+        self._parent.setIndexWidget(index, self._parent.remove_row_buttons[row])
+        self._parent.remove_row_buttons[row].clicked.connect(self.rr)
+        index = self.index(self.rowCount() - 1, 0)
+        self._parent.add_row_button = QPushButton("Add Delimiter")
+        self._parent.add_row_button.clicked.connect(self.ar)
+        self._parent.setIndexWidget(index, self._parent.add_row_button)
+
+    def rr(self):
+        row = self._parent.currentIndex().row()
+        parent = self._parent.currentIndex()
+        self.removeRow(row, parent)
+
+    def removeRow(self, row: int = None, parent=None) -> bool:
+        if not parent.isValid():
+            row = self._parent.currentIndex().row()
+            parent = self._parent.currentIndex()
+        print(f"remove row {row}")
+
+        self.beginRemoveRows(parent, row, row)
+        del self._parent.remove_row_buttons[row]
+        del self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(row)]
+        new_dict = copy.deepcopy(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
+
+        self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]] = {}
+
+        i = 0
+        for key in new_dict:
+            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]].update(
+                {str(i): new_dict[key]}
+            )
+            i += 1
+        self.removeRows(row, row, parent)
+
+        index = self.index(self.rowCount() - 1, 1)
+        self._parent.setIndexWidget(index, None)
+        index = self.index(self.rowCount() - 1, 0)
+        self._parent.setIndexWidget(index, self._parent.add_row_button)
+        self.endRemoveRows()
+        self.dataChanged.emit(parent, parent)
+        self.layoutChanged.emit()
+        return super().removeRow(row, parent)
+
+    def moveRow(
+        self,
+        sourceParent: QModelIndex,
+        sourceRow: int,
+        destinationParent: QModelIndex,
+        destinationChild: int,
+    ) -> bool:
+        self.beginMoveRows(
+            QModelIndex(), sourceRow, sourceRow, QModelIndex(), destinationChild
+        )
+
+        self.endMoveRows()
+        return super().moveRow(
+            sourceParent, sourceRow, destinationParent, destinationChild
+        )
+
+    def data(self, index: QModelIndex, role: int):
+        """Table data positioning.
+
+        Args:
+            index (QModelIndex): The model index.
+            role (Qt Role): What role is the data.
+
+        Returns:
+            str: data in the cell
+        """
+        if not index.isValid():
+            return None
+        elif (
+            index.column() == 0
+            and (index.row() - 1)
+            < (len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1)
+            and role == Qt.DisplayRole
+            or role == Qt.EditRole
+        ):
+            return (
+                "<"
+                + str(
+                    self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+                        str(index.row())
+                    ]
+                )
+                + ">"
+            )
+
+        # returns tooltips on a valid index if there are any for the cell
+        elif role == Qt.ToolTipRole:
+            if (index.row() - 1) < (
+                len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1
+            ):
+                if index.column() == 0:
+                    return str(
+                        f"type: {self.dict_pos[2]}, any char except the wildcard char is valid"
+                    )
+                else:
+                    return str(f"remove row {index.row()+1}")
+            else:
+                if index.column() == 0:
+                    return str(f"add row to {self.dict_pos[2]} table")
+                else:
+                    return None
+        else:
+            return None
+
+    def headerData(self, section: int, orientation: int, role: int):
+        if role == Qt.DisplayRole and orientation == Qt.Horizontal and section == 0:
+            return "Delimiters"
+        elif orientation == Qt.Vertical and role == Qt.DisplayRole:
+            if int(section) < int(self.rowCount() - 1):
+                return str(section + 1)
+            else:
+                return None
+        else:
+            return None
+
+    def edit_table_view(self, index: QModelIndex):
+        if index.isValid() and self.editing == False:
+            self.editing = True
+            self._parent.setCurrentIndex(index)
+            self._parent.edit(index)
+
+
+class DelimitersTableView(QTableView):
+    def __init__(
+        self,
+        parent,
+        logger,
+        cursor,
+        container,
+        cliopt,                
+        remove_row_button_icon,
+    ) -> None:
+        super(DelimitersTableView, self).__init__()
+        self.logger = logger
+        self.cursor_ = cursor
+        self.remove_row_button_icon = remove_row_button_icon
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        dict_pos = container.data(4, 0).split(",")
+        self.setObjectName(str(container.data(4, 0)))
+
+        delimiters = cliopt[dict_pos[0]]["var"][dict_pos[2]]
+        self.remove_row_buttons = []
+        self.table_model = DelimitersTableViewModel(
+            parent, cliopt, dict_pos, delimiters
+        )
+        self.setModel(self.table_model)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        parent.setItemWidget(container, 0, self)
+
+        self.add_row_button = QPushButton("Add Delimiter")
+        self.add_row_button.clicked.connect(self.table_model.ar)
+        index = self.table_model.index(self.table_model.rowCount() - 1, 0)
+        self.setIndexWidget(index, self.add_row_button)
+
+        for i in range(len(self.remove_row_buttons)):
+            index = self.table_model.index(i, 1)
+            self.setIndexWidget(index, self.remove_row_buttons[i])
+            self.remove_row_buttons[i].clicked.connect(self.table_model.rr)
+
+        self.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.clicked.connect(self.table_model.edit_table_view)
+        self.clicked.connect(self.update_index)
+        self.pressed.connect(self.table_model.edit_table_view)
+
+    def update_index(self):
+        self.setCurrentIndex(self.indexAt(self.cursor_pos()))
+
+    def cursor_pos(self):
+        return self.cursor_.pos()
+
+    def dataChanged(self, topLeft, bottomRight, roles) -> None:
+        if self.table_model.editing == True:
+            self.table_model.editing = False
+            print("edit complete")
+        return super().dataChanged(topLeft, bottomRight, roles)
+
+
+class SettingsTreeWidget(QTreeWidget):
+    def __init__(self, parent, cliopt, session, logger) -> None:
+        super(SettingsTreeWidget, self).__init__()
+        self.setParent(parent.ui.settings_tree_container)
+        self.items = []
+        self.remove_row_buttons = []        
+        self.trashIcon = parent.ui.trashIcon
+        self.remove_row_button_icon = self.trashIcon
+        self.default_settings_tree_values = parent.default_settings_tree_values
+        self._parent = parent
+        self.cliopt = cliopt
+        self.session = session
+        self.item_clicked = None
+        self._cursor = parent.qcursor
+        self.logger = logger
+        
+        self.setHeaderLabel("Settings Tree")
+        self.setColumnCount(5)
+        self.setColumnHidden(4, 1)
+        self.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))        
+        self.header().setSectionResizeMode(QHeaderView.ResizeToContents)        
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        for i in range(self.columnCount() - 1):
+            self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)        
+            self.header().setSectionResizeMode(i, QHeaderView.Stretch)
+        self.setMinimumWidth(400)                
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        
+        # use the text in _tree for self.ui.settings_tree field labels, build the tree
+        for parent in SettingsTreeMethods._tree:
+            index_of_child = 0
+            dict_key = parent
+
+            is_config = True if dict_key == "config" else False
+            # add parents to self.ui.settings_treeS
+
+            if is_config:
+                # make these parents children of root using the keys from 'cfg_dict'
+                cfg_path = session["opt"]["input_config_file_path"]
+                setting_container = QTreeWidgetItem(
+                    self.invisibleRootItem(), ["Input config: " + cfg_path, ""]
+                )
+                setting_container.setIcon(0, self._parent.ui.fileDialogContentsViewIcon)
+                setting_container.setToolTip(0, "Input config: " + cfg_path)
+
+                for subsection in SettingsTreeMethods._tree["config"]:
+                    #index_of_child = 0
+                    setting_label = QTreeWidgetItem(
+                        setting_container, [subsection, "", "", ""]
+                    )                    
+                    # make the treewidgetitem editable
+                    setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
+                    # make the treewidgetitem span columns
+
+                    for item in SettingsTreeMethods._tree["config"][subsection]:
+                        #dict_pos = subsection + "," + str(index_of_child) + "," + item                        
+                        var_initial_val = self.cliopt["config"]["var"][subsection][item]
+                        has_combobox = False
+                        tooltip = SettingsTreeMethods._tree[dict_key][subsection][item][
+                            "tooltip"
+                        ]
+                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][
+                            subsection
+                        ][item]["tooltip"]
+                        if (
+                            SettingsTreeMethods._tree[dict_key][subsection][item][
+                                "type"
+                            ]
+                            == "Enable/Disable"
+                        ):
+                            has_combobox = True
+                            tooltip = ""
+                        index_of_child = self.set_up_child(
+                            subsection,
+                            setting_label,
+                            index_of_child,
+                            item,
+                            SettingsTreeMethods._tree[dict_key][subsection][item][
+                                "type"
+                            ],
+                            tooltip,
+                            var_initial_val,
+                            has_combobox,
+                            combobox_tooltip,
+                        )
+            elif not is_config:
+                setting_label = QTreeWidgetItem(
+                    self.invisibleRootItem(), [dict_key, ""]
+                )
+                setting_label.setIcon(0, self._parent.ui.commandLinkIcon)   
+                        
+                for child in SettingsTreeMethods._tree[parent]:
+                    dict_pos = dict_key + "," + str(index_of_child) + "," + child
+                    var_initial_val = self.cliopt[dict_key]["var"][child]
+                    if (
+                        child == "data delimiter sequences"
+                        or child == "start stop data delimiter sequences"
+                    ):
+                        index_of_child = self.build_tree_table_widget(                            
+                            setting_label, index_of_child, dict_pos                          
+                        )                        
+                    else:
+                        has_combobox = False
+                        tooltip = SettingsTreeMethods._tree[dict_key][child]["tooltip"]
+                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][child][
+                            "tooltip"
+                        ]
+                        if (
+                            SettingsTreeMethods._tree[dict_key][child]["type"]
+                            == "Enable/Disable"
+                        ):
+                            has_combobox = True
+                            tooltip = ""
+                        index_of_child = self.set_up_child(
+                            dict_key,
+                            self.invisibleRootItem(),
+                            index_of_child,
+                            child,
+                            SettingsTreeMethods._tree[dict_key][child]["type"],
+                            tooltip,
+                            var_initial_val,
+                            has_combobox,
+                            combobox_tooltip,
+                        )
+
+                    self.default_settings_tree_values.update(
+                        {str(child).strip(): var_initial_val}
+                    )
+
+        self.setEditTriggers(self.NoEditTriggers)
+        # update cliopt with new value when editing is complete
+        self.itemChanged.connect(self.settings_tree_edit_complete)
+        # check if user clicked on the column we want them to edit
+        self.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
+        # check if user hit enter on an item
+        self.itemActivated.connect(self.settings_tree_item_activated)
+        #self._parent.settings_tree_button_toggles()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.itemSelectionChanged.connect(
+            self._parent.settings_tree_button_toggles
+        )
+        self.itemClicked.connect(self._parent.settings_tree_button_toggles)
+        self.itemCollapsed.connect(self._parent.settings_tree_button_toggles)
+        self.itemExpanded.connect(self._parent.settings_tree_button_toggles)
+
+    ## builds a table onto a tree widget item
+    def build_tree_table_widget(
+        self,        
+        label: QTreeWidgetItem,
+        index_of_child,
+        dict_pos
+    ):
+        container = QTreeWidgetItem(label)
+        container.setFirstColumnSpanned(True)
+        container.setData(4,0,dict_pos)
+        # add parent tree item to root
+        cursor = self._cursor
+        logger = self.logger
+        table = DelimitersTableView(
+            self, logger, cursor, container, self.cliopt, self.trashIcon
+        )
+        index_of_child += 1
+        return index_of_child
+        
+
+    ## helper method to add children to container items
+    def set_up_child(
+        self,
+        dict_key,
+        parent,
+        index_of_child,
+        var_name,
+        var_type,
+        var_tooltip,
+        var_initial_val,
+        combobox=False,
+        combobox_item_tooltips=[],
+    ):
+        column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
+        child_container = QTreeWidgetItem(parent, column_label_list)
+        _twi = child_container
+        dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
+        _twi.setData(4, 0, dict_pos)
+        _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
+        if var_tooltip != "" and var_tooltip != None:
+            for col in range(self.columnCount()):
+                _twi.setToolTip(col, var_tooltip)
+        if combobox == True:
+            for col in range(self.columnCount()):
+                _twi.setToolTip(col, combobox_item_tooltips[0])
+            _cmb = QComboBox()
+            _cmb.addItem("Disabled", False)
+            _cmb.addItem("Enabled", True)
+            if (
+                combobox_item_tooltips
+                and combobox_item_tooltips[0] != None
+                and combobox_item_tooltips[0] != ""
+            ):
+                _cmb.setItemData(0, combobox_item_tooltips[0], Qt.ToolTipRole)
+            if (
+                combobox_item_tooltips
+                and combobox_item_tooltips[1] != None
+                and combobox_item_tooltips[1] != ""
+            ):
+                _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
+            _cmb.setObjectName(dict_pos)
+            if var_initial_val == False:
+                _cmb.setCurrentIndex(_cmb.findText("Disabled"))
+            elif var_initial_val == True:
+                _cmb.setCurrentIndex(_cmb.findText("Enabled"))
+            _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+            # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
+            _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
+            self.setItemWidget(
+                _twi,
+                3,
+                _cmb,
+            )
+        index_of_child += 1
+        return index_of_child
 
     ## updates the type field to reflect the value
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
-        sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+        sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
             int(object_list[1])
         ]["fields"]
         number_field = int(sub_dict["3"])
@@ -94,22 +565,22 @@ class SettingsTreeMethods(object):
                 "tooltip"
             ]
         if object_list[0] == "builtin methods":
-            _twi = self.cliOpt["builtin methods"]["tree"]["items"][object_list[2]][
+            _twi = self.cliopt["builtin methods"]["tree"]["items"][object_list[2]][
                 "QTreeWidgetItem"
             ][object_list[1]]
             if index == 1:
-                self.cliOpt[object_list[0]]["var"][object_list[2]] = True
+                self.cliopt[object_list[0]]["var"][object_list[2]] = True
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " enabled"
                 )
-                for col in range(self.ui.settings_tree.columnCount()):
+                for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
             else:
-                self.cliOpt[object_list[0]]["var"][object_list[2]] = False
+                self.cliopt[object_list[0]]["var"][object_list[2]] = False
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
-                for col in range(self.ui.settings_tree.columnCount()):
+                for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
 
             self.update_code("setup.h", object_list[2], True)
@@ -121,15 +592,15 @@ class SettingsTreeMethods(object):
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
             ):
-                combobox = self.cliOpt["builtin methods"]["tree"]["items"][
+                combobox = self.cliopt["builtin methods"]["tree"]["items"][
                     object_list[2]
                 ]["QComboBox"][object_list[1]]
 
                 if object_list[2] == "defaultFunction":
                     if combobox.currentText() == "Enabled":
-                        self.cliOpt["builtin methods"]["var"]["defaultFunction"] = True
+                        self.cliopt["builtin methods"]["var"]["defaultFunction"] = True
                     elif combobox.currentText() == "Disabled":
-                        self.cliOpt["builtin methods"]["var"]["defaultFunction"] = False
+                        self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
 
                 elif (
                     object_list[2] == "listCommands" or object_list[2] == "listSettings"
@@ -140,41 +611,41 @@ class SettingsTreeMethods(object):
                     ):
                         list_commands = OrderedDict()
                         list_commands = {
-                            str(self.cliOpt["var"]["primary id key"]): dict(
+                            str(self.cliopt["var"]["primary id key"]): dict(
                                 zip(
                                     dataModels.command_parameters_dict_keys_list,
                                     dataModels.LCcmdParam,
                                 )
                             )
                         }
-                        self.cliOpt["commands"]["parameters"].update(list_commands)
-                        self.cliOpt["commands"]["index"].update(
+                        self.cliopt["commands"]["parameters"].update(list_commands)
+                        self.cliopt["commands"]["index"].update(
                             {
-                                self.cliOpt["var"]["primary id key"]: copy.deepcopy(
+                                self.cliopt["var"]["primary id key"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = str(self.cliOpt["var"]["primary id key"])
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
-                        ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
+                        ]["parameters key"] = str(self.cliopt["var"]["primary id key"])
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
+                        ]["root index key"] = str(self.cliopt["var"]["primary id key"])
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
                         ]["parent index key"] = str(
-                            self.cliOpt["var"]["primary id key"]
+                            self.cliopt["var"]["primary id key"]
                         )
                         self.add_qtreewidgetitem(
-                            self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                            str(self.cliOpt["var"]["primary id key"]),
+                            self.cliopt["commands"]["QTreeWidgetItem"]["root"],
+                            str(self.cliopt["var"]["primary id key"]),
                         )
-                        self.cliOpt["var"]["primary id key"] = str(
-                            int(self.cliOpt["var"]["primary id key"]) + 1
+                        self.cliopt["var"]["primary id key"] = str(
+                            int(self.cliopt["var"]["primary id key"]) + 1
                         )
-                        self.cliOpt["var"]["number of commands"] = str(
-                            int(self.cliOpt["var"]["number of commands"]) + 1
+                        self.cliopt["var"]["number of commands"] = str(
+                            int(self.cliopt["var"]["number of commands"]) + 1
                         )
 
                     if (
@@ -183,42 +654,42 @@ class SettingsTreeMethods(object):
                     ):
                         list_settings = OrderedDict()
                         list_settings = {
-                            str(self.cliOpt["var"]["primary id key"]): dict(
+                            str(self.cliopt["var"]["primary id key"]): dict(
                                 zip(
                                     dataModels.command_parameters_dict_keys_list,
                                     dataModels.LScmdParam,
                                 )
                             )
                         }
-                        self.cliOpt["commands"]["parameters"].update(list_settings)
-                        self.cliOpt["commands"]["index"].update(
+                        self.cliopt["commands"]["parameters"].update(list_settings)
+                        self.cliopt["commands"]["index"].update(
                             {
-                                self.cliOpt["var"]["primary id key"]: copy.deepcopy(
+                                self.cliopt["var"]["primary id key"]: copy.deepcopy(
                                     dataModels.parameters_index_struct
                                 )
                             }
                         )
 
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
-                        ]["parameters key"] = str(self.cliOpt["var"]["primary id key"])
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
-                        ]["root index key"] = str(self.cliOpt["var"]["primary id key"])
-                        self.cliOpt["commands"]["index"][
-                            self.cliOpt["var"]["primary id key"]
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
+                        ]["parameters key"] = str(self.cliopt["var"]["primary id key"])
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
+                        ]["root index key"] = str(self.cliopt["var"]["primary id key"])
+                        self.cliopt["commands"]["index"][
+                            self.cliopt["var"]["primary id key"]
                         ]["parent index key"] = str(
-                            self.cliOpt["var"]["primary id key"]
+                            self.cliopt["var"]["primary id key"]
                         )
                         self.add_qtreewidgetitem(
-                            self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                            str(self.cliOpt["var"]["primary id key"]),
+                            self.cliopt["commands"]["QTreeWidgetItem"]["root"],
+                            str(self.cliopt["var"]["primary id key"]),
                         )
-                        self.cliOpt["var"]["primary id key"] = str(
-                            int(self.cliOpt["var"]["primary id key"]) + 1
+                        self.cliopt["var"]["primary id key"] = str(
+                            int(self.cliopt["var"]["primary id key"]) + 1
                         )
-                        self.cliOpt["var"]["number of commands"] = str(
-                            int(self.cliOpt["var"]["number of commands"]) + 1
+                        self.cliopt["var"]["number of commands"] = str(
+                            int(self.cliopt["var"]["number of commands"]) + 1
                         )
 
             self.update_code("functions.h", object_list[2], True)
@@ -227,13 +698,13 @@ class SettingsTreeMethods(object):
             self.update_code("setup.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
-            _twi = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+            _twi = self.cliopt["config"]["tree"]["items"][object_list[0]][
                 "QTreeWidgetItem"
             ][object_list[1]]
-            combobox = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+            combobox = self.cliopt["config"]["tree"]["items"][object_list[0]][
                 "QComboBox"
             ][object_list[1]]
-            sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+            sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
                 object_list[1]
             ]["fields"]
             if combobox.currentText() == "Enabled":
@@ -242,10 +713,10 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     str(sub_dict["2"].strip("\n")) + " enabled"
                 )
-                for col in range(self.ui.settings_tree.columnCount()):
+                for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
             elif (
-                self.cliOpt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
+                self.cliopt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
                     object_list[1]
                 ].currentText()
                 == "Disabled"
@@ -255,10 +726,10 @@ class SettingsTreeMethods(object):
                 SettingsTreeMethods.logger.info(
                     str(sub_dict["2"].strip("\n")) + " disabled"
                 )
-                for col in range(self.ui.settings_tree.columnCount()):
+                for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
             SettingsTreeMethods.logger.debug(
-                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
+                "self.cliopt['config']['tree']['items']['{}'][{}]['fields']:".format(
                     object_list[0], object_list[1]
                 ),
                 json.dumps(
@@ -331,7 +802,7 @@ class SettingsTreeMethods(object):
         # process output
         if object_list[0] == "process output":
             item.setText(3, str(repr(val)))
-            self.cliOpt["process output"]["var"][object_list[2]] = val
+            self.cliopt["process output"]["var"][object_list[2]] = val
             log_edit(item, object_list, val)
             self.update_code("setup.h", object_list[2], True)
             if object_list[2] == "outputToStream":
@@ -345,12 +816,12 @@ class SettingsTreeMethods(object):
         if object_list[0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
             log_edit(item, object_list, val)
-            self.cliOpt["process parameters"]["var"][item.text(1)] = val
+            self.cliopt["process parameters"]["var"][item.text(1)] = val
             self.update_code("setup.h", item.text(1), True)
             return
 
         # config.h
-        sub_dict = self.cliOpt["config"]["tree"]["items"][object_list[0]][
+        sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
             object_list[1]
         ]["fields"]
         tmp = ""
@@ -387,8 +858,8 @@ class SettingsTreeMethods(object):
         )
 
     ## this is called after determining if an item is editable
-    def edit_settings_tree_item(self, item):
-        widget_present = self.ui.settings_tree.itemWidget(item, 0)
+    def edit_item(self, item):
+        widget_present = self.itemWidget(item, 0)
         if widget_present != None:
             # self.edit_table_widget_item(widget_present)
             widget_present.edit(widget_present.currentIndex())
@@ -406,208 +877,44 @@ class SettingsTreeMethods(object):
             + " "
             + str(item.data(2, 0))
         )
-        self.ui.settings_tree.editItem(item, 3)
+        self.editItem(item, 3)
 
-    ## helper method to add children to container items
-    def set_up_child(
-        self,
-        dict_key,
-        tree,
-        parent,
-        index_of_child,
-        var_name,
-        var_type,
-        var_tooltip,
-        var_initial_val,
-        combobox=False,
-        combobox_item_tooltips=[],
-    ):
-        if tree["root"] == self.cliOpt["config"]["tree"]["root"]:
-            access = dict_key
-        else:
-            access = var_name
-        column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
-        tree["items"][access]["QTreeWidgetItem"].update(
-            {index_of_child: QTreeWidgetItem(parent, column_label_list)}
+
+# settings_tree methods
+class SettingsTreeMethods(object):
+    ## the constructor
+    def __init__(self):
+        super(SettingsTreeMethods, self).__init__()
+        SettingsTreeMethods.logger = self.get_child_logger(__name__)
+        SettingsTreeMethods._tree = displayModels._settings_tree_display
+        tree_buttons = copy.deepcopy(dataModels.button_dict)
+        tree_buttons["buttons"].update(
+            {
+                "edit": copy.deepcopy(dataModels.button_sub_dict),
+                "clear": copy.deepcopy(dataModels.button_sub_dict),
+                "default": copy.deepcopy(dataModels.button_sub_dict),
+                "collapse": copy.deepcopy(dataModels.button_sub_dict),
+            }
         )
-        _twi = tree["items"][access]["QTreeWidgetItem"][index_of_child]
-        dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
-        _twi.setData(4, 0, dict_pos)
-        _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
-        if var_tooltip != "" and var_tooltip != None:
-            for col in range(self.ui.settings_tree.columnCount()):
-                _twi.setToolTip(col, var_tooltip)
-        if combobox == True:
-            for col in range(self.ui.settings_tree.columnCount()):
-                _twi.setToolTip(col, combobox_item_tooltips[0])
-            tree["items"][access]["QComboBox"].update({index_of_child: QComboBox()})
-            _cmb = tree["items"][access]["QComboBox"][index_of_child]
-            _cmb.addItem("Disabled", False)
-            _cmb.addItem("Enabled", True)
-            if (
-                combobox_item_tooltips
-                and combobox_item_tooltips[0] != None
-                and combobox_item_tooltips[0] != ""
-            ):
-                _cmb.setItemData(0, combobox_item_tooltips[0], Qt.ToolTipRole)
-            if (
-                combobox_item_tooltips
-                and combobox_item_tooltips[1] != None
-                and combobox_item_tooltips[1] != ""
-            ):
-                _cmb.setItemData(1, combobox_item_tooltips[1], Qt.ToolTipRole)
-            _cmb.setObjectName(dict_pos)
-            if var_initial_val == False:
-                _cmb.setCurrentIndex(_cmb.findText("Disabled"))
-            elif var_initial_val == True:
-                _cmb.setCurrentIndex(_cmb.findText("Enabled"))
-            _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
-            # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
-            _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
-            self.ui.settings_tree.setItemWidget(
-                _twi,
-                3,
-                _cmb,
-            )
-        index_of_child += 1
-        return index_of_child
+        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
+        tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
+        tree_buttons["buttons"]["default"][
+            "QPushButton"
+        ] = self.ui.default_setting_button
+        tree_buttons["buttons"]["collapse"][
+            "QPushButton"
+        ] = self.ui.settings_tree_collapse_button
+        tree_buttons["buttons"]["collapse"]["enabled"] = True
+        self.settings_tree_buttons = tree_buttons
 
-    ## this builds the entire MainWindow.ui.settings_tree
-    def build_lib_settings_tree(self):
-        settings_tree = self.ui.settings_tree
-        settings_tree.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
-        # settings_tree.header().setSectionResizeMode(0, QHeaderView.Interactive)
-        settings_tree.setMinimumWidth(400)
-        settings_tree.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        settings_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        settings_tree.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        settings_tree.header().setSectionResizeMode(2, QHeaderView.ResizeToContents)
-        settings_tree.header().setSectionResizeMode(3, QHeaderView.ResizeToContents)
-
-        settings_tree.header().setSectionResizeMode(0, QHeaderView.Stretch)
-        settings_tree.header().setSectionResizeMode(1, QHeaderView.Stretch)
-        settings_tree.header().setSectionResizeMode(2, QHeaderView.Stretch)
-        settings_tree.header().setSectionResizeMode(3, QHeaderView.Stretch)
-
-        settings_tree.setColumnCount(5)
-        settings_tree.setSelectionMode(QAbstractItemView.SingleSelection)
-        # 5th column holds object location in cliOpt
-        settings_tree.setColumnHidden(4, 1)
-
-        # use the text in _tree for self.ui.settings_tree field labels, build the tree
-        for parent in SettingsTreeMethods._tree:
-            index_of_child = 0
-            dict_key = parent
-
-            tree = self.cliOpt[dict_key]["tree"]
-            is_config = True if dict_key == "config" else False
-            # add parents to self.ui.settings_tree
-            if not is_config:
-                tree["root"] = QTreeWidgetItem(settings_tree, [dict_key, ""])
-                tree["root"].setIcon(0, self.ui.commandLinkIcon)
-            elif is_config:
-                cfg_dict = self.cliOpt["config"]["tree"]["items"]
-                cfg_path = self.session["opt"]["input_config_file_path"]
-                tree["root"] = QTreeWidgetItem(
-                    settings_tree, ["Input config: " + cfg_path, ""]
-                )
-                tree["root"].setIcon(0, self.ui.fileDialogContentsViewIcon)
-                tree["root"].setToolTip(0, "Input config: " + cfg_path)
-                # make these parents children of root using the keys from 'cfg_dict'
-
-            if is_config:
-                for subsection in SettingsTreeMethods._tree["config"]:
-                    index_of_child = 0
-                    tree["parents"][subsection]["QTreeWidgetItem"] = QTreeWidgetItem(
-                        tree["root"], [subsection, "", "", ""]
-                    )
-                    for item in SettingsTreeMethods._tree["config"][subsection]:
-                        var_initial_val = self.cliOpt["config"]["var"][subsection][item]
-                        has_combobox = False
-                        tooltip = SettingsTreeMethods._tree[dict_key][subsection][item][
-                            "tooltip"
-                        ]
-                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][
-                            subsection
-                        ][item]["tooltip"]
-                        if (
-                            SettingsTreeMethods._tree[dict_key][subsection][item][
-                                "type"
-                            ]
-                            == "Enable/Disable"
-                        ):
-                            has_combobox = True
-                            tooltip = ""
-                        index_of_child = self.set_up_child(
-                            subsection,
-                            tree,
-                            tree["parents"][subsection]["QTreeWidgetItem"],
-                            index_of_child,
-                            item,
-                            SettingsTreeMethods._tree[dict_key][subsection][item][
-                                "type"
-                            ],
-                            tooltip,
-                            var_initial_val,
-                            has_combobox,
-                            combobox_tooltip,
-                        )
-            elif not is_config:
-                for child in SettingsTreeMethods._tree[parent]:
-                    var_initial_val = self.cliOpt[dict_key]["var"][child]
-                    if (
-                        child == "data delimiter sequences"
-                        or child == "start stop data delimiter sequences"
-                    ):
-                        self.build_tree_table_widget(
-                            index_of_child,
-                            tree,
-                            dict_key,
-                            child,
-                        )
-                        index_of_child += 1
-                    else:
-                        has_combobox = False
-                        tooltip = SettingsTreeMethods._tree[dict_key][child]["tooltip"]
-                        combobox_tooltip = SettingsTreeMethods._tree[dict_key][child][
-                            "tooltip"
-                        ]
-                        if (
-                            SettingsTreeMethods._tree[dict_key][child]["type"]
-                            == "Enable/Disable"
-                        ):
-                            has_combobox = True
-                            tooltip = ""
-                        index_of_child = self.set_up_child(
-                            dict_key,
-                            tree,
-                            tree["root"],
-                            index_of_child,
-                            child,
-                            SettingsTreeMethods._tree[dict_key][child]["type"],
-                            tooltip,
-                            var_initial_val,
-                            has_combobox,
-                            combobox_tooltip,
-                        )
-
-                    self.default_settings_tree_values.update(
-                        {str(child).strip(): var_initial_val}
-                    )
-
-        settings_tree.setEditTriggers(self.ui.settings_tree.NoEditTriggers)
-        # update cliOpt with new value when editing is complete
-        settings_tree.itemChanged.connect(self.settings_tree_edit_complete)
-        # check if user clicked on the column we want them to edit
-        settings_tree.itemDoubleClicked.connect(
-            self.check_if_settings_tree_col_editable
+    def build_settings_tree(self):
+        container = self.ui.settings_tree_container
+        container.layout = QHBoxLayout(container)
+        self.settings_tree = SettingsTreeWidget(
+            self, self.cliOpt, self.session, SettingsTreeMethods.logger
         )
-        # check if user hit enter on an item
-        settings_tree.itemActivated.connect(self.settings_tree_item_activated)
-        self.settings_tree_button_toggles()
-        settings_tree.setSelectionMode(QAbstractItemView.SingleSelection)
-
-    # end build_lib_settings_tree()
+        container.layout.addWidget(self.settings_tree)
+        container.setLayout(container.layout)
 
 
 # end of file

@@ -126,7 +126,7 @@ class MainWindowButtons(object):
                 butt["QPushButton"].setEnabled(butt["enabled"])
 
     def settings_tree_collapse_button(self):
-        tree_state = self.get_tree_state(self.ui.settings_tree)
+        tree_state = self.get_tree_state(self.settings_tree)
         tree_buttons = self.settings_tree_buttons
         tree_buttons.update(tree_state)
         self.tree_expander(
@@ -148,7 +148,7 @@ class MainWindowButtons(object):
         )
 
     def settings_tree_button_toggles(self):
-        tree_state = self.get_tree_state(self.ui.settings_tree)
+        tree_state = self.get_tree_state(self.settings_tree)
         tree_buttons = self.settings_tree_buttons
         tree_buttons.update(tree_state)
         if (
@@ -227,32 +227,32 @@ class MainWindowButtons(object):
     # tab 1
     def clicked_edit_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 edit")
-        if self.ui.settings_tree.currentItem() != None:
-            object_list = self.ui.settings_tree.currentItem().data(4, 0).split(",")
+        if self.settings_tree.currentItem() != None:
+            object_list = self.settings_tree.currentItem().data(4, 0).split(",")
             if (
                 object_list[2] == "data delimiter sequences"
                 or object_list[2] == "start stop data delimiter sequences"
             ):
-                table_widget = self.ui.settings_tree.itemWidget(
-                    self.ui.settings_tree.currentItem(), 0
+                table_widget = self.settings_tree.itemWidget(
+                    self.settings_tree.currentItem(), 0
                 )
                 items = table_widget.selectedItems()
                 item = items[0]
                 table_widget.editItem(item)
                 self.update_code("setup.h", object_list[2], True)
                 return
-            self.ui.settings_tree.editItem(self.ui.settings_tree.currentItem(), 3)
+            self.settings_tree.editItem(self.settings_tree.currentItem(), 3)
 
     def clicked_clear_tab_one(self):
         MainWindowButtons.logger.info("clicked tab 1 clear")
-        if self.ui.settings_tree.currentItem() != None:
-            object_list = self.ui.settings_tree.currentItem().data(4, 0).split(",")
+        if self.settings_tree.currentItem() != None:
+            object_list = self.settings_tree.currentItem().data(4, 0).split(",")
             if (
                 object_list[2] == "data delimiter sequences"
                 or object_list[2] == "start stop data delimiter sequences"
             ):
-                table_widget = self.ui.settings_tree.itemWidget(
-                    self.ui.settings_tree.currentItem(), 0
+                table_widget = self.settings_tree.itemWidget(
+                    self.settings_tree.currentItem(), 0
                 )
                 items = table_widget.selectedItems()
                 item = items[0]
@@ -267,12 +267,12 @@ class MainWindowButtons(object):
                         {i: table_widget.item(i, 0).text().strip("'")}
                     )
                 return
-            self.ui.settings_tree.currentItem().setData(3, 0, "")
+            self.settings_tree.currentItem().setData(3, 0, "")
 
     def clicked_default_tab_one(self):
-        tree_item = self.ui.settings_tree.currentItem()
+        tree_item = self.settings_tree.currentItem()
         if tree_item != None:
-            widget = self.ui.settings_tree.itemWidget(tree_item, 3)
+            widget = self.settings_tree.itemWidget(tree_item, 3)
             object_list = tree_item.data(4, 0).split(",")
             if isinstance(widget, QComboBox):
                 bool_default = self.default_settings_tree_values[object_list[2]]

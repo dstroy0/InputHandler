@@ -91,11 +91,11 @@ class MainWindowMethods(object):
                 watched, event, event_type, mouse_button, mouse_pos
             )
         elif (
-            watched == self.ui.settings_tree.viewport()
+            watched == self.settings_tree.viewport()
             and event_type == QEvent.MouseButtonPress
         ):
-            if not self.ui.settings_tree.itemAt(mouse_pos):
-                self.ui.settings_tree.clearSelection()
+            if not self.settings_tree.itemAt(mouse_pos):
+                self.settings_tree.clearSelection()
         elif (
             watched == self.command_tree.viewport()
             and event_type == QEvent.MouseButtonPress
@@ -103,7 +103,7 @@ class MainWindowMethods(object):
             if not self.command_tree.itemAt(mouse_pos):
                 self.command_tree.clearSelection()
                 self.command_tree.setCurrentItem(
-                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+                    self.command_tree.invisibleRootItem()
                 )
                 #self.command_tree_button_toggles()
 
@@ -152,12 +152,12 @@ class MainWindowMethods(object):
             MainWindowMethods.logger.info("self.ui.command_tree collapsed")
 
         if not self.settings.value("settings_tree_collapsed"):
-            self.ui.settings_tree.expandAll()
+            self.settings_tree.expandAll()
             self.ui.settings_tree_collapse_button.setText("Collapse All")
             self.settings_tree_collapsed = False
-            MainWindowMethods.logger.info("self.ui.settings_tree expanded")
+            MainWindowMethods.logger.info("self.settings_tree expanded")
         else:
-            self.ui.settings_tree.collapseAll()
+            self.settings_tree.collapseAll()
             self.ui.settings_tree_collapse_button.setText("Expand All")
             self.settings_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
