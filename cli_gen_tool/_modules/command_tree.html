@@ -548,8 +548,8 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersTableWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">command_parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span> <span class="o">=</span> <span class="n">tree_item</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span> <span class="o">=</span> <span class="n">CommandParametersTableView</span><span class="p">(</span>
             <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span>
@@ -562,21 +562,19 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splitter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splitter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span><span class="o">.</span><span class="n">setSizes</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
             <span class="p">]</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CommandTreeWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandTreeWidget</span><span class="p">(</span><span class="n">QTreeWidget</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandTreeWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandTreeWidget</span><span class="p">(</span><span class="n">QTreeWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">cliopt</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">QTreeWidget</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_container</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_container</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget_container</span><span class="p">)</span>
-              
+        <span class="nb">super</span><span class="p">(</span><span class="n">CommandTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>                                
+        <span class="bp">self</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span><span class="p">)</span>              
         <span class="bp">self</span><span class="o">.</span><span class="n">item_clicked</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">qcursor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
@@ -604,7 +602,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabel</span><span class="p">(</span><span class="s2">&quot;Command Tree&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  
+        <span class="c1">#self.widget_container.layout.addWidget(self)  </span>
+        <span class="c1">#self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">which_clicked</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">which_pressed</span><span class="p">)</span>
     
@@ -657,7 +656,15 @@
             <span class="s2">&quot;QPushButton&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span>
         <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span> <span class="o">=</span> <span class="n">tree_buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span> <span class="o">=</span> <span class="n">tree_buttons</span>        
+        
+    
+<div class="viewcode-block" id="CommandTreeMethods.build_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.build_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="n">CommandTreeWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">)</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span></div>
 
     <span class="c1">## adds a single command to the tree</span>
 <div class="viewcode-block" id="CommandTreeMethods.add_qtreewidgetitem"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.add_qtreewidgetitem">[docs]</a>    <span class="k">def</span> <span class="nf">add_qtreewidgetitem</span><span class="p">(</span>
@@ -999,10 +1006,10 @@
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_tree</span><span class="p">()</span>
         <span class="n">command_tree</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">()</span></div></div>
 
     <span class="c1">## adds items to self.ui.command_tree for display</span>
-<div class="viewcode-block" id="CommandTreeMethods.build_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.build_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1">#def build_command_tree(self):</span>
         <span class="c1"># &quot;&quot;&quot;adds items from cliOpt to self.ui.command_tree&quot;&quot;&quot;</span>
         <span class="c1"># command_tree = self.ui.command_tree</span>
         <span class="c1"># command_tree.setSelectionMode(QAbstractItemView.SingleSelection)</span>
@@ -1017,7 +1024,7 @@
         <span class="c1"># ] = self.ui.command_tree.invisibleRootItem()</span>
 
         <span class="c1">#self._build_command_tree()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="n">CommandTreeWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span></div></div>
+        <span class="c1">#self.command_tree = CommandTreeWidget(self, self.cliOpt, CommandTreeMethods.logger)</span>
         <span class="c1">#self.command_tree_button_toggles()</span>
 
 

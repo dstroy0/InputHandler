@@ -252,14 +252,16 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">builtin_cmb_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
+    <span class="c1"># TODO restore functionality</span>
 <div class="viewcode-block" id="PreferencesMethods.get_comboboxes"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_comboboxes">[docs]</a>    <span class="k">def</span> <span class="nf">get_comboboxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">builtin_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;tree&quot;</span><span class="p">][</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">)):</span>
-            <span class="n">cmb_container</span> <span class="o">=</span> <span class="n">builtin_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s2">&quot;QComboBox&quot;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmb_container</span><span class="p">:</span>
-                <span class="n">cmb</span> <span class="o">=</span> <span class="n">cmb_container</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmb</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">builtin_cmb_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">cmb</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">cmb</span><span class="p">})</span></div>
+        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="c1"># builtin_dict = self.cliOpt[&quot;builtin methods&quot;][&quot;tree&quot;][&quot;items&quot;]</span>
+        <span class="c1"># for i in range(len(self.builtin_methods)):</span>
+        <span class="c1">#     cmb_container = builtin_dict[self.builtin_methods[i]][&quot;QComboBox&quot;]</span>
+        <span class="c1">#     for item in cmb_container:</span>
+        <span class="c1">#         cmb = cmb_container[item]</span>
+        <span class="c1">#         if isinstance(cmb, QComboBox):</span>
+        <span class="c1">#             self.builtin_cmb_dict.update({cmb.objectName().split(&quot;,&quot;)[2]: cmb})</span>
 
 <div class="viewcode-block" id="PreferencesMethods.save_preferences"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.save_preferences">[docs]</a>    <span class="k">def</span> <span class="nf">save_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
@@ -442,18 +444,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">default_output_buffer_size</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_preferences</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">outputtostream_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">state</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_builtin_preference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">defaultfunction_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">state</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_builtin_preference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">listcommands_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">state</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_builtin_preference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">listsettings_checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">state</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">3</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_builtin_preference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="c1"># self.dlg.outputtostream_checkbox.stateChanged.connect(</span>
+        <span class="c1">#     lambda state, x=0: self.set_builtin_preference(x, state)</span>
+        <span class="c1"># )</span>
+        <span class="c1"># self.dlg.defaultfunction_checkbox.stateChanged.connect(</span>
+        <span class="c1">#     lambda state, x=1: self.set_builtin_preference(x, state)</span>
+        <span class="c1"># )</span>
+        <span class="c1"># self.dlg.listcommands_checkbox.stateChanged.connect(</span>
+        <span class="c1">#     lambda state, x=2: self.set_builtin_preference(x, state)</span>
+        <span class="c1"># )</span>
+        <span class="c1"># self.dlg.listsettings_checkbox.stateChanged.connect(</span>
+        <span class="c1">#     lambda state, x=3: self.set_builtin_preference(x, state)</span>
+        <span class="c1"># )</span>
 
         <span class="c1"># load session defaults</span>
         <span class="n">_obj_list</span> <span class="o">=</span> <span class="p">[</span>
