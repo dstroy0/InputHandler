@@ -377,9 +377,7 @@ class CommandTreeWidget(QTreeWidget):
                 )
         self.setHeaderLabel("Command Tree")
         self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        #self.widget_container.layout.addWidget(self)  
-        #self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)        
         self.clicked.connect(self.which_clicked)
         self.pressed.connect(self.which_pressed)
     
@@ -395,15 +393,6 @@ class CommandTreeWidget(QTreeWidget):
 
 ## self.ui.command_tree methods
 class CommandTreeMethods(object):
-    """All methods related to command tree manipulation
-
-    Args:
-        object (class): base class
-
-    Returns:
-        None: None
-    """
-
     ## CommandTreeMethods constructor
     def __init__(self) -> None:
         """constructor method"""

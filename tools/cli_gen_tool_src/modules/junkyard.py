@@ -328,27 +328,7 @@
     #         )
     #     )
 
-    # ## this is called after determining if an item is editable
-    # def edit_settings_tree_item(self, item):
-    #     widget_present = self.ui.settings_tree.itemWidget(item, 0)
-    #     if widget_present != None:
-    #         # self.edit_table_widget_item(widget_present)
-    #         widget_present.edit(widget_present.currentIndex())
-    #         return
-    #     object_string = str(item.data(4, 0))
-    #     object_string = object_string.strip()
-    #     object_list = object_string.split(",")
-    #     SettingsTreeMethods.logger.info(
-    #         "User editing "
-    #         + str(object_list[2])
-    #         + " in "
-    #         + str(object_list[0])
-    #         + ", current value "
-    #         + str(item.data(3, 0))
-    #         + " "
-    #         + str(item.data(2, 0))
-    #     )
-    #     self.ui.settings_tree.editItem(item, 3)
+   
 
     # ## helper method to add children to container items
     # def set_up_child(

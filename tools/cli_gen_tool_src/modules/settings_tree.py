@@ -28,8 +28,10 @@ from PySide6.QtWidgets import (
     QPushButton,
     QTreeWidgetItem,
     QTableView,
-    QAbstractScrollArea, 
+    QAbstractScrollArea,
     QHBoxLayout,
+    QWidget,
+    QStyle,
 )
 
 # external data models
@@ -44,13 +46,18 @@ class DelimitersTableViewModel(QAbstractTableModel):
         QAbstractTableModel (class): This class specializes QAbstractTableModel
     """
 
-    def __init__(self, parent, cliopt, dict_pos, delimiters: dict) -> None:
+    def __init__(self, parent) -> None:
 
         super(DelimitersTableViewModel, self).__init__()
-        self._parent = parent        
-        self.cliopt = cliopt
-        self.dict_pos = dict_pos
-        self.delimiters = delimiters
+        self._parent = parent
+        self.add_row_button = parent.add_row_button
+        self.remove_row_buttons = parent.remove_row_buttons
+        self.remove_row_button_icon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
+        )
+        self.cliopt = parent.cliopt
+        self.dict_pos = parent.dict_pos
+        self.delimiters = parent.delimiters
         self.keys = list(self.delimiters.keys())
         self.values = list(self.delimiters.values())
         self.row_count = int(len(self.delimiters) + 1)
@@ -59,8 +66,8 @@ class DelimitersTableViewModel(QAbstractTableModel):
         self.clicked_row = None
 
         for i in range(self.row_count - 1):
-            parent.remove_row_buttons.append(QPushButton())
-            parent.remove_row_buttons[i].setIcon(parent.remove_row_button_icon)
+            self.remove_row_buttons.append(QPushButton())
+            self.remove_row_buttons[i].setIcon(self.remove_row_button_icon)
 
     def flags(self, index) -> Qt.ItemFlags:
         if (
@@ -120,19 +127,19 @@ class DelimitersTableViewModel(QAbstractTableModel):
         return super().insertRow(row, parent)
 
     def insert_row_move_buttons(self, row: int):
-        self._parent.remove_row_buttons.append(QPushButton())
-        self._parent.remove_row_buttons[row].setIcon(
-            self._parent.remove_row_button_icon
+        self.remove_row_buttons.append(QPushButton())
+        self.remove_row_buttons[row].setIcon(
+            self.remove_row_button_icon
         )
         index = self.index(row, 0)
         self._parent.setIndexWidget(index, None)
         index = self.index(row, 1)
-        self._parent.setIndexWidget(index, self._parent.remove_row_buttons[row])
-        self._parent.remove_row_buttons[row].clicked.connect(self.rr)
+        self._parent.setIndexWidget(index, self.remove_row_buttons[row])
+        self.remove_row_buttons[row].clicked.connect(self.rr)
         index = self.index(self.rowCount() - 1, 0)
-        self._parent.add_row_button = QPushButton("Add Delimiter")
-        self._parent.add_row_button.clicked.connect(self.ar)
-        self._parent.setIndexWidget(index, self._parent.add_row_button)
+        self.add_row_button = QPushButton("Add Delimiter")
+        self.add_row_button.clicked.connect(self.ar)
+        self._parent.setIndexWidget(index, self.add_row_button)
 
     def rr(self):
         row = self._parent.currentIndex().row()
@@ -146,7 +153,7 @@ class DelimitersTableViewModel(QAbstractTableModel):
         print(f"remove row {row}")
 
         self.beginRemoveRows(parent, row, row)
-        del self._parent.remove_row_buttons[row]
+        del self.remove_row_buttons[row]
         del self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(row)]
         new_dict = copy.deepcopy(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
 
@@ -258,30 +265,30 @@ class DelimitersTableView(QTableView):
         logger,
         cursor,
         container,
-        cliopt,                
-        remove_row_button_icon,
+        cliopt,        
     ) -> None:
         super(DelimitersTableView, self).__init__()
         self.logger = logger
         self.cursor_ = cursor
-        self.remove_row_button_icon = remove_row_button_icon
+        self.cliopt = cliopt
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        dict_pos = container.data(4, 0).split(",")
+        self.dict_pos = container.data(4, 0).split(",")
         self.setObjectName(str(container.data(4, 0)))
 
-        delimiters = cliopt[dict_pos[0]]["var"][dict_pos[2]]
+        self.delimiters = cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]
         self.remove_row_buttons = []
+        self.add_row_button = QPushButton("Add Delimiter")
+        
         self.table_model = DelimitersTableViewModel(
-            parent, cliopt, dict_pos, delimiters
+            self
         )
-        self.setModel(self.table_model)
+        self.setModel(self.table_model)        
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         parent.setItemWidget(container, 0, self)
 
-        self.add_row_button = QPushButton("Add Delimiter")
-        self.add_row_button.clicked.connect(self.table_model.ar)
+        
         index = self.table_model.index(self.table_model.rowCount() - 1, 0)
         self.setIndexWidget(index, self.add_row_button)
 
@@ -291,6 +298,8 @@ class DelimitersTableView(QTableView):
             self.remove_row_buttons[i].clicked.connect(self.table_model.rr)
 
         self.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        
+        self.add_row_button.clicked.connect(self.table_model.ar)
         self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
         self.pressed.connect(self.table_model.edit_table_view)
@@ -313,9 +322,7 @@ class SettingsTreeWidget(QTreeWidget):
         super(SettingsTreeWidget, self).__init__()
         self.setParent(parent.ui.settings_tree_container)
         self.items = []
-        self.remove_row_buttons = []        
-        self.trashIcon = parent.ui.trashIcon
-        self.remove_row_button_icon = self.trashIcon
+        self.tables = []                        
         self.default_settings_tree_values = parent.default_settings_tree_values
         self._parent = parent
         self.cliopt = cliopt
@@ -323,19 +330,19 @@ class SettingsTreeWidget(QTreeWidget):
         self.item_clicked = None
         self._cursor = parent.qcursor
         self.logger = logger
-        
+
         self.setHeaderLabel("Settings Tree")
         self.setColumnCount(5)
         self.setColumnHidden(4, 1)
-        self.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))        
-        self.header().setSectionResizeMode(QHeaderView.ResizeToContents)        
+        self.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
+        self.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         for i in range(self.columnCount() - 1):
-            self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)        
+            self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
-        self.setMinimumWidth(400)                
+        self.setMinimumWidth(400)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
-        
+
         # use the text in _tree for self.ui.settings_tree field labels, build the tree
         for parent in SettingsTreeMethods._tree:
             index_of_child = 0
@@ -354,16 +361,16 @@ class SettingsTreeWidget(QTreeWidget):
                 setting_container.setToolTip(0, "Input config: " + cfg_path)
 
                 for subsection in SettingsTreeMethods._tree["config"]:
-                    #index_of_child = 0
+                    # index_of_child = 0
                     setting_label = QTreeWidgetItem(
                         setting_container, [subsection, "", "", ""]
-                    )                    
+                    )
                     # make the treewidgetitem editable
                     setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
                     # make the treewidgetitem span columns
 
                     for item in SettingsTreeMethods._tree["config"][subsection]:
-                        #dict_pos = subsection + "," + str(index_of_child) + "," + item                        
+                        # dict_pos = subsection + "," + str(index_of_child) + "," + item
                         var_initial_val = self.cliopt["config"]["var"][subsection][item]
                         has_combobox = False
                         tooltip = SettingsTreeMethods._tree[dict_key][subsection][item][
@@ -394,21 +401,28 @@ class SettingsTreeWidget(QTreeWidget):
                             combobox_tooltip,
                         )
             elif not is_config:
-                setting_label = QTreeWidgetItem(
+                setting_container = QTreeWidgetItem(
                     self.invisibleRootItem(), [dict_key, ""]
                 )
-                setting_label.setIcon(0, self._parent.ui.commandLinkIcon)   
-                        
+                setting_container.setIcon(0, self._parent.ui.commandLinkIcon)
+
                 for child in SettingsTreeMethods._tree[parent]:
+
                     dict_pos = dict_key + "," + str(index_of_child) + "," + child
+
                     var_initial_val = self.cliopt[dict_key]["var"][child]
                     if (
                         child == "data delimiter sequences"
                         or child == "start stop data delimiter sequences"
                     ):
-                        index_of_child = self.build_tree_table_widget(                            
-                            setting_label, index_of_child, dict_pos                          
-                        )                        
+                        setting_label = QTreeWidgetItem(
+                            setting_container, [child, "", "", ""]
+                        )
+                        setting_label.setData(4, 0, dict_pos)
+                        # setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
+                        index_of_child = self.build_tree_table_widget(
+                            setting_label, index_of_child, dict_pos
+                        )
                     else:
                         has_combobox = False
                         tooltip = SettingsTreeMethods._tree[dict_key][child]["tooltip"]
@@ -423,7 +437,7 @@ class SettingsTreeWidget(QTreeWidget):
                             tooltip = ""
                         index_of_child = self.set_up_child(
                             dict_key,
-                            self.invisibleRootItem(),
+                            setting_container,
                             index_of_child,
                             child,
                             SettingsTreeMethods._tree[dict_key][child]["type"],
@@ -444,34 +458,27 @@ class SettingsTreeWidget(QTreeWidget):
         self.itemDoubleClicked.connect(self.check_if_settings_tree_col_editable)
         # check if user hit enter on an item
         self.itemActivated.connect(self.settings_tree_item_activated)
-        #self._parent.settings_tree_button_toggles()
+        # self._parent.settings_tree_button_toggles()
         self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.itemSelectionChanged.connect(
-            self._parent.settings_tree_button_toggles
-        )
+        self.itemSelectionChanged.connect(self._parent.settings_tree_button_toggles)
         self.itemClicked.connect(self._parent.settings_tree_button_toggles)
         self.itemCollapsed.connect(self._parent.settings_tree_button_toggles)
         self.itemExpanded.connect(self._parent.settings_tree_button_toggles)
 
     ## builds a table onto a tree widget item
-    def build_tree_table_widget(
-        self,        
-        label: QTreeWidgetItem,
-        index_of_child,
-        dict_pos
-    ):
+    def build_tree_table_widget(self, label: QTreeWidgetItem, index_of_child, dict_pos):
         container = QTreeWidgetItem(label)
         container.setFirstColumnSpanned(True)
-        container.setData(4,0,dict_pos)
+        container.setData(4, 0, dict_pos)
         # add parent tree item to root
         cursor = self._cursor
         logger = self.logger
         table = DelimitersTableView(
-            self, logger, cursor, container, self.cliopt, self.trashIcon
+            self, logger, cursor, container, self.cliopt
         )
+        self.tables.append(table)
         index_of_child += 1
         return index_of_child
-        
 
     ## helper method to add children to container items
     def set_up_child(
@@ -737,6 +744,28 @@ class SettingsTreeWidget(QTreeWidget):
                 ),
             )
             self.update_code("config.h", sub_dict["2"], True)
+
+    ## this is called after determining if an item is editable
+    def edit_settings_tree_item(self, item):
+        widget_present = self.itemWidget(item, 0)
+        if widget_present != None:
+            # self.edit_table_widget_item(widget_present)
+            widget_present.edit(widget_present.currentIndex())
+            return
+        object_string = str(item.data(4, 0))
+        object_string = object_string.strip()
+        object_list = object_string.split(",")
+        SettingsTreeMethods.logger.info(
+            "User editing "
+            + str(object_list[2])
+            + " in "
+            + str(object_list[0])
+            + ", current value "
+            + str(item.data(3, 0))
+            + " "
+            + str(item.data(2, 0))
+        )
+        self.editItem(item, 3)
 
     ## called when a user "activates" a tree item (by pressing enter)
     def settings_tree_item_activated(self, item):
