@@ -25,7 +25,7 @@ from PySide6.QtCore import (
     QTimer,
     QDir,
 )
-from PySide6.QtGui import QCursor, QIcon, QMouseEvent
+from PySide6.QtGui import QCursor, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -180,7 +180,7 @@ class Initialize(Logger, object):
 # MainWindow is the parent of all process subwindows
 # (MainWindow is noninteractable when any of its child popups are active except log history)
 class MainWindow(
-    QMainWindow,    
+    QMainWindow,
     HelperMethods,
     MainWindowActions,
     CodePreview,
@@ -236,7 +236,8 @@ class MainWindow(
         self.defaultGuiOpt = dataModels.default_session_model
         # session db
         self.session = {}
-
+        self.input_config_file_lines = []
+        
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
@@ -280,13 +281,13 @@ class MainWindow(
         MainWindowActions.__init__(self)
         MainWindowButtons.__init__(self)
         ParseInputHandlerConfig.__init__(self)
-        SettingsTreeMethods.__init__(self)        
+        SettingsTreeMethods.__init__(self)
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         CodePreview.__init__(self)
         PreferencesMethods.__init__(self)
 
-        self.set_up_session()        
+        self.set_up_session()
 
         # uncomment to print self.cliOpt as pretty json
         # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
@@ -295,11 +296,9 @@ class MainWindow(
 
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
-        
-        
         # MainWindow actions
-        #self.mainwindow_menu_bar_actions_setup()
-        #self.mainwindow_button_actions_setup()
+        # self.mainwindow_menu_bar_actions_setup()
+        # self.mainwindow_button_actions_setup()
         # end MainWindow actions
 
         # tab 1
@@ -322,7 +321,7 @@ class MainWindow(
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
         # preferences dialog input validation
-        
+
         # load preferences
         self.preferences_dialog_setup()
         self.readSettings(self.settings)
@@ -337,8 +336,8 @@ class MainWindow(
 
         self.logger.info("CLI generation tool ready.")
         self.loading = False
-        # end MainWindow.__init__()    
-    
+        # end MainWindow.__init__()
+
     def closeEvent(self, event: QEvent):
         self._closeEvent(event)
 

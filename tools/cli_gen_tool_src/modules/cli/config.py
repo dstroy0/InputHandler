@@ -10,6 +10,8 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+import copy
+
 
 class cliConfig(object):
     def __init__(self) -> None:
@@ -17,25 +19,34 @@ class cliConfig(object):
 
     # refresh the contents of config.h
     def config_h(self, item_string, place_cursor=False):
-        self.code_preview_dict["files"]["config.h"]["file_lines_list"] = self.cliOpt[
-            "config"
-        ]["file lines"]
-        cfg_dict = self.cliOpt["config"]["tree"]["items"]
+        disable_define = "    // "
+        enable_define = "       "
+        self.code_preview_dict["files"]["config.h"]["file_lines_list"] = copy.deepcopy(
+            self.input_config_file_lines
+        )
+        cfg_dict = self.cliOpt["config"]["var"]
         # the contents at each key represents a config.h file line
         for key in cfg_dict:
             for item in cfg_dict[key]:
-                if "QComboBox" not in str(item) and "QTreeWidgetItem" not in str(item):
-                    sub_dict = cfg_dict[key][item]["fields"]
-                    if sub_dict["3"] == True or sub_dict["3"] == False:
+                sub_dict = cfg_dict[key][item]
+                if (
+                    int(sub_dict["lineno"])
+                    >= self.config_file_boolean_define_fields_line_start
+                ):
+                    if bool(sub_dict["value"]) == True:
                         val = ""
-                    else:
-                        val = sub_dict["3"]
-                    line = (
-                        str(sub_dict["1"]) + "#define " + str(sub_dict["2"]) + str(val)
-                    )
-                    self.code_preview_dict["files"]["config.h"]["file_lines_list"][
-                        int(sub_dict["0"])
-                    ] = line
+                        _enable = enable_define
+                    elif bool(sub_dict["value"]) == False:
+                        val = ""
+                        _enable = disable_define
+                else:
+                    _enable = enable_define
+                    val = sub_dict["value"]
+
+                line = _enable + "#define " + str(item) + " " + val
+                self.code_preview_dict["files"]["config.h"]["file_lines_list"][
+                    int(sub_dict["lineno"])
+                ] = line
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
         )

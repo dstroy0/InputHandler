@@ -137,7 +137,7 @@ class dataModels(object):
         "parent index key": "",
         # key(s) to child indices
         "child index key list": [],
-    }
+    }    
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
@@ -150,44 +150,16 @@ class dataModels(object):
         "config": {            
             "var": {
                 "library settings": {
-                    "UI_MAX_COMMANDS_IN_TREE": 0,
-                    "UI_MAX_ARGS_PER_COMMAND": 0,
-                    "UI_MAX_TREE_DEPTH_PER_COMMAND": 0,
-                    "UI_MAX_NUM_CHILD_COMMANDS": 0,
-                    "UI_MAX_CMD_LEN": 0,
-                    "UI_MAX_NUM_DELIM_SEQ": 0,
-                    "UI_MAX_NUM_START_STOP_SEQ": 0,
-                    "UI_MAX_INPUT_LEN": 0,
-                    "UI_MAX_PER_CMD_MEMCMP_RANGES": 0,
-                    "UI_ECHO_ONLY": False,
+                    
                 },
                 "progmem settings": {
-                    "UI_INPUT_TYPE_STRINGS_PGM_LEN": 0,
-                    "UI_EOL_SEQ_PGM_LEN": 0,
-                    "UI_DELIM_SEQ_PGM_LEN": 0,
-                    "UI_START_STOP_SEQ_PGM_LEN": 0,
-                    "UI_PROCESS_NAME_PGM_LEN": 0,
-                    "UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN": 0,
+                    
                 },
                 "debug methods": {
-                    "DEBUG_GETCOMMANDFROMSTREAM": False,
-                    "DEBUG_READCOMMANDFROMBUFFER": False,
-                    "DEBUG_GET_TOKEN": False,
-                    "DEBUG_SUBCOMMAND_SEARCH": False,
-                    "DEBUG_ADDCOMMAND": False,
-                    "DEBUG_LAUNCH_LOGIC": False,
-                    "DEBUG_LAUNCH_FUNCTION": False,
-                    "DEBUG_INCLUDE_FREERAM": False,
+                    
                 },
                 "optional methods": {
-                    "DISABLE_listSettings": False,
-                    "DISABLE_listCommands": False,
-                    "DISABLE_getCommandFromStream": False,
-                    "DISABLE_nextArgument": False,
-                    "DISABLE_getArgument": False,
-                    "DISABLE_outputIsAvailable": False,
-                    "DISABLE_outputIsEnabled": False,
-                    "DISABLE_outputToStream": False,
+                    
                 },
             },           
         },

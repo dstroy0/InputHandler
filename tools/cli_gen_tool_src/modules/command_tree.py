@@ -28,9 +28,8 @@ from PySide6.QtWidgets import (
     QSplitter,
     QHBoxLayout,
     QSizePolicy,
-    QAbstractItemView,         
+    QAbstractItemView,
 )
-
 
 
 # TODO
@@ -123,7 +122,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
 # TODO
 class CommandParametersTableViewModel(QAbstractTableModel):
     def __init__(self, parent, parameters: dict = None) -> None:
-        super(CommandParametersTableViewModel, self).__init__()        
+        super(CommandParametersTableViewModel, self).__init__()
         self.parameters = parameters
         self._parent = parent
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
@@ -244,7 +243,7 @@ class CommandParametersTableView(QTableView):
         self.cursor_ = cursor
         self.tree_item = tree_item
         # dict_pos = self.tree_item.data(1, 0).split(",")
-        #self.setObjectName(str(self.tree_item.data(1, 0)))
+        # self.setObjectName(str(self.tree_item.data(1, 0)))
 
         self.parameters = command_parameters
         self.table_model = CommandParametersTableViewModel(self, self.parameters)
@@ -274,20 +273,20 @@ class CommandParametersArgumentsTableView(QTableView):
         super(CommandParametersArgumentsTableView, self).__init__()
         self.tree_item = tree_item
         self.logger = logger
-        self.cursor_ = cursor        
+        self.cursor_ = cursor
 
         # dict_pos = self.tree_item.data(1, 0).split(",")
-        #self.setObjectName(str(self.tree_item.data(1, 0)))
+        # self.setObjectName(str(self.tree_item.data(1, 0)))
 
         self.parameters = command_parameters
         self.table_model = CommandParametersArgumentsTableViewModel(
             self, self.parameters
         )
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.setMaximumSize(150,16777215)
+        self.setMaximumSize(150, 16777215)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
-        
+
         self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
         self.pressed.connect(self.table_model.edit_table_view)
@@ -347,49 +346,52 @@ class CommandParametersTableWidget(QWidget):
         )
         self.setLayout(self.widget_layout)
 
+
 class CommandTreeWidget(QTreeWidget):
     def __init__(self, parent, cliopt, logger) -> None:
-        super(CommandTreeWidget, self).__init__()                                
-        self.setParent(parent.ui.command_tree_container)              
+        super(CommandTreeWidget, self).__init__()
+        self.setParent(parent.ui.command_tree_container)
         self.item_clicked = None
         self._cursor = parent.qcursor
         self.logger = logger
         self.setColumnCount(2)
-        self.setColumnHidden(1,1)
+        self.setColumnHidden(1, 1)
         parent_index = cliopt["commands"]["index"]
         for item in parent_index:
             command_parameters = cliopt["commands"]["parameters"][
-                        cliopt["commands"]["index"][item]["parameters key"]
-                    ]
+                cliopt["commands"]["index"][item]["parameters key"]
+            ]
             command_string = command_parameters["commandString"]
-            command_label = QTreeWidgetItem(self.invisibleRootItem(),[command_string,""])
+            command_label = QTreeWidgetItem(
+                self.invisibleRootItem(), [command_string, ""]
+            )
             self.addTopLevelItem(command_label)
-            command_container = QTreeWidgetItem(command_label,"")            
-            command_label.addChild(command_container)            
+            command_container = QTreeWidgetItem(command_label, "")
+            command_label.addChild(command_container)
             command_table = CommandParametersTableWidget(
-            command_parameters, command_container, CommandTreeMethods.logger, self._cursor
+                command_parameters,
+                command_container,
+                CommandTreeMethods.logger,
+                self._cursor,
             )
             self.setItemWidget(command_container, 0, command_table)
             CommandTreeMethods.logger.info(
-                    "adding "
-                    + command_string
-                    + " to CommandTreeWidget Root"
-                )
+                "adding " + command_string + " to CommandTreeWidget Root"
+            )
         self.setHeaderLabel("Command Tree")
         self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)        
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.clicked.connect(self.which_clicked)
         self.pressed.connect(self.which_pressed)
-    
+
     def which_pressed(self):
         print("click")
         self.item_clicked = self.itemFromIndex(self.currentIndex())
-    
+
     def which_clicked(self):
         print("press")
         self.item_clicked = self.itemAt(self._cursor.pos())
-    
-    
+
 
 ## self.ui.command_tree methods
 class CommandTreeMethods(object):
@@ -421,13 +423,14 @@ class CommandTreeMethods(object):
             "QPushButton"
         ] = self.ui.command_tree_collapse_button
         tree_buttons["buttons"]["collapse"]["enabled"] = True
-        self.command_tree_buttons = tree_buttons        
-        
-    
+        self.command_tree_buttons = tree_buttons
+
     def build_command_tree(self):
         container = self.ui.command_tree_container
-        container.layout = QHBoxLayout(container)        
-        self.command_tree = CommandTreeWidget(self, self.cliOpt, CommandTreeMethods.logger)
+        container.layout = QHBoxLayout(container)
+        self.command_tree = CommandTreeWidget(
+            self, self.cliOpt, CommandTreeMethods.logger
+        )
         container.layout.addWidget(self.command_tree)
         container.setLayout(container.layout)
 
@@ -774,23 +777,23 @@ class CommandTreeMethods(object):
         self.command_tree_button_toggles()
 
     ## adds items to self.ui.command_tree for display
-    #def build_command_tree(self):
-        # """adds items from cliOpt to self.ui.command_tree"""
-        # command_tree = self.ui.command_tree
-        # command_tree.setSelectionMode(QAbstractItemView.SingleSelection)
-        # # command_tree.
-        # command_tree.setHeaderLabels(["Command Tree", ""])
-        # command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        # command_tree.setColumnCount(2)
-        # command_tree.setColumnHidden(1, 1)  # dict positional data
-        # # make root invisible
-        # self.cliOpt["commands"]["QTreeWidgetItem"][
-        #     "root"
-        # ] = self.ui.command_tree.invisibleRootItem()
+    # def build_command_tree(self):
+    # """adds items from cliOpt to self.ui.command_tree"""
+    # command_tree = self.ui.command_tree
+    # command_tree.setSelectionMode(QAbstractItemView.SingleSelection)
+    # # command_tree.
+    # command_tree.setHeaderLabels(["Command Tree", ""])
+    # command_tree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+    # command_tree.setColumnCount(2)
+    # command_tree.setColumnHidden(1, 1)  # dict positional data
+    # # make root invisible
+    # self.cliOpt["commands"]["QTreeWidgetItem"][
+    #     "root"
+    # ] = self.ui.command_tree.invisibleRootItem()
 
-        #self._build_command_tree()
-        #self.command_tree = CommandTreeWidget(self, self.cliOpt, CommandTreeMethods.logger)
-        #self.command_tree_button_toggles()
+    # self._build_command_tree()
+    # self.command_tree = CommandTreeWidget(self, self.cliOpt, CommandTreeMethods.logger)
+    # self.command_tree_button_toggles()
 
 
 # end of file
