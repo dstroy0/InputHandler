@@ -66,7 +66,7 @@ class ParseInputHandlerConfig(object):
             "optional methods": "0",
             "debug methods": "0",
         }
-        
+
         fields = {"value": "", "lineno": "", "index": ""}
         line_num = 0
         for line in self.input_config_file_lines:
@@ -93,10 +93,10 @@ class ParseInputHandlerConfig(object):
 
                         entry_key = str(index[key])
                         text = str(match.captured(3)).strip(" \n")
-                        entry = {text: copy.deepcopy(fields)}                        
+                        entry = {text: copy.deepcopy(fields)}
                         entry[text]["value"] = value
                         entry[text]["lineno"] = str(line_num)
-                        entry[text]["index"] = str(entry_key)                                                
+                        entry[text]["index"] = str(entry_key)
                         line_pos += match.capturedLength()
 
                         self.cliOpt["config"]["var"][key].update(entry)

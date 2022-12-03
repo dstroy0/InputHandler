@@ -155,6 +155,7 @@ class PreferencesMethods(object):
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
+    #TODO restore functionality
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {
@@ -249,45 +250,45 @@ class PreferencesMethods(object):
                 _obj_list[i].setCheckState(Qt.Unchecked)
                 i += 1
 
-        if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
-            self.session["opt"]["output"]["buffer size"]
-        ):
-            PreferencesMethods.logger.info(
-                "Buffer size in loaded file doesn't match user preference, changing to "
-                + str(self.session["opt"]["output"]["buffer size"])
-                + " bytes."
-            )
-            self.cliOpt["process output"]["var"]["buffer size"] = str(
-                self.session["opt"]["output"]["buffer size"]
-            )
-            container = self.cliOpt["process output"]["tree"]["items"]["buffer size"][
-                "QTreeWidgetItem"
-            ]
-            for item in container:
-                if isinstance(container[item], QTreeWidgetItem):
-                    container[item].setData(
-                        3, 0, str(self.cliOpt["process output"]["var"]["buffer size"])
-                    )
-        if (
-            self.cliOpt["process output"]["var"]["output stream"]
-            != self.session["opt"]["output"]["stream"]
-        ):
-            PreferencesMethods.logger.info(
-                "Output Stream in loaded file doesn't match user preference, changing to "
-                + str(self.session["opt"]["output"]["stream"])
-                + "."
-            )
-            self.cliOpt["process output"]["var"]["output stream"] = str(
-                self.session["opt"]["output"]["stream"]
-            )
-            container = self.cliOpt["process output"]["tree"]["items"]["output stream"][
-                "QTreeWidgetItem"
-            ]
-            for item in container:
-                if isinstance(container[item], QTreeWidgetItem):
-                    container[item].setData(
-                        3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
-                    )
+        # if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
+        #     self.session["opt"]["output"]["buffer size"]
+        # ):
+        #     PreferencesMethods.logger.info(
+        #         "Buffer size in loaded file doesn't match user preference, changing to "
+        #         + str(self.session["opt"]["output"]["buffer size"])
+        #         + " bytes."
+        #     )
+        #     self.cliOpt["process output"]["var"]["buffer size"] = str(
+        #         self.session["opt"]["output"]["buffer size"]
+        #     )
+        #     container = self.cliOpt["process output"]["tree"]["items"]["buffer size"][
+        #         "QTreeWidgetItem"
+        #     ]
+        #     for item in container:
+        #         if isinstance(container[item], QTreeWidgetItem):
+        #             container[item].setData(
+        #                 3, 0, str(self.cliOpt["process output"]["var"]["buffer size"])
+        #             )
+        # if (
+        #     self.cliOpt["process output"]["var"]["output stream"]
+        #     != self.session["opt"]["output"]["stream"]
+        # ):
+        #     PreferencesMethods.logger.info(
+        #         "Output Stream in loaded file doesn't match user preference, changing to "
+        #         + str(self.session["opt"]["output"]["stream"])
+        #         + "."
+        #     )
+        #     self.cliOpt["process output"]["var"]["output stream"] = str(
+        #         self.session["opt"]["output"]["stream"]
+        #     )
+        #     container = self.cliOpt["process output"]["tree"]["items"]["output stream"][
+        #         "QTreeWidgetItem"
+        #     ]
+        #     for item in container:
+        #         if isinstance(container[item], QTreeWidgetItem):
+        #             container[item].setData(
+        #                 3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
+        #             )
         PreferencesMethods.logger.info("User preferences set.")
 
 
