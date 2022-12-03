@@ -601,9 +601,7 @@
                 <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabel</span><span class="p">(</span><span class="s2">&quot;Command Tree&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
-        <span class="c1">#self.widget_container.layout.addWidget(self)  </span>
-        <span class="c1">#self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">which_clicked</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">which_pressed</span><span class="p">)</span>
     
@@ -619,15 +617,6 @@
 
 <span class="c1">## self.ui.command_tree methods</span>
 <div class="viewcode-block" id="CommandTreeMethods"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods">[docs]</a><span class="k">class</span> <span class="nc">CommandTreeMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;All methods related to command tree manipulation</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        object (class): base class</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        None: None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c1">## CommandTreeMethods constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;constructor method&quot;&quot;&quot;</span>
