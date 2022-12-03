@@ -128,9 +128,7 @@ class DelimitersTableViewModel(QAbstractTableModel):
 
     def insert_row_move_buttons(self, row: int):
         self.remove_row_buttons.append(QPushButton())
-        self.remove_row_buttons[row].setIcon(
-            self.remove_row_button_icon
-        )
+        self.remove_row_buttons[row].setIcon(self.remove_row_button_icon)
         index = self.index(row, 0)
         self._parent.setIndexWidget(index, None)
         index = self.index(row, 1)
@@ -170,7 +168,7 @@ class DelimitersTableViewModel(QAbstractTableModel):
         index = self.index(self.rowCount() - 1, 1)
         self._parent.setIndexWidget(index, None)
         index = self.index(self.rowCount() - 1, 0)
-        self._parent.setIndexWidget(index, self._parent.add_row_button)
+        self._parent.setIndexWidget(index, self.add_row_button)
         self.endRemoveRows()
         self.dataChanged.emit(parent, parent)
         self.layoutChanged.emit()
@@ -265,7 +263,7 @@ class DelimitersTableView(QTableView):
         logger,
         cursor,
         container,
-        cliopt,        
+        cliopt,
     ) -> None:
         super(DelimitersTableView, self).__init__()
         self.logger = logger
@@ -278,17 +276,14 @@ class DelimitersTableView(QTableView):
         self.delimiters = cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]
         self.remove_row_buttons = []
         self.add_row_button = QPushButton("Add Delimiter")
-        
-        self.table_model = DelimitersTableViewModel(
-            self
-        )
-        self.setModel(self.table_model)        
+
+        self.table_model = DelimitersTableViewModel(self)
+        self.setModel(self.table_model)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         parent.setItemWidget(container, 0, self)
 
-        
         index = self.table_model.index(self.table_model.rowCount() - 1, 0)
         self.setIndexWidget(index, self.add_row_button)
 
@@ -298,7 +293,7 @@ class DelimitersTableView(QTableView):
             self.remove_row_buttons[i].clicked.connect(self.table_model.rr)
 
         self.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        
+
         self.add_row_button.clicked.connect(self.table_model.ar)
         self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
@@ -320,9 +315,11 @@ class DelimitersTableView(QTableView):
 class SettingsTreeWidget(QTreeWidget):
     def __init__(self, parent, cliopt, session, logger) -> None:
         super(SettingsTreeWidget, self).__init__()
+        self.update_code = parent.update_code
+        self.loading = parent.loading
         self.setParent(parent.ui.settings_tree_container)
         self.items = []
-        self.tables = []                        
+        self.tables = []
         self.default_settings_tree_values = parent.default_settings_tree_values
         self._parent = parent
         self.cliopt = cliopt
@@ -473,9 +470,7 @@ class SettingsTreeWidget(QTreeWidget):
         # add parent tree item to root
         cursor = self._cursor
         logger = self.logger
-        table = DelimitersTableView(
-            self, logger, cursor, container, self.cliopt
-        )
+        table = DelimitersTableView(self, logger, cursor, container, self.cliopt)
         self.tables.append(table)
         index_of_child += 1
         return index_of_child
