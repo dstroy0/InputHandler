@@ -361,7 +361,7 @@
         <span class="s2">&quot;parent index key&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="c1"># key(s) to child indices</span>
         <span class="s2">&quot;child index key list&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="p">}</span>
+    <span class="p">}</span>    
 
     <span class="c1">## This dict contains all pertinent information about a CLI, widget objects are created at runtime.</span>
     <span class="n">cliopt_model</span> <span class="o">=</span> <span class="p">{</span>
@@ -374,44 +374,16 @@
         <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>            
             <span class="s2">&quot;var&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;library settings&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;UI_MAX_COMMANDS_IN_TREE&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_ARGS_PER_COMMAND&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_TREE_DEPTH_PER_COMMAND&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_NUM_CHILD_COMMANDS&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_CMD_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_NUM_DELIM_SEQ&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_NUM_START_STOP_SEQ&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_INPUT_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_MAX_PER_CMD_MEMCMP_RANGES&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_ECHO_ONLY&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    
                 <span class="p">},</span>
                 <span class="s2">&quot;progmem settings&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;UI_INPUT_TYPE_STRINGS_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_EOL_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_DELIM_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_START_STOP_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_PROCESS_NAME_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    
                 <span class="p">},</span>
                 <span class="s2">&quot;debug methods&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;DEBUG_GETCOMMANDFROMSTREAM&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_READCOMMANDFROMBUFFER&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_GET_TOKEN&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_SUBCOMMAND_SEARCH&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_ADDCOMMAND&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_LAUNCH_LOGIC&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_LAUNCH_FUNCTION&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DEBUG_INCLUDE_FREERAM&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    
                 <span class="p">},</span>
                 <span class="s2">&quot;optional methods&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;DISABLE_listSettings&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_listCommands&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_getCommandFromStream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_nextArgument&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_getArgument&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_outputIsAvailable&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_outputIsEnabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">&quot;DISABLE_outputToStream&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    
                 <span class="p">},</span>
             <span class="p">},</span>           
         <span class="p">},</span>
