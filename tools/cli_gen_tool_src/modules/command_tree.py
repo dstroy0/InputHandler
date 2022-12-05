@@ -347,19 +347,154 @@ class CommandParametersTableWidget(QWidget):
         self.setLayout(self.widget_layout)
 
 
-class CommandTreeWidget(QTreeWidget):
+class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
-        self.item_clicked = None
+        self.cliopt = cliopt
+        self.active_item = None
         self._cursor = parent.qcursor
         self.logger = logger
         self.setColumnCount(2)
         self.setColumnHidden(1, 1)
-        parent_index = cliopt["commands"]["index"]
-        for item in parent_index:
-            command_parameters = cliopt["commands"]["parameters"][
-                cliopt["commands"]["index"][item]["parameters key"]
+        self.command_index = cliopt["commands"]["index"]
+        self.setHeaderLabel("Command Tree")
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+        self.build_tree()
+
+        self.clicked.connect(self.which_clicked)
+        self.pressed.connect(self.which_pressed)
+        self.itemChanged.connect(self.item_changed)
+
+    def item_changed(self, item, column):
+        self.active_item = item
+        
+    def make_command_index(self):                
+        primary_id_key = self.cliopt["commands"]["primary id key"]
+        self.cliopt["commands"]["index"].update(
+            {
+                primary_id_key: copy.deepcopy(
+                    dataModels.parameters_index_struct
+                )
+            }
+        )
+        self.cliopt["commands"]["index"][primary_id_key][
+            "parameters key"
+        ] = str(primary_id_key)
+        self.cliopt["commands"]["index"][primary_id_key][
+            "root index key"
+        ] = str(primary_id_key)
+        self.cliopt["commands"]["index"][primary_id_key][
+            "parent index key"
+        ] = str(primary_id_key)
+
+    def add_command_to_tree(self, parent_item: QTreeWidgetItem):
+        self.logger.info("adding command to tree")
+        
+        primary_id_key = int(self.cliopt["commands"]["primary id key"])
+        number_of_commands = int(self.cliopt["commands"]["number of commands"])
+                
+        self.make_command_index()
+        if parent_item == self.invisibleRootItem():
+            item = self.build_command(parent_item)
+            item.setData(1,0,str(primary_id_key))            
+            self.addTopLevelItem(item)
+        else:
+            item = self.build_command(parent_item)
+            item.setData(1,0,str(primary_id_key))
+            parent_item.addChild(item)
+        
+        self.cliopt["commands"]["primary id key"] = str(primary_id_key + 1)
+        self.cliopt["commands"]["number of commands"] = str(number_of_commands + 1)
+        
+    def remove_command_from_tree(self, search_string=None):
+        if search_string != None:
+            item_list = self.findItems(search_string, Qt.MatchExactly,0)
+            if bool(item_list):
+                item = item_list[0]
+            else:
+                self.logger.info(f"couldnt find {search_string} to remove it from the tree")
+                return -1
+        else:
+            item = self.currentItem()
+        if item == self.invisibleRootItem():
+            self.logger.warning(f"cannot delete self.invisibleRootItem()!")
+            return -1
+        self.logger.info("removing command from tree")
+                
+        number_of_commands = int(self.cliopt["commands"]["number of commands"])                    
+        
+        def remove_children(item:QTreeWidgetItem, number_of_commands):
+            if item.childCount() > 0:
+                child_list = []
+                list_len = item.childCount()
+                for i in reversed(range(list_len)):
+                    child_list.append(item.child(i))                    
+                for i in range(list_len):
+                    number_of_commands = clean_up(child_list[i], number_of_commands)    
+            return number_of_commands
+        
+        def clean_up(item:QTreeWidgetItem, number_of_commands):            
+            command_index = self.get_command_index(item)            
+            del item            
+            if command_index["parameters key"] in self.cliopt["commands"]["parameters"]:
+                del self.cliopt["commands"]["parameters"][command_index["parameters key"]]            
+            if command_index["parameters key"] in self.cliopt["commands"]["index"]:
+                del self.cliopt["commands"]["index"][command_index["parameters key"]]
+            number_of_commands -= 1
+            return number_of_commands
+        
+        if item.parent() == self.invisibleRootItem():            
+            command_index = self.get_command_index(item)
+            number_of_commands = remove_children(item, number_of_commands)
+            index = self.indexFromItem(item)
+            item = self.takeTopLevelItem(index)
+            number_of_commands = clean_up(item, number_of_commands)
+        else:
+            command_index = self.get_command_index(item)
+            number_of_commands = remove_children(item, number_of_commands)
+            parent = item.parent()
+            parent.removeChild(item)
+            number_of_commands = clean_up(item, number_of_commands)
+
+        self.cliopt["commands"]["number of commands"] = str(number_of_commands)
+
+    def get_command_index(self, item):        
+        item_data = str(item.data(1, 0))
+        if len(item_data) < 1:
+            return -1
+        else:            
+            return self.cliopt["commands"]["index"][item_data]
+
+    def build_command(self, parent_item):
+        primary_id_key = int(self.cliopt["commands"]["primary id key"])
+        command_index = self.cliopt["commands"]["primary id key"]
+        command_parameters = self.cliopt["commands"]["parameters"][
+            self.command_index[command_index]["parameters key"]
+        ]
+        command_string = command_parameters["commandString"]
+        command_label = QTreeWidgetItem(parent_item, [command_string, ""])
+        command_label.setData(1,0,str(primary_id_key))     
+        command_container = QTreeWidgetItem(command_label, "")
+        command_container.setData(1,0,str(primary_id_key))     
+        command_label.addChild(command_container)
+        command_table = CommandParametersTableWidget(
+            command_parameters,
+            command_container,
+            self.logger,
+            self._cursor,
+        )
+        self.setItemWidget(command_container, 0, command_table)
+        self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
+        return command_label
+
+    def build_tree(self):
+        self.logger.info("Building command tree.")
+        for item in self.command_index:
+            command_parameters = self.cliopt["commands"]["parameters"][
+                self.cliopt["commands"]["index"][item]["parameters key"]
             ]
             command_string = command_parameters["commandString"]
             command_label = QTreeWidgetItem(
@@ -371,26 +506,19 @@ class CommandTreeWidget(QTreeWidget):
             command_table = CommandParametersTableWidget(
                 command_parameters,
                 command_container,
-                CommandTreeMethods.logger,
+                self.logger,
                 self._cursor,
             )
             self.setItemWidget(command_container, 0, command_table)
-            CommandTreeMethods.logger.info(
-                "adding " + command_string + " to CommandTreeWidget Root"
-            )
-        self.setHeaderLabel("Command Tree")
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        self.clicked.connect(self.which_clicked)
-        self.pressed.connect(self.which_pressed)
+            self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
 
     def which_pressed(self):
         print("click")
-        self.item_clicked = self.itemFromIndex(self.currentIndex())
+        self.active_item = self.itemFromIndex(self.currentIndex())
 
     def which_clicked(self):
         print("press")
-        self.item_clicked = self.itemAt(self._cursor.pos())
+        self.active_item = self.itemAt(self._cursor.pos())
 
 
 ## self.ui.command_tree methods
@@ -433,6 +561,7 @@ class CommandTreeMethods(object):
         )
         container.layout.addWidget(self.command_tree)
         container.setLayout(container.layout)
+        return self.command_tree
 
     ## adds a single command to the tree
     def add_qtreewidgetitem(

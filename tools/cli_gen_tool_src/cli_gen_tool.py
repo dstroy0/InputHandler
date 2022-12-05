@@ -218,6 +218,8 @@ class MainWindow(
         self.child_command_parent = None
         self.selected_command = None
         self.selected_command_is_root = False
+        # self.settings_tree = ""
+        # self.command_tree = ""
 
         # code preview interaction
         self.user_resizing_code_preview_box = False
@@ -237,7 +239,7 @@ class MainWindow(
         # session db
         self.session = {}
         self.input_config_file_lines = []
-        
+
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
@@ -297,19 +299,17 @@ class MainWindow(
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
         # MainWindow actions
-        # self.mainwindow_menu_bar_actions_setup()
-        # self.mainwindow_button_actions_setup()
+        self.mainwindow_menu_bar_actions_setup()
+        self.mainwindow_button_actions_setup()
         # end MainWindow actions
 
-        # tab 1
-        self.build_settings_tree()
+        # settings and command trees
+        self.command_tree = self.build_command_tree()
+        self.settings_tree = self.build_settings_tree()
 
         # code preview trees
         self.build_code_preview_tree()
 
-        # tab 2
-        # command_tree widget setup
-        self.build_command_tree()
         self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
 
         self.display_initial_code_preview()

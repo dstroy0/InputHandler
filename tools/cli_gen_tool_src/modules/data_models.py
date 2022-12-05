@@ -142,9 +142,7 @@ class dataModels(object):
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
-        "var": {
-            "primary id key": 0,
-            "number of commands": 0,
+        "var": {            
             "tool version": str(version),
         },        
         "config": {            
@@ -164,7 +162,7 @@ class dataModels(object):
             },           
         },
         "process output": {
-            "var": {"buffer size": 0, "output stream": None},            
+            "var": {"buffer size": "0", "output stream": None},            
         },
         "builtin methods": {
             "var": {
@@ -180,11 +178,13 @@ class dataModels(object):
                 "end of line characters": "\r\n",
                 "input control char sequence": "##",
                 "wildcard char": "*",
-                "data delimiter sequences": {0: " ", 1: ","},
-                "start stop data delimiter sequences": {0: '\\"', 1: '\\"'},
+                "data delimiter sequences": {"0": " ", "1": ","},
+                "start stop data delimiter sequences": {"0": '\\"', "1": '\\"'},
             },            
         },
         "commands": {
+            "primary id key": "0",
+            "number of commands": "0",
             "index": {},
             "parameters": {},           
         },

@@ -315,6 +315,7 @@ class DelimitersTableView(QTableView):
 class SettingsTreeWidget(QTreeWidget):
     def __init__(self, parent, cliopt, session, logger) -> None:
         super(SettingsTreeWidget, self).__init__()
+        self.command_tree = parent.command_tree
         self.update_code = parent.update_code
         self.loading = parent.loading
         self.setParent(parent.ui.settings_tree_container)
@@ -368,7 +369,9 @@ class SettingsTreeWidget(QTreeWidget):
 
                     for item in SettingsTreeMethods._tree["config"][subsection]:
                         # dict_pos = subsection + "," + str(index_of_child) + "," + item
-                        var_initial_val = self.cliopt["config"]["var"][subsection][item]
+                        var_initial_val = self.cliopt["config"]["var"][subsection][
+                            item
+                        ]["value"]
                         has_combobox = False
                         tooltip = SettingsTreeMethods._tree[dict_key][subsection][item][
                             "tooltip"
@@ -503,6 +506,7 @@ class SettingsTreeWidget(QTreeWidget):
             _cmb = QComboBox()
             _cmb.addItem("Disabled", False)
             _cmb.addItem("Enabled", True)
+
             if (
                 combobox_item_tooltips
                 and combobox_item_tooltips[0] != None
@@ -567,10 +571,11 @@ class SettingsTreeWidget(QTreeWidget):
                 "tooltip"
             ]
         if object_list[0] == "builtin methods":
-            _twi = self.cliopt["builtin methods"]["tree"]["items"][object_list[2]][
-                "QTreeWidgetItem"
-            ][object_list[1]]
-            if index == 1:
+
+            _twi = self.currentItem()
+            combobox = self.itemWidget(_twi, 3)
+
+            if combobox.currentText() == "Enabled":
                 self.cliopt[object_list[0]]["var"][object_list[2]] = True
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " enabled"
@@ -594,10 +599,6 @@ class SettingsTreeWidget(QTreeWidget):
                 or object_list[2] == "listCommands"
                 or object_list[2] == "listSettings"
             ):
-                combobox = self.cliopt["builtin methods"]["tree"]["items"][
-                    object_list[2]
-                ]["QComboBox"][object_list[1]]
-
                 if object_list[2] == "defaultFunction":
                     if combobox.currentText() == "Enabled":
                         self.cliopt["builtin methods"]["var"]["defaultFunction"] = True
@@ -613,7 +614,7 @@ class SettingsTreeWidget(QTreeWidget):
                     ):
                         list_commands = OrderedDict()
                         list_commands = {
-                            str(self.cliopt["var"]["primary id key"]): dict(
+                            str(self.cliopt["commands"]["primary id key"]): dict(
                                 zip(
                                     dataModels.command_parameters_dict_keys_list,
                                     dataModels.LCcmdParam,
@@ -621,34 +622,12 @@ class SettingsTreeWidget(QTreeWidget):
                             )
                         }
                         self.cliopt["commands"]["parameters"].update(list_commands)
-                        self.cliopt["commands"]["index"].update(
-                            {
-                                self.cliopt["var"]["primary id key"]: copy.deepcopy(
-                                    dataModels.parameters_index_struct
-                                )
-                            }
+
+                        self.command_tree.add_command_to_tree(                         
+                            self.command_tree.invisibleRootItem(),
                         )
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["parameters key"] = str(self.cliopt["var"]["primary id key"])
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["root index key"] = str(self.cliopt["var"]["primary id key"])
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["parent index key"] = str(
-                            self.cliopt["var"]["primary id key"]
-                        )
-                        self.add_qtreewidgetitem(
-                            self.cliopt["commands"]["QTreeWidgetItem"]["root"],
-                            str(self.cliopt["var"]["primary id key"]),
-                        )
-                        self.cliopt["var"]["primary id key"] = str(
-                            int(self.cliopt["var"]["primary id key"]) + 1
-                        )
-                        self.cliopt["var"]["number of commands"] = str(
-                            int(self.cliopt["var"]["number of commands"]) + 1
-                        )
+                    else:
+                        self.command_tree.remove_command_from_tree("listCommands")
 
                     if (
                         combobox.currentText() == "Enabled"
@@ -656,7 +635,7 @@ class SettingsTreeWidget(QTreeWidget):
                     ):
                         list_settings = OrderedDict()
                         list_settings = {
-                            str(self.cliopt["var"]["primary id key"]): dict(
+                            str(self.cliopt["commands"]["primary id key"]): dict(
                                 zip(
                                     dataModels.command_parameters_dict_keys_list,
                                     dataModels.LScmdParam,
@@ -664,35 +643,12 @@ class SettingsTreeWidget(QTreeWidget):
                             )
                         }
                         self.cliopt["commands"]["parameters"].update(list_settings)
-                        self.cliopt["commands"]["index"].update(
-                            {
-                                self.cliopt["var"]["primary id key"]: copy.deepcopy(
-                                    dataModels.parameters_index_struct
-                                )
-                            }
-                        )
 
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["parameters key"] = str(self.cliopt["var"]["primary id key"])
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["root index key"] = str(self.cliopt["var"]["primary id key"])
-                        self.cliopt["commands"]["index"][
-                            self.cliopt["var"]["primary id key"]
-                        ]["parent index key"] = str(
-                            self.cliopt["var"]["primary id key"]
+                        self.command_tree.add_command_to_tree(
+                            self.command_tree.invisibleRootItem(),
                         )
-                        self.add_qtreewidgetitem(
-                            self.cliopt["commands"]["QTreeWidgetItem"]["root"],
-                            str(self.cliopt["var"]["primary id key"]),
-                        )
-                        self.cliopt["var"]["primary id key"] = str(
-                            int(self.cliopt["var"]["primary id key"]) + 1
-                        )
-                        self.cliopt["var"]["number of commands"] = str(
-                            int(self.cliopt["var"]["number of commands"]) + 1
-                        )
+                    else:
+                        self.command_tree.remove_command_from_tree("listSettings")
 
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)
@@ -700,45 +656,22 @@ class SettingsTreeWidget(QTreeWidget):
             self.update_code("setup.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
-            _twi = self.cliopt["config"]["tree"]["items"][object_list[0]][
-                "QTreeWidgetItem"
-            ][object_list[1]]
-            combobox = self.cliopt["config"]["tree"]["items"][object_list[0]][
-                "QComboBox"
-            ][object_list[1]]
-            sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
-                object_list[1]
-            ]["fields"]
+            _twi = self.currentItem()
+            combobox = self.itemWidget(_twi, 3)
+            object_data = self.get_object_data(_twi)
+            info = self.cliopt["config"]["var"][object_data["pos"][2]]
+
             if combobox.currentText() == "Enabled":
-                sub_dict["1"] = "       "
-                sub_dict["3"] = True
-                SettingsTreeMethods.logger.info(
-                    str(sub_dict["2"].strip("\n")) + " enabled"
-                )
+                info["value"] = True
+                self.log_settings_tree_edit(_twi)
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
-            elif (
-                self.cliopt["config"]["tree"]["items"][object_list[0]]["QComboBox"][
-                    object_list[1]
-                ].currentText()
-                == "Disabled"
-            ):
-                sub_dict["1"] = "    // "
-                sub_dict["3"] = False
-                SettingsTreeMethods.logger.info(
-                    str(sub_dict["2"].strip("\n")) + " disabled"
-                )
+            elif combobox.currentText() == "Disabled":
+                info["value"] = False
+                self.log_settings_tree_edit(_twi)
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
-            SettingsTreeMethods.logger.debug(
-                "self.cliopt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                    object_list[0], object_list[1]
-                ),
-                json.dumps(
-                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
-                ),
-            )
-            self.update_code("config.h", sub_dict["2"], True)
+            self.update_code("config.h", object_data["pos"]["2"], True)
 
     ## this is called after determining if an item is editable
     def edit_settings_tree_item(self, item):
@@ -747,19 +680,7 @@ class SettingsTreeWidget(QTreeWidget):
             # self.edit_table_widget_item(widget_present)
             widget_present.edit(widget_present.currentIndex())
             return
-        object_string = str(item.data(4, 0))
-        object_string = object_string.strip()
-        object_list = object_string.split(",")
-        SettingsTreeMethods.logger.info(
-            "User editing "
-            + str(object_list[2])
-            + " in "
-            + str(object_list[0])
-            + ", current value "
-            + str(item.data(3, 0))
-            + " "
-            + str(item.data(2, 0))
-        )
+        self.log_settings_tree_edit(item)
         self.editItem(item, 3)
 
     ## called when a user "activates" a tree item (by pressing enter)
@@ -781,73 +702,91 @@ class SettingsTreeWidget(QTreeWidget):
         if column == 3:
             self.edit_settings_tree_item(item)
 
+    def log_settings_tree_edit(self, item, object_data=None):
+        if object_data == None:
+            object_data = self.get_object_data(item)
+        info = self.cliopt["config"]["var"][object_data["pos"][2]]
+        val_type = object_data["type"]
+        val = object_data["value"]
+        if self.loading:
+            SettingsTreeMethods.logger.info(
+                "set "
+                + object_data["pos"][2]
+                + " to "
+                + "'"
+                + str(val)
+                + "' "
+                + str(val_type)
+            )
+        else:
+            SettingsTreeMethods.logger.info(
+                "User set "
+                + object_data["pos"][2]
+                + " to "
+                + "'"
+                + str(val)
+                + "' "
+                + str(val_type)
+            )
+        SettingsTreeMethods.logger.debug(
+            str("self.cliOpt['config']['var']['{}']:".format(object_data["pos"][2]))
+            + "\n"
+            + str(
+                json.dumps(info, indent=2, sort_keys=False, default=lambda o: "object")
+            )
+        )
+
+    def get_object_data(self, item):
+        retval = {"type": "", "value": "", "pos": []}
+        object_data_pos_string = str(item.data(4, 0))
+        object_data_pos_list = object_data_pos_string.strip("\n").split(",")
+        if len(object_data_pos_list) < 2:
+            return -1
+        else:
+            retval["type"] = str(item.data(2, 0))
+            retval["value"] = str(item.data(3, 0))
+            retval["pos"] = object_data_pos_list
+            return retval
+
     ## this is called any time an item changes; any time any column edits take place on settings tree, user or otherwise
     def settings_tree_edit_complete(self, item, col):
-        def log_edit(item, object_list, val):
-            val_type = item.data(2, 0)
-            if self.loading:
-                SettingsTreeMethods.logger.info(
-                    "set "
-                    + object_list[2]
-                    + " to "
-                    + "'"
-                    + str(val)
-                    + "' "
-                    + str(val_type)
-                )
-            else:
-                SettingsTreeMethods.logger.info(
-                    "User set "
-                    + object_list[2]
-                    + " to "
-                    + "'"
-                    + str(val)
-                    + "' "
-                    + str(val_type)
-                )
-
         self.prompt_to_save = True
         self.windowtitle_set = False
         if col != 3:
             return
-        val = str(item.data(3, 0))
+        object_data = self.get_object_data(item)
+
+        val = object_data["value"]
         if "'" in val:
             return  # already repr
-        object_string = str(item.data(4, 0))
-        object_list = object_string.strip("\n").split(",")
 
-        # dict position is 3 items
-        if len(object_list) < 2:
+        if object_data["pos"][0] == "builtin methods":
             return
-        if object_list[0] == "builtin methods":
-            return
-        object_list[1] = int(str(object_list[1]))
+        object_data["pos"][1] = int(str(object_data["pos"][1]))
 
         # process output
-        if object_list[0] == "process output":
+        if object_data["pos"][0] == "process output":
             item.setText(3, str(repr(val)))
-            self.cliopt["process output"]["var"][object_list[2]] = val
-            log_edit(item, object_list, val)
-            self.update_code("setup.h", object_list[2], True)
-            if object_list[2] == "outputToStream":
-                self.update_code("setup.cpp", object_list[2], True)
-            if object_list[2] == "defaultFunction":
-                self.update_code("functions.h", object_list[2], True)
-                self.update_code("functions.cpp", object_list[2], True)
+            self.cliopt["process output"]["var"][object_data["pos"][2]] = val
+            self.log_settings_tree_edit(item, object_data)
+            self.update_code("setup.h", object_data["pos"][2], True)
+            if object_data["pos"][2] == "outputToStream":
+                self.update_code("setup.cpp", object_data["pos"][2], True)
+            if object_data["pos"][2] == "defaultFunction":
+                self.update_code("functions.h", object_data["pos"][2], True)
+                self.update_code("functions.cpp", object_data["pos"][2], True)
             return
 
         # process parameters (setup.h)
-        if object_list[0] == "process parameters":
+        if object_data["pos"][0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
-            log_edit(item, object_list, val)
+            self.log_settings_tree_edit(item, object_data)
             self.cliopt["process parameters"]["var"][item.text(1)] = val
             self.update_code("setup.h", item.text(1), True)
             return
 
         # config.h
-        sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
-            object_list[1]
-        ]["fields"]
+        info = self.cliopt["config"]["var"][object_data["pos"][2]]
         tmp = ""
         if val == "enabled":
             tmp = True
@@ -860,26 +799,13 @@ class SettingsTreeWidget(QTreeWidget):
             else:
                 tmp = int(val)
                 item.setText(3, "'" + str(repr(tmp)) + "'")
-        if tmp == sub_dict["3"]:
+        if tmp == info["value"]:
             return
         # update the config dict
-        sub_dict["3"] = tmp
+        info["value"] = tmp
         self.update_settings_tree_type_field_text(item)
-        self.update_code("config.h", sub_dict["2"], True)
-        log_edit(item, object_list, val)
-        SettingsTreeMethods.logger.debug(
-            str(
-                "self.cliOpt['config']['tree']['items']['{}'][{}]['fields']:".format(
-                    object_list[0], object_list[1]
-                )
-            )
-            + "\n"
-            + str(
-                json.dumps(
-                    sub_dict, indent=2, sort_keys=False, default=lambda o: "object"
-                )
-            )
-        )
+        self.update_code("config.h", object_data["pos"][2], True)
+        self.log_settings_tree_edit(item, object_data)
 
     ## this is called after determining if an item is editable
     def edit_item(self, item):
@@ -888,19 +814,7 @@ class SettingsTreeWidget(QTreeWidget):
             # self.edit_table_widget_item(widget_present)
             widget_present.edit(widget_present.currentIndex())
             return
-        object_string = str(item.data(4, 0))
-        object_string = object_string.strip()
-        object_list = object_string.split(",")
-        SettingsTreeMethods.logger.info(
-            "User editing "
-            + str(object_list[2])
-            + " in "
-            + str(object_list[0])
-            + ", current value "
-            + str(item.data(3, 0))
-            + " "
-            + str(item.data(2, 0))
-        )
+        self.log_settings_tree_edit(item)
         self.editItem(item, 3)
 
 
@@ -939,6 +853,7 @@ class SettingsTreeMethods(object):
         )
         container.layout.addWidget(self.settings_tree)
         container.setLayout(container.layout)
+        return self.settings_tree
 
 
 # end of file
