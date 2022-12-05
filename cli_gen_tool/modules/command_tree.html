@@ -455,7 +455,42 @@ tree_item (QTreeWidgetItem): the tree item to be removed</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="command_tree.CommandTreeWidget">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">command_tree.</span></span><span class="sig-name descname"><span class="pre">CommandTreeWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cliopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidget</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidget</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidgetItem</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.add_command_to_tree">
+<span class="sig-name descname"><span class="pre">add_command_to_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidgetItem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.add_command_to_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.add_command_to_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.build_command">
+<span class="sig-name descname"><span class="pre">build_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.build_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.build_command" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.build_tree">
+<span class="sig-name descname"><span class="pre">build_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.build_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.build_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.get_command_index">
+<span class="sig-name descname"><span class="pre">get_command_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.get_command_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.get_command_index" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.item_changed">
+<span class="sig-name descname"><span class="pre">item_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.item_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.item_changed" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.make_command_index">
+<span class="sig-name descname"><span class="pre">make_command_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.make_command_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.make_command_index" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_tree.CommandTreeWidget.remove_command_from_tree">
+<span class="sig-name descname"><span class="pre">remove_command_from_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_tree.html#CommandTreeWidget.remove_command_from_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_tree.CommandTreeWidget.remove_command_from_tree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="command_tree.CommandTreeWidget.staticMetaObject">
 <span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CommandTreeWidget&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTreeWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#command_tree.CommandTreeWidget.staticMetaObject" title="Permalink to this definition">#</a></dt>
@@ -584,6 +619,13 @@ tree_item (QTreeWidgetItem): the tree item to be removed</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#command_tree.CommandTreeWidget"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget</span></code></a><ul>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.add_command_to_tree"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.add_command_to_tree()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.build_command"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.build_command()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.build_tree"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.build_tree()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.get_command_index"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.get_command_index()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.item_changed"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.item_changed()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.make_command_index"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.make_command_index()</span></code></a></li>
+<li><a class="reference internal" href="#command_tree.CommandTreeWidget.remove_command_from_tree"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.remove_command_from_tree()</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandTreeWidget.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.staticMetaObject</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandTreeWidget.which_clicked"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.which_clicked()</span></code></a></li>
 <li><a class="reference internal" href="#command_tree.CommandTreeWidget.which_pressed"><code class="docutils literal notranslate"><span class="pre">CommandTreeWidget.which_pressed()</span></code></a></li>

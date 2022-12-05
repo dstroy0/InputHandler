@@ -442,6 +442,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_command</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># self.settings_tree = &quot;&quot;</span>
+        <span class="c1"># self.command_tree = &quot;&quot;</span>
 
         <span class="c1"># code preview interaction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">=</span> <span class="kc">False</span>
@@ -461,7 +463,7 @@
         <span class="c1"># session db</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span> <span class="o">=</span> <span class="p">[]</span>
-        
+
         <span class="c1"># settings object; platform independent</span>
         <span class="c1"># https://doc.qt.io/qt-6/qsettings.html</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">(</span><span class="s2">&quot;InputHandler&quot;</span><span class="p">,</span> <span class="s2">&quot;cli_gen_tool&quot;</span><span class="p">)</span>
@@ -521,19 +523,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span>
 
         <span class="c1"># MainWindow actions</span>
-        <span class="c1"># self.mainwindow_menu_bar_actions_setup()</span>
-        <span class="c1"># self.mainwindow_button_actions_setup()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_menu_bar_actions_setup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_button_actions_setup</span><span class="p">()</span>
         <span class="c1"># end MainWindow actions</span>
 
-        <span class="c1"># tab 1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">build_settings_tree</span><span class="p">()</span>
+        <span class="c1"># settings and command trees</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command_tree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_settings_tree</span><span class="p">()</span>
 
         <span class="c1"># code preview trees</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">build_code_preview_tree</span><span class="p">()</span>
 
-        <span class="c1"># tab 2</span>
-        <span class="c1"># command_tree widget setup</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">build_command_tree</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">display_initial_code_preview</span><span class="p">()</span>
