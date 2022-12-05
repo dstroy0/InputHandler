@@ -623,7 +623,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">make_command_index</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">parent_item</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">():</span>
             <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">primary_id_key</span><span class="p">))</span>            
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">primary_id_key</span><span class="p">))</span>                        
             <span class="bp">self</span><span class="o">.</span><span class="n">addTopLevelItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
@@ -660,7 +660,7 @@
                     <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">clean_up</span><span class="p">(</span><span class="n">child_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">number_of_commands</span><span class="p">)</span>    
             <span class="k">return</span> <span class="n">number_of_commands</span>
         
-        <span class="k">def</span> <span class="nf">clean_up</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">):</span>            
+        <span class="k">def</span> <span class="nf">clean_up</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">):</span>                      
             <span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>            
             <span class="k">del</span> <span class="n">item</span>            
             <span class="k">if</span> <span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
@@ -670,18 +670,16 @@
             <span class="n">number_of_commands</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="n">number_of_commands</span>
         
-        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">():</span>            
-            <span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">remove_children</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">():</span>                                    
             <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexFromItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeTopLevelItem</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">clean_up</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">remove_children</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>
+            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">remove_children</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>            
+        <span class="k">else</span><span class="p">:</span>            
             <span class="n">parent</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-            <span class="n">parent</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">clean_up</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
+            <span class="n">number_of_commands</span> <span class="o">=</span> <span class="n">remove_children</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">)</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>            
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_commands</span><span class="p">)</span></div>
 
