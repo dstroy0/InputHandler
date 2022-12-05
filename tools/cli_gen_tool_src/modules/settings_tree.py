@@ -591,64 +591,53 @@ class SettingsTreeWidget(QTreeWidget):
                     _twi.setToolTip(col, _tt[0])
 
             self.update_code("setup.h", object_list[2], True)
+
             if object_list[2] == "outputToStream":
                 self.update_code("setup.cpp", object_list[2], True)
 
-            if (
-                object_list[2] == "defaultFunction"
-                or object_list[2] == "listCommands"
-                or object_list[2] == "listSettings"
-            ):
-                if object_list[2] == "defaultFunction":
-                    if combobox.currentText() == "Enabled":
-                        self.cliopt["builtin methods"]["var"]["defaultFunction"] = True
-                    elif combobox.currentText() == "Disabled":
-                        self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
+            elif object_list[2] == "defaultFunction":
+                if combobox.currentText() == "Enabled":
+                    self.cliopt["builtin methods"]["var"]["defaultFunction"] = True
+                else:
+                    self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
 
-                elif (
-                    object_list[2] == "listCommands" or object_list[2] == "listSettings"
-                ):
-                    if (
-                        combobox.currentText() == "Enabled"
-                        and object_list[2] == "listCommands"
-                    ):
-                        list_commands = OrderedDict()
-                        list_commands = {
-                            str(self.cliopt["commands"]["primary id key"]): dict(
-                                zip(
-                                    dataModels.command_parameters_dict_keys_list,
-                                    dataModels.LCcmdParam,
-                                )
+            elif object_list[2] == "listCommands":
+                if combobox.currentText() == "Enabled":
+                    list_commands = OrderedDict()
+                    list_commands = {
+                        str(self.cliopt["commands"]["primary id key"]): dict(
+                            zip(
+                                dataModels.command_parameters_dict_keys_list,
+                                dataModels.LCcmdParam,
                             )
-                        }
-                        self.cliopt["commands"]["parameters"].update(list_commands)
-
-                        self.command_tree.add_command_to_tree(                         
-                            self.command_tree.invisibleRootItem(),
                         )
-                    else:
-                        self.command_tree.remove_command_from_tree("listCommands")
+                    }
+                    self.cliopt["commands"]["parameters"].update(list_commands)
 
-                    if (
-                        combobox.currentText() == "Enabled"
-                        and object_list[2] == "listSettings"
-                    ):
-                        list_settings = OrderedDict()
-                        list_settings = {
-                            str(self.cliopt["commands"]["primary id key"]): dict(
-                                zip(
-                                    dataModels.command_parameters_dict_keys_list,
-                                    dataModels.LScmdParam,
-                                )
+                    self.command_tree.add_command_to_tree(
+                        self.command_tree.invisibleRootItem(),
+                    )
+                else:
+                    self.command_tree.remove_command_from_tree("listCommands")
+
+            elif object_list[2] == "listSettings":
+                if combobox.currentText() == "Enabled":
+                    list_settings = OrderedDict()
+                    list_settings = {
+                        str(self.cliopt["commands"]["primary id key"]): dict(
+                            zip(
+                                dataModels.command_parameters_dict_keys_list,
+                                dataModels.LScmdParam,
                             )
-                        }
-                        self.cliopt["commands"]["parameters"].update(list_settings)
-
-                        self.command_tree.add_command_to_tree(
-                            self.command_tree.invisibleRootItem(),
                         )
-                    else:
-                        self.command_tree.remove_command_from_tree("listSettings")
+                    }
+                    self.cliopt["commands"]["parameters"].update(list_settings)
+
+                    self.command_tree.add_command_to_tree(
+                        self.command_tree.invisibleRootItem(),
+                    )
+                else:
+                    self.command_tree.remove_command_from_tree("listSettings")
 
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)

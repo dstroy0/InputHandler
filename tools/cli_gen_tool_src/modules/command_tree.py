@@ -399,7 +399,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.make_command_index()
         if parent_item == self.invisibleRootItem():
             item = self.build_command(parent_item)
-            item.setData(1,0,str(primary_id_key))            
+            item.setData(1,0,str(primary_id_key))                        
             self.addTopLevelItem(item)
         else:
             item = self.build_command(parent_item)
@@ -436,7 +436,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                     number_of_commands = clean_up(child_list[i], number_of_commands)    
             return number_of_commands
         
-        def clean_up(item:QTreeWidgetItem, number_of_commands):            
+        def clean_up(item:QTreeWidgetItem, number_of_commands):                      
             command_index = self.get_command_index(item)            
             del item            
             if command_index["parameters key"] in self.cliopt["commands"]["parameters"]:
@@ -446,18 +446,16 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             number_of_commands -= 1
             return number_of_commands
         
-        if item.parent() == self.invisibleRootItem():            
-            command_index = self.get_command_index(item)
-            number_of_commands = remove_children(item, number_of_commands)
+        if item.parent() == self.invisibleRootItem():                                    
             index = self.indexFromItem(item)
             item = self.takeTopLevelItem(index)
-            number_of_commands = clean_up(item, number_of_commands)
-        else:
-            command_index = self.get_command_index(item)
-            number_of_commands = remove_children(item, number_of_commands)
+            number_of_commands = remove_children(item, number_of_commands)            
+        else:            
             parent = item.parent()
-            parent.removeChild(item)
-            number_of_commands = clean_up(item, number_of_commands)
+            if parent == None:
+                parent = self.invisibleRootItem()
+            number_of_commands = remove_children(item, number_of_commands)
+            parent.removeChild(item)            
 
         self.cliopt["commands"]["number of commands"] = str(number_of_commands)
 
