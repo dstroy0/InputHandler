@@ -44,7 +44,7 @@ class MainWindowActions(object):
         MainWindowActions.logger.debug(str(event))
         if self.write_cli_gen_tool_json() > 0:
             MainWindowActions.logger.info("session json saved")
-        result = 0
+        result = 0        
         if self.prompt_to_save == True:
             b = QDialogButtonBox.StandardButton
             buttons = [b.Save, b.Close, b.Cancel]
@@ -398,21 +398,14 @@ class MainWindowActions(object):
         self.ui.settings_tree_collapse_button.clicked.connect(
             self.settings_tree_collapse_button
         )
-        
+
         # tab 2
-        # always visible
-        # self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
-        # self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
-        # self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
-        # self.ui.command_tree_collapse_button.clicked.connect(
-        #     self.command_tree_collapse_button
-        # )
-        # self.ui.command_tree.itemSelectionChanged.connect(
-        #     self.command_tree_button_toggles
-        # )
-        # self.ui.command_tree.itemClicked.connect(self.command_tree_button_toggles)
-        # self.ui.command_tree.itemCollapsed.connect(self.command_tree_button_toggles)
-        # self.ui.command_tree.itemExpanded.connect(self.command_tree_button_toggles)
+        self.ui.new_cmd_button.clicked.connect(self.clicked_new_cmd_button)
+        self.ui.edit_cmd_button.clicked.connect(self.clicked_edit_tab_two)
+        self.ui.delete_cmd_button.clicked.connect(self.clicked_delete_tab_two)
+        self.ui.command_tree_collapse_button.clicked.connect(
+            self.command_tree_collapse_button
+        )
         # end buttons setup
 
     # end MainWindow actions

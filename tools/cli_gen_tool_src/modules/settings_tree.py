@@ -771,7 +771,7 @@ class SettingsTreeWidget(QTreeWidget):
             item.setText(3, "'" + str(val) + "'")
             self.log_settings_tree_edit(item, object_data)
             self.cliopt["process parameters"]["var"][item.text(1)] = val
-            self.update_code("setup.h", item.text(1), True)
+            self.update_code("setup.h", val, True)
             return
 
         # config.h
@@ -814,8 +814,8 @@ class SettingsTreeMethods(object):
         super(SettingsTreeMethods, self).__init__()
         SettingsTreeMethods.logger = self.get_child_logger(__name__)
         SettingsTreeMethods._tree = displayModels._settings_tree_display
-        tree_buttons = copy.deepcopy(dataModels.button_dict)
-        tree_buttons["buttons"].update(
+        self.settings_tree_buttons = copy.deepcopy(dataModels.button_dict)
+        self.settings_tree_buttons["buttons"].update(
             {
                 "edit": copy.deepcopy(dataModels.button_sub_dict),
                 "clear": copy.deepcopy(dataModels.button_sub_dict),
@@ -823,16 +823,17 @@ class SettingsTreeMethods(object):
                 "collapse": copy.deepcopy(dataModels.button_sub_dict),
             }
         )
-        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
-        tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
-        tree_buttons["buttons"]["default"][
+        self.settings_tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
+        self.settings_tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
+        self.settings_tree_buttons["buttons"]["default"][
             "QPushButton"
         ] = self.ui.default_setting_button
-        tree_buttons["buttons"]["collapse"][
+        self.settings_tree_buttons["buttons"]["collapse"][
             "QPushButton"
         ] = self.ui.settings_tree_collapse_button
-        tree_buttons["buttons"]["collapse"]["enabled"] = True
-        self.settings_tree_buttons = tree_buttons
+        self.settings_tree_buttons["buttons"]["collapse"]["enabled"] = True
+        
+        
 
     def build_settings_tree(self):
         container = self.ui.settings_tree_container

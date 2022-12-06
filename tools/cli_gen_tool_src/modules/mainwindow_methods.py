@@ -319,6 +319,7 @@ class MainWindowMethods(object):
         if self.session["opt"]["save_filename"] != "" and last_interface.exists():
             result = self.read_json(last_interface, True)
             self.cliOpt = result[1]
+            self.cliOpt["commands"]["primary id key"] = "0"
         elif self.session["opt"]["save_filename"] != "" and not last_interface.exists():
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Cancel]

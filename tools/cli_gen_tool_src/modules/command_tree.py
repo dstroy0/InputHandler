@@ -350,6 +350,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
+        self._parent = parent
         self.cliopt = cliopt
         self.active_item = None
         self._cursor = parent.qcursor
@@ -366,24 +367,25 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.clicked.connect(self.which_clicked)
         self.pressed.connect(self.which_pressed)
         self.itemChanged.connect(self.item_changed)
+        self.currentItemChanged.connect(self.item_changed)
+        self.itemSelectionChanged.connect(self._parent.command_tree_button_toggles)
+        self.itemClicked.connect(self._parent.command_tree_button_toggles)
+        self.itemCollapsed.connect(self._parent.command_tree_button_toggles)
+        self.itemExpanded.connect(self._parent.command_tree_button_toggles)
 
-    def item_changed(self, item, column):
-        self.active_item = item
+    def build_tree(self):
+        self.logger.info("Building command tree.")
 
-    def make_command_index(self):
-        primary_id_key = self.cliopt["commands"]["primary id key"]
-        self.cliopt["commands"]["index"].update(
-            {primary_id_key: copy.deepcopy(dataModels.parameters_index_struct)}
-        )
-        self.cliopt["commands"]["index"][primary_id_key]["parameters key"] = str(
-            primary_id_key
-        )
-        self.cliopt["commands"]["index"][primary_id_key]["root index key"] = str(
-            primary_id_key
-        )
-        self.cliopt["commands"]["index"][primary_id_key]["parent index key"] = str(
-            primary_id_key
-        )
+        def populate_children(parent, index):
+            if bool(self.command_index[index]["child index key list"]):
+                for child_index in self.command_index[index]["child index key list"]:
+                    child_command = self.add_command_to_tree(parent)
+                    if bool(self.command_index[child_index]["child_index_key_list"]):
+                        populate_children(child_command, child_index)
+
+        for root_command_index in self.command_index:
+            root_command = self.add_command_to_tree(self.invisibleRootItem())
+            populate_children(root_command, root_command_index)
 
     def add_command_to_tree(self, parent_item: QTreeWidgetItem):
         self.logger.info("adding command to tree")
@@ -403,6 +405,47 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
 
         self.cliopt["commands"]["primary id key"] = str(primary_id_key + 1)
         self.cliopt["commands"]["number of commands"] = str(number_of_commands + 1)
+        return item
+
+    def build_command(self, parent_item):
+        primary_id_key = int(self.cliopt["commands"]["primary id key"])
+        command_index = self.cliopt["commands"]["primary id key"]
+        command_parameters = self.cliopt["commands"]["parameters"][
+            self.command_index[command_index]["parameters key"]
+        ]
+        command_string = command_parameters["commandString"]
+        command_label = QTreeWidgetItem(parent_item, [command_string, ""])
+        command_label.setData(1, 0, str(primary_id_key))
+        command_container = QTreeWidgetItem(command_label, "")
+        command_container.setData(1, 0, str(primary_id_key))
+        command_label.addChild(command_container)
+        command_table = CommandParametersTableWidget(
+            command_parameters,
+            command_container,
+            self.logger,
+            self._cursor,
+        )
+        self.setItemWidget(command_container, 0, command_table)
+        self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
+        return command_label
+
+    def item_changed(self, item, column):
+        self.active_item = item
+
+    def make_command_index(self):
+        primary_id_key = self.cliopt["commands"]["primary id key"]
+        self.cliopt["commands"]["index"].update(
+            {primary_id_key: copy.deepcopy(dataModels.parameters_index_struct)}
+        )
+        self.cliopt["commands"]["index"][primary_id_key]["parameters key"] = str(
+            primary_id_key
+        )
+        self.cliopt["commands"]["index"][primary_id_key]["root index key"] = str(
+            primary_id_key
+        )
+        self.cliopt["commands"]["index"][primary_id_key]["parent index key"] = str(
+            primary_id_key
+        )
 
     def remove_command_from_tree(self, search_string=None):
         if search_string != None:
@@ -415,7 +458,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                 )
                 return -1
         else:
-            item = self.currentItem()
+            item = self.active_item
+
         if item == self.invisibleRootItem():
             self.logger.warning(f"cannot delete self.invisibleRootItem()!")
             return -1
@@ -460,62 +504,21 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
 
     def get_command_index(self, item):
         item_data = str(item.data(1, 0))
+        print(item_data)
         if len(item_data) < 1:
             return -1
         else:
             return self.cliopt["commands"]["index"][item_data]
 
-    def build_command(self, parent_item):
-        primary_id_key = int(self.cliopt["commands"]["primary id key"])
-        command_index = self.cliopt["commands"]["primary id key"]
-        command_parameters = self.cliopt["commands"]["parameters"][
-            self.command_index[command_index]["parameters key"]
-        ]
-        command_string = command_parameters["commandString"]
-        command_label = QTreeWidgetItem(parent_item, [command_string, ""])
-        command_label.setData(1, 0, str(primary_id_key))
-        command_container = QTreeWidgetItem(command_label, "")
-        command_container.setData(1, 0, str(primary_id_key))
-        command_label.addChild(command_container)
-        command_table = CommandParametersTableWidget(
-            command_parameters,
-            command_container,
-            self.logger,
-            self._cursor,
-        )
-        self.setItemWidget(command_container, 0, command_table)
-        self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
-        return command_label
-
-    def build_tree(self):
-        self.logger.info("Building command tree.")
-        for item in self.command_index:
-            command_parameters = self.cliopt["commands"]["parameters"][
-                self.cliopt["commands"]["index"][item]["parameters key"]
-            ]
-            command_string = command_parameters["commandString"]
-            command_label = QTreeWidgetItem(
-                self.invisibleRootItem(), [command_string, ""]
-            )
-            self.addTopLevelItem(command_label)
-            command_container = QTreeWidgetItem(command_label, "")
-            command_label.addChild(command_container)
-            command_table = CommandParametersTableWidget(
-                command_parameters,
-                command_container,
-                self.logger,
-                self._cursor,
-            )
-            self.setItemWidget(command_container, 0, command_table)
-            self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
-
     def which_pressed(self):
         print("click")
         self.active_item = self.itemFromIndex(self.currentIndex())
+        print(self.active_item)
 
     def which_clicked(self):
         print("press")
-        self.active_item = self.itemAt(self._cursor.pos())
+        self.active_item = self.itemFromIndex(self.currentIndex())
+        print(self.active_item)
 
 
 ## self.ui.command_tree methods
@@ -526,14 +529,15 @@ class CommandTreeMethods(object):
         super(CommandTreeMethods, self).__init__()
         CommandTreeMethods.logger = self.get_child_logger(__name__)
 
+        # new cmd button
         self.ui.new_cmd_button.setEnabled(False)
         # edit button
         self.ui.edit_cmd_button.setEnabled(False)
         # delete button
         self.ui.delete_cmd_button.setEnabled(False)
 
-        tree_buttons = copy.deepcopy(dataModels.button_dict)
-        tree_buttons["buttons"].update(
+        self.command_tree_buttons = copy.deepcopy(dataModels.button_dict)
+        self.command_tree_buttons["buttons"].update(
             {
                 "new": copy.deepcopy(dataModels.button_sub_dict),
                 "edit": copy.deepcopy(dataModels.button_sub_dict),
@@ -541,14 +545,19 @@ class CommandTreeMethods(object):
                 "collapse": copy.deepcopy(dataModels.button_sub_dict),
             }
         )
-        tree_buttons["buttons"]["new"]["QPushButton"] = self.ui.new_cmd_button
-        tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_cmd_button
-        tree_buttons["buttons"]["delete"]["QPushButton"] = self.ui.delete_cmd_button
-        tree_buttons["buttons"]["collapse"][
+        self.command_tree_buttons["buttons"]["new"][
+            "QPushButton"
+        ] = self.ui.new_cmd_button
+        self.command_tree_buttons["buttons"]["edit"][
+            "QPushButton"
+        ] = self.ui.edit_cmd_button
+        self.command_tree_buttons["buttons"]["delete"][
+            "QPushButton"
+        ] = self.ui.delete_cmd_button
+        self.command_tree_buttons["buttons"]["collapse"][
             "QPushButton"
         ] = self.ui.command_tree_collapse_button
-        tree_buttons["buttons"]["collapse"]["enabled"] = True
-        self.command_tree_buttons = tree_buttons
+        self.command_tree_buttons["buttons"]["collapse"]["enabled"] = True
 
     def build_command_tree(self):
         container = self.ui.command_tree_container

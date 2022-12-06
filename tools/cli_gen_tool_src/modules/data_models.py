@@ -137,32 +137,24 @@ class dataModels(object):
         "parent index key": "",
         # key(s) to child indices
         "child index key list": [],
-    }    
+    }
 
     ## This dict contains all pertinent information about a CLI, widget objects are created at runtime.
     cliopt_model = {
         "type": "cli options",
-        "var": {            
+        "var": {
             "tool version": str(version),
-        },        
-        "config": {            
+        },
+        "config": {
             "var": {
-                "library settings": {
-                    
-                },
-                "progmem settings": {
-                    
-                },
-                "debug methods": {
-                    
-                },
-                "optional methods": {
-                    
-                },
-            },           
+                "library settings": {},
+                "progmem settings": {},
+                "debug methods": {},
+                "optional methods": {},
+            },
         },
         "process output": {
-            "var": {"buffer size": "0", "output stream": None},            
+            "var": {"buffer size": "0", "output stream": None},
         },
         "builtin methods": {
             "var": {
@@ -170,7 +162,7 @@ class dataModels(object):
                 "defaultFunction": False,
                 "listCommands": False,
                 "listSettings": False,
-            },            
+            },
         },
         "process parameters": {
             "var": {
@@ -180,13 +172,13 @@ class dataModels(object):
                 "wildcard char": "*",
                 "data delimiter sequences": {"0": " ", "1": ","},
                 "start stop data delimiter sequences": {"0": '\\"', "1": '\\"'},
-            },            
+            },
         },
         "commands": {
             "primary id key": "0",
             "number of commands": "0",
             "index": {},
-            "parameters": {},           
+            "parameters": {},
         },
     }
 

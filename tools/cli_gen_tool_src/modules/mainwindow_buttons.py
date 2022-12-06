@@ -27,6 +27,8 @@ class MainWindowButtons(object):
     def __init__(self):
         super(MainWindowButtons, self).__init__()
         MainWindowButtons.logger = self.get_child_logger(__name__)
+        self.prev_command_tree_state = 0
+        self.prev_settings_tree_state = 0
 
     def get_tree_state(self, tree: QTreeWidget) -> dict:
         tree_state = copy.deepcopy(dataModels.button_tree_state_dict)
@@ -138,7 +140,7 @@ class MainWindowButtons(object):
             )
 
     def command_tree_collapse_button(self):
-        tree_state = self.get_tree_state(self.ui.command_tree)
+        tree_state = self.get_tree_state(self.command_tree)
         tree_buttons = self.command_tree_buttons
         tree_buttons.update(tree_state)
         if tree_buttons["root item selected"]:
@@ -149,6 +151,12 @@ class MainWindowButtons(object):
 
     def settings_tree_button_toggles(self):
         tree_state = self.get_tree_state(self.settings_tree)
+
+        if self.prev_settings_tree_state == tree_state:
+            return
+
+        self.prev_settings_tree_state = self.get_tree_state(self.settings_tree)
+
         tree_buttons = self.settings_tree_buttons
         tree_buttons.update(tree_state)
         if (
@@ -184,7 +192,12 @@ class MainWindowButtons(object):
         self.set_tree_button_context(tree_buttons)
 
     def command_tree_button_toggles(self):
-        tree_state = self.get_tree_state(self.ui.command_tree)
+        tree_state = self.get_tree_state(self.command_tree)
+
+        if self.prev_command_tree_state == tree_state:
+            return
+
+        self.prev_command_tree_state = self.get_tree_state(self.command_tree)
         tree_buttons = self.command_tree_buttons
         tree_buttons.update(tree_state)
         # new/edit/delete/command settings menu button enable/disable toggling
@@ -192,35 +205,38 @@ class MainWindowButtons(object):
             tree_buttons["buttons"]["new"]["text"] = "New (root command)"
             tree_buttons["buttons"]["new"]["enabled"] = True
             tree_buttons["buttons"]["edit"]["enabled"] = False
-            tree_buttons["buttons"]["edit"]["delete"] = False
+            tree_buttons["buttons"]["delete"]["enabled"] = False
         # if the list is NOT empty (truthy)
         elif not bool(tree_buttons["root item selected"]) and bool(
             tree_buttons["item selected"]
         ):
             # something on the command tree is selected
-            _object_list = tree_buttons["item selected"].data(1, 0).split(",")
+            # _object_list = tree_buttons["item selected"].data(1, 0).split(",")
             _item_matched_builtin = False
-            for item in self.ih_builtins:
-                # determine if the something selected is an InputHandler builtin
-                if _object_list[2] == item:
-                    _item_matched_builtin = True
-                    break
-            if _item_matched_builtin:  # item selected is an InputHandler builtin
+            tree_item = self.command_tree.currentItem()
+            if tree_item.childCount() == 0:
+                tree_item = tree_item.parent()
+            command_string = tree_item.data(0, 0)
+            
+            if command_string in self.ih_builtins:
+                _item_matched_builtin = True
+
+            if _item_matched_builtin:  # item selected is an InputHandler builtin                
                 tree_buttons["buttons"]["new"]["text"] = "New"
                 tree_buttons["buttons"]["new"]["enabled"] = False
                 tree_buttons["buttons"]["edit"]["enabled"] = False
-                tree_buttons["buttons"]["edit"]["delete"] = True
+                tree_buttons["buttons"]["delete"]["enabled"] = True
             else:  # item selected is NOT an InputHandler builtin
                 # give user option to add children to this command
                 tree_buttons["buttons"]["new"]["text"] = "New (child command)"
                 tree_buttons["buttons"]["new"]["enabled"] = True
                 tree_buttons["buttons"]["edit"]["enabled"] = True
-                tree_buttons["buttons"]["edit"]["delete"] = True
+                tree_buttons["buttons"]["delete"]["enabled"] = True
         else:
             tree_buttons["buttons"]["new"]["text"] = "New"
             tree_buttons["buttons"]["new"]["enabled"] = False
             tree_buttons["buttons"]["edit"]["enabled"] = False
-            tree_buttons["buttons"]["edit"]["delete"] = False
+            tree_buttons["buttons"]["delete"]["enabled"] = False
         self.set_tree_button_context(tree_buttons)
 
     # MainWindow buttons
@@ -346,48 +362,49 @@ class MainWindowButtons(object):
     # TODO fix delete
     def clicked_delete_tab_two(self) -> None:
         MainWindowButtons.logger.info("clicked tab two delete")
-        # command_tree root item
-        _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
-        # selected items list (only one selection possible)
-        _items = self.ui.command_tree.selectedItems()
-        # populated when selection is non-root and not NULL
-        _object_list = []
-        # if an item is selected, this will be a memory location, else it is false
-        _item_selected = False
-        # if the selected item is root, this is True
-        # _item_selected_is_root = False
-        _builtin_commands = self.ih_builtins
-        _item_matched_builtin = False
-        _cmdprm = self.cliOpt["commands"]["parameters"]
+        self.command_tree.remove_command_from_tree()
+        # # command_tree root item
+        # _root = self.cliOpt["commands"]["QTreeWidgetItem"]["root"]
+        # # selected items list (only one selection possible)
+        # _items = self.ui.command_tree.selectedItems()
+        # # populated when selection is non-root and not NULL
+        # _object_list = []
+        # # if an item is selected, this will be a memory location, else it is false
+        # _item_selected = False
+        # # if the selected item is root, this is True
+        # # _item_selected_is_root = False
+        # _builtin_commands = self.ih_builtins
+        # _item_matched_builtin = False
+        # _cmdprm = self.cliOpt["commands"]["parameters"]
 
-        # if the list is NOT empty (truthy)
-        if bool(_items):
-            # something on the command tree is selected
-            _item_selected = _items[0]
-            if _item_selected == _root:
-                # _item_selected_is_root = True
-                MainWindowButtons.logger.warning("cannot delete tree root")
-                return
-            else:
-                _object_list = _item_selected.data(1, 0).split(",")
-                for (
-                    item
-                ) in (
-                    _builtin_commands
-                ):  # determine if the something selected is an InputHandler builtin
-                    if _object_list[2] == item:
-                        _item_matched_builtin = True
-                        break
-                if _item_matched_builtin:
-                    self.cliOpt["builtin methods"]["var"][_object_list[2]] = False
-                    _cmb = self.cliOpt["builtin methods"]["tree"]["items"][
-                        _object_list[2]
-                    ]["QComboBox"]
-                    # there's only one item in the builtin but the key isn't known here.
-                    for item in _cmb:
-                        if not isinstance(_cmb[item], str):
-                            _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
-                self.rem_command(_object_list)
+        # # if the list is NOT empty (truthy)
+        # if bool(_items):
+        #     # something on the command tree is selected
+        #     _item_selected = _items[0]
+        #     if _item_selected == _root:
+        #         # _item_selected_is_root = True
+        #         MainWindowButtons.logger.warning("cannot delete tree root")
+        #         return
+        #     else:
+        #         _object_list = _item_selected.data(1, 0).split(",")
+        #         for (
+        #             item
+        #         ) in (
+        #             _builtin_commands
+        #         ):  # determine if the something selected is an InputHandler builtin
+        #             if _object_list[2] == item:
+        #                 _item_matched_builtin = True
+        #                 break
+        #         if _item_matched_builtin:
+        #             self.cliOpt["builtin methods"]["var"][_object_list[2]] = False
+        #             _cmb = self.cliOpt["builtin methods"]["tree"]["items"][
+        #                 _object_list[2]
+        #             ]["QComboBox"]
+        #             # there's only one item in the builtin but the key isn't known here.
+        #             for item in _cmb:
+        #                 if not isinstance(_cmb[item], str):
+        #                     _cmb[item].setCurrentIndex(_cmb[item].findText("Disabled"))
+        #         self.rem_command(_object_list)
 
     def clicked_command_settings_menu_button_tab_two(self, edit_item=False):
         MainWindowButtons.logger.info("opened command settings menu")
