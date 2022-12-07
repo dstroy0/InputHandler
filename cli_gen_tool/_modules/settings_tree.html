@@ -1047,8 +1047,12 @@
                 <span class="s2">&quot;collapse&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
             <span class="p">}</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;edit&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;clear&quot;</span><span class="p">][</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;edit&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;QPushButton&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">edit_setting_button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;clear&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;QPushButton&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">clear_setting_button</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span>
             <span class="s2">&quot;QPushButton&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">default_setting_button</span>
@@ -1056,8 +1060,6 @@
             <span class="s2">&quot;QPushButton&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_collapse_button</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        
-        
 
 <div class="viewcode-block" id="SettingsTreeMethods.build_settings_tree"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.build_settings_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_settings_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_container</span>
