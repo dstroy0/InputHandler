@@ -350,7 +350,9 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
+        self._settings_tree = None
         self._parent = parent
+        self.ih_builtins = self._parent.ih_builtins
         self.cliopt = cliopt
         self.active_item = None
         self._cursor = parent.qcursor
@@ -373,6 +375,9 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.itemCollapsed.connect(self._parent.command_tree_button_toggles)
         self.itemExpanded.connect(self._parent.command_tree_button_toggles)
 
+    def get_settings_tree(self):
+        self._settings_tree = self._parent.settings_tree
+
     def build_tree(self):
         self.logger.info("Building command tree.")
 
@@ -389,25 +394,11 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
 
     def add_command_to_tree(self, parent_item: QTreeWidgetItem):
         self.logger.info("adding command to tree")
-
-        primary_id_key = int(self.cliopt["commands"]["primary id key"])
-        number_of_commands = int(self.cliopt["commands"]["number of commands"])
-
-        self.make_command_index()
-        if parent_item == self.invisibleRootItem():
-            item = self.build_command(parent_item)
-            item.setData(1, 0, str(primary_id_key))
-            self.addTopLevelItem(item)
-        else:
-            item = self.build_command(parent_item)
-            item.setData(1, 0, str(primary_id_key))
-            parent_item.addChild(item)
-
-        self.cliopt["commands"]["primary id key"] = str(primary_id_key + 1)
-        self.cliopt["commands"]["number of commands"] = str(number_of_commands + 1)
+        item = self.build_command(parent_item)
         return item
 
     def build_command(self, parent_item):
+        self.make_command_index()
         primary_id_key = int(self.cliopt["commands"]["primary id key"])
         command_index = self.cliopt["commands"]["primary id key"]
         command_parameters = self.cliopt["commands"]["parameters"][
@@ -426,6 +417,13 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             self._cursor,
         )
         self.setItemWidget(command_container, 0, command_table)
+        if parent_item == self.invisibleRootItem():
+            self.addTopLevelItem(command_label)
+        else:
+            parent_item.addChild(command_label)
+        self.cliopt["commands"]["primary id key"] = str(primary_id_key + 1)
+        number_of_commands = int(self.cliopt["commands"]["number of commands"])
+        self.cliopt["commands"]["number of commands"] = str(number_of_commands + 1)
         self.logger.info("adding " + command_string + " to CommandTreeWidget Root")
         return command_label
 
@@ -458,12 +456,22 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                 )
                 return -1
         else:
-            item = self.active_item
+            item = self.get_parent_item(self.active_item)
+
+        if item.data(0, 0) in self.ih_builtins:
+            item_list = self._settings_tree.findItems(
+                str(item.data(0, 0)), Qt.MatchRecursive | Qt.MatchExactly, 1
+            )
+            cmb_item = item_list[0]
+            self._settings_tree.setCurrentItem(cmb_item)
+            cmb = self._settings_tree.itemWidget(cmb_item, 3)
+            cmb_idx = cmb.findText("Disabled", Qt.MatchExactly)
+            cmb.setCurrentIndex(cmb_idx)
+            self.cliopt["builtin methods"][item.data(0, 0)] = False
 
         if item == self.invisibleRootItem():
             self.logger.warning(f"cannot delete self.invisibleRootItem()!")
             return -1
-        self.logger.info("removing command from tree")
 
         number_of_commands = int(self.cliopt["commands"]["number of commands"])
 
@@ -471,14 +479,24 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             if item.childCount() > 0:
                 child_list = []
                 list_len = item.childCount()
-                for i in reversed(range(list_len)):
-                    child_list.append(item.child(i))
                 for i in range(list_len):
+                    child_list.append(item.child(i))
+                for i in reversed(range(list_len)):
+                    if item.child(i).childCount() > 0:
+                        remove_children(item.child(i), number_of_commands)
                     number_of_commands = clean_up(child_list[i], number_of_commands)
+            else:
+                number_of_commands = clean_up(item, number_of_commands)
             return number_of_commands
 
         def clean_up(item: QTreeWidgetItem, number_of_commands):
             command_index = self.get_command_index(item)
+            if command_index == -1:
+                return number_of_commands
+            command_string = self.cliopt["commands"]["parameters"][
+                command_index["parameters key"]
+            ]["commandString"]
+            self.logger.info(f"removing {command_string} from command tree")
             del item
             if command_index["parameters key"] in self.cliopt["commands"]["parameters"]:
                 del self.cliopt["commands"]["parameters"][
@@ -499,26 +517,43 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                 parent = self.invisibleRootItem()
             number_of_commands = remove_children(item, number_of_commands)
             parent.removeChild(item)
-
         self.cliopt["commands"]["number of commands"] = str(number_of_commands)
+
+    def get_parent_item(self, item: QTreeWidgetItem):
+        if item:
+            if item.data(0, 0) != None:
+                return item
+        parent = item.parent()
+        if parent:
+            if parent.data(0, 0) != None:
+                return parent
+
+    def get_child_item(self, item: QTreeWidgetItem):
+        if item:
+            if (
+                item.data(0, 0) == None
+                and item.parent() != None
+                and item.parent().data(1, 0) != None
+            ):
+                return item
+            elif item.childCount() > 0:
+                if item.child(0).data(0, 0) == None:
+                    return item.child(0)
 
     def get_command_index(self, item):
         item_data = str(item.data(1, 0))
-        print(item_data)
         if len(item_data) < 1:
+            return -1
+        elif item_data not in self.cliopt["commands"]["index"]:
             return -1
         else:
             return self.cliopt["commands"]["index"][item_data]
 
     def which_pressed(self):
-        print("click")
         self.active_item = self.itemFromIndex(self.currentIndex())
-        print(self.active_item)
 
     def which_clicked(self):
-        print("press")
         self.active_item = self.itemFromIndex(self.currentIndex())
-        print(self.active_item)
 
 
 ## self.ui.command_tree methods

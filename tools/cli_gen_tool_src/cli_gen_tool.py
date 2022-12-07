@@ -306,6 +306,7 @@ class MainWindow(
         # settings and command trees
         self.command_tree = self.build_command_tree()
         self.settings_tree = self.build_settings_tree()
+        self.command_tree.get_settings_tree()
 
         # code preview trees
         self.build_code_preview_tree()

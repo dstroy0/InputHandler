@@ -823,8 +823,12 @@ class SettingsTreeMethods(object):
                 "collapse": copy.deepcopy(dataModels.button_sub_dict),
             }
         )
-        self.settings_tree_buttons["buttons"]["edit"]["QPushButton"] = self.ui.edit_setting_button
-        self.settings_tree_buttons["buttons"]["clear"]["QPushButton"] = self.ui.clear_setting_button
+        self.settings_tree_buttons["buttons"]["edit"][
+            "QPushButton"
+        ] = self.ui.edit_setting_button
+        self.settings_tree_buttons["buttons"]["clear"][
+            "QPushButton"
+        ] = self.ui.clear_setting_button
         self.settings_tree_buttons["buttons"]["default"][
             "QPushButton"
         ] = self.ui.default_setting_button
@@ -832,8 +836,6 @@ class SettingsTreeMethods(object):
             "QPushButton"
         ] = self.ui.settings_tree_collapse_button
         self.settings_tree_buttons["buttons"]["collapse"]["enabled"] = True
-        
-        
 
     def build_settings_tree(self):
         container = self.ui.settings_tree_container
