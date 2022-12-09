@@ -423,6 +423,12 @@
         <span class="n">parent</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># MainWindow state variables</span>
+        <span class="c1"># ask user if they want to save their work on exit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_collapsed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_collapsed</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">app</span>  <span class="c1"># used in external methods</span>
@@ -435,15 +441,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">default_settings_tree_values</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># InputHandler builtin user interactable commands</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;listSettings&quot;</span><span class="p">,</span> <span class="s2">&quot;listCommands&quot;</span><span class="p">]</span>
-
-        <span class="c1"># commands interaction</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">adding_child_command</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_command</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="c1"># self.settings_tree = &quot;&quot;</span>
-        <span class="c1"># self.command_tree = &quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;listSettings&quot;</span><span class="p">,</span> <span class="s2">&quot;listCommands&quot;</span><span class="p">]</span>        
 
         <span class="c1"># code preview interaction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_resizing_code_preview_box</span> <span class="o">=</span> <span class="kc">False</span>
