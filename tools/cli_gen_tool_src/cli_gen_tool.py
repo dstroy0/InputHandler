@@ -199,6 +199,12 @@ class MainWindow(
         parent,
     ):
         super(MainWindow, self).__init__()
+        # MainWindow state variables
+        # ask user if they want to save their work on exit
+        self.prompt_to_save = False
+        self.windowtitle_set = False
+        self.settings_tree_collapsed = False
+        self.command_tree_collapsed = False
         self.loading = True
         self.version = version
         self.app = parent.app  # used in external methods
@@ -211,15 +217,7 @@ class MainWindow(
         self.default_settings_tree_values = {}
 
         # InputHandler builtin user interactable commands
-        self.ih_builtins = ["listSettings", "listCommands"]
-
-        # commands interaction
-        self.adding_child_command = False
-        self.child_command_parent = None
-        self.selected_command = None
-        self.selected_command_is_root = False
-        # self.settings_tree = ""
-        # self.command_tree = ""
+        self.ih_builtins = ["listSettings", "listCommands"]        
 
         # code preview interaction
         self.user_resizing_code_preview_box = False

@@ -41,13 +41,6 @@ class MainWindowMethods(object):
         super(MainWindowMethods, self).__init__()
         MainWindowMethods.logger = self.get_child_logger(__name__)
 
-        # MainWindow state variables
-        # ask user if they want to save their work on exit
-        self.prompt_to_save = False
-        self.windowtitle_set = False
-        self.settings_tree_collapsed = False
-        self.command_tree_collapsed = False
-
     # visual indication to user of the current working file
     def set_main_window_title(self, title: str = None) -> None:
         if self.windowtitle_set:
@@ -70,6 +63,7 @@ class MainWindowMethods(object):
             else:
                 windowtitle = windowtitle + "untitled"
             self.setWindowTitle(windowtitle)
+            MainWindowMethods.logger.info("setting mainwindow title")
             self.windowtitle_set = True
 
     def _eventFilter(self, watched: QObject, event: QEvent) -> bool:
@@ -96,16 +90,16 @@ class MainWindowMethods(object):
         ):
             if not self.settings_tree.itemAt(mouse_pos):
                 self.settings_tree.clearSelection()
+                self.settings_tree.setCurrentItem(self.settings_tree.invisibleRootItem())
+                self.settings_tree_button_toggles()
         elif (
             watched == self.command_tree.viewport()
             and event_type == QEvent.MouseButtonPress
         ):
             if not self.command_tree.itemAt(mouse_pos):
                 self.command_tree.clearSelection()
-                self.command_tree.setCurrentItem(
-                    self.command_tree.invisibleRootItem()
-                )
-                #self.command_tree_button_toggles()
+                self.command_tree.setCurrentItem(self.command_tree.invisibleRootItem())
+                self.command_tree_button_toggles()
 
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
@@ -162,7 +156,7 @@ class MainWindowMethods(object):
             self.settings_tree_collapsed = True
             MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
 
-        #self.command_tree_button_toggles()
+        self.command_tree_button_toggles()
         self.settings_tree_button_toggles()
 
     def show_splash(self):

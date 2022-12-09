@@ -350,12 +350,13 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
+        
         self._settings_tree = None
-        self._parent = parent
+        self._parent = parent        
         self.ih_builtins = self._parent.ih_builtins
         self.cliopt = cliopt
         self.active_item = None
-        self._cursor = parent.qcursor
+        self._cursor = self._parent.qcursor
         self.logger = logger
         self.setColumnCount(2)
         self.setColumnHidden(1, 1)
@@ -389,12 +390,20 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                         populate_children(child_command, child_index)
 
         for root_command_index in self.command_index:
-            root_command = self.add_command_to_tree(self.invisibleRootItem())
-            populate_children(root_command, root_command_index)
+            # only populates root commands with their children, because 
+            # self.command_index is flat, not a matrix
+            if int(self.command_index[root_command_index]["root index key"]) == int(
+                self.command_index[root_command_index]["parent index key"]
+            ):
+                root_command = self.add_command_to_tree(self.invisibleRootItem())
+                populate_children(root_command, root_command_index)
 
     def add_command_to_tree(self, parent_item: QTreeWidgetItem):
         self.logger.info("adding command to tree")
         item = self.build_command(parent_item)
+        if self._parent.loading == False and self._parent.prompt_to_save == False:
+            self._parent.prompt_to_save = True
+            self._parent.windowtitle_set = False
         return item
 
     def build_command(self, parent_item):
@@ -516,7 +525,10 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             if parent == None:
                 parent = self.invisibleRootItem()
             number_of_commands = remove_children(item, number_of_commands)
-            parent.removeChild(item)
+            parent.removeChild(item)        
+        if self._parent.loading == False and self._parent.prompt_to_save == False:
+            self._parent.prompt_to_save = True
+            self._parent.windowtitle_set = False            
         self.cliopt["commands"]["number of commands"] = str(number_of_commands)
 
     def get_parent_item(self, item: QTreeWidgetItem):
