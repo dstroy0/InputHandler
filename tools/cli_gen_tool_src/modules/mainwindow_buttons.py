@@ -35,7 +35,12 @@ class MainWindowButtons(object):
         tree_state["tree"] = tree
         tsi = tree.selectedItems()
         is_root = False
+        
         if bool(tsi):
+            # get the container item if it's the command tree
+            if tree == self.command_tree:
+                tsi[0] = self.command_tree.get_parent_item(tsi[0])
+            
             tree_state["items selected"] = tsi
             tree_state["item selected"] = tsi[0]
             tree_state["index of top level item"] = tree.indexOfTopLevelItem(tsi[0])
