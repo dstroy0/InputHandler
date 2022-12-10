@@ -259,7 +259,12 @@
         <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;tree&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span>
         <span class="n">tsi</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
         <span class="n">is_root</span> <span class="o">=</span> <span class="kc">False</span>
+        
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tsi</span><span class="p">):</span>
+            <span class="c1"># get the container item if it&#39;s the command tree</span>
+            <span class="k">if</span> <span class="n">tree</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">:</span>
+                <span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">get_parent_item</span><span class="p">(</span><span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;items selected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsi</span>
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;item selected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;index of top level item&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">indexOfTopLevelItem</span><span class="p">(</span><span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
