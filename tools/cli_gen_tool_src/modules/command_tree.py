@@ -18,7 +18,7 @@ from modules.data_models import dataModels
 # imports
 import copy
 import json
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
+from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QByteArray
 from PySide6.QtWidgets import (
     QTableView,
     QTreeWidget,
@@ -350,9 +350,9 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
-        
+
         self._settings_tree = None
-        self._parent = parent        
+        self._parent = parent
         self.ih_builtins = self._parent.ih_builtins
         self.cliopt = cliopt
         self.active_item = None
@@ -365,7 +365,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
 
-        self.build_tree()
+        self.build_tree()        
 
         self.clicked.connect(self.which_clicked)
         self.pressed.connect(self.which_pressed)
@@ -375,6 +375,37 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.itemClicked.connect(self._parent.command_tree_button_toggles)
         self.itemCollapsed.connect(self._parent.command_tree_button_toggles)
         self.itemExpanded.connect(self._parent.command_tree_button_toggles)
+
+    def saveState(self):
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)        
+        current_selected = ""
+        expanded_state = []
+        state = {"selected item": current_selected, "expanded": expanded_state}
+        state_index = 0
+        for item in items:
+            if item.isSelected():
+                state["selected item"] = state_index
+            if item.isExpanded():
+                state["expanded"].append(True)
+            else:
+                state["expanded"].append(False)
+            state_index += 1
+        b = json.dumps(state, indent=2).encode("utf-8")
+        return QByteArray(b)
+
+    def restoreState(self, b: QByteArray):
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)
+        state = json.loads(b.data())
+        state_index = 0
+        for item in items:
+            if state_index == state["selected item"]:
+                self.setCurrentItem(item)
+                self.active_item = item
+            if state["expanded"][state_index] == True:
+                item.setExpanded(True)
+            else:
+                item.setExpanded(False)
+            state_index += 1
 
     def get_settings_tree(self):
         self._settings_tree = self._parent.settings_tree
@@ -390,7 +421,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                         populate_children(child_command, child_index)
 
         for root_command_index in self.command_index:
-            # only populates root commands with their children, because 
+            # only populates root commands with their children, because
             # self.command_index is flat, not a matrix
             if int(self.command_index[root_command_index]["root index key"]) == int(
                 self.command_index[root_command_index]["parent index key"]
@@ -525,10 +556,10 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             if parent == None:
                 parent = self.invisibleRootItem()
             number_of_commands = remove_children(item, number_of_commands)
-            parent.removeChild(item)        
+            parent.removeChild(item)
         if self._parent.loading == False and self._parent.prompt_to_save == False:
             self._parent.prompt_to_save = True
-            self._parent.windowtitle_set = False            
+            self._parent.windowtitle_set = False
         self.cliopt["commands"]["number of commands"] = str(number_of_commands)
 
     def get_parent_item(self, item: QTreeWidgetItem):

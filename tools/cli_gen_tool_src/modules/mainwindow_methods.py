@@ -104,8 +104,8 @@ class MainWindowMethods(object):
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
         self.settings.setValue("tab", self.ui.tabWidget.currentIndex())
-        self.settings.setValue("command_tree_collapsed", self.command_tree_collapsed)
-        self.settings.setValue("settings_tree_collapsed", self.settings_tree_collapsed)
+        #self.settings.setValue("command_tree_collapsed", self.command_tree_collapsed)
+        #self.settings.setValue("settings_tree_collapsed", self.settings_tree_collapsed)
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("windowState", self.saveState())
         self.settings.setValue(
@@ -114,6 +114,7 @@ class MainWindowMethods(object):
         self.settings.setValue(
             "command_tab_splitter", self.ui.command_tab_splitter.saveState()
         )
+        self.settings.setValue("command_tree_state", self.command_tree.saveState())
         self.do_before_app_close(event)
 
     def _readSettings(self, settings: QSettings):
@@ -134,30 +135,11 @@ class MainWindowMethods(object):
         _qscreen = self.screen()
         MainWindowMethods.logger.info("Display name: " + _qscreen.name())
 
-        if not self.settings.value("command_tree_collapsed"):
-            self.command_tree.expandAll()
-            self.ui.command_tree_collapse_button.setText("Collapse All")
-            self.command_tree_collapsed = False
-            MainWindowMethods.logger.info("self.ui.command_tree expanded")
-        else:
-            self.command_tree.collapseAll()
-            self.ui.command_tree_collapse_button.setText("Expand All")
-            self.command_tree_collapsed = True
-            MainWindowMethods.logger.info("self.ui.command_tree collapsed")
+        if self.settings.value("command_tree_state") != None:
+            self.command_tree.restoreState(self.settings.value("command_tree_state"))
 
-        if not self.settings.value("settings_tree_collapsed"):
-            self.settings_tree.expandAll()
-            self.ui.settings_tree_collapse_button.setText("Collapse All")
-            self.settings_tree_collapsed = False
-            MainWindowMethods.logger.info("self.settings_tree expanded")
-        else:
-            self.settings_tree.collapseAll()
-            self.ui.settings_tree_collapse_button.setText("Expand All")
-            self.settings_tree_collapsed = True
-            MainWindowMethods.logger.info("self.ui.settings_tree collapsed")
-
-        self.command_tree_button_toggles()
-        self.settings_tree_button_toggles()
+        #self.command_tree_button_toggles()
+        #self.settings_tree_button_toggles()
 
     def show_splash(self):
         # splashscreen timer
