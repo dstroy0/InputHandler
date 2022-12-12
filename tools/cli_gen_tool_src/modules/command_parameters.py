@@ -361,16 +361,22 @@ class CommandParametersMethods(object):
         if (
             self.command_tree.active_item == self.command_tree.invisibleRootItem()
             or self.command_tree.active_item == None
-        ):            
+        ):
             # make dict from defined keys
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
             self.command_tree.add_command_to_tree(self.command_tree.invisibleRootItem())
         # non root command
-        else:            
-            parent_string = str(self.command_tree.active_item.data(0,0))            
+        else:
+            if (
+                self.command_tree.active_item.data(0, 0) == None
+                and self.command_tree.active_item.parent is not None
+            ):
+                parent_string = self.command_tree.active_item.parent().data(0, 0)
+            else:
+                parent_string = str(self.command_tree.active_item.data(0, 0))
             items = self.command_tree.findItems(
                 parent_string, Qt.MatchWrap | Qt.MatchRecursive, 0
-            )                      
+            )
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
             if items:
                 parent = items[0]
