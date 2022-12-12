@@ -48,7 +48,7 @@ class HelperMethods(object):
         icon=None,
         screen=None,
     ):
-        HelperMethods.logger.info("create qdialog: " + window_title)
+        HelperMethods.logger.debug("create qdialog: " + window_title)
         _buttons = []
         dlg = QDialog(self)
 

@@ -18,7 +18,7 @@ import json
 from collections import OrderedDict
 
 # pyside imports
-from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex
+from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, QByteArray
 from PySide6.QtWidgets import (
     QComboBox,
     QHeaderView,
@@ -353,10 +353,11 @@ class SettingsTreeWidget(QTreeWidget):
                 # make these parents children of root using the keys from 'cfg_dict'
                 cfg_path = session["opt"]["input_config_file_path"]
                 setting_container = QTreeWidgetItem(
-                    self.invisibleRootItem(), ["Input config: " + cfg_path, ""]
+                    self.invisibleRootItem(), [str("Input config: " + cfg_path), ""]
                 )
                 setting_container.setIcon(0, self._parent.ui.fileDialogContentsViewIcon)
                 setting_container.setToolTip(0, "Input config: " + cfg_path)
+                setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
 
                 for subsection in SettingsTreeMethods._tree["config"]:
                     # index_of_child = 0
@@ -419,7 +420,7 @@ class SettingsTreeWidget(QTreeWidget):
                             setting_container, [child, "", "", ""]
                         )
                         setting_label.setData(4, 0, dict_pos)
-                        # setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
+                        setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
                         index_of_child = self.build_tree_table_widget(
                             setting_label, index_of_child, dict_pos
                         )
@@ -464,6 +465,42 @@ class SettingsTreeWidget(QTreeWidget):
         self.itemClicked.connect(self._parent.settings_tree_button_toggles)
         self.itemCollapsed.connect(self._parent.settings_tree_button_toggles)
         self.itemExpanded.connect(self._parent.settings_tree_button_toggles)
+        self.itemExpanded.connect(self.item_expanded)
+        
+    def item_expanded(self, item:QTreeWidgetItem):
+        self.active_item = item        
+        
+    def saveState(self):
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)           
+        current_selected = ""
+        expanded_state = []
+        state = {"selected item": current_selected, "expanded": expanded_state}
+        state_index = 0
+        for item in items:
+            if item.isSelected():
+                state["selected item"] = state_index
+            if item.isExpanded():
+                state["expanded"].append(True)
+            else:
+                state["expanded"].append(False)
+            state_index += 1
+        b = json.dumps(state, indent=2).encode("utf-8")
+        return QByteArray(b)
+
+    def restoreState(self, b: QByteArray):
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)        
+        state = json.loads(b.data())
+        state_index = 0        
+        for item in items:
+            if state_index == state["selected item"]:
+                self.setCurrentItem(item)
+                self.active_item = item
+                
+            if state["expanded"][state_index] == True:
+                item.setExpanded(True)
+            else:
+                item.setExpanded(False)
+            state_index += 1
 
     ## builds a table onto a tree widget item
     def build_tree_table_widget(self, label: QTreeWidgetItem, index_of_child, dict_pos):

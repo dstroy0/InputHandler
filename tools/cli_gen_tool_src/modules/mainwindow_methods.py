@@ -61,9 +61,9 @@ class MainWindowMethods(object):
                 if match.hasMatch():
                     windowtitle = windowtitle + str(match.captured(0))
             else:
-                windowtitle = windowtitle + "untitled"
+                windowtitle = windowtitle + "untitled"            
+            MainWindowMethods.logger.debug("setting mainwindow title")
             self.setWindowTitle(windowtitle)
-            MainWindowMethods.logger.info("setting mainwindow title")
             self.windowtitle_set = True
 
     def _eventFilter(self, watched: QObject, event: QEvent) -> bool:
@@ -115,6 +115,7 @@ class MainWindowMethods(object):
             "command_tab_splitter", self.ui.command_tab_splitter.saveState()
         )
         self.settings.setValue("command_tree_state", self.command_tree.saveState())
+        self.settings.setValue("settings_tree_state", self.settings_tree.saveState())
         self.do_before_app_close(event)
 
     def _readSettings(self, settings: QSettings):
@@ -137,9 +138,15 @@ class MainWindowMethods(object):
 
         if self.settings.value("command_tree_state") != None:
             self.command_tree.restoreState(self.settings.value("command_tree_state"))
+        else:
+            self.ui.command_tree_collapse_button.setText("Expand All")    
+        if self.settings.value("settings_tree_state") != None:
+            self.settings_tree.restoreState(self.settings.value("settings_tree_state"))
+        else:
+            self.ui.settings_tree_collapse_button.setText("Expand All")
 
-        #self.command_tree_button_toggles()
-        #self.settings_tree_button_toggles()
+        self.command_tree_button_toggles()
+        self.settings_tree_button_toggles()
 
     def show_splash(self):
         # splashscreen timer

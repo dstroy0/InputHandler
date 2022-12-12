@@ -56,14 +56,7 @@ class CommandParametersMethods(object):
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
-        """Turns a pythonic regex string into a regex validator.
-
-        Args:
-            input (str): The input regex search string.
-
-        Returns:
-            QRegularExpressionValidator: An input validator for a QLineEdit.
-        """
+        """Turns a string into a QRegularExpressionValidator"""
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
 
@@ -71,10 +64,7 @@ class CommandParametersMethods(object):
     # TODO add text UITYPE:: and comma to returned list items
     def list_from_csv_args(self) -> None:
         """Pulls text from CommandParametersDialog arguments pane, separates
-        them into arguments.
-
-        Returns:
-            list: A list of arguments.
+        them.
         """
         args_list = []
         csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
@@ -162,7 +152,7 @@ class CommandParametersMethods(object):
         settings_to_validate["functionName"] = str(
             str(self.command_parameters_user_input_objects["commandString"].text())
             + "_"
-            + str(self.cliOpt["var"]["primary id key"])
+            + str(self.cliOpt["commands"]["primary id key"])
         )
         settings_to_validate[
             "commandString"
@@ -356,7 +346,7 @@ class CommandParametersMethods(object):
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self) -> None:
         """This function is reached when the user clicks `ok` on the CommandParametersDialog"""
-        CommandParametersMethods.logger.info("clicked ok on command parameters menu")
+        CommandParametersMethods.logger.debug("clicked ok on command parameters menu")
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
@@ -366,67 +356,29 @@ class CommandParametersMethods(object):
             return
         validated_result = {}
         validated_result = validate_result[1]
-        if self.selected_command != None:  # existing command
-            _object_list = self.selected_command.data(1, 0).split(",")
-            prm_idx_struct = self.cliOpt["commands"]["index"][_object_list[0]]
-            prm_idx = prm_idx_struct["parameters key"]
-            self.cliOpt["commands"]["parameters"][prm_idx] = copy.deepcopy(
-                validated_result
-            )
-
-        else:  # new command being added
-            # get array index
-            cmd_idx = str(self.cliOpt["var"]["primary id key"])
+        cmd_idx = str(self.cliOpt["commands"]["primary id key"])
+        # root command
+        if (
+            self.command_tree.active_item == self.command_tree.invisibleRootItem()
+            or self.command_tree.active_item == None
+        ):            
             # make dict from defined keys
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
-            p_idx = copy.deepcopy(dataModels.parameters_index_struct)
-            # root command
-            if self.selected_command_is_root and self.child_command_parent == None:
-                p_idx["root index key"] = str(cmd_idx)
-                p_idx["parent index key"] = str(cmd_idx)
-                p_idx["parameters key"] = str(cmd_idx)
-                self.cliOpt["commands"]["index"].update(
-                    {p_idx["parameters key"]: p_idx}
-                )
-                CommandParametersMethods.logger.debug(
-                    json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
-                )
-                self.add_qtreewidgetitem(
-                    self.cliOpt["commands"]["QTreeWidgetItem"]["root"],
-                    p_idx["parameters key"],
-                )
-            # non root command
+            self.command_tree.add_command_to_tree(self.command_tree.invisibleRootItem())
+        # non root command
+        else:            
+            parent_string = str(self.command_tree.active_item.data(0,0))            
+            items = self.command_tree.findItems(
+                parent_string, Qt.MatchWrap | Qt.MatchRecursive, 0
+            )                      
+            self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
+            if items:
+                parent = items[0]
+                self.command_tree.add_command_to_tree(parent)
             else:
-                p_idx["parameters key"] = str(cmd_idx)
-
-                _pos = self.child_command_parent.data(1, 0).split(",")
-                _parent_index_struct = self.cliOpt["commands"]["index"][_pos[0]]
-                p_idx["parent index key"] = str(_pos[0])
-                p_idx["root index key"] = _parent_index_struct["root index key"]
-                self.cliOpt["commands"]["index"].update(
-                    {p_idx["parameters key"]: p_idx}
-                )
-                _parent_index_struct["child index key list"].append(cmd_idx)
-                CommandParametersMethods.logger.debug(
-                    json.dumps(self.cliOpt["commands"]["parameters"][cmd_idx], indent=2)
-                )
-                self.add_qtreewidgetitem(
-                    self.child_command_parent,
-                    p_idx["parameters key"],
-                )
-
-            # command parameters were accepted, so increment the array index
-            self.cliOpt["var"]["primary id key"] = str(
-                int(self.cliOpt["var"]["primary id key"]) + 1
-            )
-            self.cliOpt["var"]["number of commands"] = str(
-                int(self.cliOpt["var"]["number of commands"]) + 1
-            )
+                CommandParametersMethods.logger.info("couldn't find parent")
 
         self.ui.commandParameters.close()
-
-        self.prompt_to_save = True
-        self.windowtitle_set = False
 
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)

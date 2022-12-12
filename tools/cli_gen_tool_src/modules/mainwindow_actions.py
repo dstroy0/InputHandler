@@ -43,7 +43,7 @@ class MainWindowActions(object):
     def do_before_app_close(self, event=None, restarting=False):
         MainWindowActions.logger.debug(str(event))
         if self.write_cli_gen_tool_json() > 0:
-            MainWindowActions.logger.info("session json saved")
+            MainWindowActions.logger.debug("session json saved")
         result = 0        
         if self.prompt_to_save == True:
             b = QDialogButtonBox.StandardButton
