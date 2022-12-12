@@ -259,12 +259,12 @@
         <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;tree&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span>
         <span class="n">tsi</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
         <span class="n">is_root</span> <span class="o">=</span> <span class="kc">False</span>
-        
+
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tsi</span><span class="p">):</span>
             <span class="c1"># get the container item if it&#39;s the command tree</span>
             <span class="k">if</span> <span class="n">tree</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">:</span>
                 <span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">get_parent_item</span><span class="p">(</span><span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            
+
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;items selected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsi</span>
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;item selected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">tree_state</span><span class="p">[</span><span class="s2">&quot;index of top level item&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">indexOfTopLevelItem</span><span class="p">(</span><span class="n">tsi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -446,11 +446,11 @@
             <span class="k">if</span> <span class="n">tree_item</span><span class="o">.</span><span class="n">childCount</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">tree_item</span> <span class="o">=</span> <span class="n">tree_item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
             <span class="n">command_string</span> <span class="o">=</span> <span class="n">tree_item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            
+
             <span class="k">if</span> <span class="n">command_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span><span class="p">:</span>
                 <span class="n">_item_matched_builtin</span> <span class="o">=</span> <span class="kc">True</span>
 
-            <span class="k">if</span> <span class="n">_item_matched_builtin</span><span class="p">:</span>  <span class="c1"># item selected is an InputHandler builtin                </span>
+            <span class="k">if</span> <span class="n">_item_matched_builtin</span><span class="p">:</span>  <span class="c1"># item selected is an InputHandler builtin</span>
                 <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;new&quot;</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;New&quot;</span>
                 <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;new&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;edit&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
@@ -557,7 +557,6 @@
 
 <div class="viewcode-block" id="MainWindowButtons.clicked_new_cmd_button"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.clicked_new_cmd_button">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_new_cmd_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="s2">&quot;(root command)&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;user clicked new command button with root context&quot;</span>
             <span class="p">)</span>
@@ -572,13 +571,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
         <span class="k">elif</span> <span class="s2">&quot;(child command)&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">object_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">child_command_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span>
-                <span class="s2">&quot;container&quot;</span>
-            <span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
             <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;user clicked new command button with child context&quot;</span>
             <span class="p">)</span>
@@ -588,142 +580,9 @@
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
 
-    <span class="c1"># TODO fix delete</span>
 <div class="viewcode-block" id="MainWindowButtons.clicked_delete_tab_two"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.clicked_delete_tab_two">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_delete_tab_two</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;clicked tab two delete&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">remove_command_from_tree</span><span class="p">()</span></div>
-        <span class="c1"># # command_tree root item</span>
-        <span class="c1"># _root = self.cliOpt[&quot;commands&quot;][&quot;QTreeWidgetItem&quot;][&quot;root&quot;]</span>
-        <span class="c1"># # selected items list (only one selection possible)</span>
-        <span class="c1"># _items = self.ui.command_tree.selectedItems()</span>
-        <span class="c1"># # populated when selection is non-root and not NULL</span>
-        <span class="c1"># _object_list = []</span>
-        <span class="c1"># # if an item is selected, this will be a memory location, else it is false</span>
-        <span class="c1"># _item_selected = False</span>
-        <span class="c1"># # if the selected item is root, this is True</span>
-        <span class="c1"># # _item_selected_is_root = False</span>
-        <span class="c1"># _builtin_commands = self.ih_builtins</span>
-        <span class="c1"># _item_matched_builtin = False</span>
-        <span class="c1"># _cmdprm = self.cliOpt[&quot;commands&quot;][&quot;parameters&quot;]</span>
-
-        <span class="c1"># # if the list is NOT empty (truthy)</span>
-        <span class="c1"># if bool(_items):</span>
-        <span class="c1">#     # something on the command tree is selected</span>
-        <span class="c1">#     _item_selected = _items[0]</span>
-        <span class="c1">#     if _item_selected == _root:</span>
-        <span class="c1">#         # _item_selected_is_root = True</span>
-        <span class="c1">#         MainWindowButtons.logger.warning(&quot;cannot delete tree root&quot;)</span>
-        <span class="c1">#         return</span>
-        <span class="c1">#     else:</span>
-        <span class="c1">#         _object_list = _item_selected.data(1, 0).split(&quot;,&quot;)</span>
-        <span class="c1">#         for (</span>
-        <span class="c1">#             item</span>
-        <span class="c1">#         ) in (</span>
-        <span class="c1">#             _builtin_commands</span>
-        <span class="c1">#         ):  # determine if the something selected is an InputHandler builtin</span>
-        <span class="c1">#             if _object_list[2] == item:</span>
-        <span class="c1">#                 _item_matched_builtin = True</span>
-        <span class="c1">#                 break</span>
-        <span class="c1">#         if _item_matched_builtin:</span>
-        <span class="c1">#             self.cliOpt[&quot;builtin methods&quot;][&quot;var&quot;][_object_list[2]] = False</span>
-        <span class="c1">#             _cmb = self.cliOpt[&quot;builtin methods&quot;][&quot;tree&quot;][&quot;items&quot;][</span>
-        <span class="c1">#                 _object_list[2]</span>
-        <span class="c1">#             ][&quot;QComboBox&quot;]</span>
-        <span class="c1">#             # there&#39;s only one item in the builtin but the key isn&#39;t known here.</span>
-        <span class="c1">#             for item in _cmb:</span>
-        <span class="c1">#                 if not isinstance(_cmb[item], str):</span>
-        <span class="c1">#                     _cmb[item].setCurrentIndex(_cmb[item].findText(&quot;Disabled&quot;))</span>
-        <span class="c1">#         self.rem_command(_object_list)</span>
-
-<div class="viewcode-block" id="MainWindowButtons.clicked_command_settings_menu_button_tab_two"><a class="viewcode-back" href="../modules/mainwindow_buttons.html#mainwindow_buttons.MainWindowButtons.clicked_command_settings_menu_button_tab_two">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_settings_menu_button_tab_two</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edit_item</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;opened command settings menu&quot;</span><span class="p">)</span>
-        <span class="c1"># command_tree root item</span>
-        <span class="n">_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;QTreeWidgetItem&quot;</span><span class="p">][</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>
-        <span class="c1"># selected items list (only one selection possible)</span>
-        <span class="n">_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
-        <span class="c1"># populated when selection is non-root and not NULL</span>
-        <span class="n">_object_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># if an item is selected, this will be a memory location, else it is false</span>
-        <span class="n">_item_selected</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="c1"># if the selected item is root, this is True</span>
-        <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">_builtin_commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span>
-        <span class="n">_item_matched_builtin</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">_cmdprm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
-
-        <span class="c1"># if the list is NOT empty (truthy)</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_items</span><span class="p">):</span>
-            <span class="c1"># something on the command tree is selected</span>
-            <span class="n">_item_selected</span> <span class="o">=</span> <span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">_item_selected</span> <span class="o">==</span> <span class="n">_root</span><span class="p">:</span>
-                <span class="n">_item_selected_is_root</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">_table_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">currentItem</span><span class="p">(),</span> <span class="mi">0</span>
-                <span class="p">)</span>
-                <span class="n">_object_list</span> <span class="o">=</span> <span class="n">_item_selected</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="p">(</span>
-                    <span class="n">item</span>
-                <span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
-                    <span class="n">_builtin_commands</span>
-                <span class="p">):</span>  <span class="c1"># determine if the something selected is an InputHandler builtin</span>
-                    <span class="k">if</span> <span class="n">_object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
-                        <span class="n">_item_matched_builtin</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="c1"># disable the reset button if the item selected is a builtin</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
-                            <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Reset</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-                        <span class="k">break</span>
-
-            <span class="c1"># if item is selected edit it</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">_item_selected_is_root</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">_root</span><span class="o">.</span><span class="n">indexOfChild</span><span class="p">(</span><span class="n">_item_selected</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">selected_command_is_root</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="n">_sub</span> <span class="o">=</span> <span class="n">_cmdprm</span><span class="p">[</span><span class="n">_object_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-                <span class="n">_arg_handling</span> <span class="o">=</span> <span class="s2">&quot;No arguments&quot;</span>
-                <span class="n">_return_function</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                <span class="k">if</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;UI_ARG_HANDLING::one_type&quot;</span><span class="p">:</span>
-                    <span class="n">_arg_handling</span> <span class="o">=</span> <span class="s2">&quot;Single argument type&quot;</span>
-                    <span class="n">_return_function</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;UI_ARG_HANDLING::type_arr&quot;</span><span class="p">:</span>
-                    <span class="n">_arg_handling</span> <span class="o">=</span> <span class="s2">&quot;Argument type array&quot;</span>
-                    <span class="n">_return_function</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">]</span>
-                <span class="n">fields</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_input_field_settings</span><span class="p">)</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_return_function</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandLength&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandLength&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandLength&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;parentId&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;parentId&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;parentId&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandId&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandId&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandId&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandDepth&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandDepth&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandDepth&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandSubcommands&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandSubcommands&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandSubcommands&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_arg_handling</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sub</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span>
-                <span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">_item_matched_builtin</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span>
-                    <span class="nb">str</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; Command Parameters&quot;</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_command</span> <span class="o">=</span> <span class="n">_item_selected</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># if item not selected</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">clicked_new_cmd_button</span><span class="p">()</span></div></div>
+        <span class="n">MainWindowButtons</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;clicked tab two delete&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">remove_command_from_tree</span><span class="p">()</span></div></div>
 
 
 <span class="c1"># end of file</span>
