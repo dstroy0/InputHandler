@@ -63,7 +63,7 @@ class LineNumberArea(QWidget):
         return self._code_editor.lineNumberAreaPaintEvent(event)
 
 
-## each code preview browser in Code Preview is an instance of this class
+## every code preview text widget is this except the readme
 class CodePreviewBrowser(QPlainTextEdit):
     # spawns a QTextBrowser with these settings
     def __init__(self, name: str, app: QApplication):
@@ -203,7 +203,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.setExtraSelections(extra_selections)
 
 
-## each code preview browser in Code Preview is an instance of this class
+## the only code preview text widget that uses this class is readme.md
 class MarkDownBrowser(QTextEdit):
     # spawns a QTextBrowser with these settings
     def __init__(self, name: str, app: QApplication):
@@ -272,7 +272,7 @@ class MarkDownBrowser(QTextEdit):
             self.anchor = None
 
 
-# code preview methods
+# code generation and preview
 class CodeGeneration(
     ParseInputHandlerConfig,
     cliFileStrings,
@@ -282,7 +282,7 @@ class CodeGeneration(
     cliFunctions,
     cliParameters,
     object,
-):    
+):
     def __init__(self) -> None:
         """Constructor method"""
         super(CodeGeneration, self).__init__()
@@ -294,7 +294,7 @@ class CodeGeneration(
         self.cliOpt = self.cliOpt
         self.qcursor = self.qcursor
         self.tab_1 = ""
-        self.tab_2 = ""        
+        self.tab_2 = ""
 
         ParseInputHandlerConfig.__init__(self)
         cliFileStrings.__init__(self)
@@ -402,14 +402,15 @@ class CodePreviewWidget(
     QTreeWidget,
     QTreeWidgetItem,
 ):
-    _cursor = ""    
+    _cursor = ""
+
     def __init__(self, parent, container, code_preview_dict, cliopt) -> None:
         super(CodePreviewWidget, self).__init__()
-        
+
         self.setParent(container)
         self.collapse_button = container.collapse_button
         self.logger = parent.codegen_logger
-        self._cursor = parent.qcursor        
+        self._cursor = parent.qcursor
         self.readme_md = parent.readme_md
         self.config_h = parent.config_h
         self.setup_h = parent.setup_h
@@ -435,7 +436,7 @@ class CodePreviewWidget(
         self.active_item = self.invisibleRootItem()
 
         self.user_resizing_code_preview_box = False
-        self.selected_drag_to_resize_item = None        
+        self.selected_drag_to_resize_item = None
         self.init_mouse_pos = QPoint()
         self.init_height = 0
 
@@ -466,13 +467,17 @@ class CodePreviewWidget(
         self.collapse_button.clicked.connect(self.tree_expander)
         self.button_toggles()
 
-    def item_expanded(self, item:QTreeWidgetItem) -> None:
-        self.active_item = item        
-        if item.data(0,0) == None:
-            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+    def item_expanded(self, item: QTreeWidgetItem) -> None:
+        self.active_item = item
+        if item.data(0, 0) == None:
+            self.selected_text_widget = self.text_widgets[
+                self.active_item.parent().data(0, 0)
+            ]["widget"]
         else:
-            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
-        
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0, 0)][
+                "widget"
+            ]
+
     def tree_expander(self):
         text = self.collapse_button.text()
         if text == "Collapse All":
@@ -481,12 +486,12 @@ class CodePreviewWidget(
             self.expandAll()
         elif text == "Collapse":
             item = self.active_item
-            if item.data(0,0) == None:
+            if item.data(0, 0) == None:
                 item = item.parent()
             item.setExpanded(False)
         elif text == "Expand":
             item = self.active_item
-            if item.data(0,0) == None:
+            if item.data(0, 0) == None:
                 item = item.parent()
             self.active_item.setExpanded(True)
 
@@ -498,8 +503,8 @@ class CodePreviewWidget(
                 self.collapse_button.setText("Expand All")
         else:
             item = self.active_item
-            if item.data(0,0) == None:
-                item = self.active_item.parent()            
+            if item.data(0, 0) == None:
+                item = self.active_item.parent()
             if item.isExpanded():
                 self.collapse_button.setText("Collapse")
             else:
@@ -516,24 +521,36 @@ class CodePreviewWidget(
 
     def item_changed(self, item, column):
         self.active_item = item
-        if item.data(0,0) == None:
-            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        if item.data(0, 0) == None:
+            self.selected_text_widget = self.text_widgets[
+                self.active_item.parent().data(0, 0)
+            ]["widget"]
         else:
-            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0, 0)][
+                "widget"
+            ]
 
     def which_pressed(self):
         self.active_item = self.itemFromIndex(self.currentIndex())
-        if self.active_item.data(0,0) == None:
-            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        if self.active_item.data(0, 0) == None:
+            self.selected_text_widget = self.text_widgets[
+                self.active_item.parent().data(0, 0)
+            ]["widget"]
         else:
-            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0, 0)][
+                "widget"
+            ]
 
     def which_clicked(self):
         self.active_item = self.itemFromIndex(self.currentIndex())
-        if self.active_item.data(0,0) == None:
-            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        if self.active_item.data(0, 0) == None:
+            self.selected_text_widget = self.text_widgets[
+                self.active_item.parent().data(0, 0)
+            ]["widget"]
         else:
-            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0, 0)][
+                "widget"
+            ]
 
     def update_code(self, file: str, item_string: str, place_cursor: bool) -> None:
         """updates code in text_widget.objectName(`file`);
@@ -568,10 +585,14 @@ class CodePreviewWidget(
             label.setIcon(0, self.fileicon)
             if key != "README.md":
                 text_widget = CodePreviewBrowser(key, self.app)
-                self.text_widgets.update({key: {"widget":text_widget,"parent":label}})
+                self.text_widgets.update(
+                    {key: {"widget": text_widget, "parent": label}}
+                )
             else:
                 text_widget = MarkDownBrowser(key, self.app)
-                self.text_widgets.update({key: {"widget":text_widget,"parent":label}})
+                self.text_widgets.update(
+                    {key: {"widget": text_widget, "parent": label}}
+                )
 
             text_widget_container = QTreeWidgetItem(label)
             text_widget_container.setFirstColumnSpanned(True)
@@ -579,30 +600,6 @@ class CodePreviewWidget(
                 text_widget_container
             )
             self.setItemWidget(text_widget_container, 0, text_widget)
-
-    def get_vertical_drag_icon_geometry(self, widget_qrect: QRect) -> QRect:
-        return QRect(
-            20,
-            widget_qrect.y() + widget_qrect.height() - 4,
-            widget_qrect.width() - 20,
-            25,
-        )
-
-    def resize_code_preview_tree_item(self, mouse_pos: QCursor) -> None:
-        y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
-        self.drag_resize_qsize.setHeight(y_axis)
-        self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)
-        widget_size = (
-            self.selected_drag_to_resize_item.treeWidget()
-            .itemWidget(self.selected_drag_to_resize_item, 0)
-            .sizeHint()
-        )
-        widget_size.setWidth(self.qrect.width())
-        if y_axis >= 192:
-            widget_size.setHeight(y_axis)
-            self.selected_drag_to_resize_item.treeWidget().itemWidget(
-                self.selected_drag_to_resize_item, 0
-            ).resize(widget_size)            
 
     def set_code_string(
         self,
@@ -637,6 +634,30 @@ class CodePreviewWidget(
         cursor.movePosition(cursor.StartOfLine, QTextCursor.KeepAnchor, 1)
         text_widget.setTextCursor(cursor)
         text_widget.ensureCursorVisible()
+
+    def get_vertical_drag_icon_geometry(self, widget_qrect: QRect) -> QRect:
+        return QRect(
+            20,
+            widget_qrect.y() + widget_qrect.height() - 4,
+            widget_qrect.width() - 20,
+            25,
+        )
+
+    def resize_code_preview_tree_item(self, mouse_pos: QCursor) -> None:
+        y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
+        self.drag_resize_qsize.setHeight(y_axis)
+        self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)
+        widget_size = (
+            self.selected_drag_to_resize_item.treeWidget()
+            .itemWidget(self.selected_drag_to_resize_item, 0)
+            .sizeHint()
+        )
+        widget_size.setWidth(self.qrect.width())
+        if y_axis >= 192:
+            widget_size.setHeight(y_axis)
+            self.selected_drag_to_resize_item.treeWidget().itemWidget(
+                self.selected_drag_to_resize_item, 0
+            ).resize(widget_size)
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         if not self._cursor:
