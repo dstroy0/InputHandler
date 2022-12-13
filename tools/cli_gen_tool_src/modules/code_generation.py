@@ -15,7 +15,7 @@ from __future__ import absolute_import
 import datetime
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QUrl, Slot
+from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QUrl, Slot, QPoint
 from PySide6.QtGui import (
     QMouseEvent,
     QTextCursor,
@@ -80,7 +80,9 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setMinimumHeight(25)
+        self.setMinimumWidth(100)
         self.centerCursor()
         self.line_number_area = LineNumberArea(self)
         self.blockCountChanged[int].connect(self.update_line_number_area_width)
@@ -218,7 +220,9 @@ class MarkDownBrowser(QTextEdit):
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setMinimumHeight(25)
+        self.setMinimumWidth(100)
         self.ensureCursorVisible()
         # let the user navigate to the hyperlinks provided in the readme
         self.setTextInteractionFlags(
@@ -278,8 +282,7 @@ class CodeGeneration(
     cliFunctions,
     cliParameters,
     object,
-):
-    selected_text_widget = ""
+):    
     def __init__(self) -> None:
         """Constructor method"""
         super(CodeGeneration, self).__init__()
@@ -291,8 +294,7 @@ class CodeGeneration(
         self.cliOpt = self.cliOpt
         self.qcursor = self.qcursor
         self.tab_1 = ""
-        self.tab_2 = ""
-        self.selected_text_widget = ""
+        self.tab_2 = ""        
 
         ParseInputHandlerConfig.__init__(self)
         cliFileStrings.__init__(self)
@@ -403,6 +405,7 @@ class CodePreviewWidget(
     _cursor = ""    
     def __init__(self, parent, container, code_preview_dict, cliopt) -> None:
         super(CodePreviewWidget, self).__init__()
+        
         self.setParent(container)
         self.collapse_button = container.collapse_button
         self.logger = parent.codegen_logger
@@ -432,14 +435,18 @@ class CodePreviewWidget(
         self.active_item = self.invisibleRootItem()
 
         self.user_resizing_code_preview_box = False
-        self.selected_drag_to_resize_item = None
+        self.selected_drag_to_resize_item = None        
+        self.init_mouse_pos = QPoint()
+        self.init_height = 0
 
         self.setHeaderLabel("Code Preview")
         self.setColumnCount(2)
         self.setColumnHidden(1, True)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.header().setSectionResizeMode(QHeaderView.Stretch)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setMinimumHeight(100)
+        self.setMinimumWidth(100)
         for i in range(self.columnCount() - 1):
             self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
@@ -460,7 +467,11 @@ class CodePreviewWidget(
         self.button_toggles()
 
     def item_expanded(self, item:QTreeWidgetItem) -> None:
-        self.active_item = item
+        self.active_item = item        
+        if item.data(0,0) == None:
+            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        else:
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
         
     def tree_expander(self):
         text = self.collapse_button.text()
@@ -505,12 +516,24 @@ class CodePreviewWidget(
 
     def item_changed(self, item, column):
         self.active_item = item
+        if item.data(0,0) == None:
+            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        else:
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
 
     def which_pressed(self):
         self.active_item = self.itemFromIndex(self.currentIndex())
+        if self.active_item.data(0,0) == None:
+            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        else:
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
 
     def which_clicked(self):
         self.active_item = self.itemFromIndex(self.currentIndex())
+        if self.active_item.data(0,0) == None:
+            self.selected_text_widget = self.text_widgets[self.active_item.parent().data(0,0)]["widget"]
+        else:
+            self.selected_text_widget = self.text_widgets[self.active_item.data(0,0)]["widget"]
 
     def update_code(self, file: str, item_string: str, place_cursor: bool) -> None:
         """updates code in text_widget.objectName(`file`);
@@ -574,13 +597,12 @@ class CodePreviewWidget(
             .itemWidget(self.selected_drag_to_resize_item, 0)
             .sizeHint()
         )
-        widget_size.setWidth(self.qrect.width() - 40)
+        widget_size.setWidth(self.qrect.width())
         if y_axis >= 192:
             widget_size.setHeight(y_axis)
             self.selected_drag_to_resize_item.treeWidget().itemWidget(
                 self.selected_drag_to_resize_item, 0
-            ).resize(widget_size)
-            self.selected_drag_to_resize_item.treeWidget().resize(widget_size)
+            ).resize(widget_size)            
 
     def set_code_string(
         self,
@@ -660,7 +682,7 @@ class CodePreviewWidget(
                     # no item being hovered over
                     self.setCursor(Qt.CursorShape.ArrowCursor)
 
-        if event_type == event.Wheel and CodeGeneration.selected_text_widget != None:
+        if event_type == event.Wheel and self.selected_text_widget != None:
             sb = self.selected_text_widget.verticalScrollBar()
             sb.setValue(sb.value() + (-(event.angleDelta().y() / 8)))
 

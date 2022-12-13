@@ -216,9 +216,7 @@ class MainWindow(
         self.ih_builtins = ["listSettings", "listCommands"]
 
         # code preview interaction
-        self.user_resizing_code_preview_box = False
-        self.init_mouse_pos = QPoint()
-        self.init_height = 0
+        
         self.qcursor = QCursor()
 
         self.minimum_file_len = dataModels.minimum_file_len_dict
@@ -284,10 +282,7 @@ class MainWindow(
         PreferencesMethods.__init__(self)
         CodeGeneration.__init__(self)
         self.build_code_preview_widgets()
-        self.parse_config()
-
-        # uncomment to print self.cliOpt as pretty json
-        # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
+        self.parse_config()        
 
         self.set_up_ui_icons()
 
@@ -308,9 +303,7 @@ class MainWindow(
         self.display_initial_code_preview()
 
         # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
-        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
-        # self.ui.codePreview_1.viewport().installEventFilter(self)
-        # self.ui.codePreview_2.viewport().installEventFilter(self)
+        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)        
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
         # preferences dialog input validation
