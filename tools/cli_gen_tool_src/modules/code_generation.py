@@ -469,6 +469,9 @@ class CodePreviewWidget(
 
     def item_expanded(self, item: QTreeWidgetItem) -> None:
         self.active_item = item
+        if self.active_item == self.invisibleRootItem():
+            self.selected_text_widget = None
+            return
         if item.data(0, 0) == None:
             self.selected_text_widget = self.text_widgets[
                 self.active_item.parent().data(0, 0)
@@ -657,7 +660,8 @@ class CodePreviewWidget(
             widget_size.setHeight(y_axis)
             self.selected_drag_to_resize_item.treeWidget().itemWidget(
                 self.selected_drag_to_resize_item, 0
-            ).resize(widget_size)
+            ).resize(widget_size)            
+        self.doItemsLayout()
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:
         if not self._cursor:
