@@ -279,6 +279,7 @@ class CodeGeneration(
     cliParameters,
     object,
 ):
+    selected_text_widget = ""
     def __init__(self) -> None:
         """Constructor method"""
         super(CodeGeneration, self).__init__()
@@ -338,7 +339,7 @@ class CodeGeneration(
 
     def make_collapse_button(self) -> QPushButton:
         button = QPushButton()
-        button.setMaximumSize(150,25)
+        button.setMaximumSize(150, 25)
         return button
 
     def build_code_preview_widgets(self):
@@ -399,15 +400,13 @@ class CodePreviewWidget(
     QTreeWidget,
     QTreeWidgetItem,
 ):
-    _cursor = ""
-
+    _cursor = ""    
     def __init__(self, parent, container, code_preview_dict, cliopt) -> None:
         super(CodePreviewWidget, self).__init__()
         self.setParent(container)
         self.collapse_button = container.collapse_button
         self.logger = parent.codegen_logger
-        self._cursor = parent.qcursor
-        CodePreviewWidget._cursor = self._cursor
+        self._cursor = parent.qcursor        
         self.readme_md = parent.readme_md
         self.config_h = parent.config_h
         self.setup_h = parent.setup_h
@@ -456,9 +455,44 @@ class CodePreviewWidget(
         self.itemClicked.connect(self.button_toggles)
         self.itemCollapsed.connect(self.button_toggles)
         self.itemExpanded.connect(self.button_toggles)
+        self.itemExpanded.connect(self.item_expanded)
+        self.collapse_button.clicked.connect(self.tree_expander)
+        self.button_toggles()
+
+    def item_expanded(self, item:QTreeWidgetItem) -> None:
+        self.active_item = item
+        
+    def tree_expander(self):
+        text = self.collapse_button.text()
+        if text == "Collapse All":
+            self.collapseAll()
+        elif text == "Expand All":
+            self.expandAll()
+        elif text == "Collapse":
+            item = self.active_item
+            if item.data(0,0) == None:
+                item = item.parent()
+            item.setExpanded(False)
+        elif text == "Expand":
+            item = self.active_item
+            if item.data(0,0) == None:
+                item = item.parent()
+            self.active_item.setExpanded(True)
 
     def button_toggles(self):
-        self.collapse_button.setText("Collapse")
+        if self.active_item == self.invisibleRootItem():
+            if self.active_item.isExpanded():
+                self.collapse_button.setText("Collapse All")
+            else:
+                self.collapse_button.setText("Expand All")
+        else:
+            item = self.active_item
+            if item.data(0,0) == None:
+                item = self.active_item.parent()            
+            if item.isExpanded():
+                self.collapse_button.setText("Collapse")
+            else:
+                self.collapse_button.setText("Expand")
 
     def initial_code_preview(self):
         self.readme_md(None, False)
@@ -511,10 +545,10 @@ class CodePreviewWidget(
             label.setIcon(0, self.fileicon)
             if key != "README.md":
                 text_widget = CodePreviewBrowser(key, self.app)
-                self.text_widgets.update({key: text_widget})
+                self.text_widgets.update({key: {"widget":text_widget,"parent":label}})
             else:
                 text_widget = MarkDownBrowser(key, self.app)
-                self.text_widgets.update({key: text_widget})
+                self.text_widgets.update({key: {"widget":text_widget,"parent":label}})
 
             text_widget_container = QTreeWidgetItem(label)
             text_widget_container.setFirstColumnSpanned(True)
@@ -555,7 +589,7 @@ class CodePreviewWidget(
         item_string: str,
         place_cursor: bool = False,
     ) -> None:
-        text_widget = self.text_widgets[filename]
+        text_widget = self.text_widgets[filename]["widget"]
 
         if (
             len(self.code_preview_dict["files"][filename]["file_lines_list"])
@@ -571,7 +605,7 @@ class CodePreviewWidget(
             text_widget.setMarkdown(code_string)
 
         if place_cursor == True and code_string != "":
-            self.text_widgets[filename].setExpanded(True)
+            self.text_widgets[filename]["parent"].setExpanded(True)
             self.set_text_cursor(text_widget, item_string)
 
     def set_text_cursor(self, text_widget, item_string: str) -> None:
