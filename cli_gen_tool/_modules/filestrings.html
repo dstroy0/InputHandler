@@ -235,11 +235,9 @@
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-
 
 <span class="c1">## file construction strings</span>
-<div class="viewcode-block" id="CLIfilestrings"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.CLIfilestrings">[docs]</a><span class="k">class</span> <span class="nc">CLIfilestrings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="cliFileStrings"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.cliFileStrings">[docs]</a><span class="k">class</span> <span class="nc">cliFileStrings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1">## version is implanted in all docstrings</span>
     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="c1">## README.md</span>
@@ -559,30 +557,9 @@
 
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CLIfilestrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
-
-    <span class="c1">## formats a docstring and returns a list populated with lines of text</span>
-<div class="viewcode-block" id="CLIfilestrings.generate_docstring_list_for_filename"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.CLIfilestrings.generate_docstring_list_for_filename">[docs]</a>    <span class="k">def</span> <span class="nf">generate_docstring_list_for_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">brief</span><span class="p">):</span>
-        <span class="n">docstring_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-        <span class="n">docstring</span> <span class="o">=</span> <span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">docfs</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">docs_version</span><span class="o">=</span><span class="n">CLIfilestrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-            <span class="n">docs_filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-            <span class="n">docs_brief</span><span class="o">=</span><span class="n">brief</span><span class="p">,</span>
-            <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-            <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">docstring_list</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">docstring_list</span></div>
-
-    <span class="c1">## turns a list of text lines into a complete file string where each line ends with newline</span>
-<div class="viewcode-block" id="CLIfilestrings.list_to_code_string"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.CLIfilestrings.list_to_code_string">[docs]</a>    <span class="k">def</span> <span class="nf">list_to_code_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">code_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">code_string</span> <span class="o">=</span> <span class="n">code_string</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">code_string</span></div></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">cliFileStrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span></div>
 
 
 <span class="c1"># end of file</span>

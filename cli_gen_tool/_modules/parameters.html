@@ -239,7 +239,7 @@
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">cliParameters</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">cliParameters</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        
 
 <div class="viewcode-block" id="cliParameters.ret_nested_child"><a class="viewcode-back" href="../modules/cli/parameters.html#parameters.cliParameters.ret_nested_child">[docs]</a>    <span class="k">def</span> <span class="nf">ret_nested_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">comma</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">_comma</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span>
@@ -317,7 +317,7 @@
         <span class="n">parameters_h_fs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span><span class="s2">&quot;filestring&quot;</span><span class="p">]</span>
 
         <span class="n">parameters_code_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">cliParameters</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;generating parameters&quot;</span><span class="p">)</span>
+        <span class="c1">#cliParameters.logger.debug(&quot;generating parameters&quot;)</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
             <span class="c1"># unnested parameters</span>
@@ -331,7 +331,7 @@
                 <span class="n">parameters_code_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_unnested_param</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="kc">True</span>
                 <span class="p">)</span>
-                <span class="n">cliParameters</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;unnested param generated&quot;</span><span class="p">)</span>
+                <span class="c1">#cliParameters.logger.debug(&quot;unnested param generated&quot;)</span>
             <span class="k">elif</span> <span class="p">(</span>
                 <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
                 <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span>
@@ -362,7 +362,7 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">item</span><span class="p">],</span>
                             <span class="kc">False</span><span class="p">,</span>
                         <span class="p">)</span>
-                <span class="n">cliParameters</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;nested param generated&quot;</span><span class="p">)</span>
+                <span class="c1">#cliParameters.logger.debug(&quot;nested param generated&quot;)</span>
 
                 <span class="n">parameters_code_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_param</span><span class="p">(</span>
                     <span class="n">num_children</span><span class="p">,</span>

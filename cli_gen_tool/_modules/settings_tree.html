@@ -555,7 +555,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabel</span><span class="p">(</span><span class="s2">&quot;Settings Tree&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHidden</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHidden</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">((</span><span class="s2">&quot;Section&quot;</span><span class="p">,</span> <span class="s2">&quot;Macro Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
@@ -874,7 +874,7 @@
                         <span class="p">)</span>
                     <span class="p">}</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">list_commands</span><span class="p">)</span>
-
+                    
                     <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">add_command_to_tree</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">(),</span>
                     <span class="p">)</span>

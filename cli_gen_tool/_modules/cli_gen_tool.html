@@ -269,19 +269,17 @@
 <span class="kn">from</span> <span class="nn">modules.uic.mainWindow</span> <span class="kn">import</span> <span class="n">Ui_MainWindow</span>  <span class="c1"># main window with tabs</span>
 
 <span class="c1"># external class methods</span>
-<span class="kn">from</span> <span class="nn">modules.cli.filestrings</span> <span class="kn">import</span> <span class="n">CLIfilestrings</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
 <span class="kn">from</span> <span class="nn">modules.command_tree</span> <span class="kn">import</span> <span class="n">CommandTreeMethods</span>
-<span class="kn">from</span> <span class="nn">modules.code_preview</span> <span class="kn">import</span> <span class="n">CodePreview</span>
 <span class="kn">from</span> <span class="nn">modules.command_parameters</span> <span class="kn">import</span> <span class="n">CommandParametersMethods</span>
 <span class="kn">from</span> <span class="nn">modules.helper_methods</span> <span class="kn">import</span> <span class="n">HelperMethods</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span> <span class="nn">modules.mainwindow_actions</span> <span class="kn">import</span> <span class="n">MainWindowActions</span>
 <span class="kn">from</span> <span class="nn">modules.mainwindow_buttons</span> <span class="kn">import</span> <span class="n">MainWindowButtons</span>
-<span class="kn">from</span> <span class="nn">modules.parse_config</span> <span class="kn">import</span> <span class="n">ParseInputHandlerConfig</span>
 <span class="kn">from</span> <span class="nn">modules.settings_tree</span> <span class="kn">import</span> <span class="n">SettingsTreeMethods</span>
 <span class="kn">from</span> <span class="nn">modules.preferences</span> <span class="kn">import</span> <span class="n">PreferencesMethods</span>
 <span class="kn">from</span> <span class="nn">modules.mainwindow_methods</span> <span class="kn">import</span> <span class="n">MainWindowMethods</span>
+<span class="kn">from</span> <span class="nn">modules.code_generation</span> <span class="kn">import</span> <span class="n">CodeGeneration</span>
 
 <span class="c1">## tool version</span>
 <span class="n">version</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># save serialization</span>
@@ -407,15 +405,13 @@
     <span class="n">QMainWindow</span><span class="p">,</span>
     <span class="n">HelperMethods</span><span class="p">,</span>
     <span class="n">MainWindowActions</span><span class="p">,</span>
-    <span class="n">CodePreview</span><span class="p">,</span>
     <span class="n">SettingsTreeMethods</span><span class="p">,</span>
     <span class="n">CommandParametersMethods</span><span class="p">,</span>
     <span class="n">MainWindowButtons</span><span class="p">,</span>
-    <span class="n">ParseInputHandlerConfig</span><span class="p">,</span>
-    <span class="n">CLIfilestrings</span><span class="p">,</span>
     <span class="n">CommandTreeMethods</span><span class="p">,</span>
     <span class="n">PreferencesMethods</span><span class="p">,</span>
     <span class="n">MainWindowMethods</span><span class="p">,</span>
+    <span class="n">CodeGeneration</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="c1">## The constructor.</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -498,27 +494,26 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_main_window</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">())</span>
 
-        <span class="c1"># import external classes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing external classes.&quot;</span><span class="p">)</span>
-        <span class="n">CLIfilestrings</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">MainWindowActions</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">MainWindowButtons</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">ParseInputHandlerConfig</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_session</span><span class="p">()</span>
+
+        <span class="c1"># import external classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing external classes.&quot;</span><span class="p">)</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
         <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">CodePreview</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_session</span><span class="p">()</span>
+        <span class="n">CodeGeneration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_code_preview_widgets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="p">()</span>
 
         <span class="c1"># uncomment to print self.cliOpt as pretty json</span>
         <span class="c1"># print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: &#39;object&#39;))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_ui_icons</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span>
 
         <span class="c1"># MainWindow actions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_menu_bar_actions_setup</span><span class="p">()</span>
@@ -531,7 +526,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">get_settings_tree</span><span class="p">()</span>
 
         <span class="c1"># code preview trees</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">build_code_preview_tree</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
 
@@ -539,8 +533,8 @@
 
         <span class="c1"># viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_1</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">codePreview_2</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># self.ui.codePreview_1.viewport().installEventFilter(self)</span>
+        <span class="c1"># self.ui.codePreview_2.viewport().installEventFilter(self)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># preferences dialog input validation</span>
