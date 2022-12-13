@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from modules.cli.filestrings import CLIfilestrings
+from modules.cli.filestrings import cliFileStrings
 import datetime
 
 
@@ -25,16 +25,16 @@ class cliReadme(object):
         self.code_preview_dict["files"]["README.md"]["file_lines_list"] = []
         year = str(datetime.date.today())[0:4]
         date = datetime.date.today()
-        docstring = CLIfilestrings.readmemd.format(
-            docs_version=CLIfilestrings.version,
+        docstring = cliFileStrings.readmemd.format(
+            docs_version=cliFileStrings.version,
             docs_date=date,
             docs_year=year,
-            initial_instructions=CLIfilestrings.rdme_initial_inst,
-            function_instructions=CLIfilestrings.rdme_function_inst,
+            initial_instructions=cliFileStrings.rdme_initial_inst,
+            function_instructions=cliFileStrings.rdme_function_inst,
             functions_with_return="",
-            setup_instructions=CLIfilestrings.rdme_setup_inst,
+            setup_instructions=cliFileStrings.rdme_setup_inst,
             setup_code="",
-            loop_instructions=CLIfilestrings.rdme_loop_inst,
+            loop_instructions=cliFileStrings.rdme_loop_inst,
             loop_code="",
         )
         self.code_preview_dict["files"]["README.md"][

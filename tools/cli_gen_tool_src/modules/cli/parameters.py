@@ -15,7 +15,7 @@ class cliParameters(object):
     ## the constructor
     def __init__(self) -> None:
         super(cliParameters, self).__init__()
-        cliParameters.logger = self.get_child_logger(__name__)
+        
 
     def ret_nested_child(self, parameters, comma=True):
         _comma = ","
@@ -93,7 +93,7 @@ class cliParameters(object):
         parameters_h_fs = self.fsdb["parameters"]["h"]["filestring"]
 
         parameters_code_string = ""
-        cliParameters.logger.debug("generating parameters")
+        #cliParameters.logger.debug("generating parameters")
         for index in self.cliOpt["commands"]["index"]:
             key = self.cliOpt["commands"]["index"][index]["parameters key"]
             # unnested parameters
@@ -107,7 +107,7 @@ class cliParameters(object):
                 parameters_code_string += self.ret_unnested_param(
                     self.cliOpt["commands"]["parameters"][key], True
                 )
-                cliParameters.logger.debug("unnested param generated")
+                #cliParameters.logger.debug("unnested param generated")
             elif (
                 key in self.cliOpt["commands"]["parameters"]
                 and bool(
@@ -138,7 +138,7 @@ class cliParameters(object):
                             self.self.cliOpt["commands"]["parameters"][item],
                             False,
                         )
-                cliParameters.logger.debug("nested param generated")
+                #cliParameters.logger.debug("nested param generated")
 
                 parameters_code_string += self.ret_nested_param(
                     num_children,

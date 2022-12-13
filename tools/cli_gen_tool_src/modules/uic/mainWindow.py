@@ -16,10 +16,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QGridLayout, QHeaderView,
-    QLabel, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QSplitter, QTabWidget,
-    QTreeWidget, QTreeWidgetItem, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QMainWindow,
+    QMenu, QMenuBar, QPushButton, QSizePolicy,
+    QSplitter, QTabWidget, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -137,37 +136,11 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.settings_tree_container, 2, 0, 1, 3)
 
         self.settings_tab_splitter.addWidget(self.settings_container)
-        self.code_preview_container = QWidget(self.settings_tab_splitter)
-        self.code_preview_container.setObjectName(u"code_preview_container")
-        sizePolicy.setHeightForWidth(self.code_preview_container.sizePolicy().hasHeightForWidth())
-        self.code_preview_container.setSizePolicy(sizePolicy)
-        self.gridLayout = QGridLayout(self.code_preview_container)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.tab_1_code_preview_label = QLabel(self.code_preview_container)
-        self.tab_1_code_preview_label.setObjectName(u"tab_1_code_preview_label")
-        sizePolicy1.setHeightForWidth(self.tab_1_code_preview_label.sizePolicy().hasHeightForWidth())
-        self.tab_1_code_preview_label.setSizePolicy(sizePolicy1)
-        self.tab_1_code_preview_label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.tab_1_code_preview_label, 0, 0, 1, 1)
-
-        self.codePreview_1 = QTreeWidget(self.code_preview_container)
-        __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
-        self.codePreview_1.setHeaderItem(__qtreewidgetitem)
-        self.codePreview_1.setObjectName(u"codePreview_1")
-        sizePolicy.setHeightForWidth(self.codePreview_1.sizePolicy().hasHeightForWidth())
-        self.codePreview_1.setSizePolicy(sizePolicy)
-        self.codePreview_1.setMinimumSize(QSize(0, 0))
-        self.codePreview_1.setMouseTracking(False)
-        self.codePreview_1.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.codePreview_1.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.codePreview_1.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        self.codePreview_1.setDragEnabled(False)
-
-        self.gridLayout.addWidget(self.codePreview_1, 1, 0, 1, 1)
-
-        self.settings_tab_splitter.addWidget(self.code_preview_container)
+        self.settings_code_preview_container = QWidget(self.settings_tab_splitter)
+        self.settings_code_preview_container.setObjectName(u"settings_code_preview_container")
+        sizePolicy.setHeightForWidth(self.settings_code_preview_container.sizePolicy().hasHeightForWidth())
+        self.settings_code_preview_container.setSizePolicy(sizePolicy)
+        self.settings_tab_splitter.addWidget(self.settings_code_preview_container)
 
         self.gridLayout_3.addWidget(self.settings_tab_splitter, 0, 0, 1, 1)
 
@@ -245,29 +218,6 @@ class Ui_MainWindow(object):
         self.commands_code_preview_container.setObjectName(u"commands_code_preview_container")
         sizePolicy.setHeightForWidth(self.commands_code_preview_container.sizePolicy().hasHeightForWidth())
         self.commands_code_preview_container.setSizePolicy(sizePolicy)
-        self.gridLayout_7 = QGridLayout(self.commands_code_preview_container)
-        self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.tab_2_code_preview_label = QLabel(self.commands_code_preview_container)
-        self.tab_2_code_preview_label.setObjectName(u"tab_2_code_preview_label")
-        sizePolicy1.setHeightForWidth(self.tab_2_code_preview_label.sizePolicy().hasHeightForWidth())
-        self.tab_2_code_preview_label.setSizePolicy(sizePolicy1)
-        self.tab_2_code_preview_label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_7.addWidget(self.tab_2_code_preview_label, 0, 0, 1, 1)
-
-        self.codePreview_2 = QTreeWidget(self.commands_code_preview_container)
-        __qtreewidgetitem1 = QTreeWidgetItem()
-        __qtreewidgetitem1.setText(0, u"1");
-        self.codePreview_2.setHeaderItem(__qtreewidgetitem1)
-        self.codePreview_2.setObjectName(u"codePreview_2")
-        sizePolicy.setHeightForWidth(self.codePreview_2.sizePolicy().hasHeightForWidth())
-        self.codePreview_2.setSizePolicy(sizePolicy)
-        self.codePreview_2.setMinimumSize(QSize(0, 0))
-        self.codePreview_2.setMouseTracking(False)
-        self.codePreview_2.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-
-        self.gridLayout_7.addWidget(self.codePreview_2, 1, 0, 1, 1)
-
         self.command_tab_splitter.addWidget(self.commands_code_preview_container)
 
         self.gridLayout_5.addWidget(self.command_tab_splitter, 0, 0, 1, 1)
@@ -289,12 +239,10 @@ class Ui_MainWindow(object):
         self.menuLog = QMenu(self.menubar)
         self.menuLog.setObjectName(u"menuLog")
         MainWindow.setMenuBar(self.menubar)
-        QWidget.setTabOrder(self.command_tree_collapse_button, self.codePreview_2)
-        QWidget.setTabOrder(self.codePreview_2, self.new_cmd_button)
+        QWidget.setTabOrder(self.command_tree_collapse_button, self.new_cmd_button)
         QWidget.setTabOrder(self.new_cmd_button, self.edit_cmd_button)
         QWidget.setTabOrder(self.edit_cmd_button, self.delete_cmd_button)
-        QWidget.setTabOrder(self.delete_cmd_button, self.codePreview_1)
-        QWidget.setTabOrder(self.codePreview_1, self.edit_setting_button)
+        QWidget.setTabOrder(self.delete_cmd_button, self.edit_setting_button)
         QWidget.setTabOrder(self.edit_setting_button, self.clear_setting_button)
         QWidget.setTabOrder(self.clear_setting_button, self.default_setting_button)
 
@@ -360,7 +308,6 @@ class Ui_MainWindow(object):
         self.edit_setting_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.default_setting_button.setText(QCoreApplication.translate("MainWindow", u"Default", None))
         self.clear_setting_button.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
-        self.tab_1_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ih_settings_tab), QCoreApplication.translate("MainWindow", u"  InputHandler Settings  ", None))
 #if QT_CONFIG(tooltip)
         self.command_tree_collapse_button.setToolTip(QCoreApplication.translate("MainWindow", u"open command settings menu", None))
@@ -370,7 +317,6 @@ class Ui_MainWindow(object):
         self.edit_cmd_button.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.delete_cmd_button.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.tab_2_command_tree_label.setText(QCoreApplication.translate("MainWindow", u"Commands", None))
-        self.tab_2_code_preview_label.setText(QCoreApplication.translate("MainWindow", u"Code Preview", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.command_tab), QCoreApplication.translate("MainWindow", u"  Command Tree  ", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"  File  ", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))

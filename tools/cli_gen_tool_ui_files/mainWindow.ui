@@ -199,67 +199,13 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="code_preview_container" native="true">
+          <widget class="QWidget" name="settings_code_preview_container" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="tab_1_code_preview_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Code Preview</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QTreeWidget" name="codePreview_1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="mouseTracking">
-               <bool>false</bool>
-              </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOn</enum>
-              </property>
-              <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
-              </property>
-              <property name="sizeAdjustPolicy">
-               <enum>QAbstractScrollArea::AdjustToContents</enum>
-              </property>
-              <property name="dragEnabled">
-               <bool>false</bool>
-              </property>
-              <column>
-               <property name="text">
-                <string notr="true">1</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </widget>
         </item>
@@ -427,51 +373,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="0">
-             <widget class="QLabel" name="tab_2_code_preview_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Code Preview</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QTreeWidget" name="codePreview_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="mouseTracking">
-               <bool>false</bool>
-              </property>
-              <property name="sizeAdjustPolicy">
-               <enum>QAbstractScrollArea::AdjustToContents</enum>
-              </property>
-              <column>
-               <property name="text">
-                <string notr="true">1</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </widget>
         </item>
@@ -596,11 +497,9 @@
  </widget>
  <tabstops>
   <tabstop>command_tree_collapse_button</tabstop>
-  <tabstop>codePreview_2</tabstop>
   <tabstop>new_cmd_button</tabstop>
   <tabstop>edit_cmd_button</tabstop>
   <tabstop>delete_cmd_button</tabstop>
-  <tabstop>codePreview_1</tabstop>
   <tabstop>edit_setting_button</tabstop>
   <tabstop>clear_setting_button</tabstop>
   <tabstop>default_setting_button</tabstop>

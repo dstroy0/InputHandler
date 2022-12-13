@@ -416,8 +416,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def build_tree(self):
         self.logger.info("Building command tree.")
 
-        def populate_children(parent, index):            
-            if bool(self.command_index[index]["child index key list"]):                
+        def populate_children(parent, index):
+            if bool(self.command_index[index]["child index key list"]):
                 for child_index in self.command_index[index]["child index key list"]:
                     child_command = self.add_command_to_tree(parent)
                     if bool(self.command_index[child_index]["child index key list"]):
@@ -429,13 +429,13 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             if int(self.command_index[root_command_index]["root index key"]) == int(
                 self.command_index[root_command_index]["parameters key"]
             ):
-                root_command = self.add_command_to_tree(self.invisibleRootItem())                
+                root_command = self.add_command_to_tree(self.invisibleRootItem())
                 populate_children(root_command, root_command_index)
 
     def add_command_to_tree(self, parent_item: QTreeWidgetItem):
         item = self.build_command(parent_item)
         self.active_item = item
-        
+
         if self._parent.loading == False and self._parent.prompt_to_save == False:
             item.setExpanded(True)
             self.setCurrentItem(item)

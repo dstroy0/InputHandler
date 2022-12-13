@@ -331,7 +331,7 @@ class SettingsTreeWidget(QTreeWidget):
 
         self.setHeaderLabel("Settings Tree")
         self.setColumnCount(5)
-        self.setColumnHidden(4, 1)
+        self.setColumnHidden(4, True)
         self.setHeaderLabels(("Section", "Macro Name", "Type", "Value"))
         self.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -650,7 +650,7 @@ class SettingsTreeWidget(QTreeWidget):
                         )
                     }
                     self.cliopt["commands"]["parameters"].update(list_commands)
-
+                    
                     self.command_tree.add_command_to_tree(
                         self.command_tree.invisibleRootItem(),
                     )

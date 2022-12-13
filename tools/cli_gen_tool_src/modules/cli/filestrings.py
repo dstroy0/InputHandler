@@ -11,11 +11,9 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import datetime
-
 
 ## file construction strings
-class CLIfilestrings(object):
+class cliFileStrings(object):
     ## version is implanted in all docstrings
     version = ""
     ## README.md
@@ -335,30 +333,9 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
 
     ## the constructor
     def __init__(self) -> None:
-        super(CLIfilestrings, self).__init__()
-        CLIfilestrings.version = self.version
-
-    ## formats a docstring and returns a list populated with lines of text
-    def generate_docstring_list_for_filename(self, filename, brief):
-        docstring_list = []
-        year = str(datetime.date.today())[0:4]
-        date = datetime.date.today()
-        docstring = CLIfilestrings.docfs.format(
-            docs_version=CLIfilestrings.version,
-            docs_filename=filename,
-            docs_brief=brief,
-            docs_year=year,
-            docs_date=date,
-        )
-        docstring_list = docstring.split("\n")
-        return docstring_list
-
-    ## turns a list of text lines into a complete file string where each line ends with newline
-    def list_to_code_string(self, list):
-        code_string = ""
-        for line in list:
-            code_string = code_string + line + "\n"
-        return code_string
+        super(cliFileStrings, self).__init__()
+        cliFileStrings.version = self.version
+        self.version = self.version
 
 
 # end of file

@@ -45,19 +45,17 @@ from modules.uic.logHistoryDialog import Ui_logHistoryDialog
 from modules.uic.mainWindow import Ui_MainWindow  # main window with tabs
 
 # external class methods
-from modules.cli.filestrings import CLIfilestrings
 from modules.data_models import dataModels
 from modules.command_tree import CommandTreeMethods
-from modules.code_preview import CodePreview
 from modules.command_parameters import CommandParametersMethods
 from modules.helper_methods import HelperMethods
 from modules.logging_setup import Logger
 from modules.mainwindow_actions import MainWindowActions
 from modules.mainwindow_buttons import MainWindowButtons
-from modules.parse_config import ParseInputHandlerConfig
 from modules.settings_tree import SettingsTreeMethods
 from modules.preferences import PreferencesMethods
 from modules.mainwindow_methods import MainWindowMethods
+from modules.code_generation import CodeGeneration
 
 ## tool version
 version = 1.0  # save serialization
@@ -183,15 +181,13 @@ class MainWindow(
     QMainWindow,
     HelperMethods,
     MainWindowActions,
-    CodePreview,
     SettingsTreeMethods,
     CommandParametersMethods,
     MainWindowButtons,
-    ParseInputHandlerConfig,
-    CLIfilestrings,
     CommandTreeMethods,
     PreferencesMethods,
     MainWindowMethods,
+    CodeGeneration,
 ):
     ## The constructor.
     def __init__(
@@ -274,27 +270,26 @@ class MainWindow(
 
         self.set_up_main_window(Ui_MainWindow())
 
-        # import external classes
-        self.logger.debug("Importing external classes.")
-        CLIfilestrings.__init__(self)
-        HelperMethods.__init__(self)
         MainWindowActions.__init__(self)
         MainWindowButtons.__init__(self)
-        ParseInputHandlerConfig.__init__(self)
+        self.set_up_session()
+
+        # import external classes
+        self.logger.debug("Importing external classes.")
+        HelperMethods.__init__(self)
+
         SettingsTreeMethods.__init__(self)
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
-        CodePreview.__init__(self)
         PreferencesMethods.__init__(self)
-
-        self.set_up_session()
+        CodeGeneration.__init__(self)
+        self.build_code_preview_widgets()
+        self.parse_config()
 
         # uncomment to print self.cliOpt as pretty json
         # print(json.dumps(self.cliOpt, indent=4, sort_keys=False, default=lambda o: 'object'))
 
         self.set_up_ui_icons()
-
-        self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
         # MainWindow actions
         self.mainwindow_menu_bar_actions_setup()
@@ -307,7 +302,6 @@ class MainWindow(
         self.command_tree.get_settings_tree()
 
         # code preview trees
-        self.build_code_preview_tree()
 
         self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
 
@@ -315,8 +309,8 @@ class MainWindow(
 
         # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
-        self.ui.codePreview_1.viewport().installEventFilter(self)
-        self.ui.codePreview_2.viewport().installEventFilter(self)
+        # self.ui.codePreview_1.viewport().installEventFilter(self)
+        # self.ui.codePreview_2.viewport().installEventFilter(self)
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
         # preferences dialog input validation

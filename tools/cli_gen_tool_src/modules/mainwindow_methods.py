@@ -75,16 +75,7 @@ class MainWindowMethods(object):
         mouse_button = False
         # global mouse pos
         mouse_pos = self.qcursor.pos()
-
-        # drag to resize, change cursor to vertical drag and back to arrow
         if (
-            watched == self.ui.codePreview_1.viewport()
-            or watched == self.ui.codePreview_2.viewport()
-        ):
-            self.code_preview_events(
-                watched, event, event_type, mouse_button, mouse_pos
-            )
-        elif (
             watched == self.settings_tree.viewport()
             and event_type == QEvent.MouseButtonPress
         ):
