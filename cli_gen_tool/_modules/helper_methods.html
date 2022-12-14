@@ -242,7 +242,6 @@
     <span class="n">QDialogButtonBox</span><span class="p">,</span>
     <span class="n">QLabel</span><span class="p">,</span>
     <span class="n">QVBoxLayout</span><span class="p">,</span>
-    <span class="n">QWidget</span><span class="p">,</span>
     <span class="n">QSizePolicy</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
@@ -250,15 +249,12 @@
 
 <span class="c1"># helper method class</span>
 <div class="viewcode-block" id="HelperMethods"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods">[docs]</a><span class="k">class</span> <span class="nc">HelperMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1">## instance</span>
-    <span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">helper_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="c1"># self.parent = self</span>
 
     <span class="c1">## spawn a dialog box</span>
 <div class="viewcode-block" id="HelperMethods.create_qdialog"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods.create_qdialog">[docs]</a>    <span class="k">def</span> <span class="nf">create_qdialog</span><span class="p">(</span>
@@ -272,8 +268,10 @@
         <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">screen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;create qdialog: &quot;</span> <span class="o">+</span> <span class="n">window_title</span><span class="p">)</span>
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="n">helper_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;create qdialog: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">window_title</span><span class="p">))</span>
         <span class="n">_buttons</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">button_box_clicked</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
@@ -333,9 +331,9 @@
 
         <span class="c1"># center dialog on screen</span>
         <span class="k">if</span> <span class="n">screen</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">_qscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_screen</span>
+            <span class="n">_qscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">primaryScreen</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_qscreen</span> <span class="o">=</span> <span class="n">HelperMethods</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">qscreen</span>
+            <span class="n">_qscreen</span> <span class="o">=</span> <span class="n">screen</span>
 
         <span class="n">_fg</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">frameGeometry</span><span class="p">()</span>
         <span class="n">center_point</span> <span class="o">=</span> <span class="n">_qscreen</span><span class="o">.</span><span class="n">availableGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
@@ -346,9 +344,8 @@
         <span class="n">ret</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>  <span class="c1"># return the dialog exit code</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-    <span class="c1">## get builtin icon</span>
-<div class="viewcode-block" id="HelperMethods.get_icon"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods.get_icon">[docs]</a>    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pixmapapi</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">QWidget</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">pixmapapi</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="HelperMethods.get_app_screen"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods.get_app_screen">[docs]</a>    <span class="k">def</span> <span class="nf">get_app_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">primaryScreen</span><span class="p">()</span></div></div>
 
 
 <span class="c1"># end of file</span>

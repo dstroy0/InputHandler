@@ -644,7 +644,9 @@
                             <span class="n">setting_container</span><span class="p">,</span> <span class="p">[</span><span class="n">child</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
                         <span class="p">)</span>
                         <span class="n">setting_label</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">)</span>
-                        <span class="n">setting_label</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">setting_label</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">)</span>
+                        <span class="n">setting_label</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span>
+                            <span class="n">setting_label</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
+                        <span class="p">)</span>
                         <span class="n">index_of_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_tree_table_widget</span><span class="p">(</span>
                             <span class="n">setting_label</span><span class="p">,</span> <span class="n">index_of_child</span><span class="p">,</span> <span class="n">dict_pos</span>
                         <span class="p">)</span>
@@ -690,12 +692,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">itemCollapsed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemExpanded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">settings_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemExpanded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item_expanded</span><span class="p">)</span>
-        
-<div class="viewcode-block" id="SettingsTreeWidget.item_expanded"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.item_expanded">[docs]</a>    <span class="k">def</span> <span class="nf">item_expanded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span><span class="n">QTreeWidgetItem</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="n">item</span>        </div>
-        
+
+<div class="viewcode-block" id="SettingsTreeWidget.item_expanded"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.item_expanded">[docs]</a>    <span class="k">def</span> <span class="nf">item_expanded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="n">item</span></div>
+
 <div class="viewcode-block" id="SettingsTreeWidget.saveState"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.saveState">[docs]</a>    <span class="k">def</span> <span class="nf">saveState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWildcard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">)</span>           
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWildcard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">)</span>
         <span class="n">current_selected</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">expanded_state</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selected item&quot;</span><span class="p">:</span> <span class="n">current_selected</span><span class="p">,</span> <span class="s2">&quot;expanded&quot;</span><span class="p">:</span> <span class="n">expanded_state</span><span class="p">}</span>
@@ -712,14 +714,14 @@
         <span class="k">return</span> <span class="n">QByteArray</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SettingsTreeWidget.restoreState"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.restoreState">[docs]</a>    <span class="k">def</span> <span class="nf">restoreState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">QByteArray</span><span class="p">):</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWildcard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">)</span>        
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWildcard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">)</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">())</span>
-        <span class="n">state_index</span> <span class="o">=</span> <span class="mi">0</span>        
+        <span class="n">state_index</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">state_index</span> <span class="o">==</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;selected item&quot;</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="n">item</span>
-                
+
             <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;expanded&quot;</span><span class="p">][</span><span class="n">state_index</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">item</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -786,6 +788,7 @@
             <span class="k">elif</span> <span class="n">var_initial_val</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">_cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">_cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Enabled&quot;</span><span class="p">))</span>
             <span class="n">_cmb</span><span class="o">.</span><span class="n">setSizeAdjustPolicy</span><span class="p">(</span><span class="n">QComboBox</span><span class="o">.</span><span class="n">AdjustToMinimumContentsLengthWithIcon</span><span class="p">)</span>
+            <span class="c1"># either or, dont trigger twice</span>
             <span class="c1"># _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)</span>
             <span class="n">_cmb</span><span class="o">.</span><span class="n">currentTextChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree_combo_box_index_changed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span>
@@ -873,8 +876,9 @@
                             <span class="p">)</span>
                         <span class="p">)</span>
                     <span class="p">}</span>
+
                     <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">list_commands</span><span class="p">)</span>
-                    
+
                     <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">add_command_to_tree</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">(),</span>
                     <span class="p">)</span>
@@ -955,7 +959,7 @@
 <div class="viewcode-block" id="SettingsTreeWidget.log_settings_tree_edit"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.log_settings_tree_edit">[docs]</a>    <span class="k">def</span> <span class="nf">log_settings_tree_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">object_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">object_data</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object_data</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;config&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_data</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="n">object_data</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_data</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]]</span>
         <span class="n">val_type</span> <span class="o">=</span> <span class="n">object_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">object_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading</span><span class="p">:</span>
