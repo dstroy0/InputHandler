@@ -12,9 +12,6 @@
 
 from __future__ import absolute_import
 
-import json
-import copy
-
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor

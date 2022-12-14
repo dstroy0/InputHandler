@@ -446,9 +446,13 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def build_command(self, parent_item):
         if parent_item == None:
             parent_item = self.active_item
-        if not self._parent.loading:
-            self.make_command_index(parent_item)
         primary_id_key = int(self.cliopt["commands"]["primary id key"])
+        if (
+            not self._parent.loading
+            or primary_id_key not in self.cliopt["commands"]["index"]
+        ):
+            self.make_command_index(parent_item)
+
         command_index = self.cliopt["commands"]["primary id key"]
         command_parameters = self.cliopt["commands"]["parameters"][
             self.command_index[command_index]["parameters key"]

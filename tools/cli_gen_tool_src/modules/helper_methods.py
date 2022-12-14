@@ -18,7 +18,6 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QLabel,
     QVBoxLayout,
-    QWidget,
     QSizePolicy,
 )
 from PySide6.QtCore import Qt
@@ -26,15 +25,12 @@ from PySide6.QtCore import Qt
 
 # helper method class
 class HelperMethods(object):
-    ## instance
-    parent = ""
-    mainwindow_screen = ""
+
     ## the constructor
     def __init__(self):
-        super(HelperMethods, self).__init__()
-        HelperMethods.logger = self.get_child_logger(__name__)
-        HelperMethods.parent = self
-        HelperMethods.mainwindow_screen = self.qscreen
+        super(HelperMethods, self).__init__(__name__)
+        HelperMethods.helper_logger = self.get_child_logger(__name__)
+        # self.parent = self
 
     ## spawn a dialog box
     def create_qdialog(
@@ -48,8 +44,10 @@ class HelperMethods(object):
         icon=None,
         screen=None,
     ):
-        HelperMethods.logger.debug("create qdialog: " + window_title)
+        HelperMethods.helper_logger.debug("create qdialog: " + str(window_title))
         _buttons = []
+
+        print(self)
         dlg = QDialog(self)
 
         def button_box_clicked(button):
@@ -109,9 +107,9 @@ class HelperMethods(object):
 
         # center dialog on screen
         if screen == None:
-            _qscreen = self.mainwindow_screen
+            _qscreen = self.app.primaryScreen()
         else:
-            _qscreen = HelperMethods.parent.qscreen
+            _qscreen = screen
 
         _fg = dlg.frameGeometry()
         center_point = _qscreen.availableGeometry().center()
@@ -122,9 +120,8 @@ class HelperMethods(object):
         ret = dlg.exec()  # return the dialog exit code
         return ret
 
-    ## get builtin icon
-    def get_icon(self, pixmapapi):
-        return QWidget().style().standardIcon(pixmapapi)
+    def get_app_screen(self):
+        self.mainwindow_screen = self.app.primaryScreen()
 
 
 # end of file

@@ -40,6 +40,7 @@ class MainWindowMethods(object):
     def __init__(self) -> None:
         super(MainWindowMethods, self).__init__()
         MainWindowMethods.logger = self.get_child_logger(__name__)
+        self.create_qdialog = self.create_qdialog
 
     # visual indication to user of the current working file
     def set_main_window_title(self, title: str = None) -> None:
@@ -61,7 +62,7 @@ class MainWindowMethods(object):
                 if match.hasMatch():
                     windowtitle = windowtitle + str(match.captured(0))
             else:
-                windowtitle = windowtitle + "untitled"            
+                windowtitle = windowtitle + "untitled"
             MainWindowMethods.logger.debug("setting mainwindow title")
             self.setWindowTitle(windowtitle)
             self.windowtitle_set = True
@@ -81,7 +82,9 @@ class MainWindowMethods(object):
         ):
             if not self.settings_tree.itemAt(mouse_pos):
                 self.settings_tree.clearSelection()
-                self.settings_tree.setCurrentItem(self.settings_tree.invisibleRootItem())
+                self.settings_tree.setCurrentItem(
+                    self.settings_tree.invisibleRootItem()
+                )
                 self.settings_tree_button_toggles()
         elif (
             watched == self.command_tree.viewport()
@@ -95,8 +98,8 @@ class MainWindowMethods(object):
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
         self.settings.setValue("tab", self.ui.tabWidget.currentIndex())
-        #self.settings.setValue("command_tree_collapsed", self.command_tree_collapsed)
-        #self.settings.setValue("settings_tree_collapsed", self.settings_tree_collapsed)
+        # self.settings.setValue("command_tree_collapsed", self.command_tree_collapsed)
+        # self.settings.setValue("settings_tree_collapsed", self.settings_tree_collapsed)
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("windowState", self.saveState())
         self.settings.setValue(
@@ -130,7 +133,7 @@ class MainWindowMethods(object):
         if self.settings.value("command_tree_state") != None:
             self.command_tree.restoreState(self.settings.value("command_tree_state"))
         else:
-            self.ui.command_tree_collapse_button.setText("Expand All")    
+            self.ui.command_tree_collapse_button.setText("Expand All")
         if self.settings.value("settings_tree_state") != None:
             self.settings_tree.restoreState(self.settings.value("settings_tree_state"))
         else:
@@ -174,7 +177,9 @@ class MainWindowMethods(object):
         self.log = QDialog()
         self.log.setWindowFlags(Qt.Window)
         self.log.setWindowIcon(
-            self.get_icon(QStyle.StandardPixmap.SP_FileDialogContentsView)
+            QWidget()
+            .style()
+            .standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
         )
         self.log.dlg = ui
         # MainWindow still interactable with log history open
@@ -207,7 +212,7 @@ class MainWindowMethods(object):
         self.ui.commandParameters = QDialog(self)
         # blue circle question icon
         self.ui.commandParameters.setWindowIcon(
-            self.get_icon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
         )
         self.ui.commandParameters.dlg = ui
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
@@ -299,6 +304,7 @@ class MainWindowMethods(object):
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
             result = self.create_qdialog(
+                self,
                 "Cannot locate last working file: " + str(last_interface.fileName()),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
@@ -337,15 +343,23 @@ class MainWindowMethods(object):
 
     def set_up_ui_icons(self):
         # icons
-        self.ui.fileDialogContentsViewIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_FileDialogContentsView
+        self.ui.fileDialogContentsViewIcon = (
+            QWidget()
+            .style()
+            .standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
         )
-        self.ui.messageBoxCriticalIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxCritical
+        self.ui.messageBoxCriticalIcon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
         )
-        self.ui.fileIcon = self.get_icon(QStyle.StandardPixmap.SP_FileIcon)
-        self.ui.commandLinkIcon = self.get_icon(QStyle.StandardPixmap.SP_CommandLink)
-        self.ui.trashIcon = self.get_icon(QStyle.StandardPixmap.SP_TrashIcon)
-        self.ui.messageBoxQuestionIcon = self.get_icon(
-            QStyle.StandardPixmap.SP_MessageBoxQuestion
+        self.ui.fileIcon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_FileIcon)
+        )
+        self.ui.commandLinkIcon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_CommandLink)
+        )
+        self.ui.trashIcon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
+        )
+        self.ui.messageBoxQuestionIcon = (
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
         )

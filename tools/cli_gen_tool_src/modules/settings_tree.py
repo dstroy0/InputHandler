@@ -420,7 +420,9 @@ class SettingsTreeWidget(QTreeWidget):
                             setting_container, [child, "", "", ""]
                         )
                         setting_label.setData(4, 0, dict_pos)
-                        setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
+                        setting_label.setFlags(
+                            setting_label.flags() | Qt.ItemIsSelectable
+                        )
                         index_of_child = self.build_tree_table_widget(
                             setting_label, index_of_child, dict_pos
                         )
@@ -466,12 +468,12 @@ class SettingsTreeWidget(QTreeWidget):
         self.itemCollapsed.connect(self._parent.settings_tree_button_toggles)
         self.itemExpanded.connect(self._parent.settings_tree_button_toggles)
         self.itemExpanded.connect(self.item_expanded)
-        
-    def item_expanded(self, item:QTreeWidgetItem):
-        self.active_item = item        
-        
+
+    def item_expanded(self, item: QTreeWidgetItem):
+        self.active_item = item
+
     def saveState(self):
-        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)           
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)
         current_selected = ""
         expanded_state = []
         state = {"selected item": current_selected, "expanded": expanded_state}
@@ -488,14 +490,14 @@ class SettingsTreeWidget(QTreeWidget):
         return QByteArray(b)
 
     def restoreState(self, b: QByteArray):
-        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)        
+        items = self.findItems("*", Qt.MatchWrap | Qt.MatchWildcard | Qt.MatchRecursive)
         state = json.loads(b.data())
-        state_index = 0        
+        state_index = 0
         for item in items:
             if state_index == state["selected item"]:
                 self.setCurrentItem(item)
                 self.active_item = item
-                
+
             if state["expanded"][state_index] == True:
                 item.setExpanded(True)
             else:
@@ -562,6 +564,7 @@ class SettingsTreeWidget(QTreeWidget):
             elif var_initial_val == True:
                 _cmb.setCurrentIndex(_cmb.findText("Enabled"))
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+            # either or, dont trigger twice
             # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
             _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
             self.setItemWidget(
@@ -649,8 +652,9 @@ class SettingsTreeWidget(QTreeWidget):
                             )
                         )
                     }
+
                     self.cliopt["commands"]["parameters"].update(list_commands)
-                    
+
                     self.command_tree.add_command_to_tree(
                         self.command_tree.invisibleRootItem(),
                     )
@@ -731,7 +735,7 @@ class SettingsTreeWidget(QTreeWidget):
     def log_settings_tree_edit(self, item, object_data=None):
         if object_data == None:
             object_data = self.get_object_data(item)
-        info = self.cliopt["config"]["var"][object_data["pos"][2]]
+        info = self.cliopt[object_data["pos"][0]]["var"][object_data["pos"][2]]
         val_type = object_data["type"]
         val = object_data["value"]
         if self.loading:

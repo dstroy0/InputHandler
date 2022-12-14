@@ -13,7 +13,7 @@
 from __future__ import absolute_import
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import QFileDialog, QComboBox, QTreeWidgetItem
+from PySide6.QtWidgets import QFileDialog
 from PySide6.QtCore import Qt, QDir
 
 
@@ -28,16 +28,18 @@ class PreferencesMethods(object):
 
         self.builtin_cmb_dict = {}
 
-    # TODO restore functionality
     def get_comboboxes(self):
-        return True
-        # builtin_dict = self.cliOpt["builtin methods"]["tree"]["items"]
-        # for i in range(len(self.builtin_methods)):
-        #     cmb_container = builtin_dict[self.builtin_methods[i]]["QComboBox"]
-        #     for item in cmb_container:
-        #         cmb = cmb_container[item]
-        #         if isinstance(cmb, QComboBox):
-        #             self.builtin_cmb_dict.update({cmb.objectName().split(",")[2]: cmb})
+        for i in range(len(self.builtin_methods)):
+            items = self.settings_tree.findItems(
+                self.builtin_methods[i],
+                Qt.MatchExactly | Qt.MatchWrap | Qt.MatchRecursive,
+                1,
+            )
+            item = items[0]
+            cmb = self.settings_tree.itemWidget(item, 3)
+            self.builtin_cmb_dict.update(
+                {self.builtin_methods[i]: {"cmb": cmb, "item": item}}
+            )
 
     def save_preferences(self):
         config_path = self.dlg.config_path_input.text()
@@ -119,11 +121,12 @@ class PreferencesMethods(object):
                 "builtin method checkbox index out of range"
             )
             return
-        cmb = self.builtin_cmb_dict[self.builtin_methods[x]]
+        cmb = self.builtin_cmb_dict[self.builtin_methods[x]]["cmb"]
+        item = self.builtin_cmb_dict[self.builtin_methods[x]]["item"]
         self.active_builtins = []
-        for _cmb in self.builtin_cmb_dict:
-            if str(self.builtin_cmb_dict[_cmb].currentText()) == "Enabled":
-                self.active_builtins.append(_cmb)
+        for builtin in self.builtin_cmb_dict:
+            if str(self.builtin_cmb_dict[builtin]["cmb"].currentText()) == "Enabled":
+                self.active_builtins.append(builtin)
 
         _state = "Enabled" if state == Qt.Checked else "Disabled"
 
@@ -146,16 +149,18 @@ class PreferencesMethods(object):
 
         if self.builtin_methods[x] in self.active_builtins and state == Qt.Unchecked:
             if str(cmb.currentText()) != "Disabled":
+                self.settings_tree.setCurrentItem(item)
                 cmb.setCurrentIndex(cmb.findText("Disabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = False
         elif (
             self.builtin_methods[x] not in self.active_builtins and state == Qt.Checked
         ):
             if str(cmb.currentText()) != "Enabled":
+                self.settings_tree.setCurrentItem(item)
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
-    #TODO restore functionality
+    # TODO restore functionality
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {
@@ -221,18 +226,18 @@ class PreferencesMethods(object):
         self.dlg.default_output_buffer_size.editingFinished.connect(
             self.output_preferences
         )
-        # self.dlg.outputtostream_checkbox.stateChanged.connect(
-        #     lambda state, x=0: self.set_builtin_preference(x, state)
-        # )
-        # self.dlg.defaultfunction_checkbox.stateChanged.connect(
-        #     lambda state, x=1: self.set_builtin_preference(x, state)
-        # )
-        # self.dlg.listcommands_checkbox.stateChanged.connect(
-        #     lambda state, x=2: self.set_builtin_preference(x, state)
-        # )
-        # self.dlg.listsettings_checkbox.stateChanged.connect(
-        #     lambda state, x=3: self.set_builtin_preference(x, state)
-        # )
+        self.dlg.outputtostream_checkbox.stateChanged.connect(
+            lambda state, x=0: self.set_builtin_preference(x, state)
+        )
+        self.dlg.defaultfunction_checkbox.stateChanged.connect(
+            lambda state, x=1: self.set_builtin_preference(x, state)
+        )
+        self.dlg.listcommands_checkbox.stateChanged.connect(
+            lambda state, x=2: self.set_builtin_preference(x, state)
+        )
+        self.dlg.listsettings_checkbox.stateChanged.connect(
+            lambda state, x=3: self.set_builtin_preference(x, state)
+        )
 
         # load session defaults
         _obj_list = [
@@ -250,45 +255,41 @@ class PreferencesMethods(object):
                 _obj_list[i].setCheckState(Qt.Unchecked)
                 i += 1
 
-        # if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
-        #     self.session["opt"]["output"]["buffer size"]
-        # ):
-        #     PreferencesMethods.logger.info(
-        #         "Buffer size in loaded file doesn't match user preference, changing to "
-        #         + str(self.session["opt"]["output"]["buffer size"])
-        #         + " bytes."
-        #     )
-        #     self.cliOpt["process output"]["var"]["buffer size"] = str(
-        #         self.session["opt"]["output"]["buffer size"]
-        #     )
-        #     container = self.cliOpt["process output"]["tree"]["items"]["buffer size"][
-        #         "QTreeWidgetItem"
-        #     ]
-        #     for item in container:
-        #         if isinstance(container[item], QTreeWidgetItem):
-        #             container[item].setData(
-        #                 3, 0, str(self.cliOpt["process output"]["var"]["buffer size"])
-        #             )
-        # if (
-        #     self.cliOpt["process output"]["var"]["output stream"]
-        #     != self.session["opt"]["output"]["stream"]
-        # ):
-        #     PreferencesMethods.logger.info(
-        #         "Output Stream in loaded file doesn't match user preference, changing to "
-        #         + str(self.session["opt"]["output"]["stream"])
-        #         + "."
-        #     )
-        #     self.cliOpt["process output"]["var"]["output stream"] = str(
-        #         self.session["opt"]["output"]["stream"]
-        #     )
-        #     container = self.cliOpt["process output"]["tree"]["items"]["output stream"][
-        #         "QTreeWidgetItem"
-        #     ]
-        #     for item in container:
-        #         if isinstance(container[item], QTreeWidgetItem):
-        #             container[item].setData(
-        #                 3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
-        #             )
+        if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
+            self.session["opt"]["output"]["buffer size"]
+        ):
+            PreferencesMethods.logger.info(
+                "Buffer size in loaded file doesn't match user preference, changing to "
+                + str(self.session["opt"]["output"]["buffer size"])
+                + " bytes."
+            )
+            self.cliOpt["process output"]["var"]["buffer size"] = str(
+                self.session["opt"]["output"]["buffer size"]
+            )
+            items = self.settings_tree.findItems(
+                "buffer size", Qt.MatchExactly | Qt.MatchWrap | Qt.MatchRecursive, 1
+            )
+            item = items[0]
+            item.setData(3, 0, str(self.cliOpt["process output"]["var"]["buffer size"]))
+        if (
+            self.cliOpt["process output"]["var"]["output stream"]
+            != self.session["opt"]["output"]["stream"]
+        ):
+            PreferencesMethods.logger.info(
+                "Output Stream in loaded file doesn't match user preference, changing to "
+                + str(self.session["opt"]["output"]["stream"])
+                + "."
+            )
+            self.cliOpt["process output"]["var"]["output stream"] = str(
+                self.session["opt"]["output"]["stream"]
+            )
+            items = self.settings_tree.findItems(
+                "output stream", Qt.MatchExactly | Qt.MatchWrap | Qt.MatchRecursive, 1
+            )
+            item = items[0]
+            item.setData(
+                3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
+            )
         PreferencesMethods.logger.info("User preferences set.")
 
 

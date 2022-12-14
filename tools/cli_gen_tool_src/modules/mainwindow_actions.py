@@ -30,8 +30,9 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QFileDialog,
     QStyle,
+    QWidget,
 )
-from modules.helper_methods import HelperMethods
+
 
 # mainwindow actions class
 class MainWindowActions(object):
@@ -44,7 +45,7 @@ class MainWindowActions(object):
         MainWindowActions.logger.debug(str(event))
         if self.write_cli_gen_tool_json() > 0:
             MainWindowActions.logger.debug("session json saved")
-        result = 0        
+        result = 0
         if self.prompt_to_save == True:
             b = QDialogButtonBox.StandardButton
             buttons = [b.Save, b.Close, b.Cancel]
@@ -56,9 +57,9 @@ class MainWindowActions(object):
                 "Save changes",
                 buttons,
                 button_text,
-                HelperMethods.get_icon(
-                    self, QStyle.StandardPixmap.SP_MessageBoxQuestion
-                ),
+                QWidget()
+                .style()
+                .standardIcon(QStyle.StandardPixmap.SP_MessageBoxQuestion),
             )
         else:  # no work to save
             result = 4

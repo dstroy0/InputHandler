@@ -660,7 +660,7 @@ class CodePreviewWidget(
             widget_size.setHeight(y_axis)
             self.selected_drag_to_resize_item.treeWidget().itemWidget(
                 self.selected_drag_to_resize_item, 0
-            ).resize(widget_size)            
+            ).resize(widget_size)
         self.doItemsLayout()
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:

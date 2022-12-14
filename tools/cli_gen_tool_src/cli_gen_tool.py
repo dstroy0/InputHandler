@@ -19,7 +19,6 @@ import qdarktheme
 from PySide6.QtCore import (
     QEvent,
     QObject,
-    QPoint,
     QSettings,
     Qt,
     QTimer,
@@ -68,12 +67,21 @@ splashscreen_duration = 750
 
 
 ## set up pathing, logging, splash screen
-class Initialize(Logger, object):
+class Initialize(HelperMethods, Logger, object):
     def __init__(self) -> None:
-        super(Initialize, self).__init__(__name__)
+        super(Initialize, self).__init__()
+
+        # GUI container
+        self.app = QApplication(sys.argv)
+        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)
+
+        # GUI styling
+        self.app.setStyleSheet(qdarktheme.load_stylesheet())
 
         Logger.__init__(self, __name__)
-
+        HelperMethods.__init__(self)
+        self.get_app_screen()
+        self.temp_widget = QWidget()
         self.root_log_handler.info("CLI gen tool pathing")
 
         ## Library pathing
@@ -108,13 +116,6 @@ class Initialize(Logger, object):
         self.setup_file_handler()
         self.root_log_handler.addHandler(self.get_file_handler())
 
-        # GUI container
-        self.app = QApplication(sys.argv)
-        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)
-
-        # GUI styling
-        self.app.setStyleSheet(qdarktheme.load_stylesheet())
-
         # Splashscreen timer
         self.timer = QTimer()
         self.timer.setSingleShot(True)
@@ -144,7 +145,7 @@ class Initialize(Logger, object):
             buttons = [b.Ok, b.Close]
             button_text = ["Select InputHandler's directory", "Close this tool"]
             result = HelperMethods.create_qdialog(
-                self,
+                self.temp_widget,
                 "You must select InputHandler's root directory to use this tool.",
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
@@ -179,7 +180,6 @@ class Initialize(Logger, object):
 # (MainWindow is noninteractable when any of its child popups are active except log history)
 class MainWindow(
     QMainWindow,
-    HelperMethods,
     MainWindowActions,
     SettingsTreeMethods,
     CommandParametersMethods,
@@ -216,7 +216,7 @@ class MainWindow(
         self.ih_builtins = ["listSettings", "listCommands"]
 
         # code preview interaction
-        
+
         self.qcursor = QCursor()
 
         self.minimum_file_len = dataModels.minimum_file_len_dict
@@ -237,10 +237,10 @@ class MainWindow(
         self.settings = QSettings("InputHandler", "cli_gen_tool")
 
         self.parent_instance = parent
+        self.create_qdialog = HelperMethods.create_qdialog
 
         self.get_child_logger = self.parent_instance.get_child_logger
         MainWindow.logger = self.get_child_logger(__name__)
-
         MainWindowMethods.__init__(self)
 
         self.show_splash()
@@ -274,7 +274,6 @@ class MainWindow(
 
         # import external classes
         self.logger.debug("Importing external classes.")
-        HelperMethods.__init__(self)
 
         SettingsTreeMethods.__init__(self)
         CommandParametersMethods.__init__(self)
@@ -282,7 +281,7 @@ class MainWindow(
         PreferencesMethods.__init__(self)
         CodeGeneration.__init__(self)
         self.build_code_preview_widgets()
-        self.parse_config()        
+        self.parse_config()
 
         self.set_up_ui_icons()
 
@@ -303,7 +302,7 @@ class MainWindow(
         self.display_initial_code_preview()
 
         # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
-        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)        
+        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
         # preferences dialog input validation

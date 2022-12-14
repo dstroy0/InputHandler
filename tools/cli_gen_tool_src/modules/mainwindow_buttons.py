@@ -17,7 +17,6 @@ from modules.data_models import dataModels
 from PySide6.QtWidgets import (
     QTableView,
     QComboBox,
-    QDialogButtonBox,
     QTreeWidget,
 )
 
