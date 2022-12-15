@@ -291,11 +291,13 @@ class MainWindow(
         # end MainWindow actions
 
         # settings and command trees
+
         self.command_tree = self.build_command_tree()
         self.settings_tree = self.build_settings_tree()
+
         self.command_tree.get_settings_tree()
 
-        # code preview trees
+        self.preferences_dialog_setup()
 
         self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
 
@@ -305,11 +307,9 @@ class MainWindow(
         self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
-        # preferences dialog input validation
 
-        # load preferences
-        self.preferences_dialog_setup()
         self.readSettings(self.settings)
+
         # bring MainWindow to front, even after a restart
         # close splash and show app
         self.splash.close()

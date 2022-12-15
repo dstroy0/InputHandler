@@ -160,7 +160,6 @@ class PreferencesMethods(object):
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
-    # TODO restore functionality
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {

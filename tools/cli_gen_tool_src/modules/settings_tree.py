@@ -566,7 +566,7 @@ class SettingsTreeWidget(QTreeWidget):
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             # either or, dont trigger twice
             # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
-            _cmb.currentTextChanged.connect(self.settings_tree_combo_box_index_changed)
+            _cmb.currentTextChanged.connect(lambda text, combobox=_cmb, item=_twi: self.settings_tree_combo_box_index_changed(text, combobox, item))
             self.setItemWidget(
                 _twi,
                 3,
@@ -595,10 +595,12 @@ class SettingsTreeWidget(QTreeWidget):
         item.setText(2, type_field)
 
     ## called on combobox change
-    def settings_tree_combo_box_index_changed(self, index):
+    def settings_tree_combo_box_index_changed(self, text, combobox, item):
         self.prompt_to_save = True
         self.windowtitle_set = False
-        object_string = self.sender().objectName()
+        _twi = item
+        self.setCurrentItem(_twi)
+        object_string = str(_twi.data(4,0))
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
 
@@ -611,9 +613,6 @@ class SettingsTreeWidget(QTreeWidget):
                 "tooltip"
             ]
         if object_list[0] == "builtin methods":
-
-            _twi = self.currentItem()
-            combobox = self.itemWidget(_twi, 3)
 
             if combobox.currentText() == "Enabled":
                 self.cliopt[object_list[0]]["var"][object_list[2]] = True
@@ -642,43 +641,22 @@ class SettingsTreeWidget(QTreeWidget):
                     self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
 
             elif object_list[2] == "listCommands":
-                if combobox.currentText() == "Enabled":
-                    list_commands = OrderedDict()
-                    list_commands = {
-                        str(self.cliopt["commands"]["primary id key"]): dict(
-                            zip(
-                                dataModels.command_parameters_dict_keys_list,
-                                dataModels.LCcmdParam,
-                            )
-                        )
-                    }
-
-                    self.cliopt["commands"]["parameters"].update(list_commands)
-
+                if combobox.currentText() == "Enabled":                    
                     self.command_tree.add_command_to_tree(
-                        self.command_tree.invisibleRootItem(),
+                        self.command_tree.invisibleRootItem(), "listCommands"
                     )
                 else:
-                    self.command_tree.remove_command_from_tree("listCommands")
+                    if self.cliopt["builtin methods"]["var"]["listCommands"] == True:
+                        self.command_tree.remove_command_from_tree("listCommands")
 
             elif object_list[2] == "listSettings":
-                if combobox.currentText() == "Enabled":
-                    list_settings = OrderedDict()
-                    list_settings = {
-                        str(self.cliopt["commands"]["primary id key"]): dict(
-                            zip(
-                                dataModels.command_parameters_dict_keys_list,
-                                dataModels.LScmdParam,
-                            )
-                        )
-                    }
-                    self.cliopt["commands"]["parameters"].update(list_settings)
-
+                if combobox.currentText() == "Enabled":                    
                     self.command_tree.add_command_to_tree(
-                        self.command_tree.invisibleRootItem(),
+                        self.command_tree.invisibleRootItem(), "listSettings"
                     )
                 else:
-                    self.command_tree.remove_command_from_tree("listSettings")
+                    if self.cliopt["builtin methods"]["var"]["listSettings"] == True:
+                        self.command_tree.remove_command_from_tree("listSettings")
 
             self.update_code("functions.h", object_list[2], True)
             self.update_code("functions.cpp", object_list[2], True)
@@ -686,8 +664,8 @@ class SettingsTreeWidget(QTreeWidget):
             self.update_code("setup.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
-            _twi = self.currentItem()
-            combobox = self.itemWidget(_twi, 3)
+            #_twi = self.currentItem()
+            
             object_data = self.get_object_data(_twi)
             info = self.cliopt["config"]["var"][object_data["pos"][2]]
 

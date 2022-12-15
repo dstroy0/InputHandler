@@ -30,7 +30,6 @@ class HelperMethods(object):
     def __init__(self):
         super(HelperMethods, self).__init__(__name__)
         HelperMethods.helper_logger = self.get_child_logger(__name__)
-        # self.parent = self
 
     ## spawn a dialog box
     def create_qdialog(

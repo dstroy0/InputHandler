@@ -223,7 +223,7 @@ class MainWindowButtons(object):
             command_string = tree_item.data(0, 0)
 
             if command_string in self.ih_builtins:
-                _item_matched_builtin = True
+                _item_matched_builtin = True                
 
             if _item_matched_builtin:  # item selected is an InputHandler builtin
                 tree_buttons["buttons"]["new"]["text"] = "New"
