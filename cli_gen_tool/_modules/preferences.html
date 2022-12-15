@@ -237,8 +237,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDir</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QLineEdit</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDir</span><span class="p">,</span> <span class="n">QRegularExpression</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span>
+
 
 
 <div class="viewcode-block" id="PreferencesMethods"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods">[docs]</a><span class="k">class</span> <span class="nc">PreferencesMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -384,6 +386,27 @@
                 <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Enabled&quot;</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span></div>
 
+<div class="viewcode-block" id="PreferencesMethods.set_line_edit_text"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_line_edit_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_line_edit_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">le</span><span class="p">:</span><span class="n">QLineEdit</span><span class="p">):</span>
+        <span class="n">qdir</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">()</span>
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">qdir</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="n">has_file</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="s2">&quot;^</span><span class="se">\\</span><span class="s2">(.+</span><span class="se">\\</span><span class="s2">)*(.+)\.(.+)$&quot;</span><span class="p">)</span>
+        
+        <span class="n">result</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+        
+        <span class="n">dir_component_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">str_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">while</span> <span class="n">str_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">str_pos</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">hasMatch</span><span class="p">():</span>
+                <span class="n">str_pos</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">capturedLength</span><span class="p">()</span>
+                
+            
+                
+        
+        <span class="n">le</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">text</span><span class="p">())</span></div>
+    
 <div class="viewcode-block" id="PreferencesMethods.preferences_dialog_setup"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.preferences_dialog_setup">[docs]</a>    <span class="k">def</span> <span class="nf">preferences_dialog_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pref_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">pref_dlg</span><span class="o">.</span><span class="n">validatorDict</span> <span class="o">=</span> <span class="p">{</span>
@@ -396,6 +419,9 @@
         <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
+        <span class="n">project_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;output_dir&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">project_path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">project_path</span><span class="p">))</span>
 
         <span class="c1"># set preferences log level combobox values to logging library log level values</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
@@ -421,6 +447,8 @@
         <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span>
         <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">le</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_line_edit_text</span><span class="p">(</span><span class="n">le</span><span class="p">))</span>
+
         <span class="c1"># input validation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">default_stream</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">regex_validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">validatorDict</span><span class="p">[</span><span class="s2">&quot;default stream&quot;</span><span class="p">])</span>
@@ -431,6 +459,7 @@
 
         <span class="c1"># actions setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">browse_for_config</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">browse_for_output_dir</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_project_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_preferences</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">rejected</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_preferences</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>

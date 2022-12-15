@@ -265,6 +265,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">MainWindowActions</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="c1"># do before close</span>
 <div class="viewcode-block" id="MainWindowActions.do_before_app_close"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.do_before_app_close">[docs]</a>    <span class="k">def</span> <span class="nf">do_before_app_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">restarting</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -276,7 +277,8 @@
             <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
             <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Save</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">]</span>
             <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Close without saving&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">,</span>
                 <span class="s2">&quot;Save your work?&quot;</span><span class="p">,</span>
                 <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
                 <span class="mi">0</span><span class="p">,</span>
