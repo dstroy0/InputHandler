@@ -12,10 +12,12 @@
 
 from __future__ import absolute_import
 
+import os
+import shutil
 import datetime
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QUrl, Slot, QPoint
+from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QUrl, Slot, QPoint, QDir
 from PySide6.QtGui import (
     QMouseEvent,
     QTextCursor,
@@ -25,6 +27,7 @@ from PySide6.QtGui import (
     QPainter,
     QColor,
     QTextFormat,
+    QIcon,
 )
 from PySide6.QtWidgets import (
     QSizePolicy,
@@ -39,6 +42,9 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QVBoxLayout,
     QPushButton,
+    QDialogButtonBox,
+    QFileDialog,
+    QDialog,
 )
 
 # external methods and resources
@@ -396,6 +402,86 @@ class CodeGeneration(
         for line in list:
             code_string = code_string + line + "\n"
         return code_string
+
+    def generate_cli(self, project_path: str = None) -> int:
+        if project_path == None:
+            project_path = self.session["opt"]["output_dir"]
+            if project_path == None or project_path == "":
+                project_path = self.get_project_dir()                
+            if project_path == None:
+                self.codegen_logger.info("Output directory not set")
+                return
+        qdir = QDir()
+        src = qdir.toNativeSeparators(self.lib_root_path + "/src/")        
+        if qdir.exists(src + "InputHandler.h"):
+            self.codegen_logger.info("found library")
+
+        dst = qdir.toNativeSeparators(project_path)        
+        if os.path.exists(dst):
+            self.codegen_logger.info("found project dir")
+        else:
+            project_path = self.get_project_dir()
+            
+        # Manifest
+        # /InputHandler/src/           
+
+        # Create in project dir
+        # /InputHandler/
+        
+        # copy manifest to project dir
+        # copy config.h to project dir/InputHandler/src/config and overwrite original
+        
+        # create 
+        # /InputHandler/CLI/
+        
+        # create in /InputHandler/CLI/
+        # setup.h
+        # functions.h
+        # functions.cpp
+        # parameters.h
+        
+        # shutil.copytree(src, dst)
+
+    def get_project_dir(self) -> str:
+        dir_dlg = QFileDialog(self)
+        _dlg_result = dir_dlg.getExistingDirectory(
+            self,
+            "Select output directory",
+            "",
+            options=QFileDialog.DontUseNativeDialog
+            | QFileDialog.ShowDirsOnly
+            | QFileDialog.DontResolveSymlinks,
+        )
+        if _dlg_result == QFileDialog.rejected:
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Ok, b.Close]
+            button_text = ["Select output directory", "Cancel"]
+            result = self.create_qdialog(
+                self._parent,
+                "You must select an output directory to generate files.",
+                Qt.AlignCenter,
+                Qt.NoTextInteraction,
+                "Error, no output directory selected!",
+                buttons,
+                button_text,
+                QIcon(
+                    QWidget()
+                    .style()
+                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
+                ),
+                self._parent.qscreen,
+            )
+            if result == QDialog.accepted:
+                self.get_project_dir()
+            if result == 3:
+                return None
+
+        _dir = QDir(_dlg_result)
+        _result = _dir.toNativeSeparators(
+            _dir.absolutePath()
+        )
+        return _result
+        
 
 
 class CodePreviewWidget(

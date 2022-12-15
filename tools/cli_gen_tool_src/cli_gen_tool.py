@@ -134,13 +134,13 @@ class Initialize(HelperMethods, Logger, object):
         dir_dlg = QFileDialog(self)
         _dlg_result = dir_dlg.getExistingDirectory(
             self,
-            "Open Directory",
+            "Select InputHandler's directory",
             "",
             options=QFileDialog.DontUseNativeDialog
             | QFileDialog.ShowDirsOnly
             | QFileDialog.DontResolveSymlinks,
         )
-        if dir_dlg.rejected:
+        if _dlg_result == QFileDialog.rejected:
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Close]
             button_text = ["Select InputHandler's directory", "Close this tool"]
@@ -159,7 +159,7 @@ class Initialize(HelperMethods, Logger, object):
                 ),
                 self.qscreen,
             )
-            if result == QDialog.accept():
+            if result == QDialog.accepted:
                 self.get_inputhandler_dir_from_user()
             if result == 3:
                 sys.exit("Need InputHandler's directory for tool dependencies.")

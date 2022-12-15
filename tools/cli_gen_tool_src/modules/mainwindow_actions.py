@@ -31,7 +31,9 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QStyle,
     QWidget,
+    
 )
+
 
 
 # mainwindow actions class
@@ -328,6 +330,7 @@ class MainWindowActions(object):
     # generate CLI files
     def generate_cli_files(self):
         MainWindowActions.logger.info("generate cli files")
+        self.generate_cli()
 
     def gui_about(self):
         MainWindowActions.logger.info("open about dialog")
