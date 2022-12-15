@@ -66,8 +66,7 @@ class CommandParametersMethods(object):
         args_list = []
         csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
         regexp = QRegularExpression('("(?:[^"]|")*"|[^,"\n\r]*)(,|\r?\n|\r)')
-        csv_pos = 0
-        i = 0
+        csv_pos = 0        
         while csv_pos != -1:
             match = regexp.match(csv, csv_pos)
             if match.hasMatch():
@@ -75,10 +74,9 @@ class CommandParametersMethods(object):
                 if (
                     match.captured().upper().strip(",")
                 ) in CommandParametersMethods.command_arg_types_list:
-                    args_list.append(i)
-                    i = i + 1
+                    args_list.append("UITYPE::" + str(match.captured().upper().strip(",")))                    
             else:
-                break
+                break              
         return args_list
 
     ## all buttons related to adding/removing arguments from the command parameters dialog
@@ -244,8 +242,8 @@ class CommandParametersMethods(object):
         elif arg_handling_idx == 2:
             tmp = self.list_from_csv_args()
             # argument array
-            if tmp == {} or tmp["0"] == "":
-                tmp["0"] = ""
+            if tmp == {} or tmp[0] == "":
+                tmp[0] = ""
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
@@ -254,7 +252,12 @@ class CommandParametersMethods(object):
                 error_list.append(
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
-            settings_to_validate["commandArguments"] = tmp
+            argument_string = "{"
+            for item in tmp:
+                argument_string += item + ",\n     "
+            argument_string = argument_string[:-7]
+            argument_string = argument_string + "}"
+            settings_to_validate["commandArguments"] = argument_string
         CommandParametersMethods.logger.debug(settings_to_validate)
         CommandParametersMethods.logger.debug(error_list)
         if err == True:

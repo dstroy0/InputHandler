@@ -13,8 +13,10 @@
 from __future__ import absolute_import
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import QFileDialog
-from PySide6.QtCore import Qt, QDir
+from PySide6.QtWidgets import QFileDialog, QLineEdit
+from PySide6.QtCore import Qt, QDir, QRegularExpression
+from PySide6.QtGui import QRegularExpressionValidator
+
 
 
 class PreferencesMethods(object):
@@ -160,6 +162,27 @@ class PreferencesMethods(object):
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
+    def set_line_edit_text(self, le:QLineEdit):
+        qdir = QDir()
+        dir = qdir.toNativeSeparators(le.text())
+        has_file = False
+        regexp = QRegularExpression("^\\(.+\\)*(.+)\.(.+)$")
+        
+        result = regexp.match(dir)
+        
+        dir_component_list = []
+        str_pos = 0
+        
+        while str_pos != -1:
+            result = regexp.match(dir, str_pos)
+            if result.hasMatch():
+                str_pos += result.capturedLength()
+                
+            
+                
+        
+        le.setToolTip(le.text())
+    
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {
@@ -172,6 +195,9 @@ class PreferencesMethods(object):
         config_path = self.session["opt"]["input_config_file_path"]
         self.dlg.config_path_input.setText(str(config_path))
         self.dlg.config_path_input.setToolTip(str(config_path))
+        project_path = self.session["opt"]["output_dir"]
+        self.dlg.output_path_input.setText(str(project_path))
+        self.dlg.output_path_input.setToolTip(str(project_path))
 
         # set preferences log level combobox values to logging library log level values
         for i in range(self.dlg.sessionHistoryLogLevelComboBox.count()):
@@ -197,6 +223,8 @@ class PreferencesMethods(object):
         log_level = Logger.root_log_level
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
+        self.dlg.output_path_input.editingFinished.connect(lambda le=self.dlg.output_path_input: self.set_line_edit_text(le))
+
         # input validation
         self.dlg.default_stream.setValidator(
             self.regex_validator(self.dlg.validatorDict["default stream"])
@@ -207,6 +235,7 @@ class PreferencesMethods(object):
 
         # actions setup
         self.dlg.browse_for_config.clicked.connect(self.get_config_file)
+        self.dlg.browse_for_output_dir.clicked.connect(self.get_project_dir)
         self.dlg.buttonBox.accepted.connect(self.save_preferences)
         self.dlg.buttonBox.rejected.connect(self.reset_preferences)
         self.dlg.sessionHistoryLogLevelComboBox.currentIndexChanged.connect(

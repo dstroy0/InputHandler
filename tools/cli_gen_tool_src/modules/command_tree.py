@@ -45,9 +45,15 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             if self.keys[i] == "commandArguments":
                 arg_start = i
                 break
-        self.args_list = []
-        for i in range(arg_start, len(self.values)):
-            self.args_list.append(self.values[i])
+        self.args_list = parameters["commandArguments"]
+        
+        self.args_list = self.args_list.replace("UITYPE::","")
+        self.args_list = self.args_list.replace("{","")
+        self.args_list = self.args_list.replace("}","")
+        self.args_list = self.args_list.replace(" ","")
+        self.args_list = self.args_list.replace("\n","")
+        self.args_list = self.args_list.split(",")
+        print(self.args_list)
         self.h_label = "Arguments"
         self.arguments = self.args_list
         self.column_count = 1

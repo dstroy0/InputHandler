@@ -41,6 +41,7 @@ class MainWindowActions(object):
     def __init__(self):
         super(MainWindowActions, self).__init__()
         MainWindowActions.logger = self.get_child_logger(__name__)
+        self._parent = self
 
     # do before close
     def do_before_app_close(self, event=None, restarting=False):
@@ -52,7 +53,8 @@ class MainWindowActions(object):
             b = QDialogButtonBox.StandardButton
             buttons = [b.Save, b.Close, b.Cancel]
             button_text = ["", "Close without saving", ""]
-            result = self.create_qdialog(
+            result = self._parent.create_qdialog(
+                self._parent,
                 "Save your work?",
                 Qt.AlignCenter,
                 0,
