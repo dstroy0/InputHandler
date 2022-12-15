@@ -358,13 +358,13 @@
         <span class="n">dir_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">_dlg_result</span> <span class="o">=</span> <span class="n">dir_dlg</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="s2">&quot;Open Directory&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span>
             <span class="s2">&quot;&quot;</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
             <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">ShowDirsOnly</span>
             <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontResolveSymlinks</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">dir_dlg</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">_dlg_result</span> <span class="o">==</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
             <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">]</span>
             <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Close this tool&quot;</span><span class="p">]</span>
@@ -383,7 +383,7 @@
                 <span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">accept</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Need InputHandler&#39;s directory for tool dependencies.&quot;</span><span class="p">)</span>

@@ -255,7 +255,9 @@
     <span class="n">QFileDialog</span><span class="p">,</span>
     <span class="n">QStyle</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
+    
 <span class="p">)</span>
+
 
 
 <span class="c1"># mainwindow actions class</span>
@@ -551,7 +553,8 @@
     <span class="c1"># TODO</span>
     <span class="c1"># generate CLI files</span>
 <div class="viewcode-block" id="MainWindowActions.generate_cli_files"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.generate_cli_files">[docs]</a>    <span class="k">def</span> <span class="nf">generate_cli_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;generate cli files&quot;</span><span class="p">)</span></div>
+        <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;generate cli files&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_cli</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="MainWindowActions.gui_about"><a class="viewcode-back" href="../modules/mainwindow_actions.html#mainwindow_actions.MainWindowActions.gui_about">[docs]</a>    <span class="k">def</span> <span class="nf">gui_about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">MainWindowActions</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;open about dialog&quot;</span><span class="p">)</span>
