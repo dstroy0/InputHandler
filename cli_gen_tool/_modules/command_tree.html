@@ -242,6 +242,7 @@
 <span class="c1"># imports</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QByteArray</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QTableView</span><span class="p">,</span>
@@ -575,6 +576,8 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">ih_builtins</span>
@@ -582,9 +585,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">qcursor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span> <span class="o">=</span> <span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span> <span class="o">=</span> <span class="mi">0</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHidden</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span> <span class="o">=</span> <span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabel</span><span class="p">(</span><span class="s2">&quot;Command Tree&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
@@ -599,6 +604,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">itemClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemCollapsed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemExpanded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CommandTreeWidget.make_builtin_parameters"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.make_builtin_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">make_builtin_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builtin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">builtin</span> <span class="o">==</span> <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span>
+            <span class="n">list_commands</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="n">list_commands</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">,</span>
+                    <span class="n">dataModels</span><span class="o">.</span><span class="n">LCcmdParam</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">list_commands</span>
+        <span class="k">if</span> <span class="n">builtin</span> <span class="o">==</span> <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span>
+            <span class="n">list_settings</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="n">list_settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">,</span>
+                    <span class="n">dataModels</span><span class="o">.</span><span class="n">LScmdParam</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">list_settings</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
 
 <div class="viewcode-block" id="CommandTreeWidget.saveState"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.saveState">[docs]</a>    <span class="k">def</span> <span class="nf">saveState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWildcard</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">)</span>
@@ -656,8 +682,11 @@
                 <span class="n">root_command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command_to_tree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">())</span>
                 <span class="n">populate_children</span><span class="p">(</span><span class="n">root_command</span><span class="p">,</span> <span class="n">root_command_index</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CommandTreeWidget.add_command_to_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.add_command_to_tree">[docs]</a>    <span class="k">def</span> <span class="nf">add_command_to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">):</span>
-        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
+<div class="viewcode-block" id="CommandTreeWidget.add_command_to_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.add_command_to_tree">[docs]</a>    <span class="k">def</span> <span class="nf">add_command_to_tree</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">builtin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QTreeWidgetItem</span><span class="p">:</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">parent_item</span><span class="p">,</span> <span class="n">builtin</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="n">item</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">loading</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
@@ -667,21 +696,51 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="n">item</span></div>
 
-<div class="viewcode-block" id="CommandTreeWidget.build_command"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.build_command">[docs]</a>    <span class="k">def</span> <span class="nf">build_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandTreeWidget.build_command"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.build_command">[docs]</a>    <span class="k">def</span> <span class="nf">build_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_item</span><span class="p">,</span> <span class="n">builtin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">builtin</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">builtin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">loading</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span><span class="p">):</span>
+                <span class="n">command_index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span><span class="p">)]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">make_command_index</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
+                <span class="n">command_index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span><span class="p">)]</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_index</span>
+            <span class="n">primary_id_key</span> <span class="o">=</span> <span class="n">command_index</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">command_index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
+            <span class="n">primary_id_key</span> <span class="o">=</span> <span class="n">command_index</span>
+            <span class="k">if</span> <span class="n">primary_id_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">make_command_index</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">builtin</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">builtin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span>
+                        <span class="s2">&quot;primary id key&quot;</span>
+                    <span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_builtin_parameters</span><span class="p">(</span><span class="n">builtin</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">parent_item</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">parent_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span>
-        <span class="n">primary_id_key</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">loading</span>
-            <span class="ow">or</span> <span class="n">primary_id_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
-        <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">make_command_index</span><span class="p">(</span><span class="n">parent_item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent_item</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parent_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
 
-        <span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span>
         <span class="n">command_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="p">[</span><span class="n">command_index</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
         <span class="p">]</span>
         <span class="n">command_string</span> <span class="o">=</span> <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
+
         <span class="n">command_label</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">parent_item</span><span class="p">,</span> <span class="p">[</span><span class="n">command_string</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
         <span class="n">command_label</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span>
             <span class="n">command_label</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span>
@@ -713,9 +772,12 @@
             <span class="n">command_label</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">parent_string</span> <span class="o">=</span> <span class="n">parent_item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">primary_id_key</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">number_of_commands</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_commands</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">primary_id_key</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># if not self._parent.loading:</span>
+        <span class="n">number_of_commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">number_of_commands</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;adding </span><span class="si">{</span><span class="n">command_string</span><span class="si">}</span><span class="s2"> to CommandTreeWidget </span><span class="si">{</span><span class="n">parent_string</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -756,6 +818,13 @@
             <span class="n">parent_index</span><span class="p">[</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">primary_id_key</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommandTreeWidget.remove_command_from_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.remove_command_from_tree">[docs]</a>    <span class="k">def</span> <span class="nf">remove_command_from_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">search_string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span>
+            <span class="ow">and</span> <span class="n">search_string</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">search_string</span><span class="si">}</span><span class="s2"> not in command tree&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
         <span class="k">if</span> <span class="n">search_string</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">item_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="n">search_string</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchExactly</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">item_list</span><span class="p">):</span>
@@ -768,22 +837,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parent_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_item</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span><span class="p">:</span>
-            <span class="n">item_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span>
-                <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchExactly</span><span class="p">,</span> <span class="mi">1</span>
-            <span class="p">)</span>
-            <span class="n">cmb_item</span> <span class="o">=</span> <span class="n">item_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="n">cmb_item</span><span class="p">)</span>
-            <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">cmb_item</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-            <span class="n">cmb_idx</span> <span class="o">=</span> <span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Disabled&quot;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchExactly</span><span class="p">)</span>
-            <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb_idx</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">number_of_commands</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot delete self.invisibleRootItem()!&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-
-        <span class="n">number_of_commands</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">])</span>
 
         <span class="k">def</span> <span class="nf">remove_children</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">number_of_commands</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">childCount</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -803,11 +861,21 @@
             <span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">command_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">number_of_commands</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+                <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="p">[</span><span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]][</span>
+                    <span class="s2">&quot;child index key list&quot;</span>
+                <span class="p">]</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="p">[</span><span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parent index key&quot;</span><span class="p">]][</span>
+                    <span class="s2">&quot;child index key list&quot;</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">])</span>
             <span class="n">command_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
                 <span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
             <span class="p">][</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;removing </span><span class="si">{</span><span class="n">command_string</span><span class="si">}</span><span class="s2"> from command tree&quot;</span><span class="p">)</span>
-            <span class="k">del</span> <span class="n">item</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">():</span>
+                <span class="k">del</span> <span class="n">item</span>
             <span class="k">if</span> <span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span>
                     <span class="n">command_index</span><span class="p">[</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
@@ -830,7 +898,20 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">loading</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_commands</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;number of commands&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_commands</span><span class="p">)</span>
+
+        <span class="c1"># switch off builtin</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_builtins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="n">item_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchExactly</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="p">)</span>
+            <span class="n">cmb_item</span> <span class="o">=</span> <span class="n">item_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="n">cmb_item</span><span class="p">)</span>
+            <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">itemWidget</span><span class="p">(</span><span class="n">cmb_item</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_settings_tree</span><span class="o">.</span><span class="n">setCurrentItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Disabled&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="CommandTreeWidget.get_parent_item"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.get_parent_item">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">:</span>

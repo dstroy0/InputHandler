@@ -515,11 +515,13 @@
         <span class="c1"># end MainWindow actions</span>
 
         <span class="c1"># settings and command trees</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_command_tree</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_settings_tree</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">get_settings_tree</span><span class="p">()</span>
 
-        <span class="c1"># code preview trees</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
 
@@ -529,11 +531,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="c1"># preferences dialog input validation</span>
 
-        <span class="c1"># load preferences</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+
         <span class="c1"># bring MainWindow to front, even after a restart</span>
         <span class="c1"># close splash and show app</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
