@@ -279,6 +279,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         PreferencesMethods.__init__(self)
+        self.get_initial_config_path()
         CodeGeneration.__init__(self)
         self.build_code_preview_widgets()
         self.parse_config()

@@ -566,7 +566,11 @@ class SettingsTreeWidget(QTreeWidget):
             _cmb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             # either or, dont trigger twice
             # _cmb.currentIndexChanged.connect(self.settings_tree_combo_box_index_changed)
-            _cmb.currentTextChanged.connect(lambda text, combobox=_cmb, item=_twi: self.settings_tree_combo_box_index_changed(text, combobox, item))
+            _cmb.currentTextChanged.connect(
+                lambda text, combobox=_cmb, item=_twi: self.settings_tree_combo_box_index_changed(
+                    text, combobox, item
+                )
+            )
             self.setItemWidget(
                 _twi,
                 3,
@@ -600,7 +604,7 @@ class SettingsTreeWidget(QTreeWidget):
         self.windowtitle_set = False
         _twi = item
         self.setCurrentItem(_twi)
-        object_string = str(_twi.data(4,0))
+        object_string = str(_twi.data(4, 0))
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
 
@@ -641,7 +645,7 @@ class SettingsTreeWidget(QTreeWidget):
                     self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
 
             elif object_list[2] == "listCommands":
-                if combobox.currentText() == "Enabled":                    
+                if combobox.currentText() == "Enabled":
                     self.command_tree.add_command_to_tree(
                         self.command_tree.invisibleRootItem(), "listCommands"
                     )
@@ -650,7 +654,7 @@ class SettingsTreeWidget(QTreeWidget):
                         self.command_tree.remove_command_from_tree("listCommands")
 
             elif object_list[2] == "listSettings":
-                if combobox.currentText() == "Enabled":                    
+                if combobox.currentText() == "Enabled":
                     self.command_tree.add_command_to_tree(
                         self.command_tree.invisibleRootItem(), "listSettings"
                     )
@@ -664,8 +668,8 @@ class SettingsTreeWidget(QTreeWidget):
             self.update_code("setup.cpp", object_list[2], True)
 
         if object_list[0] != "builtin methods":
-            #_twi = self.currentItem()
-            
+            # _twi = self.currentItem()
+
             object_data = self.get_object_data(_twi)
             info = self.cliopt["config"]["var"][object_data["pos"][2]]
 

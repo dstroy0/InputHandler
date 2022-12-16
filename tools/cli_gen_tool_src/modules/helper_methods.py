@@ -46,7 +46,7 @@ class HelperMethods(object):
         HelperMethods.helper_logger.debug("create qdialog: " + str(window_title))
         _buttons = []
 
-        print(self)
+        
         dlg = QDialog(self)
 
         def button_box_clicked(button):

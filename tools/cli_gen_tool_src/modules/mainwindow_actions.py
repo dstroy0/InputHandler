@@ -31,9 +31,7 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QStyle,
     QWidget,
-    
 )
-
 
 
 # mainwindow actions class

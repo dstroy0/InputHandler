@@ -66,7 +66,7 @@ class CommandParametersMethods(object):
         args_list = []
         csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
         regexp = QRegularExpression('("(?:[^"]|")*"|[^,"\n\r]*)(,|\r?\n|\r)')
-        csv_pos = 0        
+        csv_pos = 0
         while csv_pos != -1:
             match = regexp.match(csv, csv_pos)
             if match.hasMatch():
@@ -74,9 +74,11 @@ class CommandParametersMethods(object):
                 if (
                     match.captured().upper().strip(",")
                 ) in CommandParametersMethods.command_arg_types_list:
-                    args_list.append("UITYPE::" + str(match.captured().upper().strip(",")))                    
+                    args_list.append(
+                        "UITYPE::" + str(match.captured().upper().strip(","))
+                    )
             else:
-                break              
+                break
         return args_list
 
     ## all buttons related to adding/removing arguments from the command parameters dialog

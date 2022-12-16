@@ -46,14 +46,14 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                 arg_start = i
                 break
         self.args_list = parameters["commandArguments"]
-        
-        self.args_list = self.args_list.replace("UITYPE::","")
-        self.args_list = self.args_list.replace("{","")
-        self.args_list = self.args_list.replace("}","")
-        self.args_list = self.args_list.replace(" ","")
-        self.args_list = self.args_list.replace("\n","")
+
+        self.args_list = self.args_list.replace("UITYPE::", "")
+        self.args_list = self.args_list.replace("{", "")
+        self.args_list = self.args_list.replace("}", "")
+        self.args_list = self.args_list.replace(" ", "")
+        self.args_list = self.args_list.replace("\n", "")
         self.args_list = self.args_list.split(",")
-        print(self.args_list)
+        
         self.h_label = "Arguments"
         self.arguments = self.args_list
         self.column_count = 1

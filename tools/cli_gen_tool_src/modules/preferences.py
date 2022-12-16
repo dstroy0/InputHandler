@@ -11,11 +11,13 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
+import os
+import sys
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import QFileDialog, QLineEdit
+from PySide6.QtWidgets import QFileDialog, QLineEdit, QDialogButtonBox, QDialog, QWidget, QStyle
 from PySide6.QtCore import Qt, QDir, QRegularExpression
-from PySide6.QtGui import QRegularExpressionValidator
+from PySide6.QtGui import QIcon
 
 
 
@@ -23,13 +25,20 @@ class PreferencesMethods(object):
     def __init__(self) -> None:
         super(PreferencesMethods, self).__init__()
         PreferencesMethods.logger = self.get_child_logger(__name__)
+        self._parent = self
+        self.create_qdialog = self._parent.create_qdialog
         self.dlg = self.preferences.dlg
+        self.old_path = ""
         self.builtin_methods = [
             key for key in dataModels.default_session_model["opt"]["builtin methods"]
         ]
 
         self.builtin_cmb_dict = {}
 
+    def get_initial_config_path(self):
+        self.old_path = QDir(self._parent.session["opt"]["input_config_file_path"]).absolutePath()
+        self.old_path = QDir(self.old_path).toNativeSeparators(self.old_path)
+    
     def get_comboboxes(self):
         for i in range(len(self.builtin_methods)):
             items = self.settings_tree.findItems(
@@ -52,11 +61,12 @@ class PreferencesMethods(object):
         self.dlg.config_path_input.setText(str(config_path))
         PreferencesMethods.logger.info("preferences dialog cancelled")
 
-    def get_config_file(self):
-        old_path = ""
-        new_path = ""
-        cfg_path_dlg = QFileDialog(self)
-        fileName = cfg_path_dlg.getOpenFileName(
+    def get_config_file(self, config_path:str=None):
+        old_path = self.old_path
+        new_path = config_path
+        if new_path == None:
+            cfg_path_dlg = QFileDialog(self)
+            fileName = cfg_path_dlg.getOpenFileName(
             self,
             "InputHandler config file name",
             QDir(self.session["opt"]["input_config_file_path"]).toNativeSeparators(
@@ -65,14 +75,12 @@ class PreferencesMethods(object):
             "config.h",
             options=QFileDialog.DontUseNativeDialog,
         )
-        if fileName[0] == "":
-            PreferencesMethods.logger.info("browse for config cancelled.")
-            return
-        fqname = fileName[0]
-        new_path = QDir(fqname).absolutePath()
-        new_path = QDir(new_path).toNativeSeparators(new_path)
-        old_path = QDir(self.session["opt"]["input_config_file_path"]).absolutePath()
-        old_path = QDir(old_path).toNativeSeparators(old_path)
+            if fileName[0] == "":
+                PreferencesMethods.logger.info("browse for config cancelled.")
+                return
+            fqname = fileName[0]
+            new_path = QDir(fqname).absolutePath()
+            new_path = QDir(new_path).toNativeSeparators(new_path)        
         if new_path == old_path:
             PreferencesMethods.logger.info("Same config file selected.")
             return
@@ -162,27 +170,70 @@ class PreferencesMethods(object):
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
-    def set_line_edit_text(self, le:QLineEdit):
+    def set_line_edit_text(self, le: QLineEdit):
         qdir = QDir()
         dir = qdir.toNativeSeparators(le.text())
         has_file = False
-        regexp = QRegularExpression("^\\(.+\\)*(.+)\.(.+)$")
-        
-        result = regexp.match(dir)
+        sep = qdir.separator()
+        regexp_str = "(\S*\\"+sep+")(.*)"        
+        regexp = QRegularExpression(regexp_str)
         
         dir_component_list = []
-        str_pos = 0
+        str_pos = 0                               
         
-        while str_pos != -1:
-            result = regexp.match(dir, str_pos)
-            if result.hasMatch():
-                str_pos += result.capturedLength()
-                
-            
+        result = regexp.match(dir, str_pos)
+        if result.hasMatch():                    
+            dir_component_list.append(result.captured(1))   
+            dir_component_list.append(result.captured(2))                       
                 
         
-        le.setToolTip(le.text())
-    
+        if le.objectName() == "output_path_input":
+            if len(dir_component_list) == 0:                
+                b = QDialogButtonBox.StandardButton
+                buttons = [b.Ok, b.Close]
+                button_text = ["Clear output path", "Cancel"]
+                result = self.create_qdialog(
+                self._parent,
+                "An output path must be selected to generate files.",
+                Qt.AlignCenter,
+                Qt.NoTextInteraction,
+                "Remember to set an output path before attempting file generation!",
+                buttons,
+                button_text,
+                QIcon(
+                    QWidget()
+                    .style()
+                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxWarning)
+                ),
+                self._parent.qscreen,
+            )
+                if result == QDialog.accepted:
+                    le.clear()
+                    le.setPlaceholderText("Not set...")
+                    return None
+                elif result == 3:
+                    return None
+            elif len(dir_component_list) == 1:                
+                    print("output path")
+            else:
+                self.get_project_dir()
+                           
+        if le.objectName() == "config_path_input":                            
+            if len(dir_component_list) == 2: 
+                if self.old_path.strip() == dir.strip():
+                    PreferencesMethods.logger.info("same config path entered")               
+                    le.setText(self.old_path)
+                    return
+                elif os.path.exists(dir):
+                    self.get_config_file(dir)
+                else:
+                    PreferencesMethods.logger.info("Invalid path entered, trying to get new config file.")
+                    self.get_config_file()
+            else:
+                self.get_config_file()
+                
+        #le.setToolTip(le.text())
+
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {
@@ -223,7 +274,18 @@ class PreferencesMethods(object):
         log_level = Logger.root_log_level
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
-        self.dlg.output_path_input.editingFinished.connect(lambda le=self.dlg.output_path_input: self.set_line_edit_text(le))
+        self.dlg.config_path_input.editingFinished.connect(
+            lambda le=self.dlg.config_path_input: self.set_line_edit_text(le)
+        )
+        # self.dlg.config_path_input.textEdited.connect(
+        #     lambda text, le=self.dlg.config_path_input: self.set_line_edit_text(text, le)
+        # )
+        self.dlg.output_path_input.editingFinished.connect(
+            lambda le=self.dlg.output_path_input: self.set_line_edit_text(le)
+        )
+        # self.dlg.output_path_input.textEdited.connect(
+        #     lambda text, le=self.dlg.output_path_input: self.set_line_edit_text(text, le)
+        # )
 
         # input validation
         self.dlg.default_stream.setValidator(
