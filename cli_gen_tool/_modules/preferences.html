@@ -235,11 +235,13 @@
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QLineEdit</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QStyle</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDir</span><span class="p">,</span> <span class="n">QRegularExpression</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
 
 
 
@@ -247,13 +249,20 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PreferencesMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">create_qdialog</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">default_session_model</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">]</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">builtin_cmb_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
+<div class="viewcode-block" id="PreferencesMethods.get_initial_config_path"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_initial_config_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial_config_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="p">)</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="p">)</span></div>
+    
 <div class="viewcode-block" id="PreferencesMethods.get_comboboxes"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_comboboxes">[docs]</a>    <span class="k">def</span> <span class="nf">get_comboboxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">)):</span>
             <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span>
@@ -276,11 +285,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;preferences dialog cancelled&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="PreferencesMethods.get_config_file"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_config_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">old_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">cfg_path_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">fileName</span> <span class="o">=</span> <span class="n">cfg_path_dlg</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+<div class="viewcode-block" id="PreferencesMethods.get_config_file"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_config_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">old_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">config_path</span>
+        <span class="k">if</span> <span class="n">new_path</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cfg_path_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">fileName</span> <span class="o">=</span> <span class="n">cfg_path_dlg</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="s2">&quot;InputHandler config file name&quot;</span><span class="p">,</span>
             <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
@@ -289,14 +299,12 @@
             <span class="s2">&quot;config.h&quot;</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-            <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;browse for config cancelled.&quot;</span><span class="p">)</span>
-            <span class="k">return</span>
-        <span class="n">fqname</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">new_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">fqname</span><span class="p">)</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
-        <span class="n">new_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
-        <span class="n">old_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
-        <span class="n">old_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">old_path</span><span class="p">)</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">old_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;browse for config cancelled.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="n">fqname</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">new_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">fqname</span><span class="p">)</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
+            <span class="n">new_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>        
         <span class="k">if</span> <span class="n">new_path</span> <span class="o">==</span> <span class="n">old_path</span><span class="p">:</span>
             <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Same config file selected.&quot;</span><span class="p">)</span>
             <span class="k">return</span>
@@ -386,27 +394,70 @@
                 <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="s2">&quot;Enabled&quot;</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="PreferencesMethods.set_line_edit_text"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_line_edit_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_line_edit_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">le</span><span class="p">:</span><span class="n">QLineEdit</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferencesMethods.set_line_edit_text"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_line_edit_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_line_edit_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">le</span><span class="p">:</span> <span class="n">QLineEdit</span><span class="p">):</span>
         <span class="n">qdir</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">()</span>
         <span class="nb">dir</span> <span class="o">=</span> <span class="n">qdir</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
         <span class="n">has_file</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="s2">&quot;^</span><span class="se">\\</span><span class="s2">(.+</span><span class="se">\\</span><span class="s2">)*(.+)\.(.+)$&quot;</span><span class="p">)</span>
-        
-        <span class="n">result</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">qdir</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
+        <span class="n">regexp_str</span> <span class="o">=</span> <span class="s2">&quot;(\S*</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">sep</span><span class="o">+</span><span class="s2">&quot;)(.*)&quot;</span>        
+        <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="n">regexp_str</span><span class="p">)</span>
         
         <span class="n">dir_component_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">str_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">str_pos</span> <span class="o">=</span> <span class="mi">0</span>                               
         
-        <span class="k">while</span> <span class="n">str_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">str_pos</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">hasMatch</span><span class="p">():</span>
-                <span class="n">str_pos</span> <span class="o">+=</span> <span class="n">result</span><span class="o">.</span><span class="n">capturedLength</span><span class="p">()</span>
-                
-            
+        <span class="n">result</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">str_pos</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">hasMatch</span><span class="p">():</span>                    
+            <span class="n">dir_component_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">captured</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>   
+            <span class="n">dir_component_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">captured</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>                       
                 
         
-        <span class="n">le</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">text</span><span class="p">())</span></div>
-    
+        <span class="k">if</span> <span class="n">le</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;output_path_input&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dir_component_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>                
+                <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
+                <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">]</span>
+                <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Clear output path&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancel&quot;</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">,</span>
+                <span class="s2">&quot;An output path must be selected to generate files.&quot;</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">,</span>
+                <span class="s2">&quot;Remember to set an output path before attempting file generation!&quot;</span><span class="p">,</span>
+                <span class="n">buttons</span><span class="p">,</span>
+                <span class="n">button_text</span><span class="p">,</span>
+                <span class="n">QIcon</span><span class="p">(</span>
+                    <span class="n">QWidget</span><span class="p">()</span>
+                    <span class="o">.</span><span class="n">style</span><span class="p">()</span>
+                    <span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxWarning</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
+            <span class="p">)</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+                    <span class="n">le</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="n">le</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;Not set...&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dir_component_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>                
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;output path&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_project_dir</span><span class="p">()</span>
+                           
+        <span class="k">if</span> <span class="n">le</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;config_path_input&quot;</span><span class="p">:</span>                            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dir_component_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="nb">dir</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;same config path entered&quot;</span><span class="p">)</span>               
+                    <span class="n">le</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="p">)</span>
+                    <span class="k">return</span>
+                <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_config_file</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Invalid path entered, trying to get new config file.&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_config_file</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_config_file</span><span class="p">()</span></div>
+                
+        <span class="c1">#le.setToolTip(le.text())</span>
+
 <div class="viewcode-block" id="PreferencesMethods.preferences_dialog_setup"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.preferences_dialog_setup">[docs]</a>    <span class="k">def</span> <span class="nf">preferences_dialog_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pref_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">pref_dlg</span><span class="o">.</span><span class="n">validatorDict</span> <span class="o">=</span> <span class="p">{</span>
@@ -447,7 +498,18 @@
         <span class="n">log_level</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span>
         <span class="n">cmb</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">log_level</span><span class="p">]))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">le</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_line_edit_text</span><span class="p">(</span><span class="n">le</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">le</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_line_edit_text</span><span class="p">(</span><span class="n">le</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># self.dlg.config_path_input.textEdited.connect(</span>
+        <span class="c1">#     lambda text, le=self.dlg.config_path_input: self.set_line_edit_text(text, le)</span>
+        <span class="c1"># )</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">le</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">output_path_input</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_line_edit_text</span><span class="p">(</span><span class="n">le</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># self.dlg.output_path_input.textEdited.connect(</span>
+        <span class="c1">#     lambda text, le=self.dlg.output_path_input: self.set_line_edit_text(text, le)</span>
+        <span class="c1"># )</span>
 
         <span class="c1"># input validation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">default_stream</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span>

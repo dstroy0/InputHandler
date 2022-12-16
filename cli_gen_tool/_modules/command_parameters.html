@@ -290,7 +290,7 @@
         <span class="n">args_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">csv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
         <span class="n">regexp</span> <span class="o">=</span> <span class="n">QRegularExpression</span><span class="p">(</span><span class="s1">&#39;(&quot;(?:[^&quot;]|&quot;)*&quot;|[^,&quot;</span><span class="se">\n\r</span><span class="s1">]*)(,|</span><span class="se">\r</span><span class="s1">?</span><span class="se">\n</span><span class="s1">|</span><span class="se">\r</span><span class="s1">)&#39;</span><span class="p">)</span>
-        <span class="n">csv_pos</span> <span class="o">=</span> <span class="mi">0</span>        
+        <span class="n">csv_pos</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">csv_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">match</span> <span class="o">=</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">csv</span><span class="p">,</span> <span class="n">csv_pos</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">match</span><span class="o">.</span><span class="n">hasMatch</span><span class="p">():</span>
@@ -298,9 +298,11 @@
                 <span class="k">if</span> <span class="p">(</span>
                     <span class="k">match</span><span class="o">.</span><span class="n">captured</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
                 <span class="p">)</span> <span class="ow">in</span> <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">command_arg_types_list</span><span class="p">:</span>
-                    <span class="n">args_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">captured</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>                    
+                    <span class="n">args_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;UITYPE::&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">captured</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+                    <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">break</span>              
+                <span class="k">break</span>
         <span class="k">return</span> <span class="n">args_list</span></div>
 
     <span class="c1">## all buttons related to adding/removing arguments from the command parameters dialog</span>
