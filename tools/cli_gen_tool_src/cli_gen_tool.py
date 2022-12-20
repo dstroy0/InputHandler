@@ -49,8 +49,6 @@ from modules.command_tree import CommandTreeMethods
 from modules.command_parameters import CommandParametersMethods
 from modules.helper_methods import HelperMethods
 from modules.logging_setup import Logger
-from modules.mainwindow_actions import MainWindowActions
-from modules.mainwindow_buttons import MainWindowButtons
 from modules.settings_tree import SettingsTreeMethods
 from modules.preferences import PreferencesMethods
 from modules.mainwindow_methods import MainWindowMethods
@@ -66,22 +64,50 @@ config_file_boolean_define_fields_line_start = 72
 splashscreen_duration = 750
 
 
+class RootWidget(QWidget, object):
+    def __init__(self, parent) -> None:
+        super(RootWidget, self).__init__()
+        self._parent = parent
+        self.setObjectName("root")
+
+    # shim
+    def import_methods(self):
+        self.app = self._parent.app
+        self.get_app_screen = self._parent.get_app_screen
+        self.create_qdialog = self._parent.create_qdialog
+
+        self.root_log_handler = self._parent.root_log_handler
+        self.setup_file_handler = self._parent.setup_file_handler
+        self.get_child_logger = self._parent.get_child_logger
+        self.set_up_window_history_logger = self._parent.set_up_window_history_logger
+        self.logger = self.root_log_handler
+
+        self.get_inputhandler_dir_from_user = (
+            self._parent.get_inputhandler_dir_from_user
+        )
+        self.lib_root_path = self._parent.lib_root_path
+
+        self.timer = self._parent.timer
+
+
 ## set up pathing, logging, splash screen
 class Initialize(HelperMethods, Logger, object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
 
         # GUI container
-        self.app = QApplication(sys.argv)
-        self.app.setAttribute(Qt.AA_EnableHighDpiScaling)
-
+        app = QApplication(sys.argv)
+        app.setAttribute(Qt.AA_EnableHighDpiScaling)
         # GUI styling
-        self.app.setStyleSheet(qdarktheme.load_stylesheet())
+        app.setStyleSheet(qdarktheme.load_stylesheet())
+        self.app = app
 
+        self.root = RootWidget(self)
         Logger.__init__(self, __name__)
         HelperMethods.__init__(self)
+
+        # self = self.root
         self.get_app_screen()
-        self.temp_widget = QWidget()
         self.root_log_handler.info("CLI gen tool pathing")
 
         ## Library pathing
@@ -95,7 +121,6 @@ class Initialize(HelperMethods, Logger, object):
             # prompt user for lib dir
             self.get_inputhandler_dir_from_user()
         else:
-            # self.logger.info("Dir list: " + str(path_dir_list))
             num_cdup_to_lib_root = 0
             for dirname in reversed(range(len(path_dir_list))):
                 if path_dir_list[dirname] == "InputHandler":
@@ -124,9 +149,8 @@ class Initialize(HelperMethods, Logger, object):
         )  # Show app splash for `splashscreen_duration`
 
         self.root_log_handler.info("Loading CLI generation tool.")
-        self.window = MainWindow(
-            self
-        )  # pass init objects to MainWindow, these are used by MainWindow and external subclass methods
+        self.root.import_methods()
+        self.window = MainWindow(self.root)  # pass init object to MainWindow
         # exit on user command
         sys.exit(self.app.exec())
 
@@ -144,8 +168,7 @@ class Initialize(HelperMethods, Logger, object):
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Close]
             button_text = ["Select InputHandler's directory", "Close this tool"]
-            result = HelperMethods.create_qdialog(
-                self.temp_widget,
+            result = self.root.create_qdialog(
                 "You must select InputHandler's root directory to use this tool.",
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
@@ -180,10 +203,8 @@ class Initialize(HelperMethods, Logger, object):
 # (MainWindow is noninteractable when any of its child popups are active except log history)
 class MainWindow(
     QMainWindow,
-    MainWindowActions,
     SettingsTreeMethods,
     CommandParametersMethods,
-    MainWindowButtons,
     CommandTreeMethods,
     PreferencesMethods,
     MainWindowMethods,
@@ -237,16 +258,17 @@ class MainWindow(
         self.settings = QSettings("InputHandler", "cli_gen_tool")
 
         self.parent_instance = parent
-        self.create_qdialog = HelperMethods.create_qdialog
+        self.create_qdialog = parent.create_qdialog
 
         self.get_child_logger = self.parent_instance.get_child_logger
         MainWindow.logger = self.get_child_logger(__name__)
+        self.lib_root_path = self.parent_instance.lib_root_path
+        self.set_up_main_window(Ui_MainWindow())
         MainWindowMethods.__init__(self)
 
         self.show_splash()
 
         # pathing
-        self.lib_root_path = self.parent_instance.lib_root_path
         # /InputHandler/src/config/config.h
         default_lib_config_path = QDir(self.lib_root_path + "/src/config/")
         self.default_lib_config_path = default_lib_config_path.toNativeSeparators(
@@ -266,20 +288,16 @@ class MainWindow(
         self.preferences.dlg = Ui_Preferences()
         self.preferences.dlg.setupUi(self.preferences)
 
-        self.set_up_main_window(Ui_MainWindow())
-
-        MainWindowActions.__init__(self)
-        MainWindowButtons.__init__(self)
         self.set_up_session()
 
         # import external classes
         self.logger.debug("Importing external classes.")
 
         SettingsTreeMethods.__init__(self)
+        self.get_initial_config_path()
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         PreferencesMethods.__init__(self)
-        self.get_initial_config_path()
         CodeGeneration.__init__(self)
         self.build_code_preview_widgets()
         self.parse_config()

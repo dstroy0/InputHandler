@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QVBoxLayout,
     QSizePolicy,
+    QWidget
 )
 from PySide6.QtCore import Qt
 
@@ -28,7 +29,7 @@ class HelperMethods(object):
 
     ## the constructor
     def __init__(self):
-        super(HelperMethods, self).__init__(__name__)
+        super(HelperMethods, self).__init__(__name__)                
         HelperMethods.helper_logger = self.get_child_logger(__name__)
 
     ## spawn a dialog box
@@ -42,11 +43,12 @@ class HelperMethods(object):
         button_text=None,
         icon=None,
         screen=None,
-    ):
-        HelperMethods.helper_logger.debug("create qdialog: " + str(window_title))
+    ):        
         _buttons = []
 
-        
+        if not isinstance(self, QWidget):
+            self = self.root
+                
         dlg = QDialog(self)
 
         def button_box_clicked(button):
@@ -69,9 +71,7 @@ class HelperMethods(object):
         dlg.layout = QVBoxLayout()
         dlg.label = QLabel()
         dlg.label.setMinimumSize(0, 15)
-        dlg.label.setSizePolicy(
-            QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
-        )
+        dlg.label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         dlg.label.setTextFormat(Qt.AutoText)
         dlg.label.setText(message)
         dlg.label.setAlignment(message_text_alignment)
@@ -115,7 +115,12 @@ class HelperMethods(object):
         center_point.setX(center_point.x() - (_fg.x() / 2))
         center_point.setY(center_point.y() - (_fg.y() / 2))
         _fg.moveCenter(center_point)
-        self.logger.info("Creating QDialog on: " + _qscreen.name())
+        info = ""
+        if bool(self.objectName()):
+            info = self.objectName()
+        else:
+            info = str(self)
+        self.logger.info(info + " creating QDialog on: " + _qscreen.name())
         ret = dlg.exec()  # return the dialog exit code
         return ret
 

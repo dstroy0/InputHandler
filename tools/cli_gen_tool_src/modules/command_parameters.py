@@ -14,7 +14,7 @@ from __future__ import absolute_import
 
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
-from PySide6.QtGui import QRegularExpressionValidator, QTextCursor
+from PySide6.QtGui import QRegularExpressionValidator, QTextCursor, QIcon
 from PySide6.QtWidgets import (
     QDialogButtonBox,
     QStyle,
@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QComboBox,
     QPlainTextEdit,
     QSpinBox,
+    QWidget,
 )
 
 # data models
@@ -50,6 +51,8 @@ class CommandParametersMethods(object):
         """Constructor method"""
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = self.get_child_logger(__name__)
+        self.create_qdialog = self.create_qdialog
+        
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
@@ -285,7 +288,11 @@ class CommandParametersMethods(object):
             "Command Parameters Error",
             None,
             None,
-            self.get_icon(QStyle.StandardPixmap.SP_MessageBoxCritical),
+            QIcon(
+                QWidget()
+                .style()
+                .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
+            ),
         )
 
     ## sets the regexp and range validators for CommandParameters input

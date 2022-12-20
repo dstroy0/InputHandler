@@ -59,8 +59,8 @@ class Logger(object):
 
     ## the constructor
     def __init__(self, name) -> None:
-        super(Logger, self).__init__()
-        if not Logger.log_setup_complete:
+        super(Logger, self).__init__()        
+        if not Logger.log_setup_complete:                          
             self.root_log_handler = logging.getLogger(name)
             self.root_log_handler.setLevel(Logger.session_history_log_level)
             self.stream_log_handler = logging.StreamHandler()

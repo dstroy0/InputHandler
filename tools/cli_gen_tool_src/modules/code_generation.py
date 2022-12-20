@@ -439,43 +439,7 @@ class CodeGeneration(
 
         # shutil.copytree(src, dst)
 
-    def get_project_dir(self) -> str:
-        dir_dlg = QFileDialog(self)
-        _dlg_result = dir_dlg.getExistingDirectory(
-            self,
-            "Select output directory",
-            "",
-            options=QFileDialog.DontUseNativeDialog
-            | QFileDialog.ShowDirsOnly
-            | QFileDialog.DontResolveSymlinks,
-        )
-        if _dlg_result == QFileDialog.rejected:
-            b = QDialogButtonBox.StandardButton
-            buttons = [b.Ok, b.Close]
-            button_text = ["Select output directory", "Cancel"]
-            result = self.create_qdialog(
-                self._parent,
-                "You must select an output directory to generate files.",
-                Qt.AlignCenter,
-                Qt.NoTextInteraction,
-                "Error, no output directory selected!",
-                buttons,
-                button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-                ),
-                self._parent.qscreen,
-            )
-            if result == QDialog.accepted:
-                self.get_project_dir()
-            if result == 3:
-                return None
-
-        _dir = QDir(_dlg_result)
-        _result = _dir.toNativeSeparators(_dir.absolutePath())
-        return _result
+    
 
 
 class CodePreviewWidget(

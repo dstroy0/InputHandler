@@ -53,7 +53,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
         self.args_list = self.args_list.replace(" ", "")
         self.args_list = self.args_list.replace("\n", "")
         self.args_list = self.args_list.split(",")
-        
+
         self.h_label = "Arguments"
         self.arguments = self.args_list
         self.column_count = 1

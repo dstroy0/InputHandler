@@ -15,10 +15,16 @@ import os
 import sys
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import QFileDialog, QLineEdit, QDialogButtonBox, QDialog, QWidget, QStyle
+from PySide6.QtWidgets import (
+    QFileDialog,
+    QLineEdit,
+    QDialogButtonBox,
+    QDialog,
+    QWidget,
+    QStyle,
+)
 from PySide6.QtCore import Qt, QDir, QRegularExpression
 from PySide6.QtGui import QIcon
-
 
 
 class PreferencesMethods(object):
@@ -28,17 +34,13 @@ class PreferencesMethods(object):
         self._parent = self
         self.create_qdialog = self._parent.create_qdialog
         self.dlg = self.preferences.dlg
-        self.old_path = ""
+
         self.builtin_methods = [
             key for key in dataModels.default_session_model["opt"]["builtin methods"]
         ]
 
         self.builtin_cmb_dict = {}
 
-    def get_initial_config_path(self):
-        self.old_path = QDir(self._parent.session["opt"]["input_config_file_path"]).absolutePath()
-        self.old_path = QDir(self.old_path).toNativeSeparators(self.old_path)
-    
     def get_comboboxes(self):
         for i in range(len(self.builtin_methods)):
             items = self.settings_tree.findItems(
@@ -60,35 +62,6 @@ class PreferencesMethods(object):
         config_path = self.session["opt"]["save_filename"]
         self.dlg.config_path_input.setText(str(config_path))
         PreferencesMethods.logger.info("preferences dialog cancelled")
-
-    def get_config_file(self, config_path:str=None):
-        old_path = self.old_path
-        new_path = config_path
-        if new_path == None:
-            cfg_path_dlg = QFileDialog(self)
-            fileName = cfg_path_dlg.getOpenFileName(
-            self,
-            "InputHandler config file name",
-            QDir(self.session["opt"]["input_config_file_path"]).toNativeSeparators(
-                self.session["opt"]["input_config_file_path"]
-            ),
-            "config.h",
-            options=QFileDialog.DontUseNativeDialog,
-        )
-            if fileName[0] == "":
-                PreferencesMethods.logger.info("browse for config cancelled.")
-                return
-            fqname = fileName[0]
-            new_path = QDir(fqname).absolutePath()
-            new_path = QDir(new_path).toNativeSeparators(new_path)        
-        if new_path == old_path:
-            PreferencesMethods.logger.info("Same config file selected.")
-            return
-        self.session["opt"]["input_config_file_path"] = fqname
-        self.dlg.config_path_input.setText(str(fqname))
-        self.dlg.config_path_input.setToolTip(str(fqname))
-        # restart to apply selected config
-        self.restart(self, "New config file selected.")
 
     def set_session_history_log_level(self, index):
         index_val = self.dlg.sessionHistoryLogLevelComboBox.currentData()
@@ -175,64 +148,66 @@ class PreferencesMethods(object):
         dir = qdir.toNativeSeparators(le.text())
         has_file = False
         sep = qdir.separator()
-        regexp_str = "(\S*\\"+sep+")(.*)"        
+        regexp_str = "(\S*\\" + sep + ")(.*)"
         regexp = QRegularExpression(regexp_str)
-        
+
         dir_component_list = []
-        str_pos = 0                               
-        
+        str_pos = 0
+
         result = regexp.match(dir, str_pos)
-        if result.hasMatch():                    
-            dir_component_list.append(result.captured(1))   
-            dir_component_list.append(result.captured(2))                       
-                
-        
+        if result.hasMatch():
+            dir_component_list.append(result.captured(1))
+            dir_component_list.append(result.captured(2))
+
         if le.objectName() == "output_path_input":
-            if len(dir_component_list) == 0:                
+            if len(dir_component_list) == 0:
                 b = QDialogButtonBox.StandardButton
                 buttons = [b.Ok, b.Close]
                 button_text = ["Clear output path", "Cancel"]
                 result = self.create_qdialog(
-                self._parent,
-                "An output path must be selected to generate files.",
-                Qt.AlignCenter,
-                Qt.NoTextInteraction,
-                "Remember to set an output path before attempting file generation!",
-                buttons,
-                button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxWarning)
-                ),
-                self._parent.qscreen,
-            )
+                    self._parent,
+                    "An output path must be selected to generate files.",
+                    Qt.AlignCenter,
+                    Qt.NoTextInteraction,
+                    "Remember to set an output path before attempting file generation!",
+                    buttons,
+                    button_text,
+                    QIcon(
+                        QWidget()
+                        .style()
+                        .standardIcon(QStyle.StandardPixmap.SP_MessageBoxWarning)
+                    ),
+                    self._parent.qscreen,
+                )
                 if result == QDialog.accepted:
                     le.clear()
                     le.setPlaceholderText("Not set...")
                     return None
                 elif result == 3:
                     return None
-            elif len(dir_component_list) == 1:                
-                    print("output path")
+            elif len(dir_component_list) == 1:
+                print("output path")
+                print(dir_component_list)
             else:
-                self.get_project_dir()
-                           
-        if le.objectName() == "config_path_input":                            
-            if len(dir_component_list) == 2: 
-                if self.old_path.strip() == dir.strip():
-                    PreferencesMethods.logger.info("same config path entered")               
-                    le.setText(self.old_path)
+                self._parent.get_project_dir()
+
+        if le.objectName() == "config_path_input":
+            if len(dir_component_list) == 2:
+                if self._parent.old_path.strip() == dir.strip():
+                    PreferencesMethods.logger.info("same config path entered")
+                    le.setText(self._parent.old_path)
                     return
                 elif os.path.exists(dir):
-                    self.get_config_file(dir)
+                    self._parent.get_config_file(dir)
                 else:
-                    PreferencesMethods.logger.info("Invalid path entered, trying to get new config file.")
-                    self.get_config_file()
+                    PreferencesMethods.logger.info(
+                        "Invalid path entered, trying to get new config file."
+                    )
+                    self._parent.get_config_file()
             else:
-                self.get_config_file()
-                
-        #le.setToolTip(le.text())
+                self._parent.get_config_file()
+
+        # le.setToolTip(le.text())
 
     def preferences_dialog_setup(self):
         pref_dlg = self.preferences.dlg
@@ -296,8 +271,8 @@ class PreferencesMethods(object):
         )
 
         # actions setup
-        self.dlg.browse_for_config.clicked.connect(self.get_config_file)
-        self.dlg.browse_for_output_dir.clicked.connect(self.get_project_dir)
+        self.dlg.browse_for_config.clicked.connect(self._parent.get_config_file)
+        self.dlg.browse_for_output_dir.clicked.connect(self._parent.get_project_dir)
         self.dlg.buttonBox.accepted.connect(self.save_preferences)
         self.dlg.buttonBox.rejected.connect(self.reset_preferences)
         self.dlg.sessionHistoryLogLevelComboBox.currentIndexChanged.connect(
