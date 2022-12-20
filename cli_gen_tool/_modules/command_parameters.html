@@ -238,7 +238,7 @@
 
 <span class="c1"># pyside imports</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRegularExpression</span><span class="p">,</span> <span class="n">Qt</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span><span class="p">,</span> <span class="n">QTextCursor</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span><span class="p">,</span> <span class="n">QTextCursor</span><span class="p">,</span> <span class="n">QIcon</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QDialogButtonBox</span><span class="p">,</span>
     <span class="n">QStyle</span><span class="p">,</span>
@@ -246,6 +246,7 @@
     <span class="n">QComboBox</span><span class="p">,</span>
     <span class="n">QPlainTextEdit</span><span class="p">,</span>
     <span class="n">QSpinBox</span><span class="p">,</span>
+    <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># data models</span>
@@ -274,6 +275,8 @@
         <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span>
+        
 
     <span class="c1">## spawns a regexp validator</span>
 <div class="viewcode-block" id="CommandParametersMethods.regex_validator"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.regex_validator">[docs]</a>    <span class="k">def</span> <span class="nf">regex_validator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -509,7 +512,11 @@
             <span class="s2">&quot;Command Parameters Error&quot;</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">),</span>
+            <span class="n">QIcon</span><span class="p">(</span>
+                <span class="n">QWidget</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">style</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">)</span>
+            <span class="p">),</span>
         <span class="p">)</span></div>
 
     <span class="c1">## sets the regexp and range validators for CommandParameters input</span>
