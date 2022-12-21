@@ -50,6 +50,7 @@ class cliConfig(object):
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
         )
+        self.code_preview_dict["files"]["config.h"]["file_string"] = code_string
         self.set_code_string("config.h", code_string, item_string, place_cursor)
         # end update_config_h
 

@@ -40,4 +40,7 @@ class cliReadme(object):
         self.code_preview_dict["files"]["README.md"][
             "file_lines_list"
         ] = docstring.split("\n")
+        self.code_preview_dict["files"]["README.md"][
+            "file_string"
+        ] = docstring
         self.set_code_string("README.md", docstring, item_string, place_cursor)

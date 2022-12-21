@@ -55,6 +55,9 @@ class cliFunctions(object):
         self.code_preview_dict["files"]["functions.h"][
             "file_lines_list"
         ] = code_string.split("\n")
+        self.code_preview_dict["files"]["functions.h"][
+            "file_string"
+        ] = code_string
         self.set_code_string("functions.h", code_string, item_string, place_cursor)
 
     ## update the text for functions.cpp
@@ -113,6 +116,9 @@ class cliFunctions(object):
         self.code_preview_dict["files"]["functions.cpp"][
             "file_lines_list"
         ] = code_string.split("\n")
+        self.code_preview_dict["files"]["functions.cpp"][
+            "file_string"
+        ] = code_string
         self.set_code_string("functions.cpp", code_string, item_string, place_cursor)
 
 

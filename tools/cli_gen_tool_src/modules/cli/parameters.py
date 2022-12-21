@@ -153,6 +153,9 @@ class cliParameters(object):
         self.code_preview_dict["files"]["parameters.h"][
             "file_lines_list"
         ] = code_string.split("\n")
+        self.code_preview_dict["files"]["parameters.h"][
+            "file_string"
+        ] = code_string
         self.set_code_string("parameters.h", code_string, item_string, place_cursor)
 
 

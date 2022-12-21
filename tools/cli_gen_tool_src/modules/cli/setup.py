@@ -137,6 +137,9 @@ class cliSetup(object):
         self.code_preview_dict["files"]["setup.h"][
             "file_lines_list"
         ] = code_string.split("\n")
+        self.code_preview_dict["files"]["setup.h"][
+            "file_string"
+        ] = code_string
         self.set_code_string("setup.h", code_string, item_string, place_cursor)
 
     def setup_cpp(self, item_string, place_cursor=False):
@@ -226,6 +229,9 @@ class cliSetup(object):
         self.code_preview_dict["files"]["setup.cpp"][
             "file_lines_list"
         ] = code_string.split("\n")
+        self.code_preview_dict["files"]["setup.cpp"][
+            "file_string"
+        ] = code_string
         self.set_code_string(
             "setup.cpp", code_string, "InputHandler_setup", place_cursor
         )
