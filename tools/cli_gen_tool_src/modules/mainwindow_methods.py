@@ -100,7 +100,7 @@ class MainWindowMethods(object):
         if os.path.exists(_result):
             self.session["opt"]["output_dir"] = _result
             MainWindowMethods.logger.info("set output directory to:\n" + str(_result))
-            self._parent.preferences.dlg.output_dir_input.setText(_result)
+            self._parent.preferences.dlg.output_path_input.setText(_result)
         return _result
 
     def get_initial_config_path(self):
@@ -240,12 +240,10 @@ class MainWindowMethods(object):
         self.settings_tree_button_toggles()
 
     def show_splash(self):
-        # splashscreen timer
-        self.timer = self.parent_instance.timer
         MainWindowMethods.logger.info("load splash")
         self.splash = QSplashScreen(self.qscreen)
 
-        _splash_path = QDir(self.parent_instance.lib_root_path + "/docs/img/")
+        _splash_path = QDir(self.lib_root_path + "/docs/img/")
         self.splash.setPixmap(
             QPixmap(
                 _splash_path.toNativeSeparators(
@@ -268,6 +266,7 @@ class MainWindowMethods(object):
         center_point.setY(center_point.y() - (_fg.y() / 2))
         _fg.moveCenter(center_point)
         self.timer.timeout.connect(self.splash.close)  # close splash
+        self.timer.timeout.connect(self.show)
 
     def set_up_log_history_dialog(self, ui):
         # log history dialog
@@ -400,7 +399,7 @@ class MainWindowMethods(object):
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
-            result = self.create_qdialog(                
+            result = self.create_qdialog(
                 "Cannot locate last working file: " + str(last_interface.fileName()),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,

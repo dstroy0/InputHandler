@@ -52,7 +52,6 @@ class CommandParametersMethods(object):
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
-        
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):

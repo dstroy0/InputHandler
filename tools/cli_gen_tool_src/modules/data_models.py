@@ -188,9 +188,7 @@ class dataModels(object):
     generated_filename_sub_dict = {
         "filename": "",
         "file_lines_list": [],
-        # "tree_item": {},
-        # "contents_item": {},
-        # "text_widget": {0: "", 1: ""},
+        "file_string": "",        
     }
     ## This dict contains all generated files and associated widgets.
     generated_filename_dict = {

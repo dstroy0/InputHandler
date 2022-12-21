@@ -17,7 +17,20 @@ import shutil
 import datetime
 
 # pyside imports
-from PySide6.QtCore import QRect, QSize, Qt, QEvent, QObject, QUrl, Slot, QPoint, QDir
+from PySide6.QtCore import (
+    QRect,
+    QSize,
+    Qt,
+    QEvent,
+    QObject,
+    QUrl,
+    Slot,
+    QPoint,
+    QDir,
+    QIODevice,
+    QByteArray,
+    QFile,
+)
 from PySide6.QtGui import (
     QMouseEvent,
     QTextCursor,
@@ -27,7 +40,6 @@ from PySide6.QtGui import (
     QPainter,
     QColor,
     QTextFormat,
-    QIcon,
 )
 from PySide6.QtWidgets import (
     QSizePolicy,
@@ -42,9 +54,6 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QVBoxLayout,
     QPushButton,
-    QDialogButtonBox,
-    QFileDialog,
-    QDialog,
 )
 
 # external methods and resources
@@ -424,9 +433,58 @@ class CodeGeneration(
 
         # Create in project dir
         # /InputHandler/
+        directory = "InputHandler"
+        cli_path = os.path.join(project_path, directory)
+        if not os.path.exists(cli_path):
+            CodeGeneration.logger.info(
+                "creating dir <InputHandler> in <" + str(project_path) + ">"
+            )
+            os.mkdir(cli_path)
+            if os.path.exists(cli_path):
+                CodeGeneration.logger.info(
+                    "dir <InputHandler> created in <" + str(project_path) + ">"
+                )
+            else:
+                CodeGeneration.logger.info(
+                    "Error creating dir <InputHandler> in <"
+                    + str(project_path)
+                    + "> aborting generation!"
+                )
+        else:
+            CodeGeneration.logger.info(
+                "dir <InputHandler> already exists in <" + str(project_path) + ">"
+            )
 
         # copy # /InputHandler/src/ to project dir
-        # copy config.h to project dir/InputHandler/src/config and overwrite original
+        directory = "src"
+        src_path = os.path.abspath(src)
+        cli_src_path = os.path.join(cli_path, directory)
+        directory = "config/config.h"
+        cli_config_h_path = os.path.join(cli_src_path, directory)
+        if not os.path.exists(cli_src_path):
+            CodeGeneration.logger.info("creating dir <src> in <" + str(cli_path) + ">")
+            shutil.copytree(src_path, cli_src_path)
+            if os.path.exists(cli_src_path):
+                CodeGeneration.logger.info(
+                    "dir <src> created in <" + str(cli_path) + ">"
+                )
+            else:
+                CodeGeneration.logger.info(
+                    "Error creating dir <src> in <"
+                    + str(cli_path)
+                    + "> aborting generation!"
+                )
+        else:
+            CodeGeneration.logger.info(
+                "dir <src> already exists in <" + str(cli_path) + ">, overwriting."
+            )
+            os.rmdir(cli_src_path)            
+            shutil.copytree(src_path, cli_src_path)
+            os.remove(cli_config_h_path)
+            self.write_cli_file(cli_config_h_path, self.code_preview_dict["files"]["config.h"], True)
+
+        # config.h == session opt input_config_file_path
+        # copy config.h to project dir/InputHandler/src/config and overwrite
 
         # create
         # /InputHandler/CLI/
@@ -439,7 +497,31 @@ class CodeGeneration(
 
         # shutil.copytree(src, dst)
 
-    
+    def write_cli_file(
+        self, path: str, dict_to_write: dict, create_error_dialog: bool = False
+    ) -> int:
+        qfile = QFile(path)
+        if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
+            CodeGeneration.logger.info("Save " + qfile.fileName() + " error.")
+            if create_error_dialog:
+                self.create_file_error_qdialog("Save file", qfile)
+            return -1  # file error
+        
+        # file object
+        out = QByteArray(dict_to_write["file_string"])
+
+        size = qfile.write(out)
+        if size != -1:
+            CodeGeneration.logger.info(
+                "wrote " + str(size) + " bytes to " + str(qfile.fileName())
+            )
+
+        else:
+            CodeGeneration.logger.info("Write " + qfile.fileName() + " error.")
+            if create_error_dialog:
+                self.create_file_error_qdialog("Write file", qfile)
+        qfile.close()
+        return size
 
 
 class CodePreviewWidget(

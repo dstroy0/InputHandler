@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QVBoxLayout,
     QSizePolicy,
-    QWidget
+    QWidget,
 )
 from PySide6.QtCore import Qt
 
@@ -29,7 +29,7 @@ class HelperMethods(object):
 
     ## the constructor
     def __init__(self):
-        super(HelperMethods, self).__init__(__name__)                
+        super(HelperMethods, self).__init__(__name__)
         HelperMethods.helper_logger = self.get_child_logger(__name__)
 
     ## spawn a dialog box
@@ -43,12 +43,12 @@ class HelperMethods(object):
         button_text=None,
         icon=None,
         screen=None,
-    ):        
+    ):
         _buttons = []
 
         if not isinstance(self, QWidget):
             self = self.root
-                
+
         dlg = QDialog(self)
 
         def button_box_clicked(button):

@@ -87,8 +87,6 @@ class RootWidget(QWidget, object):
         )
         self.lib_root_path = self._parent.lib_root_path
 
-        self.timer = self._parent.timer
-
 
 ## set up pathing, logging, splash screen
 class Initialize(HelperMethods, Logger, object):
@@ -110,7 +108,20 @@ class Initialize(HelperMethods, Logger, object):
         self.get_app_screen()
         self.root_log_handler.info("CLI gen tool pathing")
 
-        ## Library pathing
+        # set lib root path
+        self.set_lib_root_path()
+
+        # setup logger
+        self.setup_file_handler()
+        self.root_log_handler.addHandler(self.get_file_handler())
+
+        self.root_log_handler.info("Loading CLI generation tool.")
+        self.root.import_methods()
+        self.window = MainWindow(self.root)  # pass init object to MainWindow
+        # exit on user command
+        sys.exit(self.app.exec())
+
+    def set_lib_root_path(self):
         file_path = os.path.abspath(__file__)
         _file_path = QDir(file_path)
         self.file_path = _file_path.toNativeSeparators(_file_path.absolutePath())
@@ -138,21 +149,6 @@ class Initialize(HelperMethods, Logger, object):
                 "Lib root path: " + str(path.toNativeSeparators(path.absolutePath()))
             )
             self.lib_root_path = path.toNativeSeparators(path.absolutePath())
-        self.setup_file_handler()
-        self.root_log_handler.addHandler(self.get_file_handler())
-
-        # Splashscreen timer
-        self.timer = QTimer()
-        self.timer.setSingleShot(True)
-        self.timer.start(
-            splashscreen_duration
-        )  # Show app splash for `splashscreen_duration`
-
-        self.root_log_handler.info("Loading CLI generation tool.")
-        self.root.import_methods()
-        self.window = MainWindow(self.root)  # pass init object to MainWindow
-        # exit on user command
-        sys.exit(self.app.exec())
 
     def get_inputhandler_dir_from_user(self):
         dir_dlg = QFileDialog(self)
@@ -216,57 +212,22 @@ class MainWindow(
         parent,
     ):
         super(MainWindow, self).__init__()
-        # MainWindow state variables
-        # ask user if they want to save their work on exit
-        self.prompt_to_save = False
-        self.windowtitle_set = False
-        self.settings_tree_collapsed = False
-        self.command_tree_collapsed = False
-        self.loading = True
-        self.version = version
-        self.app = parent.app  # used in external methods
-        self.qscreen = self.screen()
-        # input config file boolean define fields (ie // DISABLE_listSettings)
-        self.config_file_boolean_define_fields_line_start = (
-            config_file_boolean_define_fields_line_start
-        )
-        # the settings that the session started with
-        self.default_settings_tree_values = {}
-
-        # InputHandler builtin user interactable commands
-        self.ih_builtins = ["listSettings", "listCommands"]
-
-        # code preview interaction
-
-        self.qcursor = QCursor()
-
-        self.minimum_file_len = dataModels.minimum_file_len_dict
-
-        # cli opt db
-        self.cliOpt = dataModels.cliopt_model
-        # code preview db
-        self.code_preview_dict = dataModels.generated_filename_dict
-
-        # default settings dict to regen cli_gen_tool.json if it becomes corrupt
-        self.defaultGuiOpt = dataModels.default_session_model
-        # session db
-        self.session = {}
-        self.input_config_file_lines = []
-
+        ## app settings
         # settings object; platform independent
         # https://doc.qt.io/qt-6/qsettings.html
         self.settings = QSettings("InputHandler", "cli_gen_tool")
 
+        ## import parent variables, methods, and objects
         self.parent_instance = parent
+        self.lib_root_path = self.parent_instance.lib_root_path
         self.create_qdialog = parent.create_qdialog
 
         self.get_child_logger = self.parent_instance.get_child_logger
-        MainWindow.logger = self.get_child_logger(__name__)
-        self.lib_root_path = self.parent_instance.lib_root_path
-        self.set_up_main_window(Ui_MainWindow())
-        MainWindowMethods.__init__(self)
 
-        self.show_splash()
+        self.app = parent.app  # QApplication
+
+        # MainWindow logger
+        MainWindow.logger = self.get_child_logger(__name__)
 
         # pathing
         # /InputHandler/src/config/config.h
@@ -281,6 +242,54 @@ class MainWindow(
             cli_gen_tool_json_path.absoluteFilePath("cli_gen_tool.json")
         )
 
+        # objects
+        self.qcursor = QCursor()
+
+        ## models
+        # generated file min length
+        self.minimum_file_len = dataModels.minimum_file_len_dict
+        # cli opt db
+        self.cliOpt = dataModels.cliopt_model
+        # code preview db
+        self.code_preview_dict = dataModels.generated_filename_dict
+        # default settings dict to regen cli_gen_tool.json if it becomes corrupt or doesnt exist
+        self.defaultGuiOpt = dataModels.default_session_model
+
+        # MainWindow state variables
+        # ask user if they want to save their work on exit
+        self.prompt_to_save = False
+        self.windowtitle_set = False
+        self.settings_tree_collapsed = False
+        self.command_tree_collapsed = False
+        self.loading = True
+        self.version = version
+        self.qscreen = self.screen()
+        # input config file boolean define fields (ie // DISABLE_listSettings)
+        self.config_file_boolean_define_fields_line_start = (
+            config_file_boolean_define_fields_line_start
+        )
+        self.input_config_file_lines = []
+        # the settings that the session started with
+        self.default_settings_tree_values = {}
+        # session db
+        self.session = {}
+
+        # InputHandler builtin user interactable commands
+        self.ih_builtins = ["listSettings", "listCommands"]
+
+        self.set_up_main_window(Ui_MainWindow())
+        MainWindowMethods.__init__(self)
+
+        self.set_up_session()
+
+        # Splashscreen timer
+        self.timer = QTimer()
+        self.timer.setSingleShot(True)
+        self.timer.start(
+            splashscreen_duration
+        )  # Show app splash for `splashscreen_duration`
+        self.show_splash()
+
         self.set_up_log_history_dialog(Ui_logHistoryDialog())
 
         # preferences dialog
@@ -288,19 +297,14 @@ class MainWindow(
         self.preferences.dlg = Ui_Preferences()
         self.preferences.dlg.setupUi(self.preferences)
 
-        self.set_up_session()
-
-        # import external classes
+        # init and config classes
         self.logger.debug("Importing external classes.")
-
         SettingsTreeMethods.__init__(self)
         self.get_initial_config_path()
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         PreferencesMethods.__init__(self)
         CodeGeneration.__init__(self)
-        self.build_code_preview_widgets()
-        self.parse_config()
 
         self.set_up_ui_icons()
 
@@ -310,10 +314,10 @@ class MainWindow(
         # end MainWindow actions
 
         # settings and command trees
-
+        self.parse_config()
+        self.build_code_preview_widgets()
         self.command_tree = self.build_command_tree()
         self.settings_tree = self.build_settings_tree()
-
         self.command_tree.get_settings_tree()
 
         self.preferences_dialog_setup()
@@ -331,12 +335,12 @@ class MainWindow(
 
         # bring MainWindow to front, even after a restart
         # close splash and show app
-        self.splash.close()
+        # self.splash.close()
         self.setWindowState(Qt.WindowActive)
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
-        self.show()
+        # self.show()
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
-        self.show()
+        # self.show()
 
         self.logger.info("CLI generation tool ready.")
         self.loading = False
