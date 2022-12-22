@@ -33,14 +33,14 @@ const PROGMEM IH_wcc pwcc = "*"; // process wildcard char
 // data delimiter sequences
 const PROGMEM InputProcessDelimiterSequences pdelimseq = {
     2, // number of delimiter sequences
-    {1, 8}, // delimiter sequence lens
-    {" ", "asdfasdf"} // delimiter sequences
+    {1, 1}, // delimiter sequence lens
+    {" ", ","} // delimiter sequences
 };
 
 // start stop data delimiter sequences
 const PROGMEM InputProcessStartStopSequences pststpseq = {
     1, // num start stop sequence pairs
-    {2, 2}, // start stop sequence lens
+    {1, 1}, // start stop sequence lens
     {"\"", "\""} // start stop sequence pairs
 };
 
@@ -55,6 +55,19 @@ const PROGMEM InputProcessParameters input_prm[1] = {
 // constructor
 UserInput inputHandler(input_prm, InputHandler_output_buffer, buffsz(InputHandler_output_buffer));
 
-void InputHandler_setup();
-void InputHandler_loop();
+void InputHandler_setup()
+{
+  Serial.println(F("Setting up InputHandler..."));
+  inputHandler.defaultFunction(unrecognized); // default function is called when user input has no match or is not valid
+  inputHandler.addCommand(listCommands_);
+  inputHandler.addCommand(listSettings_);
+  inputHandler.begin(); // Required. Returns true on success.
+}
+
+void InputHandler_loop()
+{
+  inputHandler.getCommandFromStream(Serial);
+  inputHandler.outputToStream(Serial); // class output
+}
+#endif
 // end of file

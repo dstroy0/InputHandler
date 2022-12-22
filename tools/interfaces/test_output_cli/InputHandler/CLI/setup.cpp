@@ -16,24 +16,10 @@
 */
 
 
-#include setup.h
+#include "setup.h"
 
 
-void InputHandler_setup()
-{
-  Serial.println(F("Setting up InputHandler..."));
-  inputHandler.defaultFunction(unrecognized); // default function is called when user input has no match or is not valid
-  inputHandler.addCommand(listCommands_);
-  inputHandler.addCommand(listSettings_);
-  inputHandler.begin(); // Required. Returns true on success.
-}
-
-void InputHandler_loop()
-{
-  inputHandler.outputToStream(Serial); // class output
-}
 
 
-#endif
 
 // end of file

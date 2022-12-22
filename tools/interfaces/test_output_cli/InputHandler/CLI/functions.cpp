@@ -18,20 +18,7 @@
 
 #include "functions.h"
     
-void unrecognized(UserInput* _inputHandler)
-{
-  _inputHandler->outputToStream(Serial);
-}
 
-void listCommands(UserInput* _inputHandler)
-{
-  _inputHandler->listCommands();
-}
-
-void listSettings(UserInput* _inputHandler)
-{
-  _inputHandler->listSettings(inputHandler);
-}
 
 
 // end of file

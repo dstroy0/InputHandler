@@ -28,7 +28,7 @@ const PROGMEM CommandParameters listCommands_param[1] =
 {
     listCommands, // function pointer
     no_wildcards, // wildcard flag
-    listCommands, // command string
+    "listCommands", // command string
     12, // command string num characters
     0, // parent id
     0, // this command id (tree unique)
@@ -49,7 +49,7 @@ const PROGMEM CommandParameters listSettings_param[1] =
 {
     listSettings, // function pointer
     no_wildcards, // wildcard flag
-    listSettings, // command string
+    "listSettings", // command string
     12, // command string num characters
     0, // parent id
     0, // this command id (tree unique)

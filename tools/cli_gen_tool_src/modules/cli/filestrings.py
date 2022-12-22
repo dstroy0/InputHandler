@@ -144,6 +144,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
 
 // constructor
 {constructor}{setupprototype}{loopprototype}
+#endif
 // end of file
 """
     ## setup.cpp setup function
@@ -160,11 +161,9 @@ void InputHandler_loop()
 """
     ## setup.cpp filestring
     setup_cpp_fs = """
-#include setup.h
+#include "setup.h"
 
 {setupfunction}{loopfunction}
-
-#endif
 
 // end of file
 """
@@ -201,7 +200,7 @@ const PROGMEM CommandParameters {functionname}_param[1] =
 {{
     {functionname}, // function pointer
     {wildcardflag}, // wildcard flag
-    {commandstring}, // command string
+    "{commandstring}", // command string
     {lencommandstring}, // command string num characters
     {parentid}, // parent id
     {commandid}, // this command id (tree unique)
@@ -225,7 +224,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
     {{
       {functionname}, // function pointer
       {wildcardflag}, // wildcard flag
-      {commandstring}, // command string
+      "{commandstring}", // command string
       {lencommandstring}, // command string num characters
       {parentid}, // parent id
       {commandid}, // this command id (tree unique)
@@ -311,7 +310,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
                     },
                     "listCommands": {"call": "\n  _{objectname}->listCommands();"},
                     "listSettings": {
-                        "call": "\n  _{objectname}->listSettings({objectname});"
+                        "call": "\n  _{objectname}->listSettings(_{objectname});"
                     },
                     "function": functions_cpp_function_string,
                 },

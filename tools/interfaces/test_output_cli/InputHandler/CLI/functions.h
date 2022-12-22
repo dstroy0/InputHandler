@@ -21,9 +21,22 @@
     #include "InputHandler.h"
     
 
-void unrecognized(UserInput* _inputHandler);
-void listCommands(UserInput* _inputHandler);
-void listSettings(UserInput* _inputHandler);
+void unrecognized(UserInput* _inputHandler)
+{
+  
+  Serial.println("unrecognized");
+  _inputHandler->outputToStream(Serial);
+}
+
+void listCommands(UserInput* _inputHandler)
+{
+  _inputHandler->listCommands();
+}
+
+void listSettings(UserInput* _inputHandler)
+{
+  _inputHandler->listSettings(_inputHandler);
+}
 
 #endif
 // end of file
