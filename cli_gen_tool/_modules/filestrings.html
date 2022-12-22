@@ -368,6 +368,7 @@
 
 <span class="s2">// constructor</span>
 <span class="si">{constructor}{setupprototype}{loopprototype}</span><span class="s2"></span>
+<span class="s2">#endif</span>
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## setup.cpp setup function</span>
@@ -384,11 +385,9 @@
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## setup.cpp filestring</span>
     <span class="n">setup_cpp_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">#include setup.h</span>
+<span class="s2">#include &quot;setup.h&quot;</span>
 
 <span class="si">{setupfunction}{loopfunction}</span><span class="s2"></span>
-
-<span class="s2">#endif</span>
 
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -425,7 +424,7 @@
 <span class="s2">{{</span>
 <span class="s2">    </span><span class="si">{functionname}</span><span class="s2">, // function pointer</span>
 <span class="s2">    </span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
-<span class="s2">    </span><span class="si">{commandstring}</span><span class="s2">, // command string</span>
+<span class="s2">    &quot;</span><span class="si">{commandstring}</span><span class="s2">&quot;, // command string</span>
 <span class="s2">    </span><span class="si">{lencommandstring}</span><span class="s2">, // command string num characters</span>
 <span class="s2">    </span><span class="si">{parentid}</span><span class="s2">, // parent id</span>
 <span class="s2">    </span><span class="si">{commandid}</span><span class="s2">, // this command id (tree unique)</span>
@@ -449,7 +448,7 @@
 <span class="s2">    {{</span>
 <span class="s2">      </span><span class="si">{functionname}</span><span class="s2">, // function pointer</span>
 <span class="s2">      </span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
-<span class="s2">      </span><span class="si">{commandstring}</span><span class="s2">, // command string</span>
+<span class="s2">      &quot;</span><span class="si">{commandstring}</span><span class="s2">&quot;, // command string</span>
 <span class="s2">      </span><span class="si">{lencommandstring}</span><span class="s2">, // command string num characters</span>
 <span class="s2">      </span><span class="si">{parentid}</span><span class="s2">, // parent id</span>
 <span class="s2">      </span><span class="si">{commandid}</span><span class="s2">, // this command id (tree unique)</span>
@@ -535,7 +534,7 @@
                     <span class="p">},</span>
                     <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;listCommands();&quot;</span><span class="p">},</span>
                     <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings(</span><span class="si">{objectname}</span><span class="s2">);&quot;</span>
+                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings(_</span><span class="si">{objectname}</span><span class="s2">);&quot;</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">functions_cpp_function_string</span><span class="p">,</span>
                 <span class="p">},</span>
