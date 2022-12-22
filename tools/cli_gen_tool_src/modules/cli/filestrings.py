@@ -144,13 +144,15 @@ const PROGMEM InputProcessParameters input_prm[1] = {{
 
 // constructor
 {constructor}{setupprototype}{loopprototype}
+
+#include "setup.cpp"
 #endif
 // end of file
 """
     ## setup.cpp setup function
     setup_cpp_setup_function_string = """
 void InputHandler_setup()
-{{{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}
+{{{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}{setupfunctionexit}
 }}
 """
     ## setup.cpp loop function
@@ -174,7 +176,7 @@ void InputHandler_loop()
     #include "InputHandler.h"
     
 {functionprototypes}
-
+#include "functions.cpp"
 #endif
 // end of file
 """
@@ -285,12 +287,17 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
                     "outputToStream": {
                         "call": "\n  {objectname}.outputToStream({stream}); // class output"
                     },
+                    "getCommandFromStream": {
+                        "call": "\n  {objectname}.getCommandFromStream({stream}); // parse input"
+                    },
                     "begin": {
                         "call": "\n  {objectname}.begin(); // Required. Returns true on success."
                     },
                     "setup function output": {
-                        "stream": '\n  {stream}.println(F("{setupstring}"));',
-                        "buffer": '\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{setupstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{setupstring}");\n  }}',
+                        "stream": {"entry":'\n  {stream}.println(F("{outputstring}"));',
+                                   "exit":'\n  {stream}.println(F("{outputstring}"));',},
+                        "buffer": {"entry":'\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',
+                                   "exit":'\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',}
                     },
                 },
                 "filestring": setup_cpp_fs,

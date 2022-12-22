@@ -1,7 +1,7 @@
 /**
    @file test_output_cli.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-   @brief An example that demonstrates how to retrieve type-valid arguments from a Stream
+   @brief to test cli_gen_tool.py output
    @version 0.9
    @date 2022-12-22
 

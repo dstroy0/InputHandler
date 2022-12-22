@@ -137,14 +137,13 @@ class cliSetup(object):
         self.code_preview_dict["files"]["setup.h"][
             "file_lines_list"
         ] = code_string.split("\n")
-        self.code_preview_dict["files"]["setup.h"][
-            "file_string"
-        ] = code_string
+        self.code_preview_dict["files"]["setup.h"]["file_string"] = code_string
         self.set_code_string("setup.h", code_string, item_string, place_cursor)
 
     def setup_cpp(self, item_string, place_cursor=False):
         output_buffer_name = "InputHandler_output_buffer"
         setup_function_entry_string = "Setting up InputHandler..."
+        setup_function_exit_string = "InputHandler setup complete."
         object_name = "inputHandler"
 
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
@@ -163,20 +162,34 @@ class cliSetup(object):
 
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         setup_function_entry = ""
+        setup_function_exit = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
-            ]["stream"].format(
-                stream=self.cliOpt["process output"]["var"]["output stream"],
-                setupstring=setup_function_entry_string,
+            ]["stream"]["entry"].format(
+                stream=stream_string,
+                outputstring=setup_function_entry_string,
             )
+            setup_function_exit = self.fsdb["setup"]["cpp"]["filestring components"][
+                "setup function output"
+            ]["stream"]["exit"].format(
+                stream=stream_string,
+                outputstring=setup_function_exit_string,
+            )
+            
         elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
-            ]["buffer"].format(
+            ]["buffer"]["entry"].format(
                 outputbuffer=output_buffer_name,
-                setupstring=setup_function_entry_string,
+                outputstring=setup_function_entry_string,
+            )
+            setup_function_exit = self.fsdb["setup"]["cpp"]["filestring components"][
+                "setup function output"
+            ]["buffer"]["exit"].format(
+                outputbuffer=output_buffer_name,
+                outputstring=setup_function_exit_string,
             )
 
         default_function_string = ""
@@ -201,6 +214,7 @@ class cliSetup(object):
             commandlist=command_list_string,
             begin=begin_string,
             options=options_string,
+            setupfunctionexit=setup_function_exit
         )
 
         loop_function = ""
@@ -210,8 +224,12 @@ class cliSetup(object):
             and stream_string != None
         ):
             loop_statements = self.fsdb["setup"]["cpp"]["filestring components"][
+                "getCommandFromStream"
+            ]["call"].format(objectname=object_name, stream=stream_string)
+            loop_statements += self.fsdb["setup"]["cpp"]["filestring components"][
                 "outputToStream"
             ]["call"].format(objectname=object_name, stream=stream_string)
+
             loop_function = self.fsdb["setup"]["cpp"]["filestring components"][
                 "loop function"
             ].format(loopstatements=loop_statements)
@@ -229,9 +247,7 @@ class cliSetup(object):
         self.code_preview_dict["files"]["setup.cpp"][
             "file_lines_list"
         ] = code_string.split("\n")
-        self.code_preview_dict["files"]["setup.cpp"][
-            "file_string"
-        ] = code_string
+        self.code_preview_dict["files"]["setup.cpp"]["file_string"] = code_string
         self.set_code_string(
             "setup.cpp", code_string, "InputHandler_setup", place_cursor
         )
