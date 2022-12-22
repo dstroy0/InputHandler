@@ -361,14 +361,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.h&quot;</span><span class="p">][</span>
             <span class="s2">&quot;file_lines_list&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.h&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;file_string&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span><span class="s2">&quot;setup.h&quot;</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="cliSetup.setup_cpp"><a class="viewcode-back" href="../modules/cli/setup.html#setup.cliSetup.setup_cpp">[docs]</a>    <span class="k">def</span> <span class="nf">setup_cpp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">output_buffer_name</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_output_buffer&quot;</span>
         <span class="n">setup_function_entry_string</span> <span class="o">=</span> <span class="s2">&quot;Setting up InputHandler...&quot;</span>
+        <span class="n">setup_function_exit_string</span> <span class="o">=</span> <span class="s2">&quot;InputHandler setup complete.&quot;</span>
         <span class="n">object_name</span> <span class="o">=</span> <span class="s2">&quot;inputHandler&quot;</span>
 
         <span class="n">stream_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;output stream&quot;</span><span class="p">]</span>
@@ -387,20 +386,34 @@
 
         <span class="n">buffer_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;buffer size&quot;</span><span class="p">]</span>
         <span class="n">setup_function_entry</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">setup_function_exit</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">stream_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;output stream&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">stream_string</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">stream_string</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">setup_function_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;setup function output&quot;</span>
-            <span class="p">][</span><span class="s2">&quot;stream&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">stream</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;output stream&quot;</span><span class="p">],</span>
-                <span class="n">setupstring</span><span class="o">=</span><span class="n">setup_function_entry_string</span><span class="p">,</span>
+            <span class="p">][</span><span class="s2">&quot;stream&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">stream</span><span class="o">=</span><span class="n">stream_string</span><span class="p">,</span>
+                <span class="n">outputstring</span><span class="o">=</span><span class="n">setup_function_entry_string</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">setup_function_exit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;setup function output&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;stream&quot;</span><span class="p">][</span><span class="s2">&quot;exit&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">stream</span><span class="o">=</span><span class="n">stream_string</span><span class="p">,</span>
+                <span class="n">outputstring</span><span class="o">=</span><span class="n">setup_function_exit_string</span><span class="p">,</span>
+            <span class="p">)</span>
+            
         <span class="k">elif</span> <span class="n">stream_string</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">stream_string</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">setup_function_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;setup function output&quot;</span>
-            <span class="p">][</span><span class="s2">&quot;buffer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="p">][</span><span class="s2">&quot;buffer&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">outputbuffer</span><span class="o">=</span><span class="n">output_buffer_name</span><span class="p">,</span>
-                <span class="n">setupstring</span><span class="o">=</span><span class="n">setup_function_entry_string</span><span class="p">,</span>
+                <span class="n">outputstring</span><span class="o">=</span><span class="n">setup_function_entry_string</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">setup_function_exit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;setup function output&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;buffer&quot;</span><span class="p">][</span><span class="s2">&quot;exit&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">outputbuffer</span><span class="o">=</span><span class="n">output_buffer_name</span><span class="p">,</span>
+                <span class="n">outputstring</span><span class="o">=</span><span class="n">setup_function_exit_string</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="n">default_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -425,6 +438,7 @@
             <span class="n">commandlist</span><span class="o">=</span><span class="n">command_list_string</span><span class="p">,</span>
             <span class="n">begin</span><span class="o">=</span><span class="n">begin_string</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="n">options_string</span><span class="p">,</span>
+            <span class="n">setupfunctionexit</span><span class="o">=</span><span class="n">setup_function_exit</span>
         <span class="p">)</span>
 
         <span class="n">loop_function</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -434,8 +448,12 @@
             <span class="ow">and</span> <span class="n">stream_string</span> <span class="o">!=</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="n">loop_statements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;getCommandFromStream&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;call&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream_string</span><span class="p">)</span>
+            <span class="n">loop_statements</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;outputToStream&quot;</span>
             <span class="p">][</span><span class="s2">&quot;call&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream_string</span><span class="p">)</span>
+
             <span class="n">loop_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">][</span><span class="s2">&quot;cpp&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;loop function&quot;</span>
             <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loopstatements</span><span class="o">=</span><span class="n">loop_statements</span><span class="p">)</span>
@@ -453,9 +471,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.cpp&quot;</span><span class="p">][</span>
             <span class="s2">&quot;file_lines_list&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.cpp&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;file_string&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;setup.cpp&quot;</span><span class="p">][</span><span class="s2">&quot;file_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span>
             <span class="s2">&quot;setup.cpp&quot;</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="s2">&quot;InputHandler_setup&quot;</span><span class="p">,</span> <span class="n">place_cursor</span>
         <span class="p">)</span></div></div>
