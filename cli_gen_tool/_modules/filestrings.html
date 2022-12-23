@@ -438,8 +438,8 @@
 <span class="s2">    /* UITYPE arguments */</span>
 <span class="s2">    </span><span class="si">{argtypearray}</span><span class="s2">    </span>
 <span class="s2">}};</span>
-<span class="si">{commandconstructor}</span><span class="s2"></span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="si">{commandconstructor}{newline}</span><span class="s2">&quot;&quot;&quot;</span>
+
     <span class="c1">## nested CommandParameters format string</span>
     <span class="n">nested_commandparameters_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">/**</span>
@@ -462,7 +462,7 @@
 <span class="s2">      /* UITYPE arguments */</span>
 <span class="s2">      </span><span class="si">{argtypearray}</span><span class="s2">   </span>
 <span class="s2">    }},</span>
-<span class="s2">    </span><span class="si">{children}</span><span class="s2">    </span>
+<span class="s2">    </span><span class="si">{children}</span><span class="s2"></span>
 <span class="s2">}};</span>
 <span class="si">{commandconstructor}</span><span class="s2"></span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -518,10 +518,14 @@
                         <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{objectname}</span><span class="s2">.begin(); // Required. Returns true on success.&quot;</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;setup function output&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;entry&quot;</span><span class="p">:</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));&#39;</span><span class="p">,</span>
-                                   <span class="s2">&quot;exit&quot;</span><span class="p">:</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));&#39;</span><span class="p">,},</span>
-                        <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;entry&quot;</span><span class="p">:</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  if ((buffsz(</span><span class="si">{outputbuffer}</span><span class="s1">)-outputIsAvailable()) &gt; strlen(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;)+1) {{</span><span class="se">\n</span><span class="s1">    snprintf_P(</span><span class="si">{outputbuffer}</span><span class="s1"> + outputIsAvailable(), &quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;);</span><span class="se">\n</span><span class="s1">  }}&#39;</span><span class="p">,</span>
-                                   <span class="s2">&quot;exit&quot;</span><span class="p">:</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  if ((buffsz(</span><span class="si">{outputbuffer}</span><span class="s1">)-outputIsAvailable()) &gt; strlen(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;)+1) {{</span><span class="se">\n</span><span class="s1">    snprintf_P(</span><span class="si">{outputbuffer}</span><span class="s1"> + outputIsAvailable(), &quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;);</span><span class="se">\n</span><span class="s1">  }}&#39;</span><span class="p">,}</span>
+                        <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));&#39;</span><span class="p">,</span>
+                            <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));</span><span class="si">{ls}{lc}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                        <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  if ((buffsz(</span><span class="si">{outputbuffer}</span><span class="s1">)-outputIsAvailable()) &gt; strlen(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;)+1) {{</span><span class="se">\n</span><span class="s1">    snprintf_P(</span><span class="si">{outputbuffer}</span><span class="s1"> + outputIsAvailable(), &quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;);</span><span class="se">\n</span><span class="s1">  }}&#39;</span><span class="p">,</span>
+                            <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  if ((buffsz(</span><span class="si">{outputbuffer}</span><span class="s1">)-outputIsAvailable()) &gt; strlen(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;)+1) {{</span><span class="se">\n</span><span class="s1">    snprintf_P(</span><span class="si">{outputbuffer}</span><span class="s1"> + outputIsAvailable(), &quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;);</span><span class="se">\n</span><span class="s1">  }}</span><span class="si">{ls}{lc}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="p">},</span>
                     <span class="p">},</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;filestring&quot;</span><span class="p">:</span> <span class="n">setup_cpp_fs</span><span class="p">,</span>
@@ -551,7 +555,7 @@
         <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;nested child&quot;</span><span class="p">:</span> <span class="s2">&quot;    *</span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{comma}</span><span class="s2"> // pointer to </span><span class="si">{functionname}</span><span class="s2">_param</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;nested child&quot;</span><span class="p">:</span> <span class="s2">&quot;    *</span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{comma}</span><span class="s2"> // pointer to </span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{newline}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandConstructor </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">commandparameters_string</span><span class="p">,</span>
                     <span class="s2">&quot;nested parameters&quot;</span><span class="p">:</span> <span class="n">nested_commandparameters_string</span><span class="p">,</span>
