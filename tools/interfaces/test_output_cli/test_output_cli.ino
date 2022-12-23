@@ -11,10 +11,14 @@
 #include "InputHandler/src/InputHandler.h"
 #include "InputHandler/CLI/setup.h"
 
+void test(UserInput* _inputHandler) {
+  Serial.println(F("test"));
+}
+
 void setup() {
   delay(500); // startup delay for reprogramming
   Serial.begin(115200);
-  while(!Serial);
+  while (!Serial);
   InputHandler_setup();
 }
 

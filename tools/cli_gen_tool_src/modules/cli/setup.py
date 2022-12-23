@@ -14,6 +14,8 @@
 class cliSetup(object):
     def __init__(self) -> None:
         super(cliSetup, self).__init__()
+        self.cliopt = self.cliOpt
+        self.command_index = self.cliopt["commands"]["index"]
 
     def setup_h(self, item_string, place_cursor=False):
         def sequence_string_helper(seq):
@@ -149,47 +151,73 @@ class cliSetup(object):
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
 
         command_list_string = ""
-        for key in self.cliOpt["commands"]["parameters"]:
-            # iterate through list
-            command_parameters_name = (
-                str(self.cliOpt["commands"]["parameters"][key]["functionName"]) + "_"
-            )
-            command_list_string += self.fsdb["setup"]["cpp"]["filestring components"][
-                "addCommand"
-            ]["call"].format(
-                objectname=object_name, commandparametersname=command_parameters_name
-            )
+       
+        for root_command_index in self.command_index:
+            # addCommand root commands only
+            if int(self.command_index[root_command_index]["root index key"]) == int(
+                self.command_index[root_command_index]["parameters key"]
+            ):
+                command_parameters_name = (
+                    str(
+                        self.cliOpt["commands"]["parameters"][
+                            self.command_index[root_command_index]["parameters key"]
+                        ]["functionName"]
+                    )
+                    + "_"
+                )
+                command_list_string += self.fsdb["setup"]["cpp"][
+                    "filestring components"
+                ]["addCommand"]["call"].format(
+                    objectname=object_name,
+                    commandparametersname=command_parameters_name,
+                )
 
         buffer_size = self.cliOpt["process output"]["var"]["buffer size"]
         setup_function_entry = ""
         setup_function_exit = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
+        
+        _lc = ""
+        if self.cliopt["builtin methods"]["var"]["listCommands"]:
+            _lc = f"\n  listCommands(&{object_name}); // prints commands available to user"
+        _ls = ""
+        if self.cliopt["builtin methods"]["var"]["listSettings"]:
+            _ls = f"\n  listSettings(&{object_name}); // prints InputHandler settings"
+            
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
             ]["stream"]["entry"].format(
                 stream=stream_string,
                 outputstring=setup_function_entry_string,
+                ls=_ls,
+                lc=_lc,
             )
             setup_function_exit = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
             ]["stream"]["exit"].format(
                 stream=stream_string,
                 outputstring=setup_function_exit_string,
+                ls=_ls,
+                lc=_lc,
             )
-            
+
         elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
             ]["buffer"]["entry"].format(
                 outputbuffer=output_buffer_name,
                 outputstring=setup_function_entry_string,
+                ls=_ls,
+                lc=_lc,
             )
             setup_function_exit = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"
             ]["buffer"]["exit"].format(
                 outputbuffer=output_buffer_name,
                 outputstring=setup_function_exit_string,
+                ls=_ls,
+                lc=_lc,
             )
 
         default_function_string = ""
@@ -214,7 +242,7 @@ class cliSetup(object):
             commandlist=command_list_string,
             begin=begin_string,
             options=options_string,
-            setupfunctionexit=setup_function_exit
+            setupfunctionexit=setup_function_exit,
         )
 
         loop_function = ""

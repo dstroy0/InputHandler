@@ -61,7 +61,7 @@ class dataModels(object):
         "commandArgumentHandling",
         "commandMinArgs",
         "commandMaxArgs",
-        "commandArguments",
+        "commandArguments",        
     ]
 
     ## CommandParameters field settings

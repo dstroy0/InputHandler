@@ -511,7 +511,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                         "primary id key"
                     ]: self.make_builtin_parameters(builtin)
                 }
-            )
+            )                                
 
         if parent_item == None:
             parent_item = self.active_item
@@ -562,9 +562,15 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         )
 
         self.logger.info(
-            f"adding {command_string} to CommandTreeWidget {parent_string}"
+            f"added {command_string} to CommandTreeWidget {parent_string}"
         )
 
+        self._parent.update_code("README.md", command_string, True)
+        self._parent.update_code("setup.cpp", command_string, True)
+        self._parent.update_code("functions.h", command_string, True)
+        self._parent.update_code("functions.cpp", command_string, True)
+        self._parent.update_code("parameters.h", command_string, True)
+        
         return command_label
 
     def item_changed(self, item, column):
@@ -657,7 +663,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             ]["commandString"]
             self.logger.info(f"removing {command_string} from command tree")
             if item != self.invisibleRootItem():
-                del item
+                del item            
             if command_index["parameters key"] in self.cliopt["commands"]["parameters"]:
                 del self.cliopt["commands"]["parameters"][
                     command_index["parameters key"]
@@ -679,8 +685,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             parent.removeChild(item)
         if self._parent.loading == False and self._parent.prompt_to_save == False:
             self._parent.prompt_to_save = True
-            self._parent.windowtitle_set = False
-        self.cliopt["commands"]["number of commands"] = str(number_of_commands)
+            self._parent.windowtitle_set = False        
 
         # switch off builtin
         if item.data(0, 0) in self.active_builtins:
@@ -694,6 +699,13 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             self._settings_tree.setCurrentItem(item)
             cmb.setCurrentIndex(cmb.findText("Disabled"))
             self.cliopt["builtin methods"]["var"][item.data(0, 0)] = False
+        
+        self._parent.update_code("README.md", item.data(0, 0), True)
+        self._parent.update_code("setup.cpp", item.data(0, 0), True)
+        self._parent.update_code("functions.h", item.data(0, 0), True)
+        self._parent.update_code("functions.cpp", item.data(0, 0), True)
+        self._parent.update_code("parameters.h", item.data(0, 0), True)
+        self.cliopt["commands"]["number of commands"] = str(number_of_commands)
 
     def get_parent_item(self, item: QTreeWidgetItem):
         if item:

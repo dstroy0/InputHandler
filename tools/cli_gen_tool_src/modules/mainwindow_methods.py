@@ -1146,6 +1146,7 @@ class MainWindowMethods(object):
             fields["commandId"]["enabled"] = False
             fields["commandDepth"]["value"] = 0
             fields["commandDepth"]["enabled"] = False
+            self.command_tree.active_item = self.command_tree.invisibleRootItem()
             self.commandparameters_set_fields(fields)
             self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():

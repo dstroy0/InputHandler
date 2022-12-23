@@ -41,11 +41,16 @@ class cliFunctions(object):
         # functions with parameters
         for key in self.cliOpt["commands"]["parameters"]:
             parameters = self.cliOpt["commands"]["parameters"][key]
+            if bool(parameters["returnFunctionName"]):
+                functions_h_prototype_list.append(functions_h_prototype_string.format(
+                    functionname=parameters["returnFunctionName"], objectname=object_name
+                ))
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname=parameters["functionName"], objectname=object_name
                 )
             )
+            
 
         statements = ""
         for item in functions_h_prototype_list:
@@ -55,9 +60,7 @@ class cliFunctions(object):
         self.code_preview_dict["files"]["functions.h"][
             "file_lines_list"
         ] = code_string.split("\n")
-        self.code_preview_dict["files"]["functions.h"][
-            "file_string"
-        ] = code_string
+        self.code_preview_dict["files"]["functions.h"]["file_string"] = code_string
         self.set_code_string("functions.h", code_string, item_string, place_cursor)
 
     ## update the text for functions.cpp
@@ -105,6 +108,19 @@ class cliFunctions(object):
                         statements=statement,
                     )
                 )
+            else:
+                # if statement string is blank it's a vestigial function by accident or design                
+                statement = ""
+                functionname = parameters["returnFunctionName"]
+                if bool(functionname):                    
+                    statement = f"\n  {functionname}(_{object_name});"                
+                func_list.append(
+                    func_string.format(
+                        functionname=parameters["functionName"],
+                        objectname=object_name,
+                        statements=statement,
+                    )
+                )
 
         # concatenate individual function strings into one string
         funcs_string = ""
@@ -116,9 +132,7 @@ class cliFunctions(object):
         self.code_preview_dict["files"]["functions.cpp"][
             "file_lines_list"
         ] = code_string.split("\n")
-        self.code_preview_dict["files"]["functions.cpp"][
-            "file_string"
-        ] = code_string
+        self.code_preview_dict["files"]["functions.cpp"]["file_string"] = code_string
         self.set_code_string("functions.cpp", code_string, item_string, place_cursor)
 
 

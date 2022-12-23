@@ -214,8 +214,8 @@ const PROGMEM CommandParameters {functionname}_param[1] =
     /* UITYPE arguments */
     {argtypearray}    
 }};
-{commandconstructor}
-"""
+{commandconstructor}{newline}"""
+
     ## nested CommandParameters format string
     nested_commandparameters_string = """
 /**
@@ -238,7 +238,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
       /* UITYPE arguments */
       {argtypearray}   
     }},
-    {children}    
+    {children}
 }};
 {commandconstructor}
 """
@@ -294,10 +294,14 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
                         "call": "\n  {objectname}.begin(); // Required. Returns true on success."
                     },
                     "setup function output": {
-                        "stream": {"entry":'\n  {stream}.println(F("{outputstring}"));',
-                                   "exit":'\n  {stream}.println(F("{outputstring}"));',},
-                        "buffer": {"entry":'\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',
-                                   "exit":'\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',}
+                        "stream": {
+                            "entry": '\n  {stream}.println(F("{outputstring}"));',
+                            "exit": '\n  {stream}.println(F("{outputstring}"));{ls}{lc}',
+                        },
+                        "buffer": {
+                            "entry": '\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',
+                            "exit": '\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}{ls}{lc}',
+                        },
                     },
                 },
                 "filestring": setup_cpp_fs,
@@ -327,7 +331,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
         "parameters": {
             "h": {
                 "filestring components": {
-                    "nested child": "    *{functionname}_param{comma} // pointer to {functionname}_param\n",
+                    "nested child": "    *{functionname}_param{comma} // pointer to {functionname}_param{newline}",
                     "command constructor": "CommandConstructor {functionname}_({functionname}_param); // {functionname}_ command constructor",
                     "parameters": commandparameters_string,
                     "nested parameters": nested_commandparameters_string,
