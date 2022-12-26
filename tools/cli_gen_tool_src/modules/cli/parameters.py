@@ -16,7 +16,7 @@ class cliParameters(object):
     def __init__(self) -> None:
         super(cliParameters, self).__init__()
         self.cliopt = self.cliOpt
-        self.command_index = self.cliopt["commands"]["index"]        
+        self.command_index = self.cliopt["commands"]["index"]
         self.nested_child_parameters = ""
         self.nested_children_string = ""
         self.num_nested_children = 0
@@ -31,9 +31,7 @@ class cliParameters(object):
         ret = self.fsdb["parameters"]["h"]["filestring components"][
             "nested child"
         ].format(
-            functionname=parameters["functionName"],
-            comma=_comma,
-            newline=_newline
+            functionname=parameters["functionName"], comma=_comma, newline=_newline
         )
         return ret
 
@@ -62,7 +60,7 @@ class cliParameters(object):
             maxnumargs=parameters["commandMaxArgs"],
             argtypearray=parameters["commandArguments"],
             commandconstructor=command_constructor_string,
-            newline = _newline
+            newline=_newline,
         )
         return ret
 
@@ -73,7 +71,7 @@ class cliParameters(object):
         command_constructor_string = self.fsdb["parameters"]["h"][
             "filestring components"
         ]["command constructor"].format(functionname=parameters["functionName"])
-        
+
         ret = parameters_string.format(
             functionname=parameters["functionName"],
             wildcardflag=parameters["commandHasWildcards"],
@@ -104,10 +102,10 @@ class cliParameters(object):
                 )
                 self.child_parameters_list.append(child_parameters)
                 self.num_nested_children += 1
-                
+
                 if bool(self.command_index[child_index]["child index key list"]):
                     self.get_command_parameters_string(child_parameters, child_index)
-        
+
         ret_string = ""
         if self.num_nested_children == 0:
             ret_string = self.ret_unnested_param(parent_command_parameters)
@@ -115,9 +113,13 @@ class cliParameters(object):
             ret_string += self.nested_child_parameters
             for index in range(len(self.child_parameters_list)):
                 if index < len(self.child_parameters_list) - 1:
-                    self.nested_children_string += self.ret_nested_child(self.child_parameters_list[index])
-                else:                    
-                    self.nested_children_string += self.ret_nested_child(child_parameters, False)
+                    self.nested_children_string += self.ret_nested_child(
+                        self.child_parameters_list[index]
+                    )
+                else:
+                    self.nested_children_string += self.ret_nested_child(
+                        child_parameters, False
+                    )
             ret_string += self.ret_nested_param(
                 self.num_nested_children,
                 self.nested_children_string,

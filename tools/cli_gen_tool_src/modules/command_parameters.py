@@ -139,11 +139,18 @@ class CommandParametersMethods(object):
         """validates input command parameters
 
         Returns:
-            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.            
+            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.
         """
-        wildcard_flag_strings = ["no_wildcards","has_wildcards",]
-        arg_handling_strings = ["UI_ARG_HANDLING::no_args","UI_ARG_HANDLING::one_type","UI_ARG_HANDLING::type_arr",]
-        
+        wildcard_flag_strings = [
+            "no_wildcards",
+            "has_wildcards",
+        ]
+        arg_handling_strings = [
+            "UI_ARG_HANDLING::no_args",
+            "UI_ARG_HANDLING::one_type",
+            "UI_ARG_HANDLING::type_arr",
+        ]
+
         error_list = []
         settings_to_validate = dict.fromkeys(
             CommandParametersMethods.command_parameters_dict_keys_list, None
@@ -168,22 +175,24 @@ class CommandParametersMethods(object):
         settings_to_validate["commandId"] = self.command_parameters_user_input_objects[
             "commandId"
         ].text()
-        settings_to_validate[
-            "commandHasWildcards"
-        ] = wildcard_flag_strings[int(self.command_parameters_user_input_objects[
-            "commandHasWildcards"
-        ].isChecked())]
+        settings_to_validate["commandHasWildcards"] = wildcard_flag_strings[
+            int(
+                self.command_parameters_user_input_objects[
+                    "commandHasWildcards"
+                ].isChecked()
+            )
+        ]
         settings_to_validate[
             "commandDepth"
         ] = self.command_parameters_user_input_objects["commandDepth"].text()
         settings_to_validate[
             "commandSubcommands"
         ] = self.command_parameters_user_input_objects["commandSubcommands"].text()
-        settings_to_validate[
-            "commandArgumentHandling"
-        ] = arg_handling_strings[self.command_parameters_user_input_objects[
-            "commandArgumentHandling"
-        ].currentIndex()]
+        settings_to_validate["commandArgumentHandling"] = arg_handling_strings[
+            self.command_parameters_user_input_objects[
+                "commandArgumentHandling"
+            ].currentIndex()
+        ]
         settings_to_validate[
             "commandMinArgs"
         ] = self.command_parameters_user_input_objects["commandMinArgs"].text()

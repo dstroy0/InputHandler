@@ -193,6 +193,7 @@ class Initialize(HelperMethods, Logger, object):
 
 # end Initialize()
 
+
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows

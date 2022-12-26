@@ -479,10 +479,12 @@ class CodeGeneration(
             CodeGeneration.logger.info(
                 "dir <src> already exists in <" + str(cli_path) + ">, overwriting."
             )
-            shutil.rmtree(cli_src_path)            
+            shutil.rmtree(cli_src_path)
             shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
-            self.write_cli_file(cli_config_h_path, self.code_preview_dict["files"]["config.h"], True)                
+            self.write_cli_file(
+                cli_config_h_path, self.code_preview_dict["files"]["config.h"], True
+            )
 
         # create
         # /InputHandler/CLI/
@@ -495,36 +497,48 @@ class CodeGeneration(
         interface_path = os.path.join(cli_path, directory)
         if not os.path.exists(interface_path):
             os.mkdir(interface_path)
-            CodeGeneration.logger.info("creating dir <CLI> in <" + str(cli_path) + ">")            
+            CodeGeneration.logger.info("creating dir <CLI> in <" + str(cli_path) + ">")
             if os.path.exists(interface_path):
                 CodeGeneration.logger.info(
                     "dir <CLI> created in <" + str(cli_path) + ">"
                 )
-                
+
                 filename = "setup.h"
                 path = os.path.join(interface_path, filename)
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
                 filename = "setup.cpp"
                 path = os.path.join(interface_path, filename)
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
                 filename = "functions.h"
                 path = os.path.join(interface_path, filename)
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
                 filename = "functions.cpp"
                 path = os.path.join(interface_path, filename)
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
                 filename = "parameters.h"
                 path = os.path.join(interface_path, filename)
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
                 filename = "README.md"
-                path = os.path.join(project_path, str("InputHandler_CLI_"+filename))
-                self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-                
+                path = os.path.join(project_path, str("InputHandler_CLI_" + filename))
+                self.write_cli_file(
+                    path, self.code_preview_dict["files"][filename], True
+                )
+
             else:
                 CodeGeneration.logger.info(
                     "Error creating dir <CLI> in <"
@@ -535,34 +549,31 @@ class CodeGeneration(
             CodeGeneration.logger.info(
                 "dir <CLI> already exists in <" + str(cli_path) + ">, overwriting."
             )
-            shutil.rmtree(interface_path)            
+            shutil.rmtree(interface_path)
             os.mkdir(interface_path)
             filename = "setup.h"
             path = os.path.join(interface_path, filename)
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+
             filename = "setup.cpp"
             path = os.path.join(interface_path, filename)
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+
             filename = "functions.h"
             path = os.path.join(interface_path, filename)
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+
             filename = "functions.cpp"
             path = os.path.join(interface_path, filename)
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+
             filename = "parameters.h"
             path = os.path.join(interface_path, filename)
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
+
             filename = "README.md"
-            path = os.path.join(project_path, str("InputHandler_CLI_"+filename))
+            path = os.path.join(project_path, str("InputHandler_CLI_" + filename))
             self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-            
-            
-    
 
     def write_cli_file(
         self, path: str, dict_to_write: dict, create_error_dialog: bool = False
@@ -573,7 +584,7 @@ class CodeGeneration(
             if create_error_dialog:
                 self.create_file_error_qdialog("Save file", qfile)
             return -1  # file error
-        
+
         # file object
         out = QByteArray(dict_to_write["file_string"])
 
@@ -817,6 +828,7 @@ class CodePreviewWidget(
         if filename != "README.md":
             text_widget.setPlainText(code_string)
         else:
+            # text_widget.setHtml(code_string)
             text_widget.setMarkdown(code_string)
 
         if place_cursor == True and code_string != "":

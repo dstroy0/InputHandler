@@ -61,7 +61,7 @@ class dataModels(object):
         "commandArgumentHandling",
         "commandMinArgs",
         "commandMaxArgs",
-        "commandArguments",        
+        "commandArguments",
     ]
 
     ## CommandParameters field settings
@@ -188,7 +188,7 @@ class dataModels(object):
     generated_filename_sub_dict = {
         "filename": "",
         "file_lines_list": [],
-        "file_string": "",        
+        "file_string": "",
     }
     ## This dict contains all generated files and associated widgets.
     generated_filename_dict = {

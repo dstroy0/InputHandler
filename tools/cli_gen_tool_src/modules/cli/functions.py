@@ -28,7 +28,11 @@ class cliFunctions(object):
         functions_h_prototype_string = self.fsdb["functions"]["h"][
             "filestring components"
         ]["function prototype"]
+        functions_h_return_prototype_string = self.fsdb["functions"]["h"][
+            "filestring components"
+        ]["return function prototype"]
         functions_h_prototype_list = []
+        functions_h_return_prototype_list = []
 
         # default function
         if self.cliOpt["builtin methods"]["var"]["defaultFunction"] == True:
@@ -42,19 +46,25 @@ class cliFunctions(object):
         for key in self.cliOpt["commands"]["parameters"]:
             parameters = self.cliOpt["commands"]["parameters"][key]
             if bool(parameters["returnFunctionName"]):
-                functions_h_prototype_list.append(functions_h_prototype_string.format(
-                    functionname=parameters["returnFunctionName"], objectname=object_name
-                ))
+                functions_h_return_prototype_list.append(
+                    functions_h_return_prototype_string.format(
+                        functionname=parameters["returnFunctionName"],
+                        objectname=object_name,
+                    )
+                )
             functions_h_prototype_list.append(
                 functions_h_prototype_string.format(
                     functionname=parameters["functionName"], objectname=object_name
                 )
             )
-            
 
-        statements = ""
+        statements = "\n/* InputHandler user return function prototypes */"
+        for item in functions_h_return_prototype_list:
+            statements += item
+        statements += "\n\n/* InputHandler function prototypes */"
         for item in functions_h_prototype_list:
             statements += item
+
         f_h_fs = functions_h_fs.format(functionprototypes=statements)
         code_string = code_string + f_h_fs
         self.code_preview_dict["files"]["functions.h"][
@@ -109,11 +119,11 @@ class cliFunctions(object):
                     )
                 )
             else:
-                # if statement string is blank it's a vestigial function by accident or design                
+                # if statement string is blank it's a vestigial function by accident or design
                 statement = ""
                 functionname = parameters["returnFunctionName"]
-                if bool(functionname):                    
-                    statement = f"\n  {functionname}(_{object_name});"                
+                if bool(functionname):
+                    statement = f"\n  {functionname}(_{object_name});"
                 func_list.append(
                     func_string.format(
                         functionname=parameters["functionName"],
