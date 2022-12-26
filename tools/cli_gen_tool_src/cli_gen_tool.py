@@ -332,7 +332,7 @@ class MainWindow(
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
 
-        self.readSettings(self.settings)
+        
 
         # bring MainWindow to front, even after a restart
         # close splash and show app

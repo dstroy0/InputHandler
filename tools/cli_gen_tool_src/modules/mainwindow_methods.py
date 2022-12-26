@@ -195,8 +195,7 @@ class MainWindowMethods(object):
     def _closeEvent(self, event: QEvent):
         MainWindowMethods.logger.info("save app states")
         self.settings.setValue("tab", self.ui.tabWidget.currentIndex())
-        # self.settings.setValue("command_tree_collapsed", self.command_tree_collapsed)
-        # self.settings.setValue("settings_tree_collapsed", self.settings_tree_collapsed)
+        
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("windowState", self.saveState())
         self.settings.setValue(
@@ -267,6 +266,7 @@ class MainWindowMethods(object):
         _fg.moveCenter(center_point)
         self.timer.timeout.connect(self.splash.close)  # close splash
         self.timer.timeout.connect(self.show)
+        self.timer.timeout.connect(lambda settings=self.settings:self.readSettings(settings))
 
     def set_up_log_history_dialog(self, ui):
         # log history dialog
