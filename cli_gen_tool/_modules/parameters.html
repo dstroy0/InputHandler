@@ -240,7 +240,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">cliParameters</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nested_child_parameters</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_nested_children</span> <span class="o">=</span> <span class="mi">0</span>
@@ -255,9 +255,7 @@
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
             <span class="s2">&quot;nested child&quot;</span>
         <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span>
-            <span class="n">comma</span><span class="o">=</span><span class="n">_comma</span><span class="p">,</span>
-            <span class="n">newline</span><span class="o">=</span><span class="n">_newline</span>
+            <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span> <span class="n">comma</span><span class="o">=</span><span class="n">_comma</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="n">_newline</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
@@ -286,7 +284,7 @@
             <span class="n">maxnumargs</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">],</span>
             <span class="n">argtypearray</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">],</span>
             <span class="n">commandconstructor</span><span class="o">=</span><span class="n">command_constructor_string</span><span class="p">,</span>
-            <span class="n">newline</span> <span class="o">=</span> <span class="n">_newline</span>
+            <span class="n">newline</span><span class="o">=</span><span class="n">_newline</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
@@ -297,7 +295,7 @@
         <span class="n">command_constructor_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span>
             <span class="s2">&quot;filestring components&quot;</span>
         <span class="p">][</span><span class="s2">&quot;command constructor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">])</span>
-        
+
         <span class="n">ret</span> <span class="o">=</span> <span class="n">parameters_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span>
             <span class="n">wildcardflag</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">],</span>
@@ -328,10 +326,10 @@
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child_parameters</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">num_nested_children</span> <span class="o">+=</span> <span class="mi">1</span>
-                
+
                 <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_index</span><span class="p">[</span><span class="n">child_index</span><span class="p">][</span><span class="s2">&quot;child index key list&quot;</span><span class="p">]):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">get_command_parameters_string</span><span class="p">(</span><span class="n">child_parameters</span><span class="p">,</span> <span class="n">child_index</span><span class="p">)</span>
-        
+
         <span class="n">ret_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nested_children</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">ret_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_unnested_param</span><span class="p">(</span><span class="n">parent_command_parameters</span><span class="p">)</span>
@@ -339,9 +337,13 @@
             <span class="n">ret_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested_child_parameters</span>
             <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-                <span class="k">else</span><span class="p">:</span>                    
-                    <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span><span class="n">child_parameters</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_child</span><span class="p">(</span>
+                        <span class="n">child_parameters</span><span class="p">,</span> <span class="kc">False</span>
+                    <span class="p">)</span>
             <span class="n">ret_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_nested_param</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">num_nested_children</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nested_children_string</span><span class="p">,</span>

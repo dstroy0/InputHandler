@@ -237,36 +237,103 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">modules.cli.filestrings</span> <span class="kn">import</span> <span class="n">cliFileStrings</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 
 <div class="viewcode-block" id="cliReadme"><a class="viewcode-back" href="../modules/cli/clireadme.html#clireadme.cliReadme">[docs]</a><span class="k">class</span> <span class="nc">cliReadme</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">cliReadme</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span>
 
 <div class="viewcode-block" id="cliReadme.readme_md"><a class="viewcode-back" href="../modules/cli/clireadme.html#clireadme.cliReadme.readme_md">[docs]</a>    <span class="k">def</span> <span class="nf">readme_md</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">object_name</span> <span class="o">=</span> <span class="s2">&quot;inputHandler&quot;</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getlogin</span><span class="p">()</span>
+        <span class="n">buffer_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;buffer size&quot;</span><span class="p">]</span>
+        <span class="n">stream_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process output&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;output stream&quot;</span><span class="p">]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
         <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+
+        <span class="n">return_function_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">function_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                    <span class="s2">&quot;return function code&quot;</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">],</span>
+                    <span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">return_function_code</span> <span class="o">+=</span> <span class="n">function_string</span>
+        <span class="n">wrapped_return_function_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;filestring components&quot;</span>
+        <span class="p">][</span><span class="s2">&quot;cpp md tag&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">return_function_code</span><span class="p">)</span>
+        <span class="n">return_function_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">copy_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">wrapped_include_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">gen_code_sect</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">wrapped_loop_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">wrapped_setup_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">_loop_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">_setup_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">_loop_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">_setup_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">stream_string</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">stream_string</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_setup_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_setup();&quot;</span>
+            <span class="n">_loop_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_loop();&quot;</span>
+        <span class="k">elif</span> <span class="n">stream_string</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">stream_string</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_setup_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_setup();&quot;</span>
+            <span class="n">_loop_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_loop();&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">return_function_code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">return_function_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_function_inst</span>
+            <span class="n">copy_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_copy_inst</span>
+            <span class="n">gen_code_sect</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_gen_inst</span>
+            <span class="n">include_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_include_inst</span>
+            <span class="n">wrapped_include_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;cpp md tag&quot;</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">include_inst</span><span class="p">)</span>
+            <span class="n">_setup_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_setup();&quot;</span>
+            <span class="n">_loop_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_loop();&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_setup_code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wrapped_setup_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;cpp md tag&quot;</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">_setup_code</span><span class="p">)</span>
+            <span class="n">_setup_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_setup_inst</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_loop_code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wrapped_loop_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;cpp md tag&quot;</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">_loop_code</span><span class="p">)</span>
+            <span class="n">_loop_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_loop_inst</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot; (retrieved using os.getlogin())&quot;</span>
+
         <span class="n">docstring</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">readmemd</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
             <span class="n">docs_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
             <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
             <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-            <span class="n">initial_instructions</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_initial_inst</span><span class="p">,</span>
-            <span class="n">function_instructions</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_function_inst</span><span class="p">,</span>
-            <span class="n">functions_with_return</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="n">setup_instructions</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_setup_inst</span><span class="p">,</span>
-            <span class="n">setup_code</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="n">loop_instructions</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_loop_inst</span><span class="p">,</span>
-            <span class="n">loop_code</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">generated_code_section</span><span class="o">=</span><span class="n">gen_code_sect</span><span class="p">,</span>
+            <span class="n">include_instructions</span><span class="o">=</span><span class="n">wrapped_include_inst</span><span class="p">,</span>
+            <span class="n">function_instructions</span><span class="o">=</span><span class="n">return_function_inst</span><span class="p">,</span>
+            <span class="n">copy_instructions</span><span class="o">=</span><span class="n">copy_inst</span><span class="p">,</span>
+            <span class="n">functions_with_return</span><span class="o">=</span><span class="n">wrapped_return_function_code</span><span class="p">,</span>
+            <span class="n">setup_instructions</span><span class="o">=</span><span class="n">_setup_inst</span><span class="p">,</span>
+            <span class="n">setup_code</span><span class="o">=</span><span class="n">wrapped_setup_code</span><span class="p">,</span>
+            <span class="n">loop_instructions</span><span class="o">=</span><span class="n">_loop_inst</span><span class="p">,</span>
+            <span class="n">loop_code</span><span class="o">=</span><span class="n">wrapped_loop_code</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span>
             <span class="s2">&quot;file_lines_list&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;file_string&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">docstring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;README.md&quot;</span><span class="p">][</span><span class="s2">&quot;file_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">docstring</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">)</span></div></div>
 </pre></div>
         </article>

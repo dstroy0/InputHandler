@@ -363,11 +363,18 @@
         <span class="sd">&quot;&quot;&quot;validates input command parameters</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.            </span>
+<span class="sd">            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">wildcard_flag_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;no_wildcards&quot;</span><span class="p">,</span><span class="s2">&quot;has_wildcards&quot;</span><span class="p">,]</span>
-        <span class="n">arg_handling_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UI_ARG_HANDLING::no_args&quot;</span><span class="p">,</span><span class="s2">&quot;UI_ARG_HANDLING::one_type&quot;</span><span class="p">,</span><span class="s2">&quot;UI_ARG_HANDLING::type_arr&quot;</span><span class="p">,]</span>
-        
+        <span class="n">wildcard_flag_strings</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;no_wildcards&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;has_wildcards&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">arg_handling_strings</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;UI_ARG_HANDLING::no_args&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;UI_ARG_HANDLING::one_type&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;UI_ARG_HANDLING::type_arr&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
         <span class="n">error_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">settings_to_validate</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span>
             <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">,</span> <span class="kc">None</span>
@@ -392,22 +399,24 @@
         <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;commandId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
             <span class="s2">&quot;commandId&quot;</span>
         <span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">settings_to_validate</span><span class="p">[</span>
-            <span class="s2">&quot;commandHasWildcards&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">wildcard_flag_strings</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
-            <span class="s2">&quot;commandHasWildcards&quot;</span>
-        <span class="p">]</span><span class="o">.</span><span class="n">isChecked</span><span class="p">())]</span>
+        <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wildcard_flag_strings</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
+                    <span class="s2">&quot;commandHasWildcards&quot;</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
         <span class="n">settings_to_validate</span><span class="p">[</span>
             <span class="s2">&quot;commandDepth&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="s2">&quot;commandDepth&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="n">settings_to_validate</span><span class="p">[</span>
             <span class="s2">&quot;commandSubcommands&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="s2">&quot;commandSubcommands&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">settings_to_validate</span><span class="p">[</span>
-            <span class="s2">&quot;commandArgumentHandling&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">arg_handling_strings</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
-            <span class="s2">&quot;commandArgumentHandling&quot;</span>
-        <span class="p">]</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()]</span>
+        <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg_handling_strings</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
+                <span class="s2">&quot;commandArgumentHandling&quot;</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="p">]</span>
         <span class="n">settings_to_validate</span><span class="p">[</span>
             <span class="s2">&quot;commandMinArgs&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>

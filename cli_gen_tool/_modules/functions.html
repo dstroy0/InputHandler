@@ -252,7 +252,11 @@
         <span class="n">functions_h_prototype_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;functions&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span>
             <span class="s2">&quot;filestring components&quot;</span>
         <span class="p">][</span><span class="s2">&quot;function prototype&quot;</span><span class="p">]</span>
+        <span class="n">functions_h_return_prototype_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;functions&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;filestring components&quot;</span>
+        <span class="p">][</span><span class="s2">&quot;return function prototype&quot;</span><span class="p">]</span>
         <span class="n">functions_h_prototype_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">functions_h_return_prototype_list</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># default function</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;defaultFunction&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
@@ -266,19 +270,25 @@
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]:</span>
             <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">]):</span>
-                <span class="n">functions_h_prototype_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">functions_h_prototype_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">],</span> <span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span>
-                <span class="p">))</span>
+                <span class="n">functions_h_return_prototype_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">functions_h_return_prototype_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">],</span>
+                        <span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
             <span class="n">functions_h_prototype_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">functions_h_prototype_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span> <span class="n">objectname</span><span class="o">=</span><span class="n">object_name</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            
 
-        <span class="n">statements</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">statements</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">/* InputHandler user return function prototypes */&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">functions_h_return_prototype_list</span><span class="p">:</span>
+            <span class="n">statements</span> <span class="o">+=</span> <span class="n">item</span>
+        <span class="n">statements</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">/* InputHandler function prototypes */&quot;</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">functions_h_prototype_list</span><span class="p">:</span>
             <span class="n">statements</span> <span class="o">+=</span> <span class="n">item</span>
+
         <span class="n">f_h_fs</span> <span class="o">=</span> <span class="n">functions_h_fs</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">functionprototypes</span><span class="o">=</span><span class="n">statements</span><span class="p">)</span>
         <span class="n">code_string</span> <span class="o">=</span> <span class="n">code_string</span> <span class="o">+</span> <span class="n">f_h_fs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;functions.h&quot;</span><span class="p">][</span>
@@ -333,11 +343,11 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># if statement string is blank it&#39;s a vestigial function by accident or design                </span>
+                <span class="c1"># if statement string is blank it&#39;s a vestigial function by accident or design</span>
                 <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                 <span class="n">functionname</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;returnFunctionName&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">functionname</span><span class="p">):</span>                    
-                    <span class="n">statement</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">functionname</span><span class="si">}</span><span class="s2">(_</span><span class="si">{</span><span class="n">object_name</span><span class="si">}</span><span class="s2">);&quot;</span>                
+                <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">functionname</span><span class="p">):</span>
+                    <span class="n">statement</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">functionname</span><span class="si">}</span><span class="s2">(_</span><span class="si">{</span><span class="n">object_name</span><span class="si">}</span><span class="s2">);&quot;</span>
                 <span class="n">func_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">func_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span>
