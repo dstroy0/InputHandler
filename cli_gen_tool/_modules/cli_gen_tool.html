@@ -402,7 +402,7 @@
                 <span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Need InputHandler&#39;s directory for tool dependencies.&quot;</span><span class="p">)</span>
@@ -556,7 +556,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">readSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+        
 
         <span class="c1"># bring MainWindow to front, even after a restart</span>
         <span class="c1"># close splash and show app</span>

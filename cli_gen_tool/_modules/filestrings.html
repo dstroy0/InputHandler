@@ -475,7 +475,7 @@
 <span class="s2">      /* UITYPE arguments */</span>
 <span class="s2">      </span><span class="si">{argtypearray}</span><span class="s2">   </span>
 <span class="s2">    }},</span>
-<span class="s2">    </span><span class="si">{children}</span><span class="s2"></span>
+<span class="si">{children}</span><span class="s2"></span>
 <span class="s2">}};</span>
 <span class="si">{commandconstructor}</span><span class="s2"></span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -592,6 +592,7 @@
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s2">&quot;nested child&quot;</span><span class="p">:</span> <span class="s2">&quot;    *</span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{comma}</span><span class="s2"> // pointer to </span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{newline}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandConstructor </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;nested command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandConstructor </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param, nprms(</span><span class="si">{functionname}</span><span class="s2">_param), </span><span class="si">{maxdepth}</span><span class="s2">); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">commandparameters_string</span><span class="p">,</span>
                     <span class="s2">&quot;nested parameters&quot;</span><span class="p">:</span> <span class="n">nested_commandparameters_string</span><span class="p">,</span>
                 <span class="p">},</span>
