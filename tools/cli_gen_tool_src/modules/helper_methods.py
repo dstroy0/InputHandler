@@ -66,6 +66,8 @@ class HelperMethods(object):
                 dlg.done(2)
             if buttons[_match] == b.Close:
                 dlg.done(3)
+            if buttons[_match] == b.Open:
+                dlg.done(4)
 
         # create popup
         dlg.layout = QVBoxLayout()

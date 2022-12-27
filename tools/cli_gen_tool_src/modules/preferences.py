@@ -33,6 +33,7 @@ class PreferencesMethods(object):
         PreferencesMethods.logger = self.get_child_logger(__name__)
         self._parent = self
         self.create_qdialog = self._parent.create_qdialog
+        self.cliopt = self._parent.cliOpt
         self.dlg = self.preferences.dlg
 
         self.builtin_methods = [
@@ -162,10 +163,9 @@ class PreferencesMethods(object):
         if le.objectName() == "output_path_input":
             if len(dir_component_list) == 0:
                 b = QDialogButtonBox.StandardButton
-                buttons = [b.Ok, b.Close]
-                button_text = ["Clear output path", "Cancel"]
-                result = self.create_qdialog(
-                    self._parent,
+                buttons = [b.Open, b.Ok, b.Cancel]
+                button_text = ["Select output path","Ok", "Cancel"]
+                result = self.create_qdialog(                    
                     "An output path must be selected to generate files.",
                     Qt.AlignCenter,
                     Qt.NoTextInteraction,
@@ -179,17 +179,22 @@ class PreferencesMethods(object):
                     ),
                     self._parent.qscreen,
                 )
-                if result == QDialog.accepted:
+                if result == QDialog.Accepted:
                     le.clear()
                     le.setPlaceholderText("Not set...")
                     return None
                 elif result == 3:
+                    le.clear()
+                    le.setText(self.cliopt)
                     return None
-            elif len(dir_component_list) == 1:
-                print("output path")
-                print(dir_component_list)
+                elif result == 4:
+                    le.clear()
+                    le.setText(self._parent.get_project_dir())            
             else:
-                self._parent.get_project_dir()
+                if os.path.exists(dir):
+                    le.clear()
+                    le.setText(dir)
+                    self.cliopt["session"]["opt"]["output_dir"]                
 
         if le.objectName() == "config_path_input":
             if len(dir_component_list) == 2:

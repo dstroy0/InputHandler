@@ -34,8 +34,12 @@ from PySide6.QtWidgets import (
 
 # TODO
 class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict) -> None:
+    def __init__(self, parent, parameters: dict, builtins:list) -> None:
         super(CommandParametersArgumentsTableViewModel, self).__init__()
+        self.tt_dict = displayModels.argument_table_tooltip_dict
+        self.is_builtin = False
+        if parameters["commandString"] in builtins:
+            self.is_builtin = True
         self._parent = parent
         self.editing = False
         self.keys = list(parameters.keys())
@@ -59,18 +63,29 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
         self.column_count = 1
         self.row_count = int(-(-(len(self.arguments)) // (self.column_count)))
         self.matrix = []
+        self.tt_matrix = []
         input_idx = 0
         for i in range(self.row_count):
             row_list = []
+            tt_row_list = []
             for j in range(self.column_count):
                 if input_idx >= len(self.arguments):
                     row_list.append(" ")
+                    tt_row_list.append("")
                 else:
                     row_list.append(self.arguments[input_idx])
+                    if not self.is_builtin:
+                        tt_row_list.append(self.tt_dict[self.arguments[input_idx]])
+                    else:
+                        tt_row_list.append(str(self.tt_dict[self.arguments[input_idx]]) + "\nCannot edit builtin commands.")
                     input_idx += 1
             self.matrix.append(row_list)
+            self.tt_matrix.append(tt_row_list)
 
     def flags(self, index) -> Qt.ItemFlags:
+        if self.is_builtin == True:
+            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        
         if index.isValid() and self.h_label[index.column()] == "Arguments":
             return (
                 super().flags(index)
@@ -109,7 +124,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
         if role == Qt.DisplayRole:
             return self.matrix[index.row()][index.column()]
         if role == Qt.ToolTipRole:
-            return "Tooltip ph"
+            return str(self.tt_matrix[index.row()][index.column()])
 
     def headerData(self, section: int, orientation: int, role: int):
         if role == Qt.DisplayRole:
@@ -127,8 +142,11 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
 
 # TODO
 class CommandParametersTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict = None) -> None:
+    def __init__(self, parent, parameters: dict, builtins:list) -> None:
         super(CommandParametersTableViewModel, self).__init__()
+        self.is_builtin = False
+        if parameters["commandString"] in builtins:
+            self.is_builtin = True
         self.parameters = parameters
         self._parent = parent
         self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
@@ -174,13 +192,19 @@ class CommandParametersTableViewModel(QAbstractTableModel):
                     tt_row_list.append("")
                     row_list.append("")
                 else:
-                    tt_row_list.append(self.tt_input[input_idx])
+                    if not self.is_builtin:
+                        tt_row_list.append(self.tt_input[input_idx])
+                    else:
+                        tt_row_list.append("Cannot edit builtin commands.")
                     row_list.append(self.input[input_idx])
                     input_idx += 1
             self.matrix.append(row_list)
             self.tt_matrix.append(tt_row_list)
 
     def flags(self, index) -> Qt.ItemFlags:
+        if self.is_builtin == True:
+            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        
         if index.isValid() and self.h_labels[index.column()] == "Value":
             return (
                 super().flags(index)
@@ -243,7 +267,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
 
 # TODO
 class CommandParametersTableView(QTableView):
-    def __init__(self, logger, cursor, command_parameters, tree_item) -> None:
+    def __init__(self, logger, cursor, command_parameters, tree_item, builtins) -> None:
         super(CommandParametersTableView, self).__init__()
         self.logger = logger
         self.cursor_ = cursor
@@ -252,7 +276,7 @@ class CommandParametersTableView(QTableView):
         # self.setObjectName(str(self.tree_item.data(1, 0)))
 
         self.parameters = command_parameters
-        self.table_model = CommandParametersTableViewModel(self, self.parameters)
+        self.table_model = CommandParametersTableViewModel(self, self.parameters, builtins)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
@@ -275,7 +299,7 @@ class CommandParametersTableView(QTableView):
 
 
 class CommandParametersArgumentsTableView(QTableView):
-    def __init__(self, logger, cursor, command_parameters, tree_item) -> None:
+    def __init__(self, logger, cursor, command_parameters, tree_item, builtins) -> None:
         super(CommandParametersArgumentsTableView, self).__init__()
         self.tree_item = tree_item
         self.logger = logger
@@ -286,7 +310,7 @@ class CommandParametersArgumentsTableView(QTableView):
 
         self.parameters = command_parameters
         self.table_model = CommandParametersArgumentsTableViewModel(
-            self, self.parameters
+            self, self.parameters, builtins
         )
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.setMaximumSize(150, 16777215)
@@ -317,7 +341,7 @@ class CommandParametersTableWidget(QWidget):
         QWidget (object): Base class that is specialized
     """
 
-    def __init__(self, command_parameters, tree_item, logger, cursor) -> None:
+    def __init__(self, command_parameters, tree_item, logger, cursor, builtins) -> None:
         """constructor method
 
         Args:
@@ -333,10 +357,10 @@ class CommandParametersTableWidget(QWidget):
         self.splitter = QSplitter(self)
 
         self.parameters_view = CommandParametersTableView(
-            logger, cursor, self.parameters, self.tree_item
+            logger, cursor, self.parameters, self.tree_item, builtins
         )
         self.arguments_view = CommandParametersArgumentsTableView(
-            logger, cursor, self.parameters, self.tree_item
+            logger, cursor, self.parameters, self.tree_item, builtins
         )
 
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
@@ -540,6 +564,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             command_container,
             self.logger,
             self._cursor,
+            self._parent.ih_builtins
         )
 
         self.setItemWidget(command_container, 0, command_table)

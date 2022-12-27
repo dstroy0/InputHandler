@@ -251,7 +251,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
       /* UITYPE arguments */
       {argtypearray}   
     }},
-    {children}
+{children}
 }};
 {commandconstructor}
 """
@@ -368,6 +368,7 @@ void {functionname}(UserInput* _{objectname})
                 "filestring components": {
                     "nested child": "    *{functionname}_param{comma} // pointer to {functionname}_param{newline}",
                     "command constructor": "CommandConstructor {functionname}_({functionname}_param); // {functionname}_ command constructor",
+                    "nested command constructor": "CommandConstructor {functionname}_({functionname}_param, nprms({functionname}_param), {maxdepth}); // {functionname}_ command constructor",
                     "parameters": commandparameters_string,
                     "nested parameters": nested_commandparameters_string,
                 },

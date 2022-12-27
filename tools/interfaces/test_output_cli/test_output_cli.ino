@@ -11,8 +11,27 @@
 #include "InputHandler/src/InputHandler.h"
 #include "InputHandler/CLI/setup.h"
 
-void test(UserInput* _inputHandler) {
+void test(UserInput* _inputHandler)
+{
   Serial.println(F("test"));
+}
+
+void testa(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testa"));
+}
+
+void testb(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testb"));
+}
+
+void testc(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testc"));
 }
 
 void setup() {

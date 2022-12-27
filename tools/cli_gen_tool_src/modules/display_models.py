@@ -306,3 +306,14 @@ class displayModels(object):
         "commandMaxArgs": "commandMaxArgs is the MAXIMUM number of arguments you can send this command before it will stop triggering.",
         "commandArguments": "commandArguments is the array of argument types this command expects.",
     }
+    argument_table_tooltip_dict = {
+        "UINT8_T": "8-bit unsigned integer",
+        "UINT16_T": "16-bit unsigned integer",
+        "UINT32_T": "32-bit unsigned integer",
+        "INT16_T": "16-bit signed integer",
+        "FLOAT": "32-bit float",
+        "CHAR": "8-bit char",
+        "START_STOP": "array of 8-bit char",
+        "NOTYPE": "no type validation",
+        "NO_ARGS": "no arguments expected",
+    }

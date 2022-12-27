@@ -178,7 +178,7 @@ class Initialize(HelperMethods, Logger, object):
                 ),
                 self.qscreen,
             )
-            if result == QDialog.accepted:
+            if result == QDialog.Accepted:
                 self.get_inputhandler_dir_from_user()
             if result == 3:
                 sys.exit("Need InputHandler's directory for tool dependencies.")

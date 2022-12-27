@@ -52,6 +52,7 @@ class CommandParametersMethods(object):
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
+        self.cliopt = self.cliOpt
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
@@ -389,6 +390,7 @@ class CommandParametersMethods(object):
             self.command_tree.add_command_to_tree(self.command_tree.invisibleRootItem())
         # non root command
         else:
+            parent_string = ""
             if (
                 self.command_tree.active_item.data(0, 0) == None
                 and self.command_tree.active_item.parent is not None
@@ -402,10 +404,17 @@ class CommandParametersMethods(object):
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
             if items:
                 parent = items[0]
+                cmd_idx_key = parent.data(1,0)
+                cmd_idx = self.cliopt["commands"]["index"]
+                prm_key = cmd_idx[cmd_idx_key]["parameters key"]
+                prm = self.cliopt["commands"]["parameters"][prm_key]
+                subcommands = int(prm["commandSubcommands"]) + 1                
+                prm["commandSubcommands"] = str(subcommands)
                 self.command_tree.add_command_to_tree(parent)
+                CommandParametersMethods.logger.info(parent_string + " commandSubcommands = " + str(subcommands))
             else:
                 CommandParametersMethods.logger.info("couldn't find parent")
-
+        
         self.ui.commandParameters.close()
 
         self.update_code("parameters.h", validated_result["functionName"], True)
