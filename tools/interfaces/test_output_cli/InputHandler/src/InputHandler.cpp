@@ -310,6 +310,7 @@ void UserInput::readCommandFromBuffer(uint8_t* data, size_t len, const size_t nu
     };
     // tokenize the input
     rprm.tokens_received = UserInput::getTokens(gtprm, _input_prm_);
+    Serial.println(rprm.tokens_received);
     _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received
     if (rprm.tokens_received == 0)                    // error condition
     {
@@ -836,11 +837,11 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
         rprm.all_wcc_cmd = NULL;
         rprm.idx = 0;
         rprm.all_wcc_idx = 0;        
-        for (size_t j = 1; j < (rprm.cmd->param_array_len + 1U); ++j) // through the parameter array
+        for (size_t j = 0; j < (rprm.cmd->param_array_len); ++j) // through the parameter array
         {
             if (rprm.tokens_received == 1) // pointer index protection
             {
-                break;
+                //break;
             }
             rprm.result = UserInput::_compareCommandToString(rprm.cmd, j, _data_pointers_[_data_pointers_index_]);
             if (rprm.result == match)
