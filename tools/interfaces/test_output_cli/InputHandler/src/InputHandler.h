@@ -172,7 +172,7 @@ struct InputProcessDelimiterSequences
     char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ]
                             [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
                                                     ///< delimiter_sequences
-                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]                                                    
+                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]
                                                     ///< [@link UI_DELIM_SEQ_PGM_LEN @endlink]
 };
 
@@ -211,7 +211,7 @@ struct InputProcessStartStopSequences
  */
 struct InputProcessParameters
 {
-    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len == 
+    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len ==
                                   ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
     const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
     const IH_input_cc*
