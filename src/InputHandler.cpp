@@ -862,18 +862,18 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_n
 } // end _launchFunction
 
 void UserInput::_launchLogic(_rcfbprm& rprm)
-{    
+{
     IH_pname process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));        
     if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)        
         UserInput::_ui_out(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
         return;
-    }
-
-    if (rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
+    }            
+    if ((rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
+        || (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0)) // subcommand with no arguments
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
@@ -882,19 +882,10 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
         rprm.launch_attempted = true; // don't run default callback
         UserInput::_launchFunction(rprm, process_name); // launch the matched command
         return;
-    }
+    }    
 
-    if (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0) // subcommand with no arguments
-    {
-        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
-        #endif
-        rprm.launch_attempted = true;                                                      // don't run default callback
-        UserInput::_launchFunction(rprm, process_name); // launch the matched command
-        return;
-    }
-
-    if (rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
+    if ((rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
+        || (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0)) // command with arguments (max depth)
     {
         UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
@@ -906,21 +897,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
             UserInput::_launchFunction(rprm, process_name); // launch the matched command
         }
         return; // if !match, error
-    }
-    
-    if (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0) // command with arguments (max depth)
-    {        
-        UserInput::_getArgs(rprm);
-        if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true) // if we received at least min and less than max arguments and they are valid
-        {
-            #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
-            UserInput::_ui_out(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
-            #endif
-            rprm.launch_attempted = true;                                                      // don't run default callback
-            UserInput::_launchFunction(rprm, process_name); // launch the matched command
-        }        
-        return; // if !match, error
-    }
+    }    
 
     // subcommand search
     rprm.subcommand_matched = false;       
