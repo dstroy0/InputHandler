@@ -18,12 +18,12 @@
 
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
-    #include "../src/InputHandler.h"
+    #include "InputHandler.h"
     #include "functions.h"
     #include "parameters.h"
 
 
-char InputHandler_output_buffer[2000] = {'\0'}; // output buffer size
+char InputHandler_output_buffer[700] = {'\0'}; // output buffer size
 
 const PROGMEM IH_pname pname = ""; // process name
 const PROGMEM IH_eol peol = "\r\n"; // process end of line characters

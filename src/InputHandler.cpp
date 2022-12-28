@@ -1488,7 +1488,7 @@ inline UI_COMPARE UserInput::_compareCommandToString(
     CommandConstructor* cmd, size_t prm_idx, char* str)
 {
     size_t cmd_len_pgm = 0; // the length of the command in PROGMEM
-    memcpy_P(&cmd_len_pgm, &cmd->prm[prm_idx].command_length, 1);
+    memcpy_P(&cmd_len_pgm, &cmd->prm[prm_idx].command_length, sizeof(IH::ui_max_cmd_len_t));
     size_t input_len = strlen(str); // the length of the input, str is a token in _token_buffer_ it
                                     // is safe to assume it is null terminated
 
