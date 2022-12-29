@@ -53,4 +53,9 @@ void teste_6(UserInput* _inputHandler)
   testc(_inputHandler);
 }
 
+void testbb_7(UserInput* _inputHandler)
+{
+  testbb_return_values(_inputHandler);
+}
+
 // end of file

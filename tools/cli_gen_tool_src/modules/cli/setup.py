@@ -151,7 +151,7 @@ class cliSetup(object):
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
 
         command_list_string = ""
-       
+
         for root_command_index in self.command_index:
             # addCommand root commands only
             if int(self.command_index[root_command_index]["root index key"]) == int(
@@ -176,14 +176,14 @@ class cliSetup(object):
         setup_function_entry = ""
         setup_function_exit = ""
         stream_string = self.cliOpt["process output"]["var"]["output stream"]
-        
+
         _lc = ""
         if self.cliopt["builtin methods"]["var"]["listCommands"]:
             _lc = f"\n  listCommands(&{object_name}); // prints commands available to user"
         _ls = ""
         if self.cliopt["builtin methods"]["var"]["listSettings"]:
             _ls = f"\n  listSettings(&{object_name}); // prints InputHandler settings"
-            
+
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["setup"]["cpp"]["filestring components"][
                 "setup function output"

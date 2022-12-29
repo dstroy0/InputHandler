@@ -469,7 +469,7 @@ class MainWindowMethods(object):
             b = QDialogButtonBox.StandardButton
             buttons = [b.Save, b.Close, b.Cancel]
             button_text = ["", "Close without saving", ""]
-            result = self._parent.create_qdialog(                
+            result = self._parent.create_qdialog(
                 "Save your work?",
                 Qt.AlignCenter,
                 0,
@@ -1157,23 +1157,25 @@ class MainWindowMethods(object):
             prm_key = self.cliOpt["commands"]["index"][cmd_idx]["parameters key"]
             rt_idx = self.cliOpt["commands"]["index"][cmd_idx]["root index key"]
             rt_prm_idx = self.cliOpt["commands"]["index"][rt_idx]["parameters key"]
-            parameters = self.cliOpt["commands"]["parameters"][prm_key]            
+            parameters = self.cliOpt["commands"]["parameters"][prm_key]
             item_list = self.command_tree.findItems(rt_prm_idx, Qt.MatchExactly, 1)
             item = None
             if bool(item_list):
                 item = item_list[0]
 
             child_depth = int(parameters["commandDepth"]) + 1
-            root_child_count = 0            
-            def recursive_childcount(item, child_count):                
+            root_child_count = 0
+
+            def recursive_childcount(item, child_count):
                 for row in range(item.childCount()):
                     child_item = item.child(row)
                     if item is not None:
                         child_count += 1
                     recursive_childcount(child_item, child_count)
                 return child_count
-            root_child_count = recursive_childcount(item, root_child_count)                        
-            
+
+            root_child_count = recursive_childcount(item, root_child_count)
+
             fields = copy.deepcopy(self.command_parameters_input_field_settings)
             fields["parentId"]["value"] = parameters["commandId"]
             fields["parentId"]["enabled"] = False
@@ -1181,7 +1183,7 @@ class MainWindowMethods(object):
             fields["commandId"]["enabled"] = False
             fields["commandDepth"]["value"] = child_depth
             fields["commandDepth"]["enabled"] = False
-                        
+
             self.commandparameters_set_fields(fields)
             self.ui.commandParameters.exec()
 

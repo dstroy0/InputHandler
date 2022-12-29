@@ -87,6 +87,11 @@ void testc(UserInput* _inputHandler)
     // your statements here
 }
 
+void testbb_return_values(UserInput* _inputHandler) 
+{
+    // your statements here
+}
+
 ```
 Copy/Paste this statement into your setup() function, after initializing any Streams that you plan on using with the interface you build:  
 

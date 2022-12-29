@@ -26,6 +26,7 @@ void test(UserInput* _inputHandler);
 void testa(UserInput* _inputHandler);
 void testb(UserInput* _inputHandler);
 void testc(UserInput* _inputHandler);
+void testbb_return_values(UserInput* _inputHandler);
 
 /* InputHandler function prototypes */
 void unrecognized(UserInput* _inputHandler);
@@ -35,6 +36,7 @@ void test_2(UserInput* _inputHandler);
 void testa_3(UserInput* _inputHandler);
 void testd_5(UserInput* _inputHandler);
 void teste_6(UserInput* _inputHandler);
+void testbb_7(UserInput* _inputHandler);
 
 #include "functions.cpp" // Generated InputHandler function definitions
 

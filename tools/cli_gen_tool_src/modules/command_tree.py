@@ -34,7 +34,7 @@ from PySide6.QtWidgets import (
 
 # TODO
 class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict, builtins:list) -> None:
+    def __init__(self, parent, parameters: dict, builtins: list) -> None:
         super(CommandParametersArgumentsTableViewModel, self).__init__()
         self.tt_dict = displayModels.argument_table_tooltip_dict
         self.is_builtin = False
@@ -77,7 +77,10 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
                     if not self.is_builtin:
                         tt_row_list.append(self.tt_dict[self.arguments[input_idx]])
                     else:
-                        tt_row_list.append(str(self.tt_dict[self.arguments[input_idx]]) + "\nCannot edit builtin commands.")
+                        tt_row_list.append(
+                            str(self.tt_dict[self.arguments[input_idx]])
+                            + "\nCannot edit builtin commands."
+                        )
                     input_idx += 1
             self.matrix.append(row_list)
             self.tt_matrix.append(tt_row_list)
@@ -85,7 +88,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
     def flags(self, index) -> Qt.ItemFlags:
         if self.is_builtin == True:
             return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-        
+
         if index.isValid() and self.h_label[index.column()] == "Arguments":
             return (
                 super().flags(index)
@@ -142,7 +145,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
 
 # TODO
 class CommandParametersTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict, builtins:list) -> None:
+    def __init__(self, parent, parameters: dict, builtins: list) -> None:
         super(CommandParametersTableViewModel, self).__init__()
         self.is_builtin = False
         if parameters["commandString"] in builtins:
@@ -204,7 +207,7 @@ class CommandParametersTableViewModel(QAbstractTableModel):
     def flags(self, index) -> Qt.ItemFlags:
         if self.is_builtin == True:
             return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-        
+
         if index.isValid() and self.h_labels[index.column()] == "Value":
             return (
                 super().flags(index)
@@ -276,7 +279,9 @@ class CommandParametersTableView(QTableView):
         # self.setObjectName(str(self.tree_item.data(1, 0)))
 
         self.parameters = command_parameters
-        self.table_model = CommandParametersTableViewModel(self, self.parameters, builtins)
+        self.table_model = CommandParametersTableViewModel(
+            self, self.parameters, builtins
+        )
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
@@ -564,7 +569,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             command_container,
             self.logger,
             self._cursor,
-            self._parent.ih_builtins
+            self._parent.ih_builtins,
         )
 
         self.setItemWidget(command_container, 0, command_table)

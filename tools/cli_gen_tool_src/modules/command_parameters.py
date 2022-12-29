@@ -404,17 +404,19 @@ class CommandParametersMethods(object):
             self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
             if items:
                 parent = items[0]
-                cmd_idx_key = parent.data(1,0)
+                cmd_idx_key = parent.data(1, 0)
                 cmd_idx = self.cliopt["commands"]["index"]
                 prm_key = cmd_idx[cmd_idx_key]["parameters key"]
                 prm = self.cliopt["commands"]["parameters"][prm_key]
-                subcommands = int(prm["commandSubcommands"]) + 1                
+                subcommands = int(prm["commandSubcommands"]) + 1
                 prm["commandSubcommands"] = str(subcommands)
                 self.command_tree.add_command_to_tree(parent)
-                CommandParametersMethods.logger.info(parent_string + " commandSubcommands = " + str(subcommands))
+                CommandParametersMethods.logger.info(
+                    parent_string + " commandSubcommands = " + str(subcommands)
+                )
             else:
                 CommandParametersMethods.logger.info("couldn't find parent")
-        
+
         self.ui.commandParameters.close()
 
         self.update_code("parameters.h", validated_result["functionName"], True)

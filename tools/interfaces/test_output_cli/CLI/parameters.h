@@ -115,7 +115,7 @@ const PROGMEM CommandParameters teste_6_param[1] =
     2, // parent id
     3, // this command id (tree unique)
     2, // command depth
-    0, // number of subcommands
+    1, // number of subcommands
     UI_ARG_HANDLING::no_args, // argument handling
     0, // minimum expected number of arguments
     0, // maximum expected number of arguments
@@ -124,9 +124,29 @@ const PROGMEM CommandParameters teste_6_param[1] =
 };
 
 /**
+   @brief CommandParameters struct for testbb_7
+*/
+const PROGMEM CommandParameters testbb_7_param[1] = 
+{
+    testbb_7, // function pointer
+    no_wildcards, // wildcard flag
+    "testbb", // command string
+    6, // command string num characters
+    3, // parent id
+    4, // this command id (tree unique)
+    3, // command depth
+    0, // number of subcommands
+    UI_ARG_HANDLING::one_type, // argument handling
+    1, // minimum expected number of arguments
+    2, // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::UITYPE::UINT8_T}    
+};
+
+/**
    @brief CommandParameters struct for test_2
 */
-const PROGMEM CommandParameters test_2_param[1 /* root */ + 3 /* child(ren) */] = 
+const PROGMEM CommandParameters test_2_param[1 /* root */ + 4 /* child(ren) */] = 
 {
     {
       test_2, // function pointer
@@ -145,9 +165,10 @@ const PROGMEM CommandParameters test_2_param[1 /* root */ + 3 /* child(ren) */] 
     },
     *testa_3_param, // pointer to testa_3_param
     *testd_5_param, // pointer to testd_5_param
-    *teste_6_param  // pointer to teste_6_param
+    *teste_6_param, // pointer to teste_6_param
+    *testbb_7_param  // pointer to testbb_7_param
 };
-CommandConstructor test_2_(test_2_param, nprms(test_2_param), 2); // test_2_ command constructor
+CommandConstructor test_2_(test_2_param, nprms(test_2_param), 3); // test_2_ command constructor
 
 #endif
 

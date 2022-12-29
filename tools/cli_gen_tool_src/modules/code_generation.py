@@ -453,7 +453,7 @@ class CodeGeneration(
             if os.path.exists(cli_path):
                 CodeGeneration.logger.info(
                     "dir <CLI> created in <" + str(project_path) + ">"
-                )                
+                )
             else:
                 CodeGeneration.logger.info(
                     "Error creating dir <CLI> in <"
@@ -472,7 +472,7 @@ class CodeGeneration(
         ihh = os.path.join(cli_path, "InputHandler.h")
         head, tail = os.path.split(ihh)
         nn = "cli_InputHandler.h"
-        path = os.path.join(head, nn)        
+        path = os.path.join(head, nn)
         with open(ihh, "r") as file:
             filedata = file.read()
         file.close()
@@ -487,7 +487,7 @@ class CodeGeneration(
         ihcpp = os.path.join(cli_path, "InputHandler.cpp")
         head, tail = os.path.split(ihcpp)
         nn = "cli_InputHandler.cpp"
-        path = os.path.join(head, nn)        
+        path = os.path.join(head, nn)
         with open(ihcpp, "r") as file:
             filedata = file.read()
         file.close()
@@ -502,13 +502,11 @@ class CodeGeneration(
         ihnoedith = os.path.join(cli_path, "config", "noedit.h")
         head, tail = os.path.split(ihnoedith)
         nn = "cli_noedit.h"
-        path = os.path.join(head, nn)                
+        path = os.path.join(head, nn)
         with open(ihnoedith, "r") as file:
             filedata = file.read()
         file.close()
-        filedata = filedata.replace(
-            '#include "config.h"', '#include "cli_config.h"'
-        )
+        filedata = filedata.replace('#include "config.h"', '#include "cli_config.h"')
         with open(ihnoedith, "w") as file:
             file.write(filedata)
         file.close()
@@ -516,7 +514,7 @@ class CodeGeneration(
 
         # create in project_path/
         # CLI_README.md
-        # create in /CLI/
+        # create in CLI/
         # setup.h
         # setup.cpp
         # functions.h

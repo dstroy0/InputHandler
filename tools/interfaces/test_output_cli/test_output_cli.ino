@@ -33,6 +33,12 @@ void testc(UserInput* _inputHandler)
   Serial.println(F("testc"));
 }
 
+void testbb_return_values(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testbb"));
+}
+
 void setup() {
   delay(500); // startup delay for reprogramming
   Serial.begin(115200);
