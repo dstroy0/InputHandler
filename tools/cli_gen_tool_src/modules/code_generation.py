@@ -456,7 +456,7 @@ class CodeGeneration(
             )
 
         # copy # /InputHandler/src/ to project dir
-        # copy config.h to project dir/InputHandler/src/config and overwrite
+        # remove original config.h
         directory = "src"
         src_path = os.path.abspath(src)
         cli_src_path = os.path.join(cli_path, directory)
@@ -466,6 +466,32 @@ class CodeGeneration(
             CodeGeneration.logger.info("creating dir <src> in <" + str(cli_path) + ">")
             shutil.copytree(src_path, cli_src_path)
             if os.path.exists(cli_src_path):
+                
+                os.remove(cli_config_h_path)
+                ihh = os.path.join(cli_src_path, "InputHandler.h")
+                head, tail = os.path.split(ihh)
+                nn = "cli_InputHandler.h"
+                path = os.path.join(head, nn)
+                os.rename(ihh, path)
+                with open(path,"r") as file:
+                    filedata = file.read()
+                file.close()
+                filedata = filedata.replace("#include \"config/noedit.h\"", "#include \"config/cli_noedit.h\"")
+                with open(path,"w") as file:
+                    file.write(filedata)
+                file.close()
+
+                ihcpp = os.path.join(cli_src_path, "InputHandler.cpp")
+                head, tail = os.path.split(ihcpp)
+                nn = "cli_InputHandler.cpp"
+                path = os.path.join(head, nn)
+                os.rename(ihcpp, path)
+
+                ihnoedith = os.path.join(cli_src_path, "config", "noedit.h")
+                head, tail = os.path.split(ihnoedith)
+                nn = "cli_noedit.h"
+                path = os.path.join(head, nn)
+                os.rename(ihnoedith, path)
                 CodeGeneration.logger.info(
                     "dir <src> created in <" + str(cli_path) + ">"
                 )
@@ -481,11 +507,34 @@ class CodeGeneration(
             )
             shutil.rmtree(cli_src_path)
             shutil.copytree(src_path, cli_src_path)
+            
             os.remove(cli_config_h_path)
-            self.write_cli_file(
-                cli_config_h_path, self.code_preview_dict["files"]["config.h"], True
-            )
+            ihh = os.path.join(cli_src_path, "InputHandler.h")
+            head, tail = os.path.split(ihh)
+            nn = "cli_InputHandler.h"
+            path = os.path.join(head, nn)
+            os.rename(ihh, path)
+            with open(path,"r") as file:
+                filedata = file.read()
+            file.close()
+            filedata = filedata.replace("#include \"config/noedit.h\"", "#include \"config/cli_noedit.h\"")
+            with open(path,"w") as file:
+                file.write(filedata)
+            file.close()
 
+            ihcpp = os.path.join(cli_src_path, "InputHandler.cpp")
+            head, tail = os.path.split(ihcpp)
+            nn = "cli_InputHandler.cpp"
+            path = os.path.join(head, nn)
+            os.rename(ihcpp, path)
+
+            ihnoedith = os.path.join(cli_src_path, "config", "noedit.h")
+            head, tail = os.path.split(ihnoedith)
+            nn = "cli_noedit.h"
+            path = os.path.join(head, nn)
+            os.rename(ihnoedith, path)
+
+        # write cli_config.h to /InputHandler/src/config/
         # create
         # /InputHandler/CLI/
         # create in /InputHandler/CLI/
@@ -503,41 +552,25 @@ class CodeGeneration(
                     "dir <CLI> created in <" + str(cli_path) + ">"
                 )
 
-                filename = "setup.h"
-                path = os.path.join(interface_path, filename)
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
-
-                filename = "setup.cpp"
-                path = os.path.join(interface_path, filename)
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
-
-                filename = "functions.h"
-                path = os.path.join(interface_path, filename)
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
-
-                filename = "functions.cpp"
-                path = os.path.join(interface_path, filename)
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
-
-                filename = "parameters.h"
-                path = os.path.join(interface_path, filename)
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
-
-                filename = "README.md"
-                path = os.path.join(project_path, str("InputHandler_CLI_" + filename))
-                self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
-                )
+                files = self.code_preview_dict["files"].keys()
+                for filename in files:
+                    if filename == "README.md":
+                        path = os.path.join(
+                            project_path, "InputHandler_cli_" + filename
+                        )
+                        self.write_cli_file(
+                            path, self.code_preview_dict["files"][filename], True
+                        )
+                    elif filename == "config.h":
+                        path = os.path.join(cli_src_path, "config", "cli_" + filename)
+                        self.write_cli_file(
+                            path, self.code_preview_dict["files"][filename], True
+                        )
+                    else:
+                        path = os.path.join(interface_path, "cli_" + filename)
+                        self.write_cli_file(
+                            path, self.code_preview_dict["files"][filename], True
+                        )
 
             else:
                 CodeGeneration.logger.info(
@@ -551,29 +584,23 @@ class CodeGeneration(
             )
             shutil.rmtree(interface_path)
             os.mkdir(interface_path)
-            filename = "setup.h"
-            path = os.path.join(interface_path, filename)
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-
-            filename = "setup.cpp"
-            path = os.path.join(interface_path, filename)
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-
-            filename = "functions.h"
-            path = os.path.join(interface_path, filename)
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-
-            filename = "functions.cpp"
-            path = os.path.join(interface_path, filename)
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-
-            filename = "parameters.h"
-            path = os.path.join(interface_path, filename)
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
-
-            filename = "README.md"
-            path = os.path.join(project_path, str("InputHandler_CLI_" + filename))
-            self.write_cli_file(path, self.code_preview_dict["files"][filename], True)
+            files = self.code_preview_dict["files"].keys()
+            for filename in files:
+                if filename == "README.md":
+                    path = os.path.join(project_path, "InputHandler_cli_" + filename)
+                    self.write_cli_file(
+                        path, self.code_preview_dict["files"][filename], True
+                    )
+                elif filename == "config.h":
+                    path = os.path.join(cli_src_path, "config", "cli_" + filename)
+                    self.write_cli_file(
+                        path, self.code_preview_dict["files"][filename], True
+                    )
+                else:
+                    path = os.path.join(interface_path, "cli_" + filename)
+                    self.write_cli_file(
+                        path, self.code_preview_dict["files"][filename], True
+                    )
 
     def write_cli_file(
         self, path: str, dict_to_write: dict, create_error_dialog: bool = False

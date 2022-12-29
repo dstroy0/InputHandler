@@ -15,7 +15,7 @@
  *   version 3 as published by the Free Software Foundation.
  */
 
-#include "InputHandler.h"
+#include "cli_InputHandler.h"
 
 /*
  *   public methods

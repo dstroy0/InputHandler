@@ -18,9 +18,10 @@
 
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
-    #include "InputHandler.h"
-    #include "functions.h"
-    #include "parameters.h"
+    #include "InputHandler/src/cli_InputHandler.h"
+    #include "InputHandler/src/cli_InputHandler.cpp"
+    #include "cli_functions.h"
+    #include "cli_parameters.h"
 
 
 char InputHandler_output_buffer[700] = {'\0'}; // output buffer size
@@ -58,6 +59,6 @@ UserInput inputHandler(input_prm, InputHandler_output_buffer, buffsz(InputHandle
 void InputHandler_setup();
 void InputHandler_loop();
 
-#include "setup.cpp"
+#include "cli_setup.cpp"
 #endif
 // end of file

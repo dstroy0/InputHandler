@@ -114,7 +114,7 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h" // user config file
+    #include "cli_config.h" // user config file
 
 // clang-format off
 

@@ -18,7 +18,7 @@
 
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
-    #include "InputHandler.h"
+    #include "InputHandler/src/cli_InputHandler.h"
     
 
 /* InputHandler user return function prototypes */
@@ -36,7 +36,7 @@ void testa_3(UserInput* _inputHandler);
 void testd_5(UserInput* _inputHandler);
 void teste_6(UserInput* _inputHandler);
 
-#include "functions.cpp" // Generated InputHandler function definitions
+#include "cli_functions.cpp" // Generated InputHandler function definitions
 
 #endif
 

@@ -16,7 +16,7 @@
 */
 
 
-#include "functions.h"
+#include "cli_functions.h"
     
 void unrecognized(UserInput* _inputHandler)
 {

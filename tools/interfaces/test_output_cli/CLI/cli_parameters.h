@@ -18,7 +18,7 @@
 
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "setup.h"
+    #include "cli_setup.h"
     
 
 /**
@@ -113,7 +113,7 @@ const PROGMEM CommandParameters teste_6_param[1] =
     "teste", // command string
     5, // command string num characters
     2, // parent id
-    4, // this command id (tree unique)
+    3, // this command id (tree unique)
     2, // command depth
     0, // number of subcommands
     UI_ARG_HANDLING::no_args, // argument handling
