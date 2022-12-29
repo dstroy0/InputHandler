@@ -315,8 +315,7 @@
     <span class="n">rdme_gen_inst</span> <span class="o">=</span> <span class="s2">&quot;## generated code&quot;</span>
     <span class="n">rdme_include_inst</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">// copy/paste these preprocessor statements into your include section or at the top of your *.ino</span>
-<span class="s2">#include &quot;InputHandler/src/InputHandler.h&quot;</span>
-<span class="s2">#include &quot;InputHandler/CLI/setup.h&quot; &quot;&quot;&quot;</span>
+<span class="s2">#include &quot;CLI/setup.h&quot; &quot;&quot;&quot;</span>
 
     <span class="n">rdme_copy_inst</span> <span class="o">=</span> <span class="s2">&quot;Copy/Paste these functions into your code before setup():&quot;</span>
     <span class="n">rdme_function_inst</span> <span class="o">=</span> <span class="s2">&quot;These are wrappers generated for argument retrieval, or to put custom statements that run on command entry.&quot;</span>
@@ -345,7 +344,8 @@
     <span class="n">setup_h_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">#if !defined(__CLI_SETUP__)</span>
 <span class="s2">    #define __CLI_SETUP__</span>
-<span class="s2">    #include &quot;InputHandler.h&quot;</span>
+<span class="s2">    #include &quot;cli_InputHandler.h&quot;</span>
+<span class="s2">    #include &quot;cli_InputHandler.cpp&quot;</span>
 <span class="s2">    #include &quot;functions.h&quot;</span>
 <span class="s2">    #include &quot;parameters.h&quot;</span>
 
@@ -408,7 +408,7 @@
     <span class="n">functions_h_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">#if !defined(__FUNCTIONS_H__)</span>
 <span class="s2">    #define __FUNCTIONS_H__</span>
-<span class="s2">    #include &quot;InputHandler.h&quot;</span>
+<span class="s2">    #include &quot;cli_InputHandler.h&quot;</span>
 <span class="s2">    </span>
 <span class="si">{functionprototypes}</span><span class="s2"></span>
 
