@@ -91,8 +91,7 @@ This makes debugging commands easy, it is trivial to disable output after verify
     rdme_gen_inst = "## generated code"
     rdme_include_inst = """
 // copy/paste these preprocessor statements into your include section or at the top of your *.ino
-#include "InputHandler/src/InputHandler.h"
-#include "InputHandler/CLI/setup.h" """
+#include "CLI/setup.h" """
 
     rdme_copy_inst = "Copy/Paste these functions into your code before setup():"
     rdme_function_inst = "These are wrappers generated for argument retrieval, or to put custom statements that run on command entry."
@@ -121,7 +120,8 @@ This makes debugging commands easy, it is trivial to disable output after verify
     setup_h_fs = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
-    #include "InputHandler.h"
+    #include "cli_InputHandler.h"
+    #include "cli_InputHandler.cpp"
     #include "functions.h"
     #include "parameters.h"
 
@@ -184,7 +184,7 @@ void InputHandler_loop()
     functions_h_fs = """
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
-    #include "InputHandler.h"
+    #include "cli_InputHandler.h"
     
 {functionprototypes}
 

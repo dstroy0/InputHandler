@@ -102,8 +102,7 @@ class cliParameters(object):
                 child_parameters = self.cliopt["commands"]["parameters"][
                     self.command_index[child_index]["parameters key"]
                 ]
-                self.child_parameters_list.append(child_parameters)
-                print(child_parameters["commandDepth"])
+                self.child_parameters_list.append(child_parameters)                
                 if self.max_depth == "":
                     self.max_depth = 0
                 if int(child_parameters["commandDepth"]) > int(self.max_depth):
