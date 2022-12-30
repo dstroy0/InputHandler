@@ -51,13 +51,13 @@ jobs:
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp   
           ls      
-          echo \n     
+          echo -e \n     
           cd ..
           ls
-          echo \n
+          echo -e \n
           mkdir interfaces
           ls
-          echo \n
+          echo -e \n
           cp -r /InputHandler/tools/interfaces /interfaces
           rm -r /InputHandler           
           ls -R
