@@ -1,21 +1,20 @@
 name: cli_gen_tool build latest linux binary
 
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
-    
+      - "**/cli_gen_tool_src/**"
+
   workflow_dispatch:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
+      - "**/cli_gen_tool_src/**"
 
 jobs:
   build-latest-linux-binary:
-   
     runs-on: ubuntu-latest
 
     steps:
@@ -35,9 +34,9 @@ jobs:
           sudo apt-get -y install libicu70          
           sudo apt-get -y install qt6-webengine-dev
           sudo apt-get -y install p7zip-full
-                                    
+
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-python@v4
@@ -48,15 +47,15 @@ jobs:
         run: |
           python -VV          
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
-          pip freeze                    
-      
+          pip freeze
+
       - name: Build and zip binary
-        run: |                         
+        run: |
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux/
           7z a -tzip './tools/bin/latest/linux/cli_gen_tool.zip' './tools/bin/latest/linux/cli_gen_tool'
           7z t './tools/bin/latest/linux/cli_gen_tool.zip' *.
           rm './tools/bin/latest/linux/cli_gen_tool'
-                  
+
       - name: Commit and push files
         id: commit
         run: |
@@ -73,4 +72,4 @@ jobs:
             echo "Pushing"
             git push
           fi
-        shell: bash 
+        shell: bash

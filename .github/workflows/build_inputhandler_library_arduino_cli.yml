@@ -1,0 +1,119 @@
+name: Build examples (Arduino CLI)
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+
+jobs:
+  check_formatting:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        example:
+          [
+            "/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
+            "/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
+            "/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
+            "/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino",
+          ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check code formatting
+        uses: per1234/artistic-style-action@main
+        with:
+          options-file-path: ./examples/examples_formatter.conf
+          name-patterns: |
+            - '*.ino'
+            - '*.cpp'
+            - '*.hpp'
+            - '*.h'
+          target-paths: ${{ matrix.example }}
+
+  build:
+    needs: check_formatting
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        fqbn:
+          - "arduino:avr:yun"
+          - "arduino:avr:uno"
+          - "arduino:avr:diecimila"
+          - "arduino:avr:nano"
+          - "arduino:avr:mega"
+          - "arduino:avr:megaADK"
+          - "arduino:avr:leonardo"
+          - "arduino:avr:micro"
+          - "arduino:avr:esplora"
+          - "arduino:avr:mini"
+          - "arduino:avr:ethernet"
+          - "arduino:avr:fio"
+          - "arduino:avr:bt"
+          - "arduino:avr:LilyPadUSB"
+          - "arduino:avr:pro"
+          #- "arduino:avr:atmegang"
+          - "arduino:avr:robotControl"
+          - "arduino:avr:robotMotor"
+          - "arduino:avr:circuitplay32u4cat"
+          - "arduino:avr:yunmini"
+          - "arduino:avr:chiwawa"
+          - "arduino:avr:one"
+          - "arduino:avr:unowifi"
+          - "arduino:mbed:nano33ble"
+          - "arduino:samd:mkr1000"
+          - "arduino:samd:mkrzero"
+          - "arduino:samd:mkrwifi1010"
+          - "arduino:samd:nano_33_iot"
+          - "arduino:samd:mkrfox1200"
+          - "arduino:samd:mkrwan1300"
+          - "arduino:samd:mkrwan1310"
+          - "arduino:samd:mkrgsm1400"
+          - "arduino:samd:mkrnb1500"
+          - "arduino:samd:mkrvidor4000"
+          - "arduino:samd:adafruit_circuitplayground_m0"
+          - "arduino:samd:mzero_pro_bl"
+          - "arduino:samd:mzero_bl"
+          - "arduino:samd:tian"
+          - "arduino:megaavr:uno2018"
+          - "arduino:sam:arduino_due_x_dbg" # getting close
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}

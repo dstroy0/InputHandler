@@ -1,26 +1,25 @@
-name: cli_gen_tool build latest windows binary 
+name: cli_gen_tool build latest windows binary
 
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
-    
+      - "**/cli_gen_tool_src/**"
+
   workflow_dispatch:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
+      - "**/cli_gen_tool_src/**"
 
-jobs:                  
+jobs:
   build-latest-windows-binary:
-    
     runs-on: windows-latest
 
-    steps:                                    
+    steps:
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-python@v4
@@ -33,7 +32,7 @@ jobs:
           pip install wheel
           pip install -r ./tools/cli_gen_tool_src/requirements.txt          
           pip install PyQt6-WebEngine
-          pip freeze                                
+          pip freeze
 
       - name: Build and zip binary
         shell: pwsh
@@ -43,7 +42,7 @@ jobs:
           7z a -tzip './tools/bin/latest/windows/cli_gen_tool.zip' './tools/bin/latest/windows/cli_gen_tool.exe'
           7z t './tools/bin/latest/windows/cli_gen_tool.zip' *. -r          
           rm './tools/bin/latest/windows/cli_gen_tool.exe'
-      
+
       - name: Commit and push files
         id: commit
         shell: bash
@@ -60,4 +59,4 @@ jobs:
             git commit -m "cli_gen_tool windows binary latest" -a
             echo "Pushing"
             git push
-          fi        
+          fi

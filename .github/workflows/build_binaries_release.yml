@@ -1,15 +1,14 @@
 name: cli_gen_tool build release binaries
 
-on: 
+on:
   release:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
+      - "**/cli_gen_tool_src/**"
 
 jobs:
-  build-release-linux-binary:    
-
+  build-release-linux-binary:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,9 +28,9 @@ jobs:
           sudo apt-get -y install libicu70          
           sudo apt-get -y install qt6-webengine-dev
           sudo apt-get -y install p7zip-full
-                                    
+
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-python@v4
@@ -42,15 +41,15 @@ jobs:
         run: |
           python -VV          
           pip install -r ./tools/cli_gen_tool_src/requirements.txt
-          pip freeze                    
-      
+          pip freeze
+
       - name: Build and zip binary
-        run: |                    
+        run: |
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/linux_macos/
           7z a -tzip './tools/bin/release/linux_macos/cli_gen_tool.zip' './tools/bin/release/linux_macos/cli_gen_tool'
           7z t './tools/bin/release/linux_macos/cli_gen_tool.zip' *.
           rm './tools/bin/release/linux_macos/cli_gen_tool'
-                  
+
       - name: Commit and push files
         id: commit
         run: |
@@ -67,15 +66,14 @@ jobs:
             echo "Pushing"
             git push
           fi
-        shell: bash                   
+        shell: bash
 
-  build-release-windows-binary:    
-
+  build-release-windows-binary:
     runs-on: windows-latest
 
-    steps:                                    
+    steps:
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-python@v4
@@ -88,10 +86,10 @@ jobs:
           pip install wheel
           pip install -r ./tools/cli_gen_tool_src/requirements.txt          
           pip install PyQt6-WebEngine
-          pip freeze                                
+          pip freeze
 
       - name: Build and zip binary
-        run: |                              
+        run: |
           pyinstaller -p ./tools/resources -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/windows/
           7z a -tzip './tools/bin/release/windows/cli_gen_tool.zip' './tools/bin/release/windows/cli_gen_tool.exe'
           7z t './tools/bin/release/windows/cli_gen_tool.zip' *. -r          
@@ -113,4 +111,3 @@ jobs:
             git push
           fi
         shell: bash
-       

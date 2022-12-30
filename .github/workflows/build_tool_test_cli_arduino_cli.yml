@@ -1,46 +1,30 @@
-name: Arduino build examples (CLI)
+name: Build examples (Arduino CLI)
 
 # Controls when the workflow will run
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
-      - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/all_platforms/basic/WildcardCommands/**'
+      - "**/interfaces/test_output_cli/**"
   workflow_dispatch:
     branches:
       - main
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
-      - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/all_platforms/basic/WildcardCommands/**'
+      - "**/interfaces/test_output_cli/**"
   release:
     branches:
       - release
     paths:
-      - '**/examples/all_platforms/basic/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/GetCommandFromStream/**'
-      - '**/examples/all_platforms/advanced/MultiFile/**'
-      - '**/examples/all_platforms/advanced/NestedCommands/**'
-      - '**/examples/all_platforms/basic/WildcardCommands/**'
+      - "**/interfaces/test_output_cli/**"
 
-jobs:  
-  check_formatting:    
-
+jobs:
+  check_formatting:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
-        example: ['/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino', 
-                  '/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino',                  
-                  '/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino',
-                  '/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino']
+        example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
 
     steps:
       - name: Checkout
@@ -55,16 +39,15 @@ jobs:
             - '*.hpp'
             - '*.h'
           target-paths: ${{ matrix.example }}
-  
+
   build:
-    
     needs: check_formatting
     runs-on: ubuntu-latest
-    
-    strategy:
-      fail-fast: false      
 
-      matrix:              
+    strategy:
+      fail-fast: false
+
+      matrix:
         fqbn:
           - "arduino:avr:yun"
           - "arduino:avr:uno"
@@ -78,12 +61,12 @@ jobs:
           - "arduino:avr:mini"
           - "arduino:avr:ethernet"
           - "arduino:avr:fio"
-          - "arduino:avr:bt"          
+          - "arduino:avr:bt"
           - "arduino:avr:LilyPadUSB"
           - "arduino:avr:pro"
           #- "arduino:avr:atmegang"
           - "arduino:avr:robotControl"
-          - "arduino:avr:robotMotor"          
+          - "arduino:avr:robotMotor"
           - "arduino:avr:circuitplay32u4cat"
           - "arduino:avr:yunmini"
           - "arduino:avr:chiwawa"
@@ -105,14 +88,14 @@ jobs:
           - "arduino:samd:mzero_bl"
           - "arduino:samd:tian"
           - "arduino:megaavr:uno2018"
-          - "arduino:sam:arduino_due_x_dbg" # getting close        
-        
-    steps:      
+          - "arduino:sam:arduino_due_x_dbg" # getting close
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Compile examples
         uses: arduino/compile-sketches@main
-        with:          
+        with:
           sketch-paths: ${{ matrix.example }}
           fqbn: ${{ matrix.fqbn }}

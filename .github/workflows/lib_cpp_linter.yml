@@ -7,27 +7,27 @@ on:
     branches:
       - main
     paths: |
-      - '**/src'    
+      - '**/src'
   workflow_dispatch:
     branches:
-      - main    
-    
+      - main
+
 jobs:
-  cpp-linter:    
+  cpp-linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: shenxianpeng/cpp-linter-action@master
-        id: linter        
+        id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          tidy-checks: '-*'
+          tidy-checks: "-*"
           ignore: |
             docs
             examples
-            tools                        
+            tools
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0

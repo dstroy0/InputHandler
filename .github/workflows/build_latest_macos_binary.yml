@@ -1,27 +1,25 @@
 name: cli_gen_tool build latest macos binary
 
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
-    
+      - "**/cli_gen_tool_src/**"
+
   workflow_dispatch:
     branches:
       - main
     paths:
-      - '**/cli_gen_tool_src/**'
+      - "**/cli_gen_tool_src/**"
 
 jobs:
   build-latest-macos-binary:
-   
     runs-on: macos-latest
 
     steps:
-                                          
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - uses: actions/setup-python@v4
@@ -35,15 +33,15 @@ jobs:
           pip install PyQt6-WebEngine
           pip3 install PyQt6-WebEngine
           pip3 install Pillow
-          pip freeze                    
-      
+          pip freeze
+
       - name: Build and zip binary
-        run: |                         
+        run: |
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/macos/
           7z a -tzip './tools/bin/latest/macos/cli_gen_tool.zip' './tools/bin/latest/macos/cli_gen_tool'
           7z t './tools/bin/latest/macos/cli_gen_tool.zip' *.     
-          rm './tools/bin/latest/macos/cli_gen_tool'                               
-                  
+          rm './tools/bin/latest/macos/cli_gen_tool'
+
       - name: Commit and push files
         id: commit
         run: |
@@ -60,4 +58,4 @@ jobs:
             echo "Pushing"
             git push
           fi
-        shell: bash 
+        shell: bash
