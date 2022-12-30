@@ -52,11 +52,11 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp    
           cd ..
           mkdir interfaces
-          cp -r /tmp/InputHandler-main/tools/interfaces/ /tmp/interfaces
-          rm -r /tmp/InputHandler-main           
+          cp -r /tmp/InputHandler/tools/interfaces/ /tmp/interfaces
+          rm -r /tmp/InputHandler           
           ls -R
       - name: Run PlatformIO
-        run: pio ci --lib="interfaces/test_output_cli/"
+        run: pio ci --lib="interfaces/"
           --board=teensy31
           --board=teensy35
           --board=teensy36
