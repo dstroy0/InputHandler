@@ -60,7 +60,7 @@ jobs:
           cd InputHandler                 
           ls -R
       - name: Run PlatformIO
-        run: pio ci --lib="interfaces/test_output_cli/" --project-option="lib_ldf_mode = chain+"
+        run: pio ci --lib="interfaces/test_output_cli"
           --board=teensy31
           --board=teensy35
           --board=teensy36
