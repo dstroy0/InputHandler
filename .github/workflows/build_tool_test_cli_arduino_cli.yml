@@ -1,4 +1,4 @@
-name: Build examples (Arduino CLI)
+name: Build tool test_output_cli (Arduino CLI)
 
 # Controls when the workflow will run
 on:
