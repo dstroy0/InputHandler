@@ -52,7 +52,7 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
       - name: Run PlatformIO
-        run: pio ci --lib="/tmp/InputHandler-main/"
+        run: pio ci --lib="/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
           --board=teensy31
           --board=teensy35
           --board=teensy36
