@@ -52,6 +52,7 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp   
           ls           
           cd ..
+          ls
           mkdir interfaces
           cp -r /InputHandler/tools/interfaces /interfaces
           rm -r /InputHandler           
