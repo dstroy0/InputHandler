@@ -6,17 +6,23 @@ on:
       - main
     paths:
       - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/CLI/**"
+      - "**/interfaces/test_output_cli/CLI/config**"
 
   workflow_dispatch:
     branches:
       - main
     paths:
       - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/CLI/**"
+      - "**/interfaces/test_output_cli/CLI/config**"
   release:
     branches:
       - release
     paths:
       - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/CLI/**"
+      - "**/interfaces/test_output_cli/CLI/config**"
 
 jobs:
   build-examples:
