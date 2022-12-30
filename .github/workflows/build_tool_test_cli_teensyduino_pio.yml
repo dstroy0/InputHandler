@@ -24,9 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
+        example:
+          [
+            "**/test_output_cli/CLI/**",
+            "**/interfaces/test_output_cli/test_output_cli.ino",
+          ]
       include:
-        path: "**/test_output_cli/CLI/**"
+        path:
 
     steps:
       - uses: actions/checkout@v3
@@ -60,6 +64,4 @@ jobs:
           --board=nanorp2040connect
 
         env:
-          PLATFORMIO_CI_SRC: 
-            ${{ matrix.example }}
-            ${{ include.path }}
+          PLATFORMIO_CI_SRC: ${{ matrix.example }}
