@@ -62,3 +62,4 @@ jobs:
 
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.example }}
+          PLATFORMIO_LIB_EXTRA_DIRS: "/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
