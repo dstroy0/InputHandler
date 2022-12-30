@@ -397,6 +397,7 @@ class CodeGeneration(
         date = datetime.date.today()
         docstring = cliFileStrings.docfs.format(
             docs_version=cliFileStrings.version,
+            lib_version=cliFileStrings.lib_version,
             docs_filename=filename,
             docs_brief=brief,
             docs_year=year,

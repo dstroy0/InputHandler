@@ -15,7 +15,6 @@ from modules.cli.filestrings import cliFileStrings
 import datetime
 import os
 
-
 class cliReadme(object):
     ## the constructor
     def __init__(self) -> None:
