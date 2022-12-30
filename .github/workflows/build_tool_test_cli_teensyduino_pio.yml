@@ -58,5 +58,6 @@ jobs:
           --board=nanorp2040connect
 
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
-                             "**test_output_cli/CLI"
+          PLATFORMIO_CI_SRC: 
+            - ${{ matrix.example }}
+            - "**test_output_cli/CLI"
