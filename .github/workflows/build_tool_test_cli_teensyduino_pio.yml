@@ -49,10 +49,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade platformio
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
-          unzip /tmp/InputHandler-main.zip -d /tmp              
+          unzip /tmp/InputHandler-main.zip -d /tmp   
+          ls           
           mkdir interfaces
-          cp -r /InputHandler/tools/interfaces /interfaces
-          rm -r /InputHandler           
+          cp -r /tmp/InputHandler/tools/interfaces /interfaces
+          rm -r /tmp/InputHandler           
           ls -R
       - name: Run PlatformIO
         run: pio ci --lib="interfaces/"
