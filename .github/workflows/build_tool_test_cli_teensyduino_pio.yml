@@ -69,7 +69,7 @@ jobs:
           echo          
           ls -R
       - name: Run PlatformIO
-        run: pio ci --lib="interfaces/test_output_cli/CLI/"
+        run: pio ci --lib="interfaces/test_output_cli/CLI" --project-option="lib_ldf_mode = chain+"
           --board=teensy31
           --board=teensy35
           --board=teensy36
