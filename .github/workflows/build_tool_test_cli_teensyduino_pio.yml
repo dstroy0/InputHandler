@@ -59,6 +59,7 @@ jobs:
 
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.example }}
-      -  name: list contents
+      
+      - name: list contents
         run: |
           ls
