@@ -54,6 +54,7 @@ jobs:
           cd ..
           ls
           mkdir interfaces
+          ls
           cp -r /InputHandler/tools/interfaces /interfaces
           rm -r /InputHandler           
           ls -R
