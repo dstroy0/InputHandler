@@ -50,11 +50,14 @@ jobs:
           pip install --upgrade platformio
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp   
-          ls           
+          ls      
+          echo \n     
           cd ..
           ls
+          echo \n
           mkdir interfaces
           ls
+          echo \n
           cp -r /InputHandler/tools/interfaces /interfaces
           rm -r /InputHandler           
           ls -R
