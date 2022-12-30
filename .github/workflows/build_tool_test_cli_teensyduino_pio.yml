@@ -1,4 +1,4 @@
-name: Build tool test_output_cli.ino (Teensyduino PIO)
+name: Build tool test_output_cli (Teensyduino PIO)
 
 on:
   push:
