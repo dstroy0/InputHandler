@@ -29,8 +29,6 @@ jobs:
             "**/test_output_cli/CLI/**",
             "**/interfaces/test_output_cli/test_output_cli.ino",
           ]
-      include:
-        path:
 
     steps:
       - uses: actions/checkout@v3
