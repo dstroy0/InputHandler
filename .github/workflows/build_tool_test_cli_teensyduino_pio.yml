@@ -58,8 +58,8 @@ jobs:
           mkdir interfaces
           ls
           echo -e \n
-          cp -r /InputHandler/tools/interfaces /interfaces
-          rm -r /InputHandler           
+          cp -r InputHandler/tools/interfaces interfaces
+          rm -r InputHandler           
           ls -R
       - name: Run PlatformIO
         run: pio ci --lib="interfaces/"
