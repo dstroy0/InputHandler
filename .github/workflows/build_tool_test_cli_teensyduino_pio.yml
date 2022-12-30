@@ -60,4 +60,4 @@ jobs:
         env:
           PLATFORMIO_CI_SRC: 
             - ${{ matrix.example }}
-            - "**test_output_cli/CLI"
+            - "**/test_output_cli/CLI"
