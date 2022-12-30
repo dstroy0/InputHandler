@@ -52,7 +52,7 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
       - name: Run PlatformIO
-        run: pio ci --lib="/tmp/InputHandler-main/tools/interfaces/test_output_cli/" --project-option="lib_ldf_mode = off"
+        run: pio ci --lib="/tmp/InputHandler-main/tools/interfaces/test_output_cli/" --project-option="lib_ldf_mode = off" --project-option="lib_extra_dirs = /tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
           --board=teensy31
           --board=teensy35
           --board=teensy36
@@ -61,5 +61,4 @@ jobs:
           --board=nanorp2040connect
 
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
-          PLATFORMIO_LIB_EXTRA_DIRS: "/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
+          PLATFORMIO_CI_SRC: ${{ matrix.example }}        
