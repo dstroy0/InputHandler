@@ -61,12 +61,12 @@ jobs:
           ls
           echo
           cp -r interfaces InputHandler
+          rm -r interfaces
           ls
           echo
           cd InputHandler
           ls
-          echo
-          rm -r interfaces
+          echo          
           ls -R
       - name: Run PlatformIO
         run: pio ci --lib="test_output_cli/CLI"
