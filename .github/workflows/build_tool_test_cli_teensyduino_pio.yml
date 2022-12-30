@@ -58,5 +58,5 @@ jobs:
           --board=nanorp2040connect
 
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
-          PLATFORMIO_CI_SRC: "/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
+          PLATFORMIO_CI_SRC: ${{ matrix.example }},
+                             "/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
