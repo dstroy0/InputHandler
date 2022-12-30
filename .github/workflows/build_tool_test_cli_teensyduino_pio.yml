@@ -54,14 +54,18 @@ jobs:
           echo       
           cd ..
           ls
-          echo  
-          mkdir interfaces
-          ls
-          echo  
-          cp -r InputHandler/tools/interfaces interfaces
+          echo                        
+          cp -r InputHandler/tools/interfaces ./
           rm -r InputHandler           
           mkdir InputHandler
+          ls
+          echo
           cp -r interfaces InputHandler
+          ls
+          echo
+          cd InputHandler
+          ls
+          echo
           rm -r interfaces
           ls -R
       - name: Run PlatformIO
