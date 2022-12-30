@@ -91,6 +91,7 @@ class RootWidget(QWidget, object):
         )
         self.lib_root_path = self._parent.lib_root_path
         self.headless = self._parent.headless
+        self.lib_version = self._parent.lib_version
 
 
 ## set up pathing, logging, splash screen
@@ -98,7 +99,8 @@ class Initialize(HelperMethods, Logger, object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
         Logger.__init__(self, __name__)
-        # TODO command line arguments
+
+        # cli_gen_tool script command line interface
         self.parser = argparse.ArgumentParser(
             prog=os.path.basename(__file__),
             description="generate a CLI in target directory",
@@ -109,7 +111,7 @@ class Initialize(HelperMethods, Logger, object):
             nargs=2,
             type=pathlib.Path,
             required=False,
-            help="generates a CLI in the destination directory",
+            help="-g <dest dir> <path to cli options json> generates a CLI",
             metavar="",
         )
         self.parser.add_argument(
@@ -118,7 +120,7 @@ class Initialize(HelperMethods, Logger, object):
             nargs=1,
             type=pathlib.Path,
             required=False,
-            help="path to alternate session file",
+            help="-s <path to session json> path to alternate session file",
             metavar="",
         )
         self.parser.add_argument(
@@ -127,58 +129,112 @@ class Initialize(HelperMethods, Logger, object):
             nargs=1,
             type=pathlib.Path,
             required=False,
-            help="path to alternate config file",
+            help="-c <path to Inputhandler config.h> path to alternate config file",
             metavar="",
         )
         args = self.parser.parse_args(sys.argv[1:])
 
+        # script cli only (no gui) when true
+        self.headless = False
+        # validate argparser input further
         if bool(args.generate):
             self.headless = True
             self.root_log_handler.info("output path: " + str(args.generate[0]))
             self.root_log_handler.info("cli options path: " + str(args.generate[1]))
             if not os.path.exists(str(args.generate[0])):
                 self.root_log_handler.warning(
-                    "the selected output directory does not exist, please enter the full path to the output directory"
+                    "the selected output directory:\n<"
+                    + str(args.generate[0])
+                    + ">\ndoes not exist, please enter the full path to the output directory"
                 )
                 sys.exit(0)
             if ".json" not in str(args.generate[1]):
                 # no cliopt json
                 self.root_log_handler.warning(
-                    "please enter the full path to the cli options json"
+                    "invalid path:\n<"
+                    + str(args.generate[1])
+                    + ">\nplease enter the full path to the cli options json"
                 )
                 sys.exit(0)
-            with open(str(args.generate[1]), "r") as file:
-                filedata = file.read()
-            file.close()
-            # TODO try/except on all of these
-            filedata = json.loads(filedata)
-            if filedata["type"] != "cli options":
+            try:
+                with open(str(args.generate[1]), "r") as file:
+                    filedata = file.read()
+                file.close()
+            except Exception as e:
+                self.root_log_handler.warning(
+                    "cannot open:\n<"
+                    + str(args.generate[1])
+                    + ">\nmsg: "
+                    + str(e.message)
+                    + "\nargs: "
+                    + str(e.args)
+                )
+                sys.exit(0)
+            try:
+                filedata = json.loads(filedata)
+            except:
                 # bad json
                 self.root_log_handler.warning(
-                    "this json is not valid, please enter the full path to a valid cli options json"
+                    "this json:\n<"
+                    + str(args.generate[1])
+                    + ">\nis not valid, please enter the full path to a valid cli options json"
                 )
                 sys.exit(0)
+            if filedata["type"] != "cli options":
+                # wrong json
+                self.root_log_handler.warning(
+                    "this json:\n<"
+                    + str(args.generate[1])
+                    + ">\nis not a cli options json, please enter the full path to a valid cli options json"
+                )
+                sys.exit(0)
+
         if bool(args.session):
             self.root_log_handler.info("session json path: " + str(args.session[0]))
             if ".json" not in str(args.session[0]):
                 # no session json
                 self.root_log_handler.warning(
-                    "please enter the full path to a session json"
+                    "this path:\n<"
+                    + str(args.session[0])
+                    + ">\nis not valid, please enter the full path to a session json"
                 )
                 sys.exit(0)
-            with open(str(args.session[0]), "r") as file:
-                filedata = file.read()
-            file.close()
-            filedata = json.loads(filedata)
-            if filedata["type"] != "session":
+            try:
+                with open(str(args.session[0]), "r") as file:
+                    filedata = file.read()
+                file.close()
+            except Exception as e:
+                self.root_log_handler.warning(
+                    "cannot open:\n<"
+                    + str(args.generate[1])
+                    + ">\nmsg: "
+                    + str(e.message)
+                    + "\nargs: "
+                    + str(e.args)
+                )
+                sys.exit(0)
+            try:
+                filedata = json.loads(filedata)
+            except:
                 # bad json
                 self.root_log_handler.warning(
-                    "this json is not valid please enter the full path to a valid cli options json"
+                    "this json:\n<"
+                    + str(args.session[0])
+                    + ">\nis not valid, please enter the full path to a valid cli options json"
                 )
                 sys.exit(0)
+            if filedata["type"] != "session":
+                # wrong json
+                self.root_log_handler.warning(
+                    "this json:\n<"
+                    + str(args.session[0])
+                    + ">\nis not a session json please enter the full path to a valid session json"
+                )
+                sys.exit(0)
+
         if bool(args.config):
             self.root_log_handler.info(
-                "InputHandler config.h path: " + str(args.config[0])
+                "InputHandler config.h path:\n<" + str(args.config[0]) + ">"
             )
             if ".h" not in str(args.config[0]):
                 # no config.h
@@ -186,13 +242,26 @@ class Initialize(HelperMethods, Logger, object):
                     "please enter the full path to an InputHandler config.h"
                 )
                 sys.exit(0)
-            with open(str(args.config[0]), "r") as file:
-                filedata = file.read()
-            file.close()
+            try:
+                with open(str(args.config[0]), "r") as file:
+                    filedata = file.read()
+                file.close()
+            except Exception as e:
+                self.root_log_handler.warning(
+                    "cannot open:\n<"
+                    + str(args.generate[1])
+                    + ">\nmsg: "
+                    + str(e.message)
+                    + "\nargs: "
+                    + str(e.args)
+                )
+                sys.exit(0)
             if "#if !defined(__INPUTHANDLER_CONFIG_H__)" not in filedata:
                 # bad config.h
                 self.root_log_handler.warning(
-                    "this .h file is not valid, please enter the full path to a valid InputHandler config.h"
+                    "this .h file:\n<"
+                    + str(args.config[0])
+                    + ">\nis not valid, please enter the full path to a valid InputHandler config.h"
                 )
                 sys.exit(0)
 
@@ -216,6 +285,25 @@ class Initialize(HelperMethods, Logger, object):
 
         # set lib root path
         self.set_lib_root_path()
+        inputhandler_h_path = os.path.join(self.lib_root_path, "src", "InputHandler.h")
+        with open(inputhandler_h_path, "r") as file:
+            firstline = file.readline()
+        file.close()
+        if "library version" not in firstline:
+            # bad config.h
+            self.root_log_handler.warning(
+                "this .h file:\n<"
+                + str(args.config[0])
+                + ">\nis not valid, please enter the full path to a valid InputHandler.h"
+            )
+            sys.exit(0)
+        self.lib_version = (
+            firstline.strip()
+            .replace("/*", "")
+            .replace("*/", "")
+            .replace("library version", "")
+            .replace(" ", "")
+        )
 
         # setup logger
         self.setup_file_handler()
@@ -371,6 +459,7 @@ class MainWindow(
         self.command_tree_collapsed = False
         self.loading = True
         self.version = version
+        self.lib_version = parent.lib_version
         self.qscreen = self.screen()
         # input config file boolean define fields (ie // DISABLE_listSettings)
         self.config_file_boolean_define_fields_line_start = (

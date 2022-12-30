@@ -93,7 +93,8 @@ class cliReadme(object):
 
         docstring = cliFileStrings.readmemd.format(
             user=username,
-            docs_version=cliFileStrings.version,
+            tool_version=cliFileStrings.version,
+            lib_version=cliFileStrings.lib_version,
             docs_date=date,
             docs_year=year,
             generated_code_section=gen_code_sect,
