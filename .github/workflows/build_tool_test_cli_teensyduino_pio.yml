@@ -49,7 +49,7 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
       - name: Run PlatformIO
-        run: pio ci --lib="/tmp/InputHandler-main/" --project-option="build_flags = -I /tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
+        run: pio ci --lib="/tmp/InputHandler-main/"
           --board=teensy31
           --board=teensy35
           --board=teensy36
@@ -58,8 +58,5 @@ jobs:
           --board=nanorp2040connect
 
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
-      
-      - name: list contents
-        run: |
-          ls
+          - PLATFORMIO_CI_SRC: ${{ matrix.example }}
+          - PLATFORMIO_CI_SRC: "/tmp/InputHandler-main/tools/interfaces/test_output_cli/CLI"
