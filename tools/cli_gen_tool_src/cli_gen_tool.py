@@ -15,6 +15,10 @@ from __future__ import absolute_import
 # imports
 import os
 import sys
+import json
+import getopt
+import pathlib
+import argparse
 import qdarktheme
 from PySide6.QtCore import (
     QEvent,
@@ -86,12 +90,111 @@ class RootWidget(QWidget, object):
             self._parent.get_inputhandler_dir_from_user
         )
         self.lib_root_path = self._parent.lib_root_path
+        self.headless = self._parent.headless
 
 
 ## set up pathing, logging, splash screen
 class Initialize(HelperMethods, Logger, object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
+        Logger.__init__(self, __name__)
+        # TODO command line arguments
+        self.parser = argparse.ArgumentParser(
+            prog=os.path.basename(__file__),
+            description="generate a CLI in target directory",
+        )
+        self.parser.add_argument(
+            "-g",
+            "--generate",
+            nargs=2,
+            type=pathlib.Path,
+            required=False,
+            help="generates a CLI in the destination directory",
+            metavar="",
+        )
+        self.parser.add_argument(
+            "-s",
+            "--session",
+            nargs=1,
+            type=pathlib.Path,
+            required=False,
+            help="path to alternate session file",
+            metavar="",
+        )
+        self.parser.add_argument(
+            "-c",
+            "--config",
+            nargs=1,
+            type=pathlib.Path,
+            required=False,
+            help="path to alternate config file",
+            metavar="",
+        )
+        args = self.parser.parse_args(sys.argv[1:])
+
+        if bool(args.generate):
+            self.headless = True
+            self.root_log_handler.info("output path: " + str(args.generate[0]))
+            self.root_log_handler.info("cli options path: " + str(args.generate[1]))
+            if not os.path.exists(str(args.generate[0])):
+                self.root_log_handler.warning(
+                    "the selected output directory does not exist, please enter the full path to the output directory"
+                )
+                sys.exit(0)
+            if ".json" not in str(args.generate[1]):
+                # no cliopt json
+                self.root_log_handler.warning(
+                    "please enter the full path to the cli options json"
+                )
+                sys.exit(0)
+            with open(str(args.generate[1]), "r") as file:
+                filedata = file.read()
+            file.close()
+            # TODO try/except on all of these
+            filedata = json.loads(filedata)
+            if filedata["type"] != "cli options":
+                # bad json
+                self.root_log_handler.warning(
+                    "this json is not valid, please enter the full path to a valid cli options json"
+                )
+                sys.exit(0)
+        if bool(args.session):
+            self.root_log_handler.info("session json path: " + str(args.session[0]))
+            if ".json" not in str(args.session[0]):
+                # no session json
+                self.root_log_handler.warning(
+                    "please enter the full path to a session json"
+                )
+                sys.exit(0)
+            with open(str(args.session[0]), "r") as file:
+                filedata = file.read()
+            file.close()
+            filedata = json.loads(filedata)
+            if filedata["type"] != "session":
+                # bad json
+                self.root_log_handler.warning(
+                    "this json is not valid please enter the full path to a valid cli options json"
+                )
+                sys.exit(0)
+        if bool(args.config):
+            self.root_log_handler.info(
+                "InputHandler config.h path: " + str(args.config[0])
+            )
+            if ".h" not in str(args.config[0]):
+                # no config.h
+                self.root_log_handler.warning(
+                    "please enter the full path to an InputHandler config.h"
+                )
+                sys.exit(0)
+            with open(str(args.config[0]), "r") as file:
+                filedata = file.read()
+            file.close()
+            if "#if !defined(__INPUTHANDLER_CONFIG_H__)" not in filedata:
+                # bad config.h
+                self.root_log_handler.warning(
+                    "this .h file is not valid, please enter the full path to a valid InputHandler config.h"
+                )
+                sys.exit(0)
 
         # GUI container
         app = QApplication(sys.argv)
@@ -101,10 +204,13 @@ class Initialize(HelperMethods, Logger, object):
         self.app = app
 
         self.root = RootWidget(self)
-        Logger.__init__(self, __name__)
+
         HelperMethods.__init__(self)
 
-        # self = self.root
+        if self.headless:
+            self.root_log_handler.info("Generating CLI with supplied arguments")
+            sys.exit(0)
+
         self.get_app_screen()
         self.root_log_handler.info("CLI gen tool pathing")
 
@@ -220,6 +326,7 @@ class MainWindow(
 
         ## import parent variables, methods, and objects
         self.parent_instance = parent
+        self.headless = parent.headless
         self.lib_root_path = self.parent_instance.lib_root_path
         self.create_qdialog = parent.create_qdialog
 
@@ -283,13 +390,14 @@ class MainWindow(
 
         self.set_up_session()
 
-        # Splashscreen timer
-        self.timer = QTimer()
-        self.timer.setSingleShot(True)
-        self.timer.start(
-            splashscreen_duration
-        )  # Show app splash for `splashscreen_duration`
-        self.show_splash()
+        if not self.headless:
+            # Splashscreen timer
+            self.timer = QTimer()
+            self.timer.setSingleShot(True)
+            self.timer.start(
+                splashscreen_duration
+            )  # Show app splash for `splashscreen_duration`
+            self.show_splash()
 
         self.set_up_log_history_dialog(Ui_logHistoryDialog())
 
@@ -343,6 +451,10 @@ class MainWindow(
 
         self.logger.info("CLI generation tool ready.")
         self.loading = False
+        if self.headless:
+            # self.generate_cli(self.cli_project_path)
+            self.logger.info("finished, exiting")
+            sys.exit()
         # end MainWindow.__init__()
 
     def closeEvent(self, event: QEvent):
