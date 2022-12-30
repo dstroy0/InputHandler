@@ -25,6 +25,8 @@ jobs:
     strategy:
       matrix:
         example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
+      include:
+        path: "**/test_output_cli/CLI/**"
 
     steps:
       - uses: actions/checkout@v3
@@ -60,4 +62,4 @@ jobs:
         env:
           PLATFORMIO_CI_SRC: 
             ${{ matrix.example }}
-            "**/test_output_cli/CLI"
+            ${{ include.path }}
