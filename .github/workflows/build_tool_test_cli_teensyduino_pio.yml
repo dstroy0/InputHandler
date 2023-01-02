@@ -54,7 +54,7 @@ jobs:
           cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
       - name: Run PlatformIO
-        run: pio ci --project-option="build_flags = -I src/CLI"
+        run: pio ci --project-option="build_flags = -I include"
           --board=teensy31
           --board=teensy35
           --board=teensy36
