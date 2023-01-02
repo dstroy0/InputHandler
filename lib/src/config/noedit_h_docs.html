@@ -378,11 +378,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT16_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_commands_in_tree_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -397,11 +397,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a80ce91664b26c528c3cb229f2d40d88b"><span class="std std-ref">UI_MAX_COMMANDS_IN_TREE</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_COMMANDS_IN_TREE &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT8_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_COMMANDS_IN_TREE &gt; UINT16_MAX &amp;&amp; UI_MAX_COMMANDS_IN_TREE &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -415,11 +415,11 @@
 <span id="_CPPv3N2IH13ui_max_args_tE"></span><span id="_CPPv2N2IH13ui_max_args_tE"></span><span id="IH::ui_max_args_t"></span><span class="target" id="d2/d0c/namespace_i_h_1aa088edbc093134f02460997ab86f31a1"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ui_max_args_t</span></span></span><a class="headerlink" href="#_CPPv4N2IH13ui_max_args_tE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a49baf240972f4fcbaf973521da34aaa9"><span class="std std-ref">UI_MAX_ARGS_PER_COMMAND</span></a> is set by the user. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_ARGS_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_ARGS_PER_COMMAND &gt; UINT16_MAX &amp;&amp; UI_MAX_ARGS_PER_COMMAND &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_args_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -434,11 +434,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a758994f5a006936d1f71bc5c471c4312"><span class="std std-ref">UI_MAX_TREE_DEPTH_PER_COMMAND</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT8_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT16_MAX &amp;&amp; UI_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_tree_depth_per_command_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -453,11 +453,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a12823f7dd05646695e5b6b12fd0f5e05"><span class="std std-ref">UI_MAX_NUM_CHILD_COMMANDS</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_CHILD_COMMANDS &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_CHILD_COMMANDS &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_child_commands_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -472,11 +472,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a3838a09964eae8d28f9f58c69df91934"><span class="std std-ref">UI_MAX_CMD_LEN</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_CMD_LEN &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_CMD_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_CMD_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_CMD_LEN &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_cmd_len_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -491,11 +491,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1afc899b6154710261674ea0cfdf08e40b"><span class="std std-ref">UI_MAX_NUM_DELIM_SEQ</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_DELIM_SEQ &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_DELIM_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_DELIM_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_DELIM_SEQ &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_delim_seq_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -510,11 +510,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a2c108dee311479de346895eaedc068c1"><span class="std std-ref">UI_MAX_NUM_START_STOP_SEQ</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_NUM_START_STOP_SEQ &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_START_STOP_SEQ &gt; UINT8_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_NUM_START_STOP_SEQ &gt; UINT16_MAX &amp;&amp; UI_MAX_NUM_START_STOP_SEQ &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_num_start_stop_seq_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -529,11 +529,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a40e8bda9072bdd1d88b4cff453a84d3c"><span class="std std-ref">UI_MAX_INPUT_LEN</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_INPUT_LEN &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_INPUT_LEN &gt; UINT8_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_INPUT_LEN &gt; UINT16_MAX &amp;&amp; UI_MAX_INPUT_LEN &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_input_len_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -548,11 +548,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a69a8775b591a7f206a93d39830811f28"><span class="std std-ref">UI_MAX_PER_CMD_MEMCMP_RANGES</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ui_max_per_cmd_memcmp_ranges_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>
@@ -567,11 +567,11 @@
 <dd><p>User influenced typedef. </p>
 <p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a69a8775b591a7f206a93d39830811f28"><span class="std std-ref">UI_MAX_PER_CMD_MEMCMP_RANGES</span></a> is set by the user.</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
 <span class="cp">#elif (UI_MAX_PER_CMD_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; UI_MAX_PER_CMD_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
-<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
 <span class="cp">#else</span>
 <span class="c1">// no typedef; compile failure</span>
 <span class="cp">#endif</span>

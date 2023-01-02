@@ -212,11 +212,11 @@
 <h1>freeRam.h<a class="headerlink" href="#freeram-h" title="Permalink to this heading">#</a></h1>
 <p>Include dependency graph for freeRam.h:</p>
 <figure class="align-default">
-<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-b532e65347f49a0a915cbf30f0f2d71270649ea7.png" alt="digraph {
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-f33f168976d274c9a9d412ef8e3db813dc2d4aea.png" alt="digraph {
     graph [bgcolor=&quot;#00000000&quot;]
     node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
     edge [color=&quot;#1414CE&quot;]
-    &quot;1&quot; [label=&quot;src/utility/freeRam.h&quot; tooltip=&quot;src/utility/freeRam.h&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;1&quot; [label=&quot;src/config/utility/freeRam.h&quot; tooltip=&quot;src/config/utility/freeRam.h&quot; fillcolor=&quot;#BFBFBF&quot;]
     &quot;2&quot; [label=&quot;Arduino.h&quot; tooltip=&quot;Arduino.h&quot;]
     &quot;1&quot; -&gt; &quot;2&quot; [dir=forward tooltip=&quot;include&quot;]
 }" class="graphviz" /></div>
@@ -240,10 +240,10 @@
 <dt class="sig sig-object cpp" id="_CPPv47freeRamv">
 <span id="_CPPv37freeRamv"></span><span id="_CPPv27freeRamv"></span><span id="freeRam"></span><span class="target" id="d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">freeRam</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47freeRamv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. </p>
-<p>InputHandler’s cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. This is a generic representation of how this function works. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_start</span><span class="p">;</span><span class="w"></span>
-<span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_end</span><span class="p">;</span><span class="w"></span>
-<span class="k">extern</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span><span class="w"></span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">freeRam</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">_heap_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<p>InputHandler’s cross platform <a class="reference internal" href="#d5/d8e/free_ram_8h_1aac7b29dc45caaaca67299571f6a2dcc0"><span class="std std-ref">freeRam()</span></a>. This is a generic representation of how this function works. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_start</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_heap_end</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">freeRam</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">_heap_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">__brkval</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
  Please see your platform’s specific implementation.</p>
