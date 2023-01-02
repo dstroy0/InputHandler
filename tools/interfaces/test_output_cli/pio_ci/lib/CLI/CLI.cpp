@@ -16,7 +16,7 @@
 */
 
 
-#include "setup.h"
+#include "CLI.h"
 
 
 void InputHandler_setup()

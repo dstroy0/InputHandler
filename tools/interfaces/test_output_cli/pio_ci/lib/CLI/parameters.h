@@ -18,7 +18,7 @@
 
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "setup.h"
+    #include "CLI.h"
     
 
 /**
