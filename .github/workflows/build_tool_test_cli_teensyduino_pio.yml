@@ -5,19 +5,19 @@ on:
     branches:
       - main
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
 
   workflow_dispatch:
     branches:
       - main
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
 
   release:
     branches:
       - release
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
 
 jobs:
   build-examples:
@@ -26,7 +26,7 @@ jobs:
       matrix:
         example:
           [
-            "**/test_output_cli/test_output_cli.ino",            
+            "**/main.cpp",            
           ]
 
     steps:
@@ -51,22 +51,15 @@ jobs:
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp                
           echo moving test interface      
-          cd ..                    
-          cp -r InputHandler/tools/interfaces/ ./
-          rm -r InputHandler           
-          mkdir InputHandler          
-          cp -r interfaces InputHandler
-          rm -r interfaces          
-          cd InputHandler                 
+          cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
       - name: Run PlatformIO
-        run: pio ci --lib="interfaces/test_output_cli" --project-option="build_flags = -ICLI"
+        run: pio ci --project-option="build_flags = -I src/CLI"
           --board=teensy31
           --board=teensy35
           --board=teensy36
           --board=teensy40
           --board=teensy41
           --board=nanorp2040connect
-
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.example }}        

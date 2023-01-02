@@ -435,7 +435,7 @@ class CodeGeneration(
             self.codegen_logger.info("found project dir")
         else:
             project_path = self.get_project_dir()
-
+        
         directory = "CLI"
         cli_path = os.path.join(project_path, directory)
         directory = "config/config.h"
