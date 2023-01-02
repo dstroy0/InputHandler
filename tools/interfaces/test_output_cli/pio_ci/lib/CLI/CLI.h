@@ -56,9 +56,23 @@ const PROGMEM InputProcessParameters input_prm[1] = {
 // constructor
 UserInput inputHandler(input_prm, InputHandler_output_buffer, buffsz(InputHandler_output_buffer));
 
-void InputHandler_setup();
-void InputHandler_loop();
+void InputHandler_setup()
+{
+  Serial.println(F("Setting up InputHandler..."));
+  inputHandler.defaultFunction(unrecognized); // default function is called when user input has no match or is not valid
+  inputHandler.addCommand(listCommands_);
+  inputHandler.addCommand(listSettings_);
+  inputHandler.addCommand(test_2_);
+  inputHandler.begin(); // Required. Returns true on success.
+  Serial.println(F("InputHandler setup complete."));
+  listSettings(&inputHandler); // prints InputHandler settings
+  listCommands(&inputHandler); // prints commands available to user
+}
 
-
+void InputHandler_loop()
+{
+  inputHandler.getCommandFromStream(Serial); // parse input
+  inputHandler.outputToStream(Serial); // class output
+}
 #endif
 // end of file

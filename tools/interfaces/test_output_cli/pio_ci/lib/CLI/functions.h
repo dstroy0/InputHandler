@@ -22,21 +22,53 @@
     
 
 /* InputHandler user return function prototypes */
-void test(UserInput* _inputHandler);
-void testa(UserInput* _inputHandler);
-void testb(UserInput* _inputHandler);
-void testc(UserInput* _inputHandler);
-void testbb_return_values(UserInput* _inputHandler);
+extern void test(UserInput* _inputHandler);
+extern void testa(UserInput* _inputHandler);
+extern void testb(UserInput* _inputHandler);
+extern void testc(UserInput* _inputHandler);
+extern void test(UserInput* _inputHandler);
+extern void testbb_return_values(UserInput* _inputHandler);
 
-/* InputHandler function prototypes */
-void unrecognized(UserInput* _inputHandler);
-void listCommands(UserInput* _inputHandler);
-void listSettings(UserInput* _inputHandler);
-void test_2(UserInput* _inputHandler);
-void testa_3(UserInput* _inputHandler);
-void testd_5(UserInput* _inputHandler);
-void teste_6(UserInput* _inputHandler);
-void testbb_7(UserInput* _inputHandler);
+void unrecognized(UserInput* _inputHandler)
+{
+  _inputHandler->outputToStream(Serial);
+}
+
+void listCommands(UserInput* _inputHandler)
+{
+  _inputHandler->listCommands();
+}
+
+void listSettings(UserInput* _inputHandler)
+{
+  _inputHandler->listSettings(_inputHandler);
+}
+
+void test_2(UserInput* _inputHandler)
+{
+  test(_inputHandler);
+}
+
+void testa_3(UserInput* _inputHandler)
+{
+  testa(_inputHandler);
+}
+
+void testd_5(UserInput* _inputHandler)
+{
+  testb(_inputHandler);
+}
+
+void teste_6(UserInput* _inputHandler)
+{
+  testc(_inputHandler);
+}
+
+void testbb_7(UserInput* _inputHandler)
+{
+  testbb_return_values(_inputHandler);
+}
+
 
 
 
