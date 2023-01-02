@@ -51,7 +51,7 @@ jobs:
           ls -R
 
       - name: Build PlatformIO ESP32
-        run: pio ci
+        run: pio ci --lib="lib/CLI"
           --board=esp32dev
           --board=huzzah
         env:
