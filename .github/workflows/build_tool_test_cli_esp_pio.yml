@@ -5,17 +5,17 @@ on:
     branches:
       - main
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
   workflow_dispatch:
     branches:
       - main
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
   release:
     branches:
       - release
     paths:
-      - "**/interfaces/test_output_cli/**"
+      - "**/interfaces/test_output_cli/pio_ci/**"
 
 jobs:
   build-examples-matrix:
@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        examples: ["**/interfaces/test_output_cli/test_output_cli.ino"]
+        examples: ["**/main.cpp"]
 
     steps:
       - uses: actions/checkout@v3
@@ -46,10 +46,12 @@ jobs:
           pip install --upgrade platformio
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp        
-          ls
+          echo moving to test interface directory     
+          cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
+          ls -R
 
       - name: Build PlatformIO ESP32
-        run: pio ci --lib="/tmp/InputHandler-main/"
+        run: pio ci
           --board=esp32dev
           --board=huzzah
         env:

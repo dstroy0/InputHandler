@@ -50,7 +50,7 @@ jobs:
           pip install --upgrade platformio
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp                
-          echo moving test interface      
+          echo moving to test interface directory     
           cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
       - name: Run PlatformIO
