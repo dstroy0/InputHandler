@@ -174,7 +174,7 @@ jobs:
       - name: Compile examples
         uses: arduino/compile-sketches@main
         with:
-          board_manager: |
+          platforms: |
             - name: "adafruit:samd"
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
             - name: "esp8266:esp8266"
