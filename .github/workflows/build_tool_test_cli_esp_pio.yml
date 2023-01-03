@@ -51,7 +51,9 @@ jobs:
           ls -R
 
       - name: Build PlatformIO ESP
-        run: pio ci --lib="lib/CLI"
+        run: pio ci
+          --lib="lib/CLI"
+          --project-conf="platformio.ini"
           --environment=esp32dev
           --environment=huzzah
         env:
