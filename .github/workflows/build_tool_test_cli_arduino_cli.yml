@@ -174,5 +174,13 @@ jobs:
       - name: Compile examples
         uses: arduino/compile-sketches@main
         with:
+          board_manager:
+            - name: "adafruit:samd"
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+            - name: "esp8266:esp8266"
+            - source-url: "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+            - name: "esp32:esp32"
+            - source-url: "https://dl.espressif.com/dl/package_esp32_index.json"
+
           sketch-paths: ${{ matrix.example }}
           fqbn: ${{ matrix.fqbn }}
