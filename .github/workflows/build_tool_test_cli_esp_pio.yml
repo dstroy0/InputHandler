@@ -53,7 +53,7 @@ jobs:
       - name: Build PlatformIO ESP
         run: pio ci
           --lib="lib/CLI"
-          --project-conf="platformio.ini"
+          --project-conf="/tmp/InputHandler-main/InputHandler/tools/interfaces/test_output_cli/pio_ci/platformio.ini"
           --environment=esp32dev
           --environment=huzzah
         env:
