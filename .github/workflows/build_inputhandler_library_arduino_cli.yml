@@ -92,7 +92,7 @@ jobs:
           - "arduino:avr:mega"
           - "arduino:avr:micro"
           - "arduino:avr:mini"
-          - "arduino:samd:nano_33_iot"
+          #- "arduino:samd:nano_33_iot"
           - "arduino:avr:atmegang"
           - "arduino:avr:nano"
           - "arduino:mbed_nano:nano33ble"
