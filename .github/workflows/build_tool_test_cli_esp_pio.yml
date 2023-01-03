@@ -50,9 +50,9 @@ jobs:
           cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
 
-      - name: Build PlatformIO ESP32
+      - name: Build PlatformIO ESP
         run: pio ci --lib="lib/CLI"
-          --board=esp32dev
-          --board=huzzah
+          --environment=esp32dev
+          --environment=huzzah
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
