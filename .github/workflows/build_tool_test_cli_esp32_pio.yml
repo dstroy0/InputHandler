@@ -51,9 +51,9 @@ jobs:
           ls -R
 
       - name: Build PlatformIO ESP
-        run: pio ci          
-          --project-conf="/tmp/InputHandler-main/InputHandler/tools/interfaces/test_output_cli/pio_ci/platformio.ini"
+        run: pio ci
+          --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
+          --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI"
           --environment=esp32dev
-          --environment=huzzah
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
