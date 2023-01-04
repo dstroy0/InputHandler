@@ -45,9 +45,9 @@ RPi rp2040
 [![Platformio ci](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml)
   
 Latest cli_gen_tool binaries build status:  
-[![build linux gen tool binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_linux_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_linux_binary.yml)  
-[![build windows gen tool binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_windows_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_windows_binary.yml)  
-[![build macos gen tool binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_macos_binary.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_latest_macos_binary.yml)  
+[![cli_gen_tool build latest linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
+[![cli_gen_tool build latest macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
+[![cli_gen_tool build latest windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
   
 Docs  
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
