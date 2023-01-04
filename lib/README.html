@@ -332,7 +332,9 @@ changes.</p>
 <h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h1>
 <p>Not supported: <span class="raw-html-md"><br /></span>
 ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
-ATMegaNG – flash</p>
+ATMegaNG – flash <span class="raw-html-md"><br /></span>
+adafruit:samd:adafruit_neotrinkey_m0 – doesn’t build <span class="raw-html-md"><br /></span>
+arduino:samd:nano_33_iot – doesn’t build</p>
 <p>If your board is not listed as not supported open an issue if you’d like it added to build coverage.</p>
 <p>NOTE: <a class="reference external" href="https://en.cppreference.com/w/c/io/vfprintf">vsnprintf</a> and
 <a class="reference external" href="https://www.delftstack.com/howto/arduino/arduino-dtostrf/">dtostrf</a> implemented on the following platforms: <span class="raw-html-md"><br /></span>
@@ -341,53 +343,275 @@ SAMD, <span class="raw-html-md"><br /></span>
 MBED, <span class="raw-html-md"><br /></span>
 arduino DUE</p>
 <p>Build coverage:</p>
-<p>nano rp2040 connect <span class="raw-html-md"><br /></span>
-teensy 3.1 <span class="raw-html-md"><br /></span>
-teensy 3.5 <span class="raw-html-md"><br /></span>
-teensy 3.6 <span class="raw-html-md"><br /></span>
-teensy 4.0 <span class="raw-html-md"><br /></span>
-teensy 4.1 <span class="raw-html-md"><br /></span>
-Espressif esp32dev generic ESP32 <span class="raw-html-md"><br /></span>
-Espressif Adafruit esp8266 huzzah <span class="raw-html-md"><br /></span>
-yun <span class="raw-html-md"><br /></span>
-uno <span class="raw-html-md"><br /></span>
-diecimila <span class="raw-html-md"><br /></span>
-nano <span class="raw-html-md"><br /></span>
-mega <span class="raw-html-md"><br /></span>
-megaADK <span class="raw-html-md"><br /></span>
-leonardo <span class="raw-html-md"><br /></span>
-micro <span class="raw-html-md"><br /></span>
-esplora <span class="raw-html-md"><br /></span>
-mini <span class="raw-html-md"><br /></span>
-ethernet <span class="raw-html-md"><br /></span>
-fio <span class="raw-html-md"><br /></span>
-bt
-LilyPadUSB <span class="raw-html-md"><br /></span>
-pro
-robotControl <span class="raw-html-md"><br /></span>
-robotMotor <span class="raw-html-md"><br /></span>
-circuitplay32u4cat <span class="raw-html-md"><br /></span>
-yunmini <span class="raw-html-md"><br /></span>
-chiwawa <span class="raw-html-md"><br /></span>
-one <span class="raw-html-md"><br /></span>
-unowifi <span class="raw-html-md"><br /></span>
-nano33ble <span class="raw-html-md"><br /></span>
-mkr1000 <span class="raw-html-md"><br /></span>
-mkrzero <span class="raw-html-md"><br /></span>
-mkrwifi1010 <span class="raw-html-md"><br /></span>
-nano_33_iot <span class="raw-html-md"><br /></span>
-mkrfox1200 <span class="raw-html-md"><br /></span>
-mkrwan1300 <span class="raw-html-md"><br /></span>
-mkrwan1310 <span class="raw-html-md"><br /></span>
-mkrgsm1400 <span class="raw-html-md"><br /></span>
-mkrnb1500 <span class="raw-html-md"><br /></span>
-mkrvidor4000 <span class="raw-html-md"><br /></span>
-adafruit_circuitplayground_m0 <span class="raw-html-md"><br /></span>
-mzero_pro_bl <span class="raw-html-md"><br /></span>
-mzero_bl <span class="raw-html-md"><br /></span>
-tian <span class="raw-html-md"><br /></span>
-uno2018 <span class="raw-html-md"><br /></span>
-due</p>
+<p>Adafruit:
+adafruit:samd:adafruit_blm_badge
+adafruit:samd:adafruit_circuitplayground_m0 <span class="raw-html-md"><br /></span>
+adafruit:samd:adafruit_crickit_m0
+adafruit:samd:adafruit_feather_m0
+adafruit:samd:adafruit_feather_m0_express
+adafruit:samd:adafruit_feather_m4_can
+adafruit:samd:adafruit_feather_m4
+adafruit:samd:adafruit_gemma_m0
+adafruit:samd:adafruit_grandcentral_m4
+adafruit:samd:adafruit_hallowing
+adafruit:samd:adafruit_hallowing_m4
+adafruit:samd:adafruit_itsybitsy_m0
+adafruit:samd:adafruit_itsybitsy_m4
+adafruit:samd:adafruit_monster_m4sk
+adafruit:samd:adafruit_matrixportal_m4
+adafruit:samd:adafruit_metro_m0
+adafruit:samd:adafruit_metro_m4
+adafruit:samd:adafruit_metro_m4_airliftlite
+adafruit:samd:adafruit_neokeytrinkey_m0
+adafruit:samd:adafruit_proxlighttrinkey_m0
+adafruit:samd:adafruit_pygamer_m4
+adafruit:samd:adafruit_pyportal_m4
+adafruit:samd:adafruit_pyportal_m4_titano
+adafruit:samd:adafruit_qtpy_m0
+adafruit:samd:adafruit_rotarytrinkey_m0
+adafruit:samd:adafruit_slidetrinkey_m0
+adafruit:samd:adafruit_trellis_m4
+adafruit:samd:adafruit_trinket_m0
+adafruit:samd:adafruit_pirkey
+adafruit:samd:adafruit_pybadge_m4</p>
+<p>ESP32:
+esp32:esp32:esp32cam
+esp32:esp32:alksesp32
+esp32:esp32:atmegazero_esp32s2
+esp32:esp32:featheresp32
+esp32:esp32:adafruit_feather_esp32_v2
+esp32:esp32:adafruit_feather_esp32s2
+esp32:esp32:adafruit_feather_esp32s2_tft
+esp32:esp32:adafruit_feather_esp32s3
+esp32:esp32:adafruit_funhouse_esp32s2
+esp32:esp32:adafruit_magtag29_esp32s2
+esp32:esp32:adafruit_metro_esp32s2
+esp32:esp32:adafruit_qtpy_esp32_pico
+esp32:esp32:adafruit_qtpy_esp32c3
+esp32:esp32:adafruit_qtpy_esp32s2
+esp32:esp32:adafruit_qtpy_esp32s3
+esp32:esp32:AirM2M_CORE_ESP32C3
+esp32:esp32:bpibit
+esp32:esp32:dduino32
+esp32:esp32:esp32doitdevkitv1
+esp32:esp32:esp32doitespduino
+esp32:esp32:dpu_esp32
+esp32:esp32:deneyapkart
+esp32:esp32:deneyapkart1A
+esp32:esp32:deneyapmini
+esp32:esp32:ch_denky
+esp32:esp32:pocket_32
+esp32:esp32:esp32
+esp32:esp32:fmdevkit
+esp32:esp32:pico32
+esp32:esp32:esp32wroverkit
+esp32:esp32:esp32wrover
+esp32:esp32:esp32s3box
+esp32:esp32:esp32s3usbotg
+esp32:esp32:esp32da
+esp32:esp32:esp32c3
+esp32:esp32:esp32s2
+esp32:esp32:esp32s2usb
+esp32:esp32:esp32s3camlcd
+esp32:esp32:esp32s3
+esp32:esp32:esp32vniotuno
+esp32:esp32:espea32
+esp32:esp32:espectro32
+esp32:esp32:ETBoard
+esp32:esp32:esp320
+esp32:esp32:firebeetle32
+esp32:esp32:franzininho_wifi_esp32s2
+esp32:esp32:franzininho_wifi_msc_esp32s2
+esp32:esp32:frogboard
+esp32:esp32:honeylemon
+esp32:esp32:heltec_wifi_kit_32
+esp32:esp32:heltec_wifi_lora_32
+esp32:esp32:heltec_wifi_lora_32_V2
+esp32:esp32:heltec_wireless_stick
+esp32:esp32:heltec_wireless_stick_lite
+esp32:esp32:hornbill32dev
+esp32:esp32:hornbill32minima
+esp32:esp32:imbrioslogsensv1p1
+esp32:esp32:OpenKB
+esp32:esp32:intorobotfig
+esp32:esp32:kb32
+esp32:esp32:kitsedu
+esp32:esp32:lolin_c3_mini
+esp32:esp32:d32
+esp32:esp32:d32_pro
+esp32:esp32:lolin_s2_mini
+esp32:esp32:lolin_s2_pico
+esp32:esp32:mPython
+esp32:esp32:lionbit
+esp32:esp32:lopy
+esp32:esp32:lopy4
+esp32:esp32:m5stackatom
+esp32:esp32:m5stackcoreesp32
+esp32:esp32:m5stackcore2
+esp32:esp32:m5stackcoreink
+esp32:esp32:m5stackfire
+esp32:esp32:m5stacktimercam
+esp32:esp32:m5stickc
+esp32:esp32:mgbotiotik32a
+esp32:esp32:mgbotiotik32b
+esp32:esp32:mhetesp32devkit
+esp32:esp32:mhetesp32minikit
+esp32:esp32:magicbit
+esp32:esp32:metro_esp32
+esp32:esp32:CoreESP32
+esp32:esp32:nano32
+esp32:esp32:node32s
+esp32:esp32:nodemcu32s
+esp32:esp32:quantum
+esp32:esp32:odroid_esp32
+esp32:esp32:esp32DevKitLipo
+esp32:esp32:esp32evb
+esp32:esp32:esp32gateway
+esp32:esp32:esp32poe
+esp32:esp32:esp32poeiso
+esp32:esp32:oroca_edubot
+esp32:esp32:onehorse32dev
+esp32:esp32:piranha_esp32
+esp32:esp32:healthypi4
+esp32:esp32:gpy
+esp32:esp32:S_ODI_Ultra
+esp32:esp32:sensesiot_weizen
+esp32:esp32:wesp32
+esp32:esp32:sonoff_dualr3
+esp32:esp32:esp32micromod
+esp32:esp32:esp32thing
+esp32:esp32:esp32thing_plus
+esp32:esp32:sparkfun_esp32s2_thing_plus
+esp32:esp32:sparkfun_lora_gateway_1channel
+esp32:esp32:tbeam
+esp32:esp32:ttgolora32
+esp32:esp32:ttgotoiplus
+esp32:esp32:twatch
+esp32:esp32:ttgot1
+esp32:esp32:ttgot7v13mini32
+esp32:esp32:ttgot7v14mini32
+esp32:esp32:espino32
+esp32:esp32:esp32trueveritiotdriver
+esp32:esp32:esp32trueveritiotdrivermkii
+esp32:esp32:turta_iot_node
+esp32:esp32:feathers2
+esp32:esp32:feathers2neo
+esp32:esp32:feathers3
+esp32:esp32:pros3
+esp32:esp32:rmp
+esp32:esp32:tinypico
+esp32:esp32:tinys2
+esp32:esp32:tinys3
+esp32:esp32:vintlabsdevkitv1
+esp32:esp32:d1_mini32
+esp32:esp32:lolin32
+esp32:esp32:lolin32lite
+esp32:esp32:wt32eth01
+esp32:esp32:watchy
+esp32:esp32:WeMosBat
+esp32:esp32:wifiduino32
+esp32:esp32:wipy3
+esp32:esp32:widoraair
+esp32:esp32:cw02
+esp32:esp32:micros2
+esp32:esp32:nina_w10
+esp32:esp32:uPesy_wroom
+esp32:esp32:uPesy_wrover</p>
+<p>ESP8266:
+esp8266:esp8266:gen4iodadafruit_crickit_m0
+esp8266:esp8266:huzzah
+esp8266:esp8266:wifi_slot
+esp8266:esp8266:arduinoesp8266
+esp8266:esp8266:espmxdevkit
+esp8266:esp8266:oak
+esp8266:esp8266:espduino
+esp8266:esp8266:espino
+esp8266:esp8266:espresso_lite_v1
+esp8266:esp8266:espresso_lite_v2
+esp8266:esp8266:generic
+esp8266:esp8266:esp8285
+esp8266:esp8266:sonoff
+esp8266:esp8266:inventone
+esp8266:esp8266:d1_mini
+esp8266:esp8266:d1_mini_clone
+esp8266:esp8266:d1_mini_lite
+esp8266:esp8266:d1_mini_pro
+esp8266:esp8266:d1
+esp8266:esp8266:agruminolemon
+esp8266:esp8266:nodemcu
+esp8266:esp8266:nodemcuv2
+esp8266:esp8266:modwifi
+esp8266:esp8266:phoenix_v1
+esp8266:esp8266:phoenix_v2
+esp8266:esp8266:eduinowifi
+esp8266:esp8266:wiolink
+esp8266:esp8266:blynk
+esp8266:esp8266:thing
+esp8266:esp8266:thingdev
+esp8266:esp8266:esp210
+esp8266:esp8266:espinotee
+esp8266:esp8266:wifi_kit_8
+esp8266:esp8266:wifiduino
+esp8266:esp8266:wifinfo
+esp8266:esp8266:cw01</p>
+<p>Teensyduino:
+teensy:avr:teensy2
+teensy:avr:teensy30
+teensy:avr:teensy31
+teensy:avr:teensy35
+teensy:avr:teensy36
+teensy:avr:teensy40
+teensy:avr:teensy41
+teensy:avr:teensyLC
+teensy:avr:teensyMM
+teensy:avr:teensypp2</p>
+<p>Arduino:
+arduino:avr:bt
+arduino:avr:diecimila
+arduino:avr:esplora
+arduino:avr:ethernet
+arduino:avr:fio
+arduino:avr:gemma
+arduino:avr:chiwawa
+arduino:avr:leonardo
+arduino:avr:leonardoeth
+arduino:samd:mzero_bl
+arduino:samd:mzero_pro_bl
+arduino:samd:mzero_pro_bl_dbg
+arduino:samd:mkrfox1200
+arduino:samd:mkrgsm1400
+arduino:samd:mkrnb1500
+arduino:samd:mkrvidor4000
+arduino:samd:mkrwan1300
+arduino:samd:mkrwan1310
+arduino:samd:mkrwifi1010
+arduino:samd:mkr1000
+arduino:samd:mkrzero
+arduino:avr:megaADK
+arduino:avr:mega
+arduino:avr:micro
+arduino:avr:mini
+arduino:avr:atmegang
+arduino:avr:nano
+arduino:mbed_nano:nano33ble
+arduino:avr:pro
+arduino:avr:robotControl
+arduino:avr:robotMotor
+arduino:samd:tian
+arduino:avr:uno
+arduino:avr:unomini
+arduino:avr:unowifi
+arduino:avr:yun
+arduino:avr:yunmini
+arduino:samd:arduino_zero_native
+arduino:samd:arduino_zero_edbg
+arduino:avr:lilypad
+arduino:avr:LilyPadUSB
+arduino:avr:one</p>
+<p>RPi:
+arduino:mbed_nano:nanorp2040connect</p>
+<p>RPi:
+arduino:mbed_nano:nanorp2040connect</p>
 </section>
 <section id="docs-note">
 <h1>Docs note<a class="headerlink" href="#docs-note" title="Permalink to this heading">#</a></h1>
