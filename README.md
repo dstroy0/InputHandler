@@ -149,6 +149,7 @@ Not supported:
 ATTiny85 -- memory/flash  
 ATMegaNG -- flash  
 adafruit:samd:adafruit_neotrinkey_m0 -- doesn't build  
+adafruit:samd:adafruit_pybadge_airlift_m4 -- doesn't build  
 arduino:samd:nano_33_iot -- doesn't build  
 
 

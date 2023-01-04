@@ -1,0 +1,179 @@
+name: Build tool test_output_cli Adafruit (Arduino CLI)
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/interfaces/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/interfaces/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/interfaces/test_output_cli/**"
+
+jobs:
+  check_formatting:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check code formatting
+        uses: per1234/artistic-style-action@main
+        with:
+          options-file-path: ./examples/examples_formatter.conf
+          name-patterns: |
+            - '*.ino'
+            - '*.cpp'
+            - '*.hpp'
+            - '*.h'
+          target-paths: ${{ matrix.example }}
+
+  build:
+    needs: check_formatting
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        fqbn:
+          - "esp8266:esp8266:gen4iodadafruit_crickit_m0"
+          - "esp32:esp32:esp32cam"
+          - "esp32:esp32:alksesp32"
+          - "esp32:esp32:atmegazero_esp32s2"
+          - "adafruit:samd:adafruit_blm_badge"
+          - "arduino:avr:circuitplay32u4cat"
+          - "arduino:samd:adafruit_circuitplayground_m0"
+          - "adafruit:samd:adafruit_circuitplayground_m0"
+          - "adafruit:samd:adafruit_crickit_m0"
+          - "esp32:esp32:featheresp32"
+          - "esp32:esp32:adafruit_feather_esp32_v2"
+          - "esp32:esp32:adafruit_feather_esp32s2"
+          - "esp32:esp32:adafruit_feather_esp32s2_tft"
+          - "esp32:esp32:adafruit_feather_esp32s3"
+          - "esp8266:esp8266:huzzah"
+          - "adafruit:samd:adafruit_feather_m0"
+          - "adafruit:samd:adafruit_feather_m0_express"
+          - "adafruit:samd:adafruit_feather_m4_can"
+          - "adafruit:samd:adafruit_feather_m4"
+          - "esp32:esp32:adafruit_funhouse_esp32s2"
+          - "adafruit:samd:adafruit_gemma_m0"
+          - "adafruit:samd:adafruit_grandcentral_m4"
+          - "adafruit:samd:adafruit_hallowing"
+          - "adafruit:samd:adafruit_hallowing_m4"
+          - "adafruit:samd:adafruit_itsybitsy_m0"
+          - "adafruit:samd:adafruit_itsybitsy_m4"
+          - "adafruit:samd:adafruit_monster_m4sk"
+          - "esp32:esp32:adafruit_magtag29_esp32s2"
+          - "adafruit:samd:adafruit_matrixportal_m4"
+          - "esp32:esp32:adafruit_metro_esp32s2"
+          - "adafruit:samd:adafruit_metro_m0"
+          - "adafruit:samd:adafruit_metro_m4"
+          - "adafruit:samd:adafruit_metro_m4_airliftlite"
+          - "adafruit:samd:adafruit_neokeytrinkey_m0"
+          - "adafruit:samd:adafruit_neotrinkey_m0"
+          - "adafruit:samd:adafruit_proxlighttrinkey_m0"
+          - "adafruit:samd:adafruit_pygamer_m4"
+          - "adafruit:samd:adafruit_pyportal_m4"
+          - "adafruit:samd:adafruit_pyportal_m4_titano"
+          - "esp32:esp32:adafruit_qtpy_esp32_pico"
+          - "esp32:esp32:adafruit_qtpy_esp32c3"
+          - "esp32:esp32:adafruit_qtpy_esp32s2"
+          - "esp32:esp32:adafruit_qtpy_esp32s3"
+          - "adafruit:samd:adafruit_qtpy_m0"
+          - "adafruit:samd:adafruit_rotarytrinkey_m0"
+          - "adafruit:samd:adafruit_slidetrinkey_m0"
+          - "adafruit:samd:adafruit_trellis_m4"
+          - "adafruit:samd:adafruit_trinket_m0"
+          - "adafruit:samd:adafruit_pirkey"
+          - "adafruit:samd:adafruit_pybadge_airlift_m4"
+          - "adafruit:samd:adafruit_pybadge_m4"
+          - "esp32:esp32:AirM2M_CORE_ESP32C3"
+          - "esp8266:esp8266:wifi_slot"
+          - "esp8266:esp8266:arduino-esp8266"
+          - "arduino:avr:bt"
+          - "arduino:avr:diecimila"
+          - "arduino:avr:esplora"
+          - "arduino:avr:ethernet"
+          - "arduino:avr:fio"
+          - "arduino:avr:gemma"
+          - "arduino:avr:chiwawa"
+          - "arduino:avr:leonardo"
+          - "arduino:avr:leonardoeth"
+          - "arduino:samd:mzero_bl"
+          - "arduino:samd:mzero_pro_bl"
+          - "arduino:samd:mkrfox1200"
+          - "arduino:samd:mkrgsm1400"
+          - "arduino:samd:mkrnb1500"
+          - "arduino:samd:mkrvidor4000"
+          - "arduino:samd:mkrwan1300"
+          - "arduino:samd:mkrwan1310"
+          - "arduino:samd:mkrwifi1010"
+          - "arduino:samd:mkr1000"
+          - "arduino:samd:mkrzero"
+          - "arduino:avr:megaADK"
+          - "arduino:avr:mega"
+          - "arduino:avr:micro"
+          - "arduino:avr:mini"
+          - "arduino:samd:nano_33_iot"
+          - "arduino:avr:atmegang"
+          - "arduino:avr:nano"
+          - "arduino:mbed_nano:nano33ble"
+          - "arduino:mbed_nano:nanorp2040connect"
+          - "arduino:avr:pro"
+          - "arduino:avr:robotControl"
+          - "arduino:avr:robotMotor"
+          - "arduino:samd:tian"
+          - "arduino:avr:uno"
+          - "arduino:avr:unomini"
+          - "arduino:avr:unowifi"
+          - "arduino:avr:yun"
+          - "arduino:avr:yunmini"
+          - "arduino:samd:arduino_zero_native"
+          - "arduino:samd:arduino_zero_edbg"
+          - "esp32:esp32:esp32da"
+          - "esp32:esp32:esp32c3"
+          - "esp32:esp32:esp32s2"
+          - "esp32:esp32:esp32s2usb"
+          - "esp32:esp32:esp32s3camlcd"
+          - "esp32:esp32:esp32s3"
+          - "esp32:esp32:esp32vn-iot-uno"
+          - "esp8266:esp8266:espduino"
+          - "esp32:esp32:espea32"
+          - "esp32:esp32:espectro32"
+          - "esp8266:esp8266:espino"
+          - "esp8266:esp8266:espresso_lite_v1"
+          - "esp8266:esp8266:espresso_lite_v2"
+          - "esp32:esp32:ET-Board"
+          - "esp32:esp32:esp320"
+          - "esp32:esp32:firebeetle32"
+          - "esp32:esp32:franzininho_wifi_esp32s2"
+          - "esp32:esp32:franzininho_wifi_msc_esp32s2"
+          - "esp32:esp32:frogboard"
+          - "esp8266:esp8266:generic"
+          - "esp8266:esp8266:esp8285"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          platforms: |
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+              name: "adafruit:samd"
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}

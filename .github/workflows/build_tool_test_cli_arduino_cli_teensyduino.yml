@@ -1,4 +1,4 @@
-name: Build Teensyduino examples (Arduino CLI)
+name: Build tool test_output_cli Teensyduino (Arduino CLI)
 
 # Controls when the workflow will run
 on:
@@ -6,29 +6,17 @@ on:
     branches:
       - main
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
   workflow_dispatch:
     branches:
       - main
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
   release:
     branches:
       - release
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
 
 jobs:
   check_formatting:
@@ -36,13 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        example:
-          [
-            "/examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
-            "/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
-            "/examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
-            "/examples/all_platforms/advanced/WildcardCommands/WildcardCommands.ino",
-          ]
+        example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
 
     steps:
       - name: Checkout
