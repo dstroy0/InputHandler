@@ -51,6 +51,7 @@ jobs:
       - name: Run PlatformIO
         run: pio ci 
           --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
+          --project-option="build_flags -I tools/interfaces/test_output_cli/pio_ci/lib/CLI"
           --environment=teensy31
           --environment=teensy35
           --environment=teensy36
