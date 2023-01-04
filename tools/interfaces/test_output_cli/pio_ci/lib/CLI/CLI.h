@@ -19,7 +19,7 @@
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
     #include "cli_InputHandler.h"
-    #include "cli_InputHandler.cpp"
+    
     #include "functions.h"
     #include "parameters.h"
 
