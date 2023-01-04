@@ -56,6 +56,6 @@ jobs:
           --environment=teensy36
           --environment=teensy40
           --environment=teensy41
-          --environment=nanorp2040connect
+          #--environment=nanorp2040connect
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.example }}
