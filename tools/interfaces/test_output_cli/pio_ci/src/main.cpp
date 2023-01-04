@@ -3,7 +3,7 @@
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief to test cli_gen_tool.py output
    @version 0.9
-   @date 2023-01-02
+   @date 2023-01-04
 
    @copyright Copyright (c) 2022
 */
