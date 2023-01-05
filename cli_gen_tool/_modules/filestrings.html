@@ -345,12 +345,12 @@
 <span class="s2">* version 3 as published by the Free Software Foundation.</span>
 <span class="s2">*/</span>
 <span class="s2">&quot;&quot;&quot;</span>
+
     <span class="c1">## setup.h filestring</span>
     <span class="n">setup_h_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">#if !defined(__CLI_SETUP__)</span>
 <span class="s2">    #define __CLI_SETUP__</span>
-<span class="s2">    #include &quot;cli_InputHandler.h&quot;</span>
-<span class="s2">    #include &quot;cli_InputHandler.cpp&quot;</span>
+<span class="s2">    #include &quot;cli_InputHandler.h&quot;</span><span class="si">{arduino_compatibility}</span>
 <span class="s2">    #include &quot;functions.h&quot;</span>
 <span class="s2">    #include &quot;parameters.h&quot;</span>
 
@@ -424,10 +424,7 @@
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## functions.cpp function format string</span>
-    <span class="n">functions_cpp_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">)</span>
-<span class="s2">{{</span><span class="si">{statements}</span>
-<span class="s2">}}</span>
-
+    <span class="n">functions_cpp_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">){{</span><span class="si">{statements}</span><span class="s2">}}</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## functions.cpp filestring</span>
     <span class="n">functions_cpp_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -521,6 +518,7 @@
         <span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;arduino compatibility&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    #include </span><span class="se">\&quot;</span><span class="s2">cli_InputHandler.cpp</span><span class="se">\&quot;\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;outputbuffer&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">char </span><span class="si">{outputbuffername}</span><span class="s2">[</span><span class="si">{buffersize}</span><span class="s2">] = </span><span class="si">{bufferchar}</span><span class="s2">; // output buffer size</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;classoutput&quot;</span><span class="p">:</span> <span class="s2">&quot;(</span><span class="si">{input_prm}</span><span class="s2">, </span><span class="si">{outputbuffer}</span><span class="s2">, buffsz(</span><span class="si">{outputbuffer}</span><span class="s2">))&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;UserInput </span><span class="si">{objectname}{classoutput}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -574,18 +572,18 @@
             <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s2">&quot;function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">extern void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;filestring&quot;</span><span class="p">:</span> <span class="n">functions_h_fs</span><span class="p">,</span>
             <span class="p">},</span>  <span class="c1"># end functions h</span>
             <span class="s2">&quot;cpp&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s2">&quot;outputToStream&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;outputToStream(</span><span class="si">{stream}</span><span class="s2">);&quot;</span>
+                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;outputToStream(</span><span class="si">{stream}</span><span class="s2">);&quot;</span>
                     <span class="p">},</span>
-                    <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;listCommands();&quot;</span><span class="p">},</span>
+                    <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listCommands();&quot;</span><span class="p">},</span>
                     <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings(_</span><span class="si">{objectname}</span><span class="s2">);&quot;</span>
+                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings(_</span><span class="si">{objectname}</span><span class="s2">);&quot;</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">functions_cpp_function_string</span><span class="p">,</span>
                 <span class="p">},</span>
