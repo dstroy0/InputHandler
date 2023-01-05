@@ -67,6 +67,6 @@ void InputHandler_loop()
     inputHandler.getCommandFromStream(Serial); // parse input
     inputHandler.outputToStream(Serial);       // class output
 }
-
+    #include "cli_InputHandler.cpp"
 #endif
 // end of file

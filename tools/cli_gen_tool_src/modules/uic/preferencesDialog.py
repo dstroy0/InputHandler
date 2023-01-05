@@ -18,13 +18,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QCheckBox, QComboBox,
     QDialog, QDialogButtonBox, QFormLayout, QFrame,
     QGridLayout, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QWidget)
+    QRadioButton, QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_Preferences(object):
     def setupUi(self, Preferences):
         if not Preferences.objectName():
             Preferences.setObjectName(u"Preferences")
-        Preferences.resize(440, 323)
+        Preferences.resize(530, 337)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Preferences.sizePolicy().hasHeightForWidth())
+        Preferences.setSizePolicy(sizePolicy)
+        Preferences.setMinimumSize(QSize(530, 337))
         self.gridLayout_3 = QGridLayout(Preferences)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.frame_4 = QFrame(Preferences)
@@ -35,11 +41,11 @@ class Ui_Preferences(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.label = QLabel(self.frame_4)
         self.label.setObjectName(u"label")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy1)
         self.label.setMinimumSize(QSize(120, 0))
         self.label.setMaximumSize(QSize(120, 25))
         self.label.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
@@ -48,19 +54,19 @@ class Ui_Preferences(object):
 
         self.output_path_input = QLineEdit(self.frame_4)
         self.output_path_input.setObjectName(u"output_path_input")
-        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.output_path_input.sizePolicy().hasHeightForWidth())
-        self.output_path_input.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.output_path_input.sizePolicy().hasHeightForWidth())
+        self.output_path_input.setSizePolicy(sizePolicy2)
         self.output_path_input.setMinimumSize(QSize(0, 0))
 
         self.gridLayout.addWidget(self.output_path_input, 2, 1, 1, 1)
 
         self.label_6 = QLabel(self.frame_4)
         self.label_6.setObjectName(u"label_6")
-        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy1)
         self.label_6.setMinimumSize(QSize(120, 0))
         self.label_6.setMaximumSize(QSize(120, 25))
         self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
@@ -69,8 +75,8 @@ class Ui_Preferences(object):
 
         self.config_path_input = QLineEdit(self.frame_4)
         self.config_path_input.setObjectName(u"config_path_input")
-        sizePolicy1.setHeightForWidth(self.config_path_input.sizePolicy().hasHeightForWidth())
-        self.config_path_input.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.config_path_input.sizePolicy().hasHeightForWidth())
+        self.config_path_input.setSizePolicy(sizePolicy2)
 
         self.gridLayout.addWidget(self.config_path_input, 1, 1, 1, 1)
 
@@ -86,12 +92,46 @@ class Ui_Preferences(object):
 
         self.label_12 = QLabel(self.frame_4)
         self.label_12.setObjectName(u"label_12")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy3)
         self.label_12.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label_12, 0, 0, 1, 3)
 
 
-        self.gridLayout_3.addWidget(self.frame_4, 0, 0, 1, 2)
+        self.gridLayout_3.addWidget(self.frame_4, 0, 0, 1, 1)
+
+        self.frame_5 = QFrame(Preferences)
+        self.frame_5.setObjectName(u"frame_5")
+        sizePolicy1.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
+        self.frame_5.setSizePolicy(sizePolicy1)
+        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.frame_5)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.label_13 = QLabel(self.frame_5)
+        self.label_13.setObjectName(u"label_13")
+        sizePolicy3.setHeightForWidth(self.label_13.sizePolicy().hasHeightForWidth())
+        self.label_13.setSizePolicy(sizePolicy3)
+        self.label_13.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.label_13)
+
+        self.arduinoRadioButton = QRadioButton(self.frame_5)
+        self.arduinoRadioButton.setObjectName(u"arduinoRadioButton")
+
+        self.verticalLayout.addWidget(self.arduinoRadioButton)
+
+        self.platformioRadioButton = QRadioButton(self.frame_5)
+        self.platformioRadioButton.setObjectName(u"platformioRadioButton")
+
+        self.verticalLayout.addWidget(self.platformioRadioButton)
+
+
+        self.gridLayout_3.addWidget(self.frame_5, 0, 1, 1, 1)
 
         self.frame_2 = QFrame(Preferences)
         self.frame_2.setObjectName(u"frame_2")
@@ -121,6 +161,8 @@ class Ui_Preferences(object):
 
         self.label_10 = QLabel(self.frame_2)
         self.label_10.setObjectName(u"label_10")
+        sizePolicy3.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
+        self.label_10.setSizePolicy(sizePolicy3)
         self.label_10.setAlignment(Qt.AlignCenter)
 
         self.formLayout.setWidget(0, QFormLayout.SpanningRole, self.label_10)
@@ -130,6 +172,8 @@ class Ui_Preferences(object):
 
         self.frame_3 = QFrame(Preferences)
         self.frame_3.setObjectName(u"frame_3")
+        sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy1)
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.formLayout_2 = QFormLayout(self.frame_3)
@@ -204,6 +248,8 @@ class Ui_Preferences(object):
 
         self.label_11 = QLabel(self.frame_3)
         self.label_11.setObjectName(u"label_11")
+        sizePolicy3.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
+        self.label_11.setSizePolicy(sizePolicy3)
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.formLayout_2.setWidget(0, QFormLayout.SpanningRole, self.label_11)
@@ -213,9 +259,9 @@ class Ui_Preferences(object):
 
         self.frame = QFrame(Preferences)
         self.frame.setObjectName(u"frame")
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setAutoFillBackground(True)
+        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setAutoFillBackground(False)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.frame)
@@ -242,6 +288,9 @@ class Ui_Preferences(object):
 
         self.label_9 = QLabel(self.frame)
         self.label_9.setObjectName(u"label_9")
+        sizePolicy3.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
+        self.label_9.setSizePolicy(sizePolicy3)
+        self.label_9.setAutoFillBackground(False)
         self.label_9.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.label_9, 0, 0, 1, 2)
@@ -281,6 +330,9 @@ class Ui_Preferences(object):
         self.browse_for_config.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
         self.browse_for_output_dir.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
         self.label_12.setText(QCoreApplication.translate("Preferences", u"Pathing", None))
+        self.label_13.setText(QCoreApplication.translate("Preferences", u"File output structure", None))
+        self.arduinoRadioButton.setText(QCoreApplication.translate("Preferences", u"Arduino", None))
+        self.platformioRadioButton.setText(QCoreApplication.translate("Preferences", u"Platformio", None))
         self.label_7.setText(QCoreApplication.translate("Preferences", u"Stream", None))
         self.default_stream.setText(QCoreApplication.translate("Preferences", u"Serial", None))
         self.default_stream.setPlaceholderText(QCoreApplication.translate("Preferences", u"output stream", None))
@@ -288,7 +340,7 @@ class Ui_Preferences(object):
         self.default_output_buffer_size.setText(QCoreApplication.translate("Preferences", u"700", None))
         self.default_output_buffer_size.setPlaceholderText(QCoreApplication.translate("Preferences", u"buffer size in bytes", None))
         self.label_10.setText(QCoreApplication.translate("Preferences", u"Output", None))
-        self.label_2.setText(QCoreApplication.translate("Preferences", u"Session history", None))
+        self.label_2.setText(QCoreApplication.translate("Preferences", u"Session", None))
         self.sessionHistoryLogLevelComboBox.setItemText(0, QCoreApplication.translate("Preferences", u"DEBUG", u"10"))
         self.sessionHistoryLogLevelComboBox.setItemText(1, QCoreApplication.translate("Preferences", u"INFO", u"20"))
         self.sessionHistoryLogLevelComboBox.setItemText(2, QCoreApplication.translate("Preferences", u"WARNING", u"30"))

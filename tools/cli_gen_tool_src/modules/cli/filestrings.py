@@ -121,12 +121,12 @@ This makes debugging commands easy, it is trivial to disable output after verify
 * version 3 as published by the Free Software Foundation.
 */
 """
+
     ## setup.h filestring
     setup_h_fs = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
-    #include "cli_InputHandler.h"
-    #include "cli_InputHandler.cpp"
+    #include "cli_InputHandler.h"{arduino_compatibility}
     #include "functions.h"
     #include "parameters.h"
 
@@ -200,10 +200,7 @@ void InputHandler_loop()
 // end of file
 """
     ## functions.cpp function format string
-    functions_cpp_function_string = """void {functionname}(UserInput* _{objectname})
-{{{statements}
-}}
-
+    functions_cpp_function_string = """void {functionname}(UserInput* _{objectname}){{{statements}}}
 """
     ## functions.cpp filestring
     functions_cpp_fs = """
@@ -297,6 +294,7 @@ void {functionname}(UserInput* _{objectname})
         "setup": {
             "h": {
                 "filestring components": {
+                    "arduino compatibility": "\n    #include \"cli_InputHandler.cpp\"\n",
                     "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                     "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                     "constructor": "UserInput {objectname}{classoutput};\n",
@@ -350,18 +348,18 @@ void {functionname}(UserInput* _{objectname})
             "h": {
                 "filestring components": {
                     "function prototype": "\nvoid {functionname}(UserInput* _{objectname});",
-                    "return function prototype": "\nvoid {functionname}(UserInput* _{objectname});",
+                    "return function prototype": "\nextern void {functionname}(UserInput* _{objectname});",
                 },
                 "filestring": functions_h_fs,
             },  # end functions h
             "cpp": {
                 "filestring components": {
                     "outputToStream": {
-                        "call": "\n  _{objectname}->outputToStream({stream});"
+                        "call": " _{objectname}->outputToStream({stream});"
                     },
-                    "listCommands": {"call": "\n  _{objectname}->listCommands();"},
+                    "listCommands": {"call": " _{objectname}->listCommands();"},
                     "listSettings": {
-                        "call": "\n  _{objectname}->listSettings(_{objectname});"
+                        "call": " _{objectname}->listSettings(_{objectname});"
                     },
                     "function": functions_cpp_function_string,
                 },

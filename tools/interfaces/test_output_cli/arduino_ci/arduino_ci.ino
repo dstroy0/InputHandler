@@ -8,7 +8,7 @@
    @copyright Copyright (c) 2022
 */
 
-#include "CLI/setup.h"
+#include "CLI/CLI.h"
 
 void test(UserInput* _inputHandler)
 {

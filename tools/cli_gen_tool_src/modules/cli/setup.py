@@ -111,8 +111,9 @@ class cliSetup(object):
         setup_prototype = self.fsdb["setup"]["h"]["filestring components"][
             "prototypes"
         ]["setup"]
-
+        compatibility = ""
         setup_h = self.fsdb["setup"]["h"]["filestring"].format(
+            arduino_compatibility = compatibility,
             objectname=object_name,
             outputbuffer=output_buffer,
             constructor=class_constructor,
