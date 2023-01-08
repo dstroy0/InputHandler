@@ -421,8 +421,7 @@ class CommandParametersMethods(object):
 
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
-        self.update_code("functions.cpp", validated_result["functionName"], True)
-        self.update_code("setup.cpp", validated_result["functionName"], True)
+        self.update_code("CLI.h", validated_result["functionName"], True)
         self.update_code("README.md", validated_result["functionName"], True)
 
     ## command parameters dialog buttonbox reset value

@@ -34,6 +34,7 @@ class PreferencesMethods(object):
         self._parent = self
         self.create_qdialog = self._parent.create_qdialog
         self.cliopt = self._parent.cliOpt
+        self.session = self._parent.session
         self.dlg = self.preferences.dlg
 
         self.builtin_methods = [
@@ -164,8 +165,8 @@ class PreferencesMethods(object):
             if len(dir_component_list) == 0:
                 b = QDialogButtonBox.StandardButton
                 buttons = [b.Open, b.Ok, b.Cancel]
-                button_text = ["Select output path","Ok", "Cancel"]
-                result = self.create_qdialog(                    
+                button_text = ["Select output path", "Ok", "Cancel"]
+                result = self.create_qdialog(
                     "An output path must be selected to generate files.",
                     Qt.AlignCenter,
                     Qt.NoTextInteraction,
@@ -189,12 +190,12 @@ class PreferencesMethods(object):
                     return None
                 elif result == 4:
                     le.clear()
-                    le.setText(self._parent.get_project_dir())            
+                    le.setText(self._parent.get_project_dir())
             else:
                 if os.path.exists(dir):
                     le.clear()
                     le.setText(dir)
-                    self.cliopt["session"]["opt"]["output_dir"]                
+                    self.session["opt"]["output_dir"]
 
         if le.objectName() == "config_path_input":
             if len(dir_component_list) == 2:

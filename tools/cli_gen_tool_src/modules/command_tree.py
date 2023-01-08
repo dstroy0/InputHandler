@@ -594,9 +594,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.logger.info(f"added {command_string} to CommandTreeWidget {parent_string}")
 
         self._parent.update_code("README.md", command_string, True)
-        self._parent.update_code("setup.cpp", command_string, True)
+        self._parent.update_code("CLI.h", command_string, True)
         self._parent.update_code("functions.h", command_string, True)
-        self._parent.update_code("functions.cpp", command_string, True)
         self._parent.update_code("parameters.h", command_string, True)
 
         return command_label
@@ -729,9 +728,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             self.cliopt["builtin methods"]["var"][item.data(0, 0)] = False
 
         self._parent.update_code("README.md", item.data(0, 0), True)
-        self._parent.update_code("setup.cpp", item.data(0, 0), True)
+        self._parent.update_code("CLI.h", item.data(0, 0), True)
         self._parent.update_code("functions.h", item.data(0, 0), True)
-        self._parent.update_code("functions.cpp", item.data(0, 0), True)
         self._parent.update_code("parameters.h", item.data(0, 0), True)
         self.cliopt["commands"]["number of commands"] = str(number_of_commands)
 

@@ -20,7 +20,7 @@
 
     // user configurable items located in src/config/config.h and src/config/advanced_config.h
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
-    #include "config/cli_noedit.h"
+    #include "config/noedit.h"
 
 /**
  * @defgroup typedefs typedefs

@@ -528,15 +528,6 @@ class MainWindow(
         self.settings_tree.viewport().installEventFilter(self)
         self.command_tree.viewport().installEventFilter(self)
 
-        # bring MainWindow to front, even after a restart
-        # close splash and show app
-        # self.splash.close()
-        self.setWindowState(Qt.WindowActive)
-        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
-        # self.show()
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
-        # self.show()
-
         self.logger.info("CLI generation tool ready.")
         self.loading = False
         if self.headless:

@@ -13,6 +13,7 @@
 from __future__ import absolute_import
 
 import os
+import glob
 import shutil
 import datetime
 
@@ -59,7 +60,7 @@ from PySide6.QtWidgets import (
 # external methods and resources
 from modules.cli.clireadme import cliReadme
 from modules.cli.config import cliConfig
-from modules.cli.setup import cliSetup
+from modules.cli.CLI import cliH
 from modules.cli.functions import cliFunctions
 from modules.cli.parameters import cliParameters
 from modules.cli.filestrings import cliFileStrings
@@ -293,7 +294,7 @@ class CodeGeneration(
     cliFileStrings,
     cliReadme,
     cliConfig,
-    cliSetup,
+    cliH,
     cliFunctions,
     cliParameters,
     object,
@@ -315,7 +316,7 @@ class CodeGeneration(
         cliFileStrings.__init__(self)
         cliReadme.__init__(self)
         cliConfig.__init__(self)
-        cliSetup.__init__(self)
+        cliH.__init__(self)
         cliFunctions.__init__(self)
         cliParameters.__init__(self)
 
@@ -435,23 +436,44 @@ class CodeGeneration(
             self.codegen_logger.info("found project dir")
         else:
             project_path = self.get_project_dir()
-        
-        directory = "CLI"
-        cli_path = os.path.join(project_path, directory)
-        directory = "config/config.h"
-        cli_config_h_path = os.path.join(cli_path, directory)
+        if os.path.exists(dst):
+            self.codegen_logger.info("found project dir")
+        else:
+            self.codegen_logger.info("invalid project directory!")
+            return
+
+        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
+        arduino_compatibility = False
+        if file_structure:
+            # arduino
+            arduino_compatibility = True
+        if arduino_compatibility:
+            CodeGeneration.logger.info("arduino file structure")
+        else:
+            CodeGeneration.logger.info("platformio file structure")
+
+        if arduino_compatibility:
+            # arduino
+            cli_path = os.path.join(project_path, "CLI")
+            cli_src_path = os.path.join(cli_path, "src")
+            cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
+        else:
+            # platformio
+            cli_path = os.path.join(project_path, "lib", "CLI")
+            cli_src_path = os.path.join(cli_path, "src")
+            cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
 
         # Create in project dir
         # /CLI/
-        # copy /InputHandler/src/ to project_path/CLI/
+        # copy /InputHandler/src/ to project_path/CLI/src/
         # remove original config.h
         if not os.path.exists(cli_path):
             CodeGeneration.logger.info(
                 "creating dir <CLI> in <" + str(project_path) + ">"
             )
-            shutil.copytree(src_path, cli_path)
+            shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
-            if os.path.exists(cli_path):
+            if os.path.exists(cli_src_path):
                 CodeGeneration.logger.info(
                     "dir <CLI> created in <" + str(project_path) + ">"
                 )
@@ -467,60 +489,8 @@ class CodeGeneration(
                 "dir <CLI> already exists in <" + str(project_path) + ">"
             )
             shutil.rmtree(cli_path)
-            shutil.copytree(src_path, cli_path)
+            shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
-
-        ihh = os.path.join(cli_path, "InputHandler.h")
-        head, tail = os.path.split(ihh)
-        nn = "cli_InputHandler.h"
-        path = os.path.join(head, nn)
-        with open(ihh, "r") as file:
-            filedata = file.read()
-        file.close()
-        filedata = filedata.replace(
-            '#include "config/noedit.h"', '#include "config/cli_noedit.h"'
-        )
-        with open(ihh, "w") as file:
-            file.write(filedata)
-        file.close()
-        os.rename(ihh, path)
-
-        ihcpp = os.path.join(cli_path, "InputHandler.cpp")
-        head, tail = os.path.split(ihcpp)
-        nn = "cli_InputHandler.cpp"
-        path = os.path.join(head, nn)
-        with open(ihcpp, "r") as file:
-            filedata = file.read()
-        file.close()
-        filedata = filedata.replace(
-            '#include "InputHandler.h"', '#include "cli_InputHandler.h"'
-        )
-        with open(ihcpp, "w") as file:
-            file.write(filedata)
-        file.close()
-        os.rename(ihcpp, path)
-
-        ihnoedith = os.path.join(cli_path, "config", "noedit.h")
-        head, tail = os.path.split(ihnoedith)
-        nn = "cli_noedit.h"
-        path = os.path.join(head, nn)
-        with open(ihnoedith, "r") as file:
-            filedata = file.read()
-        file.close()
-        filedata = filedata.replace('#include "config.h"', '#include "cli_config.h"')
-        with open(ihnoedith, "w") as file:
-            file.write(filedata)
-        file.close()
-        os.rename(ihnoedith, path)
-
-        # create in project_path/
-        # CLI_README.md
-        # create in CLI/
-        # setup.h
-        # setup.cpp
-        # functions.h
-        # functions.cpp
-        # parameters.h
 
         files = self.code_preview_dict["files"].keys()
         for filename in files:
@@ -529,13 +499,19 @@ class CodeGeneration(
                 self.write_cli_file(
                     path, self.code_preview_dict["files"][filename], True
                 )
+                path = os.path.join(cli_path, "library.properties")
+                f = {
+                    "file_string": self.fsdb["library"]["properties"][
+                        "filestring"
+                    ].format(lib_version=self.lib_version)
+                }
+                self.write_cli_file(path, f, True)
             elif filename == "config.h":
-                path = os.path.join(cli_path, "config", "cli_" + filename)
                 self.write_cli_file(
-                    path, self.code_preview_dict["files"][filename], True
+                    cli_config_h_path, self.code_preview_dict["files"][filename], True
                 )
             else:
-                path = os.path.join(cli_path, filename)
+                path = os.path.join(cli_src_path, filename)
                 self.write_cli_file(
                     path, self.code_preview_dict["files"][filename], True
                 )
@@ -582,11 +558,10 @@ class CodePreviewWidget(
         self._cursor = parent.qcursor
         self.readme_md = parent.readme_md
         self.config_h = parent.config_h
-        self.setup_h = parent.setup_h
-        self.setup_cpp = parent.setup_cpp
+        self.cli_h = parent.cli_h
+
         self.parameters_h = parent.parameters_h
         self.functions_h = parent.functions_h
-        self.functions_cpp = parent.functions_cpp
 
         self.cliOpt = parent.cliOpt
         self.input_config_file_lines = parent.input_config_file_lines
@@ -685,11 +660,9 @@ class CodePreviewWidget(
     def initial_code_preview(self):
         self.readme_md(None, False)
         self.config_h(None, False)
-        self.setup_h(None, False)
-        self.setup_cpp(None, False)
+        self.cli_h(None, False)
         self.parameters_h(None, False)
         self.functions_h(None, False)
-        self.functions_cpp(None, False)
 
     def item_changed(self, item, column):
         self.active_item = item
@@ -740,16 +713,12 @@ class CodePreviewWidget(
             self.readme_md(item_string, place_cursor)
         if file == "config.h":
             self.config_h(item_string, place_cursor)
-        if file == "setup.h":
-            self.setup_h(item_string, place_cursor)
-        if file == "setup.cpp":
-            self.setup_cpp(item_string, place_cursor)
+        if file == "CLI.h":
+            self.cli_h(item_string, place_cursor)
         if file == "parameters.h":
             self.parameters_h(item_string, place_cursor)
         if file == "functions.h":
             self.functions_h(item_string, place_cursor)
-        if file == "functions.cpp":
-            self.functions_cpp(item_string, place_cursor)
 
     def build_tree(self) -> None:
         for key in self.code_preview_dict["files"]:

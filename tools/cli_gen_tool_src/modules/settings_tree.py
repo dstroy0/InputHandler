@@ -633,10 +633,10 @@ class SettingsTreeWidget(QTreeWidget):
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
 
-            self.update_code("setup.h", object_list[2], True)
+            self.update_code("CLI.h", object_list[2], True)
 
             if object_list[2] == "outputToStream":
-                self.update_code("setup.cpp", object_list[2], True)
+                self.update_code("CLI.h", object_list[2], True)
 
             elif object_list[2] == "defaultFunction":
                 if combobox.currentText() == "Enabled":
@@ -663,9 +663,8 @@ class SettingsTreeWidget(QTreeWidget):
                         self.command_tree.remove_command_from_tree("listSettings")
 
             self.update_code("functions.h", object_list[2], True)
-            self.update_code("functions.cpp", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)
-            self.update_code("setup.cpp", object_list[2], True)
+            self.update_code("CLI.h", object_list[2], True)
 
         if object_list[0] != "builtin methods":
             # _twi = self.currentItem()
@@ -781,20 +780,17 @@ class SettingsTreeWidget(QTreeWidget):
             item.setText(3, str(repr(val)))
             self.cliopt["process output"]["var"][object_data["pos"][2]] = val
             self.log_settings_tree_edit(item, object_data)
-            self.update_code("setup.h", object_data["pos"][2], True)
-            if object_data["pos"][2] == "outputToStream":
-                self.update_code("setup.cpp", object_data["pos"][2], True)
+            self.update_code("CLI.h", object_data["pos"][2], True)
             if object_data["pos"][2] == "defaultFunction":
                 self.update_code("functions.h", object_data["pos"][2], True)
-                self.update_code("functions.cpp", object_data["pos"][2], True)
             return
 
-        # process parameters (setup.h)
+        # process parameters (CLI.h)
         if object_data["pos"][0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
             self.log_settings_tree_edit(item, object_data)
             self.cliopt["process parameters"]["var"][item.text(1)] = val
-            self.update_code("setup.h", val, True)
+            self.update_code("CLI.h", val, True)
             return
 
         # config.h

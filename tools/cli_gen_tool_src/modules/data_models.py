@@ -18,6 +18,49 @@ from collections import OrderedDict
 class dataModels(object):
     ## library version
     version = ""
+
+    ## pio file structure
+    pio_structure = {
+        "project_directory": {
+            "lib": {
+                "CLI": {
+                    "config": {
+                        "files": ["config.h", "noedit.h"],
+                        "utility": {"files": ["freeRam.h", "vsnprintf.h"]},
+                    },
+                    "files": [
+                        "InputHandler.cpp",
+                        "InputHandler.h",
+                        "CLI.h",
+                        "functions.h",
+                        "parameters.h",
+                    ],
+                },
+                "files": ["README.md"],
+            }
+        }
+    }
+
+    ## arduino file structure
+    arduino_structure = {
+        "project_directory": {
+            "CLI": {
+                "config": {
+                    "files": ["config.h", "noedit.h"],
+                    "utility": {"files": ["freeRam.h", "vsnprintf.h"]},
+                },
+                "files": [
+                    "InputHandler.cpp",
+                    "InputHandler.h",
+                    "CLI.h",
+                    "functions.h",
+                    "parameters.h",
+                ],
+            },
+            "files": ["README.md"],
+        }
+    }
+
     ## This is used to create the session json.
     default_session_model = {
         "type": "session",
@@ -195,22 +238,18 @@ class dataModels(object):
         "files": {
             "README.md": copy.deepcopy(generated_filename_sub_dict),
             "config.h": copy.deepcopy(generated_filename_sub_dict),
-            "setup.h": copy.deepcopy(generated_filename_sub_dict),
-            "setup.cpp": copy.deepcopy(generated_filename_sub_dict),
+            "CLI.h": copy.deepcopy(generated_filename_sub_dict),
             "parameters.h": copy.deepcopy(generated_filename_sub_dict),
             "functions.h": copy.deepcopy(generated_filename_sub_dict),
-            "functions.cpp": copy.deepcopy(generated_filename_sub_dict),
         }
     }
 
     minimum_file_len_dict = {
         "README.md": 0,
         "config.h": 0,
-        "setup.h": 57,
-        "setup.cpp": 31,
+        "CLI.h": 57,
         "parameters.h": 27,
         "functions.h": 27,
-        "functions.cpp": 23,
     }
 
     button_sub_dict = {"QPushButton": None, "text": None, "enabled": False}

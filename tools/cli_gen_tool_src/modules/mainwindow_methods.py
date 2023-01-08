@@ -267,6 +267,15 @@ class MainWindowMethods(object):
         self.timer.timeout.connect(
             lambda settings=self.settings: self.readSettings(settings)
         )
+        # bring MainWindow to front, even after a restart
+        # close splash and show app
+        self.timer.timeout.connect(self.setWindowState(Qt.WindowActive))
+        self.timer.timeout.connect(
+            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        )
+        self.timer.timeout.connect(
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+        )
 
     def set_up_log_history_dialog(self, ui):
         # log history dialog
@@ -1061,7 +1070,7 @@ class MainWindowMethods(object):
                 items = table_widget.selectedItems()
                 item = items[0]
                 table_widget.editItem(item)
-                self.update_code("setup.h", object_list[2], True)
+                self.update_code("CLI.h", object_list[2], True)
                 return
             self.settings_tree.editItem(self.settings_tree.currentItem(), 3)
 
@@ -1082,7 +1091,7 @@ class MainWindowMethods(object):
                 if row < table_widget.rowCount():
                     clear_item = table_widget.item(row, 0)
                     clear_item.setText("")
-                    self.update_code("setup.h", object_list[2], True)
+                    self.update_code("CLI.h", object_list[2], True)
                 self.cliOpt["process parameters"]["var"][object_list[2]] = {}
                 for i in range(table_widget.rowCount() - 1):
                     self.cliOpt["process parameters"]["var"][object_list[2]].update(
