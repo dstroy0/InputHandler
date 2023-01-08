@@ -294,7 +294,7 @@ void {functionname}(UserInput* _{objectname})
         "setup": {
             "h": {
                 "filestring components": {
-                    "arduino compatibility": "\n    #include \"cli_InputHandler.cpp\"\n",
+                    "arduino compatibility": '\n    #include "cli_InputHandler.cpp"\n',
                     "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                     "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
                     "constructor": "UserInput {objectname}{classoutput};\n",
