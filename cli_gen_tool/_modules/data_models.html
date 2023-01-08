@@ -242,6 +242,49 @@
 <div class="viewcode-block" id="dataModels"><a class="viewcode-back" href="../modules/data_models.html#data_models.dataModels">[docs]</a><span class="k">class</span> <span class="nc">dataModels</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1">## library version</span>
     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1">## pio file structure</span>
+    <span class="n">pio_structure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;project_directory&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;lib&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;CLI&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;config.h&quot;</span><span class="p">,</span> <span class="s2">&quot;noedit.h&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;utility&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;freeRam.h&quot;</span><span class="p">,</span> <span class="s2">&quot;vsnprintf.h&quot;</span><span class="p">]},</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;InputHandler.cpp&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;InputHandler.h&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;CLI.h&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;functions.h&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;parameters.h&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;README.md&quot;</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">## arduino file structure</span>
+    <span class="n">arduino_structure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;project_directory&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;CLI&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;config.h&quot;</span><span class="p">,</span> <span class="s2">&quot;noedit.h&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;utility&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;freeRam.h&quot;</span><span class="p">,</span> <span class="s2">&quot;vsnprintf.h&quot;</span><span class="p">]},</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;InputHandler.cpp&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;InputHandler.h&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;CLI.h&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;functions.h&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;parameters.h&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;README.md&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
     <span class="c1">## This is used to create the session json.</span>
     <span class="n">default_session_model</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;session&quot;</span><span class="p">,</span>
@@ -419,22 +462,18 @@
         <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;README.md&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
             <span class="s2">&quot;config.h&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
-            <span class="s2">&quot;setup.h&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
-            <span class="s2">&quot;setup.cpp&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
+            <span class="s2">&quot;CLI.h&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
             <span class="s2">&quot;parameters.h&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
             <span class="s2">&quot;functions.h&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
-            <span class="s2">&quot;functions.cpp&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">generated_filename_sub_dict</span><span class="p">),</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="n">minimum_file_len_dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;README.md&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">&quot;config.h&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;setup.h&quot;</span><span class="p">:</span> <span class="mi">57</span><span class="p">,</span>
-        <span class="s2">&quot;setup.cpp&quot;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+        <span class="s2">&quot;CLI.h&quot;</span><span class="p">:</span> <span class="mi">57</span><span class="p">,</span>
         <span class="s2">&quot;parameters.h&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
         <span class="s2">&quot;functions.h&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">&quot;functions.cpp&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">button_sub_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;QPushButton&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
