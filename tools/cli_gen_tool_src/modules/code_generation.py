@@ -68,7 +68,18 @@ from modules.cli.parse_config import ParseInputHandlerConfig
 
 
 class LineNumberArea(QWidget):
+    """Widget specialization to paint linenos
+
+    Args:
+        QWidget (QWidget): widget type to specialize
+    """
+
     def __init__(self, editor) -> None:
+        """the constructor
+
+        Args:
+            editor (CodePreviewBrowser or MarkdownBrowser): the text editor adopting this widget
+        """
         QWidget.__init__(self, editor)
         self._code_editor = editor
 
@@ -81,6 +92,12 @@ class LineNumberArea(QWidget):
 
 ## every code preview text widget is this except the readme
 class CodePreviewBrowser(QPlainTextEdit):
+    """specializes QPlainTextEdit to view generated code
+
+    Args:
+        QPlainTextEdit (QWidget): base class
+    """
+
     # spawns a QTextBrowser with these settings
     def __init__(self, name: str, app: QApplication):
         """Constructor method, each widget must have a unique name
@@ -221,6 +238,12 @@ class CodePreviewBrowser(QPlainTextEdit):
 
 ## the only code preview text widget that uses this class is readme.md
 class MarkDownBrowser(QTextEdit):
+    """specializes QTextEdit to view .md
+
+    Args:
+        QTextEdit (QWidget): base class specialization
+    """
+
     # spawns a QTextBrowser with these settings
     def __init__(self, name: str, app: QApplication):
         """Constructor method, each widget must have a unique name
@@ -299,6 +322,19 @@ class CodeGeneration(
     cliParameters,
     object,
 ):
+    """Generates code for display and writing to disk
+
+    Args:
+        ParseInputHandlerConfig (CodeGeneration): config.h parser
+        cliFileStrings (CodeGeneration): cli filestrings
+        cliReadme (CodeGeneration): generates README.md
+        cliConfig (CodeGeneration): generates config.h
+        cliH (CodeGeneration): generates CLI.h
+        cliFunctions (CodeGeneration): generates functions.h
+        cliParameters (CodeGeneration): generates parameters.h
+        object (object): base object specialization
+    """
+
     def __init__(self) -> None:
         """Constructor method"""
         super(CodeGeneration, self).__init__()
@@ -321,13 +357,22 @@ class CodeGeneration(
         cliParameters.__init__(self)
 
     def parse_config(self):
+        """config parser wrapper"""
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
 
     def initial_code_preview(self):
+        """code preview wrapper"""
         self.tab_1.initial_code_preview()
         self.tab_2.initial_code_preview()
 
     def update_code(self, file: str, item_string: str, place_cursor: bool) -> None:
+        """code update wrapper
+
+        Args:
+            file (str): filename
+            item_string (str): code to highlight
+            place_cursor (bool): place cursor on highlighted code if True.
+        """
         self.tab_1.update_code(file, item_string, place_cursor)
         self.tab_2.update_code(file, item_string, place_cursor)
 
@@ -338,6 +383,14 @@ class CodeGeneration(
         item_string: str,
         place_cursor: bool = False,
     ) -> None:
+        """sets the code string in `filename` widget
+
+        Args:
+            filename (str): cli filename
+            code_string (str): file code
+            item_string (str): highlighted code
+            place_cursor (bool, optional): place cursor on highlighted code if True. Defaults to False.
+        """
         self.tab_1.set_code_string(
             filename,
             code_string,
@@ -352,15 +405,22 @@ class CodeGeneration(
         )
 
     def display_initial_code_preview(self):
+        """displays initial code after loading app"""
         self.tab_1.initial_code_preview()
         self.tab_2.initial_code_preview()
 
     def make_collapse_button(self) -> QPushButton:
+        """makes a QPushButton object that collapses a tree
+
+        Returns:
+            QPushButton: a button
+        """
         button = QPushButton()
         button.setMaximumSize(150, 25)
         return button
 
     def build_code_preview_widgets(self):
+        """builds code preview widgets"""
         container = self.ui.settings_code_preview_container
         container.layout = QVBoxLayout(container)
         container.collapse_button = self.make_collapse_button()
@@ -392,7 +452,16 @@ class CodeGeneration(
         self.tab_2.viewport().installEventFilter(self.tab_2)
 
     ## formats a docstring and returns a list populated with lines of text
-    def generate_docstring_list_for_filename(self, filename, brief):
+    def generate_docstring_list_for_filename(self, filename: str, brief: str) -> list:
+        """makes the docstring for generated files
+
+        Args:
+            filename (str): the filename
+            brief (str): purpose of file
+
+        Returns:
+            list: list of docstring lines to prepend to filename
+        """
         docstring_list = []
         year = str(datetime.date.today())[0:4]
         date = datetime.date.today()
@@ -408,13 +477,31 @@ class CodeGeneration(
         return docstring_list
 
     ## turns a list of text lines into a complete file string where each line ends with newline
-    def list_to_code_string(self, list):
+    def list_to_code_string(self, list: list) -> str:
+        """concatenates strings in a list to each other with a newline at the end
+
+        Args:
+            list (list): list of filelines
+
+        Returns:
+            str: continuous string generated from list arg
+        """
         code_string = ""
         for line in list:
             code_string = code_string + line + "\n"
         return code_string
 
+    # TODO revert on fail
     def generate_cli(self, project_path: str = None) -> int:
+        """generates the platform appropriate CLI in `project_path`
+           set in preferences
+
+        Args:
+            project_path (str, optional): valid os path. Defaults to None.
+
+        Returns:
+            int: 0 on success 1 on fail
+        """
         if project_path == None:
             project_path = self.session["opt"]["output_dir"]
             if project_path == None or project_path == "":
@@ -519,6 +606,16 @@ class CodeGeneration(
     def write_cli_file(
         self, path: str, dict_to_write: dict, create_error_dialog: bool = False
     ) -> int:
+        """writes a file
+
+        Args:
+            path (str): path to file
+            dict_to_write (dict): file dict
+            create_error_dialog (bool, optional): Create error dialog on fail if True. Defaults to False.
+
+        Returns:
+            int: the number of bytes written if successful else -1
+        """
         qfile = QFile(path)
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             CodeGeneration.logger.info("Save " + qfile.fileName() + " error.")
@@ -547,9 +644,25 @@ class CodePreviewWidget(
     QTreeWidget,
     QTreeWidgetItem,
 ):
+    """This is a tree that contains the code preview widgets
+
+    Args:
+        QTreeWidget (QWidget): A convenience class
+        QTreeWidgetItem (QWidget): children of QTreeWidget
+    """
+
+    ## QCursor
     _cursor = ""
 
     def __init__(self, parent, container, code_preview_dict, cliopt) -> None:
+        """the constructor
+
+        Args:
+            parent (QWidget): parent widget
+            container (QPane): tree container
+            code_preview_dict (dict): dict of filestrings
+            cliopt (dict): CLI options dict
+        """
         super(CodePreviewWidget, self).__init__()
 
         self.setParent(container)
@@ -612,6 +725,11 @@ class CodePreviewWidget(
         self.button_toggles()
 
     def item_expanded(self, item: QTreeWidgetItem) -> None:
+        """expand only QTreeWidgetItems that are expandable
+
+        Args:
+            item (QTreeWidgetItem): the item highlighted at the time of the collapse button interaction
+        """
         self.active_item = item
         if self.active_item == self.invisibleRootItem():
             self.selected_text_widget = None
@@ -626,6 +744,7 @@ class CodePreviewWidget(
             ]
 
     def tree_expander(self):
+        """collapse button interaction"""
         text = self.collapse_button.text()
         if text == "Collapse All":
             self.collapseAll()
@@ -643,6 +762,7 @@ class CodePreviewWidget(
             self.active_item.setExpanded(True)
 
     def button_toggles(self):
+        """tree button toggles"""
         if self.active_item == self.invisibleRootItem():
             if self.active_item.isExpanded():
                 self.collapse_button.setText("Collapse All")
@@ -658,6 +778,7 @@ class CodePreviewWidget(
                 self.collapse_button.setText("Expand")
 
     def initial_code_preview(self):
+        """make initial code preview available to user"""
         self.readme_md(None, False)
         self.config_h(None, False)
         self.cli_h(None, False)
@@ -665,6 +786,12 @@ class CodePreviewWidget(
         self.functions_h(None, False)
 
     def item_changed(self, item, column):
+        """tree item iteraction sentinel
+
+        Args:
+            item (QTreeWidgetItem): the item interacted with
+            column (int): column of item interacted with
+        """
         self.active_item = item
         if item.data(0, 0) == None:
             self.selected_text_widget = self.text_widgets[
@@ -676,6 +803,7 @@ class CodePreviewWidget(
             ]
 
     def which_pressed(self):
+        """item interaction detection"""
         self.active_item = self.itemFromIndex(self.currentIndex())
         if self.active_item.data(0, 0) == None:
             self.selected_text_widget = self.text_widgets[
@@ -687,6 +815,7 @@ class CodePreviewWidget(
             ]
 
     def which_clicked(self):
+        """item interaction detection"""
         self.active_item = self.itemFromIndex(self.currentIndex())
         if self.active_item.data(0, 0) == None:
             self.selected_text_widget = self.text_widgets[
@@ -721,6 +850,7 @@ class CodePreviewWidget(
             self.functions_h(item_string, place_cursor)
 
     def build_tree(self) -> None:
+        """builds codepreviewwidgets"""
         for key in self.code_preview_dict["files"]:
             label = QTreeWidgetItem(self.invisibleRootItem(), [key, ""])
             label.setIcon(0, self.fileicon)
@@ -749,6 +879,14 @@ class CodePreviewWidget(
         item_string: str,
         place_cursor: bool = False,
     ) -> None:
+        """sets the code string in `filename` widget
+
+        Args:
+            filename (str): the filename
+            code_string (str): the code
+            item_string (str): code to highlight
+            place_cursor (bool, optional): place cursor on highlighted code if True. Defaults to False.
+        """
         text_widget = self.text_widgets[filename]["widget"]
 
         if (
@@ -770,6 +908,12 @@ class CodePreviewWidget(
             self.set_text_cursor(text_widget, item_string)
 
     def set_text_cursor(self, text_widget, item_string: str) -> None:
+        """sets the cursor on `item_string` in `text_widget`
+
+        Args:
+            text_widget (CodePreviewBrowser or MarkdownBrowser): the widget to search
+            item_string (str): the text to search for
+        """
         cursor = QTextCursor(text_widget.document().find(item_string))
         cursor.movePosition(cursor.EndOfLine)
         text_widget.setTextCursor(cursor)
@@ -778,6 +922,14 @@ class CodePreviewWidget(
         text_widget.ensureCursorVisible()
 
     def get_vertical_drag_icon_geometry(self, widget_qrect: QRect) -> QRect:
+        """makes the interactive box to resize code preview widgets
+
+        Args:
+            widget_qrect (QRect): size of individual widgets in the tree
+
+        Returns:
+            QRect: size and position descriptor
+        """
         return QRect(
             20,
             widget_qrect.y() + widget_qrect.height() - 4,
@@ -786,6 +938,11 @@ class CodePreviewWidget(
         )
 
     def resize_code_preview_tree_item(self, mouse_pos: QCursor) -> None:
+        """resizes code preview tree items
+
+        Args:
+            mouse_pos (QCursor): position of the mouse
+        """
         y_axis = self.init_height + (mouse_pos.y() - self.init_mouse_pos.y())
         self.drag_resize_qsize.setHeight(y_axis)
         self.selected_drag_to_resize_item.setSizeHint(0, self.drag_resize_qsize)

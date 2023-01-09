@@ -15,7 +15,6 @@ from __future__ import absolute_import
 # imports
 import copy
 import json
-from collections import OrderedDict
 
 # pyside imports
 from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, QByteArray

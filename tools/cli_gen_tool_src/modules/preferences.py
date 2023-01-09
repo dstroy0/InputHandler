@@ -12,11 +12,9 @@
 
 from __future__ import absolute_import
 import os
-import sys
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import (
-    QFileDialog,
+from PySide6.QtWidgets import (    
     QLineEdit,
     QDialogButtonBox,
     QDialog,
@@ -195,7 +193,7 @@ class PreferencesMethods(object):
                 if os.path.exists(dir):
                     le.clear()
                     le.setText(dir)
-                    self.session["opt"]["output_dir"]
+                    self.session["opt"]["output_dir"] = dir
 
         if le.objectName() == "config_path_input":
             if len(dir_component_list) == 2:

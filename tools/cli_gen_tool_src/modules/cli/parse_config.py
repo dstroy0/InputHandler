@@ -21,13 +21,26 @@ from PySide6.QtCore import QRegularExpression
 
 # parse inputhandler config
 class ParseInputHandlerConfig(object):
+    """InputHandler config.h parser
+
+    Args:
+        object (object): base object specialization
+    """
+
     ## the constructor
     def __init__(self) -> None:
+        """the constructor"""
         super(ParseInputHandlerConfig, self).__init__()
         ParseInputHandlerConfig.logger = self.get_child_logger(__name__)
 
     ## parses input config files for use
-    def parse_config_header_file(self, path):
+    def parse_config_header_file(self, path: str):
+        """parses the config at path if path is not None,
+           if path is None, parse the config in the library
+
+        Args:
+            path (str): a valid os path
+        """
         ParseInputHandlerConfig.logger.debug("Attempt parse config.h")
 
         config_path = ""

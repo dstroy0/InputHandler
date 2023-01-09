@@ -15,6 +15,21 @@ from __future__ import absolute_import
 # TODO move license string to its own variable
 ## file construction strings
 class cliFileStrings(object):
+    """contains all cli filestrings except config.h which is read from the lib root/src/config and regenerated
+
+    Args:
+        object (object): base object specialization
+    """
+
+    ## the constructor
+    def __init__(self) -> None:
+        """the constructor"""
+        super(cliFileStrings, self).__init__()
+        cliFileStrings.version = self.version
+        self.version = self.version
+        cliFileStrings.lib_version = self.lib_version
+        self.lib_version = self.lib_version
+
     ## library version
     lib_version = ""
     ## version is implanted in all docstrings
@@ -358,14 +373,6 @@ void {functionname}(UserInput* _{objectname})
         },  # end parameters
         "library": {"properties": {"filestring": lib_properties}},
     }
-
-    ## the constructor
-    def __init__(self) -> None:
-        super(cliFileStrings, self).__init__()
-        cliFileStrings.version = self.version
-        self.version = self.version
-        cliFileStrings.lib_version = self.lib_version
-        self.lib_version = self.lib_version
 
 
 # end of file

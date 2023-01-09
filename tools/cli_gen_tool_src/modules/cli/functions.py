@@ -12,12 +12,25 @@
 
 
 class cliFunctions(object):
+    """functions.h generator
+
+    Args:
+        object (object): base object specialization
+    """
+
     ## the constructor
     def __init__(self) -> None:
+        """the constructor"""
         super(cliFunctions, self).__init__()
 
     ## update the text for functions.h
-    def functions_h(self, item_string, place_cursor=False):
+    def functions_h(self, item_string: str, place_cursor: bool = False) -> None:
+        """generates the file functions.h
+
+        Args:
+            item_string (str): code to highlight
+            place_cursor (bool, optional): Place cursor on highlighted code if True. Defaults to False.
+        """
         object_name = "inputHandler"
         self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = []
         docstring = self.generate_docstring_list_for_filename(
