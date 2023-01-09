@@ -14,7 +14,7 @@ from __future__ import absolute_import
 import os
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import (    
+from PySide6.QtWidgets import (
     QLineEdit,
     QDialogButtonBox,
     QDialog,
@@ -26,7 +26,14 @@ from PySide6.QtGui import QIcon
 
 
 class PreferencesMethods(object):
+    """preferences dialog methods
+
+    Args:
+        object (object): base object specialization
+    """
+
     def __init__(self) -> None:
+        """the constructor"""
         super(PreferencesMethods, self).__init__()
         PreferencesMethods.logger = self.get_child_logger(__name__)
         self._parent = self
@@ -42,6 +49,7 @@ class PreferencesMethods(object):
         self.builtin_cmb_dict = {}
 
     def get_comboboxes(self):
+        """get builtin method comboboxes"""
         for i in range(len(self.builtin_methods)):
             items = self.settings_tree.findItems(
                 self.builtin_methods[i],
@@ -55,15 +63,22 @@ class PreferencesMethods(object):
             )
 
     def save_preferences(self):
+        """save user preferences"""
         config_path = self.dlg.config_path_input.text()
         PreferencesMethods.logger.info("preferences set")
 
     def reset_preferences(self):
+        """reset preferences to what they were before interaction"""
         config_path = self.session["opt"]["save_filename"]
         self.dlg.config_path_input.setText(str(config_path))
         PreferencesMethods.logger.info("preferences dialog cancelled")
 
     def set_session_history_log_level(self, index):
+        """sets session history log level
+
+        Args:
+            index (int): combobox index
+        """
         index_val = self.dlg.sessionHistoryLogLevelComboBox.currentData()
         Logger.session_history_log_level = index_val
         Logger.set_log_levels(self)
@@ -72,12 +87,22 @@ class PreferencesMethods(object):
         )
 
     def set_file_log_level(self, index):
+        """set file log level
+
+        Args:
+            index (int): combobox index
+        """
         index_val = self.dlg.fileLogLevelComboBox.currentData()
         Logger.file_log_level = index_val
         Logger.set_log_levels(self)
         self.logger.warning("File log level set to : " + Logger.level_lookup[index_val])
 
     def set_stream_log_level(self, index):
+        """set log level
+
+        Args:
+            index (int): combobox index
+        """
         index_val = self.dlg.streamLogLevelComboBox.currentData()
         Logger.stream_log_level = index_val
         Logger.set_log_levels(self)
@@ -86,6 +111,11 @@ class PreferencesMethods(object):
         )
 
     def set_global_log_level(self, index):
+        """set log level
+
+        Args:
+            index (int): combobox index
+        """
         index_val = self.dlg.globalLogLevelComboBox.currentData()
         Logger.file_log_level = index_val
         Logger.set_log_levels(self)
@@ -95,10 +125,17 @@ class PreferencesMethods(object):
 
     # TODO
     def output_preferences(self):
+        """set output preferences"""
         stream = self.dlg.default_stream.text()
         size = self.dlg.default_output_buffer_size.text()
 
     def set_builtin_preference(self, x: int, state: Qt.CheckState):
+        """set builtin preferences
+
+        Args:
+            x (int): combobox index lambda
+            state (Qt.CheckState): bool
+        """
         if x > len(self.builtin_methods):
             PreferencesMethods.logger.warning(
                 "builtin method checkbox index out of range"
@@ -144,6 +181,11 @@ class PreferencesMethods(object):
                 self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
 
     def set_line_edit_text(self, le: QLineEdit):
+        """sets line edit text
+
+        Args:
+            le (QLineEdit): line edit interacted with
+        """
         qdir = QDir()
         dir = qdir.toNativeSeparators(le.text())
         has_file = False
@@ -214,6 +256,7 @@ class PreferencesMethods(object):
         # le.setToolTip(le.text())
 
     def preferences_dialog_setup(self):
+        """sets up preferences dialog"""
         pref_dlg = self.preferences.dlg
         pref_dlg.validatorDict = {
             "default stream": "^([a-zA-Z0-9_*])+$",

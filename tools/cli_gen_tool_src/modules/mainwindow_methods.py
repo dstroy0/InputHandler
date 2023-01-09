@@ -52,7 +52,14 @@ from modules.data_models import dataModels
 
 
 class MainWindowMethods(object):
+    """methods related to MainWindow interaction and operation
+
+    Args:
+        object (object): base object specialization
+    """
+
     def __init__(self) -> None:
+        """the constructor"""
         super(MainWindowMethods, self).__init__()
         MainWindowMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
@@ -62,6 +69,11 @@ class MainWindowMethods(object):
         self.prev_settings_tree_state = 0
 
     def get_project_dir(self) -> str:
+        """get valid os path to project
+
+        Returns:
+            str: valid os path or None
+        """
         dir_dlg = QFileDialog(self)
         _dlg_result = dir_dlg.getExistingDirectory(
             self,
@@ -102,6 +114,7 @@ class MainWindowMethods(object):
         return _result
 
     def get_initial_config_path(self):
+        """get initial path to config"""
         self.old_path = QDir(
             self._parent.session["opt"]["input_config_file_path"]
         ).absolutePath()
@@ -109,6 +122,11 @@ class MainWindowMethods(object):
         self._parent.old_path = self.old_path
 
     def get_config_file(self, config_path: str = None):
+        """gets new valid config file
+
+        Args:
+            config_path (str, optional): path to alternate config. Defaults to None.
+        """
         old_path = self.old_path
         new_path = config_path
         if new_path == None:
@@ -139,6 +157,11 @@ class MainWindowMethods(object):
 
     # visual indication to user of the current working file
     def set_main_window_title(self, title: str = None) -> None:
+        """sets mainwindow title for save status and working filename
+
+        Args:
+            title (str, optional): the text to set. Defaults to None.
+        """
         if self.windowtitle_set:
             return
         elif title != None:
@@ -163,6 +186,15 @@ class MainWindowMethods(object):
             self.windowtitle_set = True
 
     def _eventFilter(self, watched: QObject, event: QEvent) -> bool:
+        """MainWindow event filter
+
+        Args:
+            watched (QObject): object where trigger happened
+            event (QEvent): what happened
+
+        Returns:
+            bool: None
+        """
         # sets main window title
         self.set_main_window_title()
 
@@ -191,6 +223,11 @@ class MainWindowMethods(object):
                 self.command_tree_button_toggles()
 
     def _closeEvent(self, event: QEvent):
+        """do these things on app close
+
+        Args:
+            event (QEvent): closeEvent type
+        """
         MainWindowMethods.logger.info("save app states")
         self.settings.setValue("tab", self.ui.tabWidget.currentIndex())
 
@@ -207,6 +244,11 @@ class MainWindowMethods(object):
         self.do_before_app_close(event)
 
     def _readSettings(self, settings: QSettings):
+        """reats QSettings
+
+        Args:
+            settings (QSettings): app settings
+        """
         MainWindowMethods.logger.info("restore app states")
         self.restoreGeometry(settings.value("geometry"))
         self.restoreState(settings.value("windowState"))
@@ -237,6 +279,7 @@ class MainWindowMethods(object):
         self.settings_tree_button_toggles()
 
     def show_splash(self):
+        """shows app splashscreen if applicable"""
         MainWindowMethods.logger.info("load splash")
         self.splash = QSplashScreen(self.qscreen)
 
@@ -278,6 +321,11 @@ class MainWindowMethods(object):
         )
 
     def set_up_log_history_dialog(self, ui):
+        """sets up session log history dialog
+
+        Args:
+            ui (class): the class that contains the log message widget
+        """
         # log history dialog
         self.log = QDialog()
         self.log.setWindowFlags(Qt.Window)
@@ -297,6 +345,11 @@ class MainWindowMethods(object):
         )
 
     def set_up_main_window(self, ui):
+        """loads UI_MainWindow
+
+        Args:
+            ui (class): MainWindow descriptor
+        """
         # load mainwindow ui
         self.logger.debug("Loading UI_MainWindow()")
         self.ui = ui
@@ -313,6 +366,11 @@ class MainWindowMethods(object):
         )
 
     def set_up_command_parameters_dialog(self, ui):
+        """sets up command parameters dialog
+
+        Args:
+            ui (class): command parameters ui
+        """
         # load command parameters input dialog ui
         self.ui.commandParameters = QDialog(self)
         # blue circle question icon
@@ -383,6 +441,7 @@ class MainWindowMethods(object):
         cmd_dlg.argumentsPane.setEnabled(False)
 
     def set_up_session(self):
+        """sets up user session json"""
         self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
@@ -446,6 +505,7 @@ class MainWindowMethods(object):
                 self.set_main_window_title("InputHandler CLI generation tool ")
 
     def set_up_ui_icons(self):
+        """set up ui icons"""
         # icons
         self.ui.fileDialogContentsViewIcon = (
             QWidget()
@@ -470,6 +530,12 @@ class MainWindowMethods(object):
 
     # do before close
     def do_before_app_close(self, event=None, restarting=False):
+        """do these things before app close
+
+        Args:
+            event (QEvent, optional): event if there is one. Defaults to None.
+            restarting (bool, optional): the app is restarting if True. Defaults to False.
+        """
         MainWindowMethods.logger.debug(str(event))
         if self.write_cli_gen_tool_json() > 0:
             MainWindowMethods.logger.debug("session json saved")
@@ -530,6 +596,12 @@ class MainWindowMethods(object):
                 os.execl(sys.executable, sys.executable, *sys.argv)
 
     def create_file_error_qdialog(self, error_type: str, qfile: QFile):
+        """creates an error dialog
+
+        Args:
+            error_type (str): error description
+            qfile (QFile): file information
+        """
         MainWindowMethods.logger.warning(
             error_type + " " + qfile.fileName() + " error."
         )
@@ -546,6 +618,16 @@ class MainWindowMethods(object):
     def write_json(
         self, dict_to_serialize: dict, qfile: QFile, create_error_dialog: bool = False
     ):
+        """writes a json to disk
+
+        Args:
+            dict_to_serialize (dict): make this dict serializable
+            qfile (QFile): the file to write
+            create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.
+
+        Returns:
+            int: -1 on error or filesize
+        """
         if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
             MainWindowMethods.logger.info("Save " + qfile.fileName() + " error.")
             if create_error_dialog:
@@ -618,6 +700,15 @@ class MainWindowMethods(object):
         return size
 
     def read_json(self, qfile: QFile, create_error_dialog: bool = False):
+        """reads json from disk
+
+        Args:
+            qfile (QFile): file information
+            create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.
+
+        Returns:
+            int: -2 if file doesnt exist, -3 on access error, -4 on zero filesize or invalid json or exception,
+        """
         db = {}
         if not qfile.exists():
             MainWindowMethods.logger.info("qfile.exists() == false")
@@ -650,6 +741,11 @@ class MainWindowMethods(object):
             return [-4, {}]
 
     def save_file(self):
+        """save working file
+
+        Returns:
+            int: filesize on success, -1 on fail, 0 on fail
+        """
         MainWindowMethods.logger.info("save CLI settings file")
         MainWindowMethods.logger.debug("set tool version var in cliOpt")
         self.cliOpt["var"]["tool version"] = self.version
@@ -670,6 +766,11 @@ class MainWindowMethods(object):
         return ret
 
     def save_file_as(self):
+        """save working file as QFileDialog prompt
+
+        Returns:
+            int: filesize
+        """
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg = QFileDialog(self)
         fileName = dlg.getSaveFileName(
@@ -690,6 +791,14 @@ class MainWindowMethods(object):
         return ret
 
     def load_cli_gen_tool_json(self, path):
+        """load session json
+
+        Args:
+            path (str): path to json
+
+        Returns:
+            int: filesize
+        """
         file = QFile(path)
         read_json_result = self.read_json(file, False)
         error = read_json_result[0]
@@ -712,12 +821,22 @@ class MainWindowMethods(object):
         return _json
 
     def write_cli_gen_tool_json(self):
+        """writes session json
+
+        Returns:
+            int: filesize
+        """
         file = QFile(self.cli_gen_tool_json_path)
         err = self.write_json(self.session, file, False)
         return err
 
     # MainWindow actions
     def open_file(self):
+        """open a cli settings json QFileDialog
+
+        Returns:
+            int: filesize
+        """
         MainWindowMethods.logger.info("open CLI settings file dialog")
         # inherit from parent QMainWindow (block main window interaction while dialog box is open)
         dlg = QFileDialog(self)
@@ -749,16 +868,19 @@ class MainWindowMethods(object):
             self.windowtitle_set = False
 
     def gui_settings(self):
+        """opens preferences dialog"""
         MainWindowMethods.logger.info("opened preferences dialog")
         self.preferences.exec()
 
     # TODO
     # generate CLI files
     def generate_cli_files(self):
+        """generates cli files in target directory"""
         MainWindowMethods.logger.info("generate cli files")
         self.generate_cli()
 
     def gui_about(self):
+        """opens an about dialog"""
         MainWindowMethods.logger.info("open about dialog")
         about_string = """<a href=\"https://github.com/dstroy0/InputHandler\">Link to library github</a><br><br>
         Library authors:<br>
@@ -776,6 +898,7 @@ class MainWindowMethods(object):
 
     ## opens an internet browser to the library's documentation
     def gui_documentation(self):
+        """open browser to docs wrapper"""
         MainWindowMethods.logger.info("open GUI documentation")
         os_type = platform.uname().system.lower()  # lowercase os type
         # windows
@@ -790,6 +913,7 @@ class MainWindowMethods(object):
 
     ## opens the log history subwindow
     def gui_log_history(self):
+        """open log history window"""
         if not self.log.isActiveWindow() and not self.log.isVisible():
             self.log.show()
             self.log.raise_()
@@ -801,6 +925,7 @@ class MainWindowMethods(object):
 
     ## MainWindow file menu actions
     def mainwindow_menu_bar_actions_setup(self):
+        """menu bar setup"""
         # file menu actions setup
         # file menu
         self.ui.actionOpen.triggered.connect(self.open_file)
@@ -820,6 +945,7 @@ class MainWindowMethods(object):
 
     ## MainWindow button actions
     def mainwindow_button_actions_setup(self):
+        """MainWindow button actions"""
         # buttons setup
         # tab 1
         self.ui.edit_setting_button.clicked.connect(self.clicked_edit_tab_one)
@@ -841,6 +967,14 @@ class MainWindowMethods(object):
     # end MainWindow actions
 
     def get_tree_state(self, tree: QTreeWidget) -> dict:
+        """gets button state and selected item in tree
+
+        Args:
+            tree (QTreeWidget): tree that was interacted with
+
+        Returns:
+            dict: tree state dict
+        """
         tree_state = copy.deepcopy(dataModels.button_tree_state_dict)
         tree_state["tree"] = tree
         tsi = tree.selectedItems()
@@ -876,6 +1010,11 @@ class MainWindowMethods(object):
         return tree_state
 
     def queue_collapse_button_text(self, button_dict: dict):
+        """queue collapse button text change
+
+        Args:
+            button_dict (dict): button interacted with
+        """
         text = None
         if bool(button_dict["item selected"]) and not bool(
             button_dict["tree"].invisibleRootItem() == button_dict["tree"].currentItem()
@@ -901,6 +1040,12 @@ class MainWindowMethods(object):
             MainWindowMethods.logger.warning("collapse button text empty")
 
     def tree_expander(self, button_text: str, button_dict: dict):
+        """expands tree based off of button information
+
+        Args:
+            button_text (str): text of button
+            button_dict (dict): button information
+        """
         if not bool(button_dict["root item selected"]) and button_text == "Expand":
             button_dict["item selected"].setExpanded(True)
             button_dict["buttons"]["collapse"]["QPushButton"].setText("Collapse")
@@ -915,6 +1060,11 @@ class MainWindowMethods(object):
             button_dict["buttons"]["collapse"]["QPushButton"].setText("Expand All")
 
     def set_tree_button_context(self, button_dict: dict):
+        """contextual button text
+
+        Args:
+            button_dict (dict): button to set
+        """
         for i in button_dict["buttons"]:
             if i != "collapse":
                 butt = button_dict["buttons"][i]
@@ -943,6 +1093,7 @@ class MainWindowMethods(object):
                 butt["QPushButton"].setEnabled(butt["enabled"])
 
     def settings_tree_collapse_button(self):
+        """settings tree collapse button"""
         tree_state = self.get_tree_state(self.settings_tree)
         tree_buttons = self.settings_tree_buttons
         tree_buttons.update(tree_state)
@@ -955,6 +1106,7 @@ class MainWindowMethods(object):
             )
 
     def command_tree_collapse_button(self):
+        """command tree collapse button"""
         tree_state = self.get_tree_state(self.command_tree)
         tree_buttons = self.command_tree_buttons
         tree_buttons.update(tree_state)
@@ -965,6 +1117,7 @@ class MainWindowMethods(object):
         )
 
     def settings_tree_button_toggles(self):
+        """settings tree button toggles"""
         tree_state = self.get_tree_state(self.settings_tree)
 
         if self.prev_settings_tree_state == tree_state:
@@ -1007,6 +1160,7 @@ class MainWindowMethods(object):
         self.set_tree_button_context(tree_buttons)
 
     def command_tree_button_toggles(self):
+        """command tree button toggles"""
         tree_state = self.get_tree_state(self.command_tree)
 
         if self.prev_command_tree_state == tree_state:
@@ -1057,6 +1211,7 @@ class MainWindowMethods(object):
     # MainWindow buttons
     # tab 1
     def clicked_edit_tab_one(self):
+        """MainWindow tab 1 edit button click interaction"""
         MainWindowMethods.logger.info("clicked tab 1 edit")
         if self.settings_tree.currentItem() != None:
             object_list = self.settings_tree.currentItem().data(4, 0).split(",")
@@ -1075,6 +1230,7 @@ class MainWindowMethods(object):
             self.settings_tree.editItem(self.settings_tree.currentItem(), 3)
 
     def clicked_clear_tab_one(self):
+        """MainWindow tab 1 clear button interaction"""
         MainWindowMethods.logger.info("clicked tab 1 clear")
         if self.settings_tree.currentItem() != None:
             object_list = self.settings_tree.currentItem().data(4, 0).split(",")
@@ -1101,6 +1257,7 @@ class MainWindowMethods(object):
             self.settings_tree.currentItem().setData(3, 0, "")
 
     def clicked_default_tab_one(self):
+        """MainWindow tab 1 default button interaction"""
         tree_item = self.settings_tree.currentItem()
         if tree_item != None:
             widget = self.settings_tree.itemWidget(tree_item, 3)
@@ -1138,10 +1295,12 @@ class MainWindowMethods(object):
 
     # tab 2
     def clicked_edit_tab_two(self):
+        """MainWindow tab 2 edit button interaction"""
         MainWindowMethods.logger.info("edit command")
         self.clicked_command_settings_menu_button_tab_two(True)
 
     def clicked_new_cmd_button(self):
+        """MainWindow tab 2 new command button (contextual)"""
         if "(root command)" in self.ui.new_cmd_button.text():
             MainWindowMethods.logger.info(
                 "user clicked new command button with root context"
@@ -1176,6 +1335,15 @@ class MainWindowMethods(object):
             root_child_count = 0
 
             def recursive_childcount(item, child_count):
+                """gets total number of children of an item
+
+                Args:
+                    item (QTreeWidgetItem): selected item
+                    child_count (int): number of children
+
+                Returns:
+                    int: number of children
+                """
                 for row in range(item.childCount()):
                     child_item = item.child(row)
                     if item is not None:
@@ -1197,5 +1365,6 @@ class MainWindowMethods(object):
             self.ui.commandParameters.exec()
 
     def clicked_delete_tab_two(self) -> None:
+        """MainWindow tab 2 delete button interaction"""
         MainWindowMethods.logger.debug("clicked tab two delete")
         self.command_tree.remove_command_from_tree()

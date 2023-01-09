@@ -16,6 +16,22 @@ from collections import OrderedDict
 
 
 class dataModels(object):
+    """app data models
+
+    Args:
+        object (object): base object specialization
+    """
+
+    ## the constructor
+    def __init__(self, version: str) -> None:
+        """the constructor
+
+        Args:
+            version (str): app version
+        """
+        super(dataModels, self).__init__()
+        dataModels.version = version
+
     ## library version
     version = ""
 
@@ -269,11 +285,6 @@ class dataModels(object):
         "table widget": None,
         "combobox widget": None,
     }
-
-    ## the constructor
-    def __init__(self, version) -> None:
-        super(dataModels, self).__init__()
-        dataModels.version = version
 
 
 # end of file

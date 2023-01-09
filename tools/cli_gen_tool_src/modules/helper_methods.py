@@ -26,9 +26,15 @@ from PySide6.QtCore import Qt
 
 # helper method class
 class HelperMethods(object):
+    """helper methods
+
+    Args:
+        object (object): base object specialization
+    """
 
     ## the constructor
     def __init__(self):
+        """the constructor"""
         super(HelperMethods, self).__init__(__name__)
         HelperMethods.helper_logger = self.get_child_logger(__name__)
 
@@ -44,6 +50,21 @@ class HelperMethods(object):
         icon=None,
         screen=None,
     ):
+        """creates a QDialog
+
+        Args:
+            message (str): message content
+            message_text_alignment (Qt): message alignment flags
+            message_text_interaction_flags (Qt): text interaction flags
+            window_title (str, optional): window title. Defaults to None.
+            buttons (list, optional): list of QDialogButtonBox button types. Defaults to None.
+            button_text (list, optional): lsit of button texts. Defaults to None.
+            icon (QIcon, optional): window icon. Defaults to None.
+            screen (QScreen, optional): screen to display QDialog on. Defaults to None.
+
+        Returns:
+            exitcode: QDialog exit code
+        """
         _buttons = []
 
         if not isinstance(self, QWidget):
@@ -127,6 +148,7 @@ class HelperMethods(object):
         return ret
 
     def get_app_screen(self):
+        """get self.app.primaryScreen"""
         self.mainwindow_screen = self.app.primaryScreen()
 
 

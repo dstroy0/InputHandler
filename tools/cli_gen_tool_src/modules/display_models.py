@@ -12,6 +12,12 @@
 
 
 class displayModels(object):
+    """display models and tooltips
+
+    Args:
+        object (object): base object specialization
+    """
+
     ## Display Labels mirror data tree structure. Containers are parents; keys are parent/child labels
     _settings_tree_display = {
         "process output": {
