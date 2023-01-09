@@ -245,13 +245,26 @@
 
 <span class="c1"># parse inputhandler config</span>
 <div class="viewcode-block" id="ParseInputHandlerConfig"><a class="viewcode-back" href="../modules/parse_config.html#parse_config.ParseInputHandlerConfig">[docs]</a><span class="k">class</span> <span class="nc">ParseInputHandlerConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;InputHandler config.h parser</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ParseInputHandlerConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">ParseInputHandlerConfig</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
     <span class="c1">## parses input config files for use</span>
-<div class="viewcode-block" id="ParseInputHandlerConfig.parse_config_header_file"><a class="viewcode-back" href="../modules/parse_config.html#parse_config.ParseInputHandlerConfig.parse_config_header_file">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="ParseInputHandlerConfig.parse_config_header_file"><a class="viewcode-back" href="../modules/parse_config.html#parse_config.ParseInputHandlerConfig.parse_config_header_file">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config_header_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the config at path if path is not None,</span>
+<span class="sd">           if path is None, parse the config in the library</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): a valid os path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ParseInputHandlerConfig</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt parse config.h&quot;</span><span class="p">)</span>
 
         <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>

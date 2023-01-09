@@ -239,6 +239,21 @@
 <span class="c1"># TODO move license string to its own variable</span>
 <span class="c1">## file construction strings</span>
 <div class="viewcode-block" id="cliFileStrings"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.cliFileStrings">[docs]</a><span class="k">class</span> <span class="nc">cliFileStrings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;contains all cli filestrings except config.h which is read from the lib root/src/config and regenerated</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">## the constructor</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">cliFileStrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
+
     <span class="c1">## library version</span>
     <span class="n">lib_version</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="c1">## version is implanted in all docstrings</span>
@@ -581,15 +596,7 @@
             <span class="p">}</span>  <span class="c1"># end parameters h</span>
         <span class="p">},</span>  <span class="c1"># end parameters</span>
         <span class="s2">&quot;library&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;filestring&quot;</span><span class="p">:</span> <span class="n">lib_properties</span><span class="p">}},</span>
-    <span class="p">}</span>
-
-    <span class="c1">## the constructor</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">cliFileStrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
-        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span></div>
+    <span class="p">}</span></div>
 
 
 <span class="c1"># end of file</span>

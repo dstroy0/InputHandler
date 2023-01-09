@@ -236,12 +236,25 @@
 
 
 <div class="viewcode-block" id="cliFunctions"><a class="viewcode-back" href="../modules/cli/functions.html#functions.cliFunctions">[docs]</a><span class="k">class</span> <span class="nc">cliFunctions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;functions.h generator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">cliFunctions</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="c1">## update the text for functions.h</span>
-<div class="viewcode-block" id="cliFunctions.functions_h"><a class="viewcode-back" href="../modules/cli/functions.html#functions.cliFunctions.functions_h">[docs]</a>    <span class="k">def</span> <span class="nf">functions_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">,</span> <span class="n">place_cursor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="cliFunctions.functions_h"><a class="viewcode-back" href="../modules/cli/functions.html#functions.cliFunctions.functions_h">[docs]</a>    <span class="k">def</span> <span class="nf">functions_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">place_cursor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;generates the file functions.h</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item_string (str): code to highlight</span>
+<span class="sd">            place_cursor (bool, optional): Place cursor on highlighted code if True. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">object_name</span> <span class="o">=</span> <span class="s2">&quot;inputHandler&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;functions.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">docstring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_docstring_list_for_filename</span><span class="p">(</span>
