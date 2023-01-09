@@ -244,17 +244,39 @@
 
 <span class="c1">## this class displays the session log history</span>
 <div class="viewcode-block" id="QPlainTextEditLogger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.QPlainTextEditLogger">[docs]</a><span class="k">class</span> <span class="nc">QPlainTextEditLogger</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;session log history</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        logging (logging.Handler): log message handler</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            widget (QWidget): parent widget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">QPlainTextEditLogger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">widget</span>
         <span class="c1"># settings for the widget are in the `logHistoryDialog.ui` file</span>
 
 <div class="viewcode-block" id="QPlainTextEditLogger.emit"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.QPlainTextEditLogger.emit">[docs]</a>    <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;emits changes</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            record (str): log message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">appendPlainText</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">))</span></div></div>
 
 
 <span class="c1">## logging api</span>
 <div class="viewcode-block" id="Logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger">[docs]</a><span class="k">class</span> <span class="nc">Logger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;logging api</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">log_setup_complete</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">level_lookup</span> <span class="o">=</span> <span class="p">{</span>
         <span class="mi">10</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
@@ -275,14 +297,22 @@
     <span class="n">_KB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
     <span class="c1"># mb = 2^2^10 == 1048576 bytes</span>
     <span class="n">_MB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
+    <span class="c1">## log file path</span>
     <span class="n">_log_path</span> <span class="o">=</span> <span class="s2">&quot;/tools/logs/&quot;</span>
+    <span class="c1">## log filename</span>
     <span class="n">_log_filename</span> <span class="o">=</span> <span class="s2">&quot;cli_gen_tool.log&quot;</span>
     <span class="c1"># %(name)s -</span>
+    <span class="c1">## log format</span>
     <span class="n">_log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - [</span><span class="si">%(levelname)s</span><span class="s2">] - (</span><span class="si">%(filename)s</span><span class="s2">).</span><span class="si">%(funcName)s</span><span class="s2">(line:</span><span class="si">%(lineno)d</span><span class="s2">) - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
     <span class="n">_log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">_log_format</span><span class="p">)</span>
 
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (__name__): initiator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Logger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Logger</span><span class="o">.</span><span class="n">log_setup_complete</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -295,6 +325,7 @@
 
     <span class="c1">## This is called to set up the log file handler in MainWindow.__init__()</span>
 <div class="viewcode-block" id="Logger.setup_file_handler"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.setup_file_handler">[docs]</a>    <span class="k">def</span> <span class="nf">setup_file_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up log file handler&quot;&quot;&quot;</span>
         <span class="c1"># logfile pathing</span>
         <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
         <span class="n">_abs_native_path</span> <span class="o">=</span> <span class="n">_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
@@ -318,19 +349,38 @@
 
     <span class="c1">## external modules are children of MainWindow&#39;s logging instance</span>
 <div class="viewcode-block" id="Logger.get_child_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.get_child_logger">[docs]</a>    <span class="k">def</span> <span class="nf">get_child_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;gets child logger for __name__</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (__name__): child name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            logging.Handler: child of self.root_log_handler</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
     <span class="c1">## returns the log_file_handler</span>
 <div class="viewcode-block" id="Logger.get_file_handler"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.get_file_handler">[docs]</a>    <span class="k">def</span> <span class="nf">get_file_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;gets the log file handler</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            logging.Handler: self.file_log_handler</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_log_handler</span></div>
 
     <span class="c1">## sets up window log history</span>
 <div class="viewcode-block" id="Logger.set_up_window_history_logger"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.set_up_window_history_logger">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_window_history_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up session log history app window</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            widget (QWidget): session log history container</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_log_handler</span> <span class="o">=</span> <span class="n">QPlainTextEditLogger</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_log_handler</span><span class="p">)</span></div>
 
     <span class="c1">## sets handler log levels</span>
 <div class="viewcode-block" id="Logger.set_log_levels"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.set_log_levels">[docs]</a>    <span class="k">def</span> <span class="nf">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets log levels&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span><span class="p">)</span>

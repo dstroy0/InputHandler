@@ -250,9 +250,15 @@
 
 <span class="c1"># helper method class</span>
 <div class="viewcode-block" id="HelperMethods"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods">[docs]</a><span class="k">class</span> <span class="nc">HelperMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;helper methods</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="n">HelperMethods</span><span class="o">.</span><span class="n">helper_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -268,6 +274,21 @@
         <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">screen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;creates a QDialog</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): message content</span>
+<span class="sd">            message_text_alignment (Qt): message alignment flags</span>
+<span class="sd">            message_text_interaction_flags (Qt): text interaction flags</span>
+<span class="sd">            window_title (str, optional): window title. Defaults to None.</span>
+<span class="sd">            buttons (list, optional): list of QDialogButtonBox button types. Defaults to None.</span>
+<span class="sd">            button_text (list, optional): lsit of button texts. Defaults to None.</span>
+<span class="sd">            icon (QIcon, optional): window icon. Defaults to None.</span>
+<span class="sd">            screen (QScreen, optional): screen to display QDialog on. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            exitcode: QDialog exit code</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_buttons</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">):</span>
@@ -351,6 +372,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
 <div class="viewcode-block" id="HelperMethods.get_app_screen"><a class="viewcode-back" href="../modules/helper_methods.html#helper_methods.HelperMethods.get_app_screen">[docs]</a>    <span class="k">def</span> <span class="nf">get_app_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get self.app.primaryScreen&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">primaryScreen</span><span class="p">()</span></div></div>
 
 

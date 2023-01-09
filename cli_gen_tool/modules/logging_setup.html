@@ -228,6 +228,11 @@
 <dt class="sig sig-object py" id="logging_setup.Logger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logging_setup.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>logging api</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>object (object): base object specialization</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="logging_setup.Logger.file_log_level">
 <span class="sig-name descname"><span class="pre">file_log_level</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#logging_setup.Logger.file_log_level" title="Permalink to this definition">#</a></dt>
@@ -236,12 +241,24 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_child_logger">
 <span class="sig-name descname"><span class="pre">get_child_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_child_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_child_logger" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>gets child logger for __name__</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (__name__): child name</p>
+</dd>
+<dt>Returns:</dt><dd><p>logging.Handler: child of self.root_log_handler</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_file_handler">
 <span class="sig-name descname"><span class="pre">get_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_file_handler" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>gets the log file handler</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>logging.Handler: self.file_log_handler</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="logging_setup.Logger.level_lookup">
@@ -266,17 +283,24 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.set_log_levels">
 <span class="sig-name descname"><span class="pre">set_log_levels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.set_log_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.set_log_levels" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>sets log levels</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.set_up_window_history_logger">
 <span class="sig-name descname"><span class="pre">set_up_window_history_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.set_up_window_history_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.set_up_window_history_logger" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>sets up session log history app window</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>widget (QWidget): session log history container</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.setup_file_handler">
 <span class="sig-name descname"><span class="pre">setup_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.setup_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.setup_file_handler" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>sets up log file handler</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="logging_setup.Logger.stream_log_level">
@@ -289,12 +313,19 @@
 <dt class="sig sig-object py" id="logging_setup.QPlainTextEditLogger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logging_setup.</span></span><span class="sig-name descname"><span class="pre">QPlainTextEditLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#QPlainTextEditLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.QPlainTextEditLogger" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code></p>
+<p>session log history</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>logging (logging.Handler): log message handler</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.QPlainTextEditLogger.emit">
 <span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#QPlainTextEditLogger.emit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.QPlainTextEditLogger.emit" title="Permalink to this definition">#</a></dt>
-<dd><p>Do whatever it takes to actually log the specified logging record.</p>
-<p>This version is intended to be implemented by subclasses and so
-raises a NotImplementedError.</p>
+<dd><p>emits changes</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (str): log message</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

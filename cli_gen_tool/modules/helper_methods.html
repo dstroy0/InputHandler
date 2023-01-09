@@ -228,15 +228,35 @@
 <dt class="sig sig-object py" id="helper_methods.HelperMethods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">helper_methods.</span></span><span class="sig-name descname"><span class="pre">HelperMethods</span></span><a class="reference internal" href="../_modules/helper_methods.html#HelperMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#helper_methods.HelperMethods" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>helper methods</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>object (object): base object specialization</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="helper_methods.HelperMethods.create_qdialog">
 <span class="sig-name descname"><span class="pre">create_qdialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_text_alignment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_text_interaction_flags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buttons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/helper_methods.html#HelperMethods.create_qdialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#helper_methods.HelperMethods.create_qdialog" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>creates a QDialog</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>message (str): message content
+message_text_alignment (Qt): message alignment flags
+message_text_interaction_flags (Qt): text interaction flags
+window_title (str, optional): window title. Defaults to None.
+buttons (list, optional): list of QDialogButtonBox button types. Defaults to None.
+button_text (list, optional): lsit of button texts. Defaults to None.
+icon (QIcon, optional): window icon. Defaults to None.
+screen (QScreen, optional): screen to display QDialog on. Defaults to None.</p>
+</dd>
+<dt>Returns:</dt><dd><p>exitcode: QDialog exit code</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="helper_methods.HelperMethods.get_app_screen">
 <span class="sig-name descname"><span class="pre">get_app_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/helper_methods.html#HelperMethods.get_app_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#helper_methods.HelperMethods.get_app_screen" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>get self.app.primaryScreen</p>
+</dd></dl>
 
 </dd></dl>
 

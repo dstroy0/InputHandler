@@ -240,6 +240,22 @@
 
 
 <div class="viewcode-block" id="dataModels"><a class="viewcode-back" href="../modules/data_models.html#data_models.dataModels">[docs]</a><span class="k">class</span> <span class="nc">dataModels</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;app data models</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">## the constructor</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version (str): app version</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">dataModels</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">dataModels</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+
     <span class="c1">## library version</span>
     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
@@ -492,12 +508,7 @@
         <span class="s2">&quot;child count&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;table widget&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;combobox widget&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="c1">## the constructor</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">dataModels</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">dataModels</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span></div>
+    <span class="p">}</span></div>
 
 
 <span class="c1"># end of file</span>

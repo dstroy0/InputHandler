@@ -238,7 +238,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>    
+<span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QLineEdit</span><span class="p">,</span>
     <span class="n">QDialogButtonBox</span><span class="p">,</span>
     <span class="n">QDialog</span><span class="p">,</span>
@@ -250,7 +250,14 @@
 
 
 <div class="viewcode-block" id="PreferencesMethods"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods">[docs]</a><span class="k">class</span> <span class="nc">PreferencesMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;preferences dialog methods</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object (object): base object specialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PreferencesMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="bp">self</span>
@@ -266,6 +273,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">builtin_cmb_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="PreferencesMethods.get_comboboxes"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.get_comboboxes">[docs]</a>    <span class="k">def</span> <span class="nf">get_comboboxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get builtin method comboboxes&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">)):</span>
             <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
@@ -279,15 +287,22 @@
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.save_preferences"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.save_preferences">[docs]</a>    <span class="k">def</span> <span class="nf">save_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;save user preferences&quot;&quot;&quot;</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;preferences set&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.reset_preferences"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.reset_preferences">[docs]</a>    <span class="k">def</span> <span class="nf">reset_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;reset preferences to what they were before interaction&quot;&quot;&quot;</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_filename&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">config_path_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_path</span><span class="p">))</span>
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;preferences dialog cancelled&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_session_history_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_session_history_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_session_history_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets session history log level</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): combobox index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">sessionHistoryLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -296,12 +311,22 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_file_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_file_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_file_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set file log level</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): combobox index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fileLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File log level set to : &quot;</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">level_lookup</span><span class="p">[</span><span class="n">index_val</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_stream_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_stream_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_stream_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set log level</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): combobox index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">streamLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -310,6 +335,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_global_log_level"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_global_log_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_global_log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set log level</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): combobox index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">index_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">globalLogLevelComboBox</span><span class="o">.</span><span class="n">currentData</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span> <span class="o">=</span> <span class="n">index_val</span>
         <span class="n">Logger</span><span class="o">.</span><span class="n">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -319,10 +349,17 @@
 
     <span class="c1"># TODO</span>
 <div class="viewcode-block" id="PreferencesMethods.output_preferences"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.output_preferences">[docs]</a>    <span class="k">def</span> <span class="nf">output_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set output preferences&quot;&quot;&quot;</span>
         <span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">default_stream</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">default_output_buffer_size</span><span class="o">.</span><span class="n">text</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_builtin_preference"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_builtin_preference">[docs]</a>    <span class="k">def</span> <span class="nf">set_builtin_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CheckState</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set builtin preferences</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (int): combobox index lambda</span>
+<span class="sd">            state (Qt.CheckState): bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">):</span>
             <span class="n">PreferencesMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="s2">&quot;builtin method checkbox index out of range&quot;</span>
@@ -368,6 +405,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;builtin methods&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin_methods</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="PreferencesMethods.set_line_edit_text"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.set_line_edit_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_line_edit_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">le</span><span class="p">:</span> <span class="n">QLineEdit</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets line edit text</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            le (QLineEdit): line edit interacted with</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">qdir</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">()</span>
         <span class="nb">dir</span> <span class="o">=</span> <span class="n">qdir</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
         <span class="n">has_file</span> <span class="o">=</span> <span class="kc">False</span>
@@ -438,6 +480,7 @@
         <span class="c1"># le.setToolTip(le.text())</span>
 
 <div class="viewcode-block" id="PreferencesMethods.preferences_dialog_setup"><a class="viewcode-back" href="../modules/preferences.html#preferences.PreferencesMethods.preferences_dialog_setup">[docs]</a>    <span class="k">def</span> <span class="nf">preferences_dialog_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up preferences dialog&quot;&quot;&quot;</span>
         <span class="n">pref_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span>
         <span class="n">pref_dlg</span><span class="o">.</span><span class="n">validatorDict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;default stream&quot;</span><span class="p">:</span> <span class="s2">&quot;^([a-zA-Z0-9_*])+$&quot;</span><span class="p">,</span>
