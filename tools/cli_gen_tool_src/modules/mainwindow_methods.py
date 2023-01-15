@@ -67,6 +67,16 @@ class MainWindowMethods(object):
         self.old_path = ""
         self.prev_command_tree_state = 0
         self.prev_settings_tree_state = 0
+        
+    def cli_generation_dialog_setup(self, ui):
+        self.ui.generateDialog = QDialog(self)
+        self.ui.generateDialog.setWindowIcon(
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
+        )
+        self.ui.generateDialog.dlg = ui
+        self.ui.generateDialog.dlg.setupUi(self.ui.generateDialog)
+        self.ui.generateDialog.setMaximumSize(0,0)
+        self.ui.generateDialog.dlg.outputPathLineEdit.setText(self.session["opt"]["output_dir"])
 
     def get_project_dir(self) -> str:
         """get valid os path to project

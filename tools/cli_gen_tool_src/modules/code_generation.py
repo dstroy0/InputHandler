@@ -501,7 +501,7 @@ class CodeGeneration(
 
         Returns:
             int: 0 on success 1 on fail
-        """
+        """        
         if project_path == None:
             project_path = self.session["opt"]["output_dir"]
             if project_path == None or project_path == "":
@@ -528,7 +528,13 @@ class CodeGeneration(
         else:
             self.codegen_logger.info("invalid project directory!")
             return
-
+                
+        self.readme_md(None, False)
+        self.config_h(None, False)
+        self.cli_h(None, False)
+        self.parameters_h(None, False)
+        self.functions_h(None, False)
+        
         file_structure = glob.glob(os.path.join(project_path, "*.ino"))
         arduino_compatibility = False
         if file_structure:
@@ -539,6 +545,8 @@ class CodeGeneration(
         else:
             CodeGeneration.logger.info("platformio file structure")
 
+
+        # TODO use file structure in data models for pathing
         if arduino_compatibility:
             # arduino
             cli_path = os.path.join(project_path, "CLI")

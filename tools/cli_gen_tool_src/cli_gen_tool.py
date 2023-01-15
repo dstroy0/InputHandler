@@ -45,6 +45,7 @@ from modules.uic.commandParametersDialog import (
 )  # tab two popup dialog box
 from modules.uic.logHistoryDialog import Ui_logHistoryDialog
 from modules.uic.mainWindow import Ui_MainWindow  # main window with tabs
+from modules.uic.generateCLIDialog import Ui_generateDialog
 
 # external class methods
 from modules.data_models import dataModels
@@ -91,6 +92,9 @@ class RootWidget(QWidget, object):
         self.lib_root_path = self._parent.lib_root_path
         self.headless = self._parent.headless
         self.lib_version = self._parent.lib_version
+        
+        #self.headless_output_path = self._parent.headless_output_path
+        #self.headless_session_path = self._parent.headless_session_path
 
 
 ## set up pathing, logging, splash screen
@@ -187,8 +191,10 @@ class Initialize(HelperMethods, Logger, object):
                     + ">\nis not a cli options json, please enter the full path to a valid cli options json"
                 )
                 sys.exit(0)
+            self.cliOpt = filedata
 
         if bool(args.session):
+            filedata = ""
             self.root_log_handler.info("session json path: " + str(args.session[0]))
             if ".json" not in str(args.session[0]):
                 # no session json
@@ -230,8 +236,10 @@ class Initialize(HelperMethods, Logger, object):
                     + ">\nis not a session json please enter the full path to a valid session json"
                 )
                 sys.exit(0)
+            self.session = filedata
 
         if bool(args.config):
+            filedata = ""
             self.root_log_handler.info(
                 "InputHandler config.h path:\n<" + str(args.config[0]) + ">"
             )
@@ -263,6 +271,9 @@ class Initialize(HelperMethods, Logger, object):
                     + ">\nis not valid, please enter the full path to a valid InputHandler config.h"
                 )
                 sys.exit(0)
+            self.session["opt"]["input_config_file_path"] = os.path.abspath(
+                args.config[0]
+            )
 
         # GUI container
         app = QApplication(sys.argv)
@@ -280,6 +291,7 @@ class Initialize(HelperMethods, Logger, object):
             sys.exit(0)
 
         self.get_app_screen()
+
         self.root_log_handler.info("CLI gen tool pathing")
 
         # set lib root path
@@ -473,8 +485,9 @@ class MainWindow(
         # InputHandler builtin user interactable commands
         self.ih_builtins = ["listSettings", "listCommands"]
 
-        self.set_up_main_window(Ui_MainWindow())
-        MainWindowMethods.__init__(self)
+        if not self.headless:
+            self.set_up_main_window(Ui_MainWindow())
+            MainWindowMethods.__init__(self)
 
         self.set_up_session()
 
@@ -487,12 +500,12 @@ class MainWindow(
             )  # Show app splash for `splashscreen_duration`
             self.show_splash()
 
-        self.set_up_log_history_dialog(Ui_logHistoryDialog())
+            self.set_up_log_history_dialog(Ui_logHistoryDialog())
 
-        # preferences dialog
-        self.preferences = QDialog(self)
-        self.preferences.dlg = Ui_Preferences()
-        self.preferences.dlg.setupUi(self.preferences)
+            # preferences dialog
+            self.preferences = QDialog(self)
+            self.preferences.dlg = Ui_Preferences()
+            self.preferences.dlg.setupUi(self.preferences)
 
         # init and config classes
         self.logger.debug("Importing external classes.")
@@ -503,12 +516,13 @@ class MainWindow(
         PreferencesMethods.__init__(self)
         CodeGeneration.__init__(self)
 
-        self.set_up_ui_icons()
+        if not self.headless:
+            self.set_up_ui_icons()
 
-        # MainWindow actions
-        self.mainwindow_menu_bar_actions_setup()
-        self.mainwindow_button_actions_setup()
-        # end MainWindow actions
+            # MainWindow actions
+            self.mainwindow_menu_bar_actions_setup()
+            self.mainwindow_button_actions_setup()
+            # end MainWindow actions
 
         # settings and command trees
         self.parse_config()
@@ -517,16 +531,17 @@ class MainWindow(
         self.settings_tree = self.build_settings_tree()
         self.command_tree.get_settings_tree()
 
-        self.preferences_dialog_setup()
+        if not self.headless:
+            self.preferences_dialog_setup()
+            self.cli_generation_dialog_setup(Ui_generateDialog())
+            self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
+            self.display_initial_code_preview()
 
-        self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
-
-        self.display_initial_code_preview()
-
-        # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
-        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
-        self.settings_tree.viewport().installEventFilter(self)
-        self.command_tree.viewport().installEventFilter(self)
+        if not self.headless:
+            # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
+            self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
+            self.settings_tree.viewport().installEventFilter(self)
+            self.command_tree.viewport().installEventFilter(self)
 
         self.logger.info("CLI generation tool ready.")
         self.loading = False
