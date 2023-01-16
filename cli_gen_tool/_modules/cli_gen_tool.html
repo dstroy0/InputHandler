@@ -316,9 +316,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_root_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">headless</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_version</span></div></div>
-        
-        <span class="c1">#self.headless_output_path = self._parent.headless_output_path</span>
-        <span class="c1">#self.headless_session_path = self._parent.headless_session_path</span>
+
+        <span class="c1"># self.headless_output_path = self._parent.headless_output_path</span>
+        <span class="c1"># self.headless_session_path = self._parent.headless_session_path</span>
 
 
 <span class="c1">## set up pathing, logging, splash screen</span>
@@ -742,7 +742,7 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_up_ui_icons</span><span class="p">()</span>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">cli_generation_dialog_setup</span><span class="p">(</span><span class="n">Ui_generateDialog</span><span class="p">())</span>
             <span class="c1"># MainWindow actions</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_menu_bar_actions_setup</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_button_actions_setup</span><span class="p">()</span>
@@ -757,7 +757,6 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cli_generation_dialog_setup</span><span class="p">(</span><span class="n">Ui_generateDialog</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">display_initial_code_preview</span><span class="p">()</span>
 
