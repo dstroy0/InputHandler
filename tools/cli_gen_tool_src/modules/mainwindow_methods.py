@@ -17,6 +17,7 @@ import sys
 import copy
 import os
 import json
+import glob
 from json import dumps as json_dumps
 
 from PySide6.QtCore import (
@@ -67,16 +68,62 @@ class MainWindowMethods(object):
         self.old_path = ""
         self.prev_command_tree_state = 0
         self.prev_settings_tree_state = 0
-        
+
+    def generatedialog_set_output_dir(self):
+        project_path = self.get_project_dir()
+        if project_path:
+            self.session["opt"]["output_dir"] = project_path
+            MainWindowMethods.logger.info(
+                "set session output_dir to:\n" + str(project_path)
+            )
+            self.ui.generateDialog.dlg.outputPathLineEdit.setText(
+                self.session["opt"]["output_dir"]
+            )
+
+    def generatedialog_clicked_platformio_file_output_structure(self):
+        MainWindowMethods.logger.info("platformio file output structure selected")
+
+    def generatedialog_clicked_arduino_file_output_structure(self):
+        MainWindowMethods.logger.info("arduino file output structure selected")
+
     def cli_generation_dialog_setup(self, ui):
         self.ui.generateDialog = QDialog(self)
         self.ui.generateDialog.setWindowIcon(
-            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
+            QWidget()
+            .style()
+            .standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
         )
         self.ui.generateDialog.dlg = ui
         self.ui.generateDialog.dlg.setupUi(self.ui.generateDialog)
-        self.ui.generateDialog.setMaximumSize(0,0)
-        self.ui.generateDialog.dlg.outputPathLineEdit.setText(self.session["opt"]["output_dir"])
+        # self.ui.generateDialog.setMaximumSize(0, 0)
+        self.ui.generateDialog.dlg.outputPathLineEdit.setText(
+            self.session["opt"]["output_dir"]
+        )
+        self.ui.generateDialog.dlg.pushButton.clicked.connect(
+            self.generatedialog_set_output_dir
+        )
+        self.ui.generateDialog.dlg.buttonBox.accepted.connect(self.generate_cli_files)
+        self.ui.generateDialog.dlg.buttonBox.rejected.connect(
+            self.ui.generateDialog.close
+        )
+        project_path = self.session["opt"]["output_dir"]
+        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
+        arduino_compatibility = False
+        if file_structure:
+            # arduino
+            arduino_compatibility = True
+        elif project_path.find("sketch"):
+            arduino_compatibility = True
+        if arduino_compatibility:
+            self.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
+        else:
+            self.ui.generateDialog.dlg.platformioRadioButton.setChecked(True)
+        self.ui.generateDialog.dlg.platformioRadioButton.clicked.connect(
+            self.generatedialog_clicked_platformio_file_output_structure
+        )
+        self.ui.generateDialog.dlg.arduinoRadioButton.clicked.connect(
+            self.generatedialog_clicked_arduino_file_output_structure
+        )
 
     def get_project_dir(self) -> str:
         """get valid os path to project
@@ -118,10 +165,11 @@ class MainWindowMethods(object):
         _dir = QDir(_dlg_result)
         _result = _dir.toNativeSeparators(_dir.absolutePath())
         if os.path.exists(_result):
-            self.session["opt"]["output_dir"] = _result
-            MainWindowMethods.logger.info("set output directory to:\n" + str(_result))
-            self._parent.preferences.dlg.output_path_input.setText(_result)
-        return _result
+            MainWindowMethods.logger.info("valid directory selected:\n" + str(_result))
+            return _result
+        else:
+            MainWindowMethods.logger.info("invalid directory selected")
+            return None
 
     def get_initial_config_path(self):
         """get initial path to config"""
@@ -885,7 +933,7 @@ class MainWindowMethods(object):
     # TODO
     # generate CLI files
     def generate_cli_files(self):
-        """generates cli files in target directory"""
+        """generates cli files in self.session["opt"]["output_dir"]"""
         MainWindowMethods.logger.info("generate cli files")
         self.generate_cli()
 
@@ -944,7 +992,7 @@ class MainWindowMethods(object):
         self.ui.actionPreferences.triggered.connect(self.gui_settings)
         self.ui.actionExit.triggered.connect(self.app.quit)
         # generate menu
-        self.ui.actionGenerate_CLI_Files.triggered.connect(self.generate_cli_files)
+        self.ui.actionGenerate_CLI_Files.triggered.connect(self.ui.generateDialog.exec)
         # about menu
         self.ui.actionAbout.triggered.connect(self.gui_about)
         self.ui.actionInputHandler_Documentation.triggered.connect(

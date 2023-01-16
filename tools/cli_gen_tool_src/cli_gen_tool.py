@@ -92,9 +92,9 @@ class RootWidget(QWidget, object):
         self.lib_root_path = self._parent.lib_root_path
         self.headless = self._parent.headless
         self.lib_version = self._parent.lib_version
-        
-        #self.headless_output_path = self._parent.headless_output_path
-        #self.headless_session_path = self._parent.headless_session_path
+
+        # self.headless_output_path = self._parent.headless_output_path
+        # self.headless_session_path = self._parent.headless_session_path
 
 
 ## set up pathing, logging, splash screen
@@ -518,7 +518,7 @@ class MainWindow(
 
         if not self.headless:
             self.set_up_ui_icons()
-
+            self.cli_generation_dialog_setup(Ui_generateDialog())
             # MainWindow actions
             self.mainwindow_menu_bar_actions_setup()
             self.mainwindow_button_actions_setup()
@@ -533,7 +533,6 @@ class MainWindow(
 
         if not self.headless:
             self.preferences_dialog_setup()
-            self.cli_generation_dialog_setup(Ui_generateDialog())
             self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
             self.display_initial_code_preview()
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
+    <width>402</width>
     <height>178</height>
    </rect>
   </property>
@@ -52,6 +52,13 @@
        <widget class="QLineEdit" name="outputPathLineEdit">
         <property name="readOnly">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Change...</string>
         </property>
        </widget>
       </item>

@@ -17,14 +17,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
     QFrame, QGridLayout, QHBoxLayout, QLabel,
-    QLineEdit, QRadioButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+    QLineEdit, QPushButton, QRadioButton, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_generateDialog(object):
     def setupUi(self, generateDialog):
         if not generateDialog.objectName():
             generateDialog.setObjectName(u"generateDialog")
-        generateDialog.resize(314, 178)
+        generateDialog.resize(402, 178)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -58,6 +58,11 @@ class Ui_generateDialog(object):
         self.outputPathLineEdit.setReadOnly(True)
 
         self.horizontalLayout.addWidget(self.outputPathLineEdit)
+
+        self.pushButton = QPushButton(self.frame)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.horizontalLayout.addWidget(self.pushButton)
 
 
         self.verticalLayout.addWidget(self.frame)
@@ -117,6 +122,7 @@ class Ui_generateDialog(object):
     def retranslateUi(self, generateDialog):
         generateDialog.setWindowTitle(QCoreApplication.translate("generateDialog", u"Generate CLI", None))
         self.label.setText(QCoreApplication.translate("generateDialog", u"Output Path:", None))
+        self.pushButton.setText(QCoreApplication.translate("generateDialog", u"Change...", None))
         self.platformioRadioButton.setText(QCoreApplication.translate("generateDialog", u"Platformio", None))
         self.arduinoRadioButton.setText(QCoreApplication.translate("generateDialog", u"Arduino", None))
         self.label_2.setText(QCoreApplication.translate("generateDialog", u"Output File Structure", None))

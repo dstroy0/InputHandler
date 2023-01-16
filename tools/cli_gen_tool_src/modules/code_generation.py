@@ -491,6 +491,20 @@ class CodeGeneration(
             code_string = code_string + line + "\n"
         return code_string
 
+    def detect_output_type(self, project_path):
+        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
+        arduino_compatibility = False
+        if file_structure:
+            # arduino
+            arduino_compatibility = True
+        elif project_path.find("sketch"):
+            arduino_compatibility = True
+        if arduino_compatibility:
+            CodeGeneration.logger.info("arduino file structure")
+        else:
+            CodeGeneration.logger.info("platformio file structure")
+        return arduino_compatibility
+
     # TODO revert on fail
     def generate_cli(self, project_path: str = None) -> int:
         """generates the platform appropriate CLI in `project_path`
@@ -500,22 +514,22 @@ class CodeGeneration(
             project_path (str, optional): valid os path. Defaults to None.
 
         Returns:
-            int: 0 on success 1 on fail
-        """        
+            int:
+        """
         if project_path == None:
             project_path = self.session["opt"]["output_dir"]
-            if project_path == None or project_path == "":
+            if project_path == None or project_path == "" and not self._parent.headless:
                 project_path = self.get_project_dir()
             if project_path == None:
                 self.codegen_logger.info("Output directory not set")
-                return
+                return -1
         qdir = QDir()
         src = qdir.toNativeSeparators(self.lib_root_path + "/src/")
         if qdir.exists(src + "InputHandler.h"):
             self.codegen_logger.info("found library")
         else:
             self.codegen_logger.info("couldn't find library; aborting!")
-            return
+            return -1
         src_path = os.path.abspath(src)
 
         dst = qdir.toNativeSeparators(project_path)
@@ -527,24 +541,15 @@ class CodeGeneration(
             self.codegen_logger.info("found project dir")
         else:
             self.codegen_logger.info("invalid project directory!")
-            return
-                
+            return -1
+
         self.readme_md(None, False)
         self.config_h(None, False)
         self.cli_h(None, False)
         self.parameters_h(None, False)
         self.functions_h(None, False)
-        
-        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
-        arduino_compatibility = False
-        if file_structure:
-            # arduino
-            arduino_compatibility = True
-        if arduino_compatibility:
-            CodeGeneration.logger.info("arduino file structure")
-        else:
-            CodeGeneration.logger.info("platformio file structure")
 
+        arduino_compatibility = self.detect_output_type(project_path)
 
         # TODO use file structure in data models for pathing
         if arduino_compatibility:
@@ -578,7 +583,7 @@ class CodeGeneration(
                     + str(project_path)
                     + "> aborting generation!"
                 )
-                return
+                return -1
         else:
             CodeGeneration.logger.info(
                 "dir <CLI> already exists in <" + str(project_path) + ">"
