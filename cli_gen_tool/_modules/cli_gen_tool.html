@@ -315,10 +315,50 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_root_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">headless</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_version</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_version</span></div>
 
         <span class="c1"># self.headless_output_path = self._parent.headless_output_path</span>
         <span class="c1"># self.headless_session_path = self._parent.headless_session_path</span>
+
+<div class="viewcode-block" id="RootWidget.get_inputhandler_dir_from_user"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.RootWidget.get_inputhandler_dir_from_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_inputhandler_dir_from_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dir_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">_dlg_result</span> <span class="o">=</span> <span class="n">dir_dlg</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+            <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">ShowDirsOnly</span>
+            <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontResolveSymlinks</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">_dlg_result</span> <span class="o">==</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
+            <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">]</span>
+            <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Close this tool&quot;</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
+                <span class="s2">&quot;You must select InputHandler&#39;s root directory to use this tool.&quot;</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">,</span>
+                <span class="s2">&quot;Error, InputHandler&#39;s directory not located!&quot;</span><span class="p">,</span>
+                <span class="n">buttons</span><span class="p">,</span>
+                <span class="n">button_text</span><span class="p">,</span>
+                <span class="n">QIcon</span><span class="p">(</span>
+                    <span class="n">QWidget</span><span class="p">()</span>
+                    <span class="o">.</span><span class="n">style</span><span class="p">()</span>
+                    <span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Need InputHandler&#39;s directory for tool dependencies.&quot;</span><span class="p">)</span>
+
+        <span class="n">_lib_root_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">_dlg_result</span><span class="p">)</span>
+        <span class="n">_file_dir_list</span> <span class="o">=</span> <span class="n">_lib_root_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
+            <span class="n">_lib_root_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">_lib_root_path</span><span class="o">.</span><span class="n">separator</span><span class="p">())</span>
+        <span class="k">if</span> <span class="s2">&quot;InputHandler&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_file_dir_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span></div></div>
 
 
 <span class="c1">## set up pathing, logging, splash screen</span>
@@ -327,6 +367,89 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Initialize</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_cli</span><span class="p">()</span>
+
+        <span class="c1"># GUI container</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_EnableHighDpiScaling</span><span class="p">)</span>
+        <span class="c1"># GUI styling</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">qdarktheme</span><span class="o">.</span><span class="n">load_stylesheet</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">RootWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">HelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating CLI with supplied arguments&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_app_screen</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI gen tool pathing&quot;</span><span class="p">)</span>
+
+        <span class="c1"># set lib root path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_lib_root_path</span><span class="p">()</span>
+        <span class="n">inputhandler_h_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="s2">&quot;InputHandler.h&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inputhandler_h_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">firstline</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;library version&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">firstline</span><span class="p">:</span>
+            <span class="c1"># bad config.h</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;this .h file:</span><span class="se">\n</span><span class="s2">&lt;&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="o">+</span> <span class="s2">&quot;&gt;</span><span class="se">\n</span><span class="s2">is not valid, please enter the full path to a valid InputHandler.h&quot;</span>
+            <span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">firstline</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;library version&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># setup logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_file_handler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading CLI generation tool.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">import_methods</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>  <span class="c1"># pass init object to MainWindow</span>
+        <span class="c1"># exit on user command</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Initialize.set_lib_root_path"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize.set_lib_root_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_lib_root_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+        <span class="n">_file_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">_file_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_file_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Path to me: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">))</span>
+        <span class="n">path_dir_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">separator</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;InputHandler&quot;</span><span class="p">)):</span>
+            <span class="c1"># prompt user for lib dir</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">num_cdup_to_lib_root</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path_dir_list</span><span class="p">))):</span>
+                <span class="k">if</span> <span class="n">path_dir_list</span><span class="p">[</span><span class="n">dirname</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;InputHandler&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="s2">&quot;num dir below InputHandler root: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="n">num_cdup_to_lib_root</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;moving up &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; dir&quot;</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">):</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">cdUp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Lib root path: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()))</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Initialize.script_cli"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize.script_cli">[docs]</a>    <span class="k">def</span> <span class="nf">script_cli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># cli_gen_tool script command line interface</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
             <span class="n">prog</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span>
@@ -498,127 +621,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
                 <span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="p">)</span>
-
-        <span class="c1"># GUI container</span>
-        <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_EnableHighDpiScaling</span><span class="p">)</span>
-        <span class="c1"># GUI styling</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">qdarktheme</span><span class="o">.</span><span class="n">load_stylesheet</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">RootWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">HelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating CLI with supplied arguments&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_app_screen</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI gen tool pathing&quot;</span><span class="p">)</span>
-
-        <span class="c1"># set lib root path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_lib_root_path</span><span class="p">()</span>
-        <span class="n">inputhandler_h_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="s2">&quot;InputHandler.h&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inputhandler_h_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">firstline</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;library version&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">firstline</span><span class="p">:</span>
-            <span class="c1"># bad config.h</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;this .h file:</span><span class="se">\n</span><span class="s2">&lt;&quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="o">+</span> <span class="s2">&quot;&gt;</span><span class="se">\n</span><span class="s2">is not valid, please enter the full path to a valid InputHandler.h&quot;</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">firstline</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;library version&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-
-        <span class="c1"># setup logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setup_file_handler</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading CLI generation tool.&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">import_methods</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>  <span class="c1"># pass init object to MainWindow</span>
-        <span class="c1"># exit on user command</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
-
-<div class="viewcode-block" id="Initialize.set_lib_root_path"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize.set_lib_root_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_lib_root_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
-        <span class="n">_file_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">_file_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_file_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Path to me: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">))</span>
-        <span class="n">path_dir_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">separator</span><span class="p">())</span>
-        <span class="k">if</span> <span class="s2">&quot;InputHandler&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">path_dir_list</span><span class="p">:</span>
-            <span class="c1"># prompt user for lib dir</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">num_cdup_to_lib_root</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path_dir_list</span><span class="p">))):</span>
-                <span class="k">if</span> <span class="n">path_dir_list</span><span class="p">[</span><span class="n">dirname</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;InputHandler&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                        <span class="s2">&quot;num dir below InputHandler root: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="k">break</span>
-                <span class="n">num_cdup_to_lib_root</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;moving up &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; dir&quot;</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_cdup_to_lib_root</span><span class="p">):</span>
-                <span class="n">path</span><span class="o">.</span><span class="n">cdUp</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;Lib root path: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()))</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span></div>
-
-<div class="viewcode-block" id="Initialize.get_inputhandler_dir_from_user"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize.get_inputhandler_dir_from_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_inputhandler_dir_from_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">dir_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">_dlg_result</span> <span class="o">=</span> <span class="n">dir_dlg</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
-            <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">ShowDirsOnly</span>
-            <span class="o">|</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontResolveSymlinks</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">_dlg_result</span> <span class="o">==</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
-            <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Close</span><span class="p">]</span>
-            <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select InputHandler&#39;s directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Close this tool&quot;</span><span class="p">]</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
-                <span class="s2">&quot;You must select InputHandler&#39;s root directory to use this tool.&quot;</span><span class="p">,</span>
-                <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
-                <span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">,</span>
-                <span class="s2">&quot;Error, InputHandler&#39;s directory not located!&quot;</span><span class="p">,</span>
-                <span class="n">buttons</span><span class="p">,</span>
-                <span class="n">button_text</span><span class="p">,</span>
-                <span class="n">QIcon</span><span class="p">(</span>
-                    <span class="n">QWidget</span><span class="p">()</span>
-                    <span class="o">.</span><span class="n">style</span><span class="p">()</span>
-                    <span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">)</span>
-                <span class="p">),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Need InputHandler&#39;s directory for tool dependencies.&quot;</span><span class="p">)</span>
-
-        <span class="n">_lib_root_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="n">_dlg_result</span><span class="p">)</span>
-        <span class="n">_file_dir_list</span> <span class="o">=</span> <span class="n">_lib_root_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
-            <span class="n">_lib_root_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">_lib_root_path</span><span class="o">.</span><span class="n">separator</span><span class="p">())</span>
-        <span class="k">if</span> <span class="s2">&quot;InputHandler&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_file_dir_list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_inputhandler_dir_from_user</span><span class="p">()</span></div></div>
-
+        <span class="k">return</span> <span class="n">args</span></div></div>
 
 <span class="c1"># end Initialize()</span>
 
