@@ -86,9 +86,10 @@ class RootWidget(QWidget, object):
         self.set_up_window_history_logger = self._parent.set_up_window_history_logger
         self.logger = self.root_log_handler
 
-        self.get_inputhandler_dir_from_user = (
-            self._parent.get_inputhandler_dir_from_user
-        )
+        # self.get_inputhandler_dir_from_user = (
+        #     self._parent.get_inputhandler_dir_from_user
+        # )
+        
         self.lib_root_path = self._parent.lib_root_path
         self.headless = self._parent.headless
         self.lib_version = self._parent.lib_version
