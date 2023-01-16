@@ -96,6 +96,46 @@ class RootWidget(QWidget, object):
         # self.headless_output_path = self._parent.headless_output_path
         # self.headless_session_path = self._parent.headless_session_path
 
+    def get_inputhandler_dir_from_user(self):
+        dir_dlg = QFileDialog(self)
+        _dlg_result = dir_dlg.getExistingDirectory(
+            self,
+            "Select InputHandler's directory",
+            "",
+            options=QFileDialog.DontUseNativeDialog
+            | QFileDialog.ShowDirsOnly
+            | QFileDialog.DontResolveSymlinks,
+        )
+        if _dlg_result == QFileDialog.rejected:
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Ok, b.Close]
+            button_text = ["Select InputHandler's directory", "Close this tool"]
+            result = self.root.create_qdialog(
+                "You must select InputHandler's root directory to use this tool.",
+                Qt.AlignCenter,
+                Qt.NoTextInteraction,
+                "Error, InputHandler's directory not located!",
+                buttons,
+                button_text,
+                QIcon(
+                    QWidget()
+                    .style()
+                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
+                ),
+                self.qscreen,
+            )
+            if result == QDialog.Accepted:
+                self.get_inputhandler_dir_from_user()
+            if result == 3:
+                sys.exit("Need InputHandler's directory for tool dependencies.")
+
+        _lib_root_path = QDir(_dlg_result)
+        _file_dir_list = _lib_root_path.toNativeSeparators(
+            _lib_root_path.absolutePath()
+        ).split(_lib_root_path.separator())
+        if "InputHandler" not in _file_dir_list:
+            self.get_inputhandler_dir_from_user()
+
 
 ## set up pathing, logging, splash screen
 class Initialize(HelperMethods, Logger, object):
@@ -103,6 +143,89 @@ class Initialize(HelperMethods, Logger, object):
         super(Initialize, self).__init__()
         Logger.__init__(self, __name__)
 
+        args = self.script_cli()
+
+        # GUI container
+        app = QApplication(sys.argv)
+        app.setAttribute(Qt.AA_EnableHighDpiScaling)
+        # GUI styling
+        app.setStyleSheet(qdarktheme.load_stylesheet())
+        self.app = app
+
+        self.root = RootWidget(self)
+
+        HelperMethods.__init__(self)
+
+        if self.headless:
+            self.root_log_handler.info("Generating CLI with supplied arguments")
+            sys.exit(0)
+
+        self.get_app_screen()
+
+        self.root_log_handler.info("CLI gen tool pathing")
+
+        # set lib root path
+        self.set_lib_root_path()
+        inputhandler_h_path = os.path.join(self.lib_root_path, "src", "InputHandler.h")
+        with open(inputhandler_h_path, "r") as file:
+            firstline = file.readline()
+        file.close()
+        if "library version" not in firstline:
+            # bad config.h
+            self.root_log_handler.warning(
+                "this .h file:\n<"
+                + str(args.config[0])
+                + ">\nis not valid, please enter the full path to a valid InputHandler.h"
+            )
+            sys.exit(0)
+        self.lib_version = (
+            firstline.strip()
+            .replace("/*", "")
+            .replace("*/", "")
+            .replace("library version", "")
+            .replace(" ", "")
+        )
+
+        # setup logger
+        self.setup_file_handler()
+        self.root_log_handler.addHandler(self.get_file_handler())
+
+        self.root_log_handler.info("Loading CLI generation tool.")
+        self.root.import_methods()
+        self.window = MainWindow(self.root)  # pass init object to MainWindow
+        # exit on user command
+        sys.exit(self.app.exec())
+
+    def set_lib_root_path(self):
+        file_path = os.path.abspath(__file__)
+        _file_path = QDir(file_path)
+        self.file_path = _file_path.toNativeSeparators(_file_path.absolutePath())
+        path = QDir(self.file_path)
+        self.root_log_handler.info("Path to me: " + str(self.file_path))
+        path_dir_list = self.file_path.split(path.separator())
+        if not bool(self.file_path.find("InputHandler")):
+            # prompt user for lib dir
+            self.root.get_inputhandler_dir_from_user()
+        else:
+            num_cdup_to_lib_root = 0
+            for dirname in reversed(range(len(path_dir_list))):
+                if path_dir_list[dirname] == "InputHandler":
+                    self.root_log_handler.info(
+                        "num dir below InputHandler root: " + str(num_cdup_to_lib_root)
+                    )
+                    break
+                num_cdup_to_lib_root += 1
+            self.root_log_handler.info(
+                "moving up " + str(num_cdup_to_lib_root) + " dir"
+            )
+            for i in range(num_cdup_to_lib_root):
+                path.cdUp()
+            self.root_log_handler.info(
+                "Lib root path: " + str(path.toNativeSeparators(path.absolutePath()))
+            )
+            self.lib_root_path = path.toNativeSeparators(path.absolutePath())
+
+    def script_cli(self):
         # cli_gen_tool script command line interface
         self.parser = argparse.ArgumentParser(
             prog=os.path.basename(__file__),
@@ -274,127 +397,7 @@ class Initialize(HelperMethods, Logger, object):
             self.session["opt"]["input_config_file_path"] = os.path.abspath(
                 args.config[0]
             )
-
-        # GUI container
-        app = QApplication(sys.argv)
-        app.setAttribute(Qt.AA_EnableHighDpiScaling)
-        # GUI styling
-        app.setStyleSheet(qdarktheme.load_stylesheet())
-        self.app = app
-
-        self.root = RootWidget(self)
-
-        HelperMethods.__init__(self)
-
-        if self.headless:
-            self.root_log_handler.info("Generating CLI with supplied arguments")
-            sys.exit(0)
-
-        self.get_app_screen()
-
-        self.root_log_handler.info("CLI gen tool pathing")
-
-        # set lib root path
-        self.set_lib_root_path()
-        inputhandler_h_path = os.path.join(self.lib_root_path, "src", "InputHandler.h")
-        with open(inputhandler_h_path, "r") as file:
-            firstline = file.readline()
-        file.close()
-        if "library version" not in firstline:
-            # bad config.h
-            self.root_log_handler.warning(
-                "this .h file:\n<"
-                + str(args.config[0])
-                + ">\nis not valid, please enter the full path to a valid InputHandler.h"
-            )
-            sys.exit(0)
-        self.lib_version = (
-            firstline.strip()
-            .replace("/*", "")
-            .replace("*/", "")
-            .replace("library version", "")
-            .replace(" ", "")
-        )
-
-        # setup logger
-        self.setup_file_handler()
-        self.root_log_handler.addHandler(self.get_file_handler())
-
-        self.root_log_handler.info("Loading CLI generation tool.")
-        self.root.import_methods()
-        self.window = MainWindow(self.root)  # pass init object to MainWindow
-        # exit on user command
-        sys.exit(self.app.exec())
-
-    def set_lib_root_path(self):
-        file_path = os.path.abspath(__file__)
-        _file_path = QDir(file_path)
-        self.file_path = _file_path.toNativeSeparators(_file_path.absolutePath())
-        path = QDir(self.file_path)
-        self.root_log_handler.info("Path to me: " + str(self.file_path))
-        path_dir_list = self.file_path.split(path.separator())
-        if "InputHandler" not in path_dir_list:
-            # prompt user for lib dir
-            self.get_inputhandler_dir_from_user()
-        else:
-            num_cdup_to_lib_root = 0
-            for dirname in reversed(range(len(path_dir_list))):
-                if path_dir_list[dirname] == "InputHandler":
-                    self.root_log_handler.info(
-                        "num dir below InputHandler root: " + str(num_cdup_to_lib_root)
-                    )
-                    break
-                num_cdup_to_lib_root += 1
-            self.root_log_handler.info(
-                "moving up " + str(num_cdup_to_lib_root) + " dir"
-            )
-            for i in range(num_cdup_to_lib_root):
-                path.cdUp()
-            self.root_log_handler.info(
-                "Lib root path: " + str(path.toNativeSeparators(path.absolutePath()))
-            )
-            self.lib_root_path = path.toNativeSeparators(path.absolutePath())
-
-    def get_inputhandler_dir_from_user(self):
-        dir_dlg = QFileDialog(self)
-        _dlg_result = dir_dlg.getExistingDirectory(
-            self,
-            "Select InputHandler's directory",
-            "",
-            options=QFileDialog.DontUseNativeDialog
-            | QFileDialog.ShowDirsOnly
-            | QFileDialog.DontResolveSymlinks,
-        )
-        if _dlg_result == QFileDialog.rejected:
-            b = QDialogButtonBox.StandardButton
-            buttons = [b.Ok, b.Close]
-            button_text = ["Select InputHandler's directory", "Close this tool"]
-            result = self.root.create_qdialog(
-                "You must select InputHandler's root directory to use this tool.",
-                Qt.AlignCenter,
-                Qt.NoTextInteraction,
-                "Error, InputHandler's directory not located!",
-                buttons,
-                button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-                ),
-                self.qscreen,
-            )
-            if result == QDialog.Accepted:
-                self.get_inputhandler_dir_from_user()
-            if result == 3:
-                sys.exit("Need InputHandler's directory for tool dependencies.")
-
-        _lib_root_path = QDir(_dlg_result)
-        _file_dir_list = _lib_root_path.toNativeSeparators(
-            _lib_root_path.absolutePath()
-        ).split(_lib_root_path.separator())
-        if "InputHandler" not in _file_dir_list:
-            self.get_inputhandler_dir_from_user()
-
+        return args
 
 # end Initialize()
 
