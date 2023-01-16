@@ -1360,9 +1360,10 @@ class MainWindowMethods(object):
     # tab 2
     def clicked_edit_tab_two(self):
         """MainWindow tab 2 edit button interaction"""
-        MainWindowMethods.logger.info("edit command")
-        self.clicked_command_settings_menu_button_tab_two(True)
-
+        MainWindowMethods.logger.info("edit command")        
+        parameters_key = self.cliOpt["commands"]["index"][self._parent.command_tree.active_item.data(1,0)]["parameters key"]
+        self.edit_existing_command(parameters_key)
+        
     def clicked_new_cmd_button(self):
         """MainWindow tab 2 new command button (contextual)"""
         if "(root command)" in self.ui.new_cmd_button.text():

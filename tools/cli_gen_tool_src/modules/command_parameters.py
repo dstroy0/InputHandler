@@ -12,6 +12,8 @@
 
 from __future__ import absolute_import
 
+import copy
+
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator, QTextCursor, QIcon
@@ -39,6 +41,12 @@ class CommandParametersMethods(object):
     Returns:
         None: None
     """
+
+    ## edit command sentinel
+    editing_existing_command = False
+
+    ## command being edited parameters key
+    existing_command_parameters_key = ""
 
     ## Command parameters dicts are constructed using keys from this list.
     command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
@@ -135,6 +143,7 @@ class CommandParametersMethods(object):
             arg_text = arg_text + arg_list[index] + ","
         text.insertPlainText(arg_text)
 
+    # TODO search entire command tree for duplicate commandString
     ## simple user input validation
     def validate_command_parameters(self) -> dict:
         """validates input command parameters
@@ -366,6 +375,16 @@ class CommandParametersMethods(object):
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
 
+    def edit_existing_command(self, parameters_key):
+        fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
+        command_parameters = self.cliOpt["commands"]["parameters"][parameters_key]
+        for key in fields:
+            fields[key]["value"] = command_parameters[key]
+        self.commandparameters_set_fields(fields)
+        CommandParametersMethods.editing_existing_command = True
+        CommandParametersMethods.existing_command_parameters_key = parameters_key
+        self.ui.commandParameters.exec()
+
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self) -> None:
         """This function is reached when the user clicks `ok` on the CommandParametersDialog"""
@@ -379,6 +398,27 @@ class CommandParametersMethods(object):
             return
         validated_result = {}
         validated_result = validate_result[1]
+        
+        # edit commands
+        if CommandParametersMethods.editing_existing_command == True:
+            CommandParametersMethods.editing_existing_command = False # reset state
+            self.cliOpt["commands"]["parameters"].pop(
+                CommandParametersMethods.existing_command_parameters_key
+            )
+            self.cliOpt["commands"]["parameters"].update(
+                {
+                    CommandParametersMethods.existing_command_parameters_key: validated_result
+                }
+            )
+            CommandParametersMethods.existing_command_parameters_key = "" # reset parameters key
+            self.update_code("parameters.h", validated_result["functionName"], True)
+            self.update_code("functions.h", validated_result["functionName"], True)
+            self.update_code("CLI.h", validated_result["functionName"], True)
+            self.update_code("README.md", validated_result["functionName"], True)
+            self.ui.commandParameters.close()
+            return
+
+        # new commands
         cmd_idx = str(self.cliOpt["commands"]["primary id key"])
         # root command
         if (
@@ -417,12 +457,11 @@ class CommandParametersMethods(object):
             else:
                 CommandParametersMethods.logger.info("couldn't find parent")
 
-        self.ui.commandParameters.close()
-
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
         self.update_code("CLI.h", validated_result["functionName"], True)
         self.update_code("README.md", validated_result["functionName"], True)
+        self.ui.commandParameters.close()
 
     ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self) -> None:
@@ -485,9 +524,11 @@ class CommandParametersMethods(object):
                     self.command_parameters_user_input_objects[key], QComboBox
                 ):
                     self.command_parameters_user_input_objects[key].setCurrentIndex(
-                        "No arguments"
+                        self.command_parameters_user_input_objects[key].findText(
+                            "No arguments"
+                        )
                     )
-                self.command_parameters_user_input_objects[key].setEnabled(True)
+                self.command_parameters_user_input_objects[key].setEnabled(False)
         else:
             for key in _fields:
                 if key in self.command_parameters_user_input_objects:
