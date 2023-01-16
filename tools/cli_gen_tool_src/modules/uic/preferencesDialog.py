@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QCheckBox, QComboBox,
     QDialog, QDialogButtonBox, QFormLayout, QFrame,
     QGridLayout, QLabel, QLineEdit, QPushButton,
-    QRadioButton, QSizePolicy, QVBoxLayout, QWidget)
+    QSizePolicy, QWidget)
 
 class Ui_Preferences(object):
     def setupUi(self, Preferences):
@@ -33,106 +33,6 @@ class Ui_Preferences(object):
         Preferences.setMinimumSize(QSize(530, 337))
         self.gridLayout_3 = QGridLayout(Preferences)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.frame_4 = QFrame(Preferences)
-        self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.gridLayout = QGridLayout(self.frame_4)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.label = QLabel(self.frame_4)
-        self.label.setObjectName(u"label")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy1)
-        self.label.setMinimumSize(QSize(120, 0))
-        self.label.setMaximumSize(QSize(120, 25))
-        self.label.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
-
-        self.output_path_input = QLineEdit(self.frame_4)
-        self.output_path_input.setObjectName(u"output_path_input")
-        sizePolicy2 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.output_path_input.sizePolicy().hasHeightForWidth())
-        self.output_path_input.setSizePolicy(sizePolicy2)
-        self.output_path_input.setMinimumSize(QSize(0, 0))
-
-        self.gridLayout.addWidget(self.output_path_input, 2, 1, 1, 1)
-
-        self.label_6 = QLabel(self.frame_4)
-        self.label_6.setObjectName(u"label_6")
-        sizePolicy1.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy1)
-        self.label_6.setMinimumSize(QSize(120, 0))
-        self.label_6.setMaximumSize(QSize(120, 25))
-        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout.addWidget(self.label_6, 2, 0, 1, 1)
-
-        self.config_path_input = QLineEdit(self.frame_4)
-        self.config_path_input.setObjectName(u"config_path_input")
-        sizePolicy2.setHeightForWidth(self.config_path_input.sizePolicy().hasHeightForWidth())
-        self.config_path_input.setSizePolicy(sizePolicy2)
-
-        self.gridLayout.addWidget(self.config_path_input, 1, 1, 1, 1)
-
-        self.browse_for_config = QPushButton(self.frame_4)
-        self.browse_for_config.setObjectName(u"browse_for_config")
-
-        self.gridLayout.addWidget(self.browse_for_config, 1, 2, 1, 1)
-
-        self.browse_for_output_dir = QPushButton(self.frame_4)
-        self.browse_for_output_dir.setObjectName(u"browse_for_output_dir")
-
-        self.gridLayout.addWidget(self.browse_for_output_dir, 2, 2, 1, 1)
-
-        self.label_12 = QLabel(self.frame_4)
-        self.label_12.setObjectName(u"label_12")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
-        self.label_12.setSizePolicy(sizePolicy3)
-        self.label_12.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label_12, 0, 0, 1, 3)
-
-
-        self.gridLayout_3.addWidget(self.frame_4, 0, 0, 1, 1)
-
-        self.frame_5 = QFrame(Preferences)
-        self.frame_5.setObjectName(u"frame_5")
-        sizePolicy1.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
-        self.frame_5.setSizePolicy(sizePolicy1)
-        self.frame_5.setFrameShape(QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QFrame.Raised)
-        self.verticalLayout = QVBoxLayout(self.frame_5)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label_13 = QLabel(self.frame_5)
-        self.label_13.setObjectName(u"label_13")
-        sizePolicy3.setHeightForWidth(self.label_13.sizePolicy().hasHeightForWidth())
-        self.label_13.setSizePolicy(sizePolicy3)
-        self.label_13.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout.addWidget(self.label_13)
-
-        self.arduinoRadioButton = QRadioButton(self.frame_5)
-        self.arduinoRadioButton.setObjectName(u"arduinoRadioButton")
-
-        self.verticalLayout.addWidget(self.arduinoRadioButton)
-
-        self.platformioRadioButton = QRadioButton(self.frame_5)
-        self.platformioRadioButton.setObjectName(u"platformioRadioButton")
-
-        self.verticalLayout.addWidget(self.platformioRadioButton)
-
-
-        self.gridLayout_3.addWidget(self.frame_5, 0, 1, 1, 1)
-
         self.frame_2 = QFrame(Preferences)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
@@ -161,8 +61,11 @@ class Ui_Preferences(object):
 
         self.label_10 = QLabel(self.frame_2)
         self.label_10.setObjectName(u"label_10")
-        sizePolicy3.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
-        self.label_10.setSizePolicy(sizePolicy3)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
+        self.label_10.setSizePolicy(sizePolicy1)
         self.label_10.setAlignment(Qt.AlignCenter)
 
         self.formLayout.setWidget(0, QFormLayout.SpanningRole, self.label_10)
@@ -172,8 +75,11 @@ class Ui_Preferences(object):
 
         self.frame_3 = QFrame(Preferences)
         self.frame_3.setObjectName(u"frame_3")
-        sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
-        self.frame_3.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy2)
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.formLayout_2 = QFormLayout(self.frame_3)
@@ -248,8 +154,8 @@ class Ui_Preferences(object):
 
         self.label_11 = QLabel(self.frame_3)
         self.label_11.setObjectName(u"label_11")
-        sizePolicy3.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
-        self.label_11.setSizePolicy(sizePolicy3)
+        sizePolicy1.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
+        self.label_11.setSizePolicy(sizePolicy1)
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.formLayout_2.setWidget(0, QFormLayout.SpanningRole, self.label_11)
@@ -259,8 +165,8 @@ class Ui_Preferences(object):
 
         self.frame = QFrame(Preferences)
         self.frame.setObjectName(u"frame")
-        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy2)
         self.frame.setAutoFillBackground(False)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -288,8 +194,8 @@ class Ui_Preferences(object):
 
         self.label_9 = QLabel(self.frame)
         self.label_9.setObjectName(u"label_9")
-        sizePolicy3.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
-        self.label_9.setSizePolicy(sizePolicy3)
+        sizePolicy1.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
+        self.label_9.setSizePolicy(sizePolicy1)
         self.label_9.setAutoFillBackground(False)
         self.label_9.setAlignment(Qt.AlignCenter)
 
@@ -307,6 +213,78 @@ class Ui_Preferences(object):
 
         self.gridLayout_3.addWidget(self.buttonBox, 3, 0, 1, 2)
 
+        self.frame_4 = QFrame(Preferences)
+        self.frame_4.setObjectName(u"frame_4")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
+        self.frame_4.setSizePolicy(sizePolicy3)
+        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Raised)
+        self.gridLayout = QGridLayout(self.frame_4)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.label = QLabel(self.frame_4)
+        self.label.setObjectName(u"label")
+        sizePolicy2.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy2)
+        self.label.setMinimumSize(QSize(120, 0))
+        self.label.setMaximumSize(QSize(120, 25))
+        self.label.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
+
+        self.output_path_input = QLineEdit(self.frame_4)
+        self.output_path_input.setObjectName(u"output_path_input")
+        sizePolicy4 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.output_path_input.sizePolicy().hasHeightForWidth())
+        self.output_path_input.setSizePolicy(sizePolicy4)
+        self.output_path_input.setMinimumSize(QSize(0, 0))
+        self.output_path_input.setReadOnly(True)
+
+        self.gridLayout.addWidget(self.output_path_input, 2, 1, 1, 1)
+
+        self.label_6 = QLabel(self.frame_4)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy2.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy2)
+        self.label_6.setMinimumSize(QSize(120, 0))
+        self.label_6.setMaximumSize(QSize(120, 25))
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_6, 2, 0, 1, 1)
+
+        self.config_path_input = QLineEdit(self.frame_4)
+        self.config_path_input.setObjectName(u"config_path_input")
+        sizePolicy4.setHeightForWidth(self.config_path_input.sizePolicy().hasHeightForWidth())
+        self.config_path_input.setSizePolicy(sizePolicy4)
+        self.config_path_input.setReadOnly(True)
+
+        self.gridLayout.addWidget(self.config_path_input, 1, 1, 1, 1)
+
+        self.browse_for_config = QPushButton(self.frame_4)
+        self.browse_for_config.setObjectName(u"browse_for_config")
+
+        self.gridLayout.addWidget(self.browse_for_config, 1, 2, 1, 1)
+
+        self.browse_for_output_dir = QPushButton(self.frame_4)
+        self.browse_for_output_dir.setObjectName(u"browse_for_output_dir")
+
+        self.gridLayout.addWidget(self.browse_for_output_dir, 2, 2, 1, 1)
+
+        self.label_12 = QLabel(self.frame_4)
+        self.label_12.setObjectName(u"label_12")
+        sizePolicy1.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy1)
+        self.label_12.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_12, 0, 0, 1, 3)
+
+
+        self.gridLayout_3.addWidget(self.frame_4, 0, 0, 1, 2)
+
 
         self.retranslateUi(Preferences)
         self.buttonBox.accepted.connect(Preferences.accept)
@@ -323,16 +301,6 @@ class Ui_Preferences(object):
 
     def retranslateUi(self, Preferences):
         Preferences.setWindowTitle(QCoreApplication.translate("Preferences", u"Preferences", None))
-        self.label.setText(QCoreApplication.translate("Preferences", u"Input Config File Path", None))
-        self.output_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
-        self.label_6.setText(QCoreApplication.translate("Preferences", u"Output Directory", None))
-        self.config_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
-        self.browse_for_config.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
-        self.browse_for_output_dir.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
-        self.label_12.setText(QCoreApplication.translate("Preferences", u"Pathing", None))
-        self.label_13.setText(QCoreApplication.translate("Preferences", u"File output structure", None))
-        self.arduinoRadioButton.setText(QCoreApplication.translate("Preferences", u"Arduino", None))
-        self.platformioRadioButton.setText(QCoreApplication.translate("Preferences", u"Platformio", None))
         self.label_7.setText(QCoreApplication.translate("Preferences", u"Stream", None))
         self.default_stream.setText(QCoreApplication.translate("Preferences", u"Serial", None))
         self.default_stream.setPlaceholderText(QCoreApplication.translate("Preferences", u"output stream", None))
@@ -378,5 +346,12 @@ class Ui_Preferences(object):
         self.defaultfunction_checkbox.setText(QCoreApplication.translate("Preferences", u"defaultFunction", None))
         self.listsettings_checkbox.setText(QCoreApplication.translate("Preferences", u"listSettings", None))
         self.label_9.setText(QCoreApplication.translate("Preferences", u"Builtin Methods", None))
+        self.label.setText(QCoreApplication.translate("Preferences", u"Input Config File Path", None))
+        self.output_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
+        self.label_6.setText(QCoreApplication.translate("Preferences", u"Output Directory", None))
+        self.config_path_input.setPlaceholderText(QCoreApplication.translate("Preferences", u"Not set...", None))
+        self.browse_for_config.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
+        self.browse_for_output_dir.setText(QCoreApplication.translate("Preferences", u"Browse...", None))
+        self.label_12.setText(QCoreApplication.translate("Preferences", u"Pathing", None))
     # retranslateUi
 

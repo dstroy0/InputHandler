@@ -131,11 +131,17 @@ class MainWindowMethods(object):
         Returns:
             str: valid os path or None
         """
+        open_on_dir = ""
+        output_dir = self.session["opt"]["output_dir"]
+        if os.path.exists(output_dir):
+            open_on_dir = output_dir
+        else:
+            open_on_dir = QDir.homePath()
         dir_dlg = QFileDialog(self)
         _dlg_result = dir_dlg.getExistingDirectory(
             self,
             "Select output directory",
-            "",
+            open_on_dir,
             options=QFileDialog.DontUseNativeDialog
             | QFileDialog.ShowDirsOnly
             | QFileDialog.DontResolveSymlinks,
@@ -210,8 +216,8 @@ class MainWindowMethods(object):
         self.session["opt"]["input_config_file_path"] = fqname
         self._parent.preferences.dlg.config_path_input.setText(str(fqname))
         self._parent.preferences.dlg.config_path_input.setToolTip(str(fqname))
-        # restart to apply selected config
-        self.restart(self, "New config file selected.")
+        # restart to apply selected config        
+        self._parent.restart(self._parent, "New config file selected.")
 
     # visual indication to user of the current working file
     def set_main_window_title(self, title: str = None) -> None:

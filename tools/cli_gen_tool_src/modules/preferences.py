@@ -11,18 +11,11 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import os
+
 from modules.logging_setup import Logger
 from modules.data_models import dataModels
-from PySide6.QtWidgets import (
-    QLineEdit,
-    QDialogButtonBox,
-    QDialog,
-    QWidget,
-    QStyle,
-)
-from PySide6.QtCore import Qt, QDir, QRegularExpression
-from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtCore import Qt, QEvent, Signal, QObject
 
 
 class PreferencesMethods(object):
@@ -186,74 +179,34 @@ class PreferencesMethods(object):
         Args:
             le (QLineEdit): line edit interacted with
         """
-        qdir = QDir()
-        dir = qdir.toNativeSeparators(le.text())
-        has_file = False
-        sep = qdir.separator()
-        regexp_str = "(\S*\\" + sep + ")(.*)"
-        regexp = QRegularExpression(regexp_str)
-
-        dir_component_list = []
-        str_pos = 0
-
-        result = regexp.match(dir, str_pos)
-        if result.hasMatch():
-            dir_component_list.append(result.captured(1))
-            dir_component_list.append(result.captured(2))
 
         if le.objectName() == "output_path_input":
-            if len(dir_component_list) == 0:
-                b = QDialogButtonBox.StandardButton
-                buttons = [b.Open, b.Ok, b.Cancel]
-                button_text = ["Select output path", "Ok", "Cancel"]
-                result = self.create_qdialog(
-                    "An output path must be selected to generate files.",
-                    Qt.AlignCenter,
-                    Qt.NoTextInteraction,
-                    "Remember to set an output path before attempting file generation!",
-                    buttons,
-                    button_text,
-                    QIcon(
-                        QWidget()
-                        .style()
-                        .standardIcon(QStyle.StandardPixmap.SP_MessageBoxWarning)
-                    ),
-                    self._parent.qscreen,
-                )
-                if result == QDialog.Accepted:
-                    le.clear()
-                    le.setPlaceholderText("Not set...")
-                    return None
-                elif result == 3:
-                    le.clear()
-                    le.setText(self.cliopt)
-                    return None
-                elif result == 4:
-                    le.clear()
-                    le.setText(self._parent.get_project_dir())
-            else:
-                if os.path.exists(dir):
-                    le.clear()
-                    le.setText(dir)
-                    self.session["opt"]["output_dir"] = dir
-
+            text = self._parent.get_project_dir()
+            if text:
+                le.setText(text)
         if le.objectName() == "config_path_input":
-            if len(dir_component_list) == 2:
-                if self._parent.old_path.strip() == dir.strip():
-                    PreferencesMethods.logger.info("same config path entered")
-                    le.setText(self._parent.old_path)
-                    return
-                elif os.path.exists(dir):
-                    self._parent.get_config_file(dir)
-                else:
-                    PreferencesMethods.logger.info(
-                        "Invalid path entered, trying to get new config file."
-                    )
-                    self._parent.get_config_file()
-            else:
-                self._parent.get_config_file()
+            self._parent.get_config_file()
 
         # le.setToolTip(le.text())
+
+    def clickable(self, widget):
+        class Filter(QObject):
+            clicked = Signal()
+
+            def eventFilter(self, obj, event):
+                if (
+                    obj == widget
+                    and event.type() == QEvent.MouseButtonRelease
+                    and obj.rect().contains(event.pos())
+                ):
+                    self.clicked.emit()
+                    return True
+                else:
+                    return False
+
+        filter = Filter(widget)
+        widget.installEventFilter(filter)
+        return filter.clicked
 
     def preferences_dialog_setup(self):
         """sets up preferences dialog"""
@@ -296,18 +249,12 @@ class PreferencesMethods(object):
         log_level = Logger.root_log_level
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
-        self.dlg.config_path_input.editingFinished.connect(
-            lambda le=self.dlg.config_path_input: self.set_line_edit_text(le)
-        )
-        # self.dlg.config_path_input.textEdited.connect(
-        #     lambda text, le=self.dlg.config_path_input: self.set_line_edit_text(text, le)
-        # )
-        self.dlg.output_path_input.editingFinished.connect(
+        self.clickable(self.dlg.output_path_input).connect(
             lambda le=self.dlg.output_path_input: self.set_line_edit_text(le)
         )
-        # self.dlg.output_path_input.textEdited.connect(
-        #     lambda text, le=self.dlg.output_path_input: self.set_line_edit_text(text, le)
-        # )
+        self.clickable(self.dlg.config_path_input).connect(
+            lambda le=self.dlg.config_path_input: self.set_line_edit_text(le)
+        )
 
         # input validation
         self.dlg.default_stream.setValidator(
