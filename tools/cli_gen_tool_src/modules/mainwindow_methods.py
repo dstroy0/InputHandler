@@ -216,7 +216,7 @@ class MainWindowMethods(object):
         self.session["opt"]["input_config_file_path"] = fqname
         self._parent.preferences.dlg.config_path_input.setText(str(fqname))
         self._parent.preferences.dlg.config_path_input.setToolTip(str(fqname))
-        # restart to apply selected config        
+        # restart to apply selected config
         self._parent.restart(self._parent, "New config file selected.")
 
     # visual indication to user of the current working file
@@ -428,81 +428,6 @@ class MainWindowMethods(object):
                 )
             )
         )
-
-    def set_up_command_parameters_dialog(self, ui):
-        """sets up command parameters dialog
-
-        Args:
-            ui (class): command parameters ui
-        """
-        # load command parameters input dialog ui
-        self.ui.commandParameters = QDialog(self)
-        # blue circle question icon
-        self.ui.commandParameters.setWindowIcon(
-            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
-        )
-        self.ui.commandParameters.dlg = ui
-        self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
-        self.ui.commandParameters.setMaximumSize(0, 0)
-        self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
-        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText(
-            "Enter your argument types in order, separated by a comma."
-        )
-
-        # CommandParameters user input objects
-        self.command_parameters_user_input_objects = {
-            # line edit
-            "returnFunctionName": self.ui.commandParameters.dlg.returnFunctionName,
-            # line edit
-            "commandString": self.ui.commandParameters.dlg.commandString,
-            # read only label
-            "commandLength": self.ui.commandParameters.dlg.commandLengthLabel,
-            # line edit
-            "parentId": self.ui.commandParameters.dlg.commandParentId,
-            # line edit
-            "commandId": self.ui.commandParameters.dlg.commandId,
-            # check box
-            "commandHasWildcards": self.ui.commandParameters.dlg.commandHasWildcards,
-            # spinbox
-            "commandDepth": self.ui.commandParameters.dlg.commandDepth,
-            # spinbox
-            "commandSubcommands": self.ui.commandParameters.dlg.commandSubcommands,
-            # combobox
-            "commandArgumentHandling": self.ui.commandParameters.dlg.commandArgumentHandling,
-            # spinbox
-            "commandMinArgs": self.ui.commandParameters.dlg.commandMinArgs,
-            # spinbox
-            "commandMaxArgs": self.ui.commandParameters.dlg.commandMaxArgs,
-            # plain text edit
-            "commandArguments": self.ui.commandParameters.dlg.argumentsPlainTextCSV,
-        }
-
-        self.command_parameters_input_field_settings = (
-            dataModels.command_parameters_input_field_settings_dict
-        )
-        # set input field defaults
-        self.set_commandparameters_field_defaults()
-        # command parameters dialog box setup
-        cmd_dlg = self.ui.commandParameters.dlg
-        # This dict contains regexp strings and int limits for user input
-        # the values are placeholder values and will change on user interaction
-        cmd_dlg.validatorDict = {
-            "returnFunctionName": "^([a-zA-Z_])+$",
-            "commandString": "^([a-zA-Z_*])+$",
-            "commandParentId": "^([0-9])+$",
-            "commandId": "^([0-9])+$",
-            "commandDepth": 255,
-            "commandSubcommands": 255,
-            "commandMinArgs": 255,
-            "commandMaxArgs": 255,
-        }
-        # set validators to user preset or defaults
-        self.set_command_parameter_validators()
-        # user interaction triggers
-        self.set_command_parameters_triggers()
-        # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
-        # set False by default
-        cmd_dlg.argumentsPane.setEnabled(False)
 
     def set_up_session(self):
         """sets up user session json"""
@@ -1360,10 +1285,12 @@ class MainWindowMethods(object):
     # tab 2
     def clicked_edit_tab_two(self):
         """MainWindow tab 2 edit button interaction"""
-        MainWindowMethods.logger.info("edit command")        
-        parameters_key = self.cliOpt["commands"]["index"][self._parent.command_tree.active_item.data(1,0)]["parameters key"]
+        MainWindowMethods.logger.info("edit command")
+        parameters_key = self.cliOpt["commands"]["index"][
+            self._parent.command_tree.active_item.data(1, 0)
+        ]["parameters key"]
         self.edit_existing_command(parameters_key)
-        
+
     def clicked_new_cmd_button(self):
         """MainWindow tab 2 new command button (contextual)"""
         if "(root command)" in self.ui.new_cmd_button.text():

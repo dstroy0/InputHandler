@@ -15,16 +15,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractButton, QApplication, QCheckBox, QComboBox,
-    QDialog, QDialogButtonBox, QGridLayout, QLabel,
-    QLineEdit, QPlainTextEdit, QPushButton, QSizePolicy,
-    QSpinBox, QWidget)
+from PySide6.QtWidgets import (QAbstractButton, QAbstractItemView, QApplication, QCheckBox,
+    QComboBox, QDialog, QDialogButtonBox, QGridLayout,
+    QHeaderView, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QSpinBox, QTableView, QWidget)
 
 class Ui_commandParametersDialog(object):
     def setupUi(self, commandParametersDialog):
         if not commandParametersDialog.objectName():
             commandParametersDialog.setObjectName(u"commandParametersDialog")
-        commandParametersDialog.resize(724, 426)
+        commandParametersDialog.resize(724, 370)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -59,14 +59,6 @@ class Ui_commandParametersDialog(object):
         self.commandMinArgs.setMaximumSize(QSize(55, 25))
 
         self.gridLayout_2.addWidget(self.commandMinArgs, 0, 1, 1, 2)
-
-        self.argumentsPlainTextCSV = QPlainTextEdit(self.argumentsPane)
-        self.argumentsPlainTextCSV.setObjectName(u"argumentsPlainTextCSV")
-        self.argumentsPlainTextCSV.setMinimumSize(QSize(0, 250))
-        self.argumentsPlainTextCSV.setMaximumSize(QSize(16777215, 320))
-        self.argumentsPlainTextCSV.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-
-        self.gridLayout_2.addWidget(self.argumentsPlainTextCSV, 0, 3, 10, 1)
 
         self.commandMaxArgsLabel = QLabel(self.argumentsPane)
         self.commandMaxArgsLabel.setObjectName(u"commandMaxArgsLabel")
@@ -298,6 +290,25 @@ class Ui_commandParametersDialog(object):
 
         self.gridLayout_2.addWidget(self.rem7, 9, 2, 1, 1)
 
+        self.argumentsPlainTextCSV = QLineEdit(self.argumentsPane)
+        self.argumentsPlainTextCSV.setObjectName(u"argumentsPlainTextCSV")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.argumentsPlainTextCSV.sizePolicy().hasHeightForWidth())
+        self.argumentsPlainTextCSV.setSizePolicy(sizePolicy3)
+        self.argumentsPlainTextCSV.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+
+        self.gridLayout_2.addWidget(self.argumentsPlainTextCSV, 9, 3, 1, 1)
+
+        self.argumentsTableView = QTableView(self.argumentsPane)
+        self.argumentsTableView.setObjectName(u"argumentsTableView")
+        self.argumentsTableView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.argumentsTableView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.argumentsTableView.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+
+        self.gridLayout_2.addWidget(self.argumentsTableView, 0, 3, 9, 1)
+
 
         self.gridLayout.addWidget(self.argumentsPane, 0, 1, 1, 1)
 
@@ -450,7 +461,6 @@ class Ui_commandParametersDialog(object):
     def retranslateUi(self, commandParametersDialog):
         commandParametersDialog.setWindowTitle(QCoreApplication.translate("commandParametersDialog", u"Command Parameters", None))
         self.label_9.setText(QCoreApplication.translate("commandParametersDialog", u"Min. args.", None))
-        self.argumentsPlainTextCSV.setPlaceholderText(QCoreApplication.translate("commandParametersDialog", u"Arguments...", None))
         self.commandMaxArgsLabel.setText(QCoreApplication.translate("commandParametersDialog", u"Max args.", None))
         self.label.setText(QCoreApplication.translate("commandParametersDialog", u"UINT8_T", None))
         self.add8bituint.setText(QCoreApplication.translate("commandParametersDialog", u"+", None))
@@ -476,6 +486,7 @@ class Ui_commandParametersDialog(object):
         self.label_8.setText(QCoreApplication.translate("commandParametersDialog", u"NOTYPE", None))
         self.addnotype.setText(QCoreApplication.translate("commandParametersDialog", u"+", None))
         self.rem7.setText(QCoreApplication.translate("commandParametersDialog", u"-", None))
+        self.argumentsPlainTextCSV.setPlaceholderText(QCoreApplication.translate("commandParametersDialog", u"Enter a valid UITYPE argument...", None))
         self.label_12.setText(QCoreApplication.translate("commandParametersDialog", u"Command depth", None))
         self.label_15.setText(QCoreApplication.translate("commandParametersDialog", u"Parent id", None))
         self.label_11.setText(QCoreApplication.translate("commandParametersDialog", u"Command string", None))

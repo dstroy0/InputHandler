@@ -25,6 +25,7 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QSpinBox,
     QWidget,
+    QDialog,
 )
 
 # data models
@@ -61,6 +62,82 @@ class CommandParametersMethods(object):
         CommandParametersMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
         self.cliopt = self.cliOpt
+
+    def set_up_command_parameters_dialog(self, ui):
+        """sets up command parameters dialog
+
+        Args:
+            ui (class): command parameters ui
+        """
+        # load command parameters input dialog ui
+        self.ui.commandParameters = QDialog(self)
+        # blue circle question icon
+        self.ui.commandParameters.setWindowIcon(
+            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxQuestion)
+        )
+        self.ui.commandParameters.dlg = ui
+        self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
+        self.ui.commandParameters.setMaximumSize(0, 0)
+        self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
+        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText(
+            "Enter your argument types in order, separated by a comma."
+        )
+
+        # CommandParameters user input objects
+        self.command_parameters_user_input_objects = {
+            # line edit
+            "returnFunctionName": self.ui.commandParameters.dlg.returnFunctionName,
+            # line edit
+            "commandString": self.ui.commandParameters.dlg.commandString,
+            # read only label
+            "commandLength": self.ui.commandParameters.dlg.commandLengthLabel,
+            # line edit
+            "parentId": self.ui.commandParameters.dlg.commandParentId,
+            # line edit
+            "commandId": self.ui.commandParameters.dlg.commandId,
+            # check box
+            "commandHasWildcards": self.ui.commandParameters.dlg.commandHasWildcards,
+            # spinbox
+            "commandDepth": self.ui.commandParameters.dlg.commandDepth,
+            # spinbox
+            "commandSubcommands": self.ui.commandParameters.dlg.commandSubcommands,
+            # combobox
+            "commandArgumentHandling": self.ui.commandParameters.dlg.commandArgumentHandling,
+            # spinbox
+            "commandMinArgs": self.ui.commandParameters.dlg.commandMinArgs,
+            # spinbox
+            "commandMaxArgs": self.ui.commandParameters.dlg.commandMaxArgs,
+            # plain text edit
+            "commandArguments": self.ui.commandParameters.dlg.argumentsPlainTextCSV,
+        }
+
+        self.command_parameters_input_field_settings = (
+            dataModels.command_parameters_input_field_settings_dict
+        )
+        # set input field defaults
+        self.set_commandparameters_field_defaults()
+        # command parameters dialog box setup
+        cmd_dlg = self.ui.commandParameters.dlg
+        # This dict contains regexp strings and int limits for user input
+        # the values are placeholder values and will change on user interaction
+        cmd_dlg.validatorDict = {
+            "returnFunctionName": "^([a-zA-Z_])+$",
+            "commandString": "^([a-zA-Z_*])+$",
+            "commandParentId": "^([0-9])+$",
+            "commandId": "^([0-9])+$",
+            "commandDepth": 255,
+            "commandSubcommands": 255,
+            "commandMinArgs": 255,
+            "commandMaxArgs": 255,
+            "commandArguments": "[UINTFLOATCHARSYPE]{1,6}[12368]{0,2}[_]{0,1}[STOPECHARGS]{1,4},{0,1}",
+        }
+        # set validators to user preset or defaults
+        self.set_command_parameter_validators()
+        # user interaction triggers
+        self.set_command_parameters_triggers()
+        # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
+        # set False by default
+        cmd_dlg.argumentsPane.setEnabled(False)
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
@@ -99,21 +176,21 @@ class CommandParametersMethods(object):
         rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
         test_string = self.sender().objectName()
         if test_string == "add8bituint":
-            self.append_to_arg_csv("UINT8_T,")
+            self.insert_arg("UINT8_T,")
         elif test_string == "add16bituint":
-            self.append_to_arg_csv("UINT16_T,")
+            self.insert_arg("UINT16_T,")
         elif test_string == "add32bituint":
-            self.append_to_arg_csv("UINT32_T,")
+            self.insert_arg("UINT32_T,")
         elif test_string == "add16bitint":
-            self.append_to_arg_csv("INT16_T,")
+            self.insert_arg("INT16_T,")
         elif test_string == "addfloat":
-            self.append_to_arg_csv("FLOAT,")
+            self.insert_arg("FLOAT,")
         elif test_string == "addchar":
-            self.append_to_arg_csv("CHAR,")
+            self.insert_arg("CHAR,")
         elif test_string == "addstartstop":
-            self.append_to_arg_csv("STARTSTOP,")
+            self.insert_arg("START_STOP,")
         elif test_string == "addnotype":
-            self.append_to_arg_csv("NOTYPE,")
+            self.insert_arg("NOTYPE,")
         elif test_string in rem_list:
             self.rem_from_arg_csv()
 
@@ -125,14 +202,45 @@ class CommandParametersMethods(object):
         Args:
             string (str): The string to append to the arguements.
         """
-        text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
-        cursor = QTextCursor()
-        text.moveCursor(cursor.End)
-        text.insertPlainText(string)
-        text.moveCursor(cursor.End)
+        args = self.ui.commandParameters.dlg.argumentsPlainTextCSV
+        text = args.text()
+        args.clear()
+        args.setText(text + string)
+
+    def insert_arg(self, string: str) -> None:
+        args = self.ui.commandParameters.dlg.argumentsPlainTextCSV
+        cur_pos = args.cursorPosition()        
+        if len(args.text()) - 1 <= cur_pos:
+            self.append_to_arg_csv(string)
+            return
+        low_pos = 0
+        high_pos = 0
+        str_pos = args.text().find(",")                
+        while str_pos != -1:            
+            if str_pos == -1:
+                break
+            if str_pos < cur_pos:
+                low_pos = str_pos
+            if str_pos > cur_pos:
+                high_pos = str_pos
+                break
+            str_pos = args.text().find(",", str_pos+1, len(args.text()))                    
+        pos_diff = high_pos - low_pos
+        rel_cur_pos = cur_pos - low_pos
+
+        ins_pos = 0
+        if rel_cur_pos <= (pos_diff / 2):
+            ins_pos = low_pos + 1
+        else:
+            ins_pos = high_pos + 1
+
+        args_string = args.text()
+        edited_args_string = args_string[:ins_pos] + string + args_string[ins_pos:]
+        args.clear()
+        args.setText(edited_args_string)
 
     ## removes the last argument added (pop)
-    def rem_from_arg_csv(self) -> None:
+    def rem_from_arg_csv(self, string: str) -> None:
         """Removes the argument at the end of the arguments pane CSV."""
         arg_dict = self.dict_from_csv_args()
         text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
@@ -342,6 +450,9 @@ class CommandParametersMethods(object):
         )
         cmd_dlg.commandMinArgs.setMaximum(cmd_dlg.validatorDict["commandMinArgs"])
         cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
+        cmd_dlg.argumentsPlainTextCSV.setValidator(
+            self.regex_validator(cmd_dlg.validatorDict["commandArguments"])
+        )
 
     ## triggers related to the command parameters dialog
     def set_command_parameters_triggers(self) -> None:
@@ -398,10 +509,10 @@ class CommandParametersMethods(object):
             return
         validated_result = {}
         validated_result = validate_result[1]
-        
+
         # edit commands
         if CommandParametersMethods.editing_existing_command == True:
-            CommandParametersMethods.editing_existing_command = False # reset state
+            CommandParametersMethods.editing_existing_command = False  # reset state
             self.cliOpt["commands"]["parameters"].pop(
                 CommandParametersMethods.existing_command_parameters_key
             )
@@ -410,7 +521,9 @@ class CommandParametersMethods(object):
                     CommandParametersMethods.existing_command_parameters_key: validated_result
                 }
             )
-            CommandParametersMethods.existing_command_parameters_key = "" # reset parameters key
+            CommandParametersMethods.existing_command_parameters_key = (
+                ""  # reset parameters key
+            )
             self.update_code("parameters.h", validated_result["functionName"], True)
             self.update_code("functions.h", validated_result["functionName"], True)
             self.update_code("CLI.h", validated_result["functionName"], True)
