@@ -331,6 +331,11 @@ of the command being edited.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.insert_arg">
+<span class="sig-name descname"><span class="pre">insert_arg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.insert_arg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.insert_arg" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.list_from_csv_args">
 <span class="sig-name descname"><span class="pre">list_from_csv_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.list_from_csv_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.list_from_csv_args" title="Permalink to this definition">#</a></dt>
 <dd><p>Pulls text from CommandParametersDialog arguments pane, separates
@@ -345,7 +350,7 @@ them.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.rem_from_arg_csv">
-<span class="sig-name descname"><span class="pre">rem_from_arg_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.rem_from_arg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.rem_from_arg_csv" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rem_from_arg_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.rem_from_arg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.rem_from_arg_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>Removes the argument at the end of the arguments pane CSV.</p>
 </dd></dl>
 
@@ -365,6 +370,16 @@ them.</p>
 <dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.set_commandparameters_field_defaults">
 <span class="sig-name descname"><span class="pre">set_commandparameters_field_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.set_commandparameters_field_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the DEFAULT values for CommandParametersDialog.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="command_parameters.CommandParametersMethods.set_up_command_parameters_dialog">
+<span class="sig-name descname"><span class="pre">set_up_command_parameters_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/command_parameters.html#CommandParametersMethods.set_up_command_parameters_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#command_parameters.CommandParametersMethods.set_up_command_parameters_dialog" title="Permalink to this definition">#</a></dt>
+<dd><p>sets up command parameters dialog</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>ui (class): command parameters ui</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -454,12 +469,14 @@ them.</p>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.editing_existing_command"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.editing_existing_command</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.err_settings_to_validate"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.err_settings_to_validate()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.existing_command_parameters_key"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.existing_command_parameters_key</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.insert_arg"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.insert_arg()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.list_from_csv_args"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.list_from_csv_args()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.regex_validator"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.regex_validator()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.rem_from_arg_csv"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.rem_from_arg_csv()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_command_parameter_validators"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_command_parameter_validators()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_command_parameters_triggers"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_command_parameters_triggers()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_commandparameters_field_defaults"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_commandparameters_field_defaults()</span></code></a></li>
+<li><a class="reference internal" href="#command_parameters.CommandParametersMethods.set_up_command_parameters_dialog"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.set_up_command_parameters_dialog()</span></code></a></li>
 <li><a class="reference internal" href="#command_parameters.CommandParametersMethods.validate_command_parameters"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods.validate_command_parameters()</span></code></a></li>
 </ul>
 </li>
