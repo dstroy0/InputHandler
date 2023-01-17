@@ -16,7 +16,7 @@ import copy
 
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
-from PySide6.QtGui import QRegularExpressionValidator, QTextCursor, QIcon
+from PySide6.QtGui import QRegularExpressionValidator, QIcon, QCursor
 from PySide6.QtWidgets import (
     QDialogButtonBox,
     QStyle,
@@ -26,10 +26,100 @@ from PySide6.QtWidgets import (
     QSpinBox,
     QWidget,
     QDialog,
+    QTableWidgetItem,
+    QHBoxLayout,
+    QPushButton,
+    QHeaderView,
+    
 )
 
 # data models
 from modules.data_models import dataModels
+from modules.display_models import displayModels
+
+
+class TableButtonBox(QWidget):
+    def __init__(self, parent) -> None:
+        super(TableButtonBox, self).__init__()
+        self.setParent(parent)        
+        self.table = parent        
+        self.widget_layout = QHBoxLayout(parent)
+        self.up_icn = self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowUp)
+        self.dn_icn = self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowDown)
+        self.del_row_icn = self.style().standardIcon(
+            QStyle.StandardPixmap.SP_BrowserStop
+        )
+        self.up_btn = QPushButton()
+        self.up_btn.setFixedSize(
+            self.up_icn.actualSize(self.up_icn.availableSizes()[0])
+        )
+        self.up_btn.setText("")
+        self.up_btn.setToolTip("Move argument up")
+        self.up_btn.setIcon(self.up_icn)
+        self.dn_btn = QPushButton()
+        self.dn_btn.setFixedSize(
+            self.dn_icn.actualSize(self.dn_icn.availableSizes()[0])
+        )
+        self.dn_btn.setText("")
+        self.up_btn.setToolTip("Move argument down")
+        self.dn_btn.setIcon(self.dn_icn)
+        self.del_row_btn = QPushButton()
+        self.del_row_btn.setFixedSize(
+            self.dn_icn.actualSize(self.dn_icn.availableSizes()[0])
+        )
+        self.del_row_btn.setText("")
+        self.up_btn.setToolTip("Delete argument")
+        self.del_row_btn.setIcon(self.del_row_icn)
+        self.widget_layout.addWidget(self.up_btn)
+        self.widget_layout.addWidget(self.dn_btn)
+        self.widget_layout.addWidget(self.del_row_btn)
+        self.setLayout(self.widget_layout)
+        self.up_btn.clicked.connect(self.move_row_up)
+        self.dn_btn.clicked.connect(self.move_row_down)
+        self.del_row_btn.clicked.connect(self.remove_row)
+
+    def move_row_up(self):
+        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
+        print(self.table.cursor.pos())
+        print(row)
+        if row <= 0:
+            return
+        sourceItems = self.takeRow(row)
+        destItems = self.takeRow(row - 1)
+        self.setRow(row - 1, sourceItems)
+        self.setRow(row, destItems)
+
+    def move_row_down(self, row: int = None):
+        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
+        print(self.table.cursor.pos())
+        print(row)
+        if row >= self.table.rowCount():
+            return
+        sourceItems = self.takeRow(row)
+        destItems = self.takeRow(row + 1)
+        self.setRow(row + 1, sourceItems)
+        self.setRow(row, destItems)
+
+    def remove_row(self):
+        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
+        print(self.table.cursor.pos())
+        print(row)
+        if row < 0:
+            self.table.removeRow(self.table.rowCount())
+            return                    
+        self.table.removeRow(row)
+
+    def takeRow(self, row: int) -> list:
+        rowItems = []
+        table = self.table
+        for col in range(table.columnCount()):
+            rowItems.append(table.takeItem(row, col))
+        return rowItems
+
+    def setRow(self, row: int, rowItems: list):
+        table = self.table
+        for col in range(table.columnCount()):
+            table.setItem(row, col, rowItems[col])
 
 
 # command parameters methods
@@ -63,6 +153,33 @@ class CommandParametersMethods(object):
         self.create_qdialog = self.create_qdialog
         self.cliopt = self.cliOpt
 
+    def build_commandparameters_dialog_arg_table(self, command_parameters):
+        table = self.ui.commandParameters.dlg.argTable
+        table.cursor = QCursor()
+        table.clear()
+        table.setColumnCount(2)
+        table.setHorizontalHeaderLabels(["type", "controls"])
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.args_list = command_parameters["commandArguments"]
+        self.args_list = self.args_list.replace("UITYPE::", "")
+        self.args_list = self.args_list.replace("{", "")
+        self.args_list = self.args_list.replace("}", "")
+        self.args_list = self.args_list.replace(" ", "")
+        self.args_list = self.args_list.replace("\n", "")
+        self.args_list = self.args_list.split(",")
+
+        table.setRowCount(len(self.args_list))
+        for r in range(len(self.args_list)):
+            type_item = QTableWidgetItem()
+            type_item.setData(0, self.args_list[r])
+            type_item.setToolTip(
+                displayModels.argument_table_tooltip_dict[self.args_list[r]]
+            )
+            table.setItem(r, 0, type_item)
+            control_item = QTableWidgetItem()
+            table.setItem(r, 1, control_item)
+            table.setCellWidget(r, 1, TableButtonBox(table))
+
     def set_up_command_parameters_dialog(self, ui):
         """sets up command parameters dialog
 
@@ -78,10 +195,6 @@ class CommandParametersMethods(object):
         self.ui.commandParameters.dlg = ui
         self.ui.commandParameters.dlg.setupUi(self.ui.commandParameters)
         self.ui.commandParameters.setMaximumSize(0, 0)
-        self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
-        self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText(
-            "Enter your argument types in order, separated by a comma."
-        )
 
         # CommandParameters user input objects
         self.command_parameters_user_input_objects = {
@@ -108,7 +221,7 @@ class CommandParametersMethods(object):
             # spinbox
             "commandMaxArgs": self.ui.commandParameters.dlg.commandMaxArgs,
             # plain text edit
-            "commandArguments": self.ui.commandParameters.dlg.argumentsPlainTextCSV,
+            "commandArguments": self.ui.commandParameters.dlg.argLineEdit,
         }
 
         self.command_parameters_input_field_settings = (
@@ -137,119 +250,13 @@ class CommandParametersMethods(object):
         self.set_command_parameters_triggers()
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
-        cmd_dlg.argumentsPane.setEnabled(False)
+        cmd_dlg.argumentsPane.setEnabled(False)        
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
         """Turns a string into a QRegularExpressionValidator"""
         exp = QRegularExpression(input)
         return QRegularExpressionValidator(exp)
-
-    ## generates a dict from csv arguments in the command parameters dialog
-    # TODO add text UITYPE:: and comma to returned list items
-    def list_from_csv_args(self) -> None:
-        """Pulls text from CommandParametersDialog arguments pane, separates
-        them.
-        """
-        args_list = []
-        csv = self.ui.commandParameters.dlg.argumentsPlainTextCSV.toPlainText() + ","
-        regexp = QRegularExpression('("(?:[^"]|")*"|[^,"\n\r]*)(,|\r?\n|\r)')
-        csv_pos = 0
-        while csv_pos != -1:
-            match = regexp.match(csv, csv_pos)
-            if match.hasMatch():
-                csv_pos += match.capturedLength()
-                if (
-                    match.captured().upper().strip(",")
-                ) in CommandParametersMethods.command_arg_types_list:
-                    args_list.append(
-                        "UITYPE::" + str(match.captured().upper().strip(","))
-                    )
-            else:
-                break
-        return args_list
-
-    ## all buttons related to adding/removing arguments from the command parameters dialog
-    def csv_button(self) -> None:
-        """Buttons related to adding/removing arguments in CommandParametersDialog."""
-        CommandParametersMethods.logger.info(self.sender().objectName())
-        rem_list = ["rem", "rem1", "rem2", "rem3", "rem4", "rem5", "rem6", "rem7"]
-        test_string = self.sender().objectName()
-        if test_string == "add8bituint":
-            self.insert_arg("UINT8_T,")
-        elif test_string == "add16bituint":
-            self.insert_arg("UINT16_T,")
-        elif test_string == "add32bituint":
-            self.insert_arg("UINT32_T,")
-        elif test_string == "add16bitint":
-            self.insert_arg("INT16_T,")
-        elif test_string == "addfloat":
-            self.insert_arg("FLOAT,")
-        elif test_string == "addchar":
-            self.insert_arg("CHAR,")
-        elif test_string == "addstartstop":
-            self.insert_arg("START_STOP,")
-        elif test_string == "addnotype":
-            self.insert_arg("NOTYPE,")
-        elif test_string in rem_list:
-            self.rem_from_arg_csv()
-
-    ## appends an argument
-    def append_to_arg_csv(self, string: str) -> None:
-        """Appends an argument to the argument CSV in the arguments pane
-        in CommandParametersDialog
-
-        Args:
-            string (str): The string to append to the arguements.
-        """
-        args = self.ui.commandParameters.dlg.argumentsPlainTextCSV
-        text = args.text()
-        args.clear()
-        args.setText(text + string)
-
-    def insert_arg(self, string: str) -> None:
-        args = self.ui.commandParameters.dlg.argumentsPlainTextCSV
-        cur_pos = args.cursorPosition()        
-        if len(args.text()) - 1 <= cur_pos:
-            self.append_to_arg_csv(string)
-            return
-        low_pos = 0
-        high_pos = 0
-        str_pos = args.text().find(",")                
-        while str_pos != -1:            
-            if str_pos == -1:
-                break
-            if str_pos < cur_pos:
-                low_pos = str_pos
-            if str_pos > cur_pos:
-                high_pos = str_pos
-                break
-            str_pos = args.text().find(",", str_pos+1, len(args.text()))                    
-        pos_diff = high_pos - low_pos
-        rel_cur_pos = cur_pos - low_pos
-
-        ins_pos = 0
-        if rel_cur_pos <= (pos_diff / 2):
-            ins_pos = low_pos + 1
-        else:
-            ins_pos = high_pos + 1
-
-        args_string = args.text()
-        edited_args_string = args_string[:ins_pos] + string + args_string[ins_pos:]
-        args.clear()
-        args.setText(edited_args_string)
-
-    ## removes the last argument added (pop)
-    def rem_from_arg_csv(self, string: str) -> None:
-        """Removes the argument at the end of the arguments pane CSV."""
-        arg_dict = self.dict_from_csv_args()
-        text = self.ui.commandParameters.dlg.argumentsPlainTextCSV
-        text.clear()
-        arg_text = ""
-        arg_list = list(arg_dict.values())
-        for index in range(len(arg_list)):
-            arg_text = arg_text + arg_list[index] + ","
-        text.insertPlainText(arg_text)
 
     # TODO search entire command tree for duplicate commandString
     ## simple user input validation
@@ -450,7 +457,7 @@ class CommandParametersMethods(object):
         )
         cmd_dlg.commandMinArgs.setMaximum(cmd_dlg.validatorDict["commandMinArgs"])
         cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
-        cmd_dlg.argumentsPlainTextCSV.setValidator(
+        cmd_dlg.argLineEdit.setValidator(
             self.regex_validator(cmd_dlg.validatorDict["commandArguments"])
         )
 
@@ -458,22 +465,6 @@ class CommandParametersMethods(object):
     def set_command_parameters_triggers(self) -> None:
         """Set up interaction triggers for CommandParametersDialog"""
         cmd_dlg = self.ui.commandParameters.dlg
-        cmd_dlg.add8bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add32bituint.clicked.connect(self.csv_button)
-        cmd_dlg.add16bitint.clicked.connect(self.csv_button)
-        cmd_dlg.addfloat.clicked.connect(self.csv_button)
-        cmd_dlg.addchar.clicked.connect(self.csv_button)
-        cmd_dlg.addstartstop.clicked.connect(self.csv_button)
-        cmd_dlg.addnotype.clicked.connect(self.csv_button)
-        cmd_dlg.rem.clicked.connect(self.csv_button)
-        cmd_dlg.rem1.clicked.connect(self.csv_button)
-        cmd_dlg.rem2.clicked.connect(self.csv_button)
-        cmd_dlg.rem3.clicked.connect(self.csv_button)
-        cmd_dlg.rem4.clicked.connect(self.csv_button)
-        cmd_dlg.rem5.clicked.connect(self.csv_button)
-        cmd_dlg.rem6.clicked.connect(self.csv_button)
-        cmd_dlg.rem7.clicked.connect(self.csv_button)
         cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.clicked_command_parameters_buttonbox_reset
         )
@@ -485,6 +476,10 @@ class CommandParametersMethods(object):
             self.argument_handling_changed
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
+        cmd_dlg.argLineEdit.returnPressed.connect(self.insert_arg)
+
+    def insert_arg(self):
+        print("inserting arg")
 
     def edit_existing_command(self, parameters_key):
         fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
@@ -494,6 +489,8 @@ class CommandParametersMethods(object):
         self.commandparameters_set_fields(fields)
         CommandParametersMethods.editing_existing_command = True
         CommandParametersMethods.existing_command_parameters_key = parameters_key
+        parameters = self.cliopt["commands"]["parameters"][parameters_key]
+        self.build_commandparameters_dialog_arg_table(parameters)
         self.ui.commandParameters.exec()
 
     ## command parameters dialog buttonbox ok
@@ -606,15 +603,8 @@ class CommandParametersMethods(object):
         cmd_dlg = self.ui.commandParameters.dlg
         if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
             cmd_dlg.argumentsPane.setEnabled(True)
-            self.ui.commandParameters.dlg.argumentsPlainTextCSV.clear()
-            self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlaceholderText(
-                "Enter your argument types in order, separated by a comma."
-            )
         else:
             cmd_dlg.argumentsPane.setEnabled(False)
-            self.ui.commandParameters.dlg.argumentsPlainTextCSV.setPlainText(
-                "{UITYPE::NO_ARGS}"
-            )
 
     def commandparameters_set_fields(self, _fields: dict) -> None:
         """Sets the fields of CommandParametersDialog to the values
@@ -636,11 +626,7 @@ class CommandParametersMethods(object):
                 if isinstance(
                     self.command_parameters_user_input_objects[key], QComboBox
                 ):
-                    self.command_parameters_user_input_objects[key].setCurrentIndex(
-                        self.command_parameters_user_input_objects[key].findText(
-                            "No arguments"
-                        )
-                    )
+                    self.command_parameters_user_input_objects[key].setCurrentIndex(0)
                 self.command_parameters_user_input_objects[key].setEnabled(False)
         else:
             for key in _fields:
