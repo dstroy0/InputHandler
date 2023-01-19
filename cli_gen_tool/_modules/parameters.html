@@ -234,6 +234,8 @@
 <span class="c1"># modify it under the terms of the GNU General Public License</span>
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
+<span class="kn">import</span> <span class="nn">copy</span>
+
 
 <div class="viewcode-block" id="cliParameters"><a class="viewcode-back" href="../modules/cli/parameters.html#parameters.cliParameters">[docs]</a><span class="k">class</span> <span class="nc">cliParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;parameters.h generator</span>
@@ -253,6 +255,40 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_nested_children</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">child_parameters_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_depth</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="cliParameters.parse_commandarguments_string"><a class="viewcode-back" href="../modules/cli/parameters.html#parameters.cliParameters.parse_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_commandarguments_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">args_list</span></div>
+
+<div class="viewcode-block" id="cliParameters.generate_commandarguments_string"><a class="viewcode-back" href="../modules/cli/parameters.html#parameters.cliParameters.generate_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">generate_commandarguments_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">comma</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">arr_indent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;    &quot;</span>
+            <span class="n">arr_indent</span> <span class="o">=</span> <span class="s2">&quot;  &quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args_list</span><span class="p">)):</span>
+            <span class="n">arg_type</span> <span class="o">=</span> <span class="n">args_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">comma</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span>
+                <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">comma</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">arg_format</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">padding</span><span class="si">}{</span><span class="n">arr_indent</span><span class="si">}</span><span class="s2">UITYPE::</span><span class="si">{</span><span class="n">arg_type</span><span class="si">}{</span><span class="n">comma</span><span class="si">}{</span><span class="n">newline</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">arguments</span> <span class="o">+=</span> <span class="n">arg_format</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">argstring</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{</span><span class="si">{</span><span class="n">newline</span><span class="si">}{</span><span class="n">arguments</span><span class="si">}{</span><span class="n">newline</span><span class="si">}{</span><span class="n">padding</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">argstring</span></div>
 
 <div class="viewcode-block" id="cliParameters.ret_nested_child"><a class="viewcode-back" href="../modules/cli/parameters.html#parameters.cliParameters.ret_nested_child">[docs]</a>    <span class="k">def</span> <span class="nf">ret_nested_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">comma</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;returns string that is a valid C++11 pointer.</span>
@@ -292,6 +328,9 @@
         <span class="p">]</span>
         <span class="n">command_constructor_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">_newline</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">argstring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">has_constructor</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">command_constructor_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="s2">&quot;h&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;filestring components&quot;</span>
@@ -309,7 +348,7 @@
             <span class="n">argumenthandling</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">],</span>
             <span class="n">minnumargs</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">],</span>
             <span class="n">maxnumargs</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">],</span>
-            <span class="n">argtypearray</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">],</span>
+            <span class="n">argtypearray</span><span class="o">=</span><span class="n">argstring</span><span class="p">,</span>
             <span class="n">commandconstructor</span><span class="o">=</span><span class="n">command_constructor_string</span><span class="p">,</span>
             <span class="n">newline</span><span class="o">=</span><span class="n">_newline</span><span class="p">,</span>
         <span class="p">)</span>
@@ -341,7 +380,9 @@
         <span class="p">][</span><span class="s2">&quot;nested command constructor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span> <span class="n">maxdepth</span><span class="o">=</span><span class="n">max_depth</span>
         <span class="p">)</span>
-
+        <span class="n">argstring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">parameters_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">functionname</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">],</span>
             <span class="n">wildcardflag</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">],</span>
@@ -354,7 +395,7 @@
             <span class="n">argumenthandling</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">],</span>
             <span class="n">minnumargs</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">],</span>
             <span class="n">maxnumargs</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">],</span>
-            <span class="n">argtypearray</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">],</span>
+            <span class="n">argtypearray</span><span class="o">=</span><span class="n">argstring</span><span class="p">,</span>
             <span class="n">commandconstructor</span><span class="o">=</span><span class="n">nested_command_constructor_string</span><span class="p">,</span>
             <span class="n">children</span><span class="o">=</span><span class="n">nested_children_string</span><span class="p">,</span>
             <span class="n">numberofchildren</span><span class="o">=</span><span class="n">num_children</span><span class="p">,</span>

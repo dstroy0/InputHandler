@@ -330,7 +330,8 @@
 
 <div class="viewcode-block" id="TableButtonBox.remove_row"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.remove_row">[docs]</a>    <span class="k">def</span> <span class="nf">remove_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>        </div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TableButtonBox.takeRow"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.takeRow">[docs]</a>    <span class="k">def</span> <span class="nf">takeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">rowItems</span> <span class="o">=</span> <span class="p">[]</span>
@@ -375,21 +376,14 @@
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span>
+        <span class="c1"># inherit from parameters.py</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span>
 
 <div class="viewcode-block" id="CommandParametersMethods.build_commandparameters_dialog_arg_table"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.build_commandparameters_dialog_arg_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_commandparameters_dialog_arg_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">):</span>
         <span class="n">args</span> <span class="o">=</span> <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandparameters_arg_table</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="CommandParametersMethods.parse_commandarguments_string"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.parse_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_commandarguments_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">args_list</span></div>
 
 <div class="viewcode-block" id="CommandParametersMethods.generate_commandparameters_arg_table"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.generate_commandparameters_arg_table">[docs]</a>    <span class="k">def</span> <span class="nf">generate_commandparameters_arg_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argTable</span>
@@ -411,6 +405,14 @@
             <span class="n">control_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
             <span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">control_item</span><span class="p">)</span>
             <span class="n">table</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">TableButtonBox</span><span class="p">(</span><span class="n">table</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="CommandParametersMethods.get_args_from_commandparameters_arg_table"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.get_args_from_commandparameters_arg_table">[docs]</a>    <span class="k">def</span> <span class="nf">get_args_from_commandparameters_arg_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argTable</span>
+        <span class="n">arg_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="n">item_data</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">arg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arg_list</span></div>
 
 <div class="viewcode-block" id="CommandParametersMethods.set_up_command_parameters_dialog"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.set_up_command_parameters_dialog">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_command_parameters_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ui</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up command parameters dialog</span>
@@ -471,7 +473,7 @@
             <span class="s2">&quot;commandDepth&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
             <span class="s2">&quot;commandSubcommands&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
             <span class="s2">&quot;commandMinArgs&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
-            <span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>            
+            <span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="c1"># set validators to user preset or defaults</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_command_parameter_validators</span><span class="p">()</span>
@@ -497,15 +499,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">wildcard_flag_strings</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;no_wildcards&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;has_wildcards&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">arg_handling_strings</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;UI_ARG_HANDLING::no_args&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;UI_ARG_HANDLING::one_type&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;UI_ARG_HANDLING::type_arr&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
+        <span class="n">wildcard_flag_strings</span> <span class="o">=</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">wildcard_flag_strings</span>
+
+        <span class="n">arg_handling_strings</span> <span class="o">=</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">arg_handling_strings</span>
 
         <span class="n">error_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">settings_to_validate</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span>
@@ -596,14 +592,13 @@
         <span class="k">if</span> <span class="n">arg_handling_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">settings_to_validate</span><span class="p">[</span>
                 <span class="s2">&quot;commandArguments&quot;</span>
-            <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span>
-                <span class="s2">&quot;commandArguments&quot;</span>
-            <span class="p">]</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_args_from_commandparameters_arg_table</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="n">arg_handling_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_from_csv_args</span><span class="p">()</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_args_from_commandparameters_arg_table</span><span class="p">()</span>
             <span class="c1"># single argument</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="ow">or</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">args_list</span><span class="p">):</span>
                 <span class="n">err</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">error_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;Arguments&#39; field cannot be blank with current &#39;Argument Handling&#39; selection&quot;</span>
@@ -612,12 +607,13 @@
                 <span class="n">error_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;Return function name&#39; cannot be empty with current &#39;Argument Handling&#39; selection&quot;</span>
                 <span class="p">)</span>
-            <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{UITYPE::&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+            <span class="n">settings_to_validate</span><span class="p">[</span>
+                <span class="s2">&quot;commandArguments&quot;</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">arg_handling_idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_from_csv_args</span><span class="p">()</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_args_from_commandparameters_arg_table</span><span class="p">()</span>
             <span class="c1"># argument array</span>
-            <span class="k">if</span> <span class="n">tmp</span> <span class="o">==</span> <span class="p">{}</span> <span class="ow">or</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">args_list</span><span class="p">):</span>
                 <span class="n">err</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">error_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;Arguments&#39; field cannot be blank with current &#39;Argument Handling&#39; selection&quot;</span>
@@ -626,12 +622,9 @@
                 <span class="n">error_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;Return function name&#39; cannot be empty with current &#39;Argument Handling&#39; selection&quot;</span>
                 <span class="p">)</span>
-            <span class="n">argument_string</span> <span class="o">=</span> <span class="s2">&quot;{&quot;</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
-                <span class="n">argument_string</span> <span class="o">+=</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">     &quot;</span>
-            <span class="n">argument_string</span> <span class="o">=</span> <span class="n">argument_string</span><span class="p">[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span>
-            <span class="n">argument_string</span> <span class="o">=</span> <span class="n">argument_string</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
-            <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">argument_string</span>
+            <span class="n">settings_to_validate</span><span class="p">[</span>
+                <span class="s2">&quot;commandArguments&quot;</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span><span class="p">(</span><span class="n">args_list</span><span class="p">)</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">settings_to_validate</span><span class="p">)</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">error_list</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">err</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
@@ -706,16 +699,17 @@
         <span class="n">cmb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argComboBox</span>
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argTable</span>
         <span class="n">selected_item</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">currentItem</span><span class="p">()</span>
-        <span class="n">arg_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
-            <span class="n">item_data</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">arg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_data</span><span class="p">)</span>
+        <span class="n">arg_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_args_from_commandparameters_arg_table</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">selected_item</span><span class="p">):</span>
             <span class="n">arg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmb</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+            <span class="n">cell_row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">selected_item</span><span class="p">)</span>
+            <span class="n">cell_row</span> <span class="o">=</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="n">arg_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cmb</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandparameters_arg_table</span><span class="p">(</span><span class="n">arg_list</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandparameters_arg_table</span><span class="p">(</span><span class="n">arg_list</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">cell_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommandParametersMethods.edit_existing_command"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.edit_existing_command">[docs]</a>    <span class="k">def</span> <span class="nf">edit_existing_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters_key</span><span class="p">):</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_input_field_settings_dict</span><span class="p">)</span>
@@ -723,6 +717,7 @@
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
             <span class="n">fields</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="n">fields</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">editing_existing_command</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">existing_command_parameters_key</span> <span class="o">=</span> <span class="n">parameters_key</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">parameters_key</span><span class="p">]</span>
@@ -814,7 +809,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is reached if the user clicked `reset` on CommandParametersDialog.&quot;&quot;&quot;</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;reset&quot;</span><span class="p">)</span>
         <span class="n">cmd_dlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span>
-        <span class="n">cmd_dlg</span><span class="o">.</span><span class="n">argumentsPlainTextCSV</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="n">cmd_dlg</span><span class="o">.</span><span class="n">defaults</span><span class="p">)</span></div>
 
     <span class="c1">## command parameters dialog buttonbox cancel changes</span>
 <div class="viewcode-block" id="CommandParametersMethods.clicked_command_parameters_buttonbox_cancel"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.clicked_command_parameters_buttonbox_cancel">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_command_parameters_buttonbox_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -884,10 +879,9 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">QComboBox</span>
                     <span class="p">):</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span>
-                                <span class="n">_fields</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
-                            <span class="p">)</span>
+                            <span class="n">dataModels</span><span class="o">.</span><span class="n">arg_handling_strings</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">_fields</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
                         <span class="p">)</span>
+
                     <span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span>
                         <span class="n">_fields</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span>
                     <span class="p">)</span>
@@ -913,10 +907,12 @@
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandHasWildcards&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandDepth&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandSubcommands&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;No arguments&quot;</span>
+        <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandArgumentHandling&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">arg_handling_strings</span><span class="p">[</span>
+            <span class="mi">0</span>
+        <span class="p">]</span>
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandMinArgs&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandMaxArgs&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div></div>
+        <span class="n">inp_setup</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{{UITYPE::NO_ARGS}}&quot;</span></div></div>
 
 
 <span class="c1"># end of file</span>
