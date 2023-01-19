@@ -55,65 +55,32 @@ class PreferencesMethods(object):
                 {self.builtin_methods[i]: {"cmb": cmb, "item": item}}
             )
 
+    # TODO
     def save_preferences(self):
         """save user preferences"""
         config_path = self.dlg.config_path_input.text()
         PreferencesMethods.logger.info("preferences set")
+        self.preferences.close()
 
+    # TODO
     def reset_preferences(self):
         """reset preferences to what they were before interaction"""
         config_path = self.session["opt"]["save_filename"]
         self.dlg.config_path_input.setText(str(config_path))
         PreferencesMethods.logger.info("preferences dialog cancelled")
+        self.preferences.close()
 
-    def set_session_history_log_level(self, index):
+    def set_session_log_level(self, index):
         """sets session history log level
 
         Args:
             index (int): combobox index
         """
-        index_val = self.dlg.sessionHistoryLogLevelComboBox.currentData()
-        Logger.session_history_log_level = index_val
+        index_val = self.dlg.logLevelComboBox.currentData()
+        Logger.session_log_level = index_val
         Logger.set_log_levels(self)
         self.logger.warning(
-            "Session history log level set to : " + Logger.level_lookup[index_val]
-        )
-
-    def set_file_log_level(self, index):
-        """set file log level
-
-        Args:
-            index (int): combobox index
-        """
-        index_val = self.dlg.fileLogLevelComboBox.currentData()
-        Logger.file_log_level = index_val
-        Logger.set_log_levels(self)
-        self.logger.warning("File log level set to : " + Logger.level_lookup[index_val])
-
-    def set_stream_log_level(self, index):
-        """set log level
-
-        Args:
-            index (int): combobox index
-        """
-        index_val = self.dlg.streamLogLevelComboBox.currentData()
-        Logger.stream_log_level = index_val
-        Logger.set_log_levels(self)
-        self.logger.warning(
-            "Stream log level set to : " + Logger.level_lookup[index_val]
-        )
-
-    def set_global_log_level(self, index):
-        """set log level
-
-        Args:
-            index (int): combobox index
-        """
-        index_val = self.dlg.globalLogLevelComboBox.currentData()
-        Logger.file_log_level = index_val
-        Logger.set_log_levels(self)
-        self.logger.warning(
-            "Global log level set to : " + Logger.level_lookup[index_val]
+            "Session log level set to : " + Logger.level_lookup[index_val]
         )
 
     # TODO
@@ -179,17 +146,26 @@ class PreferencesMethods(object):
         Args:
             le (QLineEdit): line edit interacted with
         """
-
+        text = ""
         if le.objectName() == "output_path_input":
             text = self._parent.get_project_dir()
             if text:
                 le.setText(text)
         if le.objectName() == "config_path_input":
-            self._parent.get_config_file()
+            text = self._parent.get_config_file()
 
-        # le.setToolTip(le.text())
+        le.setText(text)
+        le.setToolTip(text)
 
     def clickable(self, widget):
+        """makes objects emit "clicked"
+
+        Args:
+            widget (QWidget): the widget to attach the signal to
+
+        Returns:
+            Filter (QObject): the filtered object interaction
+        """
         class Filter(QObject):
             clicked = Signal()
 
@@ -226,27 +202,12 @@ class PreferencesMethods(object):
         self.dlg.output_path_input.setToolTip(str(project_path))
 
         # set preferences log level combobox values to logging library log level values
-        for i in range(self.dlg.sessionHistoryLogLevelComboBox.count()):
-            self.dlg.sessionHistoryLogLevelComboBox.setItemData(i, (i + 1) * 10)
-        for i in range(self.dlg.fileLogLevelComboBox.count()):
-            self.dlg.fileLogLevelComboBox.setItemData(i, (i + 1) * 10)
-        for i in range(self.dlg.streamLogLevelComboBox.count()):
-            self.dlg.streamLogLevelComboBox.setItemData(i, (i + 1) * 10)
-        for i in range(self.dlg.globalLogLevelComboBox.count()):
-            self.dlg.globalLogLevelComboBox.setItemData(i, (i + 1) * 10)
+        for i in range(self.dlg.logLevelComboBox.count()):
+            self.dlg.logLevelComboBox.setItemData(i, (i + 1) * 10)
 
         # initial combobox index
-        cmb = self.dlg.sessionHistoryLogLevelComboBox
-        log_level = Logger.session_history_log_level
-        cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
-        cmb = self.dlg.fileLogLevelComboBox
-        log_level = Logger.file_log_level
-        cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
-        cmb = self.dlg.streamLogLevelComboBox
-        log_level = Logger.stream_log_level
-        cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
-        cmb = self.dlg.globalLogLevelComboBox
-        log_level = Logger.root_log_level
+        cmb = self.dlg.logLevelComboBox
+        log_level = Logger.session_log_level
         cmb.setCurrentIndex(cmb.findText(Logger.level_lookup[log_level]))
 
         self.clickable(self.dlg.output_path_input).connect(
@@ -267,19 +228,10 @@ class PreferencesMethods(object):
         # actions setup
         self.dlg.browse_for_config.clicked.connect(self._parent.get_config_file)
         self.dlg.browse_for_output_dir.clicked.connect(self._parent.get_project_dir)
-        self.dlg.buttonBox.accepted.connect(self.save_preferences)
-        self.dlg.buttonBox.rejected.connect(self.reset_preferences)
-        self.dlg.sessionHistoryLogLevelComboBox.currentIndexChanged.connect(
-            self.set_session_history_log_level
-        )
-        self.dlg.fileLogLevelComboBox.currentIndexChanged.connect(
-            self.set_file_log_level
-        )
-        self.dlg.streamLogLevelComboBox.currentIndexChanged.connect(
-            self.set_stream_log_level
-        )
-        self.dlg.globalLogLevelComboBox.currentIndexChanged.connect(
-            self.set_global_log_level
+        self.dlg.ok.clicked.connect(self.save_preferences)
+        self.dlg.cancel.clicked.connect(self.reset_preferences)
+        self.dlg.logLevelComboBox.currentIndexChanged.connect(
+            self.set_session_log_level
         )
         self.dlg.default_stream.editingFinished.connect(self.output_preferences)
         self.dlg.default_output_buffer_size.editingFinished.connect(

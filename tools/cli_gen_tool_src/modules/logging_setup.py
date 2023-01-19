@@ -61,12 +61,7 @@ class Logger(object):
         40: "ERROR",
         50: "CRITICAL",
     }
-    file_log_level = logging.DEBUG  # file log level
-    stream_log_level = logging.INFO  # terminal log level
-    session_history_log_level = (
-        logging.INFO
-    )  # session history widget log level (bound to F1)
-    root_log_level = logging.INFO
+    session_log_level = logging.INFO  # global log level
 
     # log filesize
     # kb = 2^10 == 1024 bytes
@@ -92,9 +87,9 @@ class Logger(object):
         super(Logger, self).__init__()
         if not Logger.log_setup_complete:
             self.root_log_handler = logging.getLogger(name)
-            self.root_log_handler.setLevel(Logger.session_history_log_level)
+            self.root_log_handler.setLevel(Logger.session_log_level)
             self.stream_log_handler = logging.StreamHandler()
-            self.stream_log_handler.setLevel(Logger.stream_log_level)
+            self.stream_log_handler.setLevel(Logger.session_log_level)
             self.stream_log_handler.setFormatter(Logger._log_formatter)
             self.root_log_handler.addHandler(self.stream_log_handler)
             Logger.log_setup_complete = True
@@ -114,7 +109,7 @@ class Logger(object):
             10 * Logger._MB,
             backupCount=5,
         )
-        self.file_log_handler.setLevel(Logger.file_log_level)
+        self.file_log_handler.setLevel(Logger.session_log_level)
         self.file_log_handler.setFormatter(Logger._log_formatter)
         self.root_log_handler.info(
             "Log file path: "
@@ -157,12 +152,10 @@ class Logger(object):
     ## sets handler log levels
     def set_log_levels(self):
         """sets log levels"""
-        self.parent_instance.root_log_handler.setLevel(Logger.root_log_level)
-        self.parent_instance.file_log_handler.setLevel(Logger.file_log_level)
-        self.parent_instance.stream_log_handler.setLevel(Logger.stream_log_level)
-        self.parent_instance.session_log_handler.setLevel(
-            Logger.session_history_log_level
-        )
+        self.parent_instance.root_log_handler.setLevel(Logger.session_log_level)
+        self.parent_instance.file_log_handler.setLevel(Logger.session_log_level)
+        self.parent_instance.stream_log_handler.setLevel(Logger.session_log_level)
+        self.parent_instance.session_log_handler.setLevel(Logger.session_log_level)
 
 
 # end of file

@@ -86,23 +86,23 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             self.tt_matrix.append(tt_row_list)
 
     def flags(self, index) -> Qt.ItemFlags:
-        if self.is_builtin == True:
-            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        # if self.is_builtin == True:
+        #     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-        if index.isValid() and self.h_label[index.column()] == "Arguments":
-            return (
-                super().flags(index)
-                | Qt.ItemIsSelectable
-                | Qt.ItemIsEditable
-                | Qt.ItemIsEnabled
-            )
-        else:
-            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        # if index.isValid() and self.h_label[index.column()] == "Arguments":
+        #     return (
+        #         super().flags(index)
+        #         | Qt.ItemIsSelectable
+        #         | Qt.ItemIsEditable
+        #         | Qt.ItemIsEnabled
+        #     )
+        # else:
+        return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-    def setData(self, index, value, role) -> bool:
-        if role in (Qt.DisplayRole, Qt.EditRole):
-            if not value:
-                return False
+    # def setData(self, index, value, role) -> bool:
+    #     if role in (Qt.DisplayRole, Qt.EditRole):
+    #         if not value:
+    #             return False
 
             # clean_value = value.strip("<>")
             # if not clean_value:
@@ -115,7 +115,7 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             # self._parent.logger.info(
             #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
             # )
-        return True
+        #return True
 
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
@@ -136,11 +136,11 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
             elif orientation == Qt.Vertical:
                 return str(section + 1)
 
-    def edit_table_view(self, index: QModelIndex):
-        if index.isValid() and self.editing == False:
-            self.editing = True
-            self._parent.setCurrentIndex(index)
-            self._parent.edit(index)
+    # def edit_table_view(self, index: QModelIndex):
+    #     if index.isValid() and self.editing == False:
+    #         self.editing = True
+    #         self._parent.setCurrentIndex(index)
+    #         self._parent.edit(index)
 
 
 # TODO
@@ -205,42 +205,42 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             self.tt_matrix.append(tt_row_list)
 
     def flags(self, index) -> Qt.ItemFlags:
-        if self.is_builtin == True:
-            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        # if self.is_builtin == True:
+        #     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-        if index.isValid() and self.h_labels[index.column()] == "Value":
-            return (
-                super().flags(index)
-                | Qt.ItemIsSelectable
-                | Qt.ItemIsEditable
-                | Qt.ItemIsEnabled
-            )
-        else:
-            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        # if index.isValid() and self.h_labels[index.column()] == "Value":
+        #     return (
+        #         super().flags(index)
+        #         | Qt.ItemIsSelectable
+        #         | Qt.ItemIsEditable
+        #         | Qt.ItemIsEnabled
+        #     )
+        # else:
+        return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-    def setData(self, index, value, role) -> bool:
-        if role in (Qt.DisplayRole, Qt.EditRole):
-            if not value:
-                return False
+    # def setData(self, index, value, role) -> bool:
+    #     if role in (Qt.DisplayRole, Qt.EditRole):
+    #         if not value:
+    #             return False
 
-            if not index.isValid():
-                return False
+    #         if not index.isValid():
+    #             return False
 
-            type_index = self.index(index.row(), index.column() - 1)
-            parameter_type = self.data(type_index, Qt.DisplayRole)
+    #         type_index = self.index(index.row(), index.column() - 1)
+    #         parameter_type = self.data(type_index, Qt.DisplayRole)
 
-            # data model
-            self.parameters[parameter_type] = value
-            # internal table model
-            self.matrix[index.row()][index.column()] = value
-            # emit this signal to update the display
-            self.dataChanged.emit(index, index)
+    #         # data model
+    #         self.parameters[parameter_type] = value
+    #         # internal table model
+    #         self.matrix[index.row()][index.column()] = value
+    #         # emit this signal to update the display
+    #         self.dataChanged.emit(index, index)
 
-            command = self.parameters["commandString"]
-            self._parent.logger.info(
-                f"User edited command <{command}>; <{parameter_type}> changed to <{value}>"
-            )
-        return True
+    #         command = self.parameters["commandString"]
+    #         self._parent.logger.info(
+    #             f"User edited command <{command}>; <{parameter_type}> changed to <{value}>"
+    #         )
+    #     return True
 
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
@@ -261,11 +261,11 @@ class CommandParametersTableViewModel(QAbstractTableModel):
             if orientation == Qt.Horizontal:
                 return self.h_labels[section]
 
-    def edit_table_view(self, index: QModelIndex):
-        if index.isValid() and self.editing == False:
-            self.editing = True
-            self._parent.setCurrentIndex(index)
-            self._parent.edit(index)
+    # def edit_table_view(self, index: QModelIndex):
+    #     if index.isValid() and self.editing == False:
+    #         self.editing = True
+    #         self._parent.setCurrentIndex(index)
+    #         self._parent.edit(index)
 
 
 # TODO
@@ -286,9 +286,9 @@ class CommandParametersTableView(QTableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
 
-        self.clicked.connect(self.table_model.edit_table_view)
+        #self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-        self.pressed.connect(self.table_model.edit_table_view)
+        #self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
@@ -296,11 +296,11 @@ class CommandParametersTableView(QTableView):
     def cursor_pos(self):
         return self.cursor_.pos()
 
-    def dataChanged(self, topLeft, bottomRight, roles) -> None:
-        if self.table_model.editing == True:
-            self.table_model.editing = False
-            print("edit complete")
-        return super().dataChanged(topLeft, bottomRight, roles)
+    # def dataChanged(self, topLeft, bottomRight, roles) -> None:
+    #     if self.table_model.editing == True:
+    #         self.table_model.editing = False
+    #         print("edit complete")
+    #     return super().dataChanged(topLeft, bottomRight, roles)
 
 
 class CommandParametersArgumentsTableView(QTableView):
@@ -322,9 +322,9 @@ class CommandParametersArgumentsTableView(QTableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
 
-        self.clicked.connect(self.table_model.edit_table_view)
+        #self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-        self.pressed.connect(self.table_model.edit_table_view)
+        #self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
@@ -332,11 +332,11 @@ class CommandParametersArgumentsTableView(QTableView):
     def cursor_pos(self):
         return self.cursor_.pos()
 
-    def dataChanged(self, topLeft, bottomRight, roles) -> None:
-        if self.table_model.editing == True:
-            self.table_model.editing = False
-            print("edit complete")
-        return super().dataChanged(topLeft, bottomRight, roles)
+    # def dataChanged(self, topLeft, bottomRight, roles) -> None:
+    #     if self.table_model.editing == True:
+    #         self.table_model.editing = False
+    #         print("edit complete")
+    #     return super().dataChanged(topLeft, bottomRight, roles)
 
 
 class CommandParametersTableWidget(QWidget):
