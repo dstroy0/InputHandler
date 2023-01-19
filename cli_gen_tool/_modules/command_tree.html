@@ -310,23 +310,23 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tt_row_list</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.flags"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlags</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+        <span class="c1"># if self.is_builtin == True:</span>
+        <span class="c1">#     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled</span>
 
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span> <span class="o">==</span> <span class="s2">&quot;Arguments&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
+        <span class="c1"># if index.isValid() and self.h_label[index.column()] == &quot;Arguments&quot;:</span>
+        <span class="c1">#     return (</span>
+        <span class="c1">#         super().flags(index)</span>
+        <span class="c1">#         | Qt.ItemIsSelectable</span>
+        <span class="c1">#         | Qt.ItemIsEditable</span>
+        <span class="c1">#         | Qt.ItemIsEnabled</span>
+        <span class="c1">#     )</span>
+        <span class="c1"># else:</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.setData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">role</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># def setData(self, index, value, role) -&gt; bool:</span>
+    <span class="c1">#     if role in (Qt.DisplayRole, Qt.EditRole):</span>
+    <span class="c1">#         if not value:</span>
+    <span class="c1">#             return False</span>
 
             <span class="c1"># clean_value = value.strip(&quot;&lt;&gt;&quot;)</span>
             <span class="c1"># if not clean_value:</span>
@@ -339,7 +339,7 @@
             <span class="c1"># self._parent.logger.info(</span>
             <span class="c1">#     f&quot;{table} table, row {index.row()+1} data changed to &lt;{clean_value}&gt;&quot;</span>
             <span class="c1"># )</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="c1">#return True</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
@@ -358,13 +358,13 @@
             <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span>
             <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div></div>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.edit_table_view"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.edit_table_view">[docs]</a>    <span class="k">def</span> <span class="nf">edit_table_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div></div>
+    <span class="c1"># def edit_table_view(self, index: QModelIndex):</span>
+    <span class="c1">#     if index.isValid() and self.editing == False:</span>
+    <span class="c1">#         self.editing = True</span>
+    <span class="c1">#         self._parent.setCurrentIndex(index)</span>
+    <span class="c1">#         self._parent.edit(index)</span>
 
 
 <span class="c1"># TODO</span>
@@ -429,42 +429,42 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tt_row_list</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CommandParametersTableViewModel.flags"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlags</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+        <span class="c1"># if self.is_builtin == True:</span>
+        <span class="c1">#     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled</span>
 
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span> <span class="o">==</span> <span class="s2">&quot;Value&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span>
-                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
+        <span class="c1"># if index.isValid() and self.h_labels[index.column()] == &quot;Value&quot;:</span>
+        <span class="c1">#     return (</span>
+        <span class="c1">#         super().flags(index)</span>
+        <span class="c1">#         | Qt.ItemIsSelectable</span>
+        <span class="c1">#         | Qt.ItemIsEditable</span>
+        <span class="c1">#         | Qt.ItemIsEnabled</span>
+        <span class="c1">#     )</span>
+        <span class="c1"># else:</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.setData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">role</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># def setData(self, index, value, role) -&gt; bool:</span>
+    <span class="c1">#     if role in (Qt.DisplayRole, Qt.EditRole):</span>
+    <span class="c1">#         if not value:</span>
+    <span class="c1">#             return False</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
-                <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1">#         if not index.isValid():</span>
+    <span class="c1">#             return False</span>
 
-            <span class="n">type_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">(),</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">parameter_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">type_index</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">)</span>
+    <span class="c1">#         type_index = self.index(index.row(), index.column() - 1)</span>
+    <span class="c1">#         parameter_type = self.data(type_index, Qt.DisplayRole)</span>
 
-            <span class="c1"># data model</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="c1"># internal table model</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="c1"># emit this signal to update the display</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dataChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+    <span class="c1">#         # data model</span>
+    <span class="c1">#         self.parameters[parameter_type] = value</span>
+    <span class="c1">#         # internal table model</span>
+    <span class="c1">#         self.matrix[index.row()][index.column()] = value</span>
+    <span class="c1">#         # emit this signal to update the display</span>
+    <span class="c1">#         self.dataChanged.emit(index, index)</span>
 
-            <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;User edited command &lt;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&gt;; &lt;</span><span class="si">{</span><span class="n">parameter_type</span><span class="si">}</span><span class="s2">&gt; changed to &lt;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
-            <span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+    <span class="c1">#         command = self.parameters[&quot;commandString&quot;]</span>
+    <span class="c1">#         self._parent.logger.info(</span>
+    <span class="c1">#             f&quot;User edited command &lt;{command}&gt;; &lt;{parameter_type}&gt; changed to &lt;{value}&gt;&quot;</span>
+    <span class="c1">#         )</span>
+    <span class="c1">#     return True</span>
 
 <div class="viewcode-block" id="CommandParametersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
@@ -483,13 +483,13 @@
 <div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></div>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></div></div>
 
-<div class="viewcode-block" id="CommandParametersTableViewModel.edit_table_view"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.edit_table_view">[docs]</a>    <span class="k">def</span> <span class="nf">edit_table_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div></div>
+    <span class="c1"># def edit_table_view(self, index: QModelIndex):</span>
+    <span class="c1">#     if index.isValid() and self.editing == False:</span>
+    <span class="c1">#         self.editing = True</span>
+    <span class="c1">#         self._parent.setCurrentIndex(index)</span>
+    <span class="c1">#         self._parent.edit(index)</span>
 
 
 <span class="c1"># TODO</span>
@@ -510,21 +510,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
+        <span class="c1">#self.clicked.connect(self.table_model.edit_table_view)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
+        <span class="c1">#self.pressed.connect(self.table_model.edit_table_view)</span>
 
 <div class="viewcode-block" id="CommandParametersTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
 
 <div class="viewcode-block" id="CommandParametersTableView.cursor_pos"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.cursor_pos">[docs]</a>    <span class="k">def</span> <span class="nf">cursor_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div></div>
 
-<div class="viewcode-block" id="CommandParametersTableView.dataChanged"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.dataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">dataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edit complete&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dataChanged</span><span class="p">(</span><span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span></div></div>
+    <span class="c1"># def dataChanged(self, topLeft, bottomRight, roles) -&gt; None:</span>
+    <span class="c1">#     if self.table_model.editing == True:</span>
+    <span class="c1">#         self.table_model.editing = False</span>
+    <span class="c1">#         print(&quot;edit complete&quot;)</span>
+    <span class="c1">#     return super().dataChanged(topLeft, bottomRight, roles)</span>
 
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableView"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersArgumentsTableView</span><span class="p">(</span><span class="n">QTableView</span><span class="p">):</span>
@@ -546,21 +546,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
+        <span class="c1">#self.clicked.connect(self.table_model.edit_table_view)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">edit_table_view</span><span class="p">)</span>
+        <span class="c1">#self.pressed.connect(self.table_model.edit_table_view)</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableView.cursor_pos"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.cursor_pos">[docs]</a>    <span class="k">def</span> <span class="nf">cursor_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div></div>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableView.dataChanged"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.dataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">dataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edit complete&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dataChanged</span><span class="p">(</span><span class="n">topLeft</span><span class="p">,</span> <span class="n">bottomRight</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span></div></div>
+    <span class="c1"># def dataChanged(self, topLeft, bottomRight, roles) -&gt; None:</span>
+    <span class="c1">#     if self.table_model.editing == True:</span>
+    <span class="c1">#         self.table_model.editing = False</span>
+    <span class="c1">#         print(&quot;edit complete&quot;)</span>
+    <span class="c1">#     return super().dataChanged(topLeft, bottomRight, roles)</span>
 
 
 <div class="viewcode-block" id="CommandParametersTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>

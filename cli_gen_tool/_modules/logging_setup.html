@@ -285,12 +285,7 @@
         <span class="mi">40</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
         <span class="mi">50</span><span class="p">:</span> <span class="s2">&quot;CRITICAL&quot;</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="n">file_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>  <span class="c1"># file log level</span>
-    <span class="n">stream_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>  <span class="c1"># terminal log level</span>
-    <span class="n">session_history_log_level</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
-    <span class="p">)</span>  <span class="c1"># session history widget log level (bound to F1)</span>
-    <span class="n">root_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+    <span class="n">session_log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>  <span class="c1"># global log level</span>
 
     <span class="c1"># log filesize</span>
     <span class="c1"># kb = 2^10 == 1024 bytes</span>
@@ -316,9 +311,9 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Logger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Logger</span><span class="o">.</span><span class="n">log_setup_complete</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="p">)</span>
             <span class="n">Logger</span><span class="o">.</span><span class="n">log_setup_complete</span> <span class="o">=</span> <span class="kc">True</span>
@@ -338,7 +333,7 @@
             <span class="mi">10</span> <span class="o">*</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_MB</span><span class="p">,</span>
             <span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">_log_formatter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s2">&quot;Log file path: &quot;</span>
@@ -381,12 +376,10 @@
     <span class="c1">## sets handler log levels</span>
 <div class="viewcode-block" id="Logger.set_log_levels"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.set_log_levels">[docs]</a>    <span class="k">def</span> <span class="nf">set_log_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;sets log levels&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">root_log_level</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">file_log_level</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">stream_log_level</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">session_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span>
-            <span class="n">Logger</span><span class="o">.</span><span class="n">session_history_log_level</span>
-        <span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">file_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">stream_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">session_log_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">Logger</span><span class="o">.</span><span class="n">session_log_level</span><span class="p">)</span></div></div>
 
 
 <span class="c1"># end of file</span>

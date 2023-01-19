@@ -236,7 +236,14 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="preferences.PreferencesMethods.clickable">
 <span class="sig-name descname"><span class="pre">clickable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.clickable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.clickable" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>makes objects emit “clicked”</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>widget (QWidget): the widget to attach the signal to</p>
+</dd>
+<dt>Returns:</dt><dd><p>Filter (QObject): the filtered object interaction</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="preferences.PreferencesMethods.get_comboboxes">
@@ -280,26 +287,6 @@ state (Qt.CheckState): bool</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preferences.PreferencesMethods.set_file_log_level">
-<span class="sig-name descname"><span class="pre">set_file_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_file_log_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_file_log_level" title="Permalink to this definition">#</a></dt>
-<dd><p>set file log level</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>index (int): combobox index</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preferences.PreferencesMethods.set_global_log_level">
-<span class="sig-name descname"><span class="pre">set_global_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_global_log_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_global_log_level" title="Permalink to this definition">#</a></dt>
-<dd><p>set log level</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>index (int): combobox index</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="preferences.PreferencesMethods.set_line_edit_text">
 <span class="sig-name descname"><span class="pre">set_line_edit_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">le</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QLineEdit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_line_edit_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_line_edit_text" title="Permalink to this definition">#</a></dt>
 <dd><p>sets line edit text</p>
@@ -310,19 +297,9 @@ state (Qt.CheckState): bool</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preferences.PreferencesMethods.set_session_history_log_level">
-<span class="sig-name descname"><span class="pre">set_session_history_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_session_history_log_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_session_history_log_level" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="preferences.PreferencesMethods.set_session_log_level">
+<span class="sig-name descname"><span class="pre">set_session_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_session_log_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_session_log_level" title="Permalink to this definition">#</a></dt>
 <dd><p>sets session history log level</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>index (int): combobox index</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preferences.PreferencesMethods.set_stream_log_level">
-<span class="sig-name descname"><span class="pre">set_stream_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/preferences.html#PreferencesMethods.set_stream_log_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#preferences.PreferencesMethods.set_stream_log_level" title="Permalink to this definition">#</a></dt>
-<dd><p>set log level</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>index (int): combobox index</p>
 </dd>
@@ -399,11 +376,8 @@ state (Qt.CheckState): bool</p>
 <li><a class="reference internal" href="#preferences.PreferencesMethods.reset_preferences"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.reset_preferences()</span></code></a></li>
 <li><a class="reference internal" href="#preferences.PreferencesMethods.save_preferences"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.save_preferences()</span></code></a></li>
 <li><a class="reference internal" href="#preferences.PreferencesMethods.set_builtin_preference"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_builtin_preference()</span></code></a></li>
-<li><a class="reference internal" href="#preferences.PreferencesMethods.set_file_log_level"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_file_log_level()</span></code></a></li>
-<li><a class="reference internal" href="#preferences.PreferencesMethods.set_global_log_level"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_global_log_level()</span></code></a></li>
 <li><a class="reference internal" href="#preferences.PreferencesMethods.set_line_edit_text"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_line_edit_text()</span></code></a></li>
-<li><a class="reference internal" href="#preferences.PreferencesMethods.set_session_history_log_level"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_session_history_log_level()</span></code></a></li>
-<li><a class="reference internal" href="#preferences.PreferencesMethods.set_stream_log_level"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_stream_log_level()</span></code></a></li>
+<li><a class="reference internal" href="#preferences.PreferencesMethods.set_session_log_level"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods.set_session_log_level()</span></code></a></li>
 </ul>
 </li>
 </ul>
