@@ -328,18 +328,18 @@
     <span class="c1">#         if not value:</span>
     <span class="c1">#             return False</span>
 
-            <span class="c1"># clean_value = value.strip(&quot;&lt;&gt;&quot;)</span>
-            <span class="c1"># if not clean_value:</span>
-            <span class="c1">#     return False</span>
-            <span class="c1"># self.cliopt[self.dict_pos[0]][&quot;var&quot;][self.dict_pos[2]][</span>
-            <span class="c1">#     str(index.row())</span>
-            <span class="c1"># ] = clean_value</span>
-            <span class="c1"># self.dataChanged.emit(index, index)</span>
-            <span class="c1"># table = self._parent.objectName().split(&quot;,&quot;)[2]</span>
-            <span class="c1"># self._parent.logger.info(</span>
-            <span class="c1">#     f&quot;{table} table, row {index.row()+1} data changed to &lt;{clean_value}&gt;&quot;</span>
-            <span class="c1"># )</span>
-        <span class="c1">#return True</span>
+    <span class="c1"># clean_value = value.strip(&quot;&lt;&gt;&quot;)</span>
+    <span class="c1"># if not clean_value:</span>
+    <span class="c1">#     return False</span>
+    <span class="c1"># self.cliopt[self.dict_pos[0]][&quot;var&quot;][self.dict_pos[2]][</span>
+    <span class="c1">#     str(index.row())</span>
+    <span class="c1"># ] = clean_value</span>
+    <span class="c1"># self.dataChanged.emit(index, index)</span>
+    <span class="c1"># table = self._parent.objectName().split(&quot;,&quot;)[2]</span>
+    <span class="c1"># self._parent.logger.info(</span>
+    <span class="c1">#     f&quot;{table} table, row {index.row()+1} data changed to &lt;{clean_value}&gt;&quot;</span>
+    <span class="c1"># )</span>
+    <span class="c1"># return True</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
@@ -510,9 +510,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
 
-        <span class="c1">#self.clicked.connect(self.table_model.edit_table_view)</span>
+        <span class="c1"># self.clicked.connect(self.table_model.edit_table_view)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="c1">#self.pressed.connect(self.table_model.edit_table_view)</span>
+        <span class="c1"># self.pressed.connect(self.table_model.edit_table_view)</span>
 
 <div class="viewcode-block" id="CommandParametersTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
@@ -546,9 +546,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
 
-        <span class="c1">#self.clicked.connect(self.table_model.edit_table_view)</span>
+        <span class="c1"># self.clicked.connect(self.table_model.edit_table_view)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="c1">#self.pressed.connect(self.table_model.edit_table_view)</span>
+        <span class="c1"># self.pressed.connect(self.table_model.edit_table_view)</span>
 
 <div class="viewcode-block" id="CommandParametersArgumentsTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
@@ -639,6 +639,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">itemClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemCollapsed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemExpanded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree_button_toggles</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CommandTreeWidget.keyPressEvent"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectionModel</span><span class="p">()</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">keyPressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommandTreeWidget.make_builtin_parameters"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.make_builtin_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">make_builtin_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builtin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">builtin</span> <span class="o">==</span> <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span>
