@@ -106,7 +106,8 @@ class TableButtonBox(QWidget):
 
     def remove_row(self):
         row = self.row()
-        self.table.removeRow(row)        
+        self.table.removeRow(row)
+        self.table.setCurrentCell(row-1,0)
 
     def takeRow(self, row: int) -> list:
         rowItems = []
@@ -247,7 +248,7 @@ class CommandParametersMethods(object):
             "commandDepth": 255,
             "commandSubcommands": 255,
             "commandMinArgs": 255,
-            "commandMaxArgs": 255,            
+            "commandMaxArgs": 255,
         }
         # set validators to user preset or defaults
         self.set_command_parameter_validators()
@@ -488,10 +489,13 @@ class CommandParametersMethods(object):
             arg_list.append(item_data)
         if not bool(selected_item):
             arg_list.append(cmb.currentText())
+            cell_row = table.rowCount()
         else:
             row = table.row(selected_item)
+            cell_row = row + 1
             arg_list.insert(row + 1, cmb.currentText())
         self.generate_commandparameters_arg_table(arg_list)
+        table.setCurrentCell(cell_row,0)
 
     def edit_existing_command(self, parameters_key):
         fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
