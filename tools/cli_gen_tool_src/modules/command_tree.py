@@ -404,7 +404,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.setHeaderLabel("Command Tree")
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-
+        self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
         self.build_tree()
 
         self.clicked.connect(self.which_clicked)

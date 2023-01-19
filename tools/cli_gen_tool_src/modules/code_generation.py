@@ -113,6 +113,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setMinimumHeight(25)
         self.setMinimumWidth(100)
@@ -721,7 +722,7 @@ class CodePreviewWidget(
         for i in range(self.columnCount() - 1):
             self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
-
+        self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
         self.build_tree()
 
         self.clicked.connect(self.which_clicked)

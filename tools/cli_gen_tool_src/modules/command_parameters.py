@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
     QStyle,
     QLineEdit,
     QComboBox,
-    QPlainTextEdit,
+    QCompleter,
     QSpinBox,
     QWidget,
     QDialog,
@@ -30,7 +30,6 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QPushButton,
     QHeaderView,
-    
 )
 
 # data models
@@ -39,10 +38,16 @@ from modules.display_models import displayModels
 
 
 class TableButtonBox(QWidget):
+    """up/down/remove row button widget for tablewidget
+
+    Args:
+        QWidget (class): base class being specialized
+    """
+
     def __init__(self, parent) -> None:
         super(TableButtonBox, self).__init__()
-        self.setParent(parent)        
-        self.table = parent        
+        self.setParent(parent)
+        self.table = parent
         self.widget_layout = QHBoxLayout(parent)
         self.up_icn = self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowUp)
         self.dn_icn = self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowDown)
@@ -61,14 +66,14 @@ class TableButtonBox(QWidget):
             self.dn_icn.actualSize(self.dn_icn.availableSizes()[0])
         )
         self.dn_btn.setText("")
-        self.up_btn.setToolTip("Move argument down")
+        self.dn_btn.setToolTip("Move argument down")
         self.dn_btn.setIcon(self.dn_icn)
         self.del_row_btn = QPushButton()
         self.del_row_btn.setFixedSize(
             self.dn_icn.actualSize(self.dn_icn.availableSizes()[0])
         )
         self.del_row_btn.setText("")
-        self.up_btn.setToolTip("Delete argument")
+        self.del_row_btn.setToolTip("Delete argument")
         self.del_row_btn.setIcon(self.del_row_icn)
         self.widget_layout.addWidget(self.up_btn)
         self.widget_layout.addWidget(self.dn_btn)
@@ -78,36 +83,30 @@ class TableButtonBox(QWidget):
         self.dn_btn.clicked.connect(self.move_row_down)
         self.del_row_btn.clicked.connect(self.remove_row)
 
+    def row(self):
+        return self.table.row(
+            self.table.itemAt(
+                self.table.viewport().mapFromGlobal(self.table.cursor.pos())
+            )
+        )
+
     def move_row_up(self):
-        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
-        print(self.table.cursor.pos())
-        print(row)
-        if row <= 0:
-            return
+        row = self.row()
         sourceItems = self.takeRow(row)
         destItems = self.takeRow(row - 1)
         self.setRow(row - 1, sourceItems)
         self.setRow(row, destItems)
 
     def move_row_down(self, row: int = None):
-        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
-        print(self.table.cursor.pos())
-        print(row)
-        if row >= self.table.rowCount():
-            return
+        row = self.row()
         sourceItems = self.takeRow(row)
         destItems = self.takeRow(row + 1)
         self.setRow(row + 1, sourceItems)
         self.setRow(row, destItems)
 
     def remove_row(self):
-        row = self.table.row(self.table.itemAt(self.table.mapFromGlobal(self.table.cursor.pos()))) -1
-        print(self.table.cursor.pos())
-        print(row)
-        if row < 0:
-            self.table.removeRow(self.table.rowCount())
-            return                    
-        self.table.removeRow(row)
+        row = self.row()
+        self.table.removeRow(row)        
 
     def takeRow(self, row: int) -> list:
         rowItems = []
@@ -154,26 +153,35 @@ class CommandParametersMethods(object):
         self.cliopt = self.cliOpt
 
     def build_commandparameters_dialog_arg_table(self, command_parameters):
+        args = command_parameters["commandArguments"]
+        args_list = self.parse_commandarguments_string(args)
+        self.generate_commandparameters_arg_table(args_list)
+
+    def parse_commandarguments_string(self, args: str) -> list:
+        args_list = copy.deepcopy(args)
+        args_list = args_list.replace("UITYPE::", "")
+        args_list = args_list.replace("{", "")
+        args_list = args_list.replace("}", "")
+        args_list = args_list.replace(" ", "")
+        args_list = args_list.replace("\n", "")
+        args_list = args_list.split(",")
+        return args_list
+
+    def generate_commandparameters_arg_table(self, args_list: list):
         table = self.ui.commandParameters.dlg.argTable
-        table.cursor = QCursor()
+        table.cursor = self.qcursor
         table.clear()
         table.setColumnCount(2)
         table.setHorizontalHeaderLabels(["type", "controls"])
         table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.args_list = command_parameters["commandArguments"]
-        self.args_list = self.args_list.replace("UITYPE::", "")
-        self.args_list = self.args_list.replace("{", "")
-        self.args_list = self.args_list.replace("}", "")
-        self.args_list = self.args_list.replace(" ", "")
-        self.args_list = self.args_list.replace("\n", "")
-        self.args_list = self.args_list.split(",")
+        table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        table.setRowCount(len(args_list))
 
-        table.setRowCount(len(self.args_list))
-        for r in range(len(self.args_list)):
+        for r in range(len(args_list)):
             type_item = QTableWidgetItem()
-            type_item.setData(0, self.args_list[r])
+            type_item.setData(0, args_list[r])
             type_item.setToolTip(
-                displayModels.argument_table_tooltip_dict[self.args_list[r]]
+                displayModels.argument_table_tooltip_dict[args_list[r]]
             )
             table.setItem(r, 0, type_item)
             control_item = QTableWidgetItem()
@@ -220,8 +228,6 @@ class CommandParametersMethods(object):
             "commandMinArgs": self.ui.commandParameters.dlg.commandMinArgs,
             # spinbox
             "commandMaxArgs": self.ui.commandParameters.dlg.commandMaxArgs,
-            # plain text edit
-            "commandArguments": self.ui.commandParameters.dlg.argLineEdit,
         }
 
         self.command_parameters_input_field_settings = (
@@ -241,8 +247,7 @@ class CommandParametersMethods(object):
             "commandDepth": 255,
             "commandSubcommands": 255,
             "commandMinArgs": 255,
-            "commandMaxArgs": 255,
-            "commandArguments": "[UINTFLOATCHARSYPE]{1,6}[12368]{0,2}[_]{0,1}[STOPECHARGS]{1,4},{0,1}",
+            "commandMaxArgs": 255,            
         }
         # set validators to user preset or defaults
         self.set_command_parameter_validators()
@@ -250,7 +255,9 @@ class CommandParametersMethods(object):
         self.set_command_parameters_triggers()
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
-        cmd_dlg.argumentsPane.setEnabled(False)        
+        cmd_dlg.argumentsPane.setEnabled(False)
+        combobox_word_list = displayModels.argument_table_tooltip_dict.keys()
+        cmd_dlg.argComboBox.addItems(combobox_word_list)
 
     ## spawns a regexp validator
     def regex_validator(self, input: str):
@@ -457,29 +464,34 @@ class CommandParametersMethods(object):
         )
         cmd_dlg.commandMinArgs.setMaximum(cmd_dlg.validatorDict["commandMinArgs"])
         cmd_dlg.commandMaxArgs.setMaximum(cmd_dlg.validatorDict["commandMaxArgs"])
-        cmd_dlg.argLineEdit.setValidator(
-            self.regex_validator(cmd_dlg.validatorDict["commandArguments"])
-        )
 
     ## triggers related to the command parameters dialog
     def set_command_parameters_triggers(self) -> None:
         """Set up interaction triggers for CommandParametersDialog"""
         cmd_dlg = self.ui.commandParameters.dlg
-        cmd_dlg.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
-            self.clicked_command_parameters_buttonbox_reset
-        )
-        cmd_dlg.buttonBox.accepted.connect(self.clicked_command_parameters_buttonbox_ok)
-        cmd_dlg.buttonBox.rejected.connect(
-            self.clicked_command_parameters_buttonbox_cancel
-        )
+        cmd_dlg.reset.clicked.connect(self.clicked_command_parameters_buttonbox_reset)
+        cmd_dlg.ok.clicked.connect(self.clicked_command_parameters_buttonbox_ok)
+        cmd_dlg.cancel.clicked.connect(self.clicked_command_parameters_buttonbox_cancel)
         cmd_dlg.commandArgumentHandling.currentIndexChanged.connect(
             self.argument_handling_changed
         )
         cmd_dlg.commandString.textChanged.connect(self.command_string_text_changed)
-        cmd_dlg.argLineEdit.returnPressed.connect(self.insert_arg)
+        cmd_dlg.insert.clicked.connect(self.insert_arg)
 
     def insert_arg(self):
-        print("inserting arg")
+        cmb = self.ui.commandParameters.dlg.argComboBox
+        table = self.ui.commandParameters.dlg.argTable
+        selected_item = table.currentItem()
+        arg_list = []
+        for r in range(table.rowCount()):
+            item_data = table.item(r, 0).data(0)
+            arg_list.append(item_data)
+        if not bool(selected_item):
+            arg_list.append(cmb.currentText())
+        else:
+            row = table.row(selected_item)
+            arg_list.insert(row + 1, cmb.currentText())
+        self.generate_commandparameters_arg_table(arg_list)
 
     def edit_existing_command(self, parameters_key):
         fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
@@ -634,9 +646,10 @@ class CommandParametersMethods(object):
                     if isinstance(
                         self.command_parameters_user_input_objects[key], QLineEdit
                     ):
-                        self.command_parameters_user_input_objects[key].setText(
-                            str(_fields[key]["value"])
-                        )
+                        if key != "commandArguments":
+                            self.command_parameters_user_input_objects[key].setText(
+                                str(_fields[key]["value"])
+                            )
                     elif isinstance(
                         self.command_parameters_user_input_objects[key], QSpinBox
                     ):
@@ -650,13 +663,6 @@ class CommandParametersMethods(object):
                             self.command_parameters_user_input_objects[key].findText(
                                 _fields[key]["value"]
                             )
-                        )
-                    elif isinstance(
-                        self.command_parameters_user_input_objects[key], QPlainTextEdit
-                    ):
-                        self.command_parameters_user_input_objects[key].clear()
-                        self.command_parameters_user_input_objects[key].setPlainText(
-                            str(_fields[key]["value"])
                         )
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]
@@ -686,7 +692,7 @@ class CommandParametersMethods(object):
         inp_setup["commandArgumentHandling"]["value"] = "No arguments"
         inp_setup["commandMinArgs"]["value"] = 0
         inp_setup["commandMaxArgs"]["value"] = 0
-        inp_setup["commandArguments"]["value"] = "{UITYPE::NO_ARGS}"
+        inp_setup["commandArguments"]["value"] = ""
 
 
 # end of file
