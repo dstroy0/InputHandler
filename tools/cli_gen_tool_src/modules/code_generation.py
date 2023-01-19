@@ -113,7 +113,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         self.setObjectName(str(name))
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        
+
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setMinimumHeight(25)
         self.setMinimumWidth(100)
@@ -723,6 +723,7 @@ class CodePreviewWidget(
             self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
         self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+
         self.build_tree()
 
         self.clicked.connect(self.which_clicked)
@@ -737,6 +738,11 @@ class CodePreviewWidget(
         self.itemExpanded.connect(self.item_expanded)
         self.collapse_button.clicked.connect(self.tree_expander)
         self.button_toggles()
+
+    def keyPressEvent(self, event) -> None:
+        if event.key() == Qt.Key_Escape:
+            self.selectionModel().clearSelection()
+        return super().keyPressEvent(event)
 
     def item_expanded(self, item: QTreeWidgetItem) -> None:
         """expand only QTreeWidgetItems that are expandable

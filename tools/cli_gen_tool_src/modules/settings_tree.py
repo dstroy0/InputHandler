@@ -468,6 +468,11 @@ class SettingsTreeWidget(QTreeWidget):
         self.itemExpanded.connect(self._parent.settings_tree_button_toggles)
         self.itemExpanded.connect(self.item_expanded)
 
+    def keyPressEvent(self, event) -> None:
+        if event.key() == Qt.Key_Escape:
+            self.selectionModel().clearSelection()
+        return super().keyPressEvent(event)
+
     def item_expanded(self, item: QTreeWidgetItem):
         self.active_item = item
 

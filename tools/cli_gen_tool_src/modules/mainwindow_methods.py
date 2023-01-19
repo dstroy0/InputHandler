@@ -1305,10 +1305,14 @@ class MainWindowMethods(object):
             fields["commandId"]["enabled"] = False
             fields["commandDepth"]["value"] = 0
             fields["commandDepth"]["enabled"] = False
+            fields["commandArguments"]["value"] = "{{UITYPE::NO_ARGS}}"
             self.command_tree.active_item = self.command_tree.invisibleRootItem()
 
             self.commandparameters_set_fields(fields)
             self.ui.commandParameters.dlg.defaults = fields
+            self.generate_commandparameters_arg_table(
+                self.parse_commandarguments_string(fields["commandArguments"]["value"])
+            )
             self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():
             MainWindowMethods.logger.info(

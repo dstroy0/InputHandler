@@ -104,18 +104,18 @@ class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
     #         if not value:
     #             return False
 
-            # clean_value = value.strip("<>")
-            # if not clean_value:
-            #     return False
-            # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
-            #     str(index.row())
-            # ] = clean_value
-            # self.dataChanged.emit(index, index)
-            # table = self._parent.objectName().split(",")[2]
-            # self._parent.logger.info(
-            #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
-            # )
-        #return True
+    # clean_value = value.strip("<>")
+    # if not clean_value:
+    #     return False
+    # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
+    #     str(index.row())
+    # ] = clean_value
+    # self.dataChanged.emit(index, index)
+    # table = self._parent.objectName().split(",")[2]
+    # self._parent.logger.info(
+    #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
+    # )
+    # return True
 
     def columnCount(self, parent=QModelIndex()) -> int:
         return self.column_count
@@ -286,9 +286,9 @@ class CommandParametersTableView(QTableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
 
-        #self.clicked.connect(self.table_model.edit_table_view)
+        # self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-        #self.pressed.connect(self.table_model.edit_table_view)
+        # self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
@@ -322,9 +322,9 @@ class CommandParametersArgumentsTableView(QTableView):
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setModel(self.table_model)
 
-        #self.clicked.connect(self.table_model.edit_table_view)
+        # self.clicked.connect(self.table_model.edit_table_view)
         self.clicked.connect(self.update_index)
-        #self.pressed.connect(self.table_model.edit_table_view)
+        # self.pressed.connect(self.table_model.edit_table_view)
 
     def update_index(self):
         self.setCurrentIndex(self.indexAt(self.cursor_pos()))
@@ -415,6 +415,11 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.itemClicked.connect(self._parent.command_tree_button_toggles)
         self.itemCollapsed.connect(self._parent.command_tree_button_toggles)
         self.itemExpanded.connect(self._parent.command_tree_button_toggles)
+
+    def keyPressEvent(self, event) -> None:
+        if event.key() == Qt.Key_Escape:
+            self.selectionModel().clearSelection()
+        return super().keyPressEvent(event)
 
     def make_builtin_parameters(self, builtin: str = None) -> dict:
         if builtin == "listCommands":
