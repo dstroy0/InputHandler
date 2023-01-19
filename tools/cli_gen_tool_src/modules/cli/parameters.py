@@ -10,6 +10,8 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
+import copy
+
 
 class cliParameters(object):
     """parameters.h generator
@@ -29,6 +31,40 @@ class cliParameters(object):
         self.num_nested_children = 0
         self.child_parameters_list = []
         self.max_depth = 0
+
+    def parse_commandarguments_string(self, args: str) -> list:
+        args_list = copy.deepcopy(args)
+        args_list = args_list.replace("UITYPE::", "")
+        args_list = args_list.replace("{", "")
+        args_list = args_list.replace("}", "")
+        args_list = args_list.replace(" ", "")
+        args_list = args_list.replace("\n", "")
+        args_list = args_list.split(",")
+        return args_list
+
+    def generate_commandarguments_string(self, args_list: list) -> str:
+        comma = ""
+        newline = ""
+        padding = ""
+        arr_indent = ""
+        arguments = ""
+        if len(args_list) > 1:
+            padding = "    "
+            arr_indent = "  "
+        for i in range(len(args_list)):
+            arg_type = args_list[i]
+            if i < len(args_list) - 1:
+                comma = ","
+                newline = "\n"
+            else:
+                comma = ""
+                newline = ""
+            arg_format = f"{padding}{arr_indent}UITYPE::{arg_type}{comma}{newline}"
+            arguments += arg_format
+        if len(args_list) > 1:
+            newline = "\n"
+        argstring = f"{{{newline}{arguments}{newline}{padding}}}"
+        return argstring
 
     def ret_nested_child(self, parameters: dict, comma: bool = True) -> str:
         """returns string that is a valid C++11 pointer.
@@ -68,6 +104,9 @@ class cliParameters(object):
         ]
         command_constructor_string = ""
         _newline = ""
+        argstring = self.generate_commandarguments_string(
+            self.parse_commandarguments_string(parameters["commandArguments"])
+        )
         if has_constructor == True:
             command_constructor_string = self.fsdb["parameters"]["h"][
                 "filestring components"
@@ -85,7 +124,7 @@ class cliParameters(object):
             argumenthandling=parameters["commandArgumentHandling"],
             minnumargs=parameters["commandMinArgs"],
             maxnumargs=parameters["commandMaxArgs"],
-            argtypearray=parameters["commandArguments"],
+            argtypearray=argstring,
             commandconstructor=command_constructor_string,
             newline=_newline,
         )
@@ -117,7 +156,9 @@ class cliParameters(object):
         ]["nested command constructor"].format(
             functionname=parameters["functionName"], maxdepth=max_depth
         )
-
+        argstring = self.generate_commandarguments_string(
+            self.parse_commandarguments_string(parameters["commandArguments"])
+        )
         ret = parameters_string.format(
             functionname=parameters["functionName"],
             wildcardflag=parameters["commandHasWildcards"],
@@ -130,7 +171,7 @@ class cliParameters(object):
             argumenthandling=parameters["commandArgumentHandling"],
             minnumargs=parameters["commandMinArgs"],
             maxnumargs=parameters["commandMaxArgs"],
-            argtypearray=parameters["commandArguments"],
+            argtypearray=argstring,
             commandconstructor=nested_command_constructor_string,
             children=nested_children_string,
             numberofchildren=num_children,

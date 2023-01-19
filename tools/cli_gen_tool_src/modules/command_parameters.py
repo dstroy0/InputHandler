@@ -107,7 +107,7 @@ class TableButtonBox(QWidget):
     def remove_row(self):
         row = self.row()
         self.table.removeRow(row)
-        self.table.setCurrentCell(row-1,0)
+        self.table.setCurrentCell(row - 1, 0)
 
     def takeRow(self, row: int) -> list:
         rowItems = []
@@ -152,21 +152,14 @@ class CommandParametersMethods(object):
         CommandParametersMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
         self.cliopt = self.cliOpt
+        # inherit from parameters.py
+        self.generate_commandarguments_string = self.generate_commandarguments_string
+        self.parse_commandarguments_string = self.parse_commandarguments_string
 
     def build_commandparameters_dialog_arg_table(self, command_parameters):
         args = command_parameters["commandArguments"]
         args_list = self.parse_commandarguments_string(args)
         self.generate_commandparameters_arg_table(args_list)
-
-    def parse_commandarguments_string(self, args: str) -> list:
-        args_list = copy.deepcopy(args)
-        args_list = args_list.replace("UITYPE::", "")
-        args_list = args_list.replace("{", "")
-        args_list = args_list.replace("}", "")
-        args_list = args_list.replace(" ", "")
-        args_list = args_list.replace("\n", "")
-        args_list = args_list.split(",")
-        return args_list
 
     def generate_commandparameters_arg_table(self, args_list: list):
         table = self.ui.commandParameters.dlg.argTable
@@ -188,6 +181,14 @@ class CommandParametersMethods(object):
             control_item = QTableWidgetItem()
             table.setItem(r, 1, control_item)
             table.setCellWidget(r, 1, TableButtonBox(table))
+
+    def get_args_from_commandparameters_arg_table(self) -> list:
+        table = self.ui.commandParameters.dlg.argTable
+        arg_list = []
+        for r in range(table.rowCount()):
+            item_data = table.item(r, 0).data(0)
+            arg_list.append(item_data)
+        return arg_list
 
     def set_up_command_parameters_dialog(self, ui):
         """sets up command parameters dialog
@@ -274,15 +275,9 @@ class CommandParametersMethods(object):
         Returns:
             dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.
         """
-        wildcard_flag_strings = [
-            "no_wildcards",
-            "has_wildcards",
-        ]
-        arg_handling_strings = [
-            "UI_ARG_HANDLING::no_args",
-            "UI_ARG_HANDLING::one_type",
-            "UI_ARG_HANDLING::type_arr",
-        ]
+        wildcard_flag_strings = dataModels.wildcard_flag_strings
+
+        arg_handling_strings = dataModels.arg_handling_strings
 
         error_list = []
         settings_to_validate = dict.fromkeys(
@@ -373,14 +368,13 @@ class CommandParametersMethods(object):
         if arg_handling_idx == 0:
             settings_to_validate[
                 "commandArguments"
-            ] = self.command_parameters_user_input_objects[
-                "commandArguments"
-            ].toPlainText()
+            ] = self.generate_commandarguments_string(
+                [self.get_args_from_commandparameters_arg_table()[0]]
+            )
         elif arg_handling_idx == 1:
-            tmp = self.list_from_csv_args()
+            args_list = self.get_args_from_commandparameters_arg_table()
             # single argument
-            if not bool(tmp) or tmp[0] == "":
-                tmp[0] = ""
+            if not bool(args_list):
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
@@ -389,12 +383,13 @@ class CommandParametersMethods(object):
                 error_list.append(
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
-            settings_to_validate["commandArguments"] = "{UITYPE::" + str(tmp[0]) + "}"
+            settings_to_validate[
+                "commandArguments"
+            ] = self.generate_commandarguments_string(args_list)
         elif arg_handling_idx == 2:
-            tmp = self.list_from_csv_args()
+            args_list = self.get_args_from_commandparameters_arg_table()
             # argument array
-            if tmp == {} or tmp[0] == "":
-                tmp[0] = ""
+            if not bool(args_list):
                 err = True
                 error_list.append(
                     "'Arguments' field cannot be blank with current 'Argument Handling' selection"
@@ -403,12 +398,9 @@ class CommandParametersMethods(object):
                 error_list.append(
                     "'Return function name' cannot be empty with current 'Argument Handling' selection"
                 )
-            argument_string = "{"
-            for item in tmp:
-                argument_string += item + ",\n     "
-            argument_string = argument_string[:-7]
-            argument_string = argument_string + "}"
-            settings_to_validate["commandArguments"] = argument_string
+            settings_to_validate[
+                "commandArguments"
+            ] = self.generate_commandarguments_string(args_list)
         CommandParametersMethods.logger.debug(settings_to_validate)
         CommandParametersMethods.logger.debug(error_list)
         if err == True:
@@ -483,10 +475,8 @@ class CommandParametersMethods(object):
         cmb = self.ui.commandParameters.dlg.argComboBox
         table = self.ui.commandParameters.dlg.argTable
         selected_item = table.currentItem()
-        arg_list = []
-        for r in range(table.rowCount()):
-            item_data = table.item(r, 0).data(0)
-            arg_list.append(item_data)
+        arg_list = self.get_args_from_commandparameters_arg_table()
+
         if not bool(selected_item):
             arg_list.append(cmb.currentText())
             cell_row = table.rowCount()
@@ -495,7 +485,7 @@ class CommandParametersMethods(object):
             cell_row = row + 1
             arg_list.insert(row + 1, cmb.currentText())
         self.generate_commandparameters_arg_table(arg_list)
-        table.setCurrentCell(cell_row,0)
+        table.setCurrentCell(cell_row, 0)
 
     def edit_existing_command(self, parameters_key):
         fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
@@ -503,6 +493,7 @@ class CommandParametersMethods(object):
         for key in fields:
             fields[key]["value"] = command_parameters[key]
         self.commandparameters_set_fields(fields)
+        self.ui.commandParameters.dlg.defaults = fields
         CommandParametersMethods.editing_existing_command = True
         CommandParametersMethods.existing_command_parameters_key = parameters_key
         parameters = self.cliopt["commands"]["parameters"][parameters_key]
@@ -594,7 +585,7 @@ class CommandParametersMethods(object):
         """This function is reached if the user clicked `reset` on CommandParametersDialog."""
         CommandParametersMethods.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
-        cmd_dlg.argumentsPlainTextCSV.clear()
+        self.commandparameters_set_fields(cmd_dlg.defaults)
 
     ## command parameters dialog buttonbox cancel changes
     def clicked_command_parameters_buttonbox_cancel(self) -> None:
@@ -664,10 +655,9 @@ class CommandParametersMethods(object):
                         self.command_parameters_user_input_objects[key], QComboBox
                     ):
                         self.command_parameters_user_input_objects[key].setCurrentIndex(
-                            self.command_parameters_user_input_objects[key].findText(
-                                _fields[key]["value"]
-                            )
+                            dataModels.arg_handling_strings.index(_fields[key]["value"])
                         )
+
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]
                     )
@@ -693,10 +683,12 @@ class CommandParametersMethods(object):
         inp_setup["commandHasWildcards"]["value"] = False
         inp_setup["commandDepth"]["value"] = 0
         inp_setup["commandSubcommands"]["value"] = 0
-        inp_setup["commandArgumentHandling"]["value"] = "No arguments"
+        inp_setup["commandArgumentHandling"]["value"] = dataModels.arg_handling_strings[
+            0
+        ]
         inp_setup["commandMinArgs"]["value"] = 0
         inp_setup["commandMaxArgs"]["value"] = 0
-        inp_setup["commandArguments"]["value"] = ""
+        inp_setup["commandArguments"]["value"] = "{{UITYPE::NO_ARGS}}"
 
 
 # end of file

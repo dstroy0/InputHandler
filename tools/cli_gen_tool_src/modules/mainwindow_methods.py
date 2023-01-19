@@ -1288,7 +1288,7 @@ class MainWindowMethods(object):
         MainWindowMethods.logger.info("edit command")
         parameters_key = self.cliOpt["commands"]["index"][
             self._parent.command_tree.active_item.data(1, 0)
-        ]["parameters key"]        
+        ]["parameters key"]
         self.edit_existing_command(parameters_key)
 
     def clicked_new_cmd_button(self):
@@ -1306,8 +1306,9 @@ class MainWindowMethods(object):
             fields["commandDepth"]["value"] = 0
             fields["commandDepth"]["enabled"] = False
             self.command_tree.active_item = self.command_tree.invisibleRootItem()
-            
+
             self.commandparameters_set_fields(fields)
+            self.ui.commandParameters.dlg.defaults = fields
             self.ui.commandParameters.exec()
         elif "(child command)" in self.ui.new_cmd_button.text():
             MainWindowMethods.logger.info(
@@ -1355,6 +1356,7 @@ class MainWindowMethods(object):
             fields["commandDepth"]["enabled"] = False
 
             self.commandparameters_set_fields(fields)
+            self.ui.commandParameters.dlg.defaults = fields
             self.ui.commandParameters.exec()
 
     def clicked_delete_tab_two(self) -> None:

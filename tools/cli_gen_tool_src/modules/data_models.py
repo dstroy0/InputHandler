@@ -132,6 +132,17 @@ class dataModels(object):
         for (key) in command_parameters_dict_keys_list
     }
 
+    wildcard_flag_strings = [
+        "no_wildcards",
+        "has_wildcards",
+    ]
+
+    arg_handling_strings = [
+        "UI_ARG_HANDLING::no_args",
+        "UI_ARG_HANDLING::one_type",
+        "UI_ARG_HANDLING::type_arr",
+    ]
+
     ## Acceptable command argument types.
     command_arg_types_list = [
         "UINT8_T",
