@@ -243,9 +243,8 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QByteArray</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QByteArray</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QTableView</span><span class="p">,</span>
     <span class="n">QTreeWidget</span><span class="p">,</span>
     <span class="n">QTreeWidgetItem</span><span class="p">,</span>
     <span class="n">QHeaderView</span><span class="p">,</span>
@@ -254,313 +253,90 @@
     <span class="n">QHBoxLayout</span><span class="p">,</span>
     <span class="n">QSizePolicy</span><span class="p">,</span>
     <span class="n">QAbstractItemView</span><span class="p">,</span>
+    <span class="n">QTableWidget</span><span class="p">,</span>
+    <span class="n">QTableWidgetItem</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># TODO</span>
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersArgumentsTableViewModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">builtins</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersArgumentsTableViewModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_dict</span> <span class="o">=</span> <span class="n">displayModels</span><span class="o">.</span><span class="n">argument_table_tooltip_dict</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">builtins</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="n">arg_start</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;commandArguments&quot;</span><span class="p">:</span>
-                <span class="n">arg_start</span> <span class="o">=</span> <span class="n">i</span>
-                <span class="k">break</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CommandParametersPTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersPTableWidget</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span> <span class="o">=</span> <span class="s2">&quot;Arguments&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">))</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">input_idx</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_count</span><span class="p">):</span>
-            <span class="n">row_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">tt_row_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
-                    <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                    <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="n">input_idx</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span><span class="p">:</span>
-                        <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="n">input_idx</span><span class="p">]])</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="n">input_idx</span><span class="p">]])</span>
-                            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cannot edit builtin commands.&quot;</span>
-                        <span class="p">)</span>
-                    <span class="n">input_idx</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tt_row_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersPTableWidget</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.flags"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlags</span><span class="p">:</span>
-        <span class="c1"># if self.is_builtin == True:</span>
-        <span class="c1">#     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled</span>
-
-        <span class="c1"># if index.isValid() and self.h_label[index.column()] == &quot;Arguments&quot;:</span>
-        <span class="c1">#     return (</span>
-        <span class="c1">#         super().flags(index)</span>
-        <span class="c1">#         | Qt.ItemIsSelectable</span>
-        <span class="c1">#         | Qt.ItemIsEditable</span>
-        <span class="c1">#         | Qt.ItemIsEnabled</span>
-        <span class="c1">#     )</span>
-        <span class="c1"># else:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
-
-    <span class="c1"># def setData(self, index, value, role) -&gt; bool:</span>
-    <span class="c1">#     if role in (Qt.DisplayRole, Qt.EditRole):</span>
-    <span class="c1">#         if not value:</span>
-    <span class="c1">#             return False</span>
-
-    <span class="c1"># clean_value = value.strip(&quot;&lt;&gt;&quot;)</span>
-    <span class="c1"># if not clean_value:</span>
-    <span class="c1">#     return False</span>
-    <span class="c1"># self.cliopt[self.dict_pos[0]][&quot;var&quot;][self.dict_pos[2]][</span>
-    <span class="c1">#     str(index.row())</span>
-    <span class="c1"># ] = clean_value</span>
-    <span class="c1"># self.dataChanged.emit(index, index)</span>
-    <span class="c1"># table = self._parent.objectName().split(&quot;,&quot;)[2]</span>
-    <span class="c1"># self._parent.logger.info(</span>
-    <span class="c1">#     f&quot;{table} table, row {index.row()+1} data changed to &lt;{clean_value}&gt;&quot;</span>
-    <span class="c1"># )</span>
-    <span class="c1"># return True</span>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.rowCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span></div>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()])</span></div>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_label</span>
-            <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">section</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div></div>
-
-    <span class="c1"># def edit_table_view(self, index: QModelIndex):</span>
-    <span class="c1">#     if index.isValid() and self.editing == False:</span>
-    <span class="c1">#         self.editing = True</span>
-    <span class="c1">#         self._parent.setCurrentIndex(index)</span>
-    <span class="c1">#         self._parent.edit(index)</span>
+<div class="viewcode-block" id="CommandParametersPTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">command_parameters</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;Setting&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Setting&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Setting&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="p">:</span>
+            <span class="n">setting_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
+            <span class="n">setting_item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="n">setting_item</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">displayModels</span><span class="o">.</span><span class="n">command_table_tooltip_dict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">setting_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span><span class="p">)</span>
+            <span class="n">setting_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">setting_item</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">setting_item</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">value_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
+            <span class="n">value_item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">value_item</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">displayModels</span><span class="o">.</span><span class="n">command_table_tooltip_dict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">value_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span><span class="p">)</span>
+            <span class="n">value_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">value_item</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">value_item</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="bp">cls</span><span class="o">.</span><span class="n">columnCount</span><span class="p">():</span>
+                <span class="n">r</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span></div></div>
 
 
-<span class="c1"># TODO</span>
-<div class="viewcode-block" id="CommandParametersTableViewModel"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableViewModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">builtins</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersTableViewModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">builtins</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Setting&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Setting&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Setting&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">editing</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tooltip_dict</span> <span class="o">=</span> <span class="n">displayModels</span><span class="o">.</span><span class="n">command_table_tooltip_dict</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tooltip_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tooltip_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_input</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="o">-</span><span class="p">(</span>
-                <span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_dict_keys_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="o">//</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersArgumentsTableWidget</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersArgumentsTableWidget</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse_commandarguments_string</span><span class="p">(</span>
+            <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">([</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span><span class="p">))</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setMaximumWidth</span><span class="p">(</span><span class="mi">175</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span><span class="p">)):</span>
+            <span class="n">type_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">()</span>
+            <span class="n">type_item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+            <span class="n">type_item</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
+                <span class="n">displayModels</span><span class="o">.</span><span class="n">argument_table_tooltip_dict</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span>
             <span class="p">)</span>
-        <span class="p">)</span>
+            <span class="n">type_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span><span class="p">)</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">type_item</span><span class="p">)</span></div>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">arg_start</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tt_input</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tt_input</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;commandArguments&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">arg_start</span> <span class="o">=</span> <span class="n">i</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arg_start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">args_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-        <span class="c1"># make display matrices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">input_idx</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_count</span><span class="p">):</span>
-            <span class="n">row_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">tt_row_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_count</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">input_idx</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                    <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_builtin</span><span class="p">:</span>
-                        <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_input</span><span class="p">[</span><span class="n">input_idx</span><span class="p">])</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">tt_row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Cannot edit builtin commands.&quot;</span><span class="p">)</span>
-                    <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">input_idx</span><span class="p">])</span>
-                    <span class="n">input_idx</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tt_row_list</span><span class="p">)</span>
-
-<div class="viewcode-block" id="CommandParametersTableViewModel.flags"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlags</span><span class="p">:</span>
-        <span class="c1"># if self.is_builtin == True:</span>
-        <span class="c1">#     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled</span>
-
-        <span class="c1"># if index.isValid() and self.h_labels[index.column()] == &quot;Value&quot;:</span>
-        <span class="c1">#     return (</span>
-        <span class="c1">#         super().flags(index)</span>
-        <span class="c1">#         | Qt.ItemIsSelectable</span>
-        <span class="c1">#         | Qt.ItemIsEditable</span>
-        <span class="c1">#         | Qt.ItemIsEnabled</span>
-        <span class="c1">#     )</span>
-        <span class="c1"># else:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span></div>
-
-    <span class="c1"># def setData(self, index, value, role) -&gt; bool:</span>
-    <span class="c1">#     if role in (Qt.DisplayRole, Qt.EditRole):</span>
-    <span class="c1">#         if not value:</span>
-    <span class="c1">#             return False</span>
-
-    <span class="c1">#         if not index.isValid():</span>
-    <span class="c1">#             return False</span>
-
-    <span class="c1">#         type_index = self.index(index.row(), index.column() - 1)</span>
-    <span class="c1">#         parameter_type = self.data(type_index, Qt.DisplayRole)</span>
-
-    <span class="c1">#         # data model</span>
-    <span class="c1">#         self.parameters[parameter_type] = value</span>
-    <span class="c1">#         # internal table model</span>
-    <span class="c1">#         self.matrix[index.row()][index.column()] = value</span>
-    <span class="c1">#         # emit this signal to update the display</span>
-    <span class="c1">#         self.dataChanged.emit(index, index)</span>
-
-    <span class="c1">#         command = self.parameters[&quot;commandString&quot;]</span>
-    <span class="c1">#         self._parent.logger.info(</span>
-    <span class="c1">#             f&quot;User edited command &lt;{command}&gt;; &lt;{parameter_type}&gt; changed to &lt;{value}&gt;&quot;</span>
-    <span class="c1">#         )</span>
-    <span class="c1">#     return True</span>
-
-<div class="viewcode-block" id="CommandParametersTableViewModel.columnCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_count</span></div>
-
-<div class="viewcode-block" id="CommandParametersTableViewModel.rowCount"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_count</span></div>
-
-<div class="viewcode-block" id="CommandParametersTableViewModel.data"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">QModelIndex</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span> <span class="ow">or</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()])</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tt_matrix</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()])</span></div>
-
-<div class="viewcode-block" id="CommandParametersTableViewModel.headerData"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableViewModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h_labels</span><span class="p">[</span><span class="n">section</span><span class="p">]</span></div></div>
-
-    <span class="c1"># def edit_table_view(self, index: QModelIndex):</span>
-    <span class="c1">#     if index.isValid() and self.editing == False:</span>
-    <span class="c1">#         self.editing = True</span>
-    <span class="c1">#         self._parent.setCurrentIndex(index)</span>
-    <span class="c1">#         self._parent.edit(index)</span>
-
-
-<span class="c1"># TODO</span>
-<div class="viewcode-block" id="CommandParametersTableView"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableView</span><span class="p">(</span><span class="n">QTableView</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree_item</span><span class="p">,</span> <span class="n">builtins</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersTableView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span> <span class="o">=</span> <span class="n">cursor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span> <span class="o">=</span> <span class="n">tree_item</span>
-        <span class="c1"># dict_pos = self.tree_item.data(1, 0).split(&quot;,&quot;)</span>
-        <span class="c1"># self.setObjectName(str(self.tree_item.data(1, 0)))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">command_parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span> <span class="o">=</span> <span class="n">CommandParametersTableViewModel</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">builtins</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
-
-        <span class="c1"># self.clicked.connect(self.table_model.edit_table_view)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="c1"># self.pressed.connect(self.table_model.edit_table_view)</span>
-
-<div class="viewcode-block" id="CommandParametersTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
-
-<div class="viewcode-block" id="CommandParametersTableView.cursor_pos"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableView.cursor_pos">[docs]</a>    <span class="k">def</span> <span class="nf">cursor_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div></div>
-
-    <span class="c1"># def dataChanged(self, topLeft, bottomRight, roles) -&gt; None:</span>
-    <span class="c1">#     if self.table_model.editing == True:</span>
-    <span class="c1">#         self.table_model.editing = False</span>
-    <span class="c1">#         print(&quot;edit complete&quot;)</span>
-    <span class="c1">#     return super().dataChanged(topLeft, bottomRight, roles)</span>
-
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableView"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersArgumentsTableView</span><span class="p">(</span><span class="n">QTableView</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree_item</span><span class="p">,</span> <span class="n">builtins</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersArgumentsTableView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span> <span class="o">=</span> <span class="n">tree_item</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span> <span class="o">=</span> <span class="n">cursor</span>
-
-        <span class="c1"># dict_pos = self.tree_item.data(1, 0).split(&quot;,&quot;)</span>
-        <span class="c1"># self.setObjectName(str(self.tree_item.data(1, 0)))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">command_parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table_model</span> <span class="o">=</span> <span class="n">CommandParametersArgumentsTableViewModel</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">builtins</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">16777215</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_model</span><span class="p">)</span>
-
-        <span class="c1"># self.clicked.connect(self.table_model.edit_table_view)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_index</span><span class="p">)</span>
-        <span class="c1"># self.pressed.connect(self.table_model.edit_table_view)</span>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableView.update_index"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.update_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_pos</span><span class="p">()))</span></div>
-
-<div class="viewcode-block" id="CommandParametersArgumentsTableView.cursor_pos"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableView.cursor_pos">[docs]</a>    <span class="k">def</span> <span class="nf">cursor_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span></div></div>
-
-    <span class="c1"># def dataChanged(self, topLeft, bottomRight, roles) -&gt; None:</span>
-    <span class="c1">#     if self.table_model.editing == True:</span>
-    <span class="c1">#         self.table_model.editing = False</span>
-    <span class="c1">#         print(&quot;edit complete&quot;)</span>
-    <span class="c1">#     return super().dataChanged(topLeft, bottomRight, roles)</span>
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.parse_commandarguments_string"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.parse_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_commandarguments_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">args_list</span></div></div>
 
 
 <div class="viewcode-block" id="CommandParametersTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -585,12 +361,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span> <span class="o">=</span> <span class="n">CommandParametersTableView</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span><span class="p">,</span> <span class="n">builtins</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span> <span class="o">=</span> <span class="n">CommandParametersArgumentsTableView</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span><span class="p">,</span> <span class="n">builtins</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span> <span class="o">=</span> <span class="n">CommandParametersPTableWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span> <span class="o">=</span> <span class="n">CommandParametersArgumentsTableWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
 

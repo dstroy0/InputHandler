@@ -240,111 +240,22 @@
 
 <span class="c1"># pyside imports</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QRegularExpression</span><span class="p">,</span> <span class="n">Qt</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QCursor</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QRegularExpressionValidator</span><span class="p">,</span> <span class="n">QIcon</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QDialogButtonBox</span><span class="p">,</span>
     <span class="n">QStyle</span><span class="p">,</span>
     <span class="n">QLineEdit</span><span class="p">,</span>
     <span class="n">QComboBox</span><span class="p">,</span>
-    <span class="n">QCompleter</span><span class="p">,</span>
     <span class="n">QSpinBox</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
     <span class="n">QDialog</span><span class="p">,</span>
     <span class="n">QTableWidgetItem</span><span class="p">,</span>
-    <span class="n">QHBoxLayout</span><span class="p">,</span>
-    <span class="n">QPushButton</span><span class="p">,</span>
     <span class="n">QHeaderView</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># data models</span>
 <span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
 <span class="kn">from</span> <span class="nn">modules.display_models</span> <span class="kn">import</span> <span class="n">displayModels</span>
-
-
-<div class="viewcode-block" id="TableButtonBox"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox">[docs]</a><span class="k">class</span> <span class="nc">TableButtonBox</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;up/down/remove row button widget for tablewidget</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        QWidget (class): base class being specialized</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">TableButtonBox</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">parent</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_icn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_ArrowUp</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_ArrowDown</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_icn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span>
-            <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_BrowserStop</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">up_icn</span><span class="o">.</span><span class="n">actualSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">up_icn</span><span class="o">.</span><span class="n">availableSizes</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Move argument up&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">up_icn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span><span class="o">.</span><span class="n">actualSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span><span class="o">.</span><span class="n">availableSizes</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Move argument down&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span><span class="o">.</span><span class="n">actualSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dn_icn</span><span class="o">.</span><span class="n">availableSizes</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Delete argument&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">del_row_icn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">up_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">move_row_up</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dn_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">move_row_down</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">del_row_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_row</span><span class="p">)</span>
-
-<div class="viewcode-block" id="TableButtonBox.row"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.row">[docs]</a>    <span class="k">def</span> <span class="nf">row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">row</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">mapFromGlobal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
-            <span class="p">)</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="TableButtonBox.move_row_up"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.move_row_up">[docs]</a>    <span class="k">def</span> <span class="nf">move_row_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
-        <span class="n">sourceItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="n">destItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeRow</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRow</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sourceItems</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">destItems</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="TableButtonBox.move_row_down"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.move_row_down">[docs]</a>    <span class="k">def</span> <span class="nf">move_row_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
-        <span class="n">sourceItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="n">destItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeRow</span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRow</span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sourceItems</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">destItems</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="TableButtonBox.remove_row"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.remove_row">[docs]</a>    <span class="k">def</span> <span class="nf">remove_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="TableButtonBox.takeRow"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.takeRow">[docs]</a>    <span class="k">def</span> <span class="nf">takeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="n">rowItems</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
-        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
-            <span class="n">rowItems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">takeItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">rowItems</span></div>
-
-<div class="viewcode-block" id="TableButtonBox.setRow"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.TableButtonBox.setRow">[docs]</a>    <span class="k">def</span> <span class="nf">setRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rowItems</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
-        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
-            <span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">rowItems</span><span class="p">[</span><span class="n">col</span><span class="p">])</span></div></div>
-
+<span class="kn">from</span> <span class="nn">modules.mainwindow_methods</span> <span class="kn">import</span> <span class="n">TableButtonBox</span>
 
 <span class="c1"># command parameters methods</span>
 <div class="viewcode-block" id="CommandParametersMethods"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -387,7 +298,7 @@
 
 <div class="viewcode-block" id="CommandParametersMethods.generate_commandparameters_arg_table"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.generate_commandparameters_arg_table">[docs]</a>    <span class="k">def</span> <span class="nf">generate_commandparameters_arg_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">argTable</span>
-        <span class="n">table</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qcursor</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qcursor</span>
         <span class="n">table</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="n">table</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">table</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">([</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;controls&quot;</span><span class="p">])</span>
