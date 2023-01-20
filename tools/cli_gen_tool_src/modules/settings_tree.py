@@ -17,298 +17,65 @@ import copy
 import json
 
 # pyside imports
-from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, QByteArray
+from PySide6.QtCore import Qt, QByteArray
 from PySide6.QtWidgets import (
     QComboBox,
     QHeaderView,
     QAbstractItemView,
     QSizePolicy,
     QTreeWidget,
-    QPushButton,
     QTreeWidgetItem,
-    QTableView,
-    QAbstractScrollArea,
     QHBoxLayout,
-    QWidget,
-    QStyle,
+    QTableWidget,
+    QTableWidgetItem,
 )
+from PySide6.QtGui import QCursor
 
 # external data models
 from modules.data_models import dataModels
 from modules.display_models import displayModels
+from modules.mainwindow_methods import TableButtonBox
 
+# TODO update underlying data
+class DelimiterTableWidget(QTableWidget):
+    def __init_subclass__(cls) -> None:
+        return super(DelimiterTableWidget, cls).__init_subclass__()
 
-class DelimitersTableViewModel(QAbstractTableModel):
-    """Display model for a delimiters table
-
-    Args:
-        QAbstractTableModel (class): This class specializes QAbstractTableModel
-    """
-
-    def __init__(self, parent) -> None:
-
-        super(DelimitersTableViewModel, self).__init__()
-        self._parent = parent
-        self.add_row_button = parent.add_row_button
-        self.remove_row_buttons = parent.remove_row_buttons
-        self.remove_row_button_icon = (
-            QWidget().style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
-        )
-        self.cliopt = parent.cliopt
-        self.dict_pos = parent.dict_pos
-        self.delimiters = parent.delimiters
-        self.keys = list(self.delimiters.keys())
-        self.values = list(self.delimiters.values())
-        self.row_count = int(len(self.delimiters) + 1)
-        self.column_count = 2
-        self.editing = False
-        self.clicked_row = None
-
-        for i in range(self.row_count - 1):
-            self.remove_row_buttons.append(QPushButton())
-            self.remove_row_buttons[i].setIcon(self.remove_row_button_icon)
-
-    def flags(self, index) -> Qt.ItemFlags:
-        if (
-            index.isValid()
-            and index.column() == 0
-            and index.row() < (self.rowCount() - 1)
-        ):
-            return (
-                super().flags(index)
-                | Qt.ItemIsSelectable
-                | Qt.ItemIsEditable
-                | Qt.ItemIsEnabled
-            )
-        else:
-            return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-
-    def setData(self, index, value, role) -> bool:
-        if role in (Qt.DisplayRole, Qt.EditRole):
-            if not value:
-                return False
-
-            clean_value = value.strip("<>")
-            if not clean_value:
-                return False
-            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
-                str(index.row())
-            ] = clean_value
-            self.dataChanged.emit(index, index)
-            table = self._parent.objectName().split(",")[2]
-            self._parent.logger.info(
-                f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
-            )
-        return True
-
-    def columnCount(self, parent: QModelIndex = None) -> int:
-        return self.column_count
-
-    def rowCount(self, parent: QModelIndex = None) -> int:
-        return int(len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) + 1)
-
-    def ar(self) -> None:
-        row = self.rowCount() - 1
-        parent = self._parent.currentIndex()
-        self.insertRow(row, parent)
-
-    def insertRow(self, row: int, parent) -> bool:
-        self.beginInsertRows(parent, row, row)
-        start_len = len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
-        self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]].update(
-            {str(start_len): ""}
-        )
-        self.insertRows(row, 1, parent)
-        self.endInsertRows()
-        self.insert_row_move_buttons(row)
-        self.dataChanged.emit(parent, parent)
-        self.layoutChanged.emit()
-        return super().insertRow(row, parent)
-
-    def insert_row_move_buttons(self, row: int):
-        self.remove_row_buttons.append(QPushButton())
-        self.remove_row_buttons[row].setIcon(self.remove_row_button_icon)
-        index = self.index(row, 0)
-        self._parent.setIndexWidget(index, None)
-        index = self.index(row, 1)
-        self._parent.setIndexWidget(index, self.remove_row_buttons[row])
-        self.remove_row_buttons[row].clicked.connect(self.rr)
-        index = self.index(self.rowCount() - 1, 0)
-        self.add_row_button = QPushButton("Add Delimiter")
-        self.add_row_button.clicked.connect(self.ar)
-        self._parent.setIndexWidget(index, self.add_row_button)
-
-    def rr(self):
-        row = self._parent.currentIndex().row()
-        parent = self._parent.currentIndex()
-        self.removeRow(row, parent)
-
-    def removeRow(self, row: int = None, parent=None) -> bool:
-        if not parent.isValid():
-            row = self._parent.currentIndex().row()
-            parent = self._parent.currentIndex()
-        print(f"remove row {row}")
-
-        self.beginRemoveRows(parent, row, row)
-        del self.remove_row_buttons[row]
-        del self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][str(row)]
-        new_dict = copy.deepcopy(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]])
-
-        self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]] = {}
-
-        i = 0
-        for key in new_dict:
-            self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]].update(
-                {str(i): new_dict[key]}
-            )
-            i += 1
-        self.removeRows(row, row, parent)
-
-        index = self.index(self.rowCount() - 1, 1)
-        self._parent.setIndexWidget(index, None)
-        index = self.index(self.rowCount() - 1, 0)
-        self._parent.setIndexWidget(index, self.add_row_button)
-        self.endRemoveRows()
-        self.dataChanged.emit(parent, parent)
-        self.layoutChanged.emit()
-        return super().removeRow(row, parent)
-
-    def moveRow(
-        self,
-        sourceParent: QModelIndex,
-        sourceRow: int,
-        destinationParent: QModelIndex,
-        destinationChild: int,
-    ) -> bool:
-        self.beginMoveRows(
-            QModelIndex(), sourceRow, sourceRow, QModelIndex(), destinationChild
-        )
-
-        self.endMoveRows()
-        return super().moveRow(
-            sourceParent, sourceRow, destinationParent, destinationChild
-        )
-
-    def data(self, index: QModelIndex, role: int):
-        """Table data positioning.
-
-        Args:
-            index (QModelIndex): The model index.
-            role (Qt Role): What role is the data.
-
-        Returns:
-            str: data in the cell
-        """
-        if not index.isValid():
-            return None
-        elif (
-            index.column() == 0
-            and (index.row() - 1)
-            < (len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1)
-            and role == Qt.DisplayRole
-            or role == Qt.EditRole
-        ):
-            return (
-                "<"
-                + str(
-                    self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
-                        str(index.row())
-                    ]
-                )
-                + ">"
-            )
-
-        # returns tooltips on a valid index if there are any for the cell
-        elif role == Qt.ToolTipRole:
-            if (index.row() - 1) < (
-                len(self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]) - 1
-            ):
-                if index.column() == 0:
-                    return str(
-                        f"type: {self.dict_pos[2]}, any char except the wildcard char is valid"
-                    )
-                else:
-                    return str(f"remove row {index.row()+1}")
+    def build_table(cls, container, cliopt):
+        cls.ddtt = displayModels._settings_tree_display["process parameters"][
+            "data delimiter sequences"
+        ]["tooltip"]
+        cls.sstt = displayModels._settings_tree_display["process parameters"][
+            "start stop data delimiter sequences"
+        ]["tooltip"]
+        cls._cursor = QCursor()
+        cls.dict_pos = container.data(4, 0).split(",")
+        cls.setObjectName(str(container.data(4, 0)))
+        cls.cliopt = cliopt
+        cls.delimiters = cls.cliopt[cls.dict_pos[0]]["var"][cls.dict_pos[2]]
+        cls.tt = True
+        if cls.dict_pos[2] == "start stop data delimiter sequences":
+            cls.tt = False
+        cls.setColumnCount(2)
+        cls.setRowCount(len(cls.delimiters))
+        cls.setMaximumWidth(300)
+        cls.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        cls.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        cls.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        cls.setVerticalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+        r = 0
+        for key in cls.delimiters:
+            delimiter_item = QTableWidgetItem()
+            delimiter_item.setData(0, cls.delimiters[key])
+            if cls.tt:
+                delimiter_item.setToolTip(cls.ddtt)
             else:
-                if index.column() == 0:
-                    return str(f"add row to {self.dict_pos[2]} table")
-                else:
-                    return None
-        else:
-            return None
-
-    def headerData(self, section: int, orientation: int, role: int):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal and section == 0:
-            return "Delimiters"
-        elif orientation == Qt.Vertical and role == Qt.DisplayRole:
-            if int(section) < int(self.rowCount() - 1):
-                return str(section + 1)
-            else:
-                return None
-        else:
-            return None
-
-    def edit_table_view(self, index: QModelIndex):
-        if index.isValid() and self.editing == False:
-            self.editing = True
-            self._parent.setCurrentIndex(index)
-            self._parent.edit(index)
-
-
-class DelimitersTableView(QTableView):
-    def __init__(
-        self,
-        parent,
-        logger,
-        cursor,
-        container,
-        cliopt,
-    ) -> None:
-        super(DelimitersTableView, self).__init__()
-        self.logger = logger
-        self.cursor_ = cursor
-        self.cliopt = cliopt
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dict_pos = container.data(4, 0).split(",")
-        self.setObjectName(str(container.data(4, 0)))
-
-        self.delimiters = cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]]
-        self.remove_row_buttons = []
-        self.add_row_button = QPushButton("Add Delimiter")
-
-        self.table_model = DelimitersTableViewModel(self)
-        self.setModel(self.table_model)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-        parent.setItemWidget(container, 0, self)
-
-        index = self.table_model.index(self.table_model.rowCount() - 1, 0)
-        self.setIndexWidget(index, self.add_row_button)
-
-        for i in range(len(self.remove_row_buttons)):
-            index = self.table_model.index(i, 1)
-            self.setIndexWidget(index, self.remove_row_buttons[i])
-            self.remove_row_buttons[i].clicked.connect(self.table_model.rr)
-
-        self.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-
-        self.add_row_button.clicked.connect(self.table_model.ar)
-        self.clicked.connect(self.table_model.edit_table_view)
-        self.clicked.connect(self.update_index)
-        self.pressed.connect(self.table_model.edit_table_view)
-
-    def update_index(self):
-        self.setCurrentIndex(self.indexAt(self.cursor_pos()))
-
-    def cursor_pos(self):
-        return self.cursor_.pos()
-
-    def dataChanged(self, topLeft, bottomRight, roles) -> None:
-        if self.table_model.editing == True:
-            self.table_model.editing = False
-            print("edit complete")
-        return super().dataChanged(topLeft, bottomRight, roles)
+                delimiter_item.setToolTip(cls.sstt)
+            cls.setItem(r, 0, delimiter_item)
+            control_item = QTableWidgetItem()
+            cls.setItem(r, 1, control_item)
+            cls.setCellWidget(r, 1, TableButtonBox(cls))
+            r += 1
 
 
 class SettingsTreeWidget(QTreeWidget):
@@ -338,8 +105,9 @@ class SettingsTreeWidget(QTreeWidget):
             self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
         self.setMinimumWidth(400)
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-
+        # self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QAbstractItemView.NoSelection)
+        self.setFocusPolicy(Qt.NoFocus)
         # use the text in _tree for self.ui.settings_tree field labels, build the tree
         for parent in SettingsTreeMethods._tree:
             index_of_child = 0
@@ -461,7 +229,7 @@ class SettingsTreeWidget(QTreeWidget):
         # check if user hit enter on an item
         self.itemActivated.connect(self.settings_tree_item_activated)
         # self._parent.settings_tree_button_toggles()
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        # self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.itemSelectionChanged.connect(self._parent.settings_tree_button_toggles)
         self.itemClicked.connect(self._parent.settings_tree_button_toggles)
         self.itemCollapsed.connect(self._parent.settings_tree_button_toggles)
@@ -516,7 +284,10 @@ class SettingsTreeWidget(QTreeWidget):
         # add parent tree item to root
         cursor = self._cursor
         logger = self.logger
-        table = DelimitersTableView(self, logger, cursor, container, self.cliopt)
+        # table = DelimitersTableView(self, logger, cursor, container, self.cliopt)
+        table = DelimiterTableWidget(self)
+        table.build_table(container, self.cliopt)
+        self.setItemWidget(container, 0, table)
         self.tables.append(table)
         index_of_child += 1
         return index_of_child

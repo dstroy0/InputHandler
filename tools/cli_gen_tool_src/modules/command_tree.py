@@ -19,9 +19,8 @@ from modules.data_models import dataModels
 import copy
 import json
 from collections import OrderedDict
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QByteArray
+from PySide6.QtCore import Qt, QByteArray
 from PySide6.QtWidgets import (
-    QTableView,
     QTreeWidget,
     QTreeWidgetItem,
     QHeaderView,
@@ -30,313 +29,90 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QSizePolicy,
     QAbstractItemView,
+    QTableWidget,
+    QTableWidgetItem,
 )
 
-# TODO
-class CommandParametersArgumentsTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict, builtins: list) -> None:
-        super(CommandParametersArgumentsTableViewModel, self).__init__()
-        self.tt_dict = displayModels.argument_table_tooltip_dict
-        self.is_builtin = False
-        if parameters["commandString"] in builtins:
-            self.is_builtin = True
-        self._parent = parent
-        self.editing = False
-        self.keys = list(parameters.keys())
-        self.values = list(parameters.values())
-        arg_start = 0
-        for i in range(len(self.keys)):
-            if self.keys[i] == "commandArguments":
-                arg_start = i
-                break
-        self.args_list = parameters["commandArguments"]
 
-        self.args_list = self.args_list.replace("UITYPE::", "")
-        self.args_list = self.args_list.replace("{", "")
-        self.args_list = self.args_list.replace("}", "")
-        self.args_list = self.args_list.replace(" ", "")
-        self.args_list = self.args_list.replace("\n", "")
-        self.args_list = self.args_list.split(",")
+class CommandParametersPTableWidget(QTableWidget, object):
+    def __init_subclass__(cls) -> None:
 
-        self.h_label = "Arguments"
-        self.arguments = self.args_list
-        self.column_count = 1
-        self.row_count = int(-(-(len(self.arguments)) // (self.column_count)))
-        self.matrix = []
-        self.tt_matrix = []
-        input_idx = 0
-        for i in range(self.row_count):
-            row_list = []
-            tt_row_list = []
-            for j in range(self.column_count):
-                if input_idx >= len(self.arguments):
-                    row_list.append(" ")
-                    tt_row_list.append("")
-                else:
-                    row_list.append(self.arguments[input_idx])
-                    if not self.is_builtin:
-                        tt_row_list.append(self.tt_dict[self.arguments[input_idx]])
-                    else:
-                        tt_row_list.append(
-                            str(self.tt_dict[self.arguments[input_idx]])
-                            + "\nCannot edit builtin commands."
-                        )
-                    input_idx += 1
-            self.matrix.append(row_list)
-            self.tt_matrix.append(tt_row_list)
+        return super(CommandParametersPTableWidget, cls).__init_subclass__()
 
-    def flags(self, index) -> Qt.ItemFlags:
-        # if self.is_builtin == True:
-        #     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-
-        # if index.isValid() and self.h_label[index.column()] == "Arguments":
-        #     return (
-        #         super().flags(index)
-        #         | Qt.ItemIsSelectable
-        #         | Qt.ItemIsEditable
-        #         | Qt.ItemIsEnabled
-        #     )
-        # else:
-        return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-
-    # def setData(self, index, value, role) -> bool:
-    #     if role in (Qt.DisplayRole, Qt.EditRole):
-    #         if not value:
-    #             return False
-
-    # clean_value = value.strip("<>")
-    # if not clean_value:
-    #     return False
-    # self.cliopt[self.dict_pos[0]]["var"][self.dict_pos[2]][
-    #     str(index.row())
-    # ] = clean_value
-    # self.dataChanged.emit(index, index)
-    # table = self._parent.objectName().split(",")[2]
-    # self._parent.logger.info(
-    #     f"{table} table, row {index.row()+1} data changed to <{clean_value}>"
-    # )
-    # return True
-
-    def columnCount(self, parent=QModelIndex()) -> int:
-        return self.column_count
-
-    def rowCount(self, parent=QModelIndex()) -> int:
-        return self.row_count
-
-    def data(self, index: QModelIndex, role: int):
-        if role == Qt.DisplayRole:
-            return self.matrix[index.row()][index.column()]
-        if role == Qt.ToolTipRole:
-            return str(self.tt_matrix[index.row()][index.column()])
-
-    def headerData(self, section: int, orientation: int, role: int):
-        if role == Qt.DisplayRole:
-            if orientation == Qt.Horizontal:
-                return self.h_label
-            elif orientation == Qt.Vertical:
-                return str(section + 1)
-
-    # def edit_table_view(self, index: QModelIndex):
-    #     if index.isValid() and self.editing == False:
-    #         self.editing = True
-    #         self._parent.setCurrentIndex(index)
-    #         self._parent.edit(index)
+    def build_table(cls, command_parameters):
+        cls.prm = copy.deepcopy(command_parameters)
+        cls.prm.pop("commandArguments")
+        rows = int((len(cls.prm) * 2) / 6)
+        cls.setColumnCount(6)
+        cls.setRowCount(rows)
+        cls.setHorizontalHeaderLabels(
+            [
+                "Setting",
+                "Value",
+                "Setting",
+                "Value",
+                "Setting",
+                "Value",
+            ]
+        )
+        cls.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        cls.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        r = 0
+        c = 0
+        for key in cls.prm:
+            setting_item = QTableWidgetItem()
+            setting_item.setData(0, key)
+            setting_item.setToolTip(displayModels.command_table_tooltip_dict[key])
+            setting_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            setting_item.setFlags(setting_item.flags() & ~Qt.ItemIsEditable)
+            cls.setItem(r, c, setting_item)
+            c += 1
+            value_item = QTableWidgetItem()
+            value_item.setData(0, cls.prm[key])
+            value_item.setToolTip(displayModels.command_table_tooltip_dict[key])
+            value_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            value_item.setFlags(value_item.flags() & ~Qt.ItemIsEditable)
+            cls.setItem(r, c, value_item)
+            c += 1
+            if c > cls.columnCount():
+                r += 1
+                c = 0
 
 
-# TODO
-class CommandParametersTableViewModel(QAbstractTableModel):
-    def __init__(self, parent, parameters: dict, builtins: list) -> None:
-        super(CommandParametersTableViewModel, self).__init__()
-        self.is_builtin = False
-        if parameters["commandString"] in builtins:
-            self.is_builtin = True
-        self.parameters = parameters
-        self._parent = parent
-        self.h_labels = ["Setting", "Value", "Setting", "Value", "Setting", "Value"]
-        self.editing = False
-        self.keys = list(parameters.keys())
-        self.values = list(parameters.values())
-        self.tooltip_dict = displayModels.command_table_tooltip_dict
-        self.tt_keys = list(self.tooltip_dict.keys())
-        self.tt_values = list(self.tooltip_dict.values())
-        self.tt_input = []
-        self.row_count = int(
-            -(
-                -(len(dataModels.command_parameters_dict_keys_list) - 1)
-                // (len(self.h_labels) / 2)
+class CommandParametersArgumentsTableWidget(QTableWidget, object):
+    def __init_subclass__(cls) -> None:
+        return super(CommandParametersArgumentsTableWidget, cls).__init_subclass__()
+
+    def build_table(cls, command_parameters):
+        cls.args_list = cls.parse_commandarguments_string(
+            command_parameters["commandArguments"]
+        )
+        table = cls
+        table.clear()
+        table.setColumnCount(1)
+        table.setHorizontalHeaderLabels(["type"])
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table.setRowCount(len(cls.args_list))
+        table.setMinimumWidth(150)
+        table.setMaximumWidth(175)
+        for r in range(len(cls.args_list)):
+            type_item = QTableWidgetItem()
+            type_item.setData(0, cls.args_list[r])
+            type_item.setToolTip(
+                displayModels.argument_table_tooltip_dict[cls.args_list[r]]
             )
-        )
+            type_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            table.setItem(r, 0, type_item)
 
-        self.column_count = int(len(self.h_labels))
-
-        self.input = []
-        arg_start = 0
-        for i in range(len(self.keys)):
-            self.tt_input.append(self.tt_keys[i])
-            self.tt_input.append(self.tt_values[i])
-            if self.keys[i] != "commandArguments":
-                self.input.append(self.keys[i])
-                self.input.append(self.values[i])
-            else:
-                arg_start = i
-        self.args_list = []
-        for i in range(arg_start, len(self.values)):
-            self.args_list.append(self.values[i])
-
-        # make display matrices
-        self.tt_matrix = []
-        self.matrix = []
-        input_idx = 0
-        for i in range(self.row_count):
-            row_list = []
-            tt_row_list = []
-            for j in range(self.column_count):
-                if input_idx > len(self.input) - 1:
-                    tt_row_list.append("")
-                    row_list.append("")
-                else:
-                    if not self.is_builtin:
-                        tt_row_list.append(self.tt_input[input_idx])
-                    else:
-                        tt_row_list.append("Cannot edit builtin commands.")
-                    row_list.append(self.input[input_idx])
-                    input_idx += 1
-            self.matrix.append(row_list)
-            self.tt_matrix.append(tt_row_list)
-
-    def flags(self, index) -> Qt.ItemFlags:
-        # if self.is_builtin == True:
-        #     return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-
-        # if index.isValid() and self.h_labels[index.column()] == "Value":
-        #     return (
-        #         super().flags(index)
-        #         | Qt.ItemIsSelectable
-        #         | Qt.ItemIsEditable
-        #         | Qt.ItemIsEnabled
-        #     )
-        # else:
-        return super().flags(index) | Qt.ItemIsSelectable | Qt.ItemIsEnabled
-
-    # def setData(self, index, value, role) -> bool:
-    #     if role in (Qt.DisplayRole, Qt.EditRole):
-    #         if not value:
-    #             return False
-
-    #         if not index.isValid():
-    #             return False
-
-    #         type_index = self.index(index.row(), index.column() - 1)
-    #         parameter_type = self.data(type_index, Qt.DisplayRole)
-
-    #         # data model
-    #         self.parameters[parameter_type] = value
-    #         # internal table model
-    #         self.matrix[index.row()][index.column()] = value
-    #         # emit this signal to update the display
-    #         self.dataChanged.emit(index, index)
-
-    #         command = self.parameters["commandString"]
-    #         self._parent.logger.info(
-    #             f"User edited command <{command}>; <{parameter_type}> changed to <{value}>"
-    #         )
-    #     return True
-
-    def columnCount(self, parent=QModelIndex()) -> int:
-        return self.column_count
-
-    def rowCount(self, parent=QModelIndex()) -> int:
-        return self.row_count
-
-    def data(self, index: QModelIndex, role: int):
-        if not index.isValid():
-            return None
-        if role == Qt.DisplayRole or role == Qt.EditRole:
-            return str(self.matrix[index.row()][index.column()])
-        if role == Qt.ToolTipRole:
-            return str(self.tt_matrix[index.row()][index.column()])
-
-    def headerData(self, section: int, orientation: int, role: int):
-        if role == Qt.DisplayRole:
-            if orientation == Qt.Horizontal:
-                return self.h_labels[section]
-
-    # def edit_table_view(self, index: QModelIndex):
-    #     if index.isValid() and self.editing == False:
-    #         self.editing = True
-    #         self._parent.setCurrentIndex(index)
-    #         self._parent.edit(index)
-
-
-# TODO
-class CommandParametersTableView(QTableView):
-    def __init__(self, logger, cursor, command_parameters, tree_item, builtins) -> None:
-        super(CommandParametersTableView, self).__init__()
-        self.logger = logger
-        self.cursor_ = cursor
-        self.tree_item = tree_item
-        # dict_pos = self.tree_item.data(1, 0).split(",")
-        # self.setObjectName(str(self.tree_item.data(1, 0)))
-
-        self.parameters = command_parameters
-        self.table_model = CommandParametersTableViewModel(
-            self, self.parameters, builtins
-        )
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.setModel(self.table_model)
-
-        # self.clicked.connect(self.table_model.edit_table_view)
-        self.clicked.connect(self.update_index)
-        # self.pressed.connect(self.table_model.edit_table_view)
-
-    def update_index(self):
-        self.setCurrentIndex(self.indexAt(self.cursor_pos()))
-
-    def cursor_pos(self):
-        return self.cursor_.pos()
-
-    # def dataChanged(self, topLeft, bottomRight, roles) -> None:
-    #     if self.table_model.editing == True:
-    #         self.table_model.editing = False
-    #         print("edit complete")
-    #     return super().dataChanged(topLeft, bottomRight, roles)
-
-
-class CommandParametersArgumentsTableView(QTableView):
-    def __init__(self, logger, cursor, command_parameters, tree_item, builtins) -> None:
-        super(CommandParametersArgumentsTableView, self).__init__()
-        self.tree_item = tree_item
-        self.logger = logger
-        self.cursor_ = cursor
-
-        # dict_pos = self.tree_item.data(1, 0).split(",")
-        # self.setObjectName(str(self.tree_item.data(1, 0)))
-
-        self.parameters = command_parameters
-        self.table_model = CommandParametersArgumentsTableViewModel(
-            self, self.parameters, builtins
-        )
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.setMaximumSize(150, 16777215)
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.setModel(self.table_model)
-
-        # self.clicked.connect(self.table_model.edit_table_view)
-        self.clicked.connect(self.update_index)
-        # self.pressed.connect(self.table_model.edit_table_view)
-
-    def update_index(self):
-        self.setCurrentIndex(self.indexAt(self.cursor_pos()))
-
-    def cursor_pos(self):
-        return self.cursor_.pos()
-
-    # def dataChanged(self, topLeft, bottomRight, roles) -> None:
-    #     if self.table_model.editing == True:
-    #         self.table_model.editing = False
-    #         print("edit complete")
-    #     return super().dataChanged(topLeft, bottomRight, roles)
+    def parse_commandarguments_string(self, args: str) -> list:
+        args_list = copy.deepcopy(args)
+        args_list = args_list.replace("UITYPE::", "")
+        args_list = args_list.replace("{", "")
+        args_list = args_list.replace("}", "")
+        args_list = args_list.replace(" ", "")
+        args_list = args_list.replace("\n", "")
+        args_list = args_list.split(",")
+        return args_list
 
 
 class CommandParametersTableWidget(QWidget):
@@ -361,12 +137,11 @@ class CommandParametersTableWidget(QWidget):
         self.widget_layout = QHBoxLayout(self)
         self.splitter = QSplitter(self)
 
-        self.parameters_view = CommandParametersTableView(
-            logger, cursor, self.parameters, self.tree_item, builtins
-        )
-        self.arguments_view = CommandParametersArgumentsTableView(
-            logger, cursor, self.parameters, self.tree_item, builtins
-        )
+        self.parameters_view = CommandParametersPTableWidget()
+        self.parameters_view.build_table(self.parameters)
+
+        self.arguments_view = CommandParametersArgumentsTableWidget()
+        self.arguments_view.build_table(self.parameters)
 
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
 
