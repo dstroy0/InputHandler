@@ -19,7 +19,7 @@ from modules.data_models import dataModels
 import copy
 import json
 from collections import OrderedDict
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtCore import Qt, QByteArray
 from PySide6.QtWidgets import (
     QTreeWidget,
@@ -202,8 +202,10 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         collapseAction = QAction(f"collapse {item_title}", self)
         collapseAction.triggered.connect(self.collapseAt)
         deleteAction = QAction(f"delete {item_title}")
+        deleteAction.setShortcut(Qt.Key_Delete)
         deleteAction.triggered.connect(self.deleteAt)
         editAction = QAction(f"edit {item_title}")
+        editAction.setShortcuts(QKeySequence(Qt.Key_Return, Qt.Key_Enter))
         editAction.triggered.connect(self.editAt)
         menu.addAction(collapseAction)
         menu.addAction(editAction)
