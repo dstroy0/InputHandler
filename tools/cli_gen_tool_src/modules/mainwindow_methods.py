@@ -244,11 +244,7 @@ class MainWindowMethods(object):
                 "Error, no output directory selected!",
                 buttons,
                 button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-                ),
+                QStyle.StandardPixmap.SP_MessageBoxCritical,
                 self._parent.qscreen,
             )
             if result == 3:
@@ -549,11 +545,7 @@ class MainWindowMethods(object):
                 "Error, cannot find interface file!",
                 buttons,
                 button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-                ),
+                QStyle.StandardPixmap.SP_MessageBoxCritical,
             )
             if result == QDialog.Accepted:
                 dlg = QFileDialog(self)
@@ -968,7 +960,7 @@ class MainWindowMethods(object):
             "About",
             None,
             None,
-            self.ui.messageBoxQuestionIcon,
+            QStyle.StandardPixmap.SP_MessageBoxQuestion,
         )
 
     ## opens an internet browser to the library's documentation

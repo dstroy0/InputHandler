@@ -723,6 +723,8 @@ class CodePreviewWidget(
             self.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
             self.header().setSectionResizeMode(i, QHeaderView.Stretch)
         self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.setSelectionMode(QAbstractItemView.NoSelection)
+        self.setFocusPolicy(Qt.NoFocus)
 
         self.build_tree()
 

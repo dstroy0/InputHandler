@@ -19,6 +19,7 @@ from modules.data_models import dataModels
 import copy
 import json
 from collections import OrderedDict
+from PySide6.QtGui import QAction, QIcon
 from PySide6.QtCore import Qt, QByteArray
 from PySide6.QtWidgets import (
     QTreeWidget,
@@ -31,6 +32,10 @@ from PySide6.QtWidgets import (
     QAbstractItemView,
     QTableWidget,
     QTableWidgetItem,
+    QMenu,
+    QDialogButtonBox,
+    QStyle,
+    QDialog,
 )
 
 
@@ -161,27 +166,26 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def __init__(self, parent, cliopt, logger) -> None:
         super(CommandTreeWidget, self).__init__()
         self.setParent(parent.ui.command_tree_container)
-
         self.active_builtins = []
-
         self._settings_tree = None
         self._parent = parent
         self.ih_builtins = self._parent.ih_builtins
         self.cliopt = cliopt
         self.active_item = self.invisibleRootItem()
         self._cursor = self._parent.qcursor
+        self.create_qdialog = self._parent.create_qdialog
         self.logger = logger
         self.command_index = cliopt["commands"]["index"]
         self.loading_index = 0
-
         self.setColumnCount(2)
         self.setColumnHidden(1, 1)
         self.setHeaderLabel("Command Tree")
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.on_customContextMenuRequested)
         self.build_tree()
-
         self.clicked.connect(self.which_clicked)
         self.pressed.connect(self.which_pressed)
         self.itemChanged.connect(self.item_changed)
@@ -191,10 +195,82 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.itemCollapsed.connect(self._parent.command_tree_button_toggles)
         self.itemExpanded.connect(self._parent.command_tree_button_toggles)
 
+    def on_customContextMenuRequested(self, pos):
+        self._pos = pos
+        menu = QMenu(self)
+        item_title = self.get_parent_item(self.itemAt(pos)).data(0, 0)
+        collapseAction = QAction(f"collapse {item_title}", self)
+        collapseAction.triggered.connect(self.collapseAt)
+        deleteAction = QAction(f"delete {item_title}")
+        deleteAction.triggered.connect(self.deleteAt)
+        editAction = QAction(f"edit {item_title}")
+        editAction.triggered.connect(self.editAt)
+        menu.addAction(collapseAction)
+        menu.addAction(editAction)
+        menu.addAction(deleteAction)
+        menu.exec(self.mapToGlobal(pos))
+        return super().customContextMenuRequested
+
+    def collapseAt(self):
+        index = self.indexFromItem(self.get_parent_item(self.itemAt(self._pos)))
+        self.collapse(index)
+
+    def deleteAt(self):
+        item = self.itemAt(self._pos)
+        item_title = self.get_parent_item(item).data(0, 0)
+        self.active_item = item
+        b = QDialogButtonBox.StandardButton
+        buttons = [b.Ok, b.Close]
+        button_text = ["Yes", "No"]
+        result = self.create_qdialog(
+            f"remove {item_title} from tree?",
+            Qt.AlignCenter,
+            Qt.NoTextInteraction,
+            "Deleting command",
+            buttons,
+            button_text,
+            QStyle.StandardPixmap.SP_MessageBoxCritical,
+            self._parent.qscreen,
+        )
+        if result == QDialog.Accepted:
+            self.remove_command_from_tree()
+
+    def editAt(self):
+        item = self.itemAt(self._pos)
+        item_title = self.get_parent_item(item).data(0, 0)
+        self.active_item = item
+        self._parent.clicked_edit_tab_two()
+
     def keyPressEvent(self, event) -> None:
         if event.key() == Qt.Key_Escape:
             self.selectionModel().clearSelection()
+        if event.key() == Qt.Key_Delete:
+            if self.active_item:
+                item_title = self.get_parent_item(self.active_item).data(0, 0)
+                b = QDialogButtonBox.StandardButton
+                buttons = [b.Ok, b.Close]
+                button_text = ["Yes", "No"]
+                result = self.create_qdialog(
+                    f"remove {item_title} from tree?",
+                    Qt.AlignCenter,
+                    Qt.NoTextInteraction,
+                    "Deleting command",
+                    buttons,
+                    button_text,
+                    QStyle.StandardPixmap.SP_MessageBoxCritical,
+                    self._parent.qscreen,
+                )
+                if result == QDialog.Accepted:
+                    self.remove_command_from_tree()
+        if event.key() in (Qt.Key_Enter, Qt.Key_Return):
+            if self.active_item:
+                self._parent.clicked_edit_tab_two()
         return super().keyPressEvent(event)
+
+    def mouseDoubleClickEvent(self, event) -> None:
+        if self.active_item:
+            self._parent.clicked_edit_tab_two()
+        return super().mouseDoubleClickEvent(event)
 
     def make_builtin_parameters(self, builtin: str = None) -> dict:
         if builtin == "listCommands":
@@ -333,14 +409,10 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         command_string = command_parameters["commandString"]
 
         command_label = QTreeWidgetItem(parent_item, [command_string, ""])
-        command_label.setFlags(
-            command_label.flags() | Qt.ItemIsSelectable | Qt.ItemIsEditable
-        )
+        command_label.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
         command_label.setData(1, 0, str(primary_id_key))
         command_container = QTreeWidgetItem(command_label, "")
-        command_container.setFlags(
-            command_container.flags() | Qt.ItemIsSelectable | Qt.ItemIsEditable
-        )
+        command_container.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
         command_container.setData(1, 0, str(primary_id_key))
         command_label.addChild(command_container)
 

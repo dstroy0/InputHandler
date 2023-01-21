@@ -27,7 +27,7 @@ from PySide6.QtCore import (
     QTimer,
     QDir,
 )
-from PySide6.QtGui import QCursor, QIcon
+from PySide6.QtGui import QCursor
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -113,11 +113,7 @@ class RootWidget(QWidget, object):
                 "Error, InputHandler's directory not located!",
                 buttons,
                 button_text,
-                QIcon(
-                    QWidget()
-                    .style()
-                    .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-                ),
+                QStyle.StandardPixmap.SP_MessageBoxCritical,
                 self.qscreen,
             )
             if result == QDialog.Accepted:

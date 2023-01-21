@@ -20,8 +20,10 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QSizePolicy,
     QWidget,
+    QStyle,
 )
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
 
 
 # helper method class
@@ -47,7 +49,7 @@ class HelperMethods(object):
         window_title=None,
         buttons=None,
         button_text=None,
-        icon=None,
+        icon:QStyle.StandardPixmap=None,
         screen=None,
     ):
         """creates a QDialog
@@ -120,7 +122,11 @@ class HelperMethods(object):
             dlg.layout.addWidget(dlg.button_box)
         dlg.setLayout(dlg.layout)
         if icon != None:
-            dlg.setWindowIcon(icon)
+            dlg.setWindowIcon(QIcon(
+                    QWidget()
+                    .style()
+                    .standardIcon(icon)
+                ))
         if window_title != None:
             dlg.setWindowTitle(window_title)
         dlg.setWindowFlags(dlg.windowFlags() | Qt.WindowStaysOnTopHint)

@@ -337,11 +337,7 @@ class CommandParametersMethods(object):
             "Command Parameters Error",
             None,
             None,
-            QIcon(
-                QWidget()
-                .style()
-                .standardIcon(QStyle.StandardPixmap.SP_MessageBoxCritical)
-            ),
+            QStyle.StandardPixmap.SP_MessageBoxCritical,
         )
 
     ## sets the regexp and range validators for CommandParameters input
