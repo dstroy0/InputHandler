@@ -243,7 +243,7 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QKeySequence</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QByteArray</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QTreeWidget</span><span class="p">,</span>
@@ -426,8 +426,10 @@
         <span class="n">collapseAction</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;collapse </span><span class="si">{</span><span class="n">item_title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="n">collapseAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collapseAt</span><span class="p">)</span>
         <span class="n">deleteAction</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;delete </span><span class="si">{</span><span class="n">item_title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">deleteAction</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">)</span>
         <span class="n">deleteAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deleteAt</span><span class="p">)</span>
         <span class="n">editAction</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;edit </span><span class="si">{</span><span class="n">item_title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">editAction</span><span class="o">.</span><span class="n">setShortcuts</span><span class="p">(</span><span class="n">QKeySequence</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Return</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Enter</span><span class="p">))</span>
         <span class="n">editAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">editAt</span><span class="p">)</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">collapseAction</span><span class="p">)</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">editAction</span><span class="p">)</span>
