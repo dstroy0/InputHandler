@@ -251,7 +251,7 @@
     <span class="n">QTimer</span><span class="p">,</span>
     <span class="n">QDir</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span><span class="p">,</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">PySide6.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QApplication</span><span class="p">,</span>
     <span class="n">QDialog</span><span class="p">,</span>
@@ -337,11 +337,7 @@
                 <span class="s2">&quot;Error, InputHandler&#39;s directory not located!&quot;</span><span class="p">,</span>
                 <span class="n">buttons</span><span class="p">,</span>
                 <span class="n">button_text</span><span class="p">,</span>
-                <span class="n">QIcon</span><span class="p">(</span>
-                    <span class="n">QWidget</span><span class="p">()</span>
-                    <span class="o">.</span><span class="n">style</span><span class="p">()</span>
-                    <span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">)</span>
-                <span class="p">),</span>
+                <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
