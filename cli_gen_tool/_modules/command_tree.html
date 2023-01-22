@@ -265,10 +265,15 @@
 
 <div class="viewcode-block" id="CommandParametersPTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersPTableWidget</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersPTableWidget</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="CommandParametersPTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersPTableWidget.mouseDoubleClickEvent"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">active_item</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CommandParametersPTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersPTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">command_parameters</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">)</span>
         <span class="n">rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">prm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span>
@@ -312,7 +317,8 @@
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersArgumentsTableWidget</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.build_table"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.build_table">[docs]</a>    <span class="k">def</span> <span class="nf">build_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">args_list</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse_commandarguments_string</span><span class="p">(</span>
             <span class="n">command_parameters</span><span class="p">[</span><span class="s2">&quot;commandArguments&quot;</span><span class="p">]</span>
         <span class="p">)</span>
@@ -333,7 +339,7 @@
             <span class="n">type_item</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span><span class="p">)</span>
             <span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">type_item</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.parse_commandarguments_string"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.parse_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_commandarguments_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.parse_commandarguments_string"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.parse_commandarguments_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_commandarguments_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UITYPE::&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -341,7 +347,12 @@
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">args_list</span> <span class="o">=</span> <span class="n">args_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">args_list</span></div></div>
+        <span class="k">return</span> <span class="n">args_list</span></div>
+
+<div class="viewcode-block" id="CommandParametersArgumentsTableWidget.mouseDoubleClickEvent"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersArgumentsTableWidget.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">active_item</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="CommandParametersTableWidget"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandParametersTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommandParametersTableWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -351,7 +362,7 @@
 <span class="sd">        QWidget (object): Base class that is specialized</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree_item</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">builtins</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_parameters</span><span class="p">,</span> <span class="n">tree_item</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;constructor method</span>
 
 <span class="sd">        Args:</span>
@@ -362,15 +373,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersTableWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">command_parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tree_item</span> <span class="o">=</span> <span class="n">tree_item</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span> <span class="o">=</span> <span class="n">CommandParametersPTableWidget</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span> <span class="o">=</span> <span class="n">CommandParametersArgumentsTableWidget</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arguments_view</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
 
@@ -398,6 +410,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">qcursor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">create_qdialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_index</span> <span class="o">=</span> <span class="n">cliopt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loading_index</span> <span class="o">=</span> <span class="mi">0</span>
@@ -495,7 +508,7 @@
 
 <div class="viewcode-block" id="CommandTreeWidget.mouseDoubleClickEvent"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_item</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clicked_edit_tab_two</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommandTreeWidget.make_builtin_parameters"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeWidget.make_builtin_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">make_builtin_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builtin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -643,11 +656,7 @@
         <span class="n">command_label</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">command_container</span><span class="p">)</span>
 
         <span class="n">command_table</span> <span class="o">=</span> <span class="n">CommandParametersTableWidget</span><span class="p">(</span>
-            <span class="n">command_parameters</span><span class="p">,</span>
-            <span class="n">command_container</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">ih_builtins</span><span class="p">,</span>
+            <span class="n">command_parameters</span><span class="p">,</span> <span class="n">command_container</span><span class="p">,</span> <span class="bp">self</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">command_container</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">command_table</span><span class="p">)</span>
