@@ -448,11 +448,12 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             parent_string = parent_item.data(0, 0)
 
         self.cliopt["commands"]["primary id key"] = str(int(int(primary_id_key) + 1))
-        # if not self._parent.loading:
-        number_of_commands = self.cliopt["commands"]["number of commands"]
-        self.cliopt["commands"]["number of commands"] = str(
-            int(int(number_of_commands) + 1)
-        )
+
+        if not self._parent.loading:
+            number_of_commands = self.cliopt["commands"]["number of commands"]
+            self.cliopt["commands"]["number of commands"] = str(
+                int(int(number_of_commands) + 1)
+            )
 
         self.logger.info(f"added {command_string} to CommandTreeWidget {parent_string}")
 
@@ -460,7 +461,6 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self._parent.update_code("CLI.h", command_string, True)
         self._parent.update_code("functions.h", command_string, True)
         self._parent.update_code("parameters.h", command_string, True)
-
         return command_label
 
     def item_changed(self, item, column):
@@ -594,7 +594,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self._parent.update_code("CLI.h", item.data(0, 0), True)
         self._parent.update_code("functions.h", item.data(0, 0), True)
         self._parent.update_code("parameters.h", item.data(0, 0), True)
-        self.cliopt["commands"]["number of commands"] = str(number_of_commands)
+        self.cliopt["commands"]["number of commands"] = str(int(number_of_commands) - 1)
 
     def get_parent_item(self, item: QTreeWidgetItem):
         if item:
