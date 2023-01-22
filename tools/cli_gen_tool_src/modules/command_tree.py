@@ -41,10 +41,15 @@ from PySide6.QtWidgets import (
 
 class CommandParametersPTableWidget(QTableWidget, object):
     def __init_subclass__(cls) -> None:
-
         return super(CommandParametersPTableWidget, cls).__init_subclass__()
 
-    def build_table(cls, command_parameters):
+    def mouseDoubleClickEvent(cls, event) -> None:
+        if cls.tree.active_item:
+            cls.tree.clicked_edit_tab_two()
+        return super().mouseDoubleClickEvent(event)
+
+    def build_table(cls, command_parameters, tree):
+        cls.tree = tree
         cls.prm = copy.deepcopy(command_parameters)
         cls.prm.pop("commandArguments")
         rows = int((len(cls.prm) * 2) / 6)
@@ -88,7 +93,8 @@ class CommandParametersArgumentsTableWidget(QTableWidget, object):
     def __init_subclass__(cls) -> None:
         return super(CommandParametersArgumentsTableWidget, cls).__init_subclass__()
 
-    def build_table(cls, command_parameters):
+    def build_table(cls, command_parameters, tree):
+        cls.tree = tree
         cls.args_list = cls.parse_commandarguments_string(
             command_parameters["commandArguments"]
         )
@@ -109,7 +115,7 @@ class CommandParametersArgumentsTableWidget(QTableWidget, object):
             type_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             table.setItem(r, 0, type_item)
 
-    def parse_commandarguments_string(self, args: str) -> list:
+    def parse_commandarguments_string(cls, args: str) -> list:
         args_list = copy.deepcopy(args)
         args_list = args_list.replace("UITYPE::", "")
         args_list = args_list.replace("{", "")
@@ -119,6 +125,11 @@ class CommandParametersArgumentsTableWidget(QTableWidget, object):
         args_list = args_list.split(",")
         return args_list
 
+    def mouseDoubleClickEvent(cls, event) -> None:
+        if cls.tree.active_item:
+            cls.tree.clicked_edit_tab_two()
+        return super().mouseDoubleClickEvent(event)
+
 
 class CommandParametersTableWidget(QWidget):
     """Command parameters table container
@@ -127,7 +138,7 @@ class CommandParametersTableWidget(QWidget):
         QWidget (object): Base class that is specialized
     """
 
-    def __init__(self, command_parameters, tree_item, logger, cursor, builtins) -> None:
+    def __init__(self, command_parameters, tree_item, tree) -> None:
         """constructor method
 
         Args:
@@ -138,15 +149,16 @@ class CommandParametersTableWidget(QWidget):
         """
         super(CommandParametersTableWidget, self).__init__()
         self.parameters = command_parameters
+        self.tree = tree
         self.tree_item = tree_item
         self.widget_layout = QHBoxLayout(self)
         self.splitter = QSplitter(self)
 
         self.parameters_view = CommandParametersPTableWidget()
-        self.parameters_view.build_table(self.parameters)
+        self.parameters_view.build_table(self.parameters, self.tree)
 
         self.arguments_view = CommandParametersArgumentsTableWidget()
-        self.arguments_view.build_table(self.parameters)
+        self.arguments_view.build_table(self.parameters, self.tree)
 
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
 
@@ -174,6 +186,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.active_item = self.invisibleRootItem()
         self._cursor = self._parent.qcursor
         self.create_qdialog = self._parent.create_qdialog
+        self.clicked_edit_tab_two = self._parent.clicked_edit_tab_two
         self.logger = logger
         self.command_index = cliopt["commands"]["index"]
         self.loading_index = 0
@@ -271,7 +284,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
 
     def mouseDoubleClickEvent(self, event) -> None:
         if self.active_item:
-            self._parent.clicked_edit_tab_two()
+            self.clicked_edit_tab_two()
         return super().mouseDoubleClickEvent(event)
 
     def make_builtin_parameters(self, builtin: str = None) -> dict:
@@ -419,11 +432,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         command_label.addChild(command_container)
 
         command_table = CommandParametersTableWidget(
-            command_parameters,
-            command_container,
-            self.logger,
-            self._cursor,
-            self._parent.ih_builtins,
+            command_parameters, command_container, self
         )
 
         self.setItemWidget(command_container, 0, command_table)
