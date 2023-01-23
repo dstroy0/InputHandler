@@ -155,62 +155,6 @@ class MainWindowMethods(object):
         self.prev_command_tree_state = 0
         self.prev_settings_tree_state = 0
 
-    def generatedialog_set_output_dir(self):
-        project_path = self.get_project_dir()
-        if project_path:
-            self.session["opt"]["output_dir"] = project_path
-            MainWindowMethods.logger.info(
-                "set session output_dir to:\n" + str(project_path)
-            )
-            self.ui.generateDialog.dlg.outputPathLineEdit.setText(
-                self.session["opt"]["output_dir"]
-            )
-
-    def generatedialog_clicked_platformio_file_output_structure(self):
-        MainWindowMethods.logger.info("platformio file output structure selected")
-
-    def generatedialog_clicked_arduino_file_output_structure(self):
-        MainWindowMethods.logger.info("arduino file output structure selected")
-
-    def cli_generation_dialog_setup(self, ui):
-        self.ui.generateDialog = QDialog(self)
-        self.ui.generateDialog.setWindowIcon(
-            QWidget()
-            .style()
-            .standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
-        )
-        self.ui.generateDialog.dlg = ui
-        self.ui.generateDialog.dlg.setupUi(self.ui.generateDialog)
-        # self.ui.generateDialog.setMaximumSize(0, 0)
-        self.ui.generateDialog.dlg.outputPathLineEdit.setText(
-            self.session["opt"]["output_dir"]
-        )
-        self.ui.generateDialog.dlg.pushButton.clicked.connect(
-            self.generatedialog_set_output_dir
-        )
-        self.ui.generateDialog.dlg.buttonBox.accepted.connect(self.generate_cli_files)
-        self.ui.generateDialog.dlg.buttonBox.rejected.connect(
-            self.ui.generateDialog.close
-        )
-        project_path = self.session["opt"]["output_dir"]
-        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
-        arduino_compatibility = False
-        if file_structure:
-            # arduino
-            arduino_compatibility = True
-        elif project_path.find("sketch"):
-            arduino_compatibility = True
-        if arduino_compatibility:
-            self.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
-        else:
-            self.ui.generateDialog.dlg.platformioRadioButton.setChecked(True)
-        self.ui.generateDialog.dlg.platformioRadioButton.clicked.connect(
-            self.generatedialog_clicked_platformio_file_output_structure
-        )
-        self.ui.generateDialog.dlg.arduinoRadioButton.clicked.connect(
-            self.generatedialog_clicked_arduino_file_output_structure
-        )
-
     def get_project_dir(self) -> str:
         """get valid os path to project
 

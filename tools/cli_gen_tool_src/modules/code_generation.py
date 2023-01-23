@@ -31,6 +31,7 @@ from PySide6.QtCore import (
     QIODevice,
     QByteArray,
     QFile,
+    Signal,
 )
 from PySide6.QtGui import (
     QMouseEvent,
@@ -55,6 +56,8 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QVBoxLayout,
     QPushButton,
+    QDialog,
+    QDialogButtonBox,
 )
 
 # external methods and resources
@@ -65,6 +68,7 @@ from modules.cli.functions import cliFunctions
 from modules.cli.parameters import cliParameters
 from modules.cli.filestrings import cliFileStrings
 from modules.cli.parse_config import ParseInputHandlerConfig
+from modules.data_models import dataModels
 
 
 class LineNumberArea(QWidget):
@@ -136,7 +140,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         super().resizeEvent(event)
         cr = self.contentsRect()
         width = self.line_number_area_width()
-        rect = QRect(cr.left(), cr.top(), width, cr.height())        
+        rect = QRect(cr.left(), cr.top(), width, cr.height())
         self.line_number_area.setGeometry(rect)
         self.centerCursor()
 
@@ -357,6 +361,104 @@ class CodeGeneration(
         cliFunctions.__init__(self)
         cliParameters.__init__(self)
 
+    def generatedialog_set_output_dir(self):
+        project_path = self._parent.get_project_dir()
+        if project_path:
+            self.session["opt"]["output_dir"] = project_path
+            CodeGeneration.logger.info(
+                "set session output_dir to:\n" + str(project_path)
+            )
+            self.ui.generateDialog.dlg.outputPathLineEdit.setText(
+                self.session["opt"]["output_dir"]
+            )
+            arduino_compatibility = self.detect_output_type(project_path)
+            print(arduino_compatibility)
+            if arduino_compatibility:
+                self._parent.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
+            else:
+                self._parent.ui.generateDialog.dlg.platformioRadioButton.setChecked(
+                    True
+                )
+            self._parent.ui.generateDialog.dlg.buttonBox.button(
+                QDialogButtonBox.StandardButton.Ok
+            ).setEnabled(True)
+        else:
+            self._parent.ui.generateDialog.dlg.buttonBox.button(
+                QDialogButtonBox.StandardButton.Ok
+            ).setEnabled(False)
+
+    def generatedialog_clicked_platformio_file_output_structure(self):
+        CodeGeneration.logger.info("platformio file output structure selected")
+
+    def generatedialog_clicked_arduino_file_output_structure(self):
+        CodeGeneration.logger.info("arduino file output structure selected")
+
+    def clickable(self, widget):
+        """makes objects emit "clicked"
+
+        Args:
+            widget (QWidget): the widget to attach the signal to
+
+        Returns:
+            Filter (QObject): the filtered object interaction
+        """
+
+        class Filter(QObject):
+            clicked = Signal()
+
+            def eventFilter(self, obj, event):
+                if (
+                    obj == widget
+                    and event.type() == QEvent.MouseButtonRelease
+                    and obj.rect().contains(event.pos())
+                ):
+                    self.clicked.emit()
+                    return True
+                else:
+                    return False
+
+        filter = Filter(widget)
+        widget.installEventFilter(filter)
+        return filter.clicked
+
+    def cli_generation_dialog_setup(self, ui):
+        self = self._parent
+        self.ui.generateDialog = QDialog(self)
+        self.ui.generateDialog.setWindowIcon(
+            QWidget()
+            .style()
+            .standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
+        )
+        self.ui.generateDialog.dlg = ui
+        self.ui.generateDialog.dlg.setupUi(self.ui.generateDialog)
+        # self.ui.generateDialog.setMaximumSize(0, 0)
+        self.ui.generateDialog.dlg.outputPathLineEdit.setText(
+            self.session["opt"]["output_dir"]
+        )
+        self.ui.generateDialog.dlg.pushButton.clicked.connect(
+            self.generatedialog_set_output_dir
+        )
+        self.ui.generateDialog.dlg.buttonBox.accepted.connect(self.generate_cli_files)
+        self.ui.generateDialog.dlg.buttonBox.rejected.connect(
+            self.ui.generateDialog.close
+        )
+        arduino_compatibility = self.detect_output_type(
+            self.session["opt"]["output_dir"]
+        )
+        if arduino_compatibility:
+            self.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
+        else:
+            self.ui.generateDialog.dlg.platformioRadioButton.setChecked(True)
+        self.ui.generateDialog.dlg.platformioRadioButton.clicked.connect(
+            self.generatedialog_clicked_platformio_file_output_structure
+        )
+        self.ui.generateDialog.dlg.arduinoRadioButton.clicked.connect(
+            self.generatedialog_clicked_arduino_file_output_structure
+        )
+        self.clickable(self.ui.generateDialog.dlg.outputPathLineEdit).connect(
+            self.generatedialog_set_output_dir
+        )
+
     def parse_config(self):
         """config parser wrapper"""
         self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
@@ -492,18 +594,23 @@ class CodeGeneration(
             code_string = code_string + line + "\n"
         return code_string
 
+    # TODO detect file structure as defined in dataModels
     def detect_output_type(self, project_path):
-        file_structure = glob.glob(os.path.join(project_path, "*.ino"))
-        arduino_compatibility = False
-        if file_structure:
-            # arduino
+        pio_structure = dataModels.pio_structure
+        arduino_structure = dataModels.arduino_structure
+        
+        ino_search = glob.glob(os.path.join(project_path, "*.ino"))
+        arduino_compatibility = False        
+        if bool(ino_search):
+            # ino file detected
             arduino_compatibility = True
-        elif project_path.find("sketch"):
+        if project_path.find("sketch") != -1:            
+            # empty sketch folder case
             arduino_compatibility = True
         if arduino_compatibility:
-            CodeGeneration.logger.info("arduino file structure")
+            CodeGeneration.logger.info("detected arduino file structure")
         else:
-            CodeGeneration.logger.info("platformio file structure")
+            CodeGeneration.logger.info("detected platformio file structure")
         return arduino_compatibility
 
     # TODO revert on fail
@@ -561,7 +668,7 @@ class CodeGeneration(
         else:
             # platformio
             cli_path = os.path.join(project_path, "lib", "CLI")
-            cli_src_path = os.path.join(cli_path, "src")
+            cli_src_path = cli_path#os.path.join(cli_path, "src")
             cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
 
         # Create in project dir
