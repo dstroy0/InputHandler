@@ -136,7 +136,7 @@ class CodePreviewBrowser(QPlainTextEdit):
         super().resizeEvent(event)
         cr = self.contentsRect()
         width = self.line_number_area_width()
-        rect = QRect(cr.left(), cr.top(), width, cr.height())
+        rect = QRect(cr.left(), cr.top(), width, cr.height())        
         self.line_number_area.setGeometry(rect)
         self.centerCursor()
 
