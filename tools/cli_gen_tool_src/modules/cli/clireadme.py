@@ -103,11 +103,12 @@ class cliReadme(object):
 
         if len(username) > 0:
             username = username + " (retrieved using os.getlogin())"
-
+        ll = cliFileStrings.lib_license_md.format(docs_year=year)
         docstring = cliFileStrings.readmemd.format(
             user=username,
             tool_version=cliFileStrings.version,
             lib_version=cliFileStrings.lib_version,
+            lib_license=ll,
             docs_date=date,
             docs_year=year,
             generated_code_section=gen_code_sect,
