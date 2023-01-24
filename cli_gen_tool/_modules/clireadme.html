@@ -327,11 +327,12 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot; (retrieved using os.getlogin())&quot;</span>
-
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_license_md</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">)</span>
         <span class="n">docstring</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">readmemd</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
             <span class="n">tool_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
             <span class="n">lib_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span><span class="p">,</span>
+            <span class="n">lib_license</span><span class="o">=</span><span class="n">ll</span><span class="p">,</span>
             <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
             <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
             <span class="n">generated_code_section</span><span class="o">=</span><span class="n">gen_code_sect</span><span class="p">,</span>
