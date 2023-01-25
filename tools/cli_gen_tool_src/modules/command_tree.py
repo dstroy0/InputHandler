@@ -364,6 +364,20 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
                 root_command = self.add_command_to_tree(self.invisibleRootItem())
                 populate_children(root_command, root_command_index)
 
+    def update_command(self, item: QTreeWidgetItem):
+        command_container = self.get_child_item(item)
+        command_parameters = self.cliopt["commands"]["parameters"][
+            self.command_index[command_container.data(1, 0)]["parameters key"]
+        ]
+        command_table = CommandParametersTableWidget(
+            command_parameters, command_container, self
+        )
+        self.removeItemWidget(command_container, 0)
+        self.setItemWidget(command_container, 0, command_table)
+        self._parent.prompt_to_save = True
+        self._parent.windowtitle_set = False
+        self._parent.set_main_window_title()
+
     def add_command_to_tree(
         self, parent_item: QTreeWidgetItem, builtin: str = None
     ) -> QTreeWidgetItem:
@@ -376,6 +390,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             self.setCurrentItem(item)
             self._parent.prompt_to_save = True
             self._parent.windowtitle_set = False
+            self._parent.set_main_window_title()
         return item
 
     def build_command(self, parent_item, builtin: str = None):
@@ -595,6 +610,9 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self._parent.update_code("functions.h", item.data(0, 0), True)
         self._parent.update_code("parameters.h", item.data(0, 0), True)
         self.cliopt["commands"]["number of commands"] = str(int(number_of_commands) - 1)
+        self._parent.prompt_to_save = True
+        self._parent.windowtitle_set = False
+        self._parent.set_main_window_title()
 
     def get_parent_item(self, item: QTreeWidgetItem):
         if item:

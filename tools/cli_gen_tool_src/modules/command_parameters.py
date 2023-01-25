@@ -16,7 +16,7 @@ import copy
 
 # pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
-from PySide6.QtGui import QRegularExpressionValidator, QIcon
+from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWidgets import (
     QStyle,
     QLineEdit,
@@ -439,6 +439,7 @@ class CommandParametersMethods(object):
             self.update_code("functions.h", validated_result["functionName"], True)
             self.update_code("CLI.h", validated_result["functionName"], True)
             self.update_code("README.md", validated_result["functionName"], True)
+            self.command_tree.update_command(self.command_tree.active_item)
             self.ui.commandParameters.close()
             return
 
@@ -480,11 +481,11 @@ class CommandParametersMethods(object):
                 )
             else:
                 CommandParametersMethods.logger.info("couldn't find parent")
-
+        
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
         self.update_code("CLI.h", validated_result["functionName"], True)
-        self.update_code("README.md", validated_result["functionName"], True)
+        self.update_code("README.md", validated_result["functionName"], True)        
         self.ui.commandParameters.close()
 
     ## command parameters dialog buttonbox reset value
