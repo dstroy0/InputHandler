@@ -342,7 +342,7 @@
 
             <span class="k">if</span> <span class="n">is_config</span><span class="p">:</span>
                 <span class="c1"># make these parents children of root using the keys from &#39;cfg_dict&#39;</span>
-                <span class="n">cfg_path</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;input_config_file_path&quot;</span><span class="p">]</span>
+                <span class="n">cfg_path</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;inputhandler_config_file_path&quot;</span><span class="p">]</span>
                 <span class="n">setting_container</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">(),</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="s2">&quot;Input config: &quot;</span> <span class="o">+</span> <span class="n">cfg_path</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
                 <span class="p">)</span>
@@ -863,8 +863,15 @@
         <span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span></div></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span></div>
+    
+<div class="viewcode-block" id="SettingsTreeMethods.rebuild_settings_tree"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.rebuild_settings_tree">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_settings_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_container</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span> <span class="o">=</span> <span class="n">SettingsTreeWidget</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">logger</span>
+        <span class="p">)</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span></div></div>
 
 <span class="c1"># end of file</span>
 </pre></div>
