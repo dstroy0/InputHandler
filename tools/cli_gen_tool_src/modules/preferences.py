@@ -194,10 +194,10 @@ class PreferencesMethods(object):
         PreferencesMethods.logger.debug("preferences dialog setup")
         self.get_comboboxes()
         # set initial field text
-        config_path = self.session["opt"]["input_config_file_path"]
+        config_path = self.session["opt"]["inputhandler_config_file_path"]
         self.dlg.config_path_input.setText(str(config_path))
         self.dlg.config_path_input.setToolTip(str(config_path))
-        project_path = self.session["opt"]["output_dir"]
+        project_path = self.session["opt"]["cli_output_dir"]
         self.dlg.output_path_input.setText(str(project_path))
         self.dlg.output_path_input.setToolTip(str(project_path))
 

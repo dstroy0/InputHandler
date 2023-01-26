@@ -696,5 +696,11 @@ class CommandTreeMethods(object):
         container.setLayout(container.layout)
         return self.command_tree
 
-
+    def rebuild_command_tree(self):
+        container = self.ui.command_tree_container
+        container.layout.removeWidget(self.command_tree)
+        self.command_tree = CommandTreeWidget(
+            self, self.cliOpt, CommandTreeMethods.logger
+        )
+        container.layout.addWidget(self.command_tree)
 # end of file

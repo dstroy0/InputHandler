@@ -396,6 +396,7 @@
      <string>  File  </string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Recent"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="actionPreferences"/>
@@ -492,6 +493,11 @@
    </property>
    <property name="shortcut">
     <string>F1</string>
+   </property>
+  </action>
+  <action name="actionOpen_Recent">
+   <property name="text">
+    <string>Open Recent</string>
    </property>
   </action>
  </widget>

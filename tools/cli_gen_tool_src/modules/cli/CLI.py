@@ -239,7 +239,7 @@ class cliH(object):
 
         # arduino compatibility
         compatibility = ""
-        project_path = self.session["opt"]["output_dir"]
+        project_path = self.session["opt"]["cli_output_dir"]
         if project_path:
             file_structure = glob.glob(os.path.join(project_path, "*.ino"))
             if file_structure:

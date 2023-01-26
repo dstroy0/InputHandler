@@ -118,7 +118,7 @@ class SettingsTreeWidget(QTreeWidget):
 
             if is_config:
                 # make these parents children of root using the keys from 'cfg_dict'
-                cfg_path = session["opt"]["input_config_file_path"]
+                cfg_path = session["opt"]["inputhandler_config_file_path"]
                 setting_container = QTreeWidgetItem(
                     self.invisibleRootItem(), [str("Input config: " + cfg_path), ""]
                 )
@@ -640,6 +640,13 @@ class SettingsTreeMethods(object):
         container.layout.addWidget(self.settings_tree)
         container.setLayout(container.layout)
         return self.settings_tree
-
+    
+    def rebuild_settings_tree(self):
+        container = self.ui.settings_tree_container
+        container.layout.removeWidget(self.settings_tree)
+        self.settings_tree = SettingsTreeWidget(
+            self, self.cliOpt, self.session, SettingsTreeMethods.logger
+        )
+        container.layout.addWidget(self.settings_tree)
 
 # end of file

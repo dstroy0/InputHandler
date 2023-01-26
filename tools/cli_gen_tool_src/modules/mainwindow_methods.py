@@ -33,7 +33,7 @@ from PySide6.QtCore import (
     QTextStream,
 )
 
-from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtGui import QPixmap, QIcon, QAction
 
 from PySide6.QtWidgets import (
     QSplashScreen,
@@ -47,6 +47,7 @@ from PySide6.QtWidgets import (
     QTreeWidget,
     QHBoxLayout,
     QPushButton,
+    QMenu,
 )
 
 from modules.data_models import dataModels
@@ -162,7 +163,7 @@ class MainWindowMethods(object):
             str: valid os path or None
         """
         open_on_dir = ""
-        output_dir = self.session["opt"]["output_dir"]
+        output_dir = self.session["opt"]["cli_output_dir"]
         if os.path.exists(output_dir):
             open_on_dir = output_dir
         else:
@@ -206,7 +207,7 @@ class MainWindowMethods(object):
     def get_initial_config_path(self):
         """get initial path to config"""
         self.old_path = QDir(
-            self._parent.session["opt"]["input_config_file_path"]
+            self._parent.session["opt"]["inputhandler_config_file_path"]
         ).absolutePath()
         self.old_path = QDir(self.old_path).toNativeSeparators(self.old_path)
         self._parent.old_path = self.old_path
@@ -224,8 +225,10 @@ class MainWindowMethods(object):
             fileName = cfg_path_dlg.getOpenFileName(
                 self,
                 "InputHandler config file name",
-                QDir(self.session["opt"]["input_config_file_path"]).toNativeSeparators(
-                    self.session["opt"]["input_config_file_path"]
+                QDir(
+                    self.session["opt"]["inputhandler_config_file_path"]
+                ).toNativeSeparators(
+                    self.session["opt"]["inputhandler_config_file_path"]
                 ),
                 "config.h",
                 options=QFileDialog.DontUseNativeDialog,
@@ -239,7 +242,7 @@ class MainWindowMethods(object):
         if new_path == old_path:
             MainWindowMethods.logger.info("Same config file selected.")
             return
-        self.session["opt"]["input_config_file_path"] = fqname
+        self.session["opt"]["inputhandler_config_file_path"] = fqname
         self._parent.preferences.dlg.config_path_input.setText(str(fqname))
         self._parent.preferences.dlg.config_path_input.setToolTip(str(fqname))
         # restart to apply selected config
@@ -264,9 +267,9 @@ class MainWindowMethods(object):
                 windowtitle = windowtitle + " - *"
             else:
                 windowtitle = windowtitle + " - "
-            if self.session["opt"]["save_filename"]:
+            if self.session["opt"]["save_file_path"]:
                 regexp = QRegularExpression("[^\/]*$")
-                match = regexp.match(str(self.session["opt"]["save_filename"]))
+                match = regexp.match(str(self.session["opt"]["save_file_path"]))
                 if match.hasMatch():
                     windowtitle = windowtitle + str(match.captured(0))
             else:
@@ -466,19 +469,21 @@ class MainWindowMethods(object):
             "cli_gen_tool.json =\n" + str(json_dumps(self.session, indent=2))
         )
         last_interface = QFile()
-        if self.session["opt"]["save_filename"] is not None:
-            last_interface_path = QDir(self.session["opt"]["save_filename"])
+        if self.session["opt"]["save_file_path"] is not None:
+            last_interface_path = QDir(self.session["opt"]["save_file_path"])
             self.logger.debug("Attempt load last interface")
             last_interface = QFile(
                 last_interface_path.toNativeSeparators(
                     last_interface_path.absolutePath()
                 )
             )
-        if self.session["opt"]["save_filename"] != "" and last_interface.exists():
+        if self.session["opt"]["save_file_path"] != "" and last_interface.exists():
             result = self.read_json(last_interface, True)
             self.cliOpt = result[1]
             self.cliOpt["commands"]["primary id key"] = "0"
-        elif self.session["opt"]["save_filename"] != "" and not last_interface.exists():
+        elif (
+            self.session["opt"]["save_file_path"] != "" and not last_interface.exists()
+        ):
             b = QDialogButtonBox.StandardButton
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
@@ -509,9 +514,9 @@ class MainWindowMethods(object):
             else:
                 self.logger.info(
                     "Couldn't locate last working file: "
-                    + str(self.session["opt"]["save_filename"])
+                    + str(self.session["opt"]["save_file_path"])
                 )
-                self.session["opt"]["save_filename"] = ""
+                self.session["opt"]["save_file_path"] = ""
 
                 self.set_main_window_title("InputHandler CLI generation tool ")
 
@@ -695,10 +700,21 @@ class MainWindowMethods(object):
                 "wrote " + str(size) + " bytes to " + str(qfile.fileName())
             )
             if dict_to_serialize["type"] != "session":
+                if (
+                    self.session["opt"]["save_file_path"]
+                    not in self.session["opt"]["recent_files"]["paths"]
+                ):
+                    self.session["opt"]["recent_files"]["paths"].append(
+                        self.session["opt"]["save_file_path"]
+                    )
+                if len(self.session["opt"]["recent_files"]["paths"]) > int(
+                    self.session["opt"]["recent_files"]["num_paths_to_keep"]
+                ):
+                    self.session["opt"]["recent_files"]["paths"].pop(0)
                 if self.write_cli_gen_tool_json() > 0:
                     MainWindowMethods.logger.info("session json saved")
                 regexp = QRegularExpression("[^\/]*$")
-                match = regexp.match(str(self.session["opt"]["save_filename"]))
+                match = regexp.match(str(self.session["opt"]["save_file_path"]))
                 if match.hasMatch():
                     self.setWindowTitle(
                         "InputHandler CLI generation tool - " + str(match.captured(0))
@@ -761,14 +777,14 @@ class MainWindowMethods(object):
         MainWindowMethods.logger.debug("set tool version var in cliOpt")
         self.cliOpt["var"]["tool version"] = self.version
         if (
-            self.session["opt"]["save_filename"] == ""
-            or self.session["opt"]["save_filename"] == None
+            self.session["opt"]["save_file_path"] == ""
+            or self.session["opt"]["save_file_path"] == None
         ):
             ret = self.save_file_as()
             if ret >= 0:
                 self.prompt_to_save = False
             return ret
-        file = QFile(self.session["opt"]["save_filename"])
+        file = QFile(self.session["opt"]["save_file_path"])
         ret = self.write_json(self.cliOpt, file, True)
         if ret >= 0:
             self.prompt_to_save = False
@@ -795,7 +811,7 @@ class MainWindowMethods(object):
             MainWindowMethods.logger.info("Save file dialog cancelled.")
             return QFileDialog.Rejected  # dialog cancelled
         fqname = fileName[0] + ".json"
-        self.session["opt"]["save_filename"] = fqname
+        self.session["opt"]["save_file_path"] = fqname
         MainWindowMethods.logger.info("save CLI settings file as: " + str(fqname))
         file = QFile(fqname)
         ret = self.write_json(self.cliOpt, file, True)
@@ -819,7 +835,7 @@ class MainWindowMethods(object):
                 "cli_gen_tool.json doesn't exist, using default options"
             )
             _json = self.defaultGuiOpt
-            _json["opt"]["input_config_file_path"] = self.default_lib_config_path
+            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
             return _json
         if error == -3:
             file.close()
@@ -827,7 +843,7 @@ class MainWindowMethods(object):
                 "open cli_gen_tool.json error; using default options"
             )
             _json = self.defaultGuiOpt
-            _json["opt"]["input_config_file_path"] = self.default_lib_config_path
+            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
             return _json
         return _json
 
@@ -840,26 +856,47 @@ class MainWindowMethods(object):
         file = QFile(self.cli_gen_tool_json_path)
         err = self.write_json(self.session, file, False)
         return err
-
+    
     # MainWindow actions
-    def open_file(self):
+    def get_recent_files_menu(self) -> QMenu:
+        """builds the recent files menu
+
+        Returns:
+            QMenu: recent files menu
+        """
+        # build menu         
+        menu = QMenu(self)        
+        paths = self.session["opt"]["recent_files"]["paths"]        
+        for path in paths:
+            if os.path.exists(path):
+                filename = os.path.basename(os.path.realpath(path))
+                action = QAction(f"{filename}", menu)                                
+                action.setToolTip(path)                                                
+                action.triggered.connect(lambda c=action.triggered,p=path: self.open_file(c,p))
+                menu.addAction(action)                        
+        return menu
+    
+    def open_file(self, checked:bool=False,path:str=""):
         """open a cli settings json QFileDialog
 
         Returns:
             int: filesize
         """
-        MainWindowMethods.logger.info("open CLI settings file dialog")
-        # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-        dlg = QFileDialog(self)
-        dlg.setFileMode(QFileDialog.ExistingFile)
-        dlg.setNameFilter("Settings json (*.json)")
-        dlg.setViewMode(QFileDialog.Detail)
-        fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)
-        if fileName[0] == "":
-            MainWindowMethods.logger.info("open CLI settings file dialog cancelled")
-            return  # dialog cancelled
+        if not os.path.exists(path):
+            MainWindowMethods.logger.info("open CLI settings file dialog")
+            # inherit from parent QMainWindow (block main window interaction while dialog box is open)
+            dlg = QFileDialog(self)
+            dlg.setFileMode(QFileDialog.ExistingFile)
+            dlg.setNameFilter("Settings json (*.json)")
+            dlg.setViewMode(QFileDialog.Detail)
+            fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)
+            path = fileName[0]
+
+        if path == "":
+            MainWindowMethods.logger.info("CLI settings file path error")
+            return 0  # dialog cancelled
         else:
-            file = QFile(fileName[0])
+            file = QFile(path)
             read_json_result = self.read_json(file, True)
             if (
                 read_json_result[0] >= 0
@@ -868,25 +905,40 @@ class MainWindowMethods(object):
                 self.cliOpt = read_json_result[1]
             else:
                 self.create_file_error_qdialog("Incorrect json type", file)
+                return -1
             # empty trees
-            self.ui.settings_tree.clear()
-            self.ui.command_tree.clear()
-            # rebuild from file
-            self.build_lib_settings_tree()
-            self.build_command_tree()
+            self.settings_tree.clear()
+            self.command_tree.clear()
+            # rebuild from file            
+            self.cliOpt["commands"]["primary id key"] = "0"
+            self.session["opt"]["save_file_path"] = path
+            self._parent.loading = True
+            self.rebuild_command_tree()
+            self.rebuild_settings_tree()
+            self._parent.loading = False
             self.display_initial_code_preview()
             self.prompt_to_save = False
             self.windowtitle_set = False
+            self.set_main_window_title()
+            
+            # move most recent file to front
+            paths = self.session["opt"]["recent_files"]["paths"]
+            if path in paths and paths.index(path) != 0:
+                paths.insert(0, paths.pop(paths.index(path)))
+            # remake menu
+            self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
+        return read_json_result
+            
 
     def gui_settings(self):
         """opens preferences dialog"""
         MainWindowMethods.logger.info("opened preferences dialog")
-        self.preferences.exec()
+        self.preferences.exec(self.actionOpen_Recent)
 
     # TODO
     # generate CLI files
     def generate_cli_files(self):
-        """generates cli files in self.session["opt"]["output_dir"]"""
+        """generates cli files in self.session["opt"]["cli_output_dir"]"""
         MainWindowMethods.logger.info("generate cli files")
         self.generate_cli()
 
@@ -939,7 +991,8 @@ class MainWindowMethods(object):
         """menu bar setup"""
         # file menu actions setup
         # file menu
-        self.ui.actionOpen.triggered.connect(self.open_file)
+        self.ui.actionOpen.triggered.connect(self.open_file)        
+        self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
         self.ui.actionSave.triggered.connect(self.save_file)
         self.ui.actionSave_As.triggered.connect(self.save_file_as)
         self.ui.actionPreferences.triggered.connect(self.gui_settings)

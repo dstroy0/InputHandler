@@ -386,7 +386,7 @@ class Initialize(HelperMethods, Logger, object):
                     + ">\nis not valid, please enter the full path to a valid InputHandler config.h"
                 )
                 sys.exit(0)
-            self.session["opt"]["input_config_file_path"] = os.path.abspath(
+            self.session["opt"]["inputhandler_config_file_path"] = os.path.abspath(
                 args.config[0]
             )
         return args

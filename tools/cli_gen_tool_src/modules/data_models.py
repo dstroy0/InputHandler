@@ -82,17 +82,15 @@ class dataModels(object):
         "type": "session",
         "tool version": str(version),
         "opt": {
-            "save_filename": None,
-            "log_filename": None,
-            "recent_files": [],
-            "input_config_file_path": "",
-            "output_dir": "",
-            "log_levels": {
-                "session": "",
-                "file": "",
-                "stream": "",
-                "root": "",
+            "save_file_path": None,
+            "log_file_path": None,
+            "recent_files": {
+                "num_paths_to_keep": "5",
+                "paths": [],
             },
+            "inputhandler_config_file_path": None,
+            "cli_output_dir": None,
+            "log_level": None,
             "output": {
                 "stream": "Serial",
                 "buffer size": "700",

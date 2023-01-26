@@ -364,12 +364,12 @@ class CodeGeneration(
     def generatedialog_set_output_dir(self):
         project_path = self._parent.get_project_dir()
         if project_path:
-            self.session["opt"]["output_dir"] = project_path
+            self.session["opt"]["cli_output_dir"] = project_path
             CodeGeneration.logger.info(
                 "set session output_dir to:\n" + str(project_path)
             )
             self.ui.generateDialog.dlg.outputPathLineEdit.setText(
-                self.session["opt"]["output_dir"]
+                self.session["opt"]["cli_output_dir"]
             )
             arduino_compatibility = self.detect_output_type(project_path)
             print(arduino_compatibility)
@@ -433,7 +433,7 @@ class CodeGeneration(
         self.ui.generateDialog.dlg.setupUi(self.ui.generateDialog)
         # self.ui.generateDialog.setMaximumSize(0, 0)
         self.ui.generateDialog.dlg.outputPathLineEdit.setText(
-            self.session["opt"]["output_dir"]
+            self.session["opt"]["cli_output_dir"]
         )
         self.ui.generateDialog.dlg.pushButton.clicked.connect(
             self.generatedialog_set_output_dir
@@ -443,7 +443,7 @@ class CodeGeneration(
             self.ui.generateDialog.close
         )
         arduino_compatibility = self.detect_output_type(
-            self.session["opt"]["output_dir"]
+            self.session["opt"]["cli_output_dir"]
         )
         if arduino_compatibility:
             self.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
@@ -461,7 +461,7 @@ class CodeGeneration(
 
     def parse_config(self):
         """config parser wrapper"""
-        self.parse_config_header_file(self.session["opt"]["input_config_file_path"])
+        self.parse_config_header_file(self.session["opt"]["inputhandler_config_file_path"])
 
     def initial_code_preview(self):
         """code preview wrapper"""
@@ -565,7 +565,7 @@ class CodeGeneration(
         Returns:
             list: list of docstring lines to prepend to filename
         """
-        docstring_list = []        
+        docstring_list = []
         year = str(datetime.date.today())[0:4]
         ll = cliFileStrings.lib_license_cpp.format(docs_year=year)
         date = datetime.date.today()
@@ -600,13 +600,14 @@ class CodeGeneration(
     def detect_output_type(self, project_path):
         pio_structure = dataModels.pio_structure
         arduino_structure = dataModels.arduino_structure
-        
+        if project_path == None:
+            project_path = ""
         ino_search = glob.glob(os.path.join(project_path, "*.ino"))
-        arduino_compatibility = False        
+        arduino_compatibility = False
         if bool(ino_search):
             # ino file detected
             arduino_compatibility = True
-        if project_path.find("sketch") != -1:            
+        if project_path.find("sketch") != -1:
             # empty sketch folder case
             arduino_compatibility = True
         if arduino_compatibility:
@@ -627,7 +628,7 @@ class CodeGeneration(
             int:
         """
         if project_path == None:
-            project_path = self.session["opt"]["output_dir"]
+            project_path = self.session["opt"]["cli_output_dir"]
             if project_path == None or project_path == "" and not self._parent.headless:
                 project_path = self.get_project_dir()
             if project_path == None:
@@ -670,7 +671,7 @@ class CodeGeneration(
         else:
             # platformio
             cli_path = os.path.join(project_path, "lib", "CLI")
-            cli_src_path = cli_path#os.path.join(cli_path, "src")
+            cli_src_path = cli_path  # os.path.join(cli_path, "src")
             cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
 
         # Create in project dir
