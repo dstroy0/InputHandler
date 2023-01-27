@@ -500,17 +500,25 @@
                 <span class="n">item</span><span class="o">.</span><span class="n">setExpanded</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">state_index</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
+<div class="viewcode-block" id="SettingsTreeWidget.update_delimiters"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.update_delimiters">[docs]</a>    <span class="k">def</span> <span class="nf">update_delimiters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="n">dict_pos</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">dict_pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">dict_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">))}</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">True</span></div>
+
     <span class="c1">## builds a table onto a tree widget item</span>
 <div class="viewcode-block" id="SettingsTreeWidget.build_tree_table_widget"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeWidget.build_tree_table_widget">[docs]</a>    <span class="k">def</span> <span class="nf">build_tree_table_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">index_of_child</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">setFirstColumnSpanned</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dict_pos</span><span class="p">)</span>
-        <span class="c1"># add parent tree item to root</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
         <span class="c1"># table = DelimitersTableView(self, logger, cursor, container, self.cliopt)</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">DelimiterTableWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">table</span><span class="o">.</span><span class="n">build_table</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">dict_pos</span> <span class="o">=</span> <span class="n">dict_pos</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">cellChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">table</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_delimiters</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setItemWidget</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
         <span class="n">index_of_child</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -864,7 +872,7 @@
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span></div>
-    
+
 <div class="viewcode-block" id="SettingsTreeMethods.rebuild_settings_tree"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.SettingsTreeMethods.rebuild_settings_tree">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_settings_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">settings_tree_container</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span>
@@ -872,6 +880,7 @@
             <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">logger</span>
         <span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="p">)</span></div></div>
+
 
 <span class="c1"># end of file</span>
 </pre></div>
