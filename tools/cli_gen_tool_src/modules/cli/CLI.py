@@ -45,17 +45,42 @@ class cliH(object):
             Returns:
                 list: number of sequences, sequence char lens, sequence string
             """
+            control_char = [
+                "0",
+                "a",
+                "b",
+                "t",
+                "n",
+                "v",
+                "f",
+                "r",
+                '"',
+            ]
             num_seq = len(seq)
             seq_lens_string = "{"
             seqs_string = "{"
             seq_lens = []
             seqs = []
             for key in seq:
-                delim_str = str(seq[key]).strip("'")
-                delim_str_len = len(delim_str)
-
+                delim_str_len = 0
+                delim_str = str(seq[key]).replace("'", "").strip()
+                p = 0
+                for i in range(len(delim_str)):
+                    if delim_str[p] == "\\":
+                        if len(delim_str) > 1 and delim_str[p + 1] in control_char:
+                            delim_str_len += 1
+                            p += 2
+                        else:
+                            delim_str_len += 1
+                            p += 1
+                    else:
+                        delim_str_len += 1
+                        p += 1
+                    if p >= len(delim_str):
+                        break
                 seq_lens.append(delim_str_len)
                 seqs.append(seq[key])
+
             for i in range(len(seq_lens)):
                 seq_lens_string = seq_lens_string + str(seq_lens[i])
                 seqs_string = (

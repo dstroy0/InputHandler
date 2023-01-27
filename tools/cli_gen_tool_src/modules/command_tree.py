@@ -703,4 +703,6 @@ class CommandTreeMethods(object):
             self, self.cliOpt, CommandTreeMethods.logger
         )
         container.layout.addWidget(self.command_tree)
+
+
 # end of file

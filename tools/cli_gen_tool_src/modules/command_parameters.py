@@ -481,11 +481,11 @@ class CommandParametersMethods(object):
                 )
             else:
                 CommandParametersMethods.logger.info("couldn't find parent")
-        
+
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
         self.update_code("CLI.h", validated_result["functionName"], True)
-        self.update_code("README.md", validated_result["functionName"], True)        
+        self.update_code("README.md", validated_result["functionName"], True)
         self.ui.commandParameters.close()
 
     ## command parameters dialog buttonbox reset value

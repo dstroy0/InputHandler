@@ -276,17 +276,25 @@ class SettingsTreeWidget(QTreeWidget):
                 item.setExpanded(False)
             state_index += 1
 
+    def update_delimiters(self, row, column, table):
+        dict_pos = table.dict_pos.split(",")
+        self.cliopt[dict_pos[0]]["var"][dict_pos[2]] = {}
+        for row in range(table.rowCount()):
+            self.cliopt[dict_pos[0]]["var"][dict_pos[2]].update(
+                {str(row): str(table.item(row, 0).data(0))}
+            )
+        self.prompt_to_save = True
+
     ## builds a table onto a tree widget item
     def build_tree_table_widget(self, label: QTreeWidgetItem, index_of_child, dict_pos):
         container = QTreeWidgetItem(label)
         container.setFirstColumnSpanned(True)
         container.setData(4, 0, dict_pos)
-        # add parent tree item to root
-        cursor = self._cursor
-        logger = self.logger
         # table = DelimitersTableView(self, logger, cursor, container, self.cliopt)
         table = DelimiterTableWidget(self)
         table.build_table(container, self.cliopt)
+        table.dict_pos = dict_pos
+        table.cellChanged.connect(lambda r, c, t=table: self.update_delimiters(r, c, t))
         self.setItemWidget(container, 0, table)
         self.tables.append(table)
         index_of_child += 1
@@ -640,7 +648,7 @@ class SettingsTreeMethods(object):
         container.layout.addWidget(self.settings_tree)
         container.setLayout(container.layout)
         return self.settings_tree
-    
+
     def rebuild_settings_tree(self):
         container = self.ui.settings_tree_container
         container.layout.removeWidget(self.settings_tree)
@@ -648,5 +656,6 @@ class SettingsTreeMethods(object):
             self, self.cliOpt, self.session, SettingsTreeMethods.logger
         )
         container.layout.addWidget(self.settings_tree)
+
 
 # end of file

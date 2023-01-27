@@ -856,7 +856,7 @@ class MainWindowMethods(object):
         file = QFile(self.cli_gen_tool_json_path)
         err = self.write_json(self.session, file, False)
         return err
-    
+
     # MainWindow actions
     def get_recent_files_menu(self) -> QMenu:
         """builds the recent files menu
@@ -864,23 +864,29 @@ class MainWindowMethods(object):
         Returns:
             QMenu: recent files menu
         """
-        # build menu         
-        menu = QMenu(self)        
-        paths = self.session["opt"]["recent_files"]["paths"]        
+        # build menu
+        menu = QMenu(self)
+        paths = self.session["opt"]["recent_files"]["paths"]
         for path in paths:
             if os.path.exists(path):
                 filename = os.path.basename(os.path.realpath(path))
-                action = QAction(f"{filename}", menu)                                
-                action.setToolTip(path)                                                
-                action.triggered.connect(lambda c=action.triggered,p=path: self.open_file(c,p))
-                menu.addAction(action)                        
+                action = QAction(f"{filename}", menu)
+                action.setToolTip(path)
+                action.triggered.connect(
+                    lambda c=action.triggered, p=path: self.open_file(c, p)
+                )
+                menu.addAction(action)
         return menu
-    
-    def open_file(self, checked:bool=False,path:str=""):
-        """open a cli settings json QFileDialog
+
+    def open_file(self, checked: bool = False, path: str = "") -> int:
+        """opens a cli options file and does simple validity check
+
+        Args:
+            checked (bool, optional): action checked bool. Defaults to False.
+            path (str, optional): absolute file path. Defaults to "".
 
         Returns:
-            int: filesize
+            int: size if greater than zero, error code if zero or less.
         """
         if not os.path.exists(path):
             MainWindowMethods.logger.info("open CLI settings file dialog")
@@ -890,52 +896,83 @@ class MainWindowMethods(object):
             dlg.setNameFilter("Settings json (*.json)")
             dlg.setViewMode(QFileDialog.Detail)
             fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)
-            path = fileName[0]
-
-        if path == "":
-            MainWindowMethods.logger.info("CLI settings file path error")
-            return 0  # dialog cancelled
-        else:
-            file = QFile(path)
-            read_json_result = self.read_json(file, True)
-            if (
-                read_json_result[0] >= 0
-                and read_json_result[1]["type"] == "cli options"
-            ):
-                self.cliOpt = read_json_result[1]
+            if dlg.Accepted:
+                path = fileName[0]
             else:
-                self.create_file_error_qdialog("Incorrect json type", file)
-                return -1
-            # empty trees
-            self.settings_tree.clear()
-            self.command_tree.clear()
-            # rebuild from file            
-            self.cliOpt["commands"]["primary id key"] = "0"
-            self.session["opt"]["save_file_path"] = path
-            self._parent.loading = True
-            self.rebuild_command_tree()
-            self.rebuild_settings_tree()
-            self._parent.loading = False
-            self.display_initial_code_preview()
-            self.prompt_to_save = False
-            self.windowtitle_set = False
-            self.set_main_window_title()
-            
-            # move most recent file to front
-            paths = self.session["opt"]["recent_files"]["paths"]
-            if path in paths and paths.index(path) != 0:
-                paths.insert(0, paths.pop(paths.index(path)))
-            # remake menu
-            self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
-        return read_json_result
-            
+                MainWindowMethods.logger.info("dialog cancelled")
+                return 0  # dialog cancelled
+
+        if path == "" or not os.path.exists(path):
+            MainWindowMethods.logger.info("CLI settings file path error")
+            return -1  # path error
+
+        file = QFile(path)
+        read_json_result = self.read_json(file, True)
+
+        if read_json_result[0] >= 0 and read_json_result[1]["type"] == "cli options":
+            if self._parent.prompt_to_save == True:
+                regexp = QRegularExpression("[^\/]*$")
+                match = regexp.match(path)
+                if match.hasMatch():
+                    filename = str(match.captured(0))
+                b = QDialogButtonBox.StandardButton
+                buttons = [b.Ok, b.Close]
+                button_text = ["Save", "Cancel"]
+                result = self.create_qdialog(
+                    self._parent,
+                    "Do you want to save your current work?",
+                    Qt.AlignCenter,
+                    Qt.NoTextInteraction,
+                    f"Save before opening {filename}",
+                    buttons,
+                    button_text,
+                    QStyle.StandardPixmap.SP_MessageBoxCritical,
+                    self._parent.qscreen,
+                )
+                if result == QDialog.Accepted:
+                    self.save_file()
+            self.cliOpt = read_json_result[1]
+        else:
+            MainWindowMethods.logger.info("Incorrect json type")
+            self.create_file_error_qdialog("Incorrect json type", file)
+            return -2  # incorrect json type
+
+        # empty the trees
+        MainWindowMethods.logger.debug("clearing trees")
+        self.settings_tree.clear()
+        self.command_tree.clear()
+
+        # rebuild the trees from the new cli options file
+        MainWindowMethods.logger.debug("rebuilding trees")
+        self.cliOpt["commands"]["primary id key"] = "0"
+        self.session["opt"]["save_file_path"] = path
+        self._parent.loading = True
+        self.rebuild_command_tree()
+        self.rebuild_settings_tree()
+        self._parent.loading = False
+        self.display_initial_code_preview()
+        self.prompt_to_save = False
+        self.windowtitle_set = False
+        self.set_main_window_title()
+
+        # move `path` to index 0
+        MainWindowMethods.logger.debug(
+            f"move this path to front of recent files list:\n{path}"
+        )
+        paths = self.session["opt"]["recent_files"]["paths"]
+        if path in paths and paths.index(path) != 0:
+            paths.insert(0, paths.pop(paths.index(path)))
+
+        # remake menu
+        MainWindowMethods.logger.debug("remake recent files menu")
+        self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
+        return read_json_result  # return size of file read
 
     def gui_settings(self):
         """opens preferences dialog"""
         MainWindowMethods.logger.info("opened preferences dialog")
         self.preferences.exec(self.actionOpen_Recent)
-
-    # TODO
+    
     # generate CLI files
     def generate_cli_files(self):
         """generates cli files in self.session["opt"]["cli_output_dir"]"""
@@ -991,7 +1028,7 @@ class MainWindowMethods(object):
         """menu bar setup"""
         # file menu actions setup
         # file menu
-        self.ui.actionOpen.triggered.connect(self.open_file)        
+        self.ui.actionOpen.triggered.connect(self.open_file)
         self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
         self.ui.actionSave.triggered.connect(self.save_file)
         self.ui.actionSave_As.triggered.connect(self.save_file_as)

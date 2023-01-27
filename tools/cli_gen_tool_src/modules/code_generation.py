@@ -461,7 +461,9 @@ class CodeGeneration(
 
     def parse_config(self):
         """config parser wrapper"""
-        self.parse_config_header_file(self.session["opt"]["inputhandler_config_file_path"])
+        self.parse_config_header_file(
+            self.session["opt"]["inputhandler_config_file_path"]
+        )
 
     def initial_code_preview(self):
         """code preview wrapper"""

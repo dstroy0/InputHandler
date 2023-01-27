@@ -166,6 +166,7 @@ class PreferencesMethods(object):
         Returns:
             Filter (QObject): the filtered object interaction
         """
+
         class Filter(QObject):
             clicked = Signal()
 
