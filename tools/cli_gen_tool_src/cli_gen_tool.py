@@ -189,7 +189,7 @@ class Initialize(HelperMethods, Logger, object):
         sys.exit(self.app.exec())
 
     def set_lib_root_path(self):
-        file_path = os.path.abspath(__file__)
+        file_path = os.getcwd()
         _file_path = QDir(file_path)
         self.file_path = _file_path.toNativeSeparators(_file_path.absolutePath())
         path = QDir(self.file_path)
