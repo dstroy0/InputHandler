@@ -18,6 +18,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -VV          
+          pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip freeze
+
       - name: Update linux and install build dependencies
         run: |
           sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
@@ -33,21 +47,7 @@ jobs:
           sudo apt-get -y install libxkbcommon-dev                
           sudo apt-get -y install libicu70          
           sudo apt-get -y install qt6-webengine-dev
-          sudo apt-get -y install p7zip-full
-
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install Python dependencies
-        run: |
-          python -VV          
-          pip install -r ./tools/cli_gen_tool_src/requirements.txt
-          pip freeze
+          sudo apt-get -y install p7zip-full      
 
       - name: Build and zip binary
         run: |
@@ -69,6 +69,6 @@ jobs:
           else
             git commit -m "cli_gen_tool linux binary latest" -a
             echo "Pushing"
-            git -C ./tools/bin/ push -v
+            git -C ./tools/bin/latest/linux/ push -v
           fi
         shell: bash
