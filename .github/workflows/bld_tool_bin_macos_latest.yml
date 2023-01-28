@@ -56,6 +56,6 @@ jobs:
             git pull origin
             git commit -m "cli_gen_tool macos binary latest" -a
             echo "Pushing"
-            git push -v
+            git push --force -v
           fi
         shell: bash
