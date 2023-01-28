@@ -69,6 +69,6 @@ jobs:
           else
             git commit -m "cli_gen_tool linux binary latest" -a
             echo "Pushing"
-            git -C ./tools/bin/latest/linux/ push --force -v
+            git push -v
           fi
         shell: bash

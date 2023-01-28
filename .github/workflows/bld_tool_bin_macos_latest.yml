@@ -55,6 +55,6 @@ jobs:
           else
             git commit -m "cli_gen_tool macos binary latest" -a
             echo "Pushing"
-            git -C ./tools/bin/latest/macos/ push --force -v
+            git push -v
           fi
         shell: bash
