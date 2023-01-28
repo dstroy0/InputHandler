@@ -71,6 +71,6 @@ jobs:
             git pull origin
             git commit -m "cli_gen_tool linux binary latest" -a
             echo "Pushing"
-            git push --force -v
+            git -C ./tools/bin/latest/linux/ push --force -v
           fi
         shell: bash
