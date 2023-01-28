@@ -48,14 +48,13 @@ jobs:
           git config --global user.email "dstroy0@users.noreply.github.com"
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git checkout binaries
-          git pull origin
+          git checkout binaries          
           git add ./tools/bin/latest/macos/cli_gen_tool.zip
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
           else
             git commit -m "cli_gen_tool macos binary latest" -a
             echo "Pushing"
-            git -C ./tools/bin/latest/macos/ push -v
+            git -C ./tools/bin/latest/macos/ push --force -v
           fi
         shell: bash
