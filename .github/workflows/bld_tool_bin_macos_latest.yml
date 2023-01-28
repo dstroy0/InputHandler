@@ -53,6 +53,7 @@ jobs:
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
           else
+            git pull origin
             git commit -m "cli_gen_tool macos binary latest" -a
             echo "Pushing"
             git push -v
