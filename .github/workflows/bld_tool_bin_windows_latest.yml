@@ -49,8 +49,9 @@ jobs:
         run: |
           git config --global user.email "dstroy0@users.noreply.github.com"
           git config --global user.name "dstroy0"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git checkout binaries          
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}          
+          git checkout binaries                    
+          git pull origin
           git add ./tools/bin/latest/windows/cli_gen_tool.zip
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
@@ -58,5 +59,5 @@ jobs:
             git pull origin            
             git commit -m "cli_gen_tool windows binary latest" -a
             echo "Pushing"
-            git push --force -v
+            git push -v
           fi

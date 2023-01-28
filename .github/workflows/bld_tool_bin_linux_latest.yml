@@ -63,6 +63,7 @@ jobs:
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git checkout binaries          
+          git pull origin
           git add ./tools/bin/latest/linux/cli_gen_tool.zip
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
