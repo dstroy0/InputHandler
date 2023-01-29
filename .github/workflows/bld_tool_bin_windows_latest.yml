@@ -50,7 +50,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                      
           git checkout main
           git pull origin
-          git git add ./tools/bin/latest/windows/cli_gen_tool.zip
+          git add ./tools/bin/latest/windows/cli_gen_tool.zip
           git checkout binaries **/latest/windows/
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
