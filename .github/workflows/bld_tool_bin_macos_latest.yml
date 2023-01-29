@@ -53,8 +53,7 @@ jobs:
           git add ./tools/bin/latest/macos/cli_gen_tool.zip
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
-          else
-            git pull origin
+          else            
             git commit -m "cli_gen_tool macos binary latest" -a
             echo "Pushing"
             git -C ./tools/bin/latest/macos/ push --force -v
