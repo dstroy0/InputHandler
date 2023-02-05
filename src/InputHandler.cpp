@@ -256,6 +256,104 @@ void UserInput::listSettings(UserInput* inputProcess)
 #endif // end ENABLE_listSettings
 
 #if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+
+int UserInput::_linearSearch(_cmdSearchStruct& s)
+{
+    s.l_s_sz--;
+    if (s.l_s_sz < 0)
+    {
+        return -1; // element not present
+    }
+    if (s.u_s[s.l_s_sz][0] == s.u_s[s.u_s_idx][1])
+    {
+        return s.l_s_sz; // idx of value
+    }
+    return _linearSearch(s);
+}
+bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
+{
+    for (uint8_t i = 0; i < s.arr_len; ++i)
+    {
+        memcpy_P(&s.prm, &(s.cmd->prm[i + 1]), sizeof(CommandParameters));
+        s.u_s[i][0] = s.prm.parent_command_id;
+        s.u_s[i][1] = s.prm.command_id;
+        s.u_s[i][2] = s.prm.depth;
+        s.u_s[i][3] = s.prm.sub_commands;
+    }
+
+    while (true)
+    {
+        s.l_s_sz = s.arr_len;
+        uint8_t subcommand = 1;
+        for (uint8_t i = 0; i < s.arr_len; ++i)
+        {
+            int idx = UserInput::_linearSearch(s);
+            if (idx != -1)
+            {
+                Serial.print(F("idx,"));
+                Serial.print(s.s_s[i][0]);
+                Serial.print(F("sc,"));
+                Serial.println(s.s_s[i][1]);
+                s.s_s[s.s_s_idx][0] = idx;
+                s.s_s[s.s_s_idx][1] = subcommand;
+                subcommand++;
+                s.s_s_idx++;
+                if (s.s_s_idx > s.arr_len)
+                {
+                    Serial.println(F("sort complete"));
+                    return true;
+                }
+            }
+        }
+        s.u_s_idx++;
+        if (s.u_s_idx > s.arr_len)
+        {
+            Serial.println(F("sort complete"));
+            return true;
+        }
+    }
+    return false;
+}
+
+void UserInput::_printSubcommands(CommandConstructor* cmd)
+{
+    CommandParameters prm;
+    int linear_search_size = 0;
+    int array_size = cmd->param_array_len - 1;
+    int unsorted_subcommands[array_size][4] = {0};
+    int unsorted_subcommands_idx = 0;
+    int sorted_subcommands[array_size][2] = {0};
+    int sorted_subcommands_idx = 0;
+    UserInput::_cmdSearchStruct s = {unsorted_subcommands, sorted_subcommands, array_size,
+        linear_search_size, unsorted_subcommands_idx, sorted_subcommands_idx, prm, cmd};
+
+    if (UserInput::_sortSubcommands(s))
+    {
+        for (uint8_t i = 0; i < s.arr_len; ++i)
+        {
+            Serial.print(F("idx,"));
+            Serial.print(s.s_s[i][0]);
+            Serial.print(F("sc,"));
+            Serial.println(s.s_s[i][1]);
+            memcpy_P(&s.prm, &(s.cmd->prm[s.s_s[i][0]]), sizeof(CommandParameters));
+            char indent[prm.depth + 1] = {'\0'};
+            for (int j = 0; j < prm.depth; ++j)
+            {
+                indent[j] = ' ';
+            }
+            UserInput::_ui_out(
+                PSTR("%sdp:%02u,sc:%02u. <%s>\n"), &indent, prm.depth, s.s_s[i][1], &prm.command);
+        }
+    }
+    else
+    {
+        UserInput::_ui_out("Couldn't sort subcommands.\n");
+    }
+}
+
+#endif
+
+#if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listCommands()
 {
     if (!_begin_)
@@ -277,10 +375,15 @@ void UserInput::listCommands()
     uint8_t i = 1;
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
-        char buffer[UI_MAX_CMD_LEN];
-        memcpy_P(&buffer, cmd->prm[0].command, sizeof(buffer));
-        UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
+        CommandParameters root_command;
+        memcpy_P(&root_command, &(cmd->prm[0]), sizeof(CommandParameters));
+        UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, &root_command.command);
+        if (cmd->param_array_len > 1)
+        {
+            UserInput::_printSubcommands(&(*cmd));
+        }
     }
+    UserInput::_ui_out(PSTR("end listCommands\n"));
 } // end listCommands
 #endif // end ENABLE_listCommands
 
@@ -423,7 +526,7 @@ void UserInput::readCommandFromBuffer(
     {
 #if defined(ENABLE_readCommandFromBufferErrorOutput)
         UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
-#endif // end ENABLE_readCommandFromBufferErrorOutput
+#endif                               // end ENABLE_readCommandFromBufferErrorOutput
         (*_default_function_)(this); // run the default function
     }
 
@@ -675,6 +778,7 @@ void UserInput::_ui_out(const char* fmt, ...)
         va_end(args);                               // we are done with the parameter pack
         if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
+            UserInput::clearOutputBuffer(true);
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_,
                 PSTR("Increase output buffer to %d bytes.\n"),
@@ -684,6 +788,7 @@ void UserInput::_ui_out(const char* fmt, ...)
         }
         else if (err < 0) // encoding error
         {
+            UserInput::clearOutputBuffer(true);
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Encoding error.\n"));
             _output_flag_ = true;

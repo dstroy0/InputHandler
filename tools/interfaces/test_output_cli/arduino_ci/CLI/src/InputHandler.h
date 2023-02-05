@@ -173,7 +173,7 @@ struct InputProcessDelimiterSequences
     char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ]
                             [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
                                                     ///< delimiter_sequences
-                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]                                                    
+                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]
                                                     ///< [@link UI_DELIM_SEQ_PGM_LEN @endlink]
 };
 
@@ -212,7 +212,7 @@ struct InputProcessStartStopSequences
  */
 struct InputProcessParameters
 {
-    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len == 
+    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len ==
                                   ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
     const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
     const IH_input_cc*
@@ -551,6 +551,29 @@ public:
      *
      */
     void listCommands();
+    /**
+     * @brief Lists subcommands available to the user.
+     *
+     * Lists subcommands that will respond to user input.
+     *
+     * [UserInput::_recursiveListCommands
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=recursiveListCommands())
+     *
+     */
+    struct _cmdSearchStruct
+    {
+        int (*u_s)[4];        
+        int (*s_s)[2];       
+        int& arr_len;         
+        int& l_s_sz;
+        int& u_s_idx;
+        int& s_s_idx;
+        CommandParameters& prm;
+        CommandConstructor* cmd;
+    };
+    int _linearSearch(_cmdSearchStruct& s);
+    bool _sortSubcommands(_cmdSearchStruct& s);
+    void _printSubcommands(CommandConstructor* cmd);
     #endif
 
     /**
