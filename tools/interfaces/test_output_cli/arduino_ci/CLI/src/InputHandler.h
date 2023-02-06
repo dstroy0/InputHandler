@@ -4,7 +4,7 @@
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief InputHandler library header file
  * @version 1.2
- * @date 2023-2-06
+ * @date 2023-02-06
  *
  * @copyright Copyright (c) 2022
  */

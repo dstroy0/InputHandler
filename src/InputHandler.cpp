@@ -281,7 +281,7 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
         s.u_s[i][3] = s.prm.sub_commands;
     }
 
-    while (true)
+    while (s.u_s_idx <= s.arr_len)
     {
         s.l_s_sz = s.arr_len;
         uint8_t subcommand = 1;
@@ -289,7 +289,6 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
         {
             if (s.s_s_idx > s.arr_len)
             {
-                Serial.println(F("sort complete"));
                 return true;
             }
             int idx = UserInput::_linearSearch(s);
@@ -297,10 +296,6 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
             {
                 s.s_s[s.s_s_idx][0] = idx;
                 s.s_s[s.s_s_idx][1] = subcommand;
-                Serial.print(F("idx,"));
-                Serial.print(s.s_s[s.s_s_idx][0]);
-                Serial.print(F("sc,"));
-                Serial.println(s.s_s[s.s_s_idx][1]);
                 subcommand++;
                 s.s_s_idx++;
             }
@@ -308,7 +303,6 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
         s.u_s_idx++;
         if (s.u_s_idx > s.arr_len)
         {
-            Serial.println(F("sort complete"));
             return true;
         }
     }
@@ -320,8 +314,6 @@ void UserInput::_printSubcommands(CommandConstructor* cmd)
     CommandParameters prm;
     int linear_search_size = 0;
     int array_size = cmd->param_array_len;
-    Serial.print(F("array_size,"));
-    Serial.println(array_size);
     int unsorted_subcommands[array_size][4] = {0};
     int unsorted_subcommands_idx = 0;
     int sorted_subcommands[array_size][2] = {0};
@@ -331,25 +323,16 @@ void UserInput::_printSubcommands(CommandConstructor* cmd)
         linear_search_size, unsorted_subcommands_idx, sorted_subcommands_idx, prm, cmd};
 
     bool result = UserInput::_sortSubcommands(s);
-    int sc_num = 1;
+
     if (result)
     {
         sorted_subcommands_idx = 0;
-
-        while (true)
+        while (sorted_subcommands_idx <= s.arr_len)
         {
             for (uint8_t i = 0; i < s.arr_len; ++i)
             {
                 if (s.s_s[i][0] == sorted_subcommands_idx)
                 {
-                    if (s.s_s[i][1] == sc_num)
-                    {
-                        sc_num++;
-                    }
-                    Serial.print(F("idx,"));
-                    Serial.print(s.s_s[i][0]);
-                    Serial.print(F("sc,"));
-                    Serial.println(s.s_s[i][1]);
                     memcpy_P(&s.prm, &(s.cmd->prm[s.s_s[i][0]]), sizeof(CommandParameters));
                     char indent[(s.prm.depth + 1) * 2 + 1] = {'\0'};
                     for (int j = 0; j < (nelems(indent)) - 1; ++j)
@@ -367,7 +350,6 @@ void UserInput::_printSubcommands(CommandConstructor* cmd)
                     }
                 }
             }
-            sc_num = 1;
             sorted_subcommands_idx++;
             if (sorted_subcommands_idx > s.arr_len)
             {
