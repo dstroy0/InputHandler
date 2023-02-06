@@ -274,7 +274,7 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
 {
     for (uint8_t i = 0; i < s.arr_len; ++i)
     {
-        memcpy_P(&s.prm, &(s.cmd->prm[i + 1]), sizeof(CommandParameters));
+        memcpy_P(&s.prm, &(s.cmd->prm[i]), sizeof(CommandParameters));
         s.u_s[i][0] = s.prm.parent_command_id;
         s.u_s[i][1] = s.prm.command_id;
         s.u_s[i][2] = s.prm.depth;
@@ -287,22 +287,22 @@ bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
         uint8_t subcommand = 1;
         for (uint8_t i = 0; i < s.arr_len; ++i)
         {
+            if (s.s_s_idx > s.arr_len)
+            {
+                Serial.println(F("sort complete"));
+                return true;
+            }
             int idx = UserInput::_linearSearch(s);
             if (idx != -1)
             {
-                Serial.print(F("idx,"));
-                Serial.print(s.s_s[i][0]);
-                Serial.print(F("sc,"));
-                Serial.println(s.s_s[i][1]);
                 s.s_s[s.s_s_idx][0] = idx;
                 s.s_s[s.s_s_idx][1] = subcommand;
+                Serial.print(F("idx,"));
+                Serial.print(s.s_s[s.s_s_idx][0]);
+                Serial.print(F("sc,"));
+                Serial.println(s.s_s[s.s_s_idx][1]);
                 subcommand++;
                 s.s_s_idx++;
-                if (s.s_s_idx > s.arr_len)
-                {
-                    Serial.println(F("sort complete"));
-                    return true;
-                }
             }
         }
         s.u_s_idx++;
@@ -319,30 +319,60 @@ void UserInput::_printSubcommands(CommandConstructor* cmd)
 {
     CommandParameters prm;
     int linear_search_size = 0;
-    int array_size = cmd->param_array_len - 1;
+    int array_size = cmd->param_array_len;
+    Serial.print(F("array_size,"));
+    Serial.println(array_size);
     int unsorted_subcommands[array_size][4] = {0};
     int unsorted_subcommands_idx = 0;
     int sorted_subcommands[array_size][2] = {0};
     int sorted_subcommands_idx = 0;
+
     UserInput::_cmdSearchStruct s = {unsorted_subcommands, sorted_subcommands, array_size,
         linear_search_size, unsorted_subcommands_idx, sorted_subcommands_idx, prm, cmd};
 
-    if (UserInput::_sortSubcommands(s))
+    bool result = UserInput::_sortSubcommands(s);
+    int sc_num = 1;
+    if (result)
     {
-        for (uint8_t i = 0; i < s.arr_len; ++i)
+        sorted_subcommands_idx = 0;
+
+        while (true)
         {
-            Serial.print(F("idx,"));
-            Serial.print(s.s_s[i][0]);
-            Serial.print(F("sc,"));
-            Serial.println(s.s_s[i][1]);
-            memcpy_P(&s.prm, &(s.cmd->prm[s.s_s[i][0]]), sizeof(CommandParameters));
-            char indent[prm.depth + 1] = {'\0'};
-            for (int j = 0; j < prm.depth; ++j)
+            for (uint8_t i = 0; i < s.arr_len; ++i)
             {
-                indent[j] = ' ';
+                if (s.s_s[i][0] == sorted_subcommands_idx)
+                {
+                    if (s.s_s[i][1] == sc_num)
+                    {
+                        sc_num++;
+                    }
+                    Serial.print(F("idx,"));
+                    Serial.print(s.s_s[i][0]);
+                    Serial.print(F("sc,"));
+                    Serial.println(s.s_s[i][1]);
+                    memcpy_P(&s.prm, &(s.cmd->prm[s.s_s[i][0]]), sizeof(CommandParameters));
+                    char indent[(s.prm.depth + 1) * 2 + 1] = {'\0'};
+                    for (int j = 0; j < (nelems(indent)) - 1; ++j)
+                    {
+                        indent[j] = ' ';
+                    }
+                    if (s.prm.depth > 0)
+                    {
+                        UserInput::_ui_out(PSTR("%s<sc%02udp:%02u>.<%s>\n"), &indent, s.s_s[i][1],
+                            s.prm.depth, &s.prm.command);
+                    }
+                    else
+                    {
+                        UserInput::_ui_out(PSTR("%s<root>.<%s>\n"), &indent, &s.prm.command);
+                    }
+                }
             }
-            UserInput::_ui_out(
-                PSTR("%sdp:%02u,sc:%02u. <%s>\n"), &indent, prm.depth, s.s_s[i][1], &prm.command);
+            sc_num = 1;
+            sorted_subcommands_idx++;
+            if (sorted_subcommands_idx > s.arr_len)
+            {
+                break;
+            }
         }
     }
     else
@@ -372,16 +402,9 @@ void UserInput::listCommands()
     {
         UserInput::_ui_out(PSTR("Commands available to %s:\n"), process_name);
     }
-    uint8_t i = 1;
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command)
     {
-        CommandParameters root_command;
-        memcpy_P(&root_command, &(cmd->prm[0]), sizeof(CommandParameters));
-        UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, &root_command.command);
-        if (cmd->param_array_len > 1)
-        {
-            UserInput::_printSubcommands(&(*cmd));
-        }
+        UserInput::_printSubcommands(&(*cmd));
     }
     UserInput::_ui_out(PSTR("end listCommands\n"));
 } // end listCommands
