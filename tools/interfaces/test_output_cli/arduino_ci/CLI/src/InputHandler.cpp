@@ -257,109 +257,130 @@ void UserInput::listSettings(UserInput* inputProcess)
 
 #if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
 
-int UserInput::_linearSearch(_cmdSearchStruct& s)
+int UserInput::_linearSearch(_searchStruct& s)
 {
-    s.l_s_sz--;
-    if (s.l_s_sz < 0)
+    s.lsize--;
+    if (s.lsize < 0)
     {
         return -1; // element not present
     }
-    if (s.u_s[s.l_s_sz][0] == s.u_s[s.u_s_idx][1])
+    if (*s.sorted_ptr[s.lsize] == s.ls_value)
     {
-        return s.l_s_sz; // idx of value
+        return s.lsize; // idx of value
     }
     return _linearSearch(s);
 }
-bool UserInput::_sortSubcommands(_cmdSearchStruct& s)
-{
-    for (uint8_t i = 0; i < s.arr_len; ++i)
-    {
-        memcpy_P(&s.prm, &(s.cmd->prm[i]), sizeof(CommandParameters));
-        s.u_s[i][0] = s.prm.parent_command_id;
-        s.u_s[i][1] = s.prm.command_id;
-        s.u_s[i][2] = s.prm.depth;
-        s.u_s[i][3] = s.prm.sub_commands;
-    }
 
-    while (s.u_s_idx <= s.arr_len)
+int UserInput::_linearMatrixSearch(_searchStruct& s, int& lmsize, uint8_t* lms_values)
+{
+    lmsize--;
+    if (lmsize < 0)
     {
-        s.l_s_sz = s.arr_len;
-        uint8_t subcommand = 1;
-        for (uint8_t i = 0; i < s.arr_len; ++i)
-        {
-            if (s.s_s_idx > s.arr_len)
-            {
-                return true;
-            }
-            int idx = UserInput::_linearSearch(s);
-            if (idx != -1)
-            {
-                s.s_s[s.s_s_idx][0] = idx;
-                s.s_s[s.s_s_idx][1] = subcommand;
-                subcommand++;
-                s.s_s_idx++;
-            }
-        }
-        s.u_s_idx++;
-        if (s.u_s_idx > s.arr_len)
-        {
-            return true;
-        }
+        return -1; // element not present
     }
-    return false;
+    if (s.sort_array[mIndex(5, lmsize, 0)] == lms_values[0]
+        && s.sort_array[mIndex(5, lmsize, 2)] == lms_values[1])
+    {
+        return lmsize; // idx of value
+    }
+    return _linearMatrixSearch(s, lmsize, lms_values);
 }
 
-void UserInput::_printSubcommands(CommandConstructor* cmd)
+bool UserInput::_sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_values)
 {
-    CommandParameters prm;
-    int linear_search_size = 0;
-    int array_size = cmd->param_array_len;
-    int unsorted_subcommands[array_size][4] = {0};
-    int unsorted_subcommands_idx = 0;
-    int sorted_subcommands[array_size][2] = {0};
-    int sorted_subcommands_idx = 0;
-
-    UserInput::_cmdSearchStruct s = {unsorted_subcommands, sorted_subcommands, array_size,
-        linear_search_size, unsorted_subcommands_idx, sorted_subcommands_idx, prm, cmd};
-
-    bool result = UserInput::_sortSubcommands(s);
-
-    if (result)
+    int _lmsize = lmsize;
+    int sortidx = _linearMatrixSearch(s, _lmsize, lms_values);
+    if (sortidx != -1)
     {
-        sorted_subcommands_idx = 0;
-        while (sorted_subcommands_idx <= s.arr_len)
+        s.ls_value = sortidx;
+        s.lsize = s.sorted_idx;
+        if (_linearSearch(s) != -1 && s.sorted_idx > 0) // load index already in sorted
         {
-            for (uint8_t i = 0; i < s.arr_len; ++i)
+            if (sortidx > 0)
             {
-                if (s.s_s[i][0] == sorted_subcommands_idx)
-                {
-                    memcpy_P(&s.prm, &(s.cmd->prm[s.s_s[i][0]]), sizeof(CommandParameters));
-                    char indent[(s.prm.depth + 1) * 2 + 1] = {'\0'};
-                    for (int j = 0; j < (nelems(indent)) - 1; ++j)
-                    {
-                        indent[j] = ' ';
-                    }
-                    if (s.prm.depth > 0)
-                    {
-                        UserInput::_ui_out(PSTR("%s<sc%02udp:%02u>.<%s>\n"), &indent, s.s_s[i][1],
-                            s.prm.depth, &s.prm.command);
-                    }
-                    else
-                    {
-                        UserInput::_ui_out(PSTR("%s<root>.<%s>\n"), &indent, &s.prm.command);
-                    }
-                }
+                _lmsize = sortidx;
             }
-            sorted_subcommands_idx++;
-            if (sorted_subcommands_idx > s.arr_len)
-            {
-                break;
-            }
+            return _sortSubcommands(s, _lmsize, lms_values);
         }
+
+        s.sorted_ptr[s.sorted_idx] = &s.sort_array[mIndex(5, sortidx, 4)];
+        s.sorted_idx++;
+        if (s.sort_array[mIndex(5, sortidx, 3)] > 0)
+        {
+            uint8_t lms_values[2] = {uint8_t(s.sort_array[mIndex(5, sortidx, 1)]),
+                uint8_t(s.sort_array[mIndex(5, sortidx, 2)] + 1)};
+            uint8_t sc_num = 1;
+
+            while (sc_num < (s.sort_array[mIndex(5, sortidx, 3)]) + 1U)
+            {
+                _lmsize = s.cmd->param_array_len;
+                sc_num++;
+                _sortSubcommands(s, _lmsize, lms_values);
+            }
+            _lmsize = s.cmd->param_array_len;
+            return _sortSubcommands(s, _lmsize, lms_values);
+        }
+        if (s.sorted_idx < s.cmd->param_array_len)
+        {
+            return _sortSubcommands(s, _lmsize, lms_values);
+        }
+    }
+    if (s.sorted_idx >= s.cmd->param_array_len) // all sorted
+    {
+        return true;
     }
     else
     {
-        UserInput::_ui_out("Couldn't sort subcommands.\n");
+        return false;
+    }
+}
+
+void UserInput::_printCommand(_searchStruct& s, uint8_t index)
+{
+    memcpy_P(&s.prm, &(s.cmd->prm[index]), sizeof(CommandParameters));
+    if (s.prm.depth > 0)
+    {
+        if (s.prm.depth == s.prev_dp)
+        {
+            s.sc_num++;
+        }
+        else
+        {
+            s.prev_dp = s.prm.depth;
+            s.sc_num = 1;
+        }
+        char indent[s.prm.depth + 1] = {'\0'};
+        for (int j = 0; j < (nelems(indent)) - 1; ++j)
+        {
+            indent[j] = ' ';
+        }
+        UserInput::_ui_out(
+            PSTR("    %s%02u> dp:%02u>.<%s>"), &indent, s.sc_num, s.prm.depth, &s.prm.command);
+    }
+    else
+    {
+        UserInput::_ui_out(PSTR("rt.<%s>"), &s.prm.command);
+    }
+
+    if (s.prm.max_num_args > 0)
+    {
+        UserInput::_ui_out(PSTR(".MIN_ARGS:%02u.<"), s.prm.num_args);
+        for (uint8_t j = 0; j < s.prm.max_num_args; ++j)
+        {
+            char type_buffer[UI_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
+            memcpy_P(&type_buffer, &ihconst::type_strings[int(s.prm.arg_type_arr[j])],
+                sizeof(type_buffer));
+            UserInput::_ui_out(PSTR("%s"), &type_buffer);
+            if (j < s.prm.max_num_args - 1)
+            {
+                UserInput::_ui_out(PSTR(", "));
+            }
+        }
+        UserInput::_ui_out(PSTR(">\n"));
+    }
+    else
+    {
+        UserInput::_ui_out(PSTR(".<NO_ARGS>\n"));
     }
 }
 
@@ -373,7 +394,6 @@ void UserInput::listCommands()
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    CommandConstructor* cmd;
     IH_pname process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));
     if (process_name[0] == _null_)
@@ -384,10 +404,65 @@ void UserInput::listCommands()
     {
         UserInput::_ui_out(PSTR("Commands available to %s:\n"), process_name);
     }
-    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command)
+    CommandConstructor* cmd; // linked-list pointer
+    // traverse linked list
+    uint8_t i = 1;
+    for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
-        UserInput::_printSubcommands(&(*cmd));
+        CommandParameters prm;
+        uint8_t* sort_array = (uint8_t*)calloc((cmd->param_array_len * 5) + 1, sizeof(uint8_t));
+        uint8_t** sorted_ptr = (uint8_t**)calloc(cmd->param_array_len + 1, sizeof(uint8_t*));
+        uint8_t sorted_idx = 0;
+        uint8_t ls_value = 0;
+        uint8_t lms_values[2] = {0, 0};
+        int lsize = 0;
+        uint8_t prev_dp = 0;
+        uint8_t sc_num = 0;
+        _searchStruct s = {
+            &(*cmd), prm, sort_array, sorted_ptr, sorted_idx, ls_value, lsize, prev_dp, sc_num};
+
+        // load unsorted partial commands into array to be sorted
+        for (uint8_t i = 0; i < cmd->param_array_len; ++i)
+        {
+            memcpy_P(&prm, &(cmd->prm[i]), sizeof(CommandParameters));
+            sort_array[mIndex(5, i, 0)] = prm.parent_command_id;
+            sort_array[mIndex(5, i, 1)] = prm.command_id;
+            sort_array[mIndex(5, i, 2)] = prm.depth;
+            sort_array[mIndex(5, i, 3)] = prm.sub_commands;
+            sort_array[mIndex(5, i, 4)] = i;
+        }
+
+        // sort subcommands
+        int lmsize = cmd->param_array_len;
+        if (_sortSubcommands(s, lmsize, lms_values))
+        {
+            // print root and its subcommands
+            UserInput::_ui_out(PSTR(" %02u> "), i);
+            for (uint8_t i = 0; i < sorted_idx; ++i)
+            {
+                _printCommand(s, *s.sorted_ptr[i]);
+            }
+            UserInput::_ui_out(PSTR("\n"));
+        }
+        else
+        {
+            // print root
+            UserInput::_ui_out(PSTR(" %02u> "), i);
+            _printCommand(s, 0);
+            if (s.prm.sub_commands > 0)
+            {
+                // warn user
+                UserInput::_ui_out(PSTR("    Couldn't sort subcommands\n"));
+            }
+            else
+            {
+                UserInput::_ui_out(PSTR("\n"));
+            }
+        }
+        free(sorted_ptr);
+        free(sort_array);
     }
+
     UserInput::_ui_out(PSTR("end listCommands\n"));
 } // end listCommands
 #endif // end ENABLE_listCommands

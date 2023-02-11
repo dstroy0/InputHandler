@@ -551,29 +551,7 @@ public:
      *
      */
     void listCommands();
-    /**
-     * @brief Lists subcommands available to the user.
-     *
-     * Lists subcommands that will respond to user input.
-     *
-     * [UserInput::_recursiveListCommands
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=recursiveListCommands())
-     *
-     */
-    struct _cmdSearchStruct
-    {
-        int (*u_s)[4];        
-        int (*s_s)[2];       
-        int& arr_len;         
-        int& l_s_sz;
-        int& u_s_idx;
-        int& s_s_idx;
-        CommandParameters& prm;
-        CommandConstructor* cmd;
-    };
-    int _linearSearch(_cmdSearchStruct& s);
-    bool _sortSubcommands(_cmdSearchStruct& s);
-    void _printSubcommands(CommandConstructor* cmd);
+
     #endif
 
     /**
@@ -805,19 +783,19 @@ public:
      * @code{.cpp}
      * // usage
      * #include <InputHandler.h>
-     * size_t data = UserInput::mIndex(32,0,0);
+     * size_t data = UserInput::mIndex(0,0);
      * @endcode
      * @code{.c}
      * // source
-     * size_t mIndex(size_t m_width, size_t row, size_t col) const { return row + m_width * col; }
+     * size_t mIndex(size_t row, size_t col) const { return row + col; }
      * @endcode
      *
-     * @param m_width width of the matrix
+     * @param m_width;
      * @param row row you want to access
      * @param col column you want to access
      * @return size_t the transformed index
      */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const { return row + m_width * col; }
+    size_t mIndex(size_t m_width, size_t row, size_t col) const { return row * m_width + col; }
 
 private:
     /*
@@ -1098,6 +1076,25 @@ private:
      * @return UI_COMPARE match type
      */
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
+
+    struct _searchStruct
+    {
+        CommandConstructor* cmd; // pointer to a CommandConstructor
+        CommandParameters& prm;  // pointer to a CommandParameters
+        uint8_t* sort_array;     // partial command array
+        uint8_t** sorted_ptr;    // pointer array
+        uint8_t& sorted_idx;     // index of pointer array
+        uint8_t& ls_value;       // value to search for
+        int& lsize;              // linear search index
+        uint8_t& prev_dp;        // depth
+        uint8_t& sc_num;         // subcommand number
+    };
+    int _linearSearch(_searchStruct& s); // recursive linear search
+    int _linearMatrixSearch(
+        _searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive linear "matrix" search
+    bool _sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive sort
+    void _printCommand(
+        _searchStruct& s, uint8_t index); // print a single command at s.cmd->prm[index]
     // end private methods
 };
 ///@}
