@@ -47,7 +47,7 @@ jobs:
           git config --global user.email "dstroy0@users.noreply.github.com"
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                
-          git add ./latest/windows/cli_gen_tool.zip
+          git add -f ./latest/windows/cli_gen_tool.zip
           git checkout origin:binaries          
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
