@@ -49,7 +49,8 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                
           git add -f ./latest/windows/cli_gen_tool.zip
           git fetch origin
-          git switch origin/binaries          
+          git pull origin/binaries          
+          git checkout origin/binaries
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
           else               
