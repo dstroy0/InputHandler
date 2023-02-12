@@ -36,7 +36,7 @@
 
     #define UI_MAX_NUM_START_STOP_SEQ 5 ///< maximum number of start stop sequences; default is 5
 
-    #define UI_MAX_INPUT_LEN 255 ///<  maximum user input length (total number of single char); default is 255
+    #define UI_MAX_INPUT_LEN 128 ///<  maximum user input length (total number of single char); default is 128
 
 // maximum number of memcmp ranges per command
     #define UI_MAX_PER_CMD_MEMCMP_RANGES 5 ///< UserInput::addCommand array sizing macro (soft limit, typeof container is max)

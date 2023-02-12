@@ -615,7 +615,7 @@ public:
      * @param num_zdc size of CommandParameters zero delimiter command pointers array
      * @param zdc array of CommandParameters zero delimiter command pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = 32, const size_t num_zdc = 0,
+    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN, const size_t num_zdc = 0,
         const CommandParameters** zdc = NULL);
     #endif
 
