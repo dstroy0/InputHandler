@@ -164,6 +164,8 @@ class MainWindowMethods(object):
         """
         open_on_dir = ""
         output_dir = self.session["opt"]["cli_output_dir"]
+        if output_dir == None:
+            output_dir = self._parent.lib_root_path
         if os.path.exists(output_dir):
             open_on_dir = output_dir
         else:

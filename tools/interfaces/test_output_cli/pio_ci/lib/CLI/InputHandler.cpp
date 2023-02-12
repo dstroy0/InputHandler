@@ -256,6 +256,137 @@ void UserInput::listSettings(UserInput* inputProcess)
 #endif // end ENABLE_listSettings
 
 #if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+
+int UserInput::_linearSearch(_searchStruct& s)
+{
+    s.lsize--;
+    if (s.lsize < 0)
+    {
+        return -1; // element not present
+    }
+    if (*s.sorted_ptr[s.lsize] == s.ls_value)
+    {
+        return s.lsize; // idx of value
+    }
+    return _linearSearch(s);
+}
+
+int UserInput::_linearMatrixSearch(_searchStruct& s, int& lmsize, uint8_t* lms_values)
+{
+    lmsize--;
+    if (lmsize < 0)
+    {
+        return -1; // element not present
+    }
+    if (s.sort_array[mIndex(5, lmsize, 0)] == lms_values[0]
+        && s.sort_array[mIndex(5, lmsize, 2)] == lms_values[1])
+    {
+        return lmsize; // idx of value
+    }
+    return _linearMatrixSearch(s, lmsize, lms_values);
+}
+
+bool UserInput::_sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_values)
+{
+    int _lmsize = lmsize;
+    int sortidx = _linearMatrixSearch(s, _lmsize, lms_values);
+    if (sortidx != -1)
+    {
+        s.ls_value = sortidx;
+        s.lsize = s.sorted_idx;
+        if (_linearSearch(s) != -1 && s.sorted_idx > 0) // load index already in sorted
+        {
+            if (sortidx > 0)
+            {
+                _lmsize = sortidx;
+            }
+            return _sortSubcommands(s, _lmsize, lms_values);
+        }
+
+        s.sorted_ptr[s.sorted_idx] = &s.sort_array[mIndex(5, sortidx, 4)];
+        s.sorted_idx++;
+        if (s.sort_array[mIndex(5, sortidx, 3)] > 0)
+        {
+            uint8_t lms_values[2] = {uint8_t(s.sort_array[mIndex(5, sortidx, 1)]),
+                uint8_t(s.sort_array[mIndex(5, sortidx, 2)] + 1)};
+            uint8_t sc_num = 1;
+
+            while (sc_num < (s.sort_array[mIndex(5, sortidx, 3)]) + 1U)
+            {
+                _lmsize = s.cmd->param_array_len;
+                sc_num++;
+                _sortSubcommands(s, _lmsize, lms_values);
+            }
+            _lmsize = s.cmd->param_array_len;
+            return _sortSubcommands(s, _lmsize, lms_values);
+        }
+        if (s.sorted_idx < s.cmd->param_array_len)
+        {
+            return _sortSubcommands(s, _lmsize, lms_values);
+        }
+    }
+    if (s.sorted_idx >= s.cmd->param_array_len) // all sorted
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void UserInput::_printCommand(_searchStruct& s, uint8_t index)
+{
+    memcpy_P(&s.prm, &(s.cmd->prm[index]), sizeof(CommandParameters));
+    if (s.prm.depth > 0)
+    {
+        if (s.prm.depth == s.prev_dp)
+        {
+            s.sc_num++;
+        }
+        else
+        {
+            s.prev_dp = s.prm.depth;
+            s.sc_num = 1;
+        }
+        char indent[s.prm.depth + 1] = {'\0'};
+        for (int j = 0; j < (nelems(indent)) - 1; ++j)
+        {
+            indent[j] = ' ';
+        }
+        UserInput::_ui_out(
+            PSTR("    %s%02u> dp:%02u>.<%s>"), &indent, s.sc_num, s.prm.depth, &s.prm.command);
+    }
+    else
+    {
+        UserInput::_ui_out(PSTR("rt.<%s>"), &s.prm.command);
+    }
+
+    if (s.prm.max_num_args > 0)
+    {
+        UserInput::_ui_out(PSTR(".MIN_ARGS:%02u.<"), s.prm.num_args);
+        for (uint8_t j = 0; j < s.prm.max_num_args; ++j)
+        {
+            char type_buffer[UI_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
+            memcpy_P(&type_buffer, &ihconst::type_strings[int(s.prm.arg_type_arr[j])],
+                sizeof(type_buffer));
+            UserInput::_ui_out(PSTR("%s"), &type_buffer);
+            if (j < s.prm.max_num_args - 1)
+            {
+                UserInput::_ui_out(PSTR(", "));
+            }
+        }
+        UserInput::_ui_out(PSTR(">\n"));
+    }
+    else
+    {
+        UserInput::_ui_out(PSTR(".<NO_ARGS>\n"));
+    }
+}
+
+#endif
+
+#if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listCommands()
 {
     if (!_begin_)
@@ -263,7 +394,6 @@ void UserInput::listCommands()
         UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    CommandConstructor* cmd;
     IH_pname process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));
     if (process_name[0] == _null_)
@@ -274,13 +404,66 @@ void UserInput::listCommands()
     {
         UserInput::_ui_out(PSTR("Commands available to %s:\n"), process_name);
     }
+    CommandConstructor* cmd; // linked-list pointer
+    // traverse linked list
     uint8_t i = 1;
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
-        char buffer[UI_MAX_CMD_LEN];
-        memcpy_P(&buffer, cmd->prm[0].command, sizeof(buffer));
-        UserInput::_ui_out(PSTR(" %02u. <%s>\n"), i, buffer);
+        CommandParameters prm;
+        uint8_t* sort_array = (uint8_t*)calloc((cmd->param_array_len * 5) + 1, sizeof(uint8_t));
+        uint8_t** sorted_ptr = (uint8_t**)calloc(cmd->param_array_len + 1, sizeof(uint8_t*));
+        uint8_t sorted_idx = 0;
+        uint8_t ls_value = 0;
+        uint8_t lms_values[2] = {0, 0};
+        int lsize = 0;
+        uint8_t prev_dp = 0;
+        uint8_t sc_num = 0;
+        _searchStruct s = {
+            &(*cmd), prm, sort_array, sorted_ptr, sorted_idx, ls_value, lsize, prev_dp, sc_num};
+
+        // load unsorted partial commands into array to be sorted
+        for (uint8_t i = 0; i < cmd->param_array_len; ++i)
+        {
+            memcpy_P(&prm, &(cmd->prm[i]), sizeof(CommandParameters));
+            sort_array[mIndex(5, i, 0)] = prm.parent_command_id;
+            sort_array[mIndex(5, i, 1)] = prm.command_id;
+            sort_array[mIndex(5, i, 2)] = prm.depth;
+            sort_array[mIndex(5, i, 3)] = prm.sub_commands;
+            sort_array[mIndex(5, i, 4)] = i;
+        }
+
+        // sort subcommands
+        int lmsize = cmd->param_array_len;
+        if (_sortSubcommands(s, lmsize, lms_values))
+        {
+            // print root and its subcommands
+            UserInput::_ui_out(PSTR(" %02u> "), i);
+            for (uint8_t i = 0; i < sorted_idx; ++i)
+            {
+                _printCommand(s, *s.sorted_ptr[i]);
+            }
+            UserInput::_ui_out(PSTR("\n"));
+        }
+        else
+        {
+            // print root
+            UserInput::_ui_out(PSTR(" %02u> "), i);
+            _printCommand(s, 0);
+            if (s.prm.sub_commands > 0)
+            {
+                // warn user
+                UserInput::_ui_out(PSTR("    Couldn't sort subcommands\n"));
+            }
+            else
+            {
+                UserInput::_ui_out(PSTR("\n"));
+            }
+        }
+        free(sorted_ptr);
+        free(sort_array);
     }
+
+    UserInput::_ui_out(PSTR("end listCommands\n"));
 } // end listCommands
 #endif // end ENABLE_listCommands
 
@@ -423,7 +606,7 @@ void UserInput::readCommandFromBuffer(
     {
 #if defined(ENABLE_readCommandFromBufferErrorOutput)
         UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
-#endif // end ENABLE_readCommandFromBufferErrorOutput
+#endif                               // end ENABLE_readCommandFromBufferErrorOutput
         (*_default_function_)(this); // run the default function
     }
 
@@ -675,6 +858,7 @@ void UserInput::_ui_out(const char* fmt, ...)
         va_end(args);                               // we are done with the parameter pack
         if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
+            UserInput::clearOutputBuffer(true);
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_,
                 PSTR("Increase output buffer to %d bytes.\n"),
@@ -684,6 +868,7 @@ void UserInput::_ui_out(const char* fmt, ...)
         }
         else if (err < 0) // encoding error
         {
+            UserInput::clearOutputBuffer(true);
             // attempt warn
             snprintf_P(_output_buffer_, _output_buffer_len_, PSTR("Encoding error.\n"));
             _output_flag_ = true;
