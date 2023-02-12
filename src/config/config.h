@@ -70,11 +70,25 @@
      * @def UI_ECHO_ONLY
      *
      * Uncomment this line to change the library's output to echo only.
+     * It will only echo what was entered indicate where the input error is.
      */
     // #define UI_ECHO_ONLY
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
         #define UI_ECHO_ONLY       // do not edit this
     #endif                         // do not edit this
+
+    /**
+     * @def UI_VERBOSE
+     *
+     * Uncomment this line to change the library's output to verbose.
+     * Puts additional command information in the output buffer.
+     */
+    #define UI_VERBOSE
+    #if defined(DOXYGEN_XML_BUILD) // do not edit this
+        #define UI_VERBOSE         // do not edit this
+    #endif                         // do not edit this
+
+
 
 /*
     DEBUGGING

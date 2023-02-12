@@ -463,7 +463,8 @@ public:
           _new_stream_data_(false),
           _stream_data_(NULL),
           _stream_data_index_(0),
-          _begin_(false)
+          _begin_(false),
+          _halt_(false)
     {
         // load input parameters from PROGMEM
         memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
@@ -857,6 +858,7 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
+    bool _halt_; ///< fatal error flag
 
     InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
 
