@@ -483,8 +483,7 @@ void UserInput::listCommands()
         {
         #if defined(DEBUG_listCommands)
             UserInput::_ui_out(PSTR("ERROR! couldn't allocate memory for sort_array\n"));
-        #endif
-            free(sort_array);
+        #endif            
             return;
         }
         uint8_t** sorted_ptr = (uint8_t**)calloc(cmd->param_array_len + 1, sizeof(uint8_t*));
@@ -493,7 +492,7 @@ void UserInput::listCommands()
         #if defined(DEBUG_listCommands)
             UserInput::_ui_out(PSTR("ERROR! couldn't allocate memory for sorted_ptr\n"));
         #endif
-            free(sorted_ptr);
+            free(sort_array);
             return;
         }
         uint8_t sorted_idx = 0;
