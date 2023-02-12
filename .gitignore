@@ -20,3 +20,5 @@ cli_gen_tool/res/uic/*
 **/cli_gen_tool.spec
 **/cli_gen_tool.app
 **/test*.json
+**/cli_gen_tool.exe
+**/cli_gen_tool.zip
