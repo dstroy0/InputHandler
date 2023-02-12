@@ -48,11 +48,11 @@ jobs:
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                
           git add -f ./latest/windows/cli_gen_tool.zip
-          git checkout origin:binaries          
+          git checkout binaries          
           if [-z "$(git status --porcelain)"]; then
             echo "Unable to push"
           else               
             git commit -m "cli_gen_tool windows binary latest" -a
             echo "Pushing"
-            git push -v
+            git push -v -f
           fi

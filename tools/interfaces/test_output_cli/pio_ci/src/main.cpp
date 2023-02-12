@@ -12,6 +12,7 @@
 
 void test(UserInput* _inputHandler)
 {
+  // your statements here
   Serial.println(F("test"));
 }
 
@@ -33,10 +34,28 @@ void testc(UserInput* _inputHandler)
   Serial.println(F("testc"));
 }
 
-void testbb_return_values(UserInput* _inputHandler)
+void testd(UserInput* _inputHandler)
 {
   // your statements here
-  Serial.println(F("testbb"));
+  Serial.println(F("testd"));
+}
+
+void teste(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("teste"));
+}
+
+void testf(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testf"));
+}
+
+void testg(UserInput* _inputHandler)
+{
+  // your statements here
+  Serial.println(F("testg"));
 }
 
 void setup() {
