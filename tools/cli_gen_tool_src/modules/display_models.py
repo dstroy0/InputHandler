@@ -131,6 +131,13 @@ class displayModels(object):
                         "Library output altered.",
                     ],
                 },
+                "UI_VERBOSE": {
+                    "type": "Enable/Disable",
+                    "tooltip": [
+                        "This functionality is optional. It alters the library output significantly.",
+                        "Library output altered.",
+                    ],
+                },
             },
             "progmem settings": {
                 "UI_INPUT_TYPE_STRINGS_PGM_LEN": {
