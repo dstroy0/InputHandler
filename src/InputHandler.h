@@ -346,6 +346,120 @@ const InputProcessParameters PROGMEM default_parameters = {
     &ihconst::delimiter_sequences,         ///< process default delimiter sequences
     &ihconst::start_stop_sequences         ///< process default start/stop sequences
 };
+
+// messages
+
+
+// error types
+const char fatal_error[] PROGMEM = "FATAL ERROR! ";
+
+// error types pointer array
+const char* const error_type_strings[] PROGMEM = {
+    fatal_error,
+};
+
+// error types pointer array convenience index
+enum class ERR_TYP
+{
+    fatal_error,
+};
+
+// lib error messages
+// fatal
+const char fatal_halt[] PROGMEM = "%sINPUTHANDLER IS FUNCTIONALLY DISABLED.\n";
+const char fatal_begin_not_set[] PROGMEM = "%sUserInput::begin() not set.\n";
+const char fatal_allocation[] PROGMEM = "%scouldn't allocate memory for %s.\n";
+const char fatal_arr_alloc_idx[] PROGMEM = "%scouldn't allocate memory for %s[%02u].\n";
+
+
+// error message pointer array
+const char* const error_message_strings[] PROGMEM = 
+{
+    fatal_halt,
+    fatal_begin_not_set,
+    fatal_allocation,
+    fatal_arr_alloc_idx,
+};
+
+// error message pointer array convenience index
+enum class ERR_MSG
+{
+    fatal_halt,
+    fatal_begin_not_set,
+    fatal_allocation,
+    fatal_arr_alloc_idx,
+};
+
+// var identifiers
+const char memcmp_idx[] PROGMEM = "memcmp_idx";
+const char memcmp_ranges[] PROGMEM = "memcmp_ranges";
+const char memcmp_ranges_arr[] PROGMEM = "memcmp_ranges_arr";
+const char input_type_match_flags[] PROGMEM = "_input_type_match_flags_";
+const char data_pointers[] PROGMEM = "_data_pointers_";
+const char sort_array[] PROGMEM = "sort_array";
+const char sorted_ptr[] PROGMEM = "sorted_ptr";
+const char token_buffer[] PROGMEM = "_token_buffer_";
+const char stream_data[] PROGMEM = "_stream_data_";
+
+
+// function var identifiers
+const char listsettings_buf[] PROGMEM = "listSettings()::buf";
+
+// var identifiers pointer array
+const char* const var_id_strings[] PROGMEM = 
+{
+    // var
+    memcmp_idx,    
+    memcmp_ranges,
+    memcmp_ranges_arr,
+    input_type_match_flags,
+    data_pointers,
+    sort_array,
+    sorted_ptr,
+    token_buffer,
+    stream_data,
+    //function var identifiers
+    listsettings_buf,
+};
+
+// var identifiers pointer array convenience index
+enum class VAR_ID
+{
+    // var
+    memcmp_idx,
+    memcmp_ranges,
+    memcmp_ranges_arr,
+    input_type_match_flags,
+    data_pointers,
+    sort_array,
+    sorted_ptr,
+    token_buffer,
+    stream_data,
+    // function var identifiers
+    listsettings_buf,
+};
+
+// command error checking
+const char command_string_beginning[] PROGMEM = "command <";
+const char command_string_end[] PROGMEM = "> ";
+const char root_pointer_warn[] PROGMEM = "%sroot command function pointer cannot be NULL.\n";
+
+// error types pointer array
+const char* const command_error_strings[] PROGMEM = {
+    command_string_beginning,
+    command_string_end,
+    root_pointer_warn,
+};
+
+// error types pointer array convenience index
+enum class CMD_ERR_IDX
+{
+    cmd_str_b,
+    cmd_str_e,
+    root_pointer_warn,
+
+};
+
 } // end namespace ihconst
 ///@}
 

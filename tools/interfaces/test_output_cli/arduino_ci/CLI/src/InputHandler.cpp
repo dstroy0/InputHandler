@@ -65,6 +65,7 @@ void UserInput::addCommand(CommandConstructor& command)
                 }
             }
         }
+
         if (!err) // if no error
         {
             if (wc_containing_prm_found
@@ -77,10 +78,10 @@ void UserInput::addCommand(CommandConstructor& command)
                     (IH::memcmp_idx_t*)calloc(wc_containing_prm_found, sizeof(IH::memcmp_idx_t));
                 if (command.calc->idx_of_prm_with_wc == NULL)
                 {
-                    #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
                     UserInput::_ui_out(
-                        PSTR("FATAL ERROR! couldn't allocate memory for memcmp_idx"));
-                    #endif
+                        ERR_T(fatal_allocation), ERR_TYP(fatal_error), ARG_T(memcmp_idx));
+#endif
                     _halt_ = true;
                     return;
                 }
@@ -89,10 +90,10 @@ void UserInput::addCommand(CommandConstructor& command)
                         wc_containing_prm_found, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t));
                 if (command.calc->num_memcmp_ranges_this_row == NULL)
                 {
-                    #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
                     UserInput::_ui_out(
-                        PSTR("FATAL ERROR! couldn't allocate memory for num_memcmp_ranges"));
-                    #endif
+                        ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(memcmp_ranges));
+#endif
                     _halt_ = true;
                     return;
                 }
@@ -100,10 +101,10 @@ void UserInput::addCommand(CommandConstructor& command)
                     wc_containing_prm_found, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t*));
                 if (command.calc->memcmp_ranges_arr == NULL)
                 {
-                    #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
                     UserInput::_ui_out(
-                        PSTR("FATAL ERROR! couldn't allocate memory for memcmp_ranges_arr"));
-                    #endif
+                        ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(memcmp_ranges_arr));
+#endif
                     _halt_ = true;
                     return;
                 }
@@ -123,16 +124,15 @@ void UserInput::addCommand(CommandConstructor& command)
                             memcmp_ranges_idx, sizeof(IH::ui_max_per_cmd_memcmp_ranges_t));
                     if (command.calc->memcmp_ranges_arr[i] == NULL)
                     {
-                        #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
-                        UserInput::_ui_out(PSTR("FATAL ERROR! couldn't allocate memory for "
-                                                "memcmp_ranges_arr[%02u]"),
-                            i);
-                        #endif
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
+                        UserInput::_ui_out(ERR_MSG(fatal_arr_alloc_idx), ERR_TYP(fatal_error),
+                            VAR_ID(memcmp_ranges_arr), i);
+#endif
                         _halt_ = true;
                         return;
                     }
                     memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-                    #if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
                     UserInput::_ui_out(
                         PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"),
                         prm.command, memcmp_ranges_idx);
@@ -149,7 +149,7 @@ void UserInput::addCommand(CommandConstructor& command)
                                 PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
                         }
                     }
-                    #endif
+#endif
                 }
             }
             else
@@ -189,10 +189,10 @@ bool UserInput::begin()
         }
         if (_input_type_match_flags_ == NULL && _max_args_ != 0)
         {
-            #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(
-                PSTR("ERROR! Cannot allocate ram for UserInput::_input_type_match_flags_\n"));
-            #endif
+                ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(input_type_match_flags));
+#endif
             _begin_ = false;
             return _begin_;
         }
@@ -200,9 +200,10 @@ bool UserInput::begin()
             (char**)calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
         if (_data_pointers_ == NULL)
         {
-            #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
-            UserInput::_ui_out(PSTR("ERROR! Cannot allocate ram for UserInput::_data_pointers_\n"));
-            #endif
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+            UserInput::_ui_out(
+                ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(data_pointers));
+#endif
             _begin_ = false;
             free(_input_type_match_flags_);
             return _begin_;
@@ -211,9 +212,11 @@ bool UserInput::begin()
     }
     else
     {
-        #if defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR("A FATAL ERROR WAS ENCOUNTERED! INPUTHANDLER IS DISABLED.\n"));
-        #endif
+#if defined(ENABLE_ui_out)
+        UserInput::_ui_out(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
+        UserInput::_ui_out(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
+#endif
+        _halt_ = true;
         _begin_ = false;
     }
     return _begin_;
@@ -225,9 +228,9 @@ void UserInput::listSettings(UserInput* inputProcess)
     if (!_begin_ || _halt_)
     {
         if (!_begin_)
-            UserInput::_ui_out(PSTR("UserInput::_begin_ not set.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
         if (_halt_)
-            UserInput::_ui_out(PSTR("A FATAL ERROR HAS OCCURED.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
         return;
     }
     #if defined(__UI_VERBOSE__)
@@ -264,8 +267,9 @@ void UserInput::listSettings(UserInput* inputProcess)
             char)); // allocate char buffer large enough to print these potential control characters
     if (buf == NULL)
     {
-        UserInput::_ui_out(PSTR("ERROR: listSettings() cannot allocate ram to escape control char "
-                                "so they will print.\n"));
+        UserInput::_ui_out(
+            ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(listsettings_buf));
+        _halt_ = true;
         return;
     }
     size_t idx = 0;
@@ -456,9 +460,9 @@ void UserInput::listCommands()
     if (!_begin_ || _halt_)
     {
         if (!_begin_)
-            UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
         if (_halt_)
-            UserInput::_ui_out(PSTR("A FATAL ERROR HAS OCCURED.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
         return;
     }
     #if defined(__UI_VERBOSE__)
@@ -482,15 +486,15 @@ void UserInput::listCommands()
         if (sort_array == NULL)
         {
         #if defined(DEBUG_listCommands)
-            UserInput::_ui_out(PSTR("ERROR! couldn't allocate memory for sort_array\n"));
-        #endif            
+            UserInput::_ui_out(ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(sort_array));
+        #endif
             return;
         }
         uint8_t** sorted_ptr = (uint8_t**)calloc(cmd->param_array_len + 1, sizeof(uint8_t*));
         if (sorted_ptr == NULL)
         {
         #if defined(DEBUG_listCommands)
-            UserInput::_ui_out(PSTR("ERROR! couldn't allocate memory for sorted_ptr\n"));
+            ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(sorted_ptr));
         #endif
             free(sort_array);
             return;
@@ -556,20 +560,19 @@ void UserInput::readCommandFromBuffer(
     uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
 {
     // error checking
-    if (!_begin_ || _halt_) // begin not set; allocation or implementation error
+    if (!_begin_ || _halt_)
     {
         if (!_begin_)
-            UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
         if (_halt_)
-            UserInput::_ui_out(PSTR("A FATAL ERROR HAS OCCURED.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
         return;
     }
     if (len > UI_MAX_INPUT_LEN) // increase UI_MAX_INPUT_LEN error
     {
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"),
-            (char*)pgm_read_dword(_input_prm_.process_name));
-                #endif
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
+        UserInput::_ui_out(PSTR(">%s$ERROR: input is too long.\n"), _input_prm_.process_name);
+#endif
         return;
     }
     _rcfbprm rprm; // this is passed by reference to child functions
@@ -600,10 +603,9 @@ void UserInput::readCommandFromBuffer(
         rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == NULL)               // if there was an error allocating the memory
     {
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"),
-            (char*)pgm_read_dword(_input_prm_.process_name));
-        #endif
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
+        UserInput::_ui_out(ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(token_buffer));
+#endif
         if (rprm.split_input != NULL) // error
         {
             free(rprm.split_input);
@@ -642,10 +644,10 @@ void UserInput::readCommandFromBuffer(
             free(_token_buffer_);
             _token_buffer_ = NULL;
         }
-        #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR(">%s$ERROR: No tokens retrieved.\n"),
             (char*)pgm_read_dword(_input_prm_.process_name));
-        #endif
+#endif
         return;
     } // end error condition
 
@@ -693,9 +695,9 @@ void UserInput::readCommandFromBuffer(
         && _default_function_
             != NULL) // if there was no command match and a default function is configured
     {
-        #if defined(ENABLE_readCommandFromBufferErrorOutput)
+#if defined(ENABLE_readCommandFromBufferErrorOutput)
         UserInput::_readCommandFromBufferErrorOutput(rprm); // error output function
-        #endif                               // end ENABLE_readCommandFromBufferErrorOutput
+#endif                               // end ENABLE_readCommandFromBufferErrorOutput
         (*_default_function_)(this); // run the default function
     }
 
@@ -720,12 +722,12 @@ void UserInput::readCommandFromBuffer(
 void UserInput::getCommandFromStream(
     Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
 {
-    if (!_begin_ || _halt_) // error
+    if (!_begin_ || _halt_)
     {
         if (!_begin_)
-            UserInput::_ui_out(PSTR("UserInput::begin() not declared.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
         if (_halt_)
-            UserInput::_ui_out(PSTR("A FATAL ERROR HAS OCCURED.\n"));
+            UserInput::_ui_out(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
         return;
     }
     if (_stream_buffer_allocated_ == false)
@@ -734,10 +736,9 @@ void UserInput::getCommandFromStream(
             rx_buffer_size, sizeof(uint8_t)); // an array to store the received data
         if (_stream_data_ == NULL)            // if there was an error allocating the memory
         {
-            #if defined(__DEBUG_GETCOMMANDFROMSTREAM__) && defined(ENABLE_ui_out)
-            UserInput::_ui_out(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"),
-                (char*)pgm_read_dword(_input_prm_.process_name));
-            #endif
+    #if defined(ENABLE_ui_out)
+            UserInput::_ui_out(ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(stream_data));
+    #endif
             _halt_ = true;
             return;
         }
@@ -940,16 +941,19 @@ inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
     private methods
 */
 #if defined(ENABLE_ui_out)
+
 void UserInput::_ui_out(const char* fmt, ...)
 {
     if (_output_enabled_)
     {
         va_list args;        // ... parameter pack list
         va_start(args, fmt); // set the parameter pack list index here
+
         int err = vsnprintf_P(
             _output_buffer_ + abs((int)_output_buffer_bytes_left_ - (int)_output_buffer_len_),
             _output_buffer_bytes_left_, fmt, args);
-        va_end(args);                               // we are done with the parameter pack
+        va_end(args); // we are done with the parameter pack
+
         if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
             UserInput::clearOutputBuffer(true);
@@ -987,7 +991,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
         UserInput::_ui_out(PSTR(">%s$Invalid input: "), process_name);
         if (rprm.command_matched == true)
         {
-            #if defined(__UI_VERBOSE__) && !defined(__UI_ECHO_ONLY__)
+    #if defined(__UI_VERBOSE__) && !defined(__UI_ECHO_ONLY__)
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]),
                 sizeof(rprm.prm)); // only load if a command matched
             // constrain err_n_args to UI_MAX_ARGS + 1
@@ -1068,22 +1072,22 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                 }
                 return;
             }
-            #endif
-            #if defined(__UI_ECHO_ONLY__)
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
             // this is the library output with UI_ECHO_ONLY defined
             UserInput::_ui_out(PSTR("Input received\n"));
-            #endif
+    #endif
             return;
         }
         else // command not matched
         {
-            #if defined(__UI_VERBOSE__)
+    #if defined(__UI_VERBOSE__)
             UserInput::_ui_out(
                 PSTR("%s\n command <%s> unknown\n"), (char*)rprm.input_data, _data_pointers_[0]);
-            #endif
-            #if defined(__UI_ECHO_ONLY__)
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
             UserInput::_ui_out(PSTR("Invalid input: %s\n"), (char*)rprm.input_data);
-            #endif // end UI_VERBOSE
+    #endif // end UI_VERBOSE
         }
     }
 } // end _readCommandFromBufferErrorOutput
@@ -1301,16 +1305,16 @@ inline char UserInput::_combineControlCharacters(char input)
 // clang-format on
 
 bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
-{
+{    
+    UserInput::_ui_out(CMD_ERR(root_pointer_warn));
     bool error_not = true;
     size_t cmd_len = strlen(prm.command);
 
     if (prm.function == NULL && prm.depth == 0)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
-        UserInput::_ui_out(
-            PSTR("command <%s> root command function pointer cannot be NULL\n"), prm.command);
-        #endif
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+        UserInput::_ui_out(CMD_ERR_MSG(root_pointer_warn), prm.command);
+#endif
         error_not = false;
     }
 
@@ -1328,85 +1332,85 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
         }
         if (num_wcc == 0)
         {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(PSTR("command <%s> has_wildcard is set, but no wildcards were found "
                                     "in the command\n"),
                 prm.command);
-        #endif
+#endif
             error_not = false;
         }
     }
 
     if (cmd_len > UI_MAX_CMD_LEN)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("command <%s> command too long, increase UI_MAX_CMD_LEN or reduce "
                                 "command length.\n"),
             prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (cmd_len != prm.command_length)
     {
         if (cmd_len > prm.command_length)
         {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(
                 PSTR("command <%s> command_length too large for command\n"), prm.command);
-        #endif
+#endif
         }
         else
         {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(
                 PSTR("command <%s> command_length too small for command\n"), prm.command);
-        #endif
+#endif
         }
         error_not = false;
     }
     if (prm.depth > UI_MAX_TREE_DEPTH_PER_COMMAND)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (prm.sub_commands > UI_MAX_NUM_CHILD_COMMANDS)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(
             PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (prm.num_args > UI_MAX_ARGS_PER_COMMAND)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (prm.max_num_args > UI_MAX_ARGS_PER_COMMAND)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (prm.num_args > prm.max_num_args)
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(
             PSTR("command <%s> num_args must be less than max_num_args\n"), prm.command);
-        #endif
+#endif
         error_not = false;
     }
     if (error_not == false) // error condition
     {
-        #if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ui_out)
         UserInput::_ui_out(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"),
             prm.command, prm.command);
-        #endif
+#endif
     }
     return error_not;
 } // end _addCommandAbort
@@ -1647,11 +1651,11 @@ inline bool UserInput::_splitZDC(
         rprm.split_input = (uint8_t*)calloc(split_input_len, sizeof(uint8_t));
         if (rprm.split_input == NULL) // if there was an error allocating the memory
         {
-            #if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
             UserInput::_ui_out(
                 PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"),
                 (char*)pgm_read_dword(_input_prm_.process_name));
-            #endif
+#endif
             return false;
         }
         memcpy_P(
@@ -1753,13 +1757,13 @@ inline UI_COMPARE UserInput::_compareCommandToString(
     size_t input_len = strlen(str); // the length of the input, str is a token in _token_buffer_ it
                                     // is safe to assume it is null terminated
 
-    #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
+#if defined(__DEBUG_SUBCOMMAND_SEARCH__)
     char buf[32] = {};
     strcpy_P(buf, cmd->prm[prm_idx].command);
     UserInput::_ui_out(PSTR("_compareCommandToString()\n"));
     UserInput::_ui_out(PSTR("command: <%s> len: %d\n"), buf, cmd_len_pgm);
     UserInput::_ui_out(PSTR("user input: <%s> len: %d\n"), str, input_len);
-    #endif
+#endif
     if (input_len != cmd_len_pgm) // no match (length different)
     {
         return no_match;

@@ -28,8 +28,14 @@
     */
     #include <Arduino.h>
 
-    // clang-format off
+// clang-format off
     // function-like macros
+    
+    #define CMD_ERR(x) ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::x)]    
+    #define CMD_ERR_MSG(x) ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::x)]
+    #define ERR_TYP(x) ihconst::error_type_strings[static_cast<int>(ihconst::ERR_TYP::x)]
+    #define ERR_MSG(x) ihconst::error_message_strings[static_cast<int>(ihconst::ERR_MSG::x)]
+    #define VAR_ID(x) ihconst::var_id_strings[static_cast<int>(ihconst::VAR_ID::x)]
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
     #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
@@ -44,22 +50,22 @@
     // end function-like macros
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
-    // clang-format on
+// clang-format on
 
     #if defined(DOXYGEN_XML_BUILD)
-    /**
-     * @brief Preprocessor directives and includes.
-     *
-     * Go to your platform's implementation to see what needs to be changed
-     * to make the library work on your platform.
-     *
-     * [portability
-     * directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)
-     *
-     */
-    #define IH_PORTABILITY_DIRECTIVES
+        /**
+         * @brief Preprocessor directives and includes.
+         *
+         * Go to your platform's implementation to see what needs to be changed
+         * to make the library work on your platform.
+         *
+         * [portability
+         * directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)
+         *
+         */
+        #define IH_PORTABILITY_DIRECTIVES
     #endif
-    
+
     /** @cond */
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
@@ -168,7 +174,7 @@ typedef uint8_t ui_max_commands_in_tree_t;
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user. 
+ * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user.
  *
  * @code{.c}
  * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
@@ -234,7 +240,7 @@ typedef uint32_t ui_max_args_t;
  * @brief User influenced typedef.
  *
  * @link UI_MAX_TREE_DEPTH_PER_COMMAND @endlink is set by the user.
- * 
+ *
  * @code{.c}
  * #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
  * typedef uint8_t ui_max_tree_depth_per_command_t;
@@ -247,15 +253,16 @@ typedef uint32_t ui_max_args_t;
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_tree_depth_per_command_t;    
+typedef uint8_t ui_max_tree_depth_per_command_t;
     #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
 typedef uint16_t ui_max_tree_depth_per_command_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
+    #elif (                                                                                        \
+        UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
 typedef uint32_t ui_max_tree_depth_per_command_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
     #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
@@ -279,15 +286,15 @@ typedef uint32_t ui_max_tree_depth_per_command_t;
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_child_commands_t;    
+typedef uint8_t ui_max_num_child_commands_t;
     #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
 typedef uint16_t ui_max_num_child_commands_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t    
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t
     #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
 typedef uint32_t ui_max_num_child_commands_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t
     #elif (UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
@@ -346,15 +353,15 @@ typedef uint32_t ui_max_cmd_len_t;
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_delim_seq_t;    
+typedef uint8_t ui_max_num_delim_seq_t;
     #elif (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
 typedef uint16_t ui_max_num_delim_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t    
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t
     #elif (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
 typedef uint32_t ui_max_num_delim_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t
     #elif (UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
@@ -378,15 +385,15 @@ typedef uint32_t ui_max_num_delim_seq_t;
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_start_stop_seq_t;    
+typedef uint8_t ui_max_num_start_stop_seq_t;
     #elif (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
 typedef uint16_t ui_max_num_start_stop_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t    
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t
     #elif (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
 typedef uint32_t ui_max_num_start_stop_seq_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t
     #elif (UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
@@ -410,15 +417,15 @@ typedef uint32_t ui_max_num_start_stop_seq_t;
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_input_len_t;    
+typedef uint8_t ui_max_input_len_t;
     #elif (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
 typedef uint16_t ui_max_input_len_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t    
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t
     #elif (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
 typedef uint32_t ui_max_input_len_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t
     #elif (UI_MAX_INPUT_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
@@ -461,17 +468,17 @@ typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
  * #endif
  * @endcode
  */
-typedef uint8_t memcmp_idx_t;    
+typedef uint8_t memcmp_idx_t;
     #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
 typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
 typedef uint16_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t    
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t
     #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
 typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
 typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t    
+        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t
     #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
         #warning UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
@@ -484,12 +491,12 @@ typedef uint32_t memcmp_idx_t;
 // LIBRARY OUTPUT
     #if defined(UI_ECHO_ONLY)
         #define __UI_ECHO_ONLY__
-        //#define UI_VERBOSE
+  // #define UI_VERBOSE
     #endif
     #if defined(UI_VERBOSE)
         #define __UI_VERBOSE__
     #endif
-  // end LIBRARY OUTPUT
+// end LIBRARY OUTPUT
 
     // DEBUGGING
     #if defined(DEBUG_GETCOMMANDFROMSTREAM)
@@ -516,7 +523,7 @@ typedef uint32_t memcmp_idx_t;
     #if defined(DEBUG_INCLUDE_FREERAM)
         #include "utility/freeRam.h"
     #endif
-  // end DEBUGGING
+// end DEBUGGING
 
     // OPTIONAL METHODS
     #if !defined(DISABLE_listSettings) // public methods
@@ -545,14 +552,14 @@ typedef uint32_t memcmp_idx_t;
     #endif
     #if !defined(DISABLE_clearOutputBuffer)
         #define ENABLE_clearOutputBuffer
-    #endif // end public methods
+    #endif                                                 // end public methods
     #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
     #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
     #endif // end private methods
-  // end OPTIONAL METHODS
+           // end OPTIONAL METHODS
 // end optional method toggles
 /** @endcond */
 #endif // end include guard
