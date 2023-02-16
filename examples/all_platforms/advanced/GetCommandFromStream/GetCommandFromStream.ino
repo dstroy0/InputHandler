@@ -14,10 +14,10 @@ char output_buffer[650] {}; // output buffer
 /*
   UserInput constructor settings
 */
-const PROGMEM IH_pname pname = "_test_";   ///< default process name
-const PROGMEM IH_eol peol = "\r\n";        ///< default process eol characters
-const PROGMEM IH_input_cc pinputcc = "##"; ///< default input control character sequence
-const PROGMEM IH_wcc pwcc = "*";           ///< default process wildcard character
+const PROGMEM pname prname = "_test_";   ///< default process name
+const PROGMEM eol peol = "\r\n";        ///< default process eol characters
+const PROGMEM input_cc pinputcc = "##"; ///< default input control character sequence
+const PROGMEM wcc pwcc = "*";           ///< default process wildcard character
 
 const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
   1,    ///< number of delimiter sequences
@@ -32,7 +32,7 @@ const PROGMEM InputProcessStartStopSequences pststpseq = {
 };
 
 const PROGMEM InputProcessParameters input_prm[1] = {
-  &pname,
+  &prname,
   &peol,
   &pinputcc,
   &pwcc,

@@ -21,448 +21,35 @@
     // user configurable items located in src/config/config.h and src/config/advanced_config.h
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
+// lib specific namespaces
+using namespace ih_t;
+using namespace ih_auto_t;
 
 /**
- * @defgroup typedefs typedefs
- */
-///@{
-/**
- * @brief This is an alias for a char array.
- *
- * IH_pname[@link UI_PROCESS_NAME_PGM_LEN @endlink]
- *
- * To increase or decrease the pgm len of this array edit
- * @link UI_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.
- */
-typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
-
-/**
- * @brief char array typedef.
- *
- * IH_eol[@link UI_EOL_SEQ_PGM_LEN @endlink]
- *
- * To increase or decrease the pgm len of this array edit
- * @link UI_EOL_SEQ_PGM_LEN @endlink in src/config/config.h.
- */
-typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
-
-/**
- * @brief char array typedef.
- *
- * IH_input_cc[@link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
- *
- * To increase or decrease the pgm len of this array edit
- * @link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink in src/config/config.h.
- */
-typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
-
-/**
- * @brief char array typedef.
- *
- * IH_wcc[@link UI_WCC_SEQ_PGM_LEN @endlink]
- *
- * To increase or decrease the pgm len of this array edit
- * @link UI_WCC_SEQ_PGM_LEN @endlink in src/config/config.h.
- */
-typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
-///@}
-
-/**
- * @defgroup ENUMS ENUMS
- */
-///@{
-/**
- * @brief Command identifier enum.
- *
- * This is used to explicitly state something is related to a root command
- * in the context of CommandParameters.
- *
- * @enum UI_CMD_ID
- */
-enum UI_CMD_ID
-{
-    root ///< this is the root command id, it's the number 0 ALWAYS
-};
-
-/**
- * @brief Command wildcard flag enum.
- *
- * These flags are used inside of CommandParameters.
- *
- * @enum UI_WC_FLAG
- */
-enum UI_WC_FLAG
-{
-    no_wildcards = false, ///< this command has no wildcard char (false (0))
-    has_wildcards = true  ///< this command contains one or more wildcard char (true (1))
-};
-
-/**
- * @brief UserInput::\_compareCommandToString() return values.
- *
- * These flags are only used to provide clarity to UserInput::\_compareCommandToString(),
- * they make it easy to understand what is happening inside of that method.
- *
- * @enum UI_COMPARE
- */
-enum UI_COMPARE
-{
-    no_match,          ///< no match
-    match_all_wcc_cmd, ///< match all wcc command
-    match              ///< match command
-};
-
-/**
- * @brief Strongly typed argument handling flags.
- *
- * This is used in CommandParameters as a visual reminder of
- * how the process will handle your arguments.
- * @enum UI_ARG_HANDLING
- */
-enum class UI_ARG_HANDLING
-{
-    no_args,  ///<  no arguments expected
-    one_type, ///<  every argument is of the same type
-    type_arr  ///<  there is an array of input types
-};
-
-/**
- * @brief Input type specifier.
- *
- * These are the different types of user input the process can accept.
- * NOTYPE and START_STOP can be any 0-255 value.
- * This is strongly typed to help avoid name conflicts, and as an indicator that
- * these types are not built-in.
- * @enum UITYPE
- */
-enum class UITYPE
-{
-    UINT8_T,    ///<  8-bit unsigned integer
-    UINT16_T,   ///<  16-bit unsigned integer
-    UINT32_T,   ///<  32-bit unsigned integer
-    INT16_T,    ///<  16-bit signed integer
-    FLOAT,      ///<  32-bit float
-    CHAR,       ///<  8-bit char
-    START_STOP, ///<  array of 8-bit char
-    NOTYPE,     ///<  no type validation
-    NO_ARGS,    ///<  no arguments expected
-    _LAST       ///<  reserved
-};
-///@}
-
-/**
- * @defgroup structs structs
- */
-///@{
-/**
- * @brief Holds user defined input data delimiters.
- *
- * A delimiter sequence is a predefined number or set of numbers that is used to separate
- * input arguments, subcommands or data.  The input process needs to know three things
- * about the delimiter sequences you want to use.  The number of delimiter sequences there are
- * (up to @link UI_MAX_NUM_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter
- * sequence, and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN
- * @endlink in length.
- */
-struct InputProcessDelimiterSequences
-{
-    size_t num_seq; ///< the number of token delimiters in delimiter_sequences
-    IH::ui_max_num_delim_seq_t
-        delimiter_lens[UI_MAX_NUM_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens
-                                              ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]
-    char delimiter_sequences[UI_MAX_NUM_DELIM_SEQ]
-                            [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
-                                                    ///< delimiter_sequences
-                                                    ///< [@link UI_MAX_NUM_DELIM_SEQ @endlink]
-                                                    ///< [@link UI_DELIM_SEQ_PGM_LEN @endlink]
-};
-
-/**
- * @brief Holds regex-like start-stop match sequence pairs.
- *
- * A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to
- * be identical to one another.  The "start" sequence demarcs the beginning of a chunk of data,
- * the "stop" sequence demarcs the end of the chunk of data. The input process needs to know
- * three things about the start-stop sequences you want to use.  The number of start-stop
- * sequences there are (up to @link UI_MAX_NUM_START_STOP_SEQ @endlink), the 8-bit byte (char)
- * length of each start-stop sequence, and finally each start-stop sequence which can be up to
- * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
- */
-struct InputProcessStartStopSequences
-{
-    size_t num_seq; ///< num start/stop sequences
-    IH::ui_max_num_start_stop_seq_t start_stop_sequence_lens
-        [UI_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens
-                                     ///< [@link UI_MAX_NUM_START_STOP_SEQ @endlink]
-    char start_stop_sequence_pairs
-        [UI_MAX_NUM_START_STOP_SEQ]
-        [UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
-                                     ///< start, match end, copy what is
-                                     ///< between markers start_stop_sequence_pairs
-                                     ///< [@link UI_MAX_NUM_START_STOP_SEQ @endlink]
-                                     ///< [@link UI_START_STOP_SEQ_PGM_LEN @endlink]
-};
-
-/**
- * @brief Input process parameters and constructor parameters.
- *
- * This struct is an array of pointers to other structs/arrays contained in PROGMEM.
- * It's required by the input process constructor, all together they define the
- * input process behavior.
- */
-struct InputProcessParameters
-{
-    const IH_pname* process_name; ///< this process' name, can be NULL; MAX len ==
-                                  ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
-    const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
-    const IH_input_cc*
-        input_control_char_sequence; ///< two char len sequence to input a control char
-    const IH_wcc* wildcard_char;     ///< single char wildcard char
-    const InputProcessDelimiterSequences*
-        delimiter_sequences; ///< reference to InputProcessDelimiterSequences struct
-    const InputProcessStartStopSequences*
-        start_stop_sequences; ///< reference to InputProcessStartStopSequences struct
-};
-
-/**
- * @brief Contains arrays and indices determined at runtime.
- *
- * These structs are associated with wildcard commands; CommandParameters which
- * contains wildcards will have a CommandRuntimeCalc.
- */
-struct CommandRuntimeCalc
-{
-    IH::memcmp_idx_t num_prm_with_wc; ///< the number of CommandParameters structs in this command
-                                      ///< that contain char(IH_wcc[0]); the WildCard Character
-    IH::memcmp_idx_t* idx_of_prm_with_wc; ///< indices of CommandParameters struct that contain wcc
-    IH::ui_max_per_cmd_memcmp_ranges_t*
-        num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command
-                                    ///< string, array members always an even number
-    IH::ui_max_per_cmd_memcmp_ranges_t**
-        memcmp_ranges_arr; ///< 2d array[row][col], each [row] is for one Parameters command string
-                           ///< which contains wcc
-};
-
-// forward declaration for CommandParameters
-class UserInput;
-
-/**
- * @brief Pertinent command information
+ * @brief Command setup
  *
  * Every command and subcommand has an associated CommandParameters object, this is the information
  * that the input process needs to know about your command.
  */
+class UserInput;
 struct CommandParameters
 {
     void (*function)(
         UserInput*);    ///< void function pointer, void your_function(UserInput *inputProcess)
     bool has_wildcards; ///< if true this command has one or more wildcard char
-    char command[UI_MAX_CMD_LEN + 1U];         ///< command string + nullchar
-    IH::ui_max_cmd_len_t command_length;       ///< command length in characters
-    IH::cmd_id_grp_t parent_command_id;        ///< parent command's unique id root-MAX
-    IH::cmd_id_grp_t command_id;               ///< this command's unique id root-MAX
-    IH::ui_max_tree_depth_per_command_t depth; ///< command tree depth root-MAX
-    IH::ui_max_num_child_commands_t
+    char command[UI_MAX_CMD_LEN + 1U];     ///< command string + nullchar
+    ui_max_cmd_len_t command_length;       ///< command length in characters
+    cmd_id_grp_t parent_command_id;        ///< parent command's unique id root-MAX
+    cmd_id_grp_t command_id;               ///< this command's unique id root-MAX
+    ui_max_tree_depth_per_command_t depth; ///< command tree depth root-MAX
+    ui_max_num_child_commands_t
         sub_commands; ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
     UI_ARG_HANDLING argument_flag; ///< argument handling flag
-    IH::ui_max_args_t
-        num_args; ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    IH::ui_max_args_t max_num_args; ///< maximum number of arguments this command expects 0 -
-                                    ///< UI_MAX_ARGS, cannot be less than num_args
+    ui_max_args_t num_args; ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    ui_max_args_t max_num_args; ///< maximum number of arguments this command expects 0 -
+                                ///< UI_MAX_ARGS, cannot be less than num_args
     UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; ///< argument UITYPE array
 };
-///@}
-
-/**
- * @defgroup namespace namespace
- */
-///@{
-/**
- * @brief library constants located in PROGMEM.
- *
- * This namespace's purpose is to avoid name collision
- * and to consolidate the library's PROGMEM variables.
- *
- * @namespace ihconst
- */
-namespace ihconst
-{
-
-/**
- * @brief Type string literals.
- *
- * Input type string literal PROGMEM array, each of the types in @link UITYPE @endlink has
- * a corresponding string literal for display purposes.
- *
- */
-const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",   ///< 8-bit unsigned integer
-    "UINT16_T",  ///< 16-bit unsigned integer
-    "UINT32_T",  ///< 32-bit unsigned integer
-    "INT16_T",   ///< 16-bit signed integer
-    "FLOAT",     ///< 32-bit floating point number
-    "CHAR",      ///< single char
-    "STARTSTOP", ///< c-string enclosed with start/stop delimiters
-    "NOTYPE",    ///< user defined NOTYPE
-    "NO_ARGS",   ///< no arguments expected
-    "error"      ///< error
-};
-
-const IH_pname PROGMEM process_name = ""; ///< default process name is an empty string
-const IH_eol PROGMEM eol_char = "\r\n";   ///< default process eol characters CRLF
-const IH_input_cc PROGMEM input_control_char_sequence =
-    "##";                                 ///< default process input control character sequence "##"
-const IH_wcc PROGMEM wildcard_char = "*"; ///< default process wildcard char '*'
-
-/**
- * @brief Default delimiter sequences.
- *
- */
-const InputProcessDelimiterSequences PROGMEM delimiter_sequences = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
-    {" ", ","} ///< delimiter sequences
-};
-
-/**
- * @brief Default start stop sequences.
- *
- */
-const InputProcessStartStopSequences PROGMEM start_stop_sequences = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
-    {"\"", "\""} ///< start stop sequence pair sequences
-};
-
-/**
- * @brief UserInput default InputProcessParameters.
- *
- */
-const InputProcessParameters PROGMEM default_parameters = {
-    &ihconst::process_name,                ///< process name
-    &ihconst::eol_char,                    ///< process eol term
-    &ihconst::input_control_char_sequence, ///< process input control char sequence
-    &ihconst::wildcard_char,               ///< process wildcard char
-    &ihconst::delimiter_sequences,         ///< process default delimiter sequences
-    &ihconst::start_stop_sequences         ///< process default start/stop sequences
-};
-
-// messages
-
-
-// error types
-const char fatal_error[] PROGMEM = "FATAL ERROR! ";
-
-// error types pointer array
-const char* const error_type_strings[] PROGMEM = {
-    fatal_error,
-};
-
-// error types pointer array convenience index
-enum class ERR_TYP
-{
-    fatal_error,
-};
-
-// lib error messages
-// fatal
-const char fatal_halt[] PROGMEM = "%sINPUTHANDLER IS FUNCTIONALLY DISABLED.\n";
-const char fatal_begin_not_set[] PROGMEM = "%sUserInput::begin() not set.\n";
-const char fatal_allocation[] PROGMEM = "%scouldn't allocate memory for %s.\n";
-const char fatal_arr_alloc_idx[] PROGMEM = "%scouldn't allocate memory for %s[%02u].\n";
-
-
-// error message pointer array
-const char* const error_message_strings[] PROGMEM = 
-{
-    fatal_halt,
-    fatal_begin_not_set,
-    fatal_allocation,
-    fatal_arr_alloc_idx,
-};
-
-// error message pointer array convenience index
-enum class ERR_MSG
-{
-    fatal_halt,
-    fatal_begin_not_set,
-    fatal_allocation,
-    fatal_arr_alloc_idx,
-};
-
-// var identifiers
-const char memcmp_idx[] PROGMEM = "memcmp_idx";
-const char memcmp_ranges[] PROGMEM = "memcmp_ranges";
-const char memcmp_ranges_arr[] PROGMEM = "memcmp_ranges_arr";
-const char input_type_match_flags[] PROGMEM = "_input_type_match_flags_";
-const char data_pointers[] PROGMEM = "_data_pointers_";
-const char sort_array[] PROGMEM = "sort_array";
-const char sorted_ptr[] PROGMEM = "sorted_ptr";
-const char token_buffer[] PROGMEM = "_token_buffer_";
-const char stream_data[] PROGMEM = "_stream_data_";
-
-
-// function var identifiers
-const char listsettings_buf[] PROGMEM = "listSettings()::buf";
-
-// var identifiers pointer array
-const char* const var_id_strings[] PROGMEM = 
-{
-    // var
-    memcmp_idx,    
-    memcmp_ranges,
-    memcmp_ranges_arr,
-    input_type_match_flags,
-    data_pointers,
-    sort_array,
-    sorted_ptr,
-    token_buffer,
-    stream_data,
-    //function var identifiers
-    listsettings_buf,
-};
-
-// var identifiers pointer array convenience index
-enum class VAR_ID
-{
-    // var
-    memcmp_idx,
-    memcmp_ranges,
-    memcmp_ranges_arr,
-    input_type_match_flags,
-    data_pointers,
-    sort_array,
-    sorted_ptr,
-    token_buffer,
-    stream_data,
-    // function var identifiers
-    listsettings_buf,
-};
-
-// command error checking
-const char command_string_beginning[] PROGMEM = "command <";
-const char command_string_end[] PROGMEM = "> ";
-const char root_pointer_warn[] PROGMEM = "%sroot command function pointer cannot be NULL.\n";
-
-// error types pointer array
-const char* const command_error_strings[] PROGMEM = {
-    command_string_beginning,
-    command_string_end,
-    root_pointer_warn,
-};
-
-// error types pointer array convenience index
-enum class CMD_ERR_IDX
-{
-    cmd_str_b,
-    cmd_str_e,
-    root_pointer_warn,
-
-};
-
-} // end namespace ihconst
-///@}
-
 /**
  * @defgroup classes classes
  */
@@ -500,8 +87,8 @@ public:
      * @param tree_depth depth of command tree
      */
     CommandConstructor(const CommandParameters* parameters,
-        const IH::ui_max_commands_in_tree_t parameter_array_elements = 1,
-        const IH::ui_max_tree_depth_per_command_t tree_depth = 0)
+        const ui_max_commands_in_tree_t parameter_array_elements = 1,
+        const ui_max_tree_depth_per_command_t tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -510,11 +97,11 @@ public:
     {
     }
     const CommandParameters* prm; ///< pointer to PROGMEM CommandParameters array
-    const IH::ui_max_commands_in_tree_t
+    const ui_max_commands_in_tree_t
         param_array_len; ///< user input param array len, either as digits or through nprms
-    const IH::ui_max_commands_in_tree_t tree_depth; ///< user input depth + 1
-    CommandRuntimeCalc* calc;                       ///< pointer to CommandRuntimeCalc struct
-    CommandConstructor* next_command;               ///< CommandConstructor iterator/pointer
+    const ui_max_commands_in_tree_t tree_depth; ///< user input depth + 1
+    CommandRuntimeCalc* calc;                   ///< pointer to CommandRuntimeCalc struct
+    CommandConstructor* next_command;           ///< CommandConstructor iterator/pointer
 };
 
 /**
@@ -528,6 +115,7 @@ public:
  * information.
  *
  */
+
 class UserInput
 {
 public:
@@ -684,7 +272,7 @@ public:
         CommandConstructor* cmd;         ///< pointer to CommandConstructor
         CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
         UI_COMPARE result;               ///< result of UserInput::\_compareCommandToString()
-        IH::cmd_id_grp_t command_id;     ///< type set by macro
+        cmd_id_grp_t command_id;         ///< type set by macro
         size_t idx;                      ///< CommandParameters index
         size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
         size_t input_len;                ///< length of input data
@@ -730,8 +318,8 @@ public:
      * @param num_zdc size of CommandParameters zero delimiter command pointers array
      * @param zdc array of CommandParameters zero delimiter command pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN, const size_t num_zdc = 0,
-        const CommandParameters** zdc = NULL);
+    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
+        const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
     #endif
 
     #if defined(ENABLE_nextArgument) || defined(DOXYGEN_XML_BUILD)
@@ -939,27 +527,27 @@ private:
     CommandConstructor* _commands_tail_; ///< pointer to CommandConstructor singly-linked-list tail.
     // end linked-list
 
-    IH::ui_max_commands_in_tree_t
+    ui_max_commands_in_tree_t
         _commands_count_; ///< How many commands were accepted from input CommandParameters.
-    IH::ui_max_tree_depth_per_command_t
-        _max_depth_; ///< Max command depth found in the accepted input CommandParameters.
-    IH::ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
-                                  ///< input CommandParameters.
-    IH::input_type_match_flags_type*
+    ui_max_tree_depth_per_command_t
+        _max_depth_;          ///< Max command depth found in the accepted input CommandParameters.
+    ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
+                              ///< input CommandParameters.
+    input_type_match_flags_type*
         _input_type_match_flags_; ///< Bool array the size of UserInput::\_max_args_.
 
     bool _output_flag_; ///< Output is available flag, set by member functions.
 
-    char* _token_buffer_;                        ///< pointer to tokenized c-string
-    char** _data_pointers_;                      ///< token_buffer pointers
-    IH::ui_max_args_t _data_pointers_index_;     ///< data_pointer index
-    IH::ui_max_args_t _data_pointers_index_max_; ///< data_pointer index max
-    IH::ui_max_args_t
+    char* _token_buffer_;                    ///< pointer to tokenized c-string
+    char** _data_pointers_;                  ///< token_buffer pointers
+    ui_max_args_t _data_pointers_index_;     ///< data_pointer index
+    ui_max_args_t _data_pointers_index_max_; ///< data_pointer index max
+    ui_max_args_t
         _p_num_ptrs_; ///< UserInput process number of pointers, computed in UserInput::begin().
 
-    IH::ui_max_args_t _rec_num_arg_strings_; ///< number of tokens after first valid token
-    IH::ui_max_num_child_commands_t _failed_on_subcommand_;     ///< subcommand error index
-    IH::ui_max_tree_depth_per_command_t _current_search_depth_; ///< current subcommand search depth
+    ui_max_args_t _rec_num_arg_strings_; ///< number of tokens after first valid token
+    ui_max_num_child_commands_t _failed_on_subcommand_;     ///< subcommand error index
+    ui_max_tree_depth_per_command_t _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char null
     char _neg_;  ///< char '-'
@@ -972,7 +560,7 @@ private:
     uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
-    bool _halt_; ///< fatal error flag
+    bool _halt_;  ///< fatal error flag
 
     InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
 
@@ -1015,7 +603,7 @@ private:
      * @param rprm reference to UserInput::\_rcfbprm
      * @param pname IH_pname char array
      */
-    void _launchFunction(_rcfbprm& rprm, const IH_pname& pname);
+    void _launchFunction(_rcfbprm& rprm, const pname& pname);
 
     /**
      * @brief function launch logic, recursive on subcommand match
@@ -1177,7 +765,7 @@ private:
      * @param memcmp_ranges memcmp ranges array
      */
     void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx,
-        IH::memcmp_idx_t& memcmp_ranges_idx, IH::ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges);
+        memcmp_idx_t& memcmp_ranges_idx, ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
