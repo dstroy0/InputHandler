@@ -760,6 +760,12 @@ void UserInput::getCommandFromStream(
         _stream_buffer_allocated_ = false;
     }
 } // end getCommandFromStream
+#else
+void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
+        const size_t num_zdc = 0, const CommandParameters** zdc = NULL)
+{
+    //disabled
+}
 #endif // end ENABLE_getCommandFromStream
 
 #if defined(ENABLE_nextArgument)
@@ -773,6 +779,11 @@ char* UserInput::nextArgument()
     }
     return NULL; // else return NULL
 } // end nextArgument
+#else
+char* UserInput::nextArgument()
+{
+    // disabled
+}
 #endif // end ENABLE_nextArgument
 
 #if defined(ENABLE_getArgument)
@@ -784,6 +795,11 @@ char* UserInput::getArgument(size_t argument_number)
     }
     return NULL; // else return NULL
 } // end getArgument
+#else
+char* UserInput::getArgument(size_t argument_number)
+{ 
+    // disabled 
+}
 #endif // end ENABLE_getArgument
 
 #if defined(ENABLE_outputIsAvailable)
@@ -791,10 +807,20 @@ size_t UserInput::outputIsAvailable()
 {
     return _output_buffer_len_ - _output_buffer_bytes_left_;
 } // end outputIsAvailable
+#else
+size_t UserInput::outputIsAvailable()
+{
+    // disabled
+}
 #endif // end ENABLE_outputIsAvailable
 
 #if defined(ENABLE_outputIsEnabled)
 inline bool UserInput::outputIsEnabled() { return _output_enabled_; } // end outputIsEnabled
+#else
+inline bool UserInput::outputIsEnabled()
+{
+    // disabled
+}
 #endif                                                                // end ENABLE_outputIsEnabled
 
 #if defined(ENABLE_outputToStream)
@@ -807,6 +833,11 @@ void UserInput::outputToStream(Stream& stream)
         UserInput::clearOutputBuffer();
     }
 } // end outputToStream
+#else
+void UserInput::outputToStream(Stream& stream)
+{
+    // disabled
+}
 #endif // end ENABLE_outputToStream
 
 #if defined(ENABLE_clearOutputBuffer)
@@ -829,6 +860,11 @@ inline void UserInput::clearOutputBuffer(bool overwrite_contents)
     }
     _output_flag_ = false;
 } // end clearOutputBuffer
+#else
+inline void UserInput::clearOutputBuffer(bool overwrite_contents)
+{
+    // disabled
+}
 #endif // end ENABLE_clearOutputBuffer
 
 size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm)

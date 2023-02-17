@@ -295,8 +295,7 @@ public:
      */
     void readCommandFromBuffer(
         uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
-
-    #if defined(ENABLE_getCommandFromStream) || defined(DOXYGEN_XML_BUILD)
+    
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer.
      *
@@ -316,9 +315,7 @@ public:
      */
     void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
         const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
-    #endif
-
-    #if defined(ENABLE_nextArgument) || defined(DOXYGEN_XML_BUILD)
+    
     /**
      * @brief Returns a pointer to the next token in UserInput::\_token_buffer_.
      *
@@ -329,10 +326,8 @@ public:
      *
      * @return valid pointer if there is another token else NULL.
      */
-    char* nextArgument();
-    #endif
-
-    #if defined(ENABLE_getArgument) || defined(DOXYGEN_XML_BUILD)
+    char* nextArgument();    
+    
     /**
      * @brief Returns a pointer to argument_number token in UserInput::\_token_buffer_
      *
@@ -346,9 +341,7 @@ public:
      * @return valid pointer if argument_number exists else NULL.
      */
     char* getArgument(size_t argument_number);
-    #endif
-
-    #if defined(ENABLE_outputIsAvailable) || defined(DOXYGEN_XML_BUILD)
+    
     /**
      * @brief Output is available from UserInput if True.
      *
@@ -360,10 +353,8 @@ public:
      *
      * @return The number of bytes available for output, or zero if there is no output available.
      */
-    size_t outputIsAvailable();
-    #endif
-
-    #if defined(ENABLE_outputIsEnabled) || defined(DOXYGEN_XML_BUILD)
+    size_t outputIsAvailable();    
+    
     /**
      * @brief UserInput output flag.
      *
@@ -374,9 +365,7 @@ public:
      * @return false if not enabled
      */
     bool outputIsEnabled();
-    #endif
 
-    #if defined(ENABLE_outputToStream) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Direct UserInput output to a Stream.
      *
@@ -389,8 +378,7 @@ public:
      *
      * @param stream The Stream to write to.
      */
-    void outputToStream(Stream& stream);
-    #endif
+    void outputToStream(Stream& stream);    
 
     /**
      * @brief Clears the output buffer if defined.
@@ -482,11 +470,11 @@ public:
      * @code{.cpp}
      * // usage
      * #include <InputHandler.h>
-     * size_t data = UserInput::mIndex(0,0);
+     * size_t matrix_index = UserInput::mIndex(0,0,0);
      * @endcode
      * @code{.c}
      * // source
-     * size_t mIndex(size_t row, size_t col) const { return row + col; }
+     * size_t mIndex(size_t m_width, size_t row, size_t col) const { return row * m_width + col; }
      * @endcode
      *
      * @param m_width;
