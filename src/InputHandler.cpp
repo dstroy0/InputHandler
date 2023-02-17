@@ -261,38 +261,34 @@ void UserInput::listSettings(UserInput* inputProcess)
         return;
     }
     size_t idx = 0;
-    UserInput::_ui_out(
-        PSTR("src/config/InputHandler_config.h:\n"
-             "UI_MAX_ARGS_PER_COMMAND %lu max allowed arguments per unique command_id\n"
-             "UI_MAX_CMD_LEN (root command) %lu characters\n"
-             "UI_MAX_IN_LEN %lu bytes\n"
-             "\nUserInput constructor:\n"
-             "output buffer size in bytes = %lu\n"
-             "process_name = \"%s\"\n"
-             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02lu]\n"
-             "_max_depth_ (found from input CommandParameters) = %lu\n"
-             "_max_args_ (found from input CommandParameters) = %lu\n"
-             "\nEscaped for display:\n"
-             "input_control_char_sequence = \"%s\"\n"
-             "peol = \"%s\"\n"),
+    UserInput::_ui_out(PSTR("src/config/InputHandler_config.h:\n"
+                            "UI_MAX_ARGS_PER_COMMAND=%lu\n"
+                            "UI_MAX_CMD_LEN=%lu\n"
+                            "UI_MAX_IN_LEN=%lu\n"
+                            "\nUserInput constructor:\n"
+                            "output_buffer=%lu bytes\n"
+                            "process_name=\"%s\"\n"
+                            "_data_pointers_[x] x=%02lu\n"
+                            "_max_depth_=%lu\n"
+                            "_max_args_=%lu\n"
+                            "input_control_char_sequence = \"%s\"\n"
+                            "peol = \"%s\"\n"),
         (uint32_t)UI_MAX_ARGS_PER_COMMAND, (uint32_t)UI_MAX_CMD_LEN, (uint32_t)UI_MAX_INPUT_LEN,
         (uint32_t)_output_buffer_len_, (char*)process_name, (uint32_t)_p_num_ptrs_,
         (uint32_t)_max_depth_, (uint32_t)_max_args_,
         _addEscapedControlCharToBuffer(buf, idx, (char*)input_control_char_sequence,
             strlen((char*)input_control_char_sequence)),
         _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
-    UserInput::_ui_out(PSTR("pdelimseqs = delim<\"\">\n"));
+    UserInput::_ui_out(PSTR("pdelimseqs = "));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
         UserInput::_ui_out(PSTR("<\"%s\">%c"),
             UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i],
                 strlen(delimseqs.delimiter_sequences[i])),
-            (((delimseqs.num_seq > 1) && (i % 5U != 0))
-                    ? '|'
-                    : ((i % 5U == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a
-                                                       // newline every 5 sequences
+            ((((i % 5 == 0) && i > 1) || i == delimseqs.num_seq - 1) ? '\n' : '|')); // separate <> with a pipe | and start a
+                                            // newline every 5 sequences
     }
-    UserInput::_ui_out(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
+    UserInput::_ui_out(PSTR("pststpseqs = "));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
         UserInput::_ui_out(PSTR("<\"%s\">|<\"%s\">\n"),
@@ -762,9 +758,9 @@ void UserInput::getCommandFromStream(
 } // end getCommandFromStream
 #else
 void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
-        const size_t num_zdc = 0, const CommandParameters** zdc = NULL)
+    const size_t num_zdc = 0, const CommandParameters** zdc = NULL)
 {
-    //disabled
+    // disabled
 }
 #endif // end ENABLE_getCommandFromStream
 
@@ -797,8 +793,8 @@ char* UserInput::getArgument(size_t argument_number)
 } // end getArgument
 #else
 char* UserInput::getArgument(size_t argument_number)
-{ 
-    // disabled 
+{
+    // disabled
 }
 #endif // end ENABLE_getArgument
 
@@ -821,7 +817,7 @@ inline bool UserInput::outputIsEnabled()
 {
     // disabled
 }
-#endif                                                                // end ENABLE_outputIsEnabled
+#endif // end ENABLE_outputIsEnabled
 
 #if defined(ENABLE_outputToStream)
 void UserInput::outputToStream(Stream& stream)

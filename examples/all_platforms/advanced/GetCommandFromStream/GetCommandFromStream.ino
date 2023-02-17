@@ -20,9 +20,9 @@ const PROGMEM input_cc pinputcc = "##"; ///< default input control character seq
 const PROGMEM wcc pwcc = "*";           ///< default process wildcard character
 
 const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
-  1,    ///< number of delimiter sequences
-  {1},  ///< delimiter sequence lens
-  {" "} ///< delimiter sequences
+  2,    ///< number of delimiter sequences
+  {1,1},  ///< delimiter sequence lens
+  {" ",","} ///< delimiter sequences
 };
 
 const PROGMEM InputProcessStartStopSequences pststpseq = {

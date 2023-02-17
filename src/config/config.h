@@ -155,14 +155,14 @@ const size_t UI_WCC_SEQ_PGM_LEN = 2;
      *
      * Enable this option to disable UserInput::listSettings()
      */
-    #define DISABLE_listSettings true
+    #define DISABLE_listSettings false
 
     /**
      * @var DISABLE_listCommands
      *
      * Enable this option to disable UserInput::listCommands
      */
-    #define DISABLE_listCommands true
+    #define DISABLE_listCommands false
 
     /**
      * @var DISABLE_getCommandFromStream
