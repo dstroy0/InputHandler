@@ -43,6 +43,7 @@
  */
 namespace ih_auto_t
 {
+    using namespace InputHandler;
 // UserInput private member type (future bit array)
 typedef bool input_type_match_flags_type; ///< UserInput private member type (future bit array)
 
@@ -384,7 +385,7 @@ typedef uint32_t memcmp_idx_t;
 
 namespace ih_t
 {
-
+using namespace InputHandler;
 /**
  * @defgroup typedefs typedefs
  */
@@ -619,7 +620,7 @@ struct CommandRuntimeCalc
  */
 namespace ihconst
 {
-
+using namespace InputHandler;
 /**
  * @brief Type string literals.
  *
@@ -721,53 +722,85 @@ enum class ERR_MSG
 };
 
 // var identifiers
+#if defined(__DEBUG_ADDCOMMAND__)
 const char memcmp_idx[] PROGMEM = "memcmp_idx";
 const char memcmp_ranges[] PROGMEM = "memcmp_ranges";
 const char memcmp_ranges_arr[] PROGMEM = "memcmp_ranges_arr";
+#endif
 const char input_type_match_flags[] PROGMEM = "_input_type_match_flags_";
 const char data_pointers[] PROGMEM = "_data_pointers_";
+#if defined(DEBUG_listCommands)
 const char sort_array[] PROGMEM = "sort_array";
 const char sorted_ptr[] PROGMEM = "sorted_ptr";
+#endif
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
 const char token_buffer[] PROGMEM = "_token_buffer_";
+#endif
+#if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
 const char stream_data[] PROGMEM = "_stream_data_";
+#endif
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__)
 const char split_input[] PROGMEM = "rprm.split_input";
-
+#endif
 // function var identifiers
 const char listsettings_buf[] PROGMEM = "listSettings()::buf";
 
 // var identifiers pointer array
 const char* const var_id_strings[] PROGMEM = {
     // var
+    #if defined(__DEBUG_ADDCOMMAND__)
     memcmp_idx,
     memcmp_ranges,
     memcmp_ranges_arr,
+    #endif
     input_type_match_flags,
     data_pointers,
+    #if defined(DEBUG_listCommands)
     sort_array,
     sorted_ptr,
+    #endif
+    #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
     token_buffer,
+    #endif
+    #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
     stream_data,
+    #endif
+    #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
     split_input,
+    #endif
     // function var identifiers
     listsettings_buf,
+
 };
 
 // var identifiers pointer array convenience index
 enum class VAR_ID
 {
     // var
+    #if defined(__DEBUG_ADDCOMMAND__)
     memcmp_idx,
     memcmp_ranges,
     memcmp_ranges_arr,
+    #endif
     input_type_match_flags,
     data_pointers,
+    #if defined(DEBUG_listCommands)
     sort_array,
     sorted_ptr,
+    #endif
+    #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
     token_buffer,
+    #endif
+    #if defined(__DEBUG_GETCOMMANDFROMSTREAM__)
     stream_data,
+    #endif
+    #if defined(__DEBUG_READCOMMANDFROMBUFFER__)
     split_input,
+    #endif
     // function var identifiers
     listsettings_buf,
+    // reserved
+    _reserved,
 };
 
 // command error checking

@@ -22,6 +22,7 @@
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
 // lib specific namespaces
+using namespace InputHandler;
 using namespace ih_t;
 using namespace ih_auto_t;
 
@@ -221,7 +222,6 @@ public:
      */
     bool begin();
 
-    #if defined(ENABLE_listSettings) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Lists UserInput class settings, useful for implementation debugging.
      *
@@ -240,9 +240,7 @@ public:
      * @param inputProcess pointer to the class instance
      */
     void listSettings(UserInput* inputProcess);
-    #endif
 
-    #if defined(ENABLE_listCommands) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief Lists commands available to the user.
      *
@@ -254,8 +252,6 @@ public:
      *
      */
     void listCommands();
-
-    #endif
 
     /**
      * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference.
@@ -647,6 +643,15 @@ private:
     char _combineControlCharacters(char input);
 
     /**
+     * @brief prints detected CommandParameters errors
+     *
+     * @param error ihconst::CMD_ERR_IDX member
+     * @param cmd null term char array
+     * @return true never
+     * @return false each call
+     */
+    bool _addCommandErrorMessage(ihconst::CMD_ERR_IDX error, char* cmd);
+    /**
      * @brief determines if input CommandParameters struct is valid before adding to linked-list
      *
      * [UserInput::_addCommandAbort()
@@ -781,6 +786,11 @@ private:
      */
     UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
 
+    #if defined(__UI_VERBOSE__) && defined(ENABLE_listCommands)
+    /**
+     * @brief used internally by listCommands()
+     *
+     */
     struct _searchStruct
     {
         CommandConstructor* cmd; // pointer to a CommandConstructor
@@ -793,12 +803,52 @@ private:
         uint8_t& prev_dp;        // depth
         uint8_t& sc_num;         // subcommand number
     };
+    /**
+     * @brief recursive linear array search
+     *
+     * @param s _searchStruct
+     * @return int index of match else -1
+     */
     int _linearSearch(_searchStruct& s); // recursive linear search
+    /**
+     * @brief recursive linear matrix search
+     *
+     * @param s _searchStruct
+     * @param lmsize matrix index
+     * @param lms_values match values
+     * @return int index of match else -1
+     */
     int _linearMatrixSearch(
         _searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive linear "matrix" search
+    /**
+     * @brief sorts a pointer array to print commands by heirarchy
+     *
+     * @param s _searchStruct
+     * @param lmsize recursive sort matrix index
+     * @param lms_values matrix search values
+     * @return true on success
+     * @return false on fail
+     */
     bool _sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive sort
+    /**
+     * @brief prints s.cmd->prm[index]
+     *
+     * @param s _searchStruct
+     * @param index index of the parameter to print
+     */
     void _printCommand(
         _searchStruct& s, uint8_t index); // print a single command at s.cmd->prm[index]
+    #endif
+    /**
+     * @brief lib fatal error
+     *
+     * @param var_id _reserved by default, else prints fatal allocation message for var_id
+     * @return true if _begin_ not set
+     *                 or _halt_ is set
+     *                 or var_id != _reserved
+     * @return false on fallthrough
+     */
+    bool _fatalError(ihconst::VAR_ID var_id = ihconst::VAR_ID::_reserved);
     // end private methods
 };
 ///@}

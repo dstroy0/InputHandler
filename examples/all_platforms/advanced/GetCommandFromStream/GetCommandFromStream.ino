@@ -14,7 +14,7 @@ char output_buffer[650] {}; // output buffer
 /*
   UserInput constructor settings
 */
-const PROGMEM pname prname = "_test_";   ///< default process name
+const PROGMEM pname process_name = "_test_";   ///< default process name
 const PROGMEM eol peol = "\r\n";        ///< default process eol characters
 const PROGMEM input_cc pinputcc = "##"; ///< default input control character sequence
 const PROGMEM wcc pwcc = "*";           ///< default process wildcard character
@@ -32,7 +32,7 @@ const PROGMEM InputProcessStartStopSequences pststpseq = {
 };
 
 const PROGMEM InputProcessParameters input_prm[1] = {
-  &prname,
+  &process_name,
   &peol,
   &pinputcc,
   &pwcc,

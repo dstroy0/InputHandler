@@ -34,9 +34,11 @@
     #define TRM(x) ihconst::terminal_strings[static_cast<int>(ihconst::TRM::x)]    
     #define CMD_ERR_MSG ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::command_string)]
     #define CMD_ERR(x) ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::x)]     
+    #define AE_CMD_ERR(x) ihconst::command_error_strings[static_cast<int>(x)]     
     #define ERR_TYP(x) ihconst::error_type_strings[static_cast<int>(ihconst::ERR_TYP::x)]
     #define ERR_MSG(x) ihconst::error_message_strings[static_cast<int>(ihconst::ERR_MSG::x)]
     #define VAR_ID(x) ihconst::var_id_strings[static_cast<int>(ihconst::VAR_ID::x)]
+    #define FE_VAR_ID(x) ihconst::var_id_strings[static_cast<int>(x)]
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
     #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
@@ -122,85 +124,86 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h" // user config file
-
-    #include "utility/namespace.h" // lib specific namespaces
-
-/** @cond */
-// optional method toggles
-// LIBRARY OUTPUT
-    #if defined(UI_ECHO_ONLY)
-        #define __UI_ECHO_ONLY__
-    // #define UI_VERBOSE
+    #include "config.h"            // user config file    
+    using namespace InputHandler;
+    /** @cond */
+    // optional method toggles
+    // LIBRARY OUTPUT
+    #if UI_ECHO_ONLY
+        #define __UI_ECHO_ONLY__    
     #endif
-    #if defined(UI_VERBOSE)
+    #if UI_VERBOSE
         #define __UI_VERBOSE__
     #endif
-// end LIBRARY OUTPUT
+    // end LIBRARY OUTPUT
 
     // DEBUGGING
-    #if defined(DEBUG_GETCOMMANDFROMSTREAM)
+    #if DEBUG_GETCOMMANDFROMSTREAM
         #define __DEBUG_GETCOMMANDFROMSTREAM__
     #endif
-    #if defined(DEBUG_READCOMMANDFROMBUFFER)
+    #if DEBUG_READCOMMANDFROMBUFFER
         #define __DEBUG_READCOMMANDFROMBUFFER__
     #endif
-    #if defined(DEBUG_GET_TOKEN)
+    #if DEBUG_GET_TOKEN
         #define __DEBUG_GET_TOKEN__
     #endif
-    #if defined(DEBUG_SUBCOMMAND_SEARCH)
+    #if DEBUG_SUBCOMMAND_SEARCH
         #define __DEBUG_SUBCOMMAND_SEARCH__
     #endif
-    #if defined(DEBUG_ADDCOMMAND)
+    #if DEBUG_ADDCOMMAND
         #define __DEBUG_ADDCOMMAND__
     #endif
-    #if defined(DEBUG_LAUNCH_LOGIC)
+    #if DEBUG_LAUNCH_LOGIC
         #define __DEBUG_LAUNCH_LOGIC__
     #endif
-    #if defined(DEBUG_LAUNCH_FUNCTION)
+    #if DEBUG_LAUNCH_FUNCTION
         #define __DEBUG_LAUNCH_FUNCTION__
     #endif
-    #if defined(DEBUG_INCLUDE_FREERAM)
+    #if DEBUG_INCLUDE_FREERAM
         #include "utility/freeRam.h"
     #endif
-// end DEBUGGING
+    // end DEBUGGING
 
     // OPTIONAL METHODS
-    #if !defined(DISABLE_listSettings) // public methods
+    // public methods
+    #if !DISABLE_listSettings
         #define ENABLE_listSettings
     #endif
-    #if !defined(DISABLE_listCommands)
+    #if !DISABLE_listCommands
         #define ENABLE_listCommands
     #endif
-    #if !defined(DISABLE_getCommandFromStream)
+    #if !DISABLE_getCommandFromStream
         #define ENABLE_getCommandFromStream
     #endif
-    #if !defined(DISABLE_nextArgument)
+    #if !DISABLE_nextArgument
         #define ENABLE_nextArgument
     #endif
-    #if !defined(DISABLE_getArgument)
+    #if !DISABLE_getArgument
         #define ENABLE_getArgument
     #endif
-    #if !defined(DISABLE_outputIsAvailable)
+    #if !DISABLE_outputIsAvailable
         #define ENABLE_outputIsAvailable
     #endif
-    #if !defined(DISABLE_outputIsEnabled)
+    #if !DISABLE_outputIsEnabled
         #define ENABLE_outputIsEnabled
     #endif
-    #if !defined(DISABLE_outputToStream)
+    #if !DISABLE_outputToStream
         #define ENABLE_outputToStream
     #endif
-    #if !defined(DISABLE_clearOutputBuffer)
+    #if !DISABLE_clearOutputBuffer
         #define ENABLE_clearOutputBuffer
-    #endif                                                 // end public methods
-    #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
+    #endif
+    // end public methods
+    // private methods
+    #if !DISABLE_readCommandFromBufferErrorOutput
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-    #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
+    #if !DISABLE_ui_out // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
-    #endif // end private methods
-           // end OPTIONAL METHODS
-// end optional method toggles
+    #endif
+// end private methods
+// end OPTIONAL METHODS
 /** @endcond */
+    #include "utility/namespace.h" // lib specific namespaces
 #endif // end include guard
 // end of file
