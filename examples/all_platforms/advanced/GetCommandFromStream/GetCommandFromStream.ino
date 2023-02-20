@@ -9,29 +9,29 @@
 */
 
 #include <InputHandler.h>
-
+using namespace InputHandler;
 char output_buffer[650] {}; // output buffer
 /*
   UserInput constructor settings
 */
-const PROGMEM pname process_name = "_test_";   ///< default process name
-const PROGMEM eol peol = "\r\n";        ///< default process eol characters
-const PROGMEM input_cc pinputcc = "##"; ///< default input control character sequence
-const PROGMEM wcc pwcc = "*";           ///< default process wildcard character
+const PROGMEM ProcessName process_name = "_test_";   ///< default process name
+const PROGMEM EndOfLineChar peol = "\r\n";        ///< default process eol characters
+const PROGMEM ControlCharSeq pinputcc = "##"; ///< default input control character sequence
+const PROGMEM WildcardChar pwcc = "*";           ///< default process wildcard character
 
-const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
+const PROGMEM DelimiterSequences pipdelimseq = {
   2,    ///< number of delimiter sequences
   {1,1},  ///< delimiter sequence lens
   {" ",","} ///< delimiter sequences
 };
 
-const PROGMEM InputProcessStartStopSequences pststpseq = {
+const PROGMEM StartStopSequences pststpseq = {
   1,           ///< num start stop sequence pairs
   {1, 1},      ///< start stop sequence lens
   {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM InputProcessParameters input_prm[1] = {
+const PROGMEM InputParameters input_prm[1] = {
   &process_name,
   &peol,
   &pinputcc,
@@ -113,7 +113,7 @@ void test_input_types(UserInput* inputProcess)
 /**
    test enforces type-valid input
 */
-const PROGMEM CommandParameters type_test_param[1] = {
+const PROGMEM Parameters type_test_param[1] = {
   test_input_types,       // function ptr
   no_wildcards,              // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
   "test",                    // command string
@@ -139,7 +139,7 @@ const PROGMEM CommandParameters type_test_param[1] = {
     UITYPE::NOTYPE      // special type, no type validation performed
   }
 };
-CommandConstructor test_(type_test_param);
+Command test_(type_test_param);
 
 void setup()
 {

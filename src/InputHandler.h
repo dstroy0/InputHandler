@@ -21,19 +21,19 @@
     // user configurable items located in src/config/config.h and src/config/advanced_config.h
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
+namespace InputHandler
+{
 // lib specific namespaces
-using namespace InputHandler;
 using namespace ih_t;
 using namespace ih_auto_t;
-
+class UserInput;
 /**
- * @brief Command setup
+ * @brief Command parameters setup
  *
- * Every command and subcommand has an associated CommandParameters object, this is the information
+ * Every command and subcommand has an associated Parameters object, this is the information
  * that the input process needs to know about your command.
  */
-class UserInput;
-struct CommandParameters
+struct Parameters
 {
     void (*function)(
         UserInput*);    ///< void function pointer, void your_function(UserInput *inputProcess)
@@ -56,20 +56,20 @@ struct CommandParameters
  */
 ///@{
 /**
- * @class CommandConstructor
+ * @class Command
  *
  * @brief Pointers to information about the command and the linked-list.
  *
  * The purpose of this class is to set up the command for use with
  * UserInput::addCommand().  It contains a pointer to the next command
  * in the singly-linked-list which is NULL before the command is accepted
- * into the process, a pointer to CommandParameters in PROGMEM,
+ * into the process, a pointer to Parameters in PROGMEM,
  * the length of the parameters array, the depth of the command tree
  * you desire to add to the list, and a pointer to CommandRunTimeCalc
  * if this command contains wildcard commands.
  *
  */
-class CommandConstructor
+class Command
 {
 public:
     /**
@@ -82,12 +82,12 @@ public:
      * in the linked-list.  The list is linked together each call to
      * UserInput::addCommand().
      *
-     * Before using, construct a UserInput object and a CommandParameters object.
+     * Before using, construct a UserInput object and a Parameters object.
      * @param parameters pointer to parameters struct or array of parameters structs
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    CommandConstructor(const CommandParameters* parameters,
+    Command(const Parameters* parameters,
         const ui_max_commands_in_tree_t parameter_array_elements = 1,
         const ui_max_tree_depth_per_command_t tree_depth = 0)
         : prm(parameters),
@@ -97,12 +97,12 @@ public:
           next_command(NULL)
     {
     }
-    const CommandParameters* prm; ///< pointer to PROGMEM CommandParameters array
+    const Parameters* prm; ///< pointer to PROGMEM Parameters array
     const ui_max_commands_in_tree_t
         param_array_len; ///< user input param array len, either as digits or through nprms
     const ui_max_commands_in_tree_t tree_depth; ///< user input depth + 1
     CommandRuntimeCalc* calc;                   ///< pointer to CommandRuntimeCalc struct
-    CommandConstructor* next_command;           ///< CommandConstructor iterator/pointer
+    Command* next_command;           ///< Command iterator/pointer
 };
 
 /**
@@ -127,13 +127,13 @@ public:
      * The constructor disables output by setting UserInput::\_output_enabled_ to false if
      * `output_buffer` is NULL.
      *
-     * @param input_prm InputProcessParameters PROGMEM pointer. NULL by default, which makess the
+     * @param input_prm InputParameters PROGMEM pointer. NULL by default, which makess the
      * ctor use ihconst::default_parameters.
      * @param output_buffer class output char buffer, implementation specific.  NULL by default.
      * @param output_buffer_len size of output_buffer, use @link buffsz() @endlink to prevent
      * accidental buffer sizing errors.
      */
-    UserInput(const InputProcessParameters* input_prm = NULL, char* output_buffer = NULL,
+    UserInput(const InputParameters* input_prm = NULL, char* output_buffer = NULL,
         size_t output_buffer_len = 0)
         : _input_prm_ptr_((input_prm == NULL) ? &ihconst::default_parameters : input_prm),
           _output_buffer_(output_buffer),
@@ -198,12 +198,12 @@ public:
      * No further action is taken.
      *
      * [UserInput::addCommand
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=addCommand(CommandConstructor&
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=addCommand(Command&
      * command))
      *
-     * @param command reference to CommandConstructor object
+     * @param command reference to Command object
      */
-    void addCommand(CommandConstructor& command);
+    void addCommand(Command& command);
 
     /**
      * @brief Allocates memory to run the input process.
@@ -254,48 +254,22 @@ public:
     void listCommands();
 
     /**
-     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference.
-     *
-     * Instantiated in UserInput::readCommandFromBuffer() and passed by reference to subfunctions.
-     *
-     */
-    struct _rcfbprm
-    {
-        bool launch_attempted;           ///< function launch attempted if true
-        bool command_matched;            ///< matched root command if true
-        bool all_arguments_valid;        ///< argument error sentinel
-        bool subcommand_matched;         ///< matched a subcommand
-        CommandConstructor* cmd;         ///< pointer to CommandConstructor
-        CommandConstructor* all_wcc_cmd; ///< pointer to CommandConstructor
-        UI_COMPARE result;               ///< result of UserInput::\_compareCommandToString()
-        cmd_id_grp_t command_id;         ///< type set by macro
-        size_t idx;                      ///< CommandParameters index
-        size_t all_wcc_idx;              ///< index of CommandParameters that has an all wcc command
-        size_t input_len;                ///< length of input data
-        size_t token_buffer_len;         ///< length of token buffer
-        size_t tokens_received;          ///< how many tokens we received
-        CommandParameters prm;           ///< CommandParameters struct
-        uint8_t* input_data;             ///< pointer to input_data
-        uint8_t* split_input;            ///< pointer to UserInput::\_splitZDC() modified data
-    };
-
-    /**
      * @brief Reads predefined command(s) from a buffer.
      *
      * @warning This function will silent return if UserInput::\_begin_ is false!
      *
      * [UserInput::readCommandFromBuffer()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=readCommandFromBuffer(
-     *  uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL))
+     *  uint8_t* data, size_t len, const size_t num_zdc = 0, const Parameters** zdc = NULL))
      *
      * @param data a buffer with characters
      * @param len the size of the buffer
-     * @param num_zdc size of CommandParameters zero delimiter command pointers array
-     * @param zdc array of CommandParameters zero delimiter command pointers
+     * @param num_zdc size of Parameters zero delimiter command pointers array
+     * @param zdc array of Parameters zero delimiter command pointers
      */
     void readCommandFromBuffer(
-        uint8_t* data, size_t len, const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
-    
+        uint8_t* data, size_t len, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer.
      *
@@ -306,16 +280,16 @@ public:
      *
      * [UserInput::getCommandFromStream()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getCommandFromStream(Stream%24
-     * stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc))
+     * stream, size_t rx_buffer_size, const size_t num_zdc, const Parameters** zdc))
      *
      * @param stream the stream to reference
      * @param rx_buffer_size the size of our receive buffer
-     * @param num_zdc size of CommandParameters zero delimiter command pointers array
-     * @param zdc array of CommandParameters zero delimiter command pointers
+     * @param num_zdc size of Parameters zero delimiter command pointers array
+     * @param zdc array of Parameters zero delimiter command pointers
      */
     void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
-        const size_t num_zdc = 0, const CommandParameters** zdc = NULL);
-    
+        const size_t num_zdc = 0, const Parameters** zdc = NULL);
+
     /**
      * @brief Returns a pointer to the next token in UserInput::\_token_buffer_.
      *
@@ -326,8 +300,8 @@ public:
      *
      * @return valid pointer if there is another token else NULL.
      */
-    char* nextArgument();    
-    
+    char* nextArgument();
+
     /**
      * @brief Returns a pointer to argument_number token in UserInput::\_token_buffer_
      *
@@ -341,7 +315,7 @@ public:
      * @return valid pointer if argument_number exists else NULL.
      */
     char* getArgument(size_t argument_number);
-    
+
     /**
      * @brief Output is available from UserInput if True.
      *
@@ -353,8 +327,8 @@ public:
      *
      * @return The number of bytes available for output, or zero if there is no output available.
      */
-    size_t outputIsAvailable();    
-    
+    size_t outputIsAvailable();
+
     /**
      * @brief UserInput output flag.
      *
@@ -378,7 +352,7 @@ public:
      *
      * @param stream The Stream to write to.
      */
-    void outputToStream(Stream& stream);    
+    void outputToStream(Stream& stream);
 
     /**
      * @brief Clears the output buffer if defined.
@@ -418,19 +392,19 @@ public:
      *
      * To use this function outside of UserInput you must declare a UserInput::getTokensParam.
      *
-     * This can be used with different InputProcessParameters than the ones provided to the
+     * This can be used with different InputParameters than the ones provided to the
      * UserInput Constructor method.
      *
      * [UserInput::getTokens()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=getTokens(getTokensParam%24
-     * gtprm, const InputProcessParameters%24 input_prm))
+     * gtprm, const InputParameters%24 input_prm))
      *
      * @param gtprm UserInput::getTokensParam struct reference
-     * @param input_prm reference to InputProcessParameters struct
+     * @param input_prm reference to InputParameters struct
      *
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm);
+    size_t getTokens(getTokensParam& gtprm, const InputParameters& input_prm);
 
     /**
      * @brief null separated input
@@ -490,9 +464,9 @@ private:
     */
 
     // (potentially) user entered constructor variables
-    const InputProcessParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
+    const InputParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
     char* _output_buffer_;                         ///< pointer to the output char buffer
-    size_t _output_buffer_len_;                    ///< UserInput::\_output_buffer_ size in bytes
+    const size_t _output_buffer_len_;              ///< UserInput::\_output_buffer_ size in bytes
     // end user entered constructor variables
 
     bool _output_enabled_; ///< true if UserInput::\_output_buffer_ is not NULL (the user has
@@ -507,16 +481,16 @@ private:
     void (*_default_function_)(UserInput*); ///< pointer to the default function.
 
     // linked-list
-    CommandConstructor* _commands_head_; ///< pointer to CommandConstructor singly-linked-list head.
-    CommandConstructor* _commands_tail_; ///< pointer to CommandConstructor singly-linked-list tail.
+    Command* _commands_head_; ///< pointer to Command singly-linked-list head.
+    Command* _commands_tail_; ///< pointer to Command singly-linked-list tail.
     // end linked-list
 
     ui_max_commands_in_tree_t
-        _commands_count_; ///< How many commands were accepted from input CommandParameters.
+        _commands_count_; ///< How many commands were accepted from input Parameters.
     ui_max_tree_depth_per_command_t
-        _max_depth_;          ///< Max command depth found in the accepted input CommandParameters.
+        _max_depth_;          ///< Max command depth found in the accepted input Parameters.
     ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
-                              ///< input CommandParameters.
+                              ///< input Parameters.
     input_type_match_flags_type*
         _input_type_match_flags_; ///< Bool array the size of UserInput::\_max_args_.
 
@@ -546,9 +520,34 @@ private:
     bool _begin_; ///< begin() error flag
     bool _halt_;  ///< fatal error flag
 
-    InputProcessParameters _input_prm_; ///< user input process parameters pointer struct
-
+    InputParameters _input_prm_; ///< user input process parameters pointer struct
     //  end constructor initialized variables
+
+    /**
+     * @brief Used internally by UserInput::readCommandFromBuffer() and passed by reference.
+     *
+     * Instantiated in UserInput::readCommandFromBuffer() and passed by reference to subfunctions.
+     *
+     */
+    struct _rcfbprm
+    {
+        bool launch_attempted;           ///< function launch attempted if true
+        bool command_matched;            ///< matched root command if true
+        bool all_arguments_valid;        ///< argument error sentinel
+        bool subcommand_matched;         ///< matched a subcommand
+        Command* cmd;         ///< pointer to Command
+        Command* all_wcc_cmd; ///< pointer to Command
+        UI_COMPARE result;               ///< result of UserInput::\_compareCommandToString()
+        cmd_id_grp_t command_id;         ///< type set by macro
+        size_t idx;                      ///< Parameters index
+        size_t all_wcc_idx;              ///< index of Parameters that has an all wcc command
+        size_t input_len;                ///< length of input data
+        size_t token_buffer_len;         ///< length of token buffer
+        size_t tokens_received;          ///< how many tokens we received
+        Parameters prm;           ///< Parameters struct
+        uint8_t* input_data;             ///< pointer to input_data
+        uint8_t* split_input;            ///< pointer to UserInput::\_splitZDC() modified data
+    };
 
     // private methods
     /**
@@ -582,12 +581,12 @@ private:
      *
      * [UserInput::_launchFunction()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_launchFunction(_rcfbprm%24
-     * rprm, const IH_pname%24 pname))
+     * rprm, const ProcessName%24 pname))
      *
      * @param rprm reference to UserInput::\_rcfbprm
-     * @param pname IH_pname char array
+     * @param pname ProcessName char array
      */
-    void _launchFunction(_rcfbprm& rprm, const pname& pname);
+    void _launchFunction(_rcfbprm& rprm, const ProcessName& pname);
 
     /**
      * @brief function launch logic, recursive on subcommand match
@@ -631,7 +630,7 @@ private:
     char _combineControlCharacters(char input);
 
     /**
-     * @brief prints detected CommandParameters errors
+     * @brief prints detected Parameters errors
      *
      * @param error ihconst::CMD_ERR_IDX member
      * @param cmd null term char array
@@ -640,34 +639,34 @@ private:
      */
     bool _addCommandErrorMessage(ihconst::CMD_ERR_IDX error, char* cmd);
     /**
-     * @brief determines if input CommandParameters struct is valid before adding to linked-list
+     * @brief determines if input Parameters struct is valid before adding to linked-list
      *
      * [UserInput::_addCommandAbort()
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_addCommandAbort(CommandConstructor%24
-     * cmd, CommandParameters%24 prm))
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_addCommandAbort(Command%24
+     * cmd, Parameters%24 prm))
      *
-     * @param cmd CommandConstructor reference
-     * @param prm reference to CommandParameters struct in addCommand
+     * @param cmd Command reference
+     * @param prm reference to Parameters struct in addCommand
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
-    bool _addCommandAbort(CommandConstructor& cmd, CommandParameters& prm);
+    bool _addCommandAbort(Command& cmd, Parameters& prm);
 
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
      *
      * [UserInput::_getArgType()
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getArgType(CommandParameters%24
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getArgType(Parameters%24
      * prm, size_t index))
      *
      * @param prm command options structure reference
      * @param index argument number
      * @return UITYPE argument type
      */
-    UITYPE _getArgType(CommandParameters& prm, size_t index = 0);
+    UITYPE _getArgType(Parameters& prm, size_t index = 0);
 
     /**
-     * @brief validate the arguments as specified in the user defined CommandParameters struct
+     * @brief validate the arguments as specified in the user defined Parameters struct
      *
      * [UserInput::_getArgs()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getArgs(_rcfbprm%24
@@ -698,36 +697,36 @@ private:
      *
      * [UserInput::_getTokensDelimiters()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensDelimiters(getTokensParam%24
-     * gtprm, const InputProcessParameters%24 input_prm))
+     * gtprm, const InputParameters%24 input_prm))
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to InputProcessParameters struct
+     * @param input_prm reference to InputParameters struct
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, const InputProcessParameters& input_prm);
+    void _getTokensDelimiters(getTokensParam& gtprm, const InputParameters& input_prm);
 
     /**
      * @brief get delimited c-strings from input data
      *
      * [UserInput::_getTokensStartStop()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensStartStop(getTokensParam%24
-     * gtprm, const InputProcessParameters%24 input_prm))
+     * gtprm, const InputParameters%24 input_prm))
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to InputProcessParameters struct
+     * @param input_prm reference to InputParameters struct
      */
-    void _getTokensStartStop(getTokensParam& gtprm, const InputProcessParameters& input_prm);
+    void _getTokensStartStop(getTokensParam& gtprm, const InputParameters& input_prm);
 
     /**
      * @brief add uchar to token_buffer
      *
      * [UserInput::_getTokensChar()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_getTokensChar(getTokensParam%24
-     * gtprm, const InputProcessParameters%24 input_prm))
+     * gtprm, const InputParameters%24 input_prm))
      *
      * @param gtprm reference to getTokensParam struct in getTokens
-     * @param input_prm reference to InputProcessParameters struct
+     * @param input_prm reference to InputParameters struct
      */
-    void _getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm);
+    void _getTokensChar(getTokensParam& gtprm, const InputParameters& input_prm);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for
@@ -735,7 +734,7 @@ private:
      *
      * [UserInput::_splitZDC()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_splitZDC(_rcfbprm%24
-     * rprm, const size_t num_zdc, const CommandParameters** zdc))
+     * rprm, const size_t num_zdc, const Parameters** zdc))
      *
      * @param rprm reference to UserInput::\_rcfbprm
      * @param num_zdc zero delim commands
@@ -743,7 +742,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(_rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc);
+    bool _splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Parameters** zdc);
 
     /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
@@ -751,28 +750,28 @@ private:
      * [UserInput::_calcCmdMemcmpRanges
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=void%20UserInput::_calcCmdMemcmpRanges)
      *
-     * @param command reference to a CommandConstructor class
-     * @param prm reference to a CommandParameters struct
+     * @param command reference to a Command class
+     * @param prm reference to a Parameters struct
      * @param prm_idx prm index
      * @param memcmp_ranges_idx index of memcmp_ranges
      * @param memcmp_ranges memcmp ranges array
      */
-    void _calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm, size_t prm_idx,
+    void _calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_idx,
         memcmp_idx_t& memcmp_ranges_idx, ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
      *
      * [UserInput::_compareCommandToString
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_compareCommandToString(CommandConstructor*
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_compareCommandToString(Command*
      * cmd, size_t prm_idx, char* str))
      *
-     * @param cmd pointer to CommandConstructor
-     * @param prm_idx index of CommandParameters to compare
+     * @param cmd pointer to Command
+     * @param prm_idx index of Parameters to compare
      * @param str c-string
      * @return UI_COMPARE match type
      */
-    UI_COMPARE _compareCommandToString(CommandConstructor* cmd, size_t prm_idx, char* str);
+    UI_COMPARE _compareCommandToString(Command* cmd, size_t prm_idx, char* str);
 
     #if defined(__UI_VERBOSE__) && defined(ENABLE_listCommands)
     /**
@@ -781,8 +780,8 @@ private:
      */
     struct _searchStruct
     {
-        CommandConstructor* cmd; // pointer to a CommandConstructor
-        CommandParameters& prm;  // pointer to a CommandParameters
+        Command* cmd; // pointer to a Command
+        Parameters& prm;  // pointer to a Parameters
         uint8_t* sort_array;     // partial command array
         uint8_t** sorted_ptr;    // pointer array
         uint8_t& sorted_idx;     // index of pointer array
@@ -840,7 +839,7 @@ private:
     // end private methods
 };
 ///@}
-
+};
 #endif // header guard include
 
 // end of file

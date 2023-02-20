@@ -19,49 +19,47 @@
 #if !defined(__INPUTHANDLER_CONFIG_H__)
     #define __INPUTHANDLER_CONFIG_H__
 
-namespace InputHandler
-{
-/*
-    User Configurable items
-*/
-const size_t UI_MAX_COMMANDS_IN_TREE = 32;
+    /*
+        User Configurable items
+    */
+    #define UI_MAX_COMMANDS_IN_TREE 32
 
-const size_t UI_MAX_ARGS_PER_COMMAND = 32;
+    #define UI_MAX_ARGS_PER_COMMAND 32
 
-const size_t UI_MAX_TREE_DEPTH_PER_COMMAND = 32;
+    #define UI_MAX_TREE_DEPTH_PER_COMMAND 32
 
-const size_t UI_MAX_NUM_CHILD_COMMANDS = 32;
+    #define UI_MAX_NUM_CHILD_COMMANDS 32
 
-const size_t UI_MAX_CMD_LEN = 32;
+    #define UI_MAX_CMD_LEN 32
 
-const size_t UI_MAX_NUM_DELIM_SEQ = 5;
+    #define UI_MAX_NUM_DELIM_SEQ 5
 
-const size_t UI_MAX_NUM_START_STOP_SEQ = 5;
+    #define UI_MAX_NUM_START_STOP_SEQ 5
 
-const size_t UI_MAX_INPUT_LEN = 128;
+    #define UI_MAX_INPUT_LEN 128
 
-// maximum number of memcmp ranges per command
-const size_t UI_MAX_PER_CMD_MEMCMP_RANGES = 5;
+    // maximum number of memcmp ranges per command
+    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5
 
-/*
-    fine-tune the program space needed for your implementation
-*/
-// PROGMEM len constants
-const size_t UI_INPUT_TYPE_STRINGS_PGM_LEN = 10;
+    /*
+        fine-tune the program space needed for your implementation
+    */
+    // PROGMEM len constants
+    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
 
-// if you edit these, some examples might break and your compiler might yell at you about some
-// variables in the UserInput constants section of InputHandler.h
-const size_t UI_EOL_SEQ_PGM_LEN = 5;
+    // if you edit these, some examples might break and your compiler might yell at you about some
+    // variables in the UserInput constants section of InputHandler.h
+    #define UI_EOL_SEQ_PGM_LEN 5
 
-const size_t UI_DELIM_SEQ_PGM_LEN = 5;
+    #define UI_DELIM_SEQ_PGM_LEN 5
 
-const size_t UI_START_STOP_SEQ_PGM_LEN = 5;
+    #define UI_START_STOP_SEQ_PGM_LEN 5
 
-const size_t UI_PROCESS_NAME_PGM_LEN = 12;
+    #define UI_PROCESS_NAME_PGM_LEN 12
 
-const size_t UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN = 3;
+    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
 
-const size_t UI_WCC_SEQ_PGM_LEN = 2;
+    #define UI_WCC_SEQ_PGM_LEN 2
 
     /*
         library output
@@ -155,14 +153,14 @@ const size_t UI_WCC_SEQ_PGM_LEN = 2;
      *
      * Enable this option to disable UserInput::listSettings()
      */
-    #define DISABLE_listSettings false
+    #define DISABLE_listSettings true
 
     /**
      * @var DISABLE_listCommands
      *
      * Enable this option to disable UserInput::listCommands
      */
-    #define DISABLE_listCommands false
+    #define DISABLE_listCommands true
 
     /**
      * @var DISABLE_getCommandFromStream
@@ -234,6 +232,6 @@ const size_t UI_WCC_SEQ_PGM_LEN = 2;
      * Default is false.
      */
     #define DISABLE_ui_out false
-};
+
 #endif // end include guard
 // end of file

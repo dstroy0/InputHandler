@@ -124,8 +124,7 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h"            // user config file    
-    using namespace InputHandler;
+    #include "config.h"            // user config file        
     /** @cond */
     // optional method toggles
     // LIBRARY OUTPUT

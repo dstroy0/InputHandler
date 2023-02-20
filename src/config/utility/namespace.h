@@ -42,8 +42,7 @@
  *
  */
 namespace ih_auto_t
-{
-    using namespace InputHandler;
+{    
 // UserInput private member type (future bit array)
 typedef bool input_type_match_flags_type; ///< UserInput private member type (future bit array)
 
@@ -385,7 +384,7 @@ typedef uint32_t memcmp_idx_t;
 
 namespace ih_t
 {
-using namespace InputHandler;
+
 /**
  * @defgroup typedefs typedefs
  */
@@ -398,37 +397,37 @@ using namespace InputHandler;
  * To increase or decrease the pgm len of this array edit
  * @link UI_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char pname[UI_PROCESS_NAME_PGM_LEN];
+typedef char ProcessName[UI_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * eol[@link UI_EOL_SEQ_PGM_LEN @endlink]
+ * InputProcessEndOfLineChar[@link UI_EOL_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
  * @link UI_EOL_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char eol[UI_EOL_SEQ_PGM_LEN];
+typedef char EndOfLineChar[UI_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * input_cc[@link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
+ * InputControlChar[@link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
  * @link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
+typedef char ControlCharSeq[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * wcc[@link UI_WCC_SEQ_PGM_LEN @endlink]
+ * InputWildcardChar[@link UI_WCC_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
  * @link UI_WCC_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char wcc[UI_WCC_SEQ_PGM_LEN];
+typedef char WildcardChar[UI_WCC_SEQ_PGM_LEN];
 ///@}
 
 /**
@@ -528,7 +527,7 @@ enum class UITYPE
  * sequence, and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN
  * @endlink in length.
  */
-struct InputProcessDelimiterSequences
+struct DelimiterSequences
 {
     size_t num_seq; ///< the number of token delimiters in delimiter_sequences
     ih_auto_t::ui_max_num_delim_seq_t
@@ -552,7 +551,7 @@ struct InputProcessDelimiterSequences
  * length of each start-stop sequence, and finally each start-stop sequence which can be up to
  * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
  */
-struct InputProcessStartStopSequences
+struct StartStopSequences
 {
     size_t num_seq; ///< num start/stop sequences
     ih_auto_t::ui_max_num_start_stop_seq_t start_stop_sequence_lens
@@ -574,16 +573,16 @@ struct InputProcessStartStopSequences
  * It's required by the input process constructor, all together they define the
  * input process behavior.
  */
-struct InputProcessParameters
+struct InputParameters
 {
-    const pname* process_name; ///< this process' name, can be NULL; MAX len ==
+    const ProcessName* process_name; ///< this process' name, can be NULL; MAX len ==
                                ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
-    const eol* eol_char;       ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
-    const input_cc* input_control_char_sequence; ///< two char len sequence to input a control char
-    const wcc* wildcard_char;                    ///< single char wildcard char
-    const InputProcessDelimiterSequences*
+    const EndOfLineChar* eol_char;       ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
+    const ControlCharSeq* input_control_char_sequence; ///< two char len sequence to input a control char
+    const WildcardChar* wildcard_char;                    ///< single char wildcard char
+    const DelimiterSequences*
         delimiter_sequences; ///< reference to InputProcessDelimiterSequences struct
-    const InputProcessStartStopSequences*
+    const StartStopSequences*
         start_stop_sequences; ///< reference to InputProcessStartStopSequences struct
 };
 
@@ -620,7 +619,7 @@ struct CommandRuntimeCalc
  */
 namespace ihconst
 {
-using namespace InputHandler;
+
 /**
  * @brief Type string literals.
  *
@@ -642,17 +641,17 @@ const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
 };
 
 // default constructor paramters
-const ih_t::pname PROGMEM _process_name = ""; ///< default process name is an empty string
-const ih_t::eol PROGMEM _eol_char = "\r\n";   ///< default process eol characters CRLF
-const ih_t::input_cc PROGMEM _input_control_char_sequence =
+const ih_t::ProcessName PROGMEM _process_name = ""; ///< default process name is an empty string
+const ih_t::EndOfLineChar PROGMEM _eol_char = "\r\n";   ///< default process eol characters CRLF
+const ih_t::ControlCharSeq PROGMEM _input_control_char_sequence =
     "##"; ///< default process input control character sequence "##"
-const ih_t::wcc PROGMEM _wildcard_char = "*"; ///< default process wildcard char '*'
+const ih_t::WildcardChar PROGMEM _wildcard_char = "*"; ///< default process wildcard char '*'
 
 /**
  * @brief Default delimiter sequences.
  *
  */
-const ih_t::InputProcessDelimiterSequences PROGMEM _delimiter_sequences = {
+const ih_t::DelimiterSequences PROGMEM _delimiter_sequences = {
     2,         ///< number of delimiter sequences
     {1, 1},    ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
@@ -662,7 +661,7 @@ const ih_t::InputProcessDelimiterSequences PROGMEM _delimiter_sequences = {
  * @brief Default start stop sequences.
  *
  */
-const ih_t::InputProcessStartStopSequences PROGMEM _start_stop_sequences = {
+const ih_t::StartStopSequences PROGMEM _start_stop_sequences = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pair sequences
@@ -672,7 +671,7 @@ const ih_t::InputProcessStartStopSequences PROGMEM _start_stop_sequences = {
  * @brief UserInput default InputProcessParameters.
  *
  */
-const ih_t::InputProcessParameters PROGMEM default_parameters = {
+const ih_t::InputParameters PROGMEM default_parameters = {
     &ihconst::_process_name,                ///< process name
     &ihconst::_eol_char,                    ///< process eol term
     &ihconst::_input_control_char_sequence, ///< process input control char sequence
