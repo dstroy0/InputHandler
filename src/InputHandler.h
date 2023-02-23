@@ -235,10 +235,9 @@ public:
      * [UserInput::listSettings
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listSettings(UserInput*
      * inputProcess))
-     *
-     * @param inputProcess pointer to the class instance
+     *     
      */
-    void listSettings(UserInput* inputProcess);
+    void listSettings();
 
     /**
      * @brief Lists commands available to the user.

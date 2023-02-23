@@ -10,7 +10,7 @@
 
 #include <InputHandler.h>
 using namespace InputHandler;
-char output_buffer[650] {}; // output buffer
+char output_buffer[600] {}; // output buffer
 /*
   UserInput constructor settings
 */
@@ -82,9 +82,12 @@ void test_input_types(UserInput* inputProcess)
     char unknown_string[64] = {'\0'};
     snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
 
-    char float_buffer[32] = {'\0'}; //  dtostrf buffer
-
-    // format out[] with all of the arguments received
+    uint8_t whole_digits = 2;
+    uint8_t decimal_digits = 3;
+    // this adds char space for the sign, decimal '.' or ',', and the null terminator
+    uint8_t pad = 3;
+    char float_buffer[whole_digits + decimal_digits + pad] = {'\0'}; //  dtostrf buffer
+    // format output_buffer[] with all of the arguments received
     inputProcess->ihout(PSTR("Test user input types:\n"
                              " uint8_t %u\n"
                              " uint16_t %u\n"
@@ -95,7 +98,8 @@ void test_input_types(UserInput* inputProcess)
                              " c-string %s\n"
                              " unknown-type %s\n"),
         eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
-        dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
+        dtostrf(thirtytwo_bit_float, whole_digits, decimal_digits, float_buffer), _char, c_string,
+        unknown_string);
 
     inputProcess->outputToStream(Serial);
 }
@@ -140,25 +144,32 @@ void setup()
     while (!Serial)
         ; //  wait for user
 
-    Serial.println(F("Set up InputHandler..."));
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    Serial.println(F("Setting up InputHandler..."));
+    // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized);
+    // add commands
     inputHandler.addCommand(test_); // input type test
-    inputHandler.begin();           // required.  returns true on success.
-
-    // comment this out if you're testing DISABLE_listSettings
-    inputHandler.listSettings(&inputHandler);
-    inputHandler.outputToStream(Serial); // class output
-
-    inputHandler.listCommands();         // formats output_buffer with the command list
-    inputHandler.outputToStream(Serial); // class output
+    // try to start the input process
+    if (inputHandler.begin())
+    {
+        // end of setup
+        Serial.println(F("InputHandler setup complete."));
+        inputHandler.listSettings();
+        inputHandler.listCommands();
+        inputHandler.outputToStream(Serial); // class output
+    }
+    else
+    {
+        Serial.println(F("InputHandler setup failed"));
+    }
 }
 
 void loop()
 {
+    // read commands from a stream, hardware or software
+    inputHandler.getCommandFromStream(Serial);
+
     // uncomment as needed
-    inputHandler.getCommandFromStream(
-        Serial); //  read commands from a stream, hardware or software should work
     // inputHandler.getCommandFromStream(Serial2);  // Serial2
     // inputHandler.getCommandFromStream(Serial3);  // Serial3
     // inputHandler.getCommandFromStream(Serial4);  // Serial4
@@ -170,13 +181,13 @@ void loop()
     /*
       if(inputHandler.outputIsAvailable())
       {
-      Serial.println(output_buffer);
-      Serial2.println(output_buffer);
-      Serial3.println(output_buffer);
-      Serial4.println(output_buffer);
+        Serial.println(output_buffer);
+        Serial2.println(output_buffer);
+        Serial3.println(output_buffer);
+        Serial4.println(output_buffer);
 
-      // and clear the output buffer when you are finished
-      inputHandler.clearOutputBuffer();
+        // and clear the output buffer when you are finished
+        inputHandler.clearOutputBuffer();
       }
     */
 }

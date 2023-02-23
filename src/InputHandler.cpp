@@ -214,7 +214,7 @@ bool UserInput::begin()
 } // end begin
 
 #if defined(ENABLE_listSettings) && defined(ENABLE_ui_out)
-void UserInput::listSettings(UserInput* inputProcess)
+void UserInput::listSettings()
 {
     if (_fatalError())
     {
@@ -308,7 +308,7 @@ void UserInput::listSettings(UserInput* inputProcess)
     #endif
 } // end listSettings
 #else
-void UserInput::listSettings(UserInput* inputProcess)
+void UserInput::listSettings()
 {
     // disabled
 }
