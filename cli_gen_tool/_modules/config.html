@@ -256,8 +256,6 @@
 <span class="sd">            item_string (str): code to highlight</span>
 <span class="sd">            place_cursor (bool, optional): Place cursor on highlighted code if true. Defaults to False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">disable_define</span> <span class="o">=</span> <span class="s2">&quot;    // &quot;</span>
-        <span class="n">enable_define</span> <span class="o">=</span> <span class="s2">&quot;       &quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span>
         <span class="p">)</span>
@@ -266,21 +264,13 @@
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cfg_dict</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cfg_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
                 <span class="n">sub_dict</span> <span class="o">=</span> <span class="n">cfg_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">item</span><span class="p">]</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="nb">int</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;lineno&quot;</span><span class="p">])</span>
-                    <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_file_boolean_define_fields_line_start</span>
-                <span class="p">):</span>
-                    <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-                        <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                        <span class="n">_enable</span> <span class="o">=</span> <span class="n">enable_define</span>
-                    <span class="k">elif</span> <span class="nb">bool</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-                        <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                        <span class="n">_enable</span> <span class="o">=</span> <span class="n">disable_define</span>
+                <span class="k">if</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
+                <span class="k">elif</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;false&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">_enable</span> <span class="o">=</span> <span class="n">enable_define</span>
                     <span class="n">val</span> <span class="o">=</span> <span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
-
-                <span class="n">line</span> <span class="o">=</span> <span class="n">_enable</span> <span class="o">+</span> <span class="s2">&quot;#define &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">val</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;    #define &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">val</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">][</span>
                     <span class="nb">int</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;lineno&quot;</span><span class="p">])</span>
                 <span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
