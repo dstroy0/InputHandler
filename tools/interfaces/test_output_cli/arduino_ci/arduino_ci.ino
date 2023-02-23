@@ -9,7 +9,7 @@
 */
 
 #include "CLI/src/CLI.h"
-
+using namespace InputHandler;
 void test(UserInput* _inputHandler)
 {
   // your statements here

@@ -19,29 +19,7 @@ on:
       - "**/interfaces/test_output_cli/**"
 
 jobs:
-  check_formatting:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        example: ["**/interfaces/test_output_cli/test_output_cli.ino"]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Check code formatting
-        uses: per1234/artistic-style-action@main
-        with:
-          options-file-path: ./examples/examples_formatter.conf
-          name-patterns: |
-            - '*.ino'
-            - '*.cpp'
-            - '*.hpp'
-            - '*.h'
-          target-paths: ${{ matrix.example }}
-
-  build:
-    needs: check_formatting
+  build:    
     runs-on: ubuntu-latest
 
     strategy:

@@ -25,8 +25,8 @@ namespace InputHandler
 {
 // lib specific namespaces
 using namespace ih_t;
-using namespace ih_auto_t;
-class UserInput;
+using namespace ih_auto;
+class UserInput; // forward declaration for Parameters
 /**
  * @brief Command parameters setup
  *
@@ -38,18 +38,18 @@ struct Parameters
     void (*function)(
         UserInput*);    ///< void function pointer, void your_function(UserInput *inputProcess)
     bool has_wildcards; ///< if true this command has one or more wildcard char
-    char command[UI_MAX_CMD_LEN + 1U];     ///< command string + nullchar
-    ui_max_cmd_len_t command_length;       ///< command length in characters
-    cmd_id_grp_t parent_command_id;        ///< parent command's unique id root-MAX
-    cmd_id_grp_t command_id;               ///< this command's unique id root-MAX
-    ui_max_tree_depth_per_command_t depth; ///< command tree depth root-MAX
-    ui_max_num_child_commands_t
+    char command[IH_MAX_CMD_STR_LEN + 1U]; ///< command string + nullchar
+    max_cmd_str_len command_length;        ///< command length in characters
+    cmd_id_grp parent_command_id;          ///< parent command's unique id root-MAX
+    cmd_id_grp command_id;                 ///< this command's unique id root-MAX
+    max_tree_depth_per_cmd depth;          ///< command tree depth root-MAX
+    max_num_child_cmds
         sub_commands; ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
     UI_ARG_HANDLING argument_flag; ///< argument handling flag
-    ui_max_args_t num_args; ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    ui_max_args_t max_num_args; ///< maximum number of arguments this command expects 0 -
-                                ///< UI_MAX_ARGS, cannot be less than num_args
-    UITYPE arg_type_arr[UI_MAX_ARGS_PER_COMMAND]; ///< argument UITYPE array
+    max_args_per_cmd num_args; ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    max_args_per_cmd max_num_args; ///< maximum number of arguments this command expects 0 -
+                                   ///< UI_MAX_ARGS, cannot be less than num_args
+    UITYPE arg_type_arr[IH_MAX_ARGS_PER_COMMAND]; ///< argument UITYPE array
 };
 /**
  * @defgroup classes classes
@@ -87,9 +87,8 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    Command(const Parameters* parameters,
-        const ui_max_commands_in_tree_t parameter_array_elements = 1,
-        const ui_max_tree_depth_per_command_t tree_depth = 0)
+    Command(const Parameters* parameters, const max_cmds_per_tree parameter_array_elements = 1,
+        const max_tree_depth_per_cmd tree_depth = 0)
         : prm(parameters),
           param_array_len(parameter_array_elements),
           tree_depth(tree_depth + 1U),
@@ -98,11 +97,11 @@ public:
     {
     }
     const Parameters* prm; ///< pointer to PROGMEM Parameters array
-    const ui_max_commands_in_tree_t
+    const max_cmds_per_tree
         param_array_len; ///< user input param array len, either as digits or through nprms
-    const ui_max_commands_in_tree_t tree_depth; ///< user input depth + 1
-    CommandRuntimeCalc* calc;                   ///< pointer to CommandRuntimeCalc struct
-    Command* next_command;           ///< Command iterator/pointer
+    const max_cmds_per_tree tree_depth; ///< user input depth + 1
+    CommandRuntimeCalc* calc;           ///< pointer to CommandRuntimeCalc struct
+    Command* next_command;              ///< Command iterator/pointer
 };
 
 /**
@@ -230,7 +229,7 @@ public:
      * allocated in UserInput::begin().
      *
      * REQUIRES a 700 byte output_buffer.  If an insufficient buffer size is declared,
-     * UserInput::\_ui_out() will first empty the output buffer and then warn the user
+     * UserInput::\ihout() will first empty the output buffer and then warn the user
      * to increase the buffer to the required size.
      *
      * [UserInput::listSettings
@@ -287,7 +286,7 @@ public:
      * @param num_zdc size of Parameters zero delimiter command pointers array
      * @param zdc array of Parameters zero delimiter command pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = UI_MAX_INPUT_LEN,
+    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = IH_MAX_PROC_INPUT_LEN,
         const size_t num_zdc = 0, const Parameters** zdc = NULL);
 
     /**
@@ -458,6 +457,21 @@ public:
      */
     size_t mIndex(size_t m_width, size_t row, size_t col) const { return row * m_width + col; }
 
+    /**
+     * @brief UserInput vsnprintf
+     * https://www.cplusplus.com/reference/cstdio/vsprintf/
+     *
+     * [UserInput::ihout()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=ihout(const
+     * char* fmt, ...))
+     *
+     * Puts the message into the defined output buffer.
+     *
+     * @param fmt   the format string
+     * @param ...   arguments
+     */
+    void ihout(const char* fmt, ...);
+
 private:
     /*
         UserInput Constructor variables
@@ -465,8 +479,8 @@ private:
 
     // (potentially) user entered constructor variables
     const InputParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
-    char* _output_buffer_;                         ///< pointer to the output char buffer
-    const size_t _output_buffer_len_;              ///< UserInput::\_output_buffer_ size in bytes
+    char* _output_buffer_;                  ///< pointer to the output char buffer
+    const size_t _output_buffer_len_;       ///< UserInput::\_output_buffer_ size in bytes
     // end user entered constructor variables
 
     bool _output_enabled_; ///< true if UserInput::\_output_buffer_ is not NULL (the user has
@@ -485,27 +499,25 @@ private:
     Command* _commands_tail_; ///< pointer to Command singly-linked-list tail.
     // end linked-list
 
-    ui_max_commands_in_tree_t
-        _commands_count_; ///< How many commands were accepted from input Parameters.
-    ui_max_tree_depth_per_command_t
-        _max_depth_;          ///< Max command depth found in the accepted input Parameters.
-    ui_max_args_t _max_args_; ///< Max command or subcommand arguments found in the accepted
-                              ///< input Parameters.
-    input_type_match_flags_type*
-        _input_type_match_flags_; ///< Bool array the size of UserInput::\_max_args_.
+    max_cmds_per_tree _commands_count_; ///< How many commands were accepted from input Parameters.
+    max_tree_depth_per_cmd
+        _max_depth_;             ///< Max command depth found in the accepted input Parameters.
+    max_args_per_cmd _max_args_; ///< Max command or subcommand arguments found in the accepted
+                                 ///< input Parameters.
+    type_match_flags* _input_type_match_flags_; ///< Bool array the size of UserInput::\_max_args_.
 
     bool _output_flag_; ///< Output is available flag, set by member functions.
 
-    char* _token_buffer_;                    ///< pointer to tokenized c-string
-    char** _data_pointers_;                  ///< token_buffer pointers
-    ui_max_args_t _data_pointers_index_;     ///< data_pointer index
-    ui_max_args_t _data_pointers_index_max_; ///< data_pointer index max
-    ui_max_args_t
+    char* _token_buffer_;                       ///< pointer to tokenized c-string
+    char** _data_pointers_;                     ///< token_buffer pointers
+    max_args_per_cmd _data_pointers_index_;     ///< data_pointer index
+    max_args_per_cmd _data_pointers_index_max_; ///< data_pointer index max
+    max_args_per_cmd
         _p_num_ptrs_; ///< UserInput process number of pointers, computed in UserInput::begin().
 
-    ui_max_args_t _rec_num_arg_strings_; ///< number of tokens after first valid token
-    ui_max_num_child_commands_t _failed_on_subcommand_;     ///< subcommand error index
-    ui_max_tree_depth_per_command_t _current_search_depth_; ///< current subcommand search depth
+    max_args_per_cmd _rec_num_arg_strings_;        ///< number of tokens after first valid token
+    max_num_child_cmds _failed_on_subcommand_;     ///< subcommand error index
+    max_tree_depth_per_cmd _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char null
     char _neg_;  ///< char '-'
@@ -531,37 +543,25 @@ private:
      */
     struct _rcfbprm
     {
-        bool launch_attempted;           ///< function launch attempted if true
-        bool command_matched;            ///< matched root command if true
-        bool all_arguments_valid;        ///< argument error sentinel
-        bool subcommand_matched;         ///< matched a subcommand
-        Command* cmd;         ///< pointer to Command
-        Command* all_wcc_cmd; ///< pointer to Command
-        UI_COMPARE result;               ///< result of UserInput::\_compareCommandToString()
-        cmd_id_grp_t command_id;         ///< type set by macro
-        size_t idx;                      ///< Parameters index
-        size_t all_wcc_idx;              ///< index of Parameters that has an all wcc command
-        size_t input_len;                ///< length of input data
-        size_t token_buffer_len;         ///< length of token buffer
-        size_t tokens_received;          ///< how many tokens we received
+        bool launch_attempted;    ///< function launch attempted if true
+        bool command_matched;     ///< matched root command if true
+        bool all_arguments_valid; ///< argument error sentinel
+        bool subcommand_matched;  ///< matched a subcommand
+        Command* cmd;             ///< pointer to Command
+        Command* all_wcc_cmd;     ///< pointer to Command
+        UI_COMPARE result;        ///< result of UserInput::\_compareCommandToString()
+        cmd_id_grp command_id;    ///< type set by macro
+        size_t idx;               ///< Parameters index
+        size_t all_wcc_idx;       ///< index of Parameters that has an all wcc command
+        size_t input_len;         ///< length of input data
+        size_t token_buffer_len;  ///< length of token buffer
+        size_t tokens_received;   ///< how many tokens we received
         Parameters prm;           ///< Parameters struct
-        uint8_t* input_data;             ///< pointer to input_data
-        uint8_t* split_input;            ///< pointer to UserInput::\_splitZDC() modified data
+        uint8_t* input_data;      ///< pointer to input_data
+        uint8_t* split_input;     ///< pointer to UserInput::\_splitZDC() modified data
     };
 
     // private methods
-    /**
-     * @brief UserInput vsnprintf
-     * https://www.cplusplus.com/reference/cstdio/vsprintf/
-     *
-     * [UserInput::_ui_out()
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_ui_out(const
-     * char* fmt, ...))
-     *
-     * @param fmt   the format string
-     * @param ...   arguments
-     */
-    void _ui_out(const char* fmt, ...);
 
     #if defined(ENABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)
     /**
@@ -609,7 +609,7 @@ private:
      * @param input the input char
      * @param buf the output buffer
      *
-     * @return pointer to buf, so you can use this inside of _ui_out()
+     * @return pointer to buf, so you can use this inside of ihout()
      */
     char* _escapeCharactersSoTheyPrint(char input, char* buf);
 
@@ -757,7 +757,7 @@ private:
      * @param memcmp_ranges memcmp ranges array
      */
     void _calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_idx,
-        memcmp_idx_t& memcmp_ranges_idx, ui_max_per_cmd_memcmp_ranges_t* memcmp_ranges);
+        memcmp_idx_t& memcmp_ranges_idx, max_per_root_memcmp_ranges* memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
@@ -780,15 +780,15 @@ private:
      */
     struct _searchStruct
     {
-        Command* cmd; // pointer to a Command
-        Parameters& prm;  // pointer to a Parameters
-        uint8_t* sort_array;     // partial command array
-        uint8_t** sorted_ptr;    // pointer array
-        uint8_t& sorted_idx;     // index of pointer array
-        uint8_t& ls_value;       // value to search for
-        int& lsize;              // linear search index
-        uint8_t& prev_dp;        // depth
-        uint8_t& sc_num;         // subcommand number
+        Command* cmd;         // pointer to a Command
+        Parameters& prm;      // pointer to a Parameters
+        uint8_t* sort_array;  // partial command array
+        uint8_t** sorted_ptr; // pointer array
+        uint8_t& sorted_idx;  // index of pointer array
+        uint8_t& ls_value;    // value to search for
+        int& lsize;           // linear search index
+        uint8_t& prev_dp;     // depth
+        uint8_t& sc_num;      // subcommand number
     };
     /**
      * @brief recursive linear array search

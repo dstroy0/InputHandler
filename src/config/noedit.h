@@ -50,7 +50,7 @@
     #define LOCATION STR(LOC)      ///< indirect stringified file and line macro
     // end file location directive    
     // "auto" Type macro        
-    #define UI_ALL_WCC_CMD /** @cond */ ((ih_auto_t::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to ih_auto_t::ui_max_per_cmd_memcmp_ranges_t - 1
+    #define UI_ALL_WCC_CMD /** @cond */ ((ih_auto::max_per_root_memcmp_ranges)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to ih_auto::max_per_root_memcmp_ranges - 1
     // end function-like macros
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
@@ -124,12 +124,12 @@
 // end portability directives
 /** @endcond */
 
-    #include "config.h"            // user config file        
+    #include "config.h" // user config file
     /** @cond */
     // optional method toggles
     // LIBRARY OUTPUT
     #if UI_ECHO_ONLY
-        #define __UI_ECHO_ONLY__    
+        #define __UI_ECHO_ONLY__
     #endif
     #if UI_VERBOSE
         #define __UI_VERBOSE__
@@ -204,5 +204,5 @@
 // end OPTIONAL METHODS
 /** @endcond */
     #include "utility/namespace.h" // lib specific namespaces
-#endif // end include guard
+#endif                             // end include guard
 // end of file

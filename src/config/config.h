@@ -22,24 +22,24 @@
     /*
         User Configurable items
     */
-    #define UI_MAX_COMMANDS_IN_TREE 32
+    #define IH_MAX_COMMANDS_PER_TREE 32
 
-    #define UI_MAX_ARGS_PER_COMMAND 32
+    #define IH_MAX_ARGS_PER_COMMAND 32
 
-    #define UI_MAX_TREE_DEPTH_PER_COMMAND 32
+    #define IH_MAX_TREE_DEPTH_PER_COMMAND 32
 
-    #define UI_MAX_NUM_CHILD_COMMANDS 32
+    #define IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT 32
 
-    #define UI_MAX_CMD_LEN 32
+    #define IH_MAX_CMD_STR_LEN 32
 
-    #define UI_MAX_NUM_DELIM_SEQ 5
+    #define IH_MAX_NUM_PROC_DELIM_SEQ 5
 
-    #define UI_MAX_NUM_START_STOP_SEQ 5
+    #define IH_MAX_NUM_START_STOP_SEQ 5
 
-    #define UI_MAX_INPUT_LEN 128
+    #define IH_MAX_PROC_INPUT_LEN 128
 
     // maximum number of memcmp ranges per command
-    #define UI_MAX_PER_CMD_MEMCMP_RANGES 5
+    #define IH_MAX_PER_ROOT_MEMCMP_RANGES 5
 
     /*
         fine-tune the program space needed for your implementation

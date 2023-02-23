@@ -40,26 +40,26 @@
     #define LOCATION STR(LOC)      ///< indirect stringified file and line macro
     // end file location directive    
     // "auto" Type macro        
-    #define UI_ALL_WCC_CMD /** @cond */ ((IH::ui_max_per_cmd_memcmp_ranges_t)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to IH::ui_max_per_cmd_memcmp_ranges_t - 1
+    #define UI_ALL_WCC_CMD /** @cond */ ((IH::max_per_root_memcmp_ranges)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to IH::max_per_root_memcmp_ranges - 1
     // end function-like macros
     // sizing macros
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
-    // clang-format on
+// clang-format on
 
     #if defined(DOXYGEN_XML_BUILD)
-    /**
-     * @brief Preprocessor directives and includes.
-     *
-     * Go to your platform's implementation to see what needs to be changed
-     * to make the library work on your platform.
-     *
-     * [portability
-     * directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)
-     *
-     */
-    #define IH_PORTABILITY_DIRECTIVES
+        /**
+         * @brief Preprocessor directives and includes.
+         *
+         * Go to your platform's implementation to see what needs to be changed
+         * to make the library work on your platform.
+         *
+         * [portability
+         * directives](https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=IH_PORTABILITY_DIRECTIVES)
+         *
+         */
+        #define IH_PORTABILITY_DIRECTIVES
     #endif
-    
+
     /** @cond */
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
@@ -142,340 +142,343 @@
 namespace IH
 {
 // UserInput private member type (future bit array)
-typedef bool input_type_match_flags_type; ///< UserInput private member type (future bit array)
+typedef bool type_match_flags; ///< UserInput private member type (future bit array)
 
 // UserInput variable sizing
-    #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_COMMANDS_PER_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user.
+ * @link IH_MAX_COMMANDS_PER_TREE @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
- * typedef uint8_t ui_max_commands_in_tree_t;
- * #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
- * typedef uint16_t ui_max_commands_in_tree_t;
- * #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
- * typedef uint32_t ui_max_commands_in_tree_t;
+ * #if (IH_MAX_COMMANDS_PER_TREE <= UINT8_MAX)
+ * typedef uint8_t max_cmds_per_tree;
+ * #elif (IH_MAX_COMMANDS_PER_TREE > UINT8_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT16_MAX)
+ * typedef uint16_t max_cmds_per_tree;
+ * #elif (IH_MAX_COMMANDS_PER_TREE > UINT16_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT32_MAX)
+ * typedef uint32_t max_cmds_per_tree;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_commands_in_tree_t;
+typedef uint8_t max_cmds_per_tree;
 
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_COMMANDS_IN_TREE @endlink is set by the user. 
+ * @link IH_MAX_COMMANDS_PER_TREE @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_COMMANDS_IN_TREE <= UINT8_MAX)
- * typedef uint8_t cmd_id_grp_t;
- * #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
- * typedef uint16_t cmd_id_grp_t;
- * #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
- * typedef uint32_t cmd_id_grp_t;
+ * #if (IH_MAX_COMMANDS_PER_TREE <= UINT8_MAX)
+ * typedef uint8_t cmd_id_grp;
+ * #elif (IH_MAX_COMMANDS_PER_TREE > UINT8_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT16_MAX)
+ * typedef uint16_t cmd_id_grp;
+ * #elif (IH_MAX_COMMANDS_PER_TREE > UINT16_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT32_MAX)
+ * typedef uint32_t cmd_id_grp;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t cmd_id_grp_t;
-    #elif (UI_MAX_COMMANDS_IN_TREE > UINT8_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT16_MAX)
-typedef uint16_t ui_max_commands_in_tree_t;
-typedef uint16_t cmd_id_grp_t;
+typedef uint8_t cmd_id_grp;
+    #elif (IH_MAX_COMMANDS_PER_TREE > UINT8_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT16_MAX)
+typedef uint16_t max_cmds_per_tree;
+typedef uint16_t cmd_id_grp;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint16_t
-    #elif (UI_MAX_COMMANDS_IN_TREE > UINT16_MAX && UI_MAX_COMMANDS_IN_TREE <= UINT32_MAX)
-typedef uint32_t ui_max_commands_in_tree_t;
-typedef uint32_t cmd_id_grp_t;
+        #warning IH_MAX_COMMANDS_PER_TREE|max_cmds_per_tree, cmd_id_grp changed from uint8_t to uint16_t
+    #elif (IH_MAX_COMMANDS_PER_TREE > UINT16_MAX && IH_MAX_COMMANDS_PER_TREE <= UINT32_MAX)
+typedef uint32_t max_cmds_per_tree;
+typedef uint32_t cmd_id_grp;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE|ui_max_commands_in_tree_t, cmd_id_grp_t changed from uint8_t to uint32_t
-    #elif (UI_MAX_COMMANDS_IN_TREE > ((UINT32_MAX)-1))
+        #warning IH_MAX_COMMANDS_PER_TREE|max_cmds_per_tree, cmd_id_grp changed from uint8_t to uint32_t
+    #elif (IH_MAX_COMMANDS_PER_TREE > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_COMMANDS_IN_TREE greater than UINT32_MAX; behavior undefined, compilation should fail.
-    #endif // end UI_MAX_COMMANDS_IN_TREE
+        #warning IH_MAX_COMMANDS_PER_TREE greater than UINT32_MAX; behavior undefined, compilation should fail.
+    #endif // end IH_MAX_COMMANDS_PER_TREE
 
-    #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_ARGS_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_ARGS_PER_COMMAND @endlink is set by the user.
+ * @link IH_MAX_ARGS_PER_COMMAND @endlink is set by the user.
  * @code{.c}
- * #if (UI_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
- * typedef uint8_t ui_max_args_t;
- * #elif (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
- * typedef uint16_t ui_max_args_t;
- * #elif (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
- * typedef uint32_t ui_max_args_t;
+ * #if (IH_MAX_ARGS_PER_COMMAND <= UINT8_MAX)
+ * typedef uint8_t max_args_per_cmd;
+ * #elif (IH_MAX_ARGS_PER_COMMAND > UINT8_MAX && IH_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
+ * typedef uint16_t max_args_per_cmd;
+ * #elif (IH_MAX_ARGS_PER_COMMAND > UINT16_MAX && IH_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
+ * typedef uint32_t max_args_per_cmd;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_args_t;
-    #elif (UI_MAX_ARGS_PER_COMMAND > UINT8_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
-typedef uint16_t ui_max_args_t;
+typedef uint8_t max_args_per_cmd;
+    #elif (IH_MAX_ARGS_PER_COMMAND > UINT8_MAX && IH_MAX_ARGS_PER_COMMAND <= UINT16_MAX)
+typedef uint16_t max_args_per_cmd;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t
-    #elif (UI_MAX_ARGS_PER_COMMAND > UINT16_MAX && UI_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
-typedef uint32_t ui_max_args_t;
+        #warning IH_MAX_ARGS_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint16_t
+    #elif (IH_MAX_ARGS_PER_COMMAND > UINT16_MAX && IH_MAX_ARGS_PER_COMMAND <= UINT32_MAX)
+typedef uint32_t max_args_per_cmd;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_ARGS_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t
-    #elif UI_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
+        #warning IH_MAX_ARGS_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint32_t
+    #elif IH_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_ARGS_PER_COMMAND greater than UINT32_MAX; behavior undefined, compilation should fail.
-    #endif // end UI_MAX_ARGS_PER_COMMAND
+        #warning IH_MAX_ARGS_PER_COMMAND greater than UINT32_MAX; behavior undefined, compilation should fail.
+    #endif // end IH_MAX_ARGS_PER_COMMAND
 
-    #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_TREE_DEPTH_PER_COMMAND @endlink is set by the user.
- * 
+ * @link IH_MAX_TREE_DEPTH_PER_COMMAND @endlink is set by the user.
+ *
  * @code{.c}
- * #if (UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
- * typedef uint8_t ui_max_tree_depth_per_command_t;
- * #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
- * typedef uint16_t ui_max_tree_depth_per_command_t;
- * #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
- * typedef uint32_t ui_max_tree_depth_per_command_t;
+ * #if (IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT8_MAX)
+ * typedef uint8_t max_tree_depth_per_cmd;
+ * #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
+ * typedef uint16_t max_tree_depth_per_cmd;
+ * #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+ * typedef uint32_t max_tree_depth_per_cmd;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_tree_depth_per_command_t;    
-    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
-typedef uint16_t ui_max_tree_depth_per_command_t;
+typedef uint8_t max_tree_depth_per_cmd;
+    #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > UINT8_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT16_MAX)
+typedef uint16_t max_tree_depth_per_cmd;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && UI_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
-typedef uint32_t ui_max_tree_depth_per_command_t;
+        #warning IH_MAX_TREE_DEPTH_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint16_t
+    #elif (                                                                                        \
+        IH_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+typedef uint32_t max_tree_depth_per_cmd;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND|ui_max_args_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
+        #warning IH_MAX_TREE_DEPTH_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint32_t
+    #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_TREE_DEPTH_PER_COMMAND
+        #warning IH_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_TREE_DEPTH_PER_COMMAND
 
-    #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_NUM_CHILD_COMMANDS @endlink is set by the user.
+ * @link IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_NUM_CHILD_COMMANDS <= UINT8_MAX)
- * typedef uint8_t ui_max_num_child_commands_t;
- * #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
- * typedef uint16_t ui_max_num_child_commands_t;
- * #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
- * typedef uint32_t ui_max_num_child_commands_t;
- * #else
+ * #if (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT8_MAX)
+ * typedef uint8_t max_num_child_cmds;
+ * #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT8_MAX && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <=
+ * UINT16_MAX) typedef uint16_t max_num_child_cmds; #elif
+ * (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT16_MAX && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <=
+ * UINT32_MAX) typedef uint32_t max_num_child_cmds; #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_child_commands_t;    
-    #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT8_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT16_MAX)
-typedef uint16_t ui_max_num_child_commands_t;
+typedef uint8_t max_num_child_cmds;
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT8_MAX                                          \
+        && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT16_MAX)
+typedef uint16_t max_num_child_cmds;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_NUM_CHILD_COMMANDS > UINT16_MAX && UI_MAX_NUM_CHILD_COMMANDS <= UINT32_MAX)
-typedef uint32_t ui_max_num_child_commands_t;
+        #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT|max_args_per_cmd changed from uint8_t to uint16_t
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT16_MAX                                         \
+        && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT32_MAX)
+typedef uint32_t max_num_child_cmds;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS|ui_max_args_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_NUM_CHILD_COMMANDS > ((UINT32_MAX)-1))
+        #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT|max_args_per_cmd changed from uint8_t to uint32_t
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_CHILD_COMMANDS cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_NUM_CHILD_COMMANDS
+        #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT
 
-    #if (UI_MAX_CMD_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_CMD_STR_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_CMD_LEN @endlink is set by the user.
+ * @link IH_MAX_CMD_STR_LEN @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_CMD_LEN <= UINT8_MAX)
- * typedef uint8_t ui_max_cmd_len_t;
- * #elif (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX)
- * typedef uint16_t ui_max_cmd_len_t;
- * #elif (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX)
- * typedef uint32_t ui_max_cmd_len_t;
+ * #if (IH_MAX_CMD_STR_LEN <= UINT8_MAX)
+ * typedef uint8_t max_cmd_str_len;
+ * #elif (IH_MAX_CMD_STR_LEN > UINT8_MAX && IH_MAX_CMD_STR_LEN <= UINT16_MAX)
+ * typedef uint16_t max_cmd_str_len;
+ * #elif (IH_MAX_CMD_STR_LEN > UINT16_MAX && IH_MAX_CMD_STR_LEN <= UINT32_MAX)
+ * typedef uint32_t max_cmd_str_len;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_cmd_len_t;
+typedef uint8_t max_cmd_str_len;
     #endif
-    #if (UI_MAX_CMD_LEN > UINT8_MAX && UI_MAX_CMD_LEN <= UINT16_MAX)
-typedef uint16_t ui_max_cmd_len_t;
+    #if (IH_MAX_CMD_STR_LEN > UINT8_MAX && IH_MAX_CMD_STR_LEN <= UINT16_MAX)
+typedef uint16_t max_cmd_str_len;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint16_t
+        #warning IH_MAX_CMD_STR_LEN|max_cmd_str_len changed from uint8_t to uint16_t
     #endif
-    #if (UI_MAX_CMD_LEN > UINT16_MAX && UI_MAX_CMD_LEN <= UINT32_MAX)
-typedef uint32_t ui_max_cmd_len_t;
+    #if (IH_MAX_CMD_STR_LEN > UINT16_MAX && IH_MAX_CMD_STR_LEN <= UINT32_MAX)
+typedef uint32_t max_cmd_str_len;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_CMD_LEN|ui_max_cmd_len_t changed from uint8_t to uint32_t
+        #warning IH_MAX_CMD_STR_LEN|max_cmd_str_len changed from uint8_t to uint32_t
     #endif
-    #if (UI_MAX_CMD_LEN > ((UINT32_MAX)-1))
+    #if (IH_MAX_CMD_STR_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_CMD_LEN cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_CMD_LEN
+        #warning IH_MAX_CMD_STR_LEN cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_CMD_STR_LEN
 
-    #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_NUM_PROC_DELIM_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_NUM_DELIM_SEQ @endlink is set by the user.
+ * @link IH_MAX_NUM_PROC_DELIM_SEQ @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_NUM_DELIM_SEQ <= UINT8_MAX)
- * typedef uint8_t ui_max_num_delim_seq_t;
- * #elif (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
- * typedef uint16_t ui_max_num_delim_seq_t;
- * #elif (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
- * typedef uint32_t ui_max_num_delim_seq_t;
+ * #if (IH_MAX_NUM_PROC_DELIM_SEQ <= UINT8_MAX)
+ * typedef uint8_t max_num_delim_seq;
+ * #elif (IH_MAX_NUM_PROC_DELIM_SEQ > UINT8_MAX && IH_MAX_NUM_PROC_DELIM_SEQ <= UINT16_MAX)
+ * typedef uint16_t max_num_delim_seq;
+ * #elif (IH_MAX_NUM_PROC_DELIM_SEQ > UINT16_MAX && IH_MAX_NUM_PROC_DELIM_SEQ <= UINT32_MAX)
+ * typedef uint32_t max_num_delim_seq;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_delim_seq_t;    
-    #elif (UI_MAX_NUM_DELIM_SEQ > UINT8_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT16_MAX)
-typedef uint16_t ui_max_num_delim_seq_t;
+typedef uint8_t max_num_delim_seq;
+    #elif (IH_MAX_NUM_PROC_DELIM_SEQ > UINT8_MAX && IH_MAX_NUM_PROC_DELIM_SEQ <= UINT16_MAX)
+typedef uint16_t max_num_delim_seq;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_NUM_DELIM_SEQ > UINT16_MAX && UI_MAX_NUM_DELIM_SEQ <= UINT32_MAX)
-typedef uint32_t ui_max_num_delim_seq_t;
+        #warning IH_MAX_NUM_PROC_DELIM_SEQ|max_num_delim_seq changed from uint8_t to uint16_t
+    #elif (IH_MAX_NUM_PROC_DELIM_SEQ > UINT16_MAX && IH_MAX_NUM_PROC_DELIM_SEQ <= UINT32_MAX)
+typedef uint32_t max_num_delim_seq;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ|ui_max_num_delim_seq_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_NUM_DELIM_SEQ > ((UINT32_MAX)-1))
+        #warning IH_MAX_NUM_PROC_DELIM_SEQ|max_num_delim_seq changed from uint8_t to uint32_t
+    #elif (IH_MAX_NUM_PROC_DELIM_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_DELIM_SEQ cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_NUM_DELIM_SEQ
+        #warning IH_MAX_NUM_PROC_DELIM_SEQ cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_NUM_PROC_DELIM_SEQ
 
-    #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_NUM_START_STOP_SEQ <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_NUM_START_STOP_SEQ @endlink is set by the user.
+ * @link IH_MAX_NUM_START_STOP_SEQ @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
- * typedef uint8_t ui_max_num_start_stop_seq_t;
- * #elif (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
- * typedef uint16_t ui_max_num_start_stop_seq_t;
- * #elif (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
- * typedef uint32_t ui_max_num_start_stop_seq_t;
+ * #if (IH_MAX_NUM_START_STOP_SEQ <= UINT8_MAX)
+ * typedef uint8_t max_num_start_stop_seq;
+ * #elif (IH_MAX_NUM_START_STOP_SEQ > UINT8_MAX && IH_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
+ * typedef uint16_t max_num_start_stop_seq;
+ * #elif (IH_MAX_NUM_START_STOP_SEQ > UINT16_MAX && IH_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
+ * typedef uint32_t max_num_start_stop_seq;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_num_start_stop_seq_t;    
-    #elif (UI_MAX_NUM_START_STOP_SEQ > UINT8_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
-typedef uint16_t ui_max_num_start_stop_seq_t;
+typedef uint8_t max_num_start_stop_seq;
+    #elif (IH_MAX_NUM_START_STOP_SEQ > UINT8_MAX && IH_MAX_NUM_START_STOP_SEQ <= UINT16_MAX)
+typedef uint16_t max_num_start_stop_seq;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_NUM_START_STOP_SEQ > UINT16_MAX && UI_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
-typedef uint32_t ui_max_num_start_stop_seq_t;
+        #warning IH_MAX_NUM_START_STOP_SEQ|max_num_start_stop_seq changed from uint8_t to uint16_t
+    #elif (IH_MAX_NUM_START_STOP_SEQ > UINT16_MAX && IH_MAX_NUM_START_STOP_SEQ <= UINT32_MAX)
+typedef uint32_t max_num_start_stop_seq;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ|ui_max_num_start_stop_seq_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
+        #warning IH_MAX_NUM_START_STOP_SEQ|max_num_start_stop_seq changed from uint8_t to uint32_t
+    #elif (IH_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_NUM_START_STOP_SEQ
+        #warning IH_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_NUM_START_STOP_SEQ
 
-    #if (UI_MAX_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_PROC_INPUT_LEN <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_INPUT_LEN @endlink is set by the user.
+ * @link IH_MAX_PROC_INPUT_LEN @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_INPUT_LEN <= UINT8_MAX)
- * typedef uint8_t ui_max_input_len_t;
- * #elif (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
- * typedef uint16_t ui_max_input_len_t;
- * #elif (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
- * typedef uint32_t ui_max_input_len_t;
+ * #if (IH_MAX_PROC_INPUT_LEN <= UINT8_MAX)
+ * typedef uint8_t max_proc_input_len;
+ * #elif (IH_MAX_PROC_INPUT_LEN > UINT8_MAX && IH_MAX_PROC_INPUT_LEN <= UINT16_MAX)
+ * typedef uint16_t max_proc_input_len;
+ * #elif (IH_MAX_PROC_INPUT_LEN > UINT16_MAX && IH_MAX_PROC_INPUT_LEN <= UINT32_MAX)
+ * typedef uint32_t max_proc_input_len;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_input_len_t;    
-    #elif (UI_MAX_INPUT_LEN > UINT8_MAX && UI_MAX_INPUT_LEN <= UINT16_MAX)
-typedef uint16_t ui_max_input_len_t;
+typedef uint8_t max_proc_input_len;
+    #elif (IH_MAX_PROC_INPUT_LEN > UINT8_MAX && IH_MAX_PROC_INPUT_LEN <= UINT16_MAX)
+typedef uint16_t max_proc_input_len;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_INPUT_LEN > UINT16_MAX && UI_MAX_INPUT_LEN <= UINT32_MAX)
-typedef uint32_t ui_max_input_len_t;
+        #warning IH_MAX_PROC_INPUT_LEN|max_proc_input_len changed from uint8_t to uint16_t
+    #elif (IH_MAX_PROC_INPUT_LEN > UINT16_MAX && IH_MAX_PROC_INPUT_LEN <= UINT32_MAX)
+typedef uint32_t max_proc_input_len;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN|ui_max_input_len_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_INPUT_LEN > ((UINT32_MAX)-1))
+        #warning IH_MAX_PROC_INPUT_LEN|max_proc_input_len changed from uint8_t to uint32_t
+    #elif (IH_MAX_PROC_INPUT_LEN > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_INPUT_LEN cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_INPUT_LEN
+        #warning IH_MAX_PROC_INPUT_LEN cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_PROC_INPUT_LEN
 
-    #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
+    #if (IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_PER_CMD_MEMCMP_RANGES @endlink is set by the user.
+ * @link IH_MAX_PER_ROOT_MEMCMP_RANGES @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
- * typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
- * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
- * typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
- * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
- * typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
+ * #if (IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT8_MAX)
+ * typedef uint8_t max_per_root_memcmp_ranges;
+ * #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT8_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT16_MAX)
+ * typedef uint16_t max_per_root_memcmp_ranges;
+ * #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
+ * typedef uint32_t max_per_root_memcmp_ranges;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t ui_max_per_cmd_memcmp_ranges_t;
+typedef uint8_t max_per_root_memcmp_ranges;
 
 /**
  * @brief User influenced typedef.
  *
- * @link UI_MAX_PER_CMD_MEMCMP_RANGES @endlink is set by the user.
+ * @link IH_MAX_PER_ROOT_MEMCMP_RANGES @endlink is set by the user.
  *
  * @code{.c}
- * #if (UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT8_MAX)
+ * #if (IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT8_MAX)
  * typedef uint8_t memcmp_idx_t;
- * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
+ * #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT8_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT16_MAX)
  * typedef uint16_t memcmp_idx_t;
- * #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
+ * #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
  * typedef uint32_t memcmp_idx_t;
  * #else
  * // no typedef; compile failure
  * #endif
  * @endcode
  */
-typedef uint8_t memcmp_idx_t;    
-    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT8_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT16_MAX)
-typedef uint16_t ui_max_per_cmd_memcmp_ranges_t;
+typedef uint8_t memcmp_idx_t;
+    #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT8_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT16_MAX)
+typedef uint16_t max_per_root_memcmp_ranges;
 typedef uint16_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint16_t    
-    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > UINT16_MAX && UI_MAX_PER_CMD_MEMCMP_RANGES <= UINT32_MAX)
-typedef uint32_t ui_max_per_cmd_memcmp_ranges_t;
+        #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint16_t
+    #elif (                                                                                        \
+        IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
+typedef uint32_t max_per_root_memcmp_ranges;
 typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES|ui_max_per_cmd_memcmp_ranges_t, memcmp_idx_t changed from uint8_t to uint32_t    
-    #elif (UI_MAX_PER_CMD_MEMCMP_RANGES > ((UINT32_MAX)-1))
+        #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint32_t
+    #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > ((UINT32_MAX)-1))
         #pragma message(" at " LOCATION)
-        #warning UI_MAX_PER_CMD_MEMCMP_RANGES cannot be greater than UINT32_MAX
-    #endif // end UI_MAX_PER_CMD_MEMCMP_RANGES
+        #warning IH_MAX_PER_ROOT_MEMCMP_RANGES cannot be greater than UINT32_MAX
+    #endif // end IH_MAX_PER_ROOT_MEMCMP_RANGES
 // end typedef sizing
 } // end namespace IH
 
@@ -541,14 +544,14 @@ typedef uint32_t memcmp_idx_t;
     #endif
     #if !defined(DISABLE_clearOutputBuffer)
         #define ENABLE_clearOutputBuffer
-    #endif // end public methods
+    #endif                                                 // end public methods
     #if !defined(DISABLE_readCommandFromBufferErrorOutput) // private methods
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
     #if !defined(DISABLE_ui_out) // disables all output, even if you have an output buffer defined
         #define ENABLE_ui_out
     #endif // end private methods
-  // end OPTIONAL METHODS
+           // end OPTIONAL METHODS
 // end optional method toggles
 /** @endcond */
 #endif // end include guard

@@ -32,8 +32,6 @@ class cliConfig(object):
             item_string (str): code to highlight
             place_cursor (bool, optional): Place cursor on highlighted code if true. Defaults to False.
         """
-        disable_define = "    // "
-        enable_define = "       "
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = copy.deepcopy(
             self.input_config_file_lines
         )
@@ -42,21 +40,13 @@ class cliConfig(object):
         for key in cfg_dict:
             for item in cfg_dict[key]:
                 sub_dict = cfg_dict[key][item]
-                if (
-                    int(sub_dict["lineno"])
-                    >= self.config_file_boolean_define_fields_line_start
-                ):
-                    if bool(sub_dict["value"]) == True:
-                        val = ""
-                        _enable = enable_define
-                    elif bool(sub_dict["value"]) == False:
-                        val = ""
-                        _enable = disable_define
+                if sub_dict["value"] == True:
+                    val = "true"
+                elif sub_dict["value"] == False:
+                    val = "false"
                 else:
-                    _enable = enable_define
                     val = sub_dict["value"]
-
-                line = _enable + "#define " + str(item) + " " + val
+                line = "    #define " + str(item) + " " + val
                 self.code_preview_dict["files"]["config.h"]["file_lines_list"][
                     int(sub_dict["lineno"])
                 ] = line

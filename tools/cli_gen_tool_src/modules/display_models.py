@@ -88,39 +88,39 @@ class displayModels(object):
         },
         "config": {
             "library settings": {
-                "UI_MAX_COMMANDS_IN_TREE": {
+                "IH_MAX_COMMANDS_PER_TREE": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_ARGS_PER_COMMAND": {
+                "IH_MAX_ARGS_PER_COMMAND": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_TREE_DEPTH_PER_COMMAND": {
+                "IH_MAX_TREE_DEPTH_PER_COMMAND": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_NUM_CHILD_COMMANDS": {
+                "IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_CMD_LEN": {
+                "IH_MAX_CMD_STR_LEN": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_NUM_DELIM_SEQ": {
+                "IH_MAX_NUM_PROC_DELIM_SEQ": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_NUM_START_STOP_SEQ": {
+                "IH_MAX_NUM_START_STOP_SEQ": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_INPUT_LEN": {
+                "IH_MAX_PROC_INPUT_LEN": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_MAX_PER_CMD_MEMCMP_RANGES": {
+                "IH_MAX_PER_ROOT_MEMCMP_RANGES": {
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
@@ -298,7 +298,7 @@ class displayModels(object):
                     "type": "Enable/Disable",
                     "tooltip": [
                         "Library capable of output and error indication.",
-                        "Library not capable of output or error indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_ui_out()!)",
+                        "Library not capable of output or error indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::ihout()!)",
                     ],
                 },
             },

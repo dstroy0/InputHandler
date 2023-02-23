@@ -60,14 +60,14 @@ typedef __gnuc_va_list va_list;
 
     /**
      * @brief InputHandler vsnprintf
-     *          
+     *
      * InputHandler vsnprintf [vsnprintf ref](https://cplusplus.com/reference/cstdio/vsnprintf/)
      *
      * @code{.c}
      * int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
      *     _ATTRIBUTE((__format__(__printf__, 3, 0)));
      * @endcode
-     * 
+     *
      * @param[in] str pointer to a buffer where the C-string is stored
      * @param[in] size maximum number of bytes to write into the buffer
      * @param[in] format C string that contains a format string which follows the same
@@ -77,11 +77,13 @@ typedef __gnuc_va_list va_list;
      * @returns The number of bytes written to str
      */
     #if defined(DOXYGEN_XML_BUILD)
-    int vsnprintf(char* str, size_t size, const char* format, va_list args);
+int vsnprintf(char* str, size_t size, const char* format, va_list args);
     #else
-    /** @cond */
-    int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
-        _ATTRIBUTE((__format__(__printf__, 3, 0)));
+/** @cond */
+int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
+{
+    _ATTRIBUTE((__format__(__printf__, 3, 0)));
+}
     /** @endcond */
     #endif
 #endif
