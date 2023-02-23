@@ -46,41 +46,41 @@
         fine-tune the program space needed for your implementation
     */
     // PROGMEM len constants
-    #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
+    #define IH_INPUT_TYPE_STRINGS_PGM_LEN 10
 
     // if you edit these, some examples might break and your compiler might yell at you about some
     // variables in the UserInput constants section of InputHandler.h
-    #define UI_EOL_SEQ_PGM_LEN 5
+    #define IH_EOL_SEQ_PGM_LEN 5
 
-    #define UI_DELIM_SEQ_PGM_LEN 5
+    #define IH_DELIM_SEQ_PGM_LEN 5
 
-    #define UI_START_STOP_SEQ_PGM_LEN 5
+    #define IH_START_STOP_SEQ_PGM_LEN 5
 
-    #define UI_PROCESS_NAME_PGM_LEN 12
+    #define IH_PROCESS_NAME_PGM_LEN 12
 
-    #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
+    #define IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
 
-    #define UI_WCC_SEQ_PGM_LEN 2
+    #define IH_WCC_SEQ_PGM_LEN 2
 
     /*
         library output
         true == ON; false == OFF
     */
     /**
-     * @var UI_ECHO_ONLY
+     * @var IH_ECHO_ONLY
      *
      * Enable this option to change the library's output to echo only.
      * It will only echo what was entered and indicate where the input error is.
      */
-    #define UI_ECHO_ONLY false
+    #define IH_ECHO_ONLY false
 
     /**
-     * @var UI_VERBOSE
+     * @var IH_VERBOSE
      *
      * Enable this option to change the library's output to verbose.
      * Puts additional command information in the output buffer.
      */
-    #define UI_VERBOSE true
+    #define IH_VERBOSE true
 
     /*
         DEBUGGING

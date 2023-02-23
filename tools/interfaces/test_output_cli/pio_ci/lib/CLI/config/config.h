@@ -47,21 +47,21 @@
     fine-tune the program space needed for your implementation
 */
 // PROGMEM len constants
-       #define UI_INPUT_TYPE_STRINGS_PGM_LEN 10
+       #define IH_INPUT_TYPE_STRINGS_PGM_LEN 10
 
     // if you edit these, some examples might break and your compiler might yell at you about some
     // variables in the UserInput constants section of InputHandler.h
-       #define UI_EOL_SEQ_PGM_LEN 5
+       #define IH_EOL_SEQ_PGM_LEN 5
 
-       #define UI_DELIM_SEQ_PGM_LEN 5
+       #define IH_DELIM_SEQ_PGM_LEN 5
 
-       #define UI_START_STOP_SEQ_PGM_LEN 5
+       #define IH_START_STOP_SEQ_PGM_LEN 5
 
-       #define UI_PROCESS_NAME_PGM_LEN 12
+       #define IH_PROCESS_NAME_PGM_LEN 12
 
-       #define UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
+       #define IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN 3
 
-       #define UI_WCC_SEQ_PGM_LEN 2
+       #define IH_WCC_SEQ_PGM_LEN 2
 
 // clang-format on
 /*
@@ -69,13 +69,13 @@
     switch this on/off by commenting/uncommenting the #define
 */
     /**
-     * @def UI_ECHO_ONLY
+     * @def IH_ECHO_ONLY
      *
      * Uncomment this line to change the library's output to echo only.
      */
-    // #define UI_ECHO_ONLY
+    // #define IH_ECHO_ONLY
     #if defined(DOXYGEN_XML_BUILD) // do not edit this
-        #define UI_ECHO_ONLY       // do not edit this
+        #define IH_ECHO_ONLY       // do not edit this
     #endif                         // do not edit this
 
 /*

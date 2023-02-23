@@ -304,7 +304,7 @@ void UserInput::listSettings(UserInput* inputProcess)
     free(buf); // cleanup
     #endif
     #if defined(__UI_ECHO_ONLY__)
-    UserInput::ihout(PSTR("Please enable UI_VERBOSE in config.\n"));
+    UserInput::ihout(PSTR("Please enable IH_VERBOSE in config.\n"));
     #endif
 } // end listSettings
 #else
@@ -425,7 +425,7 @@ void UserInput::_printCommand(_searchStruct& s, uint8_t index)
         UserInput::ihout(PSTR(".MIN_ARGS:%02u.<"), s.prm.num_args);
         for (uint8_t j = 0; j < s.prm.max_num_args; ++j)
         {
-            char type_buffer[UI_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
+            char type_buffer[IH_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
             memcpy_P(&type_buffer, &ihconst::type_strings[int(s.prm.arg_type_arr[j])],
                 sizeof(type_buffer));
             UserInput::ihout(PSTR("%s"), &type_buffer);
@@ -537,7 +537,7 @@ void UserInput::listCommands()
     }
     #endif
     #if defined(__UI_ECHO_ONLY__)
-    UserInput::ihout(PSTR("Please enable UI_VERBOSE in config\n"));
+    UserInput::ihout(PSTR("Please enable IH_VERBOSE in config\n"));
     #endif
 } // end listCommands
 #else
@@ -1029,7 +1029,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                         || _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
                         uint8_t _type = (uint8_t)UserInput::_getArgType(rprm.prm, i);
-                        char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
+                        char _type_char_array[IH_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &ihconst::type_strings[_type],
                             sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS
@@ -1089,7 +1089,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
             }
     #endif
     #if defined(__UI_ECHO_ONLY__)
-            // this is the library output with UI_ECHO_ONLY defined
+            // this is the library output with IH_ECHO_ONLY defined
             UserInput::ihout(PSTR("Input received\n"));
     #endif
             return;
@@ -1102,7 +1102,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
     #endif
     #if defined(__UI_ECHO_ONLY__)
             UserInput::ihout(PSTR("Invalid input: %s\n"), (char*)rprm.input_data);
-    #endif // end UI_VERBOSE
+    #endif // end IH_VERBOSE
         }
     }
 } // end _readCommandFromBufferErrorOutput

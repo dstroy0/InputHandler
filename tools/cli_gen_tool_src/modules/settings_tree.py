@@ -136,7 +136,7 @@ class SettingsTreeWidget(QTreeWidget):
                     # make the treewidgetitem span columns
 
                     for item in SettingsTreeMethods._tree["config"][subsection]:
-                        # dict_pos = subsection + "," + str(index_of_child) + "," + item
+                        # dict_pos = subsection + "," + str(index_of_child) + "," + item                        
                         var_initial_val = self.cliopt["config"]["var"][subsection][
                             item
                         ]["value"]

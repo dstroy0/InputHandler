@@ -63,8 +63,8 @@ class ParseInputHandlerConfig(object):
         self.input_config_file_lines = self.input_config_file_lines + file_line_list
         debug_regexp = "(\s*#define\s*)(DEBUG_\S* )(\S*.*)"
         opt_method_regexp = "(\s*#define\s*)(DISABLE_\S* )(\S*.*)"
-        setting_regexp = "(\s*#define\s*)(?!\S*PGM_LEN)(UI_\S*\s*)(\d*.*)"
-        progmem_regexp = "(\s*#define\s*)(UI_\S*PGM_LEN\s*)(\d*.*)"
+        setting_regexp = "(\s*#define\s*)(?!\S*PGM_LEN)(IH_\S*\s*)(\d*.*)"
+        progmem_regexp = "(\s*#define\s*)(IH_\S*PGM_LEN\s*)(\d*.*)"
         regexp_dict = {
             "library settings": setting_regexp,
             "progmem settings": progmem_regexp,

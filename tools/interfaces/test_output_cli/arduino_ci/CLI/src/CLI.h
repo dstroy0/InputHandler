@@ -24,8 +24,9 @@
     #include "InputHandler.cpp"
     #include "functions.h"
     #include "parameters.h"
-    #include "config/utility/namespace.h"
+    
 using namespace InputHandler;
+using namespace ih_t;
 
 char InputHandler_output_buffer[1000] = {'\0'}; // output buffer size
 

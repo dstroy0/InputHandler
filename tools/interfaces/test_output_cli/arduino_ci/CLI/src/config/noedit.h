@@ -128,10 +128,10 @@
     /** @cond */
     // optional method toggles
     // LIBRARY OUTPUT
-    #if UI_ECHO_ONLY
+    #if IH_ECHO_ONLY
         #define __UI_ECHO_ONLY__
     #endif
-    #if UI_VERBOSE
+    #if IH_VERBOSE
         #define __UI_VERBOSE__
     #endif
     // end LIBRARY OUTPUT

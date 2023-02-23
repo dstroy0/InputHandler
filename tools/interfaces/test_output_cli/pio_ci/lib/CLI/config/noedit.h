@@ -485,8 +485,8 @@ typedef uint32_t memcmp_idx_t;
 /** @cond */
 // optional method toggles
 // LIBRARY OUTPUT
-    #if !defined(UI_ECHO_ONLY)
-        #define UI_VERBOSE
+    #if !defined(IH_ECHO_ONLY)
+        #define IH_VERBOSE
     #endif
   // end LIBRARY OUTPUT
 

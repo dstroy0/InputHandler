@@ -124,14 +124,14 @@ class displayModels(object):
                     "type": "auto",
                     "tooltip": "This macro's associated variable(s) are auto sized by InputHandler::IH to uint8_t, uint16_t, or uint32_t",
                 },
-                "UI_ECHO_ONLY": {
+                "IH_ECHO_ONLY": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "This functionality is optional. It alters the library output significantly.",
                         "Library output altered.",
                     ],
                 },
-                "UI_VERBOSE": {
+                "IH_VERBOSE": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "This functionality is optional. It alters the library output significantly.",
@@ -140,27 +140,27 @@ class displayModels(object):
                 },
             },
             "progmem settings": {
-                "UI_INPUT_TYPE_STRINGS_PGM_LEN": {
+                "IH_INPUT_TYPE_STRINGS_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },
-                "UI_EOL_SEQ_PGM_LEN": {
+                "IH_EOL_SEQ_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },
-                "UI_DELIM_SEQ_PGM_LEN": {
+                "IH_DELIM_SEQ_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },
-                "UI_START_STOP_SEQ_PGM_LEN": {
+                "IH_START_STOP_SEQ_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },
-                "UI_PROCESS_NAME_PGM_LEN": {
+                "IH_PROCESS_NAME_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },
-                "UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN": {
+                "IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN": {
                     "type": "constant bytes",
                     "tooltip": "Number of PROGMEM bytes this object uses.",
                 },

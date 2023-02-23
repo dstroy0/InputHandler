@@ -29,42 +29,42 @@
 /**
  * @brief This is an alias for a char array.
  *
- * IH_pname[@link UI_PROCESS_NAME_PGM_LEN @endlink]
+ * IH_pname[@link IH_PROCESS_NAME_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
- * @link UI_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.
+ * @link IH_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char IH_pname[UI_PROCESS_NAME_PGM_LEN];
+typedef char IH_pname[IH_PROCESS_NAME_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * IH_eol[@link UI_EOL_SEQ_PGM_LEN @endlink]
+ * IH_eol[@link IH_EOL_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
- * @link UI_EOL_SEQ_PGM_LEN @endlink in src/config/config.h.
+ * @link IH_EOL_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char IH_eol[UI_EOL_SEQ_PGM_LEN];
+typedef char IH_eol[IH_EOL_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * IH_input_cc[@link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
+ * IH_input_cc[@link IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
- * @link UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink in src/config/config.h.
+ * @link IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char IH_input_cc[UI_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
+typedef char IH_input_cc[IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN];
 
 /**
  * @brief char array typedef.
  *
- * IH_wcc[@link UI_WCC_SEQ_PGM_LEN @endlink]
+ * IH_wcc[@link IH_WCC_SEQ_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
- * @link UI_WCC_SEQ_PGM_LEN @endlink in src/config/config.h.
+ * @link IH_WCC_SEQ_PGM_LEN @endlink in src/config/config.h.
  */
-typedef char IH_wcc[UI_WCC_SEQ_PGM_LEN];
+typedef char IH_wcc[IH_WCC_SEQ_PGM_LEN];
 ///@}
 
 /**
@@ -161,7 +161,7 @@ enum class UITYPE
  * input arguments, subcommands or data.  The input process needs to know three things
  * about the delimiter sequences you want to use.  The number of delimiter sequences there are
  * (up to @link IH_MAX_NUM_PROC_DELIM_SEQ @endlink), the 8-bit byte (char) length of each delimiter
- * sequence, and finally each delimiter sequence which can be up to @link UI_DELIM_SEQ_PGM_LEN
+ * sequence, and finally each delimiter sequence which can be up to @link IH_DELIM_SEQ_PGM_LEN
  * @endlink in length.
  */
 struct InputProcessDelimiterSequences
@@ -171,10 +171,10 @@ struct InputProcessDelimiterSequences
         delimiter_lens[IH_MAX_NUM_PROC_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens
                                                    ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
     char delimiter_sequences[IH_MAX_NUM_PROC_DELIM_SEQ]
-                            [UI_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
+                            [IH_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
                                                     ///< delimiter_sequences
                                                     ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
-                                                    ///< [@link UI_DELIM_SEQ_PGM_LEN @endlink]
+                                                    ///< [@link IH_DELIM_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -186,7 +186,7 @@ struct InputProcessDelimiterSequences
  * three things about the start-stop sequences you want to use.  The number of start-stop
  * sequences there are (up to @link IH_MAX_NUM_START_STOP_SEQ @endlink), the 8-bit byte (char)
  * length of each start-stop sequence, and finally each start-stop sequence which can be up to
- * @link UI_START_STOP_SEQ_PGM_LEN @endlink in length.
+ * @link IH_START_STOP_SEQ_PGM_LEN @endlink in length.
  */
 struct InputProcessStartStopSequences
 {
@@ -196,11 +196,11 @@ struct InputProcessStartStopSequences
                                      ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
     char start_stop_sequence_pairs
         [IH_MAX_NUM_START_STOP_SEQ]
-        [UI_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
+        [IH_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
                                      ///< start, match end, copy what is
                                      ///< between markers start_stop_sequence_pairs
                                      ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
-                                     ///< [@link UI_START_STOP_SEQ_PGM_LEN @endlink]
+                                     ///< [@link IH_START_STOP_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -213,8 +213,8 @@ struct InputProcessStartStopSequences
 struct InputProcessParameters
 {
     const IH_pname* process_name; ///< this process' name, can be NULL; MAX len ==
-                                  ///< @link UI_PROCESS_NAME_PGM_LEN @endlink
-    const IH_eol* eol_char; ///< end of line term; MAX len == @link UI_EOL_SEQ_PGM_LEN @endlink
+                                  ///< @link IH_PROCESS_NAME_PGM_LEN @endlink
+    const IH_eol* eol_char; ///< end of line term; MAX len == @link IH_EOL_SEQ_PGM_LEN @endlink
     const IH_input_cc*
         input_control_char_sequence; ///< two char len sequence to input a control char
     const IH_wcc* wildcard_char;     ///< single char wildcard char
@@ -295,7 +295,7 @@ namespace ihconst
  * a corresponding string literal for display purposes.
  *
  */
-const char PROGMEM type_strings[10][UI_INPUT_TYPE_STRINGS_PGM_LEN] = {
+const char PROGMEM type_strings[10][IH_INPUT_TYPE_STRINGS_PGM_LEN] = {
     "UINT8_T",   ///< 8-bit unsigned integer
     "UINT16_T",  ///< 16-bit unsigned integer
     "UINT32_T",  ///< 32-bit unsigned integer

@@ -141,7 +141,7 @@ bool UserInput::begin()
     }
     if (_input_type_match_flags_ == NULL && _max_args_ != 0)
     {
-#if defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(IH_VERBOSE) && defined(ENABLE_ui_out)
         UserInput::ihout(
             PSTR("ERROR! Cannot allocate ram for UserInput::_input_type_match_flags_\n"));
 #endif
@@ -151,7 +151,7 @@ bool UserInput::begin()
     _data_pointers_ = (char**)calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
     if (_data_pointers_ == NULL)
     {
-#if defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(IH_VERBOSE) && defined(ENABLE_ui_out)
         UserInput::ihout(PSTR("ERROR! Cannot allocate ram for UserInput::_data_pointers_\n"));
 #endif
         _begin_ = false;
@@ -162,7 +162,7 @@ bool UserInput::begin()
     return _begin_;
 } // end begin
 
-#if defined(ENABLE_listSettings) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(ENABLE_listSettings) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listSettings(UserInput* inputProcess)
 {
     if (!_begin_)
@@ -254,7 +254,7 @@ void UserInput::listSettings(UserInput* inputProcess)
 } // end listSettings
 #endif // end ENABLE_listSettings
 
-#if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(ENABLE_listCommands) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
 
 int UserInput::_linearSearch(_searchStruct& s)
 {
@@ -366,7 +366,7 @@ void UserInput::_printCommand(_searchStruct& s, uint8_t index)
         UserInput::ihout(PSTR(".MIN_ARGS:%02u.<"), s.prm.num_args);
         for (uint8_t j = 0; j < s.prm.max_num_args; ++j)
         {
-            char type_buffer[UI_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
+            char type_buffer[IH_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
             memcpy_P(&type_buffer, &ihconst::type_strings[int(s.prm.arg_type_arr[j])],
                 sizeof(type_buffer));
             UserInput::ihout(PSTR("%s"), &type_buffer);
@@ -385,7 +385,7 @@ void UserInput::_printCommand(_searchStruct& s, uint8_t index)
 
 #endif
 
-#if defined(ENABLE_listCommands) && defined(UI_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(ENABLE_listCommands) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
 void UserInput::listCommands()
 {
     if (!_begin_)
@@ -885,7 +885,7 @@ void UserInput::ihout(const char* fmt, ...)
 #if defined(ENABLE_readCommandFromBufferErrorOutput) && defined(ENABLE_ui_out)
 void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
-    #if defined(UI_VERBOSE)
+    #if defined(IH_VERBOSE)
     if (_output_enabled_) // format a string with useful information
     {
         IH_pname process_name;
@@ -915,7 +915,7 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                         || _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                     {
                         uint8_t _type = (uint8_t)UserInput::_getArgType(rprm.prm, i);
-                        char _type_char_array[UI_INPUT_TYPE_STRINGS_PGM_LEN];
+                        char _type_char_array[IH_INPUT_TYPE_STRINGS_PGM_LEN];
                         memcpy_P(&_type_char_array, &ihconst::type_strings[_type],
                             sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS
@@ -973,10 +973,10 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                 }
                 return;
             }
-    #endif // end UI_VERBOSE
-           // this is the library output with UI_ECHO_ONLY defined
+    #endif // end IH_VERBOSE
+           // this is the library output with IH_ECHO_ONLY defined
             UserInput::ihout(PSTR("%s\n"), (char*)rprm.input_data);
-    #if defined(UI_VERBOSE)
+    #if defined(IH_VERBOSE)
             return;
         }
         else // command not matched
@@ -985,14 +985,14 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                 PSTR("%s\n command <%s> unknown\n"), (char*)rprm.input_data, _data_pointers_[0]);
         }
     }
-    #endif // end UI_VERBOSE
+    #endif // end IH_VERBOSE
 } // end _readCommandFromBufferErrorOutput
 #endif // end ENABLE_readCommandFromBufferErrorOutput
 
 // clang-format off
 inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_name)
 {   
-    #if defined(UI_VERBOSE)
+    #if defined(IH_VERBOSE)
     if (_output_enabled_)
     {
         #if defined(ENABLE_ui_out)
@@ -1025,7 +1025,7 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_n
         UserInput::ihout(PSTR("\n"));
         #endif
     }
-    #endif // UI_VERBOSE
+    #endif // IH_VERBOSE
     _data_pointers_index_ = _current_search_depth_ - 1;
 
     if (rprm.prm.function != NULL)
@@ -1207,7 +1207,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
 
     if (prm.function == NULL && prm.depth == 0)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(
             PSTR("command <%s> root command function pointer cannot be NULL\n"), prm.command);
 #endif
@@ -1228,7 +1228,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
         }
         if (num_wcc == 0)
         {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
             UserInput::ihout(PSTR("command <%s> has_wildcard is set, but no wildcards were found "
                                   "in the command\n"),
                 prm.command);
@@ -1239,7 +1239,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
 
     if (cmd_len > IH_MAX_CMD_STR_LEN)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(
             PSTR("command <%s> command too long, increase IH_MAX_CMD_STR_LEN or reduce "
                  "command length.\n"),
@@ -1251,14 +1251,14 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
     {
         if (cmd_len > prm.command_length)
         {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
             UserInput::ihout(
                 PSTR("command <%s> command_length too large for command\n"), prm.command);
 #endif
         }
         else
         {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
             UserInput::ihout(
                 PSTR("command <%s> command_length too small for command\n"), prm.command);
 #endif
@@ -1267,14 +1267,14 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
     }
     if (prm.depth > IH_MAX_TREE_DEPTH_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
 #endif
         error_not = false;
     }
     if (prm.sub_commands > IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(
             PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
 #endif
@@ -1282,21 +1282,21 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
     }
     if (prm.num_args > IH_MAX_ARGS_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
 #endif
         error_not = false;
     }
     if (prm.max_num_args > IH_MAX_ARGS_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
 #endif
         error_not = false;
     }
     if (prm.num_args > prm.max_num_args)
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(
             PSTR("command <%s> num_args must be less than max_num_args\n"), prm.command);
 #endif
@@ -1304,7 +1304,7 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
     }
     if (error_not == false) // error condition
     {
-#if defined(ENABLE_ui_out) && defined(UI_VERBOSE)
+#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
         UserInput::ihout(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"),
             prm.command, prm.command);
 #endif
