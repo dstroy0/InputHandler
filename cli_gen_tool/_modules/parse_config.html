@@ -287,8 +287,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span> <span class="o">+</span> <span class="n">file_line_list</span>
         <span class="n">debug_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(DEBUG_\S* )(\S*.*)&quot;</span>
         <span class="n">opt_method_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(DISABLE_\S* )(\S*.*)&quot;</span>
-        <span class="n">setting_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(?!\S*PGM_LEN)(UI_\S*\s*)(\d*.*)&quot;</span>
-        <span class="n">progmem_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(UI_\S*PGM_LEN\s*)(\d*.*)&quot;</span>
+        <span class="n">setting_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(?!\S*PGM_LEN)(IH_\S*\s*)(\d*.*)&quot;</span>
+        <span class="n">progmem_regexp</span> <span class="o">=</span> <span class="s2">&quot;(\s*#define\s*)(IH_\S*PGM_LEN\s*)(\d*.*)&quot;</span>
         <span class="n">regexp_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;library settings&quot;</span><span class="p">:</span> <span class="n">setting_regexp</span><span class="p">,</span>
             <span class="s2">&quot;progmem settings&quot;</span><span class="p">:</span> <span class="n">progmem_regexp</span><span class="p">,</span>
