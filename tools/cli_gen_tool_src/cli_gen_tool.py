@@ -63,9 +63,6 @@ from modules.code_generation import CodeGeneration  # code preview and generatio
 ## tool version
 version = 1.0  # save serialization
 
-## The line in /InputHandler/src/config/config.h that boolean define fields start.
-config_file_boolean_define_fields_line_start = 72
-
 ## How long should the splash be displayed (in ms)
 splashscreen_duration = 750
 
@@ -468,10 +465,7 @@ class MainWindow(
         self.version = version
         self.lib_version = parent.lib_version
         self.qscreen = self.screen()
-        # input config file boolean define fields (ie // DISABLE_listSettings)
-        self.config_file_boolean_define_fields_line_start = (
-            config_file_boolean_define_fields_line_start
-        )
+        
         self.input_config_file_lines = []
         # the settings that the session started with
         self.default_settings_tree_values = {}

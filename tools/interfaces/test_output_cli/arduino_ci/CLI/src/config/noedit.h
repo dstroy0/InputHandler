@@ -31,14 +31,14 @@
 // clang-format off
     // function-like macros
     // TODO make this less bad later
-    #define TRM(x) ihconst::terminal_strings[static_cast<int>(ihconst::TRM::x)]    
-    #define CMD_ERR_MSG ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::command_string)]
-    #define CMD_ERR(x) ihconst::command_error_strings[static_cast<int>(ihconst::CMD_ERR_IDX::x)]     
-    #define AE_CMD_ERR(x) ihconst::command_error_strings[static_cast<int>(x)]     
-    #define ERR_TYP(x) ihconst::error_type_strings[static_cast<int>(ihconst::ERR_TYP::x)]
-    #define ERR_MSG(x) ihconst::error_message_strings[static_cast<int>(ihconst::ERR_MSG::x)]
-    #define VAR_ID(x) ihconst::var_id_strings[static_cast<int>(ihconst::VAR_ID::x)]
-    #define FE_VAR_ID(x) ihconst::var_id_strings[static_cast<int>(x)]
+    #define TRM(x) ihc::terminal_strings[static_cast<int>(ihc::TRM::x)]    
+    #define CMD_ERR_MSG ihc::command_error_strings[static_cast<int>(ihc::CMD_ERR_IDX::command_string)]
+    #define CMD_ERR(x) ihc::command_error_strings[static_cast<int>(ihc::CMD_ERR_IDX::x)]     
+    #define AE_CMD_ERR(x) ihc::command_error_strings[static_cast<int>(x)]     
+    #define ERR_TYP(x) ihc::error_type_strings[static_cast<int>(ihc::ERR_TYP::x)]
+    #define ERR_MSG(x) ihc::error_message_strings[static_cast<int>(ihc::ERR_MSG::x)]
+    #define VAR_ID(x) ihc::var_id_strings[static_cast<int>(ihc::VAR_ID::x)]
+    #define FE_VAR_ID(x) ihc::var_id_strings[static_cast<int>(x)]
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
     #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
     #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
@@ -197,8 +197,8 @@
     #if !DISABLE_readCommandFromBufferErrorOutput
         #define ENABLE_readCommandFromBufferErrorOutput
     #endif
-    #if !DISABLE_ui_out // disables all output, even if you have an output buffer defined
-        #define ENABLE_ui_out
+    #if !DISABLE_ihout // disables all output, even if you have an output buffer defined
+        #define ENABLE_ihout
     #endif
 // end private methods
 // end OPTIONAL METHODS

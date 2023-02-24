@@ -167,26 +167,26 @@ This makes debugging commands easy, it is trivial to disable output after verify
     #include "parameters.h"
 
 {outputbuffer}
-const PROGMEM IH_pname pname = "{processname}"; // process name
-const PROGMEM IH_eol peol = "{processeol}"; // process end of line characters
-const PROGMEM IH_input_cc pinputcc = "{processinputcontrolchar}"; // input control char sequence
-const PROGMEM IH_wcc pwcc = "{processwildcardchar}"; // process wildcard char
+const PROGMEM ih::ProcessName pname = "{processname}"; // process name
+const PROGMEM ih::EndOfLineChar peol = "{processeol}"; // process end of line characters
+const PROGMEM ih::ControlCharSeq pinputcc = "{processinputcontrolchar}"; // input control char sequence
+const PROGMEM ih::WildcardChar pwcc = "{processwildcardchar}"; // process wildcard char
 
 // data delimiter sequences
-const PROGMEM InputProcessDelimiterSequences pdelimseq = {{
+const PROGMEM ih::DelimiterSequences pdelimseq = {{
     {numdelimseq}, // number of delimiter sequences
     {delimseqlens}, // delimiter sequence lens
     {delimseqs} // delimiter sequences
 }};
 
 // start stop data delimiter sequences
-const PROGMEM InputProcessStartStopSequences pststpseq = {{
+const PROGMEM ih::StartStopSequences pststpseq = {{
     {numstartstoppairs}, // num start stop sequence pairs
     {startstopseqlens}, // start stop sequence lens
     {startstopseqs} // start stop sequence pairs
 }};
 
-const PROGMEM InputProcessParameters input_prm[1] = {{
+const PROGMEM ih::InputParameters input_prm[1] = {{
     &pname,
     &peol,
     &pinputcc,
@@ -223,25 +223,25 @@ void InputHandler_loop()
 // end of file
 """
     ## functions.h function format string
-    functions_h_function_string = """void {functionname}(UserInput* _{objectname}){{{statements}}}
+    functions_h_function_string = """void {functionname}(ih::UserInput* _{objectname}){{{statements}}}
 """
 
     ## single CommandParameters format string
     commandparameters_string = """
 /**
-   @brief CommandParameters struct for {functionname}
+   @brief ih::Parameters struct for {functionname}
 */
-const PROGMEM CommandParameters {functionname}_param[1] = 
+const PROGMEM ih::Parameters {functionname}_param[1] = 
 {{
     {functionname}, // function pointer
-    {wildcardflag}, // wildcard flag
+    ih::{wildcardflag}, // wildcard flag
     "{commandstring}", // command string
     {lencommandstring}, // command string num characters
     {parentid}, // parent id
     {commandid}, // this command id (tree unique)
     {commanddepth}, // command depth
     {commandsubcommands}, // number of subcommands
-    {argumenthandling}, // argument handling
+    ih::{argumenthandling}, // argument handling
     {minnumargs}, // minimum expected number of arguments
     {maxnumargs}, // maximum expected number of arguments
     /* UITYPE arguments */
@@ -252,20 +252,20 @@ const PROGMEM CommandParameters {functionname}_param[1] =
     ## nested CommandParameters format string
     nested_commandparameters_string = """
 /**
-   @brief CommandParameters struct for {functionname}
+   @brief ih::Parameters struct for {functionname}
 */
-const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchildren} /* child(ren) */] = 
+const PROGMEM ih::Parameters {functionname}_param[1 /* root */ + {numberofchildren} /* child(ren) */] = 
 {{
     {{
       {functionname}, // function pointer
-      {wildcardflag}, // wildcard flag
+      ih::{wildcardflag}, // wildcard flag
       "{commandstring}", // command string
       {lencommandstring}, // command string num characters
       {parentid}, // parent id
       {commandid}, // this command id (tree unique)
       {commanddepth}, // command depth
       {commandsubcommands}, // number of subcommands
-      {argumenthandling}, // argument handling
+      ih::{argumenthandling}, // argument handling
       {minnumargs}, // minimum expected number of arguments
       {maxnumargs}, // maximum expected number of arguments
       /* UITYPE arguments */
@@ -289,7 +289,7 @@ const PROGMEM CommandParameters {functionname}_param[1 /* root */ + {numberofchi
 
     ## InputHandler return function
     ih_return_function_code_fs = """
-void {functionname}(UserInput* _{objectname}) 
+void {functionname}(ih::UserInput* _{objectname}) 
 {{
     // your statements here
 }}
@@ -315,7 +315,7 @@ void {functionname}(UserInput* _{objectname})
                     "arduino compatibility": '\n    #include "InputHandler.cpp"\n',
                     "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                     "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
-                    "constructor": "UserInput {objectname}{classoutput};\n",
+                    "constructor": "ih::UserInput {objectname}{classoutput};\n",
                     "setup function": cli_h_setup_function_string,
                     "loop function": cli_h_loop_function_string,
                     "addCommand": {
@@ -342,7 +342,7 @@ void {functionname}(UserInput* _{objectname})
                     "setup function output": {
                         "stream": {
                             "entry": '\n  {stream}.println(F("{outputstring}"));',
-                            "exit": '\n  {stream}.println(F("{outputstring}"));{ls}{lc}',
+                            "exit": '\n  {stream}.println(F("{outputstring}"));{ls}\n  {objectname}.outputToStream({stream});{lc}\n  {objectname}.outputToStream({stream});',
                         },
                         "buffer": {
                             "entry": '\n  if ((buffsz({outputbuffer})-outputIsAvailable()) > strlen("{outputstring}")+1) {{\n    snprintf_P({outputbuffer} + outputIsAvailable(), "{outputstring}");\n  }}',
@@ -360,11 +360,9 @@ void {functionname}(UserInput* _{objectname})
                         "call": " _{objectname}->outputToStream({stream});"
                     },
                     "listCommands": {"call": " _{objectname}->listCommands();"},
-                    "listSettings": {
-                        "call": " _{objectname}->listSettings(_{objectname});"
-                    },
+                    "listSettings": {"call": " _{objectname}->listSettings();"},
                     "function": functions_h_function_string,
-                    "return function prototype": "\nextern void {functionname}(UserInput* _{objectname});",
+                    "return function prototype": "\nextern void {functionname}(ih::UserInput* _{objectname});",
                 },
                 "filestring": functions_h_fs,
             },  # end functions h
@@ -373,8 +371,8 @@ void {functionname}(UserInput* _{objectname})
             "h": {
                 "filestring components": {
                     "nested child": "    *{functionname}_param{comma} // pointer to {functionname}_param{newline}",
-                    "command constructor": "CommandConstructor {functionname}_({functionname}_param); // {functionname}_ command constructor",
-                    "nested command constructor": "CommandConstructor {functionname}_({functionname}_param, nprms({functionname}_param), {maxdepth}); // {functionname}_ command constructor",
+                    "command constructor": "ih::Command {functionname}_({functionname}_param); // {functionname}_ command constructor",
+                    "nested command constructor": "ih::Command {functionname}_({functionname}_param, nprms({functionname}_param), {maxdepth}); // {functionname}_ command constructor",
                     "parameters": commandparameters_string,
                     "nested parameters": nested_commandparameters_string,
                 },

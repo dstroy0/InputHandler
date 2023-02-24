@@ -59,7 +59,7 @@ class cliParameters(object):
             else:
                 comma = ""
                 newline = ""
-            arg_format = f"{padding}{arr_indent}UITYPE::{arg_type}{comma}{newline}"
+            arg_format = f"{padding}{arr_indent}ih::UITYPE::{arg_type}{comma}{newline}"
             arguments += arg_format
         if len(args_list) > 1:
             newline = "\n"

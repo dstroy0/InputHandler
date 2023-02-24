@@ -384,7 +384,7 @@ typedef uint32_t memcmp_idx_t;
 // end typedef sizing
 } // end namespace IH
 
-namespace ih_t
+namespace ih
 {
 
 /**
@@ -619,9 +619,9 @@ struct CommandRuntimeCalc
  * This namespace's purpose is to avoid name collision
  * and to consolidate the library's PROGMEM variables.
  *
- * @namespace ihconst
+ * @namespace ihc
  */
-namespace ihconst
+namespace ihc
 {
 
 /**
@@ -645,17 +645,17 @@ const char PROGMEM type_strings[10][IH_INPUT_TYPE_STRINGS_PGM_LEN] = {
 };
 
 // default constructor paramters
-const ih_t::ProcessName PROGMEM _process_name = "";   ///< default process name is an empty string
-const ih_t::EndOfLineChar PROGMEM _eol_char = "\r\n"; ///< default process eol characters CRLF
-const ih_t::ControlCharSeq PROGMEM _input_control_char_sequence =
+const ih::ProcessName PROGMEM _process_name = "";   ///< default process name is an empty string
+const ih::EndOfLineChar PROGMEM _eol_char = "\r\n"; ///< default process eol characters CRLF
+const ih::ControlCharSeq PROGMEM _input_control_char_sequence =
     "##"; ///< default process input control character sequence "##"
-const ih_t::WildcardChar PROGMEM _wildcard_char = "*"; ///< default process wildcard char '*'
+const ih::WildcardChar PROGMEM _wildcard_char = "*"; ///< default process wildcard char '*'
 
 /**
  * @brief Default delimiter sequences.
  *
  */
-const ih_t::DelimiterSequences PROGMEM _delimiter_sequences = {
+const ih::DelimiterSequences PROGMEM _delimiter_sequences = {
     2,         ///< number of delimiter sequences
     {1, 1},    ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
@@ -665,7 +665,7 @@ const ih_t::DelimiterSequences PROGMEM _delimiter_sequences = {
  * @brief Default start stop sequences.
  *
  */
-const ih_t::StartStopSequences PROGMEM _start_stop_sequences = {
+const ih::StartStopSequences PROGMEM _start_stop_sequences = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pair sequences
@@ -675,13 +675,13 @@ const ih_t::StartStopSequences PROGMEM _start_stop_sequences = {
  * @brief UserInput default InputProcessParameters.
  *
  */
-const ih_t::InputParameters PROGMEM default_parameters = {
-    &ihconst::_process_name,                ///< process name
-    &ihconst::_eol_char,                    ///< process eol term
-    &ihconst::_input_control_char_sequence, ///< process input control char sequence
-    &ihconst::_wildcard_char,               ///< process wildcard char
-    &ihconst::_delimiter_sequences,         ///< process default delimiter sequences
-    &ihconst::_start_stop_sequences         ///< process default start/stop sequences
+const ih::InputParameters PROGMEM default_parameters = {
+    &ihc::_process_name,                ///< process name
+    &ihc::_eol_char,                    ///< process eol term
+    &ihc::_input_control_char_sequence, ///< process input control char sequence
+    &ihc::_wildcard_char,               ///< process wildcard char
+    &ihc::_delimiter_sequences,         ///< process default delimiter sequences
+    &ihc::_start_stop_sequences         ///< process default start/stop sequences
 };
 
 // messages
@@ -869,7 +869,7 @@ enum class TRM
     prompt,
 };
 
-} // end namespace ihconst
+} // end namespace ihc
 ///@} // end namespaces group
 
 #endif // include guard

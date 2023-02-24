@@ -294,7 +294,7 @@ class displayModels(object):
                         "No error output or indication. (THIS WILL OVERRIDE ANY OTHER SETTINGS RELATED TO InputHandler::_readCommandFromBufferErrorOutput()!)",
                     ],
                 },
-                "DISABLE_ui_out": {
+                "DISABLE_ihout": {
                     "type": "Enable/Disable",
                     "tooltip": [
                         "Library capable of output and error indication.",

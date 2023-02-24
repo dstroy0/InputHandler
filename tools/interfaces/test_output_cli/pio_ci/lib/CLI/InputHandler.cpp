@@ -16,7 +16,8 @@
  */
 
 #include "InputHandler.h"
-
+namespace ih
+{
 /*
  *   public methods
  */
@@ -26,160 +27,210 @@ void UserInput::defaultFunction(void (*function)(UserInput*))
     _default_function_ = function;
 } // end defaultFunction
 
-void UserInput::addCommand(CommandConstructor& command)
+void UserInput::addCommand(Command& command)
 {
-    size_t max_depth_found = 0; // for _data_pointers_ array sizing
-    size_t max_args_found = 0;  // for _data_pointers_ array sizing
-    CommandParameters prm; // this CommandParameters struct is referenced by the helper function
-                           // _addCommandAbort()
-    size_t wc_containing_prm_found = 0;
-    IH::memcmp_idx_t
-        wc_containing_prm_index_arr[IH_MAX_COMMANDS_PER_TREE] {}; // max possible amount of
-                                                                  // subcommands + root command
-    bool err = false; // CommandParameters struct error sentinel
-    /*
-        the reason we run through the whole CommandParameters array instead of breaking
-        on error is to give users clues as to what might be wrong with their
-        command CommandParameters
-    */
-    for (size_t i = 0; i < command.param_array_len; ++i)
+    if (!_halt_)
     {
-        memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
-        if (!UserInput::_addCommandAbort(command, prm)) // input CommandParameters error checking
+        size_t max_depth_found = 0; // for _data_pointers_ array sizing
+        size_t max_args_found = 0;  // for _data_pointers_ array sizing
+        Parameters prm;             // this Parameters struct is referenced by the helper function
+                                    // _addCommandAbort()
+        size_t wc_containing_prm_found = 0;
+        memcmp_idx_t
+            wc_containing_prm_index_arr[IH_MAX_COMMANDS_PER_TREE] {}; // max possible amount of
+                                                                      // subcommands + root command
+        bool err = false; // Parameters struct error sentinel
+        /*
+            the reason we run through the whole Parameters array instead of breaking
+            on error is to give users clues as to what might be wrong with their
+            command Parameters
+        */
+        for (size_t i = 0; i < command.param_array_len; ++i)
         {
-            err = true;
-        }
-        else
-        {
-            max_depth_found =
-                (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;
-            max_args_found =
-                (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
-            if (prm.has_wildcards == true)
+            memcpy_P(&prm, &(command.prm[i]), sizeof(prm));
+            if (!UserInput::_addCommandAbort(command, prm)) // input Parameters error checking
             {
-                wc_containing_prm_index_arr[wc_containing_prm_found] = i;
-                wc_containing_prm_found++;
+                err = true;
             }
-        }
-    }
-    if (!err) // if no error
-    {
-        if (wc_containing_prm_found
-            > 0) // if the number of wildcard containing CommandParameters is greater than zero
-        {
-            command.calc = (struct CommandRuntimeCalc*)calloc(1, sizeof(struct CommandRuntimeCalc));
-            command.calc->num_prm_with_wc = (IH::memcmp_idx_t)wc_containing_prm_found;
-            command.calc->idx_of_prm_with_wc =
-                (IH::memcmp_idx_t*)calloc(wc_containing_prm_found, sizeof(IH::memcmp_idx_t));
-            command.calc->num_memcmp_ranges_this_row = (IH::max_per_root_memcmp_ranges*)calloc(
-                wc_containing_prm_found, sizeof(IH::max_per_root_memcmp_ranges));
-            command.calc->memcmp_ranges_arr = (IH::max_per_root_memcmp_ranges**)calloc(
-                wc_containing_prm_found, sizeof(IH::max_per_root_memcmp_ranges*));
-            memcpy(command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr,
-                wc_containing_prm_found);
-            for (size_t i = 0; i < wc_containing_prm_found; ++i)
+            else
             {
-                IH::max_per_root_memcmp_ranges memcmp_ranges[IH_MAX_PER_ROOT_MEMCMP_RANGES] {};
-                IH::max_per_root_memcmp_ranges memcmp_ranges_idx = 0;
-                memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
-                UserInput::_calcCmdMemcmpRanges(
-                    command, prm, wc_containing_prm_index_arr[i], memcmp_ranges_idx, memcmp_ranges);
-                command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
-                command.calc->memcmp_ranges_arr[i] = (IH::max_per_root_memcmp_ranges*)calloc(
-                    memcmp_ranges_idx, sizeof(IH::max_per_root_memcmp_ranges));
-                memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
-#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ui_out)
-                UserInput::ihout(
-                    PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"),
-                    prm.command, memcmp_ranges_idx);
-                for (size_t j = 0; j < memcmp_ranges_idx; ++j)
+                max_depth_found =
+                    (command.tree_depth > max_depth_found) ? command.tree_depth : max_depth_found;
+                max_args_found =
+                    (prm.max_num_args > max_args_found) ? prm.max_num_args : max_args_found;
+                if (prm.has_wildcards == true)
                 {
-                    if (j % 2 == 0)
-                    {
-                        UserInput::ihout(
-                            PSTR("%d, "), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
-                    }
-                    else
-                    {
-                        UserInput::ihout(
-                            PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
-                    }
+                    wc_containing_prm_index_arr[wc_containing_prm_found] = i;
+                    wc_containing_prm_found++;
                 }
-#endif
             }
         }
-        else
-        {
-            // CommandConstructor sets this pointer null, this is here for clarity
-            command.calc = NULL;
-        }
-        _commands_count_++;
-        _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
-        _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
 
-        if (_commands_head_ == NULL) // the linked-list is empty
+        if (!err) // if no error
         {
-            _commands_head_ = _commands_tail_ =
-                &command; // (this) is the beginning of the linked-list
-        }
-        else
-        {
-            _commands_tail_->next_command = &command; // single linked-list (next only)
-            _commands_tail_ = &command;               // move the tail to (this)
+            if (wc_containing_prm_found
+                > 0) // if the number of wildcard containing Parameters is greater than zero
+            {
+                command.calc =
+                    (struct CommandRuntimeCalc*)calloc(1, sizeof(struct CommandRuntimeCalc));
+                command.calc->num_prm_with_wc = (memcmp_idx_t)wc_containing_prm_found;
+                command.calc->idx_of_prm_with_wc =
+                    (memcmp_idx_t*)calloc(wc_containing_prm_found, sizeof(memcmp_idx_t));
+                if (command.calc->idx_of_prm_with_wc == NULL)
+                {
+                    _halt_ = true;
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ihout)
+                    _fatalError(ihc::VAR_ID::memcmp_idx);
+#endif
+                    return;
+                }
+                command.calc->num_memcmp_ranges_this_row = (max_per_root_memcmp_ranges*)calloc(
+                    wc_containing_prm_found, sizeof(max_per_root_memcmp_ranges));
+                if (command.calc->num_memcmp_ranges_this_row == NULL)
+                {
+                    _halt_ = true;
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ihout)
+                    _fatalError(ihc::VAR_ID::memcmp_ranges);
+#endif
+                    return;
+                }
+                command.calc->memcmp_ranges_arr = (max_per_root_memcmp_ranges**)calloc(
+                    wc_containing_prm_found, sizeof(max_per_root_memcmp_ranges*));
+                if (command.calc->memcmp_ranges_arr == NULL)
+                {
+                    _halt_ = true;
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ihout)
+                    _fatalError(ihc::VAR_ID::memcmp_ranges_arr);
+#endif
+                    return;
+                }
+                memcpy(command.calc->idx_of_prm_with_wc, wc_containing_prm_index_arr,
+                    wc_containing_prm_found);
+                for (size_t i = 0; i < wc_containing_prm_found; ++i)
+                {
+                    max_per_root_memcmp_ranges memcmp_ranges[IH_MAX_PER_ROOT_MEMCMP_RANGES] {};
+                    max_per_root_memcmp_ranges memcmp_ranges_idx = 0;
+                    memcpy_P(&prm, &(command.prm[wc_containing_prm_index_arr[i]]), sizeof(prm));
+                    UserInput::_calcCmdMemcmpRanges(command, prm, wc_containing_prm_index_arr[i],
+                        memcmp_ranges_idx, memcmp_ranges);
+                    command.calc->num_memcmp_ranges_this_row[i] = memcmp_ranges_idx;
+                    command.calc->memcmp_ranges_arr[i] = (max_per_root_memcmp_ranges*)calloc(
+                        memcmp_ranges_idx, sizeof(max_per_root_memcmp_ranges));
+                    if (command.calc->memcmp_ranges_arr[i] == NULL)
+                    {
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ihout)
+                        UserInput::ihout(ERR_MSG(fatal_arr_alloc_idx), ERR_TYP(fatal_error),
+                            VAR_ID(memcmp_ranges_arr), i);
+#endif
+                        _halt_ = true;
+                        return;
+                    }
+                    memcpy(command.calc->memcmp_ranges_arr[i], &memcmp_ranges, memcmp_ranges_idx);
+#if defined(__DEBUG_ADDCOMMAND__) && defined(ENABLE_ihout)
+                    UserInput::ihout(
+                        PSTR("cmd %s memcmp_ranges_arr num elements: %d\nmemcmp ranges: \n"),
+                        prm.command, memcmp_ranges_idx);
+                    for (size_t j = 0; j < memcmp_ranges_idx; ++j)
+                    {
+                        if (j % 2 == 0)
+                        {
+                            UserInput::ihout(
+                                PSTR("%d, "), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
+                        }
+                        else
+                        {
+                            UserInput::ihout(
+                                PSTR("%d\n"), (uint8_t)command.calc->memcmp_ranges_arr[i][j]);
+                        }
+                    }
+#endif
+                }
+            }
+            else
+            {
+                // Command sets this pointer null, this is here for clarity
+                command.calc = NULL;
+            }
+            _commands_count_++;
+            _max_depth_ = (max_depth_found > _max_depth_) ? max_depth_found : _max_depth_;
+            _max_args_ = (max_args_found > _max_args_) ? max_args_found : _max_args_;
+
+            if (_commands_head_ == NULL) // the linked-list is empty
+            {
+                _commands_head_ = _commands_tail_ =
+                    &command; // (this) is the beginning of the linked-list
+            }
+            else
+            {
+                _commands_tail_->next_command = &command; // single linked-list (next only)
+                _commands_tail_ = &command;               // move the tail to (this)
+            }
         }
     }
 } // end addCommand
 
 bool UserInput::begin()
 {
-    _p_num_ptrs_ = 1U + _max_depth_
-        + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())
-    if (_max_args_ != 0)
+    if (!_halt_)
     {
-        _input_type_match_flags_ = (IH::type_match_flags*)calloc(_max_args_,
-            sizeof(IH::type_match_flags)); // this array lives the lifetime of the process
-    }
-    if (_input_type_match_flags_ == NULL && _max_args_ != 0)
-    {
-#if defined(IH_VERBOSE) && defined(ENABLE_ui_out)
-        UserInput::ihout(
-            PSTR("ERROR! Cannot allocate ram for UserInput::_input_type_match_flags_\n"));
+        _p_num_ptrs_ = 1U + _max_depth_
+            + _max_args_; // root + max depth found + max args found (in UserInput::addCommand())
+        if (_max_args_ != 0)
+        {
+            _input_type_match_flags_ = (type_match_flags*)calloc(_max_args_,
+                sizeof(type_match_flags)); // this array lives the lifetime of the
+                                           // process
+        }
+        if (_input_type_match_flags_ == NULL && _max_args_ != 0)
+        {
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ihout)
+            _fatalError(ihc::VAR_ID::input_type_match_flags);
 #endif
-        _begin_ = false;
-        return _begin_;
-    }
-    _data_pointers_ = (char**)calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
-    if (_data_pointers_ == NULL)
-    {
-#if defined(IH_VERBOSE) && defined(ENABLE_ui_out)
-        UserInput::ihout(PSTR("ERROR! Cannot allocate ram for UserInput::_data_pointers_\n"));
+            _begin_ = false;
+            return _begin_;
+        }
+        _data_pointers_ =
+            (char**)calloc(_p_num_ptrs_, sizeof(char*)); // as does this array of pointers
+        if (_data_pointers_ == NULL)
+        {
+#if defined(__UI_VERBOSE__) && defined(ENABLE_ihout)
+            _fatalError(ihc::VAR_ID::data_pointers);
 #endif
-        _begin_ = false;
-        free(_input_type_match_flags_);
-        return _begin_;
+            _begin_ = false;
+            free(_input_type_match_flags_);
+            return _begin_;
+        }
+        _begin_ = true;
     }
-    _begin_ = true;
+    else
+    {
+        _halt_ = true;
+        _begin_ = false;
+#if defined(ENABLE_ihout)
+        _fatalError();
+#endif
+    }
     return _begin_;
 } // end begin
 
-#if defined(ENABLE_listSettings) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
-void UserInput::listSettings(UserInput* inputProcess)
+#if defined(ENABLE_listSettings) && defined(ENABLE_ihout)
+void UserInput::listSettings()
 {
-    if (!_begin_)
+    if (_fatalError())
     {
-        UserInput::ihout(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    IH_pname process_name;
+    #if defined(__UI_VERBOSE__)
+    ProcessName process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));
-    IH_eol eol;
+    EndOfLineChar eol;
     memcpy_P(&eol, _input_prm_.eol_char, sizeof(eol));
-    IH_input_cc input_control_char_sequence;
+    ControlCharSeq input_control_char_sequence;
     memcpy_P(&input_control_char_sequence, _input_prm_.input_control_char_sequence,
         sizeof(input_control_char_sequence));
-    InputProcessDelimiterSequences delimseqs;
+    DelimiterSequences delimseqs;
     memcpy_P(&delimseqs, _input_prm_.delimiter_sequences, sizeof(delimseqs));
-    InputProcessStartStopSequences ststpseqs;
+    StartStopSequences ststpseqs;
     memcpy_P(&ststpseqs, _input_prm_.start_stop_sequences, sizeof(ststpseqs));
     size_t buf_sz = strlen((char*)eol) + strlen((char*)input_control_char_sequence) + 2U;
 
@@ -203,43 +254,43 @@ void UserInput::listSettings(UserInput* inputProcess)
             char)); // allocate char buffer large enough to print these potential control characters
     if (buf == NULL)
     {
-        UserInput::ihout(PSTR("ERROR: listSettings() cannot allocate ram to escape control char "
-                              "so they will print.\n"));
+        _halt_ = true;
+        #if defined(__DEBUG_LISTSETTINGS__)
+        _fatalError(ihc::VAR_ID::listsettings_buf);
+        #endif
         return;
     }
     size_t idx = 0;
-    UserInput::ihout(
-        PSTR("src/config/InputHandler_config.h:\n"
-             "IH_MAX_ARGS_PER_COMMAND %lu max allowed arguments per unique command_id\n"
-             "IH_MAX_CMD_STR_LEN (root command) %lu characters\n"
-             "UI_MAX_IN_LEN %lu bytes\n"
-             "\nUserInput constructor:\n"
-             "output buffer size in bytes = %lu\n"
-             "process_name = \"%s\"\n"
-             "_data_pointers_[root(1) + _max_depth_ + _max_args_] == [%02lu]\n"
-             "_max_depth_ (found from input CommandParameters) = %lu\n"
-             "_max_args_ (found from input CommandParameters) = %lu\n"
-             "\nEscaped for display:\n"
-             "input_control_char_sequence = \"%s\"\n"
-             "peol = \"%s\"\n"),
+    UserInput::ihout(PSTR("src/config/InputHandler_config.h:\n"
+                          "IH_MAX_ARGS_PER_COMMAND=%lu\n"
+                          "IH_MAX_CMD_STR_LEN=%lu\n"
+                          "UI_MAX_IN_LEN=%lu\n"
+                          "\nUserInput constructor:\n"
+                          "output_buffer=%lu bytes\n"
+                          "process_name=\"%s\"\n"
+                          "_data_pointers_[x] x=%02lu\n"
+                          "_max_depth_=%lu\n"
+                          "_max_args_=%lu\n"
+                          "input_cc_seq = \"%s\"\n"
+                          "peol = \"%s\"\n"),
         (uint32_t)IH_MAX_ARGS_PER_COMMAND, (uint32_t)IH_MAX_CMD_STR_LEN,
         (uint32_t)IH_MAX_PROC_INPUT_LEN, (uint32_t)_output_buffer_len_, (char*)process_name,
         (uint32_t)_p_num_ptrs_, (uint32_t)_max_depth_, (uint32_t)_max_args_,
         _addEscapedControlCharToBuffer(buf, idx, (char*)input_control_char_sequence,
             strlen((char*)input_control_char_sequence)),
         _addEscapedControlCharToBuffer(buf, idx, (char*)eol, strlen((char*)eol)));
-    UserInput::ihout(PSTR("pdelimseqs = delim<\"\">\n"));
+    UserInput::ihout(PSTR("pdelimseqs = "));
     for (size_t i = 0; i < delimseqs.num_seq; ++i)
     {
         UserInput::ihout(PSTR("<\"%s\">%c"),
             UserInput::_addEscapedControlCharToBuffer(buf, idx, delimseqs.delimiter_sequences[i],
                 strlen(delimseqs.delimiter_sequences[i])),
-            (((delimseqs.num_seq > 1) && (i % 5U != 0))
-                    ? '|'
-                    : ((i % 5U == 0) ? '\n' : '\n'))); // separate <> with a pipe | and start a
-                                                       // newline every 5 sequences
+            ((((i % 5 == 0) && i > 1) || i == delimseqs.num_seq - 1)
+                    ? '\n'
+                    : '|')); // separate <> with a pipe | and start a
+                             // newline every 5 sequences
     }
-    UserInput::ihout(PSTR("pststpseqs = start<\"\">|stop<\"\">\n"));
+    UserInput::ihout(PSTR("pststpseqs = "));
     for (size_t i = 0; i < ststpseqs.num_seq; i += 2)
     {
         UserInput::ihout(PSTR("<\"%s\">|<\"%s\">\n"),
@@ -251,11 +302,19 @@ void UserInput::listSettings(UserInput* inputProcess)
                 strlen(ststpseqs.start_stop_sequence_pairs[i + 1])));
     }
     free(buf); // cleanup
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
+    UserInput::ihout(PSTR("Please enable IH_VERBOSE in config.\n"));
+    #endif
 } // end listSettings
+#else
+void UserInput::listSettings()
+{
+    // disabled
+}
 #endif // end ENABLE_listSettings
 
-#if defined(ENABLE_listCommands) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
-
+#if defined(ENABLE_listCommands) && defined(__UI_VERBOSE__) && defined(ENABLE_ihout)
 int UserInput::_linearSearch(_searchStruct& s)
 {
     s.lsize--;
@@ -336,7 +395,7 @@ bool UserInput::_sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_val
 
 void UserInput::_printCommand(_searchStruct& s, uint8_t index)
 {
-    memcpy_P(&s.prm, &(s.cmd->prm[index]), sizeof(CommandParameters));
+    memcpy_P(&s.prm, &(s.cmd->prm[index]), sizeof(Parameters));
     if (s.prm.depth > 0)
     {
         if (s.prm.depth == s.prev_dp)
@@ -367,8 +426,8 @@ void UserInput::_printCommand(_searchStruct& s, uint8_t index)
         for (uint8_t j = 0; j < s.prm.max_num_args; ++j)
         {
             char type_buffer[IH_INPUT_TYPE_STRINGS_PGM_LEN + 1] = {'\0'};
-            memcpy_P(&type_buffer, &ihconst::type_strings[int(s.prm.arg_type_arr[j])],
-                sizeof(type_buffer));
+            memcpy_P(
+                &type_buffer, &ihc::type_strings[int(s.prm.arg_type_arr[j])], sizeof(type_buffer));
             UserInput::ihout(PSTR("%s"), &type_buffer);
             if (j < s.prm.max_num_args - 1)
             {
@@ -385,15 +444,15 @@ void UserInput::_printCommand(_searchStruct& s, uint8_t index)
 
 #endif
 
-#if defined(ENABLE_listCommands) && defined(IH_VERBOSE) && defined(ENABLE_ui_out)
+#if defined(ENABLE_listCommands) && defined(ENABLE_ihout)
 void UserInput::listCommands()
 {
-    if (!_begin_)
+    if (_fatalError())
     {
-        UserInput::ihout(PSTR("UserInput::begin() not declared.\n"));
         return;
     }
-    IH_pname process_name;
+    #if defined(__UI_VERBOSE__)
+    ProcessName process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));
     if (process_name[0] == _null_)
     {
@@ -403,14 +462,29 @@ void UserInput::listCommands()
     {
         UserInput::ihout(PSTR("Commands available to %s:\n"), process_name);
     }
-    CommandConstructor* cmd; // linked-list pointer
+    Command* cmd; // linked-list pointer
     // traverse linked list
     uint8_t i = 1;
     for (cmd = _commands_head_; cmd != NULL; cmd = cmd->next_command, ++i)
     {
-        CommandParameters prm;
+        Parameters prm;
         uint8_t* sort_array = (uint8_t*)calloc((cmd->param_array_len * 5) + 1, sizeof(uint8_t));
+        if (sort_array == NULL)
+        {
+        #if defined(DEBUG_listCommands)
+            _fatalError(ihc::VAR_ID::sort_array);
+        #endif
+            return;
+        }
         uint8_t** sorted_ptr = (uint8_t**)calloc(cmd->param_array_len + 1, sizeof(uint8_t*));
+        if (sorted_ptr == NULL)
+        {
+        #if defined(DEBUG_listCommands)
+            _fatalError(ihc::VAR_ID::sorted_ptr);
+        #endif
+            free(sort_array);
+            return;
+        }
         uint8_t sorted_idx = 0;
         uint8_t ls_value = 0;
         uint8_t lms_values[2] = {0, 0};
@@ -423,7 +497,7 @@ void UserInput::listCommands()
         // load unsorted partial commands into array to be sorted
         for (uint8_t i = 0; i < cmd->param_array_len; ++i)
         {
-            memcpy_P(&prm, &(cmd->prm[i]), sizeof(CommandParameters));
+            memcpy_P(&prm, &(cmd->prm[i]), sizeof(Parameters));
             sort_array[mIndex(5, i, 0)] = prm.parent_command_id;
             sort_array[mIndex(5, i, 1)] = prm.command_id;
             sort_array[mIndex(5, i, 2)] = prm.depth;
@@ -461,24 +535,29 @@ void UserInput::listCommands()
         free(sorted_ptr);
         free(sort_array);
     }
-
-    UserInput::ihout(PSTR("end listCommands\n"));
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
+    UserInput::ihout(PSTR("Please enable IH_VERBOSE in config\n"));
+    #endif
 } // end listCommands
+#else
+void UserInput::listCommands()
+{
+    // disabled
+}
 #endif // end ENABLE_listCommands
 
 void UserInput::readCommandFromBuffer(
-    uint8_t* data, size_t len, const size_t num_zdc, const CommandParameters** zdc)
+    uint8_t* data, size_t len, const size_t num_zdc, const Parameters** zdc)
 {
-    // error checking
-    if (!_begin_) // begin not set; allocation or implementation error
+    if (_fatalError()) // error checking
     {
         return;
     }
     if (len > IH_MAX_PROC_INPUT_LEN) // increase IH_MAX_PROC_INPUT_LEN error
     {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-        UserInput::ihout(PSTR(">%s$ERROR: input is too long.\n"),
-            (char*)pgm_read_dword(_input_prm_.process_name));
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+        UserInput::ihout(PSTR(">%s$ERROR: input is too long.\n"), _input_prm_.process_name);
 #endif
         return;
     }
@@ -492,8 +571,8 @@ void UserInput::readCommandFromBuffer(
     rprm.all_wcc_cmd = NULL;         // all wcc cmd ptr, NULL if no all wcc cmd
     rprm.result = no_match;          // the result of UserInput::_compareCommandToString
     rprm.command_id = root;          // 16-bit command id starts at root
-    rprm.idx = 0;                    // CommandParameters index
-    rprm.all_wcc_idx = 0;            // index of all wcc CommandParameters
+    rprm.idx = 0;                    // Parameters index
+    rprm.all_wcc_idx = 0;            // index of all wcc Parameters
     rprm.input_len = len;            // input_len can change, len cannot
     rprm.token_buffer_len =
         rprm.input_len + 1U;  // the token buffer will always be at least one larger than input
@@ -510,9 +589,8 @@ void UserInput::readCommandFromBuffer(
         rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == NULL)               // if there was an error allocating the memory
     {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-        UserInput::ihout(PSTR(">%s$ERROR: cannot allocate ram for _token_buffer_.\n"),
-            (char*)pgm_read_dword(_input_prm_.process_name));
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+        _fatalError(ihc::VAR_ID::token_buffer);
 #endif
         if (rprm.split_input != NULL) // error
         {
@@ -552,15 +630,14 @@ void UserInput::readCommandFromBuffer(
             free(_token_buffer_);
             _token_buffer_ = NULL;
         }
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-        UserInput::ihout(PSTR(">%s$ERROR: No tokens retrieved.\n"),
-            (char*)pgm_read_dword(_input_prm_.process_name));
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+        UserInput::ihout(PSTR(">%S$ERROR: No tokens retrieved.\n"), _input_prm_.process_name);
 #endif
         return;
     } // end error condition
 
     for (rprm.cmd = _commands_head_; rprm.cmd != NULL;
-         rprm.cmd = rprm.cmd->next_command) // iterate through CommandConstructor linked-list
+         rprm.cmd = rprm.cmd->next_command) // iterate through Command linked-list
     {
         rprm.result = UserInput::_compareCommandToString(
             rprm.cmd, 0, _data_pointers_[0]); // compare the root command to the first token
@@ -581,13 +658,13 @@ void UserInput::readCommandFromBuffer(
                      // wcc commands lower priority than a regular match)
     {
         rprm.result = match_all_wcc_cmd; // set result to all wcc
-        rprm.cmd = rprm.all_wcc_cmd;     // point to the all wcc CommandConstructor
+        rprm.cmd = rprm.all_wcc_cmd;     // point to the all wcc Command
     }
 
     if (rprm.result >= match_all_wcc_cmd) // match root command
     {
         memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]),
-            sizeof(rprm.prm)); // move CommandParameters variables from PROGMEM to sram for work
+            sizeof(rprm.prm));      // move Parameters variables from PROGMEM to sram for work
         _current_search_depth_ = 1; // start searching for subcommands at depth 1
         _data_pointers_index_ = 1; // index 1 of _data_pointers_ is the token after the root command
         rprm.command_matched = true; // root command match flag
@@ -628,9 +705,9 @@ void UserInput::readCommandFromBuffer(
 
 #if defined(ENABLE_getCommandFromStream)
 void UserInput::getCommandFromStream(
-    Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const CommandParameters** zdc)
+    Stream& stream, size_t rx_buffer_size, const size_t num_zdc, const Parameters** zdc)
 {
-    if (!_begin_) // error
+    if (_fatalError())
     {
         return;
     }
@@ -640,10 +717,10 @@ void UserInput::getCommandFromStream(
             rx_buffer_size, sizeof(uint8_t)); // an array to store the received data
         if (_stream_data_ == NULL)            // if there was an error allocating the memory
         {
-    #if defined(__DEBUG_GETCOMMANDFROMSTREAM__) && defined(ENABLE_ui_out)
-            UserInput::ihout(PSTR(">%s$ERROR: _stream_data_ alloc fail\n"),
-                (char*)pgm_read_dword(_input_prm_.process_name));
+    #if defined(ENABLE_ihout) && defined(__DEBUG_GETCOMMANDFROMSTREAM__)
+            _fatalError(ihc::VAR_ID::stream_data);
     #endif
+            _halt_ = true;
             return;
         }
         _stream_buffer_allocated_ = true;
@@ -652,7 +729,7 @@ void UserInput::getCommandFromStream(
     char* rc = (char*)_stream_data_; // point rc to allocated memory
     while (stream.available() > 0 && _new_stream_data_ == false)
     {
-        IH_eol eol;
+        EndOfLineChar eol;
         memcpy_P(&eol, _input_prm_.eol_char, sizeof(eol));
         rc[_stream_data_index_] = stream.read();
         if (rc[_stream_data_index_] == eol[_term_index_])
@@ -681,6 +758,12 @@ void UserInput::getCommandFromStream(
         _stream_buffer_allocated_ = false;
     }
 } // end getCommandFromStream
+#else
+void getCommandFromStream(Stream& stream, size_t rx_buffer_size = IH_MAX_PROC_INPUT_LEN,
+    const size_t num_zdc = 0, const Parameters** zdc = NULL)
+{
+    // disabled
+}
 #endif // end ENABLE_getCommandFromStream
 
 #if defined(ENABLE_nextArgument)
@@ -694,6 +777,11 @@ char* UserInput::nextArgument()
     }
     return NULL; // else return NULL
 } // end nextArgument
+#else
+char* UserInput::nextArgument()
+{
+    // disabled
+}
 #endif // end ENABLE_nextArgument
 
 #if defined(ENABLE_getArgument)
@@ -705,6 +793,11 @@ char* UserInput::getArgument(size_t argument_number)
     }
     return NULL; // else return NULL
 } // end getArgument
+#else
+char* UserInput::getArgument(size_t argument_number)
+{
+    // disabled
+}
 #endif // end ENABLE_getArgument
 
 #if defined(ENABLE_outputIsAvailable)
@@ -712,11 +805,21 @@ size_t UserInput::outputIsAvailable()
 {
     return _output_buffer_len_ - _output_buffer_bytes_left_;
 } // end outputIsAvailable
+#else
+size_t UserInput::outputIsAvailable()
+{
+    // disabled
+}
 #endif // end ENABLE_outputIsAvailable
 
 #if defined(ENABLE_outputIsEnabled)
 inline bool UserInput::outputIsEnabled() { return _output_enabled_; } // end outputIsEnabled
-#endif                                                                // end ENABLE_outputIsEnabled
+#else
+inline bool UserInput::outputIsEnabled()
+{
+    // disabled
+}
+#endif // end ENABLE_outputIsEnabled
 
 #if defined(ENABLE_outputToStream)
 void UserInput::outputToStream(Stream& stream)
@@ -728,6 +831,11 @@ void UserInput::outputToStream(Stream& stream)
         UserInput::clearOutputBuffer();
     }
 } // end outputToStream
+#else
+void UserInput::outputToStream(Stream& stream)
+{
+    // disabled
+}
 #endif // end ENABLE_outputToStream
 
 #if defined(ENABLE_clearOutputBuffer)
@@ -750,9 +858,14 @@ inline void UserInput::clearOutputBuffer(bool overwrite_contents)
     }
     _output_flag_ = false;
 } // end clearOutputBuffer
+#else
+inline void UserInput::clearOutputBuffer(bool overwrite_contents)
+{
+    // disabled
+}
 #endif // end ENABLE_clearOutputBuffer
 
-size_t UserInput::getTokens(getTokensParam& gtprm, const InputProcessParameters& input_prm)
+size_t UserInput::getTokens(getTokensParam& gtprm, const InputParameters& input_prm)
 {
     gtprm.token_pointer_index = 0; // and the token pointer index to zero
 
@@ -844,7 +957,7 @@ inline bool UserInput::validateNullSepInput(validateNullSepInputParam& vprm)
 /*
     private methods
 */
-#if defined(ENABLE_ui_out)
+#if defined(ENABLE_ihout)
 void UserInput::ihout(const char* fmt, ...)
 {
     if (_output_enabled_)
@@ -854,7 +967,8 @@ void UserInput::ihout(const char* fmt, ...)
         int err = vsnprintf_P(
             _output_buffer_ + abs((int)_output_buffer_bytes_left_ - (int)_output_buffer_len_),
             _output_buffer_bytes_left_, fmt, args);
-        va_end(args);                               // we are done with the parameter pack
+        va_end(args); // we are done with the parameter pack
+
         if (err > (long)_output_buffer_bytes_left_) // overflow condition
         {
             UserInput::clearOutputBuffer(true);
@@ -882,17 +996,17 @@ void UserInput::ihout(const char* fmt, ...)
 } // end ihout
 #endif
 
-#if defined(ENABLE_readCommandFromBufferErrorOutput) && defined(ENABLE_ui_out)
+#if defined(ENABLE_readCommandFromBufferErrorOutput) && defined(ENABLE_ihout)
 void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
 {
-    #if defined(IH_VERBOSE)
     if (_output_enabled_) // format a string with useful information
     {
-        IH_pname process_name;
+        ProcessName process_name;
         memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));
         UserInput::ihout(PSTR(">%s$Invalid input: "), process_name);
         if (rprm.command_matched == true)
         {
+    #if defined(__UI_VERBOSE__) && !defined(__UI_ECHO_ONLY__)
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[_failed_on_subcommand_]),
                 sizeof(rprm.prm)); // only load if a command matched
             // constrain err_n_args to UI_MAX_ARGS + 1
@@ -916,8 +1030,8 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                     {
                         uint8_t _type = (uint8_t)UserInput::_getArgType(rprm.prm, i);
                         char _type_char_array[IH_INPUT_TYPE_STRINGS_PGM_LEN];
-                        memcpy_P(&_type_char_array, &ihconst::type_strings[_type],
-                            sizeof(_type_char_array));
+                        memcpy_P(
+                            &_type_char_array, &ihc::type_strings[_type], sizeof(_type_char_array));
                         if ((UITYPE)_type != UITYPE::NO_ARGS
                             && _data_pointers_[1 + _failed_on_subcommand_ + i] == NULL)
                         {
@@ -973,31 +1087,34 @@ void UserInput::_readCommandFromBufferErrorOutput(_rcfbprm& rprm)
                 }
                 return;
             }
-    #endif // end IH_VERBOSE
-           // this is the library output with IH_ECHO_ONLY defined
-            UserInput::ihout(PSTR("%s\n"), (char*)rprm.input_data);
-    #if defined(IH_VERBOSE)
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
+            // this is the library output with IH_ECHO_ONLY defined
+            UserInput::ihout(PSTR("Input received\n"));
+    #endif
             return;
         }
         else // command not matched
         {
+    #if defined(__UI_VERBOSE__)
             UserInput::ihout(
                 PSTR("%s\n command <%s> unknown\n"), (char*)rprm.input_data, _data_pointers_[0]);
+    #endif
+    #if defined(__UI_ECHO_ONLY__)
+            UserInput::ihout(PSTR("Invalid input: %s\n"), (char*)rprm.input_data);
+    #endif // end IH_VERBOSE
         }
     }
-    #endif // end IH_VERBOSE
 } // end _readCommandFromBufferErrorOutput
 #endif // end ENABLE_readCommandFromBufferErrorOutput
 
 // clang-format off
-inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_name)
-{   
-    #if defined(IH_VERBOSE)
+inline void UserInput::_launchFunction(_rcfbprm& rprm, const ProcessName& process_name)
+{       
     if (_output_enabled_)
     {
-        #if defined(ENABLE_ui_out)
-        UserInput::ihout(PSTR(">%s$"), process_name);
-        #endif
+        #if defined(__UI_VERBOSE__) && defined(ENABLE_ihout)
+        UserInput::ihout(TRM(prompt), process_name);
         for (size_t i = 0; i < _data_pointers_index_max_; ++i)
         {
             size_t strlen_data = strlen(_data_pointers_[i]);
@@ -1006,31 +1123,33 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_n
                 if (iscntrl(_data_pointers_[i][j])) // format buffer with escaped char
                 {
                     char buf[UI_ESCAPED_CHAR_STRLEN] {};
-                    #if defined(ENABLE_ui_out)
+                    #if defined(ENABLE_ihout)
                     UserInput::ihout(PSTR("%s"), UserInput::_escapeCharactersSoTheyPrint(_data_pointers_[i][j], buf));
                     #endif
                 }
                 else
                 {
-                    #if defined(ENABLE_ui_out)
+                    #if defined(ENABLE_ihout)
                     UserInput::ihout(PSTR("%c"), _data_pointers_[i][j]); // single char
                     #endif
                 }
             }
-            #if defined(ENABLE_ui_out)
+            #if defined(ENABLE_ihout)
             UserInput::ihout(PSTR(" ")); // add a space
             #endif
-        }
-        #if defined(ENABLE_ui_out)
+        }        
         UserInput::ihout(PSTR("\n"));
         #endif
+        #if defined(__UI_ECHO_ONLY__) && defined(ENABLE_ihout)
+        UserInput::ihout(TRM(prompt), process_name);
+        #endif
     }
-    #endif // IH_VERBOSE
+    
     _data_pointers_index_ = _current_search_depth_ - 1;
 
     if (rprm.prm.function != NULL)
     {
-        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ihout)
         UserInput::ihout(PSTR(">%s$_launchFunction: launch command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
         rprm.prm.function(this);
@@ -1038,7 +1157,7 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_n
     else
     {
         memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
-        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_LAUNCH_FUNCTION__) && defined(ENABLE_ihout)
         UserInput::ihout(PSTR(">%s$_launchFunction: launch command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
         rprm.prm.function(this);
@@ -1047,11 +1166,11 @@ inline void UserInput::_launchFunction(_rcfbprm& rprm, const IH_pname& process_n
 
 void UserInput::_launchLogic(_rcfbprm& rprm)
 {
-    IH_pname process_name;
+    ProcessName process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));        
     if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)        
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)        
         UserInput::ihout(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
         return;
@@ -1059,7 +1178,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     if ((rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
         || (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0)) // subcommand with no arguments
     {
-        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)
         UserInput::ihout(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
 
@@ -1074,7 +1193,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
         UserInput::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
         {
-            #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ui_out)
+            #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)
             UserInput::ihout(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
             #endif
             rprm.launch_attempted = true;                                                      // don't run default callback
@@ -1087,7 +1206,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     rprm.subcommand_matched = false;       
     if (_current_search_depth_ <= (rprm.cmd->tree_depth))             // dig starting at depth 1
     {                                                                  // this index starts at one because the parameter array's first element will be the root command        
-        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
         UserInput::ihout(PSTR(">%s$launchLogic: search depth (%d)\n"), process_name, _current_search_depth_);
         #endif
         rprm.result = no_match;
@@ -1126,7 +1245,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[rprm.idx]), sizeof(rprm.prm));
             if (rprm.prm.depth == _current_search_depth_ && rprm.prm.parent_command_id == rprm.command_id)
             {
-                #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
+                #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
                 UserInput::ihout(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), process_name, rprm.prm.command, rprm.prm.command_id, rprm.prm.sub_commands, rprm.prm.max_num_args);
                 #endif
                 if (rprm.tokens_received > 0) // subcommand matched
@@ -1147,7 +1266,7 @@ void UserInput::_launchLogic(_rcfbprm& rprm)
     }                                     // end subcommand search
     if (rprm.subcommand_matched == true) // recursion
     {
-        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ui_out)
+        #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
         UserInput::ihout(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), process_name, rprm.prm.command_id);
         #endif
         UserInput::_launchLogic(rprm);
@@ -1198,26 +1317,34 @@ inline char UserInput::_combineControlCharacters(char input)
         default:  return (char)'*'; // * error
     }
 } // end _combineControlCharacters
-// clang-format on
 
-bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm)
+
+bool UserInput::_addCommandErrorMessage(ihc::CMD_ERR_IDX error, char* cmd)
 {
+    #if defined(ENABLE_ihout)
+    #if defined(__UI_VERBOSE__) 
+    UserInput::ihout(CMD_ERR_MSG, cmd, AE_CMD_ERR(error));
+    #else
+    UserInput::ihout(PSTR("%s ERROR!"), cmd);
+    #endif
+    #endif
+    return false;
+}
+bool UserInput::_addCommandAbort(Command& cmd, Parameters& prm)
+{
+
     bool error_not = true;
     size_t cmd_len = strlen(prm.command);
 
     if (prm.function == NULL && prm.depth == 0)
-    {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(
-            PSTR("command <%s> root command function pointer cannot be NULL\n"), prm.command);
-#endif
-        error_not = false;
+    {        
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::root_pointer_warn, prm.command);                
     }
 
     if (prm.has_wildcards == true)
     {
         size_t num_wcc = 0;
-        IH_wcc wcc;
+        WildcardChar wcc;
         memcpy_P(&wcc, _input_prm_.wildcard_char, sizeof(wcc));
         for (size_t i = 0; i < cmd_len; ++i)
         {
@@ -1227,93 +1354,58 @@ bool UserInput::_addCommandAbort(CommandConstructor& cmd, CommandParameters& prm
             }
         }
         if (num_wcc == 0)
-        {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-            UserInput::ihout(PSTR("command <%s> has_wildcard is set, but no wildcards were found "
-                                  "in the command\n"),
-                prm.command);
-#endif
-            error_not = false;
+        {            
+            error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::wcc_warn, prm.command);                                    
         }
     }
 
     if (cmd_len > IH_MAX_CMD_STR_LEN)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(
-            PSTR("command <%s> command too long, increase IH_MAX_CMD_STR_LEN or reduce "
-                 "command length.\n"),
-            prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_len_warn, prm.command);                        
     }
     if (cmd_len != prm.command_length)
     {
         if (cmd_len > prm.command_length)
-        {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-            UserInput::ihout(
-                PSTR("command <%s> command_length too large for command\n"), prm.command);
-#endif
+        {   
+            error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_len_dec_warn, prm.command);                                 
         }
         else
         {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-            UserInput::ihout(
-                PSTR("command <%s> command_length too small for command\n"), prm.command);
-#endif
-        }
-        error_not = false;
+            error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_len_inc_warn, prm.command);                        
+        }        
     }
     if (prm.depth > IH_MAX_TREE_DEPTH_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(PSTR("command <%s> depth exceeds UI_MAX_DEPTH\n"), prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_depth_inc_warn, prm.command);                        
     }
     if (prm.sub_commands > IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(
-            PSTR("command <%s> sub_commands exceeds UI_MAX_SUBCOMMANDS\n"), prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_subc_inc_warn, prm.command);                        
     }
     if (prm.num_args > IH_MAX_ARGS_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(PSTR("command <%s> num_args exceeds UI_MAX_ARGS\n"), prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_num_args_inc_warn, prm.command);                        
     }
     if (prm.max_num_args > IH_MAX_ARGS_PER_COMMAND)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(PSTR("command <%s> max_num_args exceeds UI_MAX_ARGS\n"), prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_max_num_args_inc_warn, prm.command);                        
     }
     if (prm.num_args > prm.max_num_args)
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(
-            PSTR("command <%s> num_args must be less than max_num_args\n"), prm.command);
-#endif
-        error_not = false;
+        error_not = _addCommandErrorMessage(ihc::CMD_ERR_IDX::cmd_flip_num_args_warn, prm.command);                
     }
     if (error_not == false) // error condition
     {
-#if defined(ENABLE_ui_out) && defined(IH_VERBOSE)
-        UserInput::ihout(PSTR("<%s> CommandParameters error! Root <%s> command tree rejected!\n"),
-            prm.command, prm.command);
-#endif
+        #if defined(__UI_VERBOSE__) && defined(ENABLE_ihout)
+        UserInput::ihout(CMD_ERR_MSG, prm.command, CMD_ERR(cmd_rejected_warn));
+        #else
+        UserInput::ihout(PSTR("%s REJECTED!"), prm.command);
+        #endif
     }
     return error_not;
 } // end _addCommandAbort
 
-// clang-format off
-inline UITYPE UserInput::_getArgType(CommandParameters &prm, size_t index)
+inline UITYPE UserInput::_getArgType(Parameters &prm, size_t index)
 {
     if (prm.argument_flag == UI_ARG_HANDLING::no_args) return UITYPE::NO_ARGS;
     if (prm.argument_flag == UI_ARG_HANDLING::one_type) return prm.arg_type_arr[0];
@@ -1358,10 +1450,9 @@ char* UserInput::_addEscapedControlCharToBuffer(
     return start;
 } // end _addEscapedControlCharToBuffer
 
-inline void UserInput::_getTokensDelimiters(
-    getTokensParam& gtprm, const InputProcessParameters& input_prm)
+inline void UserInput::_getTokensDelimiters(getTokensParam& gtprm, const InputParameters& input_prm)
 {
-    InputProcessDelimiterSequences delimseq;
+    DelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.delimiter_sequences, sizeof(delimseq));
     bool found_delimiter_sequence = false;
     bool match = false; // match delimiter sequence sentinel
@@ -1404,10 +1495,9 @@ inline void UserInput::_getTokensDelimiters(
     }
 } // end _getTokensDelimiters
 
-inline void UserInput::_getTokensStartStop(
-    getTokensParam& gtprm, const InputProcessParameters& input_prm)
+inline void UserInput::_getTokensStartStop(getTokensParam& gtprm, const InputParameters& input_prm)
 {
-    InputProcessStartStopSequences start_stop_sequences {};
+    StartStopSequences start_stop_sequences {};
     memcpy_P(&start_stop_sequences, input_prm.start_stop_sequences, sizeof(start_stop_sequences));
     if (start_stop_sequences.start_stop_sequence_pairs[0] != NULL
         && start_stop_sequences.start_stop_sequence_pairs[0][0] == (char)gtprm.data[gtprm.data_pos])
@@ -1486,9 +1576,9 @@ inline void UserInput::_getTokensStartStop(
     }
 } // end _getTokensStartStop
 
-void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParameters& input_prm)
+void UserInput::_getTokensChar(getTokensParam& gtprm, const InputParameters& input_prm)
 {
-    IH_input_cc input_control_char_sequence;
+    ControlCharSeq input_control_char_sequence;
     memcpy_P(&input_control_char_sequence, input_prm.input_control_char_sequence,
         sizeof(input_control_char_sequence));
     if ((char)gtprm.data[gtprm.data_pos] == input_control_char_sequence[0]
@@ -1536,23 +1626,22 @@ void UserInput::_getTokensChar(getTokensParam& gtprm, const InputProcessParamete
     }
 } // end _getTokensChar
 
-inline bool UserInput::_splitZDC(
-    _rcfbprm& rprm, const size_t num_zdc, const CommandParameters** zdc)
+inline bool UserInput::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Parameters** zdc)
 {
     if (num_zdc != 0) // if there are zero delim commands
     {
-        InputProcessDelimiterSequences delimiter_sequences;
+        DelimiterSequences delimiter_sequences;
         uint8_t delim_len = pgm_read_byte(&_input_prm_.delimiter_sequences->delimiter_lens[0]);
         size_t split_input_len = rprm.input_len + delim_len + 1U;
 
         rprm.split_input = (uint8_t*)calloc(split_input_len, sizeof(uint8_t));
         if (rprm.split_input == NULL) // if there was an error allocating the memory
         {
-#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ui_out)
-            UserInput::ihout(
-                PSTR(">%s$ERROR: cannot allocate ram to split input for zero delim command.\n"),
-                (char*)pgm_read_dword(_input_prm_.process_name));
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+            UserInput::ihout(ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), VAR_ID(split_input));
 #endif
+            _begin_ = false;
+            _halt_ = true;
             return false;
         }
         memcpy_P(
@@ -1561,7 +1650,7 @@ inline bool UserInput::_splitZDC(
              ++i) // look for zero delim commands and put a delimiter between the command and data
         {
             size_t cmd_len_pgm = pgm_read_dword(
-                &(zdc[i]->command_length)); // read command len from CommandParameters object
+                &(zdc[i]->command_length)); // read command len from Parameters object
             if (memcmp_P(rprm.input_data, zdc[i]->command, cmd_len_pgm) == false) // match zdc
             {
                 char* ptr = (char*)rprm.split_input;
@@ -1584,15 +1673,14 @@ inline bool UserInput::_splitZDC(
     return false;
 } // end _splitZDC
 
-void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParameters& prm,
-    size_t prm_idx, IH::memcmp_idx_t& memcmp_ranges_idx,
-    IH::max_per_root_memcmp_ranges* memcmp_ranges)
+void UserInput::_calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_idx,
+    memcmp_idx_t& memcmp_ranges_idx, max_per_root_memcmp_ranges* memcmp_ranges)
 {
     // this function is only used inside of UserInput::addCommand() and is not iterated over in
     // loop()
     if (prm.has_wildcards == true) // if this command has wildcards
     {
-        IH_wcc wcc;                     // char array to hold WildCard Character (wcc)
+        WildcardChar wcc;               // char array to hold WildCard Character (wcc)
         size_t cmd_str_pos = 0;         // prm.command char array index
         bool start_memcmp_range = true; // sentinel
         memcpy_P(
@@ -1646,20 +1734,18 @@ void UserInput::_calcCmdMemcmpRanges(CommandConstructor& command, CommandParamet
     }
 } // end _calcCmdMemcmpRanges
 
-inline UI_COMPARE UserInput::_compareCommandToString(
-    CommandConstructor* cmd, size_t prm_idx, char* str)
+inline UI_COMPARE UserInput::_compareCommandToString(Command* cmd, size_t prm_idx, char* str)
 {
     size_t cmd_len_pgm = 0; // the length of the command in PROGMEM
-    memcpy_P(&cmd_len_pgm, &cmd->prm[prm_idx].command_length, sizeof(IH::max_cmd_str_len));
+    memcpy_P(&cmd_len_pgm, &cmd->prm[prm_idx].command_length, sizeof(max_cmd_str_len));
     size_t input_len = strlen(str); // the length of the input, str is a token in _token_buffer_ it
                                     // is safe to assume it is null terminated
 
 #if defined(__DEBUG_SUBCOMMAND_SEARCH__)
-    char buf[32] = {};
-    strcpy_P(buf, cmd->prm[prm_idx].command);
-    UserInput::ihout(PSTR("_compareCommandToString()\n"));
-    UserInput::ihout(PSTR("command: <%s> len: %d\n"), buf, cmd_len_pgm);
-    UserInput::ihout(PSTR("user input: <%s> len: %d\n"), str, input_len);
+    UserInput::ihout(PSTR("_compareCommandToString()\n"
+                          "command: <%S> len: %d\n"
+                          "user input: <%s> len: %d\n"),
+        cmd->prm[prm_idx].command, cmd_len_pgm, str, input_len);
 #endif
     if (input_len != cmd_len_pgm) // no match (length different)
     {
@@ -1716,4 +1802,21 @@ inline UI_COMPARE UserInput::_compareCommandToString(
     return retval;
 } // end _compareCommandToString()
 
+bool UserInput::_fatalError(ihc::VAR_ID var_id)
+{
+    if (!_begin_ || _halt_ || var_id != ihc::VAR_ID::_reserved)
+    {
+        if (!_begin_)
+            UserInput::ihout(ERR_MSG(fatal_begin_not_set), ERR_TYP(fatal_error));
+        if (_halt_)
+            UserInput::ihout(ERR_MSG(fatal_halt), ERR_TYP(fatal_error));
+        if (var_id != ihc::VAR_ID::_reserved)
+        {
+            UserInput::ihout(ERR_MSG(fatal_allocation), ERR_TYP(fatal_error), FE_VAR_ID(var_id));
+        }
+        return true;
+    }
+    return false;
+}
+};
 // end of file

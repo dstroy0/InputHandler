@@ -226,12 +226,12 @@
     #define DISABLE_readCommandFromBufferErrorOutput false
 
     /**
-     * @var DISABLE_ui_out
+     * @var DISABLE_ihout
      *
      * Enable this option to completely remove output functionality at buildtime from the library.
      * Default is false.
      */
-    #define DISABLE_ui_out false
+    #define DISABLE_ihout false
 
 #endif // end include guard
 // end of file

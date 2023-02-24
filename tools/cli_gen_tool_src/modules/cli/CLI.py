@@ -181,10 +181,10 @@ class cliH(object):
 
         _lc = ""
         if self.cliopt["builtin methods"]["var"]["listCommands"]:
-            _lc = f"\n  listCommands(&{object_name}); // prints commands available to user"
+            _lc = f"\n  {object_name}.listCommands(); // prints commands available to user"
         _ls = ""
         if self.cliopt["builtin methods"]["var"]["listSettings"]:
-            _ls = f"\n  listSettings(&{object_name}); // prints InputHandler settings"
+            _ls = f"\n  {object_name}.listSettings(); // prints InputHandler settings"
 
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
             setup_function_entry = self.fsdb["CLI"]["h"]["filestring components"][
@@ -200,6 +200,7 @@ class cliH(object):
             ]["stream"]["exit"].format(
                 stream=stream_string,
                 outputstring=setup_function_exit_string,
+                objectname = object_name,
                 ls=_ls,
                 lc=_lc,
             )

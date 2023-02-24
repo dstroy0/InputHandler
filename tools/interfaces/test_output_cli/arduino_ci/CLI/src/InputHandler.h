@@ -21,12 +21,11 @@
     // user configurable items located in src/config/config.h and src/config/advanced_config.h
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
-namespace InputHandler
+namespace ih
 {
-// lib specific namespaces
-using namespace ih_t;
+// lib specific namespace
 using namespace ih_auto;
-class UserInput;
+class UserInput; // forward declaration for Parameters
 /**
  * @brief Command parameters setup
  *
@@ -127,19 +126,19 @@ public:
      * `output_buffer` is NULL.
      *
      * @param input_prm InputParameters PROGMEM pointer. NULL by default, which makess the
-     * ctor use ihconst::default_parameters.
+     * ctor use ihc::default_parameters.
      * @param output_buffer class output char buffer, implementation specific.  NULL by default.
      * @param output_buffer_len size of output_buffer, use @link buffsz() @endlink to prevent
      * accidental buffer sizing errors.
      */
     UserInput(const InputParameters* input_prm = NULL, char* output_buffer = NULL,
         size_t output_buffer_len = 0)
-        : _input_prm_ptr_((input_prm == NULL) ? &ihconst::default_parameters : input_prm),
+        : _input_prm_ptr_((input_prm == NULL) ? &ihc::default_parameters : input_prm),
           _output_buffer_(output_buffer),
           _output_buffer_len_(output_buffer_len),
           _output_enabled_((output_buffer == NULL) ? false : true),
           _output_buffer_bytes_left_(output_buffer_len),
-          _term_len_(strlen_P(((input_prm == NULL) ? (char*)ihconst::default_parameters.eol_char
+          _term_len_(strlen_P(((input_prm == NULL) ? (char*)ihc::default_parameters.eol_char
                                                    : (char*)input_prm->eol_char))),
           _term_index_(0),
           _default_function_(NULL),
@@ -236,9 +235,8 @@ public:
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=listSettings(UserInput*
      * inputProcess))
      *
-     * @param inputProcess pointer to the class instance
      */
-    void listSettings(UserInput* inputProcess);
+    void listSettings();
 
     /**
      * @brief Lists commands available to the user.
@@ -457,6 +455,21 @@ public:
      */
     size_t mIndex(size_t m_width, size_t row, size_t col) const { return row * m_width + col; }
 
+    /**
+     * @brief UserInput vsnprintf
+     * https://www.cplusplus.com/reference/cstdio/vsprintf/
+     *
+     * [UserInput::ihout()
+     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=ihout(const
+     * char* fmt, ...))
+     *
+     * Puts the message into the defined output buffer.
+     *
+     * @param fmt   the format string
+     * @param ...   arguments
+     */
+    void ihout(const char* fmt, ...);
+
 private:
     /*
         UserInput Constructor variables
@@ -547,18 +560,6 @@ private:
     };
 
     // private methods
-    /**
-     * @brief UserInput vsnprintf
-     * https://www.cplusplus.com/reference/cstdio/vsprintf/
-     *
-     * [UserInput::ihout()
-     * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=ihout(const
-     * char* fmt, ...))
-     *
-     * @param fmt   the format string
-     * @param ...   arguments
-     */
-    void ihout(const char* fmt, ...);
 
     #if defined(ENABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)
     /**
@@ -629,12 +630,12 @@ private:
     /**
      * @brief prints detected Parameters errors
      *
-     * @param error ihconst::CMD_ERR_IDX member
+     * @param error ihc::CMD_ERR_IDX member
      * @param cmd null term char array
      * @return true never
      * @return false each call
      */
-    bool _addCommandErrorMessage(ihconst::CMD_ERR_IDX error, char* cmd);
+    bool _addCommandErrorMessage(ihc::CMD_ERR_IDX error, char* cmd);
     /**
      * @brief determines if input Parameters struct is valid before adding to linked-list
      *
@@ -832,7 +833,7 @@ private:
      *                 or var_id != _reserved
      * @return false on fallthrough
      */
-    bool _fatalError(ihconst::VAR_ID var_id = ihconst::VAR_ID::_reserved);
+    bool _fatalError(ihc::VAR_ID var_id = ihc::VAR_ID::_reserved);
     // end private methods
 };
 ///@}
