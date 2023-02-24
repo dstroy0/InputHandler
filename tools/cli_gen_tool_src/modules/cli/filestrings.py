@@ -167,10 +167,10 @@ This makes debugging commands easy, it is trivial to disable output after verify
     #include "parameters.h"
 
 {outputbuffer}
-const PROGMEM ih::ProcessName pname = "{processname}"; // process name
-const PROGMEM ih::EndOfLineChar peol = "{processeol}"; // process end of line characters
-const PROGMEM ih::ControlCharSeq pinputcc = "{processinputcontrolchar}"; // input control char sequence
-const PROGMEM ih::WildcardChar pwcc = "{processwildcardchar}"; // process wildcard char
+const PROGMEM ih::ProcessName process_name = "{processname}"; // process name
+const PROGMEM ih::EndOfLineChar process_eol = "{processeol}"; // process end of line characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "{processinputcontrolchar}"; // input control char sequence
+const PROGMEM ih::WildcardChar process_wcc = "{processwildcardchar}"; // process wildcard char
 
 // data delimiter sequences
 const PROGMEM ih::DelimiterSequences pdelimseq = {{
@@ -180,19 +180,19 @@ const PROGMEM ih::DelimiterSequences pdelimseq = {{
 }};
 
 // start stop data delimiter sequences
-const PROGMEM ih::StartStopSequences pststpseq = {{
+const PROGMEM ih::StartStopSequences process_ststpseq = {{
     {numstartstoppairs}, // num start stop sequence pairs
     {startstopseqlens}, // start stop sequence lens
     {startstopseqs} // start stop sequence pairs
 }};
 
 const PROGMEM ih::InputParameters input_prm[1] = {{
-    &pname,
-    &peol,
-    &pinputcc,
-    &pwcc,
+    &process_name,
+    &process_eol,
+    &process_ccseq,
+    &process_wcc,
     &pdelimseq,
-    &pststpseq}};
+    &process_ststpseq}};
 
 // constructor
 {constructor}{setupfunction}{loopfunction}

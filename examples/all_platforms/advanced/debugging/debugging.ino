@@ -221,17 +221,17 @@
 
 char output_buffer[1] = {'\0'}; // output buffer
 
-const PROGMEM ih::ProcessName pname = "";         // process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";    // process end of line char
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; // input control character sequence
-const PROGMEM ih::WildcardChar pwcc = "*";        // process wildcard char
+const PROGMEM ih::ProcessName process_name = "";       // process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  // process end of line char
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; // input control character sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";      // process wildcard char
 const PROGMEM ih::DelimiterSequences pdelimseq = {
     2,         // number of delimiter sequences
     {1, 1},    // delimiter sequence lens
     {" ", ","} // delimiter sequences
 };
 
-const PROGMEM ih::StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences process_ststpseq = {
     1.0,    // num start stop sequence pairs
     {1, 1}, // start stop sequence lens
     {""
@@ -240,7 +240,7 @@ const PROGMEM ih::StartStopSequences pststpseq = {
 };
 
 const PROGMEM ih::InputParameters input_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &pdelimseq, &pststpseq};
+    &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 // default function, called if nothing matches or if there is an error
@@ -263,7 +263,8 @@ void setup()
 {
     delay(500);
     Serial.begin(1152000);
-    while(!Serial);
+    while (!Serial)
+        ;
     InputHandler_setup();
 }
 

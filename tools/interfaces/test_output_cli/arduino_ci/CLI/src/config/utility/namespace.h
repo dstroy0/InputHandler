@@ -394,7 +394,7 @@ namespace ih
 /**
  * @brief This is an alias for a char array.
  *
- * pname[@link IH_PROCESS_NAME_PGM_LEN @endlink]
+ * process_name[@link IH_PROCESS_NAME_PGM_LEN @endlink]
  *
  * To increase or decrease the pgm len of this array edit
  * @link IH_PROCESS_NAME_PGM_LEN @endlink in src/config/config.h.

@@ -272,7 +272,7 @@ void Input::listSettings()
                       "_max_depth_=%lu\n"
                       "_max_args_=%lu\n"
                       "input_cc_seq = \"%s\"\n"
-                      "peol = \"%s\"\n"),
+                      "process_eol = \"%s\"\n"),
         (uint32_t)IH_MAX_ARGS_PER_COMMAND, (uint32_t)IH_MAX_CMD_STR_LEN,
         (uint32_t)IH_MAX_PROC_INPUT_LEN, (uint32_t)_output_buffer_len_, (char*)process_name,
         (uint32_t)_p_num_ptrs_, (uint32_t)_max_depth_, (uint32_t)_max_args_,
@@ -406,13 +406,15 @@ void Input::_printCommand(_searchStruct& s, uint8_t index)
             s.prev_dp = s.prm.depth;
             s.sc_num = 1;
         }
-        char indent[s.prm.depth + 1] = {'\0'};
-        for (int j = 0; j < (nelems(indent)) - 1; ++j)
+        char* indent = (char*)calloc(s.prm.depth + 1, sizeof(char));
+        indent[nelems(indent) - 1] = '\0';
+        for (uint8_t j = 0; j < (nelems(indent)) - 1; ++j)
         {
             indent[j] = ' ';
         }
         Input::ihout(
             PSTR("    %s%02u> dp:%02u>.<%s>"), &indent, s.sc_num, s.prm.depth, &s.prm.command);
+        free(indent);
     }
     else
     {

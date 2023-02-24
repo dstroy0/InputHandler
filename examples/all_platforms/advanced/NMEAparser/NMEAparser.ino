@@ -64,12 +64,12 @@ extern const ih::Parameters sentence_param[], sentence_error_param[]; // zero de
 
 char output_buffer[512] {}; //  Input output buffer
 
-const PROGMEM ih::ProcessName pname = "";         ///< default process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";    ///< default process eol characters
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; ///< default input control character sequence
-const PROGMEM ih::WildcardChar pwcc = "*";
+const PROGMEM ih::ProcessName process_name = "";       ///< default process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< default process eol characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< default input control character sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";
 
-const PROGMEM ih::DelimiterSequences pipdelimseq = {
+const PROGMEM ih::DelimiterSequences process_delimseq = {
     1,    ///< number of delimiter sequences
     {1},  ///< delimiter sequence lens
     {" "} ///< delimiter sequences
@@ -81,19 +81,19 @@ const PROGMEM ih::DelimiterSequences psensordelimseq = {
     {","} ///< delimiter sequences
 };
 
-const PROGMEM ih::StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences process_ststpseq = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM ih::InputParameters input_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &pipdelimseq, &pststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq,
+    &process_wcc, &process_delimseq, &process_ststpseq};
 
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 const PROGMEM ih::InputParameters sensor_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &psensordelimseq, &pststpseq};
+    &process_name, &process_eol, &process_ccseq, &process_wcc, &psensordelimseq, &process_ststpseq};
 ih::Input sensorParser(sensor_prm, output_buffer, buffsz(output_buffer));
 
 NMEAparse NMEA;

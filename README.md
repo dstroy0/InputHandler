@@ -73,7 +73,7 @@ Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examp
 Default InputHandler Input constructor initialization with no output:  
 ```cpp
 /*
-  InputHandler Input constructor
+  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h 
 */
 Input inputHandler;
 ```
@@ -81,10 +81,11 @@ Input inputHandler;
 Default InputHandler Input constructor initialization with output buffer:
 ```cpp
 /*
-  InputHandler Input constructor
+  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h 
+  This constructor will output messages into `output_buffer`, you can check to see if there's a message with ih::Input::isOutputAvailable()
 */
-char output_buffer[650] = {'\0'}; //  output buffer
-Input inputHandler(output_buffer, buffsz(output_buffer));
+char output_buffer[512] = {'\0'}; //  output buffer  
+Input inputHandler(output_buffer, buffsz(output_buffer)); // Input constructor with output buffer and buffer length  
 ```
 
 A valid (default-settings) command string would look something like:  
@@ -95,52 +96,41 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 
 You can also customize many aspects of input characteristics:  
 ```cpp
-/*
-  InputHandler Input constructor
-*/
-char output_buffer[650] = {'\0'}; //  output buffer
 
-const PROGMEM ih::ProcessName pname = "_test_";   // process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";        // end of line characters
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; // input control character sequence
-const PROGMEM ih::WildcardChar pwcc = "*";           // process wildcard character
+// char array typdef aliases
+const PROGMEM ih::ProcessName process_name = "_test_"; // process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  // end of line characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; // input control character sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";      // process wildcard character
 
-const PROGMEM ih::DelimiterSequences pipdelimseq = {
+// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}
+const PROGMEM ih::DelimiterSequences process_delimseq = {
   1,    // number of delimiter sequences
   {1},  // delimiter sequence lens
   {" "} // delimiter sequences
 };
 
-const PROGMEM ih::StartStopSequences pststpseq = {
+// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}
+const PROGMEM ih::StartStopSequences process_ststpseq = {
   1,           // num start stop sequence pairs
   {1, 1},      // start stop sequence lens
   {"\"", "\""} // start stop sequence pairs
-};
-
-const PROGMEM ih::InputParameters input_prm[1] = {
-  &pname,
-  &peol,
-  &pinputcc,
-  &pwcc,
-  &pipdelimseq,
-  &pststpseq
-};
-Input inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+};  
 ```
 
 The classes' input methods are:  
 
 ```cpp
-void getCommandFromStream(Stream &stream, size_t rx_buffer_size = 32);
+void getCommandFromStream(Stream &stream, size_t rx_buffer_size = IH_MAX_PROC_INPUT_LEN);
 ```
 
-Or, if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use:  
+Or, if you don't want to use a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/) object use this method instead:  
 
 ```cpp
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) struct objects.
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) struct objects.
 
 Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr). 
 
@@ -150,13 +140,13 @@ Easily construct complex commands with subcommands, and enforce input type. Nest
 
 Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
 
-This method will output to any stream (hardware or software Serial):  
+This method will output to any initialized stream (hardware or software Serial):  
 
 ```cpp
 void outputToStream(Stream &stream);
 ```
 
-or, you can check to see if output is available with:  
+or, you can check to see if ihout output is available with:  
 
 ```cpp
 bool outputIsAvailable();
@@ -168,9 +158,9 @@ and then when you are done with the output buffer, it needs to be reinitialized 
 void clearOutputBuffer();
 ```
 
-The input process will continue to function even if you do not define an output buffer.  
+The input process will function without an output buffer.
 
-Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.  
+The target `commandString` function at pointer will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.  
 
 # Design Goals
 Implementation flexibility.  

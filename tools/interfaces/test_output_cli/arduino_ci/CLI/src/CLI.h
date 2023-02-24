@@ -26,10 +26,10 @@
 
 char InputHandler_output_buffer[700] = {'\0'}; // output buffer size
 
-const PROGMEM ih::ProcessName pname = "";         // process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";    // process end of line characters
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; // input control char sequence
-const PROGMEM ih::WildcardChar pwcc = "*";        // process wildcard char
+const PROGMEM ih::ProcessName process_name = "";       // process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  // process end of line characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; // input control char sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";      // process wildcard char
 
 // data delimiter sequences
 const PROGMEM ih::DelimiterSequences pdelimseq = {
@@ -39,14 +39,14 @@ const PROGMEM ih::DelimiterSequences pdelimseq = {
 };
 
 // start stop data delimiter sequences
-const PROGMEM ih::StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences process_ststpseq = {
     1,           // num start stop sequence pairs
     {1, 1},      // start stop sequence lens
     {"\"", "\""} // start stop sequence pairs
 };
 
 const PROGMEM ih::InputParameters input_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &pdelimseq, &pststpseq};
+    &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
 
 // constructor
 ih::Input inputHandler(input_prm, InputHandler_output_buffer, buffsz(InputHandler_output_buffer));

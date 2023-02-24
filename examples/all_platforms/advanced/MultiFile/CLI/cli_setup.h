@@ -22,10 +22,10 @@
 */
 char output_buffer[650] = {'\0'}; //  output buffer
 
-const PROGMEM ih::ProcessName pname = "_test_";   ///< default process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";    ///< default process eol characters
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; ///< default input control character sequence
-const PROGMEM ih::WildcardChar pwcc = "*";
+const PROGMEM ih::ProcessName process_name = "_test_"; ///< default process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< default process eol characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< default input control character sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";
 
 const PROGMEM ih::DelimiterSequences pdelimseq = {
     2,         ///< number of delimiter sequences
@@ -33,14 +33,14 @@ const PROGMEM ih::DelimiterSequences pdelimseq = {
     {" ", ","} ///< delimiter sequences
 };
 
-const PROGMEM ih::StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences process_ststpseq = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
 const PROGMEM ih::InputParameters input_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &pdelimseq, &pststpseq};
+    &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
 Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 void InputHandler_setup()

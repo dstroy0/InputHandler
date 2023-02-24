@@ -223,28 +223,28 @@
 */
 char output_buffer[600] {}; // output buffer
 
-const PROGMEM ih::ProcessName pname = "_test_";   ///< test process name
-const PROGMEM ih::EndOfLineChar peol = "\r\n";    ///< test process eol characters
-const PROGMEM ih::ControlCharSeq pinputcc = "##"; ///< test input control character sequence
-const PROGMEM ih::WildcardChar pwcc = "*";        ///< test process wildcard character
+const PROGMEM ih::ProcessName process_name = "_test_"; ///< test process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< test process eol characters
+const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< test input control character sequence
+const PROGMEM ih::WildcardChar process_wcc = "*";      ///< test process wildcard character
 
 // process input-data delimiter sequences
-const PROGMEM ih::DelimiterSequences pipdelimseq = {
+const PROGMEM ih::DelimiterSequences process_delimseq = {
     1,    ///< number of delimiter sequences
     {1},  ///< delimiter sequence lens
     {" "} ///< delimiter sequences
 };
 
 // process input-data start-stop delimiter sequences
-const PROGMEM ih::StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences process_ststpseq = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
 // process-wide user-defined input characteristics
-const PROGMEM ih::InputParameters input_prm[1] = {
-    &pname, &peol, &pinputcc, &pwcc, &pipdelimseq, &pststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq,
+    &process_wcc, &process_delimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 /*

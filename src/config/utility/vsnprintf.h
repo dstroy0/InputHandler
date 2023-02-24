@@ -81,9 +81,8 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args);
     #else
 /** @cond */
 int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
-{
     _ATTRIBUTE((__format__(__printf__, 3, 0)));
-}
+
     /** @endcond */
     #endif
 #endif

@@ -578,12 +578,12 @@ private:
      *
      * [Input::_launchFunction()
      * source](https://github.com/dstroy0/InputHandler/blob/main/src/InputHandler.cpp#:~:text=_launchFunction(_rcfbprm%24
-     * rprm, const ProcessName%24 pname))
+     * rprm, const ProcessName%24 process_name))
      *
      * @param rprm reference to Input::\_rcfbprm
-     * @param pname ProcessName char array
+     * @param process_name ProcessName char array
      */
-    void _launchFunction(_rcfbprm& rprm, const ProcessName& pname);
+    void _launchFunction(_rcfbprm& rprm, const ProcessName& process_name);
 
     /**
      * @brief function launch logic, recursive on subcommand match
