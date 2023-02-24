@@ -406,13 +406,15 @@ void Input::_printCommand(_searchStruct& s, uint8_t index)
             s.prev_dp = s.prm.depth;
             s.sc_num = 1;
         }
-        char indent[s.prm.depth + 1] = {'\0'};
-        for (int j = 0; j < (nelems(indent)) - 1; ++j)
+        char* indent = (char*)calloc(s.prm.depth + 1, sizeof(char));
+        indent[nelems(indent) - 1] = '\0';
+        for (uint8_t j = 0; j < (nelems(indent)) - 1; ++j)
         {
             indent[j] = ' ';
         }
         Input::ihout(
             PSTR("    %s%02u> dp:%02u>.<%s>"), &indent, s.sc_num, s.prm.depth, &s.prm.command);
+        free(indent);
     }
     else
     {
