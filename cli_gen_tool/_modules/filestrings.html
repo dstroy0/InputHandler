@@ -391,10 +391,10 @@
 <span class="s2">    #include &quot;parameters.h&quot;</span>
 
 <span class="si">{outputbuffer}</span>
-<span class="s2">const PROGMEM ih::ProcessName pname = &quot;</span><span class="si">{processname}</span><span class="s2">&quot;; // process name</span>
-<span class="s2">const PROGMEM ih::EndOfLineChar peol = &quot;</span><span class="si">{processeol}</span><span class="s2">&quot;; // process end of line characters</span>
-<span class="s2">const PROGMEM ih::ControlCharSeq pinputcc = &quot;</span><span class="si">{processinputcontrolchar}</span><span class="s2">&quot;; // input control char sequence</span>
-<span class="s2">const PROGMEM ih::WildcardChar pwcc = &quot;</span><span class="si">{processwildcardchar}</span><span class="s2">&quot;; // process wildcard char</span>
+<span class="s2">const PROGMEM ih::ProcessName process_name = &quot;</span><span class="si">{processname}</span><span class="s2">&quot;; // process name</span>
+<span class="s2">const PROGMEM ih::EndOfLineChar process_eol = &quot;</span><span class="si">{processeol}</span><span class="s2">&quot;; // process end of line characters</span>
+<span class="s2">const PROGMEM ih::ControlCharSeq process_ccseq = &quot;</span><span class="si">{processinputcontrolchar}</span><span class="s2">&quot;; // input control char sequence</span>
+<span class="s2">const PROGMEM ih::WildcardChar process_wcc = &quot;</span><span class="si">{processwildcardchar}</span><span class="s2">&quot;; // process wildcard char</span>
 
 <span class="s2">// data delimiter sequences</span>
 <span class="s2">const PROGMEM ih::DelimiterSequences pdelimseq = {{</span>
@@ -404,19 +404,19 @@
 <span class="s2">}};</span>
 
 <span class="s2">// start stop data delimiter sequences</span>
-<span class="s2">const PROGMEM ih::StartStopSequences pststpseq = {{</span>
+<span class="s2">const PROGMEM ih::StartStopSequences process_ststpseq = {{</span>
 <span class="s2">    </span><span class="si">{numstartstoppairs}</span><span class="s2">, // num start stop sequence pairs</span>
 <span class="s2">    </span><span class="si">{startstopseqlens}</span><span class="s2">, // start stop sequence lens</span>
 <span class="s2">    </span><span class="si">{startstopseqs}</span><span class="s2"> // start stop sequence pairs</span>
 <span class="s2">}};</span>
 
 <span class="s2">const PROGMEM ih::InputParameters input_prm[1] = {{</span>
-<span class="s2">    &amp;pname,</span>
-<span class="s2">    &amp;peol,</span>
-<span class="s2">    &amp;pinputcc,</span>
-<span class="s2">    &amp;pwcc,</span>
+<span class="s2">    &amp;process_name,</span>
+<span class="s2">    &amp;process_eol,</span>
+<span class="s2">    &amp;process_ccseq,</span>
+<span class="s2">    &amp;process_wcc,</span>
 <span class="s2">    &amp;pdelimseq,</span>
-<span class="s2">    &amp;pststpseq}};</span>
+<span class="s2">    &amp;process_ststpseq}};</span>
 
 <span class="s2">// constructor</span>
 <span class="si">{constructor}{setupfunction}{loopfunction}</span>

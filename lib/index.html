@@ -266,17 +266,18 @@ User-defined commands have a <a class="reference external" href="https://www.cs.
 <p>Check out the <a class="reference external" href="https://github.com/dstroy0/InputHandler/tree/main/examples">examples</a> for different use cases.</p>
 <p>Default InputHandler Input constructor initialization with no output:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler Input constructor</span>
+<span class="cm">  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h</span>
 <span class="cm">*/</span>
 <span class="n">Input</span><span class="w"> </span><span class="n">inputHandler</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Default InputHandler Input constructor initialization with output buffer:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler Input constructor</span>
+<span class="cm">  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h</span>
+<span class="cm">  This constructor will output messages into `output_buffer`, you can check to see if there&#39;s a message with ih::Input::isOutputAvailable()</span>
 <span class="cm">*/</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">650</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
+<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"> </span><span class="c1">// Input constructor with output buffer and buffer length</span>
 </pre></div>
 </div>
 <p>A valid (default-settings) command string would look something like:</p>
@@ -285,58 +286,46 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 </pre></div>
 </div>
 <p>You can also customize many aspects of input characteristics:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler Input constructor</span>
-<span class="cm">*/</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">650</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// char array typdef aliases</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">ProcessName</span><span class="w"> </span><span class="n">process_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;_test_&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// process name</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">EndOfLineChar</span><span class="w"> </span><span class="n">process_eol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// end of line characters</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">ControlCharSeq</span><span class="w"> </span><span class="n">process_ccseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// input control character sequence</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">WildcardChar</span><span class="w"> </span><span class="n">process_wcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">      </span><span class="c1">// process wildcard character</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">ProcessName</span><span class="w"> </span><span class="n">pname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;_test_&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// process name</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">EndOfLineChar</span><span class="w"> </span><span class="n">peol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// end of line characters</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">ControlCharSeq</span><span class="w"> </span><span class="n">pinputcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// input control character sequence</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">WildcardChar</span><span class="w"> </span><span class="n">pwcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">// process wildcard character</span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">DelimiterSequences</span><span class="w"> </span><span class="n">pipdelimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">DelimiterSequences</span><span class="w"> </span><span class="n">process_delimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// number of delimiter sequences</span>
 <span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w">  </span><span class="c1">// delimiter sequence lens</span>
 <span class="w">  </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// delimiter sequences</span>
 <span class="p">};</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">StartStopSequences</span><span class="w"> </span><span class="n">pststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}</span>
+<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">StartStopSequences</span><span class="w"> </span><span class="n">process_ststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">           </span><span class="c1">// num start stop sequence pairs</span>
 <span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">      </span><span class="c1">// start stop sequence lens</span>
 <span class="w">  </span><span class="p">{</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// start stop sequence pairs</span>
 <span class="p">};</span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ih</span><span class="o">::</span><span class="n">InputParameters</span><span class="w"> </span><span class="n">input_prm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pname</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">peol</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pinputcc</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pwcc</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pipdelimseq</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">pststpseq</span>
-<span class="p">};</span>
-<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">),</span><span class="w"> </span><span class="n">input_prm</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The classes’ input methods are:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IH_MAX_PROC_INPUT_LEN</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Or, if you don’t want to use a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use:</p>
+<p>Or, if you don’t want to use a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use this method instead:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters">CommandParameters</a> struct objects.</p>
+<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters">Parameters</a> struct objects.</p>
 <p>Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr).</p>
 <p><a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE6NOTYPEE">NOTYPE</a> is a special argument type that doesn’t perform any type-validation (input any char!). <span class="raw-html-md"><br /></span>
 <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N6UITYPE7NO_ARGSE">NO_ARGS</a> is a special argument type that explicitly states you wish to pass no arguments. <span class="raw-html-md"><br /></span>
 <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nprms">nprms(x)</a>, <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.buffsz">buffsz(x)</a>, and <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/noedit_h_docs.html#c.nelems">nelems(x)</a> are macros which return the number of elements in an array.</p>
 <p>Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.</p>
-<p>This method will output to any stream (hardware or software Serial):</p>
+<p>This method will output to any initialized stream (hardware or software Serial):</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>or, you can check to see if output is available with:</p>
+<p>or, you can check to see if ihout output is available with:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">outputIsAvailable</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -344,8 +333,8 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">clearOutputBuffer</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>The input process will continue to function even if you do not define an output buffer.</p>
-<p>Target function will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
+<p>The input process will function without an output buffer.</p>
+<p>The target <code class="docutils literal notranslate"><span class="pre">commandString</span></code> function at pointer will not execute if the command string does not match, any arguments are type-invalid, or an unexpected amount of arguments are received.</p>
 </section>
 <section id="design-goals">
 <h1>Design Goals<a class="headerlink" href="#design-goals" title="Permalink to this heading">#</a></h1>
