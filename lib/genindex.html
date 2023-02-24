@@ -291,6 +291,8 @@
 </li>
         <li><a href="src/config/config_h_docs.html#c.DISABLE_getCommandFromStream">DISABLE_getCommandFromStream (C macro)</a>
 </li>
+        <li><a href="src/config/config_h_docs.html#c.DISABLE_ihout">DISABLE_ihout (C macro)</a>
+</li>
         <li><a href="src/config/config_h_docs.html#c.DISABLE_listCommands">DISABLE_listCommands (C macro)</a>
 </li>
         <li><a href="src/config/config_h_docs.html#c.DISABLE_listSettings">DISABLE_listSettings (C macro)</a>
@@ -304,8 +306,6 @@
         <li><a href="src/config/config_h_docs.html#c.DISABLE_outputToStream">DISABLE_outputToStream (C macro)</a>
 </li>
         <li><a href="src/config/config_h_docs.html#c.DISABLE_readCommandFromBufferErrorOutput">DISABLE_readCommandFromBufferErrorOutput (C macro)</a>
-</li>
-        <li><a href="src/config/config_h_docs.html#c.DISABLE_ui_out">DISABLE_ui_out (C macro)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -345,6 +345,270 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7CommandE">ih::Command (C++ class)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command4calcE">ih::Command::calc (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command7CommandEPK10ParametersK17max_cmds_per_treeK22max_tree_depth_per_cmd">ih::Command::Command (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command12next_commandE">ih::Command::next_command (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command15param_array_lenE">ih::Command::param_array_len (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command3prmE">ih::Command::prm (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih7Command10tree_depthE">ih::Command::tree_depth (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18CommandRuntimeCalcE">ih::CommandRuntimeCalc (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18CommandRuntimeCalc18idx_of_prm_with_wcE">ih::CommandRuntimeCalc::idx_of_prm_with_wc (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18CommandRuntimeCalc17memcmp_ranges_arrE">ih::CommandRuntimeCalc::memcmp_ranges_arr (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18CommandRuntimeCalc26num_memcmp_ranges_this_rowE">ih::CommandRuntimeCalc::num_memcmp_ranges_this_row (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18CommandRuntimeCalc15num_prm_with_wcE">ih::CommandRuntimeCalc::num_prm_with_wc (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequencesE">ih::DelimiterSequences (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequences14delimiter_lensE">ih::DelimiterSequences::delimiter_lens (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequences19delimiter_sequencesE">ih::DelimiterSequences::delimiter_sequences (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequences7num_seqE">ih::DelimiterSequences::num_seq (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParametersE">ih::InputParameters (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters19delimiter_sequencesE">ih::InputParameters::delimiter_sequences (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters8eol_charE">ih::InputParameters::eol_char (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters27input_control_char_sequenceE">ih::InputParameters::input_control_char_sequence (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters12process_nameE">ih::InputParameters::process_name (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters20start_stop_sequencesE">ih::InputParameters::start_stop_sequences (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih15InputParameters13wildcard_charE">ih::InputParameters::wildcard_char (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequencesE">ih::StartStopSequences (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequences7num_seqE">ih::StartStopSequences::num_seq (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequences24start_stop_sequence_lensE">ih::StartStopSequences::start_stop_sequence_lens (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequences25start_stop_sequence_pairsE">ih::StartStopSequences::start_stop_sequence_pairs (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInputE">ih::UserInput (C++ class)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput16_addCommandAbortER7CommandR10Parameters">ih::UserInput::_addCommandAbort (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput23_addCommandErrorMessageEN3ihc11CMD_ERR_IDXEPc">ih::UserInput::_addCommandErrorMessage (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput30_addEscapedControlCharToBufferEPcR6size_tPKc6size_t">ih::UserInput::_addEscapedControlCharToBuffer (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput7_begin_E">ih::UserInput::_begin_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput20_calcCmdMemcmpRangesER7CommandR10Parameters6size_tR12memcmp_idx_tP26max_per_root_memcmp_ranges">ih::UserInput::_calcCmdMemcmpRanges (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25_combineControlCharactersEc">ih::UserInput::_combineControlCharacters (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput16_commands_count_E">ih::UserInput::_commands_count_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_commands_head_E">ih::UserInput::_commands_head_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_commands_tail_E">ih::UserInput::_commands_tail_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput23_compareCommandToStringEP7Command6size_tPc">ih::UserInput::_compareCommandToString (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput22_current_search_depth_E">ih::UserInput::_current_search_depth_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_data_pointers_E">ih::UserInput::_data_pointers_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput21_data_pointers_index_E">ih::UserInput::_data_pointers_index_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25_data_pointers_index_max_E">ih::UserInput::_data_pointers_index_max_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput18_default_function_E">ih::UserInput::_default_function_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput5_dot_E">ih::UserInput::_dot_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput28_escapeCharactersSoTheyPrintEcPc">ih::UserInput::_escapeCharactersSoTheyPrint (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput22_failed_on_subcommand_E">ih::UserInput::_failed_on_subcommand_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput11_fatalErrorEN3ihc6VAR_IDE">ih::UserInput::_fatalError (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_getArgsER8_rcfbprm">ih::UserInput::_getArgs (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput11_getArgTypeER10Parameters6size_t">ih::UserInput::_getArgType (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14_getTokensCharER14getTokensParamRK15InputParameters">ih::UserInput::_getTokensChar (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput20_getTokensDelimitersER14getTokensParamRK15InputParameters">ih::UserInput::_getTokensDelimiters (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput19_getTokensStartStopER14getTokensParamRK15InputParameters">ih::UserInput::_getTokensStartStop (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput6_halt_E">ih::UserInput::_halt_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput11_input_prm_E">ih::UserInput::_input_prm_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_input_prm_ptr_E">ih::UserInput::_input_prm_ptr_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput24_input_type_match_flags_E">ih::UserInput::_input_type_match_flags_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_launchFunctionER8_rcfbprmRK11ProcessName">ih::UserInput::_launchFunction (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12_launchLogicER8_rcfbprm">ih::UserInput::_launchLogic (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput10_max_args_E">ih::UserInput::_max_args_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput11_max_depth_E">ih::UserInput::_max_depth_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput5_neg_E">ih::UserInput::_neg_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput17_new_stream_data_E">ih::UserInput::_new_stream_data_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput6_null_E">ih::UserInput::_null_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15_output_buffer_E">ih::UserInput::_output_buffer_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput26_output_buffer_bytes_left_E">ih::UserInput::_output_buffer_bytes_left_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput19_output_buffer_len_E">ih::UserInput::_output_buffer_len_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput16_output_enabled_E">ih::UserInput::_output_enabled_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput13_output_flag_E">ih::UserInput::_output_flag_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12_p_num_ptrs_E">ih::UserInput::_p_num_ptrs_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprmE">ih::UserInput::_rcfbprm (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm19all_arguments_validE">ih::UserInput::_rcfbprm::all_arguments_valid (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm11all_wcc_cmdE">ih::UserInput::_rcfbprm::all_wcc_cmd (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm11all_wcc_idxE">ih::UserInput::_rcfbprm::all_wcc_idx (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm3cmdE">ih::UserInput::_rcfbprm::cmd (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm10command_idE">ih::UserInput::_rcfbprm::command_id (C++ member)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm15command_matchedE">ih::UserInput::_rcfbprm::command_matched (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm3idxE">ih::UserInput::_rcfbprm::idx (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm10input_dataE">ih::UserInput::_rcfbprm::input_data (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm9input_lenE">ih::UserInput::_rcfbprm::input_len (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm16launch_attemptedE">ih::UserInput::_rcfbprm::launch_attempted (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm3prmE">ih::UserInput::_rcfbprm::prm (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm6resultE">ih::UserInput::_rcfbprm::result (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm11split_inputE">ih::UserInput::_rcfbprm::split_input (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm18subcommand_matchedE">ih::UserInput::_rcfbprm::subcommand_matched (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm16token_buffer_lenE">ih::UserInput::_rcfbprm::token_buffer_len (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput8_rcfbprm15tokens_receivedE">ih::UserInput::_rcfbprm::tokens_received (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm">ih::UserInput::_readCommandFromBufferErrorOutput (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput21_rec_num_arg_strings_E">ih::UserInput::_rec_num_arg_strings_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput9_splitZDCER8_rcfbprmK6size_tPPK10Parameters">ih::UserInput::_splitZDC (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25_stream_buffer_allocated_E">ih::UserInput::_stream_buffer_allocated_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput13_stream_data_E">ih::UserInput::_stream_data_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput19_stream_data_index_E">ih::UserInput::_stream_data_index_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12_term_index_E">ih::UserInput::_term_index_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput10_term_len_E">ih::UserInput::_term_len_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14_token_buffer_E">ih::UserInput::_token_buffer_ (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput10addCommandER7Command">ih::UserInput::addCommand (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput5beginEv">ih::UserInput::begin (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput17clearOutputBufferEb">ih::UserInput::clearOutputBuffer (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15defaultFunctionEPFvP9UserInputE">ih::UserInput::defaultFunction (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput11getArgumentE6size_t">ih::UserInput::getArgument (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK10Parameters">ih::UserInput::getCommandFromStream (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput9getTokensER14getTokensParamRK15InputParameters">ih::UserInput::getTokens (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParamE">ih::UserInput::getTokensParam (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam4dataE">ih::UserInput::getTokensParam::data (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam8data_posE">ih::UserInput::getTokensParam::data_pos (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam3lenE">ih::UserInput::getTokensParam::len (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam14num_token_ptrsE">ih::UserInput::getTokensParam::num_token_ptrs (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam27point_to_beginning_of_tokenE">ih::UserInput::getTokensParam::point_to_beginning_of_token (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam12token_bufferE">ih::UserInput::getTokensParam::token_buffer (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam18token_buffer_indexE">ih::UserInput::getTokensParam::token_buffer_index (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam16token_buffer_lenE">ih::UserInput::getTokensParam::token_buffer_len (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam16token_buffer_sepE">ih::UserInput::getTokensParam::token_buffer_sep (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam19token_pointer_indexE">ih::UserInput::getTokensParam::token_pointer_index (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14getTokensParam14token_pointersE">ih::UserInput::getTokensParam::token_pointers (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput5ihoutEPKcz">ih::UserInput::ihout (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12listCommandsEv">ih::UserInput::listCommands (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12listSettingsEv">ih::UserInput::listSettings (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4NK2ih9UserInput6mIndexE6size_t6size_t6size_t">ih::UserInput::mIndex (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput12nextArgumentEv">ih::UserInput::nextArgument (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput17outputIsAvailableEv">ih::UserInput::outputIsAvailable (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput15outputIsEnabledEv">ih::UserInput::outputIsEnabled (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput14outputToStreamER6Stream">ih::UserInput::outputToStream (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK10Parameters">ih::UserInput::readCommandFromBuffer (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput9UserInputEPK15InputParametersPc6size_t">ih::UserInput::UserInput (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput20validateNullSepInputER25validateNullSepInputParam">ih::UserInput::validateNullSepInput (C++ function)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParamE">ih::UserInput::validateNullSepInputParam (C++ struct)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParam8arg_typeE">ih::UserInput::validateNullSepInputParam::arg_type (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParam9float_sepE">ih::UserInput::validateNullSepInputParam::float_sep (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParam8neg_signE">ih::UserInput::validateNullSepInputParam::neg_sign (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParam19token_pointer_indexE">ih::UserInput::validateNullSepInputParam::token_pointer_index (C++ member)</a>
+</li>
+        <li><a href="src/InputHandler_h_docs.html#_CPPv4N2ih9UserInput25validateNullSepInputParam14token_pointersE">ih::UserInput::validateNullSepInputParam::token_pointers (C++ member)</a>
+</li>
         <li><a href="src/config/config_h_docs.html#c.IH_DELIM_SEQ_PGM_LEN">IH_DELIM_SEQ_PGM_LEN (C macro)</a>
 </li>
         <li><a href="src/config/config_h_docs.html#c.IH_ECHO_ONLY">IH_ECHO_ONLY (C macro)</a>
@@ -379,273 +643,9 @@
 </li>
         <li><a href="src/config/config_h_docs.html#c.IH_START_STOP_SEQ_PGM_LEN">IH_START_STOP_SEQ_PGM_LEN (C macro)</a>
 </li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18CommandRuntimeCalcE">ih_t::CommandRuntimeCalc (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18CommandRuntimeCalc18idx_of_prm_with_wcE">ih_t::CommandRuntimeCalc::idx_of_prm_with_wc (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18CommandRuntimeCalc17memcmp_ranges_arrE">ih_t::CommandRuntimeCalc::memcmp_ranges_arr (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18CommandRuntimeCalc26num_memcmp_ranges_this_rowE">ih_t::CommandRuntimeCalc::num_memcmp_ranges_this_row (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18CommandRuntimeCalc15num_prm_with_wcE">ih_t::CommandRuntimeCalc::num_prm_with_wc (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18DelimiterSequencesE">ih_t::DelimiterSequences (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18DelimiterSequences14delimiter_lensE">ih_t::DelimiterSequences::delimiter_lens (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18DelimiterSequences19delimiter_sequencesE">ih_t::DelimiterSequences::delimiter_sequences (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18DelimiterSequences7num_seqE">ih_t::DelimiterSequences::num_seq (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParametersE">ih_t::InputParameters (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters19delimiter_sequencesE">ih_t::InputParameters::delimiter_sequences (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters8eol_charE">ih_t::InputParameters::eol_char (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters27input_control_char_sequenceE">ih_t::InputParameters::input_control_char_sequence (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters12process_nameE">ih_t::InputParameters::process_name (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters20start_stop_sequencesE">ih_t::InputParameters::start_stop_sequences (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t15InputParameters13wildcard_charE">ih_t::InputParameters::wildcard_char (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18StartStopSequencesE">ih_t::StartStopSequences (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18StartStopSequences7num_seqE">ih_t::StartStopSequences::num_seq (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18StartStopSequences24start_stop_sequence_lensE">ih_t::StartStopSequences::start_stop_sequence_lens (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N4ih_t18StartStopSequences25start_stop_sequence_pairsE">ih_t::StartStopSequences::start_stop_sequence_pairs (C++ member)</a>
-</li>
         <li><a href="src/config/config_h_docs.html#c.IH_VERBOSE">IH_VERBOSE (C macro)</a>
 </li>
         <li><a href="src/config/config_h_docs.html#c.IH_WCC_SEQ_PGM_LEN">IH_WCC_SEQ_PGM_LEN (C macro)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7CommandE">InputHandler::Command (C++ class)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command4calcE">InputHandler::Command::calc (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command7CommandEPK10ParametersK17max_cmds_per_treeK22max_tree_depth_per_cmd">InputHandler::Command::Command (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command12next_commandE">InputHandler::Command::next_command (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command15param_array_lenE">InputHandler::Command::param_array_len (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command3prmE">InputHandler::Command::prm (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler7Command10tree_depthE">InputHandler::Command::tree_depth (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInputE">InputHandler::UserInput (C++ class)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput16_addCommandAbortER7CommandR10Parameters">InputHandler::UserInput::_addCommandAbort (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput23_addCommandErrorMessageEN7ihconst11CMD_ERR_IDXEPc">InputHandler::UserInput::_addCommandErrorMessage (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput30_addEscapedControlCharToBufferEPcR6size_tPKc6size_t">InputHandler::UserInput::_addEscapedControlCharToBuffer (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput7_begin_E">InputHandler::UserInput::_begin_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput20_calcCmdMemcmpRangesER7CommandR10Parameters6size_tR12memcmp_idx_tP26max_per_root_memcmp_ranges">InputHandler::UserInput::_calcCmdMemcmpRanges (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25_combineControlCharactersEc">InputHandler::UserInput::_combineControlCharacters (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput16_commands_count_E">InputHandler::UserInput::_commands_count_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_commands_head_E">InputHandler::UserInput::_commands_head_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_commands_tail_E">InputHandler::UserInput::_commands_tail_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput23_compareCommandToStringEP7Command6size_tPc">InputHandler::UserInput::_compareCommandToString (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput22_current_search_depth_E">InputHandler::UserInput::_current_search_depth_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_data_pointers_E">InputHandler::UserInput::_data_pointers_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput21_data_pointers_index_E">InputHandler::UserInput::_data_pointers_index_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25_data_pointers_index_max_E">InputHandler::UserInput::_data_pointers_index_max_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput18_default_function_E">InputHandler::UserInput::_default_function_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput5_dot_E">InputHandler::UserInput::_dot_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput28_escapeCharactersSoTheyPrintEcPc">InputHandler::UserInput::_escapeCharactersSoTheyPrint (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput22_failed_on_subcommand_E">InputHandler::UserInput::_failed_on_subcommand_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput11_fatalErrorEN7ihconst6VAR_IDE">InputHandler::UserInput::_fatalError (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_getArgsER8_rcfbprm">InputHandler::UserInput::_getArgs (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput11_getArgTypeER10Parameters6size_t">InputHandler::UserInput::_getArgType (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14_getTokensCharER14getTokensParamRK15InputParameters">InputHandler::UserInput::_getTokensChar (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput20_getTokensDelimitersER14getTokensParamRK15InputParameters">InputHandler::UserInput::_getTokensDelimiters (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput19_getTokensStartStopER14getTokensParamRK15InputParameters">InputHandler::UserInput::_getTokensStartStop (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput6_halt_E">InputHandler::UserInput::_halt_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput11_input_prm_E">InputHandler::UserInput::_input_prm_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_input_prm_ptr_E">InputHandler::UserInput::_input_prm_ptr_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput24_input_type_match_flags_E">InputHandler::UserInput::_input_type_match_flags_ (C++ member)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_launchFunctionER8_rcfbprmRK11ProcessName">InputHandler::UserInput::_launchFunction (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12_launchLogicER8_rcfbprm">InputHandler::UserInput::_launchLogic (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput10_max_args_E">InputHandler::UserInput::_max_args_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput11_max_depth_E">InputHandler::UserInput::_max_depth_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput5_neg_E">InputHandler::UserInput::_neg_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput17_new_stream_data_E">InputHandler::UserInput::_new_stream_data_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput6_null_E">InputHandler::UserInput::_null_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15_output_buffer_E">InputHandler::UserInput::_output_buffer_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput26_output_buffer_bytes_left_E">InputHandler::UserInput::_output_buffer_bytes_left_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput19_output_buffer_len_E">InputHandler::UserInput::_output_buffer_len_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput16_output_enabled_E">InputHandler::UserInput::_output_enabled_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput13_output_flag_E">InputHandler::UserInput::_output_flag_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12_p_num_ptrs_E">InputHandler::UserInput::_p_num_ptrs_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprmE">InputHandler::UserInput::_rcfbprm (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm19all_arguments_validE">InputHandler::UserInput::_rcfbprm::all_arguments_valid (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm11all_wcc_cmdE">InputHandler::UserInput::_rcfbprm::all_wcc_cmd (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm11all_wcc_idxE">InputHandler::UserInput::_rcfbprm::all_wcc_idx (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm3cmdE">InputHandler::UserInput::_rcfbprm::cmd (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm10command_idE">InputHandler::UserInput::_rcfbprm::command_id (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm15command_matchedE">InputHandler::UserInput::_rcfbprm::command_matched (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm3idxE">InputHandler::UserInput::_rcfbprm::idx (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm10input_dataE">InputHandler::UserInput::_rcfbprm::input_data (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm9input_lenE">InputHandler::UserInput::_rcfbprm::input_len (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm16launch_attemptedE">InputHandler::UserInput::_rcfbprm::launch_attempted (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm3prmE">InputHandler::UserInput::_rcfbprm::prm (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm6resultE">InputHandler::UserInput::_rcfbprm::result (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm11split_inputE">InputHandler::UserInput::_rcfbprm::split_input (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm18subcommand_matchedE">InputHandler::UserInput::_rcfbprm::subcommand_matched (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm16token_buffer_lenE">InputHandler::UserInput::_rcfbprm::token_buffer_len (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput8_rcfbprm15tokens_receivedE">InputHandler::UserInput::_rcfbprm::tokens_received (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput33_readCommandFromBufferErrorOutputER8_rcfbprm">InputHandler::UserInput::_readCommandFromBufferErrorOutput (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput21_rec_num_arg_strings_E">InputHandler::UserInput::_rec_num_arg_strings_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput9_splitZDCER8_rcfbprmK6size_tPPK10Parameters">InputHandler::UserInput::_splitZDC (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25_stream_buffer_allocated_E">InputHandler::UserInput::_stream_buffer_allocated_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput13_stream_data_E">InputHandler::UserInput::_stream_data_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput19_stream_data_index_E">InputHandler::UserInput::_stream_data_index_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12_term_index_E">InputHandler::UserInput::_term_index_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput10_term_len_E">InputHandler::UserInput::_term_len_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14_token_buffer_E">InputHandler::UserInput::_token_buffer_ (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput10addCommandER7Command">InputHandler::UserInput::addCommand (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput5beginEv">InputHandler::UserInput::begin (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput17clearOutputBufferEb">InputHandler::UserInput::clearOutputBuffer (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15defaultFunctionEPFvP9UserInputE">InputHandler::UserInput::defaultFunction (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput11getArgumentE6size_t">InputHandler::UserInput::getArgument (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput20getCommandFromStreamER6Stream6size_tK6size_tPPK10Parameters">InputHandler::UserInput::getCommandFromStream (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput9getTokensER14getTokensParamRK15InputParameters">InputHandler::UserInput::getTokens (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParamE">InputHandler::UserInput::getTokensParam (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam4dataE">InputHandler::UserInput::getTokensParam::data (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam8data_posE">InputHandler::UserInput::getTokensParam::data_pos (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam3lenE">InputHandler::UserInput::getTokensParam::len (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam14num_token_ptrsE">InputHandler::UserInput::getTokensParam::num_token_ptrs (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam27point_to_beginning_of_tokenE">InputHandler::UserInput::getTokensParam::point_to_beginning_of_token (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam12token_bufferE">InputHandler::UserInput::getTokensParam::token_buffer (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam18token_buffer_indexE">InputHandler::UserInput::getTokensParam::token_buffer_index (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam16token_buffer_lenE">InputHandler::UserInput::getTokensParam::token_buffer_len (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam16token_buffer_sepE">InputHandler::UserInput::getTokensParam::token_buffer_sep (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam19token_pointer_indexE">InputHandler::UserInput::getTokensParam::token_pointer_index (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14getTokensParam14token_pointersE">InputHandler::UserInput::getTokensParam::token_pointers (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput5ihoutEPKcz">InputHandler::UserInput::ihout (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12listCommandsEv">InputHandler::UserInput::listCommands (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12listSettingsEv">InputHandler::UserInput::listSettings (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4NK12InputHandler9UserInput6mIndexE6size_t6size_t6size_t">InputHandler::UserInput::mIndex (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput12nextArgumentEv">InputHandler::UserInput::nextArgument (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput17outputIsAvailableEv">InputHandler::UserInput::outputIsAvailable (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput15outputIsEnabledEv">InputHandler::UserInput::outputIsEnabled (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput14outputToStreamER6Stream">InputHandler::UserInput::outputToStream (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput21readCommandFromBufferEP7uint8_t6size_tK6size_tPPK10Parameters">InputHandler::UserInput::readCommandFromBuffer (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput9UserInputEPK15InputParametersPc6size_t">InputHandler::UserInput::UserInput (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput20validateNullSepInputER25validateNullSepInputParam">InputHandler::UserInput::validateNullSepInput (C++ function)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParamE">InputHandler::UserInput::validateNullSepInputParam (C++ struct)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParam8arg_typeE">InputHandler::UserInput::validateNullSepInputParam::arg_type (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParam9float_sepE">InputHandler::UserInput::validateNullSepInputParam::float_sep (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParam8neg_signE">InputHandler::UserInput::validateNullSepInputParam::neg_sign (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParam19token_pointer_indexE">InputHandler::UserInput::validateNullSepInputParam::token_pointer_index (C++ member)</a>
-</li>
-        <li><a href="src/InputHandler_h_docs.html#_CPPv4N12InputHandler9UserInput25validateNullSepInputParam14token_pointersE">InputHandler::UserInput::validateNullSepInputParam::token_pointers (C++ member)</a>
 </li>
     </ul></td>
   </tr></table>

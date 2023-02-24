@@ -391,26 +391,26 @@
 <span class="s2">    #include &quot;parameters.h&quot;</span>
 
 <span class="si">{outputbuffer}</span>
-<span class="s2">const PROGMEM IH_pname pname = &quot;</span><span class="si">{processname}</span><span class="s2">&quot;; // process name</span>
-<span class="s2">const PROGMEM IH_eol peol = &quot;</span><span class="si">{processeol}</span><span class="s2">&quot;; // process end of line characters</span>
-<span class="s2">const PROGMEM IH_input_cc pinputcc = &quot;</span><span class="si">{processinputcontrolchar}</span><span class="s2">&quot;; // input control char sequence</span>
-<span class="s2">const PROGMEM IH_wcc pwcc = &quot;</span><span class="si">{processwildcardchar}</span><span class="s2">&quot;; // process wildcard char</span>
+<span class="s2">const PROGMEM ih::ProcessName pname = &quot;</span><span class="si">{processname}</span><span class="s2">&quot;; // process name</span>
+<span class="s2">const PROGMEM ih::EndOfLineChar peol = &quot;</span><span class="si">{processeol}</span><span class="s2">&quot;; // process end of line characters</span>
+<span class="s2">const PROGMEM ih::ControlCharSeq pinputcc = &quot;</span><span class="si">{processinputcontrolchar}</span><span class="s2">&quot;; // input control char sequence</span>
+<span class="s2">const PROGMEM ih::WildcardChar pwcc = &quot;</span><span class="si">{processwildcardchar}</span><span class="s2">&quot;; // process wildcard char</span>
 
 <span class="s2">// data delimiter sequences</span>
-<span class="s2">const PROGMEM InputProcessDelimiterSequences pdelimseq = {{</span>
+<span class="s2">const PROGMEM ih::DelimiterSequences pdelimseq = {{</span>
 <span class="s2">    </span><span class="si">{numdelimseq}</span><span class="s2">, // number of delimiter sequences</span>
 <span class="s2">    </span><span class="si">{delimseqlens}</span><span class="s2">, // delimiter sequence lens</span>
 <span class="s2">    </span><span class="si">{delimseqs}</span><span class="s2"> // delimiter sequences</span>
 <span class="s2">}};</span>
 
 <span class="s2">// start stop data delimiter sequences</span>
-<span class="s2">const PROGMEM InputProcessStartStopSequences pststpseq = {{</span>
+<span class="s2">const PROGMEM ih::StartStopSequences pststpseq = {{</span>
 <span class="s2">    </span><span class="si">{numstartstoppairs}</span><span class="s2">, // num start stop sequence pairs</span>
 <span class="s2">    </span><span class="si">{startstopseqlens}</span><span class="s2">, // start stop sequence lens</span>
 <span class="s2">    </span><span class="si">{startstopseqs}</span><span class="s2"> // start stop sequence pairs</span>
 <span class="s2">}};</span>
 
-<span class="s2">const PROGMEM InputProcessParameters input_prm[1] = {{</span>
+<span class="s2">const PROGMEM ih::InputParameters input_prm[1] = {{</span>
 <span class="s2">    &amp;pname,</span>
 <span class="s2">    &amp;peol,</span>
 <span class="s2">    &amp;pinputcc,</span>
@@ -447,25 +447,25 @@
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## functions.h function format string</span>
-    <span class="n">functions_h_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">){{</span><span class="si">{statements}</span><span class="s2">}}</span>
+    <span class="n">functions_h_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">){{</span><span class="si">{statements}</span><span class="s2">}}</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
     <span class="c1">## single CommandParameters format string</span>
     <span class="n">commandparameters_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">/**</span>
-<span class="s2">   @brief CommandParameters struct for </span><span class="si">{functionname}</span>
+<span class="s2">   @brief ih::Parameters struct for </span><span class="si">{functionname}</span>
 <span class="s2">*/</span>
-<span class="s2">const PROGMEM CommandParameters </span><span class="si">{functionname}</span><span class="s2">_param[1] = </span>
+<span class="s2">const PROGMEM ih::Parameters </span><span class="si">{functionname}</span><span class="s2">_param[1] = </span>
 <span class="s2">{{</span>
 <span class="s2">    </span><span class="si">{functionname}</span><span class="s2">, // function pointer</span>
-<span class="s2">    </span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
+<span class="s2">    ih::</span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
 <span class="s2">    &quot;</span><span class="si">{commandstring}</span><span class="s2">&quot;, // command string</span>
 <span class="s2">    </span><span class="si">{lencommandstring}</span><span class="s2">, // command string num characters</span>
 <span class="s2">    </span><span class="si">{parentid}</span><span class="s2">, // parent id</span>
 <span class="s2">    </span><span class="si">{commandid}</span><span class="s2">, // this command id (tree unique)</span>
 <span class="s2">    </span><span class="si">{commanddepth}</span><span class="s2">, // command depth</span>
 <span class="s2">    </span><span class="si">{commandsubcommands}</span><span class="s2">, // number of subcommands</span>
-<span class="s2">    </span><span class="si">{argumenthandling}</span><span class="s2">, // argument handling</span>
+<span class="s2">    ih::</span><span class="si">{argumenthandling}</span><span class="s2">, // argument handling</span>
 <span class="s2">    </span><span class="si">{minnumargs}</span><span class="s2">, // minimum expected number of arguments</span>
 <span class="s2">    </span><span class="si">{maxnumargs}</span><span class="s2">, // maximum expected number of arguments</span>
 <span class="s2">    /* UITYPE arguments */</span>
@@ -476,20 +476,20 @@
     <span class="c1">## nested CommandParameters format string</span>
     <span class="n">nested_commandparameters_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">/**</span>
-<span class="s2">   @brief CommandParameters struct for </span><span class="si">{functionname}</span>
+<span class="s2">   @brief ih::Parameters struct for </span><span class="si">{functionname}</span>
 <span class="s2">*/</span>
-<span class="s2">const PROGMEM CommandParameters </span><span class="si">{functionname}</span><span class="s2">_param[1 /* root */ + </span><span class="si">{numberofchildren}</span><span class="s2"> /* child(ren) */] = </span>
+<span class="s2">const PROGMEM ih::Parameters </span><span class="si">{functionname}</span><span class="s2">_param[1 /* root */ + </span><span class="si">{numberofchildren}</span><span class="s2"> /* child(ren) */] = </span>
 <span class="s2">{{</span>
 <span class="s2">    {{</span>
 <span class="s2">      </span><span class="si">{functionname}</span><span class="s2">, // function pointer</span>
-<span class="s2">      </span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
+<span class="s2">      ih::</span><span class="si">{wildcardflag}</span><span class="s2">, // wildcard flag</span>
 <span class="s2">      &quot;</span><span class="si">{commandstring}</span><span class="s2">&quot;, // command string</span>
 <span class="s2">      </span><span class="si">{lencommandstring}</span><span class="s2">, // command string num characters</span>
 <span class="s2">      </span><span class="si">{parentid}</span><span class="s2">, // parent id</span>
 <span class="s2">      </span><span class="si">{commandid}</span><span class="s2">, // this command id (tree unique)</span>
 <span class="s2">      </span><span class="si">{commanddepth}</span><span class="s2">, // command depth</span>
 <span class="s2">      </span><span class="si">{commandsubcommands}</span><span class="s2">, // number of subcommands</span>
-<span class="s2">      </span><span class="si">{argumenthandling}</span><span class="s2">, // argument handling</span>
+<span class="s2">      ih::</span><span class="si">{argumenthandling}</span><span class="s2">, // argument handling</span>
 <span class="s2">      </span><span class="si">{minnumargs}</span><span class="s2">, // minimum expected number of arguments</span>
 <span class="s2">      </span><span class="si">{maxnumargs}</span><span class="s2">, // maximum expected number of arguments</span>
 <span class="s2">      /* UITYPE arguments */</span>
@@ -513,7 +513,7 @@
 
     <span class="c1">## InputHandler return function</span>
     <span class="n">ih_return_function_code_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">) </span>
+<span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">) </span>
 <span class="s2">{{</span>
 <span class="s2">    // your statements here</span>
 <span class="s2">}}</span>
@@ -539,7 +539,7 @@
                     <span class="s2">&quot;arduino compatibility&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    #include &quot;InputHandler.cpp&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="s2">&quot;outputbuffer&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">char </span><span class="si">{outputbuffername}</span><span class="s2">[</span><span class="si">{buffersize}</span><span class="s2">] = </span><span class="si">{bufferchar}</span><span class="s2">; // output buffer size</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;classoutput&quot;</span><span class="p">:</span> <span class="s2">&quot;(</span><span class="si">{input_prm}</span><span class="s2">, </span><span class="si">{outputbuffer}</span><span class="s2">, buffsz(</span><span class="si">{outputbuffer}</span><span class="s2">))&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;UserInput </span><span class="si">{objectname}{classoutput}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;ih::UserInput </span><span class="si">{objectname}{classoutput}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;setup function&quot;</span><span class="p">:</span> <span class="n">cli_h_setup_function_string</span><span class="p">,</span>
                     <span class="s2">&quot;loop function&quot;</span><span class="p">:</span> <span class="n">cli_h_loop_function_string</span><span class="p">,</span>
                     <span class="s2">&quot;addCommand&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -566,7 +566,7 @@
                     <span class="s2">&quot;setup function output&quot;</span><span class="p">:</span> <span class="p">{</span>
                         <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="p">{</span>
                             <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));&#39;</span><span class="p">,</span>
-                            <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));</span><span class="si">{ls}{lc}</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="si">{stream}</span><span class="s1">.println(F(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;));</span><span class="si">{ls}</span><span class="se">\n</span><span class="s1">  </span><span class="si">{objectname}</span><span class="s1">.outputToStream(</span><span class="si">{stream}</span><span class="s1">);</span><span class="si">{lc}</span><span class="se">\n</span><span class="s1">  </span><span class="si">{objectname}</span><span class="s1">.outputToStream(</span><span class="si">{stream}</span><span class="s1">);&#39;</span><span class="p">,</span>
                         <span class="p">},</span>
                         <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span>
                             <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  if ((buffsz(</span><span class="si">{outputbuffer}</span><span class="s1">)-outputIsAvailable()) &gt; strlen(&quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;)+1) {{</span><span class="se">\n</span><span class="s1">    snprintf_P(</span><span class="si">{outputbuffer}</span><span class="s1"> + outputIsAvailable(), &quot;</span><span class="si">{outputstring}</span><span class="s1">&quot;);</span><span class="se">\n</span><span class="s1">  }}&#39;</span><span class="p">,</span>
@@ -584,11 +584,9 @@
                         <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;outputToStream(</span><span class="si">{stream}</span><span class="s2">);&quot;</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listCommands();&quot;</span><span class="p">},</span>
-                    <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings(_</span><span class="si">{objectname}</span><span class="s2">);&quot;</span>
-                    <span class="p">},</span>
+                    <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings();&quot;</span><span class="p">},</span>
                     <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">functions_h_function_string</span><span class="p">,</span>
-                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">extern void </span><span class="si">{functionname}</span><span class="s2">(UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">extern void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;filestring&quot;</span><span class="p">:</span> <span class="n">functions_h_fs</span><span class="p">,</span>
             <span class="p">},</span>  <span class="c1"># end functions h</span>
@@ -597,8 +595,8 @@
             <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;filestring components&quot;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s2">&quot;nested child&quot;</span><span class="p">:</span> <span class="s2">&quot;    *</span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{comma}</span><span class="s2"> // pointer to </span><span class="si">{functionname}</span><span class="s2">_param</span><span class="si">{newline}</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandConstructor </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;nested command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandConstructor </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param, nprms(</span><span class="si">{functionname}</span><span class="s2">_param), </span><span class="si">{maxdepth}</span><span class="s2">); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;ih::Command </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;nested command constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;ih::Command </span><span class="si">{functionname}</span><span class="s2">_(</span><span class="si">{functionname}</span><span class="s2">_param, nprms(</span><span class="si">{functionname}</span><span class="s2">_param), </span><span class="si">{maxdepth}</span><span class="s2">); // </span><span class="si">{functionname}</span><span class="s2">_ command constructor&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">commandparameters_string</span><span class="p">,</span>
                     <span class="s2">&quot;nested parameters&quot;</span><span class="p">:</span> <span class="n">nested_commandparameters_string</span><span class="p">,</span>
                 <span class="p">},</span>

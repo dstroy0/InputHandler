@@ -287,9 +287,6 @@
 <span class="c1">## tool version</span>
 <span class="n">version</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># save serialization</span>
 
-<span class="c1">## The line in /InputHandler/src/config/config.h that boolean define fields start.</span>
-<span class="n">config_file_boolean_define_fields_line_start</span> <span class="o">=</span> <span class="mi">72</span>
-
 <span class="c1">## How long should the splash be displayed (in ms)</span>
 <span class="n">splashscreen_duration</span> <span class="o">=</span> <span class="mi">750</span>
 
@@ -692,10 +689,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">lib_version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qscreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">()</span>
-        <span class="c1"># input config file boolean define fields (ie // DISABLE_listSettings)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config_file_boolean_define_fields_line_start</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">config_file_boolean_define_fields_line_start</span>
-        <span class="p">)</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># the settings that the session started with</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_settings_tree_values</span> <span class="o">=</span> <span class="p">{}</span>
