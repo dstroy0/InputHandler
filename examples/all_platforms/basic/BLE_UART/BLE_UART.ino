@@ -21,55 +21,55 @@
   any redistribution
 *********************************************************************/
 
-#include <Arduino.h>
-#include <SPI.h>
 #include "Adafruit_BLE.h"
 #include "Adafruit_BluefruitLE_SPI.h"
 #include "Adafruit_BluefruitLE_UART.h"
+#include <Arduino.h>
+#include <SPI.h>
 
 #include "BluefruitConfig.h"
 
 #include <InputHandler.h>
-
-// UserInput default constructor with output
+using namespace ih;
+// Input default constructor with output
 char output_buffer[64] {}; // zero-initialized class output buffer
-const InputProcessParameters* defaultConstructor = NULL;
-UserInput inputHandler(defaultConstructor, output_buffer, buffsz(output_buffer));
+const InputParameters* defaultConstructor = NULL;
+Input inputHandler(defaultConstructor, output_buffer, buffsz(output_buffer));
 
 // default function, called if nothing matches or if there is an error
-void unrecognized(UserInput* inputProcess) {
-  // error output
-  inputProcess->outputToStream(Serial);
+void unrecognized(Input* inputProcess)
+{
+    // error output
+    inputProcess->outputToStream(Serial);
 }
 
 // function that will be called on the RX device
-void remote_device(UserInput* inputProcess) {
-  Serial.println(F("Reached 'remote_device' function"));
-}
+void remote_device(Input* inputProcess) { Serial.println(F("Reached 'remote_device' function")); }
 
 /**
-   @brief CommandParameters struct for receiver_param
+   @brief Parameters struct for receiver_param
 
 */
 const PROGMEM CommandParameters receiver_param[1] = {
-  remote_device,            // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr is also NULL nothing will launch (error)
-  no_wildcards,             // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-  "remote",                 // command string
-  6,                        // command string characters
-  root,                     // parent id
-  root,                     // this command id
-  root,                     // command depth
-  0,                        // subcommands
-  UI_ARG_HANDLING::no_args, // argument handling
-  0,                        // minimum expected number of arguments
-  0,                        // maximum expected number of arguments
-  /* UITYPE arguments */
-  {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
+    remote_device, // this is allowed to be NULL, if this is NULL and the terminating subcommand
+                   // function ptr is also NULL nothing will launch (error)
+    no_wildcards,  // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "remote",      // command string
+    6,             // command string characters
+    root,          // parent id
+    root,          // this command id
+    root,          // command depth
+    0,             // subcommands
+    UI_ARG_HANDLING::no_args, // argument handling
+    0,                        // minimum expected number of arguments
+    0,                        // maximum expected number of arguments
+    /* UITYPE arguments */
+    {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 CommandConstructor remote_(receiver_param); // remote command
 
 #if SOFTWARE_SERIAL_AVAILABLE
-#include <SoftwareSerial.h>
+    #include <SoftwareSerial.h>
 #endif
 
 /*=========================================================================
@@ -102,9 +102,9 @@ CommandConstructor remote_(receiver_param); // remote command
                               "DISABLE" or "MODE" or "BLEUART" or
                               "HWUART"  or "SPI"  or "MANUAL"
     -----------------------------------------------------------------------*/
-#define FACTORYRESET_ENABLE         1
-#define MINIMUM_FIRMWARE_VERSION    "0.6.6"
-#define MODE_LED_BEHAVIOUR          "MODE"
+#define FACTORYRESET_ENABLE 1
+#define MINIMUM_FIRMWARE_VERSION "0.6.6"
+#define MODE_LED_BEHAVIOUR "MODE"
 /*=========================================================================*/
 
 // Create the bluefruit object, either software serial...uncomment these lines
@@ -121,15 +121,16 @@ CommandConstructor remote_(receiver_param); // remote command
 Adafruit_BluefruitLE_SPI ble(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
 
 /* ...software SPI, using SCK/MOSI/MISO user-defined SPI pins and then user selected CS/IRQ/RST */
-//Adafruit_BluefruitLE_SPI ble(BLUEFRUIT_SPI_SCK, BLUEFRUIT_SPI_MISO,
-//                             BLUEFRUIT_SPI_MOSI, BLUEFRUIT_SPI_CS,
-//                             BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
-
+// Adafruit_BluefruitLE_SPI ble(BLUEFRUIT_SPI_SCK, BLUEFRUIT_SPI_MISO,
+//                              BLUEFRUIT_SPI_MOSI, BLUEFRUIT_SPI_CS,
+//                              BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
 
 // A small helper
-void error(const __FlashStringHelper*err) {
-  Serial.println(err);
-  while (1);
+void error(const __FlashStringHelper* err)
+{
+    Serial.println(err);
+    while (1)
+        ;
 }
 
 /**************************************************************************/
@@ -140,62 +141,65 @@ void error(const __FlashStringHelper*err) {
 /**************************************************************************/
 void setup(void)
 {
-  while (!Serial);  // required for Flora & Micro
-  delay(500);
-
-  Serial.begin(115200);
-  Serial.println(F("Adafruit Bluefruit Command Mode Example"));
-  Serial.println(F("---------------------------------------"));
-
-  /* Initialise the module */
-  Serial.print(F("Initialising the Bluefruit LE module: "));
-
-  if ( !ble.begin(VERBOSE_MODE) )
-  {
-    error(F("Couldn't find Bluefruit, make sure it's in CoMmanD mode & check wiring?"));
-  }
-  Serial.println( F("OK!") );
-
-  if ( FACTORYRESET_ENABLE )
-  {
-    /* Perform a factory reset to make sure everything is in a known state */
-    Serial.println(F("Performing a factory reset: "));
-    if ( ! ble.factoryReset() ) {
-      error(F("Couldn't factory reset"));
-    }
-  }
-
-  /* Disable command echo from Bluefruit */
-  ble.echo(false);
-
-  Serial.println("Requesting Bluefruit info:");
-  /* Print Bluefruit information */
-  ble.info();
-
-  Serial.println(F("Please use Adafruit Bluefruit LE app to connect in UART mode"));
-  Serial.println(F("Then Enter characters to send to Bluefruit"));
-  Serial.println();
-
-  ble.verbose(false);  // debug info is a little annoying after this point!
-
-  /* Wait for connection */
-  while (! ble.isConnected()) {
+    while (!Serial)
+        ; // required for Flora & Micro
     delay(500);
-  }
 
-  // LED Activity command is only supported from 0.6.6
-  if ( ble.isVersionAtLeast(MINIMUM_FIRMWARE_VERSION) )
-  {
-    // Change Mode LED Activity
-    Serial.println(F("******************************"));
-    Serial.println(F("Change LED activity to " MODE_LED_BEHAVIOUR));
-    ble.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
-    Serial.println(F("******************************"));
-  }
+    Serial.begin(115200);
+    Serial.println(F("Adafruit Bluefruit Command Mode Example"));
+    Serial.println(F("---------------------------------------"));
 
-  inputHandler.defaultFunction(unrecognized); // default callback function
-  inputHandler.addCommand(remote_); // remote device, perform runtime calcs
-  inputHandler.begin(); // allocate memory for inputHandler
+    /* Initialise the module */
+    Serial.print(F("Initialising the Bluefruit LE module: "));
+
+    if (!ble.begin(VERBOSE_MODE))
+    {
+        error(F("Couldn't find Bluefruit, make sure it's in CoMmanD mode & check wiring?"));
+    }
+    Serial.println(F("OK!"));
+
+    if (FACTORYRESET_ENABLE)
+    {
+        /* Perform a factory reset to make sure everything is in a known state */
+        Serial.println(F("Performing a factory reset: "));
+        if (!ble.factoryReset())
+        {
+            error(F("Couldn't factory reset"));
+        }
+    }
+
+    /* Disable command echo from Bluefruit */
+    ble.echo(false);
+
+    Serial.println("Requesting Bluefruit info:");
+    /* Print Bluefruit information */
+    ble.info();
+
+    Serial.println(F("Please use Adafruit Bluefruit LE app to connect in UART mode"));
+    Serial.println(F("Then Enter characters to send to Bluefruit"));
+    Serial.println();
+
+    ble.verbose(false); // debug info is a little annoying after this point!
+
+    /* Wait for connection */
+    while (!ble.isConnected())
+    {
+        delay(500);
+    }
+
+    // LED Activity command is only supported from 0.6.6
+    if (ble.isVersionAtLeast(MINIMUM_FIRMWARE_VERSION))
+    {
+        // Change Mode LED Activity
+        Serial.println(F("******************************"));
+        Serial.println(F("Change LED activity to " MODE_LED_BEHAVIOUR));
+        ble.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
+        Serial.println(F("******************************"));
+    }
+
+    inputHandler.defaultFunction(unrecognized); // default callback function
+    inputHandler.addCommand(remote_);           // remote device, perform runtime calcs
+    inputHandler.begin();                       // allocate memory for inputHandler
 }
 
 /**************************************************************************/
@@ -205,36 +209,39 @@ void setup(void)
 /**************************************************************************/
 void loop(void)
 {
-  // Check for user input
-  char inputs[BUFSIZE + 1];
+    // Check for user input
+    char inputs[BUFSIZE + 1];
 
-  if ( getUserInput(inputs, BUFSIZE) )
-  {
-    // Send characters to Bluefruit
-    Serial.print("[Send] ");
-    Serial.println(inputs);
+    if (getInput(inputs, BUFSIZE))
+    {
+        // Send characters to Bluefruit
+        Serial.print("[Send] ");
+        Serial.println(inputs);
 
-    ble.print("AT+BLEUARTTX=");
-    ble.println(inputs);
+        ble.print("AT+BLEUARTTX=");
+        ble.println(inputs);
 
-    // check response stastus
-    if (! ble.waitForOK() ) {
-      Serial.println(F("Failed to send?"));
+        // check response stastus
+        if (!ble.waitForOK())
+        {
+            Serial.println(F("Failed to send?"));
+        }
     }
-  }
 
-  // Check for incoming characters from Bluefruit
-  ble.println("AT+BLEUARTRX");
-  ble.readline();
-  if (strcmp(ble.buffer, "OK") == 0) {
-    // no data
-    return;
-  }
-  // Some data was found, its in the buffer
-  Serial.print(F("[Recv] ")); Serial.println(ble.buffer);
-  inputHandler.readCommandFromBuffer((uint8_t*)ble.buffer, strlen(ble.buffer));
-  inputHandler.outputToStream(ble);
-  ble.waitForOK();
+    // Check for incoming characters from Bluefruit
+    ble.println("AT+BLEUARTRX");
+    ble.readline();
+    if (strcmp(ble.buffer, "OK") == 0)
+    {
+        // no data
+        return;
+    }
+    // Some data was found, its in the buffer
+    Serial.print(F("[Recv] "));
+    Serial.println(ble.buffer);
+    inputHandler.readCommandFromBuffer((uint8_t*)ble.buffer, strlen(ble.buffer));
+    inputHandler.outputToStream(ble);
+    ble.waitForOK();
 }
 
 /**************************************************************************/
@@ -242,25 +249,27 @@ void loop(void)
     @brief  Checks for user input (via the Serial Monitor)
 */
 /**************************************************************************/
-bool getUserInput(char buffer[], uint8_t maxSize)
+bool getInput(char buffer[], uint8_t maxSize)
 {
-  // timeout in 100 milliseconds
-  TimeoutTimer timeout(100);
+    // timeout in 100 milliseconds
+    TimeoutTimer timeout(100);
 
-  memset(buffer, 0, maxSize);
-  while ( (!Serial.available()) && !timeout.expired() ) {
-    delay(1);
-  }
+    memset(buffer, 0, maxSize);
+    while ((!Serial.available()) && !timeout.expired())
+    {
+        delay(1);
+    }
 
-  if ( timeout.expired() ) return false;
+    if (timeout.expired())
+        return false;
 
-  delay(2);
-  uint8_t count = 0;
-  do
-  {
-    count += Serial.readBytes(buffer + count, maxSize);
     delay(2);
-  } while ( (count < maxSize) && (Serial.available()) );
+    uint8_t count = 0;
+    do
+    {
+        count += Serial.readBytes(buffer + count, maxSize);
+        delay(2);
+    } while ((count < maxSize) && (Serial.available()));
 
-  return true;
+    return true;
 }

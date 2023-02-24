@@ -10,19 +10,22 @@
 #if !defined(__NMEAparser_H__)
     #define __NMEAparser_H__
 
-    #include <InputHandler.h>      // include for UserInput object
     #include "NMEAsentenceparam.h" // NMEA commands setup
-
+    #include <InputHandler.h>      // include for Input object
+using namespace ih;
     #define NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE 85 // Stream object input wrapper buffer len
-    #define NMEA_SENTENCE_MAX_EMPTY_FIELDS         32 // parseSentence input buffer size == input_len + (this * strlen(empty_field_ph))
+    #define NMEA_SENTENCE_MAX_EMPTY_FIELDS                                                         \
+        32 // parseSentence input buffer size == input_len + (this * strlen(empty_field_ph))
 
 // external objects
-extern UserInput sensorParser;                                           // UserInput object declared in NMEAparser.ino
-extern const CommandParameters sentence_param[], sentence_error_param[]; // zero delim commands declared in NMEAsentenceparam.h
+extern Input sensorParser; // Input object declared in NMEAparser.ino
+extern const Parameters sentence_param[],
+    sentence_error_param[]; // zero delim commands declared in NMEAsentenceparam.h
 // end external objects
 
-const byte num_zdc = 2;                                                         // number of zero delim commands
-const CommandParameters* zdc[num_zdc] = {sentence_param, sentence_error_param}; // zero delim command Parameters structure pointers
+const byte num_zdc = 2; // number of zero delim commands
+const Parameters* zdc[num_zdc] = {
+    sentence_param, sentence_error_param}; // zero delim command Parameters structure pointers
 
 const char* empty_field_ph = "blank"; // empty sentence field placeholder (temporary)
 
@@ -44,7 +47,8 @@ public:
             stream_buffer[idx] = stream.read();
             idx++;
         }
-        NMEAparse::parseSentence((uint8_t*)stream_buffer, idx); // pass stream buffer to NMEAparse::getSentence(uint8_t*, size_t)
+        NMEAparse::parseSentence((uint8_t*)stream_buffer,
+            idx); // pass stream buffer to NMEAparse::getSentence(uint8_t*, size_t)
     }
 
     // 2 char following '*''HEX''HEX'
@@ -62,7 +66,7 @@ public:
 private:
     void _parseSentence(uint8_t* buffer, size_t len)
     {
-        // perform preprocessing on input before feeding it into UserInput::readCommandFromBuffer()
+        // perform preprocessing on input before feeding it into Input::readCommandFromBuffer()
 
         // todo:
         // search for checksum, perform validation if found
@@ -70,8 +74,8 @@ private:
         size_t empty_field_ph_len = strlen(empty_field_ph);
         size_t buffer_idx = 0;
         size_t corrected_input_idx = 0;
-        size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);        
-        char* corrected_input = (char*) calloc(corrected_input_size, sizeof(char));        
+        size_t corrected_input_size = len + (empty_field_ph_len * NMEA_SENTENCE_MAX_EMPTY_FIELDS);
+        char* corrected_input = (char*)calloc(corrected_input_size, sizeof(char));
         for (size_t i = 0; i < len; ++i)
         {
             // if the char following a field sep ',' is another field sep
@@ -85,8 +89,7 @@ private:
                 buffer_idx++;
             }
             else if ((char)buffer[buffer_idx] == ','
-                     && ((char)buffer[buffer_idx + 1U] == ','
-                         || (char)buffer[buffer_idx + 1U] == '*'))
+                && ((char)buffer[buffer_idx + 1U] == ',' || (char)buffer[buffer_idx + 1U] == '*'))
             {
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
@@ -100,9 +103,8 @@ private:
                     corrected_input_idx++;
                 }
             }
-            else if (((char)buffer[buffer_idx] == '$'
-                      || (char)buffer[buffer_idx] == '!')
-                     && (buffer_idx < 5U))
+            else if (((char)buffer[buffer_idx] == '$' || (char)buffer[buffer_idx] == '!')
+                && (buffer_idx < 5U))
             {
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
@@ -114,8 +116,9 @@ private:
                 corrected_input_idx++;
                 buffer_idx++;
             }
-        }        
-        sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
+        }
+        sensorParser.readCommandFromBuffer(
+            (uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
         free(corrected_input);
     }
 };

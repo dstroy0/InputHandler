@@ -16,47 +16,42 @@
 */
 #include <InputHandler.h>
 
-
 char output_buffer[1] = {'\0'}; // output buffer
 
-const PROGMEM IH_pname pname = ""; // process name
-const PROGMEM IH_eol peol = "\r\n"; // process end of line char
-const PROGMEM IH_input_cc pinputcc = "##"; // input control character sequence
-const PROGMEM IH_wcc pwcc = "*"; // process wildcard char
-const PROGMEM InputProcessDelimiterSequences pdelimseq = {
-  2, // number of delimiter sequences
-  {1, 1}, // delimiter sequence lens
-  {" ", ","} // delimiter sequences
+const PROGMEM ih::ProcessName pname = "";         // process name
+const PROGMEM ih::EndOfLineChar peol = "\r\n";    // process end of line char
+const PROGMEM ih::ControlCharSeq pinputcc = "##"; // input control character sequence
+const PROGMEM ih::WildcardChar pwcc = "*";        // process wildcard char
+const PROGMEM ih::DelimiterSequences pdelimseq = {
+    2,         // number of delimiter sequences
+    {1, 1},    // delimiter sequence lens
+    {" ", ","} // delimiter sequences
 };
 
-const PROGMEM InputProcessStartStopSequences pststpseq = {
-  1.0, // num start stop sequence pairs
-  {1, 1}, // start stop sequence lens
-  {""", """} // start stop sequence pairs
+const PROGMEM ih::StartStopSequences pststpseq = {
+    1.0,    // num start stop sequence pairs
+    {1, 1}, // start stop sequence lens
+    {""
+     ", "
+     ""} // start stop sequence pairs
 };
 
-const PROGMEM InputProcessParameters input_prm[1] = {
-  &pname,
-  &peol,
-  &pinputcc,
-  &pwcc,
-  &pdelimseq,
-  &pststpseq
-};
-UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer));
+const PROGMEM ih::InputParameters input_prm[1] = {
+    &pname, &peol, &pinputcc, &pwcc, &pdelimseq, &pststpseq};
+ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 // default function, called if nothing matches or if there is an error
-void unrecognized(UserInput* inputProcess)
+void unrecognized(ih::Input* inputProcess)
 {
-  // error output
-  inputProcess->outputToStream(Serial);
+    // error output
+    inputProcess->outputToStream(Serial);
 }
 
 void InputHandler_setup()
 {
-  Serial.println(F("Setting up InputHandler..."));
-  inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+    Serial.println(F("Setting up InputHandler..."));
+    inputHandler.defaultFunction(
+        unrecognized); // set default function, called when user input has no match or is not valid
 
-  inputHandler.begin();                       // required.  returns true on success.
-
+    inputHandler.begin(); // required.  returns true on success.
 }

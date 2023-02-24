@@ -223,7 +223,7 @@ void InputHandler_loop()
 // end of file
 """
     ## functions.h function format string
-    functions_h_function_string = """void {functionname}(ih::UserInput* _{objectname}){{{statements}}}
+    functions_h_function_string = """void {functionname}(ih::Input* _{objectname}){{{statements}}}
 """
 
     ## single CommandParameters format string
@@ -289,7 +289,7 @@ const PROGMEM ih::Parameters {functionname}_param[1 /* root */ + {numberofchildr
 
     ## InputHandler return function
     ih_return_function_code_fs = """
-void {functionname}(ih::UserInput* _{objectname}) 
+void {functionname}(ih::Input* _{objectname}) 
 {{
     // your statements here
 }}
@@ -315,7 +315,7 @@ void {functionname}(ih::UserInput* _{objectname})
                     "arduino compatibility": '\n    #include "InputHandler.cpp"\n',
                     "outputbuffer": "\nchar {outputbuffername}[{buffersize}] = {bufferchar}; // output buffer size\n",
                     "classoutput": "({input_prm}, {outputbuffer}, buffsz({outputbuffer}))",
-                    "constructor": "ih::UserInput {objectname}{classoutput};\n",
+                    "constructor": "ih::Input {objectname}{classoutput};\n",
                     "setup function": cli_h_setup_function_string,
                     "loop function": cli_h_loop_function_string,
                     "addCommand": {
@@ -362,7 +362,7 @@ void {functionname}(ih::UserInput* _{objectname})
                     "listCommands": {"call": " _{objectname}->listCommands();"},
                     "listSettings": {"call": " _{objectname}->listSettings();"},
                     "function": functions_h_function_string,
-                    "return function prototype": "\nextern void {functionname}(ih::UserInput* _{objectname});",
+                    "return function prototype": "\nextern void {functionname}(ih::Input* _{objectname});",
                 },
                 "filestring": functions_h_fs,
             },  # end functions h

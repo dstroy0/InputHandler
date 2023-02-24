@@ -48,7 +48,7 @@
     #define IH_INPUT_TYPE_STRINGS_PGM_LEN 10
 
     // if you edit these, some examples might break and your compiler might yell at you about some
-    // variables in the UserInput constants section of InputHandler.h
+    // variables in the Input constants section of InputHandler.h
     #define IH_EOL_SEQ_PGM_LEN 5
 
     #define IH_DELIM_SEQ_PGM_LEN 5
@@ -88,29 +88,29 @@
     /**
      * @var DEBUG_GETCOMMANDFROMSTREAM
      *
-     * Enable this option to debug UserInput::getCommandFromStream
+     * Enable this option to debug Input::getCommandFromStream
      */
     #define DEBUG_GETCOMMANDFROMSTREAM false
 
     /**
      * @var DEBUG_READCOMMANDFROMBUFFER
      *
-     * Enable this option to debug UserInput::readCommandFromBuffer
+     * Enable this option to debug Input::readCommandFromBuffer
      */
     #define DEBUG_READCOMMANDFROMBUFFER false
 
     /**
      * @var DEBUG_GET_TOKEN
      *
-     * Enable this option to debug UserInput::getToken
+     * Enable this option to debug Input::getToken
      */
     #define DEBUG_GET_TOKEN false
 
     /**
      * @var DEBUG_SUBCOMMAND_SEARCH
      *
-     * Enable this option to debug UserInput::launchLogic subcommand search; subcommand search is
-     * recursive, uses no local variables and passes a UserInput::_rcfbprm object by reference to
+     * Enable this option to debug Input::launchLogic subcommand search; subcommand search is
+     * recursive, uses no local variables and passes a Input::_rcfbprm object by reference to
      * itself.
      */
     #define DEBUG_SUBCOMMAND_SEARCH false
@@ -118,30 +118,30 @@
     /**
      * @var DEBUG_ADDCOMMAND
      *
-     * Enable this option to debug UserInput::addCommand
+     * Enable this option to debug Input::addCommand
      */
     #define DEBUG_ADDCOMMAND false
 
     /**
      * @var DEBUG_LAUNCH_LOGIC
      *
-     * Enable this option to debug UserInput::launchLogic
+     * Enable this option to debug Input::launchLogic
      */
     #define DEBUG_LAUNCH_LOGIC false
 
     /**
      * @var DEBUG_LAUNCH_FUNCTION
      *
-     * Enable this option to debug UserInput::launchFunction
+     * Enable this option to debug Input::launchFunction
      */
     #define DEBUG_LAUNCH_FUNCTION false
 
-    /**
-     * @var DEBUG_INCLUDE_FREERAM
-     *
-     * Uncomment to debug src/utility/freeRam.h; only applicable if you are using freeRam.
-     */
-    #define DEBUG_INCLUDE_FREERAM false
+    // /**
+    //  * @var DEBUG_INCLUDE_FREERAM
+    //  *
+    //  * Uncomment to debug src/utility/freeRam.h; only applicable if you are using freeRam.
+    //  */
+    // #define DEBUG_INCLUDE_FREERAM false
 
     /*
         OPTIONAL METHODS
@@ -151,28 +151,28 @@
     /**
      * @var DISABLE_listSettings
      *
-     * Enable this option to disable UserInput::listSettings()
+     * Enable this option to disable Input::listSettings()
      */
     #define DISABLE_listSettings false
 
     /**
      * @var DISABLE_listCommands
      *
-     * Enable this option to disable UserInput::listCommands
+     * Enable this option to disable Input::listCommands
      */
     #define DISABLE_listCommands false
 
     /**
      * @var DISABLE_getCommandFromStream
      *
-     * Enable this option to disable UserInput::getCommandFromStream
+     * Enable this option to disable Input::getCommandFromStream
      */
     #define DISABLE_getCommandFromStream false
 
     /**
      * @var DISABLE_nextArgument
      *
-     * Enable this option to disable UserInput::nextArgument, either this or UserInput::getArgument
+     * Enable this option to disable Input::nextArgument, either this or Input::getArgument
      * are required to retrieve arguments.
      */
     #define DISABLE_nextArgument false
@@ -180,8 +180,8 @@
     /**
      * @var DISABLE_getArgument
      *
-     * Enable this option to disable UserInput::getArgument method, either this or
-     * UserInput::nextArgument need to be enabled to retrieve arguments.
+     * Enable this option to disable Input::getArgument method, either this or
+     * Input::nextArgument need to be enabled to retrieve arguments.
      */
     #define DISABLE_getArgument false
 
@@ -195,7 +195,7 @@
     /**
      * @var DISABLE_outputIsEnabled
      *
-     * Enable this option to disable UserInput::outputIsEnabled
+     * Enable this option to disable Input::outputIsEnabled
      */
     #define DISABLE_outputIsEnabled false
 
@@ -203,7 +203,7 @@
      * @var DISABLE_outputToStream
      *
      * Enable this option to reduce codesize if you are only using
-     * UserInput::readCommandFromBuffer. Default is false.
+     * Input::readCommandFromBuffer. Default is false.
      */
     #define DISABLE_outputToStream false
 
@@ -211,7 +211,7 @@
      * @var DISABLE_clearOutputBuffer
      *
      * Only disable this method if you have already disabled output.
-     * Enable this option to disable UserInput::clearOutputBuffer()
+     * Enable this option to disable Input::clearOutputBuffer()
      * Default is false.
      */
     #define DISABLE_clearOutputBuffer false

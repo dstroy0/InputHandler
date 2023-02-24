@@ -43,10 +43,10 @@
  */
 namespace ih_auto
 {
-// UserInput private member type (future bit array)
-typedef bool type_match_flags; ///< UserInput private member type (future bit array)
+// Input private member type (future bit array)
+typedef bool type_match_flags; ///< Input private member type (future bit array)
 
-// UserInput variable sizing
+// Input variable sizing
     #if (IH_MAX_COMMANDS_PER_TREE <= UINT8_MAX) || defined(DOXYGEN_XML_BUILD)
 /**
  * @brief User influenced typedef.
@@ -463,9 +463,9 @@ enum WC_FLAG
 };
 
 /**
- * @brief UserInput::\_compareCommandToString() return values.
+ * @brief Input::\_compareCommandToString() return values.
  *
- * These flags are only used to provide clarity to UserInput::\_compareCommandToString(),
+ * These flags are only used to provide clarity to Input::\_compareCommandToString(),
  * they make it easy to understand what is happening inside of that method.
  *
  * @enum UI_COMPARE
@@ -584,10 +584,8 @@ struct InputParameters
     const ControlCharSeq*
         input_control_char_sequence;   ///< two char len sequence to input a control char
     const WildcardChar* wildcard_char; ///< single char wildcard char
-    const DelimiterSequences*
-        delimiter_sequences; ///< reference to InputProcessDelimiterSequences struct
-    const StartStopSequences*
-        start_stop_sequences; ///< reference to InputProcessStartStopSequences struct
+    const DelimiterSequences* delimiter_sequences;  ///< reference to ih::DelimiterSequences struct
+    const StartStopSequences* start_stop_sequences; ///< reference to ih::StartStopSequences struct
 };
 
 /**
@@ -600,7 +598,7 @@ struct CommandRuntimeCalc
 {
     ih_auto::memcmp_idx_t
         num_prm_with_wc; ///< the number of CommandParameters structs in this command
-                         ///< that contain char(IH_wcc[0]); the WildCard Character
+                         ///< that contain char(ih::WildcardChar[0]); the WildCard Character
     ih_auto::memcmp_idx_t*
         idx_of_prm_with_wc; ///< indices of CommandParameters struct that contain wcc
     ih_auto::max_per_root_memcmp_ranges*
@@ -672,7 +670,7 @@ const ih::StartStopSequences PROGMEM _start_stop_sequences = {
 };
 
 /**
- * @brief UserInput default InputProcessParameters.
+ * @brief Input default ih::InputParameters.
  *
  */
 const ih::InputParameters PROGMEM default_parameters = {
@@ -703,7 +701,7 @@ enum class ERR_TYP
 // lib error messages
 // fatal
 const char fatal_halt[] PROGMEM = "%SINPUTHANDLER IS FUNCTIONALLY DISABLED.\n";
-const char fatal_begin_not_set[] PROGMEM = "%SUserInput::begin() not set.\n";
+const char fatal_begin_not_set[] PROGMEM = "%SInput::begin() not set.\n";
 const char fatal_allocation[] PROGMEM = "%Scouldn't allocate memory for %S.\n";
 const char fatal_arr_alloc_idx[] PROGMEM = "%Scouldn't allocate memory for %S[%02u].\n";
 

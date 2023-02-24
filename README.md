@@ -64,27 +64,27 @@ Individual commands that do not contain a wildcard character (each call to [Comm
 
 To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated [CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/dc/d3d/struct_command_runtime_calc.html) struct.  
 
-Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [IH_MAX_ARGS_PER_COMMAND](https://dstroy0.github.io/InputHandler/lib/src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND) number of arguments.  At runtime, UserInput scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [UserInput::begin()](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N9UserInput5beginEv))  
+Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [IH_MAX_ARGS_PER_COMMAND](https://dstroy0.github.io/InputHandler/lib/src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND) number of arguments.  At runtime, Input scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [Input::begin()](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N9Input5beginEv))  
 
 [This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino)  
 
 Check out the [examples](https://github.com/dstroy0/InputHandler/tree/main/examples) for different use cases.  
 
-Default InputHandler UserInput constructor initialization with no output:  
+Default InputHandler Input constructor initialization with no output:  
 ```cpp
 /*
-  InputHandler UserInput constructor
+  InputHandler Input constructor
 */
-UserInput inputHandler;
+Input inputHandler;
 ```
 
-Default InputHandler UserInput constructor initialization with output buffer:
+Default InputHandler Input constructor initialization with output buffer:
 ```cpp
 /*
-  InputHandler UserInput constructor
+  InputHandler Input constructor
 */
 char output_buffer[650] = {'\0'}; //  output buffer
-UserInput inputHandler(output_buffer, buffsz(output_buffer));
+Input inputHandler(output_buffer, buffsz(output_buffer));
 ```
 
 A valid (default-settings) command string would look something like:  
@@ -96,28 +96,28 @@ your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcom
 You can also customize many aspects of input characteristics:  
 ```cpp
 /*
-  InputHandler UserInput constructor
+  InputHandler Input constructor
 */
 char output_buffer[650] = {'\0'}; //  output buffer
 
-const PROGMEM IH_pname pname = "_test_";   // process name
-const PROGMEM IH_eol peol = "\r\n";        // end of line characters
-const PROGMEM IH_input_cc pinputcc = "##"; // input control character sequence
-const PROGMEM IH_wcc pwcc = "*";           // process wildcard character
+const PROGMEM ih::ProcessName pname = "_test_";   // process name
+const PROGMEM ih::EndOfLineChar peol = "\r\n";        // end of line characters
+const PROGMEM ih::ControlCharSeq pinputcc = "##"; // input control character sequence
+const PROGMEM ih::WildcardChar pwcc = "*";           // process wildcard character
 
-const PROGMEM InputProcessDelimiterSequences pipdelimseq = {
+const PROGMEM ih::DelimiterSequences pipdelimseq = {
   1,    // number of delimiter sequences
   {1},  // delimiter sequence lens
   {" "} // delimiter sequences
 };
 
-const PROGMEM InputProcessStartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences pststpseq = {
   1,           // num start stop sequence pairs
   {1, 1},      // start stop sequence lens
   {"\"", "\""} // start stop sequence pairs
 };
 
-const PROGMEM InputProcessParameters input_prm[1] = {
+const PROGMEM ih::InputParameters input_prm[1] = {
   &pname,
   &peol,
   &pinputcc,
@@ -125,7 +125,7 @@ const PROGMEM InputProcessParameters input_prm[1] = {
   &pipdelimseq,
   &pststpseq
 };
-UserInput inputHandler(output_buffer, buffsz(output_buffer), input_prm);
+Input inputHandler(output_buffer, buffsz(output_buffer), input_prm);
 ```
 
 The classes' input methods are:  

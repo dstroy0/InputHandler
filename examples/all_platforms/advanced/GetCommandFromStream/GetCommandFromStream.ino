@@ -9,41 +9,41 @@
 */
 
 #include <InputHandler.h>
-using namespace InputHandler;
+
 char output_buffer[600] {}; // output buffer
 /*
-  UserInput constructor settings
+  Input constructor settings
 */
-const PROGMEM ProcessName process_name = "_test_"; ///< default process name
-const PROGMEM EndOfLineChar peol = "\r\n";         ///< default process eol characters
-const PROGMEM ControlCharSeq pinputcc = "##";      ///< default input control character sequence
-const PROGMEM WildcardChar pwcc = "*";             ///< default process wildcard character
+const PROGMEM ih::ProcessName process_name = "_test_"; ///< default process name
+const PROGMEM ih::EndOfLineChar peol = "\r\n";         ///< default process eol characters
+const PROGMEM ih::ControlCharSeq pinputcc = "##";      ///< default input control character sequence
+const PROGMEM ih::WildcardChar pwcc = "*";             ///< default process wildcard character
 
-const PROGMEM DelimiterSequences pipdelimseq = {
+const PROGMEM ih::DelimiterSequences pipdelimseq = {
     2,         ///< number of delimiter sequences
     {1, 1},    ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
 };
 
-const PROGMEM StartStopSequences pststpseq = {
+const PROGMEM ih::StartStopSequences pststpseq = {
     1,           ///< num start stop sequence pairs
     {1, 1},      ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM InputParameters input_prm[1] = {
+const PROGMEM ih::InputParameters input_prm[1] = {
     &process_name, &peol, &pinputcc, &pwcc, &pipdelimseq, &pststpseq};
-UserInput inputHandler(input_prm, output_buffer, buffsz(output_buffer)); // UserInput constructor
+ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer)); // Input constructor
 
 // default function, called if nothing matches or if there is an error
-void unrecognized(UserInput* inputProcess)
+void unrecognized(ih::Input* inputProcess)
 {
     // error output
     inputProcess->outputToStream(Serial);
 }
 
 // test all available input types
-void test_input_types(UserInput* inputProcess)
+void test_input_types(ih::Input* inputProcess)
 {
     inputProcess->outputToStream(
         Serial); // class output, doesn't have to output to the input stream
@@ -107,31 +107,32 @@ void test_input_types(UserInput* inputProcess)
 /**
    test enforces type-valid input
 */
-const PROGMEM Parameters type_test_param[1] = {test_input_types, // function ptr
-    no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "test",       // command string
-    4,            // string length
-    root,         // parent id
-    root,         // this command id
-    root,         // command depth
-    0,            // subcommands
-    UI_ARG_HANDLING::type_arr, // argument handling
-    8,                         // minimum expected number of arguments
-    8,                         // maximum expected number of arguments
+const PROGMEM ih::Parameters type_test_param[1] = {test_input_types, // function ptr
+    ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
+                               // '*'
+    "test",                    // command string
+    4,                         // string length
+    ih::CMD_ID::root,          // parent id
+    ih::CMD_ID::root,          // this command id
+    ih::CMD_ID::root,          // command depth
+    0,                         // subcommands
+    ih::UI_ARG_HANDLING::type_arr, // argument handling
+    8,                             // minimum expected number of arguments
+    8,                             // maximum expected number of arguments
     /*
       UITYPE arguments
     */
     {
-        UITYPE::UINT8_T,    // 8-bit  uint
-        UITYPE::UINT16_T,   // 16-bit uint
-        UITYPE::UINT32_T,   // 32-bit uint
-        UITYPE::INT16_T,    // 16-bit int
-        UITYPE::FLOAT,      // 32-bit float
-        UITYPE::CHAR,       // char
-        UITYPE::START_STOP, // regex-like start stop char sequences
-        UITYPE::NOTYPE      // special type, no type validation performed
+        ih::UITYPE::UINT8_T,    // 8-bit  uint
+        ih::UITYPE::UINT16_T,   // 16-bit uint
+        ih::UITYPE::UINT32_T,   // 32-bit uint
+        ih::UITYPE::INT16_T,    // 16-bit int
+        ih::UITYPE::FLOAT,      // 32-bit float
+        ih::UITYPE::CHAR,       // char
+        ih::UITYPE::START_STOP, // regex-like start stop char sequences
+        ih::UITYPE::NOTYPE      // special type, no type validation performed
     }};
-Command test_(type_test_param);
+ih::Command test_(type_test_param);
 
 void setup()
 {

@@ -16,7 +16,7 @@
 /*
    default function, called if nothing matches or if there is an error
 */
-void unrecognized(UserInput* inputProcess)
+void unrecognized(Input* inputProcess)
 {
     // error output
     inputProcess->outputToStream(Serial);
@@ -25,21 +25,23 @@ void unrecognized(UserInput* inputProcess)
 /*
    lists commands available to the user
 */
-void help(UserInput* inputProcess)
-{
-    inputProcess->listCommands();
-}
+void help(Input* inputProcess) { inputProcess->listCommands(); }
 
 /*
    test all available input types
 */
-void test_input_types(UserInput* inputProcess)
+void test_input_types(Input* inputProcess)
 {
-    inputProcess->outputToStream(Serial);                                             // class output, doesn't have to output to the input stream
-    char* str_ptr = inputProcess->nextArgument();                                     //  init str_ptr and point it at the next argument input by the user
-    char* strtoul_ptr = 0;                                                            //  this is for strtoul
-    uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10);                     // get the result in base10
-    uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+    inputProcess->outputToStream(
+        Serial); // class output, doesn't have to output to the input stream
+    char* str_ptr =
+        inputProcess
+            ->nextArgument(); //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0;    //  this is for strtoul
+    uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
+    uint8_t eight_bit = (strtoul_result <= UINT8_MAX)
+        ? (uint8_t)strtoul_result
+        : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
     str_ptr = inputProcess->nextArgument();
     strtoul_ptr = 0;
@@ -75,23 +77,17 @@ void test_input_types(UserInput* inputProcess)
          format out[] with all of the arguments received
     */
     string_pos += snprintf_P(out + string_pos, 512,
-                             PSTR("Test user input types:\n"
-                                  " uint8_t %u\n"
-                                  " uint16_t %u\n"
-                                  " uint32_t %lu\n"
-                                  " int %d\n"
-                                  " float %s\n"
-                                  " char %c\n"
-                                  " c-string %s\n"
-                                  " unknown-type %s\n"),
-                             eight_bit,
-                             sixteen_bit,
-                             thirtytwo_bit,
-                             sixteen_bit_int,
-                             dtostrf(thirtytwo_bit_float, 2, 3, float_buffer),
-                             _char,
-                             c_string,
-                             unknown_string);
+        PSTR("Test user input types:\n"
+             " uint8_t %u\n"
+             " uint16_t %u\n"
+             " uint32_t %lu\n"
+             " int %d\n"
+             " float %s\n"
+             " char %c\n"
+             " c-string %s\n"
+             " unknown-type %s\n"),
+        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
+        dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
 
     Serial.println(out);
 }
