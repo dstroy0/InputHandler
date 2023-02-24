@@ -2,14 +2,14 @@
    @file GetCommandFromStream.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief A basic InputHandler demonstration
-   @version 0.9
-   @date 2022-04-18
+   @version 1.0
+   @date 2023/2/24
 
    @copyright Copyright (c) 2022
 */
 
 #include <InputHandler.h>
-using namespace ih;
+using namespace ih; // InputHandler's namespace
 /*
   Input constructor; default constructor with no class output
 */
@@ -59,8 +59,8 @@ void setup()
     }
     else
     {
-        Serial.println(
-            F("there was an error, please enable output for more verbose error information"));
+        Serial.println(F("there was an error starting InputHandler, please enable output for more "
+                         "verbose error information"));
     }
 }
 
