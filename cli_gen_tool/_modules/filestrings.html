@@ -447,7 +447,7 @@
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="c1">## functions.h function format string</span>
-    <span class="n">functions_h_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">){{</span><span class="si">{statements}</span><span class="s2">}}</span>
+    <span class="n">functions_h_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;void </span><span class="si">{functionname}</span><span class="s2">(ih::Input* _</span><span class="si">{objectname}</span><span class="s2">){{</span><span class="si">{statements}</span><span class="s2">}}</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
     <span class="c1">## single CommandParameters format string</span>
@@ -513,7 +513,7 @@
 
     <span class="c1">## InputHandler return function</span>
     <span class="n">ih_return_function_code_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">) </span>
+<span class="s2">void </span><span class="si">{functionname}</span><span class="s2">(ih::Input* _</span><span class="si">{objectname}</span><span class="s2">) </span>
 <span class="s2">{{</span>
 <span class="s2">    // your statements here</span>
 <span class="s2">}}</span>
@@ -539,7 +539,7 @@
                     <span class="s2">&quot;arduino compatibility&quot;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    #include &quot;InputHandler.cpp&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="s2">&quot;outputbuffer&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">char </span><span class="si">{outputbuffername}</span><span class="s2">[</span><span class="si">{buffersize}</span><span class="s2">] = </span><span class="si">{bufferchar}</span><span class="s2">; // output buffer size</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;classoutput&quot;</span><span class="p">:</span> <span class="s2">&quot;(</span><span class="si">{input_prm}</span><span class="s2">, </span><span class="si">{outputbuffer}</span><span class="s2">, buffsz(</span><span class="si">{outputbuffer}</span><span class="s2">))&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;ih::UserInput </span><span class="si">{objectname}{classoutput}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;constructor&quot;</span><span class="p">:</span> <span class="s2">&quot;ih::Input </span><span class="si">{objectname}{classoutput}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;setup function&quot;</span><span class="p">:</span> <span class="n">cli_h_setup_function_string</span><span class="p">,</span>
                     <span class="s2">&quot;loop function&quot;</span><span class="p">:</span> <span class="n">cli_h_loop_function_string</span><span class="p">,</span>
                     <span class="s2">&quot;addCommand&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -586,7 +586,7 @@
                     <span class="s2">&quot;listCommands&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listCommands();&quot;</span><span class="p">},</span>
                     <span class="s2">&quot;listSettings&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;call&quot;</span><span class="p">:</span> <span class="s2">&quot; _</span><span class="si">{objectname}</span><span class="s2">-&gt;listSettings();&quot;</span><span class="p">},</span>
                     <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">functions_h_function_string</span><span class="p">,</span>
-                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">extern void </span><span class="si">{functionname}</span><span class="s2">(ih::UserInput* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;return function prototype&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">extern void </span><span class="si">{functionname}</span><span class="s2">(ih::Input* _</span><span class="si">{objectname}</span><span class="s2">);&quot;</span><span class="p">,</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;filestring&quot;</span><span class="p">:</span> <span class="n">functions_h_fs</span><span class="p">,</span>
             <span class="p">},</span>  <span class="c1"># end functions h</span>
