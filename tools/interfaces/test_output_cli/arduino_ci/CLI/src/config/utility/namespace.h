@@ -313,14 +313,15 @@ typedef uint32_t max_num_start_stop_seq;
  * // no typedef; compile failure
  * #endif
  * @endcode
+ * @typedef max_proc_input_len
  */
-typedef uint8_t max_proc_input_len;
+typedef uint8_t max_proc_input_len; // maximum input length 0 - UINT8_MAX
     #elif (IH_MAX_PROC_INPUT_LEN > UINT8_MAX && IH_MAX_PROC_INPUT_LEN <= UINT16_MAX)
-typedef uint16_t max_proc_input_len;
+typedef uint16_t max_proc_input_len; // maximum input length UINT8_MAX+1 - UINT16_MAX
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PROC_INPUT_LEN|max_proc_input_len changed from uint8_t to uint16_t
     #elif (IH_MAX_PROC_INPUT_LEN > UINT16_MAX && IH_MAX_PROC_INPUT_LEN <= UINT32_MAX)
-typedef uint32_t max_proc_input_len;
+typedef uint32_t max_proc_input_len; // maximum input length UINT16_MAX+1 - UINT32_MAX
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PROC_INPUT_LEN|max_proc_input_len changed from uint8_t to uint32_t
     #elif (IH_MAX_PROC_INPUT_LEN > ((UINT32_MAX)-1))
@@ -365,15 +366,15 @@ typedef uint8_t max_per_root_memcmp_ranges;
  * #endif
  * @endcode
  */
-typedef uint8_t memcmp_idx_t;
+typedef uint8_t memcmp_idx_t; // 0 - UINT8_MAX memcmp ranges
     #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT8_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT16_MAX)
-typedef uint16_t max_per_root_memcmp_ranges;
+typedef uint16_t max_per_root_memcmp_ranges; // UINT8_MAX+1 - UINT16_MAX memcmp ranges
 typedef uint16_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint16_t
     #elif (                                                                                        \
         IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
-typedef uint32_t max_per_root_memcmp_ranges;
+typedef uint32_t max_per_root_memcmp_ranges; // UINT16_MAX+1 - UINT32_MAX memcmp ranges
 typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint32_t
