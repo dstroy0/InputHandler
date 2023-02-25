@@ -16,7 +16,7 @@
 /*
    default function, called if nothing matches or if there is an error
 */
-void unrecognized(Input* inputProcess)
+void unrecognized(ih::Input* inputProcess)
 {
     // error output
     inputProcess->outputToStream(Serial);
@@ -25,12 +25,12 @@ void unrecognized(Input* inputProcess)
 /*
    lists commands available to the user
 */
-void help(Input* inputProcess) { inputProcess->listCommands(); }
+void help(ih::Input* inputProcess) { inputProcess->listCommands(); }
 
 /*
    test all available input types
 */
-void test_input_types(Input* inputProcess)
+void test_input_types(ih::Input* inputProcess)
 {
     inputProcess->outputToStream(
         Serial); // class output, doesn't have to output to the input stream

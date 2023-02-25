@@ -41,7 +41,7 @@ const PROGMEM ih::StartStopSequences process_ststpseq = {
 
 const PROGMEM ih::InputParameters input_prm[1] = {
     &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
-Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
+ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 void InputHandler_setup()
 {
