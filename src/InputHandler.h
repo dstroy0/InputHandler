@@ -23,7 +23,7 @@
     #include "config/noedit.h"
 
 /**
- * @addtogroup namespaces
+ * @addtogroup Namespaces
  * @{
  */
 namespace ih
