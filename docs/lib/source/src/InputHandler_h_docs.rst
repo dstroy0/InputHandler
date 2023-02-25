@@ -13,7 +13,7 @@ structs
 
 namespace
 ----------
-.. doxygengroup:: namespace
+.. doxygengroup:: Namespaces
    :members:   
 
 classes

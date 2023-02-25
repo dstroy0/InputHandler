@@ -20,7 +20,7 @@
     #define __IH_NAMESPACES__
 
 /**
- * @defgroup namespaces namespaces
+ * @defgroup namespaces Namespaces
  */
 ///@{
 /**

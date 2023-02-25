@@ -847,7 +847,7 @@ private:
 ///@}
 };
 // end addtogroup namespaces
-/** @} */ 
+/** @} */
 #endif // header guard include
 
 // end of file
