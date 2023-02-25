@@ -2,10 +2,10 @@
    @file NestedCommands.ino
    @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
    @brief An example that demonstrates nested subcommands
-   @version 1.0
-   @date 2022-04-17
+   @version 1.1
+   @date 2023/02/25
 
-   @copyright Copyright (c) 2022
+   @copyright Copyright (c) 2023
 */
 
 #include <InputHandler.h>
@@ -43,34 +43,36 @@ void nest_two(ih::Input* inputProcess)
 
 const PROGMEM ih::Parameters nest_one_[1] = {
     // subcommand depth one
-    nest_one,     // unique function
-    ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "one",        // command string
-    3,            // command string characters
-    ih::CMD_ID::root,         // parent id
-    1,            // this command id
-    1,            // command depth
-    0,            // subcommands
+    nest_one,                  // unique function
+    ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
+                               // '*'
+    "one",                     // command string
+    3,                         // command string characters
+    ih::CMD_ID::root,          // parent id
+    1,                         // this command id
+    1,                         // command depth
+    0,                         // subcommands
     ih::UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0,                            // minimum expected number of arguments
+    0,                            // maximum expected number of arguments
     /* UITYPE arguments */
     {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
 
 const PROGMEM ih::Parameters nest_two_[1] = {
     // subcommand depth one
-    nest_two,     // unique function
-    ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "two",        // command string
-    3,            // command string characters
-    ih::CMD_ID::root,         // parent id
-    2,            // this command id
-    1,            // command depth
-    0,            // subcommands
+    nest_two,                  // unique function
+    ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
+                               // '*'
+    "two",                     // command string
+    3,                         // command string characters
+    ih::CMD_ID::root,          // parent id
+    2,                         // this command id
+    1,                         // command depth
+    0,                         // subcommands
     ih::UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0,                            // minimum expected number of arguments
+    0,                            // maximum expected number of arguments
     /* UITYPE arguments */
     {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -78,17 +80,18 @@ const PROGMEM ih::Parameters nest_two_[1] = {
 const PROGMEM ih::Parameters nested_prms[1 /* root */ + 2 /* child(ren) */] = {
     {
         // root command
-        unrecognized, // root command not allowed to be NULL
-        ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-        "launch",     // command string
-        6,            // command string characters
-        ih::CMD_ID::root,         // parent id
-        ih::CMD_ID::root,         // this command id
-        ih::CMD_ID::root,         // command depth
-        2,            // subcommands
+        unrecognized,                 // root command not allowed to be NULL
+        ih::WC_FLAG::no_wildcards,    // no_wildcards or has_wildcards, default WildCard Character
+                                      // (wcc) is '*'
+        "launch",                     // command string
+        6,                            // command string characters
+        ih::CMD_ID::root,             // parent id
+        ih::CMD_ID::root,             // this command id
+        ih::CMD_ID::root,             // command depth
+        2,                            // subcommands
         ih::UI_ARG_HANDLING::no_args, // argument handling
-        0,                        // minimum expected number of arguments
-        0,                        // maximum expected number of arguments
+        0,                            // minimum expected number of arguments
+        0,                            // maximum expected number of arguments
         /* UITYPE arguments */
         {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
     },
