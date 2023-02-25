@@ -38,8 +38,9 @@
  * size type aliases to the minimum byte-width required automatically.  It also warns users
  * about the change.  The only hand-holding that happens is for type sizing, it's up
  * to you to make sure you have the resources for your settings.
- * A very convenient feature for users.
- *
+ * Convenience namespace.
+ * 
+ * @namespace ih_auto
  */
 namespace ih_auto
 {
@@ -384,9 +385,13 @@ typedef uint32_t memcmp_idx_t;
 // end typedef sizing
 } // end namespace IH
 
+/**
+ * @brief User facing namespace
+ *
+ * @namespace ih
+ */
 namespace ih
 {
-
 /**
  * @defgroup typedefs typedefs
  */
@@ -608,6 +613,7 @@ struct CommandRuntimeCalc
         memcmp_ranges_arr; ///< 2d array[row][col], each [row] is for one Parameters command string
                            ///< which contains wcc
 };
+// end group structs
 ///@}
 };
 
@@ -621,11 +627,14 @@ struct CommandRuntimeCalc
  */
 namespace ihc
 {
-
+/**
+ * @defgroup literals literals
+ */
+///@{
 /**
  * @brief Type string literals.
  *
- * Input type string literal PROGMEM array, each of the types in @link UITYPE @endlink has
+ * Input type string literal PROGMEM array, each of the types in @link ih::UITYPE @endlink has
  * a corresponding string literal for display purposes.
  *
  */
@@ -866,9 +875,11 @@ enum class TRM
 {
     prompt,
 };
-
+// end literals
+///@}
 } // end namespace ihc
-///@} // end namespaces group
+// end namespaces group
+///@} 
 
 #endif // include guard
 // end of file

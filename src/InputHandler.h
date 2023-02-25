@@ -21,6 +21,11 @@
     // user configurable items located in src/config/config.h and src/config/advanced_config.h
     // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
     #include "config/noedit.h"
+
+/**
+ * @addtogroup namespaces
+ * @{
+ */
 namespace ih
 {
 // lib specific namespace
@@ -113,7 +118,6 @@ public:
  * information.
  *
  */
-
 class Input
 {
 public:
@@ -839,8 +843,11 @@ private:
     bool _fatalError(ihc::VAR_ID var_id = ihc::VAR_ID::_reserved);
     // end private methods
 };
+// end group classes
 ///@}
 };
+// end addtogroup namespaces
+/** @} */ 
 #endif // header guard include
 
 // end of file
