@@ -1,4 +1,4 @@
-name: ESP32 - Build tool CLI PIO CI
+name: Adafruit - Build tool CLI PIO CI
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
           cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
 
-      - name: Build PlatformIO ESP32
+      - name: Build PlatformIO Adafruit
         run: pio ci
           --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
           --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI"
