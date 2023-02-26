@@ -1,0 +1,8 @@
+<map id="%3" name="%3">
+<area shape="rect" id="node1" title="ih::Command" alt="" coords="187,5,335,53"/>
+<area shape="poly" id="edge3" title="usage" alt="" coords="336,10,354,16,361,29,358,39,350,45,347,41,354,36,356,30,350,20,334,15"/>
+<area shape="rect" id="node2" title="ih::CommandRuntimeCalc" alt="" coords="5,101,276,149"/>
+<area shape="poly" id="edge2" title="usage" alt="" coords="233,56,183,95,179,91,229,52"/>
+<area shape="rect" id="node3" title="ih::Parameters" alt="" coords="301,101,463,149"/>
+<area shape="poly" id="edge1" title="usage" alt="" coords="292,52,343,91,340,95,289,56"/>
+</map>
