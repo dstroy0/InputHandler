@@ -1,0 +1,1239 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
+        <title>noedit.h - InputHandler documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">InputHandler  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">InputHandler  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (InputHandler.h)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">Bug reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#inputhandler-readme">InputHandler README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#design-goals">Design Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#news">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#supported-platforms">Supported Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#docs-note">Docs note</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../InputHandler_h_docs.html">InputHandler.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_h_docs.html">config.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="noedit_h_docs.html">noedit.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/vsnprintf_h_docs.html">vsnprintf.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/freeram_h_docs.html">freeRam.h</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="noedit-h">
+<h1>noedit.h<a class="headerlink" href="#noedit-h" title="Permalink to this heading">#</a></h1>
+<p>This graph shows which files directly or indirectly include namespace.h:</p>
+<figure class="align-default">
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-432a90ebf16c390bdbdf24d4356da1b860e4a556.png" alt="digraph {
+    graph [bgcolor=&quot;#00000000&quot;]
+    node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
+    edge [color=&quot;#1414CE&quot;]
+    &quot;4&quot; [label=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;5&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/cli_setup.h&quot;]
+    &quot;6&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/functions.h&quot;]
+    &quot;7&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/CLI/parameters.h&quot;]
+    &quot;8&quot; [label=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot; tooltip=&quot;examples/all_platforms/advanced/MultiFile/MultiFile.ino&quot;]
+    &quot;9&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/NMEAparser.ino&quot;]
+    &quot;10&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAparser.h&quot;]
+    &quot;11&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentencefunc.h&quot;]
+    &quot;12&quot; [label=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot; tooltip=&quot;examples/all_platforms/advanced/NMEAparser/parser/NMEAsentenceparam.h&quot;]
+    &quot;13&quot; [label=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot; tooltip=&quot;examples/all_platforms/advanced/NestedCommands/NestedCommands.ino&quot;]
+    &quot;14&quot; [label=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot; tooltip=&quot;examples/all_platforms/advanced/config_howto/config_howto.ino&quot;]
+    &quot;15&quot; [label=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot; tooltip=&quot;examples/all_platforms/advanced/debugging/debugging.ino&quot;]
+    &quot;16&quot; [label=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot; tooltip=&quot;examples/all_platforms/basic/BLE_UART/BLE_UART.ino&quot;]
+    &quot;17&quot; [label=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot; tooltip=&quot;examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino&quot;]
+    &quot;18&quot; [label=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot; tooltip=&quot;examples/all_platforms/basic/LoRa/LoRaReceiver/LoRaReceiver.ino&quot;]
+    &quot;19&quot; [label=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot; tooltip=&quot;examples/all_platforms/basic/RF24/RF24.ino&quot;]
+    &quot;20&quot; [label=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot; tooltip=&quot;examples/all_platforms/basic/ReadCommandFromBufferMQTT/ReadCommandFromBufferMQTT.ino&quot;]
+    &quot;21&quot; [label=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot; tooltip=&quot;examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino&quot;]
+    &quot;22&quot; [label=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot; tooltip=&quot;examples/esp/ReadCommandFromBufferWebSerial/ReadCommandFromBufferWebSerial.ino&quot;]
+    &quot;23&quot; [label=&quot;src/InputHandler.cpp&quot; tooltip=&quot;src/InputHandler.cpp&quot;]
+    &quot;3&quot; [label=&quot;src/InputHandler.h&quot; tooltip=&quot;src/InputHandler.h&quot;]
+    &quot;2&quot; [label=&quot;src/config/noedit.h&quot; tooltip=&quot;src/config/noedit.h&quot;]
+    &quot;1&quot; [label=&quot;src/config/utility/namespace.h&quot; tooltip=&quot;src/config/utility/namespace.h&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;5&quot; -&gt; &quot;6&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;7&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;5&quot; -&gt; &quot;8&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;6&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;7&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;10&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;11&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;12&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;4&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;5&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;9&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;10&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;11&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;12&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;13&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;14&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;15&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;16&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;17&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;18&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;19&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;20&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;21&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;22&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;3&quot; -&gt; &quot;23&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;2&quot; -&gt; &quot;3&quot; [dir=back tooltip=&quot;include&quot;]
+    &quot;1&quot; -&gt; &quot;2&quot; [dir=back tooltip=&quot;include&quot;]
+}" class="graphviz" /></div>
+</div>
+</figure>
+<p>InputHandler specific namespaces. </p>
+<p><dl class="simple">
+<dt><strong>Author</strong></dt><dd><p>Douglas Quigg (dstroy0 <a class="reference external" href="mailto:dquigg123&#37;&#52;&#48;gmail&#46;com">dquigg123<span>&#64;</span>gmail<span>&#46;</span>com</a>) </p>
+</dd>
+<dt><strong>Version</strong></dt><dd><p>1.0 </p>
+</dd>
+<dt><strong>Date</strong></dt><dd><p>2023-02-13</p>
+</dd>
+<dt><strong>Copyright</strong></dt><dd><p>Copyright (c) 2023 </p>
+</dd>
+</dl>
+</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv47ih_auto">
+<span id="_CPPv37ih_auto"></span><span id="_CPPv27ih_auto"></span><span id="ih_auto"></span><span class="target" id="dd/d10/namespaceih__auto"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ih_auto</span></span></span><a class="headerlink" href="#_CPPv47ih_auto" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>InputHandler “auto” type namespace. </p>
+<p>The source of macros in this namespace is src/config.h. <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h">config src</a> <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h#:~:text=namespace%20IH">namespace src</a></p>
+<p>The idea behind this namespace is to let users set config.h items to whatever they want, sizing variables for the least amount of space, automatically. The preprocessor evaluates the if macros in a way that will leave typedefs that size type aliases to the minimum byte-width required automatically. It also warns users about the change. The only hand-holding that happens is for type sizing, it’s up to you to make sure you have the resources for your settings. Convenience namespace. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto16type_match_flagsE">
+<span id="_CPPv3N7ih_auto16type_match_flagsE"></span><span id="_CPPv2N7ih_auto16type_match_flagsE"></span><span id="ih_auto::type_match_flags"></span><span class="target" id="dd/d10/namespaceih__auto_1af8d303b65e67a11f7542f545969b442d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_match_flags</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto16type_match_flagsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Input private member type (future bit array) </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto17max_cmds_per_treeE">
+<span id="_CPPv3N7ih_auto17max_cmds_per_treeE"></span><span id="_CPPv2N7ih_auto17max_cmds_per_treeE"></span><span id="ih_auto::max_cmds_per_tree"></span><span class="target" id="dd/d10/namespaceih__auto_1a03318ccab55eec8324e0c6b1da0564a3"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_cmds_per_tree</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto17max_cmds_per_treeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aa0ba3eaacb281eece926c50829bf32e1"><span class="std std-ref">IH_MAX_COMMANDS_PER_TREE</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_COMMANDS_PER_TREE &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_cmds_per_tree</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_COMMANDS_PER_TREE &gt; UINT8_MAX &amp;&amp; IH_MAX_COMMANDS_PER_TREE &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_cmds_per_tree</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_COMMANDS_PER_TREE &gt; UINT16_MAX &amp;&amp; IH_MAX_COMMANDS_PER_TREE &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_cmds_per_tree</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto10cmd_id_grpE">
+<span id="_CPPv3N7ih_auto10cmd_id_grpE"></span><span id="_CPPv2N7ih_auto10cmd_id_grpE"></span><span id="ih_auto::cmd_id_grp"></span><span class="target" id="dd/d10/namespaceih__auto_1a2412bfa4129764ed279f36ea86b2f427"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_id_grp</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto10cmd_id_grpE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aa0ba3eaacb281eece926c50829bf32e1"><span class="std std-ref">IH_MAX_COMMANDS_PER_TREE</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_COMMANDS_PER_TREE &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cmd_id_grp</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_COMMANDS_PER_TREE &gt; UINT8_MAX &amp;&amp; IH_MAX_COMMANDS_PER_TREE &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">cmd_id_grp</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_COMMANDS_PER_TREE &gt; UINT16_MAX &amp;&amp; IH_MAX_COMMANDS_PER_TREE &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cmd_id_grp</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto16max_args_per_cmdE">
+<span id="_CPPv3N7ih_auto16max_args_per_cmdE"></span><span id="_CPPv2N7ih_auto16max_args_per_cmdE"></span><span id="ih_auto::max_args_per_cmd"></span><span class="target" id="dd/d10/namespaceih__auto_1aaf939a98f01c984e7c2bc2ba31f76908"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_args_per_cmd</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto16max_args_per_cmdE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a5ecef5b2abd890f461390deeb37d6637"><span class="std std-ref">IH_MAX_ARGS_PER_COMMAND</span></a> is set by the user. <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_ARGS_PER_COMMAND &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_args_per_cmd</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_ARGS_PER_COMMAND &gt; UINT8_MAX &amp;&amp; IH_MAX_ARGS_PER_COMMAND &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_args_per_cmd</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_ARGS_PER_COMMAND &gt; UINT16_MAX &amp;&amp; IH_MAX_ARGS_PER_COMMAND &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_args_per_cmd</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto22max_tree_depth_per_cmdE">
+<span id="_CPPv3N7ih_auto22max_tree_depth_per_cmdE"></span><span id="_CPPv2N7ih_auto22max_tree_depth_per_cmdE"></span><span id="ih_auto::max_tree_depth_per_cmd"></span><span class="target" id="dd/d10/namespaceih__auto_1a2b7ffdaea53d78b3d901e65158bdf228"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_tree_depth_per_cmd</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto22max_tree_depth_per_cmdE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ad33ea2f4e6d5a30e8d9ee0e6df9006b0"><span class="std std-ref">IH_MAX_TREE_DEPTH_PER_COMMAND</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_tree_depth_per_cmd</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT8_MAX &amp;&amp; IH_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_tree_depth_per_cmd</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_TREE_DEPTH_PER_COMMAND &gt; UINT16_MAX &amp;&amp; IH_MAX_TREE_DEPTH_PER_COMMAND &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_tree_depth_per_cmd</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto18max_num_child_cmdsE">
+<span id="_CPPv3N7ih_auto18max_num_child_cmdsE"></span><span id="_CPPv2N7ih_auto18max_num_child_cmdsE"></span><span id="ih_auto::max_num_child_cmds"></span><span class="target" id="dd/d10/namespaceih__auto_1af8daed405d1a18653e67ce27d2beec96"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_num_child_cmds</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto18max_num_child_cmdsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ad8795abe368179922aedcf022f644429"><span class="std std-ref">IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span>#if (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT &lt;= UINT8_MAX)
+typedef uint8_t max_num_child_cmds;
+#elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT &gt; UINT8_MAX &amp;&amp; IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT &lt;=
+UINT16_MAX) typedef uint16_t max_num_child_cmds; #elif
+(IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT &gt; UINT16_MAX &amp;&amp; IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT &lt;=
+UINT32_MAX) typedef uint32_t max_num_child_cmds; #else
+// no typedef; compile failure
+#endif
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto15max_cmd_str_lenE">
+<span id="_CPPv3N7ih_auto15max_cmd_str_lenE"></span><span id="_CPPv2N7ih_auto15max_cmd_str_lenE"></span><span id="ih_auto::max_cmd_str_len"></span><span class="target" id="dd/d10/namespaceih__auto_1a127842eea0704e08f36e34765ea979e1"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_cmd_str_len</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto15max_cmd_str_lenE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aa0013118df9ee9e3a182ffd608e1b7d8"><span class="std std-ref">IH_MAX_CMD_STR_LEN</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_CMD_STR_LEN &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_cmd_str_len</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_CMD_STR_LEN &gt; UINT8_MAX &amp;&amp; IH_MAX_CMD_STR_LEN &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_cmd_str_len</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_CMD_STR_LEN &gt; UINT16_MAX &amp;&amp; IH_MAX_CMD_STR_LEN &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_cmd_str_len</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto17max_num_delim_seqE">
+<span id="_CPPv3N7ih_auto17max_num_delim_seqE"></span><span id="_CPPv2N7ih_auto17max_num_delim_seqE"></span><span id="ih_auto::max_num_delim_seq"></span><span class="target" id="dd/d10/namespaceih__auto_1a07852484f8b1337a9e592639fbfe834b"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_num_delim_seq</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto17max_num_delim_seqE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ada73e3325e9696106f344f6e1b8e1353"><span class="std std-ref">IH_MAX_NUM_PROC_DELIM_SEQ</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_NUM_PROC_DELIM_SEQ &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_num_delim_seq</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_NUM_PROC_DELIM_SEQ &gt; UINT8_MAX &amp;&amp; IH_MAX_NUM_PROC_DELIM_SEQ &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_num_delim_seq</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_NUM_PROC_DELIM_SEQ &gt; UINT16_MAX &amp;&amp; IH_MAX_NUM_PROC_DELIM_SEQ &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_num_delim_seq</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto22max_num_start_stop_seqE">
+<span id="_CPPv3N7ih_auto22max_num_start_stop_seqE"></span><span id="_CPPv2N7ih_auto22max_num_start_stop_seqE"></span><span id="ih_auto::max_num_start_stop_seq"></span><span class="target" id="dd/d10/namespaceih__auto_1a4757d81a8629427b7a60b8c53152a199"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_num_start_stop_seq</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto22max_num_start_stop_seqE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc22c539974a9f5c7894b39f1986696"><span class="std std-ref">IH_MAX_NUM_START_STOP_SEQ</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_NUM_START_STOP_SEQ &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_num_start_stop_seq</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_NUM_START_STOP_SEQ &gt; UINT8_MAX &amp;&amp; IH_MAX_NUM_START_STOP_SEQ &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_num_start_stop_seq</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_NUM_START_STOP_SEQ &gt; UINT16_MAX &amp;&amp; IH_MAX_NUM_START_STOP_SEQ &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_num_start_stop_seq</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto18max_proc_input_lenE">
+<span id="_CPPv3N7ih_auto18max_proc_input_lenE"></span><span id="_CPPv2N7ih_auto18max_proc_input_lenE"></span><span id="ih_auto::max_proc_input_len"></span><span class="target" id="dd/d10/namespaceih__auto_1a4cd2cc5bda5e8db4779d4b48b77b51fc"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_proc_input_len</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto18max_proc_input_lenE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a834bcf0b4d1248351d9326cb0f51f324"><span class="std std-ref">IH_MAX_PROC_INPUT_LEN</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_PROC_INPUT_LEN &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_proc_input_len</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PROC_INPUT_LEN &gt; UINT8_MAX &amp;&amp; IH_MAX_PROC_INPUT_LEN &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_proc_input_len</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PROC_INPUT_LEN &gt; UINT16_MAX &amp;&amp; IH_MAX_PROC_INPUT_LEN &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_proc_input_len</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto26max_per_root_memcmp_rangesE">
+<span id="_CPPv3N7ih_auto26max_per_root_memcmp_rangesE"></span><span id="_CPPv2N7ih_auto26max_per_root_memcmp_rangesE"></span><span id="ih_auto::max_per_root_memcmp_ranges"></span><span class="target" id="dd/d10/namespaceih__auto_1a849a319328fab50421249a5c96298a36"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_per_root_memcmp_ranges</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto26max_per_root_memcmp_rangesE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a30e5e63357b5c9b46be54d4fa7fb3f82"><span class="std std-ref">IH_MAX_PER_ROOT_MEMCMP_RANGES</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">max_per_root_memcmp_ranges</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PER_ROOT_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">max_per_root_memcmp_ranges</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PER_ROOT_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">max_per_root_memcmp_ranges</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7ih_auto12memcmp_idx_tE">
+<span id="_CPPv3N7ih_auto12memcmp_idx_tE"></span><span id="_CPPv2N7ih_auto12memcmp_idx_tE"></span><span id="ih_auto::memcmp_idx_t"></span><span class="target" id="dd/d10/namespaceih__auto_1aa6d59003deaf7ec7124a0d6ece749313"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">memcmp_idx_t</span></span></span><a class="headerlink" href="#_CPPv4N7ih_auto12memcmp_idx_tE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>User influenced typedef. </p>
+<p><a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a30e5e63357b5c9b46be54d4fa7fb3f82"><span class="std std-ref">IH_MAX_PER_ROOT_MEMCMP_RANGES</span></a> is set by the user.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if (IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT8_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PER_ROOT_MEMCMP_RANGES &gt; UINT8_MAX &amp;&amp; IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT16_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
+<span class="cp">#elif (IH_MAX_PER_ROOT_MEMCMP_RANGES &gt; UINT16_MAX &amp;&amp; IH_MAX_PER_ROOT_MEMCMP_RANGES &lt;= UINT32_MAX)</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memcmp_idx_t</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="c1">// no typedef; compile failure</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv42ih">
+<span id="_CPPv32ih"></span><span id="_CPPv22ih"></span><span id="ih"></span><span class="target" id="d4/d0f/namespaceih"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ih</span></span></span><br /></dt>
+<dd><p>User facing namespace. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih11ProcessNameE">
+<span id="_CPPv3N2ih11ProcessNameE"></span><span id="_CPPv2N2ih11ProcessNameE"></span><span id="ih::ProcessName"></span><span class="target" id="df/db1/group__typedefs_1gaafc8e388ea9e1e0780f194e0565f9984"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ProcessName</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_PROCESS_NAME_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>This is an alias for a char array. </p>
+<p>process_name[<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a53af268bd6900be5138ba0f328cbaa7a"><span class="std std-ref">IH_PROCESS_NAME_PGM_LEN</span></a>]</p>
+<p>To increase or decrease the pgm len of this array edit <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a53af268bd6900be5138ba0f328cbaa7a"><span class="std std-ref">IH_PROCESS_NAME_PGM_LEN</span></a> in src/config/config.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih13EndOfLineCharE">
+<span id="_CPPv3N2ih13EndOfLineCharE"></span><span id="_CPPv2N2ih13EndOfLineCharE"></span><span id="ih::EndOfLineChar"></span><span class="target" id="df/db1/group__typedefs_1ga07b659789fb9fe5b4f9dd2f8beb22305"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndOfLineChar</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_EOL_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>char array typedef. </p>
+<p>InputProcessEndOfLineChar[<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aee1d5cb4156affa7d7eb30f39422c1cd"><span class="std std-ref">IH_EOL_SEQ_PGM_LEN</span></a>]</p>
+<p>To increase or decrease the pgm len of this array edit <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aee1d5cb4156affa7d7eb30f39422c1cd"><span class="std std-ref">IH_EOL_SEQ_PGM_LEN</span></a> in src/config/config.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih14ControlCharSeqE">
+<span id="_CPPv3N2ih14ControlCharSeqE"></span><span id="_CPPv2N2ih14ControlCharSeqE"></span><span id="ih::ControlCharSeq"></span><span class="target" id="df/db1/group__typedefs_1ga60ad90c2f88f967684accfde8f708743"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ControlCharSeq</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>char array typedef. </p>
+<p>InputControlChar[<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a1cbe18bcf6a8ab90bccbb3cf3fb03dfd"><span class="std std-ref">IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></a>]</p>
+<p>To increase or decrease the pgm len of this array edit <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a1cbe18bcf6a8ab90bccbb3cf3fb03dfd"><span class="std std-ref">IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></a> in src/config/config.h. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih12WildcardCharE">
+<span id="_CPPv3N2ih12WildcardCharE"></span><span id="_CPPv2N2ih12WildcardCharE"></span><span id="ih::WildcardChar"></span><span class="target" id="df/db1/group__typedefs_1gae27f189b1802fb784f6d66d6c81175fa"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WildcardChar</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_WCC_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>char array typedef. </p>
+<p>InputWildcardChar[<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ad238e644bc1432c375034f2f1a6224e0"><span class="std std-ref">IH_WCC_SEQ_PGM_LEN</span></a>]</p>
+<p>To increase or decrease the pgm len of this array edit <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ad238e644bc1432c375034f2f1a6224e0"><span class="std std-ref">IH_WCC_SEQ_PGM_LEN</span></a> in src/config/config.h. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6CMD_IDE">
+<span id="_CPPv3N2ih6CMD_IDE"></span><span id="_CPPv2N2ih6CMD_IDE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gae0c7e0e4aac036fa837e3ba5a0af54cc"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CMD_ID</span></span></span><br /></dt>
+<dd><p>Command identifier enum. </p>
+<p>This is used to explicitly state something is related to a root command in the context of CommandParameters. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6CMD_ID4rootE">
+<span id="_CPPv3N2ih6CMD_ID4rootE"></span><span id="_CPPv2N2ih6CMD_ID4rootE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggae0c7e0e4aac036fa837e3ba5a0af54cca3967ad3d352c3cbdbe0634cc1e9c89ab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">root</span></span></span><br /></dt>
+<dd><p>this is the root command id, it’s the number 0 ALWAYS </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih7WC_FLAGE">
+<span id="_CPPv3N2ih7WC_FLAGE"></span><span id="_CPPv2N2ih7WC_FLAGE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ga3343cbc6625bc8774d3c540a3e10e700"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WC_FLAG</span></span></span><br /></dt>
+<dd><p>Command wildcard flag enum. </p>
+<p>These flags are used inside of CommandParameters. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih7WC_FLAG12no_wildcardsE">
+<span id="_CPPv3N2ih7WC_FLAG12no_wildcardsE"></span><span id="_CPPv2N2ih7WC_FLAG12no_wildcardsE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga3343cbc6625bc8774d3c540a3e10e700a4943d67bd4cbb6f2383576c38ceb1726"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_wildcards</span></span></span><br /></dt>
+<dd><p>this command has no wildcard char (false (0)) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih7WC_FLAG13has_wildcardsE">
+<span id="_CPPv3N2ih7WC_FLAG13has_wildcardsE"></span><span id="_CPPv2N2ih7WC_FLAG13has_wildcardsE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga3343cbc6625bc8774d3c540a3e10e700ad71b1f673c6183eabf4d4710f1e32441"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_wildcards</span></span></span><br /></dt>
+<dd><p>this command contains one or more wildcard char (true (1)) </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih10UI_COMPAREE">
+<span id="_CPPv3N2ih10UI_COMPAREE"></span><span id="_CPPv2N2ih10UI_COMPAREE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ga6e8fc752eebb8aea38f05e954558d26c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_COMPARE</span></span></span><br /></dt>
+<dd><p><a class="reference internal" href="../InputHandler_h_docs.html#d2/dff/classih_1_1_input_1a19ea9dfdcbf54f4c892c263a67d9f9e9"><span class="std std-ref">Input::_compareCommandToString()</span></a> return values. </p>
+<p>These flags are only used to provide clarity to <a class="reference internal" href="../InputHandler_h_docs.html#d2/dff/classih_1_1_input_1a19ea9dfdcbf54f4c892c263a67d9f9e9"><span class="std std-ref">Input::_compareCommandToString()</span></a>, they make it easy to understand what is happening inside of that method. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih10UI_COMPARE8no_matchE">
+<span id="_CPPv3N2ih10UI_COMPARE8no_matchE"></span><span id="_CPPv2N2ih10UI_COMPARE8no_matchE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga6e8fc752eebb8aea38f05e954558d26ca4dfa1e1707c00300bbca7c677feb4aaf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_match</span></span></span><br /></dt>
+<dd><p>no match </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih10UI_COMPARE17match_all_wcc_cmdE">
+<span id="_CPPv3N2ih10UI_COMPARE17match_all_wcc_cmdE"></span><span id="_CPPv2N2ih10UI_COMPARE17match_all_wcc_cmdE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga6e8fc752eebb8aea38f05e954558d26ca794a742fad74c0064ac759879ce9f440"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">match_all_wcc_cmd</span></span></span><br /></dt>
+<dd><p>match all wcc command </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih10UI_COMPARE5matchE">
+<span id="_CPPv3N2ih10UI_COMPARE5matchE"></span><span id="_CPPv2N2ih10UI_COMPARE5matchE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga6e8fc752eebb8aea38f05e954558d26ca4a51fa2b3053ee05c553070acc0a6e7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">match</span></span></span><br /></dt>
+<dd><p>match command </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15UI_ARG_HANDLINGE">
+<span id="_CPPv3N2ih15UI_ARG_HANDLINGE"></span><span id="_CPPv2N2ih15UI_ARG_HANDLINGE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ga9ab64e82819614ca6f40cbef55423dc6"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UI_ARG_HANDLING</span></span></span><br /></dt>
+<dd><p>Strongly typed argument handling flags. </p>
+<p>This is used in CommandParameters as a visual reminder of how the process will handle your arguments. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15UI_ARG_HANDLING7no_argsE">
+<span id="_CPPv3N2ih15UI_ARG_HANDLING7no_argsE"></span><span id="_CPPv2N2ih15UI_ARG_HANDLING7no_argsE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga9ab64e82819614ca6f40cbef55423dc6a517c5dac9a168ab48e4727ca5ada9741"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_args</span></span></span><br /></dt>
+<dd><p>no arguments expected </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15UI_ARG_HANDLING8one_typeE">
+<span id="_CPPv3N2ih15UI_ARG_HANDLING8one_typeE"></span><span id="_CPPv2N2ih15UI_ARG_HANDLING8one_typeE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga9ab64e82819614ca6f40cbef55423dc6afd1b59a959f982928e0b4e79bb42dd67"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">one_type</span></span></span><br /></dt>
+<dd><p>every argument is of the same type </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15UI_ARG_HANDLING8type_arrE">
+<span id="_CPPv3N2ih15UI_ARG_HANDLING8type_arrE"></span><span id="_CPPv2N2ih15UI_ARG_HANDLING8type_arrE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gga9ab64e82819614ca6f40cbef55423dc6aad69e504bf949689b02f44ff8246d98f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_arr</span></span></span><br /></dt>
+<dd><p>there is an array of input types </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPEE">
+<span id="_CPPv3N2ih6UITYPEE"></span><span id="_CPPv2N2ih6UITYPEE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1gac13b7a6848fb9783200506e6eaca7cca"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UITYPE</span></span></span><br /></dt>
+<dd><p>Input type specifier. </p>
+<p>These are the different types of user input the process can accept. NOTYPE and START_STOP can be any 0-255 value. This is strongly typed to help avoid name conflicts, and as an indicator that these types are not built-in. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE7UINT8_TE">
+<span id="_CPPv3N2ih6UITYPE7UINT8_TE"></span><span id="_CPPv2N2ih6UITYPE7UINT8_TE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaa25185a78b19f8b194e2955929e32baca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT8_T</span></span></span><br /></dt>
+<dd><p>8-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE8UINT16_TE">
+<span id="_CPPv3N2ih6UITYPE8UINT16_TE"></span><span id="_CPPv2N2ih6UITYPE8UINT16_TE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaabd93e66a884d0291f3db5bb0eeb03ffe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT16_T</span></span></span><br /></dt>
+<dd><p>16-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE8UINT32_TE">
+<span id="_CPPv3N2ih6UITYPE8UINT32_TE"></span><span id="_CPPv2N2ih6UITYPE8UINT32_TE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaabc0d406b455d82bfc780c67be1976fed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT32_T</span></span></span><br /></dt>
+<dd><p>32-bit unsigned integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE7INT16_TE">
+<span id="_CPPv3N2ih6UITYPE7INT16_TE"></span><span id="_CPPv2N2ih6UITYPE7INT16_TE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaa5e66c6e44fda6975bc1d1f10f4ea0436"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INT16_T</span></span></span><br /></dt>
+<dd><p>16-bit signed integer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE5FLOATE">
+<span id="_CPPv3N2ih6UITYPE5FLOATE"></span><span id="_CPPv2N2ih6UITYPE5FLOATE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaae738c26bf4ce1037fa81b039a915cbf6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FLOAT</span></span></span><br /></dt>
+<dd><p>32-bit float </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE4CHARE">
+<span id="_CPPv3N2ih6UITYPE4CHARE"></span><span id="_CPPv2N2ih6UITYPE4CHARE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaa027acd3aa6b1dd7f26119d3cf0f9a063"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHAR</span></span></span><br /></dt>
+<dd><p>8-bit char </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE10START_STOPE">
+<span id="_CPPv3N2ih6UITYPE10START_STOPE"></span><span id="_CPPv2N2ih6UITYPE10START_STOPE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaaf749dae7024a2aceb2b15cb807300aef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">START_STOP</span></span></span><br /></dt>
+<dd><p>array of 8-bit char </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE6NOTYPEE">
+<span id="_CPPv3N2ih6UITYPE6NOTYPEE"></span><span id="_CPPv2N2ih6UITYPE6NOTYPEE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaa0323d2829f046f18b7dbcc0f58f941bc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NOTYPE</span></span></span><br /></dt>
+<dd><p>no type validation </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE7NO_ARGSE">
+<span id="_CPPv3N2ih6UITYPE7NO_ARGSE"></span><span id="_CPPv2N2ih6UITYPE7NO_ARGSE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaacd158bf723602ecc6429b5771682a716"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NO_ARGS</span></span></span><br /></dt>
+<dd><p>no arguments expected </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih6UITYPE5_LASTE">
+<span id="_CPPv3N2ih6UITYPE5_LASTE"></span><span id="_CPPv2N2ih6UITYPE5_LASTE"></span><span class="target" id="d0/df4/group___e_n_u_m_s_1ggac13b7a6848fb9783200506e6eaca7ccaaaa55687588914f1c2a506982d7f57948"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_LAST</span></span></span><br /></dt>
+<dd><p>reserved </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18CommandRuntimeCalcE">
+<span id="_CPPv3N2ih18CommandRuntimeCalcE"></span><span id="_CPPv2N2ih18CommandRuntimeCalcE"></span><span id="ih::CommandRuntimeCalc"></span><span class="target" id="da/d6b/structih_1_1_command_runtime_calc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandRuntimeCalc</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;namespace.h&gt;</em></div>
+<p>Contains arrays and indices determined at runtime. </p>
+<p>These structs are associated with wildcard commands; CommandParameters which contains wildcards will have a <a class="reference internal" href="#da/d6b/structih_1_1_command_runtime_calc"><span class="std std-ref">CommandRuntimeCalc</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18CommandRuntimeCalc15num_prm_with_wcE">
+<span id="_CPPv3N2ih18CommandRuntimeCalc15num_prm_with_wcE"></span><span id="_CPPv2N2ih18CommandRuntimeCalc15num_prm_with_wcE"></span><span id="ih::CommandRuntimeCalc::num_prm_with_wc__ih_auto::memcmp_idx_t"></span><span class="target" id="da/d6b/structih_1_1_command_runtime_calc_1aaea8fb5fae6453f29f2fcdc717cec458"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto12memcmp_idx_tE" title="ih_auto::memcmp_idx_t"><span class="n"><span class="pre">memcmp_idx_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_prm_with_wc</span></span></span><br /></dt>
+<dd><p>the number of CommandParameters structs in this command that contain char(ih::WildcardChar[0]); the WildCard Character </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18CommandRuntimeCalc18idx_of_prm_with_wcE">
+<span id="_CPPv3N2ih18CommandRuntimeCalc18idx_of_prm_with_wcE"></span><span id="_CPPv2N2ih18CommandRuntimeCalc18idx_of_prm_with_wcE"></span><span id="ih::CommandRuntimeCalc::idx_of_prm_with_wc__ih_auto::memcmp_idx_tP"></span><span class="target" id="da/d6b/structih_1_1_command_runtime_calc_1aec1ec9c236d0520347d8d854fe08782f"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto12memcmp_idx_tE" title="ih_auto::memcmp_idx_t"><span class="n"><span class="pre">memcmp_idx_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">idx_of_prm_with_wc</span></span></span><br /></dt>
+<dd><p>indices of CommandParameters struct that contain wcc </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18CommandRuntimeCalc26num_memcmp_ranges_this_rowE">
+<span id="_CPPv3N2ih18CommandRuntimeCalc26num_memcmp_ranges_this_rowE"></span><span id="_CPPv2N2ih18CommandRuntimeCalc26num_memcmp_ranges_this_rowE"></span><span id="ih::CommandRuntimeCalc::num_memcmp_ranges_this_row__ih_auto::max_per_root_memcmp_rangesP"></span><span class="target" id="da/d6b/structih_1_1_command_runtime_calc_1aa688acab3ffec8b9118f40cc2df7908c"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto26max_per_root_memcmp_rangesE" title="ih_auto::max_per_root_memcmp_ranges"><span class="n"><span class="pre">max_per_root_memcmp_ranges</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">num_memcmp_ranges_this_row</span></span></span><br /></dt>
+<dd><p>the number of memcmp ranges for this <a class="reference internal" href="../InputHandler_h_docs.html#d3/de2/structih_1_1_parameters"><span class="std std-ref">Parameters</span></a> command string, array members always an even number </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18CommandRuntimeCalc17memcmp_ranges_arrE">
+<span id="_CPPv3N2ih18CommandRuntimeCalc17memcmp_ranges_arrE"></span><span id="_CPPv2N2ih18CommandRuntimeCalc17memcmp_ranges_arrE"></span><span id="ih::CommandRuntimeCalc::memcmp_ranges_arr__ih_auto::max_per_root_memcmp_rangesPP"></span><span class="target" id="da/d6b/structih_1_1_command_runtime_calc_1acfbfebc7571c0aeffa0b45f46c8c20d8"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto26max_per_root_memcmp_rangesE" title="ih_auto::max_per_root_memcmp_ranges"><span class="n"><span class="pre">max_per_root_memcmp_ranges</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">memcmp_ranges_arr</span></span></span><br /></dt>
+<dd><p>2d array[row][col], each [row] is for one <a class="reference internal" href="../InputHandler_h_docs.html#d3/de2/structih_1_1_parameters"><span class="std std-ref">Parameters</span></a> command string which contains wcc </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18DelimiterSequencesE">
+<span id="_CPPv3N2ih18DelimiterSequencesE"></span><span id="_CPPv2N2ih18DelimiterSequencesE"></span><span id="ih::DelimiterSequences"></span><span class="target" id="d3/d83/structih_1_1_delimiter_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DelimiterSequences</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;namespace.h&gt;</em></div>
+<p>Holds user defined input data delimiters. </p>
+<p>A delimiter sequence is a predefined number or set of numbers that is used to separate input arguments, subcommands or data. The input process needs to know three things about the delimiter sequences you want to use. The number of delimiter sequences there are (up to <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ada73e3325e9696106f344f6e1b8e1353"><span class="std std-ref">IH_MAX_NUM_PROC_DELIM_SEQ</span></a>), the 8-bit byte (char) length of each delimiter sequence, and finally each delimiter sequence which can be up to <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc317ce62ad31d487fb57d8406fa568"><span class="std std-ref">IH_DELIM_SEQ_PGM_LEN</span></a> in length. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18DelimiterSequences7num_seqE">
+<span id="_CPPv3N2ih18DelimiterSequences7num_seqE"></span><span id="_CPPv2N2ih18DelimiterSequences7num_seqE"></span><span id="ih::DelimiterSequences::num_seq__s"></span><span class="target" id="d3/d83/structih_1_1_delimiter_sequences_1ae5ccb12e451173c927a85e9813f10a3a"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_seq</span></span></span><br /></dt>
+<dd><p>the number of token delimiters in delimiter_sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18DelimiterSequences14delimiter_lensE">
+<span id="_CPPv3N2ih18DelimiterSequences14delimiter_lensE"></span><span id="_CPPv2N2ih18DelimiterSequences14delimiter_lensE"></span><span id="ih::DelimiterSequences::delimiter_lens__ih_auto::max_num_delim_seqA"></span><span class="target" id="d3/d83/structih_1_1_delimiter_sequences_1af7d11bd6a123d6f67bfaba3a1ca250a2"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto17max_num_delim_seqE" title="ih_auto::max_num_delim_seq"><span class="n"><span class="pre">max_num_delim_seq</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">delimiter_lens</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_MAX_NUM_PROC_DELIM_SEQ</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>delimiter sequence lens delimiter_lens [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ada73e3325e9696106f344f6e1b8e1353"><span class="std std-ref">IH_MAX_NUM_PROC_DELIM_SEQ</span></a>] </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18DelimiterSequences19delimiter_sequencesE">
+<span id="_CPPv3N2ih18DelimiterSequences19delimiter_sequencesE"></span><span id="_CPPv2N2ih18DelimiterSequences19delimiter_sequencesE"></span><span id="ih::DelimiterSequences::delimiter_sequences__cAA"></span><span class="target" id="d3/d83/structih_1_1_delimiter_sequences_1ac683f494be2e344d136756a4397010dd"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">delimiter_sequences</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_MAX_NUM_PROC_DELIM_SEQ</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_DELIM_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>string-literal “” delimiter sequence array delimiter_sequences [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1ada73e3325e9696106f344f6e1b8e1353"><span class="std std-ref">IH_MAX_NUM_PROC_DELIM_SEQ</span></a>] [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc317ce62ad31d487fb57d8406fa568"><span class="std std-ref">IH_DELIM_SEQ_PGM_LEN</span></a>] </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParametersE">
+<span id="_CPPv3N2ih15InputParametersE"></span><span id="_CPPv2N2ih15InputParametersE"></span><span id="ih::InputParameters"></span><span class="target" id="da/dd6/structih_1_1_input_parameters"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputParameters</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;namespace.h&gt;</em></div>
+<p>Collaboration diagram for ih::InputParameters:</p>
+<figure class="align-default">
+<div align="center" class="align-center"><div class="graphviz"><img src="../../_images/graphviz-a94375f4836b890e37a1981bfa6fcd592db10761.png" alt="digraph {
+    graph [bgcolor=&quot;#00000000&quot;]
+    node [shape=rectangle style=filled fillcolor=&quot;#FFFFFF&quot; font=Helvetica padding=2]
+    edge [color=&quot;#1414CE&quot;]
+    &quot;2&quot; [label=&quot;ih::DelimiterSequences&quot; tooltip=&quot;ih::DelimiterSequences&quot;]
+    &quot;1&quot; [label=&quot;ih::InputParameters&quot; tooltip=&quot;ih::InputParameters&quot; fillcolor=&quot;#BFBFBF&quot;]
+    &quot;3&quot; [label=&quot;ih::StartStopSequences&quot; tooltip=&quot;ih::StartStopSequences&quot;]
+    &quot;1&quot; -&gt; &quot;2&quot; [dir=forward tooltip=&quot;usage&quot;]
+    &quot;1&quot; -&gt; &quot;3&quot; [dir=forward tooltip=&quot;usage&quot;]
+}" class="graphviz" /></div>
+</div>
+</figure>
+<p>Input process parameters and constructor parameters. </p>
+<p>This struct is an array of pointers to other structs/arrays contained in PROGMEM. It’s required by the input process constructor, all together they define the input process behavior. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters12process_nameE">
+<span id="_CPPv3N2ih15InputParameters12process_nameE"></span><span id="_CPPv2N2ih15InputParameters12process_nameE"></span><span id="ih::InputParameters::process_name__ProcessNameCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1ab3f0d0d5436f7f0d1236c185e8b8f3b5"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih11ProcessNameE" title="ih::ProcessName"><span class="n"><span class="pre">ProcessName</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">process_name</span></span></span><br /></dt>
+<dd><p>this process’ name, can be NULL; MAX len == <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a53af268bd6900be5138ba0f328cbaa7a"><span class="std std-ref">IH_PROCESS_NAME_PGM_LEN</span></a> </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters8eol_charE">
+<span id="_CPPv3N2ih15InputParameters8eol_charE"></span><span id="_CPPv2N2ih15InputParameters8eol_charE"></span><span id="ih::InputParameters::eol_char__EndOfLineCharCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1aaf12ed138c2658103deaa23ba1f73613"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih13EndOfLineCharE" title="ih::EndOfLineChar"><span class="n"><span class="pre">EndOfLineChar</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">eol_char</span></span></span><br /></dt>
+<dd><p>end of line term; MAX len == <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1aee1d5cb4156affa7d7eb30f39422c1cd"><span class="std std-ref">IH_EOL_SEQ_PGM_LEN</span></a> </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters27input_control_char_sequenceE">
+<span id="_CPPv3N2ih15InputParameters27input_control_char_sequenceE"></span><span id="_CPPv2N2ih15InputParameters27input_control_char_sequenceE"></span><span id="ih::InputParameters::input_control_char_sequence__ControlCharSeqCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1a8ef4dbe23c6168fd0bab76592f01792f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih14ControlCharSeqE" title="ih::ControlCharSeq"><span class="n"><span class="pre">ControlCharSeq</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">input_control_char_sequence</span></span></span><br /></dt>
+<dd><p>two char len sequence to input a control char </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters13wildcard_charE">
+<span id="_CPPv3N2ih15InputParameters13wildcard_charE"></span><span id="_CPPv2N2ih15InputParameters13wildcard_charE"></span><span id="ih::InputParameters::wildcard_char__WildcardCharCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1a7eb33b130ed3c866e96dba9cc2b0c86d"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih12WildcardCharE" title="ih::WildcardChar"><span class="n"><span class="pre">WildcardChar</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">wildcard_char</span></span></span><br /></dt>
+<dd><p>single char wildcard char </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters19delimiter_sequencesE">
+<span id="_CPPv3N2ih15InputParameters19delimiter_sequencesE"></span><span id="_CPPv2N2ih15InputParameters19delimiter_sequencesE"></span><span id="ih::InputParameters::delimiter_sequences__DelimiterSequencesCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1a2f01355f2f6e64c75740440446be52cb"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequencesE" title="ih::DelimiterSequences"><span class="n"><span class="pre">DelimiterSequences</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">delimiter_sequences</span></span></span><br /></dt>
+<dd><p>reference to <a class="reference internal" href="#d3/d83/structih_1_1_delimiter_sequences"><span class="std std-ref">ih::DelimiterSequences</span></a> struct </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih15InputParameters20start_stop_sequencesE">
+<span id="_CPPv3N2ih15InputParameters20start_stop_sequencesE"></span><span id="_CPPv2N2ih15InputParameters20start_stop_sequencesE"></span><span id="ih::InputParameters::start_stop_sequences__StartStopSequencesCP"></span><span class="target" id="da/dd6/structih_1_1_input_parameters_1a1ce647893e764476b1c459fba246edde"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequencesE" title="ih::StartStopSequences"><span class="n"><span class="pre">StartStopSequences</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">start_stop_sequences</span></span></span><br /></dt>
+<dd><p>reference to <a class="reference internal" href="#de/dcc/structih_1_1_start_stop_sequences"><span class="std std-ref">ih::StartStopSequences</span></a> struct </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18StartStopSequencesE">
+<span id="_CPPv3N2ih18StartStopSequencesE"></span><span id="_CPPv2N2ih18StartStopSequencesE"></span><span id="ih::StartStopSequences"></span><span class="target" id="de/dcc/structih_1_1_start_stop_sequences"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStopSequences</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;namespace.h&gt;</em></div>
+<p>Holds regex-like start-stop match sequence pairs. </p>
+<p>A start-stop sequence is a pair of numbers or a pair of a set of numbers which do not have to be identical to one another. The “start” sequence demarcs the beginning of a chunk of data, the “stop” sequence demarcs the end of the chunk of data. The input process needs to know three things about the start-stop sequences you want to use. The number of start-stop sequences there are (up to <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc22c539974a9f5c7894b39f1986696"><span class="std std-ref">IH_MAX_NUM_START_STOP_SEQ</span></a>), the 8-bit byte (char) length of each start-stop sequence, and finally each start-stop sequence which can be up to <a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1af84d9afaeb6d9b1a2c2c3a41e2eb2a8f"><span class="std std-ref">IH_START_STOP_SEQ_PGM_LEN</span></a> in length. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18StartStopSequences7num_seqE">
+<span id="_CPPv3N2ih18StartStopSequences7num_seqE"></span><span id="_CPPv2N2ih18StartStopSequences7num_seqE"></span><span id="ih::StartStopSequences::num_seq__s"></span><span class="target" id="de/dcc/structih_1_1_start_stop_sequences_1a5399df8130a538740eb91525af730ebc"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_seq</span></span></span><br /></dt>
+<dd><p>num start/stop sequences </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18StartStopSequences24start_stop_sequence_lensE">
+<span id="_CPPv3N2ih18StartStopSequences24start_stop_sequence_lensE"></span><span id="_CPPv2N2ih18StartStopSequences24start_stop_sequence_lensE"></span><span id="ih::StartStopSequences::start_stop_sequence_lens__ih_auto::max_num_start_stop_seqA"></span><span class="target" id="de/dcc/structih_1_1_start_stop_sequences_1a53bb7306c38b159e416243db3b521105"></span><a class="reference internal" href="#_CPPv47ih_auto" title="ih_auto"><span class="n"><span class="pre">ih_auto</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7ih_auto22max_num_start_stop_seqE" title="ih_auto::max_num_start_stop_seq"><span class="n"><span class="pre">max_num_start_stop_seq</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_stop_sequence_lens</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_MAX_NUM_START_STOP_SEQ</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>start stop sequence lens start_stop_sequence_lens [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc22c539974a9f5c7894b39f1986696"><span class="std std-ref">IH_MAX_NUM_START_STOP_SEQ</span></a>] </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2ih18StartStopSequences25start_stop_sequence_pairsE">
+<span id="_CPPv3N2ih18StartStopSequences25start_stop_sequence_pairsE"></span><span id="_CPPv2N2ih18StartStopSequences25start_stop_sequence_pairsE"></span><span id="ih::StartStopSequences::start_stop_sequence_pairs__cAA"></span><span class="target" id="de/dcc/structih_1_1_start_stop_sequences_1a726e3d7e86a02bb0a3bded66eb3a883d"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_stop_sequence_pairs</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_MAX_NUM_START_STOP_SEQ</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_START_STOP_SEQ_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>start/stop sequences. Match start, match end, copy what is between markers start_stop_sequence_pairs [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1a0fc22c539974a9f5c7894b39f1986696"><span class="std std-ref">IH_MAX_NUM_START_STOP_SEQ</span></a>] [<a class="reference internal" href="config_h_docs.html#db/d16/config_8h_1af84d9afaeb6d9b1a2c2c3a41e2eb2a8f"><span class="std std-ref">IH_START_STOP_SEQ_PGM_LEN</span></a>] </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv43ihc">
+<span id="_CPPv33ihc"></span><span id="_CPPv23ihc"></span><span id="ihc"></span><span class="target" id="dd/d59/namespaceihc"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ihc</span></span></span><a class="headerlink" href="#_CPPv43ihc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>library constants located in PROGMEM. </p>
+<p>This namespace’s purpose is to avoid name collision and to consolidate the library’s PROGMEM variables. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_TYPE">
+<span id="_CPPv3N3ihc7ERR_TYPE"></span><span id="_CPPv2N3ihc7ERR_TYPE"></span><span class="target" id="d1/d87/group__literals_1gadf3c95da126a4d8260417fc750f82b30"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ERR_TYP</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_TYPE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_TYP11fatal_errorE">
+<span id="_CPPv3N3ihc7ERR_TYP11fatal_errorE"></span><span id="_CPPv2N3ihc7ERR_TYP11fatal_errorE"></span><span class="target" id="d1/d87/group__literals_1ggadf3c95da126a4d8260417fc750f82b30a248d7cd65b618004dbd5f44e96b8cd61"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_error</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_TYP11fatal_errorE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_MSGE">
+<span id="_CPPv3N3ihc7ERR_MSGE"></span><span id="_CPPv2N3ihc7ERR_MSGE"></span><span class="target" id="d1/d87/group__literals_1ga6409bbbfa8128bd11c08551b572941d6"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ERR_MSG</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_MSGE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_MSG10fatal_haltE">
+<span id="_CPPv3N3ihc7ERR_MSG10fatal_haltE"></span><span id="_CPPv2N3ihc7ERR_MSG10fatal_haltE"></span><span class="target" id="d1/d87/group__literals_1gga6409bbbfa8128bd11c08551b572941d6aa1ad8da0826b22b6d3f37f9533039ffd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_halt</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_MSG10fatal_haltE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_MSG19fatal_begin_not_setE">
+<span id="_CPPv3N3ihc7ERR_MSG19fatal_begin_not_setE"></span><span id="_CPPv2N3ihc7ERR_MSG19fatal_begin_not_setE"></span><span class="target" id="d1/d87/group__literals_1gga6409bbbfa8128bd11c08551b572941d6a18fd50665cdf2511e86869eef5bb8ba7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_begin_not_set</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_MSG19fatal_begin_not_setE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_MSG16fatal_allocationE">
+<span id="_CPPv3N3ihc7ERR_MSG16fatal_allocationE"></span><span id="_CPPv2N3ihc7ERR_MSG16fatal_allocationE"></span><span class="target" id="d1/d87/group__literals_1gga6409bbbfa8128bd11c08551b572941d6aa3170876b3d844172407844408fd027d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_allocation</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_MSG16fatal_allocationE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc7ERR_MSG19fatal_arr_alloc_idxE">
+<span id="_CPPv3N3ihc7ERR_MSG19fatal_arr_alloc_idxE"></span><span id="_CPPv2N3ihc7ERR_MSG19fatal_arr_alloc_idxE"></span><span class="target" id="d1/d87/group__literals_1gga6409bbbfa8128bd11c08551b572941d6a208055d36f6b74f3f29e507a9b7d6a28"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_arr_alloc_idx</span></span></span><a class="headerlink" href="#_CPPv4N3ihc7ERR_MSG19fatal_arr_alloc_idxE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6VAR_IDE">
+<span id="_CPPv3N3ihc6VAR_IDE"></span><span id="_CPPv2N3ihc6VAR_IDE"></span><span class="target" id="d1/d87/group__literals_1ga3b88269f7ca3fd784d5bb4a639c27652"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VAR_ID</span></span></span><a class="headerlink" href="#_CPPv4N3ihc6VAR_IDE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6VAR_ID22input_type_match_flagsE">
+<span id="_CPPv3N3ihc6VAR_ID22input_type_match_flagsE"></span><span id="_CPPv2N3ihc6VAR_ID22input_type_match_flagsE"></span><span class="target" id="d1/d87/group__literals_1gga3b88269f7ca3fd784d5bb4a639c27652afe5991a503eb6c4b227c180c7cb281f7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">input_type_match_flags</span></span></span><a class="headerlink" href="#_CPPv4N3ihc6VAR_ID22input_type_match_flagsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6VAR_ID13data_pointersE">
+<span id="_CPPv3N3ihc6VAR_ID13data_pointersE"></span><span id="_CPPv2N3ihc6VAR_ID13data_pointersE"></span><span class="target" id="d1/d87/group__literals_1gga3b88269f7ca3fd784d5bb4a639c27652a3709abe6b2e2a8a4c0f6a1db45829fab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_pointers</span></span></span><a class="headerlink" href="#_CPPv4N3ihc6VAR_ID13data_pointersE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6VAR_ID16listsettings_bufE">
+<span id="_CPPv3N3ihc6VAR_ID16listsettings_bufE"></span><span id="_CPPv2N3ihc6VAR_ID16listsettings_bufE"></span><span class="target" id="d1/d87/group__literals_1gga3b88269f7ca3fd784d5bb4a639c27652ad1ba1ff9ca15faaf2a07c132c3607eba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listsettings_buf</span></span></span><a class="headerlink" href="#_CPPv4N3ihc6VAR_ID16listsettings_bufE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6VAR_ID9_reservedE">
+<span id="_CPPv3N3ihc6VAR_ID9_reservedE"></span><span id="_CPPv2N3ihc6VAR_ID9_reservedE"></span><span class="target" id="d1/d87/group__literals_1gga3b88269f7ca3fd784d5bb4a639c27652a873117b65e971bf4f5563a9adf6bdbf3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_reserved</span></span></span><a class="headerlink" href="#_CPPv4N3ihc6VAR_ID9_reservedE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDXE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDXE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDXE"></span><span class="target" id="d1/d87/group__literals_1gab99072f1b6087bf7520e46c29d6e9779"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CMD_ERR_IDX</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDXE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX14command_stringE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX14command_stringE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX14command_stringE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a7ea0ebe66abc60d6f3cf851f73fde91f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_string</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX14command_stringE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX17root_pointer_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX17root_pointer_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX17root_pointer_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a2edeecbaa13f6dac2b5b423c8f197cea"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">root_pointer_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX17root_pointer_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX8wcc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX8wcc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX8wcc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a7d593f978e4a268d7b090fa3e091e5cd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wcc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX8wcc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX12cmd_len_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX12cmd_len_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX12cmd_len_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a7b5133804b55b226c76e54a38ba3c21d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX12cmd_len_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX16cmd_len_dec_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX16cmd_len_dec_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX16cmd_len_dec_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a85ea274be6552268fbd59df9e7863fd7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_dec_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX16cmd_len_dec_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX16cmd_len_inc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX16cmd_len_inc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX16cmd_len_inc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779adcd0d16848171f6f12b9deef43e73ccc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_inc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX16cmd_len_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX18cmd_depth_inc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX18cmd_depth_inc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX18cmd_depth_inc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779aa9e4dfea93c60efce08c00eded3979ad"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_depth_inc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX18cmd_depth_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX17cmd_subc_inc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX17cmd_subc_inc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX17cmd_subc_inc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779af61549a049d14fa1d1093bd25626a378"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_subc_inc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX17cmd_subc_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX21cmd_num_args_inc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX21cmd_num_args_inc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX21cmd_num_args_inc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779af6b3647c8b2f048aed3adfc07d206d88"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_num_args_inc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX21cmd_num_args_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX25cmd_max_num_args_inc_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX25cmd_max_num_args_inc_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX25cmd_max_num_args_inc_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779aabb5a0ba99ce7220c50484e6cf593e93"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_max_num_args_inc_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX25cmd_max_num_args_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX22cmd_flip_num_args_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX22cmd_flip_num_args_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX22cmd_flip_num_args_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779ad96bcfea6b7a610fed7011d19c2fb68b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_flip_num_args_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX22cmd_flip_num_args_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11CMD_ERR_IDX17cmd_rejected_warnE">
+<span id="_CPPv3N3ihc11CMD_ERR_IDX17cmd_rejected_warnE"></span><span id="_CPPv2N3ihc11CMD_ERR_IDX17cmd_rejected_warnE"></span><span class="target" id="d1/d87/group__literals_1ggab99072f1b6087bf7520e46c29d6e9779a6bd46a36fba9cd80b815102bdb17d754"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_rejected_warn</span></span></span><a class="headerlink" href="#_CPPv4N3ihc11CMD_ERR_IDX17cmd_rejected_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc3TRME">
+<span id="_CPPv3N3ihc3TRME"></span><span id="_CPPv2N3ihc3TRME"></span><span class="target" id="d1/d87/group__literals_1ga919d2fe7daeb50b0cc3293147db2d6a5"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TRM</span></span></span><a class="headerlink" href="#_CPPv4N3ihc3TRME" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc3TRM6promptE">
+<span id="_CPPv3N3ihc3TRM6promptE"></span><span id="_CPPv2N3ihc3TRM6promptE"></span><span class="target" id="d1/d87/group__literals_1gga919d2fe7daeb50b0cc3293147db2d6a5a4ae35dbb42614d2429b7d6d181a950bb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prompt</span></span></span><a class="headerlink" href="#_CPPv4N3ihc3TRM6promptE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc12type_stringsE">
+<span id="_CPPv3N3ihc12type_stringsE"></span><span id="_CPPv2N3ihc12type_stringsE"></span><span id="ihc::type_strings__cCAA"></span><span class="target" id="d1/d87/group__literals_1ga6cd5dadd64ab7018ae799d5dce6eac32"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">IH_INPUT_TYPE_STRINGS_PGM_LEN</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;UINT8_T&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;UINT16_T&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;UINT32_T&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;INT16_T&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;FLOAT&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;CHAR&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;STARTSTOP&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;NOTYPE&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;NO_ARGS&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;error&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc12type_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Type string literals. </p>
+<p>Input type string literal PROGMEM array, each of the types in <a class="reference internal" href="#d0/df4/group___e_n_u_m_s_1gac13b7a6848fb9783200506e6eaca7cca"><span class="std std-ref">ih::UITYPE</span></a> has a corresponding string literal for display purposes. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc13_process_nameE">
+<span id="_CPPv3N3ihc13_process_nameE"></span><span id="_CPPv2N3ihc13_process_nameE"></span><span id="ihc::_process_name__ih::ProcessNameC"></span><span class="target" id="d1/d87/group__literals_1ga971b26bff1fb3efc43c9fb77b644bbb8"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih11ProcessNameE" title="ih::ProcessName"><span class="n"><span class="pre">ProcessName</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_process_name</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc13_process_nameE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>default process name is an empty string </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc9_eol_charE">
+<span id="_CPPv3N3ihc9_eol_charE"></span><span id="_CPPv2N3ihc9_eol_charE"></span><span id="ihc::_eol_char__ih::EndOfLineCharC"></span><span class="target" id="d1/d87/group__literals_1gaca02d04615cedba5b04943421618660a"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih13EndOfLineCharE" title="ih::EndOfLineChar"><span class="n"><span class="pre">EndOfLineChar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_eol_char</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;\r\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc9_eol_charE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>default process eol characters CRLF </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc28_input_control_char_sequenceE">
+<span id="_CPPv3N3ihc28_input_control_char_sequenceE"></span><span id="_CPPv2N3ihc28_input_control_char_sequenceE"></span><span id="ihc::_input_control_char_sequence__ih::ControlCharSeqC"></span><span class="target" id="d1/d87/group__literals_1ga2b19da0d13fd41de833397fc7bbb559c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih14ControlCharSeqE" title="ih::ControlCharSeq"><span class="n"><span class="pre">ControlCharSeq</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_input_control_char_sequence</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;##&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc28_input_control_char_sequenceE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>default process input control character sequence “##” </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc14_wildcard_charE">
+<span id="_CPPv3N3ihc14_wildcard_charE"></span><span id="_CPPv2N3ihc14_wildcard_charE"></span><span id="ihc::_wildcard_char__ih::WildcardCharC"></span><span class="target" id="d1/d87/group__literals_1ga8797863548b2cb49c22645a1a822bbfd"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih12WildcardCharE" title="ih::WildcardChar"><span class="n"><span class="pre">WildcardChar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_wildcard_char</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;*&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc14_wildcard_charE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>default process wildcard char ‘*’ </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc20_delimiter_sequencesE">
+<span id="_CPPv3N3ihc20_delimiter_sequencesE"></span><span id="_CPPv2N3ihc20_delimiter_sequencesE"></span><span id="ihc::_delimiter_sequences__ih::DelimiterSequencesC"></span><span class="target" id="d1/d87/group__literals_1ga0e9b274773f4b1a68fe93c29c43d0212"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih18DelimiterSequencesE" title="ih::DelimiterSequences"><span class="n"><span class="pre">DelimiterSequences</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_delimiter_sequences</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;</span> <span class="pre">&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;,&quot;</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc20_delimiter_sequencesE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Default delimiter sequences. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc21_start_stop_sequencesE">
+<span id="_CPPv3N3ihc21_start_stop_sequencesE"></span><span id="_CPPv2N3ihc21_start_stop_sequencesE"></span><span id="ihc::_start_stop_sequences__ih::StartStopSequencesC"></span><span class="target" id="d1/d87/group__literals_1ga435c131d1b4bd4baa6f47127991a9ed8"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih18StartStopSequencesE" title="ih::StartStopSequences"><span class="n"><span class="pre">StartStopSequences</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_start_stop_sequences</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;\&quot;&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;\&quot;&quot;</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc21_start_stop_sequencesE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Default start stop sequences. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc18default_parametersE">
+<span id="_CPPv3N3ihc18default_parametersE"></span><span id="_CPPv2N3ihc18default_parametersE"></span><span id="ihc::default_parameters__ih::InputParametersC"></span><span class="target" id="d1/d87/group__literals_1ga07dd5224d9edaaa6ab858b52cc82f5fc"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv42ih" title="ih"><span class="n"><span class="pre">ih</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../InputHandler_h_docs.html#_CPPv4N2ih15InputParametersE" title="ih::InputParameters"><span class="n"><span class="pre">InputParameters</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_parameters</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc13_process_nameE" title="ihc::_process_name"><span class="n"><span class="pre">_process_name</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc9_eol_charE" title="ihc::_eol_char"><span class="n"><span class="pre">_eol_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc28_input_control_char_sequenceE" title="ihc::_input_control_char_sequence"><span class="n"><span class="pre">_input_control_char_sequence</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc14_wildcard_charE" title="ihc::_wildcard_char"><span class="n"><span class="pre">_wildcard_char</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc20_delimiter_sequencesE" title="ihc::_delimiter_sequences"><span class="n"><span class="pre">_delimiter_sequences</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv43ihc" title="ihc"><span class="n"><span class="pre">ihc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3ihc21_start_stop_sequencesE" title="ihc::_start_stop_sequences"><span class="n"><span class="pre">_start_stop_sequences</span></span></a><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc18default_parametersE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Input default <a class="reference internal" href="#da/dd6/structih_1_1_input_parameters"><span class="std std-ref">ih::InputParameters</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc11fatal_errorE">
+<span id="_CPPv3N3ihc11fatal_errorE"></span><span id="_CPPv2N3ihc11fatal_errorE"></span><span id="ihc::fatal_error__cCA"></span><span class="target" id="d1/d87/group__literals_1gadf780fa3939699dc9c936a2a85cfda4e"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_error</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;FATAL</span> <span class="pre">ERROR!</span> <span class="pre">&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc11fatal_errorE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc18error_type_stringsE">
+<span id="_CPPv3N3ihc18error_type_stringsE"></span><span id="_CPPv2N3ihc18error_type_stringsE"></span><span id="ihc::error_type_strings__cCPCA"></span><span class="target" id="d1/d87/group__literals_1ga27fcc939fb46b3820a7ecdfe32921f03"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_type_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="#_CPPv4N3ihc11fatal_errorE" title="ihc::fatal_error"><span class="n"><span class="pre">fatal_error</span></span></a><span class="p"><span class="pre">,</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc18error_type_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc10fatal_haltE">
+<span id="_CPPv3N3ihc10fatal_haltE"></span><span id="_CPPv2N3ihc10fatal_haltE"></span><span id="ihc::fatal_halt__cCA"></span><span class="target" id="d1/d87/group__literals_1gad37803af4d254bda81c7424f42d4e969"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_halt</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;%SINPUTHANDLER</span> <span class="pre">IS</span> <span class="pre">FUNCTIONALLY</span> <span class="pre">DISABLED.\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc10fatal_haltE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc19fatal_begin_not_setE">
+<span id="_CPPv3N3ihc19fatal_begin_not_setE"></span><span id="_CPPv2N3ihc19fatal_begin_not_setE"></span><span id="ihc::fatal_begin_not_set__cCA"></span><span class="target" id="d1/d87/group__literals_1ga9711ab2a391fd2c41575a36492d20ee4"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_begin_not_set</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;%SInput::begin()</span> <span class="pre">not</span> <span class="pre">set.\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc19fatal_begin_not_setE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc16fatal_allocationE">
+<span id="_CPPv3N3ihc16fatal_allocationE"></span><span id="_CPPv2N3ihc16fatal_allocationE"></span><span id="ihc::fatal_allocation__cCA"></span><span class="target" id="d1/d87/group__literals_1ga5e93c1316aa77a15b96db7de739f09d6"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_allocation</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;%Scouldn't</span> <span class="pre">allocate</span> <span class="pre">memory</span> <span class="pre">for</span> <span class="pre">%S.\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc16fatal_allocationE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc19fatal_arr_alloc_idxE">
+<span id="_CPPv3N3ihc19fatal_arr_alloc_idxE"></span><span id="_CPPv2N3ihc19fatal_arr_alloc_idxE"></span><span id="ihc::fatal_arr_alloc_idx__cCA"></span><span class="target" id="d1/d87/group__literals_1gaadf9a10affef9c2816fd8ef4f7017620"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fatal_arr_alloc_idx</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;%Scouldn't</span> <span class="pre">allocate</span> <span class="pre">memory</span> <span class="pre">for</span> <span class="pre">%S[%02u].\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc19fatal_arr_alloc_idxE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc21error_message_stringsE">
+<span id="_CPPv3N3ihc21error_message_stringsE"></span><span id="_CPPv2N3ihc21error_message_stringsE"></span><span id="ihc::error_message_strings__cCPCA"></span><span class="target" id="d1/d87/group__literals_1ga2d0ed001035cb40559eb63cbecc4c53b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_message_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="#_CPPv4N3ihc10fatal_haltE" title="ihc::fatal_halt"><span class="n"><span class="pre">fatal_halt</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc19fatal_begin_not_setE" title="ihc::fatal_begin_not_set"><span class="n"><span class="pre">fatal_begin_not_set</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc16fatal_allocationE" title="ihc::fatal_allocation"><span class="n"><span class="pre">fatal_allocation</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc19fatal_arr_alloc_idxE" title="ihc::fatal_arr_alloc_idx"><span class="n"><span class="pre">fatal_arr_alloc_idx</span></span></a><span class="p"><span class="pre">,</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc21error_message_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc22input_type_match_flagsE">
+<span id="_CPPv3N3ihc22input_type_match_flagsE"></span><span id="_CPPv2N3ihc22input_type_match_flagsE"></span><span id="ihc::input_type_match_flags__cCA"></span><span class="target" id="d1/d87/group__literals_1ga044bce67867c7251710eca75a98a160e"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">input_type_match_flags</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;_input_type_match_flags_&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc22input_type_match_flagsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc13data_pointersE">
+<span id="_CPPv3N3ihc13data_pointersE"></span><span id="_CPPv2N3ihc13data_pointersE"></span><span id="ihc::data_pointers__cCA"></span><span class="target" id="d1/d87/group__literals_1ga2ff330cdfc8b72d43e59140b45f099a7"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_pointers</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;_data_pointers_&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc13data_pointersE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc16listsettings_bufE">
+<span id="_CPPv3N3ihc16listsettings_bufE"></span><span id="_CPPv2N3ihc16listsettings_bufE"></span><span id="ihc::listsettings_buf__cCA"></span><span class="target" id="d1/d87/group__literals_1ga9891b8c5b2613f3e7b5861f0e569ad59"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listsettings_buf</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;listSettings()::buf&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc16listsettings_bufE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc14var_id_stringsE">
+<span id="_CPPv3N3ihc14var_id_stringsE"></span><span id="_CPPv2N3ihc14var_id_stringsE"></span><span id="ihc::var_id_strings__cCPCA"></span><span class="target" id="d1/d87/group__literals_1ga49b20dac794e2432483f2bf3369f48f5"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">var_id_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="#_CPPv4N3ihc22input_type_match_flagsE" title="ihc::input_type_match_flags"><span class="n"><span class="pre">input_type_match_flags</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc13data_pointersE" title="ihc::data_pointers"><span class="n"><span class="pre">data_pointers</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc16listsettings_bufE" title="ihc::listsettings_buf"><span class="n"><span class="pre">listsettings_buf</span></span></a><span class="p"><span class="pre">,</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc14var_id_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc14command_stringE">
+<span id="_CPPv3N3ihc14command_stringE"></span><span id="_CPPv2N3ihc14command_stringE"></span><span id="ihc::command_string__cCA"></span><span class="target" id="d1/d87/group__literals_1ga2947aa350c004ff74a3e83b120daa711"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_string</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;command</span> <span class="pre">&lt;%s&gt;</span> <span class="pre">%S.\n&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc14command_stringE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc17root_pointer_warnE">
+<span id="_CPPv3N3ihc17root_pointer_warnE"></span><span id="_CPPv2N3ihc17root_pointer_warnE"></span><span id="ihc::root_pointer_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1gabba4d895eaefb64be7e90cfc6551e713"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">root_pointer_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;root</span> <span class="pre">command</span> <span class="pre">function</span> <span class="pre">pointer</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">NULL&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc17root_pointer_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc8wcc_warnE">
+<span id="_CPPv3N3ihc8wcc_warnE"></span><span id="_CPPv2N3ihc8wcc_warnE"></span><span id="ihc::wcc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga4fb9fda79fb3251f85489f5767eda1cd"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wcc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;has_wildcard</span> <span class="pre">is</span> <span class="pre">set,</span> <span class="pre">but</span> <span class="pre">no</span> <span class="pre">wildcards</span> <span class="pre">were</span> <span class="pre">found</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">command&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc8wcc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc12cmd_len_warnE">
+<span id="_CPPv3N3ihc12cmd_len_warnE"></span><span id="_CPPv2N3ihc12cmd_len_warnE"></span><span id="ihc::cmd_len_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga4bdcf95354350619665ab8e8529dddc4"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;command</span> <span class="pre">too</span> <span class="pre">long,</span> <span class="pre">increaseIH_MAX_CMD_STR_LEN</span> <span class="pre">or</span> <span class="pre">reduce</span> <span class="pre">command</span> <span class="pre">length&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc12cmd_len_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc16cmd_len_dec_warnE">
+<span id="_CPPv3N3ihc16cmd_len_dec_warnE"></span><span id="_CPPv2N3ihc16cmd_len_dec_warnE"></span><span id="ihc::cmd_len_dec_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga0e1700e7e54f02d00c2c96b1c95f9e3a"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_dec_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;command_length</span> <span class="pre">too</span> <span class="pre">large</span> <span class="pre">for</span> <span class="pre">command&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc16cmd_len_dec_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc16cmd_len_inc_warnE">
+<span id="_CPPv3N3ihc16cmd_len_inc_warnE"></span><span id="_CPPv2N3ihc16cmd_len_inc_warnE"></span><span id="ihc::cmd_len_inc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga3ea70a6ef2f19b1788c7e4a5bd49ce30"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_len_inc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;command_length</span> <span class="pre">too</span> <span class="pre">small</span> <span class="pre">for</span> <span class="pre">command&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc16cmd_len_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc18cmd_depth_inc_warnE">
+<span id="_CPPv3N3ihc18cmd_depth_inc_warnE"></span><span id="_CPPv2N3ihc18cmd_depth_inc_warnE"></span><span id="ihc::cmd_depth_inc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga2954fc9e949117ff07c941145b1b072c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_depth_inc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;depth</span> <span class="pre">exceeds</span> <span class="pre">UI_MAX_DEPTH&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc18cmd_depth_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc17cmd_subc_inc_warnE">
+<span id="_CPPv3N3ihc17cmd_subc_inc_warnE"></span><span id="_CPPv2N3ihc17cmd_subc_inc_warnE"></span><span id="ihc::cmd_subc_inc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1gaba6bfb8df3893cea1ede1d2293422252"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_subc_inc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;sub_commands</span> <span class="pre">exceeds</span> <span class="pre">UI_MAX_SUBCOMMANDS&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc17cmd_subc_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc21cmd_num_args_inc_warnE">
+<span id="_CPPv3N3ihc21cmd_num_args_inc_warnE"></span><span id="_CPPv2N3ihc21cmd_num_args_inc_warnE"></span><span id="ihc::cmd_num_args_inc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga6b0351ac1f2943386ae449d79a7ee3d3"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_num_args_inc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;num_args</span> <span class="pre">exceeds</span> <span class="pre">UI_MAX_ARGS&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc21cmd_num_args_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc25cmd_max_num_args_inc_warnE">
+<span id="_CPPv3N3ihc25cmd_max_num_args_inc_warnE"></span><span id="_CPPv2N3ihc25cmd_max_num_args_inc_warnE"></span><span id="ihc::cmd_max_num_args_inc_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga37ecb486152686884aeb99e40003871f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_max_num_args_inc_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;max_num_args</span> <span class="pre">exceeds</span> <span class="pre">UI_MAX_ARGS&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc25cmd_max_num_args_inc_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc22cmd_flip_num_args_warnE">
+<span id="_CPPv3N3ihc22cmd_flip_num_args_warnE"></span><span id="_CPPv2N3ihc22cmd_flip_num_args_warnE"></span><span id="ihc::cmd_flip_num_args_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga7b2a767fc77c24acd8f6d037a7efa165"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_flip_num_args_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;num_args</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">less</span> <span class="pre">than</span> <span class="pre">max_num_args&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc22cmd_flip_num_args_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc17cmd_rejected_warnE">
+<span id="_CPPv3N3ihc17cmd_rejected_warnE"></span><span id="_CPPv2N3ihc17cmd_rejected_warnE"></span><span id="ihc::cmd_rejected_warn__cCA"></span><span class="target" id="d1/d87/group__literals_1ga31ea92231526774bc288f446080775e6"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmd_rejected_warn</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;CommandParameters</span> <span class="pre">error!</span> <span class="pre">Root</span> <span class="pre">command</span> <span class="pre">tree</span> <span class="pre">rejected!&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc17cmd_rejected_warnE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc21command_error_stringsE">
+<span id="_CPPv3N3ihc21command_error_stringsE"></span><span id="_CPPv2N3ihc21command_error_stringsE"></span><span id="ihc::command_error_strings__cCPCA"></span><span class="target" id="d1/d87/group__literals_1ga1b9737d660e4d89be91948b421aa7ec9"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_error_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="#_CPPv4N3ihc14command_stringE" title="ihc::command_string"><span class="n"><span class="pre">command_string</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc17root_pointer_warnE" title="ihc::root_pointer_warn"><span class="n"><span class="pre">root_pointer_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc8wcc_warnE" title="ihc::wcc_warn"><span class="n"><span class="pre">wcc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc12cmd_len_warnE" title="ihc::cmd_len_warn"><span class="n"><span class="pre">cmd_len_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc16cmd_len_dec_warnE" title="ihc::cmd_len_dec_warn"><span class="n"><span class="pre">cmd_len_dec_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc16cmd_len_inc_warnE" title="ihc::cmd_len_inc_warn"><span class="n"><span class="pre">cmd_len_inc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc18cmd_depth_inc_warnE" title="ihc::cmd_depth_inc_warn"><span class="n"><span class="pre">cmd_depth_inc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc17cmd_subc_inc_warnE" title="ihc::cmd_subc_inc_warn"><span class="n"><span class="pre">cmd_subc_inc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc21cmd_num_args_inc_warnE" title="ihc::cmd_num_args_inc_warn"><span class="n"><span class="pre">cmd_num_args_inc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc25cmd_max_num_args_inc_warnE" title="ihc::cmd_max_num_args_inc_warn"><span class="n"><span class="pre">cmd_max_num_args_inc_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc22cmd_flip_num_args_warnE" title="ihc::cmd_flip_num_args_warn"><span class="n"><span class="pre">cmd_flip_num_args_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3ihc17cmd_rejected_warnE" title="ihc::cmd_rejected_warn"><span class="n"><span class="pre">cmd_rejected_warn</span></span></a><span class="p"><span class="pre">,</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc21command_error_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc6promptE">
+<span id="_CPPv3N3ihc6promptE"></span><span id="_CPPv2N3ihc6promptE"></span><span id="ihc::prompt__cCA"></span><span class="target" id="d1/d87/group__literals_1gab7b8a615ec371ffe855cc1a7827e3a83"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prompt</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&gt;%s$&quot;</span></span><a class="headerlink" href="#_CPPv4N3ihc6promptE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3ihc16terminal_stringsE">
+<span id="_CPPv3N3ihc16terminal_stringsE"></span><span id="_CPPv2N3ihc16terminal_stringsE"></span><span id="ihc::terminal_strings__cCPCA"></span><span class="target" id="d1/d87/group__literals_1gae1ef3a28a44383fa6ffd2841c252fd28"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">terminal_strings</span></span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="#_CPPv4N3ihc6promptE" title="ihc::prompt"><span class="n"><span class="pre">prompt</span></span></a><span class="p"><span class="pre">,</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3ihc16terminal_stringsE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Douglas Quigg (dquigg123@gmail.com)
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    </body>
+</html>

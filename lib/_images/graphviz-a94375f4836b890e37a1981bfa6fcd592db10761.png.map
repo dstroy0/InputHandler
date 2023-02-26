@@ -1,0 +1,7 @@
+<map id="%3" name="%3">
+<area shape="rect" id="node1" title="ih::DelimiterSequences" alt="" coords="5,101,249,149"/>
+<area shape="rect" id="node2" title="ih::InputParameters" alt="" coords="155,5,369,53"/>
+<area shape="poly" id="edge1" title="usage" alt="" coords="231,56,173,95,170,91,228,51"/>
+<area shape="rect" id="node3" title="ih::StartStopSequences" alt="" coords="273,101,520,149"/>
+<area shape="poly" id="edge2" title="usage" alt="" coords="296,51,354,91,351,95,293,56"/>
+</map>
