@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="code_preview" href="modules/code_preview.html" /><link rel="prev" title="cli_gen_tool.py" href="modules/cli_gen_tool.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="code_generation" href="modules/code_generation.html" /><link rel="prev" title="cli_gen_tool.py" href="modules/cli_gen_tool.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
         <title>Modules - cli_gen_tool documentation</title>
@@ -164,26 +164,25 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/code_preview.html">code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html">code_generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/command_parameters.html">command_parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/command_tree.html">command_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/data_models.html">data_models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/display_models.html">display_models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/helper_methods.html">helper_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/logging_setup.html">logging_setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/mainwindow_actions.html">mainwindow_actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/mainwindow_buttons.html">mainwindow_buttons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mainwindow_methods.html">mainwindow_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/preferences.html">preferences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/settings_tree_table_methods.html">settings_tree_table_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/settings_tree.html">settings_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cli/CLI.html">CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/clireadme.html">clireadme</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/config.html">config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/filestrings.html">filestrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/functions.html">functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/parameters.html">parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/cli/setup.html">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cli/parse_config.html">parse_config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/uic/commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/uic/generateCLIDialog.html">generateCLIDialog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/uic/logHistoryDialog.html">logHistoryDialog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/uic/mainWindow.html">mainWindow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/uic/preferencesDialog.html">preferencesDialog</a></li>
@@ -226,7 +225,14 @@
 <h1>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules/code_preview.html">code_preview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/code_generation.html">code_generation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html#code_generation.CodeGeneration"><code class="docutils literal notranslate"><span class="pre">CodeGeneration</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html#code_generation.CodePreviewBrowser"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html#code_generation.CodePreviewWidget"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html#code_generation.LineNumberArea"><code class="docutils literal notranslate"><span class="pre">LineNumberArea</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/code_generation.html#code_generation.MarkDownBrowser"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules/command_parameters.html">command_parameters</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/command_parameters.html#command_parameters.CommandParametersMethods"><code class="docutils literal notranslate"><span class="pre">CommandParametersMethods</span></code></a></li>
 </ul>
@@ -256,21 +262,23 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/logging_setup.html#logging_setup.QPlainTextEditLogger"><code class="docutils literal notranslate"><span class="pre">QPlainTextEditLogger</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/mainwindow_actions.html">mainwindow_actions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/mainwindow_buttons.html">mainwindow_buttons</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/parse_config.html">parse_config</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/parse_config.html#parse_config.ParseInputHandlerConfig"><code class="docutils literal notranslate"><span class="pre">ParseInputHandlerConfig</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mainwindow_methods.html">mainwindow_methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mainwindow_methods.html#mainwindow_methods.TableButtonBox"><code class="docutils literal notranslate"><span class="pre">TableButtonBox</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/preferences.html">preferences</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/preferences.html#preferences.PreferencesMethods"><code class="docutils literal notranslate"><span class="pre">PreferencesMethods</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/settings_tree_table_methods.html">settings_tree_table_methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/settings_tree.html">settings_tree</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/settings_tree.html#settings_tree.DelimiterTableWidget"><code class="docutils literal notranslate"><span class="pre">DelimiterTableWidget</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/settings_tree.html#settings_tree.SettingsTreeMethods"><code class="docutils literal notranslate"><span class="pre">SettingsTreeMethods</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/settings_tree.html#settings_tree.SettingsTreeWidget"><code class="docutils literal notranslate"><span class="pre">SettingsTreeWidget</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cli/CLI.html">CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cli/CLI.html#CLI.cliH"><code class="docutils literal notranslate"><span class="pre">cliH</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/cli/clireadme.html">clireadme</a><ul>
@@ -293,9 +301,16 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/cli/parameters.html#parameters.cliParameters"><code class="docutils literal notranslate"><span class="pre">cliParameters</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/cli/setup.html">setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cli/parse_config.html">parse_config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cli/parse_config.html#parse_config.ParseInputHandlerConfig"><code class="docutils literal notranslate"><span class="pre">ParseInputHandlerConfig</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules/uic/commandParametersDialog.html">commandParametersDialog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/uic/commandParametersDialog.html#commandParametersDialog.Ui_commandParametersDialog"><code class="docutils literal notranslate"><span class="pre">Ui_commandParametersDialog</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/uic/generateCLIDialog.html">generateCLIDialog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/uic/generateCLIDialog.html#generateCLIDialog.Ui_generateDialog"><code class="docutils literal notranslate"><span class="pre">Ui_generateDialog</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/uic/logHistoryDialog.html">logHistoryDialog</a><ul>
@@ -319,12 +334,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="modules/code_preview.html">
+          <a class="next-page" href="modules/code_generation.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">code_preview</div>
+                <div class="title">code_generation</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

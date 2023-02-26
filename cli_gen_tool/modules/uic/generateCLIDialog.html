@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="commandParametersDialog" href="../uic/commandParametersDialog.html" /><link rel="prev" title="parameters" href="parameters.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="logHistoryDialog" href="logHistoryDialog.html" /><link rel="prev" title="commandParametersDialog" href="commandParametersDialog.html" />
 
     <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
-        <title>setup - cli_gen_tool documentation</title>
+        <title>generateCLIDialog - cli_gen_tool documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -164,29 +164,28 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../code_preview.html">code_preview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code_generation.html">code_generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../command_parameters.html">command_parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../command_tree.html">command_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_models.html">data_models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../display_models.html">display_models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper_methods.html">helper_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging_setup.html">logging_setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mainwindow_actions.html">mainwindow_actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mainwindow_buttons.html">mainwindow_buttons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mainwindow_methods.html">mainwindow_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preferences.html">preferences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../settings_tree_table_methods.html">settings_tree_table_methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../settings_tree.html">settings_tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clireadme.html">clireadme</a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html">config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filestrings.html">filestrings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.html">functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parameters.html">parameters</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../uic/commandParametersDialog.html">commandParametersDialog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../uic/logHistoryDialog.html">logHistoryDialog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../uic/mainWindow.html">mainWindow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../uic/preferencesDialog.html">preferencesDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/CLI.html">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/clireadme.html">clireadme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/filestrings.html">filestrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/functions.html">functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/parameters.html">parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">generateCLIDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logHistoryDialog.html">logHistoryDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainWindow.html">mainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preferencesDialog.html">preferencesDialog</a></li>
 </ul>
 </li>
 </ul>
@@ -216,14 +215,30 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="setup">
-<h1>setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h1>
+          <section id="module-generateCLIDialog">
+<span id="generateclidialog"></span><h1>generateCLIDialog<a class="headerlink" href="#module-generateCLIDialog" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="generateCLIDialog.Ui_generateDialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">generateCLIDialog.</span></span><span class="sig-name descname"><span class="pre">Ui_generateDialog</span></span><a class="reference internal" href="../../_modules/generateCLIDialog.html#Ui_generateDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generateCLIDialog.Ui_generateDialog" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="generateCLIDialog.Ui_generateDialog.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generateDialog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/generateCLIDialog.html#Ui_generateDialog.retranslateUi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generateCLIDialog.Ui_generateDialog.retranslateUi" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="generateCLIDialog.Ui_generateDialog.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generateDialog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/generateCLIDialog.html#Ui_generateDialog.setupUi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generateCLIDialog.Ui_generateDialog.setupUi" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -231,23 +246,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../uic/commandParametersDialog.html">
+          <a class="next-page" href="logHistoryDialog.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">commandParametersDialog</div>
+                <div class="title">logHistoryDialog</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="parameters.html">
+          <a class="prev-page" href="commandParametersDialog.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">parameters</div>
+                <div class="title">commandParametersDialog</div>
                 
               </div>
             </a>
@@ -271,8 +286,31 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">generateCLIDialog</a><ul>
+<li><a class="reference internal" href="#generateCLIDialog.Ui_generateDialog"><code class="docutils literal notranslate"><span class="pre">Ui_generateDialog</span></code></a><ul>
+<li><a class="reference internal" href="#generateCLIDialog.Ui_generateDialog.retranslateUi"><code class="docutils literal notranslate"><span class="pre">Ui_generateDialog.retranslateUi()</span></code></a></li>
+<li><a class="reference internal" href="#generateCLIDialog.Ui_generateDialog.setupUi"><code class="docutils literal notranslate"><span class="pre">Ui_generateDialog.setupUi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

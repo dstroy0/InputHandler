@@ -1,7 +1,7 @@
-setup
+mainwindow_methods
 ===========================
 
-.. automodule:: setup
+.. automodule:: mainwindow_methods
    :members:
    :undoc-members:
    :show-inheritance:

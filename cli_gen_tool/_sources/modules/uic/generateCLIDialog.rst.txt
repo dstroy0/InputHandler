@@ -1,7 +1,8 @@
-code_preview
+generateCLIDialog
 ===========================
 
-.. automodule:: code_preview
+.. automodule:: generateCLIDialog
    :members:
    :undoc-members:
    :show-inheritance:
+

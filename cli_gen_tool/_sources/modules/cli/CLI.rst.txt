@@ -1,7 +1,7 @@
-mainwindow_buttons
+CLI
 ===========================
 
-.. automodule:: mainwindow_buttons
+.. automodule:: CLI
    :members:
    :undoc-members:
    :show-inheritance:

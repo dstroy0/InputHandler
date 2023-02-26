@@ -1,0 +1,822 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="command_parameters" href="command_parameters.html" /><link rel="prev" title="Modules" href="../modules.html" />
+
+    <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
+        <title>code_generation - cli_gen_tool documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">cli_gen_tool  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">cli_gen_tool  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (cli_gen_tool.py)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_gen_tool.html">cli_gen_tool.py</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/index.html">InputHandler docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">code_generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_parameters.html">command_parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_tree.html">command_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_models.html">data_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display_models.html">display_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper_methods.html">helper_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_setup.html">logging_setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mainwindow_methods.html">mainwindow_methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preferences.html">preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings_tree.html">settings_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/CLI.html">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/clireadme.html">clireadme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/filestrings.html">filestrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/functions.html">functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/parameters.html">parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/parse_config.html">parse_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/commandParametersDialog.html">commandParametersDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/generateCLIDialog.html">generateCLIDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/logHistoryDialog.html">logHistoryDialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/mainWindow.html">mainWindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uic/preferencesDialog.html">preferencesDialog</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-code_generation">
+<span id="code-generation"></span><h1>code_generation<a class="headerlink" href="#module-code_generation" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_generation.</span></span><span class="sig-name descname"><span class="pre">CodeGeneration</span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParseInputHandlerConfig</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliFileStrings</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliReadme</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliConfig</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliH</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliFunctions</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">cliParameters</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generates code for display and writing to disk</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>ParseInputHandlerConfig (CodeGeneration): config.h parser
+cliFileStrings (CodeGeneration): cli filestrings
+cliReadme (CodeGeneration): generates README.md
+cliConfig (CodeGeneration): generates config.h
+cliH (CodeGeneration): generates CLI.h
+cliFunctions (CodeGeneration): generates functions.h
+cliParameters (CodeGeneration): generates parameters.h
+object (object): base object specialization</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.build_code_preview_widgets">
+<span class="sig-name descname"><span class="pre">build_code_preview_widgets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.build_code_preview_widgets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.build_code_preview_widgets" title="Permalink to this definition">#</a></dt>
+<dd><p>builds code preview widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.cli_generation_dialog_setup">
+<span class="sig-name descname"><span class="pre">cli_generation_dialog_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.cli_generation_dialog_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.cli_generation_dialog_setup" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.clickable">
+<span class="sig-name descname"><span class="pre">clickable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.clickable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.clickable" title="Permalink to this definition">#</a></dt>
+<dd><p>makes objects emit “clicked”</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>widget (QWidget): the widget to attach the signal to</p>
+</dd>
+<dt>Returns:</dt><dd><p>Filter (QObject): the filtered object interaction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.detect_output_type">
+<span class="sig-name descname"><span class="pre">detect_output_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.detect_output_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.detect_output_type" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.display_initial_code_preview">
+<span class="sig-name descname"><span class="pre">display_initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.display_initial_code_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.display_initial_code_preview" title="Permalink to this definition">#</a></dt>
+<dd><p>displays initial code after loading app</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.generate_cli">
+<span class="sig-name descname"><span class="pre">generate_cli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generate_cli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generate_cli" title="Permalink to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>generates the platform appropriate CLI in <cite>project_path</cite></dt><dd><p>set in preferences</p>
+</dd>
+<dt>Args:</dt><dd><p>project_path (str, optional): valid os path. Defaults to None.</p>
+</dd>
+<dt>Returns:</dt><dd><p>int:</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.generate_docstring_list_for_filename">
+<span class="sig-name descname"><span class="pre">generate_docstring_list_for_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brief</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generate_docstring_list_for_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generate_docstring_list_for_filename" title="Permalink to this definition">#</a></dt>
+<dd><p>makes the docstring for generated files</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): the filename
+brief (str): purpose of file</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of docstring lines to prepend to filename</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure">
+<span class="sig-name descname"><span class="pre">generatedialog_clicked_arduino_file_output_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generatedialog_clicked_arduino_file_output_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.generatedialog_clicked_platformio_file_output_structure">
+<span class="sig-name descname"><span class="pre">generatedialog_clicked_platformio_file_output_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generatedialog_clicked_platformio_file_output_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generatedialog_clicked_platformio_file_output_structure" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.generatedialog_set_output_dir">
+<span class="sig-name descname"><span class="pre">generatedialog_set_output_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generatedialog_set_output_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generatedialog_set_output_dir" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.initial_code_preview">
+<span class="sig-name descname"><span class="pre">initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.initial_code_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.initial_code_preview" title="Permalink to this definition">#</a></dt>
+<dd><p>code preview wrapper</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.list_to_code_string">
+<span class="sig-name descname"><span class="pre">list_to_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.list_to_code_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.list_to_code_string" title="Permalink to this definition">#</a></dt>
+<dd><p>concatenates strings in a list to each other with a newline at the end</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>list (list): list of filelines</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: continuous string generated from list arg</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.make_collapse_button">
+<span class="sig-name descname"><span class="pre">make_collapse_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QPushButton</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.make_collapse_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.make_collapse_button" title="Permalink to this definition">#</a></dt>
+<dd><p>makes a QPushButton object that collapses a tree</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>QPushButton: a button</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.parse_config">
+<span class="sig-name descname"><span class="pre">parse_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.parse_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.parse_config" title="Permalink to this definition">#</a></dt>
+<dd><p>config parser wrapper</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.set_code_string">
+<span class="sig-name descname"><span class="pre">set_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.set_code_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.set_code_string" title="Permalink to this definition">#</a></dt>
+<dd><p>sets the code string in <cite>filename</cite> widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): cli filename
+code_string (str): file code
+item_string (str): highlighted code
+place_cursor (bool, optional): place cursor on highlighted code if True. Defaults to False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.update_code">
+<span class="sig-name descname"><span class="pre">update_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.update_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.update_code" title="Permalink to this definition">#</a></dt>
+<dd><p>code update wrapper</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): filename
+item_string (str): code to highlight
+place_cursor (bool): place cursor on highlighted code if True.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodeGeneration.write_cli_file">
+<span class="sig-name descname"><span class="pre">write_cli_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_to_write</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_error_dialog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.write_cli_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.write_cli_file" title="Permalink to this definition">#</a></dt>
+<dd><p>writes a file</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>path (str): path to file
+dict_to_write (dict): file dict
+create_error_dialog (bool, optional): Create error dialog on fail if True. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: the number of bytes written if successful else -1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_generation.</span></span><span class="sig-name descname"><span class="pre">CodePreviewBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QApplication</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QPlainTextEdit</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.highlight_current_line">
+<span class="sig-name descname"><span class="pre">highlight_current_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.highlight_current_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.highlight_current_line" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.lineNumberAreaPaintEvent">
+<span class="sig-name descname"><span class="pre">lineNumberAreaPaintEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QPaintEvent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.lineNumberAreaPaintEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.lineNumberAreaPaintEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>paints the line number rectangle and the line numbers</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QPaintEvent): Time to draw now!</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.line_number_area_width">
+<span class="sig-name descname"><span class="pre">line_number_area_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.line_number_area_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.line_number_area_width" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.mousePressEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.mouseReleaseEvent">
+<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.mouseReleaseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.mouseReleaseEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor back to arrow after releasing mouse button</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>Keeps the text cursor visible while resizing <cite>this</cite> text widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QEvent): always a resize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QPlainTextEdit&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#68</span> <span class="pre">type=Slot,</span> <span class="pre">signature=update_line_number_area_width(int),</span> <span class="pre">parameters=int</span>&#160;&#160; <span class="pre">#69</span> <span class="pre">type=Slot,</span> <span class="pre">signature=update_line_number_area(QRect,int),</span> <span class="pre">parameters=QRect,</span> <span class="pre">int</span>&#160;&#160; <span class="pre">#70</span> <span class="pre">type=Slot,</span> <span class="pre">signature=highlight_current_line()</span> <span class="pre">)</span></em><a class="headerlink" href="#code_generation.CodePreviewBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.update_line_number_area">
+<span class="sig-name descname"><span class="pre">update_line_number_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rect</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.update_line_number_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.update_line_number_area" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewBrowser.update_line_number_area_width">
+<span class="sig-name descname"><span class="pre">update_line_number_area_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newBlockCount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewBrowser.update_line_number_area_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewBrowser.update_line_number_area_width" title="Permalink to this definition">#</a></dt>
+<dd><p>resize lineno width</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>newBlockCount (int): The new number of text blocks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_generation.</span></span><span class="sig-name descname"><span class="pre">CodePreviewWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">container</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_preview_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cliopt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidget</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidgetItem</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.build_tree">
+<span class="sig-name descname"><span class="pre">build_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.build_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.build_tree" title="Permalink to this definition">#</a></dt>
+<dd><p>builds codepreviewwidgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.button_toggles">
+<span class="sig-name descname"><span class="pre">button_toggles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.button_toggles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.button_toggles" title="Permalink to this definition">#</a></dt>
+<dd><p>tree button toggles</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtCore.QObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtCore.QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.eventFilter" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.get_vertical_drag_icon_geometry">
+<span class="sig-name descname"><span class="pre">get_vertical_drag_icon_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget_qrect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QRect</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QRect</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.get_vertical_drag_icon_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.get_vertical_drag_icon_geometry" title="Permalink to this definition">#</a></dt>
+<dd><p>makes the interactive box to resize code preview widgets</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>widget_qrect (QRect): size of individual widgets in the tree</p>
+</dd>
+<dt>Returns:</dt><dd><p>QRect: size and position descriptor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.initial_code_preview">
+<span class="sig-name descname"><span class="pre">initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.initial_code_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.initial_code_preview" title="Permalink to this definition">#</a></dt>
+<dd><p>make initial code preview available to user</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.item_changed">
+<span class="sig-name descname"><span class="pre">item_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.item_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.item_changed" title="Permalink to this definition">#</a></dt>
+<dd><p>tree item iteraction sentinel</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>item (QTreeWidgetItem): the item interacted with
+column (int): column of item interacted with</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.item_expanded">
+<span class="sig-name descname"><span class="pre">item_expanded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QTreeWidgetItem</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.item_expanded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.item_expanded" title="Permalink to this definition">#</a></dt>
+<dd><p>expand only QTreeWidgetItems that are expandable</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>item (QTreeWidgetItem): the item highlighted at the time of the collapse button interaction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.keyPressEvent">
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtGui.QKeyEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.keyPressEvent" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.resize_code_preview_tree_item">
+<span class="sig-name descname"><span class="pre">resize_code_preview_tree_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCursor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.resize_code_preview_tree_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.resize_code_preview_tree_item" title="Permalink to this definition">#</a></dt>
+<dd><p>resizes code preview tree items</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>mouse_pos (QCursor): position of the mouse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.set_code_string">
+<span class="sig-name descname"><span class="pre">set_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.set_code_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.set_code_string" title="Permalink to this definition">#</a></dt>
+<dd><p>sets the code string in <cite>filename</cite> widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): the filename
+code_string (str): the code
+item_string (str): code to highlight
+place_cursor (bool, optional): place cursor on highlighted code if True. Defaults to False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.set_text_cursor">
+<span class="sig-name descname"><span class="pre">set_text_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.set_text_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.set_text_cursor" title="Permalink to this definition">#</a></dt>
+<dd><p>sets the cursor on <cite>item_string</cite> in <cite>text_widget</cite></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>text_widget (CodePreviewBrowser or MarkdownBrowser): the widget to search
+item_string (str): the text to search for</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CodePreviewWidget&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTreeWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_generation.CodePreviewWidget.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.tree_expander">
+<span class="sig-name descname"><span class="pre">tree_expander</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.tree_expander"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.tree_expander" title="Permalink to this definition">#</a></dt>
+<dd><p>collapse button interaction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.update_code">
+<span class="sig-name descname"><span class="pre">update_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place_cursor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.update_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.update_code" title="Permalink to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>updates code in text_widget.objectName(<cite>file</cite>);</dt><dd><p>highlights <cite>item_string</cite> if exists;
+places the cursor on <cite>item_string</cite> if <cite>place_cursor</cite> True.</p>
+</dd>
+<dt>Args:</dt><dd><p>file (str): filename.extension
+item_string (str): item within <cite>file</cite> that changed, if any.
+place_cursor (bool): place the text cursor on <cite>item_string</cite> if True and <cite>item_string</cite> exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.which_clicked">
+<span class="sig-name descname"><span class="pre">which_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.which_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.which_clicked" title="Permalink to this definition">#</a></dt>
+<dd><p>item interaction detection</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.CodePreviewWidget.which_pressed">
+<span class="sig-name descname"><span class="pre">which_pressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodePreviewWidget.which_pressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodePreviewWidget.which_pressed" title="Permalink to this definition">#</a></dt>
+<dd><p>item interaction detection</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_generation.LineNumberArea">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_generation.</span></span><span class="sig-name descname"><span class="pre">LineNumberArea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">editor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#LineNumberArea"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.LineNumberArea" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.LineNumberArea.paintEvent">
+<span class="sig-name descname"><span class="pre">paintEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PySide6.QtGui.QPaintEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#LineNumberArea.paintEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.LineNumberArea.paintEvent" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.LineNumberArea.sizeHint">
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PySide6.QtCore.QSize</span></span></span><a class="reference internal" href="../_modules/code_generation.html#LineNumberArea.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.LineNumberArea.sizeHint" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_generation.LineNumberArea.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;LineNumberArea&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_generation.LineNumberArea.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">code_generation.</span></span><span class="sig-name descname"><span class="pre">MarkDownBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QApplication</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#MarkDownBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.MarkDownBrowser" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTextEdit</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser.mouseMoveEvent">
+<span class="sig-name descname"><span class="pre">mouseMoveEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#MarkDownBrowser.mouseMoveEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.MarkDownBrowser.mouseMoveEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#MarkDownBrowser.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.MarkDownBrowser.mousePressEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor over external link</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser.mouseReleaseEvent">
+<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#MarkDownBrowser.mouseReleaseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.MarkDownBrowser.mouseReleaseEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>changes cursor back to arrow after releasing mouse button</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>e (QEvent): Event</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/code_generation.html#MarkDownBrowser.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.MarkDownBrowser.resizeEvent" title="Permalink to this definition">#</a></dt>
+<dd><p>Keeps the text cursor visible while resizing <cite>this</cite> text widget</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event (QEvent): always a resize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="code_generation.MarkDownBrowser.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;MarkDownBrowser&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QTextEdit&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#code_generation.MarkDownBrowser.staticMetaObject" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="command_parameters.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">command_parameters</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../modules.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Modules</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Douglas Quigg (dstroy0@gmail.com)
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">code_generation</a><ul>
+<li><a class="reference internal" href="#code_generation.CodeGeneration"><code class="docutils literal notranslate"><span class="pre">CodeGeneration</span></code></a><ul>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.build_code_preview_widgets"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.build_code_preview_widgets()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.cli_generation_dialog_setup"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.cli_generation_dialog_setup()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.clickable"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.clickable()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.detect_output_type"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.detect_output_type()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.display_initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.display_initial_code_preview()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.generate_cli"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generate_cli()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.generate_docstring_list_for_filename"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generate_docstring_list_for_filename()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_clicked_arduino_file_output_structure()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_clicked_platformio_file_output_structure"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_clicked_platformio_file_output_structure()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_set_output_dir"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_set_output_dir()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.initial_code_preview()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.list_to_code_string"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.list_to_code_string()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.make_collapse_button"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.make_collapse_button()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.parse_config"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.parse_config()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.set_code_string"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.set_code_string()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.update_code"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.update_code()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodeGeneration.write_cli_file"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.write_cli_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser</span></code></a><ul>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.highlight_current_line"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.highlight_current_line()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.lineNumberAreaPaintEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.lineNumberAreaPaintEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.line_number_area_width"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.line_number_area_width()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.mousePressEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.mouseReleaseEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.resizeEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.staticMetaObject</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.update_line_number_area"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.update_line_number_area()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewBrowser.update_line_number_area_width"><code class="docutils literal notranslate"><span class="pre">CodePreviewBrowser.update_line_number_area_width()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget</span></code></a><ul>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.build_tree"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.build_tree()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.button_toggles"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.button_toggles()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.eventFilter"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.eventFilter()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.get_vertical_drag_icon_geometry"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.get_vertical_drag_icon_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.initial_code_preview()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.item_changed"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.item_changed()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.item_expanded"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.item_expanded()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.keyPressEvent"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.keyPressEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.resize_code_preview_tree_item"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.resize_code_preview_tree_item()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.set_code_string"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.set_code_string()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.set_text_cursor"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.set_text_cursor()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.staticMetaObject</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.tree_expander"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.tree_expander()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.update_code"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.update_code()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.which_clicked"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.which_clicked()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.CodePreviewWidget.which_pressed"><code class="docutils literal notranslate"><span class="pre">CodePreviewWidget.which_pressed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_generation.LineNumberArea"><code class="docutils literal notranslate"><span class="pre">LineNumberArea</span></code></a><ul>
+<li><a class="reference internal" href="#code_generation.LineNumberArea.paintEvent"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.paintEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.LineNumberArea.sizeHint"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.sizeHint()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.LineNumberArea.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">LineNumberArea.staticMetaObject</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser</span></code></a><ul>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser.mouseMoveEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mouseMoveEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mousePressEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.mouseReleaseEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser.resizeEvent"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.resizeEvent()</span></code></a></li>
+<li><a class="reference internal" href="#code_generation.MarkDownBrowser.staticMetaObject"><code class="docutils literal notranslate"><span class="pre">MarkDownBrowser.staticMetaObject</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    </body>
+</html>
