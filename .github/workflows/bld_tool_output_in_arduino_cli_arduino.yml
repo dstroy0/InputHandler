@@ -1,4 +1,4 @@
-name: Build tool CLI Arduino Arduino
+name: Arduino - Build tool CLI with Arduino CLI
 
 # Controls when the workflow will run
 on:

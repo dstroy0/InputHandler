@@ -1,4 +1,4 @@
-name: Build tool CLI Teensyduino Arduino
+name: Teensyduino - Build tool CLI with Arduino CLI
 
 # Controls when the workflow will run
 on:

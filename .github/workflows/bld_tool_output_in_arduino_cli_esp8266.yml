@@ -1,4 +1,4 @@
-name: Build tool CLI ESP8266 Arduino
+name: ESP8266 - Build tool CLI with Arduino CLI
 
 # Controls when the workflow will run
 on:

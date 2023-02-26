@@ -1,4 +1,4 @@
-name: Build examples (ESP32 Arduino)
+name: ESP32 - Build examples with Arduino CLI
 
 # Controls when the workflow will run
 on:

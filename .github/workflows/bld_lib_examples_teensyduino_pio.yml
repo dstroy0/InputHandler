@@ -1,4 +1,4 @@
-name: Build examples (Teensyduino PIO)
+name: Teensyduino - Build examples with PIO CI
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Build examples (ESP PIO)
+name: ESP32 - Build examples with PIO CI
 
 on:
   push:

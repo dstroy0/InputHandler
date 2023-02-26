@@ -1,4 +1,4 @@
-name: Build tool CLI Teensyduino PIO
+name: Teensyduino - Build tool CLI PIO CI
 
 on:
   push:
