@@ -1,7 +1,7 @@
-mainwindow_actions
+code_generation
 ===========================
 
-.. automodule:: mainwindow_actions
+.. automodule:: code_generation
    :members:
    :undoc-members:
    :show-inheritance:
