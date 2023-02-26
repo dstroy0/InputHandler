@@ -136,7 +136,7 @@ class SettingsTreeWidget(QTreeWidget):
                     # make the treewidgetitem span columns
 
                     for item in SettingsTreeMethods._tree["config"][subsection]:
-                        # dict_pos = subsection + "," + str(index_of_child) + "," + item                        
+                        # dict_pos = subsection + "," + str(index_of_child) + "," + item
                         var_initial_val = self.cliopt["config"]["var"][subsection][
                             item
                         ]["value"]
@@ -366,10 +366,12 @@ class SettingsTreeWidget(QTreeWidget):
     def update_settings_tree_type_field_text(self, item):
         object_string = str(item.data(4, 0))
         object_list = object_string.strip("\n").split(",")
-        sub_dict = self.cliopt["config"]["tree"]["items"][object_list[0]][
-            int(object_list[1])
-        ]["fields"]
-        number_field = int(sub_dict["3"])
+        sub_dict = self.cliopt["config"]["var"][object_list[0]][object_list[2]]
+        number_field = sub_dict["value"]
+
+        if str(number_field) == "True" or str(number_field) == "False":
+            return
+
         if number_field <= 255:
             type_field = "uint8_t"
             item.setToolTip(2, "")
@@ -399,17 +401,27 @@ class SettingsTreeWidget(QTreeWidget):
             _tt = displayModels._settings_tree_display[object_list[0]][object_list[2]][
                 "tooltip"
             ]
-        if object_list[0] == "builtin methods":
 
+        if object_list[0] == "builtin methods":
             if combobox.currentText() == "Enabled":
-                self.cliopt[object_list[0]]["var"][object_list[2]] = True
+                if object_list[0] in self.cliopt:
+                    self.cliopt[object_list[0]]["var"][object_list[2]] = "True"
+                else:
+                    self.cliopt["config"]["var"][object_list[0]][object_list[2]][
+                        "value"
+                    ] = "True"
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " enabled"
                 )
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
             else:
-                self.cliopt[object_list[0]]["var"][object_list[2]] = False
+                if object_list[0] in self.cliopt:
+                    self.cliopt[object_list[0]]["var"][object_list[2]] = "False"
+                else:
+                    self.cliopt["config"]["var"][object_list[0]][object_list[2]][
+                        "value"
+                    ] = "False"
                 SettingsTreeMethods.logger.info(
                     object_list[0] + " " + object_list[2] + " disabled"
                 )
@@ -426,7 +438,6 @@ class SettingsTreeWidget(QTreeWidget):
                     self.cliopt["builtin methods"]["var"]["defaultFunction"] = True
                 else:
                     self.cliopt["builtin methods"]["var"]["defaultFunction"] = False
-
             elif object_list[2] == "listCommands":
                 if combobox.currentText() == "Enabled":
                     self.command_tree.add_command_to_tree(
@@ -435,7 +446,6 @@ class SettingsTreeWidget(QTreeWidget):
                 else:
                     if self.cliopt["builtin methods"]["var"]["listCommands"] == True:
                         self.command_tree.remove_command_from_tree("listCommands")
-
             elif object_list[2] == "listSettings":
                 if combobox.currentText() == "Enabled":
                     self.command_tree.add_command_to_tree(
@@ -444,28 +454,28 @@ class SettingsTreeWidget(QTreeWidget):
                 else:
                     if self.cliopt["builtin methods"]["var"]["listSettings"] == True:
                         self.command_tree.remove_command_from_tree("listSettings")
-
             self.update_code("functions.h", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)
             self.update_code("CLI.h", object_list[2], True)
 
-        if object_list[0] != "builtin methods":
-            # _twi = self.currentItem()
-
+        # if object_list[0] != "builtin methods":
+        else:
+            _twi = self.currentItem()
             object_data = self.get_object_data(_twi)
-            info = self.cliopt["config"]["var"][object_data["pos"][2]]
-
+            info = self.cliopt["config"]["var"][object_data["pos"][0]][
+                object_data["pos"][2]
+            ]
             if combobox.currentText() == "Enabled":
-                info["value"] = True
-                self.log_settings_tree_edit(_twi)
+                info["value"] = "True"
+                # self.log_settings_tree_edit(_twi)
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
             elif combobox.currentText() == "Disabled":
-                info["value"] = False
-                self.log_settings_tree_edit(_twi)
+                info["value"] = "False"
+                # self.log_settings_tree_edit(_twi)
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
-            self.update_code("config.h", object_data["pos"]["2"], True)
+            self.update_code("config.h", object_data["pos"][2], True)
 
     ## this is called after determining if an item is editable
     def edit_settings_tree_item(self, item):
@@ -499,12 +509,17 @@ class SettingsTreeWidget(QTreeWidget):
     def log_settings_tree_edit(self, item, object_data=None):
         if object_data == None:
             object_data = self.get_object_data(item)
-        info = self.cliopt[object_data["pos"][0]]["var"][object_data["pos"][2]]
+        if object_data["pos"][0] in self.cliopt:
+            info = self.cliopt[object_data["pos"][0]]["var"][object_data["pos"][2]]
+        else:
+            info = self.cliopt["config"]["var"][object_data["pos"][0]][
+                object_data["pos"][2]
+            ]
         val_type = object_data["type"]
         val = object_data["value"]
-        if self.loading:
+        if self._parent.loading:
             SettingsTreeMethods.logger.info(
-                "set "
+                "Preference set "
                 + object_data["pos"][2]
                 + " to "
                 + "'"
@@ -538,7 +553,15 @@ class SettingsTreeWidget(QTreeWidget):
             return -1
         else:
             retval["type"] = str(item.data(2, 0))
-            retval["value"] = str(item.data(3, 0))
+            item_widget = self._parent.settings_tree.itemWidget(item, 3)
+            if isinstance(item_widget, QComboBox):
+                string = item_widget.currentText()
+                if string == "Enabled":
+                    retval["value"] = "True"
+                else:
+                    retval["value"] = "False"
+            else:
+                retval["value"] = str(item.data(3, 0))
             retval["pos"] = object_data_pos_list
             return retval
 
@@ -551,7 +574,7 @@ class SettingsTreeWidget(QTreeWidget):
         object_data = self.get_object_data(item)
 
         val = object_data["value"]
-        if "'" in val:
+        if "'" in str(val):
             return  # already repr
 
         if object_data["pos"][0] == "builtin methods":
@@ -577,18 +600,23 @@ class SettingsTreeWidget(QTreeWidget):
             return
 
         # config.h
-        info = self.cliopt["config"]["var"][object_data["pos"][2]]
+        info = self.cliopt["config"]["var"][object_data["pos"][0]][
+            object_data["pos"][2]
+        ]
         tmp = ""
-        if val == "enabled":
+        if val == "True":
             tmp = True
-        elif val == "disabled":
+        elif val == "False":
             tmp = False
         else:
             if val == "":
                 tmp = 0
                 item.setText(3, "'" + str(repr(tmp)) + "'")
             else:
-                tmp = int(val)
+                try:
+                    tmp = str(int(val)).strip("'")
+                except:
+                    tmp = str(val).strip("'")
                 item.setText(3, "'" + str(repr(tmp)) + "'")
         if tmp == info["value"]:
             return
