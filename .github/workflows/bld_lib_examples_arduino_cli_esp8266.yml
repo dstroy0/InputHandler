@@ -1,4 +1,4 @@
-name: Build ESP8266 examples (Arduino CLI)
+name: Build examples (ESP8266 Arduino)
 
 # Controls when the workflow will run
 on:

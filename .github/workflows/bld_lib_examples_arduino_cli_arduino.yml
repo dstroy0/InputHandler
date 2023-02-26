@@ -1,4 +1,4 @@
-name: Build Arduino examples (Arduino CLI)
+name: Build Arduino examples Arduino
 
 # Controls when the workflow will run
 on:

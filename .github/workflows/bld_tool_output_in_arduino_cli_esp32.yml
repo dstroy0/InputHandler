@@ -1,4 +1,4 @@
-name: Build tool test_output_cli ESP32 (Arduino CLI)
+name: Build tool CLI ESP32 Arduino
 
 # Controls when the workflow will run
 on:

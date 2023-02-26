@@ -1,4 +1,4 @@
-name: Build tool test_output_cli esp8266 (PIO)
+name: Build tool CLI ESP8266 PIO
 
 on:
   push:

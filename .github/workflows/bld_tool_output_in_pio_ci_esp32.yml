@@ -1,4 +1,4 @@
-name: Build tool test_output_cli esp32 (PIO)
+name: Build tool CLI ESP32 PIO
 
 on:
   push:

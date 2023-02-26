@@ -1,4 +1,4 @@
-name: Build Teensyduino examples (Arduino CLI)
+name: Build examples (Teensyduino Arduino)
 
 # Controls when the workflow will run
 on:

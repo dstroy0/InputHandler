@@ -1,4 +1,4 @@
-name: Build tool test_output_cli rp2040 (PIO)
+name: Build tool CLI RP2040 PIO
 
 on:
   push:

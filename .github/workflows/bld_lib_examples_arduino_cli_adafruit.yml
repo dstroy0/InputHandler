@@ -1,4 +1,4 @@
-name: Build Adafruit examples (Arduino CLI)
+name: Build Adafruit platforms Arduino
 
 # Controls when the workflow will run
 on:
