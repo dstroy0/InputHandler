@@ -1,48 +1,37 @@
 <!-- markdownlint-disable MD041 -->
 ![Alt text](https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true)  
 
-[![Teensyduino - Build examples with Arduino CLI ](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml)  
-[![Teensyduino - Build examples with PIO CI ](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml)  
-  
-[![ESP32 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml)  
-[![ESP32 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml)  
-  
-[![ESP8266 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml)  
-  
+# Build status
 [![Adafruit - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml)  
+[![Adafruit - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_adafruit_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_adafruit_pio.yml)  
+[![Adafruit - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_adafruit.yml)  
+[![Adafruit - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_adafruit.yml)  
   
 [![Arduino - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
+[![Arduino - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_pio.yml)  
+[![Arduino - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_arduino.yml)  
+[![Arduino - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_arduino.yml)  
   
-[![RP2040 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
+[![ESP32 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml)  
+[![ESP32 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp32_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp32_pio.yml)  
+[![ESP32 - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp32.yml)  
+[![ESP32 - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp32.yml)  
   
-Build cli_gen_tool test output:  
-Teensyduino  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_teensyduino.yml)  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_teensyduino.yml)  
+[![ESP8266 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml)  
+[![ESP8266 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp8266_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp8266_pio.yml)  
+[![ESP8266 - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp8266.yml)  
+[![ESP8266 - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp8266.yml)  
   
-ESP32  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp32.yml)  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp32.yml)  
+[![RP2040 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_rpi.yml)  
+[![RP2040 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_rpi_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_rpi_pio.yml)  
+[![RP2040 - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml)
+[![RP2040 - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml)  
   
-ESP8266  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_esp8266.yml)  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_esp8266.yml)  
-  
-Adafruit  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_adafruit.yml)  
-  
-Arduino  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_arduino.yml)  
-  
-RPi rp2040  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml)
-  
-Latest cli_gen_tool binaries build status:  
-[![cli_gen_tool build latest linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
-[![cli_gen_tool build latest macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
-[![cli_gen_tool build latest windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
-  
-Docs  
+[![Teensyduino - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml)  
+[![Teensyduino - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml)  
+[![Teensyduino - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_teensyduino.yml)  
+[![Teensyduino - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_teensyduino.yml)  
+    
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
 # Bug reporting
