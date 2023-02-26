@@ -50,7 +50,7 @@ jobs:
           cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
           ls -R
 
-      - name: Build PlatformIO ESP
+      - name: Build PlatformIO ESP8266
         run: pio ci
           --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
           --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI"

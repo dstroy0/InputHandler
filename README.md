@@ -1,26 +1,19 @@
 <!-- markdownlint-disable MD041 -->
 ![Alt text](https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true)  
 
-Build examples:  
-Teensyduino  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml)  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml)  
+[![Teensyduino - Build examples with Arduino CLI ](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml)  
+[![Teensyduino - Build examples with PIO CI ](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_teensyduino_pio.yml)  
   
-ESP32  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml)  
-[![Platformio](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml)  
+[![ESP32 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp32.yml)  
+[![ESP32 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_esp_pio.yml)  
   
-ESP8266  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml)  
+[![ESP8266 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_esp8266.yml)  
   
-Adafruit  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml)  
+[![Adafruit - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_adafruit.yml)  
   
-Arduino  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
+[![Arduino - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
   
-RPi  
-[![Arduino](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
+[![RP2040 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_arduino.yml)  
   
 Build cli_gen_tool test output:  
 Teensyduino  

@@ -1,4 +1,4 @@
-name: Teensyduino - Build examples with PIO CI
+name: ESP32 - Build examples with PIO CI
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
       - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
       - "**/examples/all_platforms/advanced/NestedCommands/**"
       - "**/examples/all_platforms/basic/WildcardCommands/**"
-
   workflow_dispatch:
     branches:
       - main
@@ -28,11 +27,12 @@ on:
       - "**/examples/all_platforms/basic/WildcardCommands/**"
 
 jobs:
-  build-examples:
+  build-examples-matrix:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        example:
+        examples:
           [
             "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
             "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
@@ -62,13 +62,9 @@ jobs:
           wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
-      - name: Run PlatformIO
-        run: pio ci --lib="/tmp/InputHandler-main"
-          --board=teensy31
-          --board=teensy35
-          --board=teensy36
-          --board=teensy40
-          --board=teensy41          
 
+      - name: Build library examples for ESP32 platforms with PlatformIO CI
+        run: pio ci --lib="/tmp/InputHandler-main/"
+          --board=esp32dev          
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
+          PLATFORMIO_CI_SRC: ${{ matrix.examples }}
