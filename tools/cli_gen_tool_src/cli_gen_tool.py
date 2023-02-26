@@ -465,7 +465,7 @@ class MainWindow(
         self.version = version
         self.lib_version = parent.lib_version
         self.qscreen = self.screen()
-        
+
         self.input_config_file_lines = []
         # the settings that the session started with
         self.default_settings_tree_values = {}
