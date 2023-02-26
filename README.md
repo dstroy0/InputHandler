@@ -24,7 +24,7 @@
   
 [![RP2040 - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_rpi.yml)  
 [![RP2040 - Build examples with PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_rpi_pio.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_rpi_pio.yml)  
-[![RP2040 - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml)
+[![RP2040 - Build tool CLI with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_arduino_cli_rpi%20copy.yml)  
 [![RP2040 - Build tool CLI PIO CI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_output_in_pio_ci_rpi.yml)  
   
 [![Teensyduino - Build examples with Arduino CLI](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_lib_examples_arduino_cli_teensyduino.yml)  
