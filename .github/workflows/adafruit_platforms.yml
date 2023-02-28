@@ -1,0 +1,214 @@
+name: Build Adafruit platforms
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+
+jobs:
+  build-lib-arduino:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - "adafruit:samd:adafruit_blm_badge"
+          - "adafruit:samd:adafruit_circuitplayground_m0"
+          - "adafruit:samd:adafruit_crickit_m0"
+          - "adafruit:samd:adafruit_feather_m0"
+          - "adafruit:samd:adafruit_feather_m0_express"
+          - "adafruit:samd:adafruit_feather_m4_can"
+          - "adafruit:samd:adafruit_feather_m4"
+          - "adafruit:samd:adafruit_gemma_m0"
+          - "adafruit:samd:adafruit_grandcentral_m4"
+          - "adafruit:samd:adafruit_hallowing"
+          - "adafruit:samd:adafruit_hallowing_m4"
+          - "adafruit:samd:adafruit_itsybitsy_m0"
+          - "adafruit:samd:adafruit_itsybitsy_m4"
+          - "adafruit:samd:adafruit_monster_m4sk"
+          - "adafruit:samd:adafruit_matrixportal_m4"
+          - "adafruit:samd:adafruit_metro_m0"
+          - "adafruit:samd:adafruit_metro_m4"
+          - "adafruit:samd:adafruit_metro_m4_airliftlite"
+          - "adafruit:samd:adafruit_neokeytrinkey_m0"
+          - "adafruit:samd:adafruit_proxlighttrinkey_m0"
+          - "adafruit:samd:adafruit_pygamer_m4"
+          - "adafruit:samd:adafruit_pyportal_m4"
+          - "adafruit:samd:adafruit_pyportal_m4_titano"
+          - "adafruit:samd:adafruit_qtpy_m0"
+          - "adafruit:samd:adafruit_rotarytrinkey_m0"
+          - "adafruit:samd:adafruit_slidetrinkey_m0"
+          - "adafruit:samd:adafruit_trellis_m4"
+          - "adafruit:samd:adafruit_trinket_m0"
+          - "adafruit:samd:adafruit_pirkey"
+          - "adafruit:samd:adafruit_pybadge_m4"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          platforms: |
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+              name: "adafruit:samd"
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}
+
+  build-lib-pio:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        examples:
+          [
+            "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
+            "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
+            "examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
+            "examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino",
+          ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+      - name: Cache PlatformIO
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+          wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
+          unzip /tmp/InputHandler-main.zip -d /tmp        
+          ls
+
+      - name: Build library examples on Adafruit platforms with Platformio CI
+        run: pio ci --lib="/tmp/InputHandler-main/"
+          --board=adafruit_feather_m4
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+
+  build-tool-cli-arduino:    
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - "adafruit:samd:adafruit_blm_badge"
+          - "adafruit:samd:adafruit_circuitplayground_m0"
+          - "adafruit:samd:adafruit_crickit_m0"
+          - "adafruit:samd:adafruit_feather_m0"
+          - "adafruit:samd:adafruit_feather_m0_express"
+          - "adafruit:samd:adafruit_feather_m4_can"
+          - "adafruit:samd:adafruit_feather_m4"
+          - "adafruit:samd:adafruit_gemma_m0"
+          - "adafruit:samd:adafruit_grandcentral_m4"
+          - "adafruit:samd:adafruit_hallowing"
+          - "adafruit:samd:adafruit_hallowing_m4"
+          - "adafruit:samd:adafruit_itsybitsy_m0"
+          - "adafruit:samd:adafruit_itsybitsy_m4"
+          - "adafruit:samd:adafruit_monster_m4sk"
+          - "adafruit:samd:adafruit_matrixportal_m4"
+          - "adafruit:samd:adafruit_metro_m0"
+          - "adafruit:samd:adafruit_metro_m4"
+          - "adafruit:samd:adafruit_metro_m4_airliftlite"
+          - "adafruit:samd:adafruit_neokeytrinkey_m0"
+          - "adafruit:samd:adafruit_neotrinkey_m0"
+          - "adafruit:samd:adafruit_proxlighttrinkey_m0"
+          - "adafruit:samd:adafruit_pygamer_m4"
+          - "adafruit:samd:adafruit_pyportal_m4"
+          - "adafruit:samd:adafruit_pyportal_m4_titano"
+          - "adafruit:samd:adafruit_qtpy_m0"
+          - "adafruit:samd:adafruit_rotarytrinkey_m0"
+          - "adafruit:samd:adafruit_slidetrinkey_m0"
+          - "adafruit:samd:adafruit_trellis_m4"
+          - "adafruit:samd:adafruit_trinket_m0"
+          - "adafruit:samd:adafruit_pirkey"
+          - "adafruit:samd:adafruit_pybadge_airlift_m4"
+          - "adafruit:samd:adafruit_pybadge_m4"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          platforms: |
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+              name: "adafruit:samd"
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}
+
+  build-tool-cli-pio:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        examples: ["**/main.cpp"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+      - name: Cache PlatformIO
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+          wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
+          unzip /tmp/InputHandler-main.zip -d /tmp        
+          echo moving to test interface directory     
+          cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
+          ls -R
+
+      - name: Build PlatformIO Adafruit
+        run: pio ci
+          --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
+          --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI"
+          --environment=adafruit_m4
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+  

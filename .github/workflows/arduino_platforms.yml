@@ -1,0 +1,230 @@
+name: Build Arduino platforms
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+
+jobs:
+  build-lib-arduino:    
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - "arduino:avr:bt"
+          - "arduino:avr:diecimila"
+          - "arduino:avr:esplora"
+          - "arduino:avr:ethernet"
+          - "arduino:avr:fio"
+          - "arduino:avr:gemma"
+          - "arduino:avr:chiwawa"
+          - "arduino:avr:leonardo"
+          - "arduino:avr:leonardoeth"
+          - "arduino:samd:mzero_bl"
+          - "arduino:samd:mzero_pro_bl"
+          - "arduino:samd:mzero_pro_bl_dbg"
+          - "arduino:samd:mkrfox1200"
+          - "arduino:samd:mkrgsm1400"
+          - "arduino:samd:mkrnb1500"
+          - "arduino:samd:mkrvidor4000"
+          - "arduino:samd:mkrwan1300"
+          - "arduino:samd:mkrwan1310"
+          - "arduino:samd:mkrwifi1010"
+          - "arduino:samd:mkr1000"
+          - "arduino:samd:mkrzero"
+          - "arduino:avr:megaADK"
+          - "arduino:avr:mega"
+          - "arduino:avr:micro"
+          - "arduino:avr:mini"
+          - "arduino:avr:atmegang"
+          - "arduino:avr:nano"
+          - "arduino:mbed_nano:nano33ble"          
+          - "arduino:avr:pro"
+          - "arduino:avr:robotControl"
+          - "arduino:avr:robotMotor"
+          - "arduino:samd:tian"
+          - "arduino:avr:uno"
+          - "arduino:avr:unomini"
+          - "arduino:avr:unowifi"
+          - "arduino:avr:yun"
+          - "arduino:avr:yunmini"
+          - "arduino:samd:arduino_zero_native"
+          - "arduino:samd:arduino_zero_edbg"
+          - "arduino:avr:lilypad"
+          - "arduino:avr:LilyPadUSB"
+          - "arduino:avr:one"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}
+  
+  build-lib-pio:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        examples:
+          [
+            "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
+            "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
+            "examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
+            "examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino",
+          ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+      - name: Cache PlatformIO
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+          wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
+          unzip /tmp/InputHandler-main.zip -d /tmp        
+          ls
+      - name: Build PlatformIO Arduino
+        run: pio ci --lib="/tmp/InputHandler-main/"
+          --board=megaatmega2560
+          --board=uno
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+
+  build-tool-cli-arduino:    
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - "arduino:avr:bt"
+          - "arduino:avr:diecimila"
+          - "arduino:avr:esplora"
+          - "arduino:avr:ethernet"
+          - "arduino:avr:fio"
+          - "arduino:avr:gemma"
+          - "arduino:avr:chiwawa"
+          - "arduino:avr:leonardo"
+          - "arduino:avr:leonardoeth"
+          - "arduino:samd:mzero_bl"
+          - "arduino:samd:mzero_pro_bl"
+          - "arduino:samd:mzero_pro_bl_dbg"
+          - "arduino:samd:mkrfox1200"
+          - "arduino:samd:mkrgsm1400"
+          - "arduino:samd:mkrnb1500"
+          - "arduino:samd:mkrvidor4000"
+          - "arduino:samd:mkrwan1300"
+          - "arduino:samd:mkrwan1310"
+          - "arduino:samd:mkrwifi1010"
+          - "arduino:samd:mkr1000"
+          - "arduino:samd:mkrzero"
+          - "arduino:avr:megaADK"
+          - "arduino:avr:mega"
+          - "arduino:avr:micro"
+          - "arduino:avr:mini"          
+          - "arduino:avr:atmegang"
+          - "arduino:avr:nano"
+          - "arduino:mbed_nano:nano33ble"
+          - "arduino:mbed_nano:nanorp2040connect"
+          - "arduino:avr:pro"
+          - "arduino:avr:robotControl"
+          - "arduino:avr:robotMotor"
+          - "arduino:samd:tian"
+          - "arduino:avr:uno"
+          - "arduino:avr:unomini"
+          - "arduino:avr:unowifi"
+          - "arduino:avr:yun"
+          - "arduino:avr:yunmini"
+          - "arduino:samd:arduino_zero_native"
+          - "arduino:samd:arduino_zero_edbg"
+          - "arduino:avr:lilypad"
+          - "arduino:avr:LilyPadUSB"
+          - "arduino:avr:one"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:          
+          sketch-paths: ${{ matrix.example }}
+          fqbn: ${{ matrix.fqbn }}
+  
+  build-tool-cli-pio:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        examples: ["**/main.cpp"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+      - name: Cache PlatformIO
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+          wget --no-check-certificate https://github.com/dstroy0/InputHandler/archive/main.zip -O /tmp/InputHandler-main.zip
+          unzip /tmp/InputHandler-main.zip -d /tmp        
+          echo moving to test interface directory     
+          cd ../InputHandler/tools/interfaces/test_output_cli/pio_ci/                              
+          ls -R
+
+      - name: Build PlatformIO ESP32
+        run: pio ci
+          --project-conf="tools/interfaces/test_output_cli/pio_ci/platformio.ini"
+          --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI"
+          --environment=mega2560
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.examples }}
