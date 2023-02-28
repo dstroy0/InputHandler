@@ -1,7 +1,12 @@
 <!-- markdownlint-disable MD041 -->
 ![Alt text](https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true)  
 
-# Library and cli_gen_tool output build status
+# Library and cli_gen_tool output build status  
+[![Build Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml)  
+[![Build Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml)  
+[![Build ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml)  
+[![Build ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml)  
+[![Build RPi platforms](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml)  
 
     
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml) [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  

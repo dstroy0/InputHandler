@@ -11,7 +11,7 @@ on:
       - "**/examples/all_platforms/advanced/MultiFile/**"
       - "**/examples/all_platforms/advanced/NestedCommands/**"
       - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/pio_ci/**"
+      - "**/interfaces/test_output_cli/**"
   workflow_dispatch:
     branches:
       - main
@@ -21,7 +21,7 @@ on:
       - "**/examples/all_platforms/advanced/MultiFile/**"
       - "**/examples/all_platforms/advanced/NestedCommands/**"
       - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/pio_ci/**"
+      - "**/interfaces/test_output_cli/**"
   release:
     branches:
       - release
@@ -31,7 +31,7 @@ on:
       - "**/examples/all_platforms/advanced/MultiFile/**"
       - "**/examples/all_platforms/advanced/NestedCommands/**"
       - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/pio_ci/**"
+      - "**/interfaces/test_output_cli/**"
 
 jobs:
   build-lib-arduino:
