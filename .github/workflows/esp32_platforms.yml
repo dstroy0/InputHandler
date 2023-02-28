@@ -393,7 +393,7 @@ jobs:
           sketch-paths: ${{ matrix.example }}
           fqbn: ${{ matrix.fqbn }}
   
-  build-tool-cli-arduino:
+  build-tool-cli-pio:
     runs-on: ubuntu-latest
     strategy:
       matrix:
