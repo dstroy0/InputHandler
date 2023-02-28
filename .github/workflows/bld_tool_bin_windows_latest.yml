@@ -32,7 +32,7 @@ jobs:
           pip install PyQt6-WebEngine
           pip freeze
 
-      - name: Build and zip binary
+      - name: Build binary and push to binaries branch
         shell: pwsh
         run: |
           echo ${{ github.workspace }}/tools/resources/ >> $GITHUB_PATH
@@ -40,21 +40,11 @@ jobs:
           7z a -tzip './latest/windows/cli_gen_tool.zip' './latest/windows/cli_gen_tool.exe'
           7z t './latest/windows/cli_gen_tool.zip' *. -r
 
-      - name: Commit and push files
-        id: commit
-        shell: bash
-        run: |
           git config --global user.email "dstroy0@users.noreply.github.com"
           git config --global user.name "dstroy0"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                
-          git add ./tools/bin/latest/windows/cli_gen_tool.zip
-          git pull origin          
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                          
+          git add ./tools/bin/latest/windows/cli_gen_tool.zip                    
           git checkout origin/binaries **/latest/windows
-          git rm **/latest/windows/cli_gen_tool.zip
-          if [-z "$(git status --porcelain)"]; then
-            echo "Unable to push"
-          else               
-            git commit -m "cli_gen_tool windows binary latest" -a
-            echo "Pushing"
-            git push -v
-          fi
+          git rm **/latest/windows/cli_gen_tool.zip              
+          git commit -m "cli_gen_tool windows binary latest" -a            
+          git push -v
