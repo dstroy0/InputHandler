@@ -84,11 +84,11 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
       - name: Build library examples for RP2040 platform with PlatformIO CI
-        run: pio ci --lib="/tmp/InputHandler-main/"          
+        run: pio ci --lib="/tmp/InputHandler-main/"
           --board=nanorp2040connect
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
-  
+
   build-tool-cli-arduino:
     runs-on: ubuntu-latest
     strategy:
