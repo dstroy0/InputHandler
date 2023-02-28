@@ -33,8 +33,8 @@ on:
       - "**/examples/all_platforms/basic/WildcardCommands/**"
       - "**/interfaces/test_output_cli/**"
 
-jobs:  
-  build-lib-arduino:    
+jobs:
+  build-lib-arduino:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -123,12 +123,12 @@ jobs:
           unzip /tmp/InputHandler-main.zip -d /tmp        
           ls
       - name: Build library examples for esp8266 platforms with PlatformIO CI
-        run: pio ci --lib="/tmp/InputHandler-main/"          
+        run: pio ci --lib="/tmp/InputHandler-main/"
           --board=huzzah
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
 
-  build-tool-cli-arduino:    
+  build-tool-cli-arduino:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
