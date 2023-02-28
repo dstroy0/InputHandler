@@ -42,13 +42,10 @@ jobs:
           git checkout origin/main
           git add ./tools
           git switch origin/binaries
-          git commit -m "pull tools folder to binaries branch"
-          echo ${{ github.workspace }}/tools/resources/ >> $GITHUB_PATH
-
-          pyinstaller --paths '${{ github.workspace }}/tools/resources/' -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/windows/
+          git commit -m "pull tools folder to binaries branch"          
+          pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/windows/
           7z a -tzip './latest/windows/cli_gen_tool.zip' './latest/windows/cli_gen_tool.exe'
           7z t './latest/windows/cli_gen_tool.zip' *. -r
-
           git rm ./tools
           git commit -m "built latest windows binary" -a
           git push -v
