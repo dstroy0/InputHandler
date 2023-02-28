@@ -44,6 +44,11 @@ jobs:
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}                                                                                          
           git add -f ./latest/windows/cli_gen_tool.zip                                        
+          git fetch origin
           git checkout origin/binaries          
           git commit -m "cli_gen_tool windows binary latest" -a            
+          git push -v
+          git checkout origin/main
+          git rm **/latest/**
+          git commit -m "move binary to binaries branch" -a
           git push -v
