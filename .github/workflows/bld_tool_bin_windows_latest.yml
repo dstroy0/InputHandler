@@ -54,5 +54,6 @@ jobs:
           7z a -tzip './latest/windows/cli_gen_tool.zip' './latest/windows/cli_gen_tool.exe'
           7z t './latest/windows/cli_gen_tool.zip' *. -r          
           
+          git add latest/windows/cli_gen_tool.zip
           git commit -m "built latest windows binary" -a
           git push -v
