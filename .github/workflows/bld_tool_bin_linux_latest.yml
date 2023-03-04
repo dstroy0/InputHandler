@@ -61,7 +61,7 @@ jobs:
           git config user.email "dstroy0@users.noreply.github.com"                                               
 
           git checkout binaries
-          git checkout main -- tools
+          git checkout origin/main -- tools
           git add tools
           git commit -m "pull tools folder to binaries branch"          
 
