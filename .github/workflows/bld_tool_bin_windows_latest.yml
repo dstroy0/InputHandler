@@ -31,13 +31,15 @@ jobs:
           pip freeze
 
       - name: Get main
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         with:
           ref: main
+      
       - name: Get binaries
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         with:
           ref: binaries
+
       - name: Build and push binaries
       - run: |
           git config user.name "dstroy0"
