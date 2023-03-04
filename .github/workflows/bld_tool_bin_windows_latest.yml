@@ -26,7 +26,7 @@ jobs:
         run: |
           python -VV          
           pip install wheel
-          pip install -r https://github.com/dstroy0/InputHandler/blob/main/tools/cli_gen_tool_src/requirements.txt
+          pip install -r https://github.com/dstroy0/InputHandler/blob/main/tools/cli_gen_tool_src/requirements.txt=text/html;charset=utf-8
           pip install PyQt6-WebEngine
           pip freeze
 
