@@ -32,7 +32,8 @@ jobs:
 
       - name: Get main
         uses: actions/checkout@v3
-          ref: main
+          with:
+            ref: main
       - name: Get binaries
         uses: actions/checkout@v3
         with:
