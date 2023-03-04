@@ -55,7 +55,7 @@ jobs:
           git commit -m "pull tools folder to binaries branch"          
 
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/macos/
-          7z a -tzip './macos/cli_gen_tool.zip' './latest/macos/cli_gen_tool'
+          7z a -tzip './latest/macos/cli_gen_tool.zip' './latest/macos/cli_gen_tool'
           7z t './latest/macos/cli_gen_tool.zip' *.               
 
           git rm -r tools                  
