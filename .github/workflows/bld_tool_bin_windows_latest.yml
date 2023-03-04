@@ -30,13 +30,11 @@ jobs:
           pip install PyQt6-WebEngine
           pip freeze
 
-      - name: Get main
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: main
-      
-      - name: Get binaries
-        uses: actions/checkout@v3
+            
+      - uses: actions/checkout@v3
         with:
           ref: binaries
 
