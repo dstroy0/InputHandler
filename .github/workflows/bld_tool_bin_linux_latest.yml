@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3        
-
       - uses: actions/setup-python@v4
         with:
           python-version: 3.9
@@ -27,7 +25,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
           pip freeze
 
       - name: Update linux and install build dependencies
@@ -47,27 +45,31 @@ jobs:
           sudo apt-get -y install qt6-webengine-dev
           sudo apt-get -y install p7zip-full
 
-      - name: Build and zip binary
-        run: |
-          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/latest/linux/
-          7z a -tzip './tools/bin/latest/linux/cli_gen_tool.zip' './tools/bin/latest/linux/cli_gen_tool'
-          7z t './tools/bin/latest/linux/cli_gen_tool.zip' *.
-          rm './tools/bin/latest/linux/cli_gen_tool'
+      - name: get main
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
-      - name: Commit and push files
-        id: commit
+      - name: get binaries
+        uses: actions/checkout@v3
+        with:
+          ref: binaries
+
+      - name: Build and zip binary, push to binaries branch
         run: |
-          git config --global user.email "dstroy0@users.noreply.github.com"
-          git config --global user.name "dstroy0"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}          
-          git checkout main **/latest/linux/cli_gen_tool.zip  
-          git fetch origin binaries:binaries
-          git checkout binaries **/latest/linux/                           
-          if [-z "$(git status --porcelain)"]; then
-            echo "Unable to push"
-          else            
-            git commit -m "cli_gen_tool linux binary latest" -a
-            echo "Pushing"
-            git push -v
-          fi
-        shell: bash
+          git config user.name "dstroy0"
+          git config user.email "dstroy0@users.noreply.github.com"                                               
+
+          git checkout binaries
+          git checkout main -- tools
+          git add tools
+          git commit -m "pull tools folder to binaries branch"          
+
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/linux/
+          7z a -tzip './latest/linux/cli_gen_tool.zip' './latest/linux/cli_gen_tool'
+          7z t './latest/linux/cli_gen_tool.zip' *.
+
+          git rm -r tools                  
+          git add latest/linux/cli_gen_tool.zip
+          git commit -m "built latest linux binary" -a
+          git push -v
