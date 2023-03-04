@@ -38,14 +38,12 @@ jobs:
           git config --global user.email "dstroy0@users.noreply.github.com"
           git config --global user.name "dstroy0"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull origin       
-          git checkout origin/main
-          git add ./tools
+          git pull origin                           
           git switch origin/binaries
+          git checkout origin/main -- tools
           git commit -m "pull tools folder to binaries branch"          
           pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/windows/
           7z a -tzip './latest/windows/cli_gen_tool.zip' './latest/windows/cli_gen_tool.exe'
-          7z t './latest/windows/cli_gen_tool.zip' *. -r
-          git rm ./tools
+          7z t './latest/windows/cli_gen_tool.zip' *. -r          
           git commit -m "built latest windows binary" -a
           git push -v
