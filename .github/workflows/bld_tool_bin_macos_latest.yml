@@ -47,9 +47,11 @@ jobs:
           git config user.name "dstroy0"
           git config user.email "dstroy0@users.noreply.github.com"                                               
 
-          git checkout binaries
+          git checkout origin/binaries
           git checkout origin/main -- tools
+          git checkout origin/main -- docs/img
           git add tools
+          git add docs/img
           git commit -m "pull tools folder to binaries branch"          
 
           pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/macos/
@@ -57,6 +59,7 @@ jobs:
           7z t './latest/macos/cli_gen_tool.zip' *.               
 
           git rm -r tools                  
+          git rm -r docs
           git add latest/macos/cli_gen_tool.zip
           git commit -m "built latest macos binary" -a
           git push -v
