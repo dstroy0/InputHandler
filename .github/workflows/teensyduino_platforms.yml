@@ -1,4 +1,4 @@
-name: Build Teensyduino platforms
+name: Teensyduino platforms
 
 # Controls when the workflow will run
 on:

@@ -1,4 +1,4 @@
-name: cli_gen_tool build latest windows binary
+name: build windows binary
 
 on:
   push:

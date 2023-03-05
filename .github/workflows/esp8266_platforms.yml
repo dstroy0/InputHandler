@@ -1,4 +1,4 @@
-name: Build ESP8266 platforms
+name: ESP8266 platforms
 
 # Controls when the workflow will run
 on:

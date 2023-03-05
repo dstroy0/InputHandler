@@ -1,4 +1,4 @@
-name: Build RPi platforms
+name: RPi platforms
 
 # Controls when the workflow will run
 on:

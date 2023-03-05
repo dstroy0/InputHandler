@@ -1,4 +1,4 @@
-name: Build Adafruit platforms
+name: Adafruit platforms
 
 # Controls when the workflow will run
 on:

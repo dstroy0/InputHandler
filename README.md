@@ -1,22 +1,26 @@
 <!-- markdownlint-disable MD041 -->
 ![Alt text](https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true)  
 
-# Build Status  
-[![Build Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml)  
-[![Build Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml)  
-[![Build ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml)  
-[![Build ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml)  
-[![Build RPi platforms](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml)  
-[![Build Teensyduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml)        
+# Library Build Status  
+[![Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml)  
+[![Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml)  
+[![ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml)  
+[![ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml)  
+[![RPi platforms](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml)  
+[![Teensyduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml)        
 [![Docs CI](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml)  
+
+# Source format conformity
 [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
-# Binaries
-[Download for linux ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![cli_gen_tool build latest linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
+# Prebuilt cli_gen_tool binaries
+Made with [PyInstaller](https://pyinstaller.org/en/stable/)  
   
-[Download for macos ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![cli_gen_tool build latest macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
+[Download for linux ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![build linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
   
-[Download for windows ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![cli_gen_tool build latest windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
+[Download for macos ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![build macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
+  
+[Download for windows ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![build windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
   
 # Bug reporting
 Please report any bugs in InputHandler/src/ using [bug_report.md](https://github.com/dstroy0/InputHandler/blob/main/src/bug_report.md) at [InputHandler/src/ bug report forum](https://github.com/dstroy0/InputHandler/discussions/60)
@@ -24,13 +28,13 @@ Please report any bugs in InputHandler/src/ using [bug_report.md](https://github
 # InputHandler README  
 
 This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a [Stream](https://www.arduino.cc/reference/en/language/functions/communication/stream/), like a [Serial](https://www.arduino.cc/en/reference/serial) object.  
-User-defined commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) struct which is stored in non-volatile program memory ([PROGMEM](https://www.arduino.cc/reference/en/language/variables/utilities/progmem/)).  
+User-defined commands have a [general tree structure](https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm), each command has its own [Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE) struct which is stored in non-volatile program memory ([PROGMEM](https://www.arduino.cc/reference/en/language/variables/utilities/progmem/)).  
 
 Individual commands that do not contain a wildcard character (each call to [CommandConstructor](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv418CommandConstructor)) use 8 bytes of RAM (on avr).  Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.  
 
 To make matching more performant, [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes.  `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp.  Memcmp ranges are command-wide, if you have a nested command it will only have one associated [CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/dc/d3d/struct_command_runtime_calc.html) struct.  
 
-Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [IH_MAX_ARGS_PER_COMMAND](https://dstroy0.github.io/InputHandler/lib/src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND) number of arguments.  At runtime, Input scans your input [CommandParameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [Input::begin()](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N9Input5beginEv))  
+Command length does not matter, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid command.  You can have up to [IH_MAX_ARGS_PER_COMMAND](https://dstroy0.github.io/InputHandler/lib/src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND) number of arguments.  At runtime, Input scans your input [Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE) and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of [Input::begin()](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N9Input5beginEv))  
 
 [This library is easy to start using](https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino)  
 
@@ -96,7 +100,7 @@ Or, if you don't want to use a [Stream](https://www.arduino.cc/reference/en/lang
 void readCommandFromBuffer(uint8_t *data, size_t len);
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv417CommandParameters) struct objects.
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE) struct objects.
 
 Easily construct complex commands with subcommands, and enforce input type. Nested commands with no wildcards use 8 bytes of sram (avr). 
 

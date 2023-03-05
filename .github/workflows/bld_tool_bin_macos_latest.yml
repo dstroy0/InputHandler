@@ -1,4 +1,4 @@
-name: cli_gen_tool build latest macos binary
+name: build macos binary
 
 on:
   push:
