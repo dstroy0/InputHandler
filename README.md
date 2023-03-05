@@ -2,7 +2,7 @@
 
 # Library Build Status
 
-[Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg)  
+https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg  
 [Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg)  
 [ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg)  
 [ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg)  
