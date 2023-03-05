@@ -75,4 +75,4 @@ jobs:
           git rm -r docs  
           git add latest/linux/cli_gen_tool.zip
           git commit -m "built latest linux binary" -a
-          git push -v
+          git push origin HEAD:binaries

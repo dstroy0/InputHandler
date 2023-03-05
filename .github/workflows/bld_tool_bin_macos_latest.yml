@@ -62,4 +62,4 @@ jobs:
           git rm -r docs
           git add latest/macos/cli_gen_tool.zip
           git commit -m "built latest macos binary" -a
-          git push -v
+          git push origin HEAD:binaries
