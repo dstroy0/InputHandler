@@ -12,11 +12,11 @@
 [![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)  
 
 # Binaries
-[![cli_gen_tool build latest linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)[Download](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)  
+[Download for linux ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![cli_gen_tool build latest linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
   
-[![cli_gen_tool build latest macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)[Download](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)  
+[Download for macos ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![cli_gen_tool build latest macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
   
-[![cli_gen_tool build latest windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)[Download](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)  
+[Download for windows ](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![cli_gen_tool build latest windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
   
 # Bug reporting
 Please report any bugs in InputHandler/src/ using [bug_report.md](https://github.com/dstroy0/InputHandler/blob/main/src/bug_report.md) at [InputHandler/src/ bug report forum](https://github.com/dstroy0/InputHandler/discussions/60)
