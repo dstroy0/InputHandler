@@ -39,7 +39,7 @@
  * about the change.  The only hand-holding that happens is for type sizing, it's up
  * to you to make sure you have the resources for your settings.
  * Convenience namespace.
- * 
+ *
  * @namespace ih_auto
  */
 namespace ih_auto
@@ -879,7 +879,7 @@ enum class TRM
 ///@}
 } // end namespace ihc
 // end namespaces group
-///@} 
+///@}
 
 #endif // include guard
 // end of file
