@@ -310,7 +310,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_root_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">headless</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_version</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">lib_version</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">inputhandler_save_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_home_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">user_home_dir</span></div>
 
 <div class="viewcode-block" id="RootWidget.get_inputhandler_dir_from_user"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.RootWidget.get_inputhandler_dir_from_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_inputhandler_dir_from_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">dir_dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -353,6 +356,38 @@
 <div class="viewcode-block" id="Initialize"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize">[docs]</a><span class="k">class</span> <span class="nc">Initialize</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Initialize</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># set save pathing and make save directories</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_home_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_home_dir</span><span class="p">,</span> <span class="s2">&quot;Documents&quot;</span><span class="p">,</span> <span class="s2">&quot;InputHandler&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">interfaces_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">,</span> <span class="s2">&quot;interfaces&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">interfaces_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">interfaces_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">interfaces_path</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="n">interfaces_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">session_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">,</span> <span class="s2">&quot;session&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">session_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">session_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">session_path</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="n">session_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">logs_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">,</span> <span class="s2">&quot;logs&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">logs_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">logs_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">logs_path</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="n">logs_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_cli</span><span class="p">()</span>
@@ -644,6 +679,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">headless</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">lib_root_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">create_qdialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">inputhandler_save_path</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">get_child_logger</span>
 
@@ -659,8 +695,8 @@
             <span class="n">default_lib_config_path</span><span class="o">.</span><span class="n">absoluteFilePath</span><span class="p">(</span><span class="s2">&quot;config.h&quot;</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="c1"># /InputHandler/cli_gen_tool/cli_gen_tool.json</span>
-        <span class="n">cli_gen_tool_json_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="s2">&quot;/tools/session/&quot;</span><span class="p">)</span>
+        <span class="c1"># /InputHandler/session/cli_gen_tool.json</span>
+        <span class="n">cli_gen_tool_json_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">+</span> <span class="s2">&quot;/session/&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cli_gen_tool_json_path</span> <span class="o">=</span> <span class="n">cli_gen_tool_json_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
             <span class="n">cli_gen_tool_json_path</span><span class="o">.</span><span class="n">absoluteFilePath</span><span class="p">(</span><span class="s2">&quot;cli_gen_tool.json&quot;</span><span class="p">)</span>
         <span class="p">)</span>

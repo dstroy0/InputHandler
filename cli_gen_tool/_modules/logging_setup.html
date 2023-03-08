@@ -292,7 +292,7 @@
     <span class="c1"># mb = 2^2^10 == 1048576 bytes</span>
     <span class="n">_MB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">2</span><span class="o">**</span><span class="mi">10</span>
     <span class="c1">## log file path</span>
-    <span class="n">_log_path</span> <span class="o">=</span> <span class="s2">&quot;/tools/logs/&quot;</span>
+    <span class="n">_log_path</span> <span class="o">=</span> <span class="s2">&quot;/logs/&quot;</span>
     <span class="c1">## log filename</span>
     <span class="n">_log_filename</span> <span class="o">=</span> <span class="s2">&quot;cli_gen_tool.log&quot;</span>
     <span class="c1"># %(name)s -</span>
@@ -321,7 +321,7 @@
 <div class="viewcode-block" id="Logger.setup_file_handler"><a class="viewcode-back" href="../modules/logging_setup.html#logging_setup.Logger.setup_file_handler">[docs]</a>    <span class="k">def</span> <span class="nf">setup_file_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up log file handler&quot;&quot;&quot;</span>
         <span class="c1"># logfile pathing</span>
-        <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">+</span> <span class="n">Logger</span><span class="o">.</span><span class="n">_log_path</span><span class="p">)</span>
         <span class="n">_abs_native_path</span> <span class="o">=</span> <span class="n">_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span><span class="n">_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">())</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_abs_native_path</span><span class="p">)</span>
