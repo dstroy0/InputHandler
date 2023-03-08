@@ -69,7 +69,7 @@ class Logger(object):
     # mb = 2^2^10 == 1048576 bytes
     _MB = 2**2**10
     ## log file path
-    _log_path = "/tools/logs/"
+    _log_path = "/logs/"
     ## log filename
     _log_filename = "cli_gen_tool.log"
     # %(name)s -
@@ -98,7 +98,7 @@ class Logger(object):
     def setup_file_handler(self):
         """sets up log file handler"""
         # logfile pathing
-        _path = QDir(self.lib_root_path + Logger._log_path)
+        _path = QDir(self.inputhandler_save_path + Logger._log_path)
         _abs_native_path = _path.toNativeSeparators(_path.absolutePath())
         if not os.path.isdir(_abs_native_path):
             os.mkdir(_abs_native_path)

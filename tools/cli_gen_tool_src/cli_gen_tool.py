@@ -89,6 +89,9 @@ class RootWidget(QWidget, object):
         self.headless = self._parent.headless
         self.lib_version = self._parent.lib_version
 
+        self.inputhandler_save_path = self._parent.inputhandler_save_path
+        self.user_home_dir = self._parent.user_home_dir
+
     def get_inputhandler_dir_from_user(self):
         dir_dlg = QFileDialog(self)
         _dlg_result = dir_dlg.getExistingDirectory(
@@ -130,6 +133,38 @@ class RootWidget(QWidget, object):
 class Initialize(HelperMethods, Logger, object):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
+
+        # set save pathing and make save directories
+        self.user_home_dir = os.path.expanduser("~")
+        self.inputhandler_save_path = os.path.join(
+            self.user_home_dir, "Documents", "InputHandler"
+        )
+        if not os.path.exists(self.inputhandler_save_path):
+            os.mkdir(self.inputhandler_save_path)
+            if not os.path.exists(self.inputhandler_save_path):
+                print(
+                    f"failed to make necessary directory:\n{self.inputhandler_save_path}"
+                )
+                sys.exit(1)
+        interfaces_path = os.path.join(self.inputhandler_save_path, "interfaces")
+        if not os.path.exists(interfaces_path):
+            os.mkdir(interfaces_path)
+            if not os.path.exists(interfaces_path):
+                print(f"failed to make necessary directory:\n{interfaces_path}")
+                sys.exit(1)
+        session_path = os.path.join(self.inputhandler_save_path, "session")
+        if not os.path.exists(session_path):
+            os.mkdir(session_path)
+            if not os.path.exists(session_path):
+                print(f"failed to make necessary directory:\n{session_path}")
+                sys.exit(1)
+        logs_path = os.path.join(self.inputhandler_save_path, "logs")
+        if not os.path.exists(logs_path):
+            os.mkdir(logs_path)
+            if not os.path.exists(logs_path):
+                print(f"failed to make necessary directory:\n{logs_path}")
+                sys.exit(1)
+
         Logger.__init__(self, __name__)
 
         args = self.script_cli()
@@ -421,6 +456,7 @@ class MainWindow(
         self.headless = parent.headless
         self.lib_root_path = self.parent_instance.lib_root_path
         self.create_qdialog = parent.create_qdialog
+        self.inputhandler_save_path = parent.inputhandler_save_path
 
         self.get_child_logger = self.parent_instance.get_child_logger
 
@@ -436,8 +472,8 @@ class MainWindow(
             default_lib_config_path.absoluteFilePath("config.h")
         )
 
-        # /InputHandler/cli_gen_tool/cli_gen_tool.json
-        cli_gen_tool_json_path = QDir(self.lib_root_path + "/tools/session/")
+        # /InputHandler/session/cli_gen_tool.json
+        cli_gen_tool_json_path = QDir(self.inputhandler_save_path + "/session/")
         self.cli_gen_tool_json_path = cli_gen_tool_json_path.toNativeSeparators(
             cli_gen_tool_json_path.absoluteFilePath("cli_gen_tool.json")
         )
