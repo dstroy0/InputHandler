@@ -20,7 +20,7 @@ The [ih::Command](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_
 
 To make [ih::Parameters::command](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10Parameters7commandE) matching more performant for [ih::Parameters::command](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10Parameters7commandE) which contain one or more [ih::WildcardChar](https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih12WildcardCharE), [memcmp](https://www.cplusplus.com/reference/cstring/memcmp/) ranges are computed at runtime for each command, each memcmp range that needs to be remembered uses `((1 + (1 + 1*n_wcc_containing_prm) + 1) + n_memcmp_ranges*2)` bytes. `****`, `8***`, `*8**`, `**8*`, `***8` would compute one memcmp range `8**8` computes as two, `8888` doesn't have any wcc, so it would undergo "length of input" memcmp. Memcmp ranges are command-wide, if you have a nested command it will only have one associated [ih::CommandRuntimeCalc](https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih18CommandRuntimeCalcE) struct.
 
-Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.  
+Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.
 
 Default InputHandler Input constructor initialization with no output:
 
@@ -74,11 +74,11 @@ const PROGMEM StartStopSequences process_ststpseq = {
 };
 
 const PROGMEM InputParameters input_prm[1] = {
-  &process_name, 
-  &process_eol, 
+  &process_name,
+  &process_eol,
   &process_ccseq,
-  &process_wcc, 
-  &process_delimseq, 
+  &process_wcc,
+  &process_delimseq,
   &process_ststpseq
 };
 
@@ -124,7 +124,7 @@ and then when you are done with the output buffer, it needs to be reinitialized 
 void ih::Input::clearOutputBuffer();
 ```
 
-InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [ih::Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE) and [ih::InputParameters](https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE) structs.  
+InputHandler uses [C++11 Aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization) for [ih::Parameters](https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE) and [ih::InputParameters](https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE) structs.
 
 # Bug Reporting
 
@@ -149,24 +149,24 @@ Please report any bugs in InputHandler/src/ using [bug_report.md](https://github
 
 # Prebuilt cli_gen_tool Binaries
 
-Made with [PyInstaller](https://pyinstaller.org/en/stable/)  
+Made with [PyInstaller](https://pyinstaller.org/en/stable/)
 
 [![Download for linux](https://img.shields.io/badge/Download-for%20Linux-brightgreen?style=plastic&logo=linux)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![build linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
 
-[![Download for macos](https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&logo=macos)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![build macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)
+[![Download for macos](https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&logo=macos)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![build macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
 
-[![Download for windows](https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&logo=windows)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![build windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)  
+[![Download for windows](https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&logo=windows)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![build windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)
 
 # Design Goals
 
 Ease of use.  
 Implementation and platform flexibility.  
 Feature rich.  
-Low memory use.   
+Low memory use.  
 Parse uint8_t, any value 0-255 char array.  
 Inter equipment interfacing.  
 Construct complex commands with subcommands, and enforce the input type.  
-Nested commands with no wildcards use 8 bytes or less of sram (avr).  
+Nested commands with no wildcards use 8 bytes or less of sram (avr).
 
 # News
 
