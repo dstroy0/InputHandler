@@ -212,3 +212,15 @@ jobs:
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
   
+  build-adafruit:
+    name: build-adafruit-platforms-success
+    needs:
+      [
+        build-lib-arduino,
+        build-tool-cli-arduino,
+        build-lib-pio,
+        build-tool-cli-pio,
+      ]
+    steps:
+    - name: echo
+      run: echo Build Adafruit platforms success!
