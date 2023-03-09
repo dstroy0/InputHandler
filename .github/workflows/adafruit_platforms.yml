@@ -213,6 +213,7 @@ jobs:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
   
   build-adafruit:
+    runs-on: ubuntu-latest
     name: build-adafruit-platforms-success
     needs:
       [
