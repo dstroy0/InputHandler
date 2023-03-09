@@ -35,6 +35,7 @@ on:
 
 jobs:
   build-lib-arduino:
+    name: build-lib-arduino
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -83,6 +84,7 @@ jobs:
           fqbn: ${{ matrix.fqbn }}
 
   build-lib-pio:
+    name: build-lib-pio
     runs-on: ubuntu-latest
     strategy:
       matrix:
