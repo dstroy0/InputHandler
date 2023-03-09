@@ -218,7 +218,6 @@ jobs:
 
   build-adafruit:
     name: build-adafruit-platforms-success
-    needs: [build-lib-arduino, build-tool-cli-arduino, build-lib-pio, build-tool-cli-pio]
-    steps:
-      run: echo Build Adafruit platforms success!
+    needs: [build-lib-arduino, build-tool-cli-arduino, build-lib-pio, build-tool-cli-pio]    
+    run: echo Build Adafruit platforms success!
   
