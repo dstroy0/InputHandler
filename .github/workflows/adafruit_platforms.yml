@@ -225,4 +225,6 @@ jobs:
         build-lib-pio,
         build-tool-cli-pio,
       ]
-    run: echo Build Adafruit platforms success!
+    steps:
+    - name: echo
+      run: echo Build Adafruit platforms success!
