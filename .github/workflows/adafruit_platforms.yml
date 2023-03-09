@@ -125,6 +125,7 @@ jobs:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
 
   build-tool-cli-arduino:    
+    name: build-tool-cli-arduino
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -175,6 +176,7 @@ jobs:
           fqbn: ${{ matrix.fqbn }}
 
   build-tool-cli-pio:
+    name: build-tool-cli-pio
     runs-on: ubuntu-latest
 
     strategy:
@@ -213,4 +215,10 @@ jobs:
           --environment=adafruit_m4
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+
+  build-adafruit:
+    name: build-adafruit-platforms-success
+    needs: [build-lib-arduino, build-tool-cli-arduino, build-lib-pio, build-tool-cli-pio]
+    steps:
+      run: echo Build Adafruit platforms success!
   
