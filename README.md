@@ -192,7 +192,7 @@ SAMD,
 MBED,  
 arduino DUE
 
-Build coverage:
+Build coverage:  
 [Arduino](https://github.com/dstroy0/InputHandler/blob/main/supported_boards/arduino.txt)  
 [platformIO](https://github.com/dstroy0/InputHandler/blob/main/supported_boards/platformio.txt)  
 
