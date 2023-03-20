@@ -1,4 +1,4 @@
-name: Adafruit platforms
+name: Adafruit platforms (dynamic)
 
 # Controls when the workflow will run
 on:
