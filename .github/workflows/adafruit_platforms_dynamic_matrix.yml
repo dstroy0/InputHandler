@@ -1,0 +1,53 @@
+name: Adafruit platforms
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
+      - "**/examples/all_platforms/advanced/MultiFile/**"
+      - "**/examples/all_platforms/advanced/NestedCommands/**"
+      - "**/examples/all_platforms/basic/WildcardCommands/**"
+      - "**/interfaces/test_output_cli/**"
+
+jobs:
+  generate-job-matrices:
+    runs-on: ubuntu-latest
+    outputs:
+      arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - id: set-arduino-matrix
+        run: |
+          echo "arduino-build-matrix="
+          ./supported_boards/generate_workflow_matrix.py -c arduino -p adafruit
+          >> $GITHUB_OUTPUT
+
+
+  

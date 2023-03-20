@@ -1,5 +1,5 @@
-
-Adafruit:
+# exclude boards with #
+Adafruit FQBN:
 adafruit:samd:adafruit_blm_badge
 adafruit:samd:adafruit_circuitplayground_m0
 adafruit:samd:adafruit_crickit_m0
@@ -33,7 +33,7 @@ adafruit:samd:adafruit_pirkey
 #adafruit:samd:adafruit_pybadge_airlift_m4
 adafruit:samd:adafruit_pybadge_m4
 
-ESP32:
+ESP32 FQBN:
 esp32:esp32:esp32cam
 esp32:esp32:alksesp32
 esp32:esp32:atmegazero_esp32s2
@@ -177,7 +177,7 @@ esp32:esp32:nina_w10
 esp32:esp32:uPesy_wroom
 esp32:esp32:uPesy_wrover
 
-ESP8266:
+ESP8266 FQBN:
 esp8266:esp8266:gen4iodadafruit_crickit_m0
 esp8266:esp8266:huzzah
 esp8266:esp8266:wifi_slot
@@ -215,7 +215,7 @@ esp8266:esp8266:wifiduino
 esp8266:esp8266:wifinfo
 esp8266:esp8266:cw01
 
-Teensyduino:
+Teensyduino FQBN:
 teensy:avr:teensy2
 teensy:avr:teensy30
 teensy:avr:teensy31
@@ -227,7 +227,7 @@ teensy:avr:teensyLC
 teensy:avr:teensyMM
 teensy:avr:teensypp2
 
-Arduino:
+Arduino FQBN:
 arduino:avr:bt
 arduino:avr:diecimila
 arduino:avr:esplora
@@ -272,5 +272,5 @@ arduino:avr:lilypad
 arduino:avr:LilyPadUSB
 arduino:avr:one
 
-RPi:
+RPi FQBN:
 arduino:mbed_nano:nanorp2040connect
