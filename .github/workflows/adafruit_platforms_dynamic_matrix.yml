@@ -54,4 +54,4 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
     steps:
       - run: |
-        echo ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+          echo ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
