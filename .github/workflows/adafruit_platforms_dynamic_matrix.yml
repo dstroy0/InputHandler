@@ -44,9 +44,6 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
       - id: set-arduino-matrix
-        run: |          
-          echo -n "arduino-build-matrix="
+        run: |
+          echo -n "arduino-build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c arduino -p adafruit >> $GITHUB_OUTPUT
-
-
-  
