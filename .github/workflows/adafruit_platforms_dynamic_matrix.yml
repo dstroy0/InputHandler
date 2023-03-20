@@ -47,3 +47,11 @@ jobs:
         run: |
           echo -n "arduino-build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c arduino -p adafruit >> $GITHUB_OUTPUT
+  output-generated-matrix:
+    needs: generate-job-matrices
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+    steps:
+      - run: |
+        echo ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
