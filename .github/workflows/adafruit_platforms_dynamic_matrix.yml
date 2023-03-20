@@ -50,8 +50,8 @@ jobs:
   output-generated-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+    #strategy:
+    #  matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
     steps:
       - run: |
-          echo ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+          echo ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
