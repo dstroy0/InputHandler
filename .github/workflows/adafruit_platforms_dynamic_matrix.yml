@@ -58,11 +58,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+        include: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
+          fqbn-list: ${{ matrix.boards }}
         run: |
           echo "arduino: $fqbn-list"
 
