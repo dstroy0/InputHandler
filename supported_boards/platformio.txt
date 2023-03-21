@@ -307,6 +307,8 @@ xplained_pro_4809
 adafruit boards:
 adafruit_blm_badge
 adafruit_circuitplayground_m0
+
+no-support boards:
 adafruit_crickit_m0
 adafruit_feather_m0
 adafruit_feather_m0_express
