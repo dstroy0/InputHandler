@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix).boards }}
+        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
     steps:
       - name: test
         env:
