@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: test
         env:
-          fqbn-list: ${{ $matrix }}
+          fqbn-list: ${{ toJSON(matrix) }}
         run: |
           echo "arduino: $fqbn-list"
 
