@@ -32,7 +32,14 @@ platforms = {
         "teensyduino",
     ],
 }
-
+examples = [
+          "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
+          "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
+          "examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
+          "examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino",          
+        ]
+platformio_test_cli = "tools/interfaces/test_output_cli/pio_ci/src/main.cpp"
+arduino_test_cli = "tools/interfaces/test_output_cli/arduino_ci/arduino_ci.ino"
 
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
@@ -41,11 +48,13 @@ def open_supported_boards_file(compiler: str) -> list:
             file_name = os.path.join(os.getcwd(), "supported_boards", "arduino.txt")
         else:
             file_name = os.path.join(os.getcwd(), "arduino.txt")
+        examples.append(arduino_test_cli)
     elif compiler == "platformio":
         if "supported_boards" not in os.getcwd():            
             file_name = os.path.join(os.getcwd(), "supported_boards", "platformio.txt")
         else:
             file_name = os.path.join(os.getcwd(), "platformio.txt")
+        examples.append(platformio_test_cli)
     else:
         return []  # error
     with open(file_name) as file:
@@ -92,6 +101,14 @@ def generate_workflow_matrix(board_list: list) -> str:
             else:
                 line += '"'
             matrix_text += line
+    matrix_text += "],\"examples\":["
+    for item in examples:
+        line = '"' + item.strip()
+        if item != examples[-1]:
+            line+= '", '
+        else:
+            line += '"'
+        matrix_text += line
     matrix_text += "]}"
     return matrix_text
 
