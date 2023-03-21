@@ -52,7 +52,7 @@ jobs:
         run: |
           echo -n "platformio-build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c platformio -p adafruit >> $GITHUB_OUTPUT
-  
+
   output-generated-arduino-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
