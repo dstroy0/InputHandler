@@ -60,5 +60,5 @@ jobs:
     #  platformio-build-matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - run: |
-          echo ${{ needs.generate-job-matrices.outputs.arduino-build-matrix.boards }}
-          echo ${{ needs.generate-job-matrices.outputs.platformio-build-matrix.boards }}
+          echo ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)[0].boards }}
+          echo ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)[0].boards }}
