@@ -63,7 +63,7 @@ jobs:
         run: |
           echo "arduino: $arduino-build-matrix"
           
-  output-generated-arduino-matrix:
+  output-generated-platformio-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:      
