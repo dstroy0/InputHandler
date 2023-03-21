@@ -21,6 +21,7 @@ platforms = {
         "atmelavr",
         "atmelmegaavr",
         "atmelsam",
+        "adafruit",
         "esp32",
         "esp8266",
         "nordicnrf51",
@@ -36,9 +37,9 @@ platforms = {
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
     if compiler == "arduino":
-        file_name = os.path.join(os.getcwd(), "supported_boards", "arduino.txt")
+        file_name = os.path.join(os.getcwd(), "arduino.txt")
     elif compiler == "platformio":
-        file_name = os.path.join(os.getcwd(), "supported_boards", "platformio.txt")
+        file_name = os.path.join(os.getcwd(), "platformio.txt")
     else:
         return []  # error
     with open(file_name) as file:
