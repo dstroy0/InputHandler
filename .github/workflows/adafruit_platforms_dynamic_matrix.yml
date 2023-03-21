@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: test
         env:
-          fqbn-list: ${{ matrix }}
+          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
         run: |
           echo "arduino: $fqbn-list"
 
@@ -71,10 +71,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ needs.generate-job-matrices.outputs.platformio-build-matrix }}
+        include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ fromJSON(matrix).boards }}
+          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
         run: |
           echo "platformio $fqbn-list"
