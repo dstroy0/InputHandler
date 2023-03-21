@@ -57,12 +57,11 @@ jobs:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)[0].boards }}
+      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ matrix }}
+          fqbn-list: ${{ matrix.boards }}
         run: |
           echo "arduino: $fqbn-list"
 
@@ -70,11 +69,10 @@ jobs:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
+      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
+          fqbn-list: ${{ matrix.boards }}
         run: |
           echo "platformio $fqbn-list"
