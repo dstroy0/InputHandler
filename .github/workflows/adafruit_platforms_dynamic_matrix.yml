@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
-      examples:
+        examples:
         [
           "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
           "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
