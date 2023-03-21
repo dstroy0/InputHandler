@@ -56,20 +56,20 @@ jobs:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:
-      a-build-matrix: |
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}      
+      matrix: 
+        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix).boards }}      
     steps:
       - name: test        
         run: |
-          echo "arduino: $a-build-matrix"
+          echo "arduino: $matrix"
           
   output-generated-platformio-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:      
-      p-build-matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
+      matrix:
+        include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix).boards }}
     steps:
       - name: test        
         run: |          
-          echo "platformio $p-build-matrix"
+          echo "platformio $matrix"
