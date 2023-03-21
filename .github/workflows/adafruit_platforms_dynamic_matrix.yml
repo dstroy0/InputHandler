@@ -65,6 +65,6 @@ jobs:
         env:
           amatrix: ${{ fromJSON(toJSON(arduino-build-matrix)).boards }}
           pmatrix: ${{ fromJSON(toJSON(platformio-build-matrix)).boards }}
-      - run: |
-          echo "arduino: $amatrix"
-          echo "platformio $pmatrix"
+        run: |
+          echo "arduino: $arduino-build-matrix"
+          echo "platformio $platformio-build-matrix"
