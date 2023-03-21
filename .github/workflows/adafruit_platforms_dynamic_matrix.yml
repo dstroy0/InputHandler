@@ -38,6 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}
+      platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,11 +48,17 @@ jobs:
         run: |
           echo -n "arduino-build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c arduino -p adafruit >> $GITHUB_OUTPUT
+      - id: set-platformio-matrix
+        run: |
+          echo -n "platformio-build-matrix=" >> $GITHUB_OUTPUT
+          python supported_boards/generate_workflow_matrix.py -c platformio -p adafruit >> $GITHUB_OUTPUT
   output-generated-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     #strategy:
-    #  matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+    #  arduino-build-matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+    #  platformio-build-matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - run: |
-          echo ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
+          echo ${{ needs.generate-job-matrices.outputs.arduino-build-matrix.boards }}
+          echo ${{ needs.generate-job-matrices.outputs.platformio-build-matrix.boards }}
