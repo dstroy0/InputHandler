@@ -61,10 +61,7 @@ jobs:
       platformio-build-matrix: 
         include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
-      - name: test
-        env:
-          amatrix: ${{ fromJSON(toJSON(arduino-build-matrix)).boards }}
-          pmatrix: ${{ fromJSON(toJSON(platformio-build-matrix)).boards }}
-      - run: |
+      - name: test        
+        run: |
           echo "arduino: $arduino-build-matrix"
           echo "platformio $platformio-build-matrix"
