@@ -304,7 +304,7 @@ curiosity_nano_da
 curiosity_nano_db
 xplained_pro_4809
 
-atmelsam boards:
+adafruit boards:
 adafruit_blm_badge
 adafruit_circuitplayground_m0
 adafruit_crickit_m0
@@ -338,6 +338,33 @@ adafruit_trinket_m0
 adafruit_pirkey
 adafruit_pybadge_airlift_m4
 adafruit_pybadge_m4
+adafruit_feather_esp32_v2
+adafruit_feather_esp32s2_reversetft
+adafruit_feather_esp32s2_tft
+adafruit_feather_esp32s3
+adafruit_feather_esp32s3_nopsram
+adafruit_feather_esp32s3_reversetft
+adafruit_feather_esp32s3_tft
+adafruit_funhouse_esp32s2
+adafruit_itsybitsy_esp32
+adafruit_magtag29_esp32s2
+adafruit_metro_esp32s2
+adafruit_qtpy_esp32
+adafruit_qtpy_esp32c3
+adafruit_qtpy_esp32s2
+adafruit_qtpy_esp32s3_nopsram
+adafruit_feather_nrf52832
+adafruit_clue_nrf52840
+adafruit_feather_nrf52840_sense
+adafruit_feather_nrf52840
+adafruit_ledglasses_nrf52840
+adafruit_cplaynrf52840
+adafruit_itsybitsy_nrf52840
+adafruit_metro_nrf52840
+nrf52840_dk_adafruit
+adafruit_feather_f405
+
+atmelsam boards:
 due
 dueUSB
 mzeroUSB
@@ -395,21 +422,6 @@ alksesp32
 az-delivery-devkit-v4
 featheresp32
 featheresp32-s2
-adafruit_feather_esp32_v2
-adafruit_feather_esp32s2_reversetft
-adafruit_feather_esp32s2_tft
-adafruit_feather_esp32s3
-adafruit_feather_esp32s3_nopsram
-adafruit_feather_esp32s3_reversetft
-adafruit_feather_esp32s3_tft
-adafruit_funhouse_esp32s2
-adafruit_itsybitsy_esp32
-adafruit_magtag29_esp32s2
-adafruit_metro_esp32s2
-adafruit_qtpy_esp32
-adafruit_qtpy_esp32c3
-adafruit_qtpy_esp32s2
-adafruit_qtpy_esp32s3_nopsram
 esp32-c3-m1i-kit
 nodemcu-32s2
 airm2m_core_esp32c3
@@ -653,11 +665,6 @@ ng_beacon
 
 nordicnrf52 boards:
 96b_nitrogen
-adafruit_feather_nrf52832
-adafruit_clue_nrf52840
-adafruit_feather_nrf52840_sense
-adafruit_feather_nrf52840
-adafruit_ledglasses_nrf52840
 nano33ble
 nicla_sense_me
 bbcmicrobit_v2
@@ -665,21 +672,17 @@ laird_bl652_dvk
 laird_bl653_dvk
 laird_bl654_dvk
 bluey
-adafruit_cplaynrf52840
 delta_dfbm_nq620
 electronut_blip
 electronut_papyr
 holyiot_yj16019
-adafruit_itsybitsy_nrf52840
 laird_pinnacle_100_dvk
 nrf52832_mdk
 nrf52840_mdk
-adafruit_metro_nrf52840
 thingy_52
 nrf52_dk
 nrf52833_dk
 nrf52840_dk
-nrf52840_dk_adafruit
 reel_board
 reel_board_v2
 particle_argon
@@ -714,7 +717,6 @@ b96b_f446ve
 b96b_aerocore2
 b96b_neonkey
 acsip_s76s
-adafruit_feather_f405
 afroflight_f103cb
 opta
 portenta_h7_m4
