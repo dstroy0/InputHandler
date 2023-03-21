@@ -52,16 +52,17 @@ jobs:
         run: |
           echo -n "platformio-build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c platformio -p adafruit >> $GITHUB_OUTPUT
+  
   output-generated-arduino-matrix:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+        include: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
+          fqbn-list: ${{ fromJSON(matrix).boards }}
         run: |
           echo "arduino: $fqbn-list"
 
@@ -70,10 +71,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
+        include: ${{ needs.generate-job-matrices.outputs.platformio-build-matrix }}
     steps:
       - name: test
         env:
-          fqbn-list: ${{ fromJSON(toJSON(matrix)).boards }}
+          fqbn-list: ${{ fromJSON(matrix).boards }}
         run: |
           echo "platformio $fqbn-list"
