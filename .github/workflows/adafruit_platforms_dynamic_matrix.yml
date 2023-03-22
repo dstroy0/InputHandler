@@ -66,7 +66,8 @@ jobs:
         uses: arduino/compile-sketches@main
         with:
           platforms: |
-            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"              
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+            name: "adafruit"
           sketch-paths: ${{ matrix.examples }}
           fqbn: ${{ matrix.boards }}
 
@@ -75,14 +76,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}        
+      matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
       - name: Cache pip
         uses: actions/cache@v3
         with:
