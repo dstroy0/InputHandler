@@ -67,7 +67,7 @@ jobs:
         with:
           platforms: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
-            name: "adafruit"
+            name: "adafruit:samd"
           sketch-paths: ${{ matrix.examples }}
           fqbn: ${{ matrix.boards }}
 
