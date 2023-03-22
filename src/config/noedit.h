@@ -124,7 +124,7 @@
     #elif defined(NRF_H) // Nordic NRF portability
         #include "utility/vsnprintf.h"           // implement vsnprintf
         #include <avr/dtostrf.h>                 // implement dtostrf
-
+        #define snprintf_P vsnprintf_P
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword         // use a different macro for pgm_read_dword
         // PROGMEM fix macro
