@@ -14,7 +14,7 @@ import os
 import sys
 import argparse
 
-exclude = "#" # lines starting with # are ignored
+exclude = "#"  # lines starting with # are ignored
 platforms = {
     "arduino": ["adafruit", "esp32", "esp8266", "teensyduino", "arduino", "rpi"],
     "platformio": [
@@ -33,24 +33,21 @@ platforms = {
     ],
 }
 examples = [
-          "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
-          "examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino",
-          "examples/all_platforms/advanced/NestedCommands/NestedCommands.ino",
-          "examples/all_platforms/basic/WildcardCommands/WildcardCommands.ino",          
-        ]
+    "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
+]
 
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
     if compiler == "arduino":
-        if "supported_boards" not in os.getcwd():            
+        if "supported_boards" not in os.getcwd():
             file_name = os.path.join(os.getcwd(), "supported_boards", "arduino.txt")
         else:
-            file_name = os.path.join(os.getcwd(), "arduino.txt")        
+            file_name = os.path.join(os.getcwd(), "arduino.txt")
     elif compiler == "platformio":
-        if "supported_boards" not in os.getcwd():            
+        if "supported_boards" not in os.getcwd():
             file_name = os.path.join(os.getcwd(), "supported_boards", "platformio.txt")
         else:
-            file_name = os.path.join(os.getcwd(), "platformio.txt")        
+            file_name = os.path.join(os.getcwd(), "platformio.txt")
     else:
         return []  # error
     with open(file_name) as file:
@@ -97,11 +94,11 @@ def generate_workflow_matrix(board_list: list) -> str:
             else:
                 line += '"'
             matrix_text += line
-    matrix_text += "],\"examples\":["
+    matrix_text += '],"examples":['
     for item in examples:
         line = '"' + item.strip()
         if item != examples[-1]:
-            line+= '", '
+            line += '", '
         else:
             line += '"'
         matrix_text += line
