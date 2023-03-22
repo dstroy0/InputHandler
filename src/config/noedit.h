@@ -120,6 +120,20 @@
         #define PFIX QLINE(.progmem.variable, __COUNTER__)
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
+    
+    #elif defined(NRF_H) // Nordic NRF portability
+        #include "utility/vsnprintf.h"           // implement vsnprintf
+        #include <avr/dtostrf.h>                 // implement dtostrf
+
+        #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
+        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        // PROGMEM fix macro
+        #define pgm_read_dword(addr)                                                               \
+            ({                                                                                     \
+                typeof(addr) _addr = (addr);                                                       \
+                *(const unsigned long*)(_addr);                                                    \
+            })
+    
     #endif
 // end portability directives
 /** @endcond */
