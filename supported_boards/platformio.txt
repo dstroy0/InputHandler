@@ -353,16 +353,16 @@ adafruit_qtpy_esp32
 adafruit_qtpy_esp32c3
 adafruit_qtpy_esp32s2
 adafruit_qtpy_esp32s3_nopsram
-adafruit_feather_nrf52832
-adafruit_clue_nrf52840
-adafruit_feather_nrf52840_sense
-adafruit_feather_nrf52840
-adafruit_ledglasses_nrf52840
-adafruit_cplaynrf52840
-adafruit_itsybitsy_nrf52840
-adafruit_metro_nrf52840
-nrf52840_dk_adafruit
-adafruit_feather_f405
+#adafruit_feather_nrf52832
+#adafruit_clue_nrf52840
+#adafruit_feather_nrf52840_sense
+#adafruit_feather_nrf52840
+#adafruit_ledglasses_nrf52840
+#adafruit_cplaynrf52840
+#adafruit_itsybitsy_nrf52840
+#adafruit_metro_nrf52840
+#nrf52840_dk_adafruit
+#adafruit_feather_f405
 
 atmelsam boards:
 due
