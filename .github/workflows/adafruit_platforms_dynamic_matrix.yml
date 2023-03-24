@@ -11,13 +11,13 @@ on:
     branches:
       - main
     paths:
-      - "**/examples/**"      
+      - "**/examples/**"
       - "**/test_output_cli/**"
   release:
     branches:
       - release
     paths:
-      - "**/examples/**"      
+      - "**/examples/**"
       - "**/test_output_cli/**"
 
 jobs:
@@ -57,6 +57,7 @@ jobs:
               name: "adafruit:samd"
           sketch-paths: ${{ matrix.examples }}
           fqbn: ${{ matrix.boards }}
+
       - name: Compile test cli
         uses: arduino/compile-sketches@main
         with:
@@ -99,7 +100,8 @@ jobs:
         run: pio ci --lib="." --board="${{matrix.boards}}"
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+
       - name: Compile test cli
-        run: pio ci --lib="." --board="${{matrix.boards}}"
+        run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}"
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.test_cli }}
