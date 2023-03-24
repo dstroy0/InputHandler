@@ -90,12 +90,9 @@ def generate_workflow_matrix(opts: list, board_list: list) -> str:
             if ex in item:
                 ignore = True
         if not ignore:
-            line = '"' + item.strip()
-            if item != board_list[-1]:
-                line += '", '
-            else:
-                line += '"'
+            line = '"' + item.strip() + '", '                   
             matrix_text += line
+    matrix_text = matrix_text[:-2]
     matrix_text += '],"examples":['
     for item in examples:
         line = '"' + item.strip()
