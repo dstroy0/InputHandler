@@ -1,37 +1,24 @@
 name: Adafruit platforms (dynamic)
 
-# Controls when the workflow will run
 on:
   push:
     branches:
       - main
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/**"
+      - "**/examples/**"
+      - "**/test_output_cli/**"
   workflow_dispatch:
     branches:
       - main
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/**"
+      - "**/examples/**"      
+      - "**/test_output_cli/**"
   release:
     branches:
       - release
     paths:
-      - "**/examples/all_platforms/basic/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/GetCommandFromStream/**"
-      - "**/examples/all_platforms/advanced/MultiFile/**"
-      - "**/examples/all_platforms/advanced/NestedCommands/**"
-      - "**/examples/all_platforms/basic/WildcardCommands/**"
-      - "**/interfaces/test_output_cli/**"
+      - "**/examples/**"      
+      - "**/test_output_cli/**"
 
 jobs:
   generate-job-matrices:
@@ -70,6 +57,14 @@ jobs:
               name: "adafruit:samd"
           sketch-paths: ${{ matrix.examples }}
           fqbn: ${{ matrix.boards }}
+      - name: Compile test cli
+        uses: arduino/compile-sketches@main
+        with:
+          platforms: |
+            - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+              name: "adafruit:samd"
+          sketch-paths: ${{ matrix.test_cli }}
+          fqbn: ${{ matrix.boards }}
 
   build-platformio:
     needs: generate-job-matrices
@@ -100,7 +95,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade platformio    
           ls
-      - name: Run PlatformIO
+      - name: Compile examples
         run: pio ci --lib="." --board="${{matrix.boards}}"
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.examples }}
+      - name: Compile test cli
+        run: pio ci --lib="." --board="${{matrix.boards}}"
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.test_cli }}

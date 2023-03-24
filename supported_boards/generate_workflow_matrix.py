@@ -35,6 +35,8 @@ platforms = {
 examples = [
     "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
 ]
+arduino_test_cli = "tools/interfaces/test_output_cli/arduino_ci/arduino_ci.ino"
+platformio_test_cli = "tools/interfaces/test_output_cli/pio_ci/src/main.cpp"
 
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
@@ -77,7 +79,7 @@ def get_boards_for_platform(file_text: list, platform: str) -> list:
     return ret_list
 
 
-def generate_workflow_matrix(board_list: list) -> str:
+def generate_workflow_matrix(opts: list, board_list: list) -> str:
     if not isinstance(board_list, list):
         print(board_list)
         sys.exit(1)
@@ -100,8 +102,12 @@ def generate_workflow_matrix(board_list: list) -> str:
         if item != examples[-1]:
             line += '", '
         else:
-            line += '"'
+            line += '"],"test_cli":['
         matrix_text += line
+    if opts[0] == "arduino":
+        matrix_text += '"' + arduino_test_cli + '"'
+    else:
+        matrix_text += '"' + platformio_test_cli + '"'
     matrix_text += "]}"
     return matrix_text
 
@@ -155,7 +161,7 @@ def main():
     opts = cli()
     file_text = open_supported_boards_file(opts[0])
     board_list = get_boards_for_platform(file_text, opts[1])
-    matrix_text = generate_workflow_matrix(board_list)
+    matrix_text = generate_workflow_matrix(opts, board_list)
     print(matrix_text)
 
 
