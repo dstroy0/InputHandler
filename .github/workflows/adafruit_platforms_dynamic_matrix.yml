@@ -44,15 +44,15 @@ jobs:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false      
-    steps:      
+      fail-fast: false
+    steps:
       - name: Checkout
-        uses: actions/checkout@v3      
-      
+        uses: actions/checkout@v3
+
       - name: Compile examples
         env:
-          boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}    
-          examples: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['examples'] }}    
+          boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}
+          examples: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['examples'] }}
         uses: arduino/compile-sketches@main
         with:
           platforms: |
@@ -63,7 +63,7 @@ jobs:
 
       - name: Compile test cli
         env:
-          matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}    
+          matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
         uses: arduino/compile-sketches@main
         with:
           platforms: |
