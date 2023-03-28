@@ -58,8 +58,8 @@ jobs:
           platforms: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
-          sketch-paths: ${{ $examples }}
-          fqbn: ${{ $boards }}
+          sketch-paths: $examples
+          fqbn: $boards
 
       - name: Compile test cli
         env:
