@@ -109,11 +109,13 @@ jobs:
           ls
 
       - name: Compile examples
-        run: pio ci --lib="." --board="${{matrix.boards}}"
         env:
-          PLATFORMIO_CI_SRC: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
-
+          examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
+        run: for item in $examples
+             do
+                pio ci --lib="." --board="${{matrix.boards}}" $item
+             done        
       - name: Compile test cli
-        run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}"
         env:
-          PLATFORMIO_CI_SRC: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
+          test_cli: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli'] }}
+        run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" $test_cli        
