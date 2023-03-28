@@ -51,7 +51,7 @@ jobs:
       
       - name: Compile examples
         env:
-          boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)[boards] }}    
+          boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}    
           examples: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)[examples] }}    
         uses: arduino/compile-sketches@main
         with:
