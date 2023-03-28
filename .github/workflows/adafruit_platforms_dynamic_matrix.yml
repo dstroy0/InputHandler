@@ -55,8 +55,8 @@ jobs:
           platforms: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
-          sketch-paths: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['examples'] }}
-          fqbn: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}
+          sketch-paths: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['examples']) }}
+          fqbn: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards']) }}
 
       - name: Compile test cli
         env:
