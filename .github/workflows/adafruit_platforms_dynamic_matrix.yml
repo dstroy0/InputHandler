@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        boards: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards']) }}
+        boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
