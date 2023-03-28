@@ -45,6 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+    env:
       matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
     steps:
       - name: Checkout
@@ -72,6 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+    env:
       matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix) }}
     steps:
       - name: Checkout
