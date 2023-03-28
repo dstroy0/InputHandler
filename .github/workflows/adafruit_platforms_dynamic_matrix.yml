@@ -64,9 +64,7 @@ jobs:
           sketch-paths: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['examples'] }}
           fqbn: ${{ matrix.boards }}
 
-      - name: Compile test cli
-        env:
-          matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}
+      - name: Compile test cli        
         uses: arduino/compile-sketches@main
         with:
           platforms: |
