@@ -70,7 +70,7 @@ jobs:
           platforms: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
-          sketch-paths: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['test_cli'] }}
+          sketch-paths: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['test_cli']) }}
           fqbn: ${{ matrix.boards }}
 
   build-platformio:
@@ -116,4 +116,4 @@ jobs:
       - name: Compile test cli
         run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}"
         env:
-          PLATFORMIO_CI_SRC: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli'] }}
+          PLATFORMIO_CI_SRC: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
