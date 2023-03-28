@@ -50,14 +50,15 @@ jobs:
         uses: actions/checkout@v3      
       - name: Compile examples
         env:
-          matrix: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix) }}    
+          boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)["boards"] }}    
+          examples: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)["examples"] }}    
         uses: arduino/compile-sketches@main
         with:
           platforms: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
-          sketch-paths: ${{ matrix.examples }}
-          fqbn: ${{ matrix.boards }}
+          sketch-paths: ${{ examples }}
+          fqbn: ${{ boards }}
 
       - name: Compile test cli
         env:
