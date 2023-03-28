@@ -111,11 +111,13 @@ jobs:
       - name: Compile examples
         env:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
-        run: for item in $examples
-             do
-                pio ci --lib="." --board="${{matrix.boards}}" $item
-             done        
+        run: |
+          for item in $examples
+          do
+            pio ci --lib="." --board="${{matrix.boards}}" $item
+          done
+
       - name: Compile test cli
         env:
           test_cli: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli'] }}
-        run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" $test_cli        
+        run: pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" $test_cli
