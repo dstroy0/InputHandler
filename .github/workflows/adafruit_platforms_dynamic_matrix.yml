@@ -114,7 +114,7 @@ jobs:
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )          
-          echo ls
+          ls
           for item in "${arr[@]}"
           do                        
             src=$item | tr -d '"'
