@@ -115,6 +115,7 @@ jobs:
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )          
           ls
+          echo $GITHUB_WORKSPACE
           for item in "${arr[@]}"
           do                        
             src=$item | tr -d '"'
