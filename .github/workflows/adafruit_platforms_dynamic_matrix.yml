@@ -115,12 +115,12 @@ jobs:
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )          
           ls
-          echo $GITHUB_WORKSPACE
+          echo ${{GITHUB_WORKSPACE}}
           for item in "${arr[@]}"
           do                        
             src=$item | tr -d '"'
             echo "Compiling $item for ${{matrix.boards}}"  
-            pio ci --lib="src" --board="${{matrix.boards}}" "$src"
+            pio ci --lib="${{GITHUB_WORKSPACE}}/src" --board="${{matrix.boards}}" "$src"
           done
 
       - name: Compile test cli
