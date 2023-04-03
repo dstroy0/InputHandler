@@ -115,10 +115,9 @@ jobs:
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )                    
           for item in "${arr[@]}"
-          do                     
-            path=$item | tr -d '"'               
-            echo "Compiling $GITHUB_WORKSPACE/"$path" for ${{matrix.boards}}"  
-            pio ci --lib="$GITHUB_WORKSPACE/src" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/$path"
+          do                                 
+            echo "Compiling $GITHUB_WORKSPACE/$item for ${{matrix.boards}}"  
+            pio ci --lib="." --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/${item:1-1}"
           done
 
       - name: Compile test cli
@@ -128,8 +127,7 @@ jobs:
           arrstring=$(echo $test_cli | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
           for item in "${arr[@]}"
-          do            
-            path=$item | tr -d '"'
+          do                        
             echo "Compiling $GITHUB_WORKSPACE/"$path" for ${{matrix.boards}}"  
-            pio ci --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/$path"
+            pio ci --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/${item:1-1}"
           done
