@@ -37,7 +37,7 @@ typedef __gnuc_va_list va_list;
      *
      * [va_start ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm)
      */
-    #ifndef va_start(v, 1)
+    #if !defined(va_start)
     #define va_start(v, l) __builtin_va_start(v, l)
     #endif
     /**
@@ -49,7 +49,7 @@ typedef __gnuc_va_list va_list;
      *
      * [va_end ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm)
      */
-    #ifndef va_end(v)
+    #if !defined(va_end)
     #define va_end(v) __builtin_va_end(v)
     #endif
     /**
@@ -60,7 +60,7 @@ typedef __gnuc_va_list va_list;
      *
      * [va_arg ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm)
      */
-    #ifndef va_arg(v, 1)
+    #if !defined(va_arg)
     #define va_arg(v, l) __builtin_va_arg(v, l)
     #endif
 

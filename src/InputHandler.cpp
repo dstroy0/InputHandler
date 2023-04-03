@@ -407,8 +407,8 @@ void Input::_printCommand(_searchStruct& s, uint8_t index)
             s.sc_num = 1;
         }
         char* indent = (char*)calloc(s.prm.depth + 1, sizeof(char));
-        indent[int(s.prm.depth)] = '\0';
-        for (uint8_t j = 0; j < (nelems(indent)) - 1; ++j)
+        indent[int(s.prm.depth)+1] = '\0';
+        for (uint8_t j = 0; j < s.prm.depth; ++j)
         {
             indent[j] = ' ';
         }
