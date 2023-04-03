@@ -113,6 +113,7 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         run: |
           ARR=($($examples | tr -d '[],'))
+          echo ${ARR[@]}
           for item in ${ARR[@]}
           do
             pio ci --lib="." --board="${{matrix.boards}}" $item
@@ -123,4 +124,5 @@ jobs:
           test_cli: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
         run: |
           CLI=($($test_cli | tr -d '[],'))
+          echo ${CLI[0]}
           pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${CLI[0]}
