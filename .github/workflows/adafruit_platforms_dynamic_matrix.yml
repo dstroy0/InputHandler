@@ -112,7 +112,8 @@ jobs:
         env:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         run: |
-          for item in ${examples[@]}
+          arr = ($examples | tr -d '[],')
+          for item in ${arr[@]}
           do
             pio ci --lib="." --board="${{matrix.boards}}" $item
           done
