@@ -117,7 +117,7 @@ jobs:
           for item in "${arr[@]}"
           do                        
             src=$item | tr -d '"'
-            echo "Compiling "$src" for ${{matrix.boards}}"  
+            echo "Compiling "$item" for ${{matrix.boards}}"  
             pio ci --lib="." --board="${{matrix.boards}}" "$src"
           done
 
@@ -130,6 +130,6 @@ jobs:
           for item in "${arr[@]}"
           do
             src=$item | tr -d '"'
-            echo "Compiling $src for ${{matrix.boards}}"
-            pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" $src
+            echo "Compiling $item for ${{matrix.boards}}"
+            pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" "$src"
           done
