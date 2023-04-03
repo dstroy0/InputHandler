@@ -114,7 +114,7 @@ jobs:
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )          
-          for item in ${arr[@]}
+          for item in "${arr[@]}"
           do                        
             src=$item | tr -d '"'
             echo "Compiling $src for ${{matrix.boards}}"  
@@ -127,7 +127,7 @@ jobs:
         run: |
           arrstring=$(echo $test_cli | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
-          for item in ${arr[@]}
+          for item in "${arr[@]}"
           do
             src=$item | tr -d '"'
             echo "Compiling $src for ${{matrix.boards}}"
