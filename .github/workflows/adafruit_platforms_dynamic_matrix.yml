@@ -117,13 +117,12 @@ jobs:
           for item in ${ARR[@]}
           do
             echo "${{matrix.boards}}"
+            echo "$item"
             pio ci --lib="." --board="${{matrix.boards}}" $item
           done
 
       - name: Compile test cli
         env:
           test_cli: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
-        run: |
-          CLI=($($test_cli | tr -d '[],'))
-          echo "${CLI[0]}"
-          pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${CLI[0]}
+        run: |          
+          pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${test_cli[0]}
