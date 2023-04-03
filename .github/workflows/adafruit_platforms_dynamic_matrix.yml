@@ -117,8 +117,8 @@ jobs:
           for item in "${arr[@]}"
           do                     
             path=$item | tr -d '"'               
-            echo "Compiling $GITHUB_WORKSPACE/$path for ${{matrix.boards}}"  
-            pio ci --lib="$GITHUB_WORKSPACE/src" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" $GITHUB_WORKSPACE/$path
+            echo "Compiling $GITHUB_WORKSPACE/"$path" for ${{matrix.boards}}"  
+            pio ci --lib="$GITHUB_WORKSPACE/src" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/$path"
           done
 
       - name: Compile test cli
@@ -130,6 +130,6 @@ jobs:
           for item in "${arr[@]}"
           do            
             path=$item | tr -d '"'
-            echo "Compiling $GITHUB_WORKSPACE/$path for ${{matrix.boards}}"  
-            pio ci --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" $GITHUB_WORKSPACE/$path
+            echo "Compiling $GITHUB_WORKSPACE/"$path" for ${{matrix.boards}}"  
+            pio ci --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" --project-option="lib_ldf_mode = off" "$GITHUB_WORKSPACE/$path"
           done
