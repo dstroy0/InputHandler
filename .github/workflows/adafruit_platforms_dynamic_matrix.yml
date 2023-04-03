@@ -112,7 +112,7 @@ jobs:
         env:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         run: |
-          arrstring=$(echo ${{examples}} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
+          arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
           echo $arr
           for item in ${arr[@]}
@@ -126,7 +126,7 @@ jobs:
         env:
           test_cli: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
         run: |
-          arrstring=$(echo ${{test_cli}} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
+          arrstring=$(echo $test_cli | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
           echo arr          
           pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${arr[0]}
