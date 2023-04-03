@@ -114,7 +114,7 @@ jobs:
         run: |
           arrstring=$(echo ${{examples}} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
-          echo "${arr[@]}"
+          echo $arr
           for item in ${arr[@]}
           do
             echo "${{matrix.boards}}"
@@ -128,5 +128,5 @@ jobs:
         run: |
           arrstring=$(echo ${{test_cli}} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
-          echo ${arr[@]}          
+          echo arr          
           pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${arr[0]}
