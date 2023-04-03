@@ -113,13 +113,12 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
-          arr=( $arrstring )
-          echo $arr
+          arr=( $arrstring )          
           for item in ${arr[@]}
-          do
-            echo "${{matrix.boards}}"
-            echo "$item"
-            pio ci --lib="." --board="${{matrix.boards}}" $item
+          do                        
+            src=$item | tr -d '"'
+            echo "Compiling $src for ${{matrix.boards}}"  
+            pio ci --lib="." --board="${{matrix.boards}}" $src
           done
 
       - name: Compile test cli
@@ -128,5 +127,9 @@ jobs:
         run: |
           arrstring=$(echo $test_cli | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )
-          echo arr          
-          pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" ${arr[0]}
+          for item in ${arr[@]}
+          do
+            src=$item | tr -d '"'
+            echo "Compiling $src for ${{matrix.boards}}"
+            pio ci --lib="tools/interfaces/test_output_cli/pio_ci/lib/CLI" --board="${{matrix.boards}}" $src
+          done
