@@ -113,14 +113,11 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
-          arr=( $arrstring )          
-          ls
-          echo $GITHUB_WORKSPACE
+          arr=( $arrstring )                    
           for item in "${arr[@]}"
-          do                        
-            src=$item | tr -d '"'
+          do                                    
             echo "Compiling $item for ${{matrix.boards}}"  
-            pio ci --lib="$GITHUB_WORKSPACE/src" --board="${{matrix.boards}}" "$src"
+            pio ci --lib="$GITHUB_WORKSPACE/src" --board="${{matrix.boards}}" $GITHUB_WORKSPACE/$item
           done
 
       - name: Compile test cli
