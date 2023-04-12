@@ -120,8 +120,7 @@ jobs:
           ls
 
       - name: Compile examples
-        env:
-          # extract the examples list from the build matrix
+        env:          
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
         # make a bash array from the examples json, then loop through the bash array which is the list of examples to be ran and execute pio ci for each
         run: |
@@ -142,8 +141,7 @@ jobs:
           done
 
       - name: Compile test cli
-        env:
-          # extract the cli_gen_tool test cli from the build matrix
+        env:          
           test_cli: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['test_cli']) }}
         # make a bash array from the examples json, then loop through the bash array which is the list of examples to be ran and execute pio ci for each
         run: |
