@@ -136,7 +136,7 @@ jobs:
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \
               --project-option="lib_ldf_mode = off" \
-              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<$GITHUB_WORKSPACE/tools/>" \
+              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<**/tools/>" \
               "$GITHUB_WORKSPACE/$src" \
               /
           done
@@ -158,7 +158,7 @@ jobs:
               --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" \
               --board="${{matrix.boards}}" \
               --project-option="lib_ldf_mode = off" \
-              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<$GITHUB_WORKSPACE/src/>" \
+              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<./src/>" \
               "$GITHUB_WORKSPACE/$src" \
               /
           done
