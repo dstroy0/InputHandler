@@ -129,6 +129,7 @@ jobs:
           arr=( $arrstring )                              
           for item in "${arr[@]}"
           do
+            echo $item
             src=${item//\"/"}
             echo "Compiling $GITHUB_WORKSPACE/$src for ${{matrix.boards}}"
             pio ci \
