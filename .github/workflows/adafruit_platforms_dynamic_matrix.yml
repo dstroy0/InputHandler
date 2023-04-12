@@ -132,10 +132,11 @@ jobs:
             src=$item | tr -d '"'                                 
             echo "Compiling $GITHUB_WORKSPACE/$item for ${{matrix.boards}}"  
             pio ci \
+              --verbose \
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \
               --project-option="lib_ldf_mode = off" \
-              --project-option="src_filter = +<*> -<.git/> -<.svn/> -<tools/>" \
+              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<tools/>" \
               "$GITHUB_WORKSPACE/$src" \
               /
           done
@@ -153,10 +154,11 @@ jobs:
             src=$item | tr -d '"'
             echo "Compiling $GITHUB_WORKSPACE/"$path" for ${{matrix.boards}}"  
             pio ci \
+              --verbose \
               --lib="$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI" \
               --board="${{matrix.boards}}" \
               --project-option="lib_ldf_mode = off" \
-              --project-option="src_filter = +<*> -<.git/> -<.svn/> -<src/>" \
+              --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<src/>" \
               "$GITHUB_WORKSPACE/$src" \
               /
           done
