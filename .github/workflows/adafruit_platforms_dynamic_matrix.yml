@@ -129,13 +129,12 @@ jobs:
           arr=( $arrstring )                              
           for item in "${arr[@]}"
           do
-            src=$item | tr -d '"'                                 
-            echo "Compiling $GITHUB_WORKSPACE/$src for ${{matrix.boards}}"  
+            src=${item//\"/"}
+            echo "Compiling $GITHUB_WORKSPACE/$src for ${{matrix.boards}}"
             pio ci \
               --verbose \
               --lib="$GITHUB_WORKSPACE/src" \
-              --board="${{matrix.boards}}" \
-      
+              --board="${{matrix.boards}}" \              
               --project-option="build_src_filter = +<*> -<.git/> -<.svn/> -<**/tools/>" \
               "$GITHUB_WORKSPACE/$src" \
               /
