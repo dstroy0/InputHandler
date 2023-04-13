@@ -9,6 +9,10 @@ on:
       compiler:
         required: true
         type: string
+    outputs:
+      build-matrix:
+        description: "The build matrix for the job"
+        value: ${{ jobs.generate-job-matrix.outputs.build-matrix }}
 
 jobs:
   generate-job-matrix:
@@ -20,4 +24,4 @@ jobs:
       - id: set-matrix
         run: |
           echo -n "build-matrix=" >> $GITHUB_OUTPUT
-          python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT
+          python supported_boards/generate_workflow_matrix.py -c ${{ on.workflow_call.inputs.compiler }} -p ${{ on.workflow_call.inputs.platform }} >> $GITHUB_OUTPUT
