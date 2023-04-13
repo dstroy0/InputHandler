@@ -121,20 +121,20 @@ jobs:
 
       - name: Compile examples
         env:
-          examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}
-        # make a bash array from the examples json, then loop through the bash array which is the list of examples to be ran and execute pio ci for each
+          examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}        
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
           arr=( $arrstring )                              
           for item in "${arr[@]}"
           do            
             example_src=${item//\"/}
+            echo $item
             echo "Compiling $GITHUB_WORKSPACE/$example_src for ${{matrix.boards}}"
             pio ci \
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \              
               --verbose \
-              $item \
+              "$item" \
               /
           done
 
