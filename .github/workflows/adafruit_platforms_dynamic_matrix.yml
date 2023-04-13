@@ -22,18 +22,21 @@ on:
       - "**/test_output_cli/**"
 
 jobs:
-  generate-job-matrices:
+  set-up-environment:
     runs-on: ubuntu-latest
-    outputs:
-      arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}
-      platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+
+  get-arduino-build-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}      
+    steps:      
       # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-arduino-matrix
         name: set-arduino-matrix
@@ -41,7 +44,12 @@ jobs:
         with:
           compiler: arduino
           platform: adafruit
-
+      
+  get-platformio-build-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
+    steps:
       # generate a build matrix for the platformio environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-platformio-matrix
         name: set-platformio-matrix
@@ -51,13 +59,13 @@ jobs:
           platform: adafruit
 
   build-library-arduino:
-    needs: generate-job-matrices
+    needs: get-arduino-build-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         # extract the boards that need to be built from the build matrix
-        boards: ${{ fromJSON(needs.generate-job-matrices.outputs.arduino-build-matrix)['boards'] }}
+        boards: ${{ fromJSON(needs.get-arduino-build-matrix.outputs.arduino-build-matrix)['boards'] }}
     steps:
       - uses: ./.github/compile_lib_using_arduino.yml
         with:
@@ -66,19 +74,19 @@ jobs:
           platform-packages: |
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
-          build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
+          build-matrix: ${{ needs.get-arduino-build-matrix.outputs.arduino-build-matrix }}
 
   build-library-platformio:
-    needs: generate-job-matrices
+    needs: get-platformio-build-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         # extract the boards that need to be built from the build matrix
-        boards: ${{ fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['boards'] }}
+        boards: ${{ fromJSON(needs.get-platformio-build-matrix.outputs.platformio-build-matrix)['boards'] }}
     steps:
       - uses: ./.github/compile_lib_using_platformio.yml
         with:
           compiler: platformio
           platform: adafruit
-          build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
+          build-matrix: ${{ needs.get-platformio-build-matrix.outputs.platformio-build-matrix }}
