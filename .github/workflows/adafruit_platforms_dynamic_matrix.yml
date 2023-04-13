@@ -36,19 +36,19 @@ jobs:
           python-version: "3.11"
       # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-arduino-matrix
-        uses: ./.github/generate_workflow_matrix.yml
-        secrets: inherit
+        uses: ./.github/generate_workflow_matrix.yml        
         with:
           compiler: arduino
           platform: adafruit
+        secrets: inherit
 
       # generate a build matrix for the platformio environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-platformio-matrix
-        uses: ./.github/generate_workflow_matrix.yml
-        secrets: inherit
+        uses: ./.github/generate_workflow_matrix.yml        
         with:
           compiler: platformio
           platform: adafruit
+        secrets: inherit
 
   build-library-arduino:
     needs: generate-job-matrices
