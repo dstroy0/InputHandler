@@ -28,7 +28,6 @@ jobs:
       arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}
       platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
     steps:
-      
       # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-arduino-matrix
         uses: ./.github/generate_workflow_matrix.yml
@@ -42,7 +41,7 @@ jobs:
         with:
           compiler: platformio
           platform: adafruit
-        
+
   build-library-arduino:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
@@ -75,4 +74,3 @@ jobs:
           compiler: platformio
           platform: adafruit
           build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
-      

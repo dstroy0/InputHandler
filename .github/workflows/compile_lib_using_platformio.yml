@@ -1,3 +1,5 @@
+name: Build lib with platformio
+
 on:
   workflow_call:
     inputs:
@@ -50,7 +52,7 @@ jobs:
 
       - name: Compile examples
         env:
-          examples: ${{ toJSON(fromJSON(${{ inputs.build-matrix }})['examples']) }}        
+          examples: ${{ toJSON(fromJSON(${{ inputs.build-matrix }})['examples']) }}
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           arr=( $arrstring )

@@ -1,3 +1,5 @@
+name: Build lib with arduino
+
 on:
   workflow_call:
     inputs:
@@ -14,7 +16,7 @@ on:
         required: true
         type: string
 
-jobs:  
+jobs:
   build-library-using-arduino:
     needs: generate-job-matrix
     runs-on: ubuntu-latest
@@ -36,4 +38,4 @@ jobs:
           # extract sketch paths from build matrix
           sketch-paths: ${{ toJSON(fromJSON(${{ inputs.build-matrix }})['examples']) }}
           # get fqbn from build-arduino.strategy.matrix.boards
-          fqbn: ${{ matrix.boards }}      
+          fqbn: ${{ matrix.boards }}
