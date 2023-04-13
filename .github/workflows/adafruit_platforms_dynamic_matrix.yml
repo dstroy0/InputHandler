@@ -34,21 +34,21 @@ jobs:
 
   get-arduino-build-matrix:
     needs: set-up-environment    
-    uses: ./.github/generate_workflow_matrix.yml@main
+    uses: ./.github/workflows/generate_workflow_matrix.yml@main
     with:
       compiler: arduino
       platform: adafruit        
       
   get-platformio-build-matrix:
     needs: set-up-environment        
-    uses: ./.github/generate_workflow_matrix.yml@main
+    uses: ./.github/workflows/generate_workflow_matrix.yml@main
     with:
       compiler: platformio
       platform: adafruit
 
   build-library-arduino:
     needs: get-arduino-build-matrix        
-    uses: ./.github/compile_lib_using_arduino.yml@main
+    uses: ./.github/workflows/compile_lib_using_arduino.yml@main
     with:
       compiler: arduino
       platform: adafruit
@@ -59,7 +59,7 @@ jobs:
 
   build-library-platformio:
     needs: get-platformio-build-matrix
-    uses: ./.github/compile_lib_using_platformio.yml@main
+    uses: ./.github/workflows/compile_lib_using_platformio.yml@main
     with:
       compiler: platformio
       platform: adafruit
