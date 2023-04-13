@@ -129,7 +129,7 @@ jobs:
           for item in "${arr[@]}"
           do            
             example_src=${item//\"/}
-            echo "Compiling $GITHUB_WORKPACE/$src for ${{matrix.boards}}"
+            echo "Compiling $GITHUB_WORKPACE/$example_src for ${{matrix.boards}}"
             pio ci \
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \
