@@ -35,28 +35,26 @@ jobs:
   get-arduino-build-matrix:
     needs: set-up-environment    
     outputs:
-      arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}      
-    steps:      
-      # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
-      - id: set-arduino-matrix
-        name: set-arduino-matrix
-        uses: ./.github/generate_workflow_matrix.yml
-        with:
-          compiler: arduino
-          platform: adafruit        
+      arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}            
+    # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
+    - id: set-arduino-matrix
+      name: set-arduino-matrix
+      uses: ./.github/generate_workflow_matrix.yml
+      with:
+        compiler: arduino
+        platform: adafruit        
       
   get-platformio-build-matrix:
     needs: set-up-environment    
     outputs:
-      platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
-    steps:
+      platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}    
       # generate a build matrix for the platformio environment using InputHandler/supported_boards/generate_workflow_matrix.py
-      - id: set-platformio-matrix
-        name: set-platformio-matrix
-        uses: ./.github/generate_workflow_matrix.yml
-        with:
-          compiler: platformio
-          platform: adafruit
+    - id: set-platformio-matrix
+      name: set-platformio-matrix
+      uses: ./.github/generate_workflow_matrix.yml
+      with:
+        compiler: platformio
+        platform: adafruit
 
   build-library-arduino:
     needs: get-arduino-build-matrix
