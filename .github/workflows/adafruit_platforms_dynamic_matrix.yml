@@ -33,21 +33,21 @@ jobs:
           python-version: "3.11"
 
   get-arduino-build-matrix:
-    needs: set-up-environment    
+    needs: set-up-environment
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: arduino
-      platform: adafruit        
-      
+      platform: adafruit
+
   get-platformio-build-matrix:
-    needs: set-up-environment        
+    needs: set-up-environment
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: platformio
       platform: adafruit
 
   build-library-arduino:
-    needs: get-arduino-build-matrix        
+    needs: get-arduino-build-matrix
     uses: ./.github/workflows/compile_lib_using_arduino.yml
     with:
       compiler: arduino
