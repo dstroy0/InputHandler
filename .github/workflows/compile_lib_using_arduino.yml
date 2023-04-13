@@ -1,0 +1,39 @@
+on:
+  workflow_call:
+    inputs:
+      compiler:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+      platform-packages:
+        required: true
+        type: string
+      build-matrix:
+        required: true
+        type: string
+
+jobs:  
+  build-library-using-arduino:
+    needs: generate-job-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # extract the boards that need to be built from the build matrix
+        boards: ${{ fromJSON(${{ inputs.build-matrix }})['boards'] }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compile InputHandler examples
+        uses: arduino/compile-sketches@main
+        with:
+          # get extra platform packages here
+          platforms: |
+            ${{ inputs.platform-packages }}
+          # extract sketch paths from build matrix
+          sketch-paths: ${{ toJSON(fromJSON(${{ inputs.build-matrix }})['examples']) }}
+          # get fqbn from build-arduino.strategy.matrix.boards
+          fqbn: ${{ matrix.boards }}      
