@@ -45,6 +45,7 @@ jobs:
         with:
           compiler: arduino
           platform: adafruit
+        secrets: inherit
       
   get-platformio-build-matrix:
     needs: set-up-environment
