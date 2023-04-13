@@ -43,7 +43,6 @@ jobs:
           compiler: platformio
           platform: adafruit
         
-
   build-library-arduino:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
@@ -73,7 +72,7 @@ jobs:
     steps:
       - uses: ./.github/compile_lib_using_platformio.yml
         with:
-        compiler: platformio
-        platform: adafruit
-        build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
+          compiler: platformio
+          platform: adafruit
+          build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
       
