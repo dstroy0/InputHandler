@@ -41,7 +41,7 @@ jobs:
       # generate a build matrix for the arduino environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-arduino-matrix
         name: set-arduino-matrix
-        uses: dstroy0/InputHandler/.github/generate_workflow_matrix.yml
+        uses: dstroy0/InputHandler@main/.github/generate_workflow_matrix.yml
         with:
           compiler: arduino
           platform: adafruit
@@ -55,7 +55,7 @@ jobs:
       # generate a build matrix for the platformio environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-platformio-matrix
         name: set-platformio-matrix
-        uses: dstroy0/InputHandler/.github/generate_workflow_matrix.yml
+        uses: dstroy0/InputHandler@main/.github/generate_workflow_matrix.yml
         with:
           compiler: platformio
           platform: adafruit
