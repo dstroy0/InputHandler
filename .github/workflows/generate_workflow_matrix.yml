@@ -24,4 +24,4 @@ jobs:
       - id: set-matrix
         run: |
           echo -n "build-matrix=" >> $GITHUB_OUTPUT
-          python supported_boards/generate_workflow_matrix.py -c ${{ workflow_call.inputs.compiler }} -p ${{ workflow_call.inputs.platform }} >> $GITHUB_OUTPUT
+          python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT
