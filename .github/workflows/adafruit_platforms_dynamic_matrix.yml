@@ -127,14 +127,13 @@ jobs:
           arr=( $arrstring )                              
           for item in "${arr[@]}"
           do            
-            example_src=${item//\"/}
-            echo $item
-            echo "Compiling $GITHUB_WORKSPACE/$example_src for ${{matrix.boards}}"
+            example_src=${item//\"/}            
+            echo "Compiling $example_src for ${{matrix.boards}}"
             pio ci \
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \              
               --verbose \
-              "$item" \
+              "./$example_src" \
               /
           done
 
