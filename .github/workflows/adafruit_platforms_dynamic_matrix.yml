@@ -134,7 +134,7 @@ jobs:
               --lib="$GITHUB_WORKSPACE/src" \
               --board="${{matrix.boards}}" \              
               --verbose \
-              "$GITHUB_WORKSPACE/$example_src" \
+              $item \
               /
           done
 
