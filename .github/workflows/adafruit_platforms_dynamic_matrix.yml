@@ -131,7 +131,7 @@ jobs:
             echo "Compiling $example_src for ${{matrix.boards}}"
             pio ci \
               --verbose \
-              --lib="$GITHUB_WORKSPACE/src" \
+              --lib="." \
               --board="${{matrix.boards}}" \
               "$GITHUB_WORKSPACE/$example_src" \
               /
