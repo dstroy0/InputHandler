@@ -18,7 +18,6 @@ on:
 
 jobs:
   build-library-using-arduino:
-    needs: generate-job-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

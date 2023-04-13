@@ -14,8 +14,7 @@ on:
         type: string
 
 jobs:
-  build-library-using-platformio:
-    needs: generate-job-matrix
+  build-library-using-platformio:    
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
