@@ -33,8 +33,7 @@ jobs:
           python-version: "3.11"
 
   get-arduino-build-matrix:
-    needs: set-up-environment
-    runs-on: ubuntu-latest
+    needs: set-up-environment    
     outputs:
       arduino-build-matrix: ${{ steps.set-arduino-matrix.outputs.arduino-build-matrix }}      
     steps:      
@@ -47,8 +46,7 @@ jobs:
           platform: adafruit        
       
   get-platformio-build-matrix:
-    needs: set-up-environment
-    runs-on: ubuntu-latest
+    needs: set-up-environment    
     outputs:
       platformio-build-matrix: ${{ steps.set-platformio-matrix.outputs.platformio-build-matrix }}
     steps:
