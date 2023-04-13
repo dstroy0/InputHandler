@@ -123,17 +123,13 @@ jobs:
         env:
           examples: ${{ toJSON(fromJSON(needs.generate-job-matrices.outputs.platformio-build-matrix)['examples']) }}        
         run: |
-          arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')          
-          arr=( $arrstring )                              
+          arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          arr=( $arrstring )
           for item in "${arr[@]}"
-          do            
-            example_src=${item//\"/}            
+          do
+            example_src=${item//\"/}
             echo "Compiling $example_src for ${{matrix.boards}}"
-            pio ci \              
-              --lib="." \
-              --board="${{matrix.boards}}" \
-              "$GITHUB_WORKSPACE/$example_src" \
-              /
+            pio ci --lib="." --board="${{matrix.boards}}" "$GITHUB_WORKSPACE/$example_src"
           done
 
       - name: Compile test cli
