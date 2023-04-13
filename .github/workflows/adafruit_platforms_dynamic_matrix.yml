@@ -39,9 +39,9 @@ jobs:
       # generate a build matrix for the platformio environment using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-platformio-matrix
         uses: ./.github/generate_workflow_matrix.yml
-          with:
-            compiler: platformio
-            platform: adafruit
+        with:
+          compiler: platformio
+          platform: adafruit
         
 
   build-library-arduino:
@@ -61,7 +61,7 @@ jobs:
             - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
               name: "adafruit:samd"
           build-matrix: ${{ needs.generate-job-matrices.outputs.arduino-build-matrix }}
-          
+
   build-library-platformio:
     needs: generate-job-matrices
     runs-on: ubuntu-latest
