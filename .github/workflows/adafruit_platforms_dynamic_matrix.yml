@@ -45,7 +45,7 @@ jobs:
       examples: ${{ needs.get-arduino-build-outputs.examples }}
 
   build-library-platformio:
-    needs: get-platformio-build-matrix
+    needs: get-platformio-build
     uses: ./.github/workflows/compile_lib_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
