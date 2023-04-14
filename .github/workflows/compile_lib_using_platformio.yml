@@ -2,19 +2,19 @@ name: Build lib with platformio
 
 on:
   workflow_call:
-    inputs:     
+    inputs:
       build-matrix:
         required: true
         type: string
 
 jobs:
-  build-library-using-platformio:    
+  build-library-using-platformio:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         # extract the boards that need to be built from the build matrix
-        boards: ${{ fromJSON( ${{ inputs.build-matrix }} )['boards'] }}
+        boards: fromJSON( ${{ inputs.build-matrix }} )['boards']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
 
       - name: Compile examples
         env:
-          examples: ${{ toJSON(fromJSON( ${{ inputs.build-matrix }} )['examples']) }}
+          examples: toJSON(fromJSON( ${{ inputs.build-matrix }} )['examples'])
         run: |
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           arr=( $arrstring )
