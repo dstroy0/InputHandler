@@ -49,9 +49,7 @@ jobs:
   build-library-arduino:
     needs: get-arduino-build-matrix
     uses: ./.github/workflows/compile_lib_using_arduino.yml
-    with:
-      compiler: arduino
-      platform: adafruit
+    with:      
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
           name: "adafruit:samd"
@@ -60,7 +58,5 @@ jobs:
   build-library-platformio:
     needs: get-platformio-build-matrix
     uses: ./.github/workflows/compile_lib_using_platformio.yml
-    with:
-      compiler: platformio
-      platform: adafruit
+    with:      
       build-matrix: ${{ needs.get-platformio-build-matrix.outputs.build-matrix }}
