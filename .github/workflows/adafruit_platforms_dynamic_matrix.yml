@@ -21,26 +21,14 @@ on:
       - "**/examples/**"
       - "**/test_output_cli/**"
 
-jobs:
-  set-up-environment:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-  get-arduino-build-matrix:
-    needs: set-up-environment
+jobs:            
+  get-arduino-build-matrix:    
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: arduino
       platform: adafruit
 
-  get-platformio-build-matrix:
-    needs: set-up-environment
+  get-platformio-build-matrix:    
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: platformio
