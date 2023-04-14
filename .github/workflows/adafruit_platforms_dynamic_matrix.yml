@@ -21,14 +21,14 @@ on:
       - "**/examples/**"
       - "**/test_output_cli/**"
 
-jobs:            
-  get-arduino-build-matrix:    
+jobs:
+  get-arduino-build-matrix:
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: arduino
       platform: adafruit
 
-  get-platformio-build-matrix:    
+  get-platformio-build-matrix:
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: platformio

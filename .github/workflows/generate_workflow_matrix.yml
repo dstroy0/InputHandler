@@ -18,14 +18,14 @@ jobs:
   generate-job-matrix:
     runs-on: ubuntu-latest
     outputs:
-      build-matrix: ${{ steps.set-matrix.outputs.build-matrix }}      
+      build-matrix: ${{ steps.set-matrix.outputs.build-matrix }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"      
+          python-version: "3.11"
       # generate a build matrix using InputHandler/supported_boards/generate_workflow_matrix.py
       - id: set-matrix
         run: |
