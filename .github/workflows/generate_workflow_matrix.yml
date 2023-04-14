@@ -46,7 +46,7 @@ jobs:
       boards: ${{ steps.generate-job-board-sequence.outputs.boards }}
     env:
       matrix: ${{ needs.generate-job-matrix.outputs.build-matrix }}
-      boards: ${{ fromJSON(toJSON( $matrix )['boards']) }}
+      boards: ${{ fromJSON(toJSON( ${{ env.matrix }} )['boards']) }}
     steps:
       - id: set-boards
         run: |                    
