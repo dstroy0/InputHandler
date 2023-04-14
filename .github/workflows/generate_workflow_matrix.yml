@@ -48,7 +48,7 @@ jobs:
       - id: set-boards
         name: set-boards
         env:
-          boards: ${{ fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['boards']) }}
+          boards: fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['boards'])
         run: |
           echo ${{ env.boards }} >> $GITHUB_OUTPUT
           echo ${{ env.boards }}
@@ -62,7 +62,7 @@ jobs:
       - id: set-examples
         name: set-examples
         env:
-          examples: ${{ fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['examples']) }}
+          examples: fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['examples'])
         run: |
           echo ${{ env.examples }} >> $GITHUB_OUTPUT
           echo ${{ env.examples }}
