@@ -37,22 +37,21 @@ jobs:
         run: |
           echo -n "build-matrix=" >> $GITHUB_OUTPUT
           python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT          
+          echo $GITHUB_OUTPUT
 
   generate-job-board-sequence:
     needs: generate-job-matrix
     runs-on: ubuntu-latest
     outputs:
       boards: ${{ steps.generate-job-board-sequence.outputs.boards }}
-    env:
-      matrix: ${{ needs.generate-job-matrix.outputs.build-matrix }}
-      boards: ${{ fromJSON(toJSON( ${{ env.matrix }} )['boards']) }}
     steps:
       - id: set-boards
-        run: |                    
+        name: set-boards
+        env:
+          boards: ${{ fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['boards']) }}
+        run: |
           echo ${{ env.boards }} >> $GITHUB_OUTPUT
           echo ${{ env.boards }}
-          echo ${{ env.matrix }}
 
   generate-job-example-sequence:
     needs: generate-job-matrix
@@ -61,6 +60,9 @@ jobs:
       examples: ${{ steps.generate-job-example-sequence.outputs.examples }}
     steps:
       - id: set-examples
+        name: set-examples
+        env:
+          examples: ${{ fromJSON(toJSON(${{ needs.generate-job-matrix.outputs.build-matrix }})['examples']) }}
         run: |
-          echo "examples=fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['examples'])" >> $GITHUB_ENV
-          echo "examples=${{ env.examples }}" >> $GITHUB_OUTPUT
+          echo ${{ env.examples }} >> $GITHUB_OUTPUT
+          echo ${{ env.examples }}
