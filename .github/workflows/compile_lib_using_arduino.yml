@@ -29,6 +29,6 @@ jobs:
           platforms: |
             ${{ inputs.platform-packages }}
           # extract sketch paths from build matrix
-          sketch-paths: ${{ toJSON(fromJSON( $this-build-matrix }} )['examples']) }}
+          sketch-paths: toJSON(fromJSON( ${{ inputs.build-matrix }} )['examples'])
           # get fqbn from build-arduino.strategy.matrix.boards
           fqbn: ${{ matrix.boards }}
