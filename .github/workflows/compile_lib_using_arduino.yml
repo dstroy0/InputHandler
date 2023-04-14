@@ -6,7 +6,10 @@ on:
       platform-packages:
         required: true
         type: string
-      build-matrix:
+      boards:
+        required: true
+        type: string
+      examples:
         required: true
         type: string
 
@@ -17,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         # extract the boards that need to be built from the build matrix
-        boards: ${fromJSON( ${{ inputs.build-matrix }} )['boards']}
+        boards: ${{ inputs.boards }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,6 +32,6 @@ jobs:
           platforms: |
             ${{ inputs.platform-packages }}
           # extract sketch paths from build matrix
-          sketch-paths: ${toJSON(fromJSON( ${{ inputs.build-matrix }} )['examples'])}
+          sketch-paths: ${{ inputs.examples }}
           # get fqbn from build-arduino.strategy.matrix.boards
           fqbn: ${{ matrix.boards }}

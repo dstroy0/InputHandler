@@ -22,29 +22,31 @@ on:
       - "**/test_output_cli/**"
 
 jobs:
-  get-arduino-build-matrix:
+  get-arduino-build:
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: arduino
       platform: adafruit
 
-  get-platformio-build-matrix:
+  get-platformio-build:
     uses: ./.github/workflows/generate_workflow_matrix.yml
     with:
       compiler: platformio
       platform: adafruit
 
   build-library-arduino:
-    needs: get-arduino-build-matrix
+    needs: get-arduino-build
     uses: ./.github/workflows/compile_lib_using_arduino.yml
     with:
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
           name: "adafruit:samd"
-      build-matrix: ${{ needs.get-arduino-build-matrix.outputs.build-matrix }}
+      boards: ${{ needs.get-arduino-build.outputs.boards }}
+      examples: ${{ needs.get-arduino-build-outputs.examples }}
 
   build-library-platformio:
     needs: get-platformio-build-matrix
     uses: ./.github/workflows/compile_lib_using_platformio.yml
     with:
-      build-matrix: ${{ needs.get-platformio-build-matrix.outputs.build-matrix }}
+      boards: ${{ needs.get-platformio-build.outputs.boards }}
+      examples: ${{ needs.get-platformio-build-outputs.examples }}
