@@ -13,9 +13,9 @@ on:
 jobs:
   build-library-using-arduino:
     runs-on: ubuntu-latest
-    strategy:
-      env: 
-        this-build-matrix: ${{ inputs.build-matrix }}
+    env: 
+      this-build-matrix: ${{ inputs.build-matrix }}
+    strategy:      
       fail-fast: false
       matrix:
         # extract the boards that need to be built from the build matrix
