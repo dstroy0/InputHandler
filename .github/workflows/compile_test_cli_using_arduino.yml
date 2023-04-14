@@ -1,3 +1,5 @@
+name: Compile test cli using arduino
+
 on:
   workflow_call:
     inputs:
