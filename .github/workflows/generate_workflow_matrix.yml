@@ -36,7 +36,8 @@ jobs:
       - id: set-matrix
         run: |
           echo -n "build-matrix=" >> $GITHUB_OUTPUT
-          python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT          
+          python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT
+          echo ${{ outputs.build-matrix }}          
 
   generate-job-board-sequence:
     needs: generate-job-matrix
