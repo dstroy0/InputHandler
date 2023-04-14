@@ -45,9 +45,9 @@ jobs:
       boards: ${{ steps.generate-job-board-sequence.outputs.boards }}
     steps:
       - id: set-boards
-        run: |
-          echo -n "boards=" >> fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['boards'])   
-          echo -n "boards=" >> fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['boards']) >> $GITHUB_OUTPUT
+        run: |          
+          echo "boards=fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['boards'])" >> $GITHUB_ENV   
+          echo "boards=${{env.boards }}" >> $GITHUB_OUTPUT
 
   generate-job-example-sequence:
     needs: generate-job-matrix
@@ -57,5 +57,5 @@ jobs:
     steps:
       - id: set-examples
         run: |
-          echo -n "examples=" >> fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['examples'])
-          echo -n "examples=" >> fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['examples']) >> $GITHUB_OUTPUT
+          echo "examples=fromJSON(toJSON( ${{ needs.generate-job-matrix.outputs.build-matrix }} )['examples'])" >> $GITHUB_ENV
+          echo "examples=${{ env.examples }}" >> $GITHUB_OUTPUT
