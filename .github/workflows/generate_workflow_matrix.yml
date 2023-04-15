@@ -52,6 +52,6 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          echo -n "boards=${{ env.boards }}" >> $GITHUB_OUTPUT
-          echo -n "examples=${{ env.examples }}" >> $GITHUB_OUTPUT
-          echo -n "test_cli=${{ env.test-cli }}" >> $GITHUB_OUTPUT
+          echo -n "${{ env.boards }}" >> $GITHUB_OUTPUT
+          echo -n "${{ env.examples }}" >> $GITHUB_OUTPUT
+          echo -n "${{ env.test-cli }}" >> $GITHUB_OUTPUT
