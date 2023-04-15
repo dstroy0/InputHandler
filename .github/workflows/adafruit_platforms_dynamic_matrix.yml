@@ -41,12 +41,12 @@ jobs:
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
           name: "adafruit:samd"
-      boards: ${{ needs.get-arduino-build.outputs.boards }}
-      examples: ${{ needs.get-arduino-build-outputs.examples }}
+      boards: ${{ fromJSON(toJSON( ${{ needs.get-arduino-build.outputs.build-matrix }} )['boards']) }}
+      examples: ${{ fromJSON(toJSON( ${{ needs.get-arduino-build.outputs.build-matrix }} )['examples']) }}
 
   build-library-platformio:
     needs: get-platformio-build
     uses: ./.github/workflows/compile_lib_using_platformio.yml
     with:
-      boards: ${{ needs.get-platformio-build.outputs.boards }}
-      examples: ${{ needs.get-platformio-build-outputs.examples }}
+      boards: ${{ fromJSON(toJSON( ${{ needs.get-platformio-build.outputs.build-matrix }} )['boards']) }}
+      examples: ${{ fromJSON(toJSON( ${{ needs.get-platformio-build.outputs.build-matrix }} )['examples']) }}
