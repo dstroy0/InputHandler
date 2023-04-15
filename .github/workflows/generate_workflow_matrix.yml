@@ -1,4 +1,4 @@
-name: Generate workflow matrix
+name: Generate workflow sequences
 
 on:
   workflow_call:
@@ -10,15 +10,16 @@ on:
         required: true
         type: string
     outputs:
-      build-matrix:
-        description: "The build matrix for the job (boards and examples)"
+      boards:
+        description: "The boards to build"
         value: ${{ jobs.generate-job-matrix.outputs.build-matrix }}
 
 jobs:
-  generate-job-matrix:
+  generate-build-sequences:
     runs-on: ubuntu-latest
     outputs:
-      build-matrix: ${{ steps.set-matrix.outputs.build-matrix }}
+      boards: ${{ steps.set-build-sequences.outputs.boards }}
+      examples: ${{ steps.set-build-sequences.outputs.examples }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -27,9 +28,10 @@ jobs:
         with:
           python-version: "3.11"
       # generate a build matrix using InputHandler/supported_boards/generate_workflow_matrix.py
-      - id: set-matrix
+      - id: set-build-sequences
         run: |
-          echo -n "build-matrix=" >> $GITHUB_OUTPUT
-          python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }} >> $GITHUB_OUTPUT
-          echo "$GITHUB_OUTPUT"
+          build_matrix=$(python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }})
+          echo -n "boards=" ; toJSON(fromJSON( $build_matrix )['boards']) >> $GITHUB_OUTPUT
+          echo -n "examples=" ; toJSON(fromJSON( $build_matrix )['examples']) >> $GITHUB_OUTPUT
           
+
