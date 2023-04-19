@@ -52,7 +52,7 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          jq -R -r ${{ needs.generate-build-matrix.outputs.build-matrix }}
+          jq -r 'boards' ${{ needs.generate-build-matrix.outputs.build-matrix }}
           boards_arrstring=$( jq -j ${{ env.boards }} )
           boards_list=$( $boards_arrstring )
           examples_arrstring=$(echo ${{ env.examples }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
