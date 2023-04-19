@@ -52,9 +52,12 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          boards_list=$( ${{ env.boards }} )
-          examples_list=$(toJSON({${{ env.examples }}}))
-          test_cli_list=$(toJSON({${{ env.test-cli }}}))
+          boards_arrstring=$(echo ${{ env.boards }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          boards_list=$( $boards_arrstring )
+          examples_arrstring=$(echo ${{ env.examples }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          examples_list=$(toJSON( $examples_arrstring )
+          test_cli_arrstring=$(echo ${{ env.test_cli }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          test_cli_list=$( $test_cli_arrstring )          
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
           echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
           echo -n "test_cli=$test_cli_list" >> $GITHUB_OUTPUT
