@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "**/adafruit_platforms_dynamic_matrix.yml"
+      - "**/generate_workflow_matrix.yml"
+      - "**/compile_lib_using_platformio.yml"
       - "**/examples/**"
       - "**/test_output_cli/**"
   workflow_dispatch:
