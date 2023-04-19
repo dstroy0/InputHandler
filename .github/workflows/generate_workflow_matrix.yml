@@ -48,11 +48,11 @@ jobs:
       - id: set-build-sequences
         name: set-build-sequences
         env:
-          boards: 
+          boards: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['boards']) }}
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          boards_arrstring=$(echo ${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['boards'] }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          boards_arrstring=$(echo ${{ fromJSON(env.boards) }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           boards_list=$( $boards_arrstring )
           examples_arrstring=$(echo ${{ env.examples }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           examples_list=$(toJSON( $examples_arrstring )
