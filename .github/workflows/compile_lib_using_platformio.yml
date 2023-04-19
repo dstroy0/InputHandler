@@ -50,6 +50,7 @@ jobs:
         env:
           examples: ${{ inputs.examples }}
         run: |
+          echo $examples
           arrstring=$(echo $examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           arr=( $arrstring )
           for item in "${arr[@]}"
