@@ -48,7 +48,7 @@ jobs:
       - id: set-build-sequences
         name: set-build-sequences        
         run: |          
-          boards_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep boards | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
+          boards_arrstring=$(echo "${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix) }}" | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
           echo $boards_arrstring
           boards_list=$( $boards_arrstring )
           examples_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
