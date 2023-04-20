@@ -53,11 +53,11 @@ jobs:
           test_cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |          
           
-          $boards_list=${{ env.boards }}
+          $boards_list="${{ env.boards }}"
           echo "board(s) to build:\n$boards_list"
-          $examples_list=${{ env.examples }}
+          $examples_list="${{ env.examples }}"
           echo "example path(s):\n$examples_list"
-          $test_cli=${{ env.test_cli }}
+          $test_cli="${{ env.test_cli }}"          
           echo "test cli path:\n$test_cli"
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
           echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
