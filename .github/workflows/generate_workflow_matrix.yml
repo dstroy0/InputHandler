@@ -52,14 +52,14 @@ jobs:
         #   examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
         #   test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          echo ${{ needs.generate-build-matrix.outputs.build-matrix }}
+          #echo ${{ needs.generate-build-matrix.outputs.build-matrix }}
           
           boards_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep boards | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
           echo $boards_arrstring
           boards_list=$( $boards_arrstring )
-          examples_arrstring=$(echo ${{ env.examples }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
-          examples_list=$(toJSON( $examples_arrstring )
-          test_cli_arrstring=$(echo ${{ env.test_cli }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          examples_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep examples | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
+          examples_list=$( $examples_arrstring )
+          test_cli_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep test_cli | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
           test_cli_list=$( $test_cli_arrstring )          
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
           echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
