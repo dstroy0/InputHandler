@@ -1,4 +1,4 @@
-name: Build lib with platformio
+name: Compile with platformio
 
 on:
   workflow_call:
@@ -9,9 +9,12 @@ on:
       examples:
         required: true
         type: string
+      lib-path:
+        required: true
+        type: string
 
 jobs:
-  build-library-using-platformio:
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,7 +49,7 @@ jobs:
           pip install --upgrade platformio    
           ls
 
-      - name: Compile examples
+      - name: Compile using platformio
         env:
           examples: ${{ inputs.examples }}
         run: |
@@ -57,5 +60,5 @@ jobs:
           do
             example_src=${item//\"/}
             echo "Compiling $example_src for ${{matrix.boards}}"
-            pio ci --lib="." --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src"
+            pio ci --lib=${{inputs.lib-path}} --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src"
           done

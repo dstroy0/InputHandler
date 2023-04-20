@@ -7,7 +7,8 @@ on:
     paths:
       - "**/adafruit_platforms_dynamic_matrix.yml"
       - "**/generate_workflow_matrix.yml"
-      - "**/compile_lib_using_platformio.yml"
+      - "**/compile_using_platformio.yml"
+      - "**/compile_using_arduino.yml"
       - "**/examples/**"
       - "**/test_output_cli/**"
   workflow_dispatch:
@@ -38,7 +39,7 @@ jobs:
 
   build-library-arduino:
     needs: get-arduino-build
-    uses: ./.github/workflows/compile_lib_using_arduino.yml
+    uses: ./.github/workflows/compile_using_arduino.yml
     with:
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
@@ -48,7 +49,7 @@ jobs:
 
   build-test-cli-arduino:
     needs: get-arduino-build
-    uses: ./.github/workflows/compile_lib_using_arduino.yml
+    uses: ./.github/workflows/compile_using_arduino.yml
     with:
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
@@ -58,14 +59,16 @@ jobs:
 
   build-library-platformio:
     needs: get-platformio-build
-    uses: ./.github/workflows/compile_lib_using_platformio.yml
+    uses: ./.github/workflows/compile_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.examples }}
+      lib-path: "."
 
   build-test-cli-platformio:
     needs: get-platformio-build
-    uses: ./.github/workflows/compile_lib_using_platformio.yml
+    uses: ./.github/workflows/compile_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.test-cli }}
+      lib-path: "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"

@@ -1,4 +1,4 @@
-name: Build lib with arduino
+name: Compile with arduino
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ on:
         type: string
 
 jobs:
-  build-library-using-arduino:
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Compile InputHandler examples
+      - name: Compile using arduino
         uses: arduino/compile-sketches@main
         with:
           # get extra platform packages here
