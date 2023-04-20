@@ -52,9 +52,9 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test_cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          boards_list=$(echo '$boards' )          
-          examples_list=$(echo '$examples' )          
-          test_cli_list=$(echo '$test_cli' )
+          boards_list=$(echo $boards )          
+          examples_list=$(echo $examples )          
+          test_cli_list=$(echo $test_cli )
           echo "$boards_list
           $examples_list
           $test_cli_list"
