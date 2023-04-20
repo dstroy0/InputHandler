@@ -48,9 +48,9 @@ jobs:
       - id: set-build-sequences
         name: set-build-sequences        
         run: |
-          boards_list=$(echo ${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['boards'] }} )          
-          examples_list=$( ${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples'] }} )          
-          test_cli_list=$( ${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli'] }} )
+          boards_list=$(echo '${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['boards'] }}' )          
+          examples_list=$(echo '${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples'] }}' )          
+          test_cli_list=$(echo '${{ fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli'] }}' )
           echo "$boards_list
           $examples_list
           $test_cli_list"
