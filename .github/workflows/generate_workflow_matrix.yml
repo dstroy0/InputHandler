@@ -54,7 +54,7 @@ jobs:
         run: |
           echo ${{ needs.generate-build-matrix.outputs.build-matrix }}
           
-          boards_arrstring=$( grep "boards" ${{ needs.generate-build-matrix.outputs.build-matrix }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
+          boards_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep boards | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
           echo $boards_arrstring
           boards_list=$( $boards_arrstring )
           examples_arrstring=$(echo ${{ env.examples }} | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
