@@ -52,16 +52,16 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test_cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          boards_list_raw=$(echo "$boards" tr -d '\n' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
-          boards_list=$( $boards_list_raw )
+          boards_list_raw=$(echo "$boards" | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          boards_list=$( $boards_list_raw | tr -d '\n')
           echo "board(s) to build:
           $boards_list"
-          examples_list_raw=$(echo "$examples" | tr -d '\n' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
-          examples_list=$( $examples_list_raw )
+          examples_list_raw=$(echo "$examples" | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          examples_list=$( $examples_list_raw | tr -d '\n')
           echo "example path(s):
           $examples_list"
-          test_cli_list_raw=$(echo "$test_cli" | tr -d '\n' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
-          test_cli_list=$( $test_cli_list_raw )
+          test_cli_list_raw=$(echo "$test_cli" | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          test_cli_list=$( $test_cli_list_raw | tr -d '\n')
           echo "test cli path:
           $test_cli_list"
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
