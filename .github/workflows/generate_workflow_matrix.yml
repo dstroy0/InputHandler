@@ -61,6 +61,6 @@ jobs:
           $examples_list
           test clis to build:
           $test_cli_list"
-          echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
-          echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
-          echo -n "test_cli=$test_cli_list" >> $GITHUB_OUTPUT
+          echo "boards=$boards_list" >> $GITHUB_OUTPUT
+          echo "examples=$examples_list" >> $GITHUB_OUTPUT
+          echo "test_cli=$test_cli_list" >> $GITHUB_OUTPUT
