@@ -72,3 +72,18 @@ jobs:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.test-cli }}
       lib-path: "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"
+
+  # checkpoint
+  build-adafruit-platforms-success:
+    runs-on: ubuntu-latest
+    name: build-adafruit-platforms-success
+    needs:
+      [
+        build-library-arduino,
+        build-test-cli-arduino,
+        build-library-platformio,
+        build-test-cli-platformio,
+      ]
+    steps:
+      - name: echo
+        run: echo Build Adafruit platforms success!
