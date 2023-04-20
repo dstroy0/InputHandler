@@ -52,8 +52,10 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test_cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-
-          $boards_list=$(echo ${{ env.boards }} | tr '\n' '' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+          $raw_boards="${{ env.boards }}"
+          echo $raw_boards
+          $translated_boards=$(echo $raw_boards | tr '\n' '')
+          $boards_list=$(echo $translated_boards | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           echo "board(s) to build:\n$boards_list"
           $examples_list=$(echo ${{ env.examples }} | tr '\n' '' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           echo "example path(s):\n$examples_list"
