@@ -55,8 +55,11 @@ jobs:
           boards_list=$(echo $boards )          
           examples_list=$(echo $examples )          
           test_cli_list=$(echo $test_cli )
-          echo "$boards_list
+          echo "boards to build:
+          $boards_list
+          examples to build:
           $examples_list
+          test clis to build:
           $test_cli_list"
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
           echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
