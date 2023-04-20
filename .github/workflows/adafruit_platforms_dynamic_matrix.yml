@@ -46,9 +46,26 @@ jobs:
       boards: ${{ needs.get-arduino-build.outputs.boards }}
       examples: ${{ needs.get-arduino-build.outputs.examples }}
 
+  build-test-cli-arduino:
+    needs: get-arduino-build
+    uses: ./.github/workflows/compile_lib_using_arduino.yml
+    with:
+      platform-packages: |
+        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+          name: "adafruit:samd"
+      boards: ${{ needs.get-arduino-build.outputs.boards }}
+      examples: ${{ needs.get-arduino-build.outputs.test-cli }}
+
   build-library-platformio:
     needs: get-platformio-build
     uses: ./.github/workflows/compile_lib_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.examples }}
+
+  build-test-cli-platformio:
+    needs: get-platformio-build
+    uses: ./.github/workflows/compile_lib_using_platformio.yml
+    with:
+      boards: ${{ needs.get-platformio-build.outputs.boards }}
+      examples: ${{ needs.get-platformio-build.outputs.test-cli }}
