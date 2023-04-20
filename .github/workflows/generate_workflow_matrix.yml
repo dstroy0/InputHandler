@@ -46,14 +46,8 @@ jobs:
       test-cli: ${{ steps.set-build-sequences.outputs.test_cli }}
     steps:
       - id: set-build-sequences
-        name: set-build-sequences
-        # env:
-        #   boards: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['boards']) }}
-        #   examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
-        #   test-cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
-        run: |
-          #echo ${{ needs.generate-build-matrix.outputs.build-matrix }}
-          
+        name: set-build-sequences        
+        run: |          
           boards_arrstring=$(echo "${{ needs.generate-build-matrix.outputs.build-matrix }}" | grep boards | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g' )
           echo $boards_arrstring
           boards_list=$( $boards_arrstring )
