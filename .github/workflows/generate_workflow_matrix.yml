@@ -57,7 +57,7 @@ jobs:
           examples_list=$(echo $examples | tr '\n' '' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
           echo "example path(s):\n$examples_list"
           test_cli_list=$(echo $test_cli | tr '\n' '' | sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
-          echo "test cli path:\n$t_test_cli"
+          echo "test cli path:\n$test_cli_list"
           echo -n "boards=$boards_list" >> $GITHUB_OUTPUT
           echo -n "examples=$examples_list" >> $GITHUB_OUTPUT
           echo -n "test_cli=$test_cli_list" >> $GITHUB_OUTPUT
