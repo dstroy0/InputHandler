@@ -52,7 +52,7 @@ jobs:
           examples: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['examples']) }}
           test_cli: ${{ toJSON(fromJSON(needs.generate-build-matrix.outputs.build-matrix)['test_cli']) }}
         run: |
-          boards_list_raw=$(echo "$boards" | tr '\"' '\'' | tr '\n' ' ')
+          boards_list_raw=$(echo "$boards" | tr '\n' ' ')
           boards_list=$( $boards_list_raw )
           echo "board(s) to build:
           $boards_list"
