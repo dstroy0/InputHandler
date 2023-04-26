@@ -1,0 +1,40 @@
+name: Arduino platforms (dynamic)
+
+on:
+  push:
+    branches:
+      - main
+    paths:      
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build_platform.yml
+    with:      
+      platform: arduino
+      platform-packages: ""
+
+  # checkpoint
+  build-arduino-success:
+    runs-on: ubuntu-latest
+    name: build-arduino-platforms-success
+    needs:
+      [
+        build,
+      ]
+    steps:
+      - name: echo
+        run: echo Build Arduino platforms success!
