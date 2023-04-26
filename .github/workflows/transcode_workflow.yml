@@ -1,4 +1,4 @@
-name: Generate workflow sequences
+name: Transcode workflow
 
 on:
   workflow_call:

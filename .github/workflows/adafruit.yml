@@ -1,0 +1,42 @@
+name: Adafruit platforms (dynamic)
+
+on:
+  push:
+    branches:
+      - main
+    paths:      
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+  release:
+    branches:
+      - release
+    paths:
+      - "**/examples/**"
+      - "**/test_output_cli/**"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build_platform.yml
+    with:      
+      platform: adafruit
+      platform-packages: |
+        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+          name: "adafruit:samd"
+
+  # checkpoint
+  build-adafruit-success:
+    runs-on: ubuntu-latest
+    name: build-adafruit-platforms-success
+    needs:
+      [
+        build,
+      ]
+    steps:
+      - name: echo
+        run: echo Build Adafruit platforms success!

@@ -1,0 +1,58 @@
+name: Build platform
+
+on:
+  workflow_call:
+    inputs:      
+      platform:
+        required: true
+        type: string
+      platform-packages:
+        required: true
+        type: string      
+
+jobs:
+  get-arduino-build:
+    uses: ./.github/workflows/transcode_workflow.yml
+    with:
+      compiler: arduino
+      platform: ${{ inputs.platform }}
+
+  get-platformio-build:
+    uses: ./.github/workflows/transcode_workflow.yml
+    with:
+      compiler: platformio
+      platform: ${{ inputs.platform }}
+
+  build-library-arduino:
+    needs: get-arduino-build
+    uses: ./.github/workflows/compile_using_arduino.yml
+    with:
+      platform-packages: |
+        ${{ inputs.platform-packages }}
+      boards: ${{ needs.get-arduino-build.outputs.boards }}
+      examples: ${{ needs.get-arduino-build.outputs.examples }}
+
+  build-test-cli-arduino:
+    needs: get-arduino-build
+    uses: ./.github/workflows/compile_using_arduino.yml
+    with:
+      platform-packages: |
+        ${{ inputs.platform-packages }}
+      boards: ${{ needs.get-arduino-build.outputs.boards }}
+      examples: ${{ needs.get-arduino-build.outputs.test-cli }}
+
+  build-library-platformio:
+    needs: get-platformio-build
+    uses: ./.github/workflows/compile_using_platformio.yml
+    with:
+      boards: ${{ needs.get-platformio-build.outputs.boards }}
+      examples: ${{ needs.get-platformio-build.outputs.examples }}
+      lib-path: "."
+
+  build-test-cli-platformio:
+    needs: get-platformio-build
+    uses: ./.github/workflows/compile_using_platformio.yml
+    with:
+      boards: ${{ needs.get-platformio-build.outputs.boards }}
+      examples: ${{ needs.get-platformio-build.outputs.test-cli }}
+      lib-path: "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"
