@@ -1,4 +1,4 @@
-name: Adafruit platforms (dynamic)
+name: ESP8266 platforms (dynamic)
 
 on:
   push:
@@ -24,17 +24,17 @@ jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
     with:
-      platform: adafruit
+      platform: esp8266
       platform-packages-enabled: true
       platform-packages: |
-        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
-          name: "adafruit:samd"
+        - source-url: "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+          name: "esp8266"
 
   # checkpoint
-  build-adafruit-success:
+  build-esp8266-success:
     runs-on: ubuntu-latest
-    name: build-adafruit-platforms-success
+    name: build-esp8266-platforms-success
     needs: [build]
     steps:
       - name: echo
-        run: echo Build Adafruit platforms success!
+        run: echo Build ESP8266 platforms success!

@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-    paths:      
+    paths:
       - "**/examples/**"
       - "**/test_output_cli/**"
   workflow_dispatch:
@@ -23,7 +23,7 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
-    with:      
+    with:
       platform: arduino
       platform-packages-enabled: false
       platform-packages: ""
@@ -32,10 +32,7 @@ jobs:
   build-arduino-success:
     runs-on: ubuntu-latest
     name: build-arduino-platforms-success
-    needs:
-      [
-        build,
-      ]
+    needs: [build]
     steps:
       - name: echo
         run: echo Build Arduino platforms success!

@@ -1,4 +1,4 @@
-name: Adafruit platforms (dynamic)
+name: ESP32 platforms (dynamic)
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
     with:
-      platform: adafruit
+      platform: esp32
       platform-packages-enabled: true
       platform-packages: |
-        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
-          name: "adafruit:samd"
+        - source-url: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
+          name: "esp32"
 
   # checkpoint
   build-adafruit-success:
@@ -37,4 +37,4 @@ jobs:
     needs: [build]
     steps:
       - name: echo
-        run: echo Build Adafruit platforms success!
+        run: echo Build ESP32 platforms success!

@@ -1,4 +1,4 @@
-name: Adafruit platforms (dynamic)
+name: RPi platforms (dynamic)
 
 on:
   push:
@@ -24,17 +24,15 @@ jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
     with:
-      platform: adafruit
-      platform-packages-enabled: true
-      platform-packages: |
-        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
-          name: "adafruit:samd"
+      platform: rpi
+      platform-packages-enabled: false
+      platform-packages: ""
 
   # checkpoint
-  build-adafruit-success:
+  build-rpi-success:
     runs-on: ubuntu-latest
-    name: build-adafruit-platforms-success
+    name: build-rpi-platforms-success
     needs: [build]
     steps:
       - name: echo
-        run: echo Build Adafruit platforms success!
+        run: echo Build Raspberry Pi platforms success!
