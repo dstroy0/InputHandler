@@ -25,6 +25,7 @@ jobs:
     uses: ./.github/workflows/build_platform.yml
     with:      
       platform: arduino
+      platform-packages-enabled: false
       platform-packages: ""
 
   # checkpoint

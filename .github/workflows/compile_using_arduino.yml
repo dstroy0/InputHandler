@@ -3,8 +3,11 @@ name: Compile with arduino
 on:
   workflow_call:
     inputs:
-      platform-packages:
+      platform-packages-enabled:
         required: true
+        type: bool
+      platform-packages:
+        required: false
         type: string
       boards:
         required: true
@@ -27,11 +30,12 @@ jobs:
 
       - name: Compile using arduino
         uses: arduino/compile-sketches@main
-        with:
-          # get extra platform packages here
-          platforms: |
-            ${{ inputs.platform-packages }}
+        with:          
           # extract sketch paths from build matrix
           sketch-paths: ${{ inputs.examples }}
           # get fqbn from build-arduino.strategy.matrix.boards
           fqbn: ${{ matrix.boards }}
+          if: ${{ inputs.platform-packages-enabled == 'true' }}
+          # get extra platform packages here
+          platforms: |
+            ${{ inputs.platform-packages }}

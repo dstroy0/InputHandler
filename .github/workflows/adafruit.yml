@@ -25,6 +25,7 @@ jobs:
     uses: ./.github/workflows/build_platform.yml
     with:      
       platform: adafruit
+      platform-packages-enabled: true
       platform-packages: |
         - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
           name: "adafruit:samd"

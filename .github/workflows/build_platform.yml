@@ -6,8 +6,11 @@ on:
       platform:
         required: true
         type: string
-      platform-packages:
+      platform-packages-enabled:
         required: true
+        type: boolean
+      platform-packages:
+        required: false
         type: string      
 
 jobs:
@@ -27,6 +30,7 @@ jobs:
     needs: get-arduino-build
     uses: ./.github/workflows/compile_using_arduino.yml
     with:
+      platform-packages-enabled: ${{ inputs.platform-packages-enabled }}
       platform-packages: |
         ${{ inputs.platform-packages }}
       boards: ${{ needs.get-arduino-build.outputs.boards }}
@@ -36,6 +40,7 @@ jobs:
     needs: get-arduino-build
     uses: ./.github/workflows/compile_using_arduino.yml
     with:
+      platform-packages-enabled: ${{ inputs.platform-packages-enabled }}
       platform-packages: |
         ${{ inputs.platform-packages }}
       boards: ${{ needs.get-arduino-build.outputs.boards }}
