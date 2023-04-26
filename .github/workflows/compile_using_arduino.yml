@@ -28,14 +28,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Compile using arduino
+      - name: Compile using arduino (with platform package)
         uses: arduino/compile-sketches@main
+        if: ${{ inputs.platform-packages-enabled == 'true' }}
         with:          
           # extract sketch paths from build matrix
           sketch-paths: ${{ inputs.examples }}
           # get fqbn from build-arduino.strategy.matrix.boards
-          fqbn: ${{ matrix.boards }}
-        if: ${{ inputs.platform-packages-enabled == 'true' }}
+          fqbn: ${{ matrix.boards }}        
           # get extra platform packages here
           platforms: |
-            ${{ inputs.platform-packages }}
+          ${{ inputs.platform-packages }}
+      
+      - name: Compile using arduino (no platform package)
+        uses: arduino/compile-sketches@main
+        if: ${{ inputs.platform-packages-enabled == 'false' }}
+        with:          
+          # extract sketch paths from build matrix
+          sketch-paths: ${{ inputs.examples }}
+          # get fqbn from build-arduino.strategy.matrix.boards
+          fqbn: ${{ matrix.boards }}          
