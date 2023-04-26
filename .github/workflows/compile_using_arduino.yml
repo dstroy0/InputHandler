@@ -35,7 +35,7 @@ jobs:
           sketch-paths: ${{ inputs.examples }}
           # get fqbn from build-arduino.strategy.matrix.boards
           fqbn: ${{ matrix.boards }}
-          if: ${{ inputs.platform-packages-enabled == 'true' }}
+        if: ${{ inputs.platform-packages-enabled == 'true' }}
           # get extra platform packages here
           platforms: |
             ${{ inputs.platform-packages }}
