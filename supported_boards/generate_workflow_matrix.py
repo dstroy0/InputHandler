@@ -18,6 +18,7 @@ exclude = "#"  # lines starting with # are ignored
 platforms = {
     "arduino": ["adafruit", "esp32", "esp8266", "teensyduino", "arduino", "rpi"],
     "platformio": [
+        "arduino",
         "atmelavr",
         "atmelmegaavr",
         "atmelsam",
@@ -37,6 +38,7 @@ examples = [
 ]
 arduino_test_cli = "tools/interfaces/test_output_cli/arduino_ci/arduino_ci.ino"
 platformio_test_cli = "tools/interfaces/test_output_cli/pio_ci/src/main.cpp"
+
 
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
@@ -90,7 +92,7 @@ def generate_workflow_matrix(opts: list, board_list: list) -> str:
             if ex in item:
                 ignore = True
         if not ignore:
-            line = '"' + item.strip() + '", '                   
+            line = '"' + item.strip() + '", '
             matrix_text += line
     matrix_text = matrix_text[:-2]
     matrix_text += '],"examples":['

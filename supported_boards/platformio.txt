@@ -1,6 +1,7 @@
 # Only one processor type per platform needs to be built
 # exclude boards with #
 arduino boards:
+protrinket3
 #attiny13
 #attiny13a
 #bluefruitmicro
@@ -13,7 +14,6 @@ arduino boards:
 #itsybitsy32u4_5V
 #metro
 #protrinket3ftdi
-protrinket3
 #protrinket5ftdi
 #protrinket5
 #trinket3
