@@ -129,7 +129,7 @@ jobs:
 
   build-latest-windows-binary:
     runs-on: windows-latest
-    needs: build-latest-windows-binary
+    needs: build-latest-macos-binary
     steps:
       - uses: actions/setup-python@v4
         with:
